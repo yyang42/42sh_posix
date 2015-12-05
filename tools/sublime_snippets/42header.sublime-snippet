@@ -1,0 +1,20 @@
+<snippet>
+	<content><![CDATA[
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_norris_loves_the_norminette.c                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: chuck <chuck@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2042/02/30 42:00:00 by chuck             #+#    #+#             */
+/*   Updated: 2042/02/30 41:59:59 by chuck            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>ftheader</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c, source.c++</scope>
+</snippet>

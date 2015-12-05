@@ -95,15 +95,15 @@ log:
 
 rendu:
 	rm -rf /tmp/$(NAME)_rendu
-	sh "$(shell git rev-parse --show-toplevel)/common/tools/prepare_rendu.sh" `pwd` /tmp/$(NAME)_rendu $(vogo)
+	sh ./tools/prepare_rendu.sh `pwd` /tmp/$(NAME)_rendu $(vogo)
 
 run: all
 	$(CONFIG_RUN_CMD)
 
 obj:
-	sh "$(shell git rev-parse --show-toplevel)/common/tools/c_obj_generator/create_object.sh" $(obj) `pwd`
+	sh ./tools/c_obj_generator/create_object.sh $(obj) `pwd`
 
 mgr:
-	sh "$(shell git rev-parse --show-toplevel)/common/tools/c_obj_generator/create_object_mgr.sh" $(obj) `pwd`
+	sh ./tools/c_obj_generator/create_object_mgr.sh $(obj) `pwd`
 
 .PHONY: init_libs all clean fclean re
