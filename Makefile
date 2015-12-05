@@ -78,7 +78,7 @@ re:
 	@$(MAKE) all
 
 check:
-	$(CONFIG_CHECK_CMD)
+	@$(foreach lib, $(MAKE_PATHS), $(MAKE) -C $(lib) check;)
 
 check_ongoing:
 	$(CONFIG_CHECK_ONGOING_CMD)
@@ -105,5 +105,13 @@ obj:
 
 mgr:
 	sh ./tools/c_obj_generator/create_object_mgr.sh $(obj) `pwd`
+
+install:
+	mkdir -p libs
+ifeq ($(wildcard $(LIB_TOWEL_PATH)),)
+	git clone git@github.com:juschaef/libtowel.git $(LIB_TOWEL_PATH)
+else
+	cd $(LIB_TOWEL_PATH) && git pull
+endif
 
 .PHONY: init_libs all clean fclean re

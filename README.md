@@ -5,11 +5,8 @@ A fully POSIX compliant shell
 [![Circle CI](https://circleci.com/gh/yyang42/42sh_posix.svg?style=svg&circle-token=6549382dfdf378061c5eb7adf45117da29188496)](https://circleci.com/gh/yyang42/42sh_posix)
 
 ## Install
-Clone the libtowel at the same level as your 42sh_posix project
 ```
-git clone git@github.com:juschaef/libtowel.git
-$ ls
-42sh_posix libtowel
+make install
 ```
 
 ## Compile and Run
