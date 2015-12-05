@@ -77,8 +77,13 @@ re:
 	@$(MAKE) fclean
 	@$(MAKE) all
 
-check:
+check: check_libs check_unit
+
+check_libs:
 	make -C $(LIB_TOWEL_PATH) check
+
+check_unit:
+	make -C tests/unit
 
 check_ongoing:
 	$(CONFIG_CHECK_ONGOING_CMD)
