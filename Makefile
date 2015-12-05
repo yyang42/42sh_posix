@@ -78,7 +78,7 @@ re:
 	@$(MAKE) all
 
 check:
-	@$(foreach lib, $(MAKE_PATHS), $(MAKE) -C $(lib) check;)
+	make -C $(LIB_TOWEL_PATH) check
 
 check_ongoing:
 	$(CONFIG_CHECK_ONGOING_CMD)
