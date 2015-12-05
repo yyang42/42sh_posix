@@ -10,11 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
-
-# include "basics.h"
-
-int					demo_sum(int num1, int num2);
-
-#endif
+int					demo_sum(int num1, int num2)
+{
+	return (num1 + num2);
+}

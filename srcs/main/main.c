@@ -14,6 +14,8 @@
 
 #include "prog.h"
 
+#ifndef __MOULITEST__
+
 int					main(int ac, char **av)
 {
 	t_prog			*prog;
@@ -28,3 +30,5 @@ int					main(int ac, char **av)
 	return (0);
 	(void)ac;
 }
+
+#endif

@@ -77,11 +77,13 @@ re:
 	@$(MAKE) fclean
 	@$(MAKE) all
 
-check:
+check: check_libtowel check_unit
+
+check_libtowel:
 	make -C $(LIB_TOWEL_PATH) check
 
-check_ongoing:
-	$(CONFIG_CHECK_ONGOING_CMD)
+check_unit:
+	make -C tests/unit
 
 norm:
 	find srcs includes -name "*.h" -o -name "*.c" -follow | xargs norminette
@@ -114,4 +116,4 @@ else
 	cd $(LIB_TOWEL_PATH) && git pull
 endif
 
-.PHONY: init_libs all clean fclean re
+.PHONY: all clean fclean re

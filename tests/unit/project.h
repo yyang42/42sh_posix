@@ -10,11 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#ifndef PROJECT_H
+# define PROJECT_H
 
-# include "basics.h"
+# define _GNU_SOURCE
 
-int					demo_sum(int num1, int num2);
+# include <fw.h>
+# include <string.h>
+# include <ctype.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <stdbool.h>
 
 #endif
