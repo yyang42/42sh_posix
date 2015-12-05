@@ -85,9 +85,6 @@ check_libs:
 check_unit:
 	make -C tests/unit
 
-check_ongoing:
-	$(CONFIG_CHECK_ONGOING_CMD)
-
 norm:
 	find srcs includes -name "*.h" -o -name "*.c" -follow | xargs norminette
 
@@ -119,4 +116,4 @@ else
 	cd $(LIB_TOWEL_PATH) && git pull
 endif
 
-.PHONY: init_libs all clean fclean re
+.PHONY: all clean fclean re
