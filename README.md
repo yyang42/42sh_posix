@@ -24,4 +24,4 @@ make
 make obj obj=product          # create an object
 make mgr obj=product          # create a manager
 ```
-Oo
+Oo Xx
