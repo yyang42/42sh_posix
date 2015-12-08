@@ -1,0 +1,26 @@
+- Generality:
+	-> If they are quoted, they shall be ignored
+	-> If they are escaped, they shall be ignored
+	-> If they are inside bracket expression, they are considered as normal char (except ' [ ')
+	-> If the pattern does not match any existing filenames or pathnames, the pattern string shall be left unchanged
+	-> The leading <period> ' . ' CANNOT match with anything
+		-> ' * '
+		-> ' ? '
+		-> ' [ ' with all the possible expression ( excluding list / range etc...)
+	-> All characters except ' * ', ' ? ' and ' [ ' are considered as normal char
+- Special characters:
+	-> ' * '
+		-> It's pretty simple... Can match with any string, including nothing, excluding ' / '
+	-> ' ? '
+		-> It's pretty simple... Can match with anything, excluding nothing and ' / '
+	-> ' [ '
+		-> ' [ ' open a bracket expression ' ] ' closed it
+		-> More or less: Check with the characters between ' [ ' and ' ] '
+		-> Here's the tricky part:
+		-> If an expression start with ' ! ', all characters will be tested except those in the list
+		-> Range an expression could be [x-y] that takes all the characters between x and y (man ascii)
+		-> ' [.(...).] ' will be always treated as false... Cause Locale
+		-> ' [=(...)=] ' will be always treated as false... Cause Locale
+		-> ' [:(...):] ' are fixed with the Local UTF8 and the only possibilities are
+			-> [:alnum:] [:cntrl:] [:lower:] [:space:] [:alpha:] [:digit:] [:print:] [:upper:] [:blank:] [:graph:] [:punct:] [:xdigit:]
+			-> They have all their corresponding is(...)
