@@ -13,17 +13,26 @@
 #include <stdlib.h>
 
 #include "environment.h"
+#include "twl_arr.h"
 
-extern char			**environ;
+extern char			**g_environ;
+
+static void			init_env(void *elem, void *context)
+{
+	char			*key;
+	char			*value;
+	char			*environ;
+	t_environment	*this;
+
+	environ = elem;
+	this = context;
+	value = twl_strchr(environ, '=');
+	key = twl_strsub(environ, 0, twl_strlen(environ) - twl_strlen(value));
+	value = value ? value + 1 : "";
+	twl_lst_push(this->env_vars, environment_var_new(key, value, ENVIRONMENT));
+}
 
 void				environment_init_env(t_environment *this)
 {
-	int	i;
-
-	i = 0;
-	while (environ[i] != NULL)
-	{
-		twl_lst_push(this->env_vars, environment_var_new(environ[i], ENVIRONMENT));
-		i++;
-	}
+	twl_arr_iter(environ, init_env, this);
 }

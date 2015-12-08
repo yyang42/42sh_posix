@@ -23,7 +23,6 @@ static bool			find_env_key(void *data, void *context)
 	return (twl_strcmp(var->key, str) == 0);
 }
 
-
 static void			clear_environment(void *data)
 {
 	twl_strdel(&((t_environment_var *)data)->key);

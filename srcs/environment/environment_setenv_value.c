@@ -22,11 +22,13 @@ static bool			find_env_key(void *data, void *context)
 	return (twl_strcmp(var->key, str) == 0);
 }
 
-int			environment_set_env_value(t_environment *this, char *key, char *value)
+int					environment_setenv_value(t_environment *this,
+	char *key, char *value)
 {
 	t_environment_var	*var;
 
-	var = (t_environment_var *)(twl_lst_find(this->env_vars, find_env_key, key));
+	var = (t_environment_var *)(twl_lst_find(this->env_vars, find_env_key,
+																		key));
 	if (var != NULL)
 	{
 		if (var->value)
@@ -34,5 +36,7 @@ int			environment_set_env_value(t_environment *this, char *key, char *value)
 		var->value = twl_strdup(value);
 		return (1);
 	}
+	else
+		twl_lst_push(this->env_vars, environment_var_new(key, value, LOCAL));
 	return (0);
 }

@@ -12,16 +12,14 @@
 
 #include "environment.h"
 
-t_environment_var *environment_var_new(char *str, t_environment_var_type type)
+t_environment_var	*environment_var_new(char *key, char *value,
+	t_environment_var_type type)
 {
-	char				*value;
-	char				*key;
 	t_environment_var	*this;
 
+	value = value ? value : "";
 	this = twl_malloc_x0(sizeof(t_environment_var));
-	value = twl_strchr(str, '=');
-	key = twl_strsub(str, 0, twl_strlen(str) - twl_strlen(value));
-	this->value = twl_strdup(value ? value + 1 : "");
+	this->value = twl_strdup(value);
 	this->key = twl_strdup(key);
 	this->read_only = 0;
 	this->type = type;
