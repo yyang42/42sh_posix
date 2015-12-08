@@ -27,7 +27,8 @@ void				environment_init_env(t_environment *this)
 	{
 		value = twl_strchr(environ[i], '=');
 		key = twl_strsub(environ[i], 0, twl_strlen(environ[i]) - twl_strlen(value));
-		twl_lst_push(this->env_vars, environment_var_new(key, value ? value + 1 : "", ENVIRONMENT));
+		value = value ? value + 1 : "";
+		twl_lst_push(this->env_vars, environment_var_new(key, value, ENVIRONMENT));
 		i++;
 	}
 }

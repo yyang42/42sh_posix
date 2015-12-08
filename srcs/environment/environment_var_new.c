@@ -17,8 +17,9 @@ t_environment_var *environment_var_new(char *key, char *value,
 {
 	t_environment_var	*this;
 
+	value = value ? value : "";
 	this = twl_malloc_x0(sizeof(t_environment_var));
-	this->value = twl_strdup(value ? value : "");
+	this->value = twl_strdup(value);
 	this->key = twl_strdup(key);
 	this->read_only = 0;
 	this->type = type;
