@@ -25,6 +25,7 @@ t_environment_var *environment_var_new(char *str, t_environment_var_type type)
 		this->value = twl_strdup("");
 	else
 		this->value = split[1];
+	this->read_only = 0;
 	this->type = type;
 	return (this);
 }
