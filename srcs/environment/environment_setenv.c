@@ -16,17 +16,13 @@
 
 void				environment_setenv(t_environment *this, char *str)
 {
-	char				**tab;
-	char				*tmp;
+	char				*value;
+	char				*key;
 
-	tab = twl_strsplit(str, '=');
-	if (!tab[0])
-		return ;
-	if (!tab[1])
-		tmp = twl_strdup("");
-	if (environment_get_env_value(this, tab[0]))
-		environment_set_env_value(this, tab[0], tab[1] ? tab[1] : tmp);
+	value = twl_strchr(str, '=');
+	key = twl_strsub(str, 0, twl_strlen(str) - twl_strlen(value));
+	if (environment_get_env_value(this, key))
+		environment_set_env_value(this, key, value ? value + 1 : "");
 	else
 		twl_lst_push(this->env_vars, environment_var_new(str, LOCAL));
-	twl_arr_del(tab, free);
 }

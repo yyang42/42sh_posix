@@ -14,17 +14,15 @@
 
 t_environment_var *environment_var_new(char *str, t_environment_var_type type)
 {
-
-	char				**split;
+	char				*value;
+	char				*key;
 	t_environment_var	*this;
 
 	this = twl_malloc_x0(sizeof(t_environment_var));
-	split = twl_strsplit(str, '=');
-	this->key = split[0];
-	if (split[1] == NULL)
-		this->value = twl_strdup("");
-	else
-		this->value = split[1];
+	value = twl_strchr(str, '=');
+	key = twl_strsub(str, 0, twl_strlen(str) - twl_strlen(value));
+	this->value = twl_strdup(value ? value + 1 : "");
+	this->key = twl_strdup(key);
 	this->read_only = 0;
 	this->type = type;
 	return (this);
