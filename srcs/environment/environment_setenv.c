@@ -10,33 +10,22 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENVIRONMENT_H
-# define ENVIRONMENT_H
+#include "environment.h"
+#include <stdio.h>
 
-# include "basics.h"
-
-typedef enum		e_environment_var_type
+void				environment_setenv(t_environment *this, char *str)
 {
-	ENVIRONMENT,
-	LOCAL
-}					t_environment_var_type;
+	t_lst_elem__		*temp;
+	// char	*key;
+	char	*value;
 
-typedef struct		s_environment
-{
-	t_lst			*env_vars;
-}					t_environment;
-
-typedef struct		s_environment_var
-{
-	char					*key;
-	char					*value;
-	t_environment_var_type	type;
-}					t_environment_var;
-
-t_environment		*environment_new(void);
-void				environment_del(t_environment *this);
-void				environment_clone(t_environment *this);
-void				environment_getenv(t_environment *this);
-void				environment_setenv(t_environment *this, char *str);
-
-#endif
+	value = twl_strchr(str, '=');
+	if (!value)
+		return ;
+	temp = this->env_vars->head;
+	while (temp)
+	{
+		printf("%s\n", ((t_environment_var*)temp->data)->key);
+		temp = temp->next;
+	}
+}
