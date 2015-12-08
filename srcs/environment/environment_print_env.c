@@ -12,16 +12,16 @@
 
 #include "environment.h"
 
-void		environment_print_env(t_environment *this)
+static void		print_env_var(void *data)
 {
-	t_lst_elem__	*temp;
+	t_environment_var	*var;
 
-	temp = this->env_vars->head;
-	while (temp)
-	{
-		if (((t_environment_var*)temp->data)->type == ENVIRONMENT)
-			twl_printf("%s=%s\n", ((t_environment_var*)temp->data)->key,
-				((t_environment_var*)temp->data)->key);
-		temp = temp->next;
-	}
+	var = data;
+	if (var->type == ENVIRONMENT)
+		twl_printf("%s=%s\n", var->key, var->key);
+}
+
+void			environment_print_env(t_environment *this)
+{
+	twl_lst_iter0(this->env_vars, print_env_var);
 }
