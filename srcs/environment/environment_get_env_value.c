@@ -12,16 +12,20 @@
 
 #include "environment.h"
 
+static bool			find_env_key(void *data, void *context)
+{
+	t_environment_var	*var;
+	char				*str;
+
+	var = data;
+	str = context;
+	return (twl_strcmp(var->key, str) == 0);
+}
+
 char				*environment_get_env_value(t_environment *this, char *key)
 {
-	t_lst_elem__	*temp;
+	t_environment_var	*var;
 
-	temp = this->env_vars->head;
-	while (temp)
-	{
-		if (!twl_strcmp(((t_environment_var*)temp->data)->key, key))
-			return (((t_environment_var*)temp->data)->value);
-		temp = temp->next;
-	}
-	return (NULL);
+	var = (t_environment_var *)(twl_lst_find(this->env_vars, find_env_key, key));
+	return (var ? var->value : NULL);
 }

@@ -13,6 +13,17 @@
 #include "environment.h"
 #include <stdio.h>
 
+static bool			find_env_key(void *data, void *context)
+{
+	t_environment_var	*var;
+	char				*str;
+
+	var = data;
+	str = context;
+	return (twl_strcmp(var->key, str) == 0);
+}
+
+
 static void			clear_environment(void *data)
 {
 	twl_strdel(&((t_environment_var *)data)->key);
@@ -21,16 +32,5 @@ static void			clear_environment(void *data)
 
 void				environment_unsetenv(t_environment *this, char *key)
 {
-	t_lst_elem__		*temp;
-
-	temp = this->env_vars->head;
-	while (temp)
-	{
-		if (!twl_strcmp(((t_environment_var *)temp->data)->key, key))
-		{
-			twl_lst_del_elem__(this->env_vars, temp, clear_environment);
-			return ;
-		}
-		temp = temp->next;
-	}
+	twl_lst_remove_if(this->env_vars, find_env_key, key, clear_environment);
 }
