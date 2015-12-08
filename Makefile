@@ -77,7 +77,7 @@ re:
 	@$(MAKE) fclean
 	@$(MAKE) all
 
-check: check_libtowel check_unit
+check: check_unit
 
 check_libtowel:
 	make -C $(LIB_TOWEL_PATH) check
