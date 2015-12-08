@@ -13,15 +13,24 @@
 #include "environment.h"
 #include <stdio.h>
 
-void				environment_setenv(t_environment *this, char *str)
+static void			clear_environment(void *data)
 {
-	char				*value;
-	char				*key;
+	twl_strdel(&((t_environment_var *)data)->key);
+	twl_strdel(&((t_environment_var *)data)->value);
+}
 
-	value = twl_strchr(str, '=');
-	key = twl_strsub(str, 0, twl_strlen(str) - twl_strlen(value));
-	if (environment_get_env_value(this, key))
-		environment_set_env_value(this, key, value ? value + 1 : "");
-	else
-		twl_lst_push(this->env_vars, environment_var_new(str, LOCAL));
+void				environment_unsetenv(t_environment *this, char *key)
+{
+	t_lst_elem__		*temp;
+
+	temp = this->env_vars->head;
+	while (temp)
+	{
+		if (!twl_strcmp(((t_environment_var *)temp->data)->key, key))
+		{
+			twl_lst_del_elem__(this->env_vars, temp, clear_environment);
+			return ;
+		}
+		temp = temp->next;
+	}
 }
