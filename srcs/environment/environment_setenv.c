@@ -20,8 +20,8 @@ void				environment_setenv(t_environment *this, char *str)
 
 	value = twl_strchr(str, '=');
 	key = twl_strsub(str, 0, twl_strlen(str) - twl_strlen(value));
-	if (environment_get_env_value(this, key))
-		environment_set_env_value(this, key, value ? value + 1 : "");
+	if (environment_getenv_value(this, key))
+		environment_setenv_value(this, key, value ? value + 1 : "");
 	else
 		twl_lst_push(this->env_vars, environment_var_new(str, LOCAL));
 }

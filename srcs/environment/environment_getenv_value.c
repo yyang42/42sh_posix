@@ -22,17 +22,10 @@ static bool			find_env_key(void *data, void *context)
 	return (twl_strcmp(var->key, str) == 0);
 }
 
-int			environment_set_env_value(t_environment *this, char *key, char *value)
+char				*environment_getenv_value(t_environment *this, char *key)
 {
 	t_environment_var	*var;
 
 	var = (t_environment_var *)(twl_lst_find(this->env_vars, find_env_key, key));
-	if (var != NULL)
-	{
-		if (var->value)
-			free(var->value);
-		var->value = twl_strdup(value);
-		return (1);
-	}
-	return (0);
+	return (var ? var->value : NULL);
 }
