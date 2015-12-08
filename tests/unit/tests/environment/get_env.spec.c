@@ -59,13 +59,28 @@ static void test_unset_env(t_test *test)
 	environment_unsetenv(env, "_key");
 	mt_assert(environment_get_env_value(env, "_key") == NULL);
 	mt_assert(environment_get_env_value(env, "_key2") == NULL);
-	environment_print_env(env);
 }
 
+static void	test_set_get_env_value(t_test *test)
+{
+	(void)test;
+	t_environment		*env;
+
+	env = environment_new();
+	environment_setenv(env, "_key=_value");
+	environment_set_env_value(env, "_key", "pouet");
+	mt_assert(twl_strcmp(environment_get_env_value(env, "_key"), "pouet") == 0);
+	environment_set_env_value(env, "_key", "");
+	mt_assert(twl_strcmp(environment_get_env_value(env, "_key"), "") == 0);
+		environment_set_env_value(env, "_key", "=======POUET==POUET=POUET==");
+	mt_assert(twl_strcmp(environment_get_env_value(env, "_key"), "=======POUET==POUET=POUET==") == 0);
+	mt_assert(environment_get_env_value(env, "not_found") == NULL);
+}
 
 void	suite_get_env(t_suite *suite)
 {
 	SUITE_ADD_TEST(suite, copied_env_is_equal_to_environ);
 	SUITE_ADD_TEST(suite, test_set_env);
 	SUITE_ADD_TEST(suite, test_unset_env);
+	SUITE_ADD_TEST(suite, test_set_get_env_value);
 }
