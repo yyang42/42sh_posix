@@ -6,7 +6,7 @@ for i in {1..10}
 {
 	for j in {1..10}
 	{
-		echo $j
+		echo "i = $i && j = $j"
 		if [ $j -eq 5 ]; then
 			break 1;
 		fi
@@ -19,7 +19,7 @@ for i in {1..10}
 {
 	for j in {1..10}
 	{
-		echo $j
+		echo "i = $i && j = $j"
 		if [ $j -eq 5 ]; then
 			break 2;
 		fi
@@ -34,7 +34,7 @@ for k in {1..10}
 	{
 		for j in {1..10}
 		{
-			echo $j
+			echo "i = $i && j = $j" 
 			if [ $j -eq 5 ]; then
 				break 3;
 			fi

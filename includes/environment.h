@@ -30,6 +30,7 @@ typedef struct		s_environment_var
 {
 	char					*key;
 	char					*value;
+	char					read_only;
 	t_environment_var_type	type;
 }					t_environment_var;
 

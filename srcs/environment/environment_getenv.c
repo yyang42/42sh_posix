@@ -31,6 +31,7 @@ static t_environment_var *environment_var_new(char *str)
 	else
 		this->value = split[1];
 	this->type = ENVIRONMENT;
+	this->read_only = '0';
 	return (this);
 }
 
@@ -41,7 +42,6 @@ void				environment_getenv(t_environment *this)
 	i = 0;
 	while (environ[i] != NULL)
 	{
-		(void)this;
 		twl_lst_push(this->env_vars, environment_var_new(environ[i]));
 		i++;
 	}
