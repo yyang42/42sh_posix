@@ -10,16 +10,36 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "prog.h"
+#include <stdlib.h>
+
 #include "environment.h"
+#include <stdio.h>
 
-void				prog_run(t_prog *prog)
+extern char			**environ;
+
+static t_environment_var *environment_var_new(char *str)
 {
-	t_environment *env;
 
-	twl_printf("== It works!! ==\n");
-	env = environment_new();
-	environment_getenv(env);
-	environment_del(env);
-	(void)prog;
+	char				**split;
+	t_environment_var	*this;
+
+	this = twl_malloc_x0(sizeof(t_environment_var));
+	split = twl_strsplit(str, '=');
+	this->key = split[0];
+	this->value = split[1];
+	this->type = ENVIRONMENT;
+	return (this);
+}
+
+void				environment_getenv(t_environment *this)
+{
+	int	i;
+
+	i = 0;
+	while (environ[i] != NULL)
+	{
+		(void)this;
+		twl_lst_push(this->env_vars, environment_var_new(environ[i]));
+		i++;
+	}
 }

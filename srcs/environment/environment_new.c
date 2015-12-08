@@ -10,16 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "prog.h"
+#include "twl_xstdlib.h"
+
 #include "environment.h"
 
-void				prog_run(t_prog *prog)
+t_environment			*environment_new(void)
 {
-	t_environment *env;
+	t_environment		*this;
 
-	twl_printf("== It works!! ==\n");
-	env = environment_new();
-	environment_getenv(env);
-	environment_del(env);
-	(void)prog;
+	this = twl_malloc_x0(sizeof(t_environment));
+	this->env_vars = twl_lst_new();
+	return (this);
 }

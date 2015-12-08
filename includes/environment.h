@@ -10,16 +10,32 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "prog.h"
-#include "environment.h"
+#ifndef ENVIRONMENT_H
+# define ENVIRONMENT_H
 
-void				prog_run(t_prog *prog)
+# include "basics.h"
+
+typedef enum		e_environment_var_type
 {
-	t_environment *env;
+	ENVIRONMENT,
+	LOCAL
+}					t_environment_var_type;
 
-	twl_printf("== It works!! ==\n");
-	env = environment_new();
-	environment_getenv(env);
-	environment_del(env);
-	(void)prog;
-}
+typedef struct		s_environment
+{
+	t_lst			*env_vars;
+}					t_environment;
+
+typedef struct		s_environment_var
+{
+	char					*key;
+	char					*value;
+	t_environment_var_type	type;
+}					t_environment_var;
+
+t_environment		*environment_new(void);
+void				environment_del(t_environment *this);
+void				environment_clone(t_environment *this);
+void				environment_getenv(t_environment *this);
+
+#endif

@@ -10,16 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "prog.h"
+#include <stdlib.h>
+
 #include "environment.h"
 
-void				prog_run(t_prog *prog)
+void				environment_del(t_environment *this)
 {
-	t_environment *env;
-
-	twl_printf("== It works!! ==\n");
-	env = environment_new();
-	environment_getenv(env);
-	environment_del(env);
-	(void)prog;
+	free(this);
 }
