@@ -18,8 +18,10 @@ static void copied_env_is_equal_to_environ(t_test *test)
 	environment_del(env);
 	i = 0;
 	temp = env->env_vars->head;
-	while (environ[i] && temp)
+	while (environ[i] != NULL && temp != NULL)
 	{
+		(void)var;
+		(void)str;
 		var = (t_environment_var*)temp->data;
 		str = twl_strjoin(var->key, "=");
 		str = twl_strjoinfree(str, var->value, 'l');
