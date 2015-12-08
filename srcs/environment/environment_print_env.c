@@ -10,39 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-
 #include "environment.h"
-#include <stdio.h>
 
-extern char			**environ;
-
-static t_environment_var *environment_var_new(char *str)
+void		environment_print_env(t_environment *this)
 {
+	t_lst_elem__	*temp;
 
-	char				**split;
-	t_environment_var	*this;
-
-	this = twl_malloc_x0(sizeof(t_environment_var));
-	split = twl_strsplit(str, '=');
-	this->key = split[0];
-	if (split[1] == NULL)
-		this->value = twl_strdup("");
-	else
-		this->value = split[1];
-	this->type = ENVIRONMENT;
-	return (this);
-}
-
-void				environment_getenv(t_environment *this)
-{
-	int	i;
-
-	i = 0;
-	while (environ[i] != NULL)
+	temp = this->env_vars->head;
+	while (temp)
 	{
-		(void)this;
-		twl_lst_push(this->env_vars, environment_var_new(environ[i]));
-		i++;
+		if (((t_environment_var*)temp->data)->type == ENVIRONMENT)
+			twl_printf("%s=%s\n", ((t_environment_var*)temp->data)->key,
+				((t_environment_var*)temp->data)->key);
+		temp = temp->next;
 	}
 }

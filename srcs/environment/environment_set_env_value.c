@@ -11,22 +11,22 @@
 /* ************************************************************************** */
 
 #include "environment.h"
-#include <stdio.h>
-#include "twl_arr.h"
 
-void				environment_setenv(t_environment *this, char *str)
+int			environment_set_env_value(t_environment *this, char *key, char *value)
 {
-	char				**tab;
-	char				*tmp;
+	t_lst_elem__	*temp;
 
-	tab = twl_strsplit(str, '=');
-	if (!tab[0])
-		return ;
-	if (!tab[1])
-		tmp = twl_strdup("");
-	if (environment_get_env_value(this, tab[0]))
-		environment_set_env_value(this, tab[0], tab[1] ? tab[1] : tmp);
-	else
-		twl_lst_push(this->env_vars, environment_var_new(str, LOCAL));
-	twl_arr_del(tab, free);
+	temp = this->env_vars->head;
+	while (temp)
+	{
+		if (!twl_strcmp(((t_environment_var*)temp->data)->key, key))
+		{
+			if (((t_environment_var*)temp->data)->value)
+				free(((t_environment_var*)temp->data)->value);
+			((t_environment_var*)temp->data)->value = twl_strdup(value);
+			return (1);
+		}
+		temp = temp->next;
+	}
+	return (0);
 }
