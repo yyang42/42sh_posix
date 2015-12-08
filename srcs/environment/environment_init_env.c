@@ -18,12 +18,16 @@ extern char			**environ;
 
 void				environment_init_env(t_environment *this)
 {
-	int	i;
+	int		i;
+	char	*key;
+	char	*value;
 
 	i = 0;
 	while (environ[i] != NULL)
 	{
-		twl_lst_push(this->env_vars, environment_var_new(environ[i], ENVIRONMENT));
+		value = twl_strchr(environ[i], '=');
+		key = twl_strsub(environ[i], 0, twl_strlen(environ[i]) - twl_strlen(value));
+		twl_lst_push(this->env_vars, environment_var_new(key, value ? value + 1 : "", ENVIRONMENT));
 		i++;
 	}
 }

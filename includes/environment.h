@@ -41,7 +41,8 @@ void				environment_init_env(t_environment *this);
 void				environment_setenv(t_environment *this, char *str);
 char				*environment_getenv_value(t_environment *this, char *key);
 int					environment_setenv_value(t_environment *t, char *k, char *v);
-t_environment_var	*environment_var_new(char *str, t_environment_var_type type);
+t_environment_var	*environment_var_new(char *key, char *value,
+	t_environment_var_type type);
 void				environment_print_env(t_environment *this);
 void				environment_unsetenv(t_environment *this, char *str);
 

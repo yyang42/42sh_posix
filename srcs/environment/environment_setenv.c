@@ -23,5 +23,5 @@ void				environment_setenv(t_environment *this, char *str)
 	if (environment_getenv_value(this, key))
 		environment_setenv_value(this, key, value ? value + 1 : "");
 	else
-		twl_lst_push(this->env_vars, environment_var_new(str, LOCAL));
+		twl_lst_push(this->env_vars, environment_var_new(key, value ? value + 1 : "", LOCAL));
 }
