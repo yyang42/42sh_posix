@@ -45,6 +45,21 @@ static void test_set_env(t_test *test)
 	mt_assert(twl_strcmp(environment_get_env_value(env, "_key"), "") == 0);
 }
 
+static void test_unset_env(t_test *test)
+{
+	(void)test;
+	t_environment		*env;
+
+	env = environment_new();
+	environment_init_env(env);
+	environment_setenv(env, "_key=_value");
+	mt_assert(environment_get_env_value(env, "_key") != NULL);
+	environment_unsetenv(env, "_key");
+	mt_assert(environment_get_env_value(env, "_key") == NULL);
+	mt_assert(environment_get_env_value(env, "_key2") == NULL);
+}
+
+
 void	suite_get_env(t_suite *suite)
 {
 	SUITE_ADD_TEST(suite, copied_env_is_equal_to_environ);
