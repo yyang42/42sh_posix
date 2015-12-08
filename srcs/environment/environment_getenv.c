@@ -26,7 +26,10 @@ static t_environment_var *environment_var_new(char *str)
 	this = twl_malloc_x0(sizeof(t_environment_var));
 	split = twl_strsplit(str, '=');
 	this->key = split[0];
-	this->value = split[1];
+	if (split[1] == NULL)
+		this->value = twl_strdup("");
+	else
+		this->value = split[1];
 	this->type = ENVIRONMENT;
 	return (this);
 }
