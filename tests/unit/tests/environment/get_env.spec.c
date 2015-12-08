@@ -20,8 +20,6 @@ static void copied_env_is_equal_to_environ(t_test *test)
 	temp = env->env_vars->head;
 	while (environ[i] != NULL && temp != NULL)
 	{
-		(void)var;
-		(void)str;
 		var = (t_environment_var*)temp->data;
 		str = twl_strjoin(var->key, "=");
 		str = twl_strjoinfree(str, var->value, 'l');
@@ -38,12 +36,12 @@ static void test_set_env(t_test *test)
 
 	env = environment_new();
 	environment_init_env(env);
+	mt_assert(environment_get_env_value(env, "_key") == NULL);
 	environment_setenv(env, "_key=_value");
 	mt_assert(twl_strcmp(environment_get_env_value(env, "_key"), "_value") == 0);
 	environment_setenv(env, "_key=_new_value");
 	mt_assert(twl_strcmp(environment_get_env_value(env, "_key"), "_new_value") == 0);
 	environment_setenv(env, "_key=");
-	printf("%s\n", environment_get_env_value(env, "_key"));
 	mt_assert(twl_strcmp(environment_get_env_value(env, "_key"), "") == 0);
 }
 
