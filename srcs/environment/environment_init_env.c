@@ -10,16 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "prog.h"
+#include <stdlib.h>
+
 #include "environment.h"
 
-void				prog_run(t_prog *prog)
-{
-	t_environment *env;
+extern char			**environ;
 
-	twl_printf("== It works!! ==\n");
-	env = environment_new();
-	environment_init_env(env);
-	environment_del(env);
-	(void)prog;
+void				environment_init_env(t_environment *this)
+{
+	int	i;
+
+	i = 0;
+	while (environ[i] != NULL)
+	{
+		twl_lst_push(this->env_vars, environment_var_new(environ[i], ENVIRONMENT));
+		i++;
+	}
 }

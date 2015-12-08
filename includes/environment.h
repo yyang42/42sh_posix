@@ -30,13 +30,18 @@ typedef struct		s_environment_var
 {
 	char					*key;
 	char					*value;
-	char					read_only;
+	int						read_only;
 	t_environment_var_type	type;
 }					t_environment_var;
 
 t_environment		*environment_new(void);
 void				environment_del(t_environment *this);
 void				environment_clone(t_environment *this);
-void				environment_getenv(t_environment *this);
+void				environment_init_env(t_environment *this);
+void				environment_setenv(t_environment *this, char *str);
+char				*environment_get_env_value(t_environment *this, char *key);
+int					environment_set_env_value(t_environment *t, char *k, char *v);
+t_environment_var	*environment_var_new(char *str, t_environment_var_type type);
+void				environment_print_env(t_environment *this);
 
 #endif

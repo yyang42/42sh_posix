@@ -10,16 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "prog.h"
 #include "environment.h"
 
-void				prog_run(t_prog *prog)
+void		environment_print_env(t_environment *this)
 {
-	t_environment *env;
+	t_lst_elem__	*temp;
 
-	twl_printf("== It works!! ==\n");
-	env = environment_new();
-	environment_init_env(env);
-	environment_del(env);
-	(void)prog;
+	temp = this->env_vars->head;
+	while (temp)
+	{
+		if (((t_environment_var*)temp->data)->type == ENVIRONMENT)
+			twl_printf("%s=%s\n", ((t_environment_var*)temp->data)->key,
+				((t_environment_var*)temp->data)->key);
+		temp = temp->next;
+	}
 }

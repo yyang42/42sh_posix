@@ -10,16 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "prog.h"
 #include "environment.h"
+#include <stdio.h>
+#include "twl_arr.h"
 
-void				prog_run(t_prog *prog)
+void				environment_setenv(t_environment *this, char *str)
 {
-	t_environment *env;
+	char				**tab;
+	char				*tmp;
 
-	twl_printf("== It works!! ==\n");
-	env = environment_new();
-	environment_init_env(env);
-	environment_del(env);
-	(void)prog;
+	tab = twl_strsplit(str, '=');
+	if (!tab[0])
+		return ;
+	if (!tab[1])
+		tmp = twl_strdup("");
+	if (environment_get_env_value(this, tab[0]))
+		environment_set_env_value(this, tab[0], tab[1] ? tab[1] : tmp);
+	else
+		twl_lst_push(this->env_vars, environment_var_new(str, LOCAL));
+	twl_arr_del(tab, free);
 }

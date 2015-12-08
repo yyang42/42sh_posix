@@ -10,14 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-
 #include "environment.h"
-#include <stdio.h>
 
-extern char			**environ;
-
-static t_environment_var *environment_var_new(char *str)
+t_environment_var *environment_var_new(char *str, t_environment_var_type type)
 {
 
 	char				**split;
@@ -30,19 +25,7 @@ static t_environment_var *environment_var_new(char *str)
 		this->value = twl_strdup("");
 	else
 		this->value = split[1];
-	this->type = ENVIRONMENT;
-	this->read_only = '0';
+	this->read_only = 0;
+	this->type = type;
 	return (this);
-}
-
-void				environment_getenv(t_environment *this)
-{
-	int	i;
-
-	i = 0;
-	while (environ[i] != NULL)
-	{
-		twl_lst_push(this->env_vars, environment_var_new(environ[i]));
-		i++;
-	}
 }
