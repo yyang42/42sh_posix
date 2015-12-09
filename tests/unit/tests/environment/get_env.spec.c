@@ -15,7 +15,6 @@ static void copied_env_is_equal_to_environ(t_test *test)
 	(void)test;
 	env = environment_new();
 	environment_init_env(env);
-	environment_del(env);
 	i = 0;
 	temp = env->env_vars->head;
 	while (environ[i] != NULL && temp != NULL)
@@ -27,6 +26,7 @@ static void copied_env_is_equal_to_environ(t_test *test)
 		i++;
 		temp = temp->next;
 	}
+	environment_del(env);
 }
 
 static void test_set_env(t_test *test)
@@ -75,7 +75,7 @@ static void	test_set_get_env_value(t_test *test)
 	mt_assert(twl_strcmp(environment_getenv_value(env, "hello"), "pouet") == 0);
 	environment_setenv_value(env, "hello", "");
 	mt_assert(twl_strcmp(environment_getenv_value(env, "hello"), "") == 0);
-		environment_setenv_value(env, "hello", "=======POUET==POUET=POUET==");
+	environment_setenv_value(env, "hello", "=======POUET==POUET=POUET==");
 	mt_assert(twl_strcmp(environment_getenv_value(env, "hello"), "=======POUET==POUET=POUET==") == 0);
 	mt_assert(environment_getenv_value(env, "not_found") == NULL);
 	environment_del(env);
@@ -97,11 +97,30 @@ static void	test_clone(t_test *test)
 	environment_del(env);
 }
 
+static void test_get_paths(t_test *test)
+{
+	char			*paths;
+	char			*fpaths;
+	t_environment	*env;
+
+	(void)test;
+	env = environment_new();
+	environment_init_env(env);
+	fpaths = getenv("PATH");
+	paths = twl_strjoinarr((const char **)environment_get_paths(env), ":");
+	twl_printf("%s\n", fpaths);
+	twl_printf("%s\n", paths);
+	mt_assert(twl_strcmp(fpaths, paths) == 0);
+	environment_del(env);
+}
+
 void	suite_get_env(t_suite *suite)
 {
+	(void)suite;
 	SUITE_ADD_TEST(suite, copied_env_is_equal_to_environ);
 	SUITE_ADD_TEST(suite, test_set_env);
 	SUITE_ADD_TEST(suite, test_unset_env);
 	SUITE_ADD_TEST(suite, test_set_get_env_value);
 	SUITE_ADD_TEST(suite, test_clone);
+	SUITE_ADD_TEST(suite, test_get_paths);
 }

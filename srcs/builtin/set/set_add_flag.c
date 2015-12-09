@@ -21,7 +21,6 @@ void				set_add_flag(char *flag)
 	env = environment_singleton();
 	if (env && env->flags && !environment_flag_exist(env, flag))
 	{
-		twl_printf("COUCOCUOCUOCU%s\n", flag);
 		twl_lst_push(env->flags, twl_opt_elem_new(flag, twl_strdup("")));
 	}
 

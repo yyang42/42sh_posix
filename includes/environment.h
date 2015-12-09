@@ -58,4 +58,5 @@ int							environment_flag_exist(t_environment *this,
 	char *flag);
 char						*environment_concat_flags(t_environment *env);
 void						environment_print_flags(t_environment *env);
+char						**environment_get_paths(t_environment *this);
 #endif
