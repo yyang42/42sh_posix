@@ -68,7 +68,6 @@ static void	test_set_get_env_value(t_test *test)
 
 	env = environment_new();
 	environment_setenv_value(env, "hello", "pouet");
-	printf("%s\n", environment_getenv_value(env, "hello"));
 	mt_assert(twl_strcmp(environment_getenv_value(env, "hello"), "pouet") == 0);
 	environment_setenv_value(env, "hello", "");
 	mt_assert(twl_strcmp(environment_getenv_value(env, "hello"), "") == 0);
