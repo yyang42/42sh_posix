@@ -11,10 +11,25 @@
 /* ************************************************************************** */
 
 #include <stdlib.h>
-
 #include "environment.h"
 
-void				environment_clone(t_environment *this)
+static void			*copy_fn(void *data)
 {
-	(void)this;
+	t_environment_var *var;
+
+	var = twl_malloc_x0(sizeof(t_environment_var));
+	var->key = twl_strdup(((t_environment_var *)data)->key);
+	var->value = twl_strdup(((t_environment_var *)data)->value);
+	var->read_only = ((t_environment_var *)data)->read_only;
+	var->type = ((t_environment_var *)data)->type;
+	return (var);
+}
+
+t_environment		*environment_clone(t_environment *this)
+{
+	t_environment *clone;
+
+	clone = twl_malloc_x0(sizeof(t_environment));
+	clone->env_vars = twl_lst_copy(this->env_vars, copy_fn);
+	return (clone);
 }

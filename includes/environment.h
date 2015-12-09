@@ -38,7 +38,7 @@ typedef struct				s_environment_var
 
 t_environment				*environment_new(void);
 void						environment_del(t_environment *this);
-void						environment_clone(t_environment *this);
+t_environment				*environment_clone(t_environment *this);
 void						environment_init_env(t_environment *this);
 void						environment_setenv(t_environment *this, char *str);
 char						*environment_getenv_value(t_environment *this,
