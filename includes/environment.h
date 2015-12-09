@@ -15,37 +15,38 @@
 
 # include "basics.h"
 
-#define g_environ environ;
-
-typedef enum		e_environment_var_type
+typedef enum				e_environment_var_type
 {
 	ENVIRONMENT,
 	LOCAL
-}					t_environment_var_type;
+}							t_environment_var_type;
 
-typedef struct		s_environment
+typedef struct				s_environment
 {
-	t_lst			*env_vars;
-}					t_environment;
+	t_lst					*env_vars;
+}							t_environment;
 
-typedef struct		s_environment_var
+typedef struct				s_environment_var
 {
 	char					*key;
 	char					*value;
 	int						read_only;
 	t_environment_var_type	type;
-}					t_environment_var;
+}							t_environment_var;
 
-t_environment		*environment_new(void);
-void				environment_del(t_environment *this);
-void				environment_clone(t_environment *this);
-void				environment_init_env(t_environment *this);
-void				environment_setenv(t_environment *this, char *str);
-char				*environment_getenv_value(t_environment *this, char *key);
-int					environment_setenv_value(t_environment *t, char *k, char *v);
-t_environment_var	*environment_var_new(char *key, char *value,
+t_environment				*environment_new(void);
+void						environment_del(t_environment *this);
+t_environment				*environment_clone(t_environment *this);
+void						environment_init_env(t_environment *this);
+void						environment_setenv(t_environment *this, char *str);
+char						*environment_getenv_value(t_environment *this,
+	char *key);
+int							environment_setenv_value(t_environment *t,
+	char *k, char *v);
+t_environment_var			*environment_var_new(char *key, char *value,
 	t_environment_var_type type);
-void				environment_print_env(t_environment *this);
-void				environment_unsetenv(t_environment *this, char *str);
+void						environment_print_env(t_environment *this);
+void						environment_unsetenv(t_environment *this,
+	char *str);
 
 #endif

@@ -15,8 +15,6 @@
 #include "environment.h"
 #include "twl_arr.h"
 
-extern char			**g_environ;
-
 static void			init_env(void *elem, void *context)
 {
 	char			*key;
@@ -34,5 +32,7 @@ static void			init_env(void *elem, void *context)
 
 void				environment_init_env(t_environment *this)
 {
+	extern char **environ;
+
 	twl_arr_iter(environ, init_env, this);
 }
