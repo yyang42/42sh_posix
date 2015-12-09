@@ -10,17 +10,31 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "prog.h"
-#include "environment.h"
 #include "set.h"
+#include "xopt.h"
+#include "twl_opt.h"
+#include "twl_opt_elem.h"
+#include "twl_xstring.h"
 
-void				prog_run(t_prog *prog)
+static void			get_flag_verbose(char *key, void *data, void *context)
 {
-	t_environment	*env;
+	t_xopt		*xopt;
+	char		*flag;
 
-	twl_printf("== It works!! ==\n");
-	env = environment_new();
-	environment_init_env(env);
-	environment_del(env);
-	(void)prog;
+	xopt = context;
+	flag = data;
+	if (twl_opt_exist(xopt->opt__, key))
+		twl_printf("set -o %s\n", flag);
+	else
+		twl_printf("set +o %s\n", flag);
+}
+
+
+void				set_o_positive()
+{
+	t_xopt		*xopt;
+
+	xopt = xopt_singleton();
+	if (xopt->flag_verbose)
+		twl_dict_iter(xopt->flag_verbose, get_flag_verbose, xopt);
 }

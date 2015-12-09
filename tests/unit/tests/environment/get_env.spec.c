@@ -46,6 +46,7 @@ static void test_set_env(t_test *test)
 	mt_assert(twl_strcmp(environment_getenv_value(env, "_key"), "") == 0);
 	environment_setenv(env, "_key========POUET==POUET=POUET==");
 	mt_assert(twl_strcmp(environment_getenv_value(env, "_key"), "=======POUET==POUET=POUET==") == 0);
+	environment_del(env);
 }
 
 static void test_unset_env(t_test *test)
@@ -61,6 +62,7 @@ static void test_unset_env(t_test *test)
 	mt_assert(environment_getenv_value(env, "test") == NULL);
 	mt_assert(environment_getenv_value(env, "test2") == NULL);
 	environment_unsetenv(env, "not_found");
+	environment_del(env);
 }
 
 static void	test_set_get_env_value(t_test *test)
@@ -76,6 +78,7 @@ static void	test_set_get_env_value(t_test *test)
 	environment_setenv_value(env, "hello", "=======POUET==POUET=POUET==");
 	mt_assert(twl_strcmp(environment_getenv_value(env, "hello"), "=======POUET==POUET=POUET==") == 0);
 	mt_assert(environment_getenv_value(env, "not_found") == NULL);
+	environment_del(env);
 }
 
 static void	test_clone(t_test *test)
@@ -91,6 +94,7 @@ static void	test_clone(t_test *test)
 	environment_setenv_value(env, "tarte", "aupomme");
 	mt_assert(twl_strcmp(environment_getenv_value(clone, "quiche"), "lorraine") == 0);
 	mt_assert(environment_getenv_value(clone, "tarte") == NULL);
+	environment_del(env);
 }
 
 static void test_get_paths(t_test *test)

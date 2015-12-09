@@ -16,12 +16,14 @@
 # include "twl_opt.h"
 
 # include "basics.h"
+# include "twl_dict.h"
 
 # define XOPT_VALID_OPTS "abcCefimnosuvx"
 
 typedef struct		s_xopt
 {
 	t_opt			*opt__;
+	t_dict			*flag_verbose;
 	// bool			is_enabled;
 }					t_xopt;
 
@@ -34,5 +36,8 @@ void				xopt_init(t_xopt *xopt, char **av);
 void				xopt_check_valid_opts(t_xopt *xopt);
 t_lst				*xopt_get_opts(t_xopt *xopt);
 t_lst				*xopt_get_args(t_xopt *xopt);
+
+void				xopt_print_opts(t_xopt *xopt);
+char				*xopt_concat_opts(t_xopt *xopt);
 
 #endif

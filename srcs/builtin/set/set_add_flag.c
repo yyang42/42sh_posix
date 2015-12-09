@@ -10,17 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "prog.h"
-#include "environment.h"
 #include "set.h"
+#include "twl_opt.h"
+#include "twl_opt_elem.h"
+#include "twl_xstring.h"
 
-void				prog_run(t_prog *prog)
+void				set_add_flag(char *flag)
 {
-	t_environment	*env;
+	t_xopt		*xopt;
 
-	twl_printf("== It works!! ==\n");
-	env = environment_new();
-	environment_init_env(env);
-	environment_del(env);
-	(void)prog;
+	xopt = xopt_singleton();
+	if (xopt && xopt->opt__ && !twl_opt_exist(xopt->opt__, flag))
+	{
+		twl_lst_push(xopt->opt__->opts, twl_opt_elem_new(flag, NULL));
+	}
+
 }
