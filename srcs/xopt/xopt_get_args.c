@@ -10,17 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "prog.h"
-#include "environment.h"
-#include "set.h"
+#include "xopt.h"
 
-void				prog_run(t_prog *prog)
+t_lst				*xopt_get_args(t_xopt *xopt)
 {
-	t_environment *env;
-
-	twl_printf("== It works!! ==\n");
-	env = environment_new();
-	environment_init_env(env);
-	environment_del(env);
-	(void)prog;
+	if (xopt && xopt->opt__)
+		return xopt->opt__->args;
+	else
+		return NULL;
 }
