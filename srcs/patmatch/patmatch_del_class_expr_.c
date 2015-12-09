@@ -14,22 +14,25 @@
 
 static void			del_class_expr(t_class_expr *to_del)
 {
-	free(to_del->map);
+	free(to_del->match);
 	free(to_del);
+}
+
+static void			del_dict(void *key_, void *class_expr_)
+{
+	char			*key;
+	t_dict			*class_expr;
+
+	key = key_;
+	class_expr = class_expr_;
+	twl_dict_delone(class_expr, key, &del_class_expr);
 }
 
 void				patmatch_del_class_expr_(t_patmatch *this)
 {
-	twl_dict_delone(this->class_expr, "[:alnum:]", &del_class_expr);
-	twl_dict_delone(this->class_expr, "[:alpha:]", &del_class_expr);
-	twl_dict_delone(this->class_expr, "[:blank:]", &del_class_expr);
-	twl_dict_delone(this->class_expr, "[:cntrl:]", &del_class_expr);
-	twl_dict_delone(this->class_expr, "[:digit:]", &del_class_expr);
-	twl_dict_delone(this->class_expr, "[:graph:]", &del_class_expr);
-	twl_dict_delone(this->class_expr, "[:lower:]", &del_class_expr);
-	twl_dict_delone(this->class_expr, "[:print:]", &del_class_expr);
-	twl_dict_delone(this->class_expr, "[:punct:]", &del_class_expr);
-	twl_dict_delone(this->class_expr, "[:space:]", &del_class_expr);
-	twl_dict_delone(this->class_expr, "[:upper:]", &del_class_expr);
-	twl_dict_delone(this->class_expr, "[:xdigit:]", &del_class_expr);
+	t_lst			*keys;
+
+	keys = twl_dict_keys(this->class_expr);
+	twl_lst_iter(keys, &del_dict, this->class_expr);
+	twl_lst_del(keys, &free);
 }

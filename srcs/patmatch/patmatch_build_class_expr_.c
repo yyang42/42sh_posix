@@ -31,7 +31,7 @@ static t_class_expr	*build_class_expr(int (*func)(int))
 		index += 1;
 	}
 	ret->size -= 1;
-	ret->map = twl_memdup(expr, ret->size);
+	ret->match = twl_memdup(expr, ret->size);
 	return (ret);
 }
 

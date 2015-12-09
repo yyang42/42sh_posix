@@ -10,7 +10,7 @@
 	-> All characters except ' * ', ' ? ' and ' [ ' are considered as normal char
 - Special characters:
 	-> ' * '
-		-> It's pretty simple... Can match with any string, including nothing, excluding ' / '
+		-> It's pretty simple... Can match with any string, including null string, excluding ' / '
 	-> ' ? '
 		-> It's pretty simple... Can match with anything, excluding nothing and ' / '
 	-> ' [ '
@@ -24,3 +24,18 @@
 		-> ' [:(...):] ' are fixed with the Local UTF8 and the only possibilities are
 			-> [:alnum:] [:cntrl:] [:lower:] [:space:] [:alpha:] [:digit:] [:print:] [:upper:] [:blank:] [:graph:] [:punct:] [:xdigit:]
 			-> They have all their corresponding is(...)
+
+- How to solve it... En français s'il vous plaît...
+1. Partie chiante: Créer une t_lst avec:
+	struct {
+		bool		fixed;
+		char		*string;
+		t_lst		*next;
+	}
+
+	Gérer le quoting """ et "'"
+	Retirer les escapes /!\ les escape entre quote sont des caractères (exception faite pour "\"") 
+	/!\ Si il y a un '/' dans une class_expr le traîter comme si c'était une seule string et non une class_expr.
+	Si il y a moult '*' ou '/' à la suite les concaténer.
+
+2.

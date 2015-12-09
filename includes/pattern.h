@@ -10,42 +10,41 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PATMATCH_H
-# define PATMATCH_H
+#ifndef PATTERN_H
+# define PATTERN_H
 
 # include "basics.h"
-# include "twl_dict.h"
-# include "twl_ctype.h"
 
-typedef struct		s_class_expr
+typedef struct		s_pattern_data
 {
-	char			*match;
-	size_t			size;
-}					t_class_expr;
-
-typedef struct		s_pattern_str
-{
+	char			*split;
 	bool			fixed;
-	char			*string;
-}					t_pattern_str;
+}					t_pattern_data;
 
-typedef struct		s_patmatch
+typedef struct		s_pattern
 {
+	t_lst			*split;
 	char			*pattern;
-	t_dict			*class_expr;
-	t_lst			*pattern_str;
-}					t_patmatch;
+	size_t			index;
+	t_pattern_data	*to_push_;
+	size_t			itp_;
+}					t_pattern;
 
-t_patmatch			*patmatch_new(void);
-void				patmatch_del(t_patmatch *this);
+t_pattern			*pattern_new(char *pattern);
+void				pattern_del(t_pattern *this);
 
-void				patmatch_build_class_expr_(t_patmatch *this);
-void				patmatch_del_class_expr_(t_patmatch *this);
+/*
+** Private method to build the pattern
+*/
 
-void				patmatch_build_pattern_str_(t_patmatch *this,
-																char *pattern);
-void				patmatch_del_pattern_str_(t_patmatch *this);
+void				pattern_build_(t_pattern *this);
+void				pattern_build_data_(t_pattern *this);
+void				pattern_build_escaped_(t_pattern *this);
 
-char				*patmatch_match(t_patmatch *this, char *pattern);
+/*
+** Public method to simplify my life <3
+*/
+
+char				*pattern_get_begin_file(t_pattern *this);
 
 #endif

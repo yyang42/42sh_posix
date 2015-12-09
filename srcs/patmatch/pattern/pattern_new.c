@@ -10,42 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PATMATCH_H
-# define PATMATCH_H
+#include "twl_xstdlib.h"
 
-# include "basics.h"
-# include "twl_dict.h"
-# include "twl_ctype.h"
+#include "pattern.h"
 
-typedef struct		s_class_expr
+t_pattern			*pattern_new(char *pattern)
 {
-	char			*match;
-	size_t			size;
-}					t_class_expr;
+	t_pattern		*this;
 
-typedef struct		s_pattern_str
-{
-	bool			fixed;
-	char			*string;
-}					t_pattern_str;
-
-typedef struct		s_patmatch
-{
-	char			*pattern;
-	t_dict			*class_expr;
-	t_lst			*pattern_str;
-}					t_patmatch;
-
-t_patmatch			*patmatch_new(void);
-void				patmatch_del(t_patmatch *this);
-
-void				patmatch_build_class_expr_(t_patmatch *this);
-void				patmatch_del_class_expr_(t_patmatch *this);
-
-void				patmatch_build_pattern_str_(t_patmatch *this,
-																char *pattern);
-void				patmatch_del_pattern_str_(t_patmatch *this);
-
-char				*patmatch_match(t_patmatch *this, char *pattern);
-
-#endif
+	this = twl_malloc_x0(sizeof(t_pattern));
+	this->pattern = twl_strdup(pattern);
+	this->index = 0;
+	this->to_push_ = NULL;
+	this->itp_ = 0;
+	pattern_build_(this);
+	return (this);
+}
