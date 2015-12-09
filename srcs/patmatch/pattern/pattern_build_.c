@@ -10,42 +10,30 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PATMATCH_H
-# define PATMATCH_H
+#include "pattern.h"
 
-# include "basics.h"
-# include "twl_dict.h"
-# include "twl_ctype.h"
-
-typedef struct		s_class_expr
+static bool			is_special(t_pattern *this)
 {
-	char			*match;
-	size_t			size;
-}					t_class_expr;
+	if (this->pattern[index] == '*' || this->pattern[index] = '?')
+		return (true);
+	return (false);
+}
 
-typedef struct		s_pattern_str
+static bool			is_escaped(t_pattern *this)
 {
-	bool			fixed;
-	char			*string;
-}					t_pattern_str;
+	if (this->pattern[this->index] == '\\')
+		return (true);
+	return (false);
+}
 
-typedef struct		s_patmatch
+void				pattern_build_(t_pattern *this)
 {
-	char			*pattern;
-	t_dict			*class_expr;
-	t_lst			*pattern_str;
-}					t_patmatch;
-
-t_patmatch			*patmatch_new(void);
-void				patmatch_del(t_patmatch *this);
-
-void				patmatch_build_class_expr_(t_patmatch *this);
-void				patmatch_del_class_expr_(t_patmatch *this);
-
-void				patmatch_build_pattern_str_(t_patmatch *this,
-																char *pattern);
-void				patmatch_del_pattern_str_(t_patmatch *this);
-
-char				*patmatch_match(t_patmatch *this, char *pattern);
-
-#endif
+	while (this->pattern[this->index])
+	{
+		pattern_build_data_(this);
+		if (is_escaped(this))
+			pattern_build_escaped_(this);
+		else if (is_special(this))
+			pattern_build_special_(this);
+	}
+}
