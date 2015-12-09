@@ -14,6 +14,7 @@
 
 #include "environment.h"
 #include "twl_arr.h"
+#include "xopt.h"
 
 static void			init_env(void *elem, void *context)
 {

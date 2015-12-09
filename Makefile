@@ -80,7 +80,7 @@ re:
 check: check_libtowel check_unit
 
 check_libtowel:
-	make -C $(LIB_TOWEL_PATH) check
+	make -C $(LIB_TOWEL_PATH) check 
 
 check_unit:
 	make -C tests/unit

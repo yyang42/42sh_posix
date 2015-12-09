@@ -24,6 +24,8 @@ typedef enum				e_environment_var_type
 typedef struct				s_environment
 {
 	t_lst					*env_vars;
+	t_lst					*pos_params;
+	t_lst					*flags;
 }							t_environment;
 
 typedef struct				s_environment_var
