@@ -28,7 +28,7 @@ static int		arr2_indexof(char **args, char *to_find)
 	return (-1);
 }
 
-static void		execute2(char *path, t_env_args *env, int index)
+static int		execute2(char *path, char **args, char **env)
 {
 	int			pid;
 
@@ -36,34 +36,37 @@ static void		execute2(char *path, t_env_args *env, int index)
 	if (pid == -1)
 	{
 		perror("fork");
-		return ;
+		return (-1);
 	}
 	else if (pid == 0)
 	{
-		execve(path, &env->args[index], env->env_arr);
+		execve(path, args, env);
 		perror("env");
 		exit(EXIT_FAILURE);
 	}
 	else
 	{
-		env->was_executed = 1;
 		wait(&pid);
+		return (1);
 	}
+	return (0);
 }
 
-static void		execute(char *path, t_env_args *env)
+static int		execute(char *path, char **args, char **env)
 {
 	struct stat	sb;
-	int			index;
 
-	index = arr2_indexof(env->args, env->utility);
 	if (!stat(path, &sb))
 	{
 		if (S_ISREG(sb.st_mode) && sb.st_mode & 0111)
-			execute2(path, env, index);
+			return (execute2(path, args, env));
 		else if (S_ISREG(sb.st_mode))
-			twl_dprintf(2, "env: %s: Permission denied\n", env->utility);
+		{
+			twl_dprintf(2, "env: %s: Permission denied\n", args[0]);
+			return (-1);
+		}
 	}
+	return (0);
 }
 
 static void		exec_with_path(void *elem, void *context)
@@ -71,23 +74,33 @@ static void		exec_with_path(void *elem, void *context)
 	char		*path;
 	t_env_args	*env;
 	struct stat	sb;
+	int			index;
 
 	path = elem;
 	env = context;
 	path = twl_joinpath(path, env->utility);
 	if (!stat(path, &sb))
-		execute(path, env);
+	{
+		index = arr2_indexof(env->args, env->utility);
+		env->was_executed = execute(env->utility, &env->args[index],
+			env->env_arr);
+	}
 }
 
 void			exec_env(t_env_args *env, t_environment *clone)
 {
 	char	**fpaths;
+	int		index;
 
 	fpaths = environment_get_paths(clone);
 	if (fpaths && !twl_strchr(env->utility, '/'))
 		twl_arr_iter(fpaths, exec_with_path, env);
 	else
-		execute(env->utility, env);
+	{
+		index = arr2_indexof(env->args, env->utility);
+		env->was_executed = execute(env->utility, &env->args[index],
+			env->env_arr);
+	}
 	if (!env->was_executed)
 		twl_dprintf(2, "env: %s: No such file or directory\n", env->utility);
 }

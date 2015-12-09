@@ -53,7 +53,7 @@ void			env(char *str)
 	if (!check_invalid(opt))
 		return ;
 	this = environment_singleton();
-	clone = twl_lst_len(opt->opts) == 0 ? environment_clone(this)
+	clone = !twl_lst_len(opt->opts) ? environment_clone(this)
 		: environment_new();
 	twl_lst_iter(opt->args, add_env_var, clone);
 	twl_lst_iter(opt->args, get_utility, &env);
