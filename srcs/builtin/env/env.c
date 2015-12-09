@@ -69,12 +69,15 @@ void			env(char *str)
 	t_opt				*opt;
 	t_env_args			env;
 
+
 	env.env_arr = NULL;
 	clone = NULL;
 	env.utility = NULL;
 	env.has_utility = 0;
 	env.args = twl_strsplit_mul(str, " \t");
 	opt = twl_opt_new(env.args, "i");
+	if (!check_invalid(opt))
+		return ;
 	this = environment_singleton();
 	clone = twl_lst_len(opt->opts) == 0 ? environment_clone(this)
 		: environment_new();

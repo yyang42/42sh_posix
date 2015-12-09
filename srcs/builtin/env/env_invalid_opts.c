@@ -10,28 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENV_H
-# define ENV_H
+#include "env.h"
+#include "twl_stdio.h"
+#include <stdio.h>
 
-# include "environment.h"
-# include "env.h"
-# include "utils.h"
-# include "twl_arr.h"
-# include "twl_opt.h"
-# include <sys/stat.h>
-# include <sys/types.h>
-
-typedef struct		s_env_args
+int		check_invalid(t_opt *opt)
 {
-	char				**args;
-	char				**env_arr;
-	char				*utility;
-	int					utility_index;
-	bool				has_utility;
-}					t_env_args;
+	char				*invalid;
 
-void				env(char *str);
-void				exec_env(t_env_args *env, t_environment	*clone);
-int					check_invalid(t_opt *opt);
-
-#endif
+	invalid = twl_opt_check_invalid_opts(opt);
+	if (invalid && twl_strlen(invalid) > 0)
+	{
+		twl_dprintf(2, "env: illegal option -- %s\n%s", invalid,
+			"usage: env [-i] [name=value ...] [utility [argument ...]]\n");
+		return (0);
+	}
+	return (1);
+}
