@@ -67,9 +67,9 @@ static void test_unset_flag(t_test *test)
 static void 	test_o_positive(t_test *test)
 {
 	t_environment		*env;
-	int		out;
-	int		p[2];
-	int		fd;
+	// int		out;
+	// int		p[2];
+	// int		fd;
 
 	(void)test;
 	xopt_init(xopt_singleton(), make_array());
