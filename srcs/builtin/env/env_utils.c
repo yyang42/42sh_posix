@@ -25,8 +25,7 @@ static void		push_env_to_arr(void *data, void *arr)
 	twl_arr_push(arr, str);
 }
 
-
-int		check_invalid(t_opt *opt)
+int				check_invalid(t_opt *opt)
 {
 	char				*invalid;
 
@@ -40,7 +39,7 @@ int		check_invalid(t_opt *opt)
 	return (1);
 }
 
-void		add_env_var(void *data_, void *context_)
+void			add_env_var(void *data_, void *context_)
 {
 	t_environment	*context;
 	char			*data;
@@ -51,7 +50,7 @@ void		add_env_var(void *data_, void *context_)
 		environment_setenv(context, data);
 }
 
-void		**env_lst_to_arr(t_lst *lst)
+void			**env_lst_to_arr(t_lst *lst)
 {
 	void **arr;
 

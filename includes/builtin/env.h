@@ -28,6 +28,7 @@ typedef struct		s_env_args
 	char				*utility;
 	int					utility_index;
 	bool				has_utility;
+	bool				was_executed;
 }					t_env_args;
 
 void				env(char *str);

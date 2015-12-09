@@ -14,7 +14,7 @@
 #include "twl_stdio.h"
 #include <stdio.h>
 
-static int	arr2_indexof(char **args, char *to_find)
+static int		arr2_indexof(char **args, char *to_find)
 {
 	int i;
 
@@ -28,32 +28,41 @@ static int	arr2_indexof(char **args, char *to_find)
 	return (-1);
 }
 
+static void		execute2(char *path, t_env_args *env, int index)
+{
+	int			pid;
+
+	pid = fork();
+	if (pid == -1)
+	{
+		perror("fork");
+		return ;
+	}
+	else if (pid == 0)
+	{
+		execve(path, &env->args[index], env->env_arr);
+		perror("env");
+		exit(EXIT_FAILURE);
+	}
+	else
+	{
+		env->was_executed = 1;
+		wait(&pid);
+	}
+}
+
 static void		execute(char *path, t_env_args *env)
 {
 	struct stat	sb;
 	int			index;
-	int			pid;
 
 	index = arr2_indexof(env->args, env->utility);
 	if (!stat(path, &sb))
 	{
 		if (S_ISREG(sb.st_mode) && sb.st_mode & 0111)
-		{
-			pid = fork();
-			if (pid == 0)
-			{
-				execve(path, &env->args[index], env->env_arr);
-				perror("env");
-				exit(EXIT_FAILURE);
-			}
-			else
-				wait(&pid);
-		}
+			execute2(path, env, index);
 		else if (S_ISREG(sb.st_mode))
-		{
 			twl_dprintf(2, "env: %s: Permission denied\n", env->utility);
-			exit(EXIT_FAILURE);
-		}
 	}
 }
 
@@ -70,7 +79,7 @@ static void		exec_with_path(void *elem, void *context)
 		execute(path, env);
 }
 
-void		exec_env(t_env_args *env, t_environment	*clone)
+void			exec_env(t_env_args *env, t_environment *clone)
 {
 	char	**fpaths;
 
@@ -79,6 +88,6 @@ void		exec_env(t_env_args *env, t_environment	*clone)
 		twl_arr_iter(fpaths, exec_with_path, env);
 	else
 		execute(env->utility, env);
-	twl_dprintf(2, "env: %s: No such file or directory\n", env->utility);
-	exit(EXIT_FAILURE);
+	if (!env->was_executed)
+		twl_dprintf(2, "env: %s: No such file or directory\n", env->utility);
 }
