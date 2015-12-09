@@ -18,7 +18,7 @@ static void		print_env_var(void *data)
 
 	var = data;
 	if (var->type == ENVIRONMENT)
-		twl_printf("%s=%s\n", var->key, var->key);
+		twl_printf("%s=%s\n", var->key, var->value);
 }
 
 void			environment_print_env(t_environment *this)

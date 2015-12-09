@@ -13,7 +13,7 @@
 #include "environment.h"
 #include <stdio.h>
 
-void				environment_setenv(t_environment *this, char *str)
+void				environment_selocal(t_environment *this, char *str)
 {
 	char				*value;
 	char				*key;
@@ -24,5 +24,5 @@ void				environment_setenv(t_environment *this, char *str)
 	if (environment_getenv_value(this, key))
 		environment_setenv_value(this, key, value);
 	else
-		twl_lst_push(this->env_vars, environment_var_new(key, value, ENVIRONMENT));
+		twl_lst_push(this->env_vars, environment_var_new(key, value, LOCAL));
 }

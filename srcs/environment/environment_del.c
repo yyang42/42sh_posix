@@ -14,7 +14,14 @@
 
 #include "environment.h"
 
+static void			clear_environment(void *data)
+{
+	twl_strdel(&((t_environment_var *)data)->key);
+	twl_strdel(&((t_environment_var *)data)->value);
+}
+
 void				environment_del(t_environment *this)
 {
+	twl_lst_del(this->env_vars, clear_environment);
 	free(this);
 }

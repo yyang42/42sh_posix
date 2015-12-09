@@ -108,8 +108,6 @@ static void test_get_paths(t_test *test)
 	environment_init_env(env);
 	fpaths = getenv("PATH");
 	paths = twl_strjoinarr((const char **)environment_get_paths(env), ":");
-	twl_printf("%s\n", fpaths);
-	twl_printf("%s\n", paths);
 	mt_assert(twl_strcmp(fpaths, paths) == 0);
 	environment_del(env);
 }

@@ -17,37 +17,6 @@
 #include "twl_arr2.h"
 #include "twl_opt.h"
 
-static void		add_env_var(void *data_, void *context_)
-{
-	t_environment	*context;
-	char			*data;
-
-	data = data_;
-	context = context_;
-	if (twl_strchr(data, '='))
-		environment_setenv(context, data);
-}
-
-static void		push_to_arr(void *data, void *arr)
-{
-	t_environment_var	*var;
-	char				*str;
-
-	var = data;
-	str = twl_strjoin(var->key, "=");
-	str = twl_strjoinfree(str, var->value, 'l');
-	twl_arr_push(arr, str);
-}
-
-static void		**env_lst_to_arr(t_lst *lst)
-{
-	void **arr;
-
-	arr = twl_arr_new(twl_lst_len(lst));
-	twl_lst_iter(lst, push_to_arr, arr);
-	return (arr);
-}
-
 static void		get_utility(void *data_, void *context)
 {
 	t_env_args		*env;
@@ -62,6 +31,15 @@ static void		get_utility(void *data_, void *context)
 	}
 }
 
+static void		init_env_args(t_env_args *env, char *str)
+{
+	env->utility = NULL;
+	env->has_utility = 0;
+	env->was_executed = 0;
+	env->env_arr = NULL;
+	env->args = twl_strsplit_mul(str, " \t");
+}
+
 void			env(char *str)
 {
 	t_environment		*clone;
@@ -69,14 +47,13 @@ void			env(char *str)
 	t_opt				*opt;
 	t_env_args			env;
 
-	env.env_arr = NULL;
 	clone = NULL;
-	env.utility = NULL;
-	env.has_utility = 0;
-	env.args = twl_strsplit_mul(str, " \t");
+	init_env_args(&env, str);
 	opt = twl_opt_new(env.args, "i");
+	if (!check_invalid(opt))
+		return ;
 	this = environment_singleton();
-	clone = twl_lst_len(opt->opts) == 0 ? environment_clone(this)
+	clone = !twl_lst_len(opt->opts) ? environment_clone(this)
 		: environment_new();
 	twl_lst_iter(opt->args, add_env_var, clone);
 	twl_lst_iter(opt->args, get_utility, &env);
