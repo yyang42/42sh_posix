@@ -11,10 +11,33 @@
 /* ************************************************************************** */
 
 #include "xopt.h"
-#include "twl_dict.h"
+#include "environment.h"
+#include "twl_string.h"
+#include "twl_lst.h"
+#include "twl_opt_elem.h"
 
-void				xopt_init(t_xopt *xopt, char **av)
+static void			concat_flag(void *data, void *context)
 {
-	xopt->opt__ = twl_opt_new(av, XOPT_VALID_OPTS);
-	xopt_check_valid_opts(xopt);
+	t_opt_elem	*elem;
+	char		**concat_ptr;
+	char		*concat;
+
+	elem = data;
+	concat_ptr = context;
+	concat = *concat_ptr;
+	if (elem && elem->key)
+	{
+		concat = twl_strjoin(concat, elem->key);
+		*concat_ptr = concat;
+	}
+}
+
+char				*environment_concat_flags(t_environment *env)
+{
+	char	*concat;
+
+	concat = twl_strdup("");
+	if (env && env->flags)
+		twl_lst_iter(env->flags, concat_flag, &concat);
+	return concat;
 }

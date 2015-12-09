@@ -11,11 +11,12 @@
 /* ************************************************************************** */
 
 #include "xopt.h"
+#include "twl_lst.h"
 
 t_lst				*xopt_get_args(t_xopt *xopt)
 {
 	if (xopt && xopt->opt__)
 		return xopt->opt__->args;
 	else
-		return NULL;
+		return (twl_lst_new());
 }

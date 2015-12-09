@@ -11,10 +11,9 @@
 /* ************************************************************************** */
 
 #include "set.h"
-#include "twl_opt.h"
-#include "twl_lst.h"
+#include "environment.h"
+#include "twl_dict.h"
 #include "twl_opt_elem.h"
-#include "twl_xstring.h"
 
 static bool			find_opt(void *data, void *key)
 {
@@ -37,8 +36,8 @@ static void			free_opt(void *data)
 }
 void				set_remove_flag(char *flag)
 {
-	t_xopt		*xopt;
+	t_environment		*env;
 
-	xopt = xopt_singleton();
-	twl_lst_remove_if(xopt_get_opts(xopt), find_opt, flag, free_opt);
+	env = environment_singleton();
+	twl_lst_remove_if(env->flags, find_opt, flag, free_opt);
 }

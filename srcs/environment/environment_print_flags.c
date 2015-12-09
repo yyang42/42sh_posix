@@ -11,10 +11,20 @@
 /* ************************************************************************** */
 
 #include "xopt.h"
-#include "twl_dict.h"
+#include "twl_opt_elem.h"
+#include "environment.h"
 
-void				xopt_init(t_xopt *xopt, char **av)
+static void			print_flag(void *data)
 {
-	xopt->opt__ = twl_opt_new(av, XOPT_VALID_OPTS);
-	xopt_check_valid_opts(xopt);
+	t_opt_elem *elem;
+
+	elem = data;
+	if (elem && elem->key)
+		twl_printf("--->%s\n", elem->key);
+}
+
+void				environment_print_flags(t_environment *env)
+{
+	if (env && env->flags)
+		twl_lst_iter0(env->flags, print_flag);
 }

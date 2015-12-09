@@ -15,6 +15,8 @@
 
 # include "basics.h"
 
+# include "twl_dict.h"
+
 typedef enum				e_environment_var_type
 {
 	ENVIRONMENT,
@@ -26,6 +28,7 @@ typedef struct				s_environment
 	t_lst					*env_vars;
 	t_lst					*pos_params;
 	t_lst					*flags;
+	t_dict					*flag_verbose;
 }							t_environment;
 
 typedef struct				s_environment_var
@@ -51,6 +54,9 @@ void						environment_print_env(t_environment *this);
 void						environment_unsetenv(t_environment *this,
 	char *str);
 t_environment				*environment_singleton(void);
+int							environment_flag_exist(t_environment *this,
+	char *flag);
+char						*environment_concat_flags(t_environment *env);
+void						environment_print_flags(t_environment *env);
 char						**environment_get_paths(t_environment *this);
-
 #endif

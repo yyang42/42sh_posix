@@ -11,19 +11,19 @@
 /* ************************************************************************** */
 
 #include "set.h"
-#include "xopt.h"
+#include "environment.h"
 #include "twl_opt.h"
 #include "twl_opt_elem.h"
 #include "twl_xstring.h"
 
 static void			get_flag_verbose(char *key, void *data, void *context)
 {
-	t_xopt		*xopt;
-	char		*flag;
+	t_environment	*env;
+	char			*flag;
 
-	xopt = context;
+	env = context;
 	flag = data;
-	if (twl_opt_exist(xopt->opt__, key))
+	if (environment_flag_exist(env, key))
 		twl_printf("set -o %s\n", flag);
 	else
 		twl_printf("set +o %s\n", flag);
@@ -32,9 +32,9 @@ static void			get_flag_verbose(char *key, void *data, void *context)
 
 void				set_o_positive()
 {
-	t_xopt		*xopt;
+	t_environment		*env;
 
-	xopt = xopt_singleton();
-	if (xopt->flag_verbose)
-		twl_dict_iter(xopt->flag_verbose, get_flag_verbose, xopt);
+	env = environment_singleton();
+	if (env->flag_verbose)
+		twl_dict_iter(env->flag_verbose, get_flag_verbose, env);
 }

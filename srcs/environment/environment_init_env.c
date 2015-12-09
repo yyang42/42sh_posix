@@ -31,9 +31,26 @@ static void			init_env(void *elem, void *context)
 	twl_lst_push(this->env_vars, environment_var_new(key, value, ENVIRONMENT));
 }
 
+static void			fill_flag_verbose_dict(t_dict *dict)
+{
+	twl_dict_add(dict, "a", "allexport");
+	twl_dict_add(dict, "e", "errexit");
+	twl_dict_add(dict, "C", "noclobber");
+	twl_dict_add(dict, "f", "noglob");
+	twl_dict_add(dict, "b", "notify");
+	twl_dict_add(dict, "ignoreeof", "ignoreeof");
+	twl_dict_add(dict, "m", "monitor");
+	twl_dict_add(dict, "n", "noexec");
+	twl_dict_add(dict, "u", "nounset");
+	twl_dict_add(dict, "v", "verbose");
+	twl_dict_add(dict, "vi", "vi");
+}
+
 void				environment_init_env(t_environment *this)
 {
 	extern char **environ;
 
 	twl_arr_iter(environ, init_env, this);
+	this->flag_verbose = twl_dict_new();
+	fill_flag_verbose_dict(this->flag_verbose);
 }

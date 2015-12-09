@@ -15,7 +15,6 @@ static void copied_env_is_equal_to_environ(t_test *test)
 	(void)test;
 	env = environment_new();
 	environment_init_env(env);
-	environment_del(env);
 	i = 0;
 	temp = env->env_vars->head;
 	while (environ[i] != NULL && temp != NULL)
@@ -27,6 +26,7 @@ static void copied_env_is_equal_to_environ(t_test *test)
 		i++;
 		temp = temp->next;
 	}
+	environment_del(env);
 }
 
 static void test_set_env(t_test *test)
@@ -104,14 +104,17 @@ static void test_get_paths(t_test *test)
 	t_environment	*env;
 
 	(void)test;
-	env = environment_singleton();
+	env = environment_new();
+	environment_init_env(env);
 	fpaths = getenv("PATH");
 	paths = twl_strjoinarr((const char **)environment_get_paths(env), ":");
 	mt_assert(twl_strcmp(fpaths, paths) == 0);
+	environment_del(env);
 }
 
 void	suite_get_env(t_suite *suite)
 {
+	(void)suite;
 	SUITE_ADD_TEST(suite, copied_env_is_equal_to_environ);
 	SUITE_ADD_TEST(suite, test_set_env);
 	SUITE_ADD_TEST(suite, test_unset_env);
