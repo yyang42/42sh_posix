@@ -15,8 +15,6 @@
 
 # include "basics.h"
 
-# define g_environ environ;
-
 typedef enum				e_environment_var_type
 {
 	ENVIRONMENT,
