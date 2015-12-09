@@ -12,6 +12,7 @@
 
 #include "environment.h"
 #include "env.h"
+#include "utils.h"
 #include "twl_arr.h"
 #include "twl_opt.h"
 
@@ -45,21 +46,21 @@ static void		**env_lst_to_arr(t_lst *lst)
 	return (arr);
 }
 
-void			builtin_env(char *str)
+void			env(char *str)
 {
-	char				**args;
-	char				**env_var;
 	t_environment		*clone;
 	t_opt				*opt;
+	t_env_args			env;
 
+	env.env_arr = NULL;
 	clone = environment_clone(environment_singleton());
-	args = twl_strsplit_mul(str, " \t");
-	opt = twl_opt_new(args, "i");
+	env.args = twl_strsplit_mul(str, " \t");
+	opt = twl_opt_new(env.args, "i");
 	if (twl_lst_len(opt->opts) == 0)
+	{
 		twl_lst_iter(opt->args, get_args, clone);
-	else
-		clone = NULL;
-	if (clone)
-		env_var = (char **)env_lst_to_arr(clone->env_vars);
-	twl_opt_del(opt);
+		env.env_arr = (char **)env_lst_to_arr(clone->env_vars);
+	}
+	exec_env(&env);
+	// exit(EXIT_FAILURE);
 }

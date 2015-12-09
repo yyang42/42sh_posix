@@ -10,16 +10,38 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENV_H
-# define ENV_H
+#include "environment.h"
+#include "env.h"
+#include "utils.h"
+#include "twl_arr.h"
+#include "twl_opt.h"
+#include <sys/stat.h>
+#include <sys/types.h>
 
-typedef struct		s_env_args
+static void		exec_with_path(void *elem, void *context)
 {
-	char				**args;
-	char				**env_arr;
-}					t_env_args;
+	char		*path;
+	t_env_args	*env;
+	struct stat	sb;
 
-void				env(char *str);
-void				exec_env(t_env_args *env);
+	path = elem;
+	env = context;
+	path = twl_joinpath(path, env->args[0]);
+	if (!stat(path, &sb))
+	{
+		if (S_ISREG(sb.st_mode) && sb.st_mode & 0111)
+		{
+			// if (env->env_arr)
+				// exec
+			// twl_printf("%s is executable\n", path);
+		}
+	}
+}
 
-#endif
+void		exec_env(t_env_args *env)
+{
+	char	**fpaths;
+
+	fpaths = utils_get_paths();
+	twl_arr_iter(fpaths, exec_with_path, env);
+}
