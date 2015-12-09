@@ -15,7 +15,7 @@
 #include "twl_lst.h"
 #include "twl_opt_elem.h"
 
-static void			print_opt(void *data, void *context)
+static void			concat_opt(void *data, void *context)
 {
 	t_opt_elem	*elem;
 	char		**concat_ptr;
@@ -37,6 +37,6 @@ char				*xopt_concat_opts(t_xopt *xopt)
 
 	concat = twl_strdup("");
 	if (xopt && xopt->opt__)
-		twl_lst_iter(xopt->opt__->opts, print_opt, &concat);
+		twl_lst_iter(xopt->opt__->opts, concat_opt, &concat);
 	return concat;
 }

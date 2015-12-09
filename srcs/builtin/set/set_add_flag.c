@@ -11,18 +11,18 @@
 /* ************************************************************************** */
 
 #include "set.h"
-#include "twl_opt.h"
+#include "environment.h"
 #include "twl_opt_elem.h"
-#include "twl_xstring.h"
 
 void				set_add_flag(char *flag)
 {
-	t_xopt		*xopt;
+	t_environment		*env;
 
-	xopt = xopt_singleton();
-	if (xopt && xopt->opt__ && !twl_opt_exist(xopt->opt__, flag))
+	env = environment_singleton();
+	if (env && env->flags && !environment_flag_exist(env, flag))
 	{
-		twl_lst_push(xopt->opt__->opts, twl_opt_elem_new(flag, NULL));
+		twl_printf("COUCOCUOCUOCU%s\n", flag);
+		twl_lst_push(env->flags, twl_opt_elem_new(flag, twl_strdup("")));
 	}
 
 }

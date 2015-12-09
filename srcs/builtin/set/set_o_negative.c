@@ -11,19 +11,19 @@
 /* ************************************************************************** */
 
 #include "set.h"
-#include "xopt.h"
+#include "environment.h"
 #include "twl_opt.h"
 #include "twl_opt_elem.h"
 #include "twl_xstring.h"
 
 static void			get_flag_verbose(char *key, void *data, void *context)
 {
-	t_xopt		*xopt;
-	char		*flag;
-	int			space_count;
-	char		*space;
+	t_environment	*env;
+	char			*flag;
+	int				space_count;
+	char			*space;
 
-	xopt = context;
+	env = context;
 	flag = data;
 	space_count = 16 - (int)twl_strlen(flag);
 	if (space_count < 0)
@@ -34,7 +34,7 @@ static void			get_flag_verbose(char *key, void *data, void *context)
 		twl_memset(space, ' ', space_count);
 		space[space_count] = 0;
 	}
-	if (twl_opt_exist(xopt->opt__, key))
+	if (environment_flag_exist(env, key))
 		twl_printf("%s%s%s\n", flag, space, "on");
 	else
 		twl_printf("%s%s%s\n", flag, space, "off");
@@ -44,9 +44,9 @@ static void			get_flag_verbose(char *key, void *data, void *context)
 
 void				set_o_negative()
 {
-	t_xopt		*xopt;
+	t_environment		*env;
 
-	xopt = xopt_singleton();
-	if (xopt->flag_verbose)
-		twl_dict_iter(xopt->flag_verbose, get_flag_verbose, xopt);
+	env = environment_singleton();
+	if (env->flag_verbose)
+		twl_dict_iter(env->flag_verbose, get_flag_verbose, env);
 }

@@ -11,8 +11,14 @@
 /* ************************************************************************** */
 
 #include "set.h"
+#include "twl_opt_elem.h"
 
 void				set_opt_del(t_set_opt *opt)
 {
+	free(opt->cmd);
+	free(opt->valid_opts);
+	twl_lst_del(opt->positive_opts, twl_opt_elem_del);
+	twl_lst_del(opt->negative_opts, twl_opt_elem_del);
+	twl_lst_del(opt->args, free);
 	free(opt);
 }

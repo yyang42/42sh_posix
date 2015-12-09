@@ -17,5 +17,5 @@ t_lst				*xopt_get_opts(t_xopt *xopt)
 	if (xopt && xopt->opt__)
 		return xopt->opt__->opts;
 	else
-		return NULL;
+		return (twl_lst_new());
 }

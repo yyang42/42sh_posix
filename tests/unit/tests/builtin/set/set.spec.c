@@ -24,63 +24,45 @@ char			**make_array()
 static void 	test_set_flag(t_test *test)
 {
 	t_environment		*env;
-	t_xopt				*xopt;
-	char				*opts;
+	char				*flags;
 
 	(void)test;
-	xopt_init(xopt_singleton(), make_array());
-	env = environment_new();
-	environment_init_env(env);
+	env = environment_singleton();
 	set("set -x -a -b");
-	xopt = xopt_singleton();
-	opts = xopt_concat_opts(xopt);
-	mt_assert(twl_strcmp(opts, "xab") == 0);
-	environment_del(env);
-	xopt_del(xopt_singleton());
+	environment_print_flags(env);
+	flags = environment_concat_flags(env);
+	mt_assert(twl_strcmp(flags, "xab") == 0);
 }
 
 static void test_unset_flag(t_test *test)
 {
 	t_environment		*env;
-	t_xopt				*xopt;
-	char				*opts;
+	char				*flags;
 
 	(void)test;
-	xopt_init(xopt_singleton(), make_array());
-	env = environment_new();
-	environment_init_env(env);
+	env = environment_singleton();
 	set("set -x -a -b");
 	set("set +x");
-	xopt = xopt_singleton();
-	opts = xopt_concat_opts(xopt);
-	mt_assert(twl_strcmp(opts, "ab") == 0);
+	flags = environment_concat_flags(env);
+	mt_assert(twl_strcmp(flags, "ab") == 0);
 	set("set +b");
-	opts = xopt_concat_opts(xopt);
-	mt_assert(twl_strcmp(opts, "a") == 0);
+	flags = environment_concat_flags(env);
+	mt_assert(twl_strcmp(flags, "a") == 0);
 	set("set +a");
-	opts = xopt_concat_opts(xopt);
-	mt_assert(twl_strcmp(opts, "") == 0);
-	environment_del(env);
-	xopt_del(xopt_singleton());
+	flags = environment_concat_flags(env);
+	mt_assert(twl_strcmp(flags, "") == 0);
 }
 
 static void 	test_o_positive(t_test *test)
 {
 	t_environment		*env;
-	int		out;
-	int		p[2];
-	int		fd;
 
 	(void)test;
-	xopt_init(xopt_singleton(), make_array());
-	env = environment_new();
-	environment_init_env(env);
+	env = environment_singleton();
 	set("set -a");
 	set("set -e");
 	set("set -f");
 	set("set +o");
-	environment_del(env);
-	xopt_del(xopt_singleton());
 }
 
 static void 	test_o_negative(t_test *test)
@@ -88,15 +70,11 @@ static void 	test_o_negative(t_test *test)
 	t_environment		*env;
 
 	(void)test;
-	xopt_init(xopt_singleton(), make_array());
-	env = environment_new();
-	environment_init_env(env);
+	env = environment_singleton();
 	set("set -a");
 	set("set -e");
 	set("set -f");
 	set("set -o");
-	environment_del(env);
-	xopt_del(xopt_singleton());
 }
 
 void			suite_set(t_suite *suite)
