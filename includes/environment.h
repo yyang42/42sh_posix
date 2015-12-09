@@ -29,6 +29,7 @@ typedef struct				s_environment
 	t_lst					*pos_params;
 	t_lst					*flags;
 	t_dict					*flag_verbose;
+	t_dict					*verbose_flag;
 }							t_environment;
 
 typedef struct				s_environment_var

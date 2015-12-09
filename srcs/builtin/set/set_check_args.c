@@ -11,50 +11,49 @@
 /* ************************************************************************** */
 
 #include "set.h"
-#include "twl_arr.h"
-#include "twl_opt.h"
-#include "twl_opt_elem.h"
-#include "twl_xstring.h"
+#include "environment.h"
+#include "twl_lst.h"
 
-static void		remove_shell_flags(void *data)
+static void		add_pos_param(void *data, void *context)
 {
-	t_opt_elem *elem;
+	char 			*arg;
+	t_environment	*env;
 
-	elem = data;
-	if (twl_strcmp(elem->key, "o") != 0)
-		set_remove_flag(elem->key);
-	else
-		set_o_positive();
+	arg = data;
+	env = context;
+	if (arg && env)
+		twl_lst_push(env->pos_params, twl_strdup(arg));
 }
 
-static void		add_shell_flags(void *data)
+static void		remove_matching_flag(t_environment *env, char *arg)
 {
-	t_opt_elem *elem;
+	char *flag;
 
-	elem = data;
-	if (twl_strcmp(elem->key, "o") != 0)
-		set_add_flag(elem->key);
-	else
-		set_o_negative();
+	flag = twl_dict_get(env->verbose_flag, arg);
+	if (flag)
+		set_remove_flag(flag);
 }
 
-void	set(char *str)
+static void		add_matching_flag(t_environment *env, char *arg)
 {
-	t_set_opt		*opt;
-	char			**arr;
-	char			*error;
+	char *flag;
 
-	arr = twl_strsplit_mul(str, " \n\t");
-	opt = set_opt_new(arr, SET_OPT_VALID_OPTS);
-	if ((error = set_opt_check_invalid_opts(opt)))
-		set_usage(error);
-	else
-	{
-		twl_lst_iter0(opt->positive_opts, remove_shell_flags);
-		twl_lst_iter0(opt->negative_opts, add_shell_flags);
-		// if (twl_lst_len(opt->args) > 0)
-		// 	set_check_args(opt);
-	}
-	set_opt_del(opt);
-	twl_arr_del(arr, &free);
+	flag = twl_dict_get(env->verbose_flag, arg);
+	if (flag)
+		set_add_flag(flag);
+}
+
+void			set_check_args(t_set_opt *opt)
+{
+	int	i;
+	t_environment *env;
+
+	env = environment_singleton();
+	i = set_opt_exist(opt, "o");
+	if (i == 0)
+		twl_lst_iter(opt->args, add_pos_param, env);
+	else if (i == POSITIVE_OPT)
+		remove_matching_flag(env, twl_lst_first(opt->args));
+	else if (i == NEGATIVE_OPT)
+		add_matching_flag(env, twl_lst_first(opt->args));
 }
