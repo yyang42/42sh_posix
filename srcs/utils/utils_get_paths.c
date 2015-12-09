@@ -10,7 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-int					demo_sum(int num1, int num2)
+#include <stdlib.h>
+#include "environment.h"
+
+char		**utils_get_paths(void)
 {
-	return (num1 + num2);
+	t_environment	*env;
+	char			*str;
+
+	env = environment_singleton();
+	str = environment_getenv_value(env, "PATH");
+	return (str ? twl_strsplit(str, ':') : NULL);
 }

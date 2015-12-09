@@ -15,6 +15,6 @@
 
 # include "basics.h"
 
-int					demo_sum(int num1, int num2);
+char			**utils_get_paths(void);
 
 #endif

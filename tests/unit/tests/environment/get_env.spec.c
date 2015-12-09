@@ -37,6 +37,7 @@ static void test_set_env(t_test *test)
 	env = environment_new();
 	environment_init_env(env);
 	mt_assert(environment_getenv_value(env, "_key") == NULL);
+	mt_assert(environment_getenv_value(env, "PATH") != NULL);
 	environment_setenv(env, "_key=_value");
 	mt_assert(twl_strcmp(environment_getenv_value(env, "_key"), "_value") == 0);
 	environment_setenv(env, "_key=_new_value");

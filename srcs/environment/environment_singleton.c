@@ -17,6 +17,9 @@ t_environment			*environment_singleton(void)
 	static t_environment	*env = NULL;
 
 	if (!env)
+	{
 		env = environment_new();
+		environment_init_env(env);
+	}
 	return (env);
 }
