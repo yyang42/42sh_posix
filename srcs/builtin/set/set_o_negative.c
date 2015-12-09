@@ -10,28 +10,43 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "set.h"
 #include "xopt.h"
-#include "twl_dict.h"
+#include "twl_opt.h"
+#include "twl_opt_elem.h"
+#include "twl_xstring.h"
 
-static void			fill_flag_verbose_dict(t_dict *dict)
+static void			get_flag_verbose(char *key, void *data, void *context)
 {
-	twl_dict_add(dict, "a", "allexport");
-	twl_dict_add(dict, "e", "errexit");
-	twl_dict_add(dict, "C", "noclobber");
-	twl_dict_add(dict, "f", "noglob");
-	twl_dict_add(dict, "b", "notify");
-	twl_dict_add(dict, "ignoreeof", "ignoreeof");
-	twl_dict_add(dict, "m", "monitor");
-	twl_dict_add(dict, "n", "noexec");
-	twl_dict_add(dict, "u", "nounset");
-	twl_dict_add(dict, "v", "verbose");
-	twl_dict_add(dict, "vi", "vi");
+	t_xopt		*xopt;
+	char		*flag;
+	int			space_count;
+	char		*space;
+
+	xopt = context;
+	flag = data;
+	space_count = 16 - (int)twl_strlen(flag);
+	if (space_count < 0)
+		space = twl_strdup("\t");
+	else
+	{
+		space = (char*)malloc(sizeof(char) * (space_count + 1));
+		twl_memset(space, ' ', space_count);
+		space[space_count] = 0;
+	}
+	if (twl_opt_exist(xopt->opt__, key))
+		twl_printf("%s%s%s\n", flag, space, "on");
+	else
+		twl_printf("%s%s%s\n", flag, space, "off");
+	free(space);
 }
 
-void				xopt_init(t_xopt *xopt, char **av)
+
+void				set_o_negative()
 {
-	xopt->opt__ = twl_opt_new(av, XOPT_VALID_OPTS);
-	xopt->flag_verbose = twl_dict_new();
-	fill_flag_verbose_dict(xopt->flag_verbose);
-	xopt_check_valid_opts(xopt);
+	t_xopt		*xopt;
+
+	xopt = xopt_singleton();
+	if (xopt->flag_verbose)
+		twl_dict_iter(xopt->flag_verbose, get_flag_verbose, xopt);
 }

@@ -18,3 +18,5 @@ char				**set_opt_new_parse_arg_opt_and_return_non_opt_args__(
 								char **arr_opts, t_set_opt *opt, char *valid_opts);
 void				set_add_flag(char *flag);
 void				set_remove_flag(char *flag);
+void				set_o_positive();
+void				set_o_negative();

@@ -13,5 +13,13 @@
 #ifndef ENV_H
 # define ENV_H
 
+typedef struct		s_env_args
+{
+	char				**args;
+	char				**env_arr;
+}					t_env_args;
+
+void				env(char *str);
+void				exec_env(t_env_args *env);
 
 #endif

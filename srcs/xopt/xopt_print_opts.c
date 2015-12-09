@@ -24,6 +24,6 @@ static void			print_opt(void *data)
 
 void				xopt_print_opts(t_xopt *xopt)
 {
-	if (xopt)
+	if (xopt && xopt->opt__)
 		twl_lst_iter0(xopt->opt__->opts, print_opt);
 }

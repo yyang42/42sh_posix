@@ -51,42 +51,37 @@ static bool			is_valid_opt_with_param(char *opt_without_hyphen,
 	return (false);
 }
 
-char				**set_opt_new_parse_arg_opt_and_return_non_opt_args__(
-							char **arr_opts, t_set_opt *opt, char *valid_opts)
+t_lst				*get_list(t_set_opt *opt, char c)
 {
-	char			*opt_without_hyphen;
-	char			*next_arg;
+	return (c == '+' ? opt->positive_opts : opt->negative_opts);
+}
+
+char				**set_opt_new_parse_arg_opt_and_return_non_opt_args__(
+							char **opts, t_set_opt *opt, char *valid_opts)
+{
+	char			*opt_wo_hyphen;
+	char			*n_arg;
 	int				i;
 
 	i = 0;
-	while (arr_opts[i] && (*arr_opts[i] == '-' || *arr_opts[i] == '+'))
+	while (opts[i] && (*opts[i] == '-' || *opts[i] == '+'))
 	{
-		opt_without_hyphen = arr_opts[i] + 1;
-		if (twl_strequ(arr_opts[i], "--"))
+		opt_wo_hyphen = opts[i] + 1;
+		if (twl_strequ(opts[i], "--"))
 		{
 			i++;
 			break ;
 		}
-		if (is_valid_opt_with_param(opt_without_hyphen, valid_opts))
+		if (is_valid_opt_with_param(opt_wo_hyphen, valid_opts))
 		{
-			next_arg = arr_opts[i + 1];
-			if (*arr_opts[i] == '+')
-				parse_opt_with_param(opt_without_hyphen, next_arg,
-					opt->positive_opts);
-			else if(*arr_opts[i] == '-')
-				parse_opt_with_param(opt_without_hyphen, next_arg,
-					opt->negative_opts);
-			if (arr_opts[i + 1] != NULL)
+			n_arg = opts[i + 1];
+			parse_opt_with_param(opt_wo_hyphen, n_arg, get_list(opt, *opts[i]));
+			if (opts[i + 1] != NULL)
 				i++;
 		}
 		else
-		{
-			if (*arr_opts[i] == '+')
-				parse_single_arg(opt_without_hyphen, opt->positive_opts);
-			else if (*arr_opts[i] == '-')
-				parse_single_arg(opt_without_hyphen, opt->negative_opts);
-		}
+			parse_single_arg(opt_wo_hyphen, get_list(opt, *opts[i]));
 		i++;
 	}
-	return (&arr_opts[i]);
+	return (&opts[i]);
 }

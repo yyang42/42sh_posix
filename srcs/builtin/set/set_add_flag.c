@@ -20,7 +20,7 @@ void				set_add_flag(char *flag)
 	t_xopt		*xopt;
 
 	xopt = xopt_singleton();
-	if (!twl_opt_exist(xopt->opt__, flag))
+	if (xopt && xopt->opt__ && !twl_opt_exist(xopt->opt__, flag))
 	{
 		twl_lst_push(xopt->opt__->opts, twl_opt_elem_new(flag, NULL));
 	}
