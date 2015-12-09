@@ -12,6 +12,7 @@
 
 #include "env.h"
 #include "twl_stdio.h"
+#include <stdio.h>
 
 static int	arr2_indexof(char **args, char *to_find)
 {
@@ -31,14 +32,22 @@ static void		execute(char *path, t_env_args *env)
 {
 	struct stat	sb;
 	int			index;
+	int			pid;
 
 	index = arr2_indexof(env->args, env->utility);
 	if (!stat(path, &sb))
 	{
 		if (S_ISREG(sb.st_mode) && sb.st_mode & 0111)
 		{
-			twl_printf("%s is executable\n", path);
-			execve(path, &env->args[index], env->env_arr);
+			pid = fork();
+			if (pid == 0)
+			{
+				execve(path, &env->args[index], env->env_arr);
+				perror("env");
+				exit(EXIT_FAILURE);
+			}
+			else
+				wait(&pid);
 		}
 		else if (S_ISREG(sb.st_mode))
 		{
