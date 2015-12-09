@@ -12,19 +12,9 @@
 
 #include "set.h"
 #include "xopt.h"
-#include "twl_xstring.h"
 
-void	set(char *str)
+void				set_xopt_init(t_xopt *xopt, char **av)
 {
-	t_xopt			*xopt;
-	char			**arr;
-
-	xopt = xopt_new();
-	arr = twl_strsplit(str, ' ');
-	set_xopt_init(xopt, arr);
-	// if (twl_opt_exist(xopt, "e"))
-	// {
-	//
-	// }
-	xopt_del(xopt);
+	xopt->opt__ = twl_opt_new(av, SET_XOPT_VALID_OPTS);
+	xopt_check_valid_opts(xopt);
 }

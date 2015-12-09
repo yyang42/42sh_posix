@@ -13,7 +13,7 @@ C_DIR = srcs
 O_DIR = .tmp/objects
 
 CC_FLAGS = -g -Wall -Wextra -Werror
-CC_HEADERS = -I ./includes -I ./srcs/libft/includes
+CC_HEADERS = -I ./includes -I ./srcs/libft/includes -I ./includes/builtin
 CC_DEBUG =
 
 C_FILES = $(shell find $(C_DIR) -type f -follow -print | grep ".*\.c$$" | grep -v "\.spec\.c")
