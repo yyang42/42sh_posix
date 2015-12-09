@@ -17,37 +17,6 @@
 #include "twl_arr2.h"
 #include "twl_opt.h"
 
-static void		add_env_var(void *data_, void *context_)
-{
-	t_environment	*context;
-	char			*data;
-
-	data = data_;
-	context = context_;
-	if (twl_strchr(data, '='))
-		environment_setenv(context, data);
-}
-
-static void		push_to_arr(void *data, void *arr)
-{
-	t_environment_var	*var;
-	char				*str;
-
-	var = data;
-	str = twl_strjoin(var->key, "=");
-	str = twl_strjoinfree(str, var->value, 'l');
-	twl_arr_push(arr, str);
-}
-
-static void		**env_lst_to_arr(t_lst *lst)
-{
-	void **arr;
-
-	arr = twl_arr_new(twl_lst_len(lst));
-	twl_lst_iter(lst, push_to_arr, arr);
-	return (arr);
-}
-
 static void		get_utility(void *data_, void *context)
 {
 	t_env_args		*env;
