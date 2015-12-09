@@ -15,6 +15,4 @@
 
 # include "basics.h"
 
-char			**utils_get_paths(void);
-
 #endif

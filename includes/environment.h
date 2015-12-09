@@ -51,5 +51,6 @@ void						environment_print_env(t_environment *this);
 void						environment_unsetenv(t_environment *this,
 	char *str);
 t_environment				*environment_singleton(void);
+char						**environment_get_paths(t_environment *this);
 
 #endif
