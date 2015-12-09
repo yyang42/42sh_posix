@@ -10,17 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "prog.h"
-#include "environment.h"
-#include "set.h"
+#include "xopt.h"
+#include "twl_opt_elem.h"
 
-void				prog_run(t_prog *prog)
+static void			print_opt(void *data)
 {
-	t_environment	*env;
+	t_opt_elem *elem;
 
-	twl_printf("== It works!! ==\n");
-	env = environment_new();
-	environment_init_env(env);
-	environment_del(env);
-	(void)prog;
+	elem = data;
+	if (elem && elem->key)
+		twl_printf("%s\n", elem->key);
+}
+
+void				xopt_print_opts(t_xopt *xopt)
+{
+	if (xopt)
+		twl_lst_iter0(xopt->opt__->opts, print_opt);
 }

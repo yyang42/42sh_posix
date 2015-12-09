@@ -15,13 +15,34 @@
 #include "twl_opt_elem.h"
 #include "twl_xstring.h"
 
-void	builtin_set(char *str)
+static void	remove_shell_flags(void *data)
 {
-	t_opt			*opt;
+	t_opt_elem *elem;
+
+	elem = data;
+	twl_printf("%s", (char*)(elem->key));
+	twl_printf("%s", (char*)(elem->value));
+}
+
+static void	add_shell_flags(void *data)
+{
+	t_opt_elem *elem;
+
+	elem = data;
+	twl_printf("%s", (char*)(elem->key));
+	twl_printf("%s", (char*)(elem->value));
+	if (twl_strcmp(elem->key, "o") != 0)
+		set_add_flag(elem->key);
+}
+
+void	set(char *str)
+{
+	t_set_opt		*opt;
 	char			**arr;
 
 	arr = twl_strsplit_mul(str, " \n\t");
-	opt = twl_opt_new(arr, SET_OPT_VALID_OPTS);
-	twl_printf("%s", twl_opt_get_param(opt, "o"));
-	twl_opt_del(opt);
+	opt = set_opt_new(arr, SET_OPT_VALID_OPTS);
+	twl_lst_iter0(opt->negative_opts, remove_shell_flags);
+	twl_lst_iter0(opt->positive_opts, add_shell_flags);
+	set_opt_del(opt);
 }

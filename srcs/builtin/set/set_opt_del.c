@@ -10,17 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "prog.h"
-#include "environment.h"
 #include "set.h"
 
-void				prog_run(t_prog *prog)
+void				set_opt_del(t_set_opt *opt)
 {
-	t_environment	*env;
-
-	twl_printf("== It works!! ==\n");
-	env = environment_new();
-	environment_init_env(env);
-	environment_del(env);
-	(void)prog;
+	free(opt);
 }

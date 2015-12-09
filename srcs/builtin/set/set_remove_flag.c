@@ -10,17 +10,35 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "prog.h"
-#include "environment.h"
 #include "set.h"
+#include "twl_opt.h"
+#include "twl_lst.h"
+#include "twl_opt_elem.h"
+#include "twl_xstring.h"
 
-void				prog_run(t_prog *prog)
+static bool			find_opt(void *data, void *key)
 {
-	t_environment	*env;
+	t_opt_elem *elem;
 
-	twl_printf("== It works!! ==\n");
-	env = environment_new();
-	environment_init_env(env);
-	environment_del(env);
-	(void)prog;
+	elem = data;
+	return (twl_strcmp(elem->key, key) == 0);
+}
+
+
+static void			free_opt(void *data)
+{
+	t_opt_elem *elem;
+
+	elem = data;
+	if (elem->key)
+		free(elem->key);
+	if (elem->value)
+		free(elem->value);
+}
+void				set_remove_flag(char *flag)
+{
+	t_xopt		*xopt;
+
+	xopt = xopt_singleton();
+	twl_lst_remove_if(xopt_get_opts(xopt), find_opt, flag, free_opt);
 }

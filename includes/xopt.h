@@ -35,4 +35,6 @@ void				xopt_check_valid_opts(t_xopt *xopt);
 t_lst				*xopt_get_opts(t_xopt *xopt);
 t_lst				*xopt_get_args(t_xopt *xopt);
 
+void				xopt_print_opts(t_xopt *xopt);
+
 #endif
