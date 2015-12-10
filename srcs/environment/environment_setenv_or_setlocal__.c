@@ -11,37 +11,33 @@
 /* ************************************************************************** */
 
 #include "environment.h"
+#include <stdio.h>
 
-static bool			find_env_key(void *data, void *context)
+void				environment_setenv_or_setlocal__(t_environment *this,
+										char *str, t_environment_var_type type)
 {
-	t_environment_var	*var;
-	char				*str;
+	char				*value;
+	char				*key;
+	char				*temp;
 
-	var = data;
-	str = context;
-	return (twl_strcmp(var->key, str) == 0);
-}
-
-int					environment_setenv_value(t_environment *this,
-	char *key, char *value)
-{
-	t_environment_var	*var;
-
-	if (key == NULL || *key == '\0')
+	if (str != NULL && *str != '\0')
 	{
-		errno = EINVAL;
-		return (-1);
+		value = twl_strchr(str, '=');
+		if (value)
+			key = twl_strsub(str, 0, twl_strlen(str) - twl_strlen(value));
+		else
+			key = twl_strsub(str, 0, twl_strlen(str));
+		if (twl_strlen(key) > 0)
+		{
+			temp = value;
+			value = value ? value + 1 : "";
+			if (environment_getenv_value(this, key))
+				environment_setenv_value(this, key, value);
+			else
+				twl_lst_push(this->env_vars, environment_var_new(key, value,
+					type, temp != NULL));
+			return ;
+		}
 	}
-	var = (t_environment_var *)(twl_lst_find(this->env_vars, find_env_key,
-																		key));
-	if (var != NULL)
-	{
-		if (var->value)
-			free(var->value);
-		var->value = twl_strdup(value);
-		return (1);
-	}
-	else
-		twl_lst_push(this->env_vars, environment_var_new(key, value, LOCAL, value != NULL));
-	return (0);
+	errno = EINVAL;
 }

@@ -10,38 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "environment.h"
+#ifndef SPECIAL_PARAMS
+# define SPECIAL_PARAMS
 
-static bool			find_env_key(void *data, void *context)
-{
-	t_environment_var	*var;
-	char				*str;
+char				*test_params_at(t_environment *env);
+char				*params_at(t_environment *env);
+char				*test_params_star(t_environment *env);
+char				*params_star(t_environment *env);
 
-	var = data;
-	str = context;
-	return (twl_strcmp(var->key, str) == 0);
-}
-
-int					environment_setenv_value(t_environment *this,
-	char *key, char *value)
-{
-	t_environment_var	*var;
-
-	if (key == NULL || *key == '\0')
-	{
-		errno = EINVAL;
-		return (-1);
-	}
-	var = (t_environment_var *)(twl_lst_find(this->env_vars, find_env_key,
-																		key));
-	if (var != NULL)
-	{
-		if (var->value)
-			free(var->value);
-		var->value = twl_strdup(value);
-		return (1);
-	}
-	else
-		twl_lst_push(this->env_vars, environment_var_new(key, value, LOCAL, value != NULL));
-	return (0);
-}
+#endif

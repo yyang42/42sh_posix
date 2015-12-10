@@ -10,38 +10,25 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "export.h"
 #include "environment.h"
+#include "twl_opt.h"
+#include "twl_lst.h"
 
-static bool			find_env_key(void *data, void *context)
+static void			export_something(void *data, void *context)
 {
-	t_environment_var	*var;
-	char				*str;
+	t_environment	*env;
+	char			*arg;
 
-	var = data;
-	str = context;
-	return (twl_strcmp(var->key, str) == 0);
+	arg = data;
+	env = context;
+	if (arg)
+	{
+		environment_setenv(env, arg);
+	}
 }
 
-int					environment_setenv_value(t_environment *this,
-	char *key, char *value)
+void				export_add(t_environment *env, t_opt *opt)
 {
-	t_environment_var	*var;
-
-	if (key == NULL || *key == '\0')
-	{
-		errno = EINVAL;
-		return (-1);
-	}
-	var = (t_environment_var *)(twl_lst_find(this->env_vars, find_env_key,
-																		key));
-	if (var != NULL)
-	{
-		if (var->value)
-			free(var->value);
-		var->value = twl_strdup(value);
-		return (1);
-	}
-	else
-		twl_lst_push(this->env_vars, environment_var_new(key, value, LOCAL, value != NULL));
-	return (0);
+	twl_lst_iter(opt->args, export_something, env);
 }
