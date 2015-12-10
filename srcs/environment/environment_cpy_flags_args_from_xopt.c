@@ -10,25 +10,46 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdbool.h>
-#include "set.h"
+#include "xopt.h"
+#include "environment.h"
+#include "twl_lst.h"
 #include "twl_opt_elem.h"
 
-static bool		find_opt(void *opt_elem_, void *opt_key)
+static void			push_flag(void *data, void *context)
 {
-	t_opt_elem *opt_elem;
+	t_environment	*env;
+	t_opt_elem		*elem;
 
-	opt_elem = opt_elem_;
-	if (twl_strcmp(opt_elem->key, opt_key) == 0)
-		return (true);
-	return (false);
+	elem = data;
+	env = context;
+	if (elem->key)
+		environment_add_flag((char*)elem->key, env);
 }
 
-int				set_opt_exist(t_set_opt *twl_opt, char *opt_key)
+static void			push_args(void *data, void *context)
 {
-	if(twl_lst_find(twl_opt->positive_opts, find_opt, opt_key))
-		return(POSITIVE_OPT);
-	else if(twl_lst_find(twl_opt->negative_opts, find_opt, opt_key))
-		return(NEGATIVE_OPT);
-	return (0);
+	t_environment	*env;
+	char			*arg;
+
+	arg = data;
+	env = context;
+	if (arg)
+		environment_add_pos_param(arg, env);
+}
+
+
+void				environment_cpy_flags_args_from_xopt(t_environment *env)
+{
+	t_xopt	*xopt;
+	t_lst	*opts;
+	t_lst	*args;
+
+	xopt = xopt_singleton();
+
+	opts = xopt_get_opts(xopt);
+	if (opts)
+		twl_lst_iter(opts, push_flag, env);
+	args = xopt_get_args(xopt);
+	if (args)
+		twl_lst_iter(args, push_args, env);
 }

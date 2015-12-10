@@ -10,25 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdbool.h>
-#include "set.h"
-#include "twl_opt_elem.h"
+#include "environment.h"
 
-static bool		find_opt(void *opt_elem_, void *opt_key)
+static void		print_env_var(void *data)
 {
-	t_opt_elem *opt_elem;
+	t_environment_var	*var;
 
-	opt_elem = opt_elem_;
-	if (twl_strcmp(opt_elem->key, opt_key) == 0)
-		return (true);
-	return (false);
+	var = data;
+	if (var->type == ENVIRONMENT)
+		twl_printf("%s=%s\n", var->key, var->value);
 }
 
-int				set_opt_exist(t_set_opt *twl_opt, char *opt_key)
+void			environment_print(t_environment *this)
 {
-	if(twl_lst_find(twl_opt->positive_opts, find_opt, opt_key))
-		return(POSITIVE_OPT);
-	else if(twl_lst_find(twl_opt->negative_opts, find_opt, opt_key))
-		return(NEGATIVE_OPT);
-	return (0);
+	twl_lst_iter0(this->env_vars, print_env_var);
 }

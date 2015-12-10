@@ -21,8 +21,7 @@ static void		add_pos_param(void *data, void *context)
 
 	arg = data;
 	env = context;
-	if (arg && env)
-		twl_lst_push(env->pos_params, twl_strdup(arg));
+	environment_add_pos_param(arg, env);
 }
 
 static bool			cmp_flag(void *elem_data_, void *data_) {
@@ -44,7 +43,9 @@ static void		remove_matching_flag(t_environment *env, char *arg)
 
 	flag = twl_dict_key_from_value(env->flag_verbose, cmp_flag, arg);
 	if (flag)
-		set_remove_flag(flag);
+		environment_remove_flag(flag, env);
+	else
+		twl_dprintf(2, "set: %s: invalid option name\n", arg);
 }
 
 static void		add_matching_flag(t_environment *env, char *arg)
@@ -53,18 +54,21 @@ static void		add_matching_flag(t_environment *env, char *arg)
 
 	flag = twl_dict_key_from_value(env->flag_verbose, cmp_flag, arg);
 	if (flag)
-		set_add_flag(flag);
+		environment_add_flag(flag, env);
+	else
+		twl_dprintf(2, "set: %s: invalid option name\n", arg);
 }
 
-void			set_check_args(t_set_opt *opt)
+void			set_check_args(t_set_opt *opt, t_environment *env)
 {
 	int	i;
-	t_environment *env;
-
-	env = environment_singleton();
 	i = set_opt_exist(opt, "o");
 	if (i == 0)
+	{
+		environment_remove_all_pos_params(env);
+		env->pos_params = twl_lst_new();
 		twl_lst_iter(opt->args, add_pos_param, env);
+	}
 	else if (i == POSITIVE_OPT)
 		remove_matching_flag(env, twl_lst_first(opt->args));
 	else if (i == NEGATIVE_OPT)

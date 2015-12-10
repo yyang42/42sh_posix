@@ -19,7 +19,7 @@ t_environment			*environment_singleton(void)
 	if (!env)
 	{
 		env = environment_new();
-		environment_init_env(env);
+		environment_init(env);
 	}
 	return (env);
 }
