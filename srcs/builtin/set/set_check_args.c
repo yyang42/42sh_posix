@@ -25,11 +25,24 @@ static void		add_pos_param(void *data, void *context)
 		twl_lst_push(env->pos_params, twl_strdup(arg));
 }
 
+static bool			cmp_flag(void *elem_data_, void *data_) {
+
+	char	*data;
+	char	*elem_data;
+
+	data = data_;
+	elem_data = elem_data_;
+
+	if (elem_data == NULL || data == NULL)
+		return(data == elem_data);
+	return (twl_strcmp(data, elem_data) == 0);
+}
+
 static void		remove_matching_flag(t_environment *env, char *arg)
 {
 	char *flag;
 
-	flag = twl_dict_get(env->verbose_flag, arg);
+	flag = twl_dict_key_from_value(env->flag_verbose, cmp_flag, arg);
 	if (flag)
 		set_remove_flag(flag);
 }
@@ -38,7 +51,7 @@ static void		add_matching_flag(t_environment *env, char *arg)
 {
 	char *flag;
 
-	flag = twl_dict_get(env->verbose_flag, arg);
+	flag = twl_dict_key_from_value(env->flag_verbose, cmp_flag, arg);
 	if (flag)
 		set_add_flag(flag);
 }
