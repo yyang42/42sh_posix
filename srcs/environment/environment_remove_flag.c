@@ -10,25 +10,31 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdbool.h>
 #include "set.h"
+#include "environment.h"
+#include "twl_dict.h"
 #include "twl_opt_elem.h"
 
-static bool		find_opt(void *opt_elem_, void *opt_key)
+static bool			find_opt(void *data, void *key)
 {
-	t_opt_elem *opt_elem;
+	t_opt_elem *elem;
 
-	opt_elem = opt_elem_;
-	if (twl_strcmp(opt_elem->key, opt_key) == 0)
-		return (true);
-	return (false);
+	elem = data;
+	return (twl_strcmp(elem->key, key) == 0);
 }
 
-int				set_opt_exist(t_set_opt *twl_opt, char *opt_key)
+
+static void			free_opt(void *data)
 {
-	if(twl_lst_find(twl_opt->positive_opts, find_opt, opt_key))
-		return(POSITIVE_OPT);
-	else if(twl_lst_find(twl_opt->negative_opts, find_opt, opt_key))
-		return(NEGATIVE_OPT);
-	return (0);
+	t_opt_elem *elem;
+
+	elem = data;
+	if (elem->key)
+		free(elem->key);
+	if (elem->value)
+		free(elem->value);
+}
+void				environment_remove_flag(char *flag, t_environment *env)
+{
+	twl_lst_remove_if(env->flags, find_opt, flag, free_opt);
 }

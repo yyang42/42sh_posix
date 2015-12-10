@@ -43,7 +43,7 @@ typedef struct				s_environment_var
 t_environment				*environment_new(void);
 void						environment_del(t_environment *this);
 t_environment				*environment_clone(t_environment *this);
-void						environment_init_env(t_environment *this);
+void						environment_init(t_environment *this);
 void						environment_setenv(t_environment *this, char *str);
 char						*environment_getenv_value(t_environment *this,
 	char *key);
@@ -51,7 +51,7 @@ int							environment_setenv_value(t_environment *t,
 	char *k, char *v);
 t_environment_var			*environment_var_new(char *key, char *value,
 	t_environment_var_type type);
-void						environment_print_env(t_environment *this);
+void						environment_print(t_environment *this);
 void						environment_unsetenv(t_environment *this,
 	char *str);
 t_environment				*environment_singleton(void);
@@ -60,4 +60,12 @@ int							environment_flag_exist(t_environment *this,
 char						*environment_concat_flags(t_environment *env);
 void						environment_print_flags(t_environment *env);
 char						**environment_get_paths(t_environment *this);
+void						environment_add_flag(char *flag,
+														t_environment *env);
+void						environment_remove_flag(char *flag,
+													t_environment *env);
+void						environment_add_pos_param(char *param,
+														t_environment *env);
+void						environment_remove_all_pos_params(
+														t_environment *env);
 #endif

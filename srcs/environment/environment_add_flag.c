@@ -14,14 +14,10 @@
 #include "environment.h"
 #include "twl_opt_elem.h"
 
-void				set_add_flag(char *flag)
+void				environment_add_flag(char *flag, t_environment *env)
 {
-	t_environment		*env;
-
-	env = environment_singleton();
 	if (env && env->flags && !environment_flag_exist(env, flag))
 	{
 		twl_lst_push(env->flags, twl_opt_elem_new(flag, twl_strdup("")));
 	}
-
 }

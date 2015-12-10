@@ -20,7 +20,7 @@ void				prog_run(t_prog *prog)
 
 	twl_printf("== It works!! ==\n");
 	env = environment_new();
-	environment_init_env(env);
+	environment_init(env);
 	environment_del(env);
 	(void)prog;
 }

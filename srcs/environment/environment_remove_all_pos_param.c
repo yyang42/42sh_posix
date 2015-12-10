@@ -12,32 +12,12 @@
 
 #include "set.h"
 #include "environment.h"
-#include "twl_dict.h"
 #include "twl_opt_elem.h"
 
-static bool			find_opt(void *data, void *key)
+void		environment_remove_all_pos_params(t_environment *env)
 {
-	t_opt_elem *elem;
-
-	elem = data;
-	return (twl_strcmp(elem->key, key) == 0);
-}
-
-
-static void			free_opt(void *data)
-{
-	t_opt_elem *elem;
-
-	elem = data;
-	if (elem->key)
-		free(elem->key);
-	if (elem->value)
-		free(elem->value);
-}
-void				set_remove_flag(char *flag)
-{
-	t_environment		*env;
-
-	env = environment_singleton();
-	twl_lst_remove_if(env->flags, find_opt, flag, free_opt);
+	if (env && env->pos_params)
+	{
+		twl_lst_del(env->pos_params, free);
+	}
 }

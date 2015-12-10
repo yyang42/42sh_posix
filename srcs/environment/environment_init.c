@@ -46,7 +46,7 @@ static void			fill_flag_verbose_dict(t_dict *dict)
 	twl_dict_add(dict, "vi", "vi");
 }
 
-void				environment_init_env(t_environment *this)
+void				environment_init(t_environment *this)
 {
 	extern char **environ;
 

@@ -30,11 +30,8 @@ static void			get_flag_verbose(char *key, void *data, void *context)
 }
 
 
-void				set_o_positive()
+void				set_o_positive(t_environment *env)
 {
-	t_environment		*env;
-
-	env = environment_singleton();
 	if (env->flag_verbose)
 		twl_dict_iter(env->flag_verbose, get_flag_verbose, env);
 }

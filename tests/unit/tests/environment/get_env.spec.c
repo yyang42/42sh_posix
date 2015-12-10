@@ -14,7 +14,7 @@ static void copied_env_is_equal_to_environ(t_test *test)
 
 	(void)test;
 	env = environment_new();
-	environment_init_env(env);
+	environment_init(env);
 	i = 0;
 	temp = env->env_vars->head;
 	while (environ[i] != NULL && temp != NULL)
@@ -35,7 +35,7 @@ static void test_set_env(t_test *test)
 	t_environment		*env;
 
 	env = environment_new();
-	environment_init_env(env);
+	environment_init(env);
 	mt_assert(environment_getenv_value(env, "_key") == NULL);
 	mt_assert(environment_getenv_value(env, "PATH") != NULL);
 	environment_setenv(env, "_key=_value");
@@ -55,7 +55,7 @@ static void test_unset_env(t_test *test)
 	t_environment		*env;
 
 	env = environment_new();
-	environment_init_env(env);
+	environment_init(env);
 	environment_setenv(env, "test=_value");
 	mt_assert(environment_getenv_value(env, "test") != NULL);
 	environment_unsetenv(env, "test");
@@ -105,7 +105,7 @@ static void test_get_paths(t_test *test)
 
 	(void)test;
 	env = environment_new();
-	environment_init_env(env);
+	environment_init(env);
 	fpaths = getenv("PATH");
 	paths = twl_strjoinarr((const char **)environment_get_paths(env), ":");
 	mt_assert(twl_strcmp(fpaths, paths) == 0);

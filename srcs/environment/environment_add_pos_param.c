@@ -10,18 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "set.h"
 #include "environment.h"
+#include "twl_opt_elem.h"
 
-static void		print_env_var(void *data)
+void				environment_add_pos_param(char *param, t_environment *env)
 {
-	t_environment_var	*var;
-
-	var = data;
-	if (var->type == ENVIRONMENT)
-		twl_printf("%s=%s\n", var->key, var->value);
-}
-
-void			environment_print_env(t_environment *this)
-{
-	twl_lst_iter0(this->env_vars, print_env_var);
+	if (env && env->pos_params)
+	{
+		twl_lst_push(env->pos_params, twl_strdup(param));
+	}
 }
