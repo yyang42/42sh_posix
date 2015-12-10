@@ -19,10 +19,17 @@
 # include "twl_opt_elem.h"
 # include "execute.h"
 # include <unistd.h>
-# include <sys/stat.h>
 # include <sys/types.h>
 # include <string.h>
+# include <sys/param.h>
+# include <sys/stat.h>
+# include <errno.h>
+# include <fcntl.h>
+# include <stdlib.h>
 
 void 		cd(char *str);
+void		execute_cd(char *path, int no_symlinks, int xattrflag,
+	t_environment *this);
+void		cd_with_env(char *str, t_environment *this);
 
 #endif
