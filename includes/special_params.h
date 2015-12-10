@@ -16,6 +16,8 @@
 char				*test_params_at(t_environment *env);
 char				*params_at(t_environment *env);
 char				*test_params_star(t_environment *env, bool between_quotes);
-char				*params_star(t_environment *env, bool between_quotes);
+char				*params_star(bool between_quotes);
+char				*test_params_sharp(t_environment *env);
+char				*params_sharp(t_environment *env);
 
 #endif
