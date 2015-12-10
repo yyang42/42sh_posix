@@ -11,16 +11,20 @@
 static void test_cd(t_test *test)
 {
 	(void)test;
+	char pwd[2048];
+	char oldpwd[2048];
 	t_environment		*env;
-	// char				*oldpwd;
 
 	env = environment_new();
 	environment_init(env);
-	twl_printf("PATH1 =%s\n", environment_getenv_value(env, "PWD"));
-	cd_with_env("cd /nfs/zfs-student-2/users/atamano/POUET/", env);
-	twl_printf("PATH2 =%s\n", environment_getenv_value(env, "PWD"));
-	cd_with_env("cd -P lol", env);
-	twl_printf("PATH3 =%s\n", environment_getenv_value(env, "PWD"));
+	cd_with_env("cd", env);
+	mt_assert(twl_strcmp(environment_getenv_value(env, "HOME"), environment_getenv_value(env, "PWD")) == 0);
+	getcwd(oldpwd, 2048);
+	cd_with_env("cd /bin", env);
+	getcwd(pwd, 2048);
+	mt_assert(twl_strcmp(oldpwd, environment_getenv_value(env, "OLDPWD")) == 0);
+	cd_with_env("cd -", env);
+	mt_assert(twl_strcmp(pwd, environment_getenv_value(env, "OLDPWD")) == 0);
 }
 
 void	suite_cd(t_suite *suite)

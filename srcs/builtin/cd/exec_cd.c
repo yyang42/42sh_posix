@@ -17,7 +17,6 @@ static void set_oldpwd(t_environment *env)
 	char			*oldpwd;
 
 	oldpwd = environment_getenv_value(env, "PWD");
-	// twl_printf("OLD: %s\n", oldpwd);
 	environment_setenv_value(env, "OLDPWD", oldpwd);
 }
 
@@ -31,16 +30,16 @@ static void cd_symlink(char *path, int no_symlinks, t_environment *this)
 	char buf[1024];
 
 	(void)no_symlinks;
-	// set_oldpwd(this);
+	set_oldpwd(this);
 	if (chdir(path) == 0)
 	{
 		getcwd(buf, 1024);
-		set_pwd(no_symlinks ? path : buf, this);
-		printf("HEHE= %s\n", no_symlinks ? buf : path);
+		set_pwd(no_symlinks ? buf : path, this);
 	}
 }
 
-void	execute_cd(char *path, int no_symlinks, int xattrflag, t_environment *this)
+void		execute_cd(char *path, int no_symlinks, int xattrflag,
+	t_environment *this)
 {
 	struct stat		sb;
 
@@ -52,7 +51,9 @@ void	execute_cd(char *path, int no_symlinks, int xattrflag, t_environment *this)
 		{
 			set_oldpwd(this);
 			if (chdir(path) == 0)
+			{
 				set_pwd(path, this);
+			}
 		}
 		else if (!S_ISDIR(sb.st_mode))
 			twl_dprintf(2, "cd: %s: Not a directory\n", path);

@@ -24,24 +24,22 @@ static void	get_flags(t_opt *opt, int *no_symlinks, int *xattrflag)
 
 static char	*get_dirname_from_arg(t_opt *opt)
 {
-	static char	buf[2048];
+	static char	buf[4096];
 	char 		*dirname;
 
 	dirname = NULL;
-	twl_bzero(buf, 2048);
+	twl_bzero(buf, 4096);
 	dirname = twl_opt_args_get(opt, 0);
 	if (!dirname || *dirname == '\0')
 		return (NULL);
 	if (dirname[0] != '/')
 	{
-		if (!getcwd(buf, 2048))
+		if (!getcwd(buf, 4096))
 		{
 			perror("getcwd");
 			return (NULL);
 		}
-		twl_strcat(buf, "/");
-		twl_strcat(buf, dirname);
-		return (buf);
+		dirname = twl_joinpath(buf, dirname);
 	}
 	return (dirname);
 }
