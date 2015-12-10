@@ -10,36 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENV_H
-# define ENV_H
+#ifndef UNSET_H
+# define UNSET_H
 
-# include "builtin.h"
-# include "environment.h"
-# include "env.h"
-# include "utils.h"
-# include "twl_arr.h"
+# include "basics.h"
 # include "twl_opt.h"
-# include <sys/stat.h>
-# include <sys/types.h>
-# include "twl_stdio.h"
-# include <stdio.h>
-# include "execute.h"
+# include "environment.h"
 
-# define ENV_OPT_VALID_OPTS "i"
+# define UNSET_OPT_VALID_OPTS "fv"
 
-typedef struct		s_env_args
-{
-	char				**args;
-	char				**env_arr;
-	char				*utility;
-	int					utility_index;
-	bool				has_utility;
-	bool				was_executed;
-}					t_env_args;
-
-int					env(char *str);
-void				exec_env(t_env_args *env, t_environment	*clone);
-void				**env_lst_to_arr(t_lst *lst);
-void				add_env_var(void *data_, void *context_);
+void				test_unset(char *str, t_environment *env);
+void				unset(char *str);
 
 #endif

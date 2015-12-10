@@ -13,6 +13,7 @@
 #include "export.h"
 #include "environment.h"
 #include "twl_opt.h"
+#include "builtin.h"
 
 void				export(char	*str)
 {
@@ -26,12 +27,14 @@ void				export(char	*str)
 	opt = twl_opt_new(arr, EXPORT_OPT_VALID_OPTS);
 	if ((c = twl_opt_check_invalid_opts(opt)))
 	{
-			export_add(env, opt);
+		check_invalid_opts(opt, "export", c);
 	}
 	else
 	{
-		if (twl_opt_exist(opt, "p"))
+		if (twl_opt_exist(opt, "p") && twl_opt_args_len(opt) == 0)
 			export_verbose(env);
+		else
+			export_add(env, opt);
 	}
 }
 
@@ -45,7 +48,7 @@ void				test_export(char *str, t_environment *env)
 	opt = twl_opt_new(arr, EXPORT_OPT_VALID_OPTS);
 	if ((c = twl_opt_check_invalid_opts(opt)))
 	{
-		twl_printf("OPPPPUS\n");
+		check_invalid_opts(opt, "export", c);
 	}
 	else
 	{
