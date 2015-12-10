@@ -38,14 +38,14 @@ char				*params_star()
 	return (ret);
 }
 
-char				*test_params_star(t_environment *env)
+char				*test_params_star(t_environment *env, bool between_quotes)
 {
 	char			*ret;
 	char			*sep;
 	char			*ifs;
 
 	ifs = environment_getenv_value(env, "IFS");
-	if (ifs == NULL)
+	if (ifs == NULL || between_quotes == true)
 		sep = twl_strdup(" ");
 	else if (*ifs == 0)
 		sep = twl_strdup("");
