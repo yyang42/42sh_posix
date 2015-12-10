@@ -27,6 +27,15 @@ typedef enum				e_environment_var_type
 	LOCAL
 }							t_environment_var_type;
 
+typedef struct				s_environment_info
+{
+	int						last_exit_status;
+	int						cur_shell_pid;
+	int						parent_shell_pid;
+	int						most_recent_background_command_pid;
+	char					*name;
+}							t_environment_info;
+
 typedef struct				s_environment
 {
 	t_lst					*env_vars;
@@ -34,6 +43,7 @@ typedef struct				s_environment
 	t_lst					*flags;
 	t_dict					*flag_verbose;
 	t_dict					*shell_func;
+	t_environment_info		info;
 }							t_environment;
 
 typedef struct				s_environment_var

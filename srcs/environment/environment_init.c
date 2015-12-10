@@ -16,6 +16,15 @@
 #include "twl_arr.h"
 #include "xopt.h"
 
+static void			init_env_info(t_environment_info *info)
+{
+	info->last_exit_status = 42;
+	info->cur_shell_pid = 42;
+	info->parent_shell_pid = 42;
+	info->most_recent_background_command_pid = 42;
+	info->name = twl_strdup("le shell qui mal !");
+}
+
 static void			init_env(void *elem, void *context)
 {
 	char			*environ_elem;
@@ -49,4 +58,5 @@ void				environment_init(t_environment *this)
 	this->flag_verbose = twl_dict_new();
 	this->shell_func = twl_dict_new();
 	fill_flag_verbose_dict(this->flag_verbose);
+	init_env_info(&this->info);
 }
