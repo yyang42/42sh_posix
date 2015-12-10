@@ -18,5 +18,10 @@ char		**environment_get_paths(t_environment *this)
 	char			*str;
 
 	str = environment_getenv_value(this, "PATH");
-	return (str ? twl_strsplit(str, ':') : NULL);
+	if (str == NULL || *str == '\0')
+	{
+		errno = EINVAL;
+		return (NULL);
+	}
+	return (twl_strsplit(str, ':'));
 }

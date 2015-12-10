@@ -31,5 +31,10 @@ static void			clear_environment(void *data)
 
 void				environment_unsetenv(t_environment *this, char *key)
 {
+	if (key == NULL || *key == '\0')
+	{
+		errno = EINVAL;
+		return ;
+	}
 	twl_lst_remove_if(this->env_vars, find_env_key, key, clear_environment);
 }

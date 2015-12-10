@@ -27,6 +27,11 @@ int					environment_setenv_value(t_environment *this,
 {
 	t_environment_var	*var;
 
+	if (key == NULL || *key == '\0')
+	{
+		errno = EINVAL;
+		return (-1);
+	}
 	var = (t_environment_var *)(twl_lst_find(this->env_vars, find_env_key,
 																		key));
 	if (var != NULL)

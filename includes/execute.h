@@ -10,23 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "environment.h"
+#ifndef EXECUTE_H
+# define EXECUTE_H
+# include "basics.h"
 
-t_environment_var	*environment_var_new(char *key, char *value,
-	t_environment_var_type type)
-{
-	t_environment_var	*this;
+# include "basics.h"
+# include <errno.h>
+# include "environment.h"
+# include "env.h"
+# include "utils.h"
+# include "twl_arr.h"
+# include "twl_opt.h"
+# include <sys/stat.h>
+# include <sys/types.h>
+# include "twl_stdio.h"
+# include <stdio.h>
+# include <string.h>
 
-	if (key == NULL || *key == '\0')
-	{
-		errno = EINVAL;
-		return (NULL);
-	}
-	value = value ? value : "";
-	this = twl_malloc_x0(sizeof(t_environment_var));
-	this->value = twl_strdup(value);
-	this->key = twl_strdup(key);
-	this->read_only = 0;
-	this->type = type;
-	return (this);
-}
+int				execute(char *path, char **args, char **env);
+
+#endif

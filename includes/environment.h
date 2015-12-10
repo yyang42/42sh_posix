@@ -16,6 +16,7 @@
 # include "basics.h"
 
 # include "twl_dict.h"
+# include <errno.h>
 
 typedef enum				e_environment_var_type
 {

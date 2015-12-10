@@ -10,54 +10,47 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "execute.h"
 
-static int		arr2_indexof(char **args, char *to_find)
+static int		execute2(char *path, char **args, char **env)
 {
-	int i;
+	int			pid;
 
-	i = 0;
-	while (args[i])
+	pid = fork();
+	if (pid == -1)
 	{
-		if (!twl_strcmp(args[i], to_find))
-			return (i);
-		i++;
+		twl_dprintf(2, "cannot fork: %s", strerror(errno));
+		return (-1);
 	}
-	return (-1);
-}
-
-static void		exec_with_path(void *elem, void *context)
-{
-	char		*path;
-	t_env_args	*env;
-	struct stat	sb;
-	int			index;
-
-	path = elem;
-	env = context;
-	path = twl_joinpath(path, env->utility);
-	if (!stat(path, &sb))
-	{
-		index = arr2_indexof(env->args, env->utility);
-		env->was_executed = execute(path, &env->args[index],
-			env->env_arr);
+	else if (pid == 0)
+	{	
+		execve(path, args, env);
+		perror(path);
+		exit(0);
 	}
-}
-
-void			exec_env(t_env_args *env, t_environment *this)
-{
-	char	**fpaths;
-	int		index;
-
-	fpaths = environment_get_paths(this);
-	if (fpaths && !twl_strchr(env->utility, '/'))
-		twl_arr_iter(fpaths, exec_with_path, env);
 	else
 	{
-		index = arr2_indexof(env->args, env->utility);
-		env->was_executed = execute(env->utility, &env->args[index],
-			env->env_arr);
+		wait(&pid);
+		return (1);
 	}
-	if (!env->was_executed)
-		twl_dprintf(2, "env: %s: No such file or directory\n", env->utility);
+	return (0);
+}
+
+int				execute(char *path, char **args, char **env)
+{
+	struct stat	sb;
+
+	if (!stat(path, &sb))
+	{
+		if (S_ISREG(sb.st_mode) && sb.st_mode & 0111)
+			return (execute2(path, args, env));
+		else
+		{
+			twl_dprintf(2, "%s: %s: Permission denied\n", path, args[0]);
+			return (-1);
+		}
+	}
+	else
+		perror(path);
+	return (0);
 }

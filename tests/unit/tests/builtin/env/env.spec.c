@@ -8,9 +8,11 @@
 static void test_env(t_test *test)
 {
 	(void)test;
-	env("env -i pouet=asdhashd");
+	env("env -i pouet=asdhashd /bin");
+	env("env -i pouet=asdhashd /bin/ls -y");
 	env("env -p pouet=asdhashd");
-	env("env -i /nfs/zfs-student-2/users/atamano/42Projects/teamWorks/mgiraud42sh/POUET");
+	env("env -i pouet=asdasdasdads sadads=asdasd choucroute=bien");
+	env("env -i  cd");
 }
 
 void	suite_env(t_suite *suite)

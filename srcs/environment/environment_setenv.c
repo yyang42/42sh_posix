@@ -18,6 +18,11 @@ void				environment_setenv(t_environment *this, char *str)
 	char				*value;
 	char				*key;
 
+	if (str == NULL || *str == '\0' || !twl_strchr (str, '='))
+	{
+		errno = EINVAL;
+		return ;
+	}
 	value = twl_strchr(str, '=');
 	key = twl_strsub(str, 0, twl_strlen(str) - twl_strlen(value));
 	value = value ? value + 1 : "";
