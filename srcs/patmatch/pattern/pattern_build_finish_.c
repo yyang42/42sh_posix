@@ -12,20 +12,16 @@
 
 #include "pattern.h"
 
-void				pattern_build_special_(t_pattern *this)
+void				pattern_build_finish_(t_pattern *this)
 {
-	if (this->itp_ == 0)
-	{
-		this->to_push_->split[0] = this->pattern[this->index];
-		this->to_push_->fixed = false;
-	}
-	else
+	if (this->itp_)
 	{
 		pattern_build_push_(this);
-		pattern_build_data_(this);
-		this->to_push_->split[0] = this->pattern[this->index];
-		this->to_push_->fixed = false;
 	}
-	pattern_build_push_(this);
-	this->index += 1;
+	else if (this->to_push_)
+	{
+		free(this->to_push_->split);
+		free(this->to_push_);
+		this->to_push_ = NULL;
+	}
 }

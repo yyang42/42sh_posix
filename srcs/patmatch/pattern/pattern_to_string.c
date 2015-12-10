@@ -12,20 +12,24 @@
 
 #include "pattern.h"
 
-void				pattern_build_special_(t_pattern *this)
+static void			iter_to_string(void *data_, void *ret_)
 {
-	if (this->itp_ == 0)
-	{
-		this->to_push_->split[0] = this->pattern[this->index];
-		this->to_push_->fixed = false;
-	}
+	t_pattern_data	*data;
+	char			**ret;
+
+	data = data_;
+	ret = ret_;
+	if (!*ret)
+		*ret = twl_strdup(data->split);
 	else
-	{
-		pattern_build_push_(this);
-		pattern_build_data_(this);
-		this->to_push_->split[0] = this->pattern[this->index];
-		this->to_push_->fixed = false;
-	}
-	pattern_build_push_(this);
-	this->index += 1;
+		*ret = twl_strjoinfree(*ret, data->split, 'l');
+}
+
+char				*pattern_to_string(t_pattern *this)
+{
+	char			*ret;
+
+	ret = NULL;
+	twl_lst_iter(this->split, &iter_to_string, &ret);
+	return (ret);
 }
