@@ -10,29 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "set.h"
 #include "environment.h"
+#include "twl_dict.h"
+#include "twl_opt_elem.h"
 
-static void			*copy_fn(void *data)
+static void			free_func(void *data)
 {
-	t_environment_var *var;
-
-	var = twl_malloc_x0(sizeof(t_environment_var));
-	var->key = twl_strdup(((t_environment_var *)data)->key);
-	var->value = twl_strdup(((t_environment_var *)data)->value);
-	var->read_only = ((t_environment_var *)data)->read_only;
-	var->type = ((t_environment_var *)data)->type;
-	return (var);
+	(void)data;
 }
-
-t_environment		*environment_clone(t_environment *this)
+void				environment_remove_shell_func(t_environment *env, char *key)
 {
-	t_environment *clone;
-
-	clone = twl_malloc_x0(sizeof(t_environment));
-	clone->env_vars = twl_lst_copy(this->env_vars, copy_fn);
-	// @TODO
-	// clone->flag_verbose = twl_lst_copy(this->env_vars, copy_dict);
-	// clone->shell_func = twl_lst_copy(this->env_vars, copy_dict);
-	return (clone);
+	twl_dict_delone(env->shell_func, key, free_func);
 }

@@ -21,5 +21,7 @@
 
 void				test_unset(char *str, t_environment *env);
 void				unset(char *str);
+int					unset_variable(t_environment *env, t_opt *opt);
+int					unset_function(t_environment *env, t_opt *opt);
 
 #endif

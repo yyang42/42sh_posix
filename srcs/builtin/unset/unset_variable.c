@@ -10,29 +10,40 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "unset.h"
 #include "environment.h"
+#include "twl_opt.h"
 
-static void			*copy_fn(void *data)
+static void			unset_something(void *data, void *context, void *ret_)
 {
-	t_environment_var *var;
+	t_environment		*env;
+	char				*arg;
+	int					*ret;
+	t_environment_var	*var;
 
-	var = twl_malloc_x0(sizeof(t_environment_var));
-	var->key = twl_strdup(((t_environment_var *)data)->key);
-	var->value = twl_strdup(((t_environment_var *)data)->value);
-	var->read_only = ((t_environment_var *)data)->read_only;
-	var->type = ((t_environment_var *)data)->type;
-	return (var);
+	arg = data;
+	env = context;
+	ret = ret_;
+	if (arg)
+	{
+		if ((var = environment_get(env, arg)))
+		{
+			if (var->read_only != READ_ONLY)
+			{
+				environment_unsetenv(env, arg);
+				*ret = 1;
+			}
+			else
+				twl_printf("unset: %s: cannot unset: readonly variable", var->key);
+		}
+	}
 }
 
-t_environment		*environment_clone(t_environment *this)
+int				unset_variable(t_environment *env, t_opt *opt)
 {
-	t_environment *clone;
+	int	ret;
 
-	clone = twl_malloc_x0(sizeof(t_environment));
-	clone->env_vars = twl_lst_copy(this->env_vars, copy_fn);
-	// @TODO
-	// clone->flag_verbose = twl_lst_copy(this->env_vars, copy_dict);
-	// clone->shell_func = twl_lst_copy(this->env_vars, copy_dict);
-	return (clone);
+	ret = 0;
+	twl_lst_iter2(opt->args, unset_something, env, &ret);
+	return ret;
 }

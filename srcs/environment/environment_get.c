@@ -10,29 +10,28 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "environment.h"
 
-static void			*copy_fn(void *data)
+static bool			find_env_key(void *data, void *context)
 {
-	t_environment_var *var;
+	t_environment_var	*var;
+	char				*str;
 
-	var = twl_malloc_x0(sizeof(t_environment_var));
-	var->key = twl_strdup(((t_environment_var *)data)->key);
-	var->value = twl_strdup(((t_environment_var *)data)->value);
-	var->read_only = ((t_environment_var *)data)->read_only;
-	var->type = ((t_environment_var *)data)->type;
-	return (var);
+	var = data;
+	str = context;
+	return (twl_strcmp(var->key, str) == 0);
 }
 
-t_environment		*environment_clone(t_environment *this)
+t_environment_var	*environment_get(t_environment *this, char *key)
 {
-	t_environment *clone;
+	t_environment_var	*var;
 
-	clone = twl_malloc_x0(sizeof(t_environment));
-	clone->env_vars = twl_lst_copy(this->env_vars, copy_fn);
-	// @TODO
-	// clone->flag_verbose = twl_lst_copy(this->env_vars, copy_dict);
-	// clone->shell_func = twl_lst_copy(this->env_vars, copy_dict);
-	return (clone);
+	if (key == NULL || *key == '\0')
+	{
+		errno = EINVAL;
+		return (NULL);
+	}
+	var = (t_environment_var *)(twl_lst_find(this->env_vars,
+													find_env_key, key));
+	return (var);
 }
