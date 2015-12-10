@@ -10,38 +10,48 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "export.h"
 #include "environment.h"
+#include "twl_opt.h"
 
-static bool			find_env_key(void *data, void *context)
+void				export(char	*str)
 {
-	t_environment_var	*var;
-	char				*str;
+	t_opt			*opt;
+	char			**arr;
+	char			*c;
+	t_environment	*env;
 
-	var = data;
-	str = context;
-	return (twl_strcmp(var->key, str) == 0);
-}
-
-int					environment_setenv_value(t_environment *this,
-	char *key, char *value)
-{
-	t_environment_var	*var;
-
-	if (key == NULL || *key == '\0')
+	env = environment_singleton();
+	arr = twl_strsplit_mul(str, " \n\t");
+	opt = twl_opt_new(arr, EXPORT_OPT_VALID_OPTS);
+	if ((c = twl_opt_check_invalid_opts(opt)))
 	{
-		errno = EINVAL;
-		return (-1);
-	}
-	var = (t_environment_var *)(twl_lst_find(this->env_vars, find_env_key,
-																		key));
-	if (var != NULL)
-	{
-		if (var->value)
-			free(var->value);
-		var->value = twl_strdup(value);
-		return (1);
+			export_add(env, opt);
 	}
 	else
-		twl_lst_push(this->env_vars, environment_var_new(key, value, LOCAL, value != NULL));
-	return (0);
+	{
+		if (twl_opt_exist(opt, "p"))
+			export_verbose(env);
+	}
+}
+
+void				test_export(char *str, t_environment *env)
+{
+	t_opt			*opt;
+	char			**arr;
+	char			*c;
+
+	arr = twl_strsplit_mul(str, " \n\t");
+	opt = twl_opt_new(arr, EXPORT_OPT_VALID_OPTS);
+	if ((c = twl_opt_check_invalid_opts(opt)))
+	{
+		twl_printf("OPPPPUS\n");
+	}
+	else
+	{
+		if (twl_opt_exist(opt, "p") && twl_opt_args_len(opt) == 0)
+			export_verbose(env);
+		else
+			export_add(env, opt);
+	}
 }

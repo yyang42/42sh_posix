@@ -13,7 +13,7 @@
 #include "environment.h"
 
 t_environment_var	*environment_var_new(char *key, char *value,
-	t_environment_var_type type)
+	t_environment_var_type type, bool value_is_set)
 {
 	t_environment_var	*this;
 
@@ -26,7 +26,8 @@ t_environment_var	*environment_var_new(char *key, char *value,
 	this = twl_malloc_x0(sizeof(t_environment_var));
 	this->value = twl_strdup(value);
 	this->key = twl_strdup(key);
-	this->read_only = 0;
+	this->read_only = NOT_READ_ONLY;
 	this->type = type;
+	this->value_is_set = value_is_set;
 	return (this);
 }

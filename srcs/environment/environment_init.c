@@ -18,17 +18,12 @@
 
 static void			init_env(void *elem, void *context)
 {
-	char			*key;
-	char			*value;
-	char			*environ;
+	char			*environ_elem;
 	t_environment	*this;
 
-	environ = elem;
+	environ_elem = elem;
 	this = context;
-	value = twl_strchr(environ, '=');
-	key = twl_strsub(environ, 0, twl_strlen(environ) - twl_strlen(value));
-	value = value ? value + 1 : "";
-	twl_lst_push(this->env_vars, environment_var_new(key, value, ENVIRONMENT));
+	environment_setenv(this, environ_elem);
 }
 
 static void			fill_flag_verbose_dict(t_dict *dict)

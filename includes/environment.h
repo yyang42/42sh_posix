@@ -18,6 +18,9 @@
 # include "twl_dict.h"
 # include <errno.h>
 
+# define READ_ONLY 1
+# define NOT_READ_ONLY 0
+
 typedef enum				e_environment_var_type
 {
 	ENVIRONMENT,
@@ -38,6 +41,7 @@ typedef struct				s_environment_var
 	char					*value;
 	int						read_only;
 	t_environment_var_type	type;
+	int						value_is_set;
 }							t_environment_var;
 
 t_environment				*environment_new(void);
@@ -50,7 +54,7 @@ char						*environment_getenv_value(t_environment *this,
 int							environment_setenv_value(t_environment *t,
 	char *k, char *v);
 t_environment_var			*environment_var_new(char *key, char *value,
-	t_environment_var_type type);
+	t_environment_var_type type, bool value_is_set);
 void						environment_print(t_environment *this);
 void						environment_unsetenv(t_environment *this,
 	char *str);
@@ -68,4 +72,8 @@ void						environment_add_pos_param(char *param,
 														t_environment *env);
 void						environment_remove_all_pos_params(
 														t_environment *env);
+char						*environment_concat_pos_param_char(t_environment
+																*env,char *sep);
+void				environment_setenv_or_setlocal__(t_environment *this,
+									char *str, t_environment_var_type type);
 #endif

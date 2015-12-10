@@ -15,19 +15,5 @@
 
 void				environment_setenv(t_environment *this, char *str)
 {
-	char				*value;
-	char				*key;
-
-	if (str == NULL || *str == '\0' || !twl_strchr (str, '='))
-	{
-		errno = EINVAL;
-		return ;
-	}
-	value = twl_strchr(str, '=');
-	key = twl_strsub(str, 0, twl_strlen(str) - twl_strlen(value));
-	value = value ? value + 1 : "";
-	if (environment_getenv_value(this, key))
-		environment_setenv_value(this, key, value);
-	else
-		twl_lst_push(this->env_vars, environment_var_new(key, value, ENVIRONMENT));
+	environment_setenv_or_setlocal__(this, str, ENVIRONMENT);
 }

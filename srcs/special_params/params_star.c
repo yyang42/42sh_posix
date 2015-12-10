@@ -10,38 +10,51 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "basics.h"
+#include "prog.h"
 #include "environment.h"
+#include "twl_lst.h"
 
-static bool			find_env_key(void *data, void *context)
+char				*params_star()
 {
-	t_environment_var	*var;
-	char				*str;
+	t_environment	*env;
+	char			*ret;
+	char			*ifs;
+	char			*sep;
 
-	var = data;
-	str = context;
-	return (twl_strcmp(var->key, str) == 0);
+	env = environment_singleton();
+	ifs = environment_getenv_value(env, "IFS");
+	if (ifs == NULL)
+		sep = twl_strdup(" ");
+	else if (*ifs == 0)
+		sep = twl_strdup("");
+	else
+		sep = twl_strdup(ifs);
+	if (twl_lst_len(env->pos_params) > 0)
+		ret = environment_concat_pos_param_char(env, sep);
+	else
+		ret = twl_strdup("");
+	free(sep);
+	return (ret);
 }
 
-int					environment_setenv_value(t_environment *this,
-	char *key, char *value)
+char				*test_params_star(t_environment *env)
 {
-	t_environment_var	*var;
+	char			*ret;
+	char			*sep;
+	char			*ifs;
 
-	if (key == NULL || *key == '\0')
-	{
-		errno = EINVAL;
-		return (-1);
-	}
-	var = (t_environment_var *)(twl_lst_find(this->env_vars, find_env_key,
-																		key));
-	if (var != NULL)
-	{
-		if (var->value)
-			free(var->value);
-		var->value = twl_strdup(value);
-		return (1);
-	}
+	ifs = environment_getenv_value(env, "IFS");
+	if (ifs == NULL)
+		sep = twl_strdup(" ");
+	else if (*ifs == 0)
+		sep = twl_strdup("");
 	else
-		twl_lst_push(this->env_vars, environment_var_new(key, value, LOCAL, value != NULL));
-	return (0);
+		sep = twl_strdup(ifs);
+	if (twl_lst_len(env->pos_params) > 0)
+		ret = environment_concat_pos_param_char(env, sep);
+	else
+		ret = twl_strdup("");
+	free(sep);
+	return (ret);
 }

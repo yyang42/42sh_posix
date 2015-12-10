@@ -10,38 +10,26 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "export.h"
 #include "environment.h"
+#include "twl_opt.h"
+#include "twl_lst.h"
 
-static bool			find_env_key(void *data, void *context)
+static void			export_something(void *data)
 {
-	t_environment_var	*var;
-	char				*str;
+	t_environment_var	*env_var;
 
-	var = data;
-	str = context;
-	return (twl_strcmp(var->key, str) == 0);
+	env_var = data;
+	if (env_var->read_only == NOT_READ_ONLY)
+	{
+		if (env_var->value_is_set == true)
+			twl_printf("export\t%s=\"%s\"\n", env_var->key, env_var->value);
+		else
+			twl_printf("export\t%s\n", env_var->key);
+	}
 }
 
-int					environment_setenv_value(t_environment *this,
-	char *key, char *value)
+void				export_verbose(t_environment *env)
 {
-	t_environment_var	*var;
-
-	if (key == NULL || *key == '\0')
-	{
-		errno = EINVAL;
-		return (-1);
-	}
-	var = (t_environment_var *)(twl_lst_find(this->env_vars, find_env_key,
-																		key));
-	if (var != NULL)
-	{
-		if (var->value)
-			free(var->value);
-		var->value = twl_strdup(value);
-		return (1);
-	}
-	else
-		twl_lst_push(this->env_vars, environment_var_new(key, value, LOCAL, value != NULL));
-	return (0);
+	twl_lst_iter0(env->env_vars, export_something);
 }

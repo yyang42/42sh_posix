@@ -10,22 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cd.h"
+#ifndef EXPORT_H
+# define EXPORT_H
 
-// static int	setpwd(char *dirname)
-// {
+# include "basics.h"
+# include "twl_opt.h"
+# include "environment.h"
 
-// }
+# define EXPORT_OPT_VALID_OPTS "p"
 
-void 		cd(char *str)
-{
-	t_opt				*opt;
-	char				**args;
+void				test_export(char *str, t_environment *env);
+void				export(char *str);
+void				export_verbose(t_environment *env);
+void				export_add(t_environment *env, t_opt *opt);
 
-	if (!str || *str == '\0')
-		return ;
-	args = twl_strsplit_mul(str, " \t");
-	opt = twl_opt_new(args, "LP@");
-	if (!check_invalid_opts(opt, "cd", "LP@"))
-		return ;
-}
+#endif

@@ -10,38 +10,39 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "xopt.h"
 #include "environment.h"
+#include "twl_string.h"
+#include "twl_lst.h"
+#include "twl_opt_elem.h"
 
-static bool			find_env_key(void *data, void *context)
+static void			concat_pos_param(void *data, void *context, void *sep_)
 {
-	t_environment_var	*var;
-	char				*str;
+	char		*elem;
+	char		**concat_ptr;
+	char		*concat;
+	char		*sep;
 
-	var = data;
-	str = context;
-	return (twl_strcmp(var->key, str) == 0);
+	elem = data;
+	sep = sep_;
+	concat_ptr = context;
+	concat = *concat_ptr;
+	if (elem)
+	{
+		if (twl_strcmp(concat, "") != 0)
+			concat = twl_strjoinfree(concat, sep, 'l');
+		concat = twl_strjoinfree(concat, elem, 'l');
+		*concat_ptr = concat;
+	}
 }
 
-int					environment_setenv_value(t_environment *this,
-	char *key, char *value)
+char				*environment_concat_pos_param_char(t_environment *env,
+																	char *sep)
 {
-	t_environment_var	*var;
+	char	*concat;
 
-	if (key == NULL || *key == '\0')
-	{
-		errno = EINVAL;
-		return (-1);
-	}
-	var = (t_environment_var *)(twl_lst_find(this->env_vars, find_env_key,
-																		key));
-	if (var != NULL)
-	{
-		if (var->value)
-			free(var->value);
-		var->value = twl_strdup(value);
-		return (1);
-	}
-	else
-		twl_lst_push(this->env_vars, environment_var_new(key, value, LOCAL, value != NULL));
-	return (0);
+	concat = twl_strdup("");
+	if (env && env->pos_params)
+		twl_lst_iter2(env->pos_params, concat_pos_param, &concat, sep);
+	return concat;
 }
