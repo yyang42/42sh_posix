@@ -19,5 +19,6 @@ t_patmatch			*patmatch_new(void)
 	t_patmatch		*this;
 
 	this = twl_malloc_x0(sizeof(t_patmatch));
+	patmatch_build_class_expr_(this);
 	return (this);
 }

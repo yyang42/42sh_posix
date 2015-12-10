@@ -12,20 +12,18 @@
 
 #include "pattern.h"
 
-void				pattern_build_special_(t_pattern *this)
+void				pattern_build_simple_quote_(t_pattern *this)
 {
-	if (this->itp_ == 0)
-	{
-		this->to_push_->split[0] = this->pattern[this->index];
-		this->to_push_->fixed = false;
-	}
-	else
-	{
-		pattern_build_push_(this);
-		pattern_build_data_(this);
-		this->to_push_->split[0] = this->pattern[this->index];
-		this->to_push_->fixed = false;
-	}
-	pattern_build_push_(this);
 	this->index += 1;
+	while (this->pattern[this->index])
+	{
+		if (this->pattern[this->index] == '\'')
+		{
+			this->index += 1;
+			break ;
+		}
+		this->to_push_->split[this->itp_] = this->pattern[this->index];
+		this->itp_ += 1;
+		this->index += 1;
+	}
 }

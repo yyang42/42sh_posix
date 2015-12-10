@@ -21,6 +21,13 @@ typedef struct		s_pattern_data
 	bool			fixed;
 }					t_pattern_data;
 
+typedef struct		s_pattern_bracket_
+{
+	char			*save;
+	int				index;
+	int				flag;
+}					t_pattern_bracket_;
+
 typedef struct		s_pattern
 {
 	t_lst			*split;
@@ -39,12 +46,20 @@ void				pattern_del(t_pattern *this);
 
 void				pattern_build_(t_pattern *this);
 void				pattern_build_data_(t_pattern *this);
+void				pattern_build_push_(t_pattern *this);
 void				pattern_build_escaped_(t_pattern *this);
+void				pattern_build_special_(t_pattern *this);
+void				pattern_build_bracket_(t_pattern *this);
+void				pattern_build_simple_quote_(t_pattern *this);
+void				pattern_build_double_quote_(t_pattern *this);
+void				pattern_build_normal_char_(t_pattern *this);
+void				pattern_build_finish_(t_pattern *this);
 
 /*
 ** Public method to simplify my life <3
 */
 
 char				*pattern_get_begin_file(t_pattern *this);
+char				*pattern_to_string(t_pattern *this);
 
 #endif

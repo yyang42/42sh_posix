@@ -11,29 +11,26 @@
 /* ************************************************************************** */
 
 #include "pattern.h"
-
-static bool			is_special(t_pattern *this)
-{
-	if (this->pattern[index] == '*' || this->pattern[index] = '?')
-		return (true);
-	return (false);
-}
-
-static bool			is_escaped(t_pattern *this)
-{
-	if (this->pattern[this->index] == '\\')
-		return (true);
-	return (false);
-}
+#include <stdio.h>
 
 void				pattern_build_(t_pattern *this)
 {
 	while (this->pattern[this->index])
 	{
 		pattern_build_data_(this);
-		if (is_escaped(this))
+		if (this->pattern[this->index] == '\\')
 			pattern_build_escaped_(this);
-		else if (is_special(this))
+		else if (this->pattern[this->index] == '*' ||
+											this->pattern[this->index] == '?')
 			pattern_build_special_(this);
+		else if (this->pattern[this->index] == '[')
+			pattern_build_bracket_(this);
+		else if (this->pattern[this->index] == '\'')
+			pattern_build_simple_quote_(this);
+		else if (this->pattern[this->index] == '"')
+			pattern_build_double_quote_(this);
+		else
+			pattern_build_normal_char_(this);
 	}
+	pattern_build_finish_(this);
 }
