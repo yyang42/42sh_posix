@@ -46,6 +46,21 @@ static void			fill_flag_verbose_dict(t_dict *dict)
 	twl_dict_add(dict, "vi", "vi");
 }
 
+static void			fill_verbose_flag_dict(t_dict *dict)
+{
+	twl_dict_add(dict, "allexport", "a");
+	twl_dict_add(dict, "errexit", "e");
+	twl_dict_add(dict, "noclobber", "C");
+	twl_dict_add(dict, "noglob", "f");
+	twl_dict_add(dict, "notify", "b");
+	twl_dict_add(dict, "ignoreeof", "ignoreeof");
+	twl_dict_add(dict, "monitor", "m");
+	twl_dict_add(dict, "noexec", "n");
+	twl_dict_add(dict, "nounset", "u");
+	twl_dict_add(dict, "verbose", "v");
+	twl_dict_add(dict, "vi", "vi");
+}
+
 void				environment_init_env(t_environment *this)
 {
 	extern char **environ;
@@ -53,4 +68,5 @@ void				environment_init_env(t_environment *this)
 	twl_arr_iter(environ, init_env, this);
 	this->flag_verbose = twl_dict_new();
 	fill_flag_verbose_dict(this->flag_verbose);
+	fill_verbose_flag_dict(this->verbose_flag);
 }

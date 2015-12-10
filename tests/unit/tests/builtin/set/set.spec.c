@@ -36,35 +36,55 @@ static void test_unset_flag(t_test *test)
     mt_assert(twl_strcmp(flags, "") == 0);
 }
 
-// static void     test_o_positive(t_test *test)
-// {
-//     t_environment        *env;
-//
-//     (void)test;
-//     env = environment_singleton();
-//     set("set -a");
-//     set("set -e");
-//     set("set -f");
-//     set("set +o");
-// }
-//
-// static void     test_o_negative(t_test *test)
-// {
-//     t_environment        *env;
-//
-//     (void)test;
-//     env = environment_singleton();
-//     set("set -a");
-//     set("set -e");
-//     set("set -f");
-//     set("set -o");
-// }
+static void test_wrong_flag(t_test *test)
+{
+	t_environment		*env;
+	char				*flags;
+
+	(void)test;
+	env = environment_singleton();
+	set("set -z");
+	flags = environment_concat_flags(env);
+	mt_assert(twl_strcmp(flags, "") == 0);
+}
+
+static void 	test_o_positive(t_test *test)
+{
+	t_environment		*env;
+	char				*flags;
+
+	(void)test;
+	set("set -a");
+	set("set -e");
+	set("set -f");
+	set("set +o");
+	env = environment_singleton();
+	flags = environment_concat_flags(env);
+	mt_assert(twl_strcmp(flags, "aef") == 0);
+}
+
+static void 	test_o_negative(t_test *test)
+{
+	t_environment		*env;
+	char				*flags;
+
+	(void)test;
+	set("set +a");
+	set("set +e");
+	set("set -f");
+	set("set -o");
+	env = environment_singleton();
+	flags = environment_concat_flags(env);
+	mt_assert(twl_strcmp(flags, "f") == 0);
+}
+
 
 void            suite_set(t_suite *suite)
 {
-    (void)suite;
-    SUITE_ADD_TEST(suite, test_set_flag);
-    SUITE_ADD_TEST(suite, test_unset_flag);
-    // SUITE_ADD_TEST(suite, test_o_positive);
-    // SUITE_ADD_TEST(suite, test_o_negative);
+	(void)suite;
+	SUITE_ADD_TEST(suite, test_set_flag);
+	SUITE_ADD_TEST(suite, test_unset_flag);
+	SUITE_ADD_TEST(suite, test_wrong_flag);
+	SUITE_ADD_TEST(suite, test_o_positive);
+	SUITE_ADD_TEST(suite, test_o_negative);
 }
