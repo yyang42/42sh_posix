@@ -17,6 +17,6 @@
 # include "twl_opt.h"
 # include "twl_stdio.h"
 
-int				check_invalid(t_opt *opt, char *exe_name, char *flags);
+int				check_invalid_opts(t_opt *opt, char *exe_name, char *flags);
 
 #endif

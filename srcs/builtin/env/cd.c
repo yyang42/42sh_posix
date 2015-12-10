@@ -26,4 +26,6 @@ void 		cd(char *str)
 		return ;
 	args = twl_strsplit_mul(str, " \t");
 	opt = twl_opt_new(args, "LP@");
+	if (!check_invalid_opts(opt, "cd", "LP@"))
+		return ;
 }

@@ -12,7 +12,7 @@
 
 #include "builtin.h"
 
-int				check_invalid(t_opt *opt, char *exe_name, char *flags)
+int				check_invalid_opts(t_opt *opt, char *exe_name, char *flags)
 {
 	char				*invalid;
 
