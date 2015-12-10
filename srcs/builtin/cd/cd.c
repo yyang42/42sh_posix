@@ -22,6 +22,30 @@ static void	get_flags(t_opt *opt, int *no_symlinks, int *xattrflag)
 		*xattrflag = 1;
 }
 
+static char	*get_dirname_from_arg(t_opt *opt)
+{
+	static char	buf[2048];
+	char 		*dirname;
+
+	dirname = NULL;
+	twl_bzero(buf, 2048);
+	dirname = twl_opt_args_get(opt, 0);
+	if (!dirname || *dirname == '\0')
+		return (NULL);
+	if (dirname[0] != '/')
+	{
+		if (!getcwd(buf, 2048))
+		{
+			perror("getcwd");
+			return (NULL);
+		}
+		twl_strcat(buf, "/");
+		twl_strcat(buf, dirname);
+		return (buf);
+	}
+	return (dirname);
+}
+
 static int	get_dirname(char **dirname, t_opt *opt, char *str)
 {
 	t_environment		*this;
@@ -50,11 +74,31 @@ static int	get_dirname(char **dirname, t_opt *opt, char *str)
 	return (0);
 }
 
-static void	execute_cd(char *dirname, int no_symlinks, int xattrflag)
+static void	execute_cd(char *path, int no_symlinks, int xattrflag)
 {
-	(void)dirname;
-	(void)no_symlinks;
-	(void)xattrflag;
+	struct stat		sb;
+	char			*oldpwd;
+	t_environment	*env;
+
+	env = environment_singleton();
+	oldpwd = environment_getenv_value(env, "PWD");
+	if (!stat(path, &sb))
+	{
+		if (S_ISDIR(sb.st_mode) && sb.st_mode & 0111)
+		{
+			environment_setenv_value(env, "OLDPWD", oldpwd);
+			chdir(path);
+			environment_setenv_value(env, "PWD", path);
+		}
+		else if (!S_ISDIR(sb.st_mode))
+			twl_dprintf(2, "cd: %s: Not a directory\n", path);
+		else if (S_ISDIR(sb.st_mode) && !(sb.st_mode & 0111))
+			twl_dprintf(2, "cd: %s: Permission denied\n", path);
+		(void)no_symlinks;
+		(void)xattrflag;
+	}
+	else
+		twl_dprintf(2, "cd: %s: No such file or directory\n", path);
 }
 
 void 		cd(char *str)
@@ -78,6 +122,9 @@ void 		cd(char *str)
 	if (get_dirname(&dirname, opt, str) < 0)
 		return ;
 	else if (!dirname)
-		dirname = twl_opt_args_get(opt, 0);
+	{
+		if (!(dirname = get_dirname_from_arg(opt)))
+			return ;
+	}
 	execute_cd(dirname, no_symlinks, xattrflag);
 }

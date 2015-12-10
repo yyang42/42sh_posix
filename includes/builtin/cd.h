@@ -18,6 +18,10 @@
 # include "twl_opt.h"
 # include "twl_opt_elem.h"
 # include "execute.h"
+# include <unistd.h>
+# include <sys/stat.h>
+# include <sys/types.h>
+# include <string.h>
 
 void 		cd(char *str);
 
