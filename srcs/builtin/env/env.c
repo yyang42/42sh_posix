@@ -66,5 +66,5 @@ int				env(char *str)
 		environment_print_env(clone);
 	environment_del(clone);
 	twl_opt_del(opt);
-	return (1)
+	return (1);
 }
