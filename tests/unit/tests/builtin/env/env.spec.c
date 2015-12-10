@@ -8,9 +8,10 @@
 static void test_env(t_test *test)
 {
 	(void)test;
-	// env("env -i pouet=asdhashd");
-	// env("env -p pouet=asdhashd");
-	env("env -i ls");
+	env("env -i pouet=asdhashd");
+	env("env -p pouet=asdhashd");
+	env("env -i pouet=asdasdasdads sadads=asdasd choucroute=bien");
+	// env("env -i  cd");
 }
 
 void	suite_env(t_suite *suite)

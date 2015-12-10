@@ -26,6 +26,11 @@ char				*environment_getenv_value(t_environment *this, char *key)
 {
 	t_environment_var	*var;
 
+	if (key == NULL || *key == '\0')
+	{
+		errno = EINVAL;
+		return (NULL);
+	}
 	var = (t_environment_var *)(twl_lst_find(this->env_vars,
 													find_env_key, key));
 	return (var ? var->value : NULL);
