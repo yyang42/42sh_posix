@@ -36,7 +36,7 @@ typedef struct		s_env_args
 
 int					env(char *str);
 void				exec_env(t_env_args *env, t_environment	*clone);
-int					check_invalid(t_opt *opt);
+int					check_invalid(t_opt *opt, char *exec_name, char *flags);
 void				**env_lst_to_arr(t_lst *lst);
 void				add_env_var(void *data_, void *context_);
 
