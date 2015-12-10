@@ -82,17 +82,17 @@ static void		exec_with_path(void *elem, void *context)
 	if (!stat(path, &sb))
 	{
 		index = arr2_indexof(env->args, env->utility);
-		env->was_executed = execute(env->utility, &env->args[index],
+		env->was_executed = execute(path, &env->args[index],
 			env->env_arr);
 	}
 }
 
-void			exec_env(t_env_args *env, t_environment *clone)
+void			exec_env(t_env_args *env, t_environment *this)
 {
 	char	**fpaths;
 	int		index;
 
-	fpaths = environment_get_paths(clone);
+	fpaths = environment_get_paths(this);
 	if (fpaths && !twl_strchr(env->utility, '/'))
 		twl_arr_iter(fpaths, exec_with_path, env);
 	else

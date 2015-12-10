@@ -47,6 +47,8 @@ void			env(char *str)
 	t_opt				*opt;
 	t_env_args			env;
 
+	if (!str || *str == '\0')
+		return ;
 	clone = NULL;
 	init_env_args(&env, str);
 	opt = twl_opt_new(env.args, "i");
@@ -61,9 +63,7 @@ void			env(char *str)
 	if (env.has_utility)
 		exec_env(&env, this);
 	else
-	{
 		environment_print_env(clone);
-		environment_del(clone);
-		twl_opt_del(opt);
-	}
+	environment_del(clone);
+	twl_opt_del(opt);
 }
