@@ -59,7 +59,7 @@ void				pattern_build_finish_(t_pattern *this);
 ** Public method to simplify my life <3
 */
 
-char				*pattern_get_begin_file(t_pattern *this);
+char				pattern_get_begin_file(t_pattern *this);
 char				*pattern_to_string(t_pattern *this);
 
 #endif
