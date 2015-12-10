@@ -10,17 +10,28 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SPECIAL_PARAMS
-# define SPECIAL_PARAMS
+#include "environment.h"
 
-char				*test_params_at(t_environment *env);
-char				*params_at();
-char				*test_params_star(t_environment *env, bool between_quotes);
-char				*params_star(bool between_quotes);
-char				*test_params_sharp(t_environment *env);
-char				*params_sharp();
-char				*test_params_question(t_environment *env);
-char				*params_question();
-char				*test_params_hyphen(t_environment *env);
-char				*params_hyphen(t_environment *env);
-#endif
+static bool			find_env_key(void *data, void *context)
+{
+	t_environment_var	*var;
+	char				*str;
+
+	var = data;
+	str = context;
+	return (twl_strcmp(var->key, str) == 0);
+}
+
+t_environment_var	*environment_get(t_environment *this, char *key)
+{
+	t_environment_var	*var;
+
+	if (key == NULL || *key == '\0')
+	{
+		errno = EINVAL;
+		return (NULL);
+	}
+	var = (t_environment_var *)(twl_lst_find(this->env_vars,
+													find_env_key, key));
+	return (var);
+}

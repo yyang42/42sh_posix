@@ -25,6 +25,8 @@
 # include <stdio.h>
 # include "execute.h"
 
+# define ENV_OPT_VALID_OPTS "i"
+
 typedef struct		s_env_args
 {
 	char				**args;

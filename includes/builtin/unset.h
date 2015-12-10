@@ -10,17 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SPECIAL_PARAMS
-# define SPECIAL_PARAMS
+#ifndef UNSET_H
+# define UNSET_H
 
-char				*test_params_at(t_environment *env);
-char				*params_at();
-char				*test_params_star(t_environment *env, bool between_quotes);
-char				*params_star(bool between_quotes);
-char				*test_params_sharp(t_environment *env);
-char				*params_sharp();
-char				*test_params_question(t_environment *env);
-char				*params_question();
-char				*test_params_hyphen(t_environment *env);
-char				*params_hyphen(t_environment *env);
+# include "basics.h"
+# include "twl_opt.h"
+# include "environment.h"
+
+# define UNSET_OPT_VALID_OPTS "fv"
+
+void				test_unset(char *str, t_environment *env);
+void				unset(char *str);
+int					unset_variable(t_environment *env, t_opt *opt);
+int					unset_function(t_environment *env, t_opt *opt);
+
 #endif

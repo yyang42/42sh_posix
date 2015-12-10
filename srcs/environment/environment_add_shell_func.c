@@ -10,17 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SPECIAL_PARAMS
-# define SPECIAL_PARAMS
+#include "set.h"
+#include "environment.h"
+#include "twl_opt_elem.h"
 
-char				*test_params_at(t_environment *env);
-char				*params_at();
-char				*test_params_star(t_environment *env, bool between_quotes);
-char				*params_star(bool between_quotes);
-char				*test_params_sharp(t_environment *env);
-char				*params_sharp();
-char				*test_params_question(t_environment *env);
-char				*params_question();
-char				*test_params_hyphen(t_environment *env);
-char				*params_hyphen(t_environment *env);
-#endif
+void				environment_add_shell_func(t_environment *env,
+														char *key, char *data)
+{
+	if (key)
+	{
+		twl_dict_add(env->shell_func, key, data);
+	}
+}

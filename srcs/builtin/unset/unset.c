@@ -10,12 +10,25 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "export.h"
+#include "unset.h"
 #include "environment.h"
 #include "twl_opt.h"
 #include "builtin.h"
 
-void				export(char	*str)
+static void			check_flags(t_environment *env, t_opt *opt)
+{
+	if (twl_opt_exist(opt, "f"))
+		unset_function(env, opt);
+	else if (twl_opt_exist(opt, "v"))
+		unset_variable(env, opt);
+	else
+	{
+		if (unset_variable(env, opt) == 0)
+			unset_function(env, opt);
+	}
+}
+
+void				unset(char	*str)
 {
 	t_opt			*opt;
 	char			**arr;
@@ -24,37 +37,33 @@ void				export(char	*str)
 
 	env = environment_singleton();
 	arr = twl_strsplit_mul(str, " \n\t");
-	opt = twl_opt_new(arr, EXPORT_OPT_VALID_OPTS);
+	opt = twl_opt_new(arr, UNSET_OPT_VALID_OPTS);
 	if ((c = twl_opt_check_invalid_opts(opt)))
-	{
-		check_invalid_opts(opt, "export", c);
-	}
+		check_invalid_opts(opt, "unset", c);
 	else
 	{
-		if (twl_opt_exist(opt, "p") && twl_opt_args_len(opt) == 0)
-			export_verbose(env);
+		if (twl_opt_get_param(opt, "f") && twl_opt_get_param(opt, "v"))
+			twl_printf("unset: cannot simultaneously unset a function and a variable");
 		else
-			export_add(env, opt);
+			check_flags(env, opt);
 	}
 }
 
-void				test_export(char *str, t_environment *env)
+void				test_unset(char *str, t_environment *env)
 {
 	t_opt			*opt;
 	char			**arr;
 	char			*c;
 
 	arr = twl_strsplit_mul(str, " \n\t");
-	opt = twl_opt_new(arr, EXPORT_OPT_VALID_OPTS);
+	opt = twl_opt_new(arr, UNSET_OPT_VALID_OPTS);
 	if ((c = twl_opt_check_invalid_opts(opt)))
-	{
-		check_invalid_opts(opt, "export", c);
-	}
+		check_invalid_opts(opt, "unset", c);
 	else
 	{
-		if (twl_opt_exist(opt, "p") && twl_opt_args_len(opt) == 0)
-			export_verbose(env);
+		if (twl_opt_get_param(opt, "f") && twl_opt_get_param(opt, "v"))
+			twl_printf("unset: cannot simultaneously unset a function and a variable");
 		else
-			export_add(env, opt);
+			check_flags(env, opt);
 	}
 }

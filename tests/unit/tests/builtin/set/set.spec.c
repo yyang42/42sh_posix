@@ -100,6 +100,23 @@ static void 	test_set_pos_param(t_test *test)
 	environment_del(env);
 }
 
+static void 	test_set_hyphen(t_test *test)
+{
+	t_environment		*env;
+	char				*flags;
+
+	(void)test;
+	env = environment_new();
+	environment_init(env);
+	test_set("set --", env);
+	mt_assert(twl_lst_len(env->pos_params) == 0);
+	test_set("set -e -- hihi haha", env);
+	mt_assert(twl_lst_len(env->pos_params) == 2);
+	flags = environment_concat_flags(env);
+	mt_assert(twl_strcmp(flags, "e") == 0);
+	environment_del(env);
+}
+
 
 void            suite_set(t_suite *suite)
 {
@@ -110,4 +127,5 @@ void            suite_set(t_suite *suite)
 	SUITE_ADD_TEST(suite, test_set_verbose);
 	SUITE_ADD_TEST(suite, test_unset_verbose);
 	SUITE_ADD_TEST(suite, test_set_pos_param);
+	SUITE_ADD_TEST(suite, test_set_hyphen);
 }

@@ -27,12 +27,23 @@ typedef enum				e_environment_var_type
 	LOCAL
 }							t_environment_var_type;
 
+typedef struct				s_environment_info
+{
+	int						last_exit_status;
+	int						cur_shell_pid;
+	int						parent_shell_pid;
+	int						most_recent_background_command_pid;
+	char					*name;
+}							t_environment_info;
+
 typedef struct				s_environment
 {
 	t_lst					*env_vars;
 	t_lst					*pos_params;
 	t_lst					*flags;
 	t_dict					*flag_verbose;
+	t_dict					*shell_func;
+	t_environment_info		info;
 }							t_environment;
 
 typedef struct				s_environment_var
@@ -74,6 +85,11 @@ void						environment_remove_all_pos_params(
 														t_environment *env);
 char						*environment_concat_pos_param_char(t_environment
 																*env,char *sep);
-void				environment_setenv_or_setlocal__(t_environment *this,
+void						environment_setenv_or_setlocal__(t_environment *this,
 									char *str, t_environment_var_type type);
+t_environment_var			*environment_get(t_environment *this, char *key);
+void				environment_remove_shell_func(t_environment *env,
+																	char *key);
+void				environment_add_shell_func(t_environment *env,
+														char *key, char *data);
 #endif

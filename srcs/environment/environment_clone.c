@@ -31,5 +31,8 @@ t_environment		*environment_clone(t_environment *this)
 
 	clone = twl_malloc_x0(sizeof(t_environment));
 	clone->env_vars = twl_lst_copy(this->env_vars, copy_fn);
+	// @TODO
+	// clone->flag_verbose = twl_lst_copy(this->env_vars, copy_dict);
+	// clone->shell_func = twl_lst_copy(this->env_vars, copy_dict);
 	return (clone);
 }

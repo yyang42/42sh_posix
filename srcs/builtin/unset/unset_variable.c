@@ -10,17 +10,40 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SPECIAL_PARAMS
-# define SPECIAL_PARAMS
+#include "unset.h"
+#include "environment.h"
+#include "twl_opt.h"
 
-char				*test_params_at(t_environment *env);
-char				*params_at();
-char				*test_params_star(t_environment *env, bool between_quotes);
-char				*params_star(bool between_quotes);
-char				*test_params_sharp(t_environment *env);
-char				*params_sharp();
-char				*test_params_question(t_environment *env);
-char				*params_question();
-char				*test_params_hyphen(t_environment *env);
-char				*params_hyphen(t_environment *env);
-#endif
+static void			unset_something(void *data, void *context, void *ret_)
+{
+	t_environment		*env;
+	char				*arg;
+	int					*ret;
+	t_environment_var	*var;
+
+	arg = data;
+	env = context;
+	ret = ret_;
+	if (arg)
+	{
+		if ((var = environment_get(env, arg)))
+		{
+			if (var->read_only != READ_ONLY)
+			{
+				environment_unsetenv(env, arg);
+				*ret = 1;
+			}
+			else
+				twl_printf("unset: %s: cannot unset: readonly variable", var->key);
+		}
+	}
+}
+
+int				unset_variable(t_environment *env, t_opt *opt)
+{
+	int	ret;
+
+	ret = 0;
+	twl_lst_iter2(opt->args, unset_something, env, &ret);
+	return ret;
+}
