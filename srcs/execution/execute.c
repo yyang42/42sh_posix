@@ -10,34 +10,46 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENV_H
-# define ENV_H
+#include "execute.h"
 
-# include "environment.h"
-# include "env.h"
-# include "utils.h"
-# include "twl_arr.h"
-# include "twl_opt.h"
-# include <sys/stat.h>
-# include <sys/types.h>
-# include "twl_stdio.h"
-# include <stdio.h>
-# include "execute.h"
-
-typedef struct		s_env_args
+static int		execute2(char *path, char **args, char **env)
 {
-	char				**args;
-	char				**env_arr;
-	char				*utility;
-	int					utility_index;
-	bool				has_utility;
-	bool				was_executed;
-}					t_env_args;
+	int			pid;
 
-void				env(char *str);
-void				exec_env(t_env_args *env, t_environment	*clone);
-int					check_invalid(t_opt *opt);
-void				**env_lst_to_arr(t_lst *lst);
-void				add_env_var(void *data_, void *context_);
+	pid = fork();
+	if (pid == -1)
+	{
+		perror("fork");
+		return (-1);
+	}
+	else if (pid == 0)
+	{
+		int i;
+		i = execve(path, args, env);
+		perror("env");
+		exit(EXIT_FAILURE);
+	}
+	else
+	{
+		wait(&pid);
+		return (1);
+	}
+	return (0);
+}
 
-#endif
+int				execute(char *path, char **args, char **env)
+{
+	struct stat	sb;
+
+	if (!stat(path, &sb))
+	{
+		if (S_ISREG(sb.st_mode) && sb.st_mode & 0111)
+			return (execute2(path, args, env));
+		else
+		{
+			twl_dprintf(2, "env: %s: Permission denied\n", args[0]);
+			return (-1);
+		}
+	}
+	return (0);
+}

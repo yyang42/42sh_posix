@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include "env.h"
-#include "twl_stdio.h"
-#include <stdio.h>
 
 static int		arr2_indexof(char **args, char *to_find)
 {
@@ -26,47 +24,6 @@ static int		arr2_indexof(char **args, char *to_find)
 		i++;
 	}
 	return (-1);
-}
-
-static int		execute2(char *path, char **args, char **env)
-{
-	int			pid;
-
-	pid = fork();
-	if (pid == -1)
-	{
-		perror("fork");
-		return (-1);
-	}
-	else if (pid == 0)
-	{
-		execve(path, args, env);
-		perror("env");
-		exit(EXIT_FAILURE);
-	}
-	else
-	{
-		wait(&pid);
-		return (1);
-	}
-	return (0);
-}
-
-static int		execute(char *path, char **args, char **env)
-{
-	struct stat	sb;
-
-	if (!stat(path, &sb))
-	{
-		if (S_ISREG(sb.st_mode) && sb.st_mode & 0111)
-			return (execute2(path, args, env));
-		else if (S_ISREG(sb.st_mode))
-		{
-			twl_dprintf(2, "env: %s: Permission denied\n", args[0]);
-			return (-1);
-		}
-	}
-	return (0);
 }
 
 static void		exec_with_path(void *elem, void *context)
