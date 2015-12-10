@@ -11,7 +11,7 @@ typedef struct		s_set_opt
 	char			*cmd;
 }					t_set_opt;
 
-void				set(char *str);
+int					env(char *str);
 t_set_opt			*set_opt_new(char **argv, char *valid_opts);
 void				set_opt_del(t_set_opt *xopt);
 char				**set_opt_new_parse_arg_opt_and_return_non_opt_args__(

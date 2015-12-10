@@ -40,7 +40,7 @@ static void		init_env_args(t_env_args *env, char *str)
 	env->args = twl_strsplit_mul(str, " \t");
 }
 
-void			env(char *str)
+int				env(char *str)
 {
 	t_environment		*clone;
 	t_environment		*this;
@@ -48,12 +48,12 @@ void			env(char *str)
 	t_env_args			env;
 
 	if (!str || *str == '\0')
-		return ;
+		return (-1);
 	clone = NULL;
 	init_env_args(&env, str);
 	opt = twl_opt_new(env.args, "i");
 	if (!check_invalid(opt))
-		return ;
+		return (-1);
 	this = environment_singleton();
 	clone = !twl_lst_len(opt->opts) ? environment_clone(this)
 		: environment_new();
@@ -66,4 +66,5 @@ void			env(char *str)
 		environment_print_env(clone);
 	environment_del(clone);
 	twl_opt_del(opt);
+	return (1)
 }
