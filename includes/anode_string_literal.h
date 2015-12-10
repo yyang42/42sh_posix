@@ -10,15 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "anode.h"
+#ifndef ANODE_STRING_LITERAL_H
+# define ANODE_STRING_LITERAL_H
 
-char						*anode_to_string(void *anode)
+# include "basics.h"
+# include "anode_type.h"
+
+typedef struct				s_anode_string_literal
 {
-	if (anode_get_type(anode) == ANODE_COMPOUND_STMT)
-		return ("ANODE_COMPOUND_STMT");
-	else if (anode_get_type(anode) == ANODE_IF_STMT)
-		return ("ANODE_IF_STMT");
-	else if (anode_get_type(anode) == ANODE_STRING_LITERAL)
-		return ("ANODE_STRING_LITERAL");
-	return ("NOT_FOUND");
-}
+	t_anode_type			type;
+	char					*text;
+}							t_anode_string_literal;
+
+t_anode_string_literal		*anode_string_literal_new(char *text);
+void						anode_string_literal_del(
+												t_anode_string_literal *this);
+
+#endif

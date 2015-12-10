@@ -17,6 +17,9 @@
 
 # include "anode_compound_stmt.h"
 
+# define AST_SEPARATOR_OP ";&"
+# define AST_WHITE_SPACE "\t\n "
+
 typedef struct				s_ast
 {
 	char					*raw;

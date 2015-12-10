@@ -10,15 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "anode.h"
+#include "twl_xstdlib.h"
 
-char						*anode_to_string(void *anode)
+#include "anode_string_literal.h"
+
+t_anode_string_literal			*anode_string_literal_new(char *text)
 {
-	if (anode_get_type(anode) == ANODE_COMPOUND_STMT)
-		return ("ANODE_COMPOUND_STMT");
-	else if (anode_get_type(anode) == ANODE_IF_STMT)
-		return ("ANODE_IF_STMT");
-	else if (anode_get_type(anode) == ANODE_STRING_LITERAL)
-		return ("ANODE_STRING_LITERAL");
-	return ("NOT_FOUND");
+	t_anode_string_literal		*this;
+
+	this = twl_malloc_x0(sizeof(t_anode_string_literal));
+	this->type = ANODE_STRING_LITERAL;
+	this->text = twl_strdup(text);
+	return (this);
 }

@@ -15,12 +15,14 @@
 
 # include "basics.h"
 # include "anode_type.h"
+# include "anode_compound_stmt.h"
 
 typedef struct				s_anode_if_stmt
 {
 	t_anode_type			type;
-	void					*body_part;
-	void					*else_part;
+	void					*cond;
+	t_anode_compound_stmt	*body;
+	t_anode_compound_stmt	*elze;
 }							t_anode_if_stmt;
 
 t_anode_if_stmt				*anode_if_stmt_new(void);

@@ -18,7 +18,8 @@
 typedef enum		e_anode_type
 {
 	ANODE_COMPOUND_STMT,
-	ANODE_IF_STMT
+	ANODE_IF_STMT,
+	ANODE_STRING_LITERAL
 }					t_anode_type;
 
 #endif

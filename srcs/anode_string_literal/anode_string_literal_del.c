@@ -10,15 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "anode.h"
+#include <stdlib.h>
 
-char						*anode_to_string(void *anode)
+#include "anode_string_literal.h"
+
+void				anode_string_literal_del(t_anode_string_literal *this)
 {
-	if (anode_get_type(anode) == ANODE_COMPOUND_STMT)
-		return ("ANODE_COMPOUND_STMT");
-	else if (anode_get_type(anode) == ANODE_IF_STMT)
-		return ("ANODE_IF_STMT");
-	else if (anode_get_type(anode) == ANODE_STRING_LITERAL)
-		return ("ANODE_STRING_LITERAL");
-	return ("NOT_FOUND");
+	free(this);
 }

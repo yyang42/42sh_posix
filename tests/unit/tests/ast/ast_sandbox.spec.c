@@ -6,7 +6,7 @@ static void sandbox(t_test *test)
 {
 	t_ast			*ast;
 
-	ast = ast_new("if [ 2 -eq 2 ] ; then echo YES; else echo NO ; fi");
+	ast = ast_new("if [ 2 -eq 2 ] ; then echo YES; else echo NO ; fi ; echo abc");
 	ast_print(ast);
 	mt_assert(true);
 }
