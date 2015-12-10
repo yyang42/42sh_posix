@@ -14,6 +14,8 @@
 # define EXECUTE_H
 # include "basics.h"
 
+# include "basics.h"
+# include <errno.h>
 # include "environment.h"
 # include "env.h"
 # include "utils.h"
@@ -23,6 +25,7 @@
 # include <sys/types.h>
 # include "twl_stdio.h"
 # include <stdio.h>
+# include <string.h>
 
 int				execute(char *path, char **args, char **env);
 

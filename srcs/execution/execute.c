@@ -19,15 +19,15 @@ static int		execute2(char *path, char **args, char **env)
 	pid = fork();
 	if (pid == -1)
 	{
-		perror("fork");
+		twl_dprintf(2, "cannot fork: %s", strerror(errno));
 		return (-1);
 	}
 	else if (pid == 0)
 	{
-		int i;
-		i = execve(path, args, env);
-		perror("env");
-		exit(EXIT_FAILURE);
+		
+		execve(path, args, env);
+		perror(path);
+		exit(0);
 	}
 	else
 	{
@@ -47,9 +47,11 @@ int				execute(char *path, char **args, char **env)
 			return (execute2(path, args, env));
 		else
 		{
-			twl_dprintf(2, "env: %s: Permission denied\n", args[0]);
+			twl_dprintf(2, "%s: %s: Permission denied\n", path, args[0]);
 			return (-1);
 		}
 	}
+	else
+		perror(path);
 	return (0);
 }
