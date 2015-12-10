@@ -10,34 +10,22 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENV_H
-# define ENV_H
+#include "cd.h"
 
-# include "builtin.h"
-# include "environment.h"
-# include "env.h"
-# include "utils.h"
-# include "twl_arr.h"
-# include "twl_opt.h"
-# include <sys/stat.h>
-# include <sys/types.h>
-# include "twl_stdio.h"
-# include <stdio.h>
-# include "execute.h"
+// static int	setpwd(char *dirname)
+// {
 
-typedef struct		s_env_args
+// }
+
+void 		cd(char *str)
 {
+	t_opt				*opt;
 	char				**args;
-	char				**env_arr;
-	char				*utility;
-	int					utility_index;
-	bool				has_utility;
-	bool				was_executed;
-}					t_env_args;
 
-int					env(char *str);
-void				exec_env(t_env_args *env, t_environment	*clone);
-void				**env_lst_to_arr(t_lst *lst);
-void				add_env_var(void *data_, void *context_);
-
-#endif
+	if (!str || *str == '\0')
+		return ;
+	args = twl_strsplit_mul(str, " \t");
+	opt = twl_opt_new(args, "LP@");
+	if (!check_invalid_opts(opt, "cd", "LP@"))
+		return ;
+}

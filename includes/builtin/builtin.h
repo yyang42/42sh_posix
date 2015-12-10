@@ -10,34 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENV_H
-# define ENV_H
+#ifndef BUILTIN_H
+# define BUILTIN_H
 
-# include "builtin.h"
-# include "environment.h"
-# include "env.h"
-# include "utils.h"
 # include "twl_arr.h"
 # include "twl_opt.h"
-# include <sys/stat.h>
-# include <sys/types.h>
 # include "twl_stdio.h"
-# include <stdio.h>
-# include "execute.h"
 
-typedef struct		s_env_args
-{
-	char				**args;
-	char				**env_arr;
-	char				*utility;
-	int					utility_index;
-	bool				has_utility;
-	bool				was_executed;
-}					t_env_args;
-
-int					env(char *str);
-void				exec_env(t_env_args *env, t_environment	*clone);
-void				**env_lst_to_arr(t_lst *lst);
-void				add_env_var(void *data_, void *context_);
+int				check_invalid_opts(t_opt *opt, char *exe_name, char *flags);
 
 #endif
