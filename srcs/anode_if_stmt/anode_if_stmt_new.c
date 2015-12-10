@@ -10,22 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_H
-# define AST_H
+#include "twl_xstdlib.h"
 
-# include "basics.h"
+#include "anode_if_stmt.h"
 
-# include "anode_compound_stmt.h"
-
-typedef struct				s_ast
+t_anode_if_stmt			*anode_if_stmt_new(void)
 {
-	char					*raw;
-	t_anode_compound_stmt	*root;
-}							t_ast;
+	t_anode_if_stmt		*this;
 
-t_ast						*ast_new(char *input);
-void						ast_del(t_ast *this);
-
-void						ast_print(t_ast *this);
-
-#endif
+	this = twl_malloc_x0(sizeof(t_anode_if_stmt));
+	this->type = ANODE_IF_STMT;
+	return (this);
+}

@@ -10,22 +10,22 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_H
-# define AST_H
+#ifndef ANODE_COMPOUND_STMT_H
+# define ANODE_COMPOUND_STMT_H
+
+# include "twl_lst.h"
 
 # include "basics.h"
 
-# include "anode_compound_stmt.h"
+# include "anode_type.h"
 
-typedef struct				s_ast
+typedef struct				s_anode_compound_stmt
 {
-	char					*raw;
-	t_anode_compound_stmt	*root;
-}							t_ast;
+	t_anode_type			type;
+	t_lst					*items;
+}							t_anode_compound_stmt;
 
-t_ast						*ast_new(char *input);
-void						ast_del(t_ast *this);
-
-void						ast_print(t_ast *this);
+t_anode_compound_stmt		*anode_compound_stmt_new(void);
+void						anode_compound_stmt_del(t_anode_compound_stmt *this);
 
 #endif

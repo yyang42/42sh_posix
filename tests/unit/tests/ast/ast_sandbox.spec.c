@@ -6,9 +6,9 @@ static void sandbox(t_test *test)
 {
 	t_ast			*ast;
 
-	ast = ast_new("if [ 2 -eq 2 ] ; then echo abc ; fi");
+	ast = ast_new("if [ 2 -eq 2 ] ; then echo YES; else echo NO ; fi");
 	ast_print(ast);
-	mt_assert(0);
+	mt_assert(true);
 }
 
 void	suite_ast_sandbox(t_suite *suite)

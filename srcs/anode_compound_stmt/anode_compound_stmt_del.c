@@ -10,22 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_H
-# define AST_H
+#include <stdlib.h>
 
-# include "basics.h"
+#include "anode_compound_stmt.h"
 
-# include "anode_compound_stmt.h"
-
-typedef struct				s_ast
+void				anode_compound_stmt_del(t_anode_compound_stmt *this)
 {
-	char					*raw;
-	t_anode_compound_stmt	*root;
-}							t_ast;
-
-t_ast						*ast_new(char *input);
-void						ast_del(t_ast *this);
-
-void						ast_print(t_ast *this);
-
-#endif
+	free(this);
+}
