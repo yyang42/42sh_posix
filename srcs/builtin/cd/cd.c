@@ -12,35 +12,26 @@
 
 #include "cd.h"
 
-static void	get_flags(t_opt *opt, int *no_symlinks, int *xattrflag)
+static void	get_flags(t_opt *opt, int *no_symlinks)
 {
 	if (twl_opt_exist(opt, "P"))
 		*no_symlinks = 1;
 	if (twl_opt_exist(opt, "L"))
 		*no_symlinks = 0;
-	if (twl_opt_exist(opt, "@"))
-		*xattrflag = 1;
 }
 
-static char	*get_dirname_from_arg(t_opt *opt)
+static char	*get_dirname_from_arg(t_opt *opt, t_environment *this)
 {
-	static char	buf[4096];
-	char 		*dirname;
+	static char	buf[MAX_SIZE];
+	char		*dirname;
 
 	dirname = NULL;
-	twl_bzero(buf, 4096);
+	twl_bzero(buf, MAX_SIZE);
 	dirname = twl_opt_args_get(opt, 0);
 	if (!dirname || *dirname == '\0')
 		return (NULL);
-	if (dirname[0] != '/')
-	{
-		if (!getcwd(buf, 4096))
-		{
-			perror("getcwd");
-			return (NULL);
-		}
-		dirname = twl_joinpath(buf, dirname);
-	}
+	if (dirname[0] != '/' && twl_strncmp(dirname, "..", 2) != 0)
+		dirname = get_cdpath(dirname, this);
 	return (dirname);
 }
 
@@ -49,7 +40,7 @@ static int	get_dirname(char **dirname, t_opt *opt, char *str, t_environment *thi
 	if (twl_opt_args_len(opt) == 0)
 	{
 		*dirname = environment_getenv_value(this, "HOME");
-		if (*dirname == NULL)
+		if (*dirname == NULL || **dirname == '\0')
 		{
 			twl_dprintf(2, "%s: HOME not set\n", str);
 			return (-1);
@@ -74,27 +65,27 @@ void		cd_with_env(char *str, t_environment *this)
 	int					no_symlinks;
 	t_opt				*opt;
 	char				**args;
-	int					xattrflag;
 	char				*dirname;
 
 	if (!str || *str == '\0')
 		return ;
 	dirname = NULL;
-	xattrflag = 0;
 	no_symlinks = 0;
 	args = twl_strsplit_mul(str, " \t");
-	opt = twl_opt_new(args, "LP@");
-	if (!check_invalid_opts(opt, "cd", "LP@"))
+	opt = twl_opt_new(args, "LP");
+	if (!check_invalid_opts(opt, "cd", "LP"))
 		return ;
-	get_flags(opt, &no_symlinks, &xattrflag);
+	get_flags(opt, &no_symlinks);
 	if (get_dirname(&dirname, opt, str, this) < 0)
 		return ;
 	else if (!dirname)
 	{
-		if (!(dirname = get_dirname_from_arg(opt)))
+		if (!(dirname = get_dirname_from_arg(opt, this)))
 			return ;
 	}
-	execute_cd(dirname, no_symlinks, xattrflag, this);
+	if (dirname && dirname[0] != '/')
+		dirname = join_pwd_to_path(dirname);
+	execute_cd(dirname, no_symlinks, this);
 }
 
 void 		cd(char *str)

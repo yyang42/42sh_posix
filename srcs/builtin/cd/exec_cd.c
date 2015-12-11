@@ -38,29 +38,29 @@ static void cd_symlink(char *path, int no_symlinks, t_environment *this)
 	}
 }
 
-void		execute_cd(char *path, int no_symlinks, int xattrflag,
-	t_environment *this)
+void		execute_cd(char *path, int no_symlinks, t_environment *this)
 {
 	struct stat		sb;
+	char			*new_path;
 
-	if (!lstat(path, &sb))
+	new_path = set_canonical_form(path);
+	if (!lstat(new_path, &sb))
 	{
 		if (S_ISLNK(sb.st_mode))
-			cd_symlink(path, no_symlinks, this);
+			cd_symlink(new_path, no_symlinks, this);
 		else if (S_ISDIR(sb.st_mode) && sb.st_mode & 0111)
 		{
 			set_oldpwd(this);
-			if (chdir(path) == 0)
+			if (chdir(new_path) == 0)
 			{
-				set_pwd(path, this);
+				set_pwd(new_path, this);
 			}
 		}
 		else if (!S_ISDIR(sb.st_mode))
-			twl_dprintf(2, "cd: %s: Not a directory\n", path);
+			twl_dprintf(2, "cd: %s: Not a directory\n", new_path);
 		else if (S_ISDIR(sb.st_mode) && !(sb.st_mode & 0111))
-			twl_dprintf(2, "cd: %s: Permission denied\n", path);
-		(void)xattrflag;
+			twl_dprintf(2, "cd: %s: Permission denied\n", new_path);
 	}
 	else
-		twl_dprintf(2, "cd: %s: No such file or directory\n", path);
+		twl_dprintf(2, "cd: %s: No such file or directory\n", new_path);
 }
