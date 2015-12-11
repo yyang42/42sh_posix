@@ -21,6 +21,6 @@ int main()
 
 	ADD_TESTS
 
-	mt_exec(mt);
-	return(0);
+	int exit_code = mt_exec(mt);
+	return(exit_code);
 }
