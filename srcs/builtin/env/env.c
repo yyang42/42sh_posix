@@ -47,8 +47,6 @@ int				env(char *str)
 	t_opt				*opt;
 	t_env_args			env;
 
-	if (!str || *str == '\0')
-		return (-1);
 	clone = NULL;
 	init_env_args(&env, str);
 	opt = twl_opt_new(env.args, "i");
@@ -66,5 +64,6 @@ int				env(char *str)
 		environment_print(clone);
 	environment_del(clone);
 	twl_opt_del(opt);
+	twl_arr_del(env.args, &free);
 	return (0);
 }

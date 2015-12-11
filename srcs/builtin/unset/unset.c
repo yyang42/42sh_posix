@@ -57,6 +57,8 @@ int				unset(char	*str)
 		else
 			flag = check_flags(env, opt);
 	}
+	twl_arr_del(arr, &free);
+	twl_opt_del(opt);
 	return flag;
 }
 
@@ -82,5 +84,7 @@ int				test_unset(char *str, t_environment *env)
 		else
 			flag = check_flags(env, opt);
 	}
+	twl_arr_del(arr, &free);
+	twl_opt_del(opt);
 	return flag;
 }

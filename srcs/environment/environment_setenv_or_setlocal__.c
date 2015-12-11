@@ -38,6 +38,7 @@ void				environment_setenv_or_setlocal__(t_environment *this,
 					type, temp != NULL));
 			return ;
 		}
+		free(key);
 	}
 	errno = EINVAL;
 }

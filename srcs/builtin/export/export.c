@@ -58,5 +58,7 @@ int					test_export(char *str, t_environment *env)
 		else
 			export_add(env, opt);
 	}
+	twl_arr_del(arr, &free);
+	twl_opt_del(opt);
 	return (0);
 }
