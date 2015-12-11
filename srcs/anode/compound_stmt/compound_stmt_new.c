@@ -14,9 +14,9 @@
 
 #include "anode/compound_stmt.h"
 
-t_compound_stmt			*compound_stmt_new(void)
+t_compound_stmt		*compound_stmt_new(void)
 {
-	t_compound_stmt		*this;
+	t_compound_stmt	*this;
 
 	this = twl_malloc_x0(sizeof(t_compound_stmt));
 	this->items = twl_lst_new();

@@ -18,15 +18,15 @@
 # include "anode/anode.h"
 # include "anode/compound_stmt.h"
 
-typedef struct		s_anode_if_stmt
+typedef struct		s_t_if_stmt
 {
 	t_atype			type;
 	void			*cond;
 	t_compound_stmt	*body;
 	t_compound_stmt	*elze;
-}					t_anode_if_stmt;
+}					t_t_if_stmt;
 
-t_anode_if_stmt		*anode_if_stmt_new(void);
-void				anode_if_stmt_del(t_anode_if_stmt *this);
+t_t_if_stmt		*t_if_stmt_new(void);
+void				t_if_stmt_del(t_t_if_stmt *this);
 
 #endif

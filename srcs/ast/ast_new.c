@@ -34,7 +34,7 @@ static void			ast_build(t_ast *ast)
 	{
 		if (twl_str_starts_with(*segs, "if "))
 		{
-			t_anode_if_stmt 			*if_stmt = anode_if_stmt_new();
+			t_t_if_stmt 			*if_stmt = t_if_stmt_new();
 			twl_lst_push(ast->root->items, if_stmt);
 			if_stmt->body = compound_stmt_new();
 			if_stmt->cond = string_literal_new(*segs);
@@ -53,12 +53,12 @@ static void			ast_build(t_ast *ast)
 	// t_compound_stmt	*compound_stmt;
 
 	// compound_stmt = compound_stmt_new();
-	// twl_lst_push(ast->root->items, anode_if_stmt_new());
-	// twl_lst_push(ast->root->items, anode_if_stmt_new());
+	// twl_lst_push(ast->root->items, t_if_stmt_new());
+	// twl_lst_push(ast->root->items, t_if_stmt_new());
 	// twl_lst_push(ast->root->items, compound_stmt);
-	// twl_lst_push(compound_stmt->items, anode_if_stmt_new());
-	// twl_lst_push(compound_stmt->items, anode_if_stmt_new());
-	// twl_lst_push(compound_stmt->items, anode_if_stmt_new());
+	// twl_lst_push(compound_stmt->items, t_if_stmt_new());
+	// twl_lst_push(compound_stmt->items, t_if_stmt_new());
+	// twl_lst_push(compound_stmt->items, t_if_stmt_new());
 	(void)ast;
 }
 

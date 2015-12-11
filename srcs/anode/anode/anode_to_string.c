@@ -12,9 +12,13 @@
 
 #include "anode/anode.h"
 
-t_atype				anode_get_type(void *anode_)
+char				*anode_to_string(void *anode)
 {
-	t_anode					*anode;
-	anode = anode_;
-	return (anode->type);
+	if (anode_get_type(anode) == ANODE_COMPOUND_STMT)
+		return ("ANODE_COMPOUND_STMT");
+	else if (anode_get_type(anode) == ANODE_IF_STMT)
+		return ("ANODE_IF_STMT");
+	else if (anode_get_type(anode) == ANODE_STRING_LITERAL)
+		return ("ANODE_STRING_LITERAL");
+	return ("NOT_FOUND");
 }

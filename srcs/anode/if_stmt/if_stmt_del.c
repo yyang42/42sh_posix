@@ -14,7 +14,7 @@
 
 #include "anode/if_stmt.h"
 
-void				anode_if_stmt_del(t_anode_if_stmt *this)
+void				t_if_stmt_del(t_t_if_stmt *this)
 {
 	free(this);
 }

@@ -36,7 +36,7 @@ void				print_node(void *node, void *lvl_ptr)
 	else if (anode_get_type(node) == ANODE_IF_STMT)
 	{
 		twl_printf("%*s<%s>\n", lvl * TAB_WIDTH, "", anode_to_string(node));
-		t_anode_if_stmt			*if_stmt = node;
+		t_t_if_stmt			*if_stmt = node;
 		print_node(if_stmt->cond, &lvl);
 		twl_lst_iter(if_stmt->body->items, print_node, &lvl);
 
