@@ -73,7 +73,7 @@ void		cd_with_env(char *str, t_environment *this)
 	no_symlinks = 0;
 	args = twl_strsplit_mul(str, " \t");
 	opt = twl_opt_new(args, "LP");
-	if (!check_invalid_opts(opt, "cd", "LP"))
+	if (check_invalid_opts(opt, "cd", "LP"))
 		return ;
 	get_flags(opt, &no_symlinks);
 	if (get_dirname(&dirname, opt, str, this) < 0)
