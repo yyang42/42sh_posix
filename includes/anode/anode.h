@@ -15,19 +15,19 @@
 
 # include "basics.h"
 
-typedef enum		e_anode_type
+typedef enum		e_atype
 {
 	ANODE_COMPOUND_STMT,
 	ANODE_IF_STMT,
 	ANODE_STRING_LITERAL
-}					t_anode_type;
+}					t_atype;
 
 typedef struct		s_anode
 {
-	t_anode_type	type;
+	t_atype	type;
 }					t_anode;
 
-t_anode_type				anode_get_type(void *anode_);
-char						*anode_to_string(void *anode_);
+t_atype				anode_get_type(void *anode_);
+char				*anode_to_string(void *anode_);
 
 #endif

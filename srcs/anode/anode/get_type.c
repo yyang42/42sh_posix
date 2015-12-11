@@ -12,7 +12,7 @@
 
 #include "anode/anode.h"
 
-t_anode_type				anode_get_type(void *anode_)
+t_atype				anode_get_type(void *anode_)
 {
 	t_anode					*anode;
 	anode = anode_;

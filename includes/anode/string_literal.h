@@ -17,15 +17,13 @@
 
 # include "anode/anode.h"
 
-
-typedef struct				s_string_literal
+typedef struct		s_string_literal
 {
-	t_anode_type			type;
-	char					*text;
-}							t_string_literal;
+	t_atype			type;
+	char			*text;
+}					t_string_literal;
 
-t_string_literal		*string_literal_new(char *text);
-void						string_literal_del(
-												t_string_literal *this);
+t_string_literal	*string_literal_new(char *text);
+void				string_literal_del(t_string_literal *this);
 
 #endif

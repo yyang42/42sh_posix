@@ -19,13 +19,13 @@
 
 # include "anode/anode.h"
 
-typedef struct				s_compound_stmt
+typedef struct		s_compound_stmt
 {
-	t_anode_type			type;
-	t_lst					*items;
-}							t_compound_stmt;
+	t_atype			type;
+	t_lst			*items;
+}					t_compound_stmt;
 
-t_compound_stmt				*compound_stmt_new(void);
-void						compound_stmt_del(t_compound_stmt *this);
+t_compound_stmt		*compound_stmt_new(void);
+void				compound_stmt_del(t_compound_stmt *this);
 
 #endif
