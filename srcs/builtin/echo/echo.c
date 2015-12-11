@@ -17,11 +17,9 @@ int				echo(char *str)
 	t_opt			*opt;
 	char			**arr;
 	char			*c;
-	t_environment	*env;
 	int				flag;
 
 	flag = 0;
-	env = environment_singleton();
 	arr = twl_strsplit_mul(str, " \n\t");
 	opt = twl_opt_new(arr, ECHO_OPT_VALID_OPTS);
 	if ((c = twl_opt_check_invalid_opts(opt)))
