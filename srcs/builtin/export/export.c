@@ -15,7 +15,7 @@
 #include "twl_opt.h"
 #include "builtin.h"
 
-void				export(char	*str)
+int					export(char	*str)
 {
 	t_opt			*opt;
 	char			**arr;
@@ -36,9 +36,10 @@ void				export(char	*str)
 		else
 			export_add(env, opt);
 	}
+	return (0);
 }
 
-void				test_export(char *str, t_environment *env)
+int					test_export(char *str, t_environment *env)
 {
 	t_opt			*opt;
 	char			**arr;
@@ -57,4 +58,5 @@ void				test_export(char *str, t_environment *env)
 		else
 			export_add(env, opt);
 	}
+	return (0);
 }

@@ -47,7 +47,7 @@ static void		add_shell_flags(void *data, void *context, void *args_)
 		set_o_negative(env);
 }
 
-void	set(char *str)
+int				set(char *str)
 {
 	t_set_opt		*opt;
 	char			**arr;
@@ -68,9 +68,10 @@ void	set(char *str)
 	}
 	set_opt_del(opt);
 	twl_arr_del(arr, &free);
+	return (0);
 }
 
-void	test_set(char *str, t_environment *env)
+int				test_set(char *str, t_environment *env)
 {
 	t_set_opt		*opt;
 	char			**arr;
@@ -89,4 +90,5 @@ void	test_set(char *str, t_environment *env)
 	}
 	set_opt_del(opt);
 	twl_arr_del(arr, &free);
+	return (0);
 }

@@ -19,8 +19,8 @@
 
 # define EXPORT_OPT_VALID_OPTS "p"
 
-void				test_export(char *str, t_environment *env);
-void				export(char *str);
+int					test_export(char *str, t_environment *env);
+int					export(char *str);
 void				export_verbose(t_environment *env);
 void				export_add(t_environment *env, t_opt *opt);
 
