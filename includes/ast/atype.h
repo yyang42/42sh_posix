@@ -15,9 +15,9 @@
 
 typedef enum		e_atype
 {
-	ANODE_COMPOUND_STMT,
-	ANODE_IF_STMT,
-	ANODE_STRING_LITERAL
+	COMPOUND_STMT,
+	IF_STMT,
+	STRING_LITERAL
 }					t_atype;
 
 #endif

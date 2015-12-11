@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ANODE_STRING_LITERAL_H
-# define ANODE_STRING_LITERAL_H
+#ifndef STRING_LITERAL_H
+# define STRING_LITERAL_H
 
 # include "basics.h"
 

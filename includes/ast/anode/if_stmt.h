@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ANODE_IF_STMT_H
-# define ANODE_IF_STMT_H
+#ifndef IF_STMT_H
+# define IF_STMT_H
 
 # include "basics.h"
 

@@ -27,13 +27,13 @@ void				print_node(void *node, void *lvl_ptr)
 	lvl = *(int *)lvl_ptr;
 
 	lvl++;
-	if (anode_get_type(node) == ANODE_COMPOUND_STMT)
+	if (anode_get_type(node) == COMPOUND_STMT)
 	{
 		t_compound_stmt		*compound_stmt = node;
 		twl_printf("%*s<%s>\n", lvl * TAB_WIDTH, "", anode_to_string(node));
 		twl_lst_iter(compound_stmt->items, print_node, &lvl);
 	}
-	else if (anode_get_type(node) == ANODE_IF_STMT)
+	else if (anode_get_type(node) == IF_STMT)
 	{
 		twl_printf("%*s<%s>\n", lvl * TAB_WIDTH, "", anode_to_string(node));
 		t_t_if_stmt			*if_stmt = node;
@@ -41,7 +41,7 @@ void				print_node(void *node, void *lvl_ptr)
 		twl_lst_iter(if_stmt->body->items, print_node, &lvl);
 
 	}
-	else if (anode_get_type(node) == ANODE_STRING_LITERAL)
+	else if (anode_get_type(node) == STRING_LITERAL)
 	{
 		t_string_literal *string = node;
 		twl_printf("%*s<%s> %s\n", lvl * TAB_WIDTH, "", anode_to_string(node),

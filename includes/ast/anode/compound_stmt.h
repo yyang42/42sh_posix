@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ANODE_COMPOUND_STMT_H
-# define ANODE_COMPOUND_STMT_H
+#ifndef COMPOUND_STMT_H
+# define COMPOUND_STMT_H
 
 # include "twl_lst.h"
 

@@ -14,11 +14,11 @@
 
 char				*anode_to_string(void *anode)
 {
-	if (anode_get_type(anode) == ANODE_COMPOUND_STMT)
-		return ("ANODE_COMPOUND_STMT");
-	else if (anode_get_type(anode) == ANODE_IF_STMT)
-		return ("ANODE_IF_STMT");
-	else if (anode_get_type(anode) == ANODE_STRING_LITERAL)
-		return ("ANODE_STRING_LITERAL");
+	if (anode_get_type(anode) == COMPOUND_STMT)
+		return ("COMPOUND_STMT");
+	else if (anode_get_type(anode) == IF_STMT)
+		return ("IF_STMT");
+	else if (anode_get_type(anode) == STRING_LITERAL)
+		return ("STRING_LITERAL");
 	return ("NOT_FOUND");
 }

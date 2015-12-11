@@ -19,6 +19,6 @@ t_t_if_stmt			*t_if_stmt_new(void)
 	t_t_if_stmt	*this;
 
 	this = twl_malloc_x0(sizeof(t_t_if_stmt));
-	this->type = ANODE_IF_STMT;
+	this->type = IF_STMT;
 	return (this);
 }

@@ -19,7 +19,7 @@ t_string_literal			*string_literal_new(char *text)
 	t_string_literal		*this;
 
 	this = twl_malloc_x0(sizeof(t_string_literal));
-	this->type = ANODE_STRING_LITERAL;
+	this->type = STRING_LITERAL;
 	this->text = twl_strdup(text);
 	return (this);
 }
