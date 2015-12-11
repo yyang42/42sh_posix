@@ -21,6 +21,5 @@
 # define ECHO_OPT_VALID_OPTS "n"
 
 int					echo(char *str);
-int					test_echo(char *str, t_environment *env);
 
 #endif
