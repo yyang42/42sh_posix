@@ -17,6 +17,9 @@
 # include "builtin.h"
 # include "xopt.h"
 # include "environment.h"
+# include "twl_arr.h"
+# include "twl_opt.h"
+# include "twl_opt_elem.h"
 
 # define SET_OPT_VALID_OPTS "-abCefhmnouvx"
 # define POSITIVE_OPT 1

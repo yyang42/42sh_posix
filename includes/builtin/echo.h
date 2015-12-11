@@ -10,37 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENV_H
-# define ENV_H
+#ifndef ECHO_H
+# define ECHO_H
 
-# include <sys/stat.h>
-# include <sys/types.h>
+#include "basics.h"
+#include "environment.h"
+#include "twl_opt.h"
+#include "builtin.h"
 
-# include "builtin.h"
-# include "environment.h"
-# include "env.h"
-# include "utils.h"
-# include "twl_arr.h"
-# include "twl_opt.h"
-# include "execute.h"
-# include "environment.h"
-# include "twl_arr2.h"
+# define ECHO_OPT_VALID_OPTS "n"
 
-# define ENV_OPT_VALID_OPTS "i"
-
-typedef struct		s_env_args
-{
-	char				**args;
-	char				**env_arr;
-	char				*utility;
-	int					utility_index;
-	bool				has_utility;
-	bool				was_executed;
-}					t_env_args;
-
-int					env(char *str);
-void				exec_env(t_env_args *env, t_environment	*clone);
-void				**env_lst_to_arr(t_lst *lst);
-void				add_env_var(void *data_, void *context_);
+int					echo(char *str);
+int					test_echo(char *str, t_environment *env);
 
 #endif

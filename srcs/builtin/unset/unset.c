@@ -11,9 +11,6 @@
 /* ************************************************************************** */
 
 #include "unset.h"
-#include "environment.h"
-#include "twl_opt.h"
-#include "builtin.h"
 
 static int			check_flags(t_environment *env, t_opt *opt)
 {

@@ -16,6 +16,7 @@
 # include "basics.h"
 # include "twl_opt.h"
 # include "environment.h"
+#include "builtin.h"
 
 # define EXPORT_OPT_VALID_OPTS "p"
 

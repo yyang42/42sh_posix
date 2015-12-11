@@ -11,11 +11,6 @@
 /* ************************************************************************** */
 
 #include "set.h"
-#include "environment.h"
-#include "twl_arr.h"
-#include "twl_opt.h"
-#include "twl_opt_elem.h"
-#include "twl_xstring.h"
 
 static void		remove_shell_flags(void *data, void *context, void *args_)
 {

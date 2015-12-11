@@ -11,9 +11,6 @@
 /* ************************************************************************** */
 
 #include "export.h"
-#include "environment.h"
-#include "twl_opt.h"
-#include "builtin.h"
 
 int					export(char	*str)
 {

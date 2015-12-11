@@ -10,37 +10,48 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENV_H
-# define ENV_H
+#include "echo.h"
 
-# include <sys/stat.h>
-# include <sys/types.h>
-
-# include "builtin.h"
-# include "environment.h"
-# include "env.h"
-# include "utils.h"
-# include "twl_arr.h"
-# include "twl_opt.h"
-# include "execute.h"
-# include "environment.h"
-# include "twl_arr2.h"
-
-# define ENV_OPT_VALID_OPTS "i"
-
-typedef struct		s_env_args
+int				echo(char	*str)
 {
-	char				**args;
-	char				**env_arr;
-	char				*utility;
-	int					utility_index;
-	bool				has_utility;
-	bool				was_executed;
-}					t_env_args;
+	t_opt			*opt;
+	char			**arr;
+	char			*c;
+	t_environment	*env;
+	int				flag;
 
-int					env(char *str);
-void				exec_env(t_env_args *env, t_environment	*clone);
-void				**env_lst_to_arr(t_lst *lst);
-void				add_env_var(void *data_, void *context_);
+	flag = 0;
+	env = environment_singleton();
+	arr = twl_strsplit_mul(str, " \n\t");
+	opt = twl_opt_new(arr, ECHO_OPT_VALID_OPTS);
+	if ((c = twl_opt_check_invalid_opts(opt)))
+		flag = check_invalid_opts(opt, "echo", ECHO_OPT_VALID_OPTS);
+	else
+	{
 
-#endif
+	}
+	twl_arr_del(arr, &free);
+	twl_opt_del(opt);
+	return flag;
+}
+
+int				test_echo(char *str, t_environment *env)
+{
+	t_opt			*opt;
+	char			**arr;
+	char			*c;
+	int				flag;
+
+	flag = 0;
+	arr = twl_strsplit_mul(str, " \n\t");
+	opt = twl_opt_new(arr, ECHO_OPT_VALID_OPTS);
+	if ((c = twl_opt_check_invalid_opts(opt)))
+		flag = check_invalid_opts(opt, "echo", ECHO_OPT_VALID_OPTS);
+	else
+	{
+		(void)env;
+	}
+	twl_arr_del(arr, &free);
+	twl_opt_del(opt);
+	return flag;
+}

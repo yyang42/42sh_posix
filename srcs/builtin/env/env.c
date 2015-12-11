@@ -10,12 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "environment.h"
 #include "env.h"
-#include "utils.h"
-#include "twl_arr.h"
-#include "twl_arr2.h"
-#include "twl_opt.h"
 
 static void		get_utility(void *data_, void *context)
 {
