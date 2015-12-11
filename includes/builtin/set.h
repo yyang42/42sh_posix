@@ -44,6 +44,7 @@ char				*set_opt_check_invalid_opts(t_set_opt *opt);
 int					set_opt_exist(t_set_opt *twl_opt, char *opt_key);
 void				set_o_positive(t_environment *env);
 void				set_o_negative(t_environment *env);
-void				set_usage(char *flag);
 void				set_check_args(t_set_opt *opt, t_environment *env);
+int					set_check_invalid_opts(t_set_opt *opt, char *exe_name,
+																char *flags);
 #endif

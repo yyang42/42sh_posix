@@ -15,7 +15,7 @@
 #include "environment.h"
 #include "twl_lst.h"
 
-char				*params_hyphen()
+char				*params_hyphen(void)
 {
 	t_environment	*env;
 

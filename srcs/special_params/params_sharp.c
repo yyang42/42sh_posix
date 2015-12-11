@@ -15,7 +15,7 @@
 #include "environment.h"
 #include "twl_lst.h"
 
-char				*params_sharp()
+char				*params_sharp(void)
 {
 	t_environment	*env;
 	char			*ret;

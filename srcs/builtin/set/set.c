@@ -46,15 +46,12 @@ int				set(char *str)
 {
 	t_set_opt		*opt;
 	char			**arr;
-	char			*error;
 	t_environment	*env;
 
 	env = environment_singleton();
 	arr = twl_strsplit_mul(str, " \n\t");
 	opt = set_opt_new(arr, SET_OPT_VALID_OPTS);
-	if ((error = set_opt_check_invalid_opts(opt)))
-		set_usage(error);
-	else
+	if (!set_check_invalid_opts(opt, "set", SET_OPT_VALID_OPTS))
 	{
 		twl_lst_iter2(opt->positive_opts, remove_shell_flags, env, opt->args);
 		twl_lst_iter2(opt->negative_opts, add_shell_flags, env, opt->args);
@@ -70,13 +67,10 @@ int				test_set(char *str, t_environment *env)
 {
 	t_set_opt		*opt;
 	char			**arr;
-	char			*error;
 
 	arr = twl_strsplit_mul(str, " \n\t");
 	opt = set_opt_new(arr, SET_OPT_VALID_OPTS);
-	if ((error = set_opt_check_invalid_opts(opt)))
-		set_usage(error);
-	else
+	if (!set_check_invalid_opts(opt, "set", SET_OPT_VALID_OPTS))
 	{
 		twl_lst_iter2(opt->positive_opts, remove_shell_flags, env, opt->args);
 		twl_lst_iter2(opt->negative_opts, add_shell_flags, env, opt->args);

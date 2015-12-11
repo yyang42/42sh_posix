@@ -15,7 +15,7 @@
 #include "environment.h"
 #include "twl_lst.h"
 
-char				*params_dollar()
+char				*params_dollar(void)
 {
 	t_environment	*env;
 

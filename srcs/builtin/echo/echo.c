@@ -12,7 +12,7 @@
 
 #include "echo.h"
 
-int				echo(char	*str)
+int				echo(char *str)
 {
 	t_opt			*opt;
 	char			**arr;
@@ -35,7 +35,7 @@ int				echo(char	*str)
 	}
 	twl_arr_del(arr, &free);
 	twl_opt_del(opt);
-	return flag;
+	return (flag);
 }
 
 int				test_echo(char *str, t_environment *env)
@@ -60,5 +60,5 @@ int				test_echo(char *str, t_environment *env)
 	}
 	twl_arr_del(arr, &free);
 	twl_opt_del(opt);
-	return flag;
+	return (flag);
 }

@@ -44,5 +44,5 @@ char				*environment_concat_pos_param_char(t_environment *env,
 	concat = twl_strdup("");
 	if (env && env->pos_params)
 		twl_lst_iter2(env->pos_params, concat_pos_param, &concat, sep);
-	return concat;
+	return (concat);
 }

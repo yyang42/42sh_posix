@@ -39,5 +39,5 @@ char				*environment_concat_flags(t_environment *env)
 	concat = twl_strdup("");
 	if (env && env->flags)
 		twl_lst_iter(env->flags, concat_flag, &concat);
-	return concat;
+	return (concat);
 }
