@@ -29,6 +29,6 @@ typedef struct				s_ast
 t_ast						*ast_new(char *input);
 void						ast_del(t_ast *this);
 
-void						ast_print(t_ast *this);
+char						*ast_to_str(t_ast *this);
 
 #endif
