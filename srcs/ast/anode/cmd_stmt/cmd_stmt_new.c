@@ -20,5 +20,6 @@ t_cmd_stmt			*cmd_stmt_new(void)
 
 	this = twl_malloc_x0(sizeof(t_cmd_stmt));
 	this->strings = twl_lst_new();
+	this->type = CMD_STMT;
 	return (this);
 }

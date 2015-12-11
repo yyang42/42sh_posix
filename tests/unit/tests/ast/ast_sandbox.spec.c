@@ -10,24 +10,27 @@ static void sandbox(t_test *test)
 	ast_build(ast);
 	char			*out;
 	out = ast_to_str(ast);
-	printf("======\n");
-	printf("%s", out);
-	printf("======\n");
 	char			*expected =   "COMPOUND_STMT\n" \
 								  "  IF_STMT\n" \
 								  "    COMPOUND_STMT\n" \
-								  "      STRING_LITERAL true\n" \
+								  "      STRING_LITERAL \"true\"\n" \
 								  "    COMPOUND_STMT\n" \
 								  "      CMD_STMT\n" \
-								  "        STRING_LITERAL echo\n" \
-								  "        STRING_LITERAL aaa\n" \
+								  "        STRING_LITERAL \"echo\"\n" \
+								  "        STRING_LITERAL \"aaa\"\n" \
 								  "    COMPOUND_STMT\n" \
 								  "      CMD_STMT\n" \
-								  "        STRING_LITERAL echo\n" \
-								  "        STRING_LITERAL bbb\n" \
+								  "        STRING_LITERAL \"echo\"\n" \
+								  "        STRING_LITERAL \"bbb\"\n" \
 								  "  CMD_STMT\n" \
-								  "    STRING_LITERAL echo\n" \
-								  "    STRING_LITERAL bbb\n";
+								  "    STRING_LITERAL \"echo\"\n" \
+								  "    STRING_LITERAL \"bbb\"\n";
+
+	printf("== actual ======================\n");
+	printf("%s", out);
+	printf("== expected ====================\n");
+	printf("%s", expected);
+	printf("================================\n");
 	mt_assert(strcmp(out, expected) == 0);
 }
 

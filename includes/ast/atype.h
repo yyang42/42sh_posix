@@ -17,7 +17,8 @@ typedef enum		e_atype
 {
 	COMPOUND_STMT,
 	IF_STMT,
-	STRING_LITERAL
+	STRING_LITERAL,
+	CMD_STMT
 }					t_atype;
 
 #endif
