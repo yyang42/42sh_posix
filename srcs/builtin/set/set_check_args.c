@@ -14,9 +14,9 @@
 #include "environment.h"
 #include "twl_lst.h"
 
-static void		add_pos_param(void *data, void *context)
+static void			add_pos_param(void *data, void *context)
 {
-	char 			*arg;
+	char			*arg;
 	t_environment	*env;
 
 	arg = data;
@@ -24,20 +24,19 @@ static void		add_pos_param(void *data, void *context)
 	environment_add_pos_param(arg, env);
 }
 
-static bool			cmp_flag(void *elem_data_, void *data_) {
-
+static bool			cmp_flag(void *elem_data_, void *data_)
+{
 	char	*data;
 	char	*elem_data;
 
 	data = data_;
 	elem_data = elem_data_;
-
 	if (elem_data == NULL || data == NULL)
-		return(data == elem_data);
+		return (data == elem_data);
 	return (twl_strcmp(data, elem_data) == 0);
 }
 
-static void		remove_matching_flag(t_environment *env, char *arg)
+static void			remove_matching_flag(t_environment *env, char *arg)
 {
 	char *flag;
 
@@ -48,7 +47,7 @@ static void		remove_matching_flag(t_environment *env, char *arg)
 		twl_dprintf(2, "set: %s: invalid option name\n", arg);
 }
 
-static void		add_matching_flag(t_environment *env, char *arg)
+static void			add_matching_flag(t_environment *env, char *arg)
 {
 	char *flag;
 
@@ -59,9 +58,10 @@ static void		add_matching_flag(t_environment *env, char *arg)
 		twl_dprintf(2, "set: %s: invalid option name\n", arg);
 }
 
-void			set_check_args(t_set_opt *opt, t_environment *env)
+void				set_check_args(t_set_opt *opt, t_environment *env)
 {
 	int	i;
+
 	i = set_opt_exist(opt, "o");
 	if (i == 0)
 	{

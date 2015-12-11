@@ -26,9 +26,9 @@ static bool		find_opt(void *opt_elem_, void *opt_key)
 
 int				set_opt_exist(t_set_opt *twl_opt, char *opt_key)
 {
-	if(twl_lst_find(twl_opt->positive_opts, find_opt, opt_key))
-		return(POSITIVE_OPT);
-	else if(twl_lst_find(twl_opt->negative_opts, find_opt, opt_key))
-		return(NEGATIVE_OPT);
+	if (twl_lst_find(twl_opt->positive_opts, find_opt, opt_key))
+		return (POSITIVE_OPT);
+	else if (twl_lst_find(twl_opt->negative_opts, find_opt, opt_key))
+		return (NEGATIVE_OPT);
 	return (0);
 }

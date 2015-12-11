@@ -26,15 +26,15 @@ static void			unset_something(void *data, void *context, void *ret_)
 	if (arg)
 	{
 		environment_remove_shell_func(env, arg);
-		*ret = 1;
+		*ret = 0;
 	}
 }
 
-int				unset_function(t_environment *env, t_opt *opt)
+int					unset_function(t_environment *env, t_opt *opt)
 {
 	int	ret;
 
-	ret = 0;
+	ret = 1;
 	twl_lst_iter2(opt->args, unset_something, env, &ret);
-	return ret;
+	return (ret);
 }

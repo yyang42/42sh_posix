@@ -41,7 +41,6 @@ static void			get_flag_verbose(char *key, void *data, void *context)
 	free(space);
 }
 
-
 void				set_o_negative(t_environment *env)
 {
 	if (env->flag_verbose)

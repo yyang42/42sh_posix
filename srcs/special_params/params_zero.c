@@ -15,7 +15,7 @@
 #include "environment.h"
 #include "twl_lst.h"
 
-char				*params_zero()
+char				*params_zero(void)
 {
 	t_environment	*env;
 

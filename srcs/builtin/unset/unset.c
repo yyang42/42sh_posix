@@ -11,59 +11,77 @@
 /* ************************************************************************** */
 
 #include "unset.h"
-#include "environment.h"
-#include "twl_opt.h"
-#include "builtin.h"
 
-static void			check_flags(t_environment *env, t_opt *opt)
+static int		check_flags(t_environment *env, t_opt *opt)
 {
+	int	ret;
+
 	if (twl_opt_exist(opt, "f"))
-		unset_function(env, opt);
+		return (unset_function(env, opt));
 	else if (twl_opt_exist(opt, "v"))
-		unset_variable(env, opt);
+		return (unset_variable(env, opt));
 	else
 	{
-		if (unset_variable(env, opt) == 0)
-			unset_function(env, opt);
+		ret = unset_variable(env, opt);
+		if (ret == 1)
+			return (unset_function(env, opt));
+		else
+			return (ret);
 	}
 }
 
-void				unset(char	*str)
+int				unset(char	*str)
 {
 	t_opt			*opt;
 	char			**arr;
-	char			*c;
 	t_environment	*env;
+	int				flag;
 
+	flag = 0;
 	env = environment_singleton();
 	arr = twl_strsplit_mul(str, " \n\t");
 	opt = twl_opt_new(arr, UNSET_OPT_VALID_OPTS);
-	if ((c = twl_opt_check_invalid_opts(opt)))
-		check_invalid_opts(opt, "unset", c);
+	if (check_invalid_opts(opt, "unset", UNSET_OPT_VALID_OPTS))
+		flag = 1;
 	else
 	{
 		if (twl_opt_get_param(opt, "f") && twl_opt_get_param(opt, "v"))
-			twl_printf("unset: cannot simultaneously unset a function and a variable");
+		{
+			twl_printf("unset: cannot simultaneously unset \
+													a function and a variable");
+			flag = 1;
+		}
 		else
-			check_flags(env, opt);
+			flag = check_flags(env, opt);
 	}
+	twl_arr_del(arr, &free);
+	twl_opt_del(opt);
+	return (flag);
 }
 
-void				test_unset(char *str, t_environment *env)
+int				test_unset(char *str, t_environment *env)
 {
 	t_opt			*opt;
 	char			**arr;
-	char			*c;
+	int				flag;
 
+	flag = 0;
 	arr = twl_strsplit_mul(str, " \n\t");
 	opt = twl_opt_new(arr, UNSET_OPT_VALID_OPTS);
-	if ((c = twl_opt_check_invalid_opts(opt)))
-		check_invalid_opts(opt, "unset", c);
+	if (check_invalid_opts(opt, "unset", UNSET_OPT_VALID_OPTS))
+		flag = 1;
 	else
 	{
 		if (twl_opt_get_param(opt, "f") && twl_opt_get_param(opt, "v"))
-			twl_printf("unset: cannot simultaneously unset a function and a variable");
+		{
+			twl_printf("unset: cannot simultaneously unset \
+													a function and a variable");
+			flag = 1;
+		}
 		else
-			check_flags(env, opt);
+			flag = check_flags(env, opt);
 	}
+	twl_arr_del(arr, &free);
+	twl_opt_del(opt);
+	return (flag);
 }

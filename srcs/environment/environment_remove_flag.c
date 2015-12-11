@@ -23,7 +23,6 @@ static bool			find_opt(void *data, void *key)
 	return (twl_strcmp(elem->key, key) == 0);
 }
 
-
 static void			free_opt(void *data)
 {
 	t_opt_elem *elem;
@@ -34,6 +33,7 @@ static void			free_opt(void *data)
 	if (elem->value)
 		free(elem->value);
 }
+
 void				environment_remove_flag(char *flag, t_environment *env)
 {
 	twl_lst_remove_if(env->flags, find_opt, flag, free_opt);

@@ -15,7 +15,7 @@
 #include "environment.h"
 #include "twl_lst.h"
 
-char				*params_exclamation()
+char				*params_exclamation(void)
 {
 	t_environment	*env;
 	char			*ret;

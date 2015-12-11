@@ -10,11 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef ECHO_H
+# define ECHO_H
 
-#include "twl_stdio.h"
+#include "basics.h"
+#include "environment.h"
+#include "twl_opt.h"
+#include "builtin.h"
 
-void			set_usage(char *flag)
-{
-	twl_dprintf(2 ,"set: -%s: invalid option", flag);
-	twl_dprintf(2 ,"set [--abefhkmnptuvxBCHP] [-o option] [arg ...]");
-}
+# define ECHO_OPT_VALID_OPTS "n"
+
+int					echo(char *str);
+int					test_echo(char *str, t_environment *env);
+
+#endif

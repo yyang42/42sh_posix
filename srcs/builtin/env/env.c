@@ -10,12 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "environment.h"
 #include "env.h"
-#include "utils.h"
-#include "twl_arr.h"
-#include "twl_arr2.h"
-#include "twl_opt.h"
 
 static void		get_utility(void *data_, void *context)
 {
@@ -47,8 +42,6 @@ int				env(char *str)
 	t_opt				*opt;
 	t_env_args			env;
 
-	if (!str || *str == '\0')
-		return (-1);
 	clone = NULL;
 	init_env_args(&env, str);
 	opt = twl_opt_new(env.args, "i");
@@ -66,5 +59,6 @@ int				env(char *str)
 		environment_print(clone);
 	environment_del(clone);
 	twl_opt_del(opt);
-	return (1);
+	twl_arr_del(env.args, &free);
+	return (0);
 }

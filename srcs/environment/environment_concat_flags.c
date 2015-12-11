@@ -27,7 +27,7 @@ static void			concat_flag(void *data, void *context)
 	concat = *concat_ptr;
 	if (elem && elem->key)
 	{
-		concat = twl_strjoin(concat, elem->key);
+		concat = twl_strjoinfree(concat, elem->key, 'l');
 		*concat_ptr = concat;
 	}
 }
@@ -39,5 +39,5 @@ char				*environment_concat_flags(t_environment *env)
 	concat = twl_strdup("");
 	if (env && env->flags)
 		twl_lst_iter(env->flags, concat_flag, &concat);
-	return concat;
+	return (concat);
 }

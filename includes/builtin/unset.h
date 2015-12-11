@@ -16,11 +16,12 @@
 # include "basics.h"
 # include "twl_opt.h"
 # include "environment.h"
+# include "builtin.h"
 
 # define UNSET_OPT_VALID_OPTS "fv"
 
-void				test_unset(char *str, t_environment *env);
-void				unset(char *str);
+int					test_unset(char *str, t_environment *env);
+int					unset(char *str);
 int					unset_variable(t_environment *env, t_opt *opt);
 int					unset_function(t_environment *env, t_opt *opt);
 

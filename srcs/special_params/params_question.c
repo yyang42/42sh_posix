@@ -15,7 +15,7 @@
 #include "environment.h"
 #include "twl_lst.h"
 
-char				*params_question()
+char				*params_question(void)
 {
 	t_environment	*env;
 	char			*ret;

@@ -27,7 +27,8 @@ static void			push_non_opt_to_lst(void *non_opt_arg,
 	twl_lst_push(non_opt_arg_lst, twl_strdup(non_opt_arg));
 }
 
-static void			parse_argv(char **arr_opts, t_set_opt *opt, char *valid_opts)
+static void			parse_argv(char **arr_opts, t_set_opt *opt,
+														char *valid_opts)
 {
 	char			**non_opt_args;
 

@@ -10,31 +10,55 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "basics.h"
-#include "prog.h"
-#include "environment.h"
-#include "twl_lst.h"
+#include "echo.h"
 
-char				*params_at(void)
+int				echo(char *str)
 {
+	t_opt			*opt;
+	char			**arr;
+	char			*c;
 	t_environment	*env;
-	char			*ret;
+	int				flag;
 
+	flag = 0;
 	env = environment_singleton();
-	if (twl_lst_len(env->pos_params) > 0)
-		ret = environment_concat_pos_param_char(env, " ");
+	arr = twl_strsplit_mul(str, " \n\t");
+	opt = twl_opt_new(arr, ECHO_OPT_VALID_OPTS);
+	if ((c = twl_opt_check_invalid_opts(opt)))
+		flag = check_invalid_opts(opt, "echo", ECHO_OPT_VALID_OPTS);
 	else
-		ret = twl_strdup("");
-	return (ret);
+	{
+		if (twl_opt_get_param(opt, "n"))
+			twl_printf("%s", str);
+		else
+			twl_printf("%s\n", str);
+	}
+	twl_arr_del(arr, &free);
+	twl_opt_del(opt);
+	return (flag);
 }
 
-char				*test_params_at(t_environment *env)
+int				test_echo(char *str, t_environment *env)
 {
-	char			*ret;
+	t_opt			*opt;
+	char			**arr;
+	char			*c;
+	int				flag;
 
-	if (twl_lst_len(env->pos_params) > 0)
-		ret = environment_concat_pos_param_char(env, " ");
+	flag = 0;
+	(void)env;
+	arr = twl_strsplit_mul(str, " \n\t");
+	opt = twl_opt_new(arr, ECHO_OPT_VALID_OPTS);
+	if ((c = twl_opt_check_invalid_opts(opt)))
+		flag = check_invalid_opts(opt, "echo", ECHO_OPT_VALID_OPTS);
 	else
-		ret = twl_strdup("");
-	return (ret);
+	{
+		if (twl_opt_get_param(opt, "n"))
+			twl_printf("%s", str);
+		else
+			twl_printf("%s\n", str);
+	}
+	twl_arr_del(arr, &free);
+	twl_opt_del(opt);
+	return (flag);
 }

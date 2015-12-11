@@ -10,39 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "xopt.h"
-#include "environment.h"
-#include "twl_string.h"
-#include "twl_lst.h"
-#include "twl_opt_elem.h"
+#include "set.h"
 
-static void			concat_pos_param(void *data, void *context, void *sep_)
+int				set_check_invalid_opts(t_set_opt *opt, char *exe_name,
+																char *flags)
 {
-	char		*elem;
-	char		**concat_ptr;
-	char		*concat;
-	char		*sep;
+	char				*invalid;
 
-	elem = data;
-	sep = sep_;
-	concat_ptr = context;
-	concat = *concat_ptr;
-	if (elem)
+	invalid = set_opt_check_invalid_opts(opt);
+	if (invalid && twl_strlen(invalid) > 0)
 	{
-		if (twl_strcmp(concat, "") != 0)
-			concat = twl_strjoinfree(concat, sep, 'l');
-		concat = twl_strjoinfree(concat, elem, 'l');
-		*concat_ptr = concat;
+		twl_dprintf(2, "%s: illegal option -- %s\nusage: env [-%s%s\n",
+		exe_name, invalid,
+			flags, "] [name=value ...] [utility [argument ...]]");
+		return (1);
 	}
-}
-
-char				*environment_concat_pos_param_char(t_environment *env,
-																	char *sep)
-{
-	char	*concat;
-
-	concat = twl_strdup("");
-	if (env && env->pos_params)
-		twl_lst_iter2(env->pos_params, concat_pos_param, &concat, sep);
-	return (concat);
+	return (0);
 }

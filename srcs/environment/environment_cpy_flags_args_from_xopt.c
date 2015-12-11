@@ -37,7 +37,6 @@ static void			push_args(void *data, void *context)
 		environment_add_pos_param(arg, env);
 }
 
-
 void				environment_cpy_flags_args_from_xopt(t_environment *env)
 {
 	t_xopt	*xopt;
@@ -45,7 +44,6 @@ void				environment_cpy_flags_args_from_xopt(t_environment *env)
 	t_lst	*args;
 
 	xopt = xopt_singleton();
-
 	opts = xopt_get_opts(xopt);
 	if (opts)
 		twl_lst_iter(opts, push_flag, env);
