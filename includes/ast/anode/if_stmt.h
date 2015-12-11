@@ -10,24 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ANODE_H
-# define ANODE_H
+#ifndef ANODE_IF_STMT_H
+# define ANODE_IF_STMT_H
 
 # include "basics.h"
 
-typedef enum		e_atype
-{
-	ANODE_COMPOUND_STMT,
-	ANODE_IF_STMT,
-	ANODE_STRING_LITERAL
-}					t_atype;
+# include "ast/anode/anode.h"
+# include "ast/anode/compound_stmt.h"
 
-typedef struct		s_anode
+typedef struct		s_t_if_stmt
 {
-	t_atype	type;
-}					t_anode;
+	t_atype			type;
+	void			*cond;
+	t_compound_stmt	*body;
+	t_compound_stmt	*elze;
+}					t_t_if_stmt;
 
-t_atype				anode_get_type(void *anode_);
-char				*anode_to_string(void *anode_);
+t_t_if_stmt		*t_if_stmt_new(void);
+void				t_if_stmt_del(t_t_if_stmt *this);
 
 #endif

@@ -12,7 +12,7 @@
 
 #include <stdlib.h>
 
-#include "ast.h"
+#include "ast/ast.h"
 
 void				ast_del(t_ast *this)
 {

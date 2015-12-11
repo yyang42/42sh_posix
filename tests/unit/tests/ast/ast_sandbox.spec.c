@@ -1,6 +1,6 @@
 #include <project.h>
 
-#include "ast.h"
+#include "ast/ast.h"
 
 static void sandbox(t_test *test)
 {

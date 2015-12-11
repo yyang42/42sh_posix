@@ -10,23 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ANODE_IF_STMT_H
-# define ANODE_IF_STMT_H
+#ifndef ANODE_STRING_LITERAL_H
+# define ANODE_STRING_LITERAL_H
 
 # include "basics.h"
 
-# include "anode/anode.h"
-# include "anode/compound_stmt.h"
+# include "ast/anode/anode.h"
 
-typedef struct		s_t_if_stmt
+typedef struct		s_string_literal
 {
 	t_atype			type;
-	void			*cond;
-	t_compound_stmt	*body;
-	t_compound_stmt	*elze;
-}					t_t_if_stmt;
+	char			*text;
+}					t_string_literal;
 
-t_t_if_stmt		*t_if_stmt_new(void);
-void				t_if_stmt_del(t_t_if_stmt *this);
+t_string_literal	*string_literal_new(char *text);
+void				string_literal_del(t_string_literal *this);
 
 #endif

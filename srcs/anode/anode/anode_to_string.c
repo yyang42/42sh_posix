@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "anode/anode.h"
+#include "ast/anode/anode.h"
 
 char				*anode_to_string(void *anode)
 {

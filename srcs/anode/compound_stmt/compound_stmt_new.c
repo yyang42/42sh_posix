@@ -12,7 +12,7 @@
 
 #include "twl_xstdlib.h"
 
-#include "anode/compound_stmt.h"
+#include "ast/anode/compound_stmt.h"
 
 t_compound_stmt		*compound_stmt_new(void)
 {

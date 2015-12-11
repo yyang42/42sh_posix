@@ -10,20 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ANODE_STRING_LITERAL_H
-# define ANODE_STRING_LITERAL_H
+#ifndef ANODE_H
+# define ANODE_H
 
 # include "basics.h"
 
-# include "anode/anode.h"
+# include "ast/atype.h"
 
-typedef struct		s_string_literal
+typedef struct		s_anode
 {
-	t_atype			type;
-	char			*text;
-}					t_string_literal;
+	t_atype	type;
+}					t_anode;
 
-t_string_literal	*string_literal_new(char *text);
-void				string_literal_del(t_string_literal *this);
+t_atype				anode_get_type(void *anode_);
+char				*anode_to_string(void *anode_);
 
 #endif

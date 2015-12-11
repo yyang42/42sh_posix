@@ -10,11 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#ifndef ATYPE_H
+# define ATYPE_H
 
-#include "ast/anode/string_literal.h"
-
-void				string_literal_del(t_string_literal *this)
+typedef enum		e_atype
 {
-	free(this);
-}
+	ANODE_COMPOUND_STMT,
+	ANODE_IF_STMT,
+	ANODE_STRING_LITERAL
+}					t_atype;
+
+#endif

@@ -12,7 +12,7 @@
 
 #include <stdlib.h>
 
-#include "anode/compound_stmt.h"
+#include "ast/anode/compound_stmt.h"
 
 void				compound_stmt_del(t_compound_stmt *this)
 {

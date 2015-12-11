@@ -12,11 +12,11 @@
 
 #include <stdlib.h>
 
-#include "ast.h"
+#include "ast/ast.h"
 
-#include "anode/anode.h"
-#include "anode/if_stmt.h"
-#include "anode/string_literal.h"
+#include "ast/anode/anode.h"
+#include "ast/anode/if_stmt.h"
+#include "ast/anode/string_literal.h"
 
 #define TAB_WIDTH 2
 

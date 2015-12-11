@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "anode/anode.h"
+#include "ast/anode/anode.h"
 
 t_atype				anode_get_type(void *anode_)
 {

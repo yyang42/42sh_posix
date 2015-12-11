@@ -12,12 +12,12 @@
 
 #include "twl_xstdlib.h"
 
-#include "ast.h"
+#include "ast/ast.h"
 
-#include "anode/compound_stmt.h"
-#include "anode/if_stmt.h"
-#include "anode/string_literal.h"
-#include "anode/anode.h"
+#include "ast/anode/compound_stmt.h"
+#include "ast/anode/if_stmt.h"
+#include "ast/anode/string_literal.h"
+#include "ast/anode/anode.h"
 
 #include "twl_arr.h"
 #include "twl_xstring.h"

@@ -17,7 +17,7 @@
 
 # include "basics.h"
 
-# include "anode/anode.h"
+# include "ast/anode/anode.h"
 
 typedef struct		s_compound_stmt
 {
