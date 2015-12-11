@@ -49,16 +49,6 @@ static void			ast_build(t_ast *ast)
 		segs++;
 	}
 	twl_printf("\n======\n");
-
-	// t_compound_stmt	*compound_stmt;
-
-	// compound_stmt = compound_stmt_new();
-	// twl_lst_push(ast->root->items, t_if_stmt_new());
-	// twl_lst_push(ast->root->items, t_if_stmt_new());
-	// twl_lst_push(ast->root->items, compound_stmt);
-	// twl_lst_push(compound_stmt->items, t_if_stmt_new());
-	// twl_lst_push(compound_stmt->items, t_if_stmt_new());
-	// twl_lst_push(compound_stmt->items, t_if_stmt_new());
 	(void)ast;
 }
 

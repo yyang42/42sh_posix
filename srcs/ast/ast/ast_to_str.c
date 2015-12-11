@@ -60,5 +60,6 @@ char				*ast_to_str(t_ast *this)
 	lvl = 0;
 	print_node(this->root, &lvl, out_list);
 	out = twl_lst_strjoin(out_list, "");
+	twl_lst_del(out_list, free);
 	return (out);
 }
