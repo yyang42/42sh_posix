@@ -10,29 +10,42 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_H
-# define AST_H
+#include "ast/ast.h"
 
-# include "basics.h"
+#include "twl_arr.h"
+#include "twl_xstring.h"
 
-# include "ast/anode/compound_stmt.h"
-# include "ast/anode/if_stmt.h"
-# include "ast/anode/string_literal.h"
-# include "ast/anode/anode.h"
-
-# define AST_SEPARATOR_OP ";&"
-# define AST_WHITE_SPACE "\t\n "
-
-typedef struct		s_ast
+static void			ast_build_do(t_ast *ast)
 {
-	char			*raw;
-	t_compound_stmt	*root;
-}					t_ast;
 
-t_ast				*ast_new(char *input);
-void				ast_del(t_ast *this);
+	// segs = twl_strsplit_mul_trim_chars(ast->raw, AST_SEPARATOR_OP,
+	// 														AST_WHITE_SPACE);
+	// twl_arr_putstr(segs, "\n");
+	// twl_printf("\n======\n");
+	// while (*segs)
+	// {
+	// 	if (twl_str_starts_with(*segs, "if "))
+	// 	{
+	// 		t_t_if_stmt 			*if_stmt = t_if_stmt_new();
+	// 		twl_lst_push(ast->root->items, if_stmt);
+	// 		if_stmt->body = compound_stmt_new();
+	// 		if_stmt->cond = string_literal_new(*segs);
+	// 		segs++;
+	// 		while (!twl_str_starts_with(*segs, "fi"))
+	// 		{
+	// 			twl_lst_push(if_stmt->body->items, string_literal_new(*segs));
+	// 			segs++;
+	// 		}
+	// 		twl_printf("fi node: %s\n", *segs);
+	// 	}
+	// 	segs++;
+	// }
+	// twl_printf("\n======\n");
+	(void)ast;
+}
 
-char				*ast_to_str(t_ast *this);
-void				ast_build(t_ast *this);
-
-#endif
+void				ast_build(t_ast *ast)
+{
+	ast->root = compound_stmt_new();
+	ast_build_do(ast);
+}
