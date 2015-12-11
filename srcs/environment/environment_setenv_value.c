@@ -42,6 +42,7 @@ int					environment_setenv_value(t_environment *this,
 		return (1);
 	}
 	else
-		twl_lst_push(this->env_vars, environment_var_new(key, value, LOCAL, value != NULL));
+		twl_lst_push(this->env_vars, environment_var_new(key, value, LOCAL,
+			value != NULL));
 	return (0);
 }

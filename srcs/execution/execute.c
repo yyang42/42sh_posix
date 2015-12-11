@@ -23,7 +23,7 @@ static int		execute2(char *path, char **args, char **env)
 		return (-1);
 	}
 	else if (pid == 0)
-	{	
+	{
 		execve(path, args, env);
 		perror(path);
 		exit(0);

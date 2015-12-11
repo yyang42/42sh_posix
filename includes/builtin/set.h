@@ -39,7 +39,7 @@ int					test_set(char *str, t_environment *env);
 t_set_opt			*set_opt_new(char **argv, char *valid_opts);
 void				set_opt_del(t_set_opt *xopt);
 char				**set_opt_new_parse_arg_opt_and_return_non_opt_args__(
-								char **arr_opts, t_set_opt *opt, char *valid_opts);
+	char **arr_opts, t_set_opt *opt, char *valid_opts);
 char				*set_opt_check_invalid_opts(t_set_opt *opt);
 int					set_opt_exist(t_set_opt *twl_opt, char *opt_key);
 void				set_o_positive(t_environment *env);

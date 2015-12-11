@@ -12,7 +12,7 @@
 
 #include "cd.h"
 
-static void set_oldpwd(t_environment *env)
+static void	set_oldpwd(t_environment *env)
 {
 	char			*oldpwd;
 
@@ -20,21 +20,20 @@ static void set_oldpwd(t_environment *env)
 	environment_setenv_value(env, "OLDPWD", oldpwd);
 }
 
-static void set_pwd(char *pwd, t_environment *env)
+static void	set_pwd(char *pwd, t_environment *env)
 {
 	environment_setenv_value(env, "PWD", pwd);
 }
 
-static void cd_symlink(char *path, int no_symlinks, t_environment *this)
+static void	cd_symlink(char *path, t_environment *this)
 {
-	char buf[1024];
+	char buf[PATH_MAX];
 
-	(void)no_symlinks;
-	set_oldpwd(this);
 	if (chdir(path) == 0)
 	{
-		getcwd(buf, 1024);
-		set_pwd(no_symlinks ? buf : path, this);
+		set_oldpwd(this);
+		getcwd(buf, PATH_MAX);
+		set_pwd(buf, this);
 	}
 }
 
@@ -43,24 +42,26 @@ void		execute_cd(char *path, int no_symlinks, t_environment *this)
 	struct stat		sb;
 	char			*new_path;
 
-	new_path = set_canonical_form(path);
-	if (!lstat(new_path, &sb))
+	new_path = NULL;
+	if (!no_symlinks)
+		new_path = set_canonical_form(path);
+	if (!lstat(path, &sb) || no_symlinks)
 	{
-		if (S_ISLNK(sb.st_mode))
-			cd_symlink(new_path, no_symlinks, this);
+		if (S_ISLNK(sb.st_mode) || no_symlinks)
+			cd_symlink(no_symlinks ? path : new_path, this);
 		else if (S_ISDIR(sb.st_mode) && sb.st_mode & 0111)
 		{
 			set_oldpwd(this);
-			if (chdir(new_path) == 0)
-			{
-				set_pwd(new_path, this);
-			}
+			if (chdir(no_symlinks ? path : new_path) == 0)
+				set_pwd(no_symlinks ? path : new_path, this);
 		}
 		else if (!S_ISDIR(sb.st_mode))
-			twl_dprintf(2, "cd: %s: Not a directory\n", new_path);
+			twl_dprintf(2, "cd: %s: Not a directory\n", path);
 		else if (S_ISDIR(sb.st_mode) && !(sb.st_mode & 0111))
-			twl_dprintf(2, "cd: %s: Permission denied\n", new_path);
+			twl_dprintf(2, "cd: %s: Permission denied\n", path);
 	}
 	else
-		twl_dprintf(2, "cd: %s: No such file or directory\n", new_path);
+		twl_dprintf(2, "cd: %s: No such file or directory\n", path);
+	if (!no_symlinks)
+		free(new_path);
 }

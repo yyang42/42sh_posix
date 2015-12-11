@@ -26,8 +26,8 @@ static bool	is_dir_or_symlink(char *path)
 
 static bool	find_matching_path(void *arr_, void *content_)
 {
-	char 		*path;
-	char 		*dirname;
+	char		*path;
+	char		*dirname;
 	char		*full_path;
 
 	path = arr_;
@@ -47,6 +47,7 @@ char		*get_cdpath(char *dirname, t_environment *this)
 	char	*cd_path;
 	char	**paths;
 	char	*to_join;
+	char	*new_path;
 
 	cd_path = environment_getenv_value(this, "CDPATH");
 	if (cd_path != NULL)
@@ -54,7 +55,11 @@ char		*get_cdpath(char *dirname, t_environment *this)
 		paths = twl_strsplit(cd_path, ':');
 		to_join = twl_arr_find(paths, find_matching_path, dirname);
 		if (to_join)
-			return (join_paths(to_join, dirname));
+		{
+			new_path = join_paths(to_join, dirname);
+			twl_arr_del(paths, free);
+			return (new_path);
+		}
 	}
-	return dirname;
+	return (twl_strdup(dirname));
 }

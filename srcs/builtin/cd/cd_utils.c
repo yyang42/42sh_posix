@@ -10,18 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SPECIAL_PARAMS_H
-# define SPECIAL_PARAMS_H
+#include "cd.h"
 
-char				*test_params_at(t_environment *env);
-char				*params_at();
-char				*test_params_star(t_environment *env, bool between_quotes);
-char				*params_star(bool between_quotes);
-char				*test_params_sharp(t_environment *env);
-char				*params_sharp();
-char				*test_params_question(t_environment *env);
-char				*params_question();
-char				*test_params_hyphen(t_environment *env);
-char				*params_hyphen(t_environment *env);
+void	get_flags(t_opt *opt, int *no_symlinks)
+{
+	if (twl_opt_exist(opt, "P"))
+		*no_symlinks = 1;
+	if (twl_opt_exist(opt, "L"))
+		*no_symlinks = 0;
+}
 
-#endif
+int		free_all(char *dirname, char **args, t_opt *opt)
+{
+	if (dirname)
+		free(dirname);
+	if (args)
+		twl_arr_del(args, free);
+	if (opt)
+		twl_opt_del(opt);
+	return (0);
+}

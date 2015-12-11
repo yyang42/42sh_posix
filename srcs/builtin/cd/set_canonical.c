@@ -31,7 +31,9 @@ static t_lst	*handle_dot_dot(t_lst *lst)
 	tmp = lst->head;
 	while (tmp)
 	{
-		if (tmp->next && tmp->next->data && twl_strcmp(((char *)tmp->data), "..") && !twl_strcmp(((char *)tmp->next->data), ".."))
+		if (tmp->next && tmp->next->data
+			&& twl_strcmp(((char *)tmp->data), "..")
+			&& !twl_strcmp(((char *)tmp->next->data), ".."))
 		{
 			twl_lst_del_elem__(lst, tmp->next, free);
 			twl_lst_del_elem__(lst, tmp, free);
@@ -39,7 +41,7 @@ static t_lst	*handle_dot_dot(t_lst *lst)
 		}
 		tmp = tmp->next;
 	}
-	return lst;
+	return (lst);
 }
 
 static char		*remove_dots(char *path)

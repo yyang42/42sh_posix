@@ -20,12 +20,12 @@ char		*join_pwd_to_path(char *dirname)
 	if (!getcwd(buf, MAX_SIZE))
 	{
 		perror("cd");
-		return NULL;
+		return (NULL);
 	}
 	return (join_paths(buf, dirname));
 }
 
-char	*join_paths(char *path, char *dirname)
+char		*join_paths(char *path, char *dirname)
 {
 	char *full_path;
 
@@ -34,5 +34,5 @@ char	*join_paths(char *path, char *dirname)
 		full_path = twl_strjoin(path, dirname);
 	else
 		full_path = twl_joinpath(path, dirname);
-	return full_path;
+	return (full_path);
 }

@@ -18,6 +18,7 @@
 
 typedef struct		s_prog
 {
+	void			*test;
 }					t_prog;
 
 t_prog				*prog_new(void);

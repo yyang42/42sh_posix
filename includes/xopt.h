@@ -22,7 +22,6 @@
 typedef struct		s_xopt
 {
 	t_opt			*opt__;
-	// bool			is_enabled;
 }					t_xopt;
 
 t_xopt				*xopt_new(void);

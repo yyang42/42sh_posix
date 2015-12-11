@@ -84,12 +84,12 @@ void						environment_add_pos_param(char *param,
 void						environment_remove_all_pos_params(
 														t_environment *env);
 char						*environment_concat_pos_param_char(t_environment
-																*env,char *sep);
-void						environment_setenv_or_setlocal__(t_environment *this,
-									char *str, t_environment_var_type type);
+	*env, char *sep);
+void						environment_setenv_or_setlocal__(t_environment
+	*this, char *str, t_environment_var_type type);
 t_environment_var			*environment_get(t_environment *this, char *key);
-void				environment_remove_shell_func(t_environment *env,
+void						environment_remove_shell_func(t_environment *env,
 																	char *key);
-void				environment_add_shell_func(t_environment *env,
+void						environment_add_shell_func(t_environment *env,
 														char *key, char *data);
 #endif
