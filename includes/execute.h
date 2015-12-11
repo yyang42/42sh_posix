@@ -23,6 +23,7 @@
 # include "twl_opt.h"
 # include <sys/stat.h>
 # include <sys/types.h>
+# include <sys/wait.h>
 # include "twl_stdio.h"
 # include <stdio.h>
 # include <string.h>
