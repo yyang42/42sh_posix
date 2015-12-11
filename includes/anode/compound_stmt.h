@@ -10,22 +10,22 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ANODE_IF_STMT_H
-# define ANODE_IF_STMT_H
+#ifndef ANODE_COMPOUND_STMT_H
+# define ANODE_COMPOUND_STMT_H
+
+# include "twl_lst.h"
 
 # include "basics.h"
-# include "anode_type.h"
-# include "anode_compound_stmt.h"
 
-typedef struct				s_anode_if_stmt
+# include "anode/anode.h"
+
+typedef struct				s_compound_stmt
 {
 	t_anode_type			type;
-	void					*cond;
-	t_anode_compound_stmt	*body;
-	t_anode_compound_stmt	*elze;
-}							t_anode_if_stmt;
+	t_lst					*items;
+}							t_compound_stmt;
 
-t_anode_if_stmt				*anode_if_stmt_new(void);
-void						anode_if_stmt_del(t_anode_if_stmt *this);
+t_compound_stmt				*compound_stmt_new(void);
+void						compound_stmt_del(t_compound_stmt *this);
 
 #endif

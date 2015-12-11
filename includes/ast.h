@@ -15,7 +15,7 @@
 
 # include "basics.h"
 
-# include "anode_compound_stmt.h"
+# include "anode/compound_stmt.h"
 
 # define AST_SEPARATOR_OP ";&"
 # define AST_WHITE_SPACE "\t\n "
@@ -23,7 +23,7 @@
 typedef struct				s_ast
 {
 	char					*raw;
-	t_anode_compound_stmt	*root;
+	t_compound_stmt	*root;
 }							t_ast;
 
 t_ast						*ast_new(char *input);

@@ -14,9 +14,9 @@
 
 #include "ast.h"
 
-#include "anode.h"
-#include "anode_if_stmt.h"
-#include "anode_string_literal.h"
+#include "anode/anode.h"
+#include "anode/if_stmt.h"
+#include "anode/string_literal.h"
 
 #define TAB_WIDTH 2
 
@@ -29,7 +29,7 @@ void				print_node(void *node, void *lvl_ptr)
 	lvl++;
 	if (anode_get_type(node) == ANODE_COMPOUND_STMT)
 	{
-		t_anode_compound_stmt		*compound_stmt = node;
+		t_compound_stmt		*compound_stmt = node;
 		twl_printf("%*s<%s>\n", lvl * TAB_WIDTH, "", anode_to_string(node));
 		twl_lst_iter(compound_stmt->items, print_node, &lvl);
 	}
@@ -43,7 +43,7 @@ void				print_node(void *node, void *lvl_ptr)
 	}
 	else if (anode_get_type(node) == ANODE_STRING_LITERAL)
 	{
-		t_anode_string_literal *string = node;
+		t_string_literal *string = node;
 		twl_printf("%*s<%s> %s\n", lvl * TAB_WIDTH, "", anode_to_string(node),
 																string->text);
 	}

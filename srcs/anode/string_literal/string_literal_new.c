@@ -12,13 +12,13 @@
 
 #include "twl_xstdlib.h"
 
-#include "anode_string_literal.h"
+#include "anode/string_literal.h"
 
-t_anode_string_literal			*anode_string_literal_new(char *text)
+t_string_literal			*string_literal_new(char *text)
 {
-	t_anode_string_literal		*this;
+	t_string_literal		*this;
 
-	this = twl_malloc_x0(sizeof(t_anode_string_literal));
+	this = twl_malloc_x0(sizeof(t_string_literal));
 	this->type = ANODE_STRING_LITERAL;
 	this->text = twl_strdup(text);
 	return (this);

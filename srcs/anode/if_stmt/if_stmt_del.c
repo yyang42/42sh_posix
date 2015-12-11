@@ -12,9 +12,9 @@
 
 #include <stdlib.h>
 
-#include "anode_string_literal.h"
+#include "anode/if_stmt.h"
 
-void				anode_string_literal_del(t_anode_string_literal *this)
+void				anode_if_stmt_del(t_anode_if_stmt *this)
 {
 	free(this);
 }

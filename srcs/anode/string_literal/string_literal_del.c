@@ -10,15 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "twl_xstdlib.h"
+#include <stdlib.h>
 
-#include "anode_if_stmt.h"
+#include "anode/string_literal.h"
 
-t_anode_if_stmt			*anode_if_stmt_new(void)
+void				string_literal_del(t_string_literal *this)
 {
-	t_anode_if_stmt		*this;
-
-	this = twl_malloc_x0(sizeof(t_anode_if_stmt));
-	this->type = ANODE_IF_STMT;
-	return (this);
+	free(this);
 }

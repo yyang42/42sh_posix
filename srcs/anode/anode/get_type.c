@@ -10,22 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ANODE_COMPOUND_STMT_H
-# define ANODE_COMPOUND_STMT_H
+#include "anode/anode.h"
 
-# include "twl_lst.h"
-
-# include "basics.h"
-
-# include "anode_type.h"
-
-typedef struct				s_anode_compound_stmt
+t_anode_type				anode_get_type(void *anode_)
 {
-	t_anode_type			type;
-	t_lst					*items;
-}							t_anode_compound_stmt;
-
-t_anode_compound_stmt		*anode_compound_stmt_new(void);
-void						anode_compound_stmt_del(t_anode_compound_stmt *this);
-
-#endif
+	t_anode					*anode;
+	anode = anode_;
+	return (anode->type);
+}

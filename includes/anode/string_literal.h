@@ -10,11 +10,22 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#ifndef ANODE_STRING_LITERAL_H
+# define ANODE_STRING_LITERAL_H
 
-#include "anode_if_stmt.h"
+# include "basics.h"
 
-void				anode_if_stmt_del(t_anode_if_stmt *this)
+# include "anode/anode.h"
+
+
+typedef struct				s_string_literal
 {
-	free(this);
-}
+	t_anode_type			type;
+	char					*text;
+}							t_string_literal;
+
+t_string_literal		*string_literal_new(char *text);
+void						string_literal_del(
+												t_string_literal *this);
+
+#endif

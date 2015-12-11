@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "anode.h"
+#include <stdlib.h>
 
-t_anode_type				anode_get_type(void *anode_)
+#include "anode/compound_stmt.h"
+
+void				compound_stmt_del(t_compound_stmt *this)
 {
-	t_anode					*anode;
-	anode = anode_;
-	return (anode->type);
+	free(this);
 }
