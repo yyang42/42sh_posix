@@ -24,4 +24,5 @@ void				pattern_build_finish_(t_pattern *this)
 		free(this->to_push_);
 		this->to_push_ = NULL;
 	}
+	pattern_build_harmonize_(this);
 }

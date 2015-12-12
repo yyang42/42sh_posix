@@ -21,6 +21,7 @@ t_pattern			*pattern_new(char *pattern)
 	this = twl_malloc_x0(sizeof(t_pattern));
 	this->pattern = twl_strdup(pattern);
 	this->split = twl_lst_new();
+	this->depth = -1;
 	this->index = 0;
 	this->to_push_ = NULL;
 	this->itp_ = 0;
