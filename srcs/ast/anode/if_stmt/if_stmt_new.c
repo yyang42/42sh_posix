@@ -14,11 +14,11 @@
 
 #include "ast/anode/if_stmt.h"
 
-t_t_if_stmt			*t_if_stmt_new(void)
+t_if_stmt			*if_stmt_new(void)
 {
-	t_t_if_stmt	*this;
+	t_if_stmt	*this;
 
-	this = twl_malloc_x0(sizeof(t_t_if_stmt));
+	this = twl_malloc_x0(sizeof(t_if_stmt));
 	this->type = IF_STMT;
 	return (this);
 }

@@ -24,9 +24,9 @@ typedef struct		s_t_if_stmt
 	void			*cond;
 	t_compound_stmt	*body;
 	t_compound_stmt	*elze;
-}					t_t_if_stmt;
+}					t_if_stmt;
 
-t_t_if_stmt		*t_if_stmt_new(void);
-void				t_if_stmt_del(t_t_if_stmt *this);
+t_if_stmt			*if_stmt_new(void);
+void				if_stmt_del(t_if_stmt *this);
 
 #endif

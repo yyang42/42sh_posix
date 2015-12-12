@@ -15,9 +15,33 @@
 #include "twl_arr.h"
 #include "twl_xstring.h"
 
-static void			ast_build_do(t_ast *ast)
+static bool			is_if_stmt(char *str)
 {
+	if (twl_str_starts_with(str, "if "))
+		return (true);
+	else
+		return (false);
+}
 
+static int			ast_build_if_stmt(t_if_stmt *if_stmt, char *str)
+{
+	(void)str;
+	(void)if_stmt;
+	return (0);
+}
+
+static int			ast_build_compound_stmt(t_compound_stmt *compound_stmt, char *str)
+{
+	if (is_if_stmt(str) || true)
+	{
+		t_if_stmt *if_stmt;
+		if_stmt = if_stmt_new();
+		COUCOU;
+		twl_lst_push(compound_stmt->items, if_stmt);
+		COUCOU;
+		ast_build_if_stmt(if_stmt, str);
+		(void)if_stmt;
+	}
 	// segs = twl_strsplit_mul_trim_chars(ast->raw, AST_SEPARATOR_OP,
 	// 														AST_WHITE_SPACE);
 	// twl_arr_putstr(segs, "\n");
@@ -26,7 +50,7 @@ static void			ast_build_do(t_ast *ast)
 	// {
 	// 	if (twl_str_starts_with(*segs, "if "))
 	// 	{
-	// 		t_t_if_stmt 			*if_stmt = t_if_stmt_new();
+	// 		t_if_stmt 			*if_stmt = if_stmt_new();
 	// 		twl_lst_push(ast->root->items, if_stmt);
 	// 		if_stmt->body = compound_stmt_new();
 	// 		if_stmt->cond = string_literal_new(*segs);
@@ -41,11 +65,13 @@ static void			ast_build_do(t_ast *ast)
 	// 	segs++;
 	// }
 	// twl_printf("\n======\n");
-	(void)ast;
+	(void)compound_stmt;
+	(void)str;
+	return (0);
 }
 
 void				ast_build(t_ast *ast)
 {
 	ast->root = compound_stmt_new();
-	ast_build_do(ast);
+	ast_build_compound_stmt(ast->root, ast->raw);
 }

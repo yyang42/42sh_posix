@@ -13,6 +13,11 @@
 #ifndef UTILS_H
 # define UTILS_H
 
+# include "twl_lst.h"
+
 # include "basics.h"
+
+int					demo_sum(int num1, int num2);
+t_lst				*str_split_except_quote(char *str, char *split_chars);
 
 #endif

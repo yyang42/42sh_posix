@@ -10,11 +10,31 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "utils.h"
 
-#include "ast/anode/if_stmt.h"
-
-void				if_stmt_del(t_if_stmt *this)
+t_lst				*str_split_except_quote(char *str, char *split_chars)
 {
-	free(this);
+	t_lst			*segs;
+	int				len;
+
+	segs = twl_lst_new();
+	len = 0;
+	while (*str)
+	{
+
+		if (twl_strchr(split_chars, *str))
+		{
+			twl_lst_push(segs, twl_strndup(str - len + 1, len));
+			len = 0;
+		}
+		len++;
+		str++;
+	}
+	twl_lst_push(segs, twl_strndup(str - len, len));
+	// twl_lst_push(segs, "aaa");
+	// twl_lst_push(segs, "aaa");
+	// twl_lst_push(segs, "aaa");
+	return (segs);
+	(void)split_chars;
+	(void)str;
 }
