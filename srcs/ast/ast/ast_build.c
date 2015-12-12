@@ -30,9 +30,31 @@ static int			ast_build_if_stmt(t_if_stmt *if_stmt, char *str)
 	return (0);
 }
 
+static int			ast_build_cmd_stmt(t_cmd_stmt *cmd_stmt, char *str)
+{
+	(void)cmd_stmt;
+	return (twl_strlen(str));
+}
+
+static int			ast_build_compound_stmt_lists(t_compound_stmt *compound_stmt, char *str)
+{
+	char				*not_comp_stmt;
+
+	not_comp_stmt = twl_str_split_get(str, ";", 0);
+	if ("TODO is_a_simple_cmd")
+	{
+		t_cmd_stmt	*cmd_stmt;
+		cmd_stmt = cmd_stmt_new();
+		twl_lst_push(compound_stmt->items, cmd_stmt);
+		int	len = ast_build_cmd_stmt(cmd_stmt, str);
+		return (len);
+	}
+	assert(!"Should not reach here!");
+}
+
 static int			ast_build_compound_stmt(t_compound_stmt *compound_stmt, char *str)
 {
-	if (is_if_stmt(str) || true)
+	if (is_if_stmt(str))
 	{
 		t_if_stmt *if_stmt;
 		if_stmt = if_stmt_new();
@@ -40,7 +62,10 @@ static int			ast_build_compound_stmt(t_compound_stmt *compound_stmt, char *str)
 		twl_lst_push(compound_stmt->items, if_stmt);
 		COUCOU;
 		ast_build_if_stmt(if_stmt, str);
-		(void)if_stmt;
+	}
+	else
+	{
+		ast_build_compound_stmt_lists(compound_stmt, str);
 	}
 	// segs = twl_strsplit_mul_trim_chars(ast->raw, AST_SEPARATOR_OP,
 	// 														AST_WHITE_SPACE);

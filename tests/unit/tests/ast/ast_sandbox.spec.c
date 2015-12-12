@@ -11,6 +11,9 @@ static void sandbox(t_test *test)
 	char			*out;
 	out = ast_to_str(ast);
 	char			*expected =   "COMPOUND_STMT\n" \
+								  "  CMD_STMT\n" \
+								  "    STRING_LITERAL \"echo\"\n" \
+								  "    STRING_LITERAL \"111\"\n" \
 								  "  IF_STMT\n" \
 								  "    COMPOUND_STMT\n" \
 								  "      STRING_LITERAL \"true\"\n" \

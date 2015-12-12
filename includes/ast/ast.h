@@ -17,6 +17,7 @@
 
 # include "ast/anode/compound_stmt.h"
 # include "ast/anode/if_stmt.h"
+# include "ast/anode/cmd_stmt.h"
 # include "ast/anode/string_literal.h"
 # include "ast/anode/anode.h"
 

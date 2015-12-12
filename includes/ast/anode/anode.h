@@ -23,6 +23,6 @@ typedef struct		s_anode
 }					t_anode;
 
 t_atype				anode_get_type(void *anode_);
-char				*anode_to_string(void *anode_);
+char				*anode_get_type_str(void *anode_);
 
 #endif

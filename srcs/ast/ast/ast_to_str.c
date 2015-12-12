@@ -26,40 +26,28 @@ void				print_node(void *anode, void *lvl_ptr, void *out_list)
 	char			*tmp;
 
 	lvl = *(int *)lvl_ptr;
-	twl_asprintf(&tmp, "%*s<%s>", lvl * TAB_WIDTH, "", anode_to_string(anode));
+	twl_asprintf(&tmp, "%*s%s", lvl * TAB_WIDTH, "", anode_get_type_str(anode));
 	twl_lst_push(out_list, tmp);
-	COUCOU;
 	if (anode_get_type(anode) == STRING_LITERAL)
 	{
 		t_string_literal *string = anode;
 		twl_asprintf(&tmp, " %s", string->text);
 		twl_lst_push(out_list, tmp);
 	}
-	COUCOU;
 	twl_lst_push(out_list, twl_strdup("\n"));
-	COUCOU;
 	lvl++;
-	COUCOU;
 	if (anode_get_type(anode) == COMPOUND_STMT)
 	{
-	COUCOU;
 		t_compound_stmt		*compound_stmt = anode;
-	COUCOU;
 		twl_lst_iter2(compound_stmt->items, print_node, &lvl, out_list);
-	COUCOU;
 	}
 	else if (anode_get_type(anode) == IF_STMT)
 	{
-	COUCOU;
 		t_if_stmt			*if_stmt = anode;
-	COUCOU;
 		print_node(if_stmt->cond, &lvl, out_list);
-	COUCOU;
 		twl_lst_iter2(if_stmt->body->items, print_node, &lvl, out_list);
-	COUCOU;
 
 	}
-	COUCOU;
 }
 
 char				*ast_to_str(t_ast *this)
