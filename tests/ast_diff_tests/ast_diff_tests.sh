@@ -29,8 +29,8 @@ diff_test ()
 	testcase=$2
 	testcase_path="$TESTS_PATH/$testsuite/$testcase"
 	testcase_tmp="$testcase_path/.tmp"
-	testcase_tmp_stdout="$testcase_tmp/.actual_stdout"
-	testcase_tmp_stderr="$testcase_tmp/.actual_stderr"
+	testcase_tmp_stdout="$testcase_tmp/actual_stdout"
+	testcase_tmp_stderr="$testcase_tmp/actual_stderr"
 
 	mkdir -p $testcase_tmp
 	rm -f $testcase_tmp/*
