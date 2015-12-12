@@ -16,6 +16,8 @@
 #include "twl_xstring.h"
 #include "utils.h"
 
+#define NEWLINE_SEP_STR "\n"
+#define NEWLINE_SEP_CHAR '\n'
 static bool			is_if_stmt(char *str)
 {
 	if (twl_str_starts_with(str, "if "))
@@ -52,22 +54,22 @@ static void			ast_build_if_stmt_parts_fn(void *str, void *if_stmt_)
 	t_cmd_stmt		*cmd_stmt;
 
 	if_stmt = if_stmt_;
-	if (twl_str_starts_with(str, "if "))
+	if (twl_str_starts_with(str, "if"))
 	{
 		cmd_stmt = cmd_stmt_new();
-		ast_build_cmd_stmt(cmd_stmt, str + twl_strlen("if "));
+		ast_build_cmd_stmt(cmd_stmt, str + twl_strlen("if"));
 		twl_lst_push(if_stmt->cond->items, cmd_stmt);
 	}
-	else if (twl_str_starts_with(str, "then "))
+	else if (twl_str_starts_with(str, "then"))
 	{
 		cmd_stmt = cmd_stmt_new();
-		ast_build_cmd_stmt(cmd_stmt, str + twl_strlen("then "));
+		ast_build_cmd_stmt(cmd_stmt, str + twl_strlen("then"));
 		twl_lst_push(if_stmt->body->items, cmd_stmt);
 	}
-	else if (twl_str_starts_with(str, "else "))
+	else if (twl_str_starts_with(str, "else"))
 	{
 		cmd_stmt = cmd_stmt_new();
-		ast_build_cmd_stmt(cmd_stmt, str + twl_strlen("else "));
+		ast_build_cmd_stmt(cmd_stmt, str + twl_strlen("else"));
 		twl_lst_push(if_stmt->elze->items, cmd_stmt);
 	}
 }
@@ -78,10 +80,10 @@ static int			ast_build_if_stmt(t_if_stmt *if_stmt, char *str)
 	char			*if_str;
 	t_lst			*if_segs;
 
-	fi_pos = twl_strstr(str, ";fi;");
+	fi_pos = twl_strstr(str, NEWLINE_SEP_STR"fi"NEWLINE_SEP_STR);
 	if_str = twl_strndup(str, fi_pos - str);
-	if_str = twl_strtrim_chars_free(if_str, ";");
-	if_segs = twl_str_split_to_lst(if_str, ';');
+	if_str = twl_strtrim_chars_free(if_str, NEWLINE_SEP_STR);
+	if_segs = twl_str_split_to_lst(if_str, NEWLINE_SEP_CHAR);
 	// twl_printf("====> if        %s\n", str);
 	// twl_printf("====> after fi  %s\n", twl_strstr(str, "fi"));
 	// twl_printf("====> if_str    %s\n", if_str);
@@ -92,21 +94,21 @@ static int			ast_build_if_stmt(t_if_stmt *if_stmt, char *str)
 	(void)if_stmt;
 	free(if_str);
 	twl_lst_del(if_segs, free);
-	return (fi_pos + twl_strlen(";fi;") - str);
+	return (fi_pos + twl_strlen(NEWLINE_SEP_STR"fi"NEWLINE_SEP_STR) - str);
 }
 
 static int			ast_build_compound_stmt_lists(t_compound_stmt *compound_stmt, char *str)
 {
 	char				*not_comp_stmt;
 
-	not_comp_stmt = twl_str_split_get(str, ";", 0);
+	not_comp_stmt = twl_str_split_get(str, NEWLINE_SEP_STR, 0);
 	if ("TODO is_a_simple_cmd")
 	{
 		t_cmd_stmt	*cmd_stmt;
 		cmd_stmt = cmd_stmt_new();
 		twl_lst_push(compound_stmt->items, cmd_stmt);
 		int	len = ast_build_cmd_stmt(cmd_stmt, not_comp_stmt);
-		return (len + twl_strlen(";"));
+		return (len + twl_strlen(NEWLINE_SEP_STR));
 	}
 	assert(!"Should not reach here!");
 }

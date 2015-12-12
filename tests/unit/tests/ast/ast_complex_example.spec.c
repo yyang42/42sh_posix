@@ -6,7 +6,7 @@ static void simple_example(t_test *test)
 {
 	t_ast			*ast;
 
-	ast = ast_new("echo 123;echo abc");
+	ast = ast_new("echo 123\necho abc");
 	ast_build(ast);
 	char			*out;
 	out = ast_to_str(ast);
@@ -30,7 +30,7 @@ static void complex_example(t_test *test)
 {
 	t_ast			*ast;
 
-	ast = ast_new("echo 111;if true;then echo aaa;else echo bbb;fi;echo ccc\n");
+	ast = ast_new("echo 111\nif true\nthen echo aaa\nelse echo bbb\nfi\necho ccc\n");
 	ast_build(ast);
 	char			*out;
 	out = ast_to_str(ast);
