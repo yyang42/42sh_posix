@@ -20,7 +20,7 @@
 
 #define TAB_WIDTH 2
 
-void				print_node(void *anode, void *lvl_ptr, void *out_list)
+void				travel_rec(void *anode, void *lvl_ptr, void *out_list)
 {
 	int				lvl;
 	char			*tmp;
@@ -31,7 +31,7 @@ void				print_node(void *anode, void *lvl_ptr, void *out_list)
 	if (anode_get_type(anode) == STRING_LITERAL)
 	{
 		t_string_literal *string = anode;
-		twl_asprintf(&tmp, " %s", string->text);
+		twl_asprintf(&tmp, " \"%s\"", string->text);
 		twl_lst_push(out_list, tmp);
 	}
 	twl_lst_push(out_list, twl_strdup("\n"));
@@ -39,14 +39,19 @@ void				print_node(void *anode, void *lvl_ptr, void *out_list)
 	if (anode_get_type(anode) == COMPOUND_STMT)
 	{
 		t_compound_stmt		*compound_stmt = anode;
-		twl_lst_iter2(compound_stmt->items, print_node, &lvl, out_list);
+		twl_lst_iter2(compound_stmt->items, travel_rec, &lvl, out_list);
 	}
 	else if (anode_get_type(anode) == IF_STMT)
 	{
 		t_if_stmt			*if_stmt = anode;
-		print_node(if_stmt->cond, &lvl, out_list);
-		twl_lst_iter2(if_stmt->body->items, print_node, &lvl, out_list);
-
+		travel_rec(if_stmt->cond, &lvl, out_list);
+		travel_rec(if_stmt->body, &lvl, out_list);
+		travel_rec(if_stmt->elze, &lvl, out_list);
+	}
+	else if (anode_get_type(anode) == CMD_STMT)
+	{
+		t_cmd_stmt			*cmd_stmt = anode;
+		twl_lst_iter2(cmd_stmt->strings, travel_rec, &lvl, out_list);
 	}
 }
 
@@ -58,7 +63,7 @@ char				*ast_to_str(t_ast *this)
 
 	out_list = twl_lst_new();
 	lvl = 0;
-	print_node(this->root, &lvl, out_list);
+	travel_rec(this->root, &lvl, out_list);
 	out = twl_lst_strjoin(out_list, "");
 	twl_lst_del(out_list, free);
 	return (out);

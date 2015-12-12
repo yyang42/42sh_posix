@@ -21,7 +21,7 @@
 typedef struct		s_t_if_stmt
 {
 	t_atype			type;
-	void			*cond;
+	t_compound_stmt	*cond;
 	t_compound_stmt	*body;
 	t_compound_stmt	*elze;
 }					t_if_stmt;

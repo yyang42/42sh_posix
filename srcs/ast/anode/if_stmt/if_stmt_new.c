@@ -20,5 +20,8 @@ t_if_stmt			*if_stmt_new(void)
 
 	this = twl_malloc_x0(sizeof(t_if_stmt));
 	this->type = IF_STMT;
+	this->cond = compound_stmt_new();
+	this->body = compound_stmt_new();
+	this->elze = compound_stmt_new();
 	return (this);
 }
