@@ -47,11 +47,12 @@ echo $C_CYAN"====== START AST DIFF TESTS ======"$C_CLEAR
 if ! `env | grep -q ^LAST_ONLY=`
 then
 
+	diff_test first_tests echo_abc_123
 	diff_test first_tests echo_if
 
 else
 
-	diff_test tests/ast_diff_tests/test/syntax
+	diff_test first_tests echo_abc_123
 
 fi
 echo $C_CYAN"======  END TESTS  ======"$C_CLEAR

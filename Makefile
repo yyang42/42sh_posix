@@ -86,7 +86,10 @@ check_unit:
 	make -C tests/unit
 
 check_ast:
-	sh tools/ast_diff_tests.sh
+	sh tests/ast_diff_tests/ast_diff_tests.sh
+
+check_ast_last:
+	LAST_ONLY=1 sh tests/ast_diff_tests/ast_diff_tests.sh
 
 norm:
 	find srcs includes -name "*.h" -o -name "*.c" -follow | xargs norminette

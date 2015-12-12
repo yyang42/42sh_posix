@@ -84,14 +84,7 @@ static int			ast_build_if_stmt(t_if_stmt *if_stmt, char *str)
 	if_str = twl_strndup(str, fi_pos - str);
 	if_str = twl_strtrim_chars_free(if_str, NEWLINE_SEP_STR);
 	if_segs = twl_str_split_to_lst(if_str, NEWLINE_SEP_CHAR);
-	// twl_printf("====> if        %s\n", str);
-	// twl_printf("====> after fi  %s\n", twl_strstr(str, "fi"));
-	// twl_printf("====> if_str    %s\n", if_str);
-	// twl_printf("====> fi_pos    %s\n", fi_pos);
 	twl_lst_iter(if_segs, ast_build_if_stmt_parts_fn, if_stmt);
-
-	(void)str;
-	(void)if_stmt;
 	free(if_str);
 	twl_lst_del(if_segs, free);
 	return (fi_pos + twl_strlen(NEWLINE_SEP_STR"fi"NEWLINE_SEP_STR) - str);
