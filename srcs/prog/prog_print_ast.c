@@ -13,17 +13,19 @@
 #include "prog.h"
 
 #include "ast/ast.h"
+#include "twl_xstdio.h"
 
 void				prog_print_ast(t_prog *prog)
 {
-	t_xopt			*opt;
+	t_xopt			*xopt;
 	char			*ast_str;
 	t_ast			*ast;
 
-	opt = xopt_singleton();
-	if (opt->print_ast && opt->command)
+	xopt = xopt_singleton();
+	if (xopt->print_ast && twl_lst_len(xopt->opt->args))
 	{
-		ast = ast_new(opt->command);
+		ast_str = twl_file_to_str(twl_lst_get(xopt->opt->args, 0));
+		ast = ast_new(ast_str);
 		ast_build(ast);
 		ast_str = ast_to_str(ast);
 		twl_putstr(ast_str);

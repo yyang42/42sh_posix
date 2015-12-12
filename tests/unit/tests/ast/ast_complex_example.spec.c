@@ -30,7 +30,7 @@ static void complex_example(t_test *test)
 {
 	t_ast			*ast;
 
-	ast = ast_new("echo 111;if true;then echo aaa;else echo bbb;fi;echo ccc");
+	ast = ast_new("echo 111;if true;then echo aaa;else echo bbb;fi;echo ccc\n");
 	ast_build(ast);
 	char			*out;
 	out = ast_to_str(ast);

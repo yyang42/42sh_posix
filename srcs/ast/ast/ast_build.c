@@ -28,10 +28,13 @@ static void			ast_build_cmd_stmt_push_fn(void *str, void *cmd_stmt_)
 {
 	t_string_literal	*str_lit;
 	t_cmd_stmt			*cmd_stmt;
+	char				*str_bis;
 
+	str_bis = twl_strtrim(str);
 	cmd_stmt = cmd_stmt_;
-	str_lit = string_literal_new(str);
+	str_lit = string_literal_new(str_bis);
 	twl_lst_push(cmd_stmt->strings, str_lit);
+	free(str_bis);
 }
 
 static int			ast_build_cmd_stmt(t_cmd_stmt *cmd_stmt, char *str)
