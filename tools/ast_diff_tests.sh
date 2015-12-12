@@ -8,6 +8,8 @@ C_CLEAR="\033[0m"
 RENDU_PATH="`pwd`"
 TESTS_PATH="$RENDU_PATH/tests/ast_diff_tests"
 
+exit_status=0
+
 make
 
 print_result ()
@@ -17,6 +19,7 @@ print_result ()
 		echo $C_GREEN"OK"$C_CLEAR"\c"
 	else
 		echo $C_RED"KO"$C_CLEAR"\c"
+		exit_status=1
 	fi
 }
 
@@ -51,3 +54,5 @@ else
 
 fi
 echo $C_CYAN"======  END TESTS  ======"$C_CLEAR
+
+exit $exit_status
