@@ -14,6 +14,7 @@
 # define PATTERN_H
 
 # include "basics.h"
+#include <stdio.h>
 
 typedef struct		s_pattern_data
 {
@@ -28,10 +29,21 @@ typedef struct		s_pattern_bracket_
 	int				flag;
 }					t_pattern_bracket_;
 
+typedef struct		s_pattern_harmonize_
+{
+	t_lst			*to_push;
+	t_pattern_data	*data;
+	int				index;
+	int				start;
+	int				flag;
+}					t_pattern_harmonize_;
+
 typedef struct		s_pattern
 {
 	t_lst			*split;
+	t_lst			*harm_;
 	char			*pattern;
+	int				depth;
 	size_t			index;
 	t_pattern_data	*to_push_;
 	size_t			itp_;
@@ -54,6 +66,7 @@ void				pattern_build_simple_quote_(t_pattern *this);
 void				pattern_build_double_quote_(t_pattern *this);
 void				pattern_build_normal_char_(t_pattern *this);
 void				pattern_build_finish_(t_pattern *this);
+void				pattern_build_harmonize_(t_pattern *this);
 
 /*
 ** Public method to simplify my life <3
@@ -61,5 +74,7 @@ void				pattern_build_finish_(t_pattern *this);
 
 char				pattern_get_begin_file(t_pattern *this);
 char				*pattern_to_string(t_pattern *this);
+int					pattern_get_depth(t_pattern *this);
+t_lst				*pattern_get_pattern(t_pattern *this, int depth);
 
 #endif

@@ -10,22 +10,26 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-
 #include "pattern.h"
 
-static void			del_pattern_data(void *data_)
+int					pattern_get_depth(t_pattern *this)
 {
-	t_pattern_data	*data;
+	int				index_str;
+	int				depth;
+	char			*pattern;
 
-	data = data_;
-	free(data->split);
-	free(data);
-}
-
-void				pattern_del(t_pattern *this)
-{
-	twl_lst_del(this->split, del_pattern_data);
-	free(this->pattern);
-	free(this);
+	if (this->depth != -1)
+		return (this->depth);
+	index_str = 0;
+	depth = 1;
+	pattern = pattern_to_string(this);
+	while (pattern[index_str])
+	{
+		if (pattern[index_str] == '/' && index_str > 0 &&
+				pattern[index_str - 1] != '/')
+			depth += 1;
+		index_str += 1;
+	}
+	free(pattern);
+	return (depth);
 }
