@@ -22,6 +22,7 @@
 typedef struct		s_xopt
 {
 	t_opt			*opt__;
+	bool			print_ast;
 }					t_xopt;
 
 t_xopt				*xopt_new(void);

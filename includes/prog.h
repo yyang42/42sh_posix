@@ -24,5 +24,6 @@ typedef struct		s_prog
 t_prog				*prog_new(void);
 void				prog_del(t_prog *prog);
 void				prog_run(t_prog *prog);
+void				prog_print_ast(t_prog *prog);
 
 #endif

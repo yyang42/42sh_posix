@@ -10,14 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "xopt.h"
+#include "prog.h"
 
-t_xopt				*xopt_new(void)
+#include "ast/ast.h"
+
+void				prog_print_ast(t_prog *prog)
 {
-	t_xopt			*xopt;
+	t_xopt			*opt;
+	char			*ast_str;
+	t_ast			*ast;
 
-	xopt = twl_malloc_x0(sizeof(t_xopt));
-	xopt->print_ast = false;
-	xopt->command = NULL;
-	return (xopt);
+	opt = xopt_singleton();
+	if (opt->print_ast && opt->command)
+	{
+		ast = ast_new(opt->command);
+		ast_build(ast);
+		ast_str = ast_to_str(ast);
+		twl_putstr(ast_str);
+		free(ast_str);
+	}
+	(void)prog;
 }

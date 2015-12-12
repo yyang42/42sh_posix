@@ -79,10 +79,10 @@ static int			ast_build_if_stmt(t_if_stmt *if_stmt, char *str)
 	if_str = twl_strndup(str, fi_pos - str);
 	if_str = twl_strtrim_chars_free(if_str, ";");
 	if_segs = twl_str_split_to_lst(if_str, ';');
-	twl_printf("====> if        %s\n", str);
-	twl_printf("====> after fi  %s\n", twl_strstr(str, "fi"));
-	twl_printf("====> if_str    %s\n", if_str);
-	twl_printf("====> fi_pos    %s\n", fi_pos);
+	// twl_printf("====> if        %s\n", str);
+	// twl_printf("====> after fi  %s\n", twl_strstr(str, "fi"));
+	// twl_printf("====> if_str    %s\n", if_str);
+	// twl_printf("====> fi_pos    %s\n", fi_pos);
 	twl_lst_iter(if_segs, ast_build_if_stmt_parts_fn, if_stmt);
 
 	(void)str;
@@ -117,7 +117,6 @@ static int			ast_build_compound_stmt(t_compound_stmt *compound_stmt, char *str)
 	len = 0;
 	while (len < total_len)
 	{
-		twl_printf("len: %d str: {%s}\n", len, str + len);
 		COUCOU;
 		if (is_if_stmt(str + len))
 		{
