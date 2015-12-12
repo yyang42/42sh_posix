@@ -43,7 +43,7 @@ diff_test ()
 	echo " stderr $1/$2"
 }
 
-echo $C_CYAN"====== START TESTS ======"$C_CLEAR
+echo $C_CYAN"====== START AST DIFF TESTS ======"$C_CLEAR
 if ! `env | grep -q ^LAST_ONLY=`
 then
 
