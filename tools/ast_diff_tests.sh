@@ -32,7 +32,7 @@ diff_test ()
 	testcase_tmp_stdout="$testcase_tmp/.actual_stdout"
 	testcase_tmp_stderr="$testcase_tmp/.actual_stderr"
 
-	mkdir -p testcase_tmp
+	mkdir -p $testcase_tmp
 	rm -f $testcase_tmp/*
 	$RENDU_PATH/42sh -a $testcase_path/input.sh > $testcase_tmp_stdout 2> $testcase_tmp_stderr
 	diff $testcase_path/expected_stdout $testcase_tmp_stdout
