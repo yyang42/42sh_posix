@@ -96,10 +96,10 @@ static void normal_tokens_with_quote_tokens(t_test *test)
 	char			*str = "aa\"bb cc\"dd";
 
 	segs = str_split_except_quote(str);
-	printf("======\n");
-	twl_lst_putstr(segs, "\n");
-	printf("\n");
-	printf("len %zu\n", twl_lst_len(segs));
+	// printf("======\n");
+	// twl_lst_putstr(segs, "\n");
+	// printf("\n");
+	// printf("len %zu\n", twl_lst_len(segs));
 	mt_assert(twl_lst_len(segs) == 1);
 	mt_assert(strcmp(twl_lst_get(segs, 0), "aa\"bb cc\"dd") == 0);
 }
@@ -111,10 +111,10 @@ static void double_slash_alone(t_test *test)
 	char			*str = "\\\\\"a b\\\\\"";
 
 	segs = str_split_except_quote(str);
-	printf("======\n");
-	twl_lst_putstr(segs, "\n");
-	printf("\n");
-	printf("len %zu\n", twl_lst_len(segs));
+	// printf("======\n");
+	// twl_lst_putstr(segs, "\n");
+	// printf("\n");
+	// printf("len %zu\n", twl_lst_len(segs));
 	mt_assert(twl_lst_len(segs) == 1);
 	mt_assert(strcmp(twl_lst_get(segs, 0), "\\\\\"a b\\\\\"") == 0);
 }
