@@ -10,17 +10,42 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "twl_xstdlib.h"
+#include "utils.h"
 
-#include "ast/anode/pipeline.h"
+#include "twl_lst.h"
+#include "ast/anode/ast_pipe.h"
+#include "ast/anode/ast_cmd.h"
+#include "ast/anode/string_literal.h"
 
-t_pipeline			*pipeline_new(void)
+void				ast_pipe_build_rec(t_ast_pipe *ast_pipe, t_lst *segs)
 {
-	t_pipeline	*this;
+	char			*last_seg;
 
-	this = twl_malloc_x0(sizeof(t_pipeline));
-	this->type = PIPELINE;
-	this->left = NULL;
-	this->right = NULL;
-	return (this);
+	if (twl_lst_len(segs) == 2)
+	{
+		ast_pipe->left = ast_cmd_build(twl_lst_get(segs, 0), NULL);;
+		ast_pipe->right = ast_cmd_build(twl_lst_get(segs, 1), NULL);;
+	}
+	else
+	{
+		last_seg = twl_lst_pop(segs);
+		ast_pipe->left = ast_pipe_new();
+		ast_pipe_build_rec(ast_pipe->left, segs);
+		ast_pipe->right = ast_cmd_build(last_seg, NULL);;
+		free(last_seg);
+	}
+	(void)ast_pipe;
+}
+
+t_ast_pipe			*ast_pipe_build(char *str, int *len_ptr)
+{
+	t_lst			*segs;
+	t_ast_pipe		*ast_pipe;
+
+	ast_pipe = ast_pipe_new();
+	segs = twl_str_split_to_lst(str, "|");
+	ast_pipe_build_rec(ast_pipe, segs);
+	twl_lst_del(segs, free);
+	increment_len(len_ptr, twl_strlen(str));
+	return (ast_pipe);
 }

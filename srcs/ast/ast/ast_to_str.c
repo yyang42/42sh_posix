@@ -17,7 +17,7 @@
 #include "ast/anode/anode.h"
 #include "ast/anode/ast_if.h"
 #include "ast/anode/string_literal.h"
-#include "ast/anode/pipeline.h"
+#include "ast/anode/ast_pipe.h"
 #include "ast/anode/ast_andor.h"
 
 void				travel_rec(void *anode, void *lvl_ptr, void *out_list);
@@ -77,9 +77,9 @@ void				travel_rec(void *anode, void *lvl_ptr, void *out_list)
 	}
 	else if (anode_get_type(anode) == PIPELINE)
 	{
-		t_pipeline			*pipeline = anode;
-		travel_rec(pipeline->left, &lvl, out_list);
-		travel_rec(pipeline->right, &lvl, out_list);
+		t_ast_pipe			*ast_pipe = anode;
+		travel_rec(ast_pipe->left, &lvl, out_list);
+		travel_rec(ast_pipe->right, &lvl, out_list);
 	}
 	else if (anode_get_type(anode) == ANDOR)
 	{

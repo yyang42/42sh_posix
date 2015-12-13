@@ -10,42 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#ifndef PIPELINE_H
+# define PIPELINE_H
 
-#include "twl_lst.h"
-#include "ast/anode/pipeline.h"
-#include "ast/anode/ast_cmd.h"
-#include "ast/anode/string_literal.h"
+# include "basics.h"
 
-void				pipeline_build_rec(t_pipeline *pipeline, t_lst *segs)
+# include "ast/ast_defines.h"
+# include "ast/anode/anode.h"
+
+typedef struct		s_ast_pipe
 {
-	char			*last_seg;
+	t_atype			type;
+	void			*left;
+	void			*right;
+}					t_ast_pipe;
 
-	if (twl_lst_len(segs) == 2)
-	{
-		pipeline->left = ast_cmd_build(twl_lst_get(segs, 0), NULL);;
-		pipeline->right = ast_cmd_build(twl_lst_get(segs, 1), NULL);;
-	}
-	else
-	{
-		last_seg = twl_lst_pop(segs);
-		pipeline->left = pipeline_new();
-		pipeline_build_rec(pipeline->left, segs);
-		pipeline->right = ast_cmd_build(last_seg, NULL);;
-		free(last_seg);
-	}
-	(void)pipeline;
-}
+t_ast_pipe			*ast_pipe_new(void);
+void				ast_pipe_del(t_ast_pipe *this);
 
-t_pipeline			*pipeline_build(char *str, int *len_ptr)
-{
-	t_lst			*segs;
-	t_pipeline		*pipeline;
+t_ast_pipe			*ast_pipe_build(char *str, int *len_ptr);
 
-	pipeline = pipeline_new();
-	segs = twl_str_split_to_lst(str, "|");
-	pipeline_build_rec(pipeline, segs);
-	twl_lst_del(segs, free);
-	increment_len(len_ptr, twl_strlen(str));
-	return (pipeline);
-}
+#endif

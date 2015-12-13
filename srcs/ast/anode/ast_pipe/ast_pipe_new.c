@@ -10,11 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "twl_xstdlib.h"
 
-#include "ast/anode/pipeline.h"
+#include "ast/anode/ast_pipe.h"
 
-void				pipeline_del(t_pipeline *this)
+t_ast_pipe			*ast_pipe_new(void)
 {
-	free(this);
+	t_ast_pipe	*this;
+
+	this = twl_malloc_x0(sizeof(t_ast_pipe));
+	this->type = PIPELINE;
+	this->left = NULL;
+	this->right = NULL;
+	return (this);
 }

@@ -10,24 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPELINE_H
-# define PIPELINE_H
+#include <stdlib.h>
 
-# include "basics.h"
+#include "ast/anode/ast_pipe.h"
 
-# include "ast/ast_defines.h"
-# include "ast/anode/anode.h"
-
-typedef struct		s_pipeline
+void				ast_pipe_del(t_ast_pipe *this)
 {
-	t_atype			type;
-	void			*left;
-	void			*right;
-}					t_pipeline;
-
-t_pipeline			*pipeline_new(void);
-void				pipeline_del(t_pipeline *this);
-
-t_pipeline			*pipeline_build(char *str, int *len_ptr);
-
-#endif
+	free(this);
+}

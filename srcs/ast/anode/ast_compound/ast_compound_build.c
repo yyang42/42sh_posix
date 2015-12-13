@@ -15,7 +15,7 @@
 #include "ast/anode/ast_if.h"
 #include "ast/anode/ast_cmd.h"
 #include "ast/anode/string_literal.h"
-#include "ast/anode/pipeline.h"
+#include "ast/anode/ast_pipe.h"
 #include "ast/anode/ast_andor.h"
 
 static bool			is_ast_if(char *str)
@@ -41,7 +41,7 @@ static int			ast_build_ast_compound_lists(t_ast_compound *ast_compound, char *st
 	}
 	else if (twl_strchr(str, '|') && "TODO is_pipe_case")
 	{
-		twl_lst_push(ast_compound->items, pipeline_build(not_comp_stmt, &len));
+		twl_lst_push(ast_compound->items, ast_pipe_build(not_comp_stmt, &len));
 	}
 	else if ("TODO is_a_simple_cmd")
 	{
