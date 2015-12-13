@@ -16,7 +16,7 @@
 
 #include "ast/nodes/ast_node.h"
 #include "ast/nodes/ast_if.h"
-#include "ast/nodes/string_literal.h"
+#include "ast/nodes/ast_string.h"
 #include "ast/nodes/ast_pipe.h"
 #include "ast/nodes/ast_andor.h"
 
@@ -45,7 +45,7 @@ void				travel_rec(void *ast_node, void *lvl_ptr, void *out_list)
 	twl_lst_push(out_list, tmp);
 	if (ast_node_get_type(ast_node) == STRING_LITERAL)
 	{
-		t_string_literal *string = ast_node;
+		t_ast_string *string = ast_node;
 		twl_asprintf(&tmp, " \"%s\"", string->text);
 		twl_lst_push(out_list, tmp);
 	}

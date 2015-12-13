@@ -15,7 +15,7 @@
 #include "twl_lst.h"
 #include "ast/nodes/ast_andor.h"
 #include "ast/nodes/ast_cmd.h"
-#include "ast/nodes/string_literal.h"
+#include "ast/nodes/ast_string.h"
 
 t_ast_andor				*ast_andor_build_rec(char *str)
 {

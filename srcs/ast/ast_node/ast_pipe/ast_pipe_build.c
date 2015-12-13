@@ -15,7 +15,7 @@
 #include "twl_lst.h"
 #include "ast/nodes/ast_pipe.h"
 #include "ast/nodes/ast_cmd.h"
-#include "ast/nodes/string_literal.h"
+#include "ast/nodes/ast_string.h"
 
 void				ast_pipe_build_rec(t_ast_pipe *ast_pipe, t_lst *segs)
 {

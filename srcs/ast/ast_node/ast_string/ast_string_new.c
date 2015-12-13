@@ -10,22 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRING_LITERAL_H
-# define STRING_LITERAL_H
+#include "twl_xstdlib.h"
 
-# include "basics.h"
+#include "ast/nodes/ast_string.h"
 
-# include "ast/nodes/ast_node.h"
-
-typedef struct		s_string_literal
+t_ast_string			*ast_string_new(char *text)
 {
-	t_atype			type;
-	char			*text;
-}					t_string_literal;
+	t_ast_string		*this;
 
-t_string_literal	*string_literal_new(char *text);
-void				string_literal_del(t_string_literal *this);
-
-t_string_literal	*string_literal_build(char *str, int *len_ptr);
-
-#endif
+	this = twl_malloc_x0(sizeof(t_ast_string));
+	this->type = STRING_LITERAL;
+	this->text = twl_strdup(text);
+	return (this);
+}

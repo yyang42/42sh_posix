@@ -13,11 +13,11 @@
 #include "utils.h"
 
 #include "ast/nodes/ast_cmd.h"
-#include "ast/nodes/string_literal.h"
+#include "ast/nodes/ast_string.h"
 
 static void			ast_build_ast_cmd_push_fn(void *str, void *prev, void *ast_cmd_)
 {
-	t_string_literal	*str_lit;
+	t_ast_string	*str_lit;
 	t_ast_cmd			*ast_cmd;
 	char				*str_bis;
 	char				*prev_bis;
@@ -25,7 +25,7 @@ static void			ast_build_ast_cmd_push_fn(void *str, void *prev, void *ast_cmd_)
 	str_bis = twl_strtrim(str);
 	prev_bis = prev ? twl_strtrim(prev) : NULL;
 	ast_cmd = ast_cmd_;
-	str_lit = string_literal_build(str_bis, NULL);
+	str_lit = ast_string_build(str_bis, NULL);
 	if (twl_strequ(prev_bis, "<"))
 		twl_lst_push(ast_cmd->redir_in, str_lit);
 	else if (twl_strequ(prev_bis, ">"))

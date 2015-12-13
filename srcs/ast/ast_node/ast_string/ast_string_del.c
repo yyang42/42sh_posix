@@ -10,16 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "twl_xstdlib.h"
+#include <stdlib.h>
 
-#include "ast/nodes/string_literal.h"
+#include "ast/nodes/ast_string.h"
 
-t_string_literal			*string_literal_new(char *text)
+void				ast_string_del(t_ast_string *this)
 {
-	t_string_literal		*this;
-
-	this = twl_malloc_x0(sizeof(t_string_literal));
-	this->type = STRING_LITERAL;
-	this->text = twl_strdup(text);
-	return (this);
+	free(this);
 }

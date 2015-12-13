@@ -13,13 +13,13 @@
 #include <stdlib.h>
 
 #include "utils.h"
-#include "ast/nodes/string_literal.h"
+#include "ast/nodes/ast_string.h"
 
-t_string_literal	*string_literal_build(char *str, int *len_ptr)
+t_ast_string	*ast_string_build(char *str, int *len_ptr)
 {
-	t_string_literal	*string_literal;
+	t_ast_string	*ast_string;
 
-	string_literal = string_literal_new(str);
+	ast_string = ast_string_new(str);
 	increment_len(len_ptr, twl_strlen(str));
-	return (string_literal);
+	return (ast_string);
 }

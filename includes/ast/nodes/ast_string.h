@@ -10,11 +10,22 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#ifndef STRING_LITERAL_H
+# define STRING_LITERAL_H
 
-#include "ast/nodes/string_literal.h"
+# include "basics.h"
 
-void				string_literal_del(t_string_literal *this)
+# include "ast/nodes/ast_node.h"
+
+typedef struct		s_ast_string
 {
-	free(this);
-}
+	t_atype			type;
+	char			*text;
+}					t_ast_string;
+
+t_ast_string	*ast_string_new(char *text);
+void				ast_string_del(t_ast_string *this);
+
+t_ast_string	*ast_string_build(char *str, int *len_ptr);
+
+#endif
