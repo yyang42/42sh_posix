@@ -43,12 +43,13 @@ static int			ast_build_compound_stmt_lists(t_compound_stmt *compound_stmt, char 
 	return (len + twl_strlen(AST_SEPARATOR));
 }
 
-int					compound_stmt_build(t_compound_stmt *compound_stmt,
-																	char *str)
+t_compound_stmt		*compound_stmt_build(char *str, int *len_ptr)
 {
 	int				len;
 	int				total_len;
+	t_compound_stmt	*compound_stmt;
 
+	compound_stmt = compound_stmt_new();
 	total_len = twl_strlen(str);
 	len = 0;
 	while (len < total_len)
@@ -62,5 +63,6 @@ int					compound_stmt_build(t_compound_stmt *compound_stmt,
 			len += ast_build_compound_stmt_lists(compound_stmt, str + len);
 		}
 	}
-	return (len);
+	increment_len(len_ptr, len);
+	return (compound_stmt);
 }

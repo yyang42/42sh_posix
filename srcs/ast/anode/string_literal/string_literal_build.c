@@ -10,14 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/ast.h"
+#include <stdlib.h>
 
-#include "twl_arr.h"
 #include "utils.h"
+#include "ast/anode/string_literal.h"
 
-void				ast_build(t_ast *ast)
+t_string_literal	*string_literal_build(char *str, int *len_ptr)
 {
-	int				len;
-	ast->root = compound_stmt_build(ast->raw, &len);
-	(void)len;
+	t_string_literal	*string_literal;
+
+	string_literal = string_literal_new(str);
+	increment_len(len_ptr, twl_strlen(str));
+	return (string_literal);
 }

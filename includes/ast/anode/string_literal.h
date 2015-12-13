@@ -26,4 +26,6 @@ typedef struct		s_string_literal
 t_string_literal	*string_literal_new(char *text);
 void				string_literal_del(t_string_literal *this);
 
+t_string_literal	*string_literal_build(char *str, int *len_ptr);
+
 #endif

@@ -23,7 +23,7 @@ static void			ast_build_cmd_stmt_push_fn(void *str, void *cmd_stmt_)
 
 	str_bis = twl_strtrim(str);
 	cmd_stmt = cmd_stmt_;
-	str_lit = string_literal_new(str_bis);
+	str_lit = string_literal_build(str_bis, NULL);
 	twl_lst_push(cmd_stmt->strings, str_lit);
 	free(str_bis);
 }
