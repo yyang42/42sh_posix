@@ -13,7 +13,7 @@
 #ifndef ATYPE_H
 # define ATYPE_H
 
-typedef enum		e_atype
+typedef enum		e_ast_type
 {
 	COMPOUND_STMT,
 	IF_STMT,
@@ -21,6 +21,6 @@ typedef enum		e_atype
 	STRING_LITERAL,
 	CMD_STMT,
 	ANDOR
-}					t_atype;
+}					t_ast_type;
 
 #endif

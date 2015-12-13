@@ -22,7 +22,7 @@
 
 typedef struct		s_ast_cmd
 {
-	t_atype			type;
+	t_ast_type			type;
 	t_lst			*strings;
 	t_lst			*redir_in;
 	t_lst			*redir_out;

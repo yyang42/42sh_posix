@@ -19,7 +19,7 @@
 
 typedef struct		s_ast_string
 {
-	t_atype			type;
+	t_ast_type			type;
 	char			*text;
 }					t_ast_string;
 

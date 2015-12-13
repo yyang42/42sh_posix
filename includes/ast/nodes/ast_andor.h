@@ -26,7 +26,7 @@ typedef enum		e_ast_andor_type
 
 typedef struct		s_ast_andor
 {
-	t_atype			type;
+	t_ast_type			type;
 	t_ast_andor_type	ast_andor_type;
 	void			*left;
 	void			*right;

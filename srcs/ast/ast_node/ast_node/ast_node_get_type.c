@@ -12,7 +12,7 @@
 
 #include "ast/nodes/ast_node.h"
 
-t_atype				ast_node_get_type(void *ast_node_)
+t_ast_type				ast_node_get_type(void *ast_node_)
 {
 	t_ast_node			*ast_node;
 	ast_node = ast_node_;
