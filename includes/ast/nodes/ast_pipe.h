@@ -20,7 +20,7 @@
 
 typedef struct		s_ast_pipe
 {
-	t_ast_type			type;
+	t_ast_type		type;
 	void			*left;
 	void			*right;
 }					t_ast_pipe;

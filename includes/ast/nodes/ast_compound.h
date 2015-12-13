@@ -21,7 +21,7 @@
 
 typedef struct		s_ast_compound
 {
-	t_ast_type			type;
+	t_ast_type		type;
 	t_lst			*items;
 }					t_ast_compound;
 

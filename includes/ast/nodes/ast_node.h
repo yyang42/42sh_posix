@@ -19,10 +19,10 @@
 
 typedef struct		s_ast_node
 {
-	t_ast_type	type;
+	t_ast_type		type;
 }					t_ast_node;
 
-t_ast_type				ast_node_get_type(void *ast_node_);
+t_ast_type			ast_node_get_type(void *ast_node_);
 char				*ast_node_get_type_str(void *ast_node_);
 
 #endif

@@ -21,7 +21,7 @@
 
 typedef struct		s_t_ast_if
 {
-	t_ast_type			type;
+	t_ast_type		type;
 	t_ast_compound	*cond;
 	t_ast_compound	*body;
 	t_ast_compound	*elze;

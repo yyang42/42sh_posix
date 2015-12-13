@@ -52,7 +52,7 @@ void				travel_rec(void *ast_node, void *lvl_ptr, void *out_list)
 	if (ast_node_get_type(ast_node) == ANDOR)
 	{
 		t_ast_andor			*ast_andor = ast_node;
-		twl_lst_push(out_list, (ast_andor->ast_andor_type == ANDOR_TYPE_AND) ? twl_strdup(" 'and'") : twl_strdup(" 'or'"));
+		twl_lst_push(out_list, (ast_andor->andor_type == ANDOR_TYPE_AND) ? twl_strdup(" 'and'") : twl_strdup(" 'or'"));
 	}
 	twl_lst_push(out_list, twl_strdup("\n"));
 	lvl++;

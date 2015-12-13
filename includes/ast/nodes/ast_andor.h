@@ -18,21 +18,21 @@
 # include "ast/ast_defines.h"
 # include "ast/nodes/ast_node.h"
 
-typedef enum		e_ast_andor_type
+typedef enum		e_andor_type
 {
 	ANDOR_TYPE_AND,
 	ANDOR_TYPE_OR
-}					t_ast_andor_type;
+}					t_andor_type;
 
 typedef struct		s_ast_andor
 {
 	t_ast_type			type;
-	t_ast_andor_type	ast_andor_type;
+	t_andor_type	andor_type;
 	void			*left;
 	void			*right;
 }					t_ast_andor;
 
-t_ast_andor				*ast_andor_new(t_ast_andor_type ast_andor_type);
+t_ast_andor				*ast_andor_new(t_andor_type andor_type);
 void				ast_andor_del(t_ast_andor *this);
 
 t_ast_andor				*ast_andor_build(char *str, int *len_ptr);
