@@ -10,24 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_COMPOUND_H
-# define AST_COMPOUND_H
+#include "twl_xstdlib.h"
 
-# include "twl_lst.h"
+#include "ast/nodes/ast_list.h"
 
-# include "basics.h"
-
-# include "ast/nodes/ast_node.h"
-
-typedef struct		s_ast_compound
+t_ast_list		*ast_list_new(void)
 {
-	t_ast_type		type;
-	t_lst			*items;
-}					t_ast_compound;
+	t_ast_list	*this;
 
-t_ast_compound		*ast_compound_new(void);
-void				ast_compound_del(t_ast_compound *this);
-
-t_ast_compound		*ast_compound_build(char *str, int *len_ptr);
-
-#endif
+	this = twl_malloc_x0(sizeof(t_ast_list));
+	this->items = twl_lst_new();
+	return (this);
+}

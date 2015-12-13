@@ -18,6 +18,6 @@
 void				ast_build(t_ast *ast)
 {
 	int				len;
-	ast->root = ast_compound_build(ast->raw, &len);
+	ast->root = ast_list_build(ast->raw, &len);
 	(void)len;
 }

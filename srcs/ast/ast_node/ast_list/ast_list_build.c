@@ -26,7 +26,7 @@ static bool			is_ast_if(char *str)
 		return (false);
 }
 
-static int			ast_build_ast_compound_lists(t_ast_compound *ast_compound, char *str)
+static int			ast_build_ast_list_lists(t_ast_list *ast_list, char *str)
 {
 	int				len;
 	char			*not_comp_stmt;
@@ -36,40 +36,40 @@ static int			ast_build_ast_compound_lists(t_ast_compound *ast_compound, char *st
 	if ((twl_strstr(str, "&&") || twl_strstr(str, "||")) && "TODO is_ast_andor")
 	{
 		COUCOU;
-		twl_lst_push(ast_compound->items, ast_andor_build(not_comp_stmt, &len));
+		twl_lst_push(ast_list->items, ast_andor_build(not_comp_stmt, &len));
 		COUCOU;
 	}
 	else if (twl_strchr(str, '|') && "TODO is_pipe_case")
 	{
-		twl_lst_push(ast_compound->items, ast_pipe_build(not_comp_stmt, &len));
+		twl_lst_push(ast_list->items, ast_pipe_build(not_comp_stmt, &len));
 	}
 	else if ("TODO is_a_simple_cmd")
 	{
-		twl_lst_push(ast_compound->items, ast_cmd_build(not_comp_stmt, &len));
+		twl_lst_push(ast_list->items, ast_cmd_build(not_comp_stmt, &len));
 	}
 	return (len + twl_strlen(AST_SEPARATOR));
 }
 
-t_ast_compound		*ast_compound_build(char *str, int *len_ptr)
+t_ast_list		*ast_list_build(char *str, int *len_ptr)
 {
 	int				len;
 	int				total_len;
-	t_ast_compound	*ast_compound;
+	t_ast_list	*ast_list;
 
-	ast_compound = ast_compound_new();
+	ast_list = ast_list_new();
 	total_len = twl_strlen(str);
 	len = 0;
 	while (len < total_len)
 	{
 		if (is_ast_if(str + len))
 		{
-			twl_lst_push(ast_compound->items, ast_if_build(str + len, &len));
+			twl_lst_push(ast_list->items, ast_if_build(str + len, &len));
 		}
 		else
 		{
-			len += ast_build_ast_compound_lists(ast_compound, str + len);
+			len += ast_build_ast_list_lists(ast_list, str + len);
 		}
 	}
 	increment_len(len_ptr, len);
-	return (ast_compound);
+	return (ast_list);
 }

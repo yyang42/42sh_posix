@@ -12,9 +12,9 @@
 
 #include <stdlib.h>
 
-#include "ast/nodes/ast_compound.h"
+#include "ast/nodes/ast_list.h"
 
-void				ast_compound_del(t_ast_compound *this)
+void				ast_list_del(t_ast_list *this)
 {
 	free(this);
 }

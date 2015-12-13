@@ -16,7 +16,7 @@
 # include "basics.h"
 
 # include "ast/ast_defines.h"
-# include "ast/nodes/ast_compound.h"
+# include "ast/nodes/ast_list.h"
 # include "ast/nodes/ast_if.h"
 # include "ast/nodes/ast_cmd.h"
 # include "ast/nodes/ast_string.h"
@@ -25,7 +25,7 @@
 typedef struct		s_ast
 {
 	char			*raw;
-	t_ast_compound	*root;
+	t_ast_list	*root;
 }					t_ast;
 
 t_ast				*ast_new(char *input);
