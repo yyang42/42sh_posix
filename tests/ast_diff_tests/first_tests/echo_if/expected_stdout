@@ -1,19 +1,24 @@
 COMPOUND_STMT
   CMD_STMT
-    STRING_LITERAL "echo"
-    STRING_LITERAL "111"
+    <strings>
+      STRING_LITERAL "echo"
+      STRING_LITERAL "111"
   IF_STMT
     COMPOUND_STMT
       CMD_STMT
-        STRING_LITERAL "true"
+        <strings>
+          STRING_LITERAL "true"
     COMPOUND_STMT
       CMD_STMT
-        STRING_LITERAL "echo"
-        STRING_LITERAL "aaa"
+        <strings>
+          STRING_LITERAL "echo"
+          STRING_LITERAL "aaa"
     COMPOUND_STMT
       CMD_STMT
-        STRING_LITERAL "echo"
-        STRING_LITERAL "bbb"
+        <strings>
+          STRING_LITERAL "echo"
+          STRING_LITERAL "bbb"
   CMD_STMT
-    STRING_LITERAL "echo"
-    STRING_LITERAL "ccc"
+    <strings>
+      STRING_LITERAL "echo"
+      STRING_LITERAL "ccc"

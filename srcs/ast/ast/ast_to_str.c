@@ -20,7 +20,20 @@
 #include "ast/anode/pipeline.h"
 #include "ast/anode/andor.h"
 
-#define TAB_WIDTH 2
+void				travel_rec(void *anode, void *lvl_ptr, void *out_list);
+
+void				cmd_literal_group(t_lst *literals, char *group_name,
+													int lvl, t_lst *out_list)
+{
+	char			*tmp;
+
+	if (twl_lst_len(literals) == 0)
+		return ;
+	twl_asprintf(&tmp, "%*s<%s>\n", lvl * TAB_WIDTH, "", group_name);
+	lvl++;
+	twl_lst_push(out_list, tmp);
+	twl_lst_iter2(literals, travel_rec, &lvl, out_list);
+}
 
 void				travel_rec(void *anode, void *lvl_ptr, void *out_list)
 {
@@ -58,7 +71,9 @@ void				travel_rec(void *anode, void *lvl_ptr, void *out_list)
 	else if (anode_get_type(anode) == CMD_STMT)
 	{
 		t_cmd_stmt			*cmd_stmt = anode;
-		twl_lst_iter2(cmd_stmt->strings, travel_rec, &lvl, out_list);
+		cmd_literal_group(cmd_stmt->strings, "strings", lvl, out_list);
+		cmd_literal_group(cmd_stmt->redir_in, "redir_in", lvl, out_list);
+		cmd_literal_group(cmd_stmt->redir_out, "redir_out", lvl, out_list);
 	}
 	else if (anode_get_type(anode) == PIPELINE)
 	{

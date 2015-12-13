@@ -1,0 +1,8 @@
+COMPOUND_STMT
+  CMD_STMT
+    <strings>
+      STRING_LITERAL "cat"
+    <redir_in>
+      STRING_LITERAL "file1"
+    <redir_out>
+      STRING_LITERAL "file2"

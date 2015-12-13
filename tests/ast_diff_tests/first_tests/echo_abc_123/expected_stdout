@@ -1,7 +1,9 @@
 COMPOUND_STMT
   CMD_STMT
-    STRING_LITERAL "echo"
-    STRING_LITERAL "123"
+    <strings>
+      STRING_LITERAL "echo"
+      STRING_LITERAL "123"
   CMD_STMT
-    STRING_LITERAL "echo"
-    STRING_LITERAL "abc"
+    <strings>
+      STRING_LITERAL "echo"
+      STRING_LITERAL "abc"
