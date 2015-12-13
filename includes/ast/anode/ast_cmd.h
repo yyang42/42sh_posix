@@ -10,6 +10,32 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#ifndef CMD_STMT_H
+# define CMD_STMT_H
 
-#include "ast/anode/cmd_stmt.h"
+# include "twl_lst.h"
+
+# include "basics.h"
+
+# include "ast/ast_defines.h"
+# include "ast/anode/anode.h"
+
+typedef struct		s_ast_cmd
+{
+	t_atype			type;
+	t_lst			*strings;
+	t_lst			*redir_in;
+	t_lst			*redir_out;
+	t_lst			*redir_append;
+	t_lst			*redir_heredoc;
+}					t_ast_cmd;
+
+t_ast_cmd			*ast_cmd_new(void);
+void				ast_cmd_del(t_ast_cmd *this);
+
+t_ast_cmd			*ast_cmd_build(char *str, int *len_ptr);
+
+void				ast_cmd_append_str(t_ast_cmd *this,
+													int lvl, t_lst *out_list);
+
+#endif

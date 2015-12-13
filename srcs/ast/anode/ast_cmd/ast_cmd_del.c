@@ -10,20 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "twl_xstdlib.h"
+#include <stdlib.h>
 
-#include "ast/anode/cmd_stmt.h"
+#include "ast/anode/ast_cmd.h"
 
-t_cmd_stmt			*cmd_stmt_new(void)
+void				ast_cmd_del(t_ast_cmd *this)
 {
-	t_cmd_stmt	*this;
-
-	this = twl_malloc_x0(sizeof(t_cmd_stmt));
-	this->type = CMD_STMT;
-	this->strings = twl_lst_new();
-	this->redir_in = twl_lst_new();
-	this->redir_out = twl_lst_new();
-	this->redir_append = twl_lst_new();
-	this->redir_heredoc = twl_lst_new();
-	return (this);
+	free(this);
 }

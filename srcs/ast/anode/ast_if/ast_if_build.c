@@ -13,29 +13,29 @@
 #include "utils.h"
 
 #include "ast/anode/ast_if.h"
-#include "ast/anode/cmd_stmt.h"
+#include "ast/anode/ast_cmd.h"
 #include "ast/anode/string_literal.h"
 
 static void			ast_build_ast_if_parts_fn(void *str, void *ast_if_)
 {
 	t_ast_if		*ast_if;
-	t_cmd_stmt		*cmd_stmt;
+	t_ast_cmd		*ast_cmd;
 
 	ast_if = ast_if_;
 	if (twl_str_starts_with(str, "if"))
 	{
-		cmd_stmt = cmd_stmt_build(str + twl_strlen("if"), NULL);
-		twl_lst_push(ast_if->cond->items, cmd_stmt);
+		ast_cmd = ast_cmd_build(str + twl_strlen("if"), NULL);
+		twl_lst_push(ast_if->cond->items, ast_cmd);
 	}
 	else if (twl_str_starts_with(str, "then"))
 	{
-		cmd_stmt = cmd_stmt_build(str + twl_strlen("then"), NULL);
-		twl_lst_push(ast_if->body->items, cmd_stmt);
+		ast_cmd = ast_cmd_build(str + twl_strlen("then"), NULL);
+		twl_lst_push(ast_if->body->items, ast_cmd);
 	}
 	else if (twl_str_starts_with(str, "else"))
 	{
-		cmd_stmt = cmd_stmt_build(str + twl_strlen("else"), NULL);
-		twl_lst_push(ast_if->elze->items, cmd_stmt);
+		ast_cmd = ast_cmd_build(str + twl_strlen("else"), NULL);
+		twl_lst_push(ast_if->elze->items, ast_cmd);
 	}
 }
 

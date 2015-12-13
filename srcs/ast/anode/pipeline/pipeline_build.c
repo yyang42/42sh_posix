@@ -14,7 +14,7 @@
 
 #include "twl_lst.h"
 #include "ast/anode/pipeline.h"
-#include "ast/anode/cmd_stmt.h"
+#include "ast/anode/ast_cmd.h"
 #include "ast/anode/string_literal.h"
 
 void				pipeline_build_rec(t_pipeline *pipeline, t_lst *segs)
@@ -23,15 +23,15 @@ void				pipeline_build_rec(t_pipeline *pipeline, t_lst *segs)
 
 	if (twl_lst_len(segs) == 2)
 	{
-		pipeline->left = cmd_stmt_build(twl_lst_get(segs, 0), NULL);;
-		pipeline->right = cmd_stmt_build(twl_lst_get(segs, 1), NULL);;
+		pipeline->left = ast_cmd_build(twl_lst_get(segs, 0), NULL);;
+		pipeline->right = ast_cmd_build(twl_lst_get(segs, 1), NULL);;
 	}
 	else
 	{
 		last_seg = twl_lst_pop(segs);
 		pipeline->left = pipeline_new();
 		pipeline_build_rec(pipeline->left, segs);
-		pipeline->right = cmd_stmt_build(last_seg, NULL);;
+		pipeline->right = ast_cmd_build(last_seg, NULL);;
 		free(last_seg);
 	}
 	(void)pipeline;

@@ -10,32 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CMD_STMT_H
-# define CMD_STMT_H
+#include "twl_xstdlib.h"
 
-# include "twl_lst.h"
+#include "ast/anode/ast_cmd.h"
 
-# include "basics.h"
-
-# include "ast/ast_defines.h"
-# include "ast/anode/anode.h"
-
-typedef struct		s_cmd_stmt
+t_ast_cmd			*ast_cmd_new(void)
 {
-	t_atype			type;
-	t_lst			*strings;
-	t_lst			*redir_in;
-	t_lst			*redir_out;
-	t_lst			*redir_append;
-	t_lst			*redir_heredoc;
-}					t_cmd_stmt;
+	t_ast_cmd	*this;
 
-t_cmd_stmt			*cmd_stmt_new(void);
-void				cmd_stmt_del(t_cmd_stmt *this);
-
-t_cmd_stmt			*cmd_stmt_build(char *str, int *len_ptr);
-
-void				cmd_stmt_append_str(t_cmd_stmt *this,
-													int lvl, t_lst *out_list);
-
-#endif
+	this = twl_malloc_x0(sizeof(t_ast_cmd));
+	this->type = CMD_STMT;
+	this->strings = twl_lst_new();
+	this->redir_in = twl_lst_new();
+	this->redir_out = twl_lst_new();
+	this->redir_append = twl_lst_new();
+	this->redir_heredoc = twl_lst_new();
+	return (this);
+}

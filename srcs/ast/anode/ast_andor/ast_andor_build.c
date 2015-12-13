@@ -14,7 +14,7 @@
 
 #include "twl_lst.h"
 #include "ast/anode/ast_andor.h"
-#include "ast/anode/cmd_stmt.h"
+#include "ast/anode/ast_cmd.h"
 #include "ast/anode/string_literal.h"
 
 t_ast_andor				*ast_andor_build_rec(char *str)
@@ -39,13 +39,13 @@ t_ast_andor				*ast_andor_build_rec(char *str)
 	}
 	if ((twl_strstr_count(str, "&&") + twl_strstr_count(str, "||")) == 1)
 	{
-		ast_andor->left = cmd_stmt_build(twl_lst_get(segs, 0), NULL);
-		ast_andor->right = cmd_stmt_build(twl_lst_get(segs, 1), NULL);
+		ast_andor->left = ast_cmd_build(twl_lst_get(segs, 0), NULL);
+		ast_andor->right = ast_cmd_build(twl_lst_get(segs, 1), NULL);
 	}
 	else
 	{
 		ast_andor->left = ast_andor_build_rec(twl_lst_get(segs, 0));
-		ast_andor->right = cmd_stmt_build(twl_lst_get(segs, 1), NULL);
+		ast_andor->right = ast_cmd_build(twl_lst_get(segs, 1), NULL);
 	}
 	twl_lst_del(segs, free);
 	return (ast_andor);

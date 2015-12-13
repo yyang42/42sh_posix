@@ -12,9 +12,4 @@
 
 #include <stdlib.h>
 
-#include "ast/anode/cmd_stmt.h"
-
-void				cmd_stmt_del(t_cmd_stmt *this)
-{
-	free(this);
-}
+#include "ast/anode/ast_cmd.h"

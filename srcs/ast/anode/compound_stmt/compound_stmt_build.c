@@ -13,7 +13,7 @@
 #include "utils.h"
 
 #include "ast/anode/ast_if.h"
-#include "ast/anode/cmd_stmt.h"
+#include "ast/anode/ast_cmd.h"
 #include "ast/anode/string_literal.h"
 #include "ast/anode/pipeline.h"
 #include "ast/anode/ast_andor.h"
@@ -45,7 +45,7 @@ static int			ast_build_compound_stmt_lists(t_compound_stmt *compound_stmt, char 
 	}
 	else if ("TODO is_a_simple_cmd")
 	{
-		twl_lst_push(compound_stmt->items, cmd_stmt_build(not_comp_stmt, &len));
+		twl_lst_push(compound_stmt->items, ast_cmd_build(not_comp_stmt, &len));
 	}
 	return (len + twl_strlen(AST_SEPARATOR));
 }

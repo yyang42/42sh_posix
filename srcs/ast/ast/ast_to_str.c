@@ -70,10 +70,10 @@ void				travel_rec(void *anode, void *lvl_ptr, void *out_list)
 	}
 	else if (anode_get_type(anode) == CMD_STMT)
 	{
-		t_cmd_stmt			*cmd_stmt = anode;
-		cmd_literal_group(cmd_stmt->strings, "strings", lvl, out_list);
-		cmd_literal_group(cmd_stmt->redir_in, "redir_in", lvl, out_list);
-		cmd_literal_group(cmd_stmt->redir_out, "redir_out", lvl, out_list);
+		t_ast_cmd			*ast_cmd = anode;
+		cmd_literal_group(ast_cmd->strings, "strings", lvl, out_list);
+		cmd_literal_group(ast_cmd->redir_in, "redir_in", lvl, out_list);
+		cmd_literal_group(ast_cmd->redir_out, "redir_out", lvl, out_list);
 	}
 	else if (anode_get_type(anode) == PIPELINE)
 	{
