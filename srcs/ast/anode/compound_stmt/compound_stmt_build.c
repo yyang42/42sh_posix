@@ -33,7 +33,7 @@ static int			ast_build_compound_stmt_lists(t_compound_stmt *compound_stmt, char 
 
 	not_comp_stmt = twl_str_split_get(str, AST_SEPARATOR, 0);
 	len = 0;
-	if (twl_strstr(str, "&&") || twl_strstr(str, "||") && "TODO is_andor")
+	if ((twl_strstr(str, "&&") || twl_strstr(str, "||")) && "TODO is_andor")
 	{
 		COUCOU;
 		twl_lst_push(compound_stmt->items, andor_build(not_comp_stmt, &len));
