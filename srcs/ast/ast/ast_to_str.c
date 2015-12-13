@@ -29,7 +29,7 @@ void				cmd_literal_group(t_lst *literals, char *group_name,
 
 	if (twl_lst_len(literals) == 0)
 		return ;
-	twl_asprintf(&tmp, "%*s<%s>\n", lvl * TAB_WIDTH, "", group_name);
+	twl_asprintf(&tmp, "%*s<%s>\n", lvl * AST_TAB_WIDTH, "", group_name);
 	lvl++;
 	twl_lst_push(out_list, tmp);
 	twl_lst_iter2(literals, travel_rec, &lvl, out_list);
@@ -41,7 +41,7 @@ void				travel_rec(void *ast_node, void *lvl_ptr, void *out_list)
 	char			*tmp;
 
 	lvl = *(int *)lvl_ptr;
-	twl_asprintf(&tmp, "%*s%s", lvl * TAB_WIDTH, "", ast_node_get_type_str(ast_node));
+	twl_asprintf(&tmp, "%*s%s", lvl * AST_TAB_WIDTH, "", ast_node_get_type_str(ast_node));
 	twl_lst_push(out_list, tmp);
 	if (ast_node_get_type(ast_node) == STRING_LITERAL)
 	{
