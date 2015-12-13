@@ -36,7 +36,7 @@ char				*xopt_concat_opts(t_xopt *xopt)
 	char	*concat;
 
 	concat = twl_strdup("");
-	if (xopt && xopt->opt__)
-		twl_lst_iter(xopt->opt__->opts, concat_opt, &concat);
+	if (xopt && xopt->opt)
+		twl_lst_iter(xopt->opt->opts, concat_opt, &concat);
 	return (concat);
 }

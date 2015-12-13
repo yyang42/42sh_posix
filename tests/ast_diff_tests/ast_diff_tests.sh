@@ -38,7 +38,7 @@ diff_test ()
 
     mkdir -p $testcase_tmp
     rm -f $testcase_tmp/*
-    $RENDU_PATH/42sh -a $testcase_path/input.sh > $testcase_tmp_stdout 2> $testcase_tmp_stderr
+    $RENDU_PATH/42sh -z $testcase_path/input.sh > $testcase_tmp_stdout 2> $testcase_tmp_stderr
     diff $testcase_path/expected_stdout $testcase_tmp_stdout
     print_result "$?"
     echo " stdout $testsuite/$testcase"
