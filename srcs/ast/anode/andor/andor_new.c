@@ -10,21 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/anode/anode.h"
+#include "twl_xstdlib.h"
 
-char				*anode_get_type_str(void *anode)
+#include "ast/anode/andor.h"
+
+t_andor				*andor_new(t_andor_type andor_type)
 {
-	if (anode_get_type(anode) == COMPOUND_STMT)
-		return ("COMPOUND_STMT");
-	else if (anode_get_type(anode) == IF_STMT)
-		return ("IF_STMT");
-	else if (anode_get_type(anode) == CMD_STMT)
-		return ("CMD_STMT");
-	else if (anode_get_type(anode) == STRING_LITERAL)
-		return ("STRING_LITERAL");
-	else if (anode_get_type(anode) == PIPELINE)
-		return ("PIPELINE");
-	else if (anode_get_type(anode) == ANDOR)
-		return ("ANDOR");
-	return ("NOT_FOUND");
+	t_andor	*this;
+
+	this = twl_malloc_x0(sizeof(t_andor));
+	this->type = ANDOR;
+	this->andor_type = andor_type;
+	this->left = NULL;
+	this->right = NULL;
+	return (this);
 }

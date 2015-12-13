@@ -10,21 +10,31 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/anode/anode.h"
+#ifndef ANDOR_H
+# define ANDOR_H
 
-char				*anode_get_type_str(void *anode)
+# include "basics.h"
+
+# include "ast/ast_defines.h"
+# include "ast/anode/anode.h"
+
+typedef enum		e_andor_type
 {
-	if (anode_get_type(anode) == COMPOUND_STMT)
-		return ("COMPOUND_STMT");
-	else if (anode_get_type(anode) == IF_STMT)
-		return ("IF_STMT");
-	else if (anode_get_type(anode) == CMD_STMT)
-		return ("CMD_STMT");
-	else if (anode_get_type(anode) == STRING_LITERAL)
-		return ("STRING_LITERAL");
-	else if (anode_get_type(anode) == PIPELINE)
-		return ("PIPELINE");
-	else if (anode_get_type(anode) == ANDOR)
-		return ("ANDOR");
-	return ("NOT_FOUND");
-}
+	ANDOR_TYPE_AND,
+	ANDOR_TYPE_OR
+}					t_andor_type;
+
+typedef struct		s_andor
+{
+	t_atype			type;
+	t_andor_type	andor_type;
+	void			*left;
+	void			*right;
+}					t_andor;
+
+t_andor				*andor_new(t_andor_type andor_type);
+void				andor_del(t_andor *this);
+
+t_andor				*andor_build(char *str, int *len_ptr);
+
+#endif

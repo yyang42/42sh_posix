@@ -1,0 +1,12 @@
+COMPOUND_STMT
+  ANDOR 'or'
+    ANDOR 'and'
+      CMD_STMT
+        STRING_LITERAL "echo"
+        STRING_LITERAL "aaa"
+      CMD_STMT
+        STRING_LITERAL "echo"
+        STRING_LITERAL "bbb"
+    CMD_STMT
+      STRING_LITERAL "echo"
+      STRING_LITERAL "ccc"

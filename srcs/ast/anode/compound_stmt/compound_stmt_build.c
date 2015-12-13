@@ -16,6 +16,7 @@
 #include "ast/anode/cmd_stmt.h"
 #include "ast/anode/string_literal.h"
 #include "ast/anode/pipeline.h"
+#include "ast/anode/andor.h"
 
 static bool			is_if_stmt(char *str)
 {
@@ -32,7 +33,13 @@ static int			ast_build_compound_stmt_lists(t_compound_stmt *compound_stmt, char 
 
 	not_comp_stmt = twl_str_split_get(str, AST_SEPARATOR, 0);
 	len = 0;
-	if (twl_strchr(str, '|') && "TODO is_pipe_case")
+	if (twl_strstr(str, "&&") || twl_strstr(str, "||") && "TODO is_andor")
+	{
+		COUCOU;
+		twl_lst_push(compound_stmt->items, andor_build(not_comp_stmt, &len));
+		COUCOU;
+	}
+	else if (twl_strchr(str, '|') && "TODO is_pipe_case")
 	{
 		twl_lst_push(compound_stmt->items, pipeline_build(not_comp_stmt, &len));
 	}

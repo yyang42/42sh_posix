@@ -18,6 +18,7 @@
 #include "ast/anode/if_stmt.h"
 #include "ast/anode/string_literal.h"
 #include "ast/anode/pipeline.h"
+#include "ast/anode/andor.h"
 
 #define TAB_WIDTH 2
 
@@ -34,6 +35,11 @@ void				travel_rec(void *anode, void *lvl_ptr, void *out_list)
 		t_string_literal *string = anode;
 		twl_asprintf(&tmp, " \"%s\"", string->text);
 		twl_lst_push(out_list, tmp);
+	}
+	if (anode_get_type(anode) == ANDOR)
+	{
+		t_andor			*andor = anode;
+		twl_lst_push(out_list, (andor->andor_type == ANDOR_TYPE_AND) ? twl_strdup(" 'and'") : twl_strdup(" 'or'"));
 	}
 	twl_lst_push(out_list, twl_strdup("\n"));
 	lvl++;
@@ -59,6 +65,12 @@ void				travel_rec(void *anode, void *lvl_ptr, void *out_list)
 		t_pipeline			*pipeline = anode;
 		travel_rec(pipeline->left, &lvl, out_list);
 		travel_rec(pipeline->right, &lvl, out_list);
+	}
+	else if (anode_get_type(anode) == ANDOR)
+	{
+		t_andor			*andor = anode;
+		travel_rec(andor->left, &lvl, out_list);
+		travel_rec(andor->right, &lvl, out_list);
 	}
 }
 

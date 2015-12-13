@@ -19,7 +19,8 @@ typedef enum		e_atype
 	IF_STMT,
 	PIPELINE,
 	STRING_LITERAL,
-	CMD_STMT
+	CMD_STMT,
+	ANDOR
 }					t_atype;
 
 #endif

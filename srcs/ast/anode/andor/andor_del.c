@@ -10,21 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/anode/anode.h"
+#include <stdlib.h>
 
-char				*anode_get_type_str(void *anode)
+#include "ast/anode/andor.h"
+
+void				andor_del(t_andor *this)
 {
-	if (anode_get_type(anode) == COMPOUND_STMT)
-		return ("COMPOUND_STMT");
-	else if (anode_get_type(anode) == IF_STMT)
-		return ("IF_STMT");
-	else if (anode_get_type(anode) == CMD_STMT)
-		return ("CMD_STMT");
-	else if (anode_get_type(anode) == STRING_LITERAL)
-		return ("STRING_LITERAL");
-	else if (anode_get_type(anode) == PIPELINE)
-		return ("PIPELINE");
-	else if (anode_get_type(anode) == ANDOR)
-		return ("ANDOR");
-	return ("NOT_FOUND");
+	free(this);
 }
