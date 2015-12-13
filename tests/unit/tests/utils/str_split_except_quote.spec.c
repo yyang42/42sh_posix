@@ -119,39 +119,6 @@ static void double_slash_alone(t_test *test)
 	mt_assert(strcmp(twl_lst_get(segs, 0), "\\\\\"a b\\\\\"") == 0);
 }
 
-static void simple_colon_split(t_test *test)
-{
-	t_lst			*segs;
-	char			*str = "a;b ; c";
-
-	segs = str_split_except_quote(str);
-	// printf("======\n");
-	// twl_lst_putstr(segs, "\n");
-	// printf("\n");
-	// printf("len %zu\n", twl_lst_len(segs));
-	mt_assert(twl_lst_len(segs) == 3);
-	mt_assert(strcmp(twl_lst_get(segs, 0), "a") == 0);
-	mt_assert(strcmp(twl_lst_get(segs, 1), "b") == 0);
-	mt_assert(strcmp(twl_lst_get(segs, 2), "c") == 0);
-}
-
-static void split_async(t_test *test)
-{
-	t_lst			*segs;
-	char			*str = "a;b & c";
-
-	segs = str_split_except_quote(str);
-	// printf("======\n");
-	// twl_lst_putstr(segs, "\n");
-	// printf("\n");
-	// printf("len %zu\n", twl_lst_len(segs));
-	mt_assert(twl_lst_len(segs) == 4);
-	mt_assert(strcmp(twl_lst_get(segs, 0), "a") == 0);
-	mt_assert(strcmp(twl_lst_get(segs, 1), "b") == 0);
-	mt_assert(strcmp(twl_lst_get(segs, 2), "&") == 0);
-	mt_assert(strcmp(twl_lst_get(segs, 3), "c") == 0);
-}
-
 void	suite_str_split_except_quote(t_suite *suite)
 {
 	SUITE_ADD_TEST(suite, simple_without_quote);
@@ -164,6 +131,4 @@ void	suite_str_split_except_quote(t_suite *suite)
 	SUITE_ADD_TEST(suite, slash_alone);
 	SUITE_ADD_TEST(suite, normal_tokens_with_quote_tokens);
 	SUITE_ADD_TEST(suite, double_slash_alone);
-	SUITE_ADD_TEST(suite, simple_colon_split);
-	SUITE_ADD_TEST(suite, split_async);
 }
