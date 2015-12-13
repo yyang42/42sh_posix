@@ -15,6 +15,7 @@
 
 # include "basics.h"
 
+# include "ast/ast_defines.h"
 # include "ast/anode/anode.h"
 # include "ast/anode/compound_stmt.h"
 
@@ -28,5 +29,7 @@ typedef struct		s_t_if_stmt
 
 t_if_stmt			*if_stmt_new(void);
 void				if_stmt_del(t_if_stmt *this);
+
+int					if_stmt_build(t_if_stmt *if_stmt, char *str);
 
 #endif

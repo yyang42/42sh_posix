@@ -10,28 +10,29 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_H
-# define AST_H
+#include "utils.h"
 
-# include "basics.h"
+#include "ast/anode/cmd_stmt.h"
+#include "ast/anode/string_literal.h"
 
-# include "ast/ast_defines.h"
-# include "ast/anode/compound_stmt.h"
-# include "ast/anode/if_stmt.h"
-# include "ast/anode/cmd_stmt.h"
-# include "ast/anode/string_literal.h"
-# include "ast/anode/anode.h"
-
-typedef struct		s_ast
+static void			ast_build_cmd_stmt_push_fn(void *str, void *cmd_stmt_)
 {
-	char			*raw;
-	t_compound_stmt	*root;
-}					t_ast;
+	t_string_literal	*str_lit;
+	t_cmd_stmt			*cmd_stmt;
+	char				*str_bis;
 
-t_ast				*ast_new(char *input);
-void				ast_del(t_ast *this);
+	str_bis = twl_strtrim(str);
+	cmd_stmt = cmd_stmt_;
+	str_lit = string_literal_new(str_bis);
+	twl_lst_push(cmd_stmt->strings, str_lit);
+	free(str_bis);
+}
 
-char				*ast_to_str(t_ast *this);
-void				ast_build(t_ast *this);
+int					cmd_stmt_build(t_cmd_stmt *cmd_stmt, char *str)
+{
+	t_lst			*segs;
 
-#endif
+	segs = str_split_except_quote(str);
+	twl_lst_iter(segs, ast_build_cmd_stmt_push_fn, cmd_stmt);
+	return (twl_strlen(str));
+}

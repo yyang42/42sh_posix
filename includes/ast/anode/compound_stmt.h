@@ -28,4 +28,6 @@ typedef struct		s_compound_stmt
 t_compound_stmt		*compound_stmt_new(void);
 void				compound_stmt_del(t_compound_stmt *this);
 
+int					compound_stmt_build(t_compound_stmt *compound_stmt,
+																	char *str);
 #endif
