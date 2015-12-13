@@ -24,22 +24,22 @@ static void			ast_build_if_stmt_parts_fn(void *str, void *if_stmt_)
 	if_stmt = if_stmt_;
 	if (twl_str_starts_with(str, "if"))
 	{
-		cmd_stmt = cmd_stmt_create_build(str + twl_strlen("if"), NULL);
+		cmd_stmt = cmd_stmt_build(str + twl_strlen("if"), NULL);
 		twl_lst_push(if_stmt->cond->items, cmd_stmt);
 	}
 	else if (twl_str_starts_with(str, "then"))
 	{
-		cmd_stmt = cmd_stmt_create_build(str + twl_strlen("then"), NULL);
+		cmd_stmt = cmd_stmt_build(str + twl_strlen("then"), NULL);
 		twl_lst_push(if_stmt->body->items, cmd_stmt);
 	}
 	else if (twl_str_starts_with(str, "else"))
 	{
-		cmd_stmt = cmd_stmt_create_build(str + twl_strlen("else"), NULL);
+		cmd_stmt = cmd_stmt_build(str + twl_strlen("else"), NULL);
 		twl_lst_push(if_stmt->elze->items, cmd_stmt);
 	}
 }
 
-t_if_stmt			*if_stmt_create_build(char *str, int *len_ptr)
+t_if_stmt			*if_stmt_build(char *str, int *len_ptr)
 {
 	char			*fi_pos;
 	char			*if_str;

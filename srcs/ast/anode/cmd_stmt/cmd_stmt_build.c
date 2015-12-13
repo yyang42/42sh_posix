@@ -28,7 +28,7 @@ static void			ast_build_cmd_stmt_push_fn(void *str, void *cmd_stmt_)
 	free(str_bis);
 }
 
-t_cmd_stmt			*cmd_stmt_create_build(char *str, int *len_ptr)
+t_cmd_stmt			*cmd_stmt_build(char *str, int *len_ptr)
 {
 	t_lst			*segs;
 	t_cmd_stmt		*cmd_stmt;

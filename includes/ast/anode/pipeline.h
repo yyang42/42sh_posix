@@ -28,6 +28,6 @@ typedef struct		s_pipeline
 t_pipeline			*pipeline_new(void);
 void				pipeline_del(t_pipeline *this);
 
-t_pipeline			*pipeline_create_build(char *str, int *len_ptr);
+t_pipeline			*pipeline_build(char *str, int *len_ptr);
 
 #endif

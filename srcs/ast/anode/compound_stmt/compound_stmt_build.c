@@ -34,11 +34,11 @@ static int			ast_build_compound_stmt_lists(t_compound_stmt *compound_stmt, char 
 	len = 0;
 	if (twl_strchr(str, '|') && "TODO is_pipe_case")
 	{
-		twl_lst_push(compound_stmt->items, pipeline_create_build(not_comp_stmt, &len));
+		twl_lst_push(compound_stmt->items, pipeline_build(not_comp_stmt, &len));
 	}
 	else if ("TODO is_a_simple_cmd")
 	{
-		twl_lst_push(compound_stmt->items, cmd_stmt_create_build(not_comp_stmt, &len));
+		twl_lst_push(compound_stmt->items, cmd_stmt_build(not_comp_stmt, &len));
 	}
 	return (len + twl_strlen(AST_SEPARATOR));
 }
@@ -55,7 +55,7 @@ int					compound_stmt_build(t_compound_stmt *compound_stmt,
 	{
 		if (is_if_stmt(str + len))
 		{
-			twl_lst_push(compound_stmt->items, if_stmt_create_build(str + len, &len));
+			twl_lst_push(compound_stmt->items, if_stmt_build(str + len, &len));
 		}
 		else
 		{

@@ -28,6 +28,6 @@ typedef struct		s_cmd_stmt
 t_cmd_stmt			*cmd_stmt_new(void);
 void				cmd_stmt_del(t_cmd_stmt *this);
 
-t_cmd_stmt			*cmd_stmt_create_build(char *str, int *len_ptr);
+t_cmd_stmt			*cmd_stmt_build(char *str, int *len_ptr);
 
 #endif
