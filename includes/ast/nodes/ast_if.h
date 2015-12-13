@@ -19,7 +19,7 @@
 # include "ast/nodes/ast_node.h"
 # include "ast/nodes/ast_compound.h"
 
-typedef struct		s_t_ast_if
+typedef struct		s_ast_if
 {
 	t_ast_type		type;
 	t_ast_compound	*cond;
