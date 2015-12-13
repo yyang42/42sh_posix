@@ -10,11 +10,31 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "xopt.h"
+#include "set.h"
+#include "environment.h"
 #include "twl_dict.h"
+#include "twl_opt_elem.h"
 
-void				xopt_init(t_xopt *xopt, char **av)
+static bool			find_opt(void *data, void *key)
 {
-	xopt->opt__ = twl_opt_new(av, XOPT_VALID_OPTS);
-	xopt_check_valid_opts(xopt);
+	t_opt_elem *elem;
+
+	elem = data;
+	return (twl_strcmp(elem->key, key) == 0);
+}
+
+static void			free_opt(void *data)
+{
+	t_opt_elem *elem;
+
+	elem = data;
+	if (elem->key)
+		free(elem->key);
+	if (elem->value)
+		free(elem->value);
+}
+
+void				environment_remove_flag(char *flag, t_environment *env)
+{
+	twl_lst_remove_if(env->flags, find_opt, flag, free_opt);
 }

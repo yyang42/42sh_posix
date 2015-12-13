@@ -10,11 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "xopt.h"
-#include "twl_dict.h"
+#include <stdlib.h>
 
-void				xopt_init(t_xopt *xopt, char **av)
+#include "environment.h"
+#include "twl_lst.h"
+#include "twl_opt_elem.h"
+
+bool				check_flag(void *data, void *context)
 {
-	xopt->opt__ = twl_opt_new(av, XOPT_VALID_OPTS);
-	xopt_check_valid_opts(xopt);
+	char		*flag;
+	t_opt_elem	*elem;
+
+	flag = context;
+	elem = data;
+	return (twl_strcmp(flag, elem->key) == 0);
+}
+
+int					environment_flag_exist(t_environment *this, char *flag)
+{
+	return (twl_lst_find(this->flags, check_flag, flag) ? 1 : 0);
 }

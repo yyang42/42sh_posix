@@ -27,8 +27,8 @@ int					main(int ac, char **av)
 	xopt_del(xopt_singleton());
 	prog_del(prog);
 	twl_debug_main_end();
-	return (0);
 	(void)ac;
+	return (0);
 }
 
 #endif

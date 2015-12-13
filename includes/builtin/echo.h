@@ -10,11 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "xopt.h"
-#include "twl_dict.h"
+#ifndef ECHO_H
+# define ECHO_H
 
-void				xopt_init(t_xopt *xopt, char **av)
-{
-	xopt->opt__ = twl_opt_new(av, XOPT_VALID_OPTS);
-	xopt_check_valid_opts(xopt);
-}
+# include "basics.h"
+# include "environment.h"
+# include "twl_opt.h"
+# include "builtin.h"
+
+# define ECHO_OPT_VALID_OPTS "n"
+
+int					echo(char *str);
+
+#endif

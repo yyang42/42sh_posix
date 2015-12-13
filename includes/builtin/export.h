@@ -10,11 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "xopt.h"
-#include "twl_dict.h"
+#ifndef EXPORT_H
+# define EXPORT_H
 
-void				xopt_init(t_xopt *xopt, char **av)
-{
-	xopt->opt__ = twl_opt_new(av, XOPT_VALID_OPTS);
-	xopt_check_valid_opts(xopt);
-}
+# include "basics.h"
+# include "twl_opt.h"
+# include "environment.h"
+# include "builtin.h"
+
+# define EXPORT_OPT_VALID_OPTS "p"
+
+int					test_export(char *str, t_environment *env);
+int					export(char *str);
+void				export_verbose(t_environment *env);
+void				export_add(t_environment *env, t_opt *opt);
+
+#endif

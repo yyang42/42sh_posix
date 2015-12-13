@@ -10,11 +10,44 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "xopt.h"
-#include "twl_dict.h"
+#include "export.h"
 
-void				xopt_init(t_xopt *xopt, char **av)
+int					export(char *str)
 {
-	xopt->opt__ = twl_opt_new(av, XOPT_VALID_OPTS);
-	xopt_check_valid_opts(xopt);
+	t_opt			*opt;
+	char			**arr;
+	t_environment	*env;
+
+	env = environment_singleton();
+	arr = twl_strsplit_mul(str, " \n\t");
+	opt = twl_opt_new(arr, EXPORT_OPT_VALID_OPTS);
+	if (!check_invalid_opts(opt, "export", EXPORT_OPT_VALID_OPTS))
+	{
+		if (twl_opt_exist(opt, "p") && twl_opt_args_len(opt) == 0)
+			export_verbose(env);
+		else
+			export_add(env, opt);
+	}
+	twl_arr_del(arr, &free);
+	twl_opt_del(opt);
+	return (0);
+}
+
+int					test_export(char *str, t_environment *env)
+{
+	t_opt			*opt;
+	char			**arr;
+
+	arr = twl_strsplit_mul(str, " \n\t");
+	opt = twl_opt_new(arr, EXPORT_OPT_VALID_OPTS);
+	if (!check_invalid_opts(opt, "export", EXPORT_OPT_VALID_OPTS))
+	{
+		if (twl_opt_exist(opt, "p") && twl_opt_args_len(opt) == 0)
+			export_verbose(env);
+		else
+			export_add(env, opt);
+	}
+	twl_arr_del(arr, &free);
+	twl_opt_del(opt);
+	return (0);
 }

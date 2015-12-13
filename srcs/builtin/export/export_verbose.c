@@ -10,11 +10,26 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "xopt.h"
-#include "twl_dict.h"
+#include "export.h"
+#include "environment.h"
+#include "twl_opt.h"
+#include "twl_lst.h"
 
-void				xopt_init(t_xopt *xopt, char **av)
+static void			export_something(void *data)
 {
-	xopt->opt__ = twl_opt_new(av, XOPT_VALID_OPTS);
-	xopt_check_valid_opts(xopt);
+	t_environment_var	*env_var;
+
+	env_var = data;
+	if (env_var->read_only == NOT_READ_ONLY)
+	{
+		if (env_var->value_is_set == true)
+			twl_printf("export\t%s=\"%s\"\n", env_var->key, env_var->value);
+		else
+			twl_printf("export\t%s\n", env_var->key);
+	}
+}
+
+void				export_verbose(t_environment *env)
+{
+	twl_lst_iter0(env->env_vars, export_something);
 }

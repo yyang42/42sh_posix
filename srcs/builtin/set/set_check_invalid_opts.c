@@ -10,11 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "xopt.h"
-#include "twl_dict.h"
+#include "set.h"
 
-void				xopt_init(t_xopt *xopt, char **av)
+int				set_check_invalid_opts(t_set_opt *opt, char *exe_name,
+																char *flags)
 {
-	xopt->opt__ = twl_opt_new(av, XOPT_VALID_OPTS);
-	xopt_check_valid_opts(xopt);
+	char				*invalid;
+
+	invalid = set_opt_check_invalid_opts(opt);
+	if (invalid && twl_strlen(invalid) > 0)
+	{
+		twl_dprintf(2, "%s: illegal option -- %s\nusage: env [-%s%s\n",
+		exe_name, invalid,
+			flags, "] [name=value ...] [utility [argument ...]]");
+		return (1);
+	}
+	return (0);
 }

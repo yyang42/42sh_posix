@@ -10,11 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "xopt.h"
-#include "twl_dict.h"
+#include "environment.h"
+#include <stdio.h>
 
-void				xopt_init(t_xopt *xopt, char **av)
+void				environment_selocal(t_environment *this, char *str)
 {
-	xopt->opt__ = twl_opt_new(av, XOPT_VALID_OPTS);
-	xopt_check_valid_opts(xopt);
+	environment_setenv_or_setlocal__(this, str, LOCAL);
 }

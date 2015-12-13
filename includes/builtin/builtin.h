@@ -10,11 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "xopt.h"
-#include "twl_dict.h"
+#ifndef BUILTIN_H
+# define BUILTIN_H
 
-void				xopt_init(t_xopt *xopt, char **av)
-{
-	xopt->opt__ = twl_opt_new(av, XOPT_VALID_OPTS);
-	xopt_check_valid_opts(xopt);
-}
+# include "twl_arr.h"
+# include "twl_opt.h"
+# include "twl_stdio.h"
+
+int				check_invalid_opts(t_opt *opt, char *exe_name, char *flags);
+
+#endif

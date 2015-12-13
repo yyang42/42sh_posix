@@ -10,11 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "xopt.h"
-#include "twl_dict.h"
+#include "set.h"
+#include "twl_opt_elem.h"
 
-void				xopt_init(t_xopt *xopt, char **av)
+void				set_opt_del(t_set_opt *opt)
 {
-	xopt->opt__ = twl_opt_new(av, XOPT_VALID_OPTS);
-	xopt_check_valid_opts(xopt);
+	free(opt->cmd);
+	free(opt->valid_opts);
+	twl_lst_del(opt->positive_opts, twl_opt_elem_del);
+	twl_lst_del(opt->negative_opts, twl_opt_elem_del);
+	twl_lst_del(opt->args, free);
+	free(opt);
 }

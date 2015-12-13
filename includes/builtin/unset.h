@@ -10,11 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "xopt.h"
-#include "twl_dict.h"
+#ifndef UNSET_H
+# define UNSET_H
 
-void				xopt_init(t_xopt *xopt, char **av)
-{
-	xopt->opt__ = twl_opt_new(av, XOPT_VALID_OPTS);
-	xopt_check_valid_opts(xopt);
-}
+# include "basics.h"
+# include "twl_opt.h"
+# include "environment.h"
+# include "builtin.h"
+
+# define UNSET_OPT_VALID_OPTS "fv"
+
+int					test_unset(char *str, t_environment *env);
+int					unset(char *str);
+int					unset_variable(t_environment *env, t_opt *opt);
+int					unset_function(t_environment *env, t_opt *opt);
+
+#endif

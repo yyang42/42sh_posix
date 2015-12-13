@@ -10,11 +10,28 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "xopt.h"
-#include "twl_dict.h"
+#include "echo.h"
 
-void				xopt_init(t_xopt *xopt, char **av)
+int				echo(char *str)
 {
-	xopt->opt__ = twl_opt_new(av, XOPT_VALID_OPTS);
-	xopt_check_valid_opts(xopt);
+	t_opt			*opt;
+	char			**arr;
+	char			*c;
+	int				flag;
+
+	flag = 0;
+	arr = twl_strsplit_mul(str, " \n\t");
+	opt = twl_opt_new(arr, ECHO_OPT_VALID_OPTS);
+	if ((c = twl_opt_check_invalid_opts(opt)))
+		flag = check_invalid_opts(opt, "echo", ECHO_OPT_VALID_OPTS);
+	else
+	{
+		if (twl_opt_get_param(opt, "n"))
+			twl_printf("%s", str);
+		else
+			twl_printf("%s\n", str);
+	}
+	twl_arr_del(arr, &free);
+	twl_opt_del(opt);
+	return (flag);
 }

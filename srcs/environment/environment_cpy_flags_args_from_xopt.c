@@ -11,10 +11,43 @@
 /* ************************************************************************** */
 
 #include "xopt.h"
-#include "twl_dict.h"
+#include "environment.h"
+#include "twl_lst.h"
+#include "twl_opt_elem.h"
 
-void				xopt_init(t_xopt *xopt, char **av)
+static void			push_flag(void *data, void *context)
 {
-	xopt->opt__ = twl_opt_new(av, XOPT_VALID_OPTS);
-	xopt_check_valid_opts(xopt);
+	t_environment	*env;
+	t_opt_elem		*elem;
+
+	elem = data;
+	env = context;
+	if (elem->key)
+		environment_add_flag((char*)elem->key, env);
+}
+
+static void			push_args(void *data, void *context)
+{
+	t_environment	*env;
+	char			*arg;
+
+	arg = data;
+	env = context;
+	if (arg)
+		environment_add_pos_param(arg, env);
+}
+
+void				environment_cpy_flags_args_from_xopt(t_environment *env)
+{
+	t_xopt	*xopt;
+	t_lst	*opts;
+	t_lst	*args;
+
+	xopt = xopt_singleton();
+	opts = xopt_get_opts(xopt);
+	if (opts)
+		twl_lst_iter(opts, push_flag, env);
+	args = xopt_get_args(xopt);
+	if (args)
+		twl_lst_iter(args, push_args, env);
 }

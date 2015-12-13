@@ -10,11 +10,25 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "xopt.h"
-#include "twl_dict.h"
+#include "export.h"
+#include "environment.h"
+#include "twl_opt.h"
+#include "twl_lst.h"
 
-void				xopt_init(t_xopt *xopt, char **av)
+static void			export_something(void *data, void *context)
 {
-	xopt->opt__ = twl_opt_new(av, XOPT_VALID_OPTS);
-	xopt_check_valid_opts(xopt);
+	t_environment	*env;
+	char			*arg;
+
+	arg = data;
+	env = context;
+	if (arg)
+	{
+		environment_setenv(env, arg);
+	}
+}
+
+void				export_add(t_environment *env, t_opt *opt)
+{
+	twl_lst_iter(opt->args, export_something, env);
 }

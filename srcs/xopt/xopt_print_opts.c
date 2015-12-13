@@ -11,10 +11,19 @@
 /* ************************************************************************** */
 
 #include "xopt.h"
-#include "twl_dict.h"
+#include "twl_opt_elem.h"
 
-void				xopt_init(t_xopt *xopt, char **av)
+static void			print_opt(void *data)
 {
-	xopt->opt__ = twl_opt_new(av, XOPT_VALID_OPTS);
-	xopt_check_valid_opts(xopt);
+	t_opt_elem *elem;
+
+	elem = data;
+	if (elem && elem->key)
+		twl_printf("%s\n", elem->key);
+}
+
+void				xopt_print_opts(t_xopt *xopt)
+{
+	if (xopt && xopt->opt__)
+		twl_lst_iter0(xopt->opt__->opts, print_opt);
 }

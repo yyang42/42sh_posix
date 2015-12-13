@@ -10,11 +10,29 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "xopt.h"
-#include "twl_dict.h"
+#include <stdlib.h>
+#include "environment.h"
 
-void				xopt_init(t_xopt *xopt, char **av)
+static void			*copy_fn(void *data)
 {
-	xopt->opt__ = twl_opt_new(av, XOPT_VALID_OPTS);
-	xopt_check_valid_opts(xopt);
+	t_environment_var *var;
+
+	var = twl_malloc_x0(sizeof(t_environment_var));
+	var->key = twl_strdup(((t_environment_var *)data)->key);
+	var->value = twl_strdup(((t_environment_var *)data)->value);
+	var->read_only = ((t_environment_var *)data)->read_only;
+	var->type = ((t_environment_var *)data)->type;
+	return (var);
+}
+
+t_environment		*environment_clone(t_environment *this)
+{
+	t_environment *clone;
+
+	clone = twl_malloc_x0(sizeof(t_environment));
+	clone->env_vars = twl_lst_copy(this->env_vars, copy_fn);
+	// @TODO
+	// clone->flag_verbose = twl_lst_copy(this->env_vars, copy_dict);
+	// clone->shell_func = twl_lst_copy(this->env_vars, copy_dict);
+	return (clone);
 }

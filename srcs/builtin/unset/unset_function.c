@@ -10,11 +10,31 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "xopt.h"
-#include "twl_dict.h"
+#include "unset.h"
+#include "environment.h"
+#include "twl_opt.h"
 
-void				xopt_init(t_xopt *xopt, char **av)
+static void			unset_something(void *data, void *context, void *ret_)
 {
-	xopt->opt__ = twl_opt_new(av, XOPT_VALID_OPTS);
-	xopt_check_valid_opts(xopt);
+	t_environment		*env;
+	char				*arg;
+	int					*ret;
+
+	arg = data;
+	env = context;
+	ret = ret_;
+	if (arg)
+	{
+		environment_remove_shell_func(env, arg);
+		*ret = 0;
+	}
+}
+
+int					unset_function(t_environment *env, t_opt *opt)
+{
+	int	ret;
+
+	ret = 1;
+	twl_lst_iter2(opt->args, unset_something, env, &ret);
+	return (ret);
 }

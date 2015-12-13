@@ -10,11 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "xopt.h"
-#include "twl_dict.h"
+#ifndef EXECUTE_H
+# define EXECUTE_H
+# include "basics.h"
 
-void				xopt_init(t_xopt *xopt, char **av)
-{
-	xopt->opt__ = twl_opt_new(av, XOPT_VALID_OPTS);
-	xopt_check_valid_opts(xopt);
-}
+# include "basics.h"
+# include <errno.h>
+# include "environment.h"
+# include "env.h"
+# include "utils.h"
+# include "twl_arr.h"
+# include "twl_opt.h"
+# include <sys/stat.h>
+# include <sys/types.h>
+# include <sys/wait.h>
+# include "twl_stdio.h"
+# include <stdio.h>
+# include <string.h>
+
+int				execute(char *path, char **args, char **env);
+
+#endif

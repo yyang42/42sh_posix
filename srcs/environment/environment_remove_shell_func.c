@@ -10,11 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "xopt.h"
+#include "set.h"
+#include "environment.h"
 #include "twl_dict.h"
+#include "twl_opt_elem.h"
 
-void				xopt_init(t_xopt *xopt, char **av)
+static void			free_func(void *data)
 {
-	xopt->opt__ = twl_opt_new(av, XOPT_VALID_OPTS);
-	xopt_check_valid_opts(xopt);
+	(void)data;
+}
+
+void				environment_remove_shell_func(t_environment *env, char *key)
+{
+	twl_dict_delone(env->shell_func, key, free_func);
 }

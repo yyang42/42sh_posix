@@ -10,11 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "xopt.h"
-#include "twl_dict.h"
+#include "cd.h"
 
-void				xopt_init(t_xopt *xopt, char **av)
+void	get_flags(t_opt *opt, int *no_symlinks)
 {
-	xopt->opt__ = twl_opt_new(av, XOPT_VALID_OPTS);
-	xopt_check_valid_opts(xopt);
+	if (twl_opt_exist(opt, "P"))
+		*no_symlinks = 1;
+	if (twl_opt_exist(opt, "L"))
+		*no_symlinks = 0;
+}
+
+int		free_all(char *dirname, char **args, t_opt *opt)
+{
+	if (dirname)
+		free(dirname);
+	if (args)
+		twl_arr_del(args, free);
+	if (opt)
+		twl_opt_del(opt);
+	return (0);
 }

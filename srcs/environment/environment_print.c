@@ -10,11 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "xopt.h"
-#include "twl_dict.h"
+#include "environment.h"
 
-void				xopt_init(t_xopt *xopt, char **av)
+static void		print_env_var(void *data)
 {
-	xopt->opt__ = twl_opt_new(av, XOPT_VALID_OPTS);
-	xopt_check_valid_opts(xopt);
+	t_environment_var	*var;
+
+	var = data;
+	if (var->type == ENVIRONMENT)
+		twl_printf("%s=%s\n", var->key, var->value);
+}
+
+void			environment_print(t_environment *this)
+{
+	twl_lst_iter0(this->env_vars, print_env_var);
 }

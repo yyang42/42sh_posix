@@ -10,11 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "xopt.h"
-#include "twl_dict.h"
+#include "twl_xstdlib.h"
 
-void				xopt_init(t_xopt *xopt, char **av)
+#include "environment.h"
+#include "xopt.h"
+
+t_environment			*environment_new(void)
 {
-	xopt->opt__ = twl_opt_new(av, XOPT_VALID_OPTS);
-	xopt_check_valid_opts(xopt);
+	t_environment		*this;
+	t_xopt				*xopt;
+
+	this = twl_malloc_x0(sizeof(t_environment));
+	this->env_vars = twl_lst_new();
+	xopt = xopt_singleton();
+	this->pos_params = xopt_get_args(xopt);
+	this->flags = xopt_get_opts(xopt);
+	return (this);
 }

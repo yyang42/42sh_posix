@@ -10,11 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "xopt.h"
-#include "twl_dict.h"
+#include "environment.h"
 
-void				xopt_init(t_xopt *xopt, char **av)
+t_environment			*environment_singleton(void)
 {
-	xopt->opt__ = twl_opt_new(av, XOPT_VALID_OPTS);
-	xopt_check_valid_opts(xopt);
+	static t_environment	*env = NULL;
+
+	if (!env)
+	{
+		env = environment_new();
+		environment_init(env);
+	}
+	return (env);
 }

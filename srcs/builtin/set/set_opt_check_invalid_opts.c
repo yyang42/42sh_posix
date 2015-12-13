@@ -10,11 +10,37 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "xopt.h"
-#include "twl_dict.h"
+#include <stdbool.h>
+#include "set.h"
+#include "twl_opt.h"
+#include "twl_opt_elem.h"
+#include "twl_stdio.h"
 
-void				xopt_init(t_xopt *xopt, char **av)
+static bool			find_fn(void *opt_elem_, void *valid_opts_)
 {
-	xopt->opt__ = twl_opt_new(av, XOPT_VALID_OPTS);
-	xopt_check_valid_opts(xopt);
+	t_opt_elem		*opt_elem;
+	char			*valid_opts;
+
+	opt_elem = opt_elem_;
+	valid_opts = valid_opts_;
+	if (!twl_strchr(valid_opts, *opt_elem->key))
+		return (true);
+	return (false);
+}
+
+char				*set_opt_check_invalid_opts(t_set_opt *opt)
+{
+	t_opt_elem		*opt_elem;
+
+	opt_elem = twl_lst_find(opt->positive_opts, find_fn, opt->valid_opts);
+	if (opt_elem)
+	{
+		return (opt_elem->key);
+	}
+	opt_elem = twl_lst_find(opt->negative_opts, find_fn, opt->valid_opts);
+	if (opt_elem)
+	{
+		return (opt_elem->key);
+	}
+	return (NULL);
 }

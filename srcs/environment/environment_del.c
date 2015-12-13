@@ -10,11 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "xopt.h"
-#include "twl_dict.h"
+#include <stdlib.h>
 
-void				xopt_init(t_xopt *xopt, char **av)
+#include "environment.h"
+
+static void			clear_environment(void *data)
 {
-	xopt->opt__ = twl_opt_new(av, XOPT_VALID_OPTS);
-	xopt_check_valid_opts(xopt);
+	twl_strdel(&((t_environment_var *)data)->key);
+	twl_strdel(&((t_environment_var *)data)->value);
+}
+
+void				environment_del(t_environment *this)
+{
+	twl_lst_del(this->env_vars, clear_environment);
+	free(this);
 }

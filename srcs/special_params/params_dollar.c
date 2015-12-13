@@ -10,11 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "xopt.h"
-#include "twl_dict.h"
+#include "basics.h"
+#include "prog.h"
+#include "environment.h"
+#include "twl_lst.h"
 
-void				xopt_init(t_xopt *xopt, char **av)
+char				*params_dollar(void)
 {
-	xopt->opt__ = twl_opt_new(av, XOPT_VALID_OPTS);
-	xopt_check_valid_opts(xopt);
+	t_environment	*env;
+
+	env = environment_singleton();
+	return (environment_concat_flags(env));
+}
+
+char				*test_params_dollar(t_environment *env)
+{
+	return (environment_concat_flags(env));
 }

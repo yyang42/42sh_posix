@@ -10,11 +10,29 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "xopt.h"
-#include "twl_dict.h"
+#include "cd.h"
 
-void				xopt_init(t_xopt *xopt, char **av)
+char		*join_pwd_to_path(char *dirname)
 {
-	xopt->opt__ = twl_opt_new(av, XOPT_VALID_OPTS);
-	xopt_check_valid_opts(xopt);
+	char	buf[MAX_SIZE];
+
+	twl_bzero(buf, MAX_SIZE);
+	if (!getcwd(buf, MAX_SIZE))
+	{
+		perror("cd");
+		return (NULL);
+	}
+	return (join_paths(buf, dirname));
+}
+
+char		*join_paths(char *path, char *dirname)
+{
+	char *full_path;
+
+	full_path = NULL;
+	if (path && twl_strlen(path) > 0 && path[twl_strlen(path) - 1] == '/')
+		full_path = twl_strjoin(path, dirname);
+	else
+		full_path = twl_joinpath(path, dirname);
+	return (full_path);
 }

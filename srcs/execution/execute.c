@@ -10,11 +10,47 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "xopt.h"
-#include "twl_dict.h"
+#include "execute.h"
 
-void				xopt_init(t_xopt *xopt, char **av)
+static int		execute2(char *path, char **args, char **env)
 {
-	xopt->opt__ = twl_opt_new(av, XOPT_VALID_OPTS);
-	xopt_check_valid_opts(xopt);
+	int			pid;
+
+	pid = fork();
+	if (pid == -1)
+	{
+		twl_dprintf(2, "cannot fork: %s", strerror(errno));
+		return (-1);
+	}
+	else if (pid == 0)
+	{
+		execve(path, args, env);
+		perror(path);
+		exit(0);
+	}
+	else
+	{
+		wait(&pid);
+		return (1);
+	}
+	return (0);
+}
+
+int				execute(char *path, char **args, char **env)
+{
+	struct stat	sb;
+
+	if (!stat(path, &sb))
+	{
+		if (S_ISREG(sb.st_mode) && sb.st_mode & 0111)
+			return (execute2(path, args, env));
+		else
+		{
+			twl_dprintf(2, "%s: %s: Permission denied\n", path, args[0]);
+			return (-1);
+		}
+	}
+	else
+		perror(path);
+	return (0);
 }

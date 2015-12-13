@@ -10,11 +10,39 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "xopt.h"
-#include "twl_dict.h"
+#include "environment.h"
 
-void				xopt_init(t_xopt *xopt, char **av)
+static bool			find_env_key(void *data, void *context)
 {
-	xopt->opt__ = twl_opt_new(av, XOPT_VALID_OPTS);
-	xopt_check_valid_opts(xopt);
+	t_environment_var	*var;
+	char				*str;
+
+	var = data;
+	str = context;
+	return (twl_strcmp(var->key, str) == 0);
+}
+
+int					environment_setenv_value(t_environment *this,
+	char *key, char *value)
+{
+	t_environment_var	*var;
+
+	if (key == NULL || *key == '\0')
+	{
+		errno = EINVAL;
+		return (-1);
+	}
+	var = (t_environment_var *)(twl_lst_find(this->env_vars, find_env_key,
+																		key));
+	if (var != NULL)
+	{
+		if (var->value)
+			free(var->value);
+		var->value = twl_strdup(value);
+		return (1);
+	}
+	else
+		twl_lst_push(this->env_vars, environment_var_new(key, value, LOCAL,
+			value != NULL));
+	return (0);
 }

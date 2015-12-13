@@ -11,10 +11,12 @@
 /* ************************************************************************** */
 
 #include "xopt.h"
-#include "twl_dict.h"
+#include "twl_lst.h"
 
-void				xopt_init(t_xopt *xopt, char **av)
+t_lst				*xopt_get_args(t_xopt *xopt)
 {
-	xopt->opt__ = twl_opt_new(av, XOPT_VALID_OPTS);
-	xopt_check_valid_opts(xopt);
+	if (xopt && xopt->opt__)
+		return (xopt->opt__->args);
+	else
+		return (twl_lst_new());
 }

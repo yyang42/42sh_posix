@@ -10,11 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "xopt.h"
-#include "twl_dict.h"
+#ifndef SPECIAL_PARAMS_H
+# define SPECIAL_PARAMS_H
 
-void				xopt_init(t_xopt *xopt, char **av)
-{
-	xopt->opt__ = twl_opt_new(av, XOPT_VALID_OPTS);
-	xopt_check_valid_opts(xopt);
-}
+char				*test_params_at(t_environment *env);
+char				*params_at();
+char				*test_params_star(t_environment *env, bool between_quotes);
+char				*params_star(bool between_quotes);
+char				*test_params_sharp(t_environment *env);
+char				*params_sharp();
+char				*test_params_question(t_environment *env);
+char				*params_question();
+char				*test_params_hyphen(t_environment *env);
+char				*params_hyphen(t_environment *env);
+
+#endif
