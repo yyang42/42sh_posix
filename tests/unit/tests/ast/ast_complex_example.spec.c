@@ -18,11 +18,11 @@ static void simple_example(t_test *test)
 								  "    STRING_LITERAL \"echo\"\n" \
 								  "    STRING_LITERAL \"abc\"\n";
 
-	printf("== actual ======================\n");
-	printf("%s", out);
-	printf("== expected ====================\n");
-	printf("%s", expected);
-	printf("================================\n");
+	// printf("== actual ======================\n");
+	// printf("%s", out);
+	// printf("== expected ====================\n");
+	// printf("%s", expected);
+	// printf("================================\n");
 	mt_assert(strcmp(out, expected) == 0);
 }
 
@@ -54,11 +54,11 @@ static void complex_example(t_test *test)
 								  "    STRING_LITERAL \"echo\"\n" \
 								  "    STRING_LITERAL \"ccc\"\n";
 
-	printf("== actual ======================\n");
-	printf("%s", out);
-	printf("== expected ====================\n");
-	printf("%s", expected);
-	printf("================================\n");
+	// printf("== actual ======================\n");
+	// printf("%s", out);
+	// printf("== expected ====================\n");
+	// printf("%s", expected);
+	// printf("================================\n");
 	mt_assert(strcmp(out, expected) == 0);
 }
 

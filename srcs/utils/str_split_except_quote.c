@@ -12,7 +12,7 @@
 
 #include "utils.h"
 
-#define STR_SPLIT_EXCEPT_QUOTE_SPLIT_CHARS " "
+#define STR_SPLIT_EXCEPT_QUOTE_SPLIT_CHARS " ;&"
 
 static int			count_prev_slash(char *str)
 {
@@ -61,7 +61,11 @@ static char			*handle_new_seg(t_lst *segs, char *str, int len)
 	if (len)
 		twl_lst_push(segs, twl_strndup(str - len, len));
 	while (*str && twl_strchr(STR_SPLIT_EXCEPT_QUOTE_SPLIT_CHARS, *str))
+	{
+		if (*str == '&')
+			twl_lst_push(segs, twl_strdup("&"));
 		str++;
+	}
 	return (str);
 }
 
