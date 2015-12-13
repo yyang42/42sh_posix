@@ -10,18 +10,26 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "twl_xstdlib.h"
+#ifndef IF_STMT_H
+# define IF_STMT_H
 
-#include "ast/anode/if_stmt.h"
+# include "basics.h"
 
-t_if_stmt			*if_stmt_new(void)
+# include "ast/ast_defines.h"
+# include "ast/anode/anode.h"
+# include "ast/anode/compound_stmt.h"
+
+typedef struct		s_t_ast_if
 {
-	t_if_stmt	*this;
+	t_atype			type;
+	t_compound_stmt	*cond;
+	t_compound_stmt	*body;
+	t_compound_stmt	*elze;
+}					t_ast_if;
 
-	this = twl_malloc_x0(sizeof(t_if_stmt));
-	this->type = IF_STMT;
-	this->cond = compound_stmt_new();
-	this->body = compound_stmt_new();
-	this->elze = compound_stmt_new();
-	return (this);
-}
+t_ast_if			*ast_if_new(void);
+void				ast_if_del(t_ast_if *this);
+
+t_ast_if			*ast_if_build(char *str, int *len_ptr);
+
+#endif

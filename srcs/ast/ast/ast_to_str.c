@@ -15,7 +15,7 @@
 #include "ast/ast.h"
 
 #include "ast/anode/anode.h"
-#include "ast/anode/if_stmt.h"
+#include "ast/anode/ast_if.h"
 #include "ast/anode/string_literal.h"
 #include "ast/anode/pipeline.h"
 #include "ast/anode/andor.h"
@@ -63,10 +63,10 @@ void				travel_rec(void *anode, void *lvl_ptr, void *out_list)
 	}
 	else if (anode_get_type(anode) == IF_STMT)
 	{
-		t_if_stmt			*if_stmt = anode;
-		travel_rec(if_stmt->cond, &lvl, out_list);
-		travel_rec(if_stmt->body, &lvl, out_list);
-		travel_rec(if_stmt->elze, &lvl, out_list);
+		t_ast_if			*ast_if = anode;
+		travel_rec(ast_if->cond, &lvl, out_list);
+		travel_rec(ast_if->body, &lvl, out_list);
+		travel_rec(ast_if->elze, &lvl, out_list);
 	}
 	else if (anode_get_type(anode) == CMD_STMT)
 	{

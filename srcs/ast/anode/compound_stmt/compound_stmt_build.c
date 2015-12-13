@@ -12,13 +12,13 @@
 
 #include "utils.h"
 
-#include "ast/anode/if_stmt.h"
+#include "ast/anode/ast_if.h"
 #include "ast/anode/cmd_stmt.h"
 #include "ast/anode/string_literal.h"
 #include "ast/anode/pipeline.h"
 #include "ast/anode/andor.h"
 
-static bool			is_if_stmt(char *str)
+static bool			is_ast_if(char *str)
 {
 	if (twl_str_starts_with(str, "if "))
 		return (true);
@@ -61,9 +61,9 @@ t_compound_stmt		*compound_stmt_build(char *str, int *len_ptr)
 	len = 0;
 	while (len < total_len)
 	{
-		if (is_if_stmt(str + len))
+		if (is_ast_if(str + len))
 		{
-			twl_lst_push(compound_stmt->items, if_stmt_build(str + len, &len));
+			twl_lst_push(compound_stmt->items, ast_if_build(str + len, &len));
 		}
 		else
 		{

@@ -12,48 +12,48 @@
 
 #include "utils.h"
 
-#include "ast/anode/if_stmt.h"
+#include "ast/anode/ast_if.h"
 #include "ast/anode/cmd_stmt.h"
 #include "ast/anode/string_literal.h"
 
-static void			ast_build_if_stmt_parts_fn(void *str, void *if_stmt_)
+static void			ast_build_ast_if_parts_fn(void *str, void *ast_if_)
 {
-	t_if_stmt		*if_stmt;
+	t_ast_if		*ast_if;
 	t_cmd_stmt		*cmd_stmt;
 
-	if_stmt = if_stmt_;
+	ast_if = ast_if_;
 	if (twl_str_starts_with(str, "if"))
 	{
 		cmd_stmt = cmd_stmt_build(str + twl_strlen("if"), NULL);
-		twl_lst_push(if_stmt->cond->items, cmd_stmt);
+		twl_lst_push(ast_if->cond->items, cmd_stmt);
 	}
 	else if (twl_str_starts_with(str, "then"))
 	{
 		cmd_stmt = cmd_stmt_build(str + twl_strlen("then"), NULL);
-		twl_lst_push(if_stmt->body->items, cmd_stmt);
+		twl_lst_push(ast_if->body->items, cmd_stmt);
 	}
 	else if (twl_str_starts_with(str, "else"))
 	{
 		cmd_stmt = cmd_stmt_build(str + twl_strlen("else"), NULL);
-		twl_lst_push(if_stmt->elze->items, cmd_stmt);
+		twl_lst_push(ast_if->elze->items, cmd_stmt);
 	}
 }
 
-t_if_stmt			*if_stmt_build(char *str, int *len_ptr)
+t_ast_if			*ast_if_build(char *str, int *len_ptr)
 {
 	char			*fi_pos;
 	char			*if_str;
 	t_lst			*if_segs;
-	t_if_stmt		*if_stmt;
+	t_ast_if		*ast_if;
 
-	if_stmt = if_stmt_new();
+	ast_if = ast_if_new();
 	fi_pos = twl_strstr(str, AST_SEPARATOR"fi"AST_SEPARATOR);
 	if_str = twl_strndup(str, fi_pos - str);
 	if_str = twl_strtrim_chars_free(if_str, AST_SEPARATOR);
 	if_segs = twl_str_split_to_lst(if_str, AST_SEPARATOR);
-	twl_lst_iter(if_segs, ast_build_if_stmt_parts_fn, if_stmt);
+	twl_lst_iter(if_segs, ast_build_ast_if_parts_fn, ast_if);
 	free(if_str);
 	twl_lst_del(if_segs, free);
 	increment_len(len_ptr, fi_pos + twl_strlen(AST_SEPARATOR"fi"AST_SEPARATOR) - str);
-	return (if_stmt);
+	return (ast_if);
 }

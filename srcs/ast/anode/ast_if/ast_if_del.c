@@ -12,9 +12,9 @@
 
 #include <stdlib.h>
 
-#include "ast/anode/if_stmt.h"
+#include "ast/anode/ast_if.h"
 
-void				if_stmt_del(t_if_stmt *this)
+void				ast_if_del(t_ast_if *this)
 {
 	free(this);
 }
