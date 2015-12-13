@@ -17,11 +17,12 @@
 
 # include "basics.h"
 
-# define XOPT_VALID_OPTS "abcCefimnosuvx"
+# define XOPT_VALID_OPTS "abcCefimnosuvxz"
 
 typedef struct		s_xopt
 {
-	t_opt			*opt__;
+	t_opt			*opt;
+	bool			print_ast;
 }					t_xopt;
 
 t_xopt				*xopt_new(void);

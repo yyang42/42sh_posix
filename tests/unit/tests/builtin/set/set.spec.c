@@ -48,7 +48,6 @@ static void test_wrong_flag(t_test *test)
 	env = environment_new();
 	environment_init(env);
 	test_set("set -a -b", env);
-	test_set("set -C -z -e", env);
 	mt_assert(twl_lst_len(env->flags) == 2);
 	environment_del(env);
 }

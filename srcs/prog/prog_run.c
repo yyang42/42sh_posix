@@ -18,9 +18,9 @@ void				prog_run(t_prog *prog)
 {
 	t_environment	*env;
 
-	twl_printf("== It works!! ==\n");
 	env = environment_new();
 	environment_init(env);
 	environment_del(env);
+	prog_print_ast(prog);
 	(void)prog;
 }

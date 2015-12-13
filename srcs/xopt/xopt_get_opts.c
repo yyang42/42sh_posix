@@ -14,8 +14,8 @@
 
 t_lst				*xopt_get_opts(t_xopt *xopt)
 {
-	if (xopt && xopt->opt__)
-		return (xopt->opt__->opts);
+	if (xopt && xopt->opt)
+		return (xopt->opt->opts);
 	else
 		return (twl_lst_new());
 }

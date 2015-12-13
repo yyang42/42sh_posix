@@ -1,0 +1,24 @@
+COMPOUND_STMT
+  CMD_STMT
+    <strings>
+      STRING_LITERAL "echo"
+      STRING_LITERAL "111"
+  IF_STMT
+    COMPOUND_STMT
+      CMD_STMT
+        <strings>
+          STRING_LITERAL "true"
+    COMPOUND_STMT
+      CMD_STMT
+        <strings>
+          STRING_LITERAL "echo"
+          STRING_LITERAL "aaa"
+    COMPOUND_STMT
+      CMD_STMT
+        <strings>
+          STRING_LITERAL "echo"
+          STRING_LITERAL "bbb"
+  CMD_STMT
+    <strings>
+      STRING_LITERAL "echo"
+      STRING_LITERAL "ccc"

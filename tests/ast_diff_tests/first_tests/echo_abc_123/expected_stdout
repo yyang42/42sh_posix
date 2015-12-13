@@ -1,0 +1,9 @@
+COMPOUND_STMT
+  CMD_STMT
+    <strings>
+      STRING_LITERAL "echo"
+      STRING_LITERAL "123"
+  CMD_STMT
+    <strings>
+      STRING_LITERAL "echo"
+      STRING_LITERAL "abc"
