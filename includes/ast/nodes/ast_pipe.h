@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPELINE_H
-# define PIPELINE_H
+#ifndef AST_PIPE_H
+# define AST_PIPE_H
 
 # include "basics.h"
 

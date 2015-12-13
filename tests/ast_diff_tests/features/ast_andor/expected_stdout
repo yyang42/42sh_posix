@@ -1,15 +1,15 @@
-COMPOUND_STMT
-  ANDOR 'or'
-    ANDOR 'and'
-      CMD_STMT
+AST_COMPOUND
+  AST_ANDOR 'or'
+    AST_ANDOR 'and'
+      AST_CMD
         <strings>
-          STRING_LITERAL "echo"
-          STRING_LITERAL "aaa"
-      CMD_STMT
+          AST_STRING "echo"
+          AST_STRING "aaa"
+      AST_CMD
         <strings>
-          STRING_LITERAL "echo"
-          STRING_LITERAL "bbb"
-    CMD_STMT
+          AST_STRING "echo"
+          AST_STRING "bbb"
+    AST_CMD
       <strings>
-        STRING_LITERAL "echo"
-        STRING_LITERAL "ccc"
+        AST_STRING "echo"
+        AST_STRING "ccc"

@@ -19,7 +19,7 @@ t_ast_andor				*ast_andor_new(t_andor_type andor_type)
 	t_ast_andor	*this;
 
 	this = twl_malloc_x0(sizeof(t_ast_andor));
-	this->type = ANDOR;
+	this->type = AST_ANDOR;
 	this->andor_type = andor_type;
 	this->left = NULL;
 	this->right = NULL;

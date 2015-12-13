@@ -19,7 +19,7 @@ t_ast_pipe			*ast_pipe_new(void)
 	t_ast_pipe	*this;
 
 	this = twl_malloc_x0(sizeof(t_ast_pipe));
-	this->type = PIPELINE;
+	this->type = AST_PIPE;
 	this->left = NULL;
 	this->right = NULL;
 	return (this);

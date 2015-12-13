@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CMD_STMT_H
-# define CMD_STMT_H
+#ifndef AST_CMD_H
+# define AST_CMD_H
 
 # include "twl_lst.h"
 

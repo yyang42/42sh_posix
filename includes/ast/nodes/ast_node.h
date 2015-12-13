@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ANODE_H
-# define ANODE_H
+#ifndef AST_NODE_H
+# define AST_NODE_H
 
 # include "basics.h"
 

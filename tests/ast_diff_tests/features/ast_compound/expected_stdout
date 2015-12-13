@@ -1,9 +1,9 @@
-COMPOUND_STMT
-  CMD_STMT
+AST_COMPOUND
+  AST_CMD
     <strings>
-      STRING_LITERAL "echo"
-      STRING_LITERAL "123"
-  CMD_STMT
+      AST_STRING "echo"
+      AST_STRING "123"
+  AST_CMD
     <strings>
-      STRING_LITERAL "echo"
-      STRING_LITERAL "abc"
+      AST_STRING "echo"
+      AST_STRING "abc"

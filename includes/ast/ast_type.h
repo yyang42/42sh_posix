@@ -10,17 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ATYPE_H
-# define ATYPE_H
+#ifndef AST_TYPE_H
+# define AST_TYPE_H
 
 typedef enum		e_ast_type
 {
-	COMPOUND_STMT,
-	IF_STMT,
-	PIPELINE,
-	STRING_LITERAL,
-	CMD_STMT,
-	ANDOR
+	AST_COMPOUND,
+	AST_IF,
+	AST_PIPE,
+	AST_STRING,
+	AST_CMD,
+	AST_ANDOR
 }					t_ast_type;
 
 #endif

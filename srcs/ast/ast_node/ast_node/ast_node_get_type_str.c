@@ -14,17 +14,17 @@
 
 char				*ast_node_get_type_str(void *ast_node)
 {
-	if (ast_node_get_type(ast_node) == COMPOUND_STMT)
-		return ("COMPOUND_STMT");
-	else if (ast_node_get_type(ast_node) == IF_STMT)
-		return ("IF_STMT");
-	else if (ast_node_get_type(ast_node) == CMD_STMT)
-		return ("CMD_STMT");
-	else if (ast_node_get_type(ast_node) == STRING_LITERAL)
-		return ("STRING_LITERAL");
-	else if (ast_node_get_type(ast_node) == PIPELINE)
-		return ("PIPELINE");
-	else if (ast_node_get_type(ast_node) == ANDOR)
-		return ("ANDOR");
+	if (ast_node_get_type(ast_node) == AST_COMPOUND)
+		return ("AST_COMPOUND");
+	else if (ast_node_get_type(ast_node) == AST_IF)
+		return ("AST_IF");
+	else if (ast_node_get_type(ast_node) == AST_CMD)
+		return ("AST_CMD");
+	else if (ast_node_get_type(ast_node) == AST_STRING)
+		return ("AST_STRING");
+	else if (ast_node_get_type(ast_node) == AST_PIPE)
+		return ("AST_PIPE");
+	else if (ast_node_get_type(ast_node) == AST_ANDOR)
+		return ("AST_ANDOR");
 	return ("NOT_FOUND");
 }

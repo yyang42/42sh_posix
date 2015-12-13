@@ -1,10 +1,10 @@
-COMPOUND_STMT
-  CMD_STMT
+AST_COMPOUND
+  AST_CMD
     <strings>
-      STRING_LITERAL "cat"
+      AST_STRING "cat"
     <redir_in>
-      STRING_LITERAL "file1"
-      STRING_LITERAL "file2"
+      AST_STRING "file1"
+      AST_STRING "file2"
     <redir_out>
-      STRING_LITERAL "file3"
-      STRING_LITERAL "file4"
+      AST_STRING "file3"
+      AST_STRING "file4"

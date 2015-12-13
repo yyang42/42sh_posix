@@ -19,7 +19,7 @@ t_ast_cmd			*ast_cmd_new(void)
 	t_ast_cmd	*this;
 
 	this = twl_malloc_x0(sizeof(t_ast_cmd));
-	this->type = CMD_STMT;
+	this->type = AST_CMD;
 	this->strings = twl_lst_new();
 	this->redir_in = twl_lst_new();
 	this->redir_out = twl_lst_new();

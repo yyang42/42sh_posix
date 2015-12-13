@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COMPOUND_STMT_H
-# define COMPOUND_STMT_H
+#ifndef AST_COMPOUND_H
+# define AST_COMPOUND_H
 
 # include "twl_lst.h"
 

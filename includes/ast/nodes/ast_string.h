@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRING_LITERAL_H
-# define STRING_LITERAL_H
+#ifndef AST_STRING_H
+# define AST_STRING_H
 
 # include "basics.h"
 

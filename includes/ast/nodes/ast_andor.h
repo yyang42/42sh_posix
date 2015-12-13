@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ANDOR_H
-# define ANDOR_H
+#ifndef AST_ANDOR_H
+# define AST_ANDOR_H
 
 # include "basics.h"
 

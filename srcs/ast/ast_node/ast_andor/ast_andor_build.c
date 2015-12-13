@@ -19,7 +19,7 @@
 
 t_ast_andor				*ast_andor_build_rec(char *str)
 {
-	t_ast_andor			*ast_andor;
+	t_ast_andor		*ast_andor;
 	char			*and;
 	char			*or;
 	t_lst			*segs;
