@@ -17,14 +17,14 @@
 
 # include "ast/ast_defines.h"
 # include "ast/anode/anode.h"
-# include "ast/anode/compound_stmt.h"
+# include "ast/anode/ast_compound.h"
 
 typedef struct		s_t_ast_if
 {
 	t_atype			type;
-	t_compound_stmt	*cond;
-	t_compound_stmt	*body;
-	t_compound_stmt	*elze;
+	t_ast_compound	*cond;
+	t_ast_compound	*body;
+	t_ast_compound	*elze;
 }					t_ast_if;
 
 t_ast_if			*ast_if_new(void);

@@ -26,7 +26,7 @@ static bool			is_ast_if(char *str)
 		return (false);
 }
 
-static int			ast_build_compound_stmt_lists(t_compound_stmt *compound_stmt, char *str)
+static int			ast_build_ast_compound_lists(t_ast_compound *ast_compound, char *str)
 {
 	int				len;
 	char			*not_comp_stmt;
@@ -36,40 +36,40 @@ static int			ast_build_compound_stmt_lists(t_compound_stmt *compound_stmt, char 
 	if ((twl_strstr(str, "&&") || twl_strstr(str, "||")) && "TODO is_ast_andor")
 	{
 		COUCOU;
-		twl_lst_push(compound_stmt->items, ast_andor_build(not_comp_stmt, &len));
+		twl_lst_push(ast_compound->items, ast_andor_build(not_comp_stmt, &len));
 		COUCOU;
 	}
 	else if (twl_strchr(str, '|') && "TODO is_pipe_case")
 	{
-		twl_lst_push(compound_stmt->items, pipeline_build(not_comp_stmt, &len));
+		twl_lst_push(ast_compound->items, pipeline_build(not_comp_stmt, &len));
 	}
 	else if ("TODO is_a_simple_cmd")
 	{
-		twl_lst_push(compound_stmt->items, ast_cmd_build(not_comp_stmt, &len));
+		twl_lst_push(ast_compound->items, ast_cmd_build(not_comp_stmt, &len));
 	}
 	return (len + twl_strlen(AST_SEPARATOR));
 }
 
-t_compound_stmt		*compound_stmt_build(char *str, int *len_ptr)
+t_ast_compound		*ast_compound_build(char *str, int *len_ptr)
 {
 	int				len;
 	int				total_len;
-	t_compound_stmt	*compound_stmt;
+	t_ast_compound	*ast_compound;
 
-	compound_stmt = compound_stmt_new();
+	ast_compound = ast_compound_new();
 	total_len = twl_strlen(str);
 	len = 0;
 	while (len < total_len)
 	{
 		if (is_ast_if(str + len))
 		{
-			twl_lst_push(compound_stmt->items, ast_if_build(str + len, &len));
+			twl_lst_push(ast_compound->items, ast_if_build(str + len, &len));
 		}
 		else
 		{
-			len += ast_build_compound_stmt_lists(compound_stmt, str + len);
+			len += ast_build_ast_compound_lists(ast_compound, str + len);
 		}
 	}
 	increment_len(len_ptr, len);
-	return (compound_stmt);
+	return (ast_compound);
 }

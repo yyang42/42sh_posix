@@ -10,24 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COMPOUND_STMT_H
-# define COMPOUND_STMT_H
+#include <stdlib.h>
 
-# include "twl_lst.h"
+#include "ast/anode/ast_compound.h"
 
-# include "basics.h"
-
-# include "ast/anode/anode.h"
-
-typedef struct		s_compound_stmt
+void				ast_compound_del(t_ast_compound *this)
 {
-	t_atype			type;
-	t_lst			*items;
-}					t_compound_stmt;
-
-t_compound_stmt		*compound_stmt_new(void);
-void				compound_stmt_del(t_compound_stmt *this);
-
-t_compound_stmt		*compound_stmt_build(char *str, int *len_ptr);
-
-#endif
+	free(this);
+}

@@ -10,11 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "twl_xstdlib.h"
 
-#include "ast/anode/compound_stmt.h"
+#include "ast/anode/ast_compound.h"
 
-void				compound_stmt_del(t_compound_stmt *this)
+t_ast_compound		*ast_compound_new(void)
 {
-	free(this);
+	t_ast_compound	*this;
+
+	this = twl_malloc_x0(sizeof(t_ast_compound));
+	this->items = twl_lst_new();
+	return (this);
 }

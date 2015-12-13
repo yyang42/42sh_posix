@@ -10,15 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "twl_xstdlib.h"
+#ifndef COMPOUND_STMT_H
+# define COMPOUND_STMT_H
 
-#include "ast/anode/compound_stmt.h"
+# include "twl_lst.h"
 
-t_compound_stmt		*compound_stmt_new(void)
+# include "basics.h"
+
+# include "ast/anode/anode.h"
+
+typedef struct		s_ast_compound
 {
-	t_compound_stmt	*this;
+	t_atype			type;
+	t_lst			*items;
+}					t_ast_compound;
 
-	this = twl_malloc_x0(sizeof(t_compound_stmt));
-	this->items = twl_lst_new();
-	return (this);
-}
+t_ast_compound		*ast_compound_new(void);
+void				ast_compound_del(t_ast_compound *this);
+
+t_ast_compound		*ast_compound_build(char *str, int *len_ptr);
+
+#endif

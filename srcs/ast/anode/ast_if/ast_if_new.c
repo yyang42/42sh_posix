@@ -20,8 +20,8 @@ t_ast_if			*ast_if_new(void)
 
 	this = twl_malloc_x0(sizeof(t_ast_if));
 	this->type = IF_STMT;
-	this->cond = compound_stmt_new();
-	this->body = compound_stmt_new();
-	this->elze = compound_stmt_new();
+	this->cond = ast_compound_new();
+	this->body = ast_compound_new();
+	this->elze = ast_compound_new();
 	return (this);
 }

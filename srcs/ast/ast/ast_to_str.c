@@ -58,8 +58,8 @@ void				travel_rec(void *anode, void *lvl_ptr, void *out_list)
 	lvl++;
 	if (anode_get_type(anode) == COMPOUND_STMT)
 	{
-		t_compound_stmt		*compound_stmt = anode;
-		twl_lst_iter2(compound_stmt->items, travel_rec, &lvl, out_list);
+		t_ast_compound		*ast_compound = anode;
+		twl_lst_iter2(ast_compound->items, travel_rec, &lvl, out_list);
 	}
 	else if (anode_get_type(anode) == IF_STMT)
 	{
