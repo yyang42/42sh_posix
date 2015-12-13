@@ -28,11 +28,14 @@ static void			ast_build_cmd_stmt_push_fn(void *str, void *cmd_stmt_)
 	free(str_bis);
 }
 
-int					cmd_stmt_build(t_cmd_stmt *cmd_stmt, char *str)
+t_cmd_stmt			*cmd_stmt_create_build(char *str, int *len_ptr)
 {
 	t_lst			*segs;
+	t_cmd_stmt		*cmd_stmt;
 
+	cmd_stmt = cmd_stmt_new();
 	segs = str_split_except_quote(str);
 	twl_lst_iter(segs, ast_build_cmd_stmt_push_fn, cmd_stmt);
-	return (twl_strlen(str));
+	increment_len(len_ptr, twl_strlen(str));
+	return (cmd_stmt);
 }

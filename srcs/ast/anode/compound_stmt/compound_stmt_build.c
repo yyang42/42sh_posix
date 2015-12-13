@@ -38,10 +38,7 @@ static int			ast_build_compound_stmt_lists(t_compound_stmt *compound_stmt, char 
 	}
 	else if ("TODO is_a_simple_cmd")
 	{
-		t_cmd_stmt	*cmd_stmt;
-		cmd_stmt = cmd_stmt_new();
-		twl_lst_push(compound_stmt->items, cmd_stmt);
-		len = cmd_stmt_build(cmd_stmt, not_comp_stmt);
+		twl_lst_push(compound_stmt->items, cmd_stmt_create_build(not_comp_stmt, &len));
 	}
 	return (len + twl_strlen(AST_SEPARATOR));
 }

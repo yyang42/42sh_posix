@@ -19,28 +19,19 @@
 
 void				pipeline_build_rec(t_pipeline *pipeline, t_lst *segs)
 {
-	t_cmd_stmt		*cmd_stmt;
 	char			*last_seg;
-	t_pipeline		*new_pipeline;
 
 	if (twl_lst_len(segs) == 2)
 	{
-		cmd_stmt = cmd_stmt_new();
-		cmd_stmt_build(cmd_stmt, twl_lst_get(segs, 0));
-		pipeline->left = cmd_stmt;
-		cmd_stmt = cmd_stmt_new();
-		cmd_stmt_build(cmd_stmt, twl_lst_get(segs, 1));
-		pipeline->right = cmd_stmt;
+		pipeline->left = cmd_stmt_create_build(twl_lst_get(segs, 0), NULL);;
+		pipeline->right = cmd_stmt_create_build(twl_lst_get(segs, 1), NULL);;
 	}
 	else
 	{
 		last_seg = twl_lst_pop(segs);
-		new_pipeline = pipeline_new();
-		pipeline->left = new_pipeline;
-		pipeline_build_rec(new_pipeline, segs);
-		cmd_stmt = cmd_stmt_new();
-		cmd_stmt_build(cmd_stmt, last_seg);
-		pipeline->right = cmd_stmt;
+		pipeline->left = pipeline_new();
+		pipeline_build_rec(pipeline->left, segs);
+		pipeline->right = cmd_stmt_create_build(last_seg, NULL);;
 		free(last_seg);
 	}
 	(void)pipeline;
