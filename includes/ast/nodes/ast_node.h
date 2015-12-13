@@ -10,28 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_H
-# define AST_H
+#ifndef ANODE_H
+# define ANODE_H
 
 # include "basics.h"
 
-# include "ast/ast_defines.h"
-# include "ast/nodes/ast_compound.h"
-# include "ast/nodes/ast_if.h"
-# include "ast/nodes/ast_cmd.h"
-# include "ast/nodes/string_literal.h"
-# include "ast/nodes/ast_node.h"
+# include "ast/atype.h"
 
-typedef struct		s_ast
+typedef struct		s_ast_node
 {
-	char			*raw;
-	t_ast_compound	*root;
-}					t_ast;
+	t_atype	type;
+}					t_ast_node;
 
-t_ast				*ast_new(char *input);
-void				ast_del(t_ast *this);
-
-char				*ast_to_str(t_ast *this);
-void				ast_build(t_ast *this);
+t_atype				ast_node_get_type(void *ast_node_);
+char				*ast_node_get_type_str(void *ast_node_);
 
 #endif

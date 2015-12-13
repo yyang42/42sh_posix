@@ -10,28 +10,26 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_H
-# define AST_H
+#ifndef IF_STMT_H
+# define IF_STMT_H
 
 # include "basics.h"
 
 # include "ast/ast_defines.h"
-# include "ast/nodes/ast_compound.h"
-# include "ast/nodes/ast_if.h"
-# include "ast/nodes/ast_cmd.h"
-# include "ast/nodes/string_literal.h"
 # include "ast/nodes/ast_node.h"
+# include "ast/nodes/ast_compound.h"
 
-typedef struct		s_ast
+typedef struct		s_t_ast_if
 {
-	char			*raw;
-	t_ast_compound	*root;
-}					t_ast;
+	t_atype			type;
+	t_ast_compound	*cond;
+	t_ast_compound	*body;
+	t_ast_compound	*elze;
+}					t_ast_if;
 
-t_ast				*ast_new(char *input);
-void				ast_del(t_ast *this);
+t_ast_if			*ast_if_new(void);
+void				ast_if_del(t_ast_if *this);
 
-char				*ast_to_str(t_ast *this);
-void				ast_build(t_ast *this);
+t_ast_if			*ast_if_build(char *str, int *len_ptr);
 
 #endif

@@ -10,28 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_H
-# define AST_H
+#include "twl_xstdlib.h"
 
-# include "basics.h"
+#include "ast/nodes/string_literal.h"
 
-# include "ast/ast_defines.h"
-# include "ast/nodes/ast_compound.h"
-# include "ast/nodes/ast_if.h"
-# include "ast/nodes/ast_cmd.h"
-# include "ast/nodes/string_literal.h"
-# include "ast/nodes/ast_node.h"
-
-typedef struct		s_ast
+t_string_literal			*string_literal_new(char *text)
 {
-	char			*raw;
-	t_ast_compound	*root;
-}					t_ast;
+	t_string_literal		*this;
 
-t_ast				*ast_new(char *input);
-void				ast_del(t_ast *this);
-
-char				*ast_to_str(t_ast *this);
-void				ast_build(t_ast *this);
-
-#endif
+	this = twl_malloc_x0(sizeof(t_string_literal));
+	this->type = STRING_LITERAL;
+	this->text = twl_strdup(text);
+	return (this);
+}

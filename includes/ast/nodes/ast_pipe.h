@@ -10,28 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_H
-# define AST_H
+#ifndef PIPELINE_H
+# define PIPELINE_H
 
 # include "basics.h"
 
 # include "ast/ast_defines.h"
-# include "ast/nodes/ast_compound.h"
-# include "ast/nodes/ast_if.h"
-# include "ast/nodes/ast_cmd.h"
-# include "ast/nodes/string_literal.h"
 # include "ast/nodes/ast_node.h"
 
-typedef struct		s_ast
+typedef struct		s_ast_pipe
 {
-	char			*raw;
-	t_ast_compound	*root;
-}					t_ast;
+	t_atype			type;
+	void			*left;
+	void			*right;
+}					t_ast_pipe;
 
-t_ast				*ast_new(char *input);
-void				ast_del(t_ast *this);
+t_ast_pipe			*ast_pipe_new(void);
+void				ast_pipe_del(t_ast_pipe *this);
 
-char				*ast_to_str(t_ast *this);
-void				ast_build(t_ast *this);
+t_ast_pipe			*ast_pipe_build(char *str, int *len_ptr);
 
 #endif

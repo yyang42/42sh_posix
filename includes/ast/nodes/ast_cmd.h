@@ -10,28 +10,32 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_H
-# define AST_H
+#ifndef CMD_STMT_H
+# define CMD_STMT_H
+
+# include "twl_lst.h"
 
 # include "basics.h"
 
 # include "ast/ast_defines.h"
-# include "ast/nodes/ast_compound.h"
-# include "ast/nodes/ast_if.h"
-# include "ast/nodes/ast_cmd.h"
-# include "ast/nodes/string_literal.h"
 # include "ast/nodes/ast_node.h"
 
-typedef struct		s_ast
+typedef struct		s_ast_cmd
 {
-	char			*raw;
-	t_ast_compound	*root;
-}					t_ast;
+	t_atype			type;
+	t_lst			*strings;
+	t_lst			*redir_in;
+	t_lst			*redir_out;
+	t_lst			*redir_append;
+	t_lst			*redir_heredoc;
+}					t_ast_cmd;
 
-t_ast				*ast_new(char *input);
-void				ast_del(t_ast *this);
+t_ast_cmd			*ast_cmd_new(void);
+void				ast_cmd_del(t_ast_cmd *this);
 
-char				*ast_to_str(t_ast *this);
-void				ast_build(t_ast *this);
+t_ast_cmd			*ast_cmd_build(char *str, int *len_ptr);
+
+void				ast_cmd_append_str(t_ast_cmd *this,
+													int lvl, t_lst *out_list);
 
 #endif

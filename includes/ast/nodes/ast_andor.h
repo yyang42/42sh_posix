@@ -10,28 +10,31 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_H
-# define AST_H
+#ifndef ANDOR_H
+# define ANDOR_H
 
 # include "basics.h"
 
 # include "ast/ast_defines.h"
-# include "ast/nodes/ast_compound.h"
-# include "ast/nodes/ast_if.h"
-# include "ast/nodes/ast_cmd.h"
-# include "ast/nodes/string_literal.h"
 # include "ast/nodes/ast_node.h"
 
-typedef struct		s_ast
+typedef enum		e_ast_andor_type
 {
-	char			*raw;
-	t_ast_compound	*root;
-}					t_ast;
+	ANDOR_TYPE_AND,
+	ANDOR_TYPE_OR
+}					t_ast_andor_type;
 
-t_ast				*ast_new(char *input);
-void				ast_del(t_ast *this);
+typedef struct		s_ast_andor
+{
+	t_atype			type;
+	t_ast_andor_type	ast_andor_type;
+	void			*left;
+	void			*right;
+}					t_ast_andor;
 
-char				*ast_to_str(t_ast *this);
-void				ast_build(t_ast *this);
+t_ast_andor				*ast_andor_new(t_ast_andor_type ast_andor_type);
+void				ast_andor_del(t_ast_andor *this);
+
+t_ast_andor				*ast_andor_build(char *str, int *len_ptr);
 
 #endif

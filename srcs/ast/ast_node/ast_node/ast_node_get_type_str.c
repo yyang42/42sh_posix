@@ -10,28 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_H
-# define AST_H
+#include "ast/nodes/ast_node.h"
 
-# include "basics.h"
-
-# include "ast/ast_defines.h"
-# include "ast/nodes/ast_compound.h"
-# include "ast/nodes/ast_if.h"
-# include "ast/nodes/ast_cmd.h"
-# include "ast/nodes/string_literal.h"
-# include "ast/nodes/ast_node.h"
-
-typedef struct		s_ast
+char				*ast_node_get_type_str(void *ast_node)
 {
-	char			*raw;
-	t_ast_compound	*root;
-}					t_ast;
-
-t_ast				*ast_new(char *input);
-void				ast_del(t_ast *this);
-
-char				*ast_to_str(t_ast *this);
-void				ast_build(t_ast *this);
-
-#endif
+	if (ast_node_get_type(ast_node) == COMPOUND_STMT)
+		return ("COMPOUND_STMT");
+	else if (ast_node_get_type(ast_node) == IF_STMT)
+		return ("IF_STMT");
+	else if (ast_node_get_type(ast_node) == CMD_STMT)
+		return ("CMD_STMT");
+	else if (ast_node_get_type(ast_node) == STRING_LITERAL)
+		return ("STRING_LITERAL");
+	else if (ast_node_get_type(ast_node) == PIPELINE)
+		return ("PIPELINE");
+	else if (ast_node_get_type(ast_node) == ANDOR)
+		return ("ANDOR");
+	return ("NOT_FOUND");
+}

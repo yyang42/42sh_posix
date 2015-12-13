@@ -10,28 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_H
-# define AST_H
+#include <stdlib.h>
 
-# include "basics.h"
+#include "utils.h"
+#include "ast/nodes/string_literal.h"
 
-# include "ast/ast_defines.h"
-# include "ast/nodes/ast_compound.h"
-# include "ast/nodes/ast_if.h"
-# include "ast/nodes/ast_cmd.h"
-# include "ast/nodes/string_literal.h"
-# include "ast/nodes/ast_node.h"
-
-typedef struct		s_ast
+t_string_literal	*string_literal_build(char *str, int *len_ptr)
 {
-	char			*raw;
-	t_ast_compound	*root;
-}					t_ast;
+	t_string_literal	*string_literal;
 
-t_ast				*ast_new(char *input);
-void				ast_del(t_ast *this);
-
-char				*ast_to_str(t_ast *this);
-void				ast_build(t_ast *this);
-
-#endif
+	string_literal = string_literal_new(str);
+	increment_len(len_ptr, twl_strlen(str));
+	return (string_literal);
+}

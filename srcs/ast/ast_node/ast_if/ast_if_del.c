@@ -10,28 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_H
-# define AST_H
+#include <stdlib.h>
 
-# include "basics.h"
+#include "ast/nodes/ast_if.h"
 
-# include "ast/ast_defines.h"
-# include "ast/nodes/ast_compound.h"
-# include "ast/nodes/ast_if.h"
-# include "ast/nodes/ast_cmd.h"
-# include "ast/nodes/string_literal.h"
-# include "ast/nodes/ast_node.h"
-
-typedef struct		s_ast
+void				ast_if_del(t_ast_if *this)
 {
-	char			*raw;
-	t_ast_compound	*root;
-}					t_ast;
-
-t_ast				*ast_new(char *input);
-void				ast_del(t_ast *this);
-
-char				*ast_to_str(t_ast *this);
-void				ast_build(t_ast *this);
-
-#endif
+	free(this);
+}
