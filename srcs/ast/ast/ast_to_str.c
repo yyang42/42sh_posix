@@ -17,6 +17,7 @@
 #include "ast/anode/anode.h"
 #include "ast/anode/if_stmt.h"
 #include "ast/anode/string_literal.h"
+#include "ast/anode/pipeline.h"
 
 #define TAB_WIDTH 2
 
@@ -52,6 +53,12 @@ void				travel_rec(void *anode, void *lvl_ptr, void *out_list)
 	{
 		t_cmd_stmt			*cmd_stmt = anode;
 		twl_lst_iter2(cmd_stmt->strings, travel_rec, &lvl, out_list);
+	}
+	else if (anode_get_type(anode) == PIPELINE)
+	{
+		t_pipeline			*pipeline = anode;
+		travel_rec(pipeline->left, &lvl, out_list);
+		travel_rec(pipeline->right, &lvl, out_list);
 	}
 }
 

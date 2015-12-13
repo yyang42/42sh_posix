@@ -22,5 +22,7 @@ char				*anode_get_type_str(void *anode)
 		return ("CMD_STMT");
 	else if (anode_get_type(anode) == STRING_LITERAL)
 		return ("STRING_LITERAL");
+	else if (anode_get_type(anode) == PIPELINE)
+		return ("PIPELINE");
 	return ("NOT_FOUND");
 }

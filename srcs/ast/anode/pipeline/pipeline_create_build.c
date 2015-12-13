@@ -12,48 +12,49 @@
 
 #include "utils.h"
 
-#include "ast/anode/if_stmt.h"
+#include "twl_lst.h"
+#include "ast/anode/pipeline.h"
 #include "ast/anode/cmd_stmt.h"
 #include "ast/anode/string_literal.h"
 
-static void			ast_build_if_stmt_parts_fn(void *str, void *if_stmt_)
+void				pipeline_build_rec(t_pipeline *pipeline, t_lst *segs)
 {
-	t_if_stmt		*if_stmt;
 	t_cmd_stmt		*cmd_stmt;
+	char			*last_seg;
+	t_pipeline		*new_pipeline;
 
-	if_stmt = if_stmt_;
-	if (twl_str_starts_with(str, "if"))
+	if (twl_lst_len(segs) == 2)
 	{
 		cmd_stmt = cmd_stmt_new();
-		cmd_stmt_build(cmd_stmt, str + twl_strlen("if"));
-		twl_lst_push(if_stmt->cond->items, cmd_stmt);
-	}
-	else if (twl_str_starts_with(str, "then"))
-	{
+		cmd_stmt_build(cmd_stmt, twl_lst_get(segs, 0));
+		pipeline->left = cmd_stmt;
 		cmd_stmt = cmd_stmt_new();
-		cmd_stmt_build(cmd_stmt, str + twl_strlen("then"));
-		twl_lst_push(if_stmt->body->items, cmd_stmt);
+		cmd_stmt_build(cmd_stmt, twl_lst_get(segs, 1));
+		pipeline->right = cmd_stmt;
 	}
-	else if (twl_str_starts_with(str, "else"))
+	else
 	{
+		last_seg = twl_lst_pop(segs);
+		new_pipeline = pipeline_new();
+		pipeline->left = new_pipeline;
+		pipeline_build_rec(new_pipeline, segs);
 		cmd_stmt = cmd_stmt_new();
-		cmd_stmt_build(cmd_stmt, str + twl_strlen("else"));
-		twl_lst_push(if_stmt->elze->items, cmd_stmt);
+		cmd_stmt_build(cmd_stmt, last_seg);
+		pipeline->right = cmd_stmt;
+		free(last_seg);
 	}
+	(void)pipeline;
 }
 
-int					if_stmt_build(t_if_stmt *if_stmt, char *str)
+t_pipeline			*pipeline_create_build(char *str, int *len_ptr)
 {
-	char			*fi_pos;
-	char			*if_str;
-	t_lst			*if_segs;
+	t_lst			*segs;
+	t_pipeline		*pipeline;
 
-	fi_pos = twl_strstr(str, AST_SEPARATOR"fi"AST_SEPARATOR);
-	if_str = twl_strndup(str, fi_pos - str);
-	if_str = twl_strtrim_chars_free(if_str, AST_SEPARATOR);
-	if_segs = twl_str_split_to_lst(if_str, AST_SEPARATOR);
-	twl_lst_iter(if_segs, ast_build_if_stmt_parts_fn, if_stmt);
-	free(if_str);
-	twl_lst_del(if_segs, free);
-	return (fi_pos + twl_strlen(AST_SEPARATOR"fi"AST_SEPARATOR) - str);
+	pipeline = pipeline_new();
+	segs = twl_str_split_to_lst(str, "|");
+	pipeline_build_rec(pipeline, segs);
+	twl_lst_del(segs, free);
+	increment_len(len_ptr, twl_strlen(str));
+	return (pipeline);
 }

@@ -15,6 +15,7 @@
 #include "ast/anode/if_stmt.h"
 #include "ast/anode/cmd_stmt.h"
 #include "ast/anode/string_literal.h"
+#include "ast/anode/pipeline.h"
 
 static bool			is_if_stmt(char *str)
 {
@@ -26,18 +27,23 @@ static bool			is_if_stmt(char *str)
 
 static int			ast_build_compound_stmt_lists(t_compound_stmt *compound_stmt, char *str)
 {
-	char				*not_comp_stmt;
+	int				len;
+	char			*not_comp_stmt;
 
 	not_comp_stmt = twl_str_split_get(str, AST_SEPARATOR, 0);
-	if ("TODO is_a_simple_cmd")
+	len = 0;
+	if (twl_strchr(str, '|') && "TODO is_pipe_case")
+	{
+		twl_lst_push(compound_stmt->items, pipeline_create_build(not_comp_stmt, &len));
+	}
+	else if ("TODO is_a_simple_cmd")
 	{
 		t_cmd_stmt	*cmd_stmt;
 		cmd_stmt = cmd_stmt_new();
 		twl_lst_push(compound_stmt->items, cmd_stmt);
-		int	len = cmd_stmt_build(cmd_stmt, not_comp_stmt);
-		return (len + twl_strlen(AST_SEPARATOR));
+		len = cmd_stmt_build(cmd_stmt, not_comp_stmt);
 	}
-	return (0);
+	return (len + twl_strlen(AST_SEPARATOR));
 }
 
 int					compound_stmt_build(t_compound_stmt *compound_stmt,
@@ -52,10 +58,7 @@ int					compound_stmt_build(t_compound_stmt *compound_stmt,
 	{
 		if (is_if_stmt(str + len))
 		{
-			t_if_stmt *if_stmt;
-			if_stmt = if_stmt_new();
-			twl_lst_push(compound_stmt->items, if_stmt);
-			len += if_stmt_build(if_stmt, str + len);
+			twl_lst_push(compound_stmt->items, if_stmt_create_build(str + len, &len));
 		}
 		else
 		{

@@ -10,16 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ATYPE_H
-# define ATYPE_H
+#include <stdlib.h>
 
-typedef enum		e_atype
+#include "ast/anode/pipeline.h"
+
+void				pipeline_del(t_pipeline *this)
 {
-	COMPOUND_STMT,
-	IF_STMT,
-	PIPELINE,
-	STRING_LITERAL,
-	CMD_STMT
-}					t_atype;
-
-#endif
+	free(this);
+}

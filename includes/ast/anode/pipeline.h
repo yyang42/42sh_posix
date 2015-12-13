@@ -10,16 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ATYPE_H
-# define ATYPE_H
+#ifndef PIPELINE_H
+# define PIPELINE_H
 
-typedef enum		e_atype
+# include "basics.h"
+
+# include "ast/ast_defines.h"
+# include "ast/anode/anode.h"
+
+typedef struct		s_pipeline
 {
-	COMPOUND_STMT,
-	IF_STMT,
-	PIPELINE,
-	STRING_LITERAL,
-	CMD_STMT
-}					t_atype;
+	t_atype			type;
+	void			*left;
+	void			*right;
+}					t_pipeline;
+
+t_pipeline			*pipeline_new(void);
+void				pipeline_del(t_pipeline *this);
+
+t_pipeline			*pipeline_create_build(char *str, int *len_ptr);
 
 #endif

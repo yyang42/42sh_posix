@@ -10,16 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ATYPE_H
-# define ATYPE_H
+#include "twl_xstdlib.h"
 
-typedef enum		e_atype
+#include "ast/anode/pipeline.h"
+
+t_pipeline			*pipeline_new(void)
 {
-	COMPOUND_STMT,
-	IF_STMT,
-	PIPELINE,
-	STRING_LITERAL,
-	CMD_STMT
-}					t_atype;
+	t_pipeline	*this;
 
-#endif
+	this = twl_malloc_x0(sizeof(t_pipeline));
+	this->type = PIPELINE;
+	this->left = NULL;
+	this->right = NULL;
+	return (this);
+}

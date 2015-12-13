@@ -10,16 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ATYPE_H
-# define ATYPE_H
-
-typedef enum		e_atype
+void				increment_len(int *len_ptr, int len)
 {
-	COMPOUND_STMT,
-	IF_STMT,
-	PIPELINE,
-	STRING_LITERAL,
-	CMD_STMT
-}					t_atype;
-
-#endif
+	if (len_ptr)
+		*len_ptr += len;
+}

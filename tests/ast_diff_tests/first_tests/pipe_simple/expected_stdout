@@ -1,0 +1,13 @@
+COMPOUND_STMT
+  PIPELINE
+    PIPELINE
+      CMD_STMT
+        STRING_LITERAL "echo"
+        STRING_LITERAL "aabbcc"
+      CMD_STMT
+        STRING_LITERAL "cat"
+        STRING_LITERAL "-e"
+    CMD_STMT
+      STRING_LITERAL "tr"
+      STRING_LITERAL "-d"
+      STRING_LITERAL "b"
