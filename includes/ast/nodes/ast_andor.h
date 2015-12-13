@@ -32,9 +32,9 @@ typedef struct		s_ast_andor
 	void			*right;
 }					t_ast_andor;
 
-t_ast_andor				*ast_andor_new(t_andor_type andor_type);
+t_ast_andor			*ast_andor_new(t_andor_type andor_type);
 void				ast_andor_del(t_ast_andor *this);
 
-t_ast_andor				*ast_andor_build(char *str, int *len_ptr);
+t_ast_andor			*ast_andor_build(char *str, int *len_ptr);
 
 #endif
