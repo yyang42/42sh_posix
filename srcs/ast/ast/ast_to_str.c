@@ -18,7 +18,7 @@
 #include "ast/anode/ast_if.h"
 #include "ast/anode/string_literal.h"
 #include "ast/anode/pipeline.h"
-#include "ast/anode/andor.h"
+#include "ast/anode/ast_andor.h"
 
 void				travel_rec(void *anode, void *lvl_ptr, void *out_list);
 
@@ -51,8 +51,8 @@ void				travel_rec(void *anode, void *lvl_ptr, void *out_list)
 	}
 	if (anode_get_type(anode) == ANDOR)
 	{
-		t_andor			*andor = anode;
-		twl_lst_push(out_list, (andor->andor_type == ANDOR_TYPE_AND) ? twl_strdup(" 'and'") : twl_strdup(" 'or'"));
+		t_ast_andor			*ast_andor = anode;
+		twl_lst_push(out_list, (ast_andor->ast_andor_type == ANDOR_TYPE_AND) ? twl_strdup(" 'and'") : twl_strdup(" 'or'"));
 	}
 	twl_lst_push(out_list, twl_strdup("\n"));
 	lvl++;
@@ -83,9 +83,9 @@ void				travel_rec(void *anode, void *lvl_ptr, void *out_list)
 	}
 	else if (anode_get_type(anode) == ANDOR)
 	{
-		t_andor			*andor = anode;
-		travel_rec(andor->left, &lvl, out_list);
-		travel_rec(andor->right, &lvl, out_list);
+		t_ast_andor			*ast_andor = anode;
+		travel_rec(ast_andor->left, &lvl, out_list);
+		travel_rec(ast_andor->right, &lvl, out_list);
 	}
 }
 

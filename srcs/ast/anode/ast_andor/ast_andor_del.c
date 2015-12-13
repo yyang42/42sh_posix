@@ -10,18 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "twl_xstdlib.h"
+#include <stdlib.h>
 
-#include "ast/anode/andor.h"
+#include "ast/anode/ast_andor.h"
 
-t_andor				*andor_new(t_andor_type andor_type)
+void				ast_andor_del(t_ast_andor *this)
 {
-	t_andor	*this;
-
-	this = twl_malloc_x0(sizeof(t_andor));
-	this->type = ANDOR;
-	this->andor_type = andor_type;
-	this->left = NULL;
-	this->right = NULL;
-	return (this);
+	free(this);
 }

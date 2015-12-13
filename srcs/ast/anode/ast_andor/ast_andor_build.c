@@ -13,13 +13,13 @@
 #include "utils.h"
 
 #include "twl_lst.h"
-#include "ast/anode/andor.h"
+#include "ast/anode/ast_andor.h"
 #include "ast/anode/cmd_stmt.h"
 #include "ast/anode/string_literal.h"
 
-t_andor				*andor_build_rec(char *str)
+t_ast_andor				*ast_andor_build_rec(char *str)
 {
-	t_andor			*andor;
+	t_ast_andor			*ast_andor;
 	char			*and;
 	char			*or;
 	t_lst			*segs;
@@ -30,32 +30,32 @@ t_andor				*andor_build_rec(char *str)
 	if (and && and > or)
 	{
 		segs = twl_str_split_to_lst(str, "&&");
-		andor = andor_new(ANDOR_TYPE_AND);
+		ast_andor = ast_andor_new(ANDOR_TYPE_AND);
 	}
 	else
 	{
 		segs = twl_str_split_to_lst(str, "||");
-		andor = andor_new(ANDOR_TYPE_OR);
+		ast_andor = ast_andor_new(ANDOR_TYPE_OR);
 	}
 	if ((twl_strstr_count(str, "&&") + twl_strstr_count(str, "||")) == 1)
 	{
-		andor->left = cmd_stmt_build(twl_lst_get(segs, 0), NULL);
-		andor->right = cmd_stmt_build(twl_lst_get(segs, 1), NULL);
+		ast_andor->left = cmd_stmt_build(twl_lst_get(segs, 0), NULL);
+		ast_andor->right = cmd_stmt_build(twl_lst_get(segs, 1), NULL);
 	}
 	else
 	{
-		andor->left = andor_build_rec(twl_lst_get(segs, 0));
-		andor->right = cmd_stmt_build(twl_lst_get(segs, 1), NULL);
+		ast_andor->left = ast_andor_build_rec(twl_lst_get(segs, 0));
+		ast_andor->right = cmd_stmt_build(twl_lst_get(segs, 1), NULL);
 	}
 	twl_lst_del(segs, free);
-	return (andor);
+	return (ast_andor);
 }
 
-t_andor				*andor_build(char *str, int *len_ptr)
+t_ast_andor				*ast_andor_build(char *str, int *len_ptr)
 {
-	t_andor			*andor;
+	t_ast_andor			*ast_andor;
 
-	andor = andor_build_rec(str);
+	ast_andor = ast_andor_build_rec(str);
 	increment_len(len_ptr, twl_strlen(str));
-	return (andor);
+	return (ast_andor);
 }

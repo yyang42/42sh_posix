@@ -10,11 +10,31 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#ifndef ANDOR_H
+# define ANDOR_H
 
-#include "ast/anode/andor.h"
+# include "basics.h"
 
-void				andor_del(t_andor *this)
+# include "ast/ast_defines.h"
+# include "ast/anode/anode.h"
+
+typedef enum		e_ast_andor_type
 {
-	free(this);
-}
+	ANDOR_TYPE_AND,
+	ANDOR_TYPE_OR
+}					t_ast_andor_type;
+
+typedef struct		s_ast_andor
+{
+	t_atype			type;
+	t_ast_andor_type	ast_andor_type;
+	void			*left;
+	void			*right;
+}					t_ast_andor;
+
+t_ast_andor				*ast_andor_new(t_ast_andor_type ast_andor_type);
+void				ast_andor_del(t_ast_andor *this);
+
+t_ast_andor				*ast_andor_build(char *str, int *len_ptr);
+
+#endif
