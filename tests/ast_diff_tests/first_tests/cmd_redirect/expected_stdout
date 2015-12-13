@@ -4,5 +4,7 @@ COMPOUND_STMT
       STRING_LITERAL "cat"
     <redir_in>
       STRING_LITERAL "file1"
-    <redir_out>
       STRING_LITERAL "file2"
+    <redir_out>
+      STRING_LITERAL "file3"
+      STRING_LITERAL "file4"
