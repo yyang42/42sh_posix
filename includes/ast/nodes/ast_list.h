@@ -25,9 +25,9 @@ typedef struct		s_ast_list
 	t_lst			*items;
 }					t_ast_list;
 
-t_ast_list		*ast_list_new(void);
+t_ast_list			*ast_list_new(void);
 void				ast_list_del(t_ast_list *this);
 
-t_ast_list		*ast_list_build(char *str, int *len_ptr);
+t_ast_list			*ast_list_build(char *str, int *len_ptr);
 
 #endif

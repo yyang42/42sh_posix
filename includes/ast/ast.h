@@ -25,7 +25,7 @@
 typedef struct		s_ast
 {
 	char			*raw;
-	t_ast_list	*root;
+	t_ast_list		*root;
 }					t_ast;
 
 t_ast				*ast_new(char *input);
