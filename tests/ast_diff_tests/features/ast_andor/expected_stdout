@@ -1,4 +1,4 @@
-AST_COMPOUND
+AST_LIST
   AST_ANDOR 'or'
     AST_ANDOR 'and'
       AST_CMD

@@ -10,18 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_TYPE_H
-# define AST_TYPE_H
+#include <stdlib.h>
 
-typedef enum		e_ast_type
+#include "ast/nodes/ast_string.h"
+
+void				ast_string_del(t_ast_string *this)
 {
-	AST_ANDOR,
-	AST_CMD,
-	AST_CMD_FIELD,
-	AST_LIST,
-	AST_IF,
-	AST_PIPE,
-	AST_STRING
-}					t_ast_type;
-
-#endif
+	free(this);
+}

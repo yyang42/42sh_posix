@@ -20,6 +20,7 @@ t_ast_cmd_field	*ast_cmd_field_build(char *str, int *len_ptr)
 	t_ast_cmd_field	*ast_cmd_field;
 
 	ast_cmd_field = ast_cmd_field_new(str);
+	twl_lst_push(ast_cmd_field->items, ast_string_new(str));
 	increment_len(len_ptr, twl_strlen(str));
 	return (ast_cmd_field);
 }

@@ -10,18 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_TYPE_H
-# define AST_TYPE_H
+#include <stdlib.h>
 
-typedef enum		e_ast_type
+#include "utils.h"
+#include "ast/nodes/ast_string.h"
+
+t_ast_string	*ast_string_build(char *str, int *len_ptr)
 {
-	AST_ANDOR,
-	AST_CMD,
-	AST_CMD_FIELD,
-	AST_LIST,
-	AST_IF,
-	AST_PIPE,
-	AST_STRING
-}					t_ast_type;
+	t_ast_string	*ast_string;
 
-#endif
+	ast_string = ast_string_new(str);
+	increment_len(len_ptr, twl_strlen(str));
+	return (ast_string);
+}

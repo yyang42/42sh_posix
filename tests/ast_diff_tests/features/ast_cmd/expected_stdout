@@ -1,4 +1,4 @@
-AST_COMPOUND
+AST_LIST
   AST_CMD
     <strings>
       AST_CMD_FIELD "cat"

@@ -16,11 +16,13 @@
 # include "basics.h"
 
 # include "ast/nodes/ast_node.h"
+# include "ast/nodes/ast_string.h"
 
 typedef struct		s_ast_cmd_field
 {
 	t_ast_type		type;
 	char			*text;
+	void			*items;
 }					t_ast_cmd_field;
 
 t_ast_cmd_field		*ast_cmd_field_new(char *text);

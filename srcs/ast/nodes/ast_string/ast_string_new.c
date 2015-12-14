@@ -10,6 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "twl_xstdlib.h"
 
-#include "ast/nodes/ast_cmd.h"
+#include "ast/nodes/ast_string.h"
+
+t_ast_string				*ast_string_new(char *text)
+{
+	t_ast_string	*this;
+
+	this = twl_malloc_x0(sizeof(t_ast_string));
+	this->type = AST_STRING;
+	this->text = text;
+	return (this);
+}

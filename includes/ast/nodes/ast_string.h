@@ -10,18 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_TYPE_H
-# define AST_TYPE_H
+#ifndef AST_STRING_H
+# define AST_STRING_H
 
-typedef enum		e_ast_type
+# include "basics.h"
+
+# include "ast/ast_defines.h"
+# include "ast/nodes/ast_node.h"
+
+typedef struct		s_ast_string
 {
-	AST_ANDOR,
-	AST_CMD,
-	AST_CMD_FIELD,
-	AST_LIST,
-	AST_IF,
-	AST_PIPE,
-	AST_STRING
-}					t_ast_type;
+	t_ast_type		type;
+	char			*text;
+}					t_ast_string;
+
+t_ast_string		*ast_string_new(char *text);
+void				ast_string_del(t_ast_string *this);
+
+t_ast_string		*ast_string_build(char *str, int *len_ptr);
 
 #endif
