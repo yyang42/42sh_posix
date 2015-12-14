@@ -10,19 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_TYPE_H
-# define AST_TYPE_H
+#ifndef AST_CMD_SUB_H
+# define AST_CMD_SUB_H
 
-typedef enum		e_ast_type
+# include "basics.h"
+
+# include "ast/nodes/ast_node.h"
+# include "ast/nodes/ast_string.h"
+
+typedef struct		s_ast_cmd_sub
 {
-	AST_ANDOR,
-	AST_CMD,
-	AST_CMD_FIELD,
-	AST_CMD_SUB,
-	AST_LIST,
-	AST_IF,
-	AST_PIPE,
-	AST_STRING
-}					t_ast_type;
+	t_ast_type		type;
+	void			*items;
+}					t_ast_cmd_sub;
+
+t_ast_cmd_sub		*ast_cmd_sub_new(void);
+void				ast_cmd_sub_del(t_ast_cmd_sub *this);
+
+t_ast_cmd_sub		*ast_cmd_sub_build(char *str, int *len_ptr);
 
 #endif

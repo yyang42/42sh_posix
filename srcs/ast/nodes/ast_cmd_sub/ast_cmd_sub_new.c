@@ -10,19 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_TYPE_H
-# define AST_TYPE_H
+#include "twl_xstdlib.h"
 
-typedef enum		e_ast_type
+#include "ast/nodes/ast_cmd_sub.h"
+
+t_ast_cmd_sub			*ast_cmd_sub_new(void)
 {
-	AST_ANDOR,
-	AST_CMD,
-	AST_CMD_FIELD,
-	AST_CMD_SUB,
-	AST_LIST,
-	AST_IF,
-	AST_PIPE,
-	AST_STRING
-}					t_ast_type;
+	t_ast_cmd_sub		*this;
 
-#endif
+	this = twl_malloc_x0(sizeof(t_ast_cmd_sub));
+	this->type = AST_CMD_SUB;
+	this->items = twl_lst_new();
+	return (this);
+}

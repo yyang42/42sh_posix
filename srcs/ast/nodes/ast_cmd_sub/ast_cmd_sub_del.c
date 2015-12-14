@@ -10,19 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_TYPE_H
-# define AST_TYPE_H
+#include <stdlib.h>
 
-typedef enum		e_ast_type
+#include "ast/nodes/ast_cmd_sub.h"
+
+void				ast_cmd_sub_del(t_ast_cmd_sub *this)
 {
-	AST_ANDOR,
-	AST_CMD,
-	AST_CMD_FIELD,
-	AST_CMD_SUB,
-	AST_LIST,
-	AST_IF,
-	AST_PIPE,
-	AST_STRING
-}					t_ast_type;
-
-#endif
+	free(this);
+}
