@@ -16,16 +16,16 @@
 # include "basics.h"
 
 # include "ast/ast_defines.h"
-# include "ast/anode/compound_stmt.h"
-# include "ast/anode/if_stmt.h"
-# include "ast/anode/cmd_stmt.h"
-# include "ast/anode/string_literal.h"
-# include "ast/anode/anode.h"
+# include "ast/nodes/ast_list.h"
+# include "ast/nodes/ast_if.h"
+# include "ast/nodes/ast_cmd.h"
+# include "ast/nodes/ast_string.h"
+# include "ast/nodes/ast_node.h"
 
 typedef struct		s_ast
 {
 	char			*raw;
-	t_compound_stmt	*root;
+	t_ast_list		*root;
 }					t_ast;
 
 t_ast				*ast_new(char *input);

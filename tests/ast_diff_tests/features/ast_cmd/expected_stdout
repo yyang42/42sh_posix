@@ -1,0 +1,10 @@
+AST_COMPOUND
+  AST_CMD
+    <strings>
+      AST_STRING "cat"
+    <redir_in>
+      AST_STRING "file1"
+      AST_STRING "file2"
+    <redir_out>
+      AST_STRING "file3"
+      AST_STRING "file4"

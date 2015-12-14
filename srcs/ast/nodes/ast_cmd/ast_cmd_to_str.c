@@ -10,14 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/ast.h"
+#include <stdlib.h>
 
-#include "twl_arr.h"
-#include "utils.h"
-
-void				ast_build(t_ast *ast)
-{
-	int				len;
-	ast->root = ast_list_build(ast->raw, &len);
-	(void)len;
-}
+#include "ast/nodes/ast_cmd.h"

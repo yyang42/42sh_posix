@@ -1,0 +1,15 @@
+AST_COMPOUND
+  AST_ANDOR 'or'
+    AST_ANDOR 'and'
+      AST_CMD
+        <strings>
+          AST_STRING "echo"
+          AST_STRING "aaa"
+      AST_CMD
+        <strings>
+          AST_STRING "echo"
+          AST_STRING "bbb"
+    AST_CMD
+      <strings>
+        AST_STRING "echo"
+        AST_STRING "ccc"

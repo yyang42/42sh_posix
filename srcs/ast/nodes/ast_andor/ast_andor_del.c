@@ -10,14 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/ast.h"
+#include <stdlib.h>
 
-#include "twl_arr.h"
-#include "utils.h"
+#include "ast/nodes/ast_andor.h"
 
-void				ast_build(t_ast *ast)
+void				ast_andor_del(t_ast_andor *this)
 {
-	int				len;
-	ast->root = ast_list_build(ast->raw, &len);
-	(void)len;
+	free(this);
 }

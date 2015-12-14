@@ -10,14 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/ast.h"
+#include "twl_xstdlib.h"
 
-#include "twl_arr.h"
-#include "utils.h"
+#include "ast/nodes/ast_if.h"
 
-void				ast_build(t_ast *ast)
+t_ast_if			*ast_if_new(void)
 {
-	int				len;
-	ast->root = ast_list_build(ast->raw, &len);
-	(void)len;
+	t_ast_if	*this;
+
+	this = twl_malloc_x0(sizeof(t_ast_if));
+	this->type = AST_IF;
+	this->cond = ast_list_new();
+	this->body = ast_list_new();
+	this->elze = ast_list_new();
+	return (this);
 }

@@ -10,14 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/ast.h"
+#ifndef AST_TYPE_H
+# define AST_TYPE_H
 
-#include "twl_arr.h"
-#include "utils.h"
-
-void				ast_build(t_ast *ast)
+typedef enum		e_ast_type
 {
-	int				len;
-	ast->root = ast_list_build(ast->raw, &len);
-	(void)len;
-}
+	AST_COMPOUND,
+	AST_IF,
+	AST_PIPE,
+	AST_STRING,
+	AST_CMD,
+	AST_ANDOR
+}					t_ast_type;
+
+#endif

@@ -10,14 +10,22 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/ast.h"
+#ifndef AST_STRING_H
+# define AST_STRING_H
 
-#include "twl_arr.h"
-#include "utils.h"
+# include "basics.h"
 
-void				ast_build(t_ast *ast)
+# include "ast/nodes/ast_node.h"
+
+typedef struct		s_ast_string
 {
-	int				len;
-	ast->root = ast_list_build(ast->raw, &len);
-	(void)len;
-}
+	t_ast_type		type;
+	char			*text;
+}					t_ast_string;
+
+t_ast_string		*ast_string_new(char *text);
+void				ast_string_del(t_ast_string *this);
+
+t_ast_string		*ast_string_build(char *str, int *len_ptr);
+
+#endif

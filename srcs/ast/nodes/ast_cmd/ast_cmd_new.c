@@ -10,14 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/ast.h"
+#include "twl_xstdlib.h"
 
-#include "twl_arr.h"
-#include "utils.h"
+#include "ast/nodes/ast_cmd.h"
 
-void				ast_build(t_ast *ast)
+t_ast_cmd			*ast_cmd_new(void)
 {
-	int				len;
-	ast->root = ast_list_build(ast->raw, &len);
-	(void)len;
+	t_ast_cmd	*this;
+
+	this = twl_malloc_x0(sizeof(t_ast_cmd));
+	this->type = AST_CMD;
+	this->strings = twl_lst_new();
+	this->redir_in = twl_lst_new();
+	this->redir_out = twl_lst_new();
+	this->redir_append = twl_lst_new();
+	this->redir_heredoc = twl_lst_new();
+	return (this);
 }

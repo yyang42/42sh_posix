@@ -14,13 +14,13 @@
 
 #include "ast/ast.h"
 
-#include "ast/anode/anode.h"
-#include "ast/anode/if_stmt.h"
-#include "ast/anode/string_literal.h"
-#include "ast/anode/pipeline.h"
-#include "ast/anode/andor.h"
+#include "ast/nodes/ast_node.h"
+#include "ast/nodes/ast_if.h"
+#include "ast/nodes/ast_string.h"
+#include "ast/nodes/ast_pipe.h"
+#include "ast/nodes/ast_andor.h"
 
-void				travel_rec(void *anode, void *lvl_ptr, void *out_list);
+void				travel_rec(void *ast_node, void *lvl_ptr, void *out_list);
 
 void				cmd_literal_group(t_lst *literals, char *group_name,
 													int lvl, t_lst *out_list)
@@ -29,63 +29,63 @@ void				cmd_literal_group(t_lst *literals, char *group_name,
 
 	if (twl_lst_len(literals) == 0)
 		return ;
-	twl_asprintf(&tmp, "%*s<%s>\n", lvl * TAB_WIDTH, "", group_name);
+	twl_asprintf(&tmp, "%*s<%s>\n", lvl * AST_TAB_WIDTH, "", group_name);
 	lvl++;
 	twl_lst_push(out_list, tmp);
 	twl_lst_iter2(literals, travel_rec, &lvl, out_list);
 }
 
-void				travel_rec(void *anode, void *lvl_ptr, void *out_list)
+void				travel_rec(void *ast_node, void *lvl_ptr, void *out_list)
 {
 	int				lvl;
 	char			*tmp;
 
 	lvl = *(int *)lvl_ptr;
-	twl_asprintf(&tmp, "%*s%s", lvl * TAB_WIDTH, "", anode_get_type_str(anode));
+	twl_asprintf(&tmp, "%*s%s", lvl * AST_TAB_WIDTH, "", ast_node_get_type_str(ast_node));
 	twl_lst_push(out_list, tmp);
-	if (anode_get_type(anode) == STRING_LITERAL)
+	if (ast_node_get_type(ast_node) == AST_STRING)
 	{
-		t_string_literal *string = anode;
+		t_ast_string *string = ast_node;
 		twl_asprintf(&tmp, " \"%s\"", string->text);
 		twl_lst_push(out_list, tmp);
 	}
-	if (anode_get_type(anode) == ANDOR)
+	if (ast_node_get_type(ast_node) == AST_ANDOR)
 	{
-		t_andor			*andor = anode;
-		twl_lst_push(out_list, (andor->andor_type == ANDOR_TYPE_AND) ? twl_strdup(" 'and'") : twl_strdup(" 'or'"));
+		t_ast_andor			*ast_andor = ast_node;
+		twl_lst_push(out_list, (ast_andor->andor_type == ANDOR_TYPE_AND) ? twl_strdup(" 'and'") : twl_strdup(" 'or'"));
 	}
 	twl_lst_push(out_list, twl_strdup("\n"));
 	lvl++;
-	if (anode_get_type(anode) == COMPOUND_STMT)
+	if (ast_node_get_type(ast_node) == AST_COMPOUND)
 	{
-		t_compound_stmt		*compound_stmt = anode;
-		twl_lst_iter2(compound_stmt->items, travel_rec, &lvl, out_list);
+		t_ast_list		*ast_list = ast_node;
+		twl_lst_iter2(ast_list->items, travel_rec, &lvl, out_list);
 	}
-	else if (anode_get_type(anode) == IF_STMT)
+	else if (ast_node_get_type(ast_node) == AST_IF)
 	{
-		t_if_stmt			*if_stmt = anode;
-		travel_rec(if_stmt->cond, &lvl, out_list);
-		travel_rec(if_stmt->body, &lvl, out_list);
-		travel_rec(if_stmt->elze, &lvl, out_list);
+		t_ast_if			*ast_if = ast_node;
+		travel_rec(ast_if->cond, &lvl, out_list);
+		travel_rec(ast_if->body, &lvl, out_list);
+		travel_rec(ast_if->elze, &lvl, out_list);
 	}
-	else if (anode_get_type(anode) == CMD_STMT)
+	else if (ast_node_get_type(ast_node) == AST_CMD)
 	{
-		t_cmd_stmt			*cmd_stmt = anode;
-		cmd_literal_group(cmd_stmt->strings, "strings", lvl, out_list);
-		cmd_literal_group(cmd_stmt->redir_in, "redir_in", lvl, out_list);
-		cmd_literal_group(cmd_stmt->redir_out, "redir_out", lvl, out_list);
+		t_ast_cmd			*ast_cmd = ast_node;
+		cmd_literal_group(ast_cmd->strings, "strings", lvl, out_list);
+		cmd_literal_group(ast_cmd->redir_in, "redir_in", lvl, out_list);
+		cmd_literal_group(ast_cmd->redir_out, "redir_out", lvl, out_list);
 	}
-	else if (anode_get_type(anode) == PIPELINE)
+	else if (ast_node_get_type(ast_node) == AST_PIPE)
 	{
-		t_pipeline			*pipeline = anode;
-		travel_rec(pipeline->left, &lvl, out_list);
-		travel_rec(pipeline->right, &lvl, out_list);
+		t_ast_pipe			*ast_pipe = ast_node;
+		travel_rec(ast_pipe->left, &lvl, out_list);
+		travel_rec(ast_pipe->right, &lvl, out_list);
 	}
-	else if (anode_get_type(anode) == ANDOR)
+	else if (ast_node_get_type(ast_node) == AST_ANDOR)
 	{
-		t_andor			*andor = anode;
-		travel_rec(andor->left, &lvl, out_list);
-		travel_rec(andor->right, &lvl, out_list);
+		t_ast_andor			*ast_andor = ast_node;
+		travel_rec(ast_andor->left, &lvl, out_list);
+		travel_rec(ast_andor->right, &lvl, out_list);
 	}
 }
 

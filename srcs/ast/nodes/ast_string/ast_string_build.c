@@ -10,14 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/ast.h"
+#include <stdlib.h>
 
-#include "twl_arr.h"
 #include "utils.h"
+#include "ast/nodes/ast_string.h"
 
-void				ast_build(t_ast *ast)
+t_ast_string	*ast_string_build(char *str, int *len_ptr)
 {
-	int				len;
-	ast->root = ast_list_build(ast->raw, &len);
-	(void)len;
+	t_ast_string	*ast_string;
+
+	ast_string = ast_string_new(str);
+	increment_len(len_ptr, twl_strlen(str));
+	return (ast_string);
 }

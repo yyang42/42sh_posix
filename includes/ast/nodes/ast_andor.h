@@ -10,14 +10,31 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/ast.h"
+#ifndef AST_ANDOR_H
+# define AST_ANDOR_H
 
-#include "twl_arr.h"
-#include "utils.h"
+# include "basics.h"
 
-void				ast_build(t_ast *ast)
+# include "ast/ast_defines.h"
+# include "ast/nodes/ast_node.h"
+
+typedef enum		e_andor_type
 {
-	int				len;
-	ast->root = ast_list_build(ast->raw, &len);
-	(void)len;
-}
+	ANDOR_TYPE_AND,
+	ANDOR_TYPE_OR
+}					t_andor_type;
+
+typedef struct		s_ast_andor
+{
+	t_ast_type		type;
+	t_andor_type	andor_type;
+	void			*left;
+	void			*right;
+}					t_ast_andor;
+
+t_ast_andor			*ast_andor_new(t_andor_type andor_type);
+void				ast_andor_del(t_ast_andor *this);
+
+t_ast_andor			*ast_andor_build(char *str, int *len_ptr);
+
+#endif

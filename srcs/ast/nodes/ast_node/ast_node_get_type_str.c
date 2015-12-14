@@ -10,14 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/ast.h"
+#include "ast/nodes/ast_node.h"
 
-#include "twl_arr.h"
-#include "utils.h"
-
-void				ast_build(t_ast *ast)
+char				*ast_node_get_type_str(void *ast_node)
 {
-	int				len;
-	ast->root = ast_list_build(ast->raw, &len);
-	(void)len;
+	if (ast_node_get_type(ast_node) == AST_COMPOUND)
+		return ("AST_COMPOUND");
+	else if (ast_node_get_type(ast_node) == AST_IF)
+		return ("AST_IF");
+	else if (ast_node_get_type(ast_node) == AST_CMD)
+		return ("AST_CMD");
+	else if (ast_node_get_type(ast_node) == AST_STRING)
+		return ("AST_STRING");
+	else if (ast_node_get_type(ast_node) == AST_PIPE)
+		return ("AST_PIPE");
+	else if (ast_node_get_type(ast_node) == AST_ANDOR)
+		return ("AST_ANDOR");
+	return ("NOT_FOUND");
 }

@@ -10,14 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/ast.h"
+#include "twl_xstdlib.h"
 
-#include "twl_arr.h"
-#include "utils.h"
+#include "ast/nodes/ast_list.h"
 
-void				ast_build(t_ast *ast)
+t_ast_list		*ast_list_new(void)
 {
-	int				len;
-	ast->root = ast_list_build(ast->raw, &len);
-	(void)len;
+	t_ast_list	*this;
+
+	this = twl_malloc_x0(sizeof(t_ast_list));
+	this->items = twl_lst_new();
+	return (this);
 }

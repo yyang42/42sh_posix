@@ -10,14 +10,26 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/ast.h"
+#ifndef AST_IF_H
+# define AST_IF_H
 
-#include "twl_arr.h"
-#include "utils.h"
+# include "basics.h"
 
-void				ast_build(t_ast *ast)
+# include "ast/ast_defines.h"
+# include "ast/nodes/ast_node.h"
+# include "ast/nodes/ast_list.h"
+
+typedef struct		s_ast_if
 {
-	int				len;
-	ast->root = ast_list_build(ast->raw, &len);
-	(void)len;
-}
+	t_ast_type		type;
+	t_ast_list		*cond;
+	t_ast_list		*body;
+	t_ast_list		*elze;
+}					t_ast_if;
+
+t_ast_if			*ast_if_new(void);
+void				ast_if_del(t_ast_if *this);
+
+t_ast_if			*ast_if_build(char *str, int *len_ptr);
+
+#endif

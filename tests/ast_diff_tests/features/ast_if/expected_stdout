@@ -1,0 +1,24 @@
+AST_COMPOUND
+  AST_CMD
+    <strings>
+      AST_STRING "echo"
+      AST_STRING "111"
+  AST_IF
+    AST_COMPOUND
+      AST_CMD
+        <strings>
+          AST_STRING "true"
+    AST_COMPOUND
+      AST_CMD
+        <strings>
+          AST_STRING "echo"
+          AST_STRING "aaa"
+    AST_COMPOUND
+      AST_CMD
+        <strings>
+          AST_STRING "echo"
+          AST_STRING "bbb"
+  AST_CMD
+    <strings>
+      AST_STRING "echo"
+      AST_STRING "ccc"

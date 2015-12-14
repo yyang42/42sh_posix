@@ -10,14 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/ast.h"
+#ifndef AST_COMPOUND_H
+# define AST_COMPOUND_H
 
-#include "twl_arr.h"
-#include "utils.h"
+# include "twl_lst.h"
 
-void				ast_build(t_ast *ast)
+# include "basics.h"
+
+# include "ast/nodes/ast_node.h"
+
+typedef struct		s_ast_list
 {
-	int				len;
-	ast->root = ast_list_build(ast->raw, &len);
-	(void)len;
-}
+	t_ast_type		type;
+	t_lst			*items;
+}					t_ast_list;
+
+t_ast_list			*ast_list_new(void);
+void				ast_list_del(t_ast_list *this);
+
+t_ast_list			*ast_list_build(char *str, int *len_ptr);
+
+#endif

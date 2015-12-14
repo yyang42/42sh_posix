@@ -10,14 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/ast.h"
+#ifndef AST_NODE_H
+# define AST_NODE_H
 
-#include "twl_arr.h"
-#include "utils.h"
+# include "basics.h"
 
-void				ast_build(t_ast *ast)
+# include "ast/ast_type.h"
+
+typedef struct		s_ast_node
 {
-	int				len;
-	ast->root = ast_list_build(ast->raw, &len);
-	(void)len;
-}
+	t_ast_type		type;
+}					t_ast_node;
+
+t_ast_type			ast_node_get_type(void *ast_node_);
+char				*ast_node_get_type_str(void *ast_node_);
+
+#endif

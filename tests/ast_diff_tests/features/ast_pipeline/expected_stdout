@@ -1,0 +1,16 @@
+AST_COMPOUND
+  AST_PIPE
+    AST_PIPE
+      AST_CMD
+        <strings>
+          AST_STRING "echo"
+          AST_STRING "aabbcc"
+      AST_CMD
+        <strings>
+          AST_STRING "cat"
+          AST_STRING "-e"
+    AST_CMD
+      <strings>
+        AST_STRING "tr"
+        AST_STRING "-d"
+        AST_STRING "b"

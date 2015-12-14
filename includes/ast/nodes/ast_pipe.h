@@ -10,14 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/ast.h"
+#ifndef AST_PIPE_H
+# define AST_PIPE_H
 
-#include "twl_arr.h"
-#include "utils.h"
+# include "basics.h"
 
-void				ast_build(t_ast *ast)
+# include "ast/ast_defines.h"
+# include "ast/nodes/ast_node.h"
+
+typedef struct		s_ast_pipe
 {
-	int				len;
-	ast->root = ast_list_build(ast->raw, &len);
-	(void)len;
-}
+	t_ast_type		type;
+	void			*left;
+	void			*right;
+}					t_ast_pipe;
+
+t_ast_pipe			*ast_pipe_new(void);
+void				ast_pipe_del(t_ast_pipe *this);
+
+t_ast_pipe			*ast_pipe_build(char *str, int *len_ptr);
+
+#endif
