@@ -12,9 +12,14 @@
 
 #include <stdlib.h>
 
-#include "ast/nodes/ast_string.h"
+#include "utils.h"
+#include "ast/nodes/ast_cmd_field.h"
 
-void				ast_string_del(t_ast_string *this)
+t_ast_cmd_field	*ast_cmd_field_build(char *str, int *len_ptr)
 {
-	free(this);
+	t_ast_cmd_field	*ast_cmd_field;
+
+	ast_cmd_field = ast_cmd_field_new(str);
+	increment_len(len_ptr, twl_strlen(str));
+	return (ast_cmd_field);
 }

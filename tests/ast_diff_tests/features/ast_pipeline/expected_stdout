@@ -3,14 +3,14 @@ AST_COMPOUND
     AST_PIPE
       AST_CMD
         <strings>
-          AST_STRING "echo"
-          AST_STRING "aabbcc"
+          AST_CMD_FIELD "echo"
+          AST_CMD_FIELD "aabbcc"
       AST_CMD
         <strings>
-          AST_STRING "cat"
-          AST_STRING "-e"
+          AST_CMD_FIELD "cat"
+          AST_CMD_FIELD "-e"
     AST_CMD
       <strings>
-        AST_STRING "tr"
-        AST_STRING "-d"
-        AST_STRING "b"
+        AST_CMD_FIELD "tr"
+        AST_CMD_FIELD "-d"
+        AST_CMD_FIELD "b"

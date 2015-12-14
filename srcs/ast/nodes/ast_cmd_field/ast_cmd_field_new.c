@@ -10,16 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "twl_xstdlib.h"
 
-#include "utils.h"
-#include "ast/nodes/ast_string.h"
+#include "ast/nodes/ast_cmd_field.h"
 
-t_ast_string	*ast_string_build(char *str, int *len_ptr)
+t_ast_cmd_field			*ast_cmd_field_new(char *text)
 {
-	t_ast_string	*ast_string;
+	t_ast_cmd_field		*this;
 
-	ast_string = ast_string_new(str);
-	increment_len(len_ptr, twl_strlen(str));
-	return (ast_string);
+	this = twl_malloc_x0(sizeof(t_ast_cmd_field));
+	this->type = AST_CMD_FIELD;
+	this->text = twl_strdup(text);
+	return (this);
 }

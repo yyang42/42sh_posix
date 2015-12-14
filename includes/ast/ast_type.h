@@ -18,7 +18,7 @@ typedef enum		e_ast_type
 	AST_COMPOUND,
 	AST_IF,
 	AST_PIPE,
-	AST_STRING,
+	AST_CMD_FIELD,
 	AST_CMD,
 	AST_ANDOR
 }					t_ast_type;

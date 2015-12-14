@@ -10,22 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_STRING_H
-# define AST_STRING_H
+#include <stdlib.h>
 
-# include "basics.h"
+#include "ast/nodes/ast_cmd_field.h"
 
-# include "ast/nodes/ast_node.h"
-
-typedef struct		s_ast_string
+void				ast_cmd_field_del(t_ast_cmd_field *this)
 {
-	t_ast_type		type;
-	char			*text;
-}					t_ast_string;
-
-t_ast_string		*ast_string_new(char *text);
-void				ast_string_del(t_ast_string *this);
-
-t_ast_string		*ast_string_build(char *str, int *len_ptr);
-
-#endif
+	free(this);
+}

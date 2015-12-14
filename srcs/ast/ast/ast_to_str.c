@@ -16,7 +16,7 @@
 
 #include "ast/nodes/ast_node.h"
 #include "ast/nodes/ast_if.h"
-#include "ast/nodes/ast_string.h"
+#include "ast/nodes/ast_cmd_field.h"
 #include "ast/nodes/ast_pipe.h"
 #include "ast/nodes/ast_andor.h"
 
@@ -43,9 +43,9 @@ void				travel_rec(void *ast_node, void *lvl_ptr, void *out_list)
 	lvl = *(int *)lvl_ptr;
 	twl_asprintf(&tmp, "%*s%s", lvl * AST_TAB_WIDTH, "", ast_node_get_type_str(ast_node));
 	twl_lst_push(out_list, tmp);
-	if (ast_node_get_type(ast_node) == AST_STRING)
+	if (ast_node_get_type(ast_node) == AST_CMD_FIELD)
 	{
-		t_ast_string *string = ast_node;
+		t_ast_cmd_field *string = ast_node;
 		twl_asprintf(&tmp, " \"%s\"", string->text);
 		twl_lst_push(out_list, tmp);
 	}
