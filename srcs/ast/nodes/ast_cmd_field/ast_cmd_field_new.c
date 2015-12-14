@@ -14,13 +14,12 @@
 
 #include "ast/nodes/ast_cmd_field.h"
 
-t_ast_cmd_field			*ast_cmd_field_new(char *text)
+t_ast_cmd_field			*ast_cmd_field_new(void)
 {
 	t_ast_cmd_field		*this;
 
 	this = twl_malloc_x0(sizeof(t_ast_cmd_field));
 	this->type = AST_CMD_FIELD;
-	this->text = twl_strdup(text);
 	this->items = twl_lst_new();
 	return (this);
 }

@@ -21,11 +21,10 @@
 typedef struct		s_ast_cmd_field
 {
 	t_ast_type		type;
-	char			*text;
 	void			*items;
 }					t_ast_cmd_field;
 
-t_ast_cmd_field		*ast_cmd_field_new(char *text);
+t_ast_cmd_field		*ast_cmd_field_new(void);
 void				ast_cmd_field_del(t_ast_cmd_field *this);
 
 t_ast_cmd_field		*ast_cmd_field_build(char *str, int *len_ptr);
