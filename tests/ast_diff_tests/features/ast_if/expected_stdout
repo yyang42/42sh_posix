@@ -1,24 +1,33 @@
 AST_LIST
   AST_CMD
     <fields>
-      AST_CMD_FIELD "echo"
-      AST_CMD_FIELD "111"
+      AST_CMD_FIELD
+        AST_STRING "echo"
+      AST_CMD_FIELD
+        AST_STRING "111"
   AST_IF
     AST_LIST
       AST_CMD
         <fields>
-          AST_CMD_FIELD "true"
+          AST_CMD_FIELD
+            AST_STRING "true"
     AST_LIST
       AST_CMD
         <fields>
-          AST_CMD_FIELD "echo"
-          AST_CMD_FIELD "aaa"
+          AST_CMD_FIELD
+            AST_STRING "echo"
+          AST_CMD_FIELD
+            AST_STRING "aaa"
     AST_LIST
       AST_CMD
         <fields>
-          AST_CMD_FIELD "echo"
-          AST_CMD_FIELD "bbb"
+          AST_CMD_FIELD
+            AST_STRING "echo"
+          AST_CMD_FIELD
+            AST_STRING "bbb"
   AST_CMD
     <fields>
-      AST_CMD_FIELD "echo"
-      AST_CMD_FIELD "ccc"
+      AST_CMD_FIELD
+        AST_STRING "echo"
+      AST_CMD_FIELD
+        AST_STRING "ccc"

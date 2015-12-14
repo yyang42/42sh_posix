@@ -3,14 +3,21 @@ AST_LIST
     AST_PIPE
       AST_CMD
         <fields>
-          AST_CMD_FIELD "echo"
-          AST_CMD_FIELD "aabbcc"
+          AST_CMD_FIELD
+            AST_STRING "echo"
+          AST_CMD_FIELD
+            AST_STRING "aabbcc"
       AST_CMD
         <fields>
-          AST_CMD_FIELD "cat"
-          AST_CMD_FIELD "-e"
+          AST_CMD_FIELD
+            AST_STRING "cat"
+          AST_CMD_FIELD
+            AST_STRING "-e"
     AST_CMD
       <fields>
-        AST_CMD_FIELD "tr"
-        AST_CMD_FIELD "-d"
-        AST_CMD_FIELD "b"
+        AST_CMD_FIELD
+          AST_STRING "tr"
+        AST_CMD_FIELD
+          AST_STRING "-d"
+        AST_CMD_FIELD
+          AST_STRING "b"

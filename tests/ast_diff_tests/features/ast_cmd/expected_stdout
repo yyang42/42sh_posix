@@ -1,10 +1,15 @@
 AST_LIST
   AST_CMD
     <fields>
-      AST_CMD_FIELD "cat"
+      AST_CMD_FIELD
+        AST_STRING "cat"
     <redir_in>
-      AST_CMD_FIELD "file1"
-      AST_CMD_FIELD "file2"
+      AST_CMD_FIELD
+        AST_STRING "file1"
+      AST_CMD_FIELD
+        AST_STRING "file2"
     <redir_out>
-      AST_CMD_FIELD "file3"
-      AST_CMD_FIELD "file4"
+      AST_CMD_FIELD
+        AST_STRING "file3"
+      AST_CMD_FIELD
+        AST_STRING "file4"

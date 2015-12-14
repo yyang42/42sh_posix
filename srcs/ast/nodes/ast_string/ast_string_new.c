@@ -20,6 +20,6 @@ t_ast_string				*ast_string_new(char *text)
 
 	this = twl_malloc_x0(sizeof(t_ast_string));
 	this->type = AST_STRING;
-	this->text = text;
+	this->text = twl_strdup(text);
 	return (this);
 }

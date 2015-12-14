@@ -43,9 +43,9 @@ void				travel_rec(void *ast_node, void *lvl_ptr, void *out_list)
 	lvl = *(int *)lvl_ptr;
 	twl_asprintf(&tmp, "%*s%s", lvl * AST_TAB_WIDTH, "", ast_node_get_type_str(ast_node));
 	twl_lst_push(out_list, tmp);
-	if (ast_node_get_type(ast_node) == AST_CMD_FIELD)
+	if (ast_node_get_type(ast_node) == AST_STRING)
 	{
-		t_ast_cmd_field *string = ast_node;
+		t_ast_string *string = ast_node;
 		twl_asprintf(&tmp, " \"%s\"", string->text);
 		twl_lst_push(out_list, tmp);
 	}
@@ -54,8 +54,14 @@ void				travel_rec(void *ast_node, void *lvl_ptr, void *out_list)
 		t_ast_andor			*ast_andor = ast_node;
 		twl_lst_push(out_list, (ast_andor->andor_type == ANDOR_TYPE_AND) ? twl_strdup(" 'and'") : twl_strdup(" 'or'"));
 	}
+
 	twl_lst_push(out_list, twl_strdup("\n"));
 	lvl++;
+	if (ast_node_get_type(ast_node) == AST_CMD_FIELD)
+	{
+		t_ast_cmd_field *cmd_field = ast_node;
+		twl_lst_iter2(cmd_field->items, travel_rec, &lvl, out_list);
+	}
 	if (ast_node_get_type(ast_node) == AST_LIST)
 	{
 		t_ast_list		*ast_list = ast_node;

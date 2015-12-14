@@ -3,13 +3,19 @@ AST_LIST
     AST_ANDOR 'and'
       AST_CMD
         <fields>
-          AST_CMD_FIELD "echo"
-          AST_CMD_FIELD "aaa"
+          AST_CMD_FIELD
+            AST_STRING "echo"
+          AST_CMD_FIELD
+            AST_STRING "aaa"
       AST_CMD
         <fields>
-          AST_CMD_FIELD "echo"
-          AST_CMD_FIELD "bbb"
+          AST_CMD_FIELD
+            AST_STRING "echo"
+          AST_CMD_FIELD
+            AST_STRING "bbb"
     AST_CMD
       <fields>
-        AST_CMD_FIELD "echo"
-        AST_CMD_FIELD "ccc"
+        AST_CMD_FIELD
+          AST_STRING "echo"
+        AST_CMD_FIELD
+          AST_STRING "ccc"
