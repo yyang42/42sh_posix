@@ -1,9 +1,9 @@
 AST_LIST
   AST_CMD
-    <strings>
+    <fields>
       AST_CMD_FIELD "echo"
       AST_CMD_FIELD "123"
   AST_CMD
-    <strings>
+    <fields>
       AST_CMD_FIELD "echo"
       AST_CMD_FIELD "abc"

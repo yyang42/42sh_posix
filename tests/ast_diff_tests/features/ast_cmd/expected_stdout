@@ -1,6 +1,6 @@
 AST_LIST
   AST_CMD
-    <strings>
+    <fields>
       AST_CMD_FIELD "cat"
     <redir_in>
       AST_CMD_FIELD "file1"

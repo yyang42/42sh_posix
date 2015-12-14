@@ -2,14 +2,14 @@ AST_LIST
   AST_ANDOR 'or'
     AST_ANDOR 'and'
       AST_CMD
-        <strings>
+        <fields>
           AST_CMD_FIELD "echo"
           AST_CMD_FIELD "aaa"
       AST_CMD
-        <strings>
+        <fields>
           AST_CMD_FIELD "echo"
           AST_CMD_FIELD "bbb"
     AST_CMD
-      <strings>
+      <fields>
         AST_CMD_FIELD "echo"
         AST_CMD_FIELD "ccc"

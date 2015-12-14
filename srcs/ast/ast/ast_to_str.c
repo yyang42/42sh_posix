@@ -71,7 +71,7 @@ void				travel_rec(void *ast_node, void *lvl_ptr, void *out_list)
 	else if (ast_node_get_type(ast_node) == AST_CMD)
 	{
 		t_ast_cmd			*ast_cmd = ast_node;
-		cmd_literal_group(ast_cmd->strings, "strings", lvl, out_list);
+		cmd_literal_group(ast_cmd->strings, "fields", lvl, out_list);
 		cmd_literal_group(ast_cmd->redir_in, "redir_in", lvl, out_list);
 		cmd_literal_group(ast_cmd->redir_out, "redir_out", lvl, out_list);
 	}

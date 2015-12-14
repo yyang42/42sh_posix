@@ -1,24 +1,24 @@
 AST_LIST
   AST_CMD
-    <strings>
+    <fields>
       AST_CMD_FIELD "echo"
       AST_CMD_FIELD "111"
   AST_IF
     AST_LIST
       AST_CMD
-        <strings>
+        <fields>
           AST_CMD_FIELD "true"
     AST_LIST
       AST_CMD
-        <strings>
+        <fields>
           AST_CMD_FIELD "echo"
           AST_CMD_FIELD "aaa"
     AST_LIST
       AST_CMD
-        <strings>
+        <fields>
           AST_CMD_FIELD "echo"
           AST_CMD_FIELD "bbb"
   AST_CMD
-    <strings>
+    <fields>
       AST_CMD_FIELD "echo"
       AST_CMD_FIELD "ccc"
