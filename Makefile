@@ -94,7 +94,7 @@ check_ast_last:
 norm:
 	find srcs includes -name "*.h" -o -name "*.c" -follow | xargs norminette
 
-valgrind:
+check_leaks:
 	./tools/valgrind.sh
 
 log:
