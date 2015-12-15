@@ -27,7 +27,7 @@ t_ast_cmd_field	*ast_cmd_field_build(char *str, int *len_ptr)
 	{
 		segs = twl_str_split_to_lst(new_str, "`");
 		twl_lst_push(ast_cmd_field->items, ast_string_new(twl_lst_get(segs, 0)));
-		twl_lst_push(ast_cmd_field->items, ast_string_new(twl_lst_get(segs, 1)));
+		twl_lst_push(ast_cmd_field->items, ast_cmd_sub_build(twl_lst_get(segs, 1), NULL));
 		twl_lst_push(ast_cmd_field->items, ast_string_new(twl_lst_get(segs, 2)));
 		twl_lst_del(segs, free);
 	}

@@ -19,6 +19,7 @@
 #include "ast/nodes/ast_cmd_field.h"
 #include "ast/nodes/ast_pipe.h"
 #include "ast/nodes/ast_andor.h"
+#include "ast/nodes/ast_cmd_sub.h"
 
 void				travel_rec(void *ast_node, void *lvl_ptr, void *out_list);
 
@@ -92,6 +93,11 @@ void				travel_rec(void *ast_node, void *lvl_ptr, void *out_list)
 		t_ast_andor			*ast_andor = ast_node;
 		travel_rec(ast_andor->left, &lvl, out_list);
 		travel_rec(ast_andor->right, &lvl, out_list);
+	}
+	else if (ast_node_get_type(ast_node) == AST_CMD_SUB)
+	{
+		t_ast_cmd_sub			*ast_cmd_sub = ast_node;
+		travel_rec(ast_cmd_sub->list, &lvl, out_list);
 	}
 }
 

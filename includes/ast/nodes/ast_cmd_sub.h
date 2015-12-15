@@ -17,11 +17,12 @@
 
 # include "ast/nodes/ast_node.h"
 # include "ast/nodes/ast_string.h"
+# include "ast/nodes/ast_list.h"
 
 typedef struct		s_ast_cmd_sub
 {
 	t_ast_type		type;
-	void			*items;
+	t_ast_list		*list;
 }					t_ast_cmd_sub;
 
 t_ast_cmd_sub		*ast_cmd_sub_new(void);

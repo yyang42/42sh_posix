@@ -20,6 +20,8 @@ char				*ast_node_get_type_str(void *ast_node)
 		return ("AST_IF");
 	else if (ast_node_get_type(ast_node) == AST_CMD)
 		return ("AST_CMD");
+	else if (ast_node_get_type(ast_node) == AST_CMD_SUB)
+		return ("AST_CMD_SUB");
 	else if (ast_node_get_type(ast_node) == AST_CMD_FIELD)
 		return ("AST_CMD_FIELD");
 	else if (ast_node_get_type(ast_node) == AST_PIPE)

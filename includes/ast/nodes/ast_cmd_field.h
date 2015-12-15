@@ -17,6 +17,7 @@
 
 # include "ast/nodes/ast_node.h"
 # include "ast/nodes/ast_string.h"
+# include "ast/nodes/ast_cmd_sub.h"
 
 typedef struct		s_ast_cmd_field
 {

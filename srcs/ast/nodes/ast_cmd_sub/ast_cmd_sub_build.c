@@ -20,7 +20,7 @@ t_ast_cmd_sub	*ast_cmd_sub_build(char *str, int *len_ptr)
 	t_ast_cmd_sub	*ast_cmd_sub;
 
 	ast_cmd_sub = ast_cmd_sub_new();
-	twl_lst_push(ast_cmd_sub->items, ast_string_new(str));
+	ast_cmd_sub->list = ast_list_build(str, len_ptr);
 	increment_len(len_ptr, twl_strlen(str));
 	return (ast_cmd_sub);
 }

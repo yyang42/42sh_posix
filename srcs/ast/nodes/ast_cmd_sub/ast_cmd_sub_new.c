@@ -20,6 +20,6 @@ t_ast_cmd_sub			*ast_cmd_sub_new(void)
 
 	this = twl_malloc_x0(sizeof(t_ast_cmd_sub));
 	this->type = AST_CMD_SUB;
-	this->items = twl_lst_new();
+	this->list = NULL;
 	return (this);
 }
