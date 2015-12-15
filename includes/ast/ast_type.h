@@ -15,12 +15,14 @@
 
 typedef enum		e_ast_type
 {
-	AST_COMPOUND,
+	AST_ANDOR,
+	AST_CMD,
+	AST_CMD_FIELD,
+	AST_CMD_SUB,
+	AST_LIST,
 	AST_IF,
 	AST_PIPE,
-	AST_STRING,
-	AST_CMD,
-	AST_ANDOR
+	AST_STRING
 }					t_ast_type;
 
 #endif

@@ -10,16 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "twl_xstdlib.h"
+#ifndef AST_CMD_FIELD_H
+# define AST_CMD_FIELD_H
 
-#include "ast/nodes/ast_string.h"
+# include "basics.h"
 
-t_ast_string				*ast_string_new(char *text)
+# include "ast/nodes/ast_node.h"
+# include "ast/nodes/ast_string.h"
+# include "ast/nodes/ast_cmd_sub.h"
+
+typedef struct		s_ast_cmd_field
 {
-	t_ast_string	*this;
+	t_ast_type		type;
+	void			*items;
+}					t_ast_cmd_field;
 
-	this = twl_malloc_x0(sizeof(t_ast_string));
-	this->type = AST_STRING;
-	this->text = twl_strdup(text);
-	return (this);
-}
+t_ast_cmd_field		*ast_cmd_field_new(void);
+void				ast_cmd_field_del(t_ast_cmd_field *this);
+
+t_ast_cmd_field		*ast_cmd_field_build(char *str, int *len_ptr);
+
+#endif

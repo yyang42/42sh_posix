@@ -16,9 +16,10 @@
 
 #include "ast/nodes/ast_node.h"
 #include "ast/nodes/ast_if.h"
-#include "ast/nodes/ast_string.h"
+#include "ast/nodes/ast_cmd_field.h"
 #include "ast/nodes/ast_pipe.h"
 #include "ast/nodes/ast_andor.h"
+#include "ast/nodes/ast_cmd_sub.h"
 
 void				travel_rec(void *ast_node, void *lvl_ptr, void *out_list);
 
@@ -54,9 +55,15 @@ void				travel_rec(void *ast_node, void *lvl_ptr, void *out_list)
 		t_ast_andor			*ast_andor = ast_node;
 		twl_lst_push(out_list, (ast_andor->andor_type == ANDOR_TYPE_AND) ? twl_strdup(" 'and'") : twl_strdup(" 'or'"));
 	}
+
 	twl_lst_push(out_list, twl_strdup("\n"));
 	lvl++;
-	if (ast_node_get_type(ast_node) == AST_COMPOUND)
+	if (ast_node_get_type(ast_node) == AST_CMD_FIELD)
+	{
+		t_ast_cmd_field *cmd_field = ast_node;
+		twl_lst_iter2(cmd_field->items, travel_rec, &lvl, out_list);
+	}
+	if (ast_node_get_type(ast_node) == AST_LIST)
 	{
 		t_ast_list		*ast_list = ast_node;
 		twl_lst_iter2(ast_list->items, travel_rec, &lvl, out_list);
@@ -71,7 +78,7 @@ void				travel_rec(void *ast_node, void *lvl_ptr, void *out_list)
 	else if (ast_node_get_type(ast_node) == AST_CMD)
 	{
 		t_ast_cmd			*ast_cmd = ast_node;
-		cmd_literal_group(ast_cmd->strings, "strings", lvl, out_list);
+		cmd_literal_group(ast_cmd->strings, "fields", lvl, out_list);
 		cmd_literal_group(ast_cmd->redir_in, "redir_in", lvl, out_list);
 		cmd_literal_group(ast_cmd->redir_out, "redir_out", lvl, out_list);
 	}
@@ -86,6 +93,11 @@ void				travel_rec(void *ast_node, void *lvl_ptr, void *out_list)
 		t_ast_andor			*ast_andor = ast_node;
 		travel_rec(ast_andor->left, &lvl, out_list);
 		travel_rec(ast_andor->right, &lvl, out_list);
+	}
+	else if (ast_node_get_type(ast_node) == AST_CMD_SUB)
+	{
+		t_ast_cmd_sub			*ast_cmd_sub = ast_node;
+		travel_rec(ast_cmd_sub->list, &lvl, out_list);
 	}
 }
 

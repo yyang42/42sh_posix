@@ -12,4 +12,9 @@
 
 #include <stdlib.h>
 
-#include "ast/nodes/ast_cmd.h"
+#include "ast/nodes/ast_cmd_sub.h"
+
+void				ast_cmd_sub_del(t_ast_cmd_sub *this)
+{
+	free(this);
+}

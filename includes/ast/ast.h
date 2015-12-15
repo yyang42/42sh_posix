@@ -19,7 +19,7 @@
 # include "ast/nodes/ast_list.h"
 # include "ast/nodes/ast_if.h"
 # include "ast/nodes/ast_cmd.h"
-# include "ast/nodes/ast_string.h"
+# include "ast/nodes/ast_cmd_field.h"
 # include "ast/nodes/ast_node.h"
 
 typedef struct		s_ast

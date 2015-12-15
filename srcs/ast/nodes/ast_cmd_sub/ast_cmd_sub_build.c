@@ -10,16 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "twl_xstdlib.h"
+#include <stdlib.h>
 
-#include "ast/nodes/ast_string.h"
+#include "utils.h"
+#include "ast/nodes/ast_cmd_sub.h"
 
-t_ast_string				*ast_string_new(char *text)
+t_ast_cmd_sub	*ast_cmd_sub_build(char *str, int *len_ptr)
 {
-	t_ast_string	*this;
+	t_ast_cmd_sub	*ast_cmd_sub;
 
-	this = twl_malloc_x0(sizeof(t_ast_string));
-	this->type = AST_STRING;
-	this->text = twl_strdup(text);
-	return (this);
+	ast_cmd_sub = ast_cmd_sub_new();
+	ast_cmd_sub->list = ast_list_build(str, len_ptr);
+	increment_len(len_ptr, twl_strlen(str));
+	return (ast_cmd_sub);
 }

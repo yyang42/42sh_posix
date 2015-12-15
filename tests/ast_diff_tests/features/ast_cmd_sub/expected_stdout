@@ -1,0 +1,20 @@
+AST_LIST
+  AST_CMD
+    <fields>
+      AST_CMD_FIELD
+        AST_STRING "echo"
+      AST_CMD_FIELD
+        AST_STRING "111"
+      AST_CMD_FIELD
+        AST_STRING "aa"
+        AST_CMD_SUB
+          AST_LIST
+            AST_CMD
+              <fields>
+                AST_CMD_FIELD
+                  AST_STRING "echo"
+                AST_CMD_FIELD
+                  AST_STRING "bb"
+        AST_STRING "cc"
+      AST_CMD_FIELD
+        AST_STRING "222"

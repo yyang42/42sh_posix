@@ -10,16 +10,32 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "twl_xstdlib.h"
+#include <stdlib.h>
 
-#include "ast/nodes/ast_string.h"
+#include "utils.h"
+#include "ast/nodes/ast_cmd_field.h"
 
-t_ast_string				*ast_string_new(char *text)
+t_ast_cmd_field	*ast_cmd_field_build(char *str, int *len_ptr)
 {
-	t_ast_string	*this;
+	t_ast_cmd_field	*ast_cmd_field;
+	t_lst			*segs;
+	char			*new_str;
 
-	this = twl_malloc_x0(sizeof(t_ast_string));
-	this->type = AST_STRING;
-	this->text = twl_strdup(text);
-	return (this);
+	new_str = twl_strtrim_chars(str, "\"");
+	ast_cmd_field = ast_cmd_field_new();
+	if (twl_strstr(new_str, "`"))
+	{
+		segs = twl_str_split_to_lst(new_str, "`");
+		twl_lst_push(ast_cmd_field->items, ast_string_new(twl_lst_get(segs, 0)));
+		twl_lst_push(ast_cmd_field->items, ast_cmd_sub_build(twl_lst_get(segs, 1), NULL));
+		twl_lst_push(ast_cmd_field->items, ast_string_new(twl_lst_get(segs, 2)));
+		twl_lst_del(segs, free);
+	}
+	else
+	{
+		twl_lst_push(ast_cmd_field->items, ast_string_new(str));
+	}
+	free(new_str);
+	increment_len(len_ptr, twl_strlen(str));
+	return (ast_cmd_field);
 }

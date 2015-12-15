@@ -1,9 +1,13 @@
-AST_COMPOUND
+AST_LIST
   AST_CMD
-    <strings>
-      AST_STRING "echo"
-      AST_STRING "123"
+    <fields>
+      AST_CMD_FIELD
+        AST_STRING "echo"
+      AST_CMD_FIELD
+        AST_STRING "123"
   AST_CMD
-    <strings>
-      AST_STRING "echo"
-      AST_STRING "abc"
+    <fields>
+      AST_CMD_FIELD
+        AST_STRING "echo"
+      AST_CMD_FIELD
+        AST_STRING "abc"

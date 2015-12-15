@@ -1,15 +1,21 @@
-AST_COMPOUND
+AST_LIST
   AST_ANDOR 'or'
     AST_ANDOR 'and'
       AST_CMD
-        <strings>
-          AST_STRING "echo"
-          AST_STRING "aaa"
+        <fields>
+          AST_CMD_FIELD
+            AST_STRING "echo"
+          AST_CMD_FIELD
+            AST_STRING "aaa"
       AST_CMD
-        <strings>
-          AST_STRING "echo"
-          AST_STRING "bbb"
+        <fields>
+          AST_CMD_FIELD
+            AST_STRING "echo"
+          AST_CMD_FIELD
+            AST_STRING "bbb"
     AST_CMD
-      <strings>
-        AST_STRING "echo"
-        AST_STRING "ccc"
+      <fields>
+        AST_CMD_FIELD
+          AST_STRING "echo"
+        AST_CMD_FIELD
+          AST_STRING "ccc"

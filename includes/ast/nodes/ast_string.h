@@ -15,6 +15,7 @@
 
 # include "basics.h"
 
+# include "ast/ast_defines.h"
 # include "ast/nodes/ast_node.h"
 
 typedef struct		s_ast_string

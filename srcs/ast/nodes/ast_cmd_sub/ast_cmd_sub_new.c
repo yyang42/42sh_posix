@@ -12,14 +12,14 @@
 
 #include "twl_xstdlib.h"
 
-#include "ast/nodes/ast_string.h"
+#include "ast/nodes/ast_cmd_sub.h"
 
-t_ast_string				*ast_string_new(char *text)
+t_ast_cmd_sub			*ast_cmd_sub_new(void)
 {
-	t_ast_string	*this;
+	t_ast_cmd_sub		*this;
 
-	this = twl_malloc_x0(sizeof(t_ast_string));
-	this->type = AST_STRING;
-	this->text = twl_strdup(text);
+	this = twl_malloc_x0(sizeof(t_ast_cmd_sub));
+	this->type = AST_CMD_SUB;
+	this->list = NULL;
 	return (this);
 }
