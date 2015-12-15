@@ -17,6 +17,8 @@
 # include "twl_dict.h"
 # include "twl_ctype.h"
 # include "pattern.h"
+# include <dirent.h>
+# include <sys/stat.h>
 
 typedef struct		s_class_expr
 {
