@@ -80,7 +80,7 @@ re:
 check: check_unit
 
 check_libtowel:
-	make -C $(LIB_TOWEL_PATH) check 
+	make -C $(LIB_TOWEL_PATH) check
 
 check_unit:
 	make -C tests/unit
@@ -95,7 +95,7 @@ norm:
 	find srcs includes -name "*.h" -o -name "*.c" -follow | xargs norminette
 
 valgrind:
-	valgrind --leak-check=full ./$(NAME) $(args)
+	./tools/valgrind.sh
 
 log:
 	touch $(DEBUG_FILE_NAME)

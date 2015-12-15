@@ -17,10 +17,10 @@ int main()
 	t_mt	*mt = mt_create("libft");
 
 	setbuf(stdout, NULL);
-	setlocale(LC_ALL, "en_US.UTF-8");
 
 	ADD_TESTS
 
 	int exit_code = mt_exec(mt);
+	// mt_del(mt);
 	return(exit_code);
 }
