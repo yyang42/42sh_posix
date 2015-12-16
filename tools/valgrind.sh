@@ -15,7 +15,7 @@ cat $LOGFILE
 
 error=0
 
-if cat $LOGFILE | grep -q "definitely lost: 0 bytes in 0 blocks"
+if grep -q "definitely lost: 0 bytes in 0 blocks" $LOGFILE || grep -q "in use at exit: 0 bytes in 0 blocks" $LOGFILE
 then
 	echo $C_GREEN"=== Leaks test success   ==="$C_CLEAR
 else
