@@ -64,6 +64,7 @@ int			cd_with_env(char *str, t_environment *this)
 	t_opt				*opt;
 	char				**args;
 	char				*dirname;
+	char				*old_dirname;
 
 	dirname = NULL;
 	no_symlinks = 0;
@@ -80,7 +81,11 @@ int			cd_with_env(char *str, t_environment *this)
 			return (free_all(dirname, args, opt));
 	}
 	if (dirname && dirname[0] != '/' && !no_symlinks)
+	{
+		old_dirname = dirname;
 		dirname = join_pwd_to_path(dirname);
+		free(old_dirname);
+	}
 	execute_cd(dirname, no_symlinks, this);
 	return (free_all(dirname, args, opt));
 }

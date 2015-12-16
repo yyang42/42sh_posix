@@ -34,5 +34,6 @@ t_environment			*environment_new(void)
 	this->flags = twl_lst_new();
 	this->flag_verbose = NULL;
 	this->shell_func = NULL;
+	this->info.name = NULL;
 	return (this);
 }

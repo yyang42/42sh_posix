@@ -27,6 +27,7 @@ static void			clear_environment(void *data)
 {
 	twl_strdel(&((t_environment_var *)data)->key);
 	twl_strdel(&((t_environment_var *)data)->value);
+	free(data);
 }
 
 void				environment_unsetenv(t_environment *this, char *key)
