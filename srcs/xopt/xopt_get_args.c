@@ -18,5 +18,5 @@ t_lst				*xopt_get_args(t_xopt *xopt)
 	if (xopt && xopt->opt)
 		return (xopt->opt->args);
 	else
-		return (twl_lst_new());
+		return (NULL);
 }
