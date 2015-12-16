@@ -36,6 +36,7 @@ void				environment_setenv_or_setlocal__(t_environment *this,
 			else
 				twl_lst_push(this->env_vars, environment_var_new(key, value,
 					type, temp != NULL));
+			free(key);
 			return ;
 		}
 		free(key);

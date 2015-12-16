@@ -1,7 +1,7 @@
 .tmp
 
 /42sh
-/.debug.out
+.debug.out
 /tests/unit/test.out.dSYM/Contents/Info.plist
 /tests/unit/test.out.dSYM/Contents/Resources/DWARF/test.out
 /.DS_store

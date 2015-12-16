@@ -34,5 +34,9 @@ t_environment		*environment_clone(t_environment *this)
 	// @TODO
 	// clone->flag_verbose = twl_lst_copy(this->env_vars, copy_dict);
 	// clone->shell_func = twl_lst_copy(this->env_vars, copy_dict);
+	clone->pos_params = twl_lst_new();
+	clone->flags = twl_lst_new();
+	clone->flag_verbose = NULL;
+	clone->shell_func = NULL;
 	return (clone);
 }
