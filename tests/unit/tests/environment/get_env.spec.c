@@ -117,6 +117,7 @@ static void test_get_paths(t_test *test)
 	mt_assert(twl_strcmp(fpaths, paths) == 0);
 	environment_del(env);
 	twl_arr_del(path_arr, free);
+	free(paths);
 }
 
 void	suite_get_env(t_suite *suite)

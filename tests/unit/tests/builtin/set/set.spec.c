@@ -31,12 +31,15 @@ static void test_unset_flag(t_test *test)
     test_set("set +x", env);
     flags = environment_concat_flags(env);
     mt_assert(twl_strcmp(flags, "ab") == 0);
+    free(flags);
     test_set("set +b", env);
     flags = environment_concat_flags(env);
     mt_assert(twl_strcmp(flags, "a") == 0);
+    free(flags);
     test_set("set +a", env);
     flags = environment_concat_flags(env);
     mt_assert(twl_strcmp(flags, "") == 0);
+    free(flags);
 	environment_del(env);
 }
 

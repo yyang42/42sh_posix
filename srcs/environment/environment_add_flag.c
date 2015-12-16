@@ -18,6 +18,6 @@ void				environment_add_flag(char *flag, t_environment *env)
 {
 	if (env && env->flags && !environment_flag_exist(env, flag))
 	{
-		twl_lst_push(env->flags, twl_opt_elem_new(flag, twl_strdup("")));
+		twl_lst_push(env->flags, twl_opt_elem_new(flag, ""));
 	}
 }
