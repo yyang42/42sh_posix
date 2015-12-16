@@ -31,9 +31,7 @@ char				*environment_getenv_value(t_environment *this, char *key)
 		errno = EINVAL;
 		return (NULL);
 	}
-	COUCOU;
 	var = (t_environment_var *)(twl_lst_find(this->env_vars,
 													find_env_key, key));
-	COUCOU;
 	return (var ? var->value : NULL);
 }
