@@ -27,7 +27,6 @@ void travel_ast_cmd(t_simple_command *cmd, void *ast_node)
 {
 	t_ast_cmd 	*ast_cmd;
 	char		*path;
-	char 		**test;
 
 	(void)cmd;
 	ast_cmd = ast_node;
