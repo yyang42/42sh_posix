@@ -1,34 +1,20 @@
 #include "simple_command.h"
 
-static void	use_builtin(t_simple_command *cmd, char *builtin, char *string)
+static char	*check_cmd_is_built_in(t_ast_cmd *ast_cmd)
 {
-	void *func;
-	void (*f)(char *str);
+	char *cmd;
 
-	func = twl_dict_get(cmd->builtin_func, builtin);
-	if (func)
-	{
-		f = func;
-		f(string);
-	}
-}
-
-static char	*check_cmd_is_built_in(void *cmd_field_)
-{
-	t_ast_cmd_field	*cmd_field;
-	t_ast_string	*string;
-
-	cmd_field = cmd_field_;
-	string = (t_ast_string*)twl_lst_first(cmd_field->items);
-	if (is_builtin(string->text))
-		return (string->text);
+	cmd = get_cmd_name_from_ast_cmd(ast_cmd);
+	if (is_builtin(cmd))
+		return (cmd);
 	else
 		return (NULL);
 }
 
 void travel_ast_cmd(t_simple_command *cmd, void *ast_node)
 {
-	t_ast_cmd *ast_cmd;
+	t_ast_cmd 	*ast_cmd;
+	char		*path;
 
 	(void)cmd;
 	ast_cmd = ast_node;
@@ -40,12 +26,7 @@ void travel_ast_cmd(t_simple_command *cmd, void *ast_node)
 	{
 
 	}
-	path = check_cmd_is_built_in(twl_lst_first(ast_cmd->strings));
-	if ( path != NULL)
-	{
-		twl_printf("%s\n", "Builtin Detected");
-		tmp = concatenate_ast_cmd(ast_cmd->strings);
-		use_builtin(cmd, path, tmp);
-		free(tmp);
-	}
+	path = check_cmd_is_built_in(ast_cmd);
+	if (path != NULL)
+		exec_simple_command_builtin(ast_cmd, cmd, path);
 }

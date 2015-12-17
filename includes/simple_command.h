@@ -37,5 +37,7 @@ bool					is_builtin(char *cmd);
 char					*get_binary_path(char *cmd);
 int						file_isexecutable(char *file);
 void					command_execution(char *path, char **args, char **env);
+void					exec_simple_command_builtin(t_ast_cmd *ast_cmd, t_simple_command *cmd, char *builtin);
+char					*get_cmd_name_from_ast_cmd(t_ast_cmd *ast_cmd);
 
 #endif
