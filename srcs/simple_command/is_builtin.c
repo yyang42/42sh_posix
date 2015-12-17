@@ -12,20 +12,26 @@
 
 #include "simple_command.h"
 
+static bool find_bultin(void *builtin_, void *cmd_)
+{
+	char	*builtin;
+	char	*cmd;
+
+	builtin = builtin_;
+	cmd = cmd_;
+	if (twl_strcmp(builtin, cmd) == 0)
+		return (true);
+	return (false);
+}
+
 bool  is_builtin(char *cmd)
 {
-	int i;
-	static const char *builtins[25] = {"echo", "cd", "env", "unsetenv",
+	static const char	*builtins[26] = {"echo", "cd", "env", "unsetenv",
 	"setenv", "alias", "unalias", "false", "true", "umask", "newgrp" ,"fc",
 	"command", "kill", "getopts", "read", "break", "colon", "continue", "return",
-	"return", "shift", "set", "unset", "export"};
+	"return", "shift", "set", "unset", "export", NULL};
 
-	i = 0;
-	while (i < 25)
-	{
-		if (twl_strcmp(cmd, builtins[i]) == 0)
-			return (true);
-		i++;
-	}
+	if (twl_arr_find(builtins, find_bultin, cmd))
+		return (true);
 	return (false);
 }

@@ -26,10 +26,11 @@ int				echo(char *str)
 		flag = check_invalid_opts(opt, "echo", ECHO_OPT_VALID_OPTS);
 	else
 	{
+		//TODO Faire un truc plus propre que +5 XD
 		if (twl_opt_get_param(opt, "n"))
-			twl_printf("%s", str);
+			twl_printf("%s", str + 5);
 		else
-			twl_printf("%s\n", str);
+			twl_printf("%s\n", str + 5);
 	}
 	twl_arr_del(arr, &free);
 	twl_opt_del(opt);
