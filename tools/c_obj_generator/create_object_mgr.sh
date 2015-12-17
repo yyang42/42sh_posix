@@ -1,3 +1,7 @@
+#!/bin/bash
+
+BASEDIR=$(dirname $0)
+
 export obj_name=$1
 export mgr_name=$obj_name"_mgr"
 export obj_plural_name=$obj_name"s"
