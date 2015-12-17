@@ -12,23 +12,23 @@
 
 #include "check_file.h"
 
-int file_exists (char *fn)
+int file_exists (char *file)
 {
 	struct stat sb;
 
-	return (stat(fn, &sb) == 0);
+	return (stat(file, &sb) == 0);
 }
 
-int file_isdir (char *fn)
+int file_isdir (char *file)
 {
 	struct stat sb;
 
-	return ((stat (fn, &sb) == 0) && S_ISDIR(sb.st_mode));
+	return ((stat (file, &sb) == 0) && S_ISDIR(sb.st_mode));
 }
 
-int	file_isexecutable(char *fn)
+int	file_isexecutable(char *file)
 {
 	struct stat sb;
 
-	return ((stat (fn, &sb) == 0) && (char)(sb.st_mode & S_IXUSR) == 'x');
+	return (stat(file, &sb) == 0 && sb.st_mode & S_IXUSR);
 }
