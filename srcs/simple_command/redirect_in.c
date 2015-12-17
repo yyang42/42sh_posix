@@ -12,7 +12,7 @@
 
 #include "simple_command.h"
 
-void 	redirect_out(int fd)
+void 	redirect_in(int fd)
 {
-	dup2(fd, 1);
+	dup2(fd, 0);
 }
