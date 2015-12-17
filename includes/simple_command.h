@@ -18,5 +18,7 @@
 
 void				travel_simple_command(void *ast_node);
 void				simple_command_entrance(t_ast *this);
+void				travel_ast_cmd(void *ast_node);
+void				concatenate_ast_cmd(t_lst *ast_nodes);
 
 #endif
