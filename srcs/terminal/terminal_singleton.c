@@ -10,22 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROG_H
-# define PROG_H
+#include "twl_xstdlib.h"
 
-# include "basics.h"
-# include "xopt.h"
-# include "environment.h"
+#include "terminal.h"
 
-typedef struct		s_prog
+t_termios			*terminal_singleton(t_termios *term)
 {
-	void			*test;
-}					t_prog;
+	static t_terminal *term_sav = NULL;
 
-t_prog				*prog_new(void);
-void				prog_del(t_prog *prog);
-void				prog_run(t_prog *prog);
-void				prog_print_ast(t_prog *prog);
-void				prog_main_loop(t_prog *prog, t_environment *env);
-
-#endif
+	if (!term_sav)
+		term_sav = terminal_new(term);
+	return (term_sav->term);
+}

@@ -10,22 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROG_H
-# define PROG_H
+#include "twl_xstdlib.h"
 
-# include "basics.h"
-# include "xopt.h"
-# include "environment.h"
+#include "terminal.h"
 
-typedef struct		s_prog
+t_terminal			*terminal_new(t_termios *term)
 {
-	void			*test;
-}					t_prog;
+	t_terminal		*this;
 
-t_prog				*prog_new(void);
-void				prog_del(t_prog *prog);
-void				prog_run(t_prog *prog);
-void				prog_print_ast(t_prog *prog);
-void				prog_main_loop(t_prog *prog, t_environment *env);
-
-#endif
+	this = twl_malloc_x0(sizeof(t_terminal));
+	this->term = term;
+	return (this);
+}

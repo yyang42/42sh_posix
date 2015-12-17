@@ -20,6 +20,7 @@ void				prog_run(t_prog *prog)
 
 	env = environment_new();
 	environment_init(env);
+	prog_main_loop(prog, env);
 	environment_del(env);
 	prog_print_ast(prog);
 	(void)prog;
