@@ -39,8 +39,7 @@ static void		exec_with_path(void *elem, void *context)
 	if (!stat(path, &sb))
 	{
 		index = arr2_indexof(env->args, env->utility);
-		env->was_executed = execute(path, &env->args[index],
-			env->env_arr);
+		command_execution(path, &env->args[index], env->env_arr);
 	}
 }
 
@@ -55,9 +54,6 @@ void			exec_env(t_env_args *env, t_environment *this)
 	else
 	{
 		index = arr2_indexof(env->args, env->utility);
-		env->was_executed = execute(env->utility, &env->args[index],
-			env->env_arr);
+		command_execution(env->utility, &env->args[index], env->env_arr);
 	}
-	if (!env->was_executed)
-		twl_dprintf(2, "env: %s: No such file or directory\n", env->utility);
 }

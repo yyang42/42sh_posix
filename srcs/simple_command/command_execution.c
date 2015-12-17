@@ -10,24 +10,37 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXECUTE_H
-# define EXECUTE_H
-# include "basics.h"
+#include "simple_command.h"
 
-# include "basics.h"
-# include <errno.h>
-# include "environment.h"
-# include "env.h"
-# include "utils.h"
-# include "twl_arr.h"
-# include "twl_opt.h"
-# include <sys/stat.h>
-# include <sys/types.h>
-# include <sys/wait.h>
-# include "twl_stdio.h"
-# include <stdio.h>
-# include <string.h>
+static void		fork_and_execute(char *path, char **args, char **env)
+{
+	int			pid;
 
-int				execute(char *path, char **args, char **env);
+	pid = fork();
+	if (pid == -1)
+		twl_dprintf(2, "cannot fork: %s", strerror(errno));
+	else if (pid == 0)
+	{
+		execve(path, args, env);
+		perror(path);
+		exit(0);
+	}
+	else
+	{
+		wait(&pid);
+		// handle_signal(pid);
+	}
+}
 
-#endif
+void			command_execution(char *path, char **args, char **env)
+{
+	if (file_exists(path))
+	{
+		if (file_isexecutable(path))
+			fork_and_execute(path, args, env);
+		else
+			twl_dprintf(2, "%s: %s: Permission denied\n", path, args[0]);
+	}
+	else
+		twl_dprintf(2, "42sh: no such file or directory: %s\n", path);
+}

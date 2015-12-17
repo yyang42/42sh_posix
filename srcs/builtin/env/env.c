@@ -30,7 +30,6 @@ static void		init_env_args(t_env_args *env, char *str)
 {
 	env->utility = NULL;
 	env->has_utility = 0;
-	env->was_executed = 0;
 	env->env_arr = NULL;
 	env->args = twl_strsplit_mul(str, " \t");
 }

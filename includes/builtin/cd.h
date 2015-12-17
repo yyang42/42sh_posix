@@ -17,7 +17,7 @@
 # include "environment.h"
 # include "twl_opt.h"
 # include "twl_opt_elem.h"
-# include "execute.h"
+# include "simple_command.h"
 # include <unistd.h>
 # include <sys/types.h>
 # include <string.h>
@@ -25,7 +25,9 @@
 # include <sys/stat.h>
 # include <errno.h>
 # include <fcntl.h>
+# include <string.h>
 # include <stdlib.h>
+# include <stdio.h>
 
 # define MAX_SIZE 4096
 

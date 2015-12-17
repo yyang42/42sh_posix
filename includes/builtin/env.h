@@ -22,7 +22,7 @@
 # include "utils.h"
 # include "twl_arr.h"
 # include "twl_opt.h"
-# include "execute.h"
+# include "simple_command.h"
 # include "environment.h"
 # include "twl_arr2.h"
 
@@ -35,7 +35,6 @@ typedef struct		s_env_args
 	char				*utility;
 	int					utility_index;
 	bool				has_utility;
-	bool				was_executed;
 }					t_env_args;
 
 int					env(char *str);

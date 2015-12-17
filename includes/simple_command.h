@@ -16,6 +16,11 @@
 # include "basics.h"
 # include "ast/ast.h"
 # include "twl_arr.h"
+# include "check_file.h"
+# include <stdlib.h>
+# include <stdio.h>
+# include <string.h>
+# include <errno.h>
 
 typedef struct				s_simple_command
 {
@@ -31,5 +36,6 @@ char					*concatenate_ast_cmd(t_lst *ast_nodes);
 bool					is_builtin(char *cmd);
 char					*get_binary_path(char *cmd);
 int						file_isexecutable(char *file);
+void					command_execution(char *path, char **args, char **env);
 
 #endif
