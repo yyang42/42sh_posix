@@ -10,17 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SIMPLE_COMMAND_H
-# define SIMPLE_COMMAND_H
+#ifndef CHECK_FILE_H
+# define CHECK_FILE_H
 
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <unistd.h>
 # include "basics.h"
-# include "ast/ast.h"
-# include "twl_arr.h"
 
-void				travel_simple_command(void *ast_node);
-void				simple_command_entrance(t_ast *this);
-void				travel_ast_cmd(void *ast_node);
-void				concatenate_ast_cmd(t_lst *ast_nodes);
-bool  				is_builtin(char *cmd);
+int			file_exists (char *fn);
+int			file_isdir (char *fn);
+int			file_isexecutable(char *fn);
 
 #endif

@@ -10,17 +10,25 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SIMPLE_COMMAND_H
-# define SIMPLE_COMMAND_H
+#include "check_file.h"
 
-# include "basics.h"
-# include "ast/ast.h"
-# include "twl_arr.h"
+int file_exists (char *fn)
+{
+	struct stat sb;
 
-void				travel_simple_command(void *ast_node);
-void				simple_command_entrance(t_ast *this);
-void				travel_ast_cmd(void *ast_node);
-void				concatenate_ast_cmd(t_lst *ast_nodes);
-bool  				is_builtin(char *cmd);
+	return (stat(fn, &sb) == 0);
+}
 
-#endif
+int file_isdir (char *fn)
+{
+	struct stat sb;
+
+	return ((stat (fn, &sb) == 0) && S_ISDIR(sb.st_mode));
+}
+
+int	file_isexecutable(char *fn)
+{
+	struct stat sb;
+
+	return ((stat (fn, &sb) == 0) && (char)(sb.st_mode & S_IXUSR) == 'x');
+}

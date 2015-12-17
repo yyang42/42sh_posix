@@ -10,17 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SIMPLE_COMMAND_H
-# define SIMPLE_COMMAND_H
+#include "simple_command.h"
+#include "environment.h"
 
-# include "basics.h"
-# include "ast/ast.h"
-# include "twl_arr.h"
+char	*get_binary_path(char *cmd)
+{
+	t_environment	*env;
+	char			**paths;
 
-void				travel_simple_command(void *ast_node);
-void				simple_command_entrance(t_ast *this);
-void				travel_ast_cmd(void *ast_node);
-void				concatenate_ast_cmd(t_lst *ast_nodes);
-bool  				is_builtin(char *cmd);
-
-#endif
+	env = environment_singleton();
+	paths = environment_get_paths(env);
+	(void)cmd;
+	return (NULL);
+}

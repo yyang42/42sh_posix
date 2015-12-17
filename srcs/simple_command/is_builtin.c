@@ -10,17 +10,22 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SIMPLE_COMMAND_H
-# define SIMPLE_COMMAND_H
+#include "simple_command.h"
 
-# include "basics.h"
-# include "ast/ast.h"
-# include "twl_arr.h"
+bool  is_builtin(char *cmd)
+{
+	int i;
+	static const char *builtins[22] = {"echo", "cd", "env", "unsetenv",
+	"setenv", "alias", "unalias", "false", "true", "umask", "newgrp" ,"fc",
+	"command", "kill", "getopts", "read", "break", "colon", "continue", "return",
+	"return", "shift"};
 
-void				travel_simple_command(void *ast_node);
-void				simple_command_entrance(t_ast *this);
-void				travel_ast_cmd(void *ast_node);
-void				concatenate_ast_cmd(t_lst *ast_nodes);
-bool  				is_builtin(char *cmd);
-
-#endif
+	i = 0;
+	while (i < 22)
+	{
+		if (twl_strcmp(cmd, builtins[i]) == 0)
+			return (true);
+		i++;
+	}
+	return (false);
+}
