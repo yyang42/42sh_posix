@@ -29,5 +29,6 @@ void					simple_command_entrance(t_simple_command *cmd, t_ast *this);
 void					travel_ast_cmd(t_simple_command *cmd, void *ast_node);
 char					*concatenate_ast_cmd(t_lst *ast_nodes);
 bool					is_builtin(char *cmd);
+char					*get_binary_path(char *cmd);
 
 #endif

@@ -11,8 +11,16 @@ static void test_is_builtin(t_test *test)
 	mt_assert(is_builtin("") == false);
 }
 
+static void test_get_binary_path(t_test *test)
+{
+	(void)test;
+	mt_assert(get_binary_path("pouet") == NULL);
+	mt_assert(get_binary_path("ls") != NULL);
+}
+
 void	suite_check_command(t_suite *suite)
 {
 	(void)suite;
 	SUITE_ADD_TEST(suite, test_is_builtin);
+	SUITE_ADD_TEST(suite, test_get_binary_path);
 }
