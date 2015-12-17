@@ -88,6 +88,9 @@ check_unit:
 check_ast:
 	sh tests/ast_diff_tests/ast_diff_tests.sh
 
+check_ast_leaks:
+	LEAK_TEST=1 sh tests/ast_diff_tests/ast_diff_tests.sh
+
 check_ast_last:
 	LAST_ONLY=1 sh tests/ast_diff_tests/ast_diff_tests.sh
 
