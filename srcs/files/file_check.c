@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "check_file.h"
+#include "file.h"
 
 int file_exists (char *file)
 {

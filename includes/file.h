@@ -10,22 +10,22 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "simple_command.h"
+#ifndef FILE_H
+# define FILE_H
 
-void travel_simple_command(void *ast_node,  void *cmd_)
-{
-	t_simple_command *cmd;
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <unistd.h>
+# include "basics.h"
+# include <fcntl.h>
+# include <string.h>
+# include <stdio.h>
 
-	cmd = cmd_;
-	if (ast_node_get_type(ast_node) == AST_LIST)
-	{
-		t_ast_list		*ast_list = ast_node;
-		twl_printf("%s\n", "Root Detected");
-		twl_lst_iter(ast_list->items, travel_simple_command, cmd);
-	}
-	else if (ast_node_get_type(ast_node) == AST_CMD)
-	{
-		twl_printf("%s\n", "AST CMD Detected");
-		travel_ast_cmd(cmd, ast_node);
-	}
-}
+int			file_exists (char *fn);
+int			file_isdir (char *fn);
+int			file_isexecutable(char *fn);
+int			append_to_file(char *str);
+int 		read_file(char *str);
+int			create_file(char *str);
+
+#endif

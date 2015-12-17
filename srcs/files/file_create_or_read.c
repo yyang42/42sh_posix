@@ -10,22 +10,34 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "simple_command.h"
+#include "file.h"
 
-void travel_simple_command(void *ast_node,  void *cmd_)
+int		append_to_file(char *str)
 {
-	t_simple_command *cmd;
+	int fd;
 
-	cmd = cmd_;
-	if (ast_node_get_type(ast_node) == AST_LIST)
-	{
-		t_ast_list		*ast_list = ast_node;
-		twl_printf("%s\n", "Root Detected");
-		twl_lst_iter(ast_list->items, travel_simple_command, cmd);
-	}
-	else if (ast_node_get_type(ast_node) == AST_CMD)
-	{
-		twl_printf("%s\n", "AST CMD Detected");
-		travel_ast_cmd(cmd, ast_node);
-	}
+	fd = open(str, O_CREAT | O_RDWR | O_APPEND, 0666);
+	if (fd == -1)
+		perror(str);
+	return (fd);
+}
+
+int 	read_file(char *str)
+{
+	int fd;
+
+	fd = open(str, O_RDONLY, 0666);
+	if (fd == -1)
+		perror(str);
+	return (fd);
+}
+
+int		create_file(char *str)
+{
+	int fd;
+
+	fd = open(str, O_RDWR | O_TRUNC, 0666);
+	if (fd == -1)
+		perror(str);
+	return (fd);
 }
