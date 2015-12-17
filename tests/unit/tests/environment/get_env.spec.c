@@ -1,5 +1,7 @@
 #include <project.h>
 
+#include "twl_arr.h"
+
 #include "environment.h"
 
 extern char	**environ;
@@ -25,6 +27,7 @@ static void copied_env_is_equal_to_environ(t_test *test)
 		mt_assert(twl_strcmp(environ[i], str) == 0);
 		i++;
 		temp = temp->next;
+		free(str);
 	}
 	environment_del(env);
 }
@@ -95,6 +98,7 @@ static void	test_clone(t_test *test)
 	mt_assert(twl_strcmp(environment_getenv_value(clone, "quiche"), "lorraine") == 0);
 	mt_assert(environment_getenv_value(clone, "tarte") == NULL);
 	environment_del(env);
+	environment_del(clone);
 }
 
 static void test_get_paths(t_test *test)
@@ -107,9 +111,13 @@ static void test_get_paths(t_test *test)
 	env = environment_new();
 	environment_init(env);
 	fpaths = getenv("PATH");
-	paths = twl_strjoinarr((const char **)environment_get_paths(env), ":");
+	char			**path_arr;
+	path_arr = environment_get_paths(env);
+	paths = twl_strjoinarr((const char **)path_arr, ":");
 	mt_assert(twl_strcmp(fpaths, paths) == 0);
 	environment_del(env);
+	twl_arr_del(path_arr, free);
+	free(paths);
 }
 
 void	suite_get_env(t_suite *suite)

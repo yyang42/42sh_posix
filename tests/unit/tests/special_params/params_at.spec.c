@@ -14,6 +14,7 @@ static void simple_test(t_test *test)
 	environment_init(env);
 	ret = test_params_at(env);
 	mt_assert(twl_strcmp(ret,"") == 0);
+	free(ret);
 	test_set("set lol", env);
 	ret = test_params_at(env);
 	mt_assert(twl_strcmp(ret,"lol") == 0);

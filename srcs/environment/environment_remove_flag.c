@@ -32,6 +32,7 @@ static void			free_opt(void *data)
 		free(elem->key);
 	if (elem->value)
 		free(elem->value);
+	free(data);
 }
 
 void				environment_remove_flag(char *flag, t_environment *env)

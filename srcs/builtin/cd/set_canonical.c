@@ -54,6 +54,7 @@ static char		*remove_dots(char *path)
 	list = handle_dot_dot(list);
 	twl_lst_remove_if(list, filter_fn, "..", free);
 	new_path = twl_strjoinlst(list, "/");
+	twl_lst_del(list, free);
 	return (twl_strjoinfree("/", new_path, 'r'));
 }
 

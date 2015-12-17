@@ -10,6 +10,7 @@ static void simple_without_quote(t_test *test)
 	mt_assert(strcmp(twl_lst_get(segs, 0), "aaa") == 0);
 	mt_assert(strcmp(twl_lst_get(segs, 1), "123") == 0);
 	mt_assert(strcmp(twl_lst_get(segs, 2), "bbb") == 0);
+	twl_lst_del(segs, free);
 }
 
 static void simple_str_with_double_quote(t_test *test)
@@ -22,6 +23,7 @@ static void simple_str_with_double_quote(t_test *test)
 	mt_assert(strcmp(twl_lst_get(segs, 0), "aaa") == 0);
 	mt_assert(strcmp(twl_lst_get(segs, 1), "\"1 2\"") == 0);
 	mt_assert(strcmp(twl_lst_get(segs, 2), "bbb") == 0);
+	twl_lst_del(segs, free);
 }
 
 static void simple_str_with_escaped_quote(t_test *test)
@@ -34,6 +36,7 @@ static void simple_str_with_escaped_quote(t_test *test)
 	mt_assert(strcmp(twl_lst_get(segs, 0), "aaa") == 0);
 	mt_assert(strcmp(twl_lst_get(segs, 1), "1\\\"2") == 0);
 	mt_assert(strcmp(twl_lst_get(segs, 2), "bbb") == 0);
+	twl_lst_del(segs, free);
 }
 
 static void simple_str_with_escaped_quote_inside_quote(t_test *test)
@@ -46,6 +49,7 @@ static void simple_str_with_escaped_quote_inside_quote(t_test *test)
 	mt_assert(strcmp(twl_lst_get(segs, 0), "aaa") == 0);
 	mt_assert(strcmp(twl_lst_get(segs, 1), "\"1\\\" 2\"") == 0);
 	mt_assert(strcmp(twl_lst_get(segs, 2), "bbb") == 0);
+	twl_lst_del(segs, free);
 }
 
 static void empty_string(t_test *test)
@@ -56,6 +60,7 @@ static void empty_string(t_test *test)
 	// twl_lst_putstr(segs, "\n");
 	// printf("\n");
 	mt_assert(twl_lst_len(segs) == 0);
+	twl_lst_del(segs, free);
 }
 
 static void only_space_string(t_test *test)
@@ -64,6 +69,7 @@ static void only_space_string(t_test *test)
 
 	segs = str_split_except_quote("  ");
 	mt_assert(twl_lst_len(segs) == 0);
+	twl_lst_del(segs, free);
 }
 
 static void quote_at_the_begining(t_test *test)
@@ -75,6 +81,7 @@ static void quote_at_the_begining(t_test *test)
 	segs = str_split_except_quote(str);
 	mt_assert(twl_lst_len(segs) == 1);
 	mt_assert(strcmp(twl_lst_get(segs, 0), "\"123\"") == 0);
+	twl_lst_del(segs, free);
 }
 
 static void slash_alone(t_test *test)
@@ -88,6 +95,7 @@ static void slash_alone(t_test *test)
 	// printf("len %zu\n", twl_lst_len(segs));
 	mt_assert(twl_lst_len(segs) == 1);
 	mt_assert(strcmp(twl_lst_get(segs, 0), "\\") == 0);
+	twl_lst_del(segs, free);
 }
 
 static void normal_tokens_with_quote_tokens(t_test *test)
@@ -102,6 +110,7 @@ static void normal_tokens_with_quote_tokens(t_test *test)
 	// printf("len %zu\n", twl_lst_len(segs));
 	mt_assert(twl_lst_len(segs) == 1);
 	mt_assert(strcmp(twl_lst_get(segs, 0), "aa\"bb cc\"dd") == 0);
+	twl_lst_del(segs, free);
 }
 
 
@@ -117,6 +126,7 @@ static void double_slash_alone(t_test *test)
 	// printf("len %zu\n", twl_lst_len(segs));
 	mt_assert(twl_lst_len(segs) == 1);
 	mt_assert(strcmp(twl_lst_get(segs, 0), "\\\\\"a b\\\\\"") == 0);
+	twl_lst_del(segs, free);
 }
 
 void	suite_str_split_except_quote(t_suite *suite)

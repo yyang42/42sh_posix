@@ -18,5 +18,6 @@ t_xopt				*xopt_new(void)
 
 	xopt = twl_malloc_x0(sizeof(t_xopt));
 	xopt->print_ast = false;
+	xopt->opt = NULL;
 	return (xopt);
 }

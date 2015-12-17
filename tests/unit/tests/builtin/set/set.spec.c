@@ -17,6 +17,7 @@ static void     test_set_flag(t_test *test)
     flags = environment_concat_flags(env);
     mt_assert(twl_strcmp(flags, "xab") == 0);
 	environment_del(env);
+	free(flags);
 }
 
 static void test_unset_flag(t_test *test)
@@ -31,12 +32,15 @@ static void test_unset_flag(t_test *test)
     test_set("set +x", env);
     flags = environment_concat_flags(env);
     mt_assert(twl_strcmp(flags, "ab") == 0);
+    free(flags);
     test_set("set +b", env);
     flags = environment_concat_flags(env);
     mt_assert(twl_strcmp(flags, "a") == 0);
+    free(flags);
     test_set("set +a", env);
     flags = environment_concat_flags(env);
     mt_assert(twl_strcmp(flags, "") == 0);
+    free(flags);
 	environment_del(env);
 }
 
@@ -66,6 +70,7 @@ static void 	test_set_verbose(t_test *test)
 	flags = environment_concat_flags(env);
 	mt_assert(twl_strcmp(flags, "eun") == 0);
 	environment_del(env);
+	free(flags);
 }
 
 static void 	test_unset_verbose(t_test *test)
@@ -83,6 +88,7 @@ static void 	test_unset_verbose(t_test *test)
 	flags = environment_concat_flags(env);
 	mt_assert(twl_strcmp(flags, "en") == 0);
 	environment_del(env);
+	free(flags);
 }
 
 static void 	test_set_pos_param(t_test *test)
@@ -114,6 +120,7 @@ static void 	test_set_hyphen(t_test *test)
 	flags = environment_concat_flags(env);
 	mt_assert(twl_strcmp(flags, "e") == 0);
 	environment_del(env);
+	free(flags);
 }
 
 
