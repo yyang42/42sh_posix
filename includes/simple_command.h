@@ -17,10 +17,17 @@
 # include "ast/ast.h"
 # include "twl_arr.h"
 
-void				travel_simple_command(void *ast_node);
-void				simple_command_entrance(t_ast *this);
-void				travel_ast_cmd(void *ast_node);
-void				concatenate_ast_cmd(t_lst *ast_nodes);
-bool  				is_builtin(char *cmd);
+typedef struct				s_simple_command
+{
+	t_dict				*builtin_func;
+}						t_simple_command;
+
+t_simple_command		*simple_command_new(void);
+void					simple_command_del(t_simple_command *sc);
+void					travel_simple_command(void *ast_node,  void *cmd);
+void					simple_command_entrance(t_simple_command *cmd, t_ast *this);
+void					travel_ast_cmd(t_simple_command *cmd, void *ast_node);
+char					*concatenate_ast_cmd(t_lst *ast_nodes);
+bool					is_builtin(char *cmd);
 
 #endif

@@ -15,13 +15,13 @@
 bool  is_builtin(char *cmd)
 {
 	int i;
-	static const char *builtins[22] = {"echo", "cd", "env", "unsetenv",
+	static const char *builtins[25] = {"echo", "cd", "env", "unsetenv",
 	"setenv", "alias", "unalias", "false", "true", "umask", "newgrp" ,"fc",
 	"command", "kill", "getopts", "read", "break", "colon", "continue", "return",
-	"return", "shift"};
+	"return", "shift", "set", "unset", "export"};
 
 	i = 0;
-	while (i < 22)
+	while (i < 25)
 	{
 		if (twl_strcmp(cmd, builtins[i]) == 0)
 			return (true);
