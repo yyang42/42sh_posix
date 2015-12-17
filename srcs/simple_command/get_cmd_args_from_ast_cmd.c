@@ -11,35 +11,32 @@
 /* ************************************************************************** */
 
 #include "simple_command.h"
+#include "twl_arr.h"
 
-static char	*check_cmd_is_built_in(t_ast_cmd *ast_cmd)
+static void travel_ast_string(void *ast_node, void *ret)
 {
-	char *cmd;
+	t_ast_string	*string;
+	char			**arr;
 
-	cmd = get_cmd_name_from_ast_cmd(ast_cmd);
-	if (is_builtin(cmd))
-		return (cmd);
-	else
-		return (NULL);
+	string = ast_node;
+	arr = ret;
+	twl_arr_push(arr, twl_strdup(string->text));
 }
 
-void travel_ast_cmd(t_simple_command *cmd, void *ast_node)
+
+static void travel_ast_cmd_field(void *ast_node, void *args)
 {
-	t_ast_cmd 	*ast_cmd;
-	char		*path;
-	char 		**test;
+	t_ast_cmd_field *cmd_field;
 
-	(void)cmd;
-	ast_cmd = ast_node;
-	if (ast_cmd->redir_in != NULL)
-	{
+	cmd_field = ast_node;
+	twl_lst_iter(cmd_field->items, travel_ast_string, args);
+}
 
-	}
-	if (ast_cmd->redir_out != NULL)
-	{
+char  **get_cmd_args_from_ast_cmd(t_ast_cmd *ast_cmd)
+{
+	char			**args;
 
-	}
-	path = check_cmd_is_built_in(ast_cmd);
-	if (path != NULL)
-		exec_simple_command_builtin(ast_cmd, cmd, path);
+	args = twl_arr_new(twl_lst_len(ast_cmd->strings));
+	twl_lst_iter(ast_cmd->strings, travel_ast_cmd_field, args);
+	return (args);
 }
