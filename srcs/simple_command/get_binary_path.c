@@ -29,8 +29,7 @@ char		*get_binary_path(char *cmd)
 	env = environment_singleton();
 	paths = environment_get_paths(env);
 	if (cmd && (cmd[0] == '/' || twl_strncmp(cmd, "./", 2) == 0))
-		if (!file_exists(cmd))
-			return (NULL);
+		return (!file_exists(cmd) ? NULL : cmd);
 	i = -1;
 	while (paths[++i])
 	{
