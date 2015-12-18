@@ -12,12 +12,6 @@
 
 #include "patmatch.h"
 
-static void			del_class_expr(t_class_expr *to_del)
-{
-	free(to_del->match);
-	free(to_del);
-}
-
 static void			del_dict(void *key_, void *class_expr_)
 {
 	char			*key;
@@ -25,7 +19,7 @@ static void			del_dict(void *key_, void *class_expr_)
 
 	key = key_;
 	class_expr = class_expr_;
-	twl_dict_delone(class_expr, key, &del_class_expr);
+	twl_dict_delone(class_expr, key, &free);
 }
 
 void				patmatch_del_class_expr_(t_patmatch *this)

@@ -20,15 +20,10 @@
 # include <dirent.h>
 # include <sys/stat.h>
 
-typedef struct		s_class_expr
-{
-	char			*match;
-	size_t			size;
-}					t_class_expr;
-
 typedef struct		s_patmatch
 {
 	t_pattern		*pattern;
+	t_lst			*match;
 	t_dict			*class_expr;
 }					t_patmatch;
 
@@ -38,10 +33,6 @@ void				patmatch_del(t_patmatch *this);
 void				patmatch_build_class_expr_(t_patmatch *this);
 void				patmatch_del_class_expr_(t_patmatch *this);
 
-void				patmatch_build_pattern_str_(t_patmatch *this,
-																char *pattern);
-void				patmatch_del_pattern_str_(t_patmatch *this);
-
-char				*patmatch_match(t_patmatch *this, char *pattern);
+char				**patmatch_match(t_patmatch *this, char *pattern);
 
 #endif

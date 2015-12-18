@@ -6,36 +6,35 @@
 /*   By: chuck <chuck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2042/02/30 42:00:00 by chuck             #+#    #+#             */
-/*   Updated: 2042/02/30 42:59:59 by chuck            ###   ########.fr       */
+/*   Updated: 2042/02/30 41:59:59 by chuck            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "patmatch.h"
 
-static t_class_expr	*build_class_expr(int (*func)(int))
+static char		*build_class_expr(int (*func)(int))
 {
-	unsigned char	expr[128];
-	t_class_expr	*ret;
-	int				index;
+	char	expr[128];
+	char	*ret;
+	int		i;
+	int		j;
 
-	ret = (t_class_expr *)malloc(sizeof(t_class_expr));
-	ret->size = 0;
-	index = 0;
-	while (index < 128)
+	i = 1;
+	j = 0;
+	while (i < 128)
 	{
-		if (func(index))
+		if (func(i))
 		{
-			expr[ret->size] = index;
-			ret->size += 1;
+			expr[j] = i;
+			j += 1;
 		}
-		index += 1;
+		i += 1;
 	}
-	ret->size -= 1;
-	ret->match = twl_memdup(expr, ret->size);
+	ret = twl_strdup(expr);
 	return (ret);
 }
 
-void				patmatch_build_class_expr_(t_patmatch *this)
+void			patmatch_build_class_expr_(t_patmatch *this)
 {
 	this->class_expr = twl_dict_new();
 	twl_dict_add(this->class_expr, "[:alnum:]", build_class_expr(twl_isalnum));
