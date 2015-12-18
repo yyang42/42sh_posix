@@ -20,6 +20,31 @@
 # include <dirent.h>
 # include <sys/stat.h>
 
+typedef struct		s_match__
+{
+	t_lst			*pattern;
+	char			*name;
+	int				ind_p;
+	int				ind_n;
+	int				len;
+}					t_match__;
+
+typedef struct		s_matching_
+{
+	DIR				*fd_dir;
+	char			*building;
+	t_lst			*pattern;
+	int				depth;
+}					t_matching_;
+
+typedef struct		s_class_expr__
+{
+	char			*name;
+	char			expr[128];
+	int				ind_n;
+	int				ind_e;
+}					t_class_expr__
+
 typedef struct		s_patmatch
 {
 	t_pattern		*pattern;
@@ -32,7 +57,10 @@ void				patmatch_del(t_patmatch *this);
 
 void				patmatch_build_class_expr_(t_patmatch *this);
 void				patmatch_del_class_expr_(t_patmatch *this);
+void				patmatch_add_class_expr_(t_patmatch *this, char *content);
 
 char				**patmatch_match(t_patmatch *this, char *pattern);
+
+int					match_supervisor(t_patmatch *this, t_match__ *m);
 
 #endif

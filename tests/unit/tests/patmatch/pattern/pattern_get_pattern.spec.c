@@ -43,9 +43,31 @@ static void	test_hardle(t_test *test)
 	PATTERN_TEST("/////u*r/////b[[:lower:]]n/////l?", 2, 1, "?");
 }
 
+static void	test_bracle(t_test *test)
+{
+	PATTERN_TEST("Makefil[aze", 0, 0, "Makefil[aze");
+	PATTERN_TEST("Makefil[az/e]", 0, 0, "Makefil[az");
+	PATTERN_TEST("Makefil[az/e]", 1, 0, "e]");
+	PATTERN_TEST("Makefil[aze[:digit:]", 0, 0, "Makefil[aze[:digit:]");
+	PATTERN_TEST("Makefil[aze[digit:]", 0, 0, "Makefil");
+	PATTERN_TEST("Makefil[aze[digit:]", 0, 1, "[aze[digit:]");
+	PATTERN_TEST("Makefil[aze[:digit]", 0, 0, "Makefil[aze[:digit]");
+	PATTERN_TEST("Makefil[aze[.t]", 0, 0, "Makefil[aze[.t]");
+	PATTERN_TEST("Makefil[aze[=t]", 0, 0, "Makefil[aze[=t]");
+	PATTERN_TEST("Makefil[aze[:digit:][.a.][=b=]azw]", 0, 0, "Makefil");
+	PATTERN_TEST("Makefil[aze[:digit:][.a.][=b=]azw]", 0, 1, "[aze[:digit:][.a.][=b=]azw]");
+	PATTERN_TEST("a[b[.[:[=b=]:].]b]c", 0, 0, "a");
+	PATTERN_TEST("a[b[.[:[=b=]:].]b]c", 0, 1, "[b[.[:[=b=]:].]b]");
+	PATTERN_TEST("a[b[.[:[=b=]:].]b]c", 0, 2, "c");
+	PATTERN_TEST("a[b[.[:[=b.]:]=]b]c", 0, 0, "a");
+	PATTERN_TEST("a[b[.[:[=b.]:]=]b]c", 0, 1, "[b[.[:[=b.]:]=]b]");
+	PATTERN_TEST("a[b[.[:[=b.]:]=]b]c", 0, 2, "c");
+}
+
 void		suite_pattern_get_pattern(t_suite *suite)
 {
 	SUITE_ADD_TEST(suite, test_simple);
 	SUITE_ADD_TEST(suite, test_middle);
 	SUITE_ADD_TEST(suite, test_hardle);
+	SUITE_ADD_TEST(suite, test_bracle);
 }

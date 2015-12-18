@@ -36,7 +36,7 @@ static void			bracket_close(t_pattern *this, int *index,
 	else if (this->pattern[*index - 1] == '=')
 		brack->flag = (brack->flag & 4) ? (brack->flag & ~4) : -1;
 	else
-		brack->flag = -1;
+		brack->flag = (brack->flag != 0) ? -2 : -1;
 	brack->save[brack->index] = this->pattern[*index];
 	brack->index += 1;
 	*index += 1;
@@ -59,7 +59,8 @@ static void			bracket_normal_char(t_pattern *this, int *index,
 static void			bracket_finish_it(t_pattern *this, int *index,
 													t_pattern_bracket_ *brack)
 {
-	if (brack->save[brack->index - 1] == '/')
+	if (brack->save[brack->index - 1] == '/' ||
+			brack->flag != -1)
 	{
 		twl_strcat(this->to_push_->split, brack->save);
 		this->itp_ += brack->index;
@@ -87,7 +88,7 @@ void				pattern_build_bracket_(t_pattern *this)
 	brack.index = 1;
 	brack.save[0] = '[';
 	index = this->index + 1;
-	while (this->pattern[index] && brack.flag != -1)
+	while (this->pattern[index] && brack.flag >= 0)
 	{
 		if (this->pattern[index] == '[')
 			bracket_open(this, &index, &brack);
