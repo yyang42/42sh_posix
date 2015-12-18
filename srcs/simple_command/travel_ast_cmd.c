@@ -39,6 +39,8 @@ static char *can_use_binary(t_ast_cmd *ast)
 				return (binary_path);
 			}
 		}
+		else
+			error_file_not_found(binary);
 	}
 	return (NULL);
 }
@@ -48,7 +50,6 @@ void travel_ast_cmd(t_simple_command *cmd, void *ast_node)
 	t_ast_cmd 	*ast_cmd;
 	char		*path;
 
-	(void)cmd;
 	ast_cmd = ast_node;
 	path = check_cmd_is_built_in(ast_cmd);
 	if (path)
