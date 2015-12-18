@@ -10,17 +10,26 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#include "ast/nodes/ast_list.h"
 
-# include "twl_lst.h"
+static void			build(t_ast_list *list, t_parser *parser)
+{
+	(void)list;
+	(void)parser;
+}
 
-# include "basics.h"
+t_ast_list			*ast_list_build2(t_parser *parser)
+{
+	t_ast_list	*list;
 
-int					demo_sum(int num1, int num2);
-t_lst				*str_split_except_quote(char *str);
-void				increment_len(int *len_ptr, int len);
-char				*get_prompt(void);
-char				*build_ast_line(int depth, char *s1, char *s2);
+	list = ast_list_new();
 
-#endif
+	while (true)
+	{
+		build(list, parser);
+		if (parser_cchar(parser) != ';')
+			break ;
+	}
+	(void)parser;
+	return (list);
+}

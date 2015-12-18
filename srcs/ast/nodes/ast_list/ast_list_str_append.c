@@ -10,17 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#include "ast/nodes/ast_list.h"
 
-# include "twl_lst.h"
+static void			iter_andor_fn(void *andor, void *lines, void *depth)
+{
+	twl_lst_push(lines, build_ast_line(*(int *)depth, "ANDOR", ""));
+	(void)andor;
+}
 
-# include "basics.h"
-
-int					demo_sum(int num1, int num2);
-t_lst				*str_split_except_quote(char *str);
-void				increment_len(int *len_ptr, int len);
-char				*get_prompt(void);
-char				*build_ast_line(int depth, char *s1, char *s2);
-
-#endif
+void				ast_list_str_append(t_ast_list *this, t_lst *lines,
+																int *depth)
+{
+	twl_lst_push(lines, build_ast_line(*depth, "LIST", ""));
+	twl_lst_iter2(this->andors, iter_andor_fn, lines, depth);
+	(void)this;
+	(void)depth;
+}

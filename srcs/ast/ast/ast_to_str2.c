@@ -10,17 +10,26 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#include <stdlib.h>
 
-# include "twl_lst.h"
+#include "ast/ast.h"
 
-# include "basics.h"
+#include "ast/nodes/ast_node.h"
+#include "ast/nodes/ast_if.h"
+#include "ast/nodes/ast_cmd_field.h"
+#include "ast/nodes/ast_pipe.h"
+#include "ast/nodes/ast_andor.h"
+#include "ast/nodes/ast_cmd_sub.h"
 
-int					demo_sum(int num1, int num2);
-t_lst				*str_split_except_quote(char *str);
-void				increment_len(int *len_ptr, int len);
-char				*get_prompt(void);
-char				*build_ast_line(int depth, char *s1, char *s2);
+char				*ast_to_str2(t_ast *this)
+{
+	t_lst			*lines;
+	char			*out;
+	int				depth;
 
-#endif
+	depth = 0;
+	lines = twl_lst_new();
+	ast_list_str_append(this->root, lines, &depth);
+	out = twl_lst_strjoin(lines, "");
+	return (out);
+}

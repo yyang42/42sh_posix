@@ -66,7 +66,7 @@ void				travel_rec(void *ast_node, void *lvl_ptr, void *out_list)
 	if (ast_node_get_type(ast_node) == AST_LIST)
 	{
 		t_ast_list		*ast_list = ast_node;
-		twl_lst_iter2(ast_list->items, travel_rec, &lvl, out_list);
+		twl_lst_iter2(ast_list->andors, travel_rec, &lvl, out_list);
 	}
 	else if (ast_node_get_type(ast_node) == AST_IF)
 	{

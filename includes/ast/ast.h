@@ -34,7 +34,9 @@ t_ast				*ast_new(char *input);
 void				ast_del(t_ast *this);
 
 char				*ast_to_str(t_ast *this);
+char				*ast_to_str2(t_ast *this);
 void				ast_build(t_ast *this);
+void				ast_build2(t_ast *this);
 
 /*
 

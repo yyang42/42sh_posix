@@ -15,6 +15,8 @@
 
 # include "basics.h"
 
+# include "token.h"
+
 typedef struct		s_parser
 {
 	char			*raw;
@@ -23,5 +25,7 @@ typedef struct		s_parser
 
 t_parser			*parser_new(char *str);
 void				parser_del(t_parser *this);
+
+char				parser_cchar(t_parser *this);
 
 #endif

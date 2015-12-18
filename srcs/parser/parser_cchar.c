@@ -10,17 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#include <stdlib.h>
 
-# include "twl_lst.h"
+#include "parser.h"
 
-# include "basics.h"
-
-int					demo_sum(int num1, int num2);
-t_lst				*str_split_except_quote(char *str);
-void				increment_len(int *len_ptr, int len);
-char				*get_prompt(void);
-char				*build_ast_line(int depth, char *s1, char *s2);
-
-#endif
+char				parser_cchar(t_parser *this)
+{
+	return (this->raw[this->index]);
+}

@@ -17,17 +17,24 @@
 
 # include "basics.h"
 
+# include "parser.h"
+# include "utils.h"
+
+# include "ast/ast_defines.h"
 # include "ast/nodes/ast_node.h"
 
 typedef struct		s_ast_list
 {
 	t_ast_type		type;
-	t_lst			*items;
+	t_lst			*andors;
 }					t_ast_list;
 
 t_ast_list			*ast_list_new(void);
 void				ast_list_del(t_ast_list *this);
 
 t_ast_list			*ast_list_build(char *str, int *len_ptr);
+t_ast_list			*ast_list_build2(t_parser *parser);
+void				ast_list_str_append(t_ast_list *this, t_lst *lines,
+																int *depth);
 
 #endif

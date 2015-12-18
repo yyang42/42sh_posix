@@ -10,17 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#include "ast/ast.h"
 
-# include "twl_lst.h"
+#include "twl_arr.h"
+#include "utils.h"
 
-# include "basics.h"
-
-int					demo_sum(int num1, int num2);
-t_lst				*str_split_except_quote(char *str);
-void				increment_len(int *len_ptr, int len);
-char				*get_prompt(void);
-char				*build_ast_line(int depth, char *s1, char *s2);
-
-#endif
+void				ast_build2(t_ast *ast)
+{
+	ast->root = ast_list_build2(ast->parser);
+}

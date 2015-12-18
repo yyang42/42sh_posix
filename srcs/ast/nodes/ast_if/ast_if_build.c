@@ -25,17 +25,17 @@ static void			ast_build_ast_if_parts_fn(void *str, void *ast_if_)
 	if (twl_str_starts_with(str, "if"))
 	{
 		ast_cmd = ast_cmd_build(str + twl_strlen("if"), NULL);
-		twl_lst_push(ast_if->cond->items, ast_cmd);
+		twl_lst_push(ast_if->cond->andors, ast_cmd);
 	}
 	else if (twl_str_starts_with(str, "then"))
 	{
 		ast_cmd = ast_cmd_build(str + twl_strlen("then"), NULL);
-		twl_lst_push(ast_if->body->items, ast_cmd);
+		twl_lst_push(ast_if->body->andors, ast_cmd);
 	}
 	else if (twl_str_starts_with(str, "else"))
 	{
 		ast_cmd = ast_cmd_build(str + twl_strlen("else"), NULL);
-		twl_lst_push(ast_if->elze->items, ast_cmd);
+		twl_lst_push(ast_if->elze->andors, ast_cmd);
 	}
 }
 

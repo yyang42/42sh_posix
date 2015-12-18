@@ -36,16 +36,16 @@ static int			ast_build_ast_list_lists(t_ast_list *ast_list, char *str)
 	if ((twl_strstr(str, "&&") || twl_strstr(str, "||")) && "TODO is_ast_andor")
 	{
 		COUCOU;
-		twl_lst_push(ast_list->items, ast_andor_build(not_comp_stmt, &len));
+		twl_lst_push(ast_list->andors, ast_andor_build(not_comp_stmt, &len));
 		COUCOU;
 	}
 	else if (twl_strchr(str, '|') && "TODO is_pipe_case")
 	{
-		twl_lst_push(ast_list->items, ast_pipe_build(not_comp_stmt, &len));
+		twl_lst_push(ast_list->andors, ast_pipe_build(not_comp_stmt, &len));
 	}
 	else if ("TODO is_a_simple_cmd")
 	{
-		twl_lst_push(ast_list->items, ast_cmd_build(not_comp_stmt, &len));
+		twl_lst_push(ast_list->andors, ast_cmd_build(not_comp_stmt, &len));
 	}
 	return (len + twl_strlen(AST_SEPARATOR));
 }
@@ -63,7 +63,7 @@ t_ast_list		*ast_list_build(char *str, int *len_ptr)
 	{
 		if (is_ast_if(str + len))
 		{
-			twl_lst_push(ast_list->items, ast_if_build(str + len, &len));
+			twl_lst_push(ast_list->andors, ast_if_build(str + len, &len));
 		}
 		else
 		{
