@@ -40,7 +40,7 @@ static char *can_use_binary(t_ast_cmd *ast)
 			}
 		}
 		else
-			error_file_not_found(binary);
+			error_command_not_found(binary);
 	}
 	return (NULL);
 }

@@ -26,3 +26,8 @@ void 	error_not_directory(char *file)
 {
 	twl_dprintf(2, "42sh: Not a directory: %s\n", file);
 }
+
+void 	error_command_not_found(char *file)
+{
+	twl_dprintf(2, "42sh: command not found: %s\n", file);
+}
