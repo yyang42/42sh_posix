@@ -17,6 +17,8 @@
 
 # include "twl_dict.h"
 # include <errno.h>
+# include "twl_arr.h"
+# include "twl_arr2.h"
 
 # define READ_ONLY 1
 # define NOT_READ_ONLY 0
@@ -92,4 +94,6 @@ void						environment_remove_shell_func(t_environment *env,
 																	char *key);
 void						environment_add_shell_func(t_environment *env,
 														char *key, char *data);
+void                   		 **environment_get_env_arr(t_environment *this);
+
 #endif

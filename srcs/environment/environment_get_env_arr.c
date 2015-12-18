@@ -10,35 +10,25 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENV_H
-# define ENV_H
+#include <stdlib.h>
+#include "environment.h"
 
-# include <sys/stat.h>
-# include <sys/types.h>
-
-# include "builtin.h"
-# include "environment.h"
-# include "env.h"
-# include "utils.h"
-# include "twl_arr.h"
-# include "twl_opt.h"
-# include "simple_command.h"
-# include "environment.h"
-# include "twl_arr2.h"
-
-# define ENV_OPT_VALID_OPTS "i"
-
-typedef struct		s_env_args
+static void		push_env_to_arr(void *data, void *arr)
 {
-	char				**args;
-	char				**env_arr;
-	char				*utility;
-	int					utility_index;
-	bool				has_utility;
-}					t_env_args;
+	t_environment_var	*var;
+	char				*str;
 
-int					env(char *str);
-void				exec_env(t_env_args *env, t_environment	*clone);
-void				add_env_var(void *data_, void *context_);
+	var = data;
+	str = twl_strjoin(var->key, "=");
+	str = twl_strjoinfree(str, var->value, 'l');
+	twl_arr_push(arr, str);
+}
 
-#endif
+void			**environment_get_env_arr(t_environment *this)
+{
+	void **arr;
+
+	arr = twl_arr_new(twl_lst_len(this->env_vars));
+	twl_lst_iter(this->env_vars, push_env_to_arr, arr);
+	return (arr);
+}

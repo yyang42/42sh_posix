@@ -51,7 +51,7 @@ int				env(char *str)
 		: environment_new();
 	twl_lst_iter(opt->args, add_env_var, clone);
 	twl_lst_iter(opt->args, get_utility, &env);
-	env.env_arr = (char **)env_lst_to_arr(clone->env_vars);
+	env.env_arr = (char **)environment_get_env_arr(clone);
 	if (env.has_utility)
 		exec_env(&env, this);
 	else

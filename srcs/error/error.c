@@ -21,3 +21,8 @@ void 	error_permission_denied(char *file)
 {
 	twl_dprintf(2, "42sh: permission denied: %s\n", file);
 }
+
+void 	error_not_directory(char *file)
+{
+	twl_dprintf(2, "42sh: Not a directory: %s\n", file);
+}
