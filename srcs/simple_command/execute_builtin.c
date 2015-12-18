@@ -38,6 +38,7 @@ static void  execute_builtin_redirect_in(t_simple_command *cmd, t_ast_cmd *ast_c
 {
 	char	*file_name;
 	int		fd;
+	int		save_stdin;
 
 	file_name = get_redir_in_file_name_from_ast_cmd(ast_cmd);
 	if (file_name)
@@ -45,8 +46,11 @@ static void  execute_builtin_redirect_in(t_simple_command *cmd, t_ast_cmd *ast_c
 		fd = read_file(file_name);
 		if (fd >= 0)
 		{
+			save_stdin = dup(0);
 			redirect_in(fd);
 			execute_builtin_no_redirect(cmd, ast_cmd, builtin);
+			close_file(fd);
+			dup2(save_stdin, 0);
 		}
 	}
 }
@@ -55,6 +59,7 @@ static void  execute_builtin_redirect_out(t_simple_command *cmd, t_ast_cmd *ast_
 {
 	char	*file_name;
 	int		fd;
+	int		save_stdout;
 
 	file_name = get_redir_out_file_name_from_ast_cmd(ast_cmd);
 	if (file_name)
@@ -62,8 +67,11 @@ static void  execute_builtin_redirect_out(t_simple_command *cmd, t_ast_cmd *ast_
 		fd = create_file(file_name);
 		if (fd >= 0)
 		{
+			save_stdout = dup(1);
 			redirect_out(fd);
 			execute_builtin_no_redirect(cmd, ast_cmd, builtin);
+			close_file(fd);
+			dup2(save_stdout, 1);
 		}
 	}
 }

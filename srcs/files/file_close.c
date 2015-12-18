@@ -10,23 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FILE_H
-# define FILE_H
+#include "file.h"
 
-# include <sys/types.h>
-# include <sys/stat.h>
-# include <unistd.h>
-# include "basics.h"
-# include <fcntl.h>
-# include <string.h>
-# include <stdio.h>
-
-int			file_exists (char *fn);
-int			file_isdir (char *fn);
-int			file_isexecutable(char *fn);
-int			append_to_file(char *str);
-int 		read_file(char *str);
-int			create_file(char *str);
-void		close_file(int fd);
-
-#endif
+void		close_file(int fd)
+{
+	if (close(fd) == -1)
+		perror("close");
+}
