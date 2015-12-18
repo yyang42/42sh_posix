@@ -52,27 +52,25 @@ static void test_cd_with_dots(t_test *test)
 	mt_assert(twl_strcmp(environment_getenv_value(env, "PWD"), "/") == 0);
 	environment_del(env);
 }
+/*
+static void test_cd_with_symlink(t_test *test)
+{
+	(void)test;
+	t_environment		*env;
 
-// static void test_cd_with_symlink(t_test *test)
-// {
-// 	(void)test;
-// 	t_environment		*env;
-//
-// 	env = environment_new();
-// 	environment_init(env);
-// 	cd_with_env("cd /var/lib", env);
-// 	mt_assert(twl_strcmp(environment_getenv_value(env, "PWD"), "/var/lib") == 0);
-// 	cd_with_env("cd ..", env);
-// 	mt_assert(twl_strcmp(environment_getenv_value(env, "PWD"), "/var") == 0);
-// 	cd_with_env("cd -P /var/lib", env);
-// 	mt_assert(twl_strcmp(environment_getenv_value(env, "PWD"), "/private/var/lib") == 0);
-// 	cd_with_env("cd -P /var/lib/..", env);
-// 	mt_assert(twl_strcmp(environment_getenv_value(env, "PWD"), "/private/var") == 0);
-// 	cd_with_env("cd /var/lib/..", env);
-// 	mt_assert(twl_strcmp(environment_getenv_value(env, "PWD"), "/var") == 0);
-// 	environment_del(env);
-// }
-
+	env = environment_new();
+	environment_init(env);
+	cd_with_env("cd /var/lib", env);
+	mt_assert(twl_strcmp(environment_getenv_value(env, "PWD"), "/var/lib") == 0);
+	cd_with_env("cd -P /var/lib", env);
+	mt_assert(twl_strcmp(environment_getenv_value(env, "PWD"), "/private/var/lib") == 0);
+	cd_with_env("cd -P /var/lib/..", env);
+	mt_assert(twl_strcmp(environment_getenv_value(env, "PWD"), "/private/var") == 0);
+	cd_with_env("cd /var/lib/..", env);
+	mt_assert(twl_strcmp(environment_getenv_value(env, "PWD"), "/var") == 0);
+	environment_del(env);
+}
+*/
 void	suite_cd(t_suite *suite)
 {
 	SUITE_ADD_TEST(suite, test_cd_without_args);

@@ -42,13 +42,12 @@ static void	cd_symlink(char *path, t_environment *this)
 
 void		execute_cd(char *path, int no_symlinks, t_environment *this)
 {
-	struct stat		sb;
 	char			*new_path;
 
 	new_path = NULL;
 	if (!no_symlinks)
 		new_path = set_canonical_form(path);
-	if (S_ISLNK(sb.st_mode) || no_symlinks)
+	if (no_symlinks)
 		cd_symlink(no_symlinks ? path : new_path, this);
 	else
 	{
