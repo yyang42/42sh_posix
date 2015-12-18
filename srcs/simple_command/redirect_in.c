@@ -14,5 +14,6 @@
 
 void 	redirect_in(int fd)
 {
-	dup2(fd, 0);
+	if (dup2(fd, 0) == -1)
+		perror("dup2");
 }

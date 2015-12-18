@@ -14,5 +14,6 @@
 
 void 	redirect_out(int fd)
 {
-	dup2(fd, 1);
+	if (dup2(fd, 1) == -1)
+		perror("dup2");
 }
