@@ -10,16 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "twl_xstdlib.h"
+#include <stdlib.h>
 
-#include "ast/ast.h"
+#include "parser.h"
 
-t_ast				*ast_new(char *input)
+void				parser_del(t_parser *this)
 {
-	t_ast			*this;
-
-	this = twl_malloc_x0(sizeof(t_ast));
-	this->raw = twl_strdup(input);
-	this->parser = parser_new(input);
-	return (this);
+	free(this);
 }

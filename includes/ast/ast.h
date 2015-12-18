@@ -15,6 +15,7 @@
 
 # include "basics.h"
 
+# include "parser.h"
 # include "ast/ast_defines.h"
 # include "ast/nodes/ast_list.h"
 # include "ast/nodes/ast_if.h"
@@ -26,6 +27,7 @@ typedef struct		s_ast
 {
 	char			*raw;
 	t_ast_list		*root;
+	t_parser		*parser;
 }					t_ast;
 
 t_ast				*ast_new(char *input);
@@ -33,5 +35,24 @@ void				ast_del(t_ast *this);
 
 char				*ast_to_str(t_ast *this);
 void				ast_build(t_ast *this);
+
+/*
+
+list      			// ; & \n
+andor_seq			// && ||
+pipe_seq			// |
+command
+	brace_group
+	subshell
+	for_clause
+	case_clause
+	if_clause
+	while_clause
+	until_clause
+
+if
+	list
+
+*/
 
 #endif

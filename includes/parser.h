@@ -10,16 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "twl_xstdlib.h"
+#ifndef PARSER_H
+# define PARSER_H
 
-#include "ast/ast.h"
+# include "basics.h"
 
-t_ast				*ast_new(char *input)
+typedef struct		s_parser
 {
-	t_ast			*this;
+	char			*raw;
+	int				index;
+}					t_parser;
 
-	this = twl_malloc_x0(sizeof(t_ast));
-	this->raw = twl_strdup(input);
-	this->parser = parser_new(input);
-	return (this);
-}
+t_parser			*parser_new(char *str);
+void				parser_del(t_parser *this);
+
+#endif

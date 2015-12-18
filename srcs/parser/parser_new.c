@@ -12,14 +12,14 @@
 
 #include "twl_xstdlib.h"
 
-#include "ast/ast.h"
+#include "parser.h"
 
-t_ast				*ast_new(char *input)
+t_parser			*parser_new(char *str)
 {
-	t_ast			*this;
+	t_parser		*this;
 
-	this = twl_malloc_x0(sizeof(t_ast));
-	this->raw = twl_strdup(input);
-	this->parser = parser_new(input);
+	this = twl_malloc_x0(sizeof(t_parser));
+	this->index = 0;
+	this->raw = twl_strdup(str);
 	return (this);
 }

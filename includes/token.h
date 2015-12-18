@@ -10,16 +10,39 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "twl_xstdlib.h"
+#ifndef TOKEN_H
+# define TOKEN_H
 
-#include "ast/ast.h"
+/* Operators */
+# define TOKEN_AND_IF "&&"
+# define TOKEN_OR_IF "||"
+# define TOKEN_DSEMI ";;"
+# define TOKEN_DLESS "<<"
+# define TOKEN_DGREAT ">>"
+# define TOKEN_LESSAND "<&"
+# define TOKEN_GREATAND ">&"
+# define TOKEN_LESSGREAT "<>"
+# define TOKEN_DLESSDASH "<<-"
+# define TOKEN_CLOBBER ">|"
 
-t_ast				*ast_new(char *input)
-{
-	t_ast			*this;
+/* Reserved words */
+# define TOKEN_IF "if"
+# define TOKEN_THEN "then"
+# define TOKEN_ELSE "else"
+# define TOKEN_ELIF "elif"
+# define TOKEN_FI "fi"
+# define TOKEN_DO "do"
+# define TOKEN_DONE "done"
+# define TOKEN_CASE "case"
+# define TOKEN_ESAC "esac"
+# define TOKEN_WHILE "while"
+# define TOKEN_UNTIL "until"
+# define TOKEN_FOR "for"
 
-	this = twl_malloc_x0(sizeof(t_ast));
-	this->raw = twl_strdup(input);
-	this->parser = parser_new(input);
-	return (this);
-}
+/* Recognized when reserved words are recognized */
+# define TOKEN_LBRACE "{"
+# define TOKEN_RBRACE "}"
+# define TOKEN_BANG "!"
+# define TOKEN_IN "in"
+
+#endif
