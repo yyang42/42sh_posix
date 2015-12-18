@@ -124,7 +124,7 @@ static void 	test_set_hyphen(t_test *test)
 }
 
 
-void            suite_set(t_suite *suite)
+void            suite_builtin_set(t_suite *suite)
 {
 	(void)suite;
 	SUITE_ADD_TEST(suite, test_set_flag);

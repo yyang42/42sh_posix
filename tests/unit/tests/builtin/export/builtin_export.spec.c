@@ -56,7 +56,7 @@ static void     value_is_null(t_test *test)
 	environment_del(env);
 }
 
-void            suite_export(t_suite *suite)
+void            suite_builtin_export(t_suite *suite)
 {
 	(void)suite;
 	SUITE_ADD_TEST(suite, simple_test);

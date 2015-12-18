@@ -71,7 +71,7 @@ static void test_cd_with_symlink(t_test *test)
 	environment_del(env);
 }
 */
-void	suite_cd(t_suite *suite)
+void	suite_builtin_cd(t_suite *suite)
 {
 	SUITE_ADD_TEST(suite, test_cd_without_args);
 	SUITE_ADD_TEST(suite, test_cd_old_pwd);

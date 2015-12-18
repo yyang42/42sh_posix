@@ -10,34 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EDIT_H
-# define EDIT_H
+#include "edit/edit.h"
 
-# include "twl_lst.h"
-
-# include "edit/letter_mgr.h"
-# include "basics.h"
-
-typedef struct		s_edit
+char				*edit_handle_string(t_edit *this, char *str)
 {
-	t_lst			*letters;
-	int				index;
-	bool			return_cmd;
-}					t_edit;
+	char			*cmd;
 
-t_edit				*edit_new(void);
-void				edit_del(t_edit *this);
-char				*edit_loop(t_edit *this);
-
-char				*edit_handle_one_input(t_edit *this, int key);
-char				*edit_handle_string(t_edit *this, char *str);
-
-void				edit_handle_printable(t_edit *this, int key);
-void				edit_handle_move(t_edit *this);
-void				edit_print_letters(t_edit *this);
-char				*edit_return_cmd(t_edit *this, int key);
-
-void				edit_clear_line(t_edit *this);
-
-
-#endif
+	while (*str)
+	{
+		cmd = edit_handle_one_input(this, *str);
+		str++;
+	}
+	return (cmd);
+}

@@ -120,7 +120,7 @@ static void test_get_paths(t_test *test)
 	free(paths);
 }
 
-void	suite_get_env(t_suite *suite)
+void	suite_env_get_env(t_suite *suite)
 {
 	(void)suite;
 	SUITE_ADD_TEST(suite, copied_env_is_equal_to_environ);
