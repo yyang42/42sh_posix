@@ -28,15 +28,18 @@ char				*edit_loop(t_edit *this)
 	cmd = NULL;
 	terminal_enable();
 	// TODO Error handling
+	edit_print_letters(this);
 	while (!cmd)
 	{
-		edit_print_letters(this);
 		key = twl_getch();
 		twl_lprintf("key: %d\n", key);
 		cmd = edit_handle_one_input(this, key);
-		if (key == 27)
-			break;
+		edit_print_letters(this);
+		edit_clear_line(this);
 	}
 	terminal_disable();
+	/* comment this exit */
+	exit(0);
+	/* just here */
 	return cmd;
 }

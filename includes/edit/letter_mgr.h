@@ -21,7 +21,7 @@ void				letter_mgr_del(t_lst *letters);
 void				letter_mgr_add(t_lst *letters, t_letter *letter,
 															unsigned int index);
 void				letter_mgr_remove(t_lst *letters, t_letter *letter);
-void				letter_mgr_print(t_lst *letters);
+void				letter_mgr_print(t_lst *letters, int index);
 
 char				*letter_mgr_concat_string(t_lst *letters);
 t_lst				*letter_mgr_clear(t_lst *letters);

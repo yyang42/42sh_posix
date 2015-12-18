@@ -19,8 +19,7 @@ char				*edit_return_cmd(t_edit *this, int key)
 	cmd = NULL;
 	if (key != 10)
 		return cmd;
-	write(1, "\n", 1);
 	cmd = letter_mgr_concat_string(this->letters);
-	edit_clear_line(this);
+	this->return_cmd = true;
 	return (cmd);
 }

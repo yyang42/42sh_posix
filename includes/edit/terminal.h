@@ -28,15 +28,13 @@
 # ifndef ERR
 #  define ERR -1
 # endif
+
 typedef struct termios	t_termios;
 
 typedef struct		s_terminal
 {
 	t_termios		*term;
 }					t_terminal;
-
-
-
 
 t_terminal			*terminal_new();
 void				terminal_del(t_terminal *term);
@@ -48,5 +46,7 @@ void				terminal_disable(void);
 
 void				terminal_carriage_return(void);
 void				terminal_delete_line(void);
+void				terminal_radio_letter(void);
+void				terminal_clear_letter(void);
 
 #endif

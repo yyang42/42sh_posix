@@ -13,13 +13,28 @@
 #include "edit/edit.h"
 #include "edit/terminal.h"
 
-void				edit_print_letters(t_edit *edit)
+static void			print_letter_fn(void *_letter, int index, void *_edit)
 {
-	char			*cmd;
+	t_letter		*letter;
+	t_edit			*edit;
 
+	letter = _letter;
+	edit = _edit;
+	twl_lprintf("ret: %d\n", edit->return_cmd);
+	if (!edit->return_cmd && index == edit->index)
+	{
+		twl_lprintf("in");
+		terminal_radio_letter();
+	}
+	twl_putstr(letter->letter);
+	terminal_clear_letter();
+}
+
+void				edit_print_letters(t_edit *this)
+{
 	terminal_delete_line();
 	terminal_carriage_return();
-	cmd = letter_mgr_concat_string(edit->letters);
-	twl_printf("> %s", cmd);
-	free(cmd);
+	twl_lst_iteri(this->letters, print_letter_fn, this);
+	if (this->return_cmd)
+		write(1, "\n", 1);
 }

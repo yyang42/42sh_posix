@@ -10,31 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EDIT_H
-# define EDIT_H
+#include "edit/terminal.h"
 
-# include "twl_lst.h"
-
-# include "edit/letter_mgr.h"
-# include "basics.h"
-
-typedef struct		s_edit
+void				terminal_radio_letter(void)
 {
-	t_lst			*letters;
-	int				index;
-	bool			return_cmd;
-}					t_edit;
-
-t_edit				*edit_new(void);
-void				edit_del(t_edit *this);
-char				*edit_loop(t_edit *this);
-
-char				*edit_handle_one_input(t_edit *this, int key);
-void				edit_handle_printable(t_edit *edit, int key);
-void				edit_print_letters(t_edit *edit);
-char				*edit_return_cmd(t_edit *this, int key);
-
-void				edit_clear_line(t_edit *this);
-
-
-#endif
+	tputs(tgetstr("mr", NULL), 1, twl_putchar);
+}

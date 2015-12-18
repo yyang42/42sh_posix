@@ -21,5 +21,6 @@ t_edit				*edit_new(void)
 	this = twl_malloc_x0(sizeof(t_edit));
 	this->index = 0;
 	this->letters = letter_mgr_new();
+	this->return_cmd = false;
 	return (this);
 }

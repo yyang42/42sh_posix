@@ -11,18 +11,23 @@
 /* ************************************************************************** */
 
 #include "edit/letter_mgr.h"
+#include "edit/terminal.h"
 
-static void			print_letter_fn(void *letter_)
+static void			print_letter_fn(void *_letter, int index, void *_cursor_index)
 {
-	t_letter	*letter;
+	t_letter		*letter;
+	int				cursor_index;
 
-	letter = letter_;
-	twl_printf("<Object #%p>\n", letter);
+	letter = _letter;
+	cursor_index = *((int *)_cursor_index);
+	if (index == cursor_index)
+		terminal_radio_letter();
+	twl_putstr(letter->letter);
+	terminal_clear_letter();
+	// twl_lprintf("cursor_index: %d\n", cursor_index);
 }
 
-void				letter_mgr_print(t_lst *letters)
+void				letter_mgr_print(t_lst *letters, int index)
 {
-	twl_printf("%s>>>>>>>>>> letter list%s\n", C_CYAN, C_CLEAR);
-	twl_lst_iter0(letters, print_letter_fn);
-	twl_printf("%s-------------------------------------%s\n", C_CYAN, C_CLEAR);
+	twl_lst_iteri(letters, print_letter_fn, &index);
 }

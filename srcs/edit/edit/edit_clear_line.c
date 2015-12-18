@@ -14,6 +14,9 @@
 
 void				edit_clear_line(t_edit *this)
 {
-	this->letters = letter_mgr_clear(this->letters);
-	this->index = 0;
+	if (this->return_cmd)
+	{
+		this->letters = letter_mgr_clear(this->letters);
+		this->index = 0;
+	}
 }
