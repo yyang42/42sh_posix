@@ -10,12 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 
-#include "terminal.h"
+#include "twl_ctype.h"
 
-void				terminal_del(t_terminal *this)
+#include "edit.h"
+
+void				edit_handle_printable(t_edit *edit, int key)
 {
-	free(this->term);
-	free(this);
+	if (!twl_isprint(key))
+		return ;
+	letter_mgr_add(edit->letters, letter_new(key), edit->index);
+	edit->index++;
+	// twl_printf("key :%d\n", key);
+	(void)edit;
 }

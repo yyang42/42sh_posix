@@ -14,11 +14,11 @@
 
 #include "terminal.h"
 
-t_termios			*terminal_singleton(t_termios *term)
+t_termios			*terminal_singleton()
 {
 	static t_terminal *term_sav = NULL;
 
 	if (!term_sav)
-		term_sav = terminal_new(term);
+		term_sav = terminal_new();
 	return (term_sav->term);
 }

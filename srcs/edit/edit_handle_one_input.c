@@ -10,12 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "edit.h"
 
-#include "terminal.h"
-
-void				terminal_del(t_terminal *this)
+char				*edit_handle_one_input(t_edit *this, int key)
 {
-	free(this->term);
-	free(this);
+	edit_handle_printable(this, key);
+	edit_print_letters(this);
+	edit_return_cmd(this, key);
+	return (NULL);
 }

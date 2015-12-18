@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "prog.h"
+#include "edit.h"
 
 
 #include "twl_printf.h"
@@ -19,7 +20,12 @@ void				prog_main_loop(t_prog *prog, t_environment *env)
 {
 	(void)prog;
 	(void)env;
-	while (1){
 
+	t_edit			*edit;
+
+	edit = edit_new();
+	while (1){
+		edit_loop(edit);
 	}
+	edit_del(edit);
 }

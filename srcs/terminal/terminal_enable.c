@@ -17,7 +17,7 @@ int					terminal_enable(void)
 	char			*name_term;
 	t_termios		*term;
 
-	term = terminal_singleton(NULL);
+	term = terminal_singleton();
 	if ((name_term = getenv("TERM")) == NULL)
 		return (-1);
 	if (tgetent(NULL, name_term) == ERR)

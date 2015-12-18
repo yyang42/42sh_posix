@@ -10,12 +10,26 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "twl_xstdlib.h"
 
-#include "terminal.h"
+#include "letter_mgr.h"
 
-void				terminal_del(t_terminal *this)
+void				concat_fn(void *_letter, int index, void *_cmd)
 {
-	free(this->term);
-	free(this);
+	t_letter		*letter;
+	char			*cmd;
+
+	letter = _letter;
+	cmd = _cmd;
+	cmd[index] = letter->letter[0];
+
+}
+
+char				*letter_mgr_concat_string(t_lst *letters)
+{
+	char			*cmd;
+
+	cmd = twl_malloc_x0(sizeof(char) * twl_lst_len(letters) + 1);
+	twl_lst_iteri(letters, concat_fn, cmd);
+	return (cmd);
 }

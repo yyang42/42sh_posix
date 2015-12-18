@@ -21,9 +21,16 @@
 typedef struct		s_edit
 {
 	t_lst			*letters;
+	unsigned int	index;
 }					t_edit;
 
 t_edit				*edit_new(void);
 void				edit_del(t_edit *this);
+char				*edit_loop(t_edit *this);
+
+char				*edit_handle_one_input(t_edit *this, int key);
+void				edit_handle_printable(t_edit *edit, int key);
+void				edit_print_letters(t_edit *edit);
+char				*edit_return_cmd(t_edit *this, int key);
 
 #endif

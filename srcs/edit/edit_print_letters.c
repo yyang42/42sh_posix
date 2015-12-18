@@ -10,12 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-
+#include "edit.h"
 #include "terminal.h"
 
-void				terminal_del(t_terminal *this)
+void				edit_print_letters(t_edit *edit)
 {
-	free(this->term);
-	free(this);
+	char			*cmd;
+
+	terminal_delete_line();
+	terminal_carriage_return();
+	cmd = letter_mgr_concat_string(edit->letters);
+	twl_printf("> %s", cmd);
+	free(cmd);
 }

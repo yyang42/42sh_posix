@@ -10,12 +10,37 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "twl_stdlib.h"
+#include "twl_xunistd.h"
 
+#include "edit.h"
 #include "terminal.h"
 
-void				terminal_del(t_terminal *this)
+#define DISABLE_FLAG(flag_storage, flag) (flag_storage &= ~(flag))
+#define ENABLE_FLAG(flag_storage, flag) (flag_storage |= flag)
+
+
+char				*edit_loop(t_edit *this)
 {
-	free(this->term);
-	free(this);
+	int				key;
+	char			*cmd;
+
+	cmd = NULL;
+
+	terminal_enable();
+	// TODO Error handling
+	while (!cmd)
+	{
+		key = twl_getch();
+		cmd = edit_handle_one_input(this, key);
+		if (key == 27)
+			break;
+	}
+	// real assignement
+	cmd = twl_strdup("coucou");
+	terminal_disable();
+	//remove exit
+	exit(0);
+	return cmd;
+	(void)this;
 }

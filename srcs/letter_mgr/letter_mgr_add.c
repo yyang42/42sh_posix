@@ -12,7 +12,8 @@
 
 #include "letter_mgr.h"
 
-void				letter_mgr_add(t_lst *letters, t_letter *letter)
+void				letter_mgr_add(t_lst *letters, t_letter *letter,
+															unsigned int index)
 {
-	twl_lst_push(letters, letter);
+	twl_lst_insert(letters, index, letter);
 }

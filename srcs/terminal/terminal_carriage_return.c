@@ -10,12 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-
 #include "terminal.h"
 
-void				terminal_del(t_terminal *this)
+void				terminal_carriage_return(void)
 {
-	free(this->term);
-	free(this);
+	tputs(carriage_return, 1, twl_putchar);
 }

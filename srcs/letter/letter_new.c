@@ -19,6 +19,6 @@ t_letter			*letter_new(int letter)
 	t_letter		*this;
 
 	this = twl_malloc_x0(sizeof(t_letter));
-	letter++;
+	this->letter[0] = letter;
 	return (this);
 }

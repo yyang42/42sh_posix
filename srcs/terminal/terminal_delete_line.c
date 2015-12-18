@@ -10,12 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-
 #include "terminal.h"
 
-void				terminal_del(t_terminal *this)
+void				terminal_delete_line(void)
 {
-	free(this->term);
-	free(this);
+	tputs(delete_line, 1, twl_putchar);
 }

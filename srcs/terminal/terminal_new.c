@@ -14,11 +14,11 @@
 
 #include "terminal.h"
 
-t_terminal			*terminal_new(t_termios *term)
+t_terminal			*terminal_new()
 {
 	t_terminal		*this;
 
 	this = twl_malloc_x0(sizeof(t_terminal));
-	this->term = term;
+	this->term = twl_malloc_x0(sizeof(t_termios));
 	return (this);
 }

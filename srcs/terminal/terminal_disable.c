@@ -16,7 +16,7 @@ void				terminal_disable(void)
 {
 	t_termios		*term;
 
-	term = terminal_singleton(NULL);
+	term = terminal_singleton();
 	ENABLE_FLAG(term->c_lflag, ICANON);
 	ENABLE_FLAG(term->c_lflag, ECHO);
 	tcsetattr(0, TCSADRAIN, term);
