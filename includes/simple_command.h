@@ -45,5 +45,7 @@ void					exec_simple_command_builtin(t_ast_cmd *ast_cmd, t_simple_command *cmd, 
 char					*get_cmd_name_from_ast_cmd(t_ast_cmd *ast_cmd);
 void 					redirect_in(int fd);
 void 					redirect_out(int fd);
+void					execute_binary(t_ast_cmd *ast_cmd, char *path);
+void					execute_builtin(t_simple_command *cmd, t_ast_cmd *ast_cmd, char *path);
 
 #endif
