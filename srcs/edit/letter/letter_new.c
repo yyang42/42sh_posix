@@ -12,24 +12,13 @@
 
 #include "twl_xstdlib.h"
 
-#include "letter_mgr.h"
+#include "edit/letter.h"
 
-void				concat_fn(void *_letter, int index, void *_cmd)
+t_letter			*letter_new(int letter)
 {
-	t_letter		*letter;
-	char			*cmd;
+	t_letter		*this;
 
-	letter = _letter;
-	cmd = _cmd;
-	cmd[index] = letter->letter[0];
-
-}
-
-char				*letter_mgr_concat_string(t_lst *letters)
-{
-	char			*cmd;
-
-	cmd = twl_malloc_x0(sizeof(char) * twl_lst_len(letters) + 1);
-	twl_lst_iteri(letters, concat_fn, cmd);
-	return (cmd);
+	this = twl_malloc_x0(sizeof(t_letter));
+	this->letter[0] = letter;
+	return (this);
 }

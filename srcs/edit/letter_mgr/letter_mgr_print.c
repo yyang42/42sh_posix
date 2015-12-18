@@ -10,15 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "twl_xstdlib.h"
+#include "edit/letter_mgr.h"
 
-#include "terminal.h"
-
-t_terminal			*terminal_new()
+static void			print_letter_fn(void *letter_)
 {
-	t_terminal		*this;
+	t_letter	*letter;
 
-	this = twl_malloc_x0(sizeof(t_terminal));
-	this->term = twl_malloc_x0(sizeof(t_termios));
-	return (this);
+	letter = letter_;
+	twl_printf("<Object #%p>\n", letter);
+}
+
+void				letter_mgr_print(t_lst *letters)
+{
+	twl_printf("%s>>>>>>>>>> letter list%s\n", C_CYAN, C_CLEAR);
+	twl_lst_iter0(letters, print_letter_fn);
+	twl_printf("%s-------------------------------------%s\n", C_CYAN, C_CLEAR);
 }

@@ -10,12 +10,25 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "letter_mgr.h"
+#include "edit/terminal.h"
 
-t_lst				*letter_mgr_new(void)
+int					terminal_enable(void)
 {
-	t_lst			*letters;
+	char			*name_term;
+	t_termios		*term;
 
-	letters = twl_lst_new();
-	return (letters);
+	term = terminal_singleton();
+	if ((name_term = getenv("TERM")) == NULL)
+		return (-1);
+	if (tgetent(NULL, name_term) == ERR)
+		return (-1);
+	if (tcgetattr(0, term) == -1)
+		return (-1);
+	DISABLE_FLAG(term->c_lflag, ICANON);
+	DISABLE_FLAG(term->c_lflag, ECHO);
+	term->c_cc[VMIN] = 1;
+	term->c_cc[VTIME] = 0;
+	tcsetattr(0, TCSADRAIN, term);
+	tputs(cursor_invisible, 1, twl_putchar);
+	return (0);
 }

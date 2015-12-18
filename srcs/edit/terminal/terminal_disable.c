@@ -10,11 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "edit/terminal.h"
 
-#include "edit.h"
-
-void				edit_del(t_edit *this)
+void				terminal_disable(void)
 {
-	free(this);
+	t_termios		*term;
+
+	term = terminal_singleton();
+	ENABLE_FLAG(term->c_lflag, ICANON);
+	ENABLE_FLAG(term->c_lflag, ECHO);
+	tcsetattr(0, TCSADRAIN, term);
+	tputs(cursor_normal, 1, twl_putchar);
 }

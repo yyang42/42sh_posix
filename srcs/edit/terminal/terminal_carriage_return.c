@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "letter_mgr.h"
+#include "edit/terminal.h"
 
-void				letter_mgr_del(t_lst *letters)
+void				terminal_carriage_return(void)
 {
-	twl_lst_del(letters, letter_del);
+	tputs(carriage_return, 1, twl_putchar);
 }

@@ -10,9 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "terminal.h"
+#include "edit/letter_mgr.h"
 
-void				terminal_delete_line(void)
+t_lst				*letter_mgr_clear(t_lst *letters)
 {
-	tputs(delete_line, 1, twl_putchar);
+	letter_mgr_del(letters);
+	return letter_mgr_new();
 }

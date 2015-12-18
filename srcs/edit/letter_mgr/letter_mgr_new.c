@@ -10,11 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "edit/letter_mgr.h"
 
-#include "letter.h"
-
-void				letter_del(t_letter *this)
+t_lst				*letter_mgr_new(void)
 {
-	free(this);
+	t_lst			*letters;
+
+	letters = twl_lst_new();
+	letter_mgr_add(letters, letter_new(32), 0);
+	return (letters);
 }

@@ -10,24 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "prog.h"
 #include "edit/edit.h"
 
-void				prog_main_loop(t_prog *prog, t_environment *env)
+char				*edit_return_cmd(t_edit *this, int key)
 {
-
-	t_edit			*edit;
 	char			*cmd;
-	/*
-	** TODO: how delete exit when we exit of shell ?
-	*/
-	edit = edit_new();
-	while (1)
-	{
-		// Do your job with the CMD ^^
-		cmd = edit_loop(edit);
-	}
-	edit_del(edit);
-	(void)prog;
-	(void)env;
+
+	cmd = NULL;
+	if (key != 10)
+		return cmd;
+	write(1, "\n", 1);
+	cmd = letter_mgr_concat_string(this->letters);
+	edit_clear_line(this);
+	return (cmd);
 }

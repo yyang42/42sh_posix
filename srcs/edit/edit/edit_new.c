@@ -10,15 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "terminal.h"
+#include "twl_xstdlib.h"
 
-void				terminal_disable(void)
+#include "edit/edit.h"
+
+t_edit				*edit_new(void)
 {
-	t_termios		*term;
+	t_edit			*this;
 
-	term = terminal_singleton();
-	ENABLE_FLAG(term->c_lflag, ICANON);
-	ENABLE_FLAG(term->c_lflag, ECHO);
-	tcsetattr(0, TCSADRAIN, term);
-	tputs(cursor_normal, 1, twl_putchar);
+	this = twl_malloc_x0(sizeof(t_edit));
+	this->index = 0;
+	this->letters = letter_mgr_new();
+	return (this);
 }

@@ -10,19 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "letter_mgr.h"
+#ifndef LETTER_MGR_H
+# define LETTER_MGR_H
 
-static void			print_letter_fn(void *letter_)
-{
-	t_letter	*letter;
+# include "basics.h"
+# include "edit/letter.h"
 
-	letter = letter_;
-	twl_printf("<Object #%p>\n", letter);
-}
+t_lst				*letter_mgr_new(void);
+void				letter_mgr_del(t_lst *letters);
+void				letter_mgr_add(t_lst *letters, t_letter *letter,
+															unsigned int index);
+void				letter_mgr_remove(t_lst *letters, t_letter *letter);
+void				letter_mgr_print(t_lst *letters);
 
-void				letter_mgr_print(t_lst *letters)
-{
-	twl_printf("%s>>>>>>>>>> letter list%s\n", C_CYAN, C_CLEAR);
-	twl_lst_iter0(letters, print_letter_fn);
-	twl_printf("%s-------------------------------------%s\n", C_CYAN, C_CLEAR);
-}
+char				*letter_mgr_concat_string(t_lst *letters);
+t_lst				*letter_mgr_clear(t_lst *letters);
+
+#endif

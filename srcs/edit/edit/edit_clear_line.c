@@ -10,15 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "twl_xstdlib.h"
+#include "edit/edit.h"
 
-#include "letter.h"
-
-t_letter			*letter_new(int letter)
+void				edit_clear_line(t_edit *this)
 {
-	t_letter		*this;
-
-	this = twl_malloc_x0(sizeof(t_letter));
-	this->letter[0] = letter;
-	return (this);
+	this->letters = letter_mgr_clear(this->letters);
+	this->index = 0;
 }

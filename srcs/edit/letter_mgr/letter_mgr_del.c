@@ -10,16 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "edit.h"
+#include "edit/letter_mgr.h"
 
-char				*edit_return_cmd(t_edit *this, int key)
+void				letter_mgr_del(t_lst *letters)
 {
-	char			*cmd;
-
-	cmd = NULL;
-	if (key != 10)
-		return cmd;
-	write(1, "\n", 1);
-	cmd = letter_mgr_concat_string(this->letters);
-	return (cmd);
+	twl_lst_del(letters, letter_del);
 }

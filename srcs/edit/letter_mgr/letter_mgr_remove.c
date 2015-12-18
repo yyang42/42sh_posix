@@ -10,37 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "twl_stdlib.h"
-#include "twl_xunistd.h"
+#include "edit/letter_mgr.h"
 
-#include "edit.h"
-#include "terminal.h"
-
-#define DISABLE_FLAG(flag_storage, flag) (flag_storage &= ~(flag))
-#define ENABLE_FLAG(flag_storage, flag) (flag_storage |= flag)
-
-
-char				*edit_loop(t_edit *this)
+void				letter_mgr_remove(t_lst *letters, t_letter *letter)
 {
-	int				key;
-	char			*cmd;
+	int				index;
 
-	cmd = NULL;
-
-	terminal_enable();
-	// TODO Error handling
-	while (!cmd)
+	index = twl_lst_indexof(letters, letter);
+	if (index == -1)
 	{
-		key = twl_getch();
-		cmd = edit_handle_one_input(this, key);
-		if (key == 27)
-			break;
+		assert(!"[ERROR] Object not found!");
 	}
-	// real assignement
-	cmd = twl_strdup("coucou");
-	terminal_disable();
-	//remove exit
-	exit(0);
-	return cmd;
-	(void)this;
+	twl_lst_popi(letters, index);
+	letter_del(letter);
 }

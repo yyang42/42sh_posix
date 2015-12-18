@@ -10,17 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "twl_xstdlib.h"
 
-#include "twl_ctype.h"
+#include "edit/terminal.h"
 
-#include "edit.h"
-
-void				edit_handle_printable(t_edit *edit, int key)
+t_termios			*terminal_singleton()
 {
-	if (!twl_isprint(key))
-		return ;
-	letter_mgr_add(edit->letters, letter_new(key), edit->index);
-	edit->index++;
-	// twl_printf("key :%d\n", key);
-	(void)edit;
+	static t_terminal *term_sav = NULL;
+
+	if (!term_sav)
+		term_sav = terminal_new();
+	return (term_sav->term);
 }

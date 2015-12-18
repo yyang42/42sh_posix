@@ -10,19 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LETTER_MGR_H
-# define LETTER_MGR_H
+#include "edit/letter_mgr.h"
 
-# include "basics.h"
-# include "letter.h"
-
-t_lst				*letter_mgr_new(void);
-void				letter_mgr_del(t_lst *letters);
 void				letter_mgr_add(t_lst *letters, t_letter *letter,
-															unsigned int index);
-void				letter_mgr_remove(t_lst *letters, t_letter *letter);
-void				letter_mgr_print(t_lst *letters);
-
-char				*letter_mgr_concat_string(t_lst *letters);
-
-#endif
+															unsigned int index)
+{
+	twl_lst_insert(letters, index, letter);
+}

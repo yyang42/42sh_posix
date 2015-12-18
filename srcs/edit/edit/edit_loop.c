@@ -10,27 +10,33 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EDIT_H
-# define EDIT_H
+#include "twl_stdlib.h"
+#include "twl_xunistd.h"
 
-# include "twl_lst.h"
+#include "edit/edit.h"
+#include "edit/terminal.h"
 
-# include "letter_mgr.h"
-# include "basics.h"
+#define DISABLE_FLAG(flag_storage, flag) (flag_storage &= ~(flag))
+#define ENABLE_FLAG(flag_storage, flag) (flag_storage |= flag)
 
-typedef struct		s_edit
+
+char				*edit_loop(t_edit *this)
 {
-	t_lst			*letters;
-	unsigned int	index;
-}					t_edit;
+	int				key;
+	char			*cmd;
 
-t_edit				*edit_new(void);
-void				edit_del(t_edit *this);
-char				*edit_loop(t_edit *this);
-
-char				*edit_handle_one_input(t_edit *this, int key);
-void				edit_handle_printable(t_edit *edit, int key);
-void				edit_print_letters(t_edit *edit);
-char				*edit_return_cmd(t_edit *this, int key);
-
-#endif
+	cmd = NULL;
+	terminal_enable();
+	// TODO Error handling
+	while (!cmd)
+	{
+		edit_print_letters(this);
+		key = twl_getch();
+		twl_lprintf("key: %d\n", key);
+		cmd = edit_handle_one_input(this, key);
+		if (key == 27)
+			break;
+	}
+	terminal_disable();
+	return cmd;
+}

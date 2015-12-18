@@ -10,15 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "twl_xstdlib.h"
+#include "edit/edit.h"
 
-#include "terminal.h"
-
-t_termios			*terminal_singleton()
+char				*edit_handle_one_input(t_edit *this, int key)
 {
-	static t_terminal *term_sav = NULL;
-
-	if (!term_sav)
-		term_sav = terminal_new();
-	return (term_sav->term);
+	edit_handle_printable(this, key);
+	return (edit_return_cmd(this, key));
 }

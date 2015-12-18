@@ -10,24 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "prog.h"
+
+#include "twl_ctype.h"
+
 #include "edit/edit.h"
 
-void				prog_main_loop(t_prog *prog, t_environment *env)
+void				edit_handle_printable(t_edit *edit, int key)
 {
-
-	t_edit			*edit;
-	char			*cmd;
-	/*
-	** TODO: how delete exit when we exit of shell ?
-	*/
-	edit = edit_new();
-	while (1)
-	{
-		// Do your job with the CMD ^^
-		cmd = edit_loop(edit);
-	}
-	edit_del(edit);
-	(void)prog;
-	(void)env;
+	if (!twl_isprint(key))
+		return ;
+	letter_mgr_add(edit->letters, letter_new(key), edit->index);
+	edit->index++;
+	// twl_printf("key :%d\n", key);
+	(void)edit;
 }

@@ -12,7 +12,7 @@
 
 #include <stdlib.h>
 
-#include "terminal.h"
+#include "edit/terminal.h"
 
 void				terminal_del(t_terminal *this)
 {
