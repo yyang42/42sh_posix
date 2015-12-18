@@ -78,7 +78,12 @@ static void  execute_builtin_redirect_out(t_simple_command *cmd, t_ast_cmd *ast_
 
 void		execute_builtin(t_simple_command *cmd, t_ast_cmd *ast_cmd, char *path)
 {
-	if (twl_lst_len(ast_cmd->redir_in) > 0)
+	if (twl_lst_len(ast_cmd->redir_in) > 0 && (twl_lst_len(ast_cmd->redir_out) > 0))
+	{
+		execute_builtin_redirect_in(cmd, ast_cmd, path);
+		execute_builtin_redirect_out(cmd, ast_cmd, path);
+	}
+	else if (twl_lst_len(ast_cmd->redir_in) > 0)
 		execute_builtin_redirect_in(cmd, ast_cmd, path);
 	else if (twl_lst_len(ast_cmd->redir_out) > 0)
 		execute_builtin_redirect_out(cmd, ast_cmd, path);

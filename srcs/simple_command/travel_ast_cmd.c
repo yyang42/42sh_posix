@@ -57,10 +57,8 @@ void travel_ast_cmd(t_simple_command *cmd, void *ast_node)
 	else
 	{
 		path = can_use_binary(ast_cmd);
-		if (path)
-		{
 			execute_binary(ast_cmd, path);
+		if (path)
 			free(path);
-		}
 	}
 }
