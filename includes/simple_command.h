@@ -17,6 +17,7 @@
 # include "ast/ast.h"
 # include "twl_arr.h"
 # include "check_file.h"
+# include "error.h"
 # include <stdlib.h>
 # include <stdio.h>
 # include <string.h>

@@ -10,37 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "simple_command.h"
+#ifndef ERROR_H
+# define ERROR_H
 
-static void		fork_and_execute(char *path, char **args, char **env)
-{
-	int			pid;
+# include "basics.h"
+# include "twl_dict.h"
+# include "ast/ast.h"
+# include "twl_arr.h"
 
-	pid = fork();
-	if (pid == -1)
-		twl_dprintf(2, "cannot fork: %s", strerror(errno));
-	else if (pid == 0)
-	{
-		execve(path, args, env);
-		perror(path);
-		exit(0);
-	}
-	else
-	{
-		wait(&pid);
-		// handle_signal(pid);
-	}
-}
+void 	error_file_not_found(char *file);
+void 	error_permission_denied(char *file);
 
-void			command_execution(char *path, char **args, char **env)
-{
-	if (file_exists(path))
-	{
-		if (file_isexecutable(path))
-			fork_and_execute(path, args, env);
-		else
-			error_permission_denied(path);
-	}
-	else
-		error_file_not_found(path);
-}
+#endif

@@ -10,37 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "simple_command.h"
+#include "error.h"
 
-static void		fork_and_execute(char *path, char **args, char **env)
+void 	error_file_not_found(char *file)
 {
-	int			pid;
-
-	pid = fork();
-	if (pid == -1)
-		twl_dprintf(2, "cannot fork: %s", strerror(errno));
-	else if (pid == 0)
-	{
-		execve(path, args, env);
-		perror(path);
-		exit(0);
-	}
-	else
-	{
-		wait(&pid);
-		// handle_signal(pid);
-	}
+	twl_dprintf(2, "42sh: no such file or directory: %s\n", file);
 }
 
-void			command_execution(char *path, char **args, char **env)
+void 	error_permission_denied(char *file)
 {
-	if (file_exists(path))
-	{
-		if (file_isexecutable(path))
-			fork_and_execute(path, args, env);
-		else
-			error_permission_denied(path);
-	}
-	else
-		error_file_not_found(path);
+	twl_dprintf(2, "42sh: permission denied: %s\n", file);
 }
