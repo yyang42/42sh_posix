@@ -10,15 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EDIT_MOVE_MGR_H
-# define EDIT_MOVE_MGR_H
+#include "edit/edit_move_mgr.h"
 
-# include "basics.h"
-# include "edit/edit_move.h"
+static void			print_edit_move_fn(void *edit_move_)
+{
+	t_edit_move	*edit_move;
 
-t_lst				*edit_move_mgr_new(void);
-void				edit_move_mgr_del(t_lst *edit_moves);
-void				edit_move_mgr_add(t_lst *edit_moves, t_edit_move *edit_move);
-void				edit_move_mgr_print(t_lst *edit_moves);
+	edit_move = edit_move_;
+	twl_printf("<Object #%p>\n", edit_move);
+}
 
-#endif
+void				edit_move_mgr_print(t_lst *edit_moves)
+{
+	twl_printf("%s>>>>>>>>>> edit_move list%s\n", C_CYAN, C_CLEAR);
+	twl_lst_iter0(edit_moves, print_edit_move_fn);
+	twl_printf("%s-------------------------------------%s\n", C_CYAN, C_CLEAR);
+}

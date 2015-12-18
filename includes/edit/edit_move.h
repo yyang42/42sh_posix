@@ -10,15 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EDIT_MOVE_MGR_H
-# define EDIT_MOVE_MGR_H
+#ifndef EDIT_MOVE_H
+# define EDIT_MOVE_H
 
 # include "basics.h"
-# include "edit/edit_move.h"
 
-t_lst				*edit_move_mgr_new(void);
-void				edit_move_mgr_del(t_lst *edit_moves);
-void				edit_move_mgr_add(t_lst *edit_moves, t_edit_move *edit_move);
-void				edit_move_mgr_print(t_lst *edit_moves);
+# define ARROW_LEFT 4479771
+
+struct s_edit;
+
+typedef void		(*move_fn)(struct s_edit *edit);
+
+typedef struct		s_edit_move
+{
+	int				key;
+	move_fn			func;
+}					t_edit_move;
+
+t_edit_move			*edit_move_new(int key, move_fn fn);
+void				edit_move_del(t_edit_move *this);
 
 #endif

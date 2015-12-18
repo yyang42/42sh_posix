@@ -16,11 +16,13 @@
 # include "twl_lst.h"
 
 # include "edit/letter_mgr.h"
+# include "edit/edit_move_mgr.h"
 # include "basics.h"
 
 typedef struct		s_edit
 {
 	t_lst			*letters;
+	t_lst			*edit_move;
 	int				index;
 	bool			return_cmd;
 }					t_edit;
@@ -38,6 +40,8 @@ void				edit_print_letters(t_edit *this);
 char				*edit_return_cmd(t_edit *this, int key);
 
 void				edit_clear_line(t_edit *this);
+
+void				edit_move_left(struct s_edit *this);
 
 
 #endif

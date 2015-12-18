@@ -14,6 +14,8 @@
 
 #include "edit/edit.h"
 
+
+
 t_edit				*edit_new(void)
 {
 	t_edit			*this;
@@ -22,5 +24,6 @@ t_edit				*edit_new(void)
 	this->index = 0;
 	this->letters = letter_mgr_new();
 	this->return_cmd = false;
+	this->edit_move = edit_move_mgr_new();
 	return (this);
 }

@@ -10,15 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EDIT_MOVE_MGR_H
-# define EDIT_MOVE_MGR_H
+#include <stdlib.h>
 
-# include "basics.h"
-# include "edit/edit_move.h"
+#include "edit/edit_move.h"
 
-t_lst				*edit_move_mgr_new(void);
-void				edit_move_mgr_del(t_lst *edit_moves);
-void				edit_move_mgr_add(t_lst *edit_moves, t_edit_move *edit_move);
-void				edit_move_mgr_print(t_lst *edit_moves);
-
-#endif
+void				edit_move_del(t_edit_move *this)
+{
+	free(this);
+}

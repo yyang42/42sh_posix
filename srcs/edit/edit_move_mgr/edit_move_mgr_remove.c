@@ -10,15 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EDIT_MOVE_MGR_H
-# define EDIT_MOVE_MGR_H
+#include "edit/edit_move_mgr.h"
 
-# include "basics.h"
-# include "edit/edit_move.h"
+void				edit_move_mgr_remove(t_lst *edit_moves, t_edit_move *edit_move)
+{
+	int				index;
 
-t_lst				*edit_move_mgr_new(void);
-void				edit_move_mgr_del(t_lst *edit_moves);
-void				edit_move_mgr_add(t_lst *edit_moves, t_edit_move *edit_move);
-void				edit_move_mgr_print(t_lst *edit_moves);
-
-#endif
+	index = twl_lst_indexof(edit_moves, edit_move);
+	if (index == -1)
+	{
+		assert(!"[ERROR] Object not found!");
+	}
+	twl_lst_popi(edit_moves, index);
+	edit_move_del(edit_move);
+}

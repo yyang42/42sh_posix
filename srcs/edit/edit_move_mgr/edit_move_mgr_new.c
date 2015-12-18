@@ -11,10 +11,15 @@
 /* ************************************************************************** */
 
 #include "edit/edit_move_mgr.h"
+#include "edit/edit.h"
 
-void				edit_move_left(t_edit *edit)
+
+t_lst				*edit_move_mgr_new(void)
 {
-	edit->index -= 1;
-	if (edit->index < 0)
-		edit->index = 0;
+	t_lst			*edit_moves;
+
+	edit_moves = twl_lst_new();
+	edit_move_mgr_add(edit_moves, edit_move_new(ARROW_LEFT, edit_move_left));
+	t_edit_move *m = twl_lst_find(edit_moves, find_fn, NULL);
+	return (edit_moves);
 }

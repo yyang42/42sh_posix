@@ -10,15 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EDIT_MOVE_MGR_H
-# define EDIT_MOVE_MGR_H
+#include "twl_xstdlib.h"
 
-# include "basics.h"
-# include "edit/edit_move.h"
+#include "edit/edit_move.h"
 
-t_lst				*edit_move_mgr_new(void);
-void				edit_move_mgr_del(t_lst *edit_moves);
-void				edit_move_mgr_add(t_lst *edit_moves, t_edit_move *edit_move);
-void				edit_move_mgr_print(t_lst *edit_moves);
+t_edit_move			*edit_move_new(int key, move_fn func)
+{
+	t_edit_move		*this;
 
-#endif
+	this = twl_malloc_x0(sizeof(t_edit_move));
+	this->key = key;
+	this->func = func;
+	return (this);
+}
