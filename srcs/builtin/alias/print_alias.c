@@ -12,7 +12,7 @@
 
 #include "alias.h"
 
-static void 	print_key_value(char *key, void *data, void *context_)
+static void		print_key_value(char *key, void *data, void *context_)
 {
 	char *str;
 
@@ -21,7 +21,7 @@ static void 	print_key_value(char *key, void *data, void *context_)
 	(void)context_;
 }
 
-void 			print_alias()
+void			print_alias(void)
 {
 	t_environment *env;
 

@@ -12,7 +12,7 @@
 
 #include "alias.h"
 
-char 			*get_alias(char *key)
+char			*get_alias(char *key)
 {
 	t_environment	*env;
 	char			*value;

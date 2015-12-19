@@ -12,7 +12,7 @@
 
 #include "alias.h"
 
-static void 	iter_fn(void *elem, void *context)
+static void		iter_fn(void *elem, void *context)
 {
 	char	*str;
 	char	*tmp;
@@ -29,7 +29,7 @@ static void 	iter_fn(void *elem, void *context)
 	(void)context;
 }
 
-void 			alias(char *str)
+void			alias(char *str)
 {
 	char **tab;
 

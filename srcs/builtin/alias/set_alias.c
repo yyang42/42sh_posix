@@ -12,10 +12,10 @@
 
 #include "alias.h"
 
-void 			set_alias(char *str)
+void			set_alias(char *str)
 {
-	char 			*value;
-	char 			*key;
+	char			*value;
+	char			*key;
 	t_environment	*env;
 
 	env = environment_singleton();
