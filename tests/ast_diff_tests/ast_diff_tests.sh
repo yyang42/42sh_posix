@@ -39,6 +39,7 @@ diff_test ()
     mkdir -p $testcase_tmp
     rm -f $testcase_tmp/*
     $RENDU_PATH/42sh -z $testcase_path/input.sh > $testcase_tmp_stdout 2> $testcase_tmp_stderr
+    # echo "$RENDU_PATH/42sh -z $testcase_path/input.sh"
     diff $testcase_path/expected_stdout $testcase_tmp_stdout
     print_result "$?"
     echo " stdout $testsuite/$testcase"
@@ -63,7 +64,7 @@ then
 
 else
 
-    diff_test first_tests echo_abc_123
+    diff_test features ast_echo
 
 fi
 echo $C_CYAN"======  END TESTS  ======"$C_CLEAR

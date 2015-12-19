@@ -29,7 +29,6 @@ t_ast_list			*ast_build_list(t_ast *ast)
 	while (parser_remain_len(ast->parser))
 	{
 		build(list, ast);
-		// twl_printf("== list after build {%s}\n", parser_cstr(ast->parser));
 		if (parser_is_list_elem(ast->parser))
 			ast->parser->index += 1; // skip separator
 		else

@@ -35,9 +35,7 @@ static int			ast_build_ast_list_lists(t_ast_list *ast_list, char *str)
 	len = 0;
 	if ((twl_strstr(str, "&&") || twl_strstr(str, "||")) && "TODO is_ast_andor")
 	{
-		COUCOU;
 		twl_lst_push(ast_list->andors, ast_andor_build(not_comp_stmt, &len));
-		COUCOU;
 	}
 	else if (twl_strchr(str, '|') && "TODO is_pipe_case")
 	{
