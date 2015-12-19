@@ -13,28 +13,29 @@
 #include "twl_xstring.h"
 
 #include "ast/ast.h"
-#include "ast/nodes/ast_pipe.h"
+#include "ast/nodes/ast_cmd.h"
 
-static void			build(t_ast_pipe *pipe, t_ast *ast)
+static void			build(t_ast_cmd *cmd, t_ast *ast)
 {
-	// twl_lst_push(pipe->pipes, ast_pipe_build2(parser));
-	twl_lst_push(pipe->pipes, ast_build_cmd(ast));
-}
-
-t_ast_pipe			*ast_build_pipe(t_ast *ast)
-{
-	t_ast_pipe		*pipe;
-
-	pipe = ast_pipe_new();
+	// twl_lst_push(cmd->cmds, ast_cmd_build2(parser));
+	twl_lst_push(cmd->cmds, ast_cmd_new());
 	while (parser_remain_len(ast->parser))
 	{
-		build(pipe, ast);
-		if (parser_is_pipe_elem(ast->parser))
-			ast->parser->index += 2; // skip separator
-		else
+		if (parser_is_pipe_elem(ast->parser)
+			|| parser_is_andor(ast->parser)
+			|| parser_is_list_elem(ast->parser))
 			break ;
+		ast->parser->index++;
 	}
+}
+
+t_ast_cmd			*ast_build_cmd(t_ast *ast)
+{
+	t_ast_cmd		*cmd;
+
+	cmd = ast_cmd_new();
+	build(cmd, ast);
 	(void)ast->parser;
 	(void)build;
-	return (pipe);
+	return (cmd);
 }
