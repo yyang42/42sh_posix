@@ -32,4 +32,5 @@ void			set_alias(char *str)
 		twl_dict_set(env->alias, key, twl_strdup(value + 1), free);
 	else
 		twl_dict_add(env->alias, key, twl_strdup(value + 1));
+	free(key);
 }

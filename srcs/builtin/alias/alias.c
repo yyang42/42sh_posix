@@ -38,4 +38,5 @@ void			alias(char *str)
 		print_alias();
 	else if (twl_arr_len(tab) > 1)
 		twl_arr_iter(&tab[1], iter_fn, NULL);
+	twl_arr_del(tab, free);
 }
