@@ -10,21 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_TYPE_H
-# define AST_TYPE_H
+#include "ast/ast.h"
 
-typedef enum		e_ast_type
+#include "twl_arr.h"
+#include "utils.h"
+
+t_ast_cmd_subshell			*ast_build_cmd_subshell(t_ast *ast)
 {
-	AST_ANDOR,
-	AST_CMD,
-	AST_CMD_FIELD,
-	AST_CMD_SUB,
-	AST_CMD_SUBSHELL,
-	AST_CMD_SIMPLE,
-	AST_LIST,
-	AST_IF,
-	AST_PIPE,
-	AST_STRING
-}					t_ast_type;
+	t_ast_cmd_subshell		*cmd_subshell;
 
-#endif
+	cmd_subshell = ast_cmd_subshell_new();
+	ast->parser->index++;
+	cmd_subshell->index = ast->parser->index;
+	twl_printf("=== before subshell {%s}\n", parser_cstr(ast->parser));
+	cmd_subshell->list = ast_build_list(ast);
+	twl_printf("=== after subshell {%s}\n", parser_cstr(ast->parser));
+	ast->parser->index++;
+	twl_printf("=== after after subshell {%s}\n", parser_cstr(ast->parser));
+
+	return (cmd_subshell);
+}

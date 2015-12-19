@@ -10,21 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_TYPE_H
-# define AST_TYPE_H
+#include "utils.h"
 
-typedef enum		e_ast_type
+#include "ast/nodes/ast_cmd_subshell.h"
+
+t_ast_cmd_subshell	*ast_cmd_subshell_build(char *str, int *len_ptr)
 {
-	AST_ANDOR,
-	AST_CMD,
-	AST_CMD_FIELD,
-	AST_CMD_SUB,
-	AST_CMD_SUBSHELL,
-	AST_CMD_SIMPLE,
-	AST_LIST,
-	AST_IF,
-	AST_PIPE,
-	AST_STRING
-}					t_ast_type;
-
-#endif
+	return (NULL);
+	(void)str;
+	(void)len_ptr;
+}

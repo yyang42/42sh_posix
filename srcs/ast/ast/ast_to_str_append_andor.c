@@ -28,7 +28,7 @@ static void			iter_fn(void *andor, void *ast)
 
 void				ast_to_str_append_andor(t_ast *ast, t_ast_andor *andor)
 {
-	ast_to_str_push_line(ast, "ANDOR", andor->index);
+	ast_to_str_push_line(ast, "ANDOR_SEQ", andor->index);
 	ast->out_depth++;
 	twl_lst_iter(andor->pipes, iter_fn, ast);
 	ast->out_depth--;

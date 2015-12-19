@@ -10,21 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_TYPE_H
-# define AST_TYPE_H
+#include <stdlib.h>
 
-typedef enum		e_ast_type
+#include "ast/ast.h"
+
+void				ast_to_str_append_cmd_subshell(t_ast *ast, void *cmd_)
 {
-	AST_ANDOR,
-	AST_CMD,
-	AST_CMD_FIELD,
-	AST_CMD_SUB,
-	AST_CMD_SUBSHELL,
-	AST_CMD_SIMPLE,
-	AST_LIST,
-	AST_IF,
-	AST_PIPE,
-	AST_STRING
-}					t_ast_type;
+	t_ast_cmd_subshell *cmd;
 
-#endif
+	cmd = cmd_;
+	ast_to_str_push_line(ast, "CMD_SUBSHELL", cmd->index);
+	ast->out_depth++;
+	ast_to_str_append_list(ast, cmd->list);
+	ast->out_depth--;
+	(void)ast;
+	(void)cmd;
+}

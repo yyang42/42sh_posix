@@ -10,21 +10,30 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_TYPE_H
-# define AST_TYPE_H
+#ifndef AST_CMD_SUBSHELL_H
+# define AST_CMD_SUBSHELL_H
 
-typedef enum		e_ast_type
+# include "twl_lst.h"
+
+# include "basics.h"
+
+# include "ast/ast_defines.h"
+# include "ast/nodes/ast_node.h"
+# include "ast/nodes/ast_list.h"
+
+typedef struct		s_ast_cmd_subshell
 {
-	AST_ANDOR,
-	AST_CMD,
-	AST_CMD_FIELD,
-	AST_CMD_SUB,
-	AST_CMD_SUBSHELL,
-	AST_CMD_SIMPLE,
-	AST_LIST,
-	AST_IF,
-	AST_PIPE,
-	AST_STRING
-}					t_ast_type;
+	t_ast_type		type;
+	int				index;
+	t_ast_list		*list;
+}					t_ast_cmd_subshell;
+
+t_ast_cmd_subshell	*ast_cmd_subshell_new(void);
+void				ast_cmd_subshell_del(t_ast_cmd_subshell *this);
+
+t_ast_cmd_subshell	*ast_cmd_subshell_build(char *str, int *len_ptr);
+
+void				ast_cmd_subshell_append_str(t_ast_cmd_subshell *this,
+													int lvl, t_lst *out_list);
 
 #endif

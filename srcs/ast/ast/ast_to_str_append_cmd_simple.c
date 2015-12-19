@@ -10,21 +10,27 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_TYPE_H
-# define AST_TYPE_H
+#include <stdlib.h>
 
-typedef enum		e_ast_type
+#include "ast/ast.h"
+
+static void			iter_fn(void *cmd, void *ast)
 {
-	AST_ANDOR,
-	AST_CMD,
-	AST_CMD_FIELD,
-	AST_CMD_SUB,
-	AST_CMD_SUBSHELL,
-	AST_CMD_SIMPLE,
-	AST_LIST,
-	AST_IF,
-	AST_PIPE,
-	AST_STRING
-}					t_ast_type;
+	// ast_to_str_append_cmd(ast, cmd);
+	(void)ast;
+	(void)cmd;
+}
 
-#endif
+void				ast_to_str_append_cmd_simple(t_ast *ast, void *cmd_)
+{
+	t_ast_cmd_simple *cmd;
+
+	cmd = cmd_;
+	ast_to_str_push_line(ast, "CMD_SIMPLE", cmd->index);
+	// ast->out_depth++;
+	// // twl_lst_iter(cmd->cmds, iter_fn, ast);
+	// ast->out_depth--;
+	(void)ast;
+	(void)cmd;
+	(void)iter_fn;
+}

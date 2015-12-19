@@ -14,29 +14,21 @@
 
 #include "ast/ast.h"
 #include "ast/nodes/ast_cmd.h"
+#include "ast/nodes/ast_cmd_subshell.h"
 
-static void			build(t_ast_cmd *cmd, t_ast *ast)
+void				*ast_build_cmd(t_ast *ast)
 {
-	// twl_lst_push(cmd->cmds, ast_cmd_build2(parser));
-	twl_lst_push(cmd->cmds, ast_cmd_new());
-	while (parser_remain_len(ast->parser))
+	void		*cmd;
+
+	if (parser_is_subshell(ast->parser))
 	{
-		if (parser_is_pipe_elem(ast->parser)
-			|| parser_is_andor(ast->parser)
-			|| parser_is_list_elem(ast->parser))
-			break ;
-		ast->parser->index++;
+		cmd = ast_build_cmd_subshell(ast);
 	}
-}
-
-t_ast_cmd			*ast_build_cmd(t_ast *ast)
-{
-	t_ast_cmd		*cmd;
-
-	cmd = ast_cmd_new();
-	cmd->index = ast->parser->index;
-	build(cmd, ast);
-	(void)ast->parser;
-	(void)build;
+	else
+	{
+		cmd = ast_build_cmd_simple(ast);
+	}
+	// cmd->index = ast->parser->index;
+	// build(cmd, ast);
 	return (cmd);
 }

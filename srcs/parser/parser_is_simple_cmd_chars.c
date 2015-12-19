@@ -10,21 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_TYPE_H
-# define AST_TYPE_H
+#include <stdlib.h>
 
-typedef enum		e_ast_type
+#include "twl_ctype.h"
+
+#include "parser.h"
+
+bool				parser_is_simple_cmd_chars(t_parser *parser)
 {
-	AST_ANDOR,
-	AST_CMD,
-	AST_CMD_FIELD,
-	AST_CMD_SUB,
-	AST_CMD_SUBSHELL,
-	AST_CMD_SIMPLE,
-	AST_LIST,
-	AST_IF,
-	AST_PIPE,
-	AST_STRING
-}					t_ast_type;
-
-#endif
+	return (twl_isalnum(parser_cchar(parser))
+		|| twl_strchr(" ", parser_cchar(parser)));
+}

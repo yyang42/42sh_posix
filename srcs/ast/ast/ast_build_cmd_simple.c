@@ -10,21 +10,40 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_TYPE_H
-# define AST_TYPE_H
+#include "ast/ast.h"
 
-typedef enum		e_ast_type
+#include "twl_arr.h"
+#include "utils.h"
+
+static void			build(t_ast_cmd_simple *cmd, t_ast *ast)
 {
-	AST_ANDOR,
-	AST_CMD,
-	AST_CMD_FIELD,
-	AST_CMD_SUB,
-	AST_CMD_SUBSHELL,
-	AST_CMD_SIMPLE,
-	AST_LIST,
-	AST_IF,
-	AST_PIPE,
-	AST_STRING
-}					t_ast_type;
+	// twl_lst_push(cmd->cmds, ast_cmd_build2(parser));
+	// twl_lst_push(cmd->cmds, ast_cmd_new());
+	twl_printf("== ast->parser {%s}\n", parser_cstr(ast->parser));
+	while (parser_remain_len(ast->parser))
+	{
+		if (!parser_is_simple_cmd_chars(ast->parser))
+			break ;
+		// if (parser_is_pipe_elem(ast->parser)
+		// 	|| parser_is_andor(ast->parser)
+		// 	|| parser_is_list_elem(ast->parser)
+		// 	|| (parser_cchar(ast->parser) == ')'))
+		// 	break ;
+		ast->parser->index++;
+	}
+	(void)cmd;
+}
 
-#endif
+t_ast_cmd_simple			*ast_build_cmd_simple(t_ast *ast)
+{
+	t_ast_cmd_simple		*cmd_simple;
+
+	COUCOU;
+	cmd_simple = ast_cmd_simple_new();
+	COUCOU;
+	cmd_simple->index = ast->parser->index;
+	COUCOU;
+	build(cmd_simple, ast);
+	COUCOU;
+	return (cmd_simple);
+}
