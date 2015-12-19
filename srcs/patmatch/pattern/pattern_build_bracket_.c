@@ -47,9 +47,13 @@ static void			bracket_normal_char(t_pattern *this, int *index,
 {
 	if (this->pattern[*index] == '\\')
 	{
-		*index += 1;
-		if (!this->pattern[*index])
-			return ;
+		if (!((int)this->index + 1 == *index &&
+					this->pattern[*index + 1] == '^'))
+		{
+			*index += 1;
+			if (!this->pattern[*index])
+				return ;
+		}
 	}
 	brack->save[brack->index] = this->pattern[*index];
 	*index += 1;

@@ -149,6 +149,7 @@ int					match_bracket(t_patmatch *this, t_match__ *m, t_pattern_data *data)
 	int				ret;
 
 	content = twl_strndup(data->split + 1, twl_strlen(data->split) - 2);
+	ret = 0;
 	if (!(possibilities = twl_dict_get(this->class_expr, content)))
 		patmatch_add_class_expr_(this, content);
 	if (!(possibilities = twl_dict_get(this->class_expr, content)))
@@ -211,8 +212,19 @@ void				recurs_match(t_patmatch *this, t_matching_ *match)
 	{
 		if (!could_match(this, match, dir))
 			continue ;
-		match_(this, match, dir->d_name);
+		if (match_(this, match, dir->d_name))
+		{
+			next.building = twl_joinpath(match->building, dir->d_name);
+			recurs_match(this, &next);
+			free(next.building);
+		}
 	}
+}
+
+void func(void *data_)
+{
+	char *data = data_;
+	dprintf(2, "%s\n", data);
 }
 
 char				**patmatch_match(t_patmatch *this, char *pattern)
@@ -223,6 +235,7 @@ char				**patmatch_match(t_patmatch *this, char *pattern)
 	this->match = twl_lst_new();
 	init_match(this, &match);
 	recurs_match(this, &match);
+	twl_lst_iter0(this->match, &func);
 	pattern_del(this->pattern);
 	return (NULL);
 }

@@ -43,7 +43,8 @@ typedef struct		s_class_expr__
 	char			expr[128];
 	int				ind_n;
 	int				ind_e;
-}					t_class_expr__
+	int				reverse;
+}					t_class_expr__;
 
 typedef struct		s_patmatch
 {
