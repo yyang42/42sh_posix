@@ -17,10 +17,20 @@ void				ast_to_str_push_line(t_ast *ast, char *type, int index)
 	char			*tmp;
 	char			*code_seg;
 
-	code_seg = twl_strndup(ast->parser->raw + index, 20);
-	code_seg = twl_str_replace_free(code_seg, "\n", "\\n");
-	twl_asprintf(&tmp, "%*s%s => %s ...\n",
-		ast->out_depth * AST_TAB_WIDTH, "", type, code_seg);
+	// code_seg = twl_strndup(ast->parser->raw + index, 20);
+	// code_seg = twl_str_replace_free(code_seg, "\n", "\\n");
+	twl_asprintf(&tmp, "%*s%s",
+		ast->out_depth * AST_TAB_WIDTH, "", type);
 	twl_lst_push(ast->out_lines, tmp);
-	free(code_seg);
+
+	if (twl_strequ(type, "CMD_SIMPLE"))
+	{
+		code_seg = twl_strndup(ast->parser->raw + index, 20);
+		code_seg = twl_str_replace_free(code_seg, "\n", "\\n");
+		twl_lst_push(ast->out_lines, twl_strdup(" "));
+		twl_lst_push(ast->out_lines, code_seg);
+	}
+	twl_lst_push(ast->out_lines, twl_strdup("\n"));
+	// free(code_seg);
+	(void)index;
 }

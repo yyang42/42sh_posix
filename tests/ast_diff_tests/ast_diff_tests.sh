@@ -39,7 +39,7 @@ diff_test ()
     mkdir -p $testcase_tmp
     rm -f $testcase_tmp/*
     $RENDU_PATH/42sh -z $testcase_path/input.sh > $testcase_tmp_stdout 2> $testcase_tmp_stderr
-    # echo "$RENDU_PATH/42sh -z $testcase_path/input.sh"
+    echo "$RENDU_PATH/42sh -z $testcase_path/input.sh"
     diff $testcase_path/expected_stdout $testcase_tmp_stdout
     print_result "$?"
     echo " stdout $testsuite/$testcase"
@@ -52,15 +52,17 @@ echo $C_CYAN"====== START AST DIFF TESTS ======"$C_CLEAR
 if ! `env | grep -q ^LAST_ONLY=`
 then
 
-    for CASE_PATH in $TESTS_ROOT_PATH/*; do
-        if [ -d "${CASE_PATH}" ]; then
-            for TEST_PATH in $CASE_PATH/*; do
-                if [ -d "${TEST_PATH}" ]; then
-                    diff_test `basename $CASE_PATH` `basename $TEST_PATH`
-                fi
-            done
-        fi
-    done
+    diff_test features ast_echo
+
+    # for CASE_PATH in $TESTS_ROOT_PATH/*; do
+    #     if [ -d "${CASE_PATH}" ]; then
+    #         for TEST_PATH in $CASE_PATH/*; do
+    #             if [ -d "${TEST_PATH}" ]; then
+    #                 diff_test `basename $CASE_PATH` `basename $TEST_PATH`
+    #             fi
+    #         done
+    #     fi
+    # done
 
 else
 
