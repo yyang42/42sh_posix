@@ -56,6 +56,8 @@ then
     diff_test features ast_list
     diff_test features ast_andor
     diff_test features ast_pipe
+    diff_test features ast_subshell
+    diff_test features ast_subshell_err
 
     # for CASE_PATH in $TESTS_ROOT_PATH/*; do
     #     if [ -d "${CASE_PATH}" ]; then

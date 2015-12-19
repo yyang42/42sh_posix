@@ -1,0 +1,12 @@
+LIST
+  ANDOR_SEQ
+    PIPE_SEQ
+      CMD_SIMPLE echo aabbcc&&(echo a
+    PIPE_SEQ
+      CMD_SUBSHELL
+        LIST
+          ANDOR_SEQ
+            PIPE_SEQ
+              CMD_SIMPLE echo abc)&&echo ccc\n
+    PIPE_SEQ
+      CMD_SIMPLE echo ccc\n
