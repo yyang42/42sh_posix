@@ -30,6 +30,7 @@ typedef enum		e_andor_type
 typedef struct		s_ast_andor
 {
 	t_ast_type		type;
+	int				index;
 	t_andor_type	andor_type;
 	void			*left;
 	void			*right;

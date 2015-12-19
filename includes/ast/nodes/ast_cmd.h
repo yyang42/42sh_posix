@@ -29,6 +29,7 @@ typedef struct		s_ast_cmd
 	t_lst			*redir_append;
 	t_lst			*redir_heredoc;
 	t_lst			*cmds;
+	int				index;
 }					t_ast_cmd;
 
 t_ast_cmd			*ast_cmd_new(void);

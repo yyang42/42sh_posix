@@ -34,6 +34,7 @@ t_ast_cmd			*ast_build_cmd(t_ast *ast)
 	t_ast_cmd		*cmd;
 
 	cmd = ast_cmd_new();
+	cmd->index = ast->parser->index;
 	build(cmd, ast);
 	(void)ast->parser;
 	(void)build;

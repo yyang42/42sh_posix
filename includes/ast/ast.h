@@ -51,6 +51,7 @@ void				ast_to_str_append_list(t_ast *ast, t_ast_list *list);
 void				ast_to_str_append_andor(t_ast *ast, t_ast_andor *andor);
 void				ast_to_str_append_pipe(t_ast *ast, t_ast_pipe *pipe);
 void				ast_to_str_append_cmd(t_ast *ast, t_ast_cmd *cmd);
+void				ast_to_str_push_line(t_ast *ast, char *type, int index);
 
 /*
 

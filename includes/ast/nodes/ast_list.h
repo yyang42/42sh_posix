@@ -27,6 +27,7 @@ typedef struct		s_ast_list
 {
 	t_ast_type		type;
 	t_lst			*andors;
+	t_parser		*parser;
 	int				index;
 }					t_ast_list;
 

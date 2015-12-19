@@ -25,6 +25,7 @@ t_ast_andor			*ast_build_andor(t_ast *ast)
 	t_ast_andor		*andor;
 
 	andor = ast_andor_new(ANDOR_TYPE_AND);
+	andor->index = ast->parser->index;
 	while (parser_remain_len(ast->parser))
 	{
 		build(andor, ast);

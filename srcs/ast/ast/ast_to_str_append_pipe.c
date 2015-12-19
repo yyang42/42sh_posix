@@ -27,11 +27,8 @@ static void			iter_fn(void *pipe, void *ast)
 
 void				ast_to_str_append_pipe(t_ast *ast, t_ast_pipe *pipe)
 {
-	twl_lst_push(ast->out_lines, build_ast_line(ast->out_depth, "PIPE", ""));
+	ast_to_str_push_line(ast, "PIPE", pipe->index);
 	ast->out_depth++;
 	twl_lst_iter(pipe->pipes, iter_fn, ast);
 	ast->out_depth--;
-	(void)ast;
-	(void)pipe;
-	(void)iter_fn;
 }

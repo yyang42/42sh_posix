@@ -23,5 +23,6 @@ t_ast_pipe			*ast_pipe_new(void)
 	this->left = NULL;
 	this->right = NULL;
 	this->pipes = twl_lst_new();
+	this->index = 0;
 	return (this);
 }

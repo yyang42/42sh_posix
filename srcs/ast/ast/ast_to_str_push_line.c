@@ -10,32 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_PIPE_H
-# define AST_PIPE_H
+#include "ast/ast.h"
 
-# include "basics.h"
-
-# include "parser.h"
-# include "utils.h"
-
-# include "ast/ast_defines.h"
-# include "ast/nodes/ast_node.h"
-
-typedef struct		s_ast_pipe
+void				ast_to_str_push_line(t_ast *ast, char *type, int index)
 {
-	t_ast_type		type;
-	void			*left;
-	void			*right;
-	t_lst			*pipes;
-	int				index;
-}					t_ast_pipe;
+	char			*tmp;
+	char			*code_seg;
 
-t_ast_pipe			*ast_pipe_new(void);
-void				ast_pipe_del(t_ast_pipe *this);
-
-t_ast_pipe			*ast_pipe_build(char *str, int *len_ptr);
-t_ast_pipe			*ast_pipe_build2(t_parser *parser);
-void				ast_pipe_str_append(t_ast_pipe *this, t_lst *lines,
-																int *depth);
-
-#endif
+	code_seg = twl_strndup(ast->parser->raw + index, 20);
+	code_seg = twl_str_replace_free(code_seg, "\n", "\\n");
+	twl_asprintf(&tmp, "%*s%s => %s ...\n",
+		ast->out_depth * AST_TAB_WIDTH, "", type, code_seg);
+	twl_lst_push(ast->out_lines, tmp);
+	free(code_seg);
+}

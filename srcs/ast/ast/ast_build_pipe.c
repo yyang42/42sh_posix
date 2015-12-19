@@ -26,6 +26,7 @@ t_ast_pipe			*ast_build_pipe(t_ast *ast)
 	t_ast_pipe		*pipe;
 
 	pipe = ast_pipe_new();
+	pipe->index = ast->parser->index;
 	while (parser_remain_len(ast->parser))
 	{
 		build(pipe, ast);
