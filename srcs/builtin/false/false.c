@@ -10,29 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "echo.h"
+#include "builtin.h"
 
-int				echo(char *str)
+bool		builtin_false()
 {
-	t_opt			*opt;
-	char			**arr;
-	char			*c;
-	int				flag;
+	t_environment *env;
 
-	flag = 0;
-	arr = twl_strsplit_mul(str, " \n\t");
-	opt = twl_opt_new(arr, ECHO_OPT_VALID_OPTS);
-	if ((c = twl_opt_check_invalid_opts(opt)))
-		flag = check_invalid_opts(opt, "echo", ECHO_OPT_VALID_OPTS);
-	else
-	{
-		//TODO Faire un truc plus propre que +5 XD TCALC
-		if (twl_opt_get_param(opt, "n"))
-			twl_printf("%s", str + 5);
-		else
-			twl_printf("%s\n", str + 5);
-	}
-	twl_arr_del(arr, &free);
-	twl_opt_del(opt);
-	return (flag);
+	env = environment_singleton();
+	env->info.last_exit_status = 42;
+	return (false);
 }

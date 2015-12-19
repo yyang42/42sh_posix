@@ -48,13 +48,13 @@ void		execute_cd(char *path, int no_symlinks, t_environment *this)
 	if (!no_symlinks)
 		new_path = set_canonical_form(path);
 	if (no_symlinks)
-		cd_symlink(no_symlinks ? path : new_path, this);
+		cd_symlink(path, this);
 	else
 	{
-		if (chdir(no_symlinks ? path : new_path) == 0)
+		if (chdir(new_path) == 0)
 		{
 			set_oldpwd(this);
-			set_pwd(no_symlinks ? path : new_path, this);
+			set_pwd(new_path, this);
 		}
 		else
 			perror("cd");

@@ -24,5 +24,7 @@
 # include "unset.h"
 
 int				check_invalid_opts(t_opt *opt, char *exe_name, char *flags);
+bool			builtin_true();
+bool			builtin_false();
 
 #endif
