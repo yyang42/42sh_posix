@@ -54,6 +54,7 @@ void				environment_init(t_environment *this)
 	extern char **environ;
 
 	twl_arr_iter(environ, init_env, this);
+	this->alias = twl_dict_new();
 	this->flag_verbose = twl_dict_new();
 	this->shell_func = twl_dict_new();
 	fill_flag_verbose_dict(this->flag_verbose);

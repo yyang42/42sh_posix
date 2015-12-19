@@ -43,6 +43,7 @@ typedef struct				s_environment
 	t_lst					*env_vars;
 	t_lst					*pos_params;
 	t_lst					*flags;
+	t_dict					*alias;
 	t_dict					*flag_verbose;
 	t_dict					*shell_func;
 	t_environment_info		info;

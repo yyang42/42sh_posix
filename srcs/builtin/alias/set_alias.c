@@ -10,22 +10,26 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_H
-# define BUILTIN_H
+#include "alias.h"
 
-# include "twl_arr.h"
-# include "twl_opt.h"
-# include "twl_stdio.h"
-# include "cd.h"
-# include "echo.h"
-# include "env.h"
-# include "export.h"
-# include "set.h"
-# include "unset.h"
-# include "alias.h"
+void 			set_alias(char *str)
+{
+	char 			*value;
+	char 			*key;
+	t_environment	*env;
 
-int				check_invalid_opts(t_opt *opt, char *exe_name, char *flags);
-bool			builtin_true();
-bool			builtin_false();
-
-#endif
+	env = environment_singleton();
+	value = twl_strchr(str, '=');
+	if (value)
+		key = twl_strsub(str, 0, twl_strlen(str) - twl_strlen(value));
+	else
+	{
+		env->info.last_exit_status = 42;
+		return ;
+	}
+	env->info.last_exit_status = 0;
+	if (twl_dict_key_exist(env->alias, key))
+		twl_dict_set(env->alias, key, twl_strdup(value + 1), free);
+	else
+		twl_dict_add(env->alias, key, twl_strdup(value + 1));
+}

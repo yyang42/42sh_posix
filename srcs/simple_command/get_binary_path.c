@@ -47,6 +47,7 @@ char		*get_binary_path(char *cmd)
 	twl_dict_add(dict, "export", &export);
 	twl_dict_add(dict, "set", &set);
 	twl_dict_add(dict, "unset", &unset);
+	twl_dict_add(dict, "alias", &alias);
 }
 
 t_simple_command				*simple_command_new(void)

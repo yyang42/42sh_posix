@@ -10,22 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_H
-# define BUILTIN_H
+#ifndef ALIAS_H
+# define ALIAS_H
 
 # include "twl_arr.h"
 # include "twl_opt.h"
 # include "twl_stdio.h"
-# include "cd.h"
-# include "echo.h"
-# include "env.h"
-# include "export.h"
-# include "set.h"
-# include "unset.h"
-# include "alias.h"
+# include "environment.h"
+# include "twl_dict.h"
+# include "twl_arr.h"
+# include <stdbool.h>
 
-int				check_invalid_opts(t_opt *opt, char *exe_name, char *flags);
-bool			builtin_true();
-bool			builtin_false();
+char 			*get_alias(char *key);
+void 			set_alias(char *str);
+void 			print_alias();
+void 			alias(char *str);
 
 #endif

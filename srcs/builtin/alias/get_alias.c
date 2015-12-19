@@ -10,22 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_H
-# define BUILTIN_H
+#include "alias.h"
 
-# include "twl_arr.h"
-# include "twl_opt.h"
-# include "twl_stdio.h"
-# include "cd.h"
-# include "echo.h"
-# include "env.h"
-# include "export.h"
-# include "set.h"
-# include "unset.h"
-# include "alias.h"
+char 			*get_alias(char *key)
+{
+	t_environment	*env;
+	char			*value;
 
-int				check_invalid_opts(t_opt *opt, char *exe_name, char *flags);
-bool			builtin_true();
-bool			builtin_false();
-
-#endif
+	env = environment_singleton();
+	value = twl_dict_get(env->alias, key);
+	if (!value)
+		env->info.last_exit_status = 42;
+	return (value);
+}

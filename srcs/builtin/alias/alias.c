@@ -10,22 +10,32 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_H
-# define BUILTIN_H
+#include "alias.h"
 
-# include "twl_arr.h"
-# include "twl_opt.h"
-# include "twl_stdio.h"
-# include "cd.h"
-# include "echo.h"
-# include "env.h"
-# include "export.h"
-# include "set.h"
-# include "unset.h"
-# include "alias.h"
+static void 	iter_fn(void *elem, void *context)
+{
+	char	*str;
+	char	*tmp;
 
-int				check_invalid_opts(t_opt *opt, char *exe_name, char *flags);
-bool			builtin_true();
-bool			builtin_false();
+	str = elem;
+	if (twl_strchr(str, '='))
+		set_alias(str);
+	else
+	{
+		tmp = get_alias(str);
+		if (tmp)
+			twl_printf("%s=\'%s\'\n", str, tmp);
+	}
+	(void)context;
+}
 
-#endif
+void 			alias(char *str)
+{
+	char **tab;
+
+	tab = twl_strsplit(str, ' ');
+	if (twl_arr_len(tab) == 1)
+		print_alias();
+	else if (twl_arr_len(tab) > 1)
+		twl_arr_iter(&tab[1], iter_fn, NULL);
+}

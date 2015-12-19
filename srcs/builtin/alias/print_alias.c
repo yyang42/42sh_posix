@@ -10,22 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_H
-# define BUILTIN_H
+#include "alias.h"
 
-# include "twl_arr.h"
-# include "twl_opt.h"
-# include "twl_stdio.h"
-# include "cd.h"
-# include "echo.h"
-# include "env.h"
-# include "export.h"
-# include "set.h"
-# include "unset.h"
-# include "alias.h"
+static void 	print_key_value(char *key, void *data, void *context_)
+{
+	char *str;
 
-int				check_invalid_opts(t_opt *opt, char *exe_name, char *flags);
-bool			builtin_true();
-bool			builtin_false();
+	str = data;
+	twl_printf("%s=%s\n", key, str);
+	(void)context_;
+}
 
-#endif
+void 			print_alias()
+{
+	t_environment *env;
+
+	env = environment_singleton();
+	twl_dict_iter(env->alias, print_key_value, NULL);
+}
