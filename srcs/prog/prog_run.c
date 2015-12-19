@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <fcntl.h>
 #include "prog.h"
 #include "environment.h"
 #include "set.h"
