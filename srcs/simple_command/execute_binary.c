@@ -29,7 +29,7 @@ static void execute_binary_redirect_in(t_ast_cmd *ast_cmd, char *binary_path)
 		{
 			save_stdin = dup(0);
 			args = get_cmd_args_from_ast_cmd(ast_cmd, binary_path);
-			redirect_in(fd);
+			dup_fds(fd, 0);
 			env = environment_get_env_arr(environment_singleton());
 			command_execution(binary_path, args, env);
 			close_file(fd);
@@ -55,7 +55,7 @@ static void execute_binary_redirect_out(t_ast_cmd *ast_cmd, char *binary_path)
 		{
 			save_stdout = dup(1);
 			args = get_cmd_args_from_ast_cmd(ast_cmd, binary_path);
-			redirect_out(fd);
+			dup_fds(fd, 1);
 			env = environment_get_env_arr(environment_singleton());
 			command_execution(binary_path, args, env);
 			close_file(fd);
@@ -83,17 +83,17 @@ static void execute_binary_redirect_in_out(t_ast_cmd *ast_cmd, char *binary_path
 		fd2 = create_file(file_name2);
 		if (fd >= 0 && fd2 >= 0 && binary_path)
 		{
-			save_stdin = dup(0);
-			save_stdout = dup(1);
+			save_stdin = dup(STDIN_FILENO);
+			save_stdout = dup(STDOUT_FILENO);
 			args = get_cmd_args_from_ast_cmd(ast_cmd, binary_path);
-			redirect_in(fd);
-			redirect_out(fd2);
+			dup_fds(fd, STDIN_FILENO);
+			dup_fds(fd2, STDOUT_FILENO);
 			env = environment_get_env_arr(environment_singleton());
 			command_execution(binary_path, args, env);
 			close_file(fd);
 			close_file(fd2);
-			dup2(save_stdin, 0);
-			dup2(save_stdout, 1);
+			dup2(save_stdin, STDIN_FILENO);
+			dup2(save_stdout, STDOUT_FILENO);
 		}
 	}
 }
