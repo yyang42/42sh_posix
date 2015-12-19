@@ -11,18 +11,19 @@
 /* ************************************************************************** */
 
 #include "ast/nodes/ast_list.h"
+#include "ast/nodes/ast_andor.h"
 
 static void			iter_andor_fn(void *andor, void *lines, void *depth)
 {
-	twl_lst_push(lines, build_ast_line(*(int *)depth, "ANDOR", ""));
-	(void)andor;
+	ast_andor_str_append(andor, lines, depth);
 }
 
 void				ast_list_str_append(t_ast_list *this, t_lst *lines,
-																int *depth)
+																int *depth_)
 {
-	twl_lst_push(lines, build_ast_line(*depth, "LIST", ""));
-	twl_lst_iter2(this->andors, iter_andor_fn, lines, depth);
-	(void)this;
-	(void)depth;
+	int				depth;
+
+	twl_lst_push(lines, build_ast_line(*depth_, "LIST", ""));
+	depth = *depth_ + 1;
+	twl_lst_iter2(this->andors, iter_andor_fn, lines, &depth);
 }

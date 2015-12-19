@@ -11,25 +11,35 @@
 /* ************************************************************************** */
 
 #include "ast/nodes/ast_list.h"
+#include "ast/nodes/ast_andor.h"
+
+static bool			is_list_elem_sep(t_parser *parser)
+{
+	return (parser_cchar(parser) == '\n');
+}
 
 static void			build(t_ast_list *list, t_parser *parser)
 {
-	(void)list;
-	(void)parser;
+	twl_lst_push(list->andors, ast_andor_build2(parser));
+	while (parser_remain_len(parser))
+	{
+		if (is_list_elem_sep(parser))
+			break ;
+		parser->index++;
+	}
 }
 
 t_ast_list			*ast_list_build2(t_parser *parser)
 {
-	t_ast_list	*list;
+	t_ast_list		*list;
 
 	list = ast_list_new();
-
-	while (true)
+	while (parser_remain_len(parser))
 	{
 		build(list, parser);
-		if (parser_cchar(parser) != ';')
+		if (!is_list_elem_sep(parser))
 			break ;
+		parser->index += 1; // skip separator
 	}
-	(void)parser;
 	return (list);
 }

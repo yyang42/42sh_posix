@@ -20,6 +20,7 @@ t_parser			*parser_new(char *str)
 
 	this = twl_malloc_x0(sizeof(t_parser));
 	this->index = 0;
+	this->len = twl_strlen(str);
 	this->raw = twl_strdup(str);
 	return (this);
 }

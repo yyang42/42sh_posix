@@ -10,28 +10,22 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_PIPE_H
-# define AST_PIPE_H
+#include "ast/nodes/ast_andor.h"
+#include "ast/nodes/ast_pipe.h"
 
-# include "basics.h"
-
-# include "utils.h"
-
-# include "ast/ast_defines.h"
-# include "ast/nodes/ast_node.h"
-
-typedef struct		s_ast_pipe
+static void			iter_andor_fn(void *andor, void *lines, void *depth)
 {
-	t_ast_type		type;
-	void			*left;
-	void			*right;
-}					t_ast_pipe;
+	ast_pipe_str_append(andor, lines, depth);
+}
 
-t_ast_pipe			*ast_pipe_new(void);
-void				ast_pipe_del(t_ast_pipe *this);
+void				ast_andor_str_append(t_ast_andor *this, t_lst *lines,
+																int *depth_)
+{
+	int				depth;
 
-t_ast_pipe			*ast_pipe_build(char *str, int *len_ptr);
-void				ast_pipe_str_append(t_ast_pipe *this, t_lst *lines,
-																int *depth);
-
-#endif
+	twl_lst_push(lines, build_ast_line(*depth_, "ANDOR_SEQ", ""));
+	depth = *depth_ + 1;
+	twl_lst_iter2(this->pipes, iter_andor_fn, lines, &depth);
+	(void)this;
+	(void)depth;
+}

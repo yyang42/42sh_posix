@@ -21,11 +21,14 @@ typedef struct		s_parser
 {
 	char			*raw;
 	int				index;
+	int				len;
 }					t_parser;
 
 t_parser			*parser_new(char *str);
 void				parser_del(t_parser *this);
 
 char				parser_cchar(t_parser *this);
+char				*parser_cstr(t_parser *this);
+int					parser_remain_len(t_parser *this);
 
 #endif

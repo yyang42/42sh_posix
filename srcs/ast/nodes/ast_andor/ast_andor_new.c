@@ -23,5 +23,6 @@ t_ast_andor				*ast_andor_new(t_andor_type andor_type)
 	this->andor_type = andor_type;
 	this->left = NULL;
 	this->right = NULL;
+	this->pipes = twl_lst_new();
 	return (this);
 }

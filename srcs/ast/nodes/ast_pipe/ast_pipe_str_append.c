@@ -10,28 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_PIPE_H
-# define AST_PIPE_H
-
-# include "basics.h"
-
-# include "utils.h"
-
-# include "ast/ast_defines.h"
-# include "ast/nodes/ast_node.h"
-
-typedef struct		s_ast_pipe
+#include "ast/nodes/ast_pipe.h"
+/*
+static void			iter_pipe_fn(void *pipe, void *lines, void *depth)
 {
-	t_ast_type		type;
-	void			*left;
-	void			*right;
-}					t_ast_pipe;
-
-t_ast_pipe			*ast_pipe_new(void);
-void				ast_pipe_del(t_ast_pipe *this);
-
-t_ast_pipe			*ast_pipe_build(char *str, int *len_ptr);
+	twl_lst_push(lines, build_ast_line(*(int *)depth, "PIPE", ""));
+	(void)pipe;
+}
+*/
 void				ast_pipe_str_append(t_ast_pipe *this, t_lst *lines,
-																int *depth);
-
-#endif
+																int *depth)
+{
+	twl_lst_push(lines, build_ast_line(*depth, "PIPE_SEQ", ""));
+	// *depth += 1;
+	// twl_lst_iter2(this->pipes, iter_pipe_fn, lines, depth);
+	(void)this;
+	(void)depth;
+}

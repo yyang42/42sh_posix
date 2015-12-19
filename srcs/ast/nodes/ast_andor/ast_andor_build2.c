@@ -10,28 +10,40 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_PIPE_H
-# define AST_PIPE_H
+#include "twl_xstring.h"
 
-# include "basics.h"
+#include "ast/nodes/ast_andor.h"
+#include "ast/nodes/ast_andor.h"
 
-# include "utils.h"
-
-# include "ast/ast_defines.h"
-# include "ast/nodes/ast_node.h"
-
-typedef struct		s_ast_pipe
+static bool			is_andor_elem_sep(t_parser *parser)
 {
-	t_ast_type		type;
-	void			*left;
-	void			*right;
-}					t_ast_pipe;
+	return (twl_str_starts_with(parser_cstr(parser), "&&")
+		|| twl_str_starts_with(parser_cstr(parser), "||"));
+}
 
-t_ast_pipe			*ast_pipe_new(void);
-void				ast_pipe_del(t_ast_pipe *this);
+/*static void			build(t_ast_list *list, t_parser *parser)
+{
+	twl_lst_push(list->andors, ast_pipe_build2(parser));
+	while (parser_cchar(parser))
+	{
+		if (parser_cchar(parser) == '\n')
+			break ;
+		parser->index++;
+	}
+}
+*/
 
-t_ast_pipe			*ast_pipe_build(char *str, int *len_ptr);
-void				ast_pipe_str_append(t_ast_pipe *this, t_lst *lines,
-																int *depth);
+t_ast_andor			*ast_andor_build2(t_parser *parser)
+{
+	t_ast_andor		*andor;
 
-#endif
+	andor = ast_andor_new(ANDOR_TYPE_AND);
+	while (true)
+	{
+		// build(andor, parser);
+		if (!is_andor_elem_sep(parser))
+			break ;
+		parser->index += 2; // skip && and ||
+	}
+	return (andor);
+}

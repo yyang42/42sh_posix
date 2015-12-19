@@ -10,28 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_PIPE_H
-# define AST_PIPE_H
+#include <stdlib.h>
 
-# include "basics.h"
+#include "parser.h"
 
-# include "utils.h"
-
-# include "ast/ast_defines.h"
-# include "ast/nodes/ast_node.h"
-
-typedef struct		s_ast_pipe
+char				*parser_cstr(t_parser *this)
 {
-	t_ast_type		type;
-	void			*left;
-	void			*right;
-}					t_ast_pipe;
-
-t_ast_pipe			*ast_pipe_new(void);
-void				ast_pipe_del(t_ast_pipe *this);
-
-t_ast_pipe			*ast_pipe_build(char *str, int *len_ptr);
-void				ast_pipe_str_append(t_ast_pipe *this, t_lst *lines,
-																int *depth);
-
-#endif
+	return (&(this->raw[this->index]));
+}
