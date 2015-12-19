@@ -22,6 +22,7 @@
 # include <stdio.h>
 # include <string.h>
 # include <errno.h>
+# include "signals.h"
 
 typedef struct				s_simple_command
 {

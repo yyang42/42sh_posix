@@ -10,37 +10,28 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "simple_command.h"
+#include "signals.h"
 
-static void		fork_and_execute(char *path, char **args, char **env)
+void			handle_signal(int signal)
 {
-	int			pid;
+	int			sigo;
 
-	pid = fork();
-	if (pid == -1)
-		twl_dprintf(2, "cannot fork: %s", strerror(errno));
-	else if (pid == 0)
+	if (WIFSIGNALED(signal) && !WIFEXITED(signal))
 	{
-		execve(path, args, env);
-		perror(path);
-		exit(0);
-	}
-	else
-	{
-		wait(&pid);
-		handle_signal(pid);
-	}
-}
-
-void			command_execution(char *path, char **args, char **env)
-{
-	if (file_exists(path))
-	{
-		if (file_isexecutable(path))
-			fork_and_execute(path, args, env);
+		sigo = WTERMSIG(signal);
+		if (sigo == SIGINT)
+			;
+		else if (sigo == SIGSEGV)
+			twl_dprintf(2, "42sh: Segmentation fault: %d\n", sigo);
+		else if (sigo == SIGKILL)
+			twl_dprintf(2, "42sh: Killed: %d\n", sigo);
+		else if (sigo == SIGABRT)
+			twl_dprintf(2, "42sh: Abort: %d\n", sigo);
+		else if (sigo == SIGTERM)
+			twl_dprintf(2, "42sh: Terminated: %d\n", sigo);
+		else if (sigo == SIGBUS)
+			twl_dprintf(2, "42sh: Bus error: %d\n", sigo);
 		else
-			error_permission_denied(path);
+			twl_dprintf(2, "42sh: Unkown signal: %d\n", sigo);
 	}
-	else
-		error_file_not_found(path);
 }
