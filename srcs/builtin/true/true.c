@@ -17,6 +17,6 @@ bool		builtin_true()
 	t_environment *env;
 
 	env = environment_singleton();
-	env->info.last_exit_status = 0;
+	environment_set_last_exit_status(BUILTIN_EXEC_SUCCESS);
 	return (true);
 }

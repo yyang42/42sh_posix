@@ -10,13 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin.h"
+#include "environment.h"
 
-bool		builtin_false()
+void				environment_set_last_exit_status(int status)
 {
 	t_environment *env;
 
 	env = environment_singleton();
-	environment_set_last_exit_status(BUILTIN_EXEC_FAILURE);
-	return (false);
+	env->info.last_exit_status = status;
 }

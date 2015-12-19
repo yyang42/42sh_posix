@@ -10,13 +10,31 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin.h"
+#include "environment.h"
 
-bool		builtin_false()
+static bool		cmp_vars(void *item1, void *item2, void *context)
 {
-	t_environment *env;
+	t_environment_var	*var1;
+	t_environment_var	*var2;
 
-	env = environment_singleton();
-	environment_set_last_exit_status(BUILTIN_EXEC_FAILURE);
-	return (false);
+	var1 = item1;
+	var2 = item2;
+	(void)context;
+	return (twl_strcmp(var1->key, var2->key) <= 0);
+}
+
+static void		print_env_var(void *data)
+{
+	t_environment_var	*var;
+
+	var = data;
+	twl_printf("%s=%s\n", var->key, var->value);
+}
+
+
+
+void			environment_print_all(t_environment *this)
+{
+	twl_lst_sort(this->env_vars, cmp_vars, NULL);
+	twl_lst_iter0(this->env_vars, print_env_var);
 }

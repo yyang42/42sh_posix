@@ -77,6 +77,7 @@ int							environment_flag_exist(t_environment *this,
 	char *flag);
 char						*environment_concat_flags(t_environment *env);
 void						environment_print_flags(t_environment *env);
+void						environment_print_all(t_environment *this);
 char						**environment_get_paths(t_environment *this);
 void						environment_add_flag(char *flag,
 														t_environment *env);
@@ -96,5 +97,6 @@ void						environment_remove_shell_func(t_environment *env,
 void						environment_add_shell_func(t_environment *env,
 														char *key, char *data);
 void                   		 **environment_get_env_arr(t_environment *this);
+void						environment_set_last_exit_status(int status);
 
 #endif

@@ -14,7 +14,6 @@
 # define ECHO_H
 
 # include "basics.h"
-# include "environment.h"
 # include "twl_opt.h"
 # include "builtin.h"
 

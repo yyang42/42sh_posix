@@ -13,11 +13,6 @@
 #ifndef CD_H
 # define CD_H
 
-# include "builtin.h"
-# include "environment.h"
-# include "twl_opt.h"
-# include "twl_opt_elem.h"
-# include "simple_command.h"
 # include <unistd.h>
 # include <sys/types.h>
 # include <string.h>
@@ -28,6 +23,10 @@
 # include <string.h>
 # include <stdlib.h>
 # include <stdio.h>
+# include "builtin.h"
+# include "twl_opt.h"
+# include "twl_opt_elem.h"
+# include "simple_command.h"
 
 # define MAX_SIZE 4096
 

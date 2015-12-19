@@ -16,6 +16,7 @@
 # include "twl_arr.h"
 # include "twl_opt.h"
 # include "twl_stdio.h"
+# include "environment.h"
 # include "cd.h"
 # include "echo.h"
 # include "env.h"
@@ -24,6 +25,9 @@
 # include "unset.h"
 # include "alias.h"
 # include "umask.h"
+
+#define BUILTIN_EXEC_SUCCESS 1
+#define BUILTIN_EXEC_FAILURE 0
 
 int				check_invalid_opts(t_opt *opt, char *exe_name, char *flags);
 bool			builtin_true();

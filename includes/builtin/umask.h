@@ -17,8 +17,6 @@
 # include <sys/types.h>
 # include "basics.h"
 # include "builtin.h"
-# include "xopt.h"
-# include "environment.h"
 # include "twl_arr.h"
 # include "twl_opt.h"
 # include "twl_opt_elem.h"

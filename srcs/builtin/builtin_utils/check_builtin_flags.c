@@ -19,8 +19,9 @@ int				check_invalid_opts(t_opt *opt, char *exe_name, char *flags)
 	invalid = twl_opt_check_invalid_opts(opt);
 	if (invalid && twl_strlen(invalid) > 0)
 	{
-		twl_dprintf(2, "%s: illegal option -- %s\nusage: env [-%s%s\n",
-		exe_name, invalid,
+		environment_set_last_exit_status(BUILTIN_EXEC_FAILURE);
+		twl_dprintf(2, "%s: illegal option -- %s\nusage: %s [-%s%s\n",
+		exe_name, invalid, exe_name,
 			flags, "] [name=value ...] [utility [argument ...]]");
 		return (1);
 	}

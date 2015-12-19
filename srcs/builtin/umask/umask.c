@@ -56,20 +56,20 @@ static int modify_umask(t_opt *opt, char *arg)
 		if (umask_value == -1)
 	    {
 	      error_octal_out_of_range(arg);
-	      return (1);
+	      return (BUILTIN_EXEC_FAILURE);
 	    }
 	}
 	else
 	{
 		umask_value = symbolic_umask(arg);
 		if (umask_value == -1)
-			return (1);
+			return (BUILTIN_EXEC_FAILURE);
 	}
 	umask_arg = (mode_t)umask_value;
 	umask (umask_arg);
 	if (twl_opt_exist(opt, "-S"))
 		print_symbolic_umask(umask_arg);
-	return (0);
+	return (BUILTIN_EXEC_SUCCESS);
 }
 
 int umask_builtin(char *cmd)
@@ -96,6 +96,7 @@ int umask_builtin(char *cmd)
 		else
 			flag = modify_umask(opt, (char *)twl_lst_first(opt->args));
 	}
+	environment_set_last_exit_status(flag);
 	twl_arr_del(arr, &free);
 	twl_opt_del(opt);
 	return (flag);

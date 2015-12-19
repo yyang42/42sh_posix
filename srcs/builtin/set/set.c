@@ -57,6 +57,11 @@ int				set(char *str)
 		twl_lst_iter2(opt->negative_opts, add_shell_flags, env, opt->args);
 		if (twl_lst_len(opt->args) > 0)
 			set_check_args(opt, env);
+		else
+		{
+			environment_print_all(env);
+			environment_set_last_exit_status(BUILTIN_EXEC_SUCCESS);
+		}
 	}
 	set_opt_del(opt);
 	twl_arr_del(arr, &free);
@@ -76,6 +81,11 @@ int				test_set(char *str, t_environment *env)
 		twl_lst_iter2(opt->negative_opts, add_shell_flags, env, opt->args);
 		if (twl_lst_len(opt->args) > 0)
 			set_check_args(opt, env);
+		else
+		{
+			environment_print_all(env);
+			environment_set_last_exit_status(BUILTIN_EXEC_SUCCESS);
+		}
 	}
 	set_opt_del(opt);
 	twl_arr_del(arr, &free);

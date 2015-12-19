@@ -15,7 +15,6 @@
 
 # include <sys/stat.h>
 # include <sys/types.h>
-
 # include "builtin.h"
 # include "environment.h"
 # include "env.h"
@@ -23,7 +22,6 @@
 # include "twl_arr.h"
 # include "twl_opt.h"
 # include "simple_command.h"
-# include "environment.h"
 # include "twl_arr2.h"
 
 # define ENV_OPT_VALID_OPTS "i"
