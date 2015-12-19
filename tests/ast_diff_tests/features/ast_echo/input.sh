@@ -1,2 +1,1 @@
 echo aaa
-echo bbb

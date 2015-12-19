@@ -1,13 +1,7 @@
-AST_LIST
-  AST_CMD
-    <fields>
-      AST_CMD_FIELD
-        AST_STRING "echo"
-      AST_CMD_FIELD
-        AST_STRING "123"
-  AST_CMD
-    <fields>
-      AST_CMD_FIELD
-        AST_STRING "echo"
-      AST_CMD_FIELD
-        AST_STRING "abc"
+LIST
+  ANDOR_SEQ
+    PIPE_SEQ
+      CMD_SIMPLE echo 123\necho abc\n
+  ANDOR_SEQ
+    PIPE_SEQ
+      CMD_SIMPLE echo abc\n

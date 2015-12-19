@@ -1,0 +1,4 @@
+LIST
+  ANDOR_SEQ
+    PIPE_SEQ
+      CMD_SIMPLE echo aaa\n

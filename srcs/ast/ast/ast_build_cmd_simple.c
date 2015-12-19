@@ -30,6 +30,7 @@ static void			build(t_ast_cmd_simple *cmd, t_ast *ast)
 		// 	break ;
 		ast->parser->index++;
 	}
+	// twl_printf("parser %s\n", parser_cstr(ast->parser));
 	(void)cmd;
 }
 

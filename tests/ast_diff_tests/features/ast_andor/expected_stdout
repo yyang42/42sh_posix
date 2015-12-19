@@ -1,21 +1,8 @@
-AST_LIST
-  AST_ANDOR 'or'
-    AST_ANDOR 'and'
-      AST_CMD
-        <fields>
-          AST_CMD_FIELD
-            AST_STRING "echo"
-          AST_CMD_FIELD
-            AST_STRING "aaa"
-      AST_CMD
-        <fields>
-          AST_CMD_FIELD
-            AST_STRING "echo"
-          AST_CMD_FIELD
-            AST_STRING "bbb"
-    AST_CMD
-      <fields>
-        AST_CMD_FIELD
-          AST_STRING "echo"
-        AST_CMD_FIELD
-          AST_STRING "ccc"
+LIST
+  ANDOR_SEQ
+    PIPE_SEQ
+      CMD_SIMPLE echo aaa && echo bbb
+    PIPE_SEQ
+      CMD_SIMPLE  echo bbb || echo cc
+    PIPE_SEQ
+      CMD_SIMPLE  echo ccc\n

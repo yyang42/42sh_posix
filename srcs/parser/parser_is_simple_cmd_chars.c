@@ -19,5 +19,5 @@
 bool				parser_is_simple_cmd_chars(t_parser *parser)
 {
 	return (twl_isalnum(parser_cchar(parser))
-		|| twl_strchr(" ", parser_cchar(parser)));
+		|| twl_strchr(" -", parser_cchar(parser)));
 }
