@@ -10,17 +10,46 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ERROR_H
-# define ERROR_H
+#ifndef UMASK_H
+# define UMASK_H
 
+# include <sys/stat.h>
+# include <sys/types.h>
 # include "basics.h"
-# include "twl_dict.h"
-# include "ast/ast.h"
+# include "builtin.h"
+# include "xopt.h"
+# include "environment.h"
 # include "twl_arr.h"
+# include "twl_opt.h"
+# include "twl_opt_elem.h"
+# include "error.h"
+# include "twl_ctype.h"
 
-void 	error_file_not_found(char *file);
-void 	error_permission_denied(char *file);
-void 	error_not_directory(char *file);
-void 	error_command_not_found(char *file);
-void 	error_octal_out_of_range(char *fd);
+# define UMASK_OPT_VALID_OPTS "S"
+# define ISOCTAL(c)	((c) >= '0' && (c) <= '7')
+#define S_IRUGO         (S_IRUSR|S_IRGRP|S_IROTH)
+#define S_IWUGO         (S_IWUSR|S_IWGRP|S_IWOTH)
+#define S_IXUGO         (S_IXUSR|S_IXGRP|S_IXOTH)
+
+
+typedef struct	s_mask
+{
+	char ubits[4];
+	char gbits[4];
+	char obits[4];
+}				t_mask;
+
+typedef struct	s_parse_mask
+{
+	int who;
+	int	op;
+	int	perm;
+	int	bits;
+	int	c;
+    char *s;
+}				t_parse_mask;
+
+void	print_symbolic_umask(mode_t um);
+int		parse_symbolic_mode(char *mode, int initial_bits);
+
 #endif

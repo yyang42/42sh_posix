@@ -31,3 +31,8 @@ void 	error_command_not_found(char *file)
 {
 	twl_dprintf(2, "42sh: command not found: %s\n", file);
 }
+
+void 	error_octal_out_of_range(char *fd)
+{
+	twl_dprintf(2, "42sh: umask: %s: octal number out of range\n", fd);
+}
