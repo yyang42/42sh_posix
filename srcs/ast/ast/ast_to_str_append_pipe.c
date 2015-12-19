@@ -10,12 +10,28 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
+
 #include "ast/ast.h"
 
-#include "twl_arr.h"
-#include "utils.h"
+#include "ast/nodes/ast_node.h"
+#include "ast/nodes/ast_if.h"
+#include "ast/nodes/ast_cmd_field.h"
+#include "ast/nodes/ast_pipe.h"
+#include "ast/nodes/ast_cmd_sub.h"
 
-void				ast_build2(t_ast *ast)
+static void			iter_fn(void *pipe, void *ast)
 {
-	ast->root = ast_build_list(ast);
+	ast_to_str_append_cmd(ast, pipe);
+}
+
+void				ast_to_str_append_pipe(t_ast *ast, t_ast_pipe *pipe)
+{
+	twl_lst_push(ast->out_lines, build_ast_line(ast->out_depth, "PIPE", ""));
+	ast->out_depth++;
+	twl_lst_iter(pipe->pipes, iter_fn, ast);
+	ast->out_depth--;
+	(void)ast;
+	(void)pipe;
+	(void)iter_fn;
 }

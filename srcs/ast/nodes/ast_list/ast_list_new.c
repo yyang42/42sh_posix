@@ -21,5 +21,6 @@ t_ast_list		*ast_list_new(void)
 	this = twl_malloc_x0(sizeof(t_ast_list));
 	this->type = AST_LIST;
 	this->andors = twl_lst_new();
+	this->index = 0;
 	return (this);
 }

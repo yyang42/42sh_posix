@@ -10,12 +10,26 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
+
 #include "ast/ast.h"
 
-#include "twl_arr.h"
-#include "utils.h"
+#include "ast/nodes/ast_node.h"
+#include "ast/nodes/ast_if.h"
+#include "ast/nodes/ast_cmd_field.h"
+#include "ast/nodes/ast_pipe.h"
+#include "ast/nodes/ast_andor.h"
+#include "ast/nodes/ast_cmd_sub.h"
 
-void				ast_build2(t_ast *ast)
+static void			iter_fn(void *andor, void *ast)
 {
-	ast->root = ast_build_list(ast);
+	ast_to_str_append_pipe(ast, andor);
+}
+
+void				ast_to_str_append_andor(t_ast *ast, t_ast_andor *andor)
+{
+	twl_lst_push(ast->out_lines, build_ast_line(ast->out_depth, "ANDOR", ""));
+	ast->out_depth++;
+	twl_lst_iter(andor->pipes, iter_fn, ast);
+	ast->out_depth--;
 }

@@ -21,5 +21,7 @@ t_ast				*ast_new(char *input)
 	this = twl_malloc_x0(sizeof(t_ast));
 	this->raw = twl_strdup(input);
 	this->parser = parser_new(input);
+	this->out_lines = twl_lst_new();
+	this->out_depth = 0;
 	return (this);
 }

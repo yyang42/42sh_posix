@@ -10,12 +10,29 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
+
 #include "ast/ast.h"
 
-#include "twl_arr.h"
-#include "utils.h"
-
-void				ast_build2(t_ast *ast)
+static void			iter_fn(void *cmd, void *ast)
 {
-	ast->root = ast_build_list(ast);
+	// ast_to_str_append_cmd(ast, cmd);
+	(void)ast;
+	(void)cmd;
+}
+
+void				ast_to_str_append_cmd(t_ast *ast, t_ast_cmd *cmd)
+{
+	COUCOU;
+	twl_lst_push(ast->out_lines, build_ast_line(ast->out_depth, "CMD", ""));
+	COUCOU;
+	ast->out_depth++;
+	COUCOU;
+	// twl_lst_iter(cmd->cmds, iter_fn, ast);
+	COUCOU;
+	ast->out_depth--;
+	COUCOU;
+	(void)ast;
+	(void)cmd;
+	(void)iter_fn;
 }

@@ -10,36 +10,30 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_list.h"
-#include "ast/nodes/ast_andor.h"
+#include "ast/ast.h"
 
-static bool			is_list_elem_sep(t_parser *parser)
+#include "twl_arr.h"
+#include "utils.h"
+
+static void			build(t_ast_list *list, t_ast *ast)
 {
-	return (parser_cchar(parser) == '\n');
+	twl_lst_push(list->andors, ast_build_andor(ast));
 }
 
-static void			build(t_ast_list *list, t_parser *parser)
-{
-	twl_lst_push(list->andors, ast_andor_build2(parser));
-	while (parser_remain_len(parser))
-	{
-		if (is_list_elem_sep(parser))
-			break ;
-		parser->index++;
-	}
-}
-
-t_ast_list			*ast_list_build2(t_parser *parser)
+t_ast_list			*ast_build_list(t_ast *ast)
 {
 	t_ast_list		*list;
 
 	list = ast_list_new();
-	while (parser_remain_len(parser))
+	list->index = ast->parser->index;
+	while (parser_remain_len(ast->parser))
 	{
-		build(list, parser);
-		if (!is_list_elem_sep(parser))
+		build(list, ast);
+		// twl_printf("== list after build {%s}\n", parser_cstr(ast->parser));
+		if (parser_is_list_elem(ast->parser))
+			ast->parser->index += 1; // skip separator
+		else
 			break ;
-		parser->index += 1; // skip separator
 	}
 	return (list);
 }

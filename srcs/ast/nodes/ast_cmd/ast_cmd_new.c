@@ -25,5 +25,6 @@ t_ast_cmd			*ast_cmd_new(void)
 	this->redir_out = twl_lst_new();
 	this->redir_append = twl_lst_new();
 	this->redir_heredoc = twl_lst_new();
+	this->cmds = twl_lst_new();
 	return (this);
 }

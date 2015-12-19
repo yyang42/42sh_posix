@@ -15,7 +15,23 @@
 #include "twl_arr.h"
 #include "utils.h"
 
-void				ast_build2(t_ast *ast)
+static void			build(t_ast_andor *andor, t_ast *ast)
 {
-	ast->root = ast_build_list(ast);
+	twl_lst_push(andor->pipes, ast_build_pipe(ast));
+}
+
+t_ast_andor			*ast_build_andor(t_ast *ast)
+{
+	t_ast_andor		*andor;
+
+	andor = ast_andor_new(ANDOR_TYPE_AND);
+	while (parser_remain_len(ast->parser))
+	{
+		build(andor, ast);
+		if (parser_is_andor(ast->parser))
+			ast->parser->index += 2; // skip separator
+		else
+			break ;
+	}
+	return (andor);
 }

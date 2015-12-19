@@ -10,40 +10,26 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "twl_xstring.h"
+#include <stdlib.h>
 
-#include "ast/nodes/ast_andor.h"
-#include "ast/nodes/ast_andor.h"
+#include "ast/ast.h"
 
-static bool			is_andor_elem_sep(t_parser *parser)
+#include "ast/nodes/ast_node.h"
+#include "ast/nodes/ast_if.h"
+#include "ast/nodes/ast_cmd_field.h"
+#include "ast/nodes/ast_pipe.h"
+#include "ast/nodes/ast_andor.h"
+#include "ast/nodes/ast_cmd_sub.h"
+
+static void			iter_andor_fn(void *andor, void *ast)
 {
-	return (twl_str_starts_with(parser_cstr(parser), "&&")
-		|| twl_str_starts_with(parser_cstr(parser), "||"));
+	ast_to_str_append_andor(ast, andor);
 }
 
-/*static void			build(t_ast_list *list, t_parser *parser)
+void				ast_to_str_append_list(t_ast *ast, t_ast_list *list)
 {
-	twl_lst_push(list->andors, ast_pipe_build2(parser));
-	while (parser_cchar(parser))
-	{
-		if (parser_cchar(parser) == '\n')
-			break ;
-		parser->index++;
-	}
-}
-*/
-
-t_ast_andor			*ast_andor_build2(t_parser *parser)
-{
-	t_ast_andor		*andor;
-
-	andor = ast_andor_new(ANDOR_TYPE_AND);
-	while (true)
-	{
-		// build(andor, parser);
-		if (!is_andor_elem_sep(parser))
-			break ;
-		parser->index += 2; // skip && and ||
-	}
-	return (andor);
+	twl_lst_push(ast->out_lines, build_ast_line(ast->out_depth, "LIST", ""));
+	ast->out_depth++;
+	twl_lst_iter(list->andors, iter_andor_fn, ast);
+	(void)list;
 }

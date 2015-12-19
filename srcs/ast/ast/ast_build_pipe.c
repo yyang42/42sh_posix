@@ -10,12 +10,37 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "twl_xstring.h"
+
 #include "ast/ast.h"
+#include "ast/nodes/ast_pipe.h"
 
-#include "twl_arr.h"
-#include "utils.h"
-
-void				ast_build2(t_ast *ast)
+static void			build(t_ast_pipe *pipe, t_ast *ast)
 {
-	ast->root = ast_build_list(ast);
+	// twl_lst_push(pipe->pipes, ast_pipe_build2(parser));
+	twl_lst_push(pipe->pipes, ast_pipe_new());
+	while (parser_remain_len(ast->parser))
+	{
+		if (parser_is_pipe_elem(ast->parser) || parser_is_andor(ast->parser) || parser_cchar(ast->parser) == '\n')
+			break ;
+		ast->parser->index++;
+	}
+}
+
+t_ast_pipe			*ast_build_pipe(t_ast *ast)
+{
+	t_ast_pipe		*pipe;
+
+	pipe = ast_pipe_new();
+	while (parser_remain_len(ast->parser))
+	{
+		build(pipe, ast);
+		if (parser_is_pipe_elem(ast->parser))
+			ast->parser->index += 2; // skip separator
+		else
+			break ;
+	}
+	(void)ast->parser;
+	(void)build;
+	return (pipe);
 }

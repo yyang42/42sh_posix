@@ -21,15 +21,10 @@
 #include "ast/nodes/ast_andor.h"
 #include "ast/nodes/ast_cmd_sub.h"
 
-char				*ast_to_str2(t_ast *this)
+char				*ast_to_str2(t_ast *ast)
 {
-	t_lst			*lines;
 	char			*out;
-	int				depth;
-
-	depth = 0;
-	lines = twl_lst_new();
-	ast_list_str_append(this->root, lines, &depth);
-	out = twl_lst_strjoin(lines, "");
+	ast_to_str_append_list(ast, ast->root);
+	out = twl_lst_strjoin(ast->out_lines, "");
 	return (out);
 }

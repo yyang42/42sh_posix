@@ -10,12 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/ast.h"
+#include <stdlib.h>
 
-#include "twl_arr.h"
-#include "utils.h"
+#include "parser.h"
 
-void				ast_build2(t_ast *ast)
+bool				parser_is_andor(t_parser *parser)
 {
-	ast->root = ast_build_list(ast);
+	return (twl_str_starts_with(parser_cstr(parser), "&&")
+		|| twl_str_starts_with(parser_cstr(parser), "||"));
 }

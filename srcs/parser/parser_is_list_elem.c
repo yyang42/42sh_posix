@@ -10,12 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/ast.h"
+#include <stdlib.h>
 
-#include "twl_arr.h"
-#include "utils.h"
+#include "parser.h"
 
-void				ast_build2(t_ast *ast)
+bool				parser_is_list_elem(t_parser *parser)
 {
-	ast->root = ast_build_list(ast);
+	return (parser_cchar(parser) == '\n');
 }
