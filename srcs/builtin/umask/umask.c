@@ -84,11 +84,11 @@ int umask_builtin(char *cmd)
 	flag = 0;
 	if (!check_invalid_opts(opt, "umask", UMASK_OPT_VALID_OPTS))
 	{
-		if (twl_opt_args_len(opt) == 0)
+		if (twl_opt_args_len(opt) < 1)
 		{
 			umask_arg = umask (022);
 			umask (umask_arg);
-			if (twl_opt_exist(opt, "-S"))
+			if (twl_opt_exist(opt, "S"))
 				print_symbolic_umask(umask_arg);
 			else
 				twl_printf("%04lo\n", (unsigned long)umask_arg);

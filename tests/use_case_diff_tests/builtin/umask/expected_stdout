@@ -1,4 +1,5 @@
 0022
-u=rx,g=rx,o=rx
+u=rwx,g=rx,o=rx
 0777
 u=,g=,o=
+0555

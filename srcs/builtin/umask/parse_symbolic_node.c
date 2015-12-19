@@ -63,15 +63,16 @@ static void	rwx_loop(t_parse_mask *pm)
 	}
 }
 
-static bool	parse_symbolic_mode_2(t_parse_mask *pm)
+static int	parse_symbolic_mode_2(t_parse_mask *pm)
 {
 	if (!*pm->s || *pm->s == ',')
 	{
+
 		if (pm->who)
 			pm->perm &= pm->who;
 		if (pm->op == '+')
 			pm->bits |= pm->perm;
-		else if (pm->op == '+')
+		else if (pm->op == '-')
 			pm->bits &= ~pm->perm;
 		else if (pm->op == '=')
 		{
@@ -82,7 +83,7 @@ static bool	parse_symbolic_mode_2(t_parse_mask *pm)
 				pm->bits |= pm->perm;
 			}
 		}
-		if (*pm->s == '\0')
+		if (*pm->s == 0)
 			return (3);
 		else
 			pm->s++;
@@ -109,11 +110,9 @@ int		parse_symbolic_mode(char *mode, int initial_bits)
 		pm.perm = 0;
 		agou_loop(&pm);
 		pm.op = *pm.s++;
-		if (pm.op == '+' || pm.op == '-' || pm.op == '=')
-			break;
-		else
+		if (pm.op != '+' && pm.op != '-' && pm.op != '=')
 		{
-			twl_printf("%c: invalid symbolic mode operator", pm.op);
+			twl_dprintf(2, "%c: invalid symbolic mode operator", pm.op);
 			return (-1);
 		}
 		rwx_loop(&pm);
@@ -122,7 +121,6 @@ int		parse_symbolic_mode(char *mode, int initial_bits)
 			return (-1);
 		else if (flag == 3)
 			break;
-
 	}
 	return (pm.bits);
 }
