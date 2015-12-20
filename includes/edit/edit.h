@@ -22,7 +22,7 @@
 typedef struct		s_edit
 {
 	t_lst			*letters;
-	t_lst			*edit_move;
+	t_lst			*edit_moves;
 	int				index;
 	bool			return_cmd;
 }					t_edit;
@@ -40,8 +40,5 @@ void				edit_print_letters(t_edit *this);
 char				*edit_return_cmd(t_edit *this, int key);
 
 void				edit_clear_line(t_edit *this);
-
-void				edit_move_left(struct s_edit *this);
-
 
 #endif

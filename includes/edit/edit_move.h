@@ -14,12 +14,11 @@
 # define EDIT_MOVE_H
 
 # include "basics.h"
+# include "edit/edit_move_func.h"
 
 # define ARROW_LEFT 4479771
 
-struct s_edit;
-
-typedef void		(*move_fn)(struct s_edit *edit);
+typedef void		(*move_fn)(void *edit);
 
 typedef struct		s_edit_move
 {

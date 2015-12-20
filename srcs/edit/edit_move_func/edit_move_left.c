@@ -12,8 +12,12 @@
 
 #include "edit/edit.h"
 
-void				edit_move_left(struct s_edit *edit)
+void				edit_move_left(void *_edit)
 {
+	t_edit			*edit;
+
+	edit = _edit;
+
 	edit->index -= 1;
 	if (edit->index < 0)
 	{

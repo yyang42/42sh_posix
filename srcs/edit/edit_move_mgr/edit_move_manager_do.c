@@ -12,7 +12,27 @@
 
 #include "edit/edit_move_mgr.h"
 
-void				edit_move_mgr_do(t_lst *edit_move, void *ctx, int key)
+static bool			find_fn(void *_edit_move, void *_key)
 {
-	twl_lst_find(edit_move, find_fn, &key);
+	t_edit_move		*edit_move;
+	int				key;
+
+	edit_move = _edit_move;
+	twl_lprintf("here\n");
+	key = *((int *)_key);
+	if (edit_move->key == key)
+		return true;
+	return false;
+}
+
+
+void				edit_move_mgr_do(t_lst *edit_moves, void *edit, int key)
+{
+	t_edit_move		*edit_move;
+
+	edit_move = twl_lst_find(edit_moves, find_fn, &key);
+	if (edit_move)
+	{
+		edit_move->func(edit);
+	}
 }
