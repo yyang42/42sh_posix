@@ -14,7 +14,7 @@
 
 #include "tokenizer.h"
 
-/*  Rule 1
+/*  Rule 8
 	If the current character is an unquoted <blank>, any token
 	containing the previous character is delimited and the current
 	character shall be discarded.

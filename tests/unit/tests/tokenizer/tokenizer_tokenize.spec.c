@@ -1,6 +1,7 @@
 #include <project.h>
 
 #include "tokenizer.h"
+#include "token_mgr.h"
 
 static void test_rule1(t_test *test)
 {
@@ -13,14 +14,17 @@ static void test_rule1(t_test *test)
 static void tokenizer_tokenize_test(t_test *test)
 {
 	t_tokenizer		*tokenizer;
+	t_token			*token;
 
 	tokenizer = tokenizer_new("aaa bbb ccc");
-	twl_lst_putstr(tokenizer->tokens, "\n");
-	printf("\n");
+	// token_mgr_print(tokenizer->tokens);
 	mt_assert(twl_lst_len(tokenizer->tokens) == 3);
-	mt_assert(strcmp(twl_lst_get(tokenizer->tokens, 0), "aaa") == 0);
-	mt_assert(strcmp(twl_lst_get(tokenizer->tokens, 1), "bbb") == 0);
-	mt_assert(strcmp(twl_lst_get(tokenizer->tokens, 2), "ccc") == 0);
+	token = twl_lst_get(tokenizer->tokens, 0);
+	mt_assert(strcmp(token->text, "aaa") == 0);
+	token = twl_lst_get(tokenizer->tokens, 1);
+	mt_assert(strcmp(token->text, "bbb") == 0);
+	token = twl_lst_get(tokenizer->tokens, 2);
+	mt_assert(strcmp(token->text, "ccc") == 0);
 }
 
 void	suite_tokenizer_tokenize(t_suite *suite)

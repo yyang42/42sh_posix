@@ -17,7 +17,7 @@ static void			print_token_fn(void *token_)
 	t_token	*token;
 
 	token = token_;
-	twl_printf("<Object #%p>\n", token);
+	twl_printf("<%s>\n", token->text);
 }
 
 void				token_mgr_print(t_lst *tokens)
