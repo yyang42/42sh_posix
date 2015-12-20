@@ -18,7 +18,7 @@
 # include "parser.h"
 # include "ast/ast_defines.h"
 # include "ast/nodes/ast_list.h"
-# include "ast/nodes/ast_if.h"
+# include "ast/nodes/ast_if_clause.h"
 # include "ast/nodes/ast_cmd.h"
 # include "ast/nodes/ast_simple_cmd.h"
 # include "ast/nodes/ast_cmd_subshell.h"

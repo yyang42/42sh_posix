@@ -15,7 +15,7 @@
 #include "ast/ast.h"
 
 #include "ast/nodes/ast_node.h"
-#include "ast/nodes/ast_if.h"
+#include "ast/nodes/ast_if_clause.h"
 #include "ast/nodes/ast_cmd_field.h"
 #include "ast/nodes/ast_pipe_seq.h"
 #include "ast/nodes/ast_andor_seq.h"

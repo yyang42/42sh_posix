@@ -19,15 +19,15 @@
 # include "ast/nodes/ast_node.h"
 # include "ast/nodes/ast_list.h"
 
-typedef struct		s_ast_if
+typedef struct		s_ast_if_clause
 {
 	t_ast_type		type;
 	t_ast_list		*cond;
 	t_ast_list		*body;
 	t_ast_list		*elze;
-}					t_ast_if;
+}					t_ast_if_clause;
 
-t_ast_if			*ast_if_new(void);
-void				ast_if_del(t_ast_if *this);
+t_ast_if_clause		*ast_if_clause_new(void);
+void				ast_if_clause_del(t_ast_if_clause *this);
 
 #endif

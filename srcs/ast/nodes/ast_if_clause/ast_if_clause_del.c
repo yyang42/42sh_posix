@@ -10,18 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "twl_xstdlib.h"
+#include <stdlib.h>
 
-#include "ast/nodes/ast_if.h"
+#include "ast/nodes/ast_if_clause.h"
 
-t_ast_if			*ast_if_new(void)
+void				ast_if_clause_del(t_ast_if_clause *this)
 {
-	t_ast_if	*this;
-
-	this = twl_malloc_x0(sizeof(t_ast_if));
-	this->type = AST_IF;
-	this->cond = ast_list_new();
-	this->body = ast_list_new();
-	this->elze = ast_list_new();
-	return (this);
+	free(this);
 }
