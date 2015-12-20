@@ -17,6 +17,9 @@
 # include "edit/edit_move_func.h"
 
 # define ARROW_LEFT 4479771
+# define ARROW_RIGHT 4414235
+# define CTRL_A 1
+# define CTRL_E 5
 
 typedef void		(*move_fn)(void *edit);
 

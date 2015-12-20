@@ -23,6 +23,8 @@ void				letter_mgr_add(t_lst *letters, t_letter *letter,
 void				letter_mgr_remove(t_lst *letters, t_letter *letter);
 void				letter_mgr_print(t_lst *letters, int index);
 
+size_t				letter_mgr_get_size(t_lst *letters);
+
 char				*letter_mgr_concat_string(t_lst *letters);
 t_lst				*letter_mgr_clear(t_lst *letters);
 

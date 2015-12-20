@@ -14,5 +14,8 @@
 # define EDIT_MOVE_FUNC_H
 
 void				edit_move_left(void *edit);
+void				edit_move_right(void *edit);
+void				edit_move_start(void *edit);
+void				edit_move_end(void *edit);
 
 #endif

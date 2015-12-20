@@ -10,18 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "edit/edit_move_mgr.h"
-#include "edit/edit.h"
+#include "edit/letter_mgr.h"
 
-
-t_lst				*edit_move_mgr_new(void)
+size_t				letter_mgr_get_size(t_lst *letters)
 {
-	t_lst			*edit_moves;
-
-	edit_moves = twl_lst_new();
-	edit_move_mgr_add(edit_moves, edit_move_new(ARROW_LEFT, edit_move_left));
-	edit_move_mgr_add(edit_moves, edit_move_new(ARROW_RIGHT, edit_move_right));
-	edit_move_mgr_add(edit_moves, edit_move_new(CTRL_A, edit_move_start));
-	edit_move_mgr_add(edit_moves, edit_move_new(CTRL_E, edit_move_end));
-	return (edit_moves);
+	return (twl_lst_len(letters));
 }
