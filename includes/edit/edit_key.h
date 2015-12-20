@@ -10,19 +10,28 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "edit/edit_move_mgr.h"
+#ifndef EDIT_MOVE_H
+# define EDIT_MOVE_H
 
-static void			print_edit_move_fn(void *edit_move_)
+# include "basics.h"
+# include "edit/edit_key_func.h"
+
+# define ARROW_LEFT 4479771
+# define ARROW_RIGHT 4414235
+# define DELETE_KEY 127
+# define CTRL_A 1
+# define CTRL_E 5
+# define RETURN_KEY 10
+
+typedef void		(*key_fn)(void *edit);
+
+typedef struct		s_edit_key
 {
-	t_edit_move	*edit_move;
+	int				key;
+	key_fn			func;
+}					t_edit_key;
 
-	edit_move = edit_move_;
-	twl_printf("<Object #%p>\n", edit_move);
-}
+t_edit_key			*edit_key_new(int key, key_fn fn);
+void				edit_key_del(t_edit_key *this);
 
-void				edit_move_mgr_print(t_lst *edit_moves)
-{
-	twl_printf("%s>>>>>>>>>> edit_move list%s\n", C_CYAN, C_CLEAR);
-	twl_lst_iter0(edit_moves, print_edit_move_fn);
-	twl_printf("%s-------------------------------------%s\n", C_CYAN, C_CLEAR);
-}
+#endif

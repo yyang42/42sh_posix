@@ -10,9 +10,28 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "edit/edit_move_mgr.h"
+#include "edit/edit_key_mgr.h"
 
-void				edit_move_mgr_add(t_lst *edit_moves, t_edit_move *edit_move)
+static bool			find_fn(void *_edit_key, void *_key)
 {
-	twl_lst_push(edit_moves, edit_move);
+	t_edit_key		*edit_key;
+	int				key;
+
+	edit_key = _edit_key;
+	key = *((int *)_key);
+	if (edit_key->key == key)
+		return true;
+	return false;
+}
+
+
+void				edit_key_mgr_do(t_lst *edit_keys, void *edit, int key)
+{
+	t_edit_key		*edit_key;
+
+	edit_key = twl_lst_find(edit_keys, find_fn, &key);
+	if (edit_key)
+	{
+		edit_key->func(edit);
+	}
 }

@@ -20,10 +20,8 @@ static void			print_letter_fn(void *_letter, int index, void *_edit)
 
 	letter = _letter;
 	edit = _edit;
-	twl_lprintf("ret: %d\n", edit->return_cmd);
 	if (!edit->return_cmd && index == edit->index)
 	{
-		twl_lprintf("in");
 		terminal_radio_letter();
 	}
 	twl_putstr(letter->letter);

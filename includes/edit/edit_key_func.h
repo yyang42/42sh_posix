@@ -10,26 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EDIT_MOVE_H
-# define EDIT_MOVE_H
+#ifndef EDIT_KEYFUNC_H
+# define EDIT_KEYFUNC_H
 
-# include "basics.h"
-# include "edit/edit_move_func.h"
-
-# define ARROW_LEFT 4479771
-# define ARROW_RIGHT 4414235
-# define CTRL_A 1
-# define CTRL_E 5
-
-typedef void		(*move_fn)(void *edit);
-
-typedef struct		s_edit_move
-{
-	int				key;
-	move_fn			func;
-}					t_edit_move;
-
-t_edit_move			*edit_move_new(int key, move_fn fn);
-void				edit_move_del(t_edit_move *this);
+void				edit_move_left(void *edit);
+void				edit_move_right(void *edit);
+void				edit_move_start(void *edit);
+void				edit_move_end(void *edit);
+void				edit_delete_letter(void *_edit);
 
 #endif

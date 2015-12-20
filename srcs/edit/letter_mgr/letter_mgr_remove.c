@@ -12,15 +12,7 @@
 
 #include "edit/letter_mgr.h"
 
-void				letter_mgr_remove(t_lst *letters, t_letter *letter)
+void				letter_mgr_remove(t_lst *letters, int index)
 {
-	int				index;
-
-	index = twl_lst_indexof(letters, letter);
-	if (index == -1)
-	{
-		assert(!"[ERROR] Object not found!");
-	}
-	twl_lst_popi(letters, index);
-	letter_del(letter);
+	letter_del(twl_lst_popi(letters, index));
 }

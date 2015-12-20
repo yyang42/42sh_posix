@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "edit/edit_move_mgr.h"
+#include "edit/edit_key_mgr.h"
 
-void				edit_move_mgr_del(t_lst *edit_moves)
+void				edit_key_mgr_add(t_lst *edit_keys, t_edit_key *edit_key)
 {
-	twl_lst_del(edit_moves, edit_move_del);
+	twl_lst_push(edit_keys, edit_key);
 }

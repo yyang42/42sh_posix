@@ -21,6 +21,5 @@ void				edit_handle_printable(t_edit *edit, int key)
 		return ;
 	letter_mgr_add(edit->letters, letter_new(key), edit->index);
 	edit->index++;
-	// twl_printf("key :%d\n", key);
 	(void)edit;
 }

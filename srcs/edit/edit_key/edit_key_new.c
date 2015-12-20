@@ -10,12 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EDIT_MOVE_FUNC_H
-# define EDIT_MOVE_FUNC_H
+#include "twl_xstdlib.h"
 
-void				edit_move_left(void *edit);
-void				edit_move_right(void *edit);
-void				edit_move_start(void *edit);
-void				edit_move_end(void *edit);
+#include "edit/edit_key.h"
 
-#endif
+t_edit_key			*edit_key_new(int key, key_fn func)
+{
+	t_edit_key		*this;
+
+	this = twl_malloc_x0(sizeof(t_edit_key));
+	this->key = key;
+	this->func = func;
+	return (this);
+}

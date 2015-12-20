@@ -10,29 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "edit/edit_move_mgr.h"
+#include "edit/edit.h"
 
-static bool			find_fn(void *_edit_move, void *_key)
+void				edit_delete_letter(void *_edit)
 {
-	t_edit_move		*edit_move;
-	int				key;
+	t_edit			*edit;
 
-	edit_move = _edit_move;
-	twl_lprintf("here\n");
-	key = *((int *)_key);
-	if (edit_move->key == key)
-		return true;
-	return false;
-}
-
-
-void				edit_move_mgr_do(t_lst *edit_moves, void *edit, int key)
-{
-	t_edit_move		*edit_move;
-
-	edit_move = twl_lst_find(edit_moves, find_fn, &key);
-	if (edit_move)
+	edit = _edit;
+	if (letter_mgr_get_size(edit->letters) > 1)
 	{
-		edit_move->func(edit);
+		edit->index -= 1;
+		letter_mgr_remove(edit->letters, edit->index);
 	}
 }

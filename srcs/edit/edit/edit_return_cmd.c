@@ -17,7 +17,7 @@ char				*edit_return_cmd(t_edit *this, int key)
 	char			*cmd;
 
 	cmd = NULL;
-	if (key != 10)
+	if (key != RETURN_KEY)
 		return cmd;
 	cmd = letter_mgr_concat_string(this->letters);
 	this->return_cmd = true;

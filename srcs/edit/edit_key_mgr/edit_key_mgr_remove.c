@@ -10,16 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "twl_xstdlib.h"
+#include "edit/edit_key_mgr.h"
 
-#include "edit/edit_move.h"
-
-t_edit_move			*edit_move_new(int key, move_fn func)
+void				edit_key_mgr_remove(t_lst *edit_keys, t_edit_key *edit_key)
 {
-	t_edit_move		*this;
+	int				index;
 
-	this = twl_malloc_x0(sizeof(t_edit_move));
-	this->key = key;
-	this->func = func;
-	return (this);
+	index = twl_lst_indexof(edit_keys, edit_key);
+	if (index == -1)
+	{
+		assert(!"[ERROR] Object not found!");
+	}
+	twl_lst_popi(edit_keys, index);
+	edit_key_del(edit_key);
 }

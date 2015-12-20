@@ -10,15 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EDIT_MOVE_MGR_H
-# define EDIT_MOVE_MGR_H
+#ifndef edit_key_mgr_H
+# define edit_key_mgr_H
 
 # include "basics.h"
-# include "edit/edit_move.h"
+# include "edit/edit_key.h"
 
-t_lst				*edit_move_mgr_new(void);
-void				edit_move_mgr_del(t_lst *edit_moves);
-void				edit_move_mgr_add(t_lst *edit_moves, t_edit_move *edit_move);
-void				edit_move_mgr_print(t_lst *edit_moves);
-void				edit_move_mgr_do(t_lst *edit_moves, void *edit, int key);
+t_lst				*edit_key_mgr_new(void);
+void				edit_key_mgr_del(t_lst *edit_keys);
+void				edit_key_mgr_add(t_lst *edit_keys, t_edit_key *edit_key);
+void				edit_key_mgr_print(t_lst *edit_keys);
+void				edit_key_mgr_do(t_lst *edit_keys, void *edit, int key);
 #endif

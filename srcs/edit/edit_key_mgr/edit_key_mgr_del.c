@@ -10,17 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "edit/edit_move_mgr.h"
+#include "edit/edit_key_mgr.h"
 
-void				edit_move_mgr_remove(t_lst *edit_moves, t_edit_move *edit_move)
+void				edit_key_mgr_del(t_lst *edit_keys)
 {
-	int				index;
-
-	index = twl_lst_indexof(edit_moves, edit_move);
-	if (index == -1)
-	{
-		assert(!"[ERROR] Object not found!");
-	}
-	twl_lst_popi(edit_moves, index);
-	edit_move_del(edit_move);
+	twl_lst_del(edit_keys, edit_key_del);
 }

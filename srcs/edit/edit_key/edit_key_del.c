@@ -12,9 +12,9 @@
 
 #include <stdlib.h>
 
-#include "edit/edit_move.h"
+#include "edit/edit_key.h"
 
-void				edit_move_del(t_edit_move *this)
+void				edit_key_del(t_edit_key *this)
 {
 	free(this);
 }
