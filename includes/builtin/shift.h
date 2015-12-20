@@ -10,18 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "environment.h"
+#ifndef SHIFT_H
+# define SHIFT_H
 
-void				environment_set_last_exit_status(int status)
-{
-	t_environment *env;
+# include <sys/stat.h>
+# include <sys/types.h>
+# include "basics.h"
+# include "builtin.h"
+# include "twl_opt.h"
+# include "twl_opt_elem.h"
+# include "error.h"
+# define SHIFT_OPT_VALID_OPTS ""
 
-	env = environment_singleton();
-	env->info.last_exit_status = status;
-}
+int				shift_builtin(char *str);
+int				test_shift_builtin(char *cmd, t_environment *env);
 
-void				environment_set_last_exit_status_2(t_environment *env,
-																	int status)
-{
-	env->info.last_exit_status = status;
-}
+#endif
