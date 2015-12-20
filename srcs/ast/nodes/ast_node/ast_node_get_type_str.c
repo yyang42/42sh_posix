@@ -24,6 +24,8 @@ char				*ast_node_get_type_str(void *ast_node)
 		return ("AST_CMD_SUB");
 	else if (ast_node_get_type(ast_node) == AST_CMD_FIELD)
 		return ("AST_CMD_FIELD");
+	else if (ast_node_get_type(ast_node) == AST_COMP_CMD)
+		return ("AST_COMP_CMD");
 	else if (ast_node_get_type(ast_node) == AST_PIPE)
 		return ("AST_PIPE");
 	else if (ast_node_get_type(ast_node) == AST_ANDOR_SEQ)

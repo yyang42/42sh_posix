@@ -14,8 +14,8 @@
 
 void				ast_str_append_cmd(t_ast *ast, t_ast_cmd *cmd)
 {
-	if (ast_node_get_type(cmd) == AST_CMD_SUBSHELL)
-		ast_str_append_cmd_subshell(ast, cmd);
+	if (ast_node_get_type(cmd) == AST_COMP_CMD)
+		ast_str_append_comp_cmd(ast, cmd);
 	else if (ast_node_get_type(cmd) == AST_SIMPLE_CMD)
 		ast_str_append_simple_cmd(ast, cmd);
 }

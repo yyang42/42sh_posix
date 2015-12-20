@@ -20,9 +20,9 @@ void				*ast_build_cmd(t_ast *ast)
 {
 	void		*cmd;
 
-	if (parser_is_subshell(ast->parser))
+	if (parser_is_comp(ast->parser))
 	{
-		cmd = ast_build_cmd_subshell(ast);
+		cmd = ast_build_comp_cmd(ast);
 	}
 	else
 	{

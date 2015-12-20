@@ -3,10 +3,11 @@ LIST
     PIPE_SEQ
       SIMPLE_CMD echo aabbcc&&(echo a
     PIPE_SEQ
-      CMD_SUBSHELL
-        LIST
-          ANDOR_SEQ
-            PIPE_SEQ
-              SIMPLE_CMD echo abc)&&echo ccc\n
+      COMP_CMD
+        CMD_SUBSHELL
+          LIST
+            ANDOR_SEQ
+              PIPE_SEQ
+                SIMPLE_CMD echo abc)&&echo ccc\n
     PIPE_SEQ
       SIMPLE_CMD echo ccc\n

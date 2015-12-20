@@ -10,16 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "twl_xstdlib.h"
+#include "twl_xstring.h"
 
+#include "ast/ast.h"
+#include "ast/nodes/ast_cmd.h"
+#include "ast/nodes/ast_cmd_subshell.h"
 #include "ast/nodes/ast_comp_cmd.h"
 
-t_ast_comp_cmd		*ast_comp_cmd_new(void)
+t_ast_comp_cmd		*ast_build_comp_cmd(t_ast *ast)
 {
-	t_ast_comp_cmd	*this;
+	t_ast_comp_cmd	*comp_cmd;
 
-	this = twl_malloc_x0(sizeof(t_ast_comp_cmd));
-	this->type = AST_COMP_CMD;
-	this->index = 0;
-	return (this);
+	comp_cmd = ast_comp_cmd_new();
+	comp_cmd->cmd = ast_build_cmd_subshell(ast);
+	return (comp_cmd);
 }

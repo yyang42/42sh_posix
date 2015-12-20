@@ -20,6 +20,7 @@ typedef enum		e_ast_type
 	AST_CMD_FIELD,
 	AST_CMD_SUB,
 	AST_CMD_SUBSHELL,
+	AST_COMP_CMD,
 	AST_SIMPLE_CMD,
 	AST_LIST,
 	AST_IF,

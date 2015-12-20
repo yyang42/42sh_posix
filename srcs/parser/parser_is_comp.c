@@ -10,16 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "twl_xstdlib.h"
+#include <stdlib.h>
 
-#include "ast/nodes/ast_comp_cmd.h"
+#include "parser.h"
 
-t_ast_comp_cmd		*ast_comp_cmd_new(void)
+bool				parser_is_comp(t_parser *parser)
 {
-	t_ast_comp_cmd	*this;
-
-	this = twl_malloc_x0(sizeof(t_ast_comp_cmd));
-	this->type = AST_COMP_CMD;
-	this->index = 0;
-	return (this);
+	return (parser_is_subshell(parser));
 }

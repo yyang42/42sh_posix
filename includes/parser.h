@@ -31,10 +31,11 @@ char				parser_cchar(t_parser *this);
 char				*parser_cstr(t_parser *this);
 int					parser_remain_len(t_parser *this);
 
-bool				parser_is_list_elem(t_parser *this);
 bool				parser_is_andor(t_parser *this);
+bool				parser_is_comp(t_parser *parser);
+bool				parser_is_list_elem(t_parser *this);
 bool				parser_is_pipe_elem(t_parser *parser);
-bool				parser_is_subshell(t_parser *parser);
 bool				parser_is_simple_cmd_chars(t_parser *parser);
+bool				parser_is_subshell(t_parser *parser);
 
 #endif

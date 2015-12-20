@@ -23,6 +23,7 @@ typedef struct		s_ast_comp_cmd
 {
 	t_ast_type		type;
 	int				index;
+	void			*cmd;
 }					t_ast_comp_cmd;
 
 t_ast_comp_cmd		*ast_comp_cmd_new(void);
