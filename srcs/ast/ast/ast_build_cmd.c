@@ -26,7 +26,7 @@ void				*ast_build_cmd(t_ast *ast)
 	}
 	else
 	{
-		cmd = ast_build_cmd_simple(ast);
+		cmd = ast_build_simple_cmd(ast);
 	}
 	// cmd->index = ast->parser->index;
 	// build(cmd, ast);

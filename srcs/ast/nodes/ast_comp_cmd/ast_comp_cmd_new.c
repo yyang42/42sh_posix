@@ -10,36 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/ast.h"
+#include "twl_xstdlib.h"
 
-#include "twl_arr.h"
-#include "utils.h"
+#include "ast/nodes/ast_comp_cmd.h"
 
-static void			build(t_ast_simple_cmd *cmd, t_ast *ast)
+t_ast_comp_cmd		*ast_comp_cmd_new(void)
 {
-	// twl_lst_push(cmd->cmds, ast_cmd_build2(parser));
-	// twl_lst_push(cmd->cmds, ast_cmd_new());
-	while (parser_remain_len(ast->parser))
-	{
-		if (!parser_is_simple_cmd_chars(ast->parser))
-			break ;
-		// if (parser_is_pipe_elem(ast->parser)
-		// 	|| parser_is_andor(ast->parser)
-		// 	|| parser_is_list_elem(ast->parser)
-		// 	|| (parser_cchar(ast->parser) == ')'))
-		// 	break ;
-		ast->parser->index++;
-	}
-	// twl_printf("parser %s\n", parser_cstr(ast->parser));
-	(void)cmd;
-}
+	t_ast_comp_cmd	*this;
 
-t_ast_simple_cmd			*ast_build_cmd_simple(t_ast *ast)
-{
-	t_ast_simple_cmd		*cmd_simple;
-
-	cmd_simple = ast_simple_cmd_new();
-	cmd_simple->index = ast->parser->index;
-	build(cmd_simple, ast);
-	return (cmd_simple);
+	this = twl_malloc_x0(sizeof(t_ast_comp_cmd));
+	this->type = 0;
+	this->index = 0;
+	return (this);
 }

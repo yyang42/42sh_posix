@@ -47,13 +47,13 @@ t_ast_andor_seq			*ast_build_andor_seq(t_ast *ast);
 t_ast_pipe_seq			*ast_build_pipe(t_ast *ast);
 void				*ast_build_cmd(t_ast *ast);
 t_ast_cmd_subshell	*ast_build_cmd_subshell(t_ast *ast);
-t_ast_simple_cmd	*ast_build_cmd_simple(t_ast *ast);
+t_ast_simple_cmd	*ast_build_simple_cmd(t_ast *ast);
 
 void				ast_str_append_list(t_ast *ast, t_ast_list *list);
 void				ast_str_append_andor_seq(t_ast *ast, t_ast_andor_seq *andor);
 void				ast_str_append_pipe(t_ast *ast, t_ast_pipe_seq *pipe);
 void				ast_str_append_cmd(t_ast *ast, t_ast_cmd *cmd);
-void				ast_str_append_cmd_simple(t_ast *ast, void *cmd);
+void				ast_str_append_simple_cmd(t_ast *ast, void *cmd);
 void				ast_str_append_cmd_subshell(t_ast *ast, void *cmd_);
 void				ast_str_push_line(t_ast *ast, char *type, int index);
 

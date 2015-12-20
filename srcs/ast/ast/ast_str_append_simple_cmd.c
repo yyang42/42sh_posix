@@ -10,12 +10,27 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
+
 #include "ast/ast.h"
 
-void				ast_str_append_cmd(t_ast *ast, t_ast_cmd *cmd)
+static void			iter_fn(void *cmd, void *ast)
 {
-	if (ast_node_get_type(cmd) == AST_CMD_SUBSHELL)
-		ast_str_append_cmd_subshell(ast, cmd);
-	else if (ast_node_get_type(cmd) == AST_SIMPLE_CMD)
-		ast_str_append_simple_cmd(ast, cmd);
+	// ast_str_append_cmd(ast, cmd);
+	(void)ast;
+	(void)cmd;
+}
+
+void				ast_str_append_simple_cmd(t_ast *ast, void *cmd_)
+{
+	t_ast_simple_cmd *cmd;
+
+	cmd = cmd_;
+	ast_str_push_line(ast, "SIMPLE_CMD", cmd->index);
+	// ast->out_depth++;
+	// // twl_lst_iter(cmd->cmds, iter_fn, ast);
+	// ast->out_depth--;
+	(void)ast;
+	(void)cmd;
+	(void)iter_fn;
 }

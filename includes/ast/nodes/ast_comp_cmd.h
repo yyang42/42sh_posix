@@ -10,12 +10,22 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/ast.h"
+#ifndef AST_COMP_CMD_H
+# define AST_COMP_CMD_H
 
-void				ast_str_append_cmd(t_ast *ast, t_ast_cmd *cmd)
+# include "basics.h"
+
+# include "ast/ast_defines.h"
+# include "ast/nodes/ast_node.h"
+# include "ast/nodes/ast_list.h"
+
+typedef struct		s_ast_comp_cmd
 {
-	if (ast_node_get_type(cmd) == AST_CMD_SUBSHELL)
-		ast_str_append_cmd_subshell(ast, cmd);
-	else if (ast_node_get_type(cmd) == AST_SIMPLE_CMD)
-		ast_str_append_simple_cmd(ast, cmd);
-}
+	t_ast_type		type;
+	int				index;
+}					t_ast_comp_cmd;
+
+t_ast_comp_cmd		*ast_comp_cmd_new(void);
+void				ast_comp_cmd_del(t_ast_comp_cmd *this);
+
+#endif
