@@ -13,36 +13,89 @@
 #ifndef TOKEN_H
 # define TOKEN_H
 
-/* Operators */
-# define TOKEN_AND_IF "&&"
-# define TOKEN_OR_IF "||"
-# define TOKEN_DSEMI ";;"
-# define TOKEN_DLESS "<<"
-# define TOKEN_DGREAT ">>"
-# define TOKEN_LESSAND "<&"
-# define TOKEN_GREATAND ">&"
-# define TOKEN_LESSGREAT "<>"
-# define TOKEN_DLESSDASH "<<-"
-# define TOKEN_CLOBBER ">|"
+# include "basics.h"
 
-/* Reserved words */
-# define TOKEN_IF "if"
-# define TOKEN_THEN "then"
-# define TOKEN_ELSE "else"
-# define TOKEN_ELIF "elif"
-# define TOKEN_FI "fi"
-# define TOKEN_DO "do"
-# define TOKEN_DONE "done"
-# define TOKEN_CASE "case"
-# define TOKEN_ESAC "esac"
-# define TOKEN_WHILE "while"
-# define TOKEN_UNTIL "until"
-# define TOKEN_FOR "for"
+typedef enum		e_token_type
+{
+	TOKEN_WORD,
+	TOKEN_ASSIGNMENT_WORD,
+	TOKEN_NAME,
+	TOKEN_NEWLINE,
+	TOKEN_IO_NUMBER,
+	/* Operators */
+	TOKEN_AND_IF,
+	TOKEN_OR_IF,
+	TOKEN_DSEMI,
+	TOKEN_DLESS,
+	TOKEN_DGREAT,
+	TOKEN_LESSAND,
+	TOKEN_GREATAND,
+	TOKEN_LESSGREAT,
+	TOKEN_DLESSDASH,
+	TOKEN_CLOBBER,
+	/* Reserved words */
+	TOKEN_IF,
+	TOKEN_THEN,
+	TOKEN_ELSE,
+	TOKEN_ELIF,
+	TOKEN_FI,
+	TOKEN_DO,
+	TOKEN_DONE,
+	TOKEN_CASE,
+	TOKEN_ESAC,
+	TOKEN_WHILE,
+	TOKEN_UNTIL,
+	TOKEN_FOR,
+	/* Recognized when reserved words are recognized */
+	TOKEN_LBRACE,
+	TOKEN_RBRACE,
+	TOKEN_BANG,
+	TOKEN_IN
+}					t_token_type;
 
-/* Recognized when reserved words are recognized */
-# define TOKEN_LBRACE "{"
-# define TOKEN_RBRACE "}"
-# define TOKEN_BANG "!"
-# define TOKEN_IN "in"
+
+typedef struct		s_token
+{
+	t_token_type	type;
+	char			*text;
+}					t_token;
+
+t_token				*token_new(t_token_type type, char *text);
+void				token_del(t_token *this);
 
 #endif
+
+	// TOKEN_WORD
+	// TOKEN_ASSIGNMENT_WORD
+	// TOKEN_NAME
+	// TOKEN_NEWLINE
+	// TOKEN_IO_NUMBER
+	// /* Operators */
+	// TOKEN_AND_IF "&&"
+	// TOKEN_OR_IF "||"
+	// TOKEN_DSEMI ";;"
+	// TOKEN_DLESS "<<"
+	// TOKEN_DGREAT ">>"
+	// TOKEN_LESSAND "<&"
+	// TOKEN_GREATAND ">&"
+	// TOKEN_LESSGREAT "<>"
+	// TOKEN_DLESSDASH "<<-"
+	// TOKEN_CLOBBER ">|"
+	// /* Reserved words */
+	// TOKEN_IF "if"
+	// TOKEN_THEN "then"
+	// TOKEN_ELSE "else"
+	// TOKEN_ELIF "elif"
+	// TOKEN_FI "fi"
+	// TOKEN_DO "do"
+	// TOKEN_DONE "done"
+	// TOKEN_CASE "case"
+	// TOKEN_ESAC "esac"
+	// TOKEN_WHILE "while"
+	// TOKEN_UNTIL "until"
+	// TOKEN_FOR "for"
+	// /* Recognized when reserved words are recognized */
+	// TOKEN_LBRACE "{"
+	// TOKEN_RBRACE "}"
+	// TOKEN_BANG "!"
+	// TOKEN_IN "in"
