@@ -10,18 +10,30 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TOKEN_MGR_H
-# define TOKEN_MGR_H
+#include "tokenizer.h"
 
-# include "basics.h"
-# include "token.h"
-
-t_lst				*token_mgr_new(void);
-void				token_mgr_del(t_lst *tokens);
-void				token_mgr_add(t_lst *tokens, t_token *token);
-void				token_mgr_remove(t_lst *tokens, t_token *token);
-void				token_mgr_print(t_lst *tokens);
-
-char				*token_mgr_strjoin(t_lst *tokens);
-
-#endif
+void				tokenizer_tokenize(t_tokenizer *this)
+{
+	this->i = 0;
+	this->ti = 0;
+	while (true)
+	{
+		twl_printf("parser %s\n", &this->input[this->i]);
+		if (tokenizer_apply_rule1(this) == END_OF_INPUT)
+			break ;
+		// (void)(tokenizer_apply_rule2(this)
+		// 	&& tokenizer_apply_rule3(this)
+		// 	&& tokenizer_apply_rule6(this)
+		// 	&& );
+		if (tokenizer_apply_rule2(this))
+			continue ;
+		if (tokenizer_apply_rule3(this))
+			continue ;
+		if (tokenizer_apply_rule6(this))
+			continue ;
+		if (tokenizer_apply_rule8(this))
+			continue ;
+		this->ti++;
+		this->i++;
+	}
+}

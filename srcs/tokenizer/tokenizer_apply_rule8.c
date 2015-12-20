@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-
 #include "tokenizer.h"
 
 /*  Rule 8
@@ -20,7 +18,7 @@
 	character shall be discarded.
 */
 
-void				tokenizer_apply_rule8(t_tokenizer *this)
+int					tokenizer_apply_rule8(t_tokenizer *this)
 {
 	char			*input;
 
@@ -28,9 +26,8 @@ void				tokenizer_apply_rule8(t_tokenizer *this)
 	if (input[this->i] == ' ')
 	{
 		tokenizer_delimit(this);
+		this->i++;
+		return (1);
 	}
-	else
-	{
-		this->ti++;
-	}
+	return (0);
 }

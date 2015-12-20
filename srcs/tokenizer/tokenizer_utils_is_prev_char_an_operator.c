@@ -10,18 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TOKEN_MGR_H
-# define TOKEN_MGR_H
+#include "tokenizer.h"
 
-# include "basics.h"
-# include "token.h"
-
-t_lst				*token_mgr_new(void);
-void				token_mgr_del(t_lst *tokens);
-void				token_mgr_add(t_lst *tokens, t_token *token);
-void				token_mgr_remove(t_lst *tokens, t_token *token);
-void				token_mgr_print(t_lst *tokens);
-
-char				*token_mgr_strjoin(t_lst *tokens);
-
-#endif
+bool				tokenizer_utils_is_prev_char_an_operator(t_tokenizer *this)
+{
+	if (this->i == 0)
+		return (false);
+	return (tokenizer_utils_is_operator_char(this->input[this->i - 1]));
+}

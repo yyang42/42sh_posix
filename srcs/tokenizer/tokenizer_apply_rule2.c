@@ -10,18 +10,26 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TOKEN_MGR_H
-# define TOKEN_MGR_H
+#include "tokenizer.h"
 
-# include "basics.h"
-# include "token.h"
+/*  Rule 3
+	If the previous character was used as part of an operator and the
+	current character is not quoted and can be used with the current
+	characters to form an operator, it shall be used as part of that (operator)
+	token.
+*/
 
-t_lst				*token_mgr_new(void);
-void				token_mgr_del(t_lst *tokens);
-void				token_mgr_add(t_lst *tokens, t_token *token);
-void				token_mgr_remove(t_lst *tokens, t_token *token);
-void				token_mgr_print(t_lst *tokens);
+int					tokenizer_apply_rule2(t_tokenizer *this)
+{
+	char			*input;
 
-char				*token_mgr_strjoin(t_lst *tokens);
-
-#endif
+	input = this->input;
+	if (tokenizer_utils_is_prev_char_an_operator(this)
+		&& tokenizer_utils_can_form_operator_with_prev(this))
+	{
+		this->ti++;
+		this->i++;
+		return (1);
+	}
+	return (0);
+}

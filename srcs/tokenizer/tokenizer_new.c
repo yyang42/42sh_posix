@@ -14,22 +14,6 @@
 
 #include "tokenizer.h"
 
-static void			tokenizer_tokenize(t_tokenizer *this)
-{
-	char			*input;
-
-	input = this->input;
-	this->i = 0;
-	this->ti = 0;
-	while (true)
-	{
-		if (tokenizer_apply_rule1(this) == END_OF_INPUT)
-			break ;
-		tokenizer_apply_rule8(this);
-		this->i++;
-	}
-}
-
 t_tokenizer			*tokenizer_new(char *input)
 {
 	t_tokenizer		*this;

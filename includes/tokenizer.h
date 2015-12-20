@@ -31,8 +31,17 @@ t_tokenizer			*tokenizer_new(char *input);
 void				tokenizer_del(t_tokenizer *this);
 
 void				tokenizer_delimit(t_tokenizer *this);
+void				tokenizer_tokenize(t_tokenizer *this);
 
 int					tokenizer_apply_rule1(t_tokenizer *this);
-void				tokenizer_apply_rule8(t_tokenizer *this);
+int					tokenizer_apply_rule2(t_tokenizer *this);
+int					tokenizer_apply_rule3(t_tokenizer *this);
+int					tokenizer_apply_rule6(t_tokenizer *this);
+int					tokenizer_apply_rule8(t_tokenizer *this);
+
+bool				tokenizer_utils_is_operator_char(char c);
+bool				tokenizer_utils_is_prev_char_an_operator(t_tokenizer *this);
+bool				tokenizer_utils_can_form_operator_with_prev(
+														t_tokenizer *this);
 
 #endif

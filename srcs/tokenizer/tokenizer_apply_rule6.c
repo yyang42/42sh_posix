@@ -10,18 +10,26 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TOKEN_MGR_H
-# define TOKEN_MGR_H
+#include "tokenizer.h"
 
-# include "basics.h"
-# include "token.h"
+/*  Rule 6
+	If the current character is not quoted and can be used as the first
+	character of a new operator, the current token (if any) shall be delimited.
+	The current character shall be used as the beginning
+	of the next (operator) token.
+*/
 
-t_lst				*token_mgr_new(void);
-void				token_mgr_del(t_lst *tokens);
-void				token_mgr_add(t_lst *tokens, t_token *token);
-void				token_mgr_remove(t_lst *tokens, t_token *token);
-void				token_mgr_print(t_lst *tokens);
+int					tokenizer_apply_rule6(t_tokenizer *this)
+{
+	char			*input;
 
-char				*token_mgr_strjoin(t_lst *tokens);
-
-#endif
+	input = this->input;
+	if (tokenizer_utils_is_operator_char(input[this->i]))
+	{
+		tokenizer_delimit(this);
+		this->ti++;
+		this->i++;
+		return (1);
+	}
+	return (0);
+}

@@ -10,18 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TOKEN_MGR_H
-# define TOKEN_MGR_H
+#include "tokenizer.h"
 
-# include "basics.h"
-# include "token.h"
+bool				tokenizer_utils_can_form_operator_with_prev(
+														t_tokenizer *this)
+{
+	char			*operator;
 
-t_lst				*token_mgr_new(void);
-void				token_mgr_del(t_lst *tokens);
-void				token_mgr_add(t_lst *tokens, t_token *token);
-void				token_mgr_remove(t_lst *tokens, t_token *token);
-void				token_mgr_print(t_lst *tokens);
+	operator = &(this->input[this->i -1]);
+	return (twl_str_starts_with(operator, "&&"));
+}
 
-char				*token_mgr_strjoin(t_lst *tokens);
-
-#endif
+	// TOKEN_AND_IF "&&"
+	// TOKEN_OR_IF "||"
+	// TOKEN_DSEMI ";;"
+	// TOKEN_DLESS "<<"
+	// TOKEN_DGREAT ">>"
+	// TOKEN_LESSAND "<&"
+	// TOKEN_GREATAND ">&"
+	// TOKEN_LESSGREAT "<>"
+	// TOKEN_DLESSDASH "<<-"
+	// TOKEN_CLOBBER ">|"
