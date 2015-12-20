@@ -60,7 +60,7 @@ void				patmatch_build_class_expr_(t_patmatch *this);
 void				patmatch_del_class_expr_(t_patmatch *this);
 void				patmatch_add_class_expr_(t_patmatch *this, char *content);
 
-char				**patmatch_match(t_patmatch *this, char *pattern);
+t_lst				*patmatch_match(t_patmatch *this, char *pattern);
 
 int					match_supervisor(t_patmatch *this, t_match__ *m);
 

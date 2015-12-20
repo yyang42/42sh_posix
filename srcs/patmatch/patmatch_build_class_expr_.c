@@ -30,6 +30,7 @@ static char		*build_class_expr(int (*func)(int))
 		}
 		i += 1;
 	}
+	expr[j] = 0;
 	ret = twl_strdup(expr);
 	return (ret);
 }
