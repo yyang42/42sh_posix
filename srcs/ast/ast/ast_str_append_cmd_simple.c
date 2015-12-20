@@ -23,10 +23,10 @@ static void			iter_fn(void *cmd, void *ast)
 
 void				ast_str_append_cmd_simple(t_ast *ast, void *cmd_)
 {
-	t_ast_cmd_simple *cmd;
+	t_ast_simple_cmd *cmd;
 
 	cmd = cmd_;
-	ast_str_push_line(ast, "CMD_SIMPLE", cmd->index);
+	ast_str_push_line(ast, "SIMPLE_CMD", cmd->index);
 	// ast->out_depth++;
 	// // twl_lst_iter(cmd->cmds, iter_fn, ast);
 	// ast->out_depth--;

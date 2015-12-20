@@ -1,7 +1,7 @@
 LIST
   ANDOR_SEQ
     PIPE_SEQ
-      CMD_SIMPLE echo 123\necho abc\n
+      SIMPLE_CMD echo 123\necho abc\n
   ANDOR_SEQ
     PIPE_SEQ
-      CMD_SIMPLE echo abc\n
+      SIMPLE_CMD echo abc\n

@@ -15,7 +15,7 @@
 #include "twl_arr.h"
 #include "utils.h"
 
-static void			build(t_ast_cmd_simple *cmd, t_ast *ast)
+static void			build(t_ast_simple_cmd *cmd, t_ast *ast)
 {
 	// twl_lst_push(cmd->cmds, ast_cmd_build2(parser));
 	// twl_lst_push(cmd->cmds, ast_cmd_new());
@@ -34,11 +34,11 @@ static void			build(t_ast_cmd_simple *cmd, t_ast *ast)
 	(void)cmd;
 }
 
-t_ast_cmd_simple			*ast_build_cmd_simple(t_ast *ast)
+t_ast_simple_cmd			*ast_build_cmd_simple(t_ast *ast)
 {
-	t_ast_cmd_simple		*cmd_simple;
+	t_ast_simple_cmd		*cmd_simple;
 
-	cmd_simple = ast_cmd_simple_new();
+	cmd_simple = ast_simple_cmd_new();
 	cmd_simple->index = ast->parser->index;
 	build(cmd_simple, ast);
 	return (cmd_simple);

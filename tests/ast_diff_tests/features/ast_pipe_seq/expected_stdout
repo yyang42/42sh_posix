@@ -1,6 +1,6 @@
 LIST
   ANDOR_SEQ
     PIPE_SEQ
-      CMD_SIMPLE echo aabbcc|cat -e|t
-      CMD_SIMPLE cat -e|tr -d b\n
-      CMD_SIMPLE tr -d b\n
+      SIMPLE_CMD echo aabbcc|cat -e|t
+      SIMPLE_CMD cat -e|tr -d b\n
+      SIMPLE_CMD tr -d b\n

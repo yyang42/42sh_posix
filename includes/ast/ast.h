@@ -20,7 +20,7 @@
 # include "ast/nodes/ast_list.h"
 # include "ast/nodes/ast_if.h"
 # include "ast/nodes/ast_cmd.h"
-# include "ast/nodes/ast_cmd_simple.h"
+# include "ast/nodes/ast_simple_cmd.h"
 # include "ast/nodes/ast_cmd_subshell.h"
 # include "ast/nodes/ast_cmd_field.h"
 # include "ast/nodes/ast_node.h"
@@ -47,7 +47,7 @@ t_ast_andor_seq			*ast_build_andor_seq(t_ast *ast);
 t_ast_pipe_seq			*ast_build_pipe(t_ast *ast);
 void				*ast_build_cmd(t_ast *ast);
 t_ast_cmd_subshell	*ast_build_cmd_subshell(t_ast *ast);
-t_ast_cmd_simple	*ast_build_cmd_simple(t_ast *ast);
+t_ast_simple_cmd	*ast_build_cmd_simple(t_ast *ast);
 
 void				ast_str_append_list(t_ast *ast, t_ast_list *list);
 void				ast_str_append_andor_seq(t_ast *ast, t_ast_andor_seq *andor);

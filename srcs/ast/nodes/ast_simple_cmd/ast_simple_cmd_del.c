@@ -10,16 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "twl_xstdlib.h"
+#include <stdlib.h>
 
-#include "ast/nodes/ast_cmd_simple.h"
+#include "ast/nodes/ast_cmd.h"
 
-t_ast_cmd_simple	*ast_cmd_simple_new(void)
+void				ast_simple_cmd_del(t_ast_cmd *this)
 {
-	t_ast_cmd_simple	*this;
-
-	this = twl_malloc_x0(sizeof(t_ast_cmd_simple));
-	this->type = AST_CMD_SIMPLE;
-	this->index = 0;
-	return (this);
+	free(this);
 }

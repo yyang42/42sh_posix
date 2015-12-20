@@ -10,24 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_CMD_SIMPLE_H
-# define AST_CMD_SIMPLE_H
+#include "twl_xstdlib.h"
 
-# include "twl_lst.h"
+#include "ast/nodes/ast_simple_cmd.h"
 
-# include "basics.h"
-
-# include "ast/ast_defines.h"
-# include "ast/nodes/ast_node.h"
-# include "ast/nodes/ast_list.h"
-
-typedef struct		s_ast_cmd_simple
+t_ast_simple_cmd	*ast_simple_cmd_new(void)
 {
-	t_ast_type		type;
-	int				index;
-}					t_ast_cmd_simple;
+	t_ast_simple_cmd	*this;
 
-t_ast_cmd_simple	*ast_cmd_simple_new(void);
-void				ast_cmd_simple_del(t_ast_cmd_simple *this);
-
-#endif
+	this = twl_malloc_x0(sizeof(t_ast_simple_cmd));
+	this->type = AST_SIMPLE_CMD;
+	this->index = 0;
+	return (this);
+}
