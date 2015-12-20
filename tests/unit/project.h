@@ -22,4 +22,8 @@
 # include <unistd.h>
 # include <stdbool.h>
 
+char	*get_cmd_out(const char *cmd);
+char	*sandbox_cmd(const char *cmd);
+void	reset_sandbox(void);
+
 #endif

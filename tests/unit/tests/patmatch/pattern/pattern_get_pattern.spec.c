@@ -17,6 +17,9 @@ static void	test_simple(t_test *test)
 	PATTERN_TEST("/usr/bin/ls", 2, 0, "ls");
 	PATTERN_TEST("tests/unit/", 0, 0, "tests");
 	PATTERN_TEST("tests/unit/", 1, 0, "unit");
+	PATTERN_TEST("~/.brew/bin", 0, 0, "~");
+	PATTERN_TEST("~/.brew/bin", 1, 0, ".brew");
+	PATTERN_TEST("~/.brew/bin", 2, 0, "bin");
 }
 
 static void	test_middle(t_test *test)
