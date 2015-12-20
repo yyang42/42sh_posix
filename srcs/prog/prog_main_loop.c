@@ -27,6 +27,7 @@ void				prog_main_loop(t_prog *prog, t_environment *env)
 		// Do your job with the CMD ^^
 		cmd = edit_loop(edit);
 	}
+	(void)cmd;
 	edit_del(edit);
 	(void)prog;
 	(void)env;
