@@ -30,9 +30,4 @@ typedef struct		s_ast_cmd_simple
 t_ast_cmd_simple	*ast_cmd_simple_new(void);
 void				ast_cmd_simple_del(t_ast_cmd_simple *this);
 
-t_ast_cmd_simple	*ast_cmd_simple_build(char *str, int *len_ptr);
-
-void				ast_cmd_simple_append_str(t_ast_cmd_simple *this,
-													int lvl, t_lst *out_list);
-
 #endif

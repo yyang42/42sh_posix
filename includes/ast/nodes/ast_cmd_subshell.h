@@ -31,9 +31,4 @@ typedef struct		s_ast_cmd_subshell
 t_ast_cmd_subshell	*ast_cmd_subshell_new(void);
 void				ast_cmd_subshell_del(t_ast_cmd_subshell *this);
 
-t_ast_cmd_subshell	*ast_cmd_subshell_build(char *str, int *len_ptr);
-
-void				ast_cmd_subshell_append_str(t_ast_cmd_subshell *this,
-													int lvl, t_lst *out_list);
-
 #endif

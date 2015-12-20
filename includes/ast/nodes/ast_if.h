@@ -30,6 +30,4 @@ typedef struct		s_ast_if
 t_ast_if			*ast_if_new(void);
 void				ast_if_del(t_ast_if *this);
 
-t_ast_if			*ast_if_build(char *str, int *len_ptr);
-
 #endif

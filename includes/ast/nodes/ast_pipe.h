@@ -33,9 +33,4 @@ typedef struct		s_ast_pipe
 t_ast_pipe			*ast_pipe_new(void);
 void				ast_pipe_del(t_ast_pipe *this);
 
-t_ast_pipe			*ast_pipe_build(char *str, int *len_ptr);
-t_ast_pipe			*ast_pipe_build2(t_parser *parser);
-void				ast_pipe_str_append(t_ast_pipe *this, t_lst *lines,
-																int *depth);
-
 #endif

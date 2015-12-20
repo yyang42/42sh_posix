@@ -27,6 +27,4 @@ typedef struct		s_ast_string
 t_ast_string		*ast_string_new(char *text);
 void				ast_string_del(t_ast_string *this);
 
-t_ast_string		*ast_string_build(char *str, int *len_ptr);
-
 #endif

@@ -35,9 +35,4 @@ typedef struct		s_ast_cmd
 t_ast_cmd			*ast_cmd_new(void);
 void				ast_cmd_del(t_ast_cmd *this);
 
-t_ast_cmd			*ast_cmd_build(char *str, int *len_ptr);
-
-void				ast_cmd_append_str(t_ast_cmd *this,
-													int lvl, t_lst *out_list);
-
 #endif

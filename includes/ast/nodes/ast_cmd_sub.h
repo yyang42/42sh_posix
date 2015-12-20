@@ -28,6 +28,4 @@ typedef struct		s_ast_cmd_sub
 t_ast_cmd_sub		*ast_cmd_sub_new(void);
 void				ast_cmd_sub_del(t_ast_cmd_sub *this);
 
-t_ast_cmd_sub		*ast_cmd_sub_build(char *str, int *len_ptr);
-
 #endif
