@@ -12,9 +12,9 @@
 
 #include <stdlib.h>
 
-#include "ast/nodes/ast_pipe.h"
+#include "ast/nodes/ast_pipe_seq.h"
 
-void				ast_pipe_del(t_ast_pipe *this)
+void				ast_pipe_seq_del(t_ast_pipe_seq *this)
 {
 	free(this);
 }

@@ -10,19 +10,27 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "twl_xstdlib.h"
+#ifndef AST_PIPE_H
+# define AST_PIPE_H
 
-#include "ast/nodes/ast_pipe.h"
+# include "basics.h"
 
-t_ast_pipe			*ast_pipe_new(void)
+# include "parser.h"
+# include "utils.h"
+
+# include "ast/ast_defines.h"
+# include "ast/nodes/ast_node.h"
+
+typedef struct		s_ast_pipe_seq
 {
-	t_ast_pipe	*this;
+	t_ast_type		type;
+	void			*left;
+	void			*right;
+	t_lst			*pipes;
+	int				index;
+}					t_ast_pipe_seq;
 
-	this = twl_malloc_x0(sizeof(t_ast_pipe));
-	this->type = AST_PIPE;
-	this->left = NULL;
-	this->right = NULL;
-	this->pipes = twl_lst_new();
-	this->index = 0;
-	return (this);
-}
+t_ast_pipe_seq			*ast_pipe_seq_new(void);
+void				ast_pipe_seq_del(t_ast_pipe_seq *this);
+
+#endif

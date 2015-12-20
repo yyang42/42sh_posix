@@ -25,7 +25,7 @@
 # include "ast/nodes/ast_cmd_field.h"
 # include "ast/nodes/ast_node.h"
 # include "ast/nodes/ast_andor_seq.h"
-# include "ast/nodes/ast_pipe.h"
+# include "ast/nodes/ast_pipe_seq.h"
 
 typedef struct		s_ast
 {
@@ -44,14 +44,14 @@ void				ast_build(t_ast *this);
 
 t_ast_list			*ast_build_list(t_ast *ast);
 t_ast_andor_seq			*ast_build_andor_seq(t_ast *ast);
-t_ast_pipe			*ast_build_pipe(t_ast *ast);
+t_ast_pipe_seq			*ast_build_pipe(t_ast *ast);
 void				*ast_build_cmd(t_ast *ast);
 t_ast_cmd_subshell	*ast_build_cmd_subshell(t_ast *ast);
 t_ast_cmd_simple	*ast_build_cmd_simple(t_ast *ast);
 
 void				ast_str_append_list(t_ast *ast, t_ast_list *list);
 void				ast_str_append_andor_seq(t_ast *ast, t_ast_andor_seq *andor);
-void				ast_str_append_pipe(t_ast *ast, t_ast_pipe *pipe);
+void				ast_str_append_pipe(t_ast *ast, t_ast_pipe_seq *pipe);
 void				ast_str_append_cmd(t_ast *ast, t_ast_cmd *cmd);
 void				ast_str_append_cmd_simple(t_ast *ast, void *cmd);
 void				ast_str_append_cmd_subshell(t_ast *ast, void *cmd_);

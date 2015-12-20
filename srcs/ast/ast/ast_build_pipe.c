@@ -13,20 +13,20 @@
 #include "twl_xstring.h"
 
 #include "ast/ast.h"
-#include "ast/nodes/ast_pipe.h"
+#include "ast/nodes/ast_pipe_seq.h"
 
-static void			build(t_ast_pipe *pipe, t_ast *ast)
+static void			build(t_ast_pipe_seq *pipe, t_ast *ast)
 {
-	// twl_lst_push(pipe->pipes, ast_pipe_build2(parser));
+	// twl_lst_push(pipe->pipes, ast_pipe_seq_build2(parser));
 	// twl_printf("parser %s\n", parser_cstr(ast->parser));
 	twl_lst_push(pipe->pipes, ast_build_cmd(ast));
 }
 
-t_ast_pipe			*ast_build_pipe(t_ast *ast)
+t_ast_pipe_seq			*ast_build_pipe(t_ast *ast)
 {
-	t_ast_pipe		*pipe;
+	t_ast_pipe_seq		*pipe;
 
-	pipe = ast_pipe_new();
+	pipe = ast_pipe_seq_new();
 	pipe->index = ast->parser->index;
 	while (parser_remain_len(ast->parser))
 	{

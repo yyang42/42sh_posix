@@ -17,7 +17,7 @@
 #include "ast/nodes/ast_node.h"
 #include "ast/nodes/ast_if.h"
 #include "ast/nodes/ast_cmd_field.h"
-#include "ast/nodes/ast_pipe.h"
+#include "ast/nodes/ast_pipe_seq.h"
 #include "ast/nodes/ast_cmd_sub.h"
 
 static void			iter_fn(void *pipe, void *ast)
@@ -25,7 +25,7 @@ static void			iter_fn(void *pipe, void *ast)
 	ast_str_append_cmd(ast, pipe);
 }
 
-void				ast_str_append_pipe(t_ast *ast, t_ast_pipe *pipe)
+void				ast_str_append_pipe(t_ast *ast, t_ast_pipe_seq *pipe)
 {
 	ast_str_push_line(ast, "PIPE_SEQ", pipe->index);
 	ast->out_depth++;
