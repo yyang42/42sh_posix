@@ -16,5 +16,7 @@
 
 void				edit_del(t_edit *this)
 {
+	letter_mgr_del(this->letters);
+	edit_key_mgr_del(this->edit_keys);
 	free(this);
 }

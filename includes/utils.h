@@ -20,5 +20,6 @@
 int					demo_sum(int num1, int num2);
 t_lst				*str_split_except_quote(char *str);
 void				increment_len(int *len_ptr, int len);
+char				*get_prompt(void);
 
 #endif

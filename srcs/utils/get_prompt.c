@@ -10,20 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "twl_xstdlib.h"
+#include "utils.h"
 
-#include "edit/edit.h"
+/*
+** You can customize your prompt here ;)
+*/
 
-
-
-t_edit				*edit_new(void)
+char				*get_prompt(void)
 {
-	t_edit			*this;
-
-	this = twl_malloc_x0(sizeof(t_edit));
-	this->index = 0;
-	this->letters = letter_mgr_new();
-	this->edit_keys = edit_key_mgr_new();
-	this->return_cmd = false;
-	return (this);
+	return ("Prompt> ");
 }

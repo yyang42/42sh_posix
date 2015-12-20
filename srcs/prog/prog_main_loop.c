@@ -21,14 +21,22 @@ void				prog_main_loop(t_prog *prog, t_environment *env)
 	/*
 	** TODO: how delete exit when we exit of shell ?
 	*/
-	edit = edit_new();
 	while (1)
 	{
 		// Do your job with the CMD ^^
+		edit = edit_new();
 		cmd = edit_loop(edit);
+		/*
+		** Simple exit for test. Remove when handle exit cmd
+		*/
+		edit_del(edit);
+		if (twl_strcmp(cmd, "exit") == 0)
+		{
+			free(cmd);
+			prog_del(prog);
+			exit(0);
+		}
 	}
-	(void)cmd;
-	edit_del(edit);
 	(void)prog;
 	(void)env;
 }

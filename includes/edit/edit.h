@@ -15,9 +15,10 @@
 
 # include "twl_lst.h"
 
-# include "edit/letter_mgr.h"
-# include "edit/edit_key_mgr.h"
 # include "basics.h"
+# include "edit/edit_key_mgr.h"
+# include "edit/letter_mgr.h"
+# include "utils.h"
 
 typedef struct		s_edit
 {

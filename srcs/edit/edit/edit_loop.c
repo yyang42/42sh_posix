@@ -38,8 +38,5 @@ char				*edit_loop(t_edit *this)
 		edit_clear_line(this);
 	}
 	terminal_disable();
-	/* comment this exit */
-	exit(0);
-	/* just here */
-	return cmd;
+	return twl_strtrim_free(cmd);
 }

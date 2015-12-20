@@ -32,6 +32,7 @@ void				edit_print_letters(t_edit *this)
 {
 	terminal_delete_line();
 	terminal_carriage_return();
+	twl_putstr(get_prompt());
 	twl_lst_iteri(this->letters, print_letter_fn, this);
 	if (this->return_cmd)
 		write(1, "\n", 1);
