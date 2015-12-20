@@ -12,14 +12,14 @@
 
 #include "twl_xstdlib.h"
 
-#include "ast/nodes/ast_andor.h"
+#include "ast/nodes/ast_andor_seq.h"
 
-t_ast_andor				*ast_andor_new(t_andor_type andor_type)
+t_ast_andor_seq				*ast_andor_seq_new(t_andor_type andor_type)
 {
-	t_ast_andor	*this;
+	t_ast_andor_seq	*this;
 
-	this = twl_malloc_x0(sizeof(t_ast_andor));
-	this->type = AST_ANDOR;
+	this = twl_malloc_x0(sizeof(t_ast_andor_seq));
+	this->type = AST_ANDOR_SEQ;
 	this->andor_type = andor_type;
 	this->left = NULL;
 	this->right = NULL;

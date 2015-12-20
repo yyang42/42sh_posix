@@ -18,17 +18,17 @@
 #include "ast/nodes/ast_if.h"
 #include "ast/nodes/ast_cmd_field.h"
 #include "ast/nodes/ast_pipe.h"
-#include "ast/nodes/ast_andor.h"
+#include "ast/nodes/ast_andor_seq.h"
 #include "ast/nodes/ast_cmd_sub.h"
 
 static void			iter_andor_fn(void *andor, void *ast)
 {
-	ast_to_str_append_andor(ast, andor);
+	ast_str_append_andor_seq(ast, andor);
 }
 
-void				ast_to_str_append_list(t_ast *ast, t_ast_list *list)
+void				ast_str_append_list(t_ast *ast, t_ast_list *list)
 {
-	ast_to_str_push_line(ast, "LIST", list->index);
+	ast_str_push_line(ast, "LIST", list->index);
 	ast->out_depth++;
 	twl_lst_iter(list->andors, iter_andor_fn, ast);
 	ast->out_depth--;

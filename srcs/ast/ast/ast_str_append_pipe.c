@@ -10,34 +10,25 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_ANDOR_H
-# define AST_ANDOR_H
+#include <stdlib.h>
 
-# include "basics.h"
+#include "ast/ast.h"
 
-# include "utils.h"
-# include "parser.h"
+#include "ast/nodes/ast_node.h"
+#include "ast/nodes/ast_if.h"
+#include "ast/nodes/ast_cmd_field.h"
+#include "ast/nodes/ast_pipe.h"
+#include "ast/nodes/ast_cmd_sub.h"
 
-# include "ast/ast_defines.h"
-# include "ast/nodes/ast_node.h"
-
-typedef enum		e_andor_type
+static void			iter_fn(void *pipe, void *ast)
 {
-	ANDOR_TYPE_AND,
-	ANDOR_TYPE_OR
-}					t_andor_type;
+	ast_str_append_cmd(ast, pipe);
+}
 
-typedef struct		s_ast_andor
+void				ast_str_append_pipe(t_ast *ast, t_ast_pipe *pipe)
 {
-	t_ast_type		type;
-	int				index;
-	t_andor_type	andor_type;
-	void			*left;
-	void			*right;
-	t_lst			*pipes;
-}					t_ast_andor;
-
-t_ast_andor			*ast_andor_new(t_andor_type andor_type);
-void				ast_andor_del(t_ast_andor *this);
-
-#endif
+	ast_str_push_line(ast, "PIPE_SEQ", pipe->index);
+	ast->out_depth++;
+	twl_lst_iter(pipe->pipes, iter_fn, ast);
+	ast->out_depth--;
+}

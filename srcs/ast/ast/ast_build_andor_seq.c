@@ -10,19 +10,29 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-
 #include "ast/ast.h"
 
-void				ast_to_str_append_cmd_subshell(t_ast *ast, void *cmd_)
-{
-	t_ast_cmd_subshell *cmd;
+#include "twl_arr.h"
+#include "utils.h"
 
-	cmd = cmd_;
-	ast_to_str_push_line(ast, "CMD_SUBSHELL", cmd->index);
-	ast->out_depth++;
-	ast_to_str_append_list(ast, cmd->list);
-	ast->out_depth--;
-	(void)ast;
-	(void)cmd;
+static void			build(t_ast_andor_seq *andor, t_ast *ast)
+{
+	twl_lst_push(andor->pipes, ast_build_pipe(ast));
+}
+
+t_ast_andor_seq			*ast_build_andor_seq(t_ast *ast)
+{
+	t_ast_andor_seq		*andor;
+
+	andor = ast_andor_seq_new(ANDOR_TYPE_AND);
+	andor->index = ast->parser->index;
+	while (parser_remain_len(ast->parser))
+	{
+		build(andor, ast);
+		if (parser_is_andor(ast->parser))
+			ast->parser->index += 2; // skip separator
+		else
+			break ;
+	}
+	return (andor);
 }

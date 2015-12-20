@@ -24,7 +24,7 @@
 # include "ast/nodes/ast_cmd_subshell.h"
 # include "ast/nodes/ast_cmd_field.h"
 # include "ast/nodes/ast_node.h"
-# include "ast/nodes/ast_andor.h"
+# include "ast/nodes/ast_andor_seq.h"
 # include "ast/nodes/ast_pipe.h"
 
 typedef struct		s_ast
@@ -39,25 +39,23 @@ typedef struct		s_ast
 t_ast				*ast_new(char *input);
 void				ast_del(t_ast *this);
 
-char				*ast_to_str(t_ast *this);
-char				*ast_to_str2(t_ast *this);
+char				*ast_str(t_ast *this);
 void				ast_build(t_ast *this);
-void				ast_build2(t_ast *this);
 
 t_ast_list			*ast_build_list(t_ast *ast);
-t_ast_andor			*ast_build_andor(t_ast *ast);
+t_ast_andor_seq			*ast_build_andor_seq(t_ast *ast);
 t_ast_pipe			*ast_build_pipe(t_ast *ast);
 void				*ast_build_cmd(t_ast *ast);
 t_ast_cmd_subshell	*ast_build_cmd_subshell(t_ast *ast);
 t_ast_cmd_simple	*ast_build_cmd_simple(t_ast *ast);
 
-void				ast_to_str_append_list(t_ast *ast, t_ast_list *list);
-void				ast_to_str_append_andor(t_ast *ast, t_ast_andor *andor);
-void				ast_to_str_append_pipe(t_ast *ast, t_ast_pipe *pipe);
-void				ast_to_str_append_cmd(t_ast *ast, t_ast_cmd *cmd);
-void				ast_to_str_append_cmd_simple(t_ast *ast, void *cmd);
-void				ast_to_str_append_cmd_subshell(t_ast *ast, void *cmd_);
-void				ast_to_str_push_line(t_ast *ast, char *type, int index);
+void				ast_str_append_list(t_ast *ast, t_ast_list *list);
+void				ast_str_append_andor_seq(t_ast *ast, t_ast_andor_seq *andor);
+void				ast_str_append_pipe(t_ast *ast, t_ast_pipe *pipe);
+void				ast_str_append_cmd(t_ast *ast, t_ast_cmd *cmd);
+void				ast_str_append_cmd_simple(t_ast *ast, void *cmd);
+void				ast_str_append_cmd_subshell(t_ast *ast, void *cmd_);
+void				ast_str_push_line(t_ast *ast, char *type, int index);
 
 /*
 

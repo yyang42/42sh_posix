@@ -17,7 +17,7 @@
 
 static void			build(t_ast_list *list, t_ast *ast)
 {
-	twl_lst_push(list->andors, ast_build_andor(ast));
+	twl_lst_push(list->andors, ast_build_andor_seq(ast));
 }
 
 t_ast_list			*ast_build_list(t_ast *ast)

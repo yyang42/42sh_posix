@@ -18,17 +18,13 @@
 #include "ast/nodes/ast_if.h"
 #include "ast/nodes/ast_cmd_field.h"
 #include "ast/nodes/ast_pipe.h"
+#include "ast/nodes/ast_andor_seq.h"
 #include "ast/nodes/ast_cmd_sub.h"
 
-static void			iter_fn(void *pipe, void *ast)
+char				*ast_str(t_ast *ast)
 {
-	ast_to_str_append_cmd(ast, pipe);
-}
-
-void				ast_to_str_append_pipe(t_ast *ast, t_ast_pipe *pipe)
-{
-	ast_to_str_push_line(ast, "PIPE_SEQ", pipe->index);
-	ast->out_depth++;
-	twl_lst_iter(pipe->pipes, iter_fn, ast);
-	ast->out_depth--;
+	char			*out;
+	ast_str_append_list(ast, ast->root);
+	out = twl_lst_strjoin(ast->out_lines, "");
+	return (out);
 }

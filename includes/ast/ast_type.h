@@ -15,7 +15,7 @@
 
 typedef enum		e_ast_type
 {
-	AST_ANDOR,
+	AST_ANDOR_SEQ,
 	AST_CMD,
 	AST_CMD_FIELD,
 	AST_CMD_SUB,

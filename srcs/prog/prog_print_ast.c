@@ -18,20 +18,19 @@
 void				prog_print_ast(t_prog *prog)
 {
 	t_xopt			*xopt;
-	char			*ast_str;
+	char			*str;
 	t_ast			*ast;
 
 	xopt = xopt_singleton();
 	if (xopt->print_ast && twl_lst_len(xopt->opt->args))
 	{
-		ast_str = twl_file_to_str(twl_lst_get(xopt->opt->args, 0));
-		ast = ast_new(ast_str);
+		str = twl_file_to_str(twl_lst_get(xopt->opt->args, 0));
+		ast = ast_new(str);
 		ast_build(ast);
-		ast_str = ast_to_str(ast);
-		// ast_str = ast_to_str(ast);
-		twl_putstr(ast_str);
+		str = ast_str(ast);
+		twl_putstr(str);
 		ast_del(ast);
-		free(ast_str);
+		free(str);
 	}
 	(void)prog;
 }

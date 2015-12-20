@@ -10,27 +10,26 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
+
 #include "ast/ast.h"
 
-void				ast_to_str_push_line(t_ast *ast, char *type, int index)
+#include "ast/nodes/ast_node.h"
+#include "ast/nodes/ast_if.h"
+#include "ast/nodes/ast_cmd_field.h"
+#include "ast/nodes/ast_pipe.h"
+#include "ast/nodes/ast_andor_seq.h"
+#include "ast/nodes/ast_cmd_sub.h"
+
+static void			iter_fn(void *andor, void *ast)
 {
-	char			*tmp;
-	char			*code_seg;
+	ast_str_append_pipe(ast, andor);
+}
 
-	// code_seg = twl_strndup(ast->parser->raw + index, 20);
-	// code_seg = twl_str_replace_free(code_seg, "\n", "\\n");
-	twl_asprintf(&tmp, "%*s%s",
-		ast->out_depth * AST_TAB_WIDTH, "", type);
-	twl_lst_push(ast->out_lines, tmp);
-
-	if (twl_strequ(type, "CMD_SIMPLE"))
-	{
-		code_seg = twl_strndup(ast->parser->raw + index, 20);
-		code_seg = twl_str_replace_free(code_seg, "\n", "\\n");
-		twl_lst_push(ast->out_lines, twl_strdup(" "));
-		twl_lst_push(ast->out_lines, code_seg);
-	}
-	twl_lst_push(ast->out_lines, twl_strdup("\n"));
-	// free(code_seg);
-	(void)index;
+void				ast_str_append_andor_seq(t_ast *ast, t_ast_andor_seq *andor)
+{
+	ast_str_push_line(ast, "ANDOR_SEQ", andor->index);
+	ast->out_depth++;
+	twl_lst_iter(andor->pipes, iter_fn, ast);
+	ast->out_depth--;
 }

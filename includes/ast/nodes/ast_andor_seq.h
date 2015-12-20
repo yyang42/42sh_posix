@@ -10,29 +10,34 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/ast.h"
+#ifndef AST_ANDOR_H
+# define AST_ANDOR_H
 
-#include "twl_arr.h"
-#include "utils.h"
+# include "basics.h"
 
-static void			build(t_ast_andor *andor, t_ast *ast)
+# include "utils.h"
+# include "parser.h"
+
+# include "ast/ast_defines.h"
+# include "ast/nodes/ast_node.h"
+
+typedef enum		e_andor_type
 {
-	twl_lst_push(andor->pipes, ast_build_pipe(ast));
-}
+	ANDOR_TYPE_AND,
+	ANDOR_TYPE_OR
+}					t_andor_type;
 
-t_ast_andor			*ast_build_andor(t_ast *ast)
+typedef struct		s_ast_andor_seq
 {
-	t_ast_andor		*andor;
+	t_ast_type		type;
+	int				index;
+	t_andor_type	andor_type;
+	void			*left;
+	void			*right;
+	t_lst			*pipes;
+}					t_ast_andor_seq;
 
-	andor = ast_andor_new(ANDOR_TYPE_AND);
-	andor->index = ast->parser->index;
-	while (parser_remain_len(ast->parser))
-	{
-		build(andor, ast);
-		if (parser_is_andor(ast->parser))
-			ast->parser->index += 2; // skip separator
-		else
-			break ;
-	}
-	return (andor);
-}
+t_ast_andor_seq			*ast_andor_seq_new(t_andor_type andor_type);
+void				ast_andor_seq_del(t_ast_andor_seq *this);
+
+#endif

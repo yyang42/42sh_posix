@@ -12,9 +12,9 @@
 
 #include <stdlib.h>
 
-#include "ast/nodes/ast_andor.h"
+#include "ast/nodes/ast_andor_seq.h"
 
-void				ast_andor_del(t_ast_andor *this)
+void				ast_andor_seq_del(t_ast_andor_seq *this)
 {
 	free(this);
 }

@@ -14,17 +14,15 @@
 
 #include "ast/ast.h"
 
-#include "ast/nodes/ast_node.h"
-#include "ast/nodes/ast_if.h"
-#include "ast/nodes/ast_cmd_field.h"
-#include "ast/nodes/ast_pipe.h"
-#include "ast/nodes/ast_andor.h"
-#include "ast/nodes/ast_cmd_sub.h"
-
-char				*ast_to_str(t_ast *ast)
+void				ast_str_append_cmd_subshell(t_ast *ast, void *cmd_)
 {
-	char			*out;
-	ast_to_str_append_list(ast, ast->root);
-	out = twl_lst_strjoin(ast->out_lines, "");
-	return (out);
+	t_ast_cmd_subshell *cmd;
+
+	cmd = cmd_;
+	ast_str_push_line(ast, "CMD_SUBSHELL", cmd->index);
+	ast->out_depth++;
+	ast_str_append_list(ast, cmd->list);
+	ast->out_depth--;
+	(void)ast;
+	(void)cmd;
 }
