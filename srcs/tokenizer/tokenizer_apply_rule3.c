@@ -27,6 +27,7 @@ int					tokenizer_apply_rule3(t_tokenizer *this)
 	if (tokenizer_utils_is_prev_char_an_operator(this)
 		&& !tokenizer_utils_can_form_operator_with_prev(this))
 	{
+		// COUCOU;
 		tokenizer_delimit(this);
 		this->ti++;
 		this->i++;

@@ -18,13 +18,10 @@ void				tokenizer_tokenize(t_tokenizer *this)
 	this->ti = 0;
 	while (true)
 	{
-		twl_printf("parser %s\n", &this->input[this->i]);
+		// twl_printf("------> %d %c parser %s\n", this->i, *(this->input + this->i),
+			// this->input + this->i);
 		if (tokenizer_apply_rule1(this) == END_OF_INPUT)
 			break ;
-		// (void)(tokenizer_apply_rule2(this)
-		// 	&& tokenizer_apply_rule3(this)
-		// 	&& tokenizer_apply_rule6(this)
-		// 	&& );
 		if (tokenizer_apply_rule2(this))
 			continue ;
 		if (tokenizer_apply_rule3(this))
@@ -33,6 +30,7 @@ void				tokenizer_tokenize(t_tokenizer *this)
 			continue ;
 		if (tokenizer_apply_rule8(this))
 			continue ;
+		COUCOU;
 		this->ti++;
 		this->i++;
 	}

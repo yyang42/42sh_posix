@@ -25,6 +25,7 @@ int					tokenizer_apply_rule8(t_tokenizer *this)
 	input = this->input;
 	if (input[this->i] == ' ')
 	{
+		// COUCOU;
 		tokenizer_delimit(this);
 		this->i++;
 		return (1);

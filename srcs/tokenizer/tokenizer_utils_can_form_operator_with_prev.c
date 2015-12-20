@@ -12,13 +12,20 @@
 
 #include "tokenizer.h"
 
+static bool			can_form_operator_with(t_tokenizer *this, char *str)
+{
+	char			*operator;
+	char			*token;
+
+	token = twl_strndup(this->input + this->i - this->ti, this->ti + 1);
+	operator = this->input + this->i - 1;
+	return (twl_strncmp(token, str, twl_strlen(token)) == 0);
+}
+
 bool				tokenizer_utils_can_form_operator_with_prev(
 														t_tokenizer *this)
 {
-	char			*operator;
-
-	operator = &(this->input[this->i -1]);
-	return (twl_str_starts_with(operator, "&&"));
+	return (can_form_operator_with(this, "&&"));
 }
 
 	// TOKEN_AND_IF "&&"
