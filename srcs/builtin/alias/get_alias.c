@@ -20,6 +20,6 @@ char			*get_alias(char *key)
 	env = environment_singleton();
 	value = twl_dict_get(env->alias, key);
 	if (!value)
-		env->info.last_exit_status = 42;
+		environment_set_last_exit_status(BUILTIN_EXEC_FAILURE);
 	return (value);
 }

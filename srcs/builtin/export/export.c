@@ -30,7 +30,8 @@ int					export(char *str)
 	}
 	twl_arr_del(arr, &free);
 	twl_opt_del(opt);
-	return (0);
+	environment_set_last_exit_status(BUILTIN_EXEC_SUCCESS);
+	return (BUILTIN_EXEC_SUCCESS);
 }
 
 int					test_export(char *str, t_environment *env)
@@ -49,5 +50,6 @@ int					test_export(char *str, t_environment *env)
 	}
 	twl_arr_del(arr, &free);
 	twl_opt_del(opt);
-	return (0);
+	environment_set_last_exit_status(BUILTIN_EXEC_SUCCESS);
+	return (BUILTIN_EXEC_SUCCESS);
 }
