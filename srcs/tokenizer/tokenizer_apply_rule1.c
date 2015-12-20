@@ -10,29 +10,28 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TOKENIZER_H
-# define TOKENIZER_H
+#include <stdlib.h>
 
-# include "basics.h"
+#include "tokenizer.h"
 
-# include "token.h"
+/*  Rule 1
+	If the end of input is recognized, the current token shall
+	be delimited. If there is no current token, the end-of-input
+	indicator shall be returned as the token.
 
-# define END_OF_INPUT 1
+	end-of-input => -1
+*/
 
-typedef struct		s_tokenizer
+int					tokenizer_apply_rule1(t_tokenizer *this)
 {
-	t_lst			*tokens;
 	char			*input;
-	int				i;
-	int				ti;
-}					t_tokenizer;
 
-t_tokenizer			*tokenizer_new(char *input);
-void				tokenizer_del(t_tokenizer *this);
-
-void				tokenizer_delimit(t_tokenizer *this);
-
-int					tokenizer_apply_rule1(t_tokenizer *this);
-void				tokenizer_apply_rule8(t_tokenizer *this);
-
-#endif
+	input = this->input;
+	if (input[this->i] == '\0')
+	{
+		if (this->ti)
+			tokenizer_delimit(this);
+		return (END_OF_INPUT);
+	}
+	return (-1);
+}

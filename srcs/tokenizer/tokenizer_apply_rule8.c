@@ -10,29 +10,27 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TOKENIZER_H
-# define TOKENIZER_H
+#include <stdlib.h>
 
-# include "basics.h"
+#include "tokenizer.h"
 
-# include "token.h"
+/*  Rule 1
+	If the current character is an unquoted <blank>, any token
+	containing the previous character is delimited and the current
+	character shall be discarded.
+*/
 
-# define END_OF_INPUT 1
-
-typedef struct		s_tokenizer
+void				tokenizer_apply_rule8(t_tokenizer *this)
 {
-	t_lst			*tokens;
 	char			*input;
-	int				i;
-	int				ti;
-}					t_tokenizer;
 
-t_tokenizer			*tokenizer_new(char *input);
-void				tokenizer_del(t_tokenizer *this);
-
-void				tokenizer_delimit(t_tokenizer *this);
-
-int					tokenizer_apply_rule1(t_tokenizer *this);
-void				tokenizer_apply_rule8(t_tokenizer *this);
-
-#endif
+	input = this->input;
+	if (input[this->i] == ' ')
+	{
+		tokenizer_delimit(this);
+	}
+	else
+	{
+		this->ti++;
+	}
+}

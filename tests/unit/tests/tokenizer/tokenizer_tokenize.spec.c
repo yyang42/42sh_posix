@@ -2,6 +2,14 @@
 
 #include "tokenizer.h"
 
+static void test_rule1(t_test *test)
+{
+	t_tokenizer		*tokenizer;
+
+	tokenizer = tokenizer_new("");
+	mt_assert(twl_lst_len(tokenizer->tokens) == 0);
+}
+
 static void tokenizer_tokenize_test(t_test *test)
 {
 	t_tokenizer		*tokenizer;
@@ -17,5 +25,6 @@ static void tokenizer_tokenize_test(t_test *test)
 
 void	suite_tokenizer_tokenize(t_suite *suite)
 {
+	SUITE_ADD_TEST(suite, test_rule1);
 	SUITE_ADD_TEST(suite, tokenizer_tokenize_test);
 }

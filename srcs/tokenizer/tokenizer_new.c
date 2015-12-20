@@ -14,41 +14,19 @@
 
 #include "tokenizer.h"
 
-static void			tokenizer_tokenize(t_lst *tokens, char *input)
+static void			tokenizer_tokenize(t_tokenizer *this)
 {
-	int				gi;
-	int				curi;
+	char			*input;
 
-	gi = 0;
-	curi = 0;
+	input = this->input;
+	this->i = 0;
+	this->ti = 0;
 	while (true)
 	{
-		/*  Rule 8
-			If the end of input is recognized, the current token shall
-			be delimited. If there is no current token, the end-of-input
-			indicator shall be returned as the token.
-		*/
-		if (input[gi] == '\0')
-		{
-			twl_lst_push(tokens, twl_strndup(&(input[gi - curi]), curi));
+		if (tokenizer_apply_rule1(this) == END_OF_INPUT)
 			break ;
-		}
-
-		/*  Rule 8
-			If the current character is an unquoted <blank>, any token
-			containing the previous character is delimited and the current
-			character shall be discarded.
-		*/
-		if (input[gi] == ' ')
-		{
-			twl_lst_push(tokens, twl_strndup(&(input[gi - curi]), curi));
-			curi = 0;
-		}
-		else
-		{
-			curi++;
-		}
-		gi++;
+		tokenizer_apply_rule8(this);
+		this->i++;
 	}
 }
 
@@ -58,6 +36,7 @@ t_tokenizer			*tokenizer_new(char *input)
 
 	this = twl_malloc_x0(sizeof(t_tokenizer));
 	this->tokens = twl_lst_new();
-	tokenizer_tokenize(this->tokens, input);
+	this->input = twl_strdup(input);
+	tokenizer_tokenize(this);
 	return (this);
 }
