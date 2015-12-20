@@ -21,7 +21,7 @@
 #include "ast/nodes/ast_andor.h"
 #include "ast/nodes/ast_cmd_sub.h"
 
-char				*ast_to_str2(t_ast *ast)
+char				*ast_to_str(t_ast *ast)
 {
 	char			*out;
 	ast_to_str_append_list(ast, ast->root);

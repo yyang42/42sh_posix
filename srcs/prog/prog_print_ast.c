@@ -26,8 +26,8 @@ void				prog_print_ast(t_prog *prog)
 	{
 		ast_str = twl_file_to_str(twl_lst_get(xopt->opt->args, 0));
 		ast = ast_new(ast_str);
-		ast_build2(ast);
-		ast_str = ast_to_str2(ast);
+		ast_build(ast);
+		ast_str = ast_to_str(ast);
 		// ast_str = ast_to_str(ast);
 		twl_putstr(ast_str);
 		ast_del(ast);

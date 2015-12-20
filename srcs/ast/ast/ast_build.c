@@ -15,7 +15,7 @@
 #include "twl_arr.h"
 #include "utils.h"
 
-void				ast_build2(t_ast *ast)
+void				ast_build(t_ast *ast)
 {
 	ast->root = ast_build_list(ast);
 }
