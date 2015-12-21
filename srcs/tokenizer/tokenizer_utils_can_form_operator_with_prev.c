@@ -25,7 +25,9 @@ static bool			can_form_operator_with(t_tokenizer *this, char *str)
 bool				tokenizer_utils_can_form_operator_with_prev(
 														t_tokenizer *this)
 {
-	return (can_form_operator_with(this, "&&"));
+	return (can_form_operator_with(this, "&&")
+		|| can_form_operator_with(this, "||")
+		|| can_form_operator_with(this, "<<-"));
 }
 
 	// TOKEN_AND_IF "&&"

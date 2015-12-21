@@ -25,6 +25,7 @@ typedef struct		s_tokenizer
 	char			*input;
 	int				i;
 	int				ti;
+	t_prev_type		prev_type;
 }					t_tokenizer;
 
 t_tokenizer			*tokenizer_new(char *input);

@@ -16,5 +16,6 @@ bool				tokenizer_utils_is_prev_char_an_operator(t_tokenizer *this)
 {
 	if (this->i == 0)
 		return (false);
-	return (tokenizer_utils_is_operator_char(this->input[this->i - 1]));
+	return (this->prev_type == PREV_OPERATOR);
+	// return (tokenizer_utils_is_operator_char(this->input[this->i - 1]));
 }

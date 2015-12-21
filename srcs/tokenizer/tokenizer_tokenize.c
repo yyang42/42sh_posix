@@ -30,7 +30,7 @@ void				tokenizer_tokenize(t_tokenizer *this)
 			continue ;
 		if (tokenizer_apply_rule8(this))
 			continue ;
-		COUCOU;
+		this->prev_type = PREV_WORD;
 		this->ti++;
 		this->i++;
 	}

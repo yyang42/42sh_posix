@@ -26,8 +26,9 @@ int					tokenizer_apply_rule6(t_tokenizer *this)
 	input = this->input;
 	if (tokenizer_utils_is_operator_char(input[this->i]))
 	{
-		// COUCOU;
+		COUCOU;
 		tokenizer_delimit(this);
+		this->prev_type = PREV_OPERATOR;
 		this->ti++;
 		this->i++;
 		return (1);

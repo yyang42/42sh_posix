@@ -21,6 +21,7 @@ t_tokenizer			*tokenizer_new(char *input)
 	this = twl_malloc_x0(sizeof(t_tokenizer));
 	this->tokens = twl_lst_new();
 	this->input = twl_strdup(input);
+	this->prev_type = PREV_NONE;
 	tokenizer_tokenize(this);
 	return (this);
 }
