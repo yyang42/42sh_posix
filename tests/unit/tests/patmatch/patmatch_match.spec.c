@@ -131,6 +131,10 @@ static void	test_melting_pot(t_test *test)
 	PATMATCH_TEST("/tmp/sandbox/*?[[:lower:]]?[[:digit:]]*"\
 			"/*?[[:lower:]]?[[:digit:]]*/**?**?**?**?**",
 			0, "/tmp/sandbox/test0/test5/pouf");
+	PATMATCH_TEST("/tmp/sandbox/*?[[:lower:]]?[[:digit:]]*"\
+			"/*?[[:lower:]]?[[:digit:]]*/**?**?**?**?**/",
+			0, "/tmp/sandbox/*?[[:lower:]]?[[:digit:]]*"\
+			"/*?[[:lower:]]?[[:digit:]]*/**?**?**?**?**/");
 }
 
 void		suite_patmatch_match(t_suite *suite)
