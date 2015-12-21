@@ -3,7 +3,7 @@ dependencies:
     - sudo apt-get update -qq
   override:
     - sudo apt-get install -qq valgrind
-    - sudo apt-get install -qq libncurses-dev
+    - sudo apt-get install -qq libncurses5-dev
 
 test:
   override:
