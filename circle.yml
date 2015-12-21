@@ -4,6 +4,8 @@ dependencies:
   override:
     - sudo apt-get install -qq valgrind
     - sudo apt-get install -qq libncurses5-dev
+    - sudo apt-get remove tk8.4 tcl8.4
+    - sudo apt-get install tk8.5 tcl8.5
 
 test:
   override:
