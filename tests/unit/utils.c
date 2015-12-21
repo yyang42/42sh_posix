@@ -5,7 +5,7 @@
 #include <project.h>
 
 #define MAX_CMD_SIZE 10000
-#define SANDBOX_PATH "./sandbox"
+#define SANDBOX_PATH "/tmp/sandbox"
 
 int		debug = 0;
 
@@ -44,7 +44,7 @@ char	*sandbox_cmd(const char *cmd)
 
 void	reset_sandbox()
 {
-	get_cmd_out("chmod -R 777 ./");
-	get_cmd_out("rm -rf ./sandbox");
-	get_cmd_out("mkdir ./sandbox ");
+	get_cmd_out("chmod -R 777 /tmp/sandbox");
+	get_cmd_out("rm -rf /tmp/sandbox");
+	get_cmd_out("mkdir /tmp/sandbox ");
 }
