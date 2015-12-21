@@ -63,100 +63,6 @@ static void			end_ce(t_patmatch *this, t_class_expr__ *ce)
 	twl_dict_add(this->class_expr, ce->name, twl_strdup(ce->expr));
 }
 
-static void			goto_close_bracket(t_class_expr__ *ce)
-{
-	char			stop;
-
-	stop = ce->name[ce->ind_n + 1];
-	ce->ind_n += 1;
-	while (ce->name[ce->ind_n])
-	{
-		ce->ind_n += 1;
-		if (ce->name[ce->ind_n] == stop && ce->name[ce->ind_n + 1] == ']')
-			break ;
-	}
-	if (ce->name[ce->ind_n])
-	{
-		ce->ind_n += 1;
-	}
-}
-
-static void			bracket_colon(t_patmatch *this, t_class_expr__ *ce)
-{
-	int				start;
-	char			*key;
-	char			*data;
-	int				index;
-
-	start = ce->ind_n;
-	goto_close_bracket(ce);
-	if (!(key = twl_strndup(ce->name + start, ce->ind_n - start + 1)))
-	{
-		free(key);
-		return ;
-	}
-	if (!(data = twl_dict_get(this->class_expr, key)))
-	{
-		free(key);
-		return ;
-	}
-	free(key);
-	index = 0;
-	while (data[index])
-	{
-		if (!twl_strchr(ce->expr, data[index]))
-		{
-			ce->expr[ce->ind_e] = data[index];
-			ce->ind_e += 1;
-		}
-		index += 1;
-	}
-}
-
-static void			open_bracket(t_patmatch *this, t_class_expr__ *ce)
-{
-	if (ce->name[ce->ind_n + 1] == '.' || ce->name[ce->ind_n + 1] == '=')
-		goto_close_bracket(ce);
-	else if (ce->name[ce->ind_n + 1] == ':')
-		bracket_colon(this, ce);
-	else
-	{
-		if (!twl_strchr(ce->expr, ce->name[ce->ind_n]))
-		{
-			ce->expr[ce->ind_e] = ce->name[ce->ind_n];
-			ce->ind_e += 1;
-		}
-	}
-}
-
-static void			hyphen_check(t_class_expr__ *ce)
-{
-	char			beg;
-	char			end;
-
-	beg = ce->name[ce->ind_n];
-	end = ce->name[ce->ind_n + 2];
-	if (ce->ind_n + 2 == (int)twl_strlen(ce->name))
-	{
-		if (!twl_strchr(ce->expr, ce->name[ce->ind_n]))
-		{
-			ce->expr[ce->ind_e] = ce->name[ce->ind_n];
-			ce->ind_e += 1;
-		}
-		return ;
-	}
-	while (beg <= end)
-	{
-		if (!twl_strchr(ce->expr, beg))
-		{
-			ce->expr[ce->ind_e] = beg;
-			ce->ind_e += 1;
-		}
-		beg += 1;
-	}
-	ce->ind_n += 2;
-}
-
 void				patmatch_add_class_expr_(t_patmatch *this, char *name)
 {
 	t_class_expr__	ce;
@@ -165,9 +71,9 @@ void				patmatch_add_class_expr_(t_patmatch *this, char *name)
 	while (ce.name[ce.ind_n])
 	{
 		if (ce.name[ce.ind_n + 1] == '-')
-			hyphen_check(&ce);
+			patmatch_ce_hyphen__(&ce);
 		else if (ce.name[ce.ind_n] == '[')
-			open_bracket(this, &ce);
+			patmatch_ce_open_bracket__(this, &ce);
 		else if (!twl_strchr(ce.expr, ce.name[ce.ind_n]))
 		{
 			ce.expr[ce.ind_e] = ce.name[ce.ind_n];

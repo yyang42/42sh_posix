@@ -57,9 +57,20 @@ t_patmatch			*patmatch_new(void);
 void				patmatch_del(t_patmatch *this);
 
 void				patmatch_add_class_expr_(t_patmatch *this, char *content);
+void				patmatch_ce_open_bracket__(t_patmatch *this,
+															t_class_expr__ *ce);
+void				patmatch_ce_hyphen__(t_class_expr__ *ce);
+															
 
 t_lst				*patmatch_match(t_patmatch *this, char *pattern);
+void				patmatch_recurs__(t_patmatch *this, t_matching_ *match);
 
-int					match_supervisor(t_patmatch *this, t_match__ *m);
+int					patmatch_supervisor__(t_patmatch *this, t_match__ *m);
+int					patmatch_question_mark__(t_patmatch *this, t_match__ *m);
+int					patmatch_fixed__(t_patmatch *this, t_match__ *m,
+													t_pattern_data *data);
+int					patmatch_asterisk__(t_patmatch *this, t_match__ *m);
+int					patmatch_bracket__(t_patmatch *this, t_match__ *m,
+													t_pattern_data *data);
 
 #endif

@@ -55,7 +55,7 @@ static void		patmatch_build_class_expr_(t_patmatch *this)
 			build_class_expr(twl_isxdigit));
 }
 
-t_patmatch			*patmatch_new(void)
+t_patmatch		*patmatch_new(void)
 {
 	t_patmatch		*this;
 
