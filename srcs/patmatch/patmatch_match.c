@@ -28,6 +28,12 @@ void				init_match(t_patmatch *this, t_matching_ *match)
 	match->fd_dir = NULL;
 }
 
+void				del_match(t_matching_ *match)
+{
+	if (match->building)
+		free(match->building);
+}
+
 int					recurs_init_match(t_patmatch *this, t_matching_ *match,
 		t_matching_ *next)
 {
@@ -248,7 +254,6 @@ void erase_building_start(void *data_)
 {
 	char	*data = data_;
 
-	twl_lprintf("%s\n", data);
 	if (data[0] == '.')
 	{
 		twl_memcpy(data, data + 2, twl_strlen(data + 1));
@@ -280,8 +285,11 @@ t_lst				*patmatch_match(t_patmatch *this, char *pattern)
 	recurs_match(this, &match);
 	twl_lst_iter0(this->match, &erase_building_start);
 	twl_lst_qsort(this->match, (bool (*)(void *, void *))&cmp_func);
+	if (twl_lst_len(this->match) == 0)
+		twl_lst_push(this->match, pattern_to_string(this->pattern));
 	pattern_del(this->pattern);
 	ret = this->match;
 	this->match = NULL;
+	del_match(&match);
 	return (ret);
 }

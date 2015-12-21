@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "prog.h"
+#include "patmatch.h"
 
 void				prog_run(t_prog *prog)
 {

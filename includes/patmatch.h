@@ -56,8 +56,6 @@ typedef struct		s_patmatch
 t_patmatch			*patmatch_new(void);
 void				patmatch_del(t_patmatch *this);
 
-void				patmatch_build_class_expr_(t_patmatch *this);
-void				patmatch_del_class_expr_(t_patmatch *this);
 void				patmatch_add_class_expr_(t_patmatch *this, char *content);
 
 t_lst				*patmatch_match(t_patmatch *this, char *pattern);

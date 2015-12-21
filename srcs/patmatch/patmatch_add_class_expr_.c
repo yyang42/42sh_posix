@@ -91,12 +91,16 @@ static void			bracket_colon(t_patmatch *this, t_class_expr__ *ce)
 	start = ce->ind_n;
 	goto_close_bracket(ce);
 	if (!(key = twl_strndup(ce->name + start, ce->ind_n - start + 1)))
+	{
+		free(key);
 		return ;
+	}
 	if (!(data = twl_dict_get(this->class_expr, key)))
 	{
 		free(key);
 		return ;
 	}
+	free(key);
 	index = 0;
 	while (data[index])
 	{
@@ -134,9 +138,9 @@ static void			hyphen_check(t_class_expr__ *ce)
 	end = ce->name[ce->ind_n + 2];
 	if (ce->ind_n + 2 == (int)twl_strlen(ce->name))
 	{
-		if (!twl_strchr(ce->expr, '-'))
+		if (!twl_strchr(ce->expr, ce->name[ce->ind_n]))
 		{
-			ce->expr[ce->ind_e] = '-';
+			ce->expr[ce->ind_e] = ce->name[ce->ind_n];
 			ce->ind_e += 1;
 		}
 		return ;
