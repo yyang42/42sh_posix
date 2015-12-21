@@ -4,7 +4,6 @@
 #define PATMATCH_TEST(str, nb, ret) {								\
 	t_patmatch	*tmp = patmatch_new();								\
 	t_lst		*lst = patmatch_match(tmp, str);					\
-	dprintf(2, "%s %s\n", twl_lst_get(lst, nb), ret); \
 	if (ret == NULL) { mt_assert(twl_lst_get(lst, nb) == ret); }	\
 	else { mt_assert(strcmp(twl_lst_get(lst, nb), ret) == 0); }		\
 	twl_lst_del(lst, &free);										\
