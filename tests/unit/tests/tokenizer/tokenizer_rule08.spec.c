@@ -11,7 +11,7 @@ mt_test_tokenizer(num5, "aa  bb ", 	"aa bb", false);
 mt_test_tokenizer(num6, "   aa  bb   ", "aa bb", false);
 mt_test_tokenizer(num7, "   ", 		"", false);
 
-void	suite_tokenizer_rule8(t_suite *suite)
+void	suite_tokenizer_rule08(t_suite *suite)
 {
 	SUITE_ADD_TEST(suite, test_num1);
 	SUITE_ADD_TEST(suite, test_num2);
