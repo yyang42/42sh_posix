@@ -31,7 +31,7 @@ static void test_operator(t_test *test)
 
 	twl_lprintf("====== test aa&&&bb\n");
 	tokenizer = tokenizer_new("aa&&&bb");
-	token_mgr_print(tokenizer->tokens);
+	// token_mgr_print(tokenizer->tokens);
 	joined = token_mgr_strjoin(tokenizer->tokens);
 	mt_assert(twl_lst_len(tokenizer->tokens) == 4);
 	mt_assert(strcmp(joined, "aa && & bb") == 0);
@@ -45,7 +45,7 @@ static void test_operator2(t_test *test)
 
 	twl_lprintf("====== test_operator2\n");
 	tokenizer = tokenizer_new("aa&&bb||cc<<-dd");
-	token_mgr_print(tokenizer->tokens);
+	// token_mgr_print(tokenizer->tokens);
 	joined = token_mgr_strjoin(tokenizer->tokens);
 	mt_assert(strcmp(joined, "aa && bb || cc <<- dd") == 0);
 	free(joined);

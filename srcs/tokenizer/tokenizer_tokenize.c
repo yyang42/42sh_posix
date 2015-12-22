@@ -16,8 +16,8 @@ void				tokenizer_tokenize(t_tokenizer *t)
 {
 	while (true)
 	{
-		twl_printf("t->curtoken     {%s}\n", t->curtoken);
-		twl_printf("t->curtokenplus {%s}\n", t->curtokenplus);
+		// twl_printf("t->curtoken     {%s}\n", t->curtoken);
+		// twl_printf("t->curtokenplus {%s}\n", t->curtokenplus);
 		if (tokenizer_apply_rule1(t) == END_OF_INPUT)
 			break ;
 		if (tokenizer_apply_rule2(t))
@@ -26,10 +26,11 @@ void				tokenizer_tokenize(t_tokenizer *t)
 			continue ;
 		if (tokenizer_apply_rule6(t))
 			continue ;
+		if (tokenizer_apply_rule7(t))
+			continue ;
 		if (tokenizer_apply_rule8(t))
 			continue ;
-		t->tokentype = PREV_WORD;
-		tokenizer_append_to_curtoken(t);
-		t->curpos++;
+		if (tokenizer_apply_rule11(t))
+			continue ;
 	}
 }

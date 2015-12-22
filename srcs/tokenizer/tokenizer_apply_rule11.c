@@ -12,19 +12,14 @@
 
 #include "tokenizer.h"
 
-/*  Rule 8
-	If the current character is an unquoted <blank>, any token
-	containing the previous character is delimited and the current
-	character shall be discarded.
+/*  Rule 11
+	The current character is used as the start of a new word.
 */
 
-int					tokenizer_apply_rule8(t_tokenizer *this)
+int					tokenizer_apply_rule11(t_tokenizer *t)
 {
-	if (*this->curpos == ' ')
-	{
-		tokenizer_delimit(this);
-		this->curpos++;
-		return (1);
-	}
-	return (0);
+	tokenizer_append_to_curtoken(t);
+	t->tokentype = PREV_WORD;
+	t->curpos++;
+	return (1);
 }

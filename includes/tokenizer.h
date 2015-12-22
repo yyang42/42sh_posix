@@ -40,7 +40,9 @@ int					tokenizer_apply_rule1(t_tokenizer *this);
 int					tokenizer_apply_rule2(t_tokenizer *this);
 int					tokenizer_apply_rule3(t_tokenizer *this);
 int					tokenizer_apply_rule6(t_tokenizer *this);
+int					tokenizer_apply_rule7(t_tokenizer *this);
 int					tokenizer_apply_rule8(t_tokenizer *this);
+int					tokenizer_apply_rule11(t_tokenizer *this);
 
 bool				tokenizer_utils_is_operator_char(char c);
 bool				tokenizer_utils_is_prev_char_an_operator(t_tokenizer *this);
