@@ -26,4 +26,16 @@ char	*get_cmd_out(const char *cmd);
 char	*sandbox_cmd(const char *cmd);
 void	reset_sandbox(void);
 
+# define mt_test_tokenizer(test_name, input, expected) \
+	static void test_## test_name(t_test *test) \
+	{ \
+		t_tokenizer		*tokenizer; \
+		char			*joined; \
+		tokenizer = tokenizer_new("aa\nbb"); \
+		joined = token_mgr_strjoin(tokenizer->tokens); \
+		mt_assert(strcmp(joined, "aa bb") == 0); \
+		free(joined); \
+		tokenizer_del(tokenizer); \
+	}
+
 #endif
