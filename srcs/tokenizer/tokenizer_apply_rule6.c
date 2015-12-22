@@ -21,17 +21,11 @@
 
 int					tokenizer_apply_rule6(t_tokenizer *this)
 {
-	char			*input;
-
-	input = this->input;
-	if (tokenizer_utils_is_operator_char(input[this->i]))
+	if (tokenizer_utils_is_operator_char(*this->curpos))
 	{
-		COUCOU;
 		tokenizer_delimit(this);
 		this->tokentype = PREV_OPERATOR;
-		this->ti++;
 		tokenizer_append_to_curtoken(this);
-		this->i++;
 		this->curpos++;
 		return (1);
 	}

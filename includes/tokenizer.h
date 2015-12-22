@@ -23,8 +23,6 @@ typedef struct		s_tokenizer
 {
 	t_lst			*tokens;
 	char			*input;
-	int				i;
-	int				ti;
 	char			*curpos;
 	char			*curtoken;
 	t_tokentype		tokentype;

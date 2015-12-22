@@ -14,15 +14,8 @@
 
 void				tokenizer_tokenize(t_tokenizer *this)
 {
-	this->i = 0;
-	this->ti = 0;
 	while (true)
 	{
-		// twl_printf("------> %d %c parser %s\n", this->i, *(this->input + this->i),
-			// this->input + this->i);
-		// tokenizer_append_to_curtoken(this);
-		twl_printf("this->curpos %s\n", this->curpos);
-		twl_printf("this->curtoken %s\n", this->curtoken);
 		if (tokenizer_apply_rule1(this) == END_OF_INPUT)
 			break ;
 		if (tokenizer_apply_rule2(this))
@@ -34,10 +27,7 @@ void				tokenizer_tokenize(t_tokenizer *this)
 		if (tokenizer_apply_rule8(this))
 			continue ;
 		this->tokentype = PREV_WORD;
-		this->ti++;
 		tokenizer_append_to_curtoken(this);
-		this->i++;
 		this->curpos++;
-
 	}
 }

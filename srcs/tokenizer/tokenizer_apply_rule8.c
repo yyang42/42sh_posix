@@ -23,11 +23,9 @@ int					tokenizer_apply_rule8(t_tokenizer *this)
 	char			*input;
 
 	input = this->input;
-	if (input[this->i] == ' ')
+	if (*this->curpos == ' ')
 	{
-		COUCOU;
 		tokenizer_delimit(this);
-		this->i++;
 		this->curpos++;
 		return (1);
 	}

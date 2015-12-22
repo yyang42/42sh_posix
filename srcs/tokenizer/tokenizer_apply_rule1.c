@@ -22,14 +22,10 @@
 
 int					tokenizer_apply_rule1(t_tokenizer *this)
 {
-	char			*input;
-
-	input = this->input;
-	if (input[this->i] == '\0')
+	if (*this->curpos == '\0')
 	{
-		if (this->ti)
+		if (*this->curtoken)
 		{
-			COUCOU;
 			tokenizer_delimit(this);
 		}
 		return (END_OF_INPUT);

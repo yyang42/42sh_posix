@@ -14,12 +14,15 @@
 
 static bool			can_form_operator_with(t_tokenizer *this, char *str)
 {
-	char			*operator;
 	char			*token;
+	bool			can_form_op;
 
-	token = twl_strndup(this->input + this->i - this->ti, this->ti + 1);
-	operator = this->input + this->i - 1;
-	return (twl_strncmp(token, str, twl_strlen(token)) == 0);
+	token = twl_strnew(twl_strlen(this->curtoken) + 1);
+	twl_strcpy(token, this->curtoken);
+	token[twl_strlen(token)] = *(this->curpos);
+	can_form_op = (twl_strncmp(token, str, twl_strlen(token)) == 0);
+	free(token);
+	return (can_form_op);
 }
 
 bool				tokenizer_utils_can_form_operator_with_prev(
