@@ -3,12 +3,12 @@
 #include "tokenizer.h"
 #include "token_mgr.h"
 
-mt_test_tokenizer(num1, "abc\n123",     "abc 123", false);
-mt_test_tokenizer(num2, "aa\nbb",       "aa bb", false);
-mt_test_tokenizer(num3, "aa\n\nbb",     "aa bb", false);
-mt_test_tokenizer(num4, "\naa\n\nbb", 	"aa bb", false);
-mt_test_tokenizer(num5, "aa\n\nbb\n", 	"aa bb", false);
-mt_test_tokenizer(num6, "\n\n\naa\n\nbb\n\n\n", "aa bb", false);
+mt_test_tokenizer(num1, "abc\n123",     "abc_123", false);
+mt_test_tokenizer(num2, "aa\nbb",       "aa_bb", false);
+mt_test_tokenizer(num3, "aa\n\nbb",     "aa_bb", false);
+mt_test_tokenizer(num4, "\naa\n\nbb", 	"aa_bb", false);
+mt_test_tokenizer(num5, "aa\n\nbb\n", 	"aa_bb", false);
+mt_test_tokenizer(num6, "\n\n\naa\n\nbb\n\n\n", "aa_bb", false);
 mt_test_tokenizer(num7, "\n\n\n", 		"", false);
 
 void	suite_tokenizer_rule07(t_suite *suite)

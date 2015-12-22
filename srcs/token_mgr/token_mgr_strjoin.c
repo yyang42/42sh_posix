@@ -26,5 +26,5 @@ char				*token_mgr_strjoin(t_lst *tokens)
 
 	segs = twl_lst_new();
 	twl_lst_iter(tokens, print_token_fn, segs);
-	return (twl_lst_strjoin(segs, " "));
+	return (twl_lst_strjoin(segs, "_"));
 }

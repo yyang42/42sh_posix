@@ -39,6 +39,7 @@ void				tokenizer_append_to_curtoken(t_tokenizer *t);
 int					tokenizer_apply_rule01(t_tokenizer *this);
 int					tokenizer_apply_rule02(t_tokenizer *this);
 int					tokenizer_apply_rule03(t_tokenizer *this);
+int					tokenizer_apply_rule04(t_tokenizer *t);
 int					tokenizer_apply_rule06(t_tokenizer *this);
 int					tokenizer_apply_rule07(t_tokenizer *this);
 int					tokenizer_apply_rule08(t_tokenizer *this);

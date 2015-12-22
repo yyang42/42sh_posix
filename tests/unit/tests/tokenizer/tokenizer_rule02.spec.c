@@ -3,9 +3,9 @@
 #include "tokenizer.h"
 #include "token_mgr.h"
 
-mt_test_tokenizer(num1, "aa&&bb", 	            "aa && bb", true);
-mt_test_tokenizer(num2, "aa&&&bb",     	        "aa && & bb", true);
-mt_test_tokenizer(num3, "aa&&bb||cc<<-dd",     	"aa && bb || cc <<- dd", true);
+mt_test_tokenizer(num1, "aa&&bb", 	            "aa_&&_bb", false);
+mt_test_tokenizer(num2, "aa&&&bb",     	        "aa_&&_&_bb", false);
+mt_test_tokenizer(num3, "aa&&bb||cc<<-dd",     	"aa_&&_bb_||_cc_<<-_dd", false);
 
 void	suite_tokenizer_rule02(t_suite *suite)
 {
