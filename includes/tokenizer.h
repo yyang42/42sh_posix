@@ -25,6 +25,7 @@ typedef struct		s_tokenizer
 	char			*input;
 	char			*curpos;
 	char			*curtoken;
+	char			*curtokenplus;
 	t_tokentype		tokentype;
 }					t_tokenizer;
 
@@ -43,7 +44,7 @@ int					tokenizer_apply_rule8(t_tokenizer *this);
 
 bool				tokenizer_utils_is_operator_char(char c);
 bool				tokenizer_utils_is_prev_char_an_operator(t_tokenizer *this);
-bool				tokenizer_utils_can_form_operator_with_prev(
-														t_tokenizer *this);
+bool				tokenizer_utils_can_form_operator(t_tokenizer *this,
+															char *candidate);
 
 #endif

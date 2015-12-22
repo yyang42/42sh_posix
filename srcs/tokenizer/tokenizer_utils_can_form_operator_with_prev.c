@@ -12,25 +12,18 @@
 
 #include "tokenizer.h"
 
-static bool			can_form_operator_with(t_tokenizer *this, char *str)
+static bool			can_form_operator_with(char *candidate, char *op)
 {
-	char			*token;
-	bool			can_form_op;
-
-	token = twl_strnew(twl_strlen(this->curtoken) + 1);
-	twl_strcpy(token, this->curtoken);
-	token[twl_strlen(token)] = *(this->curpos);
-	can_form_op = (twl_strncmp(token, str, twl_strlen(token)) == 0);
-	free(token);
-	return (can_form_op);
+	return (twl_strncmp(candidate, op, twl_strlen(candidate)) == 0);
 }
 
-bool				tokenizer_utils_can_form_operator_with_prev(
-														t_tokenizer *this)
+bool				tokenizer_utils_can_form_operator(t_tokenizer *t,
+															char *candidate)
 {
-	return (can_form_operator_with(this, "&&")
-		|| can_form_operator_with(this, "||")
-		|| can_form_operator_with(this, "<<-"));
+	return (can_form_operator_with(candidate, "&&")
+		|| can_form_operator_with(candidate, "||")
+		|| can_form_operator_with(candidate, "<<-"));
+	(void)t;
 }
 
 	// TOKEN_AND_IF "&&"

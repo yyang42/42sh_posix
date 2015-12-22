@@ -14,6 +14,12 @@
 
 void				tokenizer_append_to_curtoken(t_tokenizer *t)
 {
-	t->curtoken[twl_strlen(t->curtoken) + 1] = '\0';
-	t->curtoken[twl_strlen(t->curtoken)] = t->curpos[0];
+	int				len;
+
+	len = twl_strlen(t->curtoken);
+	t->curtoken[len + 1] = '\0';
+	t->curtoken[len] = t->curpos[0];
+	twl_strcpy(t->curtokenplus, t->curtoken);
+	t->curtokenplus[len + 2] = '\0';
+	t->curtokenplus[len + 1] = t->curpos[1];
 }

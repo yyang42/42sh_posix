@@ -23,6 +23,7 @@ t_tokenizer			*tokenizer_new(char *input)
 	this->input = twl_strdup(input);
 	this->curpos = input;
 	this->curtoken = twl_strnew(twl_strlen(input));
+	this->curtokenplus = twl_strnew(twl_strlen(input));
 	this->tokentype = PREV_NONE;
 	tokenizer_tokenize(this);
 	return (this);

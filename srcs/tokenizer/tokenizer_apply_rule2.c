@@ -22,7 +22,7 @@
 int					tokenizer_apply_rule2(t_tokenizer *this)
 {
 	if (tokenizer_utils_is_prev_char_an_operator(this)
-		&& tokenizer_utils_can_form_operator_with_prev(this))
+		&& tokenizer_utils_can_form_operator(this, this->curtokenplus))
 	{
 		this->tokentype = PREV_OPERATOR;
 		tokenizer_append_to_curtoken(this);

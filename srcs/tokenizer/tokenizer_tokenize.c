@@ -12,22 +12,24 @@
 
 #include "tokenizer.h"
 
-void				tokenizer_tokenize(t_tokenizer *this)
+void				tokenizer_tokenize(t_tokenizer *t)
 {
 	while (true)
 	{
-		if (tokenizer_apply_rule1(this) == END_OF_INPUT)
+		twl_printf("t->curtoken     {%s}\n", t->curtoken);
+		twl_printf("t->curtokenplus {%s}\n", t->curtokenplus);
+		if (tokenizer_apply_rule1(t) == END_OF_INPUT)
 			break ;
-		if (tokenizer_apply_rule2(this))
+		if (tokenizer_apply_rule2(t))
 			continue ;
-		if (tokenizer_apply_rule3(this))
+		if (tokenizer_apply_rule3(t))
 			continue ;
-		if (tokenizer_apply_rule6(this))
+		if (tokenizer_apply_rule6(t))
 			continue ;
-		if (tokenizer_apply_rule8(this))
+		if (tokenizer_apply_rule8(t))
 			continue ;
-		this->tokentype = PREV_WORD;
-		tokenizer_append_to_curtoken(this);
-		this->curpos++;
+		t->tokentype = PREV_WORD;
+		tokenizer_append_to_curtoken(t);
+		t->curpos++;
 	}
 }
