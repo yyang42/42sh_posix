@@ -21,16 +21,10 @@
 
 int					tokenizer_apply_rule3(t_tokenizer *t)
 {
-	if (tokenizer_utils_is_prev_char_an_operator(t)
+	if (tokenizer_utils_can_form_operator(t, t->curtoken)
 		&& !tokenizer_utils_can_form_operator(t, t->curtokenplus))
 	{
 		tokenizer_delimit(t);
-		tokenizer_append_to_curtoken(t);
-		t->curpos++;
-		if (tokenizer_utils_can_form_operator(t, t->curtoken))
-			t->tokentype = PREV_OPERATOR;
-		else
-			t->tokentype = PREV_NONE;
 		return (1);
 	}
 	return (0);

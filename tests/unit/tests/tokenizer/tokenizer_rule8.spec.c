@@ -3,13 +3,13 @@
 #include "tokenizer.h"
 #include "token_mgr.h"
 
-mt_test_tokenizer(num1, "abc 123",  "abc 123");
-mt_test_tokenizer(num2, "aa bb",    "aa bb");
-mt_test_tokenizer(num3, "aa  bb",   "aa bb");
-mt_test_tokenizer(num4, " aa  bb", 	"aa bb");
-mt_test_tokenizer(num5, "aa  bb ", 	"aa bb");
-mt_test_tokenizer(num6, "   aa  bb   ", "aa bb");
-mt_test_tokenizer(num7, "   ", 		"aa bb");
+mt_test_tokenizer(num1, "abc 123",  "abc 123", false);
+mt_test_tokenizer(num2, "aa bb",    "aa bb", false);
+mt_test_tokenizer(num3, "aa  bb",   "aa bb", false);
+mt_test_tokenizer(num4, " aa  bb", 	"aa bb", false);
+mt_test_tokenizer(num5, "aa  bb ", 	"aa bb", false);
+mt_test_tokenizer(num6, "   aa  bb   ", "aa bb", false);
+mt_test_tokenizer(num7, "   ", 		"", false);
 
 void	suite_tokenizer_rule8(t_suite *suite)
 {

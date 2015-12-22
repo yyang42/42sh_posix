@@ -19,14 +19,13 @@
 	of the next (operator) token.
 */
 
-int					tokenizer_apply_rule6(t_tokenizer *this)
+int					tokenizer_apply_rule6(t_tokenizer *t)
 {
-	if (tokenizer_utils_is_operator_char(*this->curpos))
+	if (tokenizer_utils_is_start_of_op(t, *t->curpos))
 	{
-		tokenizer_delimit(this);
-		this->tokentype = PREV_OPERATOR;
-		tokenizer_append_to_curtoken(this);
-		this->curpos++;
+		tokenizer_delimit(t);
+		tokenizer_append_to_curtoken(t);
+		t->curpos++;
 		return (1);
 	}
 	return (0);

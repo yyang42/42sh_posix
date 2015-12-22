@@ -19,14 +19,13 @@
 	token.
 */
 
-int					tokenizer_apply_rule2(t_tokenizer *this)
+int					tokenizer_apply_rule2(t_tokenizer *t)
 {
-	if (tokenizer_utils_is_prev_char_an_operator(this)
-		&& tokenizer_utils_can_form_operator(this, this->curtokenplus))
+	if (tokenizer_utils_can_form_operator(t, t->curtoken)
+		&& tokenizer_utils_can_form_operator(t, t->curtokenplus))
 	{
-		this->tokentype = PREV_OPERATOR;
-		tokenizer_append_to_curtoken(this);
-		this->curpos++;
+		tokenizer_append_to_curtoken(t);
+		t->curpos++;
 		return (1);
 	}
 	return (0);

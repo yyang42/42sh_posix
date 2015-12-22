@@ -44,8 +44,7 @@ int					tokenizer_apply_rule7(t_tokenizer *this);
 int					tokenizer_apply_rule8(t_tokenizer *this);
 int					tokenizer_apply_rule11(t_tokenizer *this);
 
-bool				tokenizer_utils_is_operator_char(char c);
-bool				tokenizer_utils_is_prev_char_an_operator(t_tokenizer *this);
+bool				tokenizer_utils_is_start_of_op(t_tokenizer *this, char c);
 bool				tokenizer_utils_can_form_operator(t_tokenizer *this,
 															char *candidate);
 

@@ -12,7 +12,10 @@
 
 #include "tokenizer.h"
 
-bool				tokenizer_utils_is_operator_char(char c)
+bool				tokenizer_utils_is_start_of_op(t_tokenizer *t, char c)
 {
-	return (twl_strchr("&|;<>", c));
+	char			charstr[2] = "\0\0";
+
+	charstr[0] = c;
+	return (tokenizer_utils_can_form_operator(t, charstr));
 }

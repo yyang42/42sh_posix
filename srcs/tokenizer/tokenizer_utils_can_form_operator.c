@@ -12,10 +12,29 @@
 
 #include "tokenizer.h"
 
-bool				tokenizer_utils_is_prev_char_an_operator(t_tokenizer *this)
+static bool			can_form_operator_with(char *candidate, char *op)
 {
-	if (this->input == this->curpos)
-		return (false);
-	return (this->tokentype == PREV_OPERATOR);
-	// return (tokenizer_utils_is_operator_char(this->input[this->i - 1]));
+	return (twl_strncmp(candidate, op, twl_strlen(candidate)) == 0);
 }
+
+bool				tokenizer_utils_can_form_operator(t_tokenizer *t,
+															char *candidate)
+{
+	if (*candidate == '\0')
+		return (false);
+	return (can_form_operator_with(candidate, "&&")
+		|| can_form_operator_with(candidate, "||")
+		|| can_form_operator_with(candidate, "<<-"));
+	(void)t;
+}
+
+	// TOKEN_AND_IF "&&"
+	// TOKEN_OR_IF "||"
+	// TOKEN_DSEMI ";;"
+	// TOKEN_DLESS "<<"
+	// TOKEN_DGREAT ">>"
+	// TOKEN_LESSAND "<&"
+	// TOKEN_GREATAND ">&"
+	// TOKEN_LESSGREAT "<>"
+	// TOKEN_DLESSDASH "<<-"
+	// TOKEN_CLOBBER ">|"
