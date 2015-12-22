@@ -12,18 +12,19 @@
 
 #include "tokenizer.h"
 
-/*  Rule 8
-	If the current character is an unquoted <blank>, any token
-	containing the previous character is delimited and the current
-	character shall be discarded.
+/*  Rule 3
+	If the previous character was used as part of an operator
+	and the current character cannot be used with the current characters
+	to form an operator, the operator containing the previous character
+	shall be delimited.
 */
 
-int					tokenizer_apply_rule8(t_tokenizer *this)
+int					tokenizer_apply_rule03(t_tokenizer *t)
 {
-	if (*this->curpos == ' ')
+	if (tokenizer_utils_can_form_operator(t, t->curtoken)
+		&& !tokenizer_utils_can_form_operator(t, t->curtokenplus))
 	{
-		tokenizer_delimit(this);
-		this->curpos++;
+		tokenizer_delimit(t);
 		return (1);
 	}
 	return (0);

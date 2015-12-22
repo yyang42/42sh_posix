@@ -18,19 +18,19 @@ void				tokenizer_tokenize(t_tokenizer *t)
 	{
 		// twl_printf("t->curtoken     {%s}\n", t->curtoken);
 		// twl_printf("t->curtokenplus {%s}\n", t->curtokenplus);
-		if (tokenizer_apply_rule1(t) == END_OF_INPUT)
+		if (tokenizer_apply_rule01(t) == END_OF_INPUT)
 			break ;
-		if (tokenizer_apply_rule2(t))
+		if (tokenizer_apply_rule02(t))
 			continue ;
-		if (tokenizer_apply_rule3(t))
+		if (tokenizer_apply_rule03(t))
 			continue ;
-		if (tokenizer_apply_rule6(t))
+		if (tokenizer_apply_rule06(t))
 			continue ;
-		if (tokenizer_apply_rule7(t))
+		if (tokenizer_apply_rule07(t))
 			continue ;
-		if (tokenizer_apply_rule8(t))
+		if (tokenizer_apply_rule08(t))
 			continue ;
-		if (tokenizer_apply_rule11(t))
+		if (tokenizer_apply_rule011(t))
 			continue ;
 	}
 }

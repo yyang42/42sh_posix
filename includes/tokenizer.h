@@ -36,13 +36,13 @@ void				tokenizer_delimit(t_tokenizer *this);
 void				tokenizer_tokenize(t_tokenizer *this);
 void				tokenizer_append_to_curtoken(t_tokenizer *t);
 
-int					tokenizer_apply_rule1(t_tokenizer *this);
-int					tokenizer_apply_rule2(t_tokenizer *this);
-int					tokenizer_apply_rule3(t_tokenizer *this);
-int					tokenizer_apply_rule6(t_tokenizer *this);
-int					tokenizer_apply_rule7(t_tokenizer *this);
-int					tokenizer_apply_rule8(t_tokenizer *this);
-int					tokenizer_apply_rule11(t_tokenizer *this);
+int					tokenizer_apply_rule01(t_tokenizer *this);
+int					tokenizer_apply_rule02(t_tokenizer *this);
+int					tokenizer_apply_rule03(t_tokenizer *this);
+int					tokenizer_apply_rule06(t_tokenizer *this);
+int					tokenizer_apply_rule07(t_tokenizer *this);
+int					tokenizer_apply_rule08(t_tokenizer *this);
+int					tokenizer_apply_rule011(t_tokenizer *this);
 
 bool				tokenizer_utils_is_start_of_op(t_tokenizer *this, char c);
 bool				tokenizer_utils_can_form_operator(t_tokenizer *this,

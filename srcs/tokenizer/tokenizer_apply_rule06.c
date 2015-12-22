@@ -19,7 +19,7 @@
 	of the next (operator) token.
 */
 
-int					tokenizer_apply_rule6(t_tokenizer *t)
+int					tokenizer_apply_rule06(t_tokenizer *t)
 {
 	if (tokenizer_utils_is_start_of_op(t, *t->curpos))
 	{

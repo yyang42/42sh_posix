@@ -12,20 +12,23 @@
 
 #include "tokenizer.h"
 
-/*  Rule 3
-	If the previous character was used as part of an operator
-	and the current character cannot be used with the current characters
-	to form an operator, the operator containing the previous character
-	shall be delimited.
+/*  Rule 1
+	If the end of input is recognized, the current token shall
+	be delimited. If there is no current token, the end-of-input
+	indicator shall be returned as the token.
+
+	end-of-input => -1
 */
 
-int					tokenizer_apply_rule3(t_tokenizer *t)
+int					tokenizer_apply_rule01(t_tokenizer *this)
 {
-	if (tokenizer_utils_can_form_operator(t, t->curtoken)
-		&& !tokenizer_utils_can_form_operator(t, t->curtokenplus))
+	if (*this->curpos == '\0')
 	{
-		tokenizer_delimit(t);
-		return (1);
+		if (*this->curtoken)
+		{
+			tokenizer_delimit(this);
+		}
+		return (END_OF_INPUT);
 	}
-	return (0);
+	return (-1);
 }

@@ -12,20 +12,17 @@
 
 #include "tokenizer.h"
 
-/*  Rule 3
-	If the previous character was used as part of an operator and the
-	current character is not quoted and can be used with the current
-	characters to form an operator, it shall be used as part of that (operator)
-	token.
+/*  Rule 7
+	If the current character is an unquoted <newline>,
+	the current token shall be delimited.
 */
 
-int					tokenizer_apply_rule2(t_tokenizer *t)
+int					tokenizer_apply_rule07(t_tokenizer *this)
 {
-	if (tokenizer_utils_can_form_operator(t, t->curtoken)
-		&& tokenizer_utils_can_form_operator(t, t->curtokenplus))
+	if (*this->curpos == '\n')
 	{
-		tokenizer_append_to_curtoken(t);
-		t->curpos++;
+		tokenizer_delimit(this);
+		this->curpos++;
 		return (1);
 	}
 	return (0);

@@ -12,14 +12,15 @@
 
 #include "tokenizer.h"
 
-/*  Rule 7
-	If the current character is an unquoted <newline>,
-	the current token shall be delimited.
+/*  Rule 8
+	If the current character is an unquoted <blank>, any token
+	containing the previous character is delimited and the current
+	character shall be discarded.
 */
 
-int					tokenizer_apply_rule7(t_tokenizer *this)
+int					tokenizer_apply_rule08(t_tokenizer *this)
 {
-	if (*this->curpos == '\n')
+	if (*this->curpos == ' ')
 	{
 		tokenizer_delimit(this);
 		this->curpos++;
