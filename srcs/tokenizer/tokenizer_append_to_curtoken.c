@@ -14,12 +14,14 @@
 
 void				tokenizer_append_to_curtoken(t_tokenizer *t)
 {
-	int				len;
+	int				catlen;
 
-	len = twl_strlen(t->curtoken);
-	t->curtoken[len + 1] = '\0';
-	t->curtoken[len] = t->curpos[0];
+	catlen = 1;
+	if (t->cur_is_quoted)
+	{
+		twl_strcat(t->curtoken, "\\");
+	}
 	twl_strcpy(t->curtokenplus, t->curtoken);
-	t->curtokenplus[len + 2] = '\0';
-	t->curtokenplus[len + 1] = t->curpos[1];
+	twl_strncat(t->curtoken, t->curpos, catlen);
+	twl_strncat(t->curtokenplus, t->curpos, catlen + 1);
 }

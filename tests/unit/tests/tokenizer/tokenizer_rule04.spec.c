@@ -3,7 +3,7 @@
 #include "tokenizer.h"
 #include "token_mgr.h"
 
-mt_test_tokenizer(num1, "a bb", 	            "a_bb", true);
+mt_test_tokenizer(num1, "a 1\\ 2 b", 	            "a_1\\ 2_b", false);
 
 void	suite_tokenizer_rule04(t_suite *suite)
 {

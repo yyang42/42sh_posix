@@ -17,12 +17,12 @@
 	the current token shall be delimited.
 */
 
-int					tokenizer_apply_rule07(t_tokenizer *this)
+int					tokenizer_apply_rule07(t_tokenizer *t)
 {
-	if (*this->curpos == '\n')
+	if (*t->curpos == '\n')
 	{
-		tokenizer_delimit(this);
-		this->curpos++;
+		tokenizer_delimit(t);
+		t->curpos++;
 		return (1);
 	}
 	return (0);

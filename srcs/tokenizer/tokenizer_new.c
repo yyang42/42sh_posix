@@ -24,7 +24,7 @@ t_tokenizer			*tokenizer_new(char *input)
 	this->curpos = input;
 	this->curtoken = twl_strnew(twl_strlen(input));
 	this->curtokenplus = twl_strnew(twl_strlen(input));
-	this->tokentype = PREV_NONE;
+	this->cur_is_quoted = false;
 	tokenizer_tokenize(this);
 	return (this);
 }

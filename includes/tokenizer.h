@@ -26,7 +26,7 @@ typedef struct		s_tokenizer
 	char			*curpos;
 	char			*curtoken;
 	char			*curtokenplus;
-	t_tokentype		tokentype;
+	bool			cur_is_quoted;
 }					t_tokenizer;
 
 t_tokenizer			*tokenizer_new(char *input);

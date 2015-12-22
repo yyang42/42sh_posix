@@ -18,12 +18,12 @@
 	character shall be discarded.
 */
 
-int					tokenizer_apply_rule08(t_tokenizer *this)
+int					tokenizer_apply_rule08(t_tokenizer *t)
 {
-	if (*this->curpos == ' ')
+	if (!t->cur_is_quoted && *t->curpos == ' ')
 	{
-		tokenizer_delimit(this);
-		this->curpos++;
+		tokenizer_delimit(t);
+		t->curpos++;
 		return (1);
 	}
 	return (0);

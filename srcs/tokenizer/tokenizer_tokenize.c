@@ -12,10 +12,24 @@
 
 #include "tokenizer.h"
 
+static void			set_quoted_status(t_tokenizer *t)
+{
+	if (*t->curpos == '\\')
+	{
+		t->cur_is_quoted = true;
+		t->curpos++;
+	}
+	else
+	{
+		t->cur_is_quoted = false;
+	}
+}
+
 void				tokenizer_tokenize(t_tokenizer *t)
 {
 	while (true)
 	{
+		set_quoted_status(t);
 		// twl_printf("t->curtoken     {%s}\n", t->curtoken);
 		// twl_printf("t->curtokenplus {%s}\n", t->curtokenplus);
 		if (tokenizer_apply_rule01(t) == END_OF_INPUT)
@@ -23,6 +37,8 @@ void				tokenizer_tokenize(t_tokenizer *t)
 		if (tokenizer_apply_rule02(t))
 			continue ;
 		if (tokenizer_apply_rule03(t))
+			continue ;
+		if (tokenizer_apply_rule04(t))
 			continue ;
 		if (tokenizer_apply_rule06(t))
 			continue ;

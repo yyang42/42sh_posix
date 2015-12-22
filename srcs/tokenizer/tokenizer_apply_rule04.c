@@ -27,6 +27,15 @@
 
 int					tokenizer_apply_rule04(t_tokenizer *t)
 {
+	// if (*t->curpos == '\\')
+	// {
+	// 	// twl_printf("t->curtoken {%s} curpos {%s}\n", t->curtoken, t->curpos);
+	// 	// tokenizer_append_to_curtoken(t);
+	// 	// tokenizer_append_to_curtoken(t);
+	// 	t->cur_is_quoted = true;
+	// 	t->curpos++;
+	// 	return (1);
+	// }
 	// if (tokenizer_utils_can_form_operator(t, t->curtoken)
 	// 	&& !tokenizer_utils_can_form_operator(t, t->curtokenplus))
 	// {
