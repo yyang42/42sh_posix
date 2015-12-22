@@ -17,7 +17,10 @@ static void	set_oldpwd(t_environment *env)
 	char			*oldpwd;
 
 	oldpwd = environment_getenv_value(env, "PWD");
-	environment_setenv_value(env, "OLDPWD", oldpwd);
+	if (oldpwd != NULL)
+	{
+		environment_setenv_value(env, "OLDPWD", oldpwd);
+	}
 }
 
 static void	set_pwd(char *pwd, t_environment *env)

@@ -16,12 +16,7 @@
 
 void				tokenizer_delimit(t_tokenizer *this)
 {
-	char			*input;
-	char			*token_str;
-
-	input = this->input;
-	token_str = twl_strndup(&(input[this->i - this->ti]), this->ti);
-	// twl_printf("new token [%s]\n", token_str);
-	twl_lst_push(this->tokens, token_new(TOKEN_WORD, token_str));
+	twl_lst_push(this->tokens, token_new(TOKEN_WORD, twl_strdup(this->curtoken)));
 	this->ti = 0;
+	this->curtoken[0] = '\0';
 }

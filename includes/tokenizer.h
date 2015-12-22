@@ -25,7 +25,9 @@ typedef struct		s_tokenizer
 	char			*input;
 	int				i;
 	int				ti;
-	t_prev_type		prev_type;
+	char			*curpos;
+	char			*curtoken;
+	t_tokentype		tokentype;
 }					t_tokenizer;
 
 t_tokenizer			*tokenizer_new(char *input);
@@ -33,6 +35,7 @@ void				tokenizer_del(t_tokenizer *this);
 
 void				tokenizer_delimit(t_tokenizer *this);
 void				tokenizer_tokenize(t_tokenizer *this);
+void				tokenizer_append_to_curtoken(t_tokenizer *t);
 
 int					tokenizer_apply_rule1(t_tokenizer *this);
 int					tokenizer_apply_rule2(t_tokenizer *this);

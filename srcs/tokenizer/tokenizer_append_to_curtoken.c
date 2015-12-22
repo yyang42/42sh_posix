@@ -12,27 +12,8 @@
 
 #include "tokenizer.h"
 
-/*  Rule 1
-	If the end of input is recognized, the current token shall
-	be delimited. If there is no current token, the end-of-input
-	indicator shall be returned as the token.
-
-	end-of-input => -1
-*/
-
-int					tokenizer_apply_rule1(t_tokenizer *this)
+void				tokenizer_append_to_curtoken(t_tokenizer *t)
 {
-	char			*input;
-
-	input = this->input;
-	if (input[this->i] == '\0')
-	{
-		if (this->ti)
-		{
-			COUCOU;
-			tokenizer_delimit(this);
-		}
-		return (END_OF_INPUT);
-	}
-	return (-1);
+	t->curtoken[twl_strlen(t->curtoken) + 1] = '\0';
+	t->curtoken[twl_strlen(t->curtoken)] = t->curpos[0];
 }

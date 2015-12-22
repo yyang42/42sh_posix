@@ -28,6 +28,7 @@ int					tokenizer_apply_rule8(t_tokenizer *this)
 		COUCOU;
 		tokenizer_delimit(this);
 		this->i++;
+		this->curpos++;
 		return (1);
 	}
 	return (0);

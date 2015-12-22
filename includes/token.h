@@ -53,12 +53,12 @@ typedef enum		e_token_type
 	TOKEN_IN
 }					t_token_type;
 
-typedef	enum		e_prev_type
+typedef	enum		e_tokentype
 {
 	PREV_NONE,
 	PREV_WORD,
 	PREV_OPERATOR
-}					t_prev_type;
+}					t_tokentype;
 
 typedef struct		s_token
 {

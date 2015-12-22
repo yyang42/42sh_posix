@@ -28,9 +28,11 @@ int					tokenizer_apply_rule2(t_tokenizer *this)
 		&& tokenizer_utils_can_form_operator_with_prev(this))
 	{
 		COUCOU;
-		this->prev_type = PREV_OPERATOR;
+		this->tokentype = PREV_OPERATOR;
 		this->ti++;
+		tokenizer_append_to_curtoken(this);
 		this->i++;
+		this->curpos++;
 		return (1);
 	}
 	return (0);

@@ -19,19 +19,24 @@
 	shall be delimited.
 */
 
-int					tokenizer_apply_rule3(t_tokenizer *this)
+int					tokenizer_apply_rule3(t_tokenizer *tokenizer)
 {
 	char			*input;
 
-	input = this->input;
-	if (tokenizer_utils_is_prev_char_an_operator(this)
-		&& !tokenizer_utils_can_form_operator_with_prev(this))
+	input = tokenizer->input;
+	if (tokenizer_utils_is_prev_char_an_operator(tokenizer)
+		&& !tokenizer_utils_can_form_operator_with_prev(tokenizer))
 	{
 		COUCOU;
-		this->prev_type = PREV_NONE;
-		tokenizer_delimit(this);
-		this->ti++;
-		this->i++;
+		if (twl_strchr("&|<", *tokenizer->curpos))
+			tokenizer->tokentype = PREV_OPERATOR;
+		else
+			tokenizer->tokentype = PREV_NONE;
+		tokenizer_delimit(tokenizer);
+		tokenizer->ti++;
+		tokenizer_append_to_curtoken(tokenizer);
+		tokenizer->i++;
+		tokenizer->curpos++;
 		return (1);
 	}
 	return (0);
