@@ -36,6 +36,8 @@ static void test_edit_one_input_four_input(t_test *test)
 	cmd = edit_handle_one_input(edit, 42);
 	cmd = edit_handle_one_input(edit, 42);
 	mt_assert(cmd == NULL);
+	if (cmd)
+		free(cmd);
 	mt_assert(edit->index == 4);
 	edit_del(edit);
 }
