@@ -25,23 +25,26 @@
 	quoted field.
 */
 
+static bool			is_start_of_quote(char c)
+{
+	return (twl_strchr("'\"", c));
+}
+
 int					tokenizer_apply_rule04(t_tokenizer *t)
 {
-	// if (*t->curpos == '\\')
-	// {
-	// 	// twl_printf("t->curtoken {%s} curpos {%s}\n", t->curtoken, t->curpos);
-	// 	// tokenizer_append_to_curtoken(t);
-	// 	// tokenizer_append_to_curtoken(t);
-	// 	t->cur_is_quoted = true;
-	// 	t->curpos++;
-	// 	return (1);
-	// }
-	// if (tokenizer_utils_can_form_operator(t, t->curtoken)
-	// 	&& !tokenizer_utils_can_form_operator(t, t->curtokenplus))
-	// {
-	// 	tokenizer_delimit(t);
-	// 	return (1);
-	// }
+	char			*found;
+
+	twl_lprintf("t->curpos {%s}\n", t->curpos);
+	if (!t->cur_is_quoted
+		&& is_start_of_quote(*t->curpos))
+	{
+		COUCOU;
+		twl_lprintf("t->curpos {%s}\n", t->curpos);
+		found = tokenizer_utils_find_closing_plus(t->curpos);
+		twl_lprintf("found     {%s}\n", found);
+		tokenizer_append_to_curtoken(t, found - t->curpos);
+		t->curpos = found;
+	}
 	return (0);
 	(void)t;
 }
