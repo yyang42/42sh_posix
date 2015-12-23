@@ -123,7 +123,8 @@ static void	test_middle_bracket(t_test *test)
 static void	test_melting_pot(t_test *test)
 {
 	reset_sandbox();
-	sandbox_cmd("mkdir -p test{0..5}/test{0..5} && "\
+	sandbox_cmd("mkdir -p test0/test0 test0/test5 test1/test0 test2/test0 "\
+				"test3/test0 test4/test0 test5/test0 test5/test5 && "\
 				"ln -s test0/test5 test6 && "\
 				"touch test0/test5/pouf");
 	PATMATCH_TEST("/tmp/sandbox/*[[:digit:]]/???*[^[:digit:]]", 0, "/tmp/sandbox/test6/pouf");
