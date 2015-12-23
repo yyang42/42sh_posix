@@ -6,7 +6,7 @@
 	t_lst		*lst = patmatch_match(tmp, str);					\
 	char		*ret = sret;										\
 	if (ret == NULL) { mt_assert(twl_lst_get(lst, nb) == ret); }	\
-	else { mt_assert(strcmp(twl_lst_get(lst, nb), ret) == 0); }		\
+	else { mt_assert(strcmp(twl_lst_get(lst, nb), sret) == 0); }	\
 	twl_lst_del(lst, &free);										\
 	patmatch_del(tmp);												\
 }
