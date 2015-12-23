@@ -69,19 +69,18 @@ static void	test_simple_bracket(t_test *test)
 static void	test_middle_asterisk(t_test *test)
 {
 	reset_sandbox();
-	sandbox_cmd("mkdir test0 test1 test2 .test0 .test1 .test2 && "\
-				"touch test{0..2}/test1 .test{0..2}/test2 testnul && "\
+	sandbox_cmd("mkdir test0 test1 test2 .test0 .test1 && "\
+				"touch test0/test1 test1/test1 && "\
+				"touch .test0/test2 .test1/test2 testnul && "\
 				"ln -s test0 test3");
 	PATMATCH_TEST("/tmp/sandbox/*/*", 0, "/tmp/sandbox/test0/test1");
 	PATMATCH_TEST("/tmp/sandbox/*/*", 1, "/tmp/sandbox/test1/test1");
-	PATMATCH_TEST("/tmp/sandbox/*/*", 2, "/tmp/sandbox/test2/test1");
-	PATMATCH_TEST("/tmp/sandbox/*/*", 3, "/tmp/sandbox/test3/test1");
-	PATMATCH_TEST("/tmp/sandbox/*/*", 4, NULL); 
+	PATMATCH_TEST("/tmp/sandbox/*/*", 2, "/tmp/sandbox/test3/test1");
+	PATMATCH_TEST("/tmp/sandbox/*/*", 3, NULL); 
 	PATMATCH_TEST("/tmp/sandbox/.*/t*2", 0, "/tmp/sandbox/./test2");
 	PATMATCH_TEST("/tmp/sandbox/.*/t*2", 1, "/tmp/sandbox/.test0/test2");
 	PATMATCH_TEST("/tmp/sandbox/.*/t*2", 2, "/tmp/sandbox/.test1/test2");
-	PATMATCH_TEST("/tmp/sandbox/.*/t*2", 3, "/tmp/sandbox/.test2/test2");
-	PATMATCH_TEST("/tmp/sandbox/.*/t*2", 4, NULL); 
+	PATMATCH_TEST("/tmp/sandbox/.*/t*2", 3, NULL); 
 	PATMATCH_TEST("\"/tmp/sandbox/.*/t*2\"", 0, "/tmp/sandbox/.*/t*2");
 }
 
@@ -104,7 +103,7 @@ static void	test_middle_question_mark(t_test *test)
 static void	test_middle_bracket(t_test *test)
 {
 	reset_sandbox();
-	sandbox_cmd("touch 1aZ a1Z 1Za Z1a aZ1 Za1 -Z1");
+	sandbox_cmd("touch -- 1aZ a1Z 1Za Z1a aZ1 Za1 -Z1");
 	PATMATCH_TEST("/tmp/sandbox/[aze][AZE][123]", 0, "/tmp/sandbox/aZ1");
 	PATMATCH_TEST("/tmp/sandbox/[aze][AZE][123]", 1, NULL);
 	PATMATCH_TEST("/tmp/sandbox/[a-z][A-Z][0-9]", 0, "/tmp/sandbox/aZ1");
