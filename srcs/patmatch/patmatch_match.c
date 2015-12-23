@@ -6,7 +6,7 @@
 /*   By: chuck <chuck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2042/02/30 42:00:00 by chuck             #+#    #+#             */
-/*   Updated: 2042/02/30 42:59:59 by chuck            ###   ########.fr       */
+/*   Updated: 2042/02/30 41:59:59 by chuck            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static bool			cmp_func(void *s1_, void *s2_)
 
 	s1 = (char *)s1_;
 	s2 = (char *)s2_;
-	return (twl_strcmp(s2, s1));
+	return ((twl_strcmp(s1, s2) < 0) ? true : false);
 }
 
 t_lst				*patmatch_match(t_patmatch *this, char *pattern)
@@ -69,7 +69,7 @@ t_lst				*patmatch_match(t_patmatch *this, char *pattern)
 	init_match(this, &match);
 	patmatch_recurs__(this, &match);
 	twl_lst_iter0(this->match, &erase_building_start);
-	twl_lst_qsort(this->match, (bool (*)(void *, void *))&cmp_func);
+	twl_lst_qsort(this->match, &cmp_func);
 	if (twl_lst_len(this->match) == 0)
 		twl_lst_push(this->match, pattern_to_string(this->pattern));
 	pattern_del(this->pattern);
