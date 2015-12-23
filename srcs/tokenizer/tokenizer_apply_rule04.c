@@ -12,7 +12,7 @@
 
 #include "tokenizer.h"
 
-/*  Rule 3
+/*  Rule 4
 	IIf the current character is backslash, single-quote, or double-quote
 	( '\', '", or ' )' and it is not quoted, it shall affect quoting for
 	subsequent characters up to the end of the quoted text. The rules for
@@ -41,6 +41,8 @@ int					tokenizer_apply_rule04(t_tokenizer *t)
 	{
 		COUCOU;
 		found = tokenizer_utils_find_closing_plus(t->curpos);
+		if (!found)
+			found = t->curpos + twl_strlen(t->curpos);
 		tokenizer_append_to_curtoken(t, found - t->curpos);
 		t->curpos = found;
 	}

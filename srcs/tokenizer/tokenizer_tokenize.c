@@ -41,13 +41,15 @@ void				tokenizer_tokenize(t_tokenizer *t)
 			continue ;
 		if (tokenizer_apply_rule04(t))
 			continue ;
+		if (tokenizer_apply_rule05(t))
+			continue ;
 		if (tokenizer_apply_rule06(t))
 			continue ;
 		if (tokenizer_apply_rule07(t))
 			continue ;
 		if (tokenizer_apply_rule08(t))
 			continue ;
-		if (tokenizer_apply_rule011(t))
+		if (tokenizer_apply_rule11(t))
 			continue ;
 	}
 }

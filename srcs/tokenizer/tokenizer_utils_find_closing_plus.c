@@ -14,7 +14,9 @@
 
 char				*tokenizer_utils_find_closing_plus(char *s)
 {
-	if (twl_str_starts_with(s, "$("))
+	if (twl_str_starts_with(s, "$(("))
+		return tokenizer_utils_find_closing(s, "$((", "))");
+	else if (twl_str_starts_with(s, "$("))
 		return tokenizer_utils_find_closing(s, "$(", ")");
 	else if (twl_str_starts_with(s, "`"))
 		return tokenizer_utils_find_closing(s, "`", "`");
@@ -22,5 +24,7 @@ char				*tokenizer_utils_find_closing_plus(char *s)
 		return tokenizer_utils_find_closing(s, "\"", "\"");
 	else if (twl_str_starts_with(s, "'"))
 		return tokenizer_utils_find_closing(s, "'", "'");
+	else if (twl_str_starts_with(s, "${"))
+		return tokenizer_utils_find_closing(s, "${", "}");
 	return (NULL);
 }

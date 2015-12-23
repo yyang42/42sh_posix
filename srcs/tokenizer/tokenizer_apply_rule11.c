@@ -16,10 +16,12 @@
 	The current character is used as the start of a new word.
 */
 
-int					tokenizer_apply_rule011(t_tokenizer *t)
+int					tokenizer_apply_rule11(t_tokenizer *t)
 {
 	COUCOU;
+	twl_lprintf("t->curpos %s\n", t->curpos);
 	tokenizer_append_to_curtoken(t, 1);
+	COUCOU;
 	t->curpos++;
 	return (1);
 }
