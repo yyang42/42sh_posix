@@ -22,6 +22,7 @@ int					tokenizer_apply_rule08(t_tokenizer *t)
 {
 	if (!t->cur_is_quoted && *t->curpos == ' ')
 	{
+		COUCOU;
 		tokenizer_delimit(t);
 		t->curpos++;
 		return (1);

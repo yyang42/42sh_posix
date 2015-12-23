@@ -24,6 +24,7 @@ bool				tokenizer_utils_can_form_operator(t_tokenizer *t,
 		return (false);
 	return (can_form_operator_with(candidate, "&&")
 		|| can_form_operator_with(candidate, "||")
+		|| can_form_operator_with(candidate, ">")
 		|| can_form_operator_with(candidate, "<<-"));
 	(void)t;
 }

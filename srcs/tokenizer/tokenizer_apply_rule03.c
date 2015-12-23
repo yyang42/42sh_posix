@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "tokenizer.h"
+#include "token_mgr.h"
 
 /*  Rule 3
 	If the previous character was used as part of an operator
@@ -24,6 +25,7 @@ int					tokenizer_apply_rule03(t_tokenizer *t)
 	if (tokenizer_utils_can_form_operator(t, t->curtoken)
 		&& !tokenizer_utils_can_form_operator(t, t->curtokenplus))
 	{
+		COUCOU;
 		tokenizer_delimit(t);
 		return (1);
 	}

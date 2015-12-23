@@ -27,6 +27,7 @@ static void			set_quoted_status(t_tokenizer *t)
 
 void				tokenizer_tokenize(t_tokenizer *t)
 {
+	twl_lprintf("=== start tokenizer for {%s}\n", t->input);
 	while (true)
 	{
 		set_quoted_status(t);

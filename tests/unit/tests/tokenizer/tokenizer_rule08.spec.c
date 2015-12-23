@@ -10,6 +10,7 @@ mt_test_tokenizer(num4, " aa  bb", 	"aa_bb", false);
 mt_test_tokenizer(num5, "aa  bb ", 	"aa_bb", false);
 mt_test_tokenizer(num6, "   aa  bb   ", "aa_bb", false);
 mt_test_tokenizer(num7, "   ", 		"", false);
+mt_test_tokenizer(num8, "a\\ b c", 	"a\\ b_c", false);
 
 void	suite_tokenizer_rule08(t_suite *suite)
 {
@@ -20,4 +21,5 @@ void	suite_tokenizer_rule08(t_suite *suite)
 	SUITE_ADD_TEST(suite, test_num5);
 	SUITE_ADD_TEST(suite, test_num6);
 	SUITE_ADD_TEST(suite, test_num7);
+	SUITE_ADD_TEST(suite, test_num8);
 }

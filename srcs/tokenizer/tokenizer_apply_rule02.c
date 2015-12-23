@@ -21,9 +21,10 @@
 
 int					tokenizer_apply_rule02(t_tokenizer *t)
 {
-	if (tokenizer_utils_can_form_operator(t, t->curtoken)
+	if (!t->cur_is_quoted
 		&& tokenizer_utils_can_form_operator(t, t->curtokenplus))
 	{
+		COUCOU;
 		tokenizer_append_to_curtoken(t);
 		t->curpos++;
 		return (1);

@@ -21,6 +21,7 @@ int					tokenizer_apply_rule07(t_tokenizer *t)
 {
 	if (*t->curpos == '\n')
 	{
+		COUCOU;
 		tokenizer_delimit(t);
 		t->curpos++;
 		return (1);

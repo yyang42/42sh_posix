@@ -18,6 +18,7 @@
 
 int					tokenizer_apply_rule011(t_tokenizer *t)
 {
+	COUCOU;
 	tokenizer_append_to_curtoken(t);
 	t->curpos++;
 	return (1);

@@ -21,8 +21,10 @@
 
 int					tokenizer_apply_rule06(t_tokenizer *t)
 {
-	if (tokenizer_utils_is_start_of_op(t, *t->curpos))
+	if (!t->cur_is_quoted
+		&& tokenizer_utils_is_start_of_op(t, *t->curpos))
 	{
+		COUCOU;
 		tokenizer_delimit(t);
 		tokenizer_append_to_curtoken(t);
 		t->curpos++;
