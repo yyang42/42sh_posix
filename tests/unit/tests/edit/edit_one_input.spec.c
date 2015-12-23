@@ -22,6 +22,7 @@ static void test_edit_one_input_nl(t_test *test)
 	cmd = edit_handle_one_input(edit, 10);
 	mt_assert(strcmp(cmd, " ") == 0);
 	mt_assert(edit->index == 0);
+	free(cmd);
 	edit_del(edit);
 }
 

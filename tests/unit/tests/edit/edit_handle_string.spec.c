@@ -13,6 +13,7 @@ static void test_simple_string_with_nl(t_test *test)
 
 	cmd = edit_handle_string(edit, "bonjour\n");
 	mt_assert(strcmp(cmd, "bonjour ") == 0);
+	free(cmd);
 	edit_del(edit);
 }
 
