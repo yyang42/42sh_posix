@@ -23,6 +23,8 @@
 	enclosing quotes or substitution operators, between the quote mark and the
 	end of the quoted text. The token shall not be delimited by the end of the
 	quoted field.
+
+	<newline> joining is done before tokenization(cf 2.10.2 Shell Grammar Rules)
 */
 
 static bool			is_start_of_quote(char c)
