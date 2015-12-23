@@ -1,9 +1,10 @@
 #include <project.h>
 #include "patmatch.h"
 
-#define PATMATCH_TEST(str, nb, ret) {								\
+#define PATMATCH_TEST(str, nb, sret) {								\
 	t_patmatch	*tmp = patmatch_new();								\
 	t_lst		*lst = patmatch_match(tmp, str);					\
+	char		*ret = sret;										\
 	if (ret == NULL) { mt_assert(twl_lst_get(lst, nb) == ret); }	\
 	else { mt_assert(strcmp(twl_lst_get(lst, nb), ret) == 0); }		\
 	twl_lst_del(lst, &free);										\
