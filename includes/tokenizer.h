@@ -34,7 +34,7 @@ void				tokenizer_del(t_tokenizer *this);
 
 void				tokenizer_delimit(t_tokenizer *this);
 void				tokenizer_tokenize(t_tokenizer *this);
-void				tokenizer_append_to_curtoken(t_tokenizer *t);
+void				tokenizer_append_to_curtoken(t_tokenizer *t, int len);
 
 int					tokenizer_apply_rule01(t_tokenizer *this);
 int					tokenizer_apply_rule02(t_tokenizer *this);
@@ -48,5 +48,6 @@ int					tokenizer_apply_rule011(t_tokenizer *this);
 bool				tokenizer_utils_is_start_of_op(t_tokenizer *this, char c);
 bool				tokenizer_utils_can_form_operator(t_tokenizer *this,
 															char *candidate);
-
+char				*tokenizer_utils_find_closing(char *s, char *open,
+																char *close);
 #endif

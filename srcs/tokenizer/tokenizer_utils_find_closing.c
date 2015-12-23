@@ -12,13 +12,50 @@
 
 #include "tokenizer.h"
 
-void				tokenizer_append_to_curtoken(t_tokenizer *t, int len)
+static void			update_on_open(char **s, char *open, int *count_ptr)
 {
-	if (t->cur_is_quoted)
+	*count_ptr += 1;
+	*s += twl_strlen(open);
+}
+
+static void			update_on_close(char **s, char *close, int *count_ptr)
+{
+	*count_ptr -= 1;
+	*s += twl_strlen(close);
+}
+
+static void			update_on_quote(char **s_ptr)
+{
+	*s_ptr += 1;
+	if (**s_ptr != '\0')
+		*s_ptr += 1;
+}
+
+char				*tokenizer_utils_find_closing(char *s, char *open,
+																char *close)
+{
+	int				count;
+
+	if (!twl_str_starts_with(s, open))
+		return (NULL);
+	count = 0;
+	update_on_open(&s, open, &count);
+	while (*s)
 	{
-		twl_strcat(t->curtoken, "\\");
+		if (*s == '\\')
+		{
+			update_on_quote(&s);
+			if (*s == '\0')
+				break ;
+		}
+		else if (twl_str_starts_with(s, close))
+			update_on_close(&s, close, &count);
+		else if (twl_str_starts_with(s, open))
+			update_on_open(&s, open, &count);
+		else
+			s++;
+		if (count == 0)
+			return (s);
 	}
-	twl_strcpy(t->curtokenplus, t->curtoken);
-	twl_strncat(t->curtoken, t->curpos, len);
-	twl_strncat(t->curtokenplus, t->curpos, len + 1);
+	return (NULL);
 }

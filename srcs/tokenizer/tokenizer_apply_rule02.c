@@ -25,7 +25,7 @@ int					tokenizer_apply_rule02(t_tokenizer *t)
 		&& tokenizer_utils_can_form_operator(t, t->curtokenplus))
 	{
 		COUCOU;
-		tokenizer_append_to_curtoken(t);
+		tokenizer_append_to_curtoken(t, 1);
 		t->curpos++;
 		return (1);
 	}
