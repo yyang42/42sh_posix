@@ -34,17 +34,13 @@ int					tokenizer_apply_rule04(t_tokenizer *t)
 {
 	char			*found;
 
-	twl_lprintf("t->curpos {%s}\n", t->curpos);
 	if (!t->cur_is_quoted
 		&& is_start_of_quote(*t->curpos))
 	{
 		COUCOU;
-		twl_lprintf("t->curpos {%s}\n", t->curpos);
 		found = tokenizer_utils_find_closing_plus(t->curpos);
-		twl_lprintf("found     {%s}\n", found);
 		tokenizer_append_to_curtoken(t, found - t->curpos);
 		t->curpos = found;
 	}
 	return (0);
-	(void)t;
 }
