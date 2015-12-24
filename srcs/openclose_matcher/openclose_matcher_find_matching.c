@@ -51,18 +51,18 @@ static void			resolve(t_openclose_matcher *matcher, t_lst *stack, char **s_ptr)
 	if (oc && close_pos && oc == close_pos)
 	{
 		twl_lst_pop(stack);
-		twl_printf("close_pos of %s pos %s\n", close_pos->close, pos);
+		// twl_lprintf("close_pos of %s pos %s\n", close_pos->close, pos);
 	}
 	else if (open_pos)
 	{
 		twl_lst_push(stack, open_pos);
-		openclose_mgr_print(stack);
-		twl_printf("open_pos of %s pos %s\n", open_pos->open, pos);
+		// openclose_mgr_print(stack);
+		// twl_lprintf("open_pos of %s pos %s\n", open_pos->open, pos);
 	}
 }
 
-char				*openclose_matcher_find_matching(t_openclose_matcher *matcher,
-																char *s)
+char				*openclose_matcher_find_matching(
+										t_openclose_matcher *matcher, char *s)
 {
 	t_lst			*stack;
 
@@ -73,13 +73,13 @@ char				*openclose_matcher_find_matching(t_openclose_matcher *matcher,
 	{
 		resolve(matcher, stack, &s);
 		s++;
-		if (*s == '\0')
-			break;
 		if (twl_lst_len(stack) == 0)
 		{
 			twl_lst_del(stack, NULL);
 			return (s);
 		}
+		if (*s == '\0')
+			break;
 	}
 	twl_lst_del(stack, NULL);
 	return (NULL);
