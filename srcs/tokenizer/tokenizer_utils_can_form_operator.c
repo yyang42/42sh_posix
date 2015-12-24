@@ -12,6 +12,10 @@
 
 #include "tokenizer.h"
 
+#define MAX_OPERATOR_NUMBER 9
+static char			operators[MAX_OPERATOR_NUMBER][3] = {"<<-",
+							"&&", "||", ";;", "<<", "<&", ">&", "<>", ">|"};
+
 static bool			can_form_operator_with(char *candidate, char *op)
 {
 	return (twl_strncmp(candidate, op, twl_strlen(candidate)) == 0);
@@ -20,11 +24,17 @@ static bool			can_form_operator_with(char *candidate, char *op)
 bool				tokenizer_utils_can_form_operator(t_tokenizer *t,
 															char *candidate)
 {
+	int 			i;
+
 	if (*candidate == '\0')
 		return (false);
-	return (can_form_operator_with(candidate, "&&")
-		|| can_form_operator_with(candidate, "||")
-		|| can_form_operator_with(candidate, ">")
-		|| can_form_operator_with(candidate, "<<-"));
+	i = 0;
+	while (i < MAX_OPERATOR_NUMBER)
+	{
+		if (can_form_operator_with(candidate, operators[i]))
+			return (true);
+		i++;
+	}
+	return (false);
 	(void)t;
 }
