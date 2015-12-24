@@ -19,7 +19,7 @@
 	of the next (operator) token.
 */
 
-int					tokenizer_apply_rule06(t_tokenizer *t)
+t_rule_status		tokenizer_apply_rule06(t_tokenizer *t)
 {
 	if (!t->cur_is_quoted
 		&& tokenizer_utils_is_start_of_op(t, *t->curpos))
@@ -28,7 +28,7 @@ int					tokenizer_apply_rule06(t_tokenizer *t)
 		tokenizer_delimit(t);
 		tokenizer_append_to_curtoken(t, 1);
 		t->curpos++;
-		return (1);
+		return (RULE_STATUS_APPLIED);
 	}
-	return (0);
+	return (RULE_STATUS_NOT_APPLIED);
 }

@@ -20,7 +20,7 @@
 	end-of-input => -1
 */
 
-int					tokenizer_apply_rule01(t_tokenizer *this)
+t_rule_status		tokenizer_apply_rule01(t_tokenizer *this)
 {
 	if (*this->curpos == '\0')
 	{
@@ -29,7 +29,7 @@ int					tokenizer_apply_rule01(t_tokenizer *this)
 		{
 			tokenizer_delimit(this);
 		}
-		return (END_OF_INPUT);
+		return (RULE_STATUS_END_OF_INPUT);
 	}
-	return (-1);
+	return (RULE_STATUS_NOT_APPLIED);
 }

@@ -17,14 +17,14 @@
 	the current token shall be delimited.
 */
 
-int					tokenizer_apply_rule07(t_tokenizer *t)
+t_rule_status		tokenizer_apply_rule07(t_tokenizer *t)
 {
 	if (*t->curpos == '\n')
 	{
 		COUCOU;
 		tokenizer_delimit(t);
 		t->curpos++;
-		return (1);
+		return (RULE_STATUS_APPLIED);
 	}
-	return (0);
+	return (RULE_STATUS_NOT_APPLIED);
 }

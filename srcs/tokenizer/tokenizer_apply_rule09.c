@@ -12,22 +12,11 @@
 
 #include "tokenizer.h"
 
-/*  Rule 3
-	If the previous character was used as part of an operator and the
-	current character is not quoted and can be used with the current
-	characters to form an operator, it shall be used as part of that (operator)
-	token.
+/*  Rule 9
 */
 
-t_rule_status		tokenizer_apply_rule02(t_tokenizer *t)
+t_rule_status		tokenizer_apply_rule09(t_tokenizer *t)
 {
-	if (!t->cur_is_quoted
-		&& tokenizer_utils_can_form_operator(t, t->curtokenplus))
-	{
-		COUCOU;
-		tokenizer_append_to_curtoken(t, 1);
-		t->curpos++;
-		return (RULE_STATUS_APPLIED);
-	}
 	return (RULE_STATUS_NOT_APPLIED);
+	(void)t;
 }

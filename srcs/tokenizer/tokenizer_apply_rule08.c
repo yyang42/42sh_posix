@@ -18,14 +18,14 @@
 	character shall be discarded.
 */
 
-int					tokenizer_apply_rule08(t_tokenizer *t)
+t_rule_status		tokenizer_apply_rule08(t_tokenizer *t)
 {
 	if (!t->cur_is_quoted && *t->curpos == ' ')
 	{
 		COUCOU;
 		tokenizer_delimit(t);
 		t->curpos++;
-		return (1);
+		return (RULE_STATUS_APPLIED);
 	}
-	return (0);
+	return (RULE_STATUS_NOT_APPLIED);
 }

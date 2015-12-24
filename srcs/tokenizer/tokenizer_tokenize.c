@@ -12,6 +12,20 @@
 
 #include "tokenizer.h"
 
+t_rule_fn			tokenizer_rule_fns[12] = {
+					tokenizer_apply_rule01,
+					tokenizer_apply_rule02,
+					tokenizer_apply_rule03,
+					tokenizer_apply_rule04,
+					tokenizer_apply_rule05,
+					tokenizer_apply_rule06,
+					tokenizer_apply_rule07,
+					tokenizer_apply_rule08,
+					tokenizer_apply_rule09,
+					tokenizer_apply_rule10,
+					tokenizer_apply_rule11,
+					NULL};
+
 static void			set_quoted_status(t_tokenizer *t)
 {
 	if (*t->curpos == '\\')
@@ -27,29 +41,24 @@ static void			set_quoted_status(t_tokenizer *t)
 
 void				tokenizer_tokenize(t_tokenizer *t)
 {
-	twl_lprintf("=== start tokenizer for {%s}\n", t->input);
+	t_rule_status	status;
+	t_rule_fn		*rules_fns;
+	int				i;
+
+	status = RULE_STATUS_NONE;
+	rules_fns = tokenizer_rule_fns;
 	while (true)
 	{
 		set_quoted_status(t);
-		// twl_printf("t->curtoken     {%s}\n", t->curtoken);
-		// twl_printf("t->curtokenplus {%s}\n", t->curtokenplus);
-		if (tokenizer_apply_rule01(t) == END_OF_INPUT)
+		i = 0;
+		while (tokenizer_rule_fns[i])
+		{
+			status = tokenizer_rule_fns[i](t);
+			if (status != RULE_STATUS_NOT_APPLIED)
+				break ;
+			i++;
+		}
+		if (status == RULE_STATUS_END_OF_INPUT)
 			break ;
-		if (tokenizer_apply_rule02(t))
-			continue ;
-		if (tokenizer_apply_rule03(t))
-			continue ;
-		if (tokenizer_apply_rule04(t))
-			continue ;
-		if (tokenizer_apply_rule05(t))
-			continue ;
-		if (tokenizer_apply_rule06(t))
-			continue ;
-		if (tokenizer_apply_rule07(t))
-			continue ;
-		if (tokenizer_apply_rule08(t))
-			continue ;
-		if (tokenizer_apply_rule11(t))
-			continue ;
 	}
 }

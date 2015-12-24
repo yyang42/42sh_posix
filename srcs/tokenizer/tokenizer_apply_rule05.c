@@ -36,7 +36,7 @@ static bool			is_start_candidate(char c)
 	return (twl_strchr("$`", c));
 }
 
-int					tokenizer_apply_rule05(t_tokenizer *t)
+t_rule_status		tokenizer_apply_rule05(t_tokenizer *t)
 {
 	char			*found;
 
@@ -50,7 +50,7 @@ int					tokenizer_apply_rule05(t_tokenizer *t)
 			found = t->curpos + twl_strlen(t->curpos);
 		tokenizer_append_to_curtoken(t, found - t->curpos);
 		t->curpos = found;
-		return (1);
+		return (RULE_STATUS_APPLIED);
 	}
-	return (0);
+	return (RULE_STATUS_NOT_APPLIED);
 }

@@ -20,14 +20,14 @@
 	shall be delimited.
 */
 
-int					tokenizer_apply_rule03(t_tokenizer *t)
+t_rule_status		tokenizer_apply_rule03(t_tokenizer *t)
 {
 	if (tokenizer_utils_can_form_operator(t, t->curtoken)
 		&& !tokenizer_utils_can_form_operator(t, t->curtokenplus))
 	{
 		COUCOU;
 		tokenizer_delimit(t);
-		return (1);
+		return (RULE_STATUS_APPLIED);
 	}
-	return (0);
+	return (RULE_STATUS_NOT_APPLIED);
 }
