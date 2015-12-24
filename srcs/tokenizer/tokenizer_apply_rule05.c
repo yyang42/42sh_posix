@@ -40,7 +40,6 @@ t_rule_status		tokenizer_apply_rule05(t_tokenizer *t)
 {
 	char			*found;
 
-	COUCOU;
 	if (!t->cur_is_quoted
 		&& is_start_candidate(*t->curpos))
 	{

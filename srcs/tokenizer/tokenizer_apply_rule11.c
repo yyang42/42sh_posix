@@ -19,9 +19,7 @@
 t_rule_status		tokenizer_apply_rule11(t_tokenizer *t)
 {
 	COUCOU;
-	twl_lprintf("t->curpos %s\n", t->curpos);
 	tokenizer_append_to_curtoken(t, 1);
-	COUCOU;
 	t->curpos++;
 	return (RULE_STATUS_APPLIED);
 }
