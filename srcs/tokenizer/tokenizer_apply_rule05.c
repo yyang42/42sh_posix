@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "tokenizer.h"
+#include "openclose_matcher.h"
 
 /*  Rule 5
 	If the current character is an unquoted '$' or '`', the shell shall
@@ -36,6 +37,20 @@ static bool			is_start_candidate(char c)
 	return (twl_strchr("$`", c));
 }
 
+static char			*match(char *input)
+{
+	t_openclose_matcher		*matcher;
+	char					*match;
+
+	matcher = openclose_matcher_new();
+	openclose_matcher_add(matcher, "$(", ")");
+	openclose_matcher_add(matcher, "${", "}");
+	openclose_matcher_add(matcher, "`", "`");
+	match = openclose_matcher_find_matching(matcher, input);
+	openclose_matcher_del(matcher);
+	return (match);
+}
+
 t_rule_status		tokenizer_apply_rule05(t_tokenizer *t)
 {
 	char			*found;
@@ -44,7 +59,9 @@ t_rule_status		tokenizer_apply_rule05(t_tokenizer *t)
 		&& is_start_candidate(*t->curpos))
 	{
 		COUCOU;
-		found = tokenizer_utils_find_closing_plus(t->curpos);
+		// found = tokenizer_utils_find_closing_plus(t->curpos);
+		found = match(t->curpos);
+		(void)match;
 		if (!found)
 			found = t->curpos + twl_strlen(t->curpos);
 		tokenizer_append_to_curtoken(t, found - t->curpos);

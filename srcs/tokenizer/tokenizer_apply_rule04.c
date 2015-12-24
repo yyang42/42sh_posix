@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "tokenizer.h"
+#include "openclose_matcher.h"
 
 /*  Rule 4
 	IIf the current character is backslash, single-quote, or double-quote
@@ -32,6 +33,19 @@ static bool			is_start_of_quote(char c)
 	return (twl_strchr("'\"", c));
 }
 
+static char			*match(char *input)
+{
+	t_openclose_matcher		*matcher;
+	char					*match;
+
+	matcher = openclose_matcher_new();
+	openclose_matcher_add(matcher, "'", "'");
+	openclose_matcher_add(matcher, "\"", "\"");
+	match = openclose_matcher_find_matching(matcher, input);
+	openclose_matcher_del(matcher);
+	return (match);
+}
+
 t_rule_status		tokenizer_apply_rule04(t_tokenizer *t)
 {
 	char			*found;
@@ -40,7 +54,8 @@ t_rule_status		tokenizer_apply_rule04(t_tokenizer *t)
 		&& is_start_of_quote(*t->curpos))
 	{
 		COUCOU;
-		found = tokenizer_utils_find_closing_plus(t->curpos);
+		// found = tokenizer_utils_find_closing_plus(t->curpos);
+		found = match(t->curpos);
 		if (!found)
 			found = t->curpos + twl_strlen(t->curpos);
 		tokenizer_append_to_curtoken(t, found - t->curpos);
