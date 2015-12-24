@@ -42,11 +42,9 @@ static void			set_quoted_status(t_tokenizer *t)
 void				tokenizer_tokenize(t_tokenizer *t)
 {
 	t_rule_status	status;
-	t_rule_fn		*rules_fns;
 	int				i;
 
 	status = RULE_STATUS_NONE;
-	rules_fns = tokenizer_rule_fns;
 	while (true)
 	{
 		set_quoted_status(t);
