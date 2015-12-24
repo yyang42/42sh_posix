@@ -46,6 +46,7 @@ static char			*match(char *input)
 	openclose_matcher_add(matcher, "$(", ")");
 	openclose_matcher_add(matcher, "${", "}");
 	openclose_matcher_add(matcher, "`", "`");
+	openclose_matcher_set_skip_quoted(matcher, true);
 	match = openclose_matcher_find_matching(matcher, input);
 	openclose_matcher_del(matcher);
 	return (match);

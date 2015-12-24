@@ -10,30 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef OPENCLOSE_MATCHER_H
-# define OPENCLOSE_MATCHER_H
-
-# include "basics.h"
-
-# include "openclose.h"
-
-typedef struct		s_openclose_matcher
-{
-	t_lst			*oc_pairs;
-	int				skip_quoted;
-}					t_openclose_matcher;
-
-t_openclose_matcher	*openclose_matcher_new(void);
-void				openclose_matcher_del(t_openclose_matcher *this);
-
-void				openclose_matcher_add(t_openclose_matcher *matcher,
-												char *open, char *close);
-
-char				*openclose_matcher_find_matching(t_openclose_matcher *this,
-																char *s);
-void				openclose_matcher_print(t_openclose_matcher *matcher);
+#include "openclose_matcher.h"
 
 void				openclose_matcher_set_skip_quoted(
-							t_openclose_matcher *matcher, bool skip_quoted);
-
-#endif
+							t_openclose_matcher *matcher, bool skip_quoted)
+{
+	matcher->skip_quoted = skip_quoted;
+}

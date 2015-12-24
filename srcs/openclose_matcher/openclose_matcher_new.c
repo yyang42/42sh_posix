@@ -20,5 +20,6 @@ t_openclose_matcher			*openclose_matcher_new(void)
 
 	this = twl_malloc_x0(sizeof(t_openclose_matcher));
 	this->oc_pairs = twl_lst_new();
+	this->skip_quoted = false;
 	return (this);
 }

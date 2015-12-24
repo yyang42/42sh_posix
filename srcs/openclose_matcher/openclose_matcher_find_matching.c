@@ -69,8 +69,11 @@ char				*openclose_matcher_find_matching(
 	stack = twl_lst_new();
 	while (*s)
 	{
-		if (is_quoted_skip(&s))
-			continue ;
+		if (matcher->skip_quoted)
+		{
+			if (is_quoted_skip(&s))
+				continue ;
+		}
 		resolve(matcher, stack, &s);
 		s++;
 		if (twl_lst_len(stack) == 0)
