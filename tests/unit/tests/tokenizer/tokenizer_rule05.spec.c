@@ -14,6 +14,7 @@ mt_test_tokenizer(num8, "a ${1 2} b",               "a_${1 2}_b",    false);
 mt_test_tokenizer(num9, "a $((1 2)) b",             "a_$((1 2))_b",  false);
 mt_test_tokenizer(num10,"a $((1 2) b&",             "a_$((1 2) b&",  false);
 mt_test_tokenizer(num11,"a ${1 2 3",                "a_${1 2 3",     false);
+mt_test_tokenizer(num12,"a $(1 \n 2) b",            "a_$(1 \n 2)_b", false);
 
 void    suite_tokenizer_rule05(t_suite *suite)
 {
@@ -28,4 +29,5 @@ void    suite_tokenizer_rule05(t_suite *suite)
     SUITE_ADD_TEST(suite, test_num9);
     SUITE_ADD_TEST(suite, test_num10);
     SUITE_ADD_TEST(suite, test_num11);
+    SUITE_ADD_TEST(suite, test_num12);
 }

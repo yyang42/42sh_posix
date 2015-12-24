@@ -10,21 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tokenizer.h"
+#include "twl_xstdlib.h"
 
-/*  Rule 7
-	If the current character is an unquoted <newline>,
-	the current token shall be delimited.
-*/
+#include "openclose_matcher.h"
 
-t_rule_status		tokenizer_apply_rule07(t_tokenizer *t)
+t_openclose_matcher			*openclose_matcher_new(void)
 {
-	if (!t->cur_is_quoted && *t->curpos == '\n')
-	{
-		COUCOU;
-		tokenizer_delimit(t);
-		t->curpos++;
-		return (RULE_STATUS_APPLIED);
-	}
-	return (RULE_STATUS_NOT_APPLIED);
+	t_openclose_matcher		*this;
+
+	this = twl_malloc_x0(sizeof(t_openclose_matcher));
+	this->oc_pairs = twl_lst_new();
+	return (this);
 }

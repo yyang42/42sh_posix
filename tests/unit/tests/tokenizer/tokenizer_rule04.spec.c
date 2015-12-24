@@ -14,6 +14,7 @@ mt_test_tokenizer(num8, "a b'c d'e f",              "a_b'c d'e_f", false);
 mt_test_tokenizer(num9, "'",                        "'", false);
 mt_test_tokenizer(num10, "abc'",                    "abc'", false);
 mt_test_tokenizer(num11, "a&&a' 1 2 3",             "a_&&_a' 1 2 3", false);
+// mt_test_tokenizer(num12, "a '$(echo ' a ')' f",                "a_b'c d'e_f", true);
 
 void    suite_tokenizer_rule04(t_suite *suite)
 {
@@ -28,4 +29,5 @@ void    suite_tokenizer_rule04(t_suite *suite)
     SUITE_ADD_TEST(suite, test_num9);
     SUITE_ADD_TEST(suite, test_num10);
     SUITE_ADD_TEST(suite, test_num11);
+    // SUITE_ADD_TEST(suite, test_num12);
 }

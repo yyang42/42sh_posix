@@ -10,21 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tokenizer.h"
+#ifndef OPENCLOSE_H
+# define OPENCLOSE_H
 
-/*  Rule 7
-	If the current character is an unquoted <newline>,
-	the current token shall be delimited.
-*/
+# include "basics.h"
 
-t_rule_status		tokenizer_apply_rule07(t_tokenizer *t)
+# define OPENCLOSE_MAX_TOKEN_LEN 3
+
+typedef struct		s_openclose
 {
-	if (!t->cur_is_quoted && *t->curpos == '\n')
-	{
-		COUCOU;
-		tokenizer_delimit(t);
-		t->curpos++;
-		return (RULE_STATUS_APPLIED);
-	}
-	return (RULE_STATUS_NOT_APPLIED);
-}
+	char			open[OPENCLOSE_MAX_TOKEN_LEN];
+	char			close[OPENCLOSE_MAX_TOKEN_LEN];
+	char			*pos;
+}					t_openclose;
+
+t_openclose			*openclose_new(char *open, char *close);
+void				openclose_del(t_openclose *this);
+
+#endif
