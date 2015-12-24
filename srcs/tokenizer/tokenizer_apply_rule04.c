@@ -45,6 +45,7 @@ int					tokenizer_apply_rule04(t_tokenizer *t)
 			found = t->curpos + twl_strlen(t->curpos);
 		tokenizer_append_to_curtoken(t, found - t->curpos);
 		t->curpos = found;
+		return (1);
 	}
 	return (0);
 }
