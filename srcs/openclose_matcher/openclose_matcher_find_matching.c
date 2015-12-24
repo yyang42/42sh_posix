@@ -20,30 +20,21 @@ static bool			find_open_start_fn(void *oc_, void *pos)
 	return (twl_str_starts_with(pos, oc->open));
 }
 
-static bool			find_close_start_fn(void *oc_, void *pos)
-{
-	t_openclose		*oc;
-
-	oc = oc_;
-	return (twl_str_starts_with(pos, oc->close));
-}
-
 static void			resolve(t_openclose_matcher *matcher, t_lst *stack, char **s_ptr)
 {
 	char			*pos;
 	t_openclose		*open_pos;
-	t_openclose		*close_pos;
 	t_openclose		*oc;
 
 	pos = *s_ptr;
-	open_pos = twl_lst_find(matcher->oc_pairs, find_open_start_fn, pos);
-	close_pos = twl_lst_find(matcher->oc_pairs, find_close_start_fn, pos);
 	oc = twl_lst_last(stack);
-	if (oc && close_pos && oc == close_pos)
+	if (oc && twl_str_starts_with(pos, oc->close))
 	{
 		twl_lst_pop(stack);
+		return  ;
 	}
-	else if (open_pos)
+	open_pos = twl_lst_find(matcher->oc_pairs, find_open_start_fn, pos);
+	if (open_pos)
 	{
 		twl_lst_push(stack, open_pos);
 	}

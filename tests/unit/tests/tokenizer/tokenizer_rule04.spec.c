@@ -17,7 +17,7 @@ mt_test_tokenizer(num11, "a&&a' 1 2 3",             "a_&&_a' 1 2 3", false);
 mt_test_tokenizer(num12, "1 a` 'b`c`d'`xyz 2",      "1_a` 'b`c`d'`xyz_2", false);
 mt_test_tokenizer(num13, "1 $( ` $( ' ' ) ` ) 2",   "1_$( ` $( ' ' ) ` )_2", false);
 mt_test_tokenizer(num14, "$(`$(`$($(`a b`))`)`)cd ef",   "$(`$(`$($(`a b`))`)`)cd_ef", false);
-// mt_test_tokenizer(num15, "a(b)c",                      "a_(_b_)_c", true);
+mt_test_tokenizer(num15, "a $(($($($(())))))1 b",        "a_$(($($($(())))))1_b", false);
 
 void    suite_tokenizer_rule04(t_suite *suite)
 {
@@ -35,5 +35,5 @@ void    suite_tokenizer_rule04(t_suite *suite)
     SUITE_ADD_TEST(suite, test_num12);
     SUITE_ADD_TEST(suite, test_num13);
     SUITE_ADD_TEST(suite, test_num14);
-    // SUITE_ADD_TEST(suite, test_num15);
+    SUITE_ADD_TEST(suite, test_num15);
 }
