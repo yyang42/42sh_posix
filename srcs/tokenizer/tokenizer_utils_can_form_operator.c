@@ -28,14 +28,3 @@ bool				tokenizer_utils_can_form_operator(t_tokenizer *t,
 		|| can_form_operator_with(candidate, "<<-"));
 	(void)t;
 }
-
-	// TOKEN_AND_IF "&&"
-	// TOKEN_OR_IF "||"
-	// TOKEN_DSEMI ";;"
-	// TOKEN_DLESS "<<"
-	// TOKEN_DGREAT ">>"
-	// TOKEN_LESSAND "<&"
-	// TOKEN_GREATAND ">&"
-	// TOKEN_LESSGREAT "<>"
-	// TOKEN_DLESSDASH "<<-"
-	// TOKEN_CLOBBER ">|"

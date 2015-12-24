@@ -45,10 +45,6 @@ void				tokenizer_append_to_curtoken(t_tokenizer *t, int len);
 bool				tokenizer_utils_is_start_of_op(t_tokenizer *this, char c);
 bool				tokenizer_utils_can_form_operator(t_tokenizer *this,
 															char *candidate);
-char				*tokenizer_utils_find_closing(char *s, char *open,
-																char *close);
-char				*tokenizer_utils_find_closing_plus(char *s);
-
 
 /*
 	Tokenizer rules
