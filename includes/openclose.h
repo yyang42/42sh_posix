@@ -15,7 +15,7 @@
 
 # include "basics.h"
 
-# define OPENCLOSE_MAX_TOKEN_LEN 3
+# define OPENCLOSE_MAX_TOKEN_LEN 5
 
 typedef struct		s_openclose
 {
