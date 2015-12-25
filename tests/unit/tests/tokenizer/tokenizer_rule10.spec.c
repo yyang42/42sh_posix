@@ -3,8 +3,8 @@
 #include "tokenizer.h"
 #include "token_mgr.h"
 
-mt_test_tokenizer(num1, "abc#123\nxyz",  "abc_xyz", false);
-mt_test_tokenizer(num2, "abc\\#123\nxyz",  "abc\\#123_xyz", false);
+mt_test_tokenizer(num1, "abc#123\nxyz",  "abc_\n_xyz", false);
+mt_test_tokenizer(num2, "abc\\#123\nxyz",  "abc\\#123_\n_xyz", false);
 mt_test_tokenizer(num3, "#",  "", false);
 mt_test_tokenizer(num4, "#abc",  "", false);
 mt_test_tokenizer(num5, "\\#",  "\\#", false);

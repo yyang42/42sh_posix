@@ -4,7 +4,7 @@
 #include "token_mgr.h"
 
 mt_test_tokenizer(num1, "> wc",  ">_wc", false);
-mt_test_tokenizer(num2, ">\nwc",  ">_wc", false);
+mt_test_tokenizer(num2, ">\nwc",  ">_\n_wc", false);
 mt_test_tokenizer(num3, ">  wc",  ">_wc", false);
 mt_test_tokenizer(num04, "ls  &&  wc||date",  "ls_&&_wc_||_date", false);
 
