@@ -51,6 +51,7 @@ bool				tokenizer_utils_can_form_operator(t_tokenizer *this,
 */
 
 t_rule_status		tokenizer_apply_rule01(t_tokenizer *this);
+t_rule_status		tokenizer_apply_rule01_extra1(t_tokenizer *this);
 t_rule_status		tokenizer_apply_rule02(t_tokenizer *this);
 t_rule_status		tokenizer_apply_rule03(t_tokenizer *this);
 t_rule_status		tokenizer_apply_rule04(t_tokenizer *this);
@@ -63,7 +64,5 @@ t_rule_status		tokenizer_apply_rule10(t_tokenizer *this);
 t_rule_status		tokenizer_apply_rule11(t_tokenizer *this);
 
 typedef t_rule_status (*t_rule_fn)(t_tokenizer *this);
-
-extern t_rule_fn	tokenizer_rule_fns[12];
 
 #endif

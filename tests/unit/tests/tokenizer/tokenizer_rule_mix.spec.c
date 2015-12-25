@@ -8,7 +8,6 @@ mt_test_tokenizer(num2, ">\nwc",  ">_\n_wc", false);
 mt_test_tokenizer(num3, ">  wc",  ">_wc", false);
 mt_test_tokenizer(num04, "ls  &&  wc||date",  "ls_&&_wc_||_date", false);
 
-
 void	suite_tokenizer_rule_mix(t_suite *suite)
 {
 	SUITE_ADD_TEST(suite, test_num1);

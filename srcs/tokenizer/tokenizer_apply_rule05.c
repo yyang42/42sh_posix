@@ -43,6 +43,7 @@ static char			*match(char *input)
 	char					*match;
 
 	matcher = openclose_matcher_new();
+	openclose_matcher_add(matcher, "$((", "))");
 	openclose_matcher_add(matcher, "$(", ")");
 	openclose_matcher_add(matcher, "${", "}");
 	openclose_matcher_add(matcher, "`", "`");

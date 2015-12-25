@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "openclose_matcher.h"
+#include "openclose_mgr.h"
 
 static bool			find_open_start_fn(void *oc_, void *pos)
 {
@@ -28,15 +29,22 @@ static void			resolve(t_openclose_matcher *matcher, t_lst *stack, char **s_ptr)
 
 	pos = *s_ptr;
 	oc = twl_lst_last(stack);
+	open_pos = twl_lst_find(matcher->oc_pairs, find_open_start_fn, pos);
 	if (oc && twl_str_starts_with(pos, oc->close))
 	{
+		// openclose_mgr_print(stack);
 		twl_lst_pop(stack);
+		*s_ptr += twl_strlen(oc->close);
 		return  ;
 	}
-	open_pos = twl_lst_find(matcher->oc_pairs, find_open_start_fn, pos);
-	if (open_pos)
+	else if (open_pos)
 	{
 		twl_lst_push(stack, open_pos);
+		*s_ptr += twl_strlen(open_pos->open);
+	}
+	else
+	{
+		*s_ptr += 1;
 	}
 }
 
@@ -58,6 +66,7 @@ char				*openclose_matcher_find_matching(
 	t_lst			*stack;
 
 	stack = twl_lst_new();
+	// twl_printf("====> case %s\n", s);
 	while (*s)
 	{
 		if (matcher->skip_quoted)
@@ -66,7 +75,6 @@ char				*openclose_matcher_find_matching(
 				continue ;
 		}
 		resolve(matcher, stack, &s);
-		s++;
 		if (twl_lst_len(stack) == 0)
 		{
 			twl_lst_del(stack, NULL);

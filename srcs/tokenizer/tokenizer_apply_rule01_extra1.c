@@ -12,52 +12,20 @@
 
 #include "tokenizer.h"
 
-t_rule_fn			tokenizer_rule_fns[13] = {
-					tokenizer_apply_rule01,
-					tokenizer_apply_rule01_extra1,
-					tokenizer_apply_rule02,
-					tokenizer_apply_rule03,
-					tokenizer_apply_rule04,
-					tokenizer_apply_rule05,
-					tokenizer_apply_rule06,
-					tokenizer_apply_rule07,
-					tokenizer_apply_rule08,
-					tokenizer_apply_rule09,
-					tokenizer_apply_rule10,
-					tokenizer_apply_rule11,
-					NULL};
+/*  Rule 1 extra 1
+	Tokenize parenthesis
+*/
 
-static void			set_quoted_status(t_tokenizer *t)
+t_rule_status		tokenizer_apply_rule01_extra1(t_tokenizer *t)
 {
-	if (*t->curpos == '\\')
+	if (twl_strchr("(){}", *t->curpos))
 	{
-		t->cur_is_quoted = true;
+		COUCOU;
+		tokenizer_delimit(t);
+		tokenizer_append_to_curtoken(t, 1);
 		t->curpos++;
+		tokenizer_delimit(t);
+		return (RULE_STATUS_APPLIED);
 	}
-	else
-	{
-		t->cur_is_quoted = false;
-	}
-}
-
-void				tokenizer_tokenize(t_tokenizer *t)
-{
-	t_rule_status	status;
-	int				i;
-
-	status = RULE_STATUS_NONE;
-	while (true)
-	{
-		set_quoted_status(t);
-		i = 0;
-		while (tokenizer_rule_fns[i])
-		{
-			status = tokenizer_rule_fns[i](t);
-			if (status != RULE_STATUS_NOT_APPLIED)
-				break ;
-			i++;
-		}
-		if (status == RULE_STATUS_END_OF_INPUT)
-			break ;
-	}
+	return (RULE_STATUS_NOT_APPLIED);
 }
