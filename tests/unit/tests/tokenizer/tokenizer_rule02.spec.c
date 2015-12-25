@@ -12,10 +12,10 @@ mt_test_tokenizer(num6, "aa\\&&bb",             "aa\\&_&_bb", false);
 mt_test_tokenizer(num7, "aa;;bb",               "aa_;;_bb", false);
 mt_test_tokenizer(num8, "aa;bb",                "aa_;_bb", false);
 mt_test_tokenizer(num9, "aa<<bb",               "aa_<<_bb", false);
-mt_test_tokenizer(num10, "aa<&bb",               "aa_<&_bb", false);
-mt_test_tokenizer(num11, "aa>&bb",               "aa_>&_bb", false);
-mt_test_tokenizer(num12, "aa<>bb",               "aa_<>_bb", false);
-mt_test_tokenizer(num13, "aa>|bb",               "aa_>|_bb", false);
+mt_test_tokenizer(num10, "aa<&bb",              "aa_<&_bb", false);
+mt_test_tokenizer(num11, "aa>&bb",              "aa_>&_bb", false);
+mt_test_tokenizer(num12, "aa<>bb",              "aa_<>_bb", false);
+mt_test_tokenizer(num13, "aa>|bb",              "aa_>|_bb", false);
 
 void    suite_tokenizer_rule02(t_suite *suite)
 {
