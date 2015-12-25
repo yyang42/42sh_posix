@@ -71,7 +71,7 @@ then
 
 else
 
-    diff_test features ast_echo
+    diff_test features ast_echo_ast2
 
 fi
 echo $C_CYAN"======  END TESTS  ======"$C_CLEAR

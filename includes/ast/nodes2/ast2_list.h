@@ -15,8 +15,11 @@
 
 # include "basics.h"
 
+
 typedef struct		s_ast2_list
 {
+	struct s_ast2_list		*list;
+	t_lst					*tokens;
 }					t_ast2_list;
 
 t_ast2_list			*ast2_list_new(void);

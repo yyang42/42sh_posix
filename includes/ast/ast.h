@@ -39,6 +39,7 @@ typedef struct		s_ast
 	t_lst						*out_lines;
 	int							out_depth;
 	t_lst						*tokens;
+	int							tokenpos;
 	t_ast2_complete_command		*complete_command;
 }					t_ast;
 
@@ -68,9 +69,10 @@ void				ast_str_push_line(t_ast *ast, char *type, int index);
 void				ast_str_append_comp_cmd(t_ast *ast, void *cmd_);
 
 
+void				ast_print_tokens(t_ast *ast);
 
 t_ast2_complete_command		*ast_build2_complete_command(t_ast *ast);
-t_ast2_list 				*ast_build2_list(t_ast *ast);
+t_ast2_list 				*ast_build2_list(t_ast *ast, t_lst *tokens);
 
 void						ast_str_append2_complete_command(t_ast *ast,
 								t_ast2_complete_command *complete_command);

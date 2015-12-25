@@ -24,5 +24,6 @@ t_ast				*ast_new(char *input)
 	this->out_lines = twl_lst_new();
 	this->out_depth = 0;
 	this->tokens = tokenizer_tokenize(input);
+	this->tokenpos = 0;
 	return (this);
 }

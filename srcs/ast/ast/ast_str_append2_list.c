@@ -13,12 +13,16 @@
 #include <stdlib.h>
 
 #include "ast/ast.h"
+#include "token_mgr.h"
 
 void				ast_str_append2_list(t_ast *ast, t_ast2_list *list)
 {
 	ast_str_push_line(ast, "list", 0);
 	ast->out_depth++;
-	// ast_str_append2_list(ast, list->list);
+	if (list->list)
+	{
+		ast_str_append2_list(ast, list->list);
+	}
 	// twl_lst_iter(list->andors, iter_andor_fn, ast);
 	ast->out_depth--;
 	// (void)list;

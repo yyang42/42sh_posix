@@ -11,16 +11,9 @@
 /* ************************************************************************** */
 
 #include "ast/ast.h"
+#include "token_mgr.h"
 
-#include "twl_arr.h"
-#include "utils.h"
-
-t_ast2_complete_command *ast_build2_complete_command(t_ast *ast)
+void				ast_print_tokens(t_ast *ast)
 {
-	t_ast2_complete_command		*complete_command;
-
-	complete_command = ast2_complete_command_new();
-	complete_command->list = ast_build2_list(ast, ast->tokens);
-	return (complete_command);
-	(void)ast;
+	token_mgr_print(ast->tokens);
 }
