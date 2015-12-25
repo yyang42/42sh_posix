@@ -35,12 +35,9 @@ t_ast2_list *ast_build2_list(t_ast *ast, t_lst *tokens)
 	left_list = NULL;
 	list = ast2_list_new();
 	list->tokens = twl_lst_new();
-	while (true)
+	while ((token = twl_lst_first(tokens)))
 	{
-		token = twl_lst_first(tokens);
-		if (!token)
-			break ;
-		else if (twl_strequ(token->text, ";"))
+		if (twl_strequ(token->text, ";"))
 		{
 			twl_lst_shift(tokens);
 			left_list = ast_build2_list(ast, tokens);
