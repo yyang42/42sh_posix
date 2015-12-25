@@ -52,12 +52,13 @@ echo $C_CYAN"====== START AST DIFF TESTS ======"$C_CLEAR
 if ! `env | grep -q ^LAST_ONLY=`
 then
 
-    diff_test features ast_echo
-    diff_test features ast_list
-    diff_test features ast_andor_seq
-    diff_test features ast_pipe_seq
-    diff_test features ast_subshell
-    diff_test features ast_subshell_err
+    diff_test features_ast2 ast_list
+    # diff_test features ast_echo
+    # diff_test features ast_list
+    # diff_test features ast_andor_seq
+    # diff_test features ast_pipe_seq
+    # diff_test features ast_subshell
+    # diff_test features ast_subshell_err
 
     # for CASE_PATH in $TESTS_ROOT_PATH/*; do
     #     if [ -d "${CASE_PATH}" ]; then
@@ -71,7 +72,7 @@ then
 
 else
 
-    diff_test features ast_echo_ast2
+    diff_test features_ast2 ast_list
 
 fi
 echo $C_CYAN"======  END TESTS  ======"$C_CLEAR
