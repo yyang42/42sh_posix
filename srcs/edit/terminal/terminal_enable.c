@@ -10,22 +10,25 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROG_H
-# define PROG_H
+#include "edit/terminal.h"
 
-# include "basics.h"
-# include "xopt.h"
-# include "environment.h"
-
-typedef struct		s_prog
+int					terminal_enable(void)
 {
-	void			*test;
-}					t_prog;
+	char			*name_term;
+	t_termios		*term;
 
-t_prog				*prog_new(void);
-void				prog_del(t_prog *prog);
-void				prog_run(t_prog *prog);
-void				prog_print_ast(t_prog *prog);
-void				prog_main_loop(t_prog *prog, t_environment *env);
-
-#endif
+	term = terminal_singleton();
+	if ((name_term = getenv("TERM")) == NULL)
+		return (-1);
+	if (tgetent(NULL, name_term) == ERR)
+		return (-1);
+	if (tcgetattr(0, term) == -1)
+		return (-1);
+	DISABLE_FLAG(term->c_lflag, ICANON);
+	DISABLE_FLAG(term->c_lflag, ECHO);
+	term->c_cc[VMIN] = 1;
+	term->c_cc[VTIME] = 0;
+	tcsetattr(0, TCSADRAIN, term);
+	tputs(cursor_invisible, 1, twl_putchar);
+	return (0);
+}

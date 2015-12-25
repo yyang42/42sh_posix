@@ -10,22 +10,30 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROG_H
-# define PROG_H
+#include "edit/edit.h"
+#include "edit/terminal.h"
 
-# include "basics.h"
-# include "xopt.h"
-# include "environment.h"
-
-typedef struct		s_prog
+static void			print_letter_fn(void *_letter, int index, void *_edit)
 {
-	void			*test;
-}					t_prog;
+	t_letter		*letter;
+	t_edit			*edit;
 
-t_prog				*prog_new(void);
-void				prog_del(t_prog *prog);
-void				prog_run(t_prog *prog);
-void				prog_print_ast(t_prog *prog);
-void				prog_main_loop(t_prog *prog, t_environment *env);
+	letter = _letter;
+	edit = _edit;
+	if (!edit->return_cmd && index == edit->index)
+	{
+		terminal_radio_letter();
+	}
+	twl_putstr(letter->letter);
+	terminal_clear_letter();
+}
 
-#endif
+void				edit_print_letters(t_edit *this)
+{
+	terminal_delete_line();
+	terminal_carriage_return();
+	twl_putstr(get_prompt());
+	twl_lst_iteri(this->letters, print_letter_fn, this);
+	if (this->return_cmd)
+		write(1, "\n", 1);
+}

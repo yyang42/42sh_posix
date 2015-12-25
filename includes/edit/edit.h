@@ -10,22 +10,36 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROG_H
-# define PROG_H
+#ifndef EDIT_H
+# define EDIT_H
+
+# include "twl_lst.h"
 
 # include "basics.h"
-# include "xopt.h"
-# include "environment.h"
+# include "edit/edit_key_mgr.h"
+# include "edit/letter_mgr.h"
+# include "utils.h"
 
-typedef struct		s_prog
+typedef struct		s_edit
 {
-	void			*test;
-}					t_prog;
+	t_lst			*letters;
+	t_lst			*edit_keys;
+	int				index;
+	bool			return_cmd;
+}					t_edit;
 
-t_prog				*prog_new(void);
-void				prog_del(t_prog *prog);
-void				prog_run(t_prog *prog);
-void				prog_print_ast(t_prog *prog);
-void				prog_main_loop(t_prog *prog, t_environment *env);
+t_edit				*edit_new(void);
+void				edit_del(t_edit *this);
+char				*edit_loop(t_edit *this);
+
+char				*edit_handle_one_input(t_edit *this, int key);
+char				*edit_handle_string(t_edit *this, char *str);
+
+void				edit_handle_printable(t_edit *this, int key);
+void				edit_handle_move(t_edit *this);
+void				edit_print_letters(t_edit *this);
+char				*edit_return_cmd(t_edit *this, int key);
+
+void				edit_clear_line(t_edit *this);
 
 #endif

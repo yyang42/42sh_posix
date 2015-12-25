@@ -10,22 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROG_H
-# define PROG_H
+#include "edit/terminal.h"
 
-# include "basics.h"
-# include "xopt.h"
-# include "environment.h"
-
-typedef struct		s_prog
+void				terminal_delete_line(void)
 {
-	void			*test;
-}					t_prog;
-
-t_prog				*prog_new(void);
-void				prog_del(t_prog *prog);
-void				prog_run(t_prog *prog);
-void				prog_print_ast(t_prog *prog);
-void				prog_main_loop(t_prog *prog, t_environment *env);
-
-#endif
+	tputs(delete_line, 1, twl_putchar);
+}

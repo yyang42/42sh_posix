@@ -10,22 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROG_H
-# define PROG_H
+#include "edit/letter_mgr.h"
 
-# include "basics.h"
-# include "xopt.h"
-# include "environment.h"
-
-typedef struct		s_prog
+void				letter_mgr_remove(t_lst *letters, int index)
 {
-	void			*test;
-}					t_prog;
-
-t_prog				*prog_new(void);
-void				prog_del(t_prog *prog);
-void				prog_run(t_prog *prog);
-void				prog_print_ast(t_prog *prog);
-void				prog_main_loop(t_prog *prog, t_environment *env);
-
-#endif
+	letter_del(twl_lst_popi(letters, index));
+}

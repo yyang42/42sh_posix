@@ -10,22 +10,26 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROG_H
-# define PROG_H
+#include "twl_xstdlib.h"
 
-# include "basics.h"
-# include "xopt.h"
-# include "environment.h"
+#include "edit/letter_mgr.h"
 
-typedef struct		s_prog
+void				concat_fn(void *_letter, int index, void *_cmd)
 {
-	void			*test;
-}					t_prog;
+	t_letter		*letter;
+	char			*cmd;
 
-t_prog				*prog_new(void);
-void				prog_del(t_prog *prog);
-void				prog_run(t_prog *prog);
-void				prog_print_ast(t_prog *prog);
-void				prog_main_loop(t_prog *prog, t_environment *env);
+	letter = _letter;
+	cmd = _cmd;
+	cmd[index] = letter->letter[0];
 
-#endif
+}
+
+char				*letter_mgr_concat_string(t_lst *letters)
+{
+	char			*cmd;
+
+	cmd = twl_malloc_x0(sizeof(char) * twl_lst_len(letters) + 1);
+	twl_lst_iteri(letters, concat_fn, cmd);
+	return (cmd);
+}

@@ -10,22 +10,28 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROG_H
-# define PROG_H
+#include "edit/edit_key_mgr.h"
 
-# include "basics.h"
-# include "xopt.h"
-# include "environment.h"
-
-typedef struct		s_prog
+static bool			find_fn(void *_edit_key, void *_key)
 {
-	void			*test;
-}					t_prog;
+	t_edit_key		*edit_key;
+	int				key;
 
-t_prog				*prog_new(void);
-void				prog_del(t_prog *prog);
-void				prog_run(t_prog *prog);
-void				prog_print_ast(t_prog *prog);
-void				prog_main_loop(t_prog *prog, t_environment *env);
+	edit_key = _edit_key;
+	key = *((int *)_key);
+	if (edit_key->key == key)
+		return true;
+	return false;
+}
 
-#endif
+
+void				edit_key_mgr_do(t_lst *edit_keys, void *edit, int key)
+{
+	t_edit_key		*edit_key;
+
+	edit_key = twl_lst_find(edit_keys, find_fn, &key);
+	if (edit_key)
+	{
+		edit_key->func(edit);
+	}
+}

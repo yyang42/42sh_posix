@@ -10,22 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROG_H
-# define PROG_H
+#include <stdlib.h>
 
-# include "basics.h"
-# include "xopt.h"
-# include "environment.h"
+#include "edit/edit_key.h"
 
-typedef struct		s_prog
+void				edit_key_del(t_edit_key *this)
 {
-	void			*test;
-}					t_prog;
-
-t_prog				*prog_new(void);
-void				prog_del(t_prog *prog);
-void				prog_run(t_prog *prog);
-void				prog_print_ast(t_prog *prog);
-void				prog_main_loop(t_prog *prog, t_environment *env);
-
-#endif
+	free(this);
+}

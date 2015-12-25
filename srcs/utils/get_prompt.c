@@ -10,22 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROG_H
-# define PROG_H
+#include "utils.h"
 
-# include "basics.h"
-# include "xopt.h"
-# include "environment.h"
+/*
+** You can customize your prompt here ;)
+*/
 
-typedef struct		s_prog
+char				*get_prompt(void)
 {
-	void			*test;
-}					t_prog;
-
-t_prog				*prog_new(void);
-void				prog_del(t_prog *prog);
-void				prog_run(t_prog *prog);
-void				prog_print_ast(t_prog *prog);
-void				prog_main_loop(t_prog *prog, t_environment *env);
-
-#endif
+	return ("Prompt> ");
+}

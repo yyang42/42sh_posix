@@ -10,22 +10,33 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROG_H
-# define PROG_H
+#include "twl_stdlib.h"
+#include "twl_xunistd.h"
 
-# include "basics.h"
-# include "xopt.h"
-# include "environment.h"
+#include "edit/edit.h"
+#include "edit/terminal.h"
 
-typedef struct		s_prog
+#define DISABLE_FLAG(flag_storage, flag) (flag_storage &= ~(flag))
+#define ENABLE_FLAG(flag_storage, flag) (flag_storage |= flag)
+
+
+char				*edit_loop(t_edit *this)
 {
-	void			*test;
-}					t_prog;
+	int				key;
+	char			*cmd;
 
-t_prog				*prog_new(void);
-void				prog_del(t_prog *prog);
-void				prog_run(t_prog *prog);
-void				prog_print_ast(t_prog *prog);
-void				prog_main_loop(t_prog *prog, t_environment *env);
-
-#endif
+	cmd = NULL;
+	terminal_enable();
+	// TODO Error handling
+	edit_print_letters(this);
+	while (!cmd)
+	{
+		key = twl_getch();
+		twl_lprintf("key: %d\n", key);
+		cmd = edit_handle_one_input(this, key);
+		edit_print_letters(this);
+		edit_clear_line(this);
+	}
+	terminal_disable();
+	return twl_strtrim_free(cmd);
+}

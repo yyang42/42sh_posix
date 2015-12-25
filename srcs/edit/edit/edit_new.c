@@ -10,22 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROG_H
-# define PROG_H
+#include "twl_xstdlib.h"
 
-# include "basics.h"
-# include "xopt.h"
-# include "environment.h"
+#include "edit/edit.h"
 
-typedef struct		s_prog
+
+
+t_edit				*edit_new(void)
 {
-	void			*test;
-}					t_prog;
+	t_edit			*this;
 
-t_prog				*prog_new(void);
-void				prog_del(t_prog *prog);
-void				prog_run(t_prog *prog);
-void				prog_print_ast(t_prog *prog);
-void				prog_main_loop(t_prog *prog, t_environment *env);
-
-#endif
+	this = twl_malloc_x0(sizeof(t_edit));
+	this->index = 0;
+	this->letters = letter_mgr_new();
+	this->edit_keys = edit_key_mgr_new();
+	this->return_cmd = false;
+	return (this);
+}

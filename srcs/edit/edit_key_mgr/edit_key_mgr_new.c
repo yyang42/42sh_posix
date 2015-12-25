@@ -10,22 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROG_H
-# define PROG_H
+#include "edit/edit_key_mgr.h"
+#include "edit/edit.h"
 
-# include "basics.h"
-# include "xopt.h"
-# include "environment.h"
 
-typedef struct		s_prog
+t_lst				*edit_key_mgr_new(void)
 {
-	void			*test;
-}					t_prog;
+	t_lst			*edit_keys;
 
-t_prog				*prog_new(void);
-void				prog_del(t_prog *prog);
-void				prog_run(t_prog *prog);
-void				prog_print_ast(t_prog *prog);
-void				prog_main_loop(t_prog *prog, t_environment *env);
-
-#endif
+	edit_keys = twl_lst_new();
+	edit_key_mgr_add(edit_keys, edit_key_new(ARROW_LEFT, edit_move_left));
+	edit_key_mgr_add(edit_keys, edit_key_new(ARROW_RIGHT, edit_move_right));
+	edit_key_mgr_add(edit_keys, edit_key_new(CTRL_A, edit_move_start));
+	edit_key_mgr_add(edit_keys, edit_key_new(CTRL_E, edit_move_end));
+	edit_key_mgr_add(edit_keys, edit_key_new(DELETE_KEY, edit_delete_letter));
+	return (edit_keys);
+}

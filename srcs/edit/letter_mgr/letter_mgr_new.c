@@ -10,22 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROG_H
-# define PROG_H
+#include "edit/letter_mgr.h"
 
-# include "basics.h"
-# include "xopt.h"
-# include "environment.h"
-
-typedef struct		s_prog
+t_lst				*letter_mgr_new(void)
 {
-	void			*test;
-}					t_prog;
+	t_lst			*letters;
 
-t_prog				*prog_new(void);
-void				prog_del(t_prog *prog);
-void				prog_run(t_prog *prog);
-void				prog_print_ast(t_prog *prog);
-void				prog_main_loop(t_prog *prog, t_environment *env);
-
-#endif
+	letters = twl_lst_new();
+	letter_mgr_add(letters, letter_new(32), 0);
+	return (letters);
+}

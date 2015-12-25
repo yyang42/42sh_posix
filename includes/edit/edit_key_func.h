@@ -10,22 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROG_H
-# define PROG_H
+#ifndef EDIT_KEYFUNC_H
+# define EDIT_KEYFUNC_H
 
-# include "basics.h"
-# include "xopt.h"
-# include "environment.h"
-
-typedef struct		s_prog
-{
-	void			*test;
-}					t_prog;
-
-t_prog				*prog_new(void);
-void				prog_del(t_prog *prog);
-void				prog_run(t_prog *prog);
-void				prog_print_ast(t_prog *prog);
-void				prog_main_loop(t_prog *prog, t_environment *env);
+void				edit_move_left(void *edit);
+void				edit_move_right(void *edit);
+void				edit_move_start(void *edit);
+void				edit_move_end(void *edit);
+void				edit_delete_letter(void *_edit);
 
 #endif

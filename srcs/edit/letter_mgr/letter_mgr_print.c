@@ -10,22 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROG_H
-# define PROG_H
+#include "edit/letter_mgr.h"
+#include "edit/terminal.h"
 
-# include "basics.h"
-# include "xopt.h"
-# include "environment.h"
-
-typedef struct		s_prog
+static void			print_letter_fn(void *_letter, int index, void *_cursor_index)
 {
-	void			*test;
-}					t_prog;
+	t_letter		*letter;
+	int				cursor_index;
 
-t_prog				*prog_new(void);
-void				prog_del(t_prog *prog);
-void				prog_run(t_prog *prog);
-void				prog_print_ast(t_prog *prog);
-void				prog_main_loop(t_prog *prog, t_environment *env);
+	letter = _letter;
+	cursor_index = *((int *)_cursor_index);
+	if (index == cursor_index)
+		terminal_radio_letter();
+	twl_putstr(letter->letter);
+	terminal_clear_letter();
+	// twl_lprintf("cursor_index: %d\n", cursor_index);
+}
 
-#endif
+void				letter_mgr_print(t_lst *letters, int index)
+{
+	twl_lst_iteri(letters, print_letter_fn, &index);
+}

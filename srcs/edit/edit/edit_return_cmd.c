@@ -10,22 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROG_H
-# define PROG_H
+#include "edit/edit.h"
 
-# include "basics.h"
-# include "xopt.h"
-# include "environment.h"
-
-typedef struct		s_prog
+char				*edit_return_cmd(t_edit *this, int key)
 {
-	void			*test;
-}					t_prog;
+	char			*cmd;
 
-t_prog				*prog_new(void);
-void				prog_del(t_prog *prog);
-void				prog_run(t_prog *prog);
-void				prog_print_ast(t_prog *prog);
-void				prog_main_loop(t_prog *prog, t_environment *env);
-
-#endif
+	cmd = NULL;
+	if (key != RETURN_KEY)
+		return cmd;
+	cmd = letter_mgr_concat_string(this->letters);
+	this->return_cmd = true;
+	return (cmd);
+}

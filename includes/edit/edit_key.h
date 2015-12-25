@@ -10,22 +10,28 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROG_H
-# define PROG_H
+#ifndef EDIT_MOVE_H
+# define EDIT_MOVE_H
 
 # include "basics.h"
-# include "xopt.h"
-# include "environment.h"
+# include "edit/edit_key_func.h"
 
-typedef struct		s_prog
+# define ARROW_LEFT 4479771
+# define ARROW_RIGHT 4414235
+# define DELETE_KEY 127
+# define CTRL_A 1
+# define CTRL_E 5
+# define RETURN_KEY 10
+
+typedef void		(*key_fn)(void *edit);
+
+typedef struct		s_edit_key
 {
-	void			*test;
-}					t_prog;
+	int				key;
+	key_fn			func;
+}					t_edit_key;
 
-t_prog				*prog_new(void);
-void				prog_del(t_prog *prog);
-void				prog_run(t_prog *prog);
-void				prog_print_ast(t_prog *prog);
-void				prog_main_loop(t_prog *prog, t_environment *env);
+t_edit_key			*edit_key_new(int key, key_fn fn);
+void				edit_key_del(t_edit_key *this);
 
 #endif

@@ -10,22 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROG_H
-# define PROG_H
+#ifndef LETTER_H
+# define LETTER_H
 
 # include "basics.h"
-# include "xopt.h"
-# include "environment.h"
 
-typedef struct		s_prog
+typedef struct		s_letter
 {
-	void			*test;
-}					t_prog;
+	char			letter[2];
+}					t_letter;
 
-t_prog				*prog_new(void);
-void				prog_del(t_prog *prog);
-void				prog_run(t_prog *prog);
-void				prog_print_ast(t_prog *prog);
-void				prog_main_loop(t_prog *prog, t_environment *env);
+t_letter			*letter_new(int letter);
+void				letter_del(t_letter *this);
 
 #endif

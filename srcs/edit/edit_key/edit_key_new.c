@@ -10,22 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROG_H
-# define PROG_H
+#include "twl_xstdlib.h"
 
-# include "basics.h"
-# include "xopt.h"
-# include "environment.h"
+#include "edit/edit_key.h"
 
-typedef struct		s_prog
+t_edit_key			*edit_key_new(int key, key_fn func)
 {
-	void			*test;
-}					t_prog;
+	t_edit_key		*this;
 
-t_prog				*prog_new(void);
-void				prog_del(t_prog *prog);
-void				prog_run(t_prog *prog);
-void				prog_print_ast(t_prog *prog);
-void				prog_main_loop(t_prog *prog, t_environment *env);
-
-#endif
+	this = twl_malloc_x0(sizeof(t_edit_key));
+	this->key = key;
+	this->func = func;
+	return (this);
+}

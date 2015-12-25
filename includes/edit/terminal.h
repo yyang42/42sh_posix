@@ -10,22 +10,43 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROG_H
-# define PROG_H
+#ifndef TERMINAL_H
+# define TERMINAL_H
+
+# include <stdlib.h>
+# include <sys/ioctl.h>
+# include <sys/termios.h>
+# include <term.h>
+# include <termcap.h>
+# include <termios.h>
 
 # include "basics.h"
-# include "xopt.h"
-# include "environment.h"
 
-typedef struct		s_prog
+# define DISABLE_FLAG(flag_storage, flag) (flag_storage &= ~(flag))
+# define ENABLE_FLAG(flag_storage, flag) (flag_storage |= flag)
+
+# ifndef ERR
+#  define ERR -1
+# endif
+
+typedef struct termios	t_termios;
+
+typedef struct		s_terminal
 {
-	void			*test;
-}					t_prog;
+	t_termios		*term;
+}					t_terminal;
 
-t_prog				*prog_new(void);
-void				prog_del(t_prog *prog);
-void				prog_run(t_prog *prog);
-void				prog_print_ast(t_prog *prog);
-void				prog_main_loop(t_prog *prog, t_environment *env);
+t_terminal			*terminal_new();
+void				terminal_del(t_terminal *term);
+
+t_termios			*terminal_singleton();
+
+int					terminal_enable(void);
+void				terminal_disable(void);
+
+void				terminal_carriage_return(void);
+void				terminal_delete_line(void);
+void				terminal_radio_letter(void);
+void				terminal_clear_letter(void);
 
 #endif

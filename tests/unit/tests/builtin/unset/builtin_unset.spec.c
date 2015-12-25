@@ -85,7 +85,7 @@ static void 	test_unset_both(t_test *test)
 	environment_del(env);
 }
 
-void            suite_unset(t_suite *suite)
+void            suite_builtin_unset(t_suite *suite)
 {
 	(void)suite;
 	SUITE_ADD_TEST(suite, test_unset_var);

@@ -10,22 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROG_H
-# define PROG_H
+#include "edit/edit.h"
 
-# include "basics.h"
-# include "xopt.h"
-# include "environment.h"
-
-typedef struct		s_prog
+char				*edit_handle_string(t_edit *this, char *str)
 {
-	void			*test;
-}					t_prog;
+	char			*cmd;
 
-t_prog				*prog_new(void);
-void				prog_del(t_prog *prog);
-void				prog_run(t_prog *prog);
-void				prog_print_ast(t_prog *prog);
-void				prog_main_loop(t_prog *prog, t_environment *env);
-
-#endif
+	while (*str)
+	{
+		cmd = edit_handle_one_input(this, *str);
+		str++;
+	}
+	return (cmd);
+}
