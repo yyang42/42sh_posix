@@ -10,20 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROJECT_H
-# define PROJECT_H
+#include "pattern.h"
 
-# define _GNU_SOURCE
-
-# include <fw.h>
-# include <string.h>
-# include <ctype.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <stdbool.h>
-
-char	*get_cmd_out(const char *cmd);
-char	*sandbox_cmd(const char *cmd);
-void	reset_sandbox(void);
-
-#endif
+void				pattern_build_data_(t_pattern *this)
+{
+	if (this->to_push_ == NULL)
+	{
+		this->to_push_ = (t_pattern_data *)malloc(sizeof(t_pattern_data));
+		this->to_push_->split = twl_strnew(twl_strlen(this->pattern) -
+																this->index);
+		this->to_push_->fixed = true;
+		this->itp_ = 0;
+	}
+}

@@ -10,20 +10,27 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROJECT_H
-# define PROJECT_H
+#include "pattern.h"
+#include <stdio.h>
 
-# define _GNU_SOURCE
-
-# include <fw.h>
-# include <string.h>
-# include <ctype.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <stdbool.h>
-
-char	*get_cmd_out(const char *cmd);
-char	*sandbox_cmd(const char *cmd);
-void	reset_sandbox(void);
-
-#endif
+void				pattern_build_(t_pattern *this)
+{
+	while (this->pattern[this->index])
+	{
+		pattern_build_data_(this);
+		if (this->pattern[this->index] == '\\')
+			pattern_build_escaped_(this);
+		else if (this->pattern[this->index] == '*' ||
+											this->pattern[this->index] == '?')
+			pattern_build_special_(this);
+		else if (this->pattern[this->index] == '[')
+			pattern_build_bracket_(this);
+		else if (this->pattern[this->index] == '\'')
+			pattern_build_simple_quote_(this);
+		else if (this->pattern[this->index] == '"')
+			pattern_build_double_quote_(this);
+		else
+			pattern_build_normal_char_(this);
+	}
+	pattern_build_finish_(this);
+}

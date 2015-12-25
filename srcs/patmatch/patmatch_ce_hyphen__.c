@@ -10,20 +10,32 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROJECT_H
-# define PROJECT_H
+#include "patmatch.h"
 
-# define _GNU_SOURCE
+void				patmatch_ce_hyphen__(t_class_expr__ *ce)
+{
+	char			beg;
+	char			end;
 
-# include <fw.h>
-# include <string.h>
-# include <ctype.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <stdbool.h>
-
-char	*get_cmd_out(const char *cmd);
-char	*sandbox_cmd(const char *cmd);
-void	reset_sandbox(void);
-
-#endif
+	beg = ce->name[ce->ind_n];
+	end = ce->name[ce->ind_n + 2];
+	if (ce->ind_n + 2 == (int)twl_strlen(ce->name))
+	{
+		if (!twl_strchr(ce->expr, ce->name[ce->ind_n]))
+		{
+			ce->expr[ce->ind_e] = ce->name[ce->ind_n];
+			ce->ind_e += 1;
+		}
+		return ;
+	}
+	while (beg <= end)
+	{
+		if (!twl_strchr(ce->expr, beg))
+		{
+			ce->expr[ce->ind_e] = beg;
+			ce->ind_e += 1;
+		}
+		beg += 1;
+	}
+	ce->ind_n += 2;
+}

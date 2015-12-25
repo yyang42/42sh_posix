@@ -10,20 +10,27 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROJECT_H
-# define PROJECT_H
+#include "patmatch.h"
 
-# define _GNU_SOURCE
+int				patmatch_asterisk__(t_patmatch *this, t_match__ *m)
+{
+	int				ret;
+	int				len;
 
-# include <fw.h>
-# include <string.h>
-# include <ctype.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <stdbool.h>
-
-char	*get_cmd_out(const char *cmd);
-char	*sandbox_cmd(const char *cmd);
-void	reset_sandbox(void);
-
-#endif
+	len = m->len - m->ind_n;
+	while (len >= 0)
+	{
+		m->ind_n += len;
+		m->ind_p += 1;
+		if ((ret = patmatch_supervisor__(this, m)))
+		{
+			m->ind_n -= len;
+			m->ind_p -= 1;
+			return (ret);
+		}
+		m->ind_n -= len;
+		m->ind_p -= 1;
+		len -= 1;
+	}
+	return (0);
+}

@@ -10,20 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROJECT_H
-# define PROJECT_H
+#include "pattern.h"
 
-# define _GNU_SOURCE
-
-# include <fw.h>
-# include <string.h>
-# include <ctype.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <stdbool.h>
-
-char	*get_cmd_out(const char *cmd);
-char	*sandbox_cmd(const char *cmd);
-void	reset_sandbox(void);
-
-#endif
+t_lst				*pattern_get_pattern(t_pattern *this, int depth)
+{
+	if (depth < 0 || depth >= pattern_get_depth(this))
+		return (NULL);
+	return (twl_lst_get(this->harm_, depth));
+}

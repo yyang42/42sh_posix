@@ -10,20 +10,26 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROJECT_H
-# define PROJECT_H
+#include "pattern.h"
 
-# define _GNU_SOURCE
+int					pattern_get_depth(t_pattern *this)
+{
+	int				index_str;
+	int				depth;
+	char			*pattern;
 
-# include <fw.h>
-# include <string.h>
-# include <ctype.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <stdbool.h>
-
-char	*get_cmd_out(const char *cmd);
-char	*sandbox_cmd(const char *cmd);
-void	reset_sandbox(void);
-
-#endif
+	if (this->depth != -1)
+		return (this->depth);
+	index_str = 0;
+	depth = 1;
+	pattern = pattern_to_string(this);
+	while (pattern[index_str])
+	{
+		if (pattern[index_str] == '/' && index_str > 0 &&
+				pattern[index_str - 1] != '/')
+			depth += 1;
+		index_str += 1;
+	}
+	free(pattern);
+	return (depth);
+}

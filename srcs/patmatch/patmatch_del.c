@@ -10,20 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROJECT_H
-# define PROJECT_H
+#include <stdlib.h>
 
-# define _GNU_SOURCE
+#include "patmatch.h"
 
-# include <fw.h>
-# include <string.h>
-# include <ctype.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <stdbool.h>
-
-char	*get_cmd_out(const char *cmd);
-char	*sandbox_cmd(const char *cmd);
-void	reset_sandbox(void);
-
-#endif
+void				patmatch_del(t_patmatch *this)
+{
+	twl_dict_del(this->class_expr, &free);
+	this->class_expr = NULL;
+	this->match = NULL;
+	this->pattern = NULL;
+	free(this);
+}

@@ -10,20 +10,34 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROJECT_H
-# define PROJECT_H
+#include "patmatch.h"
 
-# define _GNU_SOURCE
+int					patmatch_bracket__(t_patmatch *this, t_match__ *m,
+														t_pattern_data *data)
+{
+	char			*content;
+	char			*possibilities;
+	int				ret;
 
-# include <fw.h>
-# include <string.h>
-# include <ctype.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <stdbool.h>
-
-char	*get_cmd_out(const char *cmd);
-char	*sandbox_cmd(const char *cmd);
-void	reset_sandbox(void);
-
-#endif
+	content = twl_strndup(data->split + 1, twl_strlen(data->split) - 2);
+	ret = 0;
+	if (!(possibilities = twl_dict_get(this->class_expr, content)))
+	{
+		patmatch_add_class_expr_(this, content);
+		if (!(possibilities = twl_dict_get(this->class_expr, content)))
+		{
+			free(content);
+			return (0);
+		}
+	}
+	free(content);
+	if (twl_strchr(possibilities, m->name[m->ind_n]))
+	{
+		m->ind_n += 1;
+		m->ind_p += 1;
+		ret = patmatch_supervisor__(this, m);
+		m->ind_n -= 1;
+		m->ind_p -= 1;
+	}
+	return (ret);
+}

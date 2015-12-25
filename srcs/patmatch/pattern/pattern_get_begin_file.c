@@ -10,20 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROJECT_H
-# define PROJECT_H
+#include "pattern.h"
 
-# define _GNU_SOURCE
+char				pattern_get_begin_file(t_pattern *this)
+{
+	const t_pattern_data	*first = twl_lst_first(this->split);
 
-# include <fw.h>
-# include <string.h>
-# include <ctype.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <stdbool.h>
-
-char	*get_cmd_out(const char *cmd);
-char	*sandbox_cmd(const char *cmd);
-void	reset_sandbox(void);
-
-#endif
+	if (!first)
+		return (0);
+	if (first->split[0] == '/')
+		return ('/');
+	return ('.');
+}

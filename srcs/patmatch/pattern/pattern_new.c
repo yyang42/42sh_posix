@@ -10,20 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROJECT_H
-# define PROJECT_H
+#include "twl_xstdlib.h"
 
-# define _GNU_SOURCE
+#include "pattern.h"
 
-# include <fw.h>
-# include <string.h>
-# include <ctype.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <stdbool.h>
+t_pattern			*pattern_new(char *pattern)
+{
+	t_pattern		*this;
 
-char	*get_cmd_out(const char *cmd);
-char	*sandbox_cmd(const char *cmd);
-void	reset_sandbox(void);
-
-#endif
+	this = twl_malloc_x0(sizeof(t_pattern));
+	this->pattern = twl_strdup(pattern);
+	this->split = twl_lst_new();
+	this->depth = -1;
+	this->index = 0;
+	this->to_push_ = NULL;
+	this->itp_ = 0;
+	pattern_build_(this);
+	return (this);
+}

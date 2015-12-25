@@ -10,20 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROJECT_H
-# define PROJECT_H
+#include "patmatch.h"
 
-# define _GNU_SOURCE
+int				patmatch_question_mark__(t_patmatch *this, t_match__ *m)
+{
+	int				ret;
 
-# include <fw.h>
-# include <string.h>
-# include <ctype.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <stdbool.h>
-
-char	*get_cmd_out(const char *cmd);
-char	*sandbox_cmd(const char *cmd);
-void	reset_sandbox(void);
-
-#endif
+	if (m->name[m->ind_n] == 0)
+		return (0);
+	m->ind_n += 1;
+	m->ind_p += 1;
+	ret = patmatch_supervisor__(this, m);
+	m->ind_n -= 1;
+	m->ind_p -= 1;
+	return (ret);
+}

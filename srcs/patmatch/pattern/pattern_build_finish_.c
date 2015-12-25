@@ -10,20 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROJECT_H
-# define PROJECT_H
+#include "pattern.h"
 
-# define _GNU_SOURCE
-
-# include <fw.h>
-# include <string.h>
-# include <ctype.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <stdbool.h>
-
-char	*get_cmd_out(const char *cmd);
-char	*sandbox_cmd(const char *cmd);
-void	reset_sandbox(void);
-
-#endif
+void				pattern_build_finish_(t_pattern *this)
+{
+	if (this->itp_)
+	{
+		pattern_build_push_(this);
+	}
+	else if (this->to_push_)
+	{
+		free(this->to_push_->split);
+		free(this->to_push_);
+		this->to_push_ = NULL;
+	}
+	pattern_build_harmonize_(this);
+}

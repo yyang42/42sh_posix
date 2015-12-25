@@ -10,20 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROJECT_H
-# define PROJECT_H
+#include "pattern.h"
 
-# define _GNU_SOURCE
-
-# include <fw.h>
-# include <string.h>
-# include <ctype.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <stdbool.h>
-
-char	*get_cmd_out(const char *cmd);
-char	*sandbox_cmd(const char *cmd);
-void	reset_sandbox(void);
-
-#endif
+int					pattern_is_directory(t_pattern *this, int depth)
+{
+	if (depth < 0 || depth + 1 >= pattern_get_depth(this))
+	{
+		return (0);
+	}
+	return (1);
+}

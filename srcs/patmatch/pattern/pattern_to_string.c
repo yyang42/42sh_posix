@@ -10,20 +10,26 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROJECT_H
-# define PROJECT_H
+#include "pattern.h"
 
-# define _GNU_SOURCE
+static void			iter_to_string(void *data_, void *ret_)
+{
+	t_pattern_data	*data;
+	char			**ret;
 
-# include <fw.h>
-# include <string.h>
-# include <ctype.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <stdbool.h>
+	data = data_;
+	ret = ret_;
+	if (!*ret)
+		*ret = twl_strdup(data->split);
+	else
+		*ret = twl_strjoinfree(*ret, data->split, 'l');
+}
 
-char	*get_cmd_out(const char *cmd);
-char	*sandbox_cmd(const char *cmd);
-void	reset_sandbox(void);
+char				*pattern_to_string(t_pattern *this)
+{
+	char			*ret;
 
-#endif
+	ret = NULL;
+	twl_lst_iter(this->split, &iter_to_string, &ret);
+	return (ret);
+}

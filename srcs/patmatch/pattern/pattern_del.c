@@ -10,20 +10,31 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROJECT_H
-# define PROJECT_H
+#include <stdlib.h>
 
-# define _GNU_SOURCE
+#include "pattern.h"
 
-# include <fw.h>
-# include <string.h>
-# include <ctype.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <stdbool.h>
+static void			del_pattern_data(void *data_)
+{
+	t_pattern_data	*data;
 
-char	*get_cmd_out(const char *cmd);
-char	*sandbox_cmd(const char *cmd);
-void	reset_sandbox(void);
+	data = data_;
+	free(data->split);
+	free(data);
+}
 
-#endif
+static void			del_harmonize(void *data_)
+{
+	t_lst			*data;
+
+	data = data_;
+	twl_lst_del(data, del_pattern_data);
+}
+
+void				pattern_del(t_pattern *this)
+{
+	twl_lst_del(this->split, &del_pattern_data);
+	twl_lst_del(this->harm_, &del_harmonize);
+	free(this->pattern);
+	free(this);
+}
