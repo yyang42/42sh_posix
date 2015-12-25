@@ -6,7 +6,7 @@
 mt_test_tokenizer(num01, "> wc",                 ">_wc",                 false);
 mt_test_tokenizer(num02, ">\nwc",                ">_\n_wc",              false);
 mt_test_tokenizer(num03, ">  wc",                ">_wc",                 false);
-mt_test_tokenizer(num04, "ls  &&  wc||date",    "ls_&&_wc_||_date",     false);
+mt_test_tokenizer(num04, "ls  &&  wc||date",     "ls_&&_wc_||_date",     false);
 
 void    suite_tokenizer_rule_mix(t_suite *suite)
 {
