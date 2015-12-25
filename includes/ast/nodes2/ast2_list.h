@@ -10,27 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "prog.h"
+#ifndef AST2_LIST_H
+# define AST2_LIST_H
 
-#include "ast/ast.h"
-#include "twl_xstdio.h"
+# include "basics.h"
 
-void				prog_print_ast(t_prog *prog)
+typedef struct		s_ast2_list
 {
-	t_xopt			*xopt;
-	char			*str;
-	t_ast			*ast;
+}					t_ast2_list;
 
-	xopt = xopt_singleton();
-	if (xopt->print_ast && twl_lst_len(xopt->opt->args))
-	{
-		str = twl_file_to_str(twl_lst_get(xopt->opt->args, 0));
-		ast = ast_new(str);
-		ast_build2(ast);
-		str = ast_str(ast);
-		twl_putstr(str);
-		ast_del(ast);
-		free(str);
-	}
-	(void)prog;
-}
+t_ast2_list			*ast2_list_new(void);
+void				ast2_list_del(t_ast2_list *ast2_list);
+
+#endif

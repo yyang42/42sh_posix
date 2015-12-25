@@ -40,11 +40,14 @@ static void			set_quoted_status(t_tokenizer *t)
 	}
 }
 
-void				tokenizer_tokenize(t_tokenizer *t)
+t_lst				*tokenizer_tokenize(char *input)
 {
 	t_rule_status	status;
+	t_tokenizer		*t;
 	int				i;
 
+	t = tokenizer_new(input);
+	t->tokens = twl_lst_new();
 	status = RULE_STATUS_NONE;
 	while (true)
 	{
@@ -60,4 +63,5 @@ void				tokenizer_tokenize(t_tokenizer *t)
 		if (status == RULE_STATUS_END_OF_INPUT)
 			break ;
 	}
+	return (t->tokens);
 }

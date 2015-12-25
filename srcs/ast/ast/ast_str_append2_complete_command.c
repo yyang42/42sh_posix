@@ -10,27 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "prog.h"
+#include <stdlib.h>
 
 #include "ast/ast.h"
-#include "twl_xstdio.h"
 
-void				prog_print_ast(t_prog *prog)
+void				ast_str_append2_complete_command(t_ast *ast,
+								t_ast2_complete_command *complete_command)
 {
-	t_xopt			*xopt;
-	char			*str;
-	t_ast			*ast;
-
-	xopt = xopt_singleton();
-	if (xopt->print_ast && twl_lst_len(xopt->opt->args))
-	{
-		str = twl_file_to_str(twl_lst_get(xopt->opt->args, 0));
-		ast = ast_new(str);
-		ast_build2(ast);
-		str = ast_str(ast);
-		twl_putstr(str);
-		ast_del(ast);
-		free(str);
-	}
-	(void)prog;
+	ast_str_push_line(ast, "complete_command", 0);
+	ast->out_depth++;
+	ast_str_append2_list(ast, complete_command->list);
+	// twl_lst_iter(complete_command->andors, iter_andor_fn, ast);
+	ast->out_depth--;
+	// (void)complete_command;
+	(void)complete_command;
 }

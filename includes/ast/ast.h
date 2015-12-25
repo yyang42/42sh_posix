@@ -28,13 +28,18 @@
 # include "ast/nodes/ast_pipe_seq.h"
 # include "ast/nodes/ast_comp_cmd.h"
 
+# include "ast/nodes2/ast2_complete_command.h"
+# include "tokenizer.h"
+
 typedef struct		s_ast
 {
-	char			*raw;
-	t_ast_list		*root;
-	t_parser		*parser;
-	t_lst			*out_lines;
-	int				out_depth;
+	char						*raw;
+	t_ast_list					*root;
+	t_parser					*parser;
+	t_lst						*out_lines;
+	int							out_depth;
+	t_lst						*tokens;
+	t_ast2_complete_command		*complete_command;
 }					t_ast;
 
 t_ast				*ast_new(char *input);
@@ -42,6 +47,8 @@ void				ast_del(t_ast *this);
 
 char				*ast_str(t_ast *this);
 void				ast_build(t_ast *this);
+void				ast_build2(t_ast *this);
+
 
 t_ast_andor_seq		*ast_build_andor_seq(t_ast *ast);
 t_ast_cmd_subshell	*ast_build_cmd_subshell(t_ast *ast);
@@ -59,6 +66,15 @@ void				ast_str_append_pipe(t_ast *ast, t_ast_pipe_seq *pipe);
 void				ast_str_append_simple_cmd(t_ast *ast, void *cmd);
 void				ast_str_push_line(t_ast *ast, char *type, int index);
 void				ast_str_append_comp_cmd(t_ast *ast, void *cmd_);
+
+
+
+t_ast2_complete_command		*ast_build2_complete_command(t_ast *ast);
+t_ast2_list 				*ast_build2_list(t_ast *ast);
+
+void						ast_str_append2_complete_command(t_ast *ast,
+								t_ast2_complete_command *complete_command);
+void						ast_str_append2_list(t_ast *ast, t_ast2_list *list);
 
 /*
 

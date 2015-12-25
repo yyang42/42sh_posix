@@ -10,27 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "prog.h"
+#include "twl_xstdlib.h"
 
-#include "ast/ast.h"
-#include "twl_xstdio.h"
+#include "ast/nodes2/ast2_separator.h"
 
-void				prog_print_ast(t_prog *prog)
+t_ast2_separator			*ast2_separator_new(void)
 {
-	t_xopt			*xopt;
-	char			*str;
-	t_ast			*ast;
+	t_ast2_separator		*ast2_separator;
 
-	xopt = xopt_singleton();
-	if (xopt->print_ast && twl_lst_len(xopt->opt->args))
-	{
-		str = twl_file_to_str(twl_lst_get(xopt->opt->args, 0));
-		ast = ast_new(str);
-		ast_build2(ast);
-		str = ast_str(ast);
-		twl_putstr(str);
-		ast_del(ast);
-		free(str);
-	}
-	(void)prog;
+	ast2_separator = twl_malloc_x0(sizeof(t_ast2_separator));
+	return (ast2_separator);
 }

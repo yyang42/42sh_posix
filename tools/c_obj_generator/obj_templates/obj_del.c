@@ -14,7 +14,7 @@
 
 #include "<OBJ_NAME>.h"
 
-void				<OBJ_NAME>_del(t_<OBJ_NAME> *this)
+void				<OBJ_NAME>_del(t_<OBJ_NAME> *<OBJ_NAME>)
 {
-	free(this);
+	free(<OBJ_NAME>);
 }

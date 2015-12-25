@@ -35,11 +35,12 @@ typedef struct		s_tokenizer
 	bool			cur_is_quoted;
 }					t_tokenizer;
 
+t_lst				*tokenizer_tokenize(char *input);
+
 t_tokenizer			*tokenizer_new(char *input);
 void				tokenizer_del(t_tokenizer *this);
 
 void				tokenizer_delimit(t_tokenizer *this);
-void				tokenizer_tokenize(t_tokenizer *this);
 void				tokenizer_append_to_curtoken(t_tokenizer *t, int len);
 
 bool				tokenizer_utils_is_start_of_op(t_tokenizer *this, char c);

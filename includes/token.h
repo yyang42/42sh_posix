@@ -17,6 +17,7 @@
 
 typedef enum		e_token_type
 {
+	TOKEN_UNKNOWN,
 	TOKEN_WORD,
 	TOKEN_ASSIGNMENT_WORD,
 	TOKEN_NAME,
@@ -53,20 +54,13 @@ typedef enum		e_token_type
 	TOKEN_IN
 }					t_token_type;
 
-typedef	enum		e_tokentype
-{
-	PREV_NONE,
-	PREV_WORD,
-	PREV_OPERATOR
-}					t_tokentype;
-
 typedef struct		s_token
 {
 	t_token_type	type;
 	char			*text;
 }					t_token;
 
-t_token				*token_new(t_token_type type, char *text);
+t_token				*token_new(char *text);
 void				token_del(t_token *this);
 
 #endif

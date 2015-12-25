@@ -29,17 +29,16 @@ void	reset_sandbox(void);
 # define mt_test_tokenizer(test_name, input, expected, debug) \
 	static void test_## test_name(t_test *test) \
 	{ \
-		t_tokenizer		*tokenizer; \
+		t_lst		*tokens; \
 		char			*joined; \
-		tokenizer = tokenizer_new(input); \
+		tokens = tokenizer_tokenize(input); \
 		if (debug) \
 		{ \
-			token_mgr_print(tokenizer->tokens); \
+			token_mgr_print(tokens); \
 		} \
-		joined = token_mgr_strjoin(tokenizer->tokens); \
+		joined = token_mgr_strjoin(tokens); \
 		mt_assert(strcmp(joined, expected) == 0); \
 		free(joined); \
-		tokenizer_del(tokenizer); \
 	}
 
 #endif

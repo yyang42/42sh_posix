@@ -114,6 +114,9 @@ obj:
 mgr:
 	sh ./tools/c_obj_generator/create_object_mgr.sh $(obj) `pwd`
 
+node:
+	sh ./tools/c_obj_generator/create_node.sh $(obj) `pwd`
+
 install:
 	mkdir -p libs
 ifeq ($(wildcard $(LIB_TOWEL_PATH)),)

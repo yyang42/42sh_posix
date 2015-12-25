@@ -19,12 +19,10 @@ t_tokenizer			*tokenizer_new(char *input)
 	t_tokenizer		*this;
 
 	this = twl_malloc_x0(sizeof(t_tokenizer));
-	this->tokens = twl_lst_new();
 	this->input = twl_strdup(input);
 	this->curpos = input;
 	this->curtoken = twl_strnew(twl_strlen(input));
 	this->curtokenplus = twl_strnew(twl_strlen(input));
 	this->cur_is_quoted = false;
-	tokenizer_tokenize(this);
 	return (this);
 }

@@ -18,7 +18,7 @@ void				tokenizer_delimit(t_tokenizer *this)
 {
 	if (*this->curtoken != '\0')
 	{
-		twl_lst_push(this->tokens, token_new(TOKEN_WORD, twl_strdup(this->curtoken)));
+		twl_lst_push(this->tokens, token_new(twl_strdup(this->curtoken)));
 		this->curtoken[0] = '\0';
 	}
 }

@@ -24,7 +24,8 @@
 char				*ast_str(t_ast *ast)
 {
 	char			*out;
-	ast_str_append_list(ast, ast->root);
+	// ast_str_append_list(ast, ast->root);
+	ast_str_append2_complete_command(ast, ast->complete_command);
 	out = twl_lst_strjoin(ast->out_lines, "");
 	return (out);
 }

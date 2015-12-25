@@ -10,27 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "prog.h"
+#include "twl_xstdlib.h"
 
-#include "ast/ast.h"
-#include "twl_xstdio.h"
+#include "ast/nodes2/<OBJ_NAME>.h"
 
-void				prog_print_ast(t_prog *prog)
+t_<OBJ_NAME>			<PADDING>*<OBJ_NAME>_new(void)
 {
-	t_xopt			*xopt;
-	char			*str;
-	t_ast			*ast;
+	t_<OBJ_NAME>		<PADDING>*<OBJ_NAME>;
 
-	xopt = xopt_singleton();
-	if (xopt->print_ast && twl_lst_len(xopt->opt->args))
-	{
-		str = twl_file_to_str(twl_lst_get(xopt->opt->args, 0));
-		ast = ast_new(str);
-		ast_build2(ast);
-		str = ast_str(ast);
-		twl_putstr(str);
-		ast_del(ast);
-		free(str);
-	}
-	(void)prog;
+	<OBJ_NAME> = twl_malloc_x0(sizeof(t_<OBJ_NAME>));
+	return (<OBJ_NAME>);
 }

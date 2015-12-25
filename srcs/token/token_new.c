@@ -14,12 +14,12 @@
 
 #include "token.h"
 
-t_token				*token_new(t_token_type type, char *text)
+t_token				*token_new(char *text)
 {
 	t_token		*this;
 
 	this = twl_malloc_x0(sizeof(t_token));
-	this->type = type;
+	this->type = TOKEN_UNKNOWN;
 	this->text = twl_strdup(text);
 	return (this);
 }
