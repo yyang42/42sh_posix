@@ -10,11 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST2_COMPLETE_COMMAND_H
-# define AST2_COMPLETE_COMMAND_H
+#ifndef AST_COMPLETE_COMMAND_H
+# define AST_COMPLETE_COMMAND_H
 
 # include "basics.h"
 
+# include "ast/ast_utils.h"
 # include "ast/nodes/ast_list.h"
 # include "ast/nodes/ast_separator.h"
 
@@ -25,6 +26,12 @@ typedef struct		s_ast_complete_command
 }					t_ast_complete_command;
 
 t_ast_complete_command		*ast_complete_command_new(void);
-void						ast_complete_command_del(t_ast_complete_command *ast_complete_command);
+void						ast_complete_command_del(
+								t_ast_complete_command *ast_complete_command);
+
+t_ast_complete_command		*ast_complete_command_new_from_tokens(t_lst *tokens);
+void						ast_complete_command_print_rec(
+								t_ast_complete_command *ast_complete_command,
+								int depth);
 
 #endif

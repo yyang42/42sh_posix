@@ -10,17 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/ast.h"
+#include "ast/nodes/ast_complete_command.h"
 
-#include "twl_arr.h"
-#include "utils.h"
-
-t_ast_complete_command *ast_build_complete_command(t_ast *ast)
+void				ast_complete_command_print_rec(
+							t_ast_complete_command *ast_complete_command,
+							int depth)
 {
-	t_ast_complete_command		*complete_command;
-
-	complete_command = ast_complete_command_new();
-	complete_command->list = ast_build_list(ast, ast->tokens);
-	return (complete_command);
-	(void)ast;
+	ast_print_indent(depth);
+	twl_printf("%s\n", "complete_command");
+	ast_list_print_rec(ast_complete_command->list, depth + 1);
+	(void)depth;
+	(void)ast_complete_command;
 }

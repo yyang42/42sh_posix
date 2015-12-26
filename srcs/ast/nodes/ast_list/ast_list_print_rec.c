@@ -10,15 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "ast/nodes/ast_list.h"
+#include "token_mgr.h"
 
-#include "ast/ast.h"
-
-char				*ast_str(t_ast *ast)
+void				ast_list_print_rec(
+							t_ast_list *list,
+							int depth)
 {
-	char			*out;
-	// ast_str_append_list(ast, ast->root);
-	ast_str_append_complete_command(ast, ast->complete_command);
-	out = twl_lst_strjoin(ast->out_lines, "");
-	return (out);
+	ast_print_indent(depth);
+	twl_putstr("list (");
+	token_mgr_print_token_text_by_index(list->tokens, 0);
+	twl_putstr(")\n");
+	if (list->list)
+		ast_list_print_rec(list->list, depth + 1);
 }

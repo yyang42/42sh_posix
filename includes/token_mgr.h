@@ -21,6 +21,8 @@ void				token_mgr_del(t_lst *tokens);
 void				token_mgr_add(t_lst *tokens, t_token *token);
 void				token_mgr_remove(t_lst *tokens, t_token *token);
 void				token_mgr_print(t_lst *tokens);
+void				token_mgr_print_token_text_by_index(t_lst *tokens,
+																	int index);
 
 char				*token_mgr_strjoin(t_lst *tokens);
 

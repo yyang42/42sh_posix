@@ -10,27 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
+
 #include "ast/ast.h"
 
-void				ast_str_push_line(t_ast *ast, char *type, int index)
+void				ast_print_rec(t_ast *ast)
 {
-	char			*tmp;
-	char			*code_seg;
-
-	// code_seg = twl_strndup(ast->parser->raw + index, 20);
-	// code_seg = twl_str_replace_free(code_seg, "\n", "\\n");
-	twl_asprintf(&tmp, "%*s%s",
-		ast->out_depth * AST_TAB_WIDTH, "", type);
-	twl_lst_push(ast->out_lines, tmp);
-
-	if (twl_strequ(type, "SIMPLE_CMD"))
-	{
-		code_seg = twl_strndup(ast->parser->raw + index, 20);
-		code_seg = twl_str_replace_free(code_seg, "\n", "\\n");
-		twl_lst_push(ast->out_lines, twl_strdup(" "));
-		twl_lst_push(ast->out_lines, code_seg);
-	}
-	twl_lst_push(ast->out_lines, twl_strdup("\n"));
-	// free(code_seg);
-	(void)index;
+	ast_complete_command_print_rec(ast->complete_command, 0);
 }

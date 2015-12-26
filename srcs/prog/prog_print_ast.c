@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "prog.h"
+#include "twl_xstdio.h"
 
 #include "ast/ast.h"
-#include "twl_xstdio.h"
+#include "prog.h"
 
 void				prog_print_ast(t_prog *prog)
 {
@@ -27,8 +27,7 @@ void				prog_print_ast(t_prog *prog)
 		str = twl_file_to_str(twl_lst_get(xopt->opt->args, 0));
 		ast = ast_new(str);
 		ast_build(ast);
-		str = ast_str(ast);
-		twl_putstr(str);
+		ast_print_rec(ast);
 		ast_del(ast);
 		free(str);
 	}

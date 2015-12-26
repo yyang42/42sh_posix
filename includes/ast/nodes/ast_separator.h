@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST2_SEPARATOR_H
-# define AST2_SEPARATOR_H
+#ifndef AST_SEPARATOR_H
+# define AST_SEPARATOR_H
 
 # include "basics.h"
 

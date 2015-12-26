@@ -10,35 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-
-#include "ast/ast.h"
 #include "token_mgr.h"
 
-static char			*get_list_text(t_ast_list *list)
+void				token_mgr_print_token_text_by_index(t_lst *tokens, int index)
 {
 	t_token			*token;
-	char			*out;
 
-	out = twl_strdup("list");
-	token = twl_lst_first(list->tokens);
+	token = twl_lst_get(tokens, index);
 	if (token)
-	{
-		out = twl_strjoinfree(out, " ", 'l');
-		out = twl_strjoinfree(out, token->text, 'l');
-	}
-	return (out);
-}
-
-void				ast_str_append_list(t_ast *ast, t_ast_list *list)
-{
-	char			*text;
-
-	text = get_list_text(list);
-	ast_str_push_line(ast, text, 0);
-	ast->out_depth++;
-	if (list->list)
-		ast_str_append_list(ast, list->list);
-	ast->out_depth--;
-	free(text);
+		twl_putstr(token->text);
 }

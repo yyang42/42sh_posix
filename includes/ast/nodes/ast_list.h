@@ -10,11 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST2_LIST_H
-# define AST2_LIST_H
+#ifndef AST_LIST_H
+# define AST_LIST_H
 
 # include "basics.h"
 
+# include "ast/ast_utils.h"
 
 typedef struct		s_ast_list
 {
@@ -25,4 +26,8 @@ typedef struct		s_ast_list
 t_ast_list			*ast_list_new(void);
 void				ast_list_del(t_ast_list *ast_list);
 
+t_ast_list			*ast_list_new_from_tokens(t_lst *tokens);
+void				ast_list_print_rec(
+							t_ast_list *ast_list,
+							int depth);
 #endif
