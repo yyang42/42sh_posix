@@ -15,7 +15,7 @@
 #include "ast/ast.h"
 
 void				ast_str_append_complete_command(t_ast *ast,
-								t_ast2_complete_command *complete_command)
+								t_ast_complete_command *complete_command)
 {
 	ast_str_push_line(ast, "complete_command", 0);
 	ast->out_depth++;

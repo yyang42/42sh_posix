@@ -10,16 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST2_SEPARATOR_H
-# define AST2_SEPARATOR_H
+#include "twl_xstdlib.h"
 
-# include "basics.h"
+#include "ast/nodes/ast_list.h"
 
-typedef struct		s_ast2_separator
+t_ast_list			*ast_list_new(void)
 {
-}					t_ast2_separator;
+	t_ast_list		*ast_list;
 
-t_ast2_separator			*ast2_separator_new(void);
-void				ast2_separator_del(t_ast2_separator *ast2_separator);
-
-#endif
+	ast_list = twl_malloc_x0(sizeof(t_ast_list));
+	return (ast_list);
+}

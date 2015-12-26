@@ -12,9 +12,9 @@
 
 #include <stdlib.h>
 
-#include "ast/nodes/ast2_list.h"
+#include "ast/nodes/ast_list.h"
 
-void				ast2_list_del(t_ast2_list *ast2_list)
+void				ast_list_del(t_ast_list *ast_list)
 {
-	free(ast2_list);
+	free(ast_list);
 }

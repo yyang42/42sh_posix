@@ -15,7 +15,7 @@
 #include "ast/ast.h"
 #include "token_mgr.h"
 
-static char			*get_list_text(t_ast2_list *list)
+static char			*get_list_text(t_ast_list *list)
 {
 	t_token			*token;
 	char			*out;
@@ -30,7 +30,7 @@ static char			*get_list_text(t_ast2_list *list)
 	return (out);
 }
 
-void				ast_str_append_list(t_ast *ast, t_ast2_list *list)
+void				ast_str_append_list(t_ast *ast, t_ast_list *list)
 {
 	char			*text;
 

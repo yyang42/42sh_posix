@@ -12,12 +12,12 @@
 
 #include "twl_xstdlib.h"
 
-#include "ast/nodes/ast2_complete_command.h"
+#include "ast/nodes/ast_separator.h"
 
-t_ast2_complete_command			*ast2_complete_command_new(void)
+t_ast_separator			*ast_separator_new(void)
 {
-	t_ast2_complete_command		*ast2_complete_command;
+	t_ast_separator		*ast_separator;
 
-	ast2_complete_command = twl_malloc_x0(sizeof(t_ast2_complete_command));
-	return (ast2_complete_command);
+	ast_separator = twl_malloc_x0(sizeof(t_ast_separator));
+	return (ast_separator);
 }

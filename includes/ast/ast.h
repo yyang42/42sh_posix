@@ -18,19 +18,19 @@
 # include "parser.h"
 # include "ast/ast_defines.h"
 
-# include "ast/nodes/ast2_complete_command.h"
+# include "ast/nodes/ast_complete_command.h"
 # include "tokenizer.h"
 
 typedef struct		s_ast
 {
 	char						*raw;
-	t_ast2_list					*root;
+	t_ast_list					*root;
 	t_parser					*parser;
 	t_lst						*out_lines;
 	int							out_depth;
 	t_lst						*tokens;
 	int							tokenpos;
-	t_ast2_complete_command		*complete_command;
+	t_ast_complete_command		*complete_command;
 }					t_ast;
 
 t_ast				*ast_new(char *input);
@@ -43,12 +43,12 @@ void				ast_str_push_line(t_ast *ast, char *type, int index);
 
 void				ast_print_tokens(t_ast *ast);
 
-t_ast2_complete_command		*ast_build_complete_command(t_ast *ast);
-t_ast2_list 				*ast_build_list(t_ast *ast, t_lst *tokens);
+t_ast_complete_command		*ast_build_complete_command(t_ast *ast);
+t_ast_list 				*ast_build_list(t_ast *ast, t_lst *tokens);
 
 void						ast_str_append_complete_command(t_ast *ast,
-								t_ast2_complete_command *complete_command);
-void						ast_str_append_list(t_ast *ast, t_ast2_list *list);
+								t_ast_complete_command *complete_command);
+void						ast_str_append_list(t_ast *ast, t_ast_list *list);
 
 /*
 

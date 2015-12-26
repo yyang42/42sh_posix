@@ -15,11 +15,11 @@
 #include "twl_arr.h"
 #include "utils.h"
 
-t_ast2_complete_command *ast_build_complete_command(t_ast *ast)
+t_ast_complete_command *ast_build_complete_command(t_ast *ast)
 {
-	t_ast2_complete_command		*complete_command;
+	t_ast_complete_command		*complete_command;
 
-	complete_command = ast2_complete_command_new();
+	complete_command = ast_complete_command_new();
 	complete_command->list = ast_build_list(ast, ast->tokens);
 	return (complete_command);
 	(void)ast;

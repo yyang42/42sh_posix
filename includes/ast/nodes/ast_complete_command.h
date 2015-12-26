@@ -10,11 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#ifndef AST2_COMPLETE_COMMAND_H
+# define AST2_COMPLETE_COMMAND_H
 
-#include "ast/nodes/ast2_separator.h"
+# include "basics.h"
 
-void				ast2_separator_del(t_ast2_separator *ast2_separator)
+# include "ast/nodes/ast_list.h"
+# include "ast/nodes/ast_separator.h"
+
+typedef struct		s_ast_complete_command
 {
-	free(ast2_separator);
-}
+	t_ast_list		 	*list;
+	t_ast_separator 	*separator;
+}					t_ast_complete_command;
+
+t_ast_complete_command		*ast_complete_command_new(void);
+void						ast_complete_command_del(t_ast_complete_command *ast_complete_command);
+
+#endif

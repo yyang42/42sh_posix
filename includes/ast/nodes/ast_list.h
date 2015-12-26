@@ -16,13 +16,13 @@
 # include "basics.h"
 
 
-typedef struct		s_ast2_list
+typedef struct		s_ast_list
 {
-	struct s_ast2_list		*list;
+	struct s_ast_list		*list;
 	t_lst					*tokens;
-}					t_ast2_list;
+}					t_ast_list;
 
-t_ast2_list			*ast2_list_new(void);
-void				ast2_list_del(t_ast2_list *ast2_list);
+t_ast_list			*ast_list_new(void);
+void				ast_list_del(t_ast_list *ast_list);
 
 #endif

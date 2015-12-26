@@ -10,14 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "twl_xstdlib.h"
+#include <stdlib.h>
 
-#include "ast/nodes/ast2_list.h"
+#include "ast/nodes/ast_separator.h"
 
-t_ast2_list			*ast2_list_new(void)
+void				ast_separator_del(t_ast_separator *ast_separator)
 {
-	t_ast2_list		*ast2_list;
-
-	ast2_list = twl_malloc_x0(sizeof(t_ast2_list));
-	return (ast2_list);
+	free(ast_separator);
 }
