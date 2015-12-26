@@ -19,11 +19,11 @@ t_ast_complete_command	*ast_complete_command_new_from_tokens(t_lst *tokens)
 	complete_command = ast_complete_command_new();
 	// twl_printf("tokens %zu\n", twl_lst_len(tokens));
 	// token_mgr_print(tokens);
-	complete_command->list = ast_list_new_from_tokens(tokens);
+	complete_command->ast_and_or_seq_list = ast_and_or_seq_new_from_tokens(tokens);
 	// twl_printf("tokens %zu\n", twl_lst_len(tokens));
 	// token_mgr_print(tokens);
-	if (twl_lst_len(tokens) > 0)
-		complete_command->separator = ast_separator_new_from_tokens(tokens);
+	// if (twl_lst_len(tokens) > 0)
+	// 	complete_command->separator = ast_separator_new_from_tokens(tokens);
 	// twl_printf("tokens %zu\n", twl_lst_len(tokens));
 	return (complete_command);
 }

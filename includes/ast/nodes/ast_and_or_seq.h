@@ -10,15 +10,25 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_complete_command.h"
+#ifndef AST_AND_OR_SEQ_H
+# define AST_AND_OR_SEQ_H
 
-void				ast_complete_command_print_rec(
-							t_ast_complete_command *ast_complete_command,
-							int depth)
+# include "basics.h"
+
+# include "token_mgr.h"
+# include "ast/ast_utils.h"
+
+typedef struct		s_ast_and_or_seq
 {
-	ast_print_indent(depth);
-	twl_putstr("complete_command\n");
-	ast_and_or_seq_print_rec(ast_complete_command->ast_and_or_seq_list, depth + 1);
-	if (ast_complete_command->separator)
-		ast_separator_print_rec(ast_complete_command->separator, depth + 1);
-}
+	t_lst			*tokens;
+}					t_ast_and_or_seq;
+
+t_ast_and_or_seq			*ast_and_or_seq_new(void);
+void				ast_and_or_seq_del(t_ast_and_or_seq *ast_and_or_seq);
+
+t_ast_and_or_seq		*ast_and_or_seq_new_from_tokens(t_lst *tokens);
+void				ast_and_or_seq_print_rec(t_ast_and_or_seq *ast_and_or_seq, int depth);
+
+bool				ast_and_or_seq_is_own_type(t_lst *tokens);
+
+#endif

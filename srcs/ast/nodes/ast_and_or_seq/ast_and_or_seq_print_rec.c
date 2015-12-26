@@ -10,15 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_complete_command.h"
+#include "ast/nodes/ast_and_or_seq.h"
 
-void				ast_complete_command_print_rec(
-							t_ast_complete_command *ast_complete_command,
-							int depth)
+void				ast_and_or_seq_print_rec(t_ast_and_or_seq *ast_and_or_seq, int depth)
 {
 	ast_print_indent(depth);
-	twl_putstr("complete_command\n");
-	ast_and_or_seq_print_rec(ast_complete_command->ast_and_or_seq_list, depth + 1);
-	if (ast_complete_command->separator)
-		ast_separator_print_rec(ast_complete_command->separator, depth + 1);
+	twl_putstr("ast_and_or_seq\n");
+	(void)ast_and_or_seq;
 }

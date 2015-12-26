@@ -10,15 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_complete_command.h"
+#include "ast/nodes/ast_and_or_seq.h"
 
-void				ast_complete_command_print_rec(
-							t_ast_complete_command *ast_complete_command,
-							int depth)
+bool				ast_and_or_seq_is_own_type(t_lst *tokens)
 {
-	ast_print_indent(depth);
-	twl_putstr("complete_command\n");
-	ast_and_or_seq_print_rec(ast_complete_command->ast_and_or_seq_list, depth + 1);
-	if (ast_complete_command->separator)
-		ast_separator_print_rec(ast_complete_command->separator, depth + 1);
+	t_token			*first_token;
+
+	first_token = twl_lst_first(tokens);
+	// if (first_token && twl_strequ(first_token->text, "\n"))
+	// 	return (true);
+	(void)tokens;
+	(void)first_token;
+	return (false);
 }
