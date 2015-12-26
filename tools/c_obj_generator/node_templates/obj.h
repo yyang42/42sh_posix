@@ -19,6 +19,7 @@
 
 typedef struct		s_<OBJ_NAME>
 {
+	t_lst			*tokens;
 }					t_<OBJ_NAME>;
 
 t_<OBJ_NAME>			<PADDING>*<OBJ_NAME>_new(void);

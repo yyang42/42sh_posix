@@ -33,7 +33,7 @@ static void			build_tokens(t_ast_list *list, t_lst *tokens)
 	list->tokens = twl_lst_new();
 	while ((token = twl_lst_first(tokens)))
 	{
-		if (twl_strequ(token->text, ";"))
+		if (twl_strequ(token->text, ";") || twl_strequ(token->text, "\n"))
 			break;
 		twl_lst_push(list->tokens, twl_lst_shift(tokens));
 	}

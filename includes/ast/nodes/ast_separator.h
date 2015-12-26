@@ -19,6 +19,7 @@
 
 typedef struct		s_ast_separator
 {
+	t_lst			*tokens;
 }					t_ast_separator;
 
 t_ast_separator			*ast_separator_new(void);

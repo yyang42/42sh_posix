@@ -19,5 +19,6 @@ void				ast_complete_command_print_rec(
 	ast_print_indent(depth);
 	twl_putstr("complete_command\n");
 	ast_list_print_rec(ast_complete_command->list, depth + 1);
-	ast_separator_print_rec(ast_complete_command->separator, depth + 1);
+	if (ast_complete_command->separator)
+		ast_separator_print_rec(ast_complete_command->separator, depth + 1);
 }

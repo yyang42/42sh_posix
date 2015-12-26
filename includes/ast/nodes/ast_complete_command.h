@@ -15,6 +15,7 @@
 
 # include "basics.h"
 
+# include "token_mgr.h"
 # include "ast/ast_utils.h"
 # include "ast/nodes/ast_list.h"
 # include "ast/nodes/ast_separator.h"
@@ -23,6 +24,7 @@ typedef struct		s_ast_complete_command
 {
 	t_ast_list		 	*list;
 	t_ast_separator 	*separator;
+	t_lst				*tokens;
 }					t_ast_complete_command;
 
 t_ast_complete_command		*ast_complete_command_new(void);

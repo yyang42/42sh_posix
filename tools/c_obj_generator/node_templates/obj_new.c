@@ -17,5 +17,6 @@ t_<OBJ_NAME>			<PADDING>*<OBJ_NAME>_new(void)
 	t_<OBJ_NAME>		<PADDING>*<OBJ_NAME>;
 
 	<OBJ_NAME> = twl_malloc_x0(sizeof(t_<OBJ_NAME>));
+	<OBJ_NAME>->tokens = twl_lst_new();
 	return (<OBJ_NAME>);
 }
