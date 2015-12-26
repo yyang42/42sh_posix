@@ -20,11 +20,11 @@ t_ast_complete_command	*ast_complete_command_new_from_tokens(t_lst *tokens)
 	ast_complete_command = ast_complete_command_new();
 	while (twl_lst_len(tokens))
 	{
-		twl_lst_push(ast_complete_command->ast_and_or_seq_lst, ast_and_or_seq_new_from_tokens(tokens));
+		twl_lst_push(ast_complete_command->ast_list_item_lst, ast_list_item_new_from_tokens(tokens));
 		token = token_mgr_first(tokens);
 		if (!token)
 			break ;
-		if (ast_and_or_seq_is_delimiter(token))
+		if (ast_list_item_is_delimiter(token))
 			twl_lst_shift(tokens);
 		else
 			break ;

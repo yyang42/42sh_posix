@@ -10,9 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_and_or_seq.h"
+#include "ast/nodes/ast_list_item.h"
 
-void				ast_and_or_seq_del(t_ast_and_or_seq *ast_and_or_seq)
+static void			iter_fn(void *ast_pipe_seq, void *depth_ptr)
 {
-	free(ast_and_or_seq);
+	ast_pipe_seq_print_rec(ast_pipe_seq, *(int *)depth_ptr);
+}
+
+void				ast_list_item_print_rec(t_ast_list_item *ast_list_item, int depth)
+{
+	ast_print_indent(depth);
+	twl_putstr("ast_list_item\n");
+	depth++;
+	twl_lst_iter(ast_list_item->ast_pipe_seq_lst, iter_fn, &depth);
 }

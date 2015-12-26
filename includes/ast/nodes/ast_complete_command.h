@@ -17,12 +17,12 @@
 
 # include "token_mgr.h"
 # include "ast/ast_utils.h"
-# include "ast/nodes/ast_and_or_seq.h"
+# include "ast/nodes/ast_list_item.h"
 # include "ast/nodes/ast_separator.h"
 
 typedef struct		s_ast_complete_command
 {
-	t_lst			*ast_and_or_seq_lst;
+	t_lst			*ast_list_item_lst;
 	t_ast_separator 	*separator;
 	t_lst				*tokens;
 }					t_ast_complete_command;

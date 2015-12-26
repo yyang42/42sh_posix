@@ -1,5 +1,5 @@
 complete_command
-  ast_and_or_seq
+  ast_list_item
     ast_pipe_seq
       ast_cmd_seq
       ast_cmd_seq
@@ -8,9 +8,9 @@ complete_command
       ast_cmd_seq
     ast_pipe_seq
       ast_cmd_seq
-  ast_and_or_seq
+  ast_list_item
     ast_pipe_seq
       ast_cmd_seq
-  ast_and_or_seq
+  ast_list_item
     ast_pipe_seq
       ast_cmd_seq

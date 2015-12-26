@@ -17,6 +17,6 @@ t_ast_complete_command			*ast_complete_command_new(void)
 	t_ast_complete_command		*ast_complete_command;
 
 	ast_complete_command = twl_malloc_x0(sizeof(t_ast_complete_command));
-	ast_complete_command->ast_and_or_seq_lst = twl_lst_new();
+	ast_complete_command->ast_list_item_lst = twl_lst_new();
 	return (ast_complete_command);
 }

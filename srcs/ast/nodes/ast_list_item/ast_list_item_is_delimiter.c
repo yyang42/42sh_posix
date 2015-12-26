@@ -10,14 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_and_or_seq.h"
+#include "ast/nodes/ast_list_item.h"
 
-t_ast_and_or_seq			*ast_and_or_seq_new(void)
+bool				ast_list_item_is_delimiter(t_token *token)
 {
-	t_ast_and_or_seq		*ast_and_or_seq;
-
-	ast_and_or_seq = twl_malloc_x0(sizeof(t_ast_and_or_seq));
-	ast_and_or_seq->tokens = twl_lst_new();
-	ast_and_or_seq->ast_pipe_seq_lst = twl_lst_new();
-	return (ast_and_or_seq);
+	return (twl_strequ(token->text, ";") || twl_strequ(token->text, "&"));
 }

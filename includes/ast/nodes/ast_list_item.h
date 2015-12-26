@@ -10,24 +10,28 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_and_or_seq.h"
+#ifndef AST_AND_OR_SEQ_H
+# define AST_AND_OR_SEQ_H
 
-t_ast_and_or_seq	*ast_and_or_seq_new_from_tokens(t_lst *tokens)
+# include "basics.h"
+
+# include "token_mgr.h"
+# include "ast/ast_utils.h"
+
+# include "ast/nodes/ast_pipe_seq.h"
+
+typedef struct		s_ast_list_item
 {
-	t_ast_and_or_seq		*ast_and_or_seq;
-	t_token					*token;
+	t_lst			*tokens;
+	t_lst			*ast_pipe_seq_lst;
+}					t_ast_list_item;
 
-	ast_and_or_seq = ast_and_or_seq_new();
-	while (twl_lst_len(tokens))
-	{
-		twl_lst_push(ast_and_or_seq->ast_pipe_seq_lst, ast_pipe_seq_new_from_tokens(tokens));
-		token = twl_lst_first(tokens);
-		if (!token)
-			break ;
-		if (ast_pipe_seq_is_delimiter(token))
-			twl_lst_shift(tokens);
-		else
-			break ;
-	}
-	return (ast_and_or_seq);
-}
+t_ast_list_item			*ast_list_item_new(void);
+void				ast_list_item_del(t_ast_list_item *ast_list_item);
+
+t_ast_list_item		*ast_list_item_new_from_tokens(t_lst *tokens);
+void				ast_list_item_print_rec(t_ast_list_item *ast_list_item, int depth);
+
+bool				ast_list_item_is_delimiter(t_token *token);
+
+#endif

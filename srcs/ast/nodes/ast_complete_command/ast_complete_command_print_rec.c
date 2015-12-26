@@ -12,9 +12,9 @@
 
 #include "ast/nodes/ast_complete_command.h"
 
-static void			iter_fn(void *ast_and_or_seq, void *depth_ptr)
+static void			iter_fn(void *ast_list_item, void *depth_ptr)
 {
-	ast_and_or_seq_print_rec(ast_and_or_seq, *(int *)depth_ptr);
+	ast_list_item_print_rec(ast_list_item, *(int *)depth_ptr);
 }
 
 void				ast_complete_command_print_rec(
@@ -24,5 +24,5 @@ void				ast_complete_command_print_rec(
 	ast_print_indent(depth);
 	twl_putstr("complete_command\n");
 	depth++;
-	twl_lst_iter(ast_complete_command->ast_and_or_seq_lst, iter_fn, &depth);
+	twl_lst_iter(ast_complete_command->ast_list_item_lst, iter_fn, &depth);
 }

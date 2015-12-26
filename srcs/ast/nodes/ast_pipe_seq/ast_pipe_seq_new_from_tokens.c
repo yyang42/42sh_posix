@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "ast/nodes/ast_pipe_seq.h"
-#include "ast/nodes/ast_and_or_seq.h"
+#include "ast/nodes/ast_list_item.h"
 
 t_ast_pipe_seq	*ast_pipe_seq_new_from_tokens(t_lst *tokens)
 {
