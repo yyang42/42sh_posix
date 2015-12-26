@@ -10,14 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_complete_command.h"
+#include "ast/nodes/ast_separator.h"
 
-void				ast_complete_command_print_rec(
-							t_ast_complete_command *ast_complete_command,
+void				ast_separator_print_rec(
+							t_ast_separator *ast_separator,
 							int depth)
 {
 	ast_print_indent(depth);
-	twl_putstr("complete_command\n");
-	ast_list_print_rec(ast_complete_command->list, depth + 1);
-	ast_separator_print_rec(ast_complete_command->separator, depth + 1);
+	twl_putstr("separator\n");
+	(void)ast_separator;
 }

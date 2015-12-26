@@ -31,3 +31,5 @@ mkdir -p $src_folder
 generate_file $template_folder/obj.h includes/ast/nodes/$h_file_name
 generate_file $template_folder/obj_new.c $src_folder/$obj_name"_new.c"
 generate_file $template_folder/obj_del.c $src_folder/$obj_name"_del.c"
+generate_file $template_folder/obj_new_from_tokens.c $src_folder/$obj_name"_new_from_tokens.c"
+generate_file $template_folder/obj_print_rec.c $src_folder/$obj_name"_print_rec.c"

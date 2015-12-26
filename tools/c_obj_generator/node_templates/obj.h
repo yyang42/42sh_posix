@@ -15,6 +15,8 @@
 
 # include "basics.h"
 
+# include "ast/ast_utils.h"
+
 typedef struct		s_<OBJ_NAME>
 {
 }					t_<OBJ_NAME>;
@@ -22,4 +24,9 @@ typedef struct		s_<OBJ_NAME>
 t_<OBJ_NAME>			<PADDING>*<OBJ_NAME>_new(void);
 void				<OBJ_NAME>_del(t_<OBJ_NAME> *<OBJ_NAME>);
 
+t_<OBJ_NAME>		*<OBJ_NAME>_new_from_tokens(
+								t_lst *tokens);
+void						<OBJ_NAME>_print_rec(
+								t_<OBJ_NAME> *<OBJ_NAME>,
+								int depth);
 #endif

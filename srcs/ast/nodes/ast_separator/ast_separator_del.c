@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "ast/nodes/ast_separator.h"
 
 void				ast_separator_del(t_ast_separator *ast_separator)

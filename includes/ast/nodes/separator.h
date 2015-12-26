@@ -10,14 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_complete_command.h"
+#ifndef <AST_OBJ_NAME_UPPER>_H
+# define <AST_OBJ_NAME_UPPER>_H
 
-void				ast_complete_command_print_rec(
-							t_ast_complete_command *ast_complete_command,
-							int depth)
+# include "basics.h"
+
+# include "ast/ast_utils.h"
+
+typedef struct		s_ast_separator
 {
-	ast_print_indent(depth);
-	twl_putstr("complete_command\n");
-	ast_list_print_rec(ast_complete_command->list, depth + 1);
-	ast_separator_print_rec(ast_complete_command->separator, depth + 1);
-}
+}					t_ast_separator;
+
+t_ast_separator			*ast_separator_new(void);
+void				ast_separator_del(t_ast_separator *ast_separator);
+
+t_ast_separator		*ast_separator_new_from_tokens(
+								t_lst *tokens);
+void						ast_separator_print_rec(
+								t_ast_separator *ast_separator,
+								int depth);
+#endif

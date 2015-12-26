@@ -10,14 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_complete_command.h"
+#include "ast/nodes/<OBJ_NAME>.h"
 
-void				ast_complete_command_print_rec(
-							t_ast_complete_command *ast_complete_command,
-							int depth)
+t_<OBJ_NAME>	*<OBJ_NAME>_new_from_tokens(t_lst *tokens)
 {
-	ast_print_indent(depth);
-	twl_putstr("complete_command\n");
-	ast_list_print_rec(ast_complete_command->list, depth + 1);
-	ast_separator_print_rec(ast_complete_command->separator, depth + 1);
+	t_<OBJ_NAME>		*<OBJ_NAME>;
+
+	<OBJ_NAME> = <OBJ_NAME>_new();
+	return (<OBJ_NAME>);
+	(void)tokens;
 }

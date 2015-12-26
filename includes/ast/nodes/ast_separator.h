@@ -15,6 +15,8 @@
 
 # include "basics.h"
 
+# include "ast/ast_utils.h"
+
 typedef struct		s_ast_separator
 {
 }					t_ast_separator;
@@ -22,4 +24,9 @@ typedef struct		s_ast_separator
 t_ast_separator			*ast_separator_new(void);
 void				ast_separator_del(t_ast_separator *ast_separator);
 
+t_ast_separator		*ast_separator_new_from_tokens(
+								t_lst *tokens);
+void						ast_separator_print_rec(
+								t_ast_separator *ast_separator,
+								int depth);
 #endif
