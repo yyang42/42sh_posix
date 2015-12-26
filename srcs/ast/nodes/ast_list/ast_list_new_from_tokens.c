@@ -64,7 +64,7 @@ t_ast_list			*ast_list_new_from_tokens(t_lst *tokens)
 	build_tokens(list, tokens);
 	if (is_candidate(tokens))
 	{
-		twl_lst_shift(tokens);
+		list->ast_separator_op = ast_separator_op_new_from_tokens(tokens);
 		left_list = ast_list_new_from_tokens(tokens);
 	}
 	if (left_list)

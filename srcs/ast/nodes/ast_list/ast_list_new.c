@@ -19,5 +19,7 @@ t_ast_list			*ast_list_new(void)
 	t_ast_list		*ast_list;
 
 	ast_list = twl_malloc_x0(sizeof(t_ast_list));
+	ast_list->list = NULL;
+	ast_list->ast_separator_op = NULL;
 	return (ast_list);
 }

@@ -18,9 +18,12 @@ void				ast_list_print_rec(
 							int depth)
 {
 	ast_print_indent(depth);
+	depth++;
 	twl_putstr("list (");
 	token_mgr_print_token_text_by_index(list->tokens, 0);
 	twl_putstr(")\n");
 	if (list->list)
-		ast_list_print_rec(list->list, depth + 1);
+		ast_list_print_rec(list->list, depth);
+	if (list->ast_separator_op)
+		ast_separator_op_print_rec(list->ast_separator_op, depth);
 }

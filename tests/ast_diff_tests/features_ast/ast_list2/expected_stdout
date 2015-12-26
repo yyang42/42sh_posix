@@ -3,6 +3,9 @@ complete_command
     list (echo3)
       list (echo2)
         list (echo1)
+          separator_op (;)
+        separator_op (;)
+      separator_op (;)
   separator
     separator_op (;)
     linebreak
