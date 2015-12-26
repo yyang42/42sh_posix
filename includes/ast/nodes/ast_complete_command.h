@@ -22,7 +22,7 @@
 
 typedef struct		s_ast_complete_command
 {
-	t_ast_and_or_seq	*ast_and_or_seq_list;
+	t_lst			*ast_and_or_seq_lst;
 	t_ast_separator 	*separator;
 	t_lst				*tokens;
 }					t_ast_complete_command;

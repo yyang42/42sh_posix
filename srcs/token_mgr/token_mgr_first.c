@@ -10,21 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_and_or_seq.h"
+#include "token_mgr.h"
 
-t_ast_and_or_seq	*ast_and_or_seq_new_from_tokens(t_lst *tokens)
+t_token				*token_mgr_first(t_lst *tokens)
 {
-	t_ast_and_or_seq		*ast_and_or_seq;
-
-	ast_and_or_seq = ast_and_or_seq_new();
-
-	t_token			*token;
-
-	while ((token = twl_lst_first(tokens)))
-	{
-		if (ast_and_or_seq_is_delimiter(token))
-			break ;
-		twl_lst_shift(tokens);
-	}
-	return (ast_and_or_seq);
+	return (twl_lst_first(tokens));
 }

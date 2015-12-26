@@ -30,5 +30,6 @@ t_ast_and_or_seq		*ast_and_or_seq_new_from_tokens(t_lst *tokens);
 void				ast_and_or_seq_print_rec(t_ast_and_or_seq *ast_and_or_seq, int depth);
 
 bool				ast_and_or_seq_is_own_type(t_lst *tokens);
+bool				ast_and_or_seq_is_delimiter(t_token *token);
 
 #endif

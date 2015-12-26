@@ -12,13 +12,17 @@
 
 #include "ast/nodes/ast_complete_command.h"
 
+static void			iter_fn(void *ast_and_or_seq, void *depth_ptr)
+{
+	ast_and_or_seq_print_rec(ast_and_or_seq, *(int *)depth_ptr);
+}
+
 void				ast_complete_command_print_rec(
 							t_ast_complete_command *ast_complete_command,
 							int depth)
 {
 	ast_print_indent(depth);
 	twl_putstr("complete_command\n");
-	ast_and_or_seq_print_rec(ast_complete_command->ast_and_or_seq_list, depth + 1);
-	if (ast_complete_command->separator)
-		ast_separator_print_rec(ast_complete_command->separator, depth + 1);
+	depth++;
+	twl_lst_iter(ast_complete_command->ast_and_or_seq_lst, iter_fn, &depth);
 }

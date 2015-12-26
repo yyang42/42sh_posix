@@ -1,11 +1,5 @@
 complete_command
-  list (echo4)
-    list (echo3)
-      list (echo2)
-        list (echo1)
-          separator_op (;)
-        separator_op (;)
-      separator_op (;)
-  separator
-    newline_list
-      newline_list
+  ast_and_or_seq
+  ast_and_or_seq
+  ast_and_or_seq
+  ast_and_or_seq

@@ -14,16 +14,20 @@
 
 t_ast_complete_command	*ast_complete_command_new_from_tokens(t_lst *tokens)
 {
-	t_ast_complete_command		*complete_command;
+	t_ast_complete_command		*ast_complete_command;
+	t_token						*token;
 
-	complete_command = ast_complete_command_new();
-	// twl_printf("tokens %zu\n", twl_lst_len(tokens));
-	// token_mgr_print(tokens);
-	complete_command->ast_and_or_seq_list = ast_and_or_seq_new_from_tokens(tokens);
-	// twl_printf("tokens %zu\n", twl_lst_len(tokens));
-	// token_mgr_print(tokens);
-	// if (twl_lst_len(tokens) > 0)
-	// 	complete_command->separator = ast_separator_new_from_tokens(tokens);
-	// twl_printf("tokens %zu\n", twl_lst_len(tokens));
-	return (complete_command);
+	ast_complete_command = ast_complete_command_new();
+	while (true)
+	{
+		twl_lst_push(ast_complete_command->ast_and_or_seq_lst, ast_and_or_seq_new_from_tokens(tokens));
+		token = token_mgr_first(tokens);
+		if (!token)
+			break ;
+		if (ast_and_or_seq_is_delimiter(token))
+			twl_lst_shift(tokens);
+		else
+			break ;
+	}
+	return (ast_complete_command);
 }
