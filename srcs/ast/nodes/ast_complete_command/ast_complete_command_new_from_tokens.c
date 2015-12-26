@@ -17,13 +17,13 @@ t_ast_complete_command	*ast_complete_command_new_from_tokens(t_lst *tokens)
 	t_ast_complete_command		*complete_command;
 
 	complete_command = ast_complete_command_new();
-	twl_printf("tokens %zu\n", twl_lst_len(tokens));
-	token_mgr_print(tokens);
+	// twl_printf("tokens %zu\n", twl_lst_len(tokens));
+	// token_mgr_print(tokens);
 	complete_command->list = ast_list_new_from_tokens(tokens);
-	twl_printf("tokens %zu\n", twl_lst_len(tokens));
-	token_mgr_print(tokens);
+	// twl_printf("tokens %zu\n", twl_lst_len(tokens));
+	// token_mgr_print(tokens);
 	if (twl_lst_len(tokens) > 0)
 		complete_command->separator = ast_separator_new_from_tokens(tokens);
-	twl_printf("tokens %zu\n", twl_lst_len(tokens));
+	// twl_printf("tokens %zu\n", twl_lst_len(tokens));
 	return (complete_command);
 }
