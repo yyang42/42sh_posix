@@ -22,7 +22,6 @@
 typedef struct		s_ast_complete_command
 {
 	t_lst			*ast_list_item_lst;
-	t_lst				*tokens;
 }					t_ast_complete_command;
 
 t_ast_complete_command		*ast_complete_command_new(void);

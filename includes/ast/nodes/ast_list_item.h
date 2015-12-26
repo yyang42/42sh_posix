@@ -22,7 +22,6 @@
 
 typedef struct		s_ast_list_item
 {
-	t_lst			*tokens;
 	t_lst			*ast_andor_item_lst;
 }					t_ast_list_item;
 
