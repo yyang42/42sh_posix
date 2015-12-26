@@ -10,23 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_COMMAND_H
-# define AST_COMMAND_H
+#include "ast/nodes/ast_simple_command.h"
 
-# include "basics.h"
-
-# include "token_mgr.h"
-# include "ast/ast_utils.h"
-
-typedef struct		s_ast_command
+t_ast_simple_command	*ast_simple_command_new_from_tokens(t_lst *tokens)
 {
-	t_lst			*tokens;
-}					t_ast_command;
+	t_ast_simple_command		*ast_simple_command;
 
-t_ast_command		*ast_command_new(void);
-void				ast_command_del(t_ast_command *ast_command);
-
-t_ast_command		*ast_command_new_from_tokens(t_lst *tokens);
-void				ast_command_print_rec(t_ast_command *ast_command, int depth);
-
-#endif
+	ast_simple_command = ast_simple_command_new();
+	return (ast_simple_command);
+	(void)tokens;
+}
