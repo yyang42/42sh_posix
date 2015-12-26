@@ -15,16 +15,19 @@
 t_ast_and_or_seq	*ast_and_or_seq_new_from_tokens(t_lst *tokens)
 {
 	t_ast_and_or_seq		*ast_and_or_seq;
+	t_token					*token;
 
 	ast_and_or_seq = ast_and_or_seq_new();
-
-	t_token			*token;
-
-	while ((token = twl_lst_first(tokens)))
+	while (twl_lst_len(tokens))
 	{
-		if (ast_and_or_seq_is_delimiter(token))
+		twl_lst_push(ast_and_or_seq->ast_pipe_seq_lst, ast_pipe_seq_new_from_tokens(tokens));
+		token = twl_lst_first(tokens);
+		if (!token)
 			break ;
-		twl_lst_shift(tokens);
+		if (ast_pipe_seq_is_delimiter(token))
+			twl_lst_shift(tokens);
+		else
+			break ;
 	}
 	return (ast_and_or_seq);
 }

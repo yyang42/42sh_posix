@@ -18,5 +18,6 @@ t_ast_and_or_seq			*ast_and_or_seq_new(void)
 
 	ast_and_or_seq = twl_malloc_x0(sizeof(t_ast_and_or_seq));
 	ast_and_or_seq->tokens = twl_lst_new();
+	ast_and_or_seq->ast_pipe_seq_lst = twl_lst_new();
 	return (ast_and_or_seq);
 }

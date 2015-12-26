@@ -12,9 +12,15 @@
 
 #include "ast/nodes/ast_and_or_seq.h"
 
+static void			iter_fn(void *ast_pipe_seq, void *depth_ptr)
+{
+	ast_pipe_seq_print_rec(ast_pipe_seq, *(int *)depth_ptr);
+}
+
 void				ast_and_or_seq_print_rec(t_ast_and_or_seq *ast_and_or_seq, int depth)
 {
 	ast_print_indent(depth);
 	twl_putstr("ast_and_or_seq\n");
-	(void)ast_and_or_seq;
+	depth++;
+	twl_lst_iter(ast_and_or_seq->ast_pipe_seq_lst, iter_fn, &depth);
 }

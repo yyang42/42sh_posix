@@ -10,28 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_AND_OR_SEQ_H
-# define AST_AND_OR_SEQ_H
+#include "ast/nodes/ast_pipe_seq.h"
 
-# include "basics.h"
-
-# include "token_mgr.h"
-# include "ast/ast_utils.h"
-
-# include "ast/nodes/ast_pipe_seq.h"
-
-typedef struct		s_ast_and_or_seq
+t_ast_pipe_seq			*ast_pipe_seq_new(void)
 {
-	t_lst			*tokens;
-	t_lst			*ast_pipe_seq_lst;
-}					t_ast_and_or_seq;
+	t_ast_pipe_seq		*ast_pipe_seq;
 
-t_ast_and_or_seq			*ast_and_or_seq_new(void);
-void				ast_and_or_seq_del(t_ast_and_or_seq *ast_and_or_seq);
-
-t_ast_and_or_seq		*ast_and_or_seq_new_from_tokens(t_lst *tokens);
-void				ast_and_or_seq_print_rec(t_ast_and_or_seq *ast_and_or_seq, int depth);
-
-bool				ast_and_or_seq_is_delimiter(t_token *token);
-
-#endif
+	ast_pipe_seq = twl_malloc_x0(sizeof(t_ast_pipe_seq));
+	ast_pipe_seq->tokens = twl_lst_new();
+	ast_pipe_seq->ast_cmd_seq_lst = twl_lst_new();
+	return (ast_pipe_seq);
+}

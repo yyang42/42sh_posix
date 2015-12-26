@@ -10,28 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_AND_OR_SEQ_H
-# define AST_AND_OR_SEQ_H
+#include "ast/nodes/ast_pipe_seq.h"
 
-# include "basics.h"
-
-# include "token_mgr.h"
-# include "ast/ast_utils.h"
-
-# include "ast/nodes/ast_pipe_seq.h"
-
-typedef struct		s_ast_and_or_seq
+static void			iter_fn(void *ast_cmd_seq, void *depth_ptr)
 {
-	t_lst			*tokens;
-	t_lst			*ast_pipe_seq_lst;
-}					t_ast_and_or_seq;
+	ast_cmd_seq_print_rec(ast_cmd_seq, *(int *)depth_ptr);
+}
 
-t_ast_and_or_seq			*ast_and_or_seq_new(void);
-void				ast_and_or_seq_del(t_ast_and_or_seq *ast_and_or_seq);
-
-t_ast_and_or_seq		*ast_and_or_seq_new_from_tokens(t_lst *tokens);
-void				ast_and_or_seq_print_rec(t_ast_and_or_seq *ast_and_or_seq, int depth);
-
-bool				ast_and_or_seq_is_delimiter(t_token *token);
-
-#endif
+void				ast_pipe_seq_print_rec(t_ast_pipe_seq *ast_pipe_seq, int depth)
+{
+	ast_print_indent(depth);
+	twl_putstr("ast_pipe_seq\n");
+	depth++;
+	twl_lst_iter(ast_pipe_seq->ast_cmd_seq_lst, iter_fn, &depth);
+}

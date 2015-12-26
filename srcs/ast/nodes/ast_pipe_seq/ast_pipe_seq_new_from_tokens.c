@@ -10,16 +10,25 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ast/nodes/ast_pipe_seq.h"
 #include "ast/nodes/ast_and_or_seq.h"
 
-bool				ast_and_or_seq_is_own_type(t_lst *tokens)
+t_ast_pipe_seq	*ast_pipe_seq_new_from_tokens(t_lst *tokens)
 {
-	t_token			*first_token;
+	t_ast_pipe_seq		*ast_pipe_seq;
+	t_token					*token;
 
-	first_token = twl_lst_first(tokens);
-	// if (first_token && twl_strequ(first_token->text, "\n"))
-	// 	return (true);
-	(void)tokens;
-	(void)first_token;
-	return (false);
+	ast_pipe_seq = ast_pipe_seq_new();
+	while (twl_lst_len(tokens))
+	{
+		twl_lst_push(ast_pipe_seq->ast_cmd_seq_lst, ast_cmd_seq_new_from_tokens(tokens));
+		token = twl_lst_first(tokens);
+		if (!token)
+			break ;
+		if (ast_cmd_seq_is_delimiter(token))
+			twl_lst_shift(tokens);
+		else
+			break ;
+	}
+	return (ast_pipe_seq);
 }
