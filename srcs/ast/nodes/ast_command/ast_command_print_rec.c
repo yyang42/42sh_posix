@@ -11,10 +11,11 @@
 /* ************************************************************************** */
 
 #include "ast/nodes/ast_command.h"
+#include "token_mgr.h"
 
 void				ast_command_print_rec(t_ast_command *ast_command, int depth)
 {
 	ast_print_indent(depth);
-	twl_putstr("ast_command\n");
+	twl_printf("ast_command %s\n", token_mgr_first(ast_command->tokens)->text);
 	(void)ast_command;
 }
