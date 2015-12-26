@@ -14,6 +14,12 @@
 
 bool				<OBJ_NAME>_is_own_type(t_lst *tokens)
 {
+	t_token			*first_token;
+
+	first_token = twl_lst_first(tokens);
+	// if (first_token && twl_strequ(first_token->text, "\n"))
+	// 	return (true);
 	(void)tokens;
+	(void)first_token;
 	return (false);
 }

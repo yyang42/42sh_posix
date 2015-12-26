@@ -10,28 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_H
-# define AST_H
+#include "ast/nodes/ast_separator_op.h"
 
-# include "basics.h"
-
-# include "parser.h"
-# include "ast/ast_defines.h"
-
-# include "ast/nodes/ast_complete_command.h"
-# include "token_mgr.h"
-# include "tokenizer.h"
-
-typedef struct		s_ast
+void				ast_separator_op_print_rec(t_ast_separator_op *ast_separator_op, int depth)
 {
-	t_lst						*tokens;
-	t_ast_complete_command		*complete_command;
-}					t_ast;
-
-t_ast				*ast_new(char *input);
-void				ast_del(t_ast *this);
-
-void				ast_print_tokens(t_ast *ast);
-void				ast_print_rec(t_ast *ast);
-
-#endif
+	ast_print_indent(depth);
+	twl_putstr("ast_separator_op\n");
+	(void)ast_separator_op;
+}

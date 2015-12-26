@@ -10,28 +10,25 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_H
-# define AST_H
+#ifndef AST_SEPARATOR_OP_H
+# define AST_SEPARATOR_OP_H
 
 # include "basics.h"
 
-# include "parser.h"
-# include "ast/ast_defines.h"
-
-# include "ast/nodes/ast_complete_command.h"
 # include "token_mgr.h"
-# include "tokenizer.h"
+# include "ast/ast_utils.h"
 
-typedef struct		s_ast
+typedef struct		s_ast_separator_op
 {
-	t_lst						*tokens;
-	t_ast_complete_command		*complete_command;
-}					t_ast;
+	t_lst			*tokens;
+}					t_ast_separator_op;
 
-t_ast				*ast_new(char *input);
-void				ast_del(t_ast *this);
+t_ast_separator_op			*ast_separator_op_new(void);
+void				ast_separator_op_del(t_ast_separator_op *ast_separator_op);
 
-void				ast_print_tokens(t_ast *ast);
-void				ast_print_rec(t_ast *ast);
+t_ast_separator_op		*ast_separator_op_new_from_tokens(t_lst *tokens);
+void				ast_separator_op_print_rec(t_ast_separator_op *ast_separator_op, int depth);
+
+bool				ast_separator_op_is_own_type(t_lst *tokens);
 
 #endif

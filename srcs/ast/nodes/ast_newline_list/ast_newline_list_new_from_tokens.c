@@ -16,13 +16,11 @@ t_ast_newline_list	*ast_newline_list_new_from_tokens(t_lst *tokens)
 {
 	t_ast_newline_list		*ast_newline_list;
 
-	ast_newline_list = ast_newline_list_new();
+	if (!ast_newline_list_is_own_type(tokens))
+		return (NULL);
 	twl_lst_shift(tokens);
-	while (ast_newline_list_is_own_type(tokens))
-	{
-		twl_lst_shift(tokens);
-		ast_newline_list->ast_newline_list = ast_newline_list_new_from_tokens(tokens);
-	}
+	ast_newline_list = ast_newline_list_new();
+	ast_newline_list->ast_newline_list = ast_newline_list_new_from_tokens(tokens);
 	return (ast_newline_list);
 	(void)tokens;
 }

@@ -20,8 +20,11 @@ void				ast_separator_print_rec(
 	twl_putstr("separator\n");
 	if (ast_separator->type == AST_SEPERATOR_NEWLINE_LIST)
 	{
-		ast_separator->type = AST_SEPERATOR_NEWLINE_LIST;
-		ast_newline_list_print_rec(ast_separator->u.newline_list, depth + 1);
+		ast_newline_list_print_rec(ast_separator->ast_newline_list, depth + 1);
 	}
-	(void)ast_separator;
+	else if (ast_separator->type == AST_SEPERATOR_SEPARATOR_OP)
+	{
+		ast_separator_op_print_rec(ast_separator->ast_separator_op, depth + 1);
+		ast_linebreak_print_rec(ast_separator->ast_linebreak, depth + 1);
+	}
 }

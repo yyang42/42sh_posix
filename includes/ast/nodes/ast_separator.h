@@ -18,6 +18,8 @@
 # include "token_mgr.h"
 # include "ast/ast_utils.h"
 # include "ast/nodes/ast_newline_list.h"
+# include "ast/nodes/ast_separator_op.h"
+# include "ast/nodes/ast_linebreak.h"
 
 typedef enum		e_ast_separator_type
 {
@@ -31,9 +33,9 @@ typedef struct		s_ast_separator
 	t_lst				*tokens;
 
 	t_ast_separator_type type;
-	union {
-		t_ast_newline_list	*newline_list;
-	} u;
+	t_ast_newline_list	*ast_newline_list;
+	t_ast_separator_op	*ast_separator_op;
+	t_ast_linebreak		*ast_linebreak;
 }					t_ast_separator;
 
 t_ast_separator		*ast_separator_new(void);

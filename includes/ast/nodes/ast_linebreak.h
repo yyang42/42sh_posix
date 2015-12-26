@@ -10,28 +10,27 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_H
-# define AST_H
+#ifndef AST_LINEBREAK_H
+# define AST_LINEBREAK_H
 
 # include "basics.h"
 
-# include "parser.h"
-# include "ast/ast_defines.h"
-
-# include "ast/nodes/ast_complete_command.h"
 # include "token_mgr.h"
-# include "tokenizer.h"
+# include "ast/ast_utils.h"
+# include "ast/nodes/ast_newline_list.h"
 
-typedef struct		s_ast
+typedef struct		s_ast_linebreak
 {
-	t_lst						*tokens;
-	t_ast_complete_command		*complete_command;
-}					t_ast;
+	t_lst			*tokens;
+	t_ast_newline_list	*ast_newline_list;
+}					t_ast_linebreak;
 
-t_ast				*ast_new(char *input);
-void				ast_del(t_ast *this);
+t_ast_linebreak			*ast_linebreak_new(void);
+void				ast_linebreak_del(t_ast_linebreak *ast_linebreak);
 
-void				ast_print_tokens(t_ast *ast);
-void				ast_print_rec(t_ast *ast);
+t_ast_linebreak		*ast_linebreak_new_from_tokens(t_lst *tokens);
+void				ast_linebreak_print_rec(t_ast_linebreak *ast_linebreak, int depth);
+
+bool				ast_linebreak_is_own_type(t_lst *tokens);
 
 #endif

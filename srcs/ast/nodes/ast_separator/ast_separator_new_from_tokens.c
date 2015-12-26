@@ -18,11 +18,20 @@ t_ast_separator	*ast_separator_new_from_tokens(t_lst *tokens)
 
 	ast_separator = ast_separator_new();
 	twl_printf("ast_newline_list_is_own_type(tokens) %d\n", ast_newline_list_is_own_type(tokens));
-	if (ast_newline_list_is_own_type(tokens))
+	twl_printf("ast_separator_op_is_own_type(tokens) %d\n", ast_separator_op_is_own_type(tokens));
+	ast_separator->ast_newline_list = ast_newline_list_new_from_tokens(tokens);
+	if (ast_separator->ast_newline_list)
 	{
 		ast_separator->type = AST_SEPERATOR_NEWLINE_LIST;
-		ast_separator->u.newline_list = ast_newline_list_new_from_tokens(tokens);
+		return ast_separator;
 	}
-	return (ast_separator);
+	ast_separator->ast_separator_op = ast_separator_op_new_from_tokens(tokens);
+	ast_separator->ast_linebreak = ast_linebreak_new_from_tokens(tokens);
+	if (ast_separator->ast_separator_op && ast_separator->ast_linebreak)
+	{
+		ast_separator->type = AST_SEPERATOR_SEPARATOR_OP;
+		return ast_separator;
+	}
+	return (NULL);
 	(void)tokens;
 }

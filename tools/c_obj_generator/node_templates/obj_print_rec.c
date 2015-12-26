@@ -12,9 +12,7 @@
 
 #include "ast/nodes/<OBJ_NAME>.h"
 
-void				<OBJ_NAME>_print_rec(
-							t_<OBJ_NAME> *<OBJ_NAME>,
-							int depth)
+void				<OBJ_NAME>_print_rec(t_<OBJ_NAME> *<OBJ_NAME>, int depth)
 {
 	ast_print_indent(depth);
 	twl_putstr("<OBJ_NAME>\n");

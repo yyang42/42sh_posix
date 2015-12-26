@@ -10,28 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_H
-# define AST_H
+#include "ast/nodes/ast_linebreak.h"
 
-# include "basics.h"
-
-# include "parser.h"
-# include "ast/ast_defines.h"
-
-# include "ast/nodes/ast_complete_command.h"
-# include "token_mgr.h"
-# include "tokenizer.h"
-
-typedef struct		s_ast
+bool				ast_linebreak_is_own_type(t_lst *tokens)
 {
-	t_lst						*tokens;
-	t_ast_complete_command		*complete_command;
-}					t_ast;
+	t_token			*first_token;
 
-t_ast				*ast_new(char *input);
-void				ast_del(t_ast *this);
-
-void				ast_print_tokens(t_ast *ast);
-void				ast_print_rec(t_ast *ast);
-
-#endif
+	first_token = twl_lst_first(tokens);
+	// if (first_token && twl_strequ(first_token->text, "\n"))
+	// 	return (true);
+	(void)tokens;
+	(void)first_token;
+	return (false);
+}
