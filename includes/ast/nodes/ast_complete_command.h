@@ -28,12 +28,9 @@ typedef struct		s_ast_complete_command
 }					t_ast_complete_command;
 
 t_ast_complete_command		*ast_complete_command_new(void);
-void						ast_complete_command_del(
-								t_ast_complete_command *ast_complete_command);
+void						ast_complete_command_del(t_ast_complete_command *ast_complete_command);
 
 t_ast_complete_command		*ast_complete_command_new_from_tokens(t_lst *tokens);
-void						ast_complete_command_print_rec(
-								t_ast_complete_command *ast_complete_command,
-								int depth);
+void						ast_complete_command_print_rec(t_ast_complete_command *ast_complete_command, int depth);
 
 #endif

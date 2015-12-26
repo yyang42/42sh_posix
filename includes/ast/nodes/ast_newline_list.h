@@ -23,14 +23,11 @@ typedef struct		s_ast_newline_list
 	t_lst			*tokens;
 }					t_ast_newline_list;
 
-t_ast_newline_list			*ast_newline_list_new(void);
+t_ast_newline_list	*ast_newline_list_new(void);
 void				ast_newline_list_del(t_ast_newline_list *ast_newline_list);
 
-t_ast_newline_list		*ast_newline_list_new_from_tokens(
-								t_lst *tokens);
-void						ast_newline_list_print_rec(
-								t_ast_newline_list *ast_newline_list,
-								int depth);
+t_ast_newline_list	*ast_newline_list_new_from_tokens(t_lst *tokens);
+void				ast_newline_list_print_rec(t_ast_newline_list *ast_newline_list, int depth);
 
 bool				ast_newline_list_is_own_type(t_lst *tokens);
 

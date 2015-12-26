@@ -15,6 +15,7 @@
 
 # include "basics.h"
 
+# include "token_mgr.h"
 # include "ast/ast_utils.h"
 
 typedef struct		s_ast_list
@@ -27,7 +28,5 @@ t_ast_list			*ast_list_new(void);
 void				ast_list_del(t_ast_list *ast_list);
 
 t_ast_list			*ast_list_new_from_tokens(t_lst *tokens);
-void				ast_list_print_rec(
-							t_ast_list *ast_list,
-							int depth);
+void				ast_list_print_rec(t_ast_list *ast_list, int depth);
 #endif

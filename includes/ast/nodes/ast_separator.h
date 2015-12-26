@@ -15,7 +15,7 @@
 
 # include "basics.h"
 
-# include "token.h"
+# include "token_mgr.h"
 # include "ast/ast_utils.h"
 # include "ast/nodes/ast_newline_list.h"
 
@@ -36,12 +36,10 @@ typedef struct		s_ast_separator
 	} u;
 }					t_ast_separator;
 
-t_ast_separator			*ast_separator_new(void);
+t_ast_separator		*ast_separator_new(void);
 void				ast_separator_del(t_ast_separator *ast_separator);
 
-t_ast_separator		*ast_separator_new_from_tokens(
-								t_lst *tokens);
-void						ast_separator_print_rec(
-								t_ast_separator *ast_separator,
-								int depth);
+t_ast_separator		*ast_separator_new_from_tokens(t_lst *tokens);
+void				ast_separator_print_rec(t_ast_separator *ast_separator, int depth);
+
 #endif
