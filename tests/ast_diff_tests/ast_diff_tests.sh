@@ -52,7 +52,7 @@ echo $C_CYAN"====== START AST DIFF TESTS ======"$C_CLEAR
 if ! `env | grep -q ^LAST_ONLY=`
 then
 
-    diff_test features_ast2 ast_list
+    diff_test features_ast ast_list
     # diff_test features ast_echo
     # diff_test features ast_list
     # diff_test features ast_andor_seq
