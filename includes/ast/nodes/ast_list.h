@@ -18,9 +18,12 @@
 # include "token_mgr.h"
 # include "ast/ast_utils.h"
 
+# include "ast/nodes/ast_separator_op.h"
+
 typedef struct		s_ast_list
 {
 	struct s_ast_list		*list;
+	t_ast_separator_op		*ast_separator_op;
 	t_lst					*tokens;
 }					t_ast_list;
 

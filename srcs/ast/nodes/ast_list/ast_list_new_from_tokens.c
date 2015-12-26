@@ -33,8 +33,7 @@ static void			build_tokens(t_ast_list *list, t_lst *tokens)
 	list->tokens = twl_lst_new();
 	while ((token = twl_lst_first(tokens)))
 	{
-		if (twl_strequ(token->text, ";")
-			|| twl_strequ(token->text, "&")
+		if (ast_separator_op_is_own_type(tokens)
 			|| twl_strequ(token->text, "\n"))
 			break;
 		twl_lst_push(list->tokens, twl_lst_shift(tokens));
@@ -50,7 +49,7 @@ static bool			is_candidate(t_lst *tokens)
 	second = twl_lst_get(tokens, 1);
 
 	return (first && second
-		&& twl_strequ(first->text, ";")
+		&& ast_separator_op_is_own_type(tokens)
 		&& !twl_strequ(second->text, "\n"));
 }
 
