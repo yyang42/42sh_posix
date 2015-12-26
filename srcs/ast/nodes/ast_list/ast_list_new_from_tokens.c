@@ -39,17 +39,29 @@ static void			build_tokens(t_ast_list *list, t_lst *tokens)
 	}
 }
 
+static bool			is_candidate(t_lst *tokens)
+{
+	t_token			*first;
+	t_token			*second;
+
+	first = twl_lst_first(tokens);
+	second = twl_lst_get(tokens, 1);
+
+	return (first && second
+		&& twl_strequ(first->text, ";")
+		&& !twl_strequ(second->text, "\n"));
+}
+
 t_ast_list			*ast_list_new_from_tokens(t_lst *tokens)
 {
 	t_ast_list		*list;
 	t_ast_list		*left_list;
-	t_token			*token;
+
 
 	left_list = NULL;
 	list = ast_list_new();
 	build_tokens(list, tokens);
-	token = twl_lst_first(tokens);
-	if (token && twl_strequ(token->text, ";"))
+	if (is_candidate(tokens))
 	{
 		twl_lst_shift(tokens);
 		left_list = ast_list_new_from_tokens(tokens);
