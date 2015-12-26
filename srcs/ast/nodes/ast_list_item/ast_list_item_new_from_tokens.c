@@ -20,11 +20,11 @@ t_ast_list_item	*ast_list_item_new_from_tokens(t_lst *tokens)
 	ast_list_item = ast_list_item_new();
 	while (twl_lst_len(tokens))
 	{
-		twl_lst_push(ast_list_item->ast_pipe_seq_lst, ast_pipe_seq_new_from_tokens(tokens));
+		twl_lst_push(ast_list_item->ast_andor_item_lst, ast_andor_item_new_from_tokens(tokens));
 		token = twl_lst_first(tokens);
 		if (!token)
 			break ;
-		if (ast_pipe_seq_is_delimiter(token))
+		if (ast_andor_item_is_delimiter(token))
 			twl_lst_shift(tokens);
 		else
 			break ;

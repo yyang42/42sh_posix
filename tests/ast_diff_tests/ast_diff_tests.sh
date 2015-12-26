@@ -60,7 +60,7 @@ then
     # diff_test features ast_echo
     # diff_test features ast_list
     # diff_test features ast_andor_seq
-    # diff_test features ast_pipe_seq
+    # diff_test features ast_andor_item
     # diff_test features ast_subshell
     # diff_test features ast_subshell_err
 

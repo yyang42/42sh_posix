@@ -18,6 +18,6 @@ t_ast_list_item			*ast_list_item_new(void)
 
 	ast_list_item = twl_malloc_x0(sizeof(t_ast_list_item));
 	ast_list_item->tokens = twl_lst_new();
-	ast_list_item->ast_pipe_seq_lst = twl_lst_new();
+	ast_list_item->ast_andor_item_lst = twl_lst_new();
 	return (ast_list_item);
 }

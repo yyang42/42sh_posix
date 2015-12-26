@@ -12,9 +12,9 @@
 
 #include "ast/nodes/ast_list_item.h"
 
-static void			iter_fn(void *ast_pipe_seq, void *depth_ptr)
+static void			iter_fn(void *ast_andor_item, void *depth_ptr)
 {
-	ast_pipe_seq_print_rec(ast_pipe_seq, *(int *)depth_ptr);
+	ast_andor_item_print_rec(ast_andor_item, *(int *)depth_ptr);
 }
 
 void				ast_list_item_print_rec(t_ast_list_item *ast_list_item, int depth)
@@ -22,5 +22,5 @@ void				ast_list_item_print_rec(t_ast_list_item *ast_list_item, int depth)
 	ast_print_indent(depth);
 	twl_putstr("ast_list_item\n");
 	depth++;
-	twl_lst_iter(ast_list_item->ast_pipe_seq_lst, iter_fn, &depth);
+	twl_lst_iter(ast_list_item->ast_andor_item_lst, iter_fn, &depth);
 }

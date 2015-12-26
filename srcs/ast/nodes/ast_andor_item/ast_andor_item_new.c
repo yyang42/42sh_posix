@@ -10,14 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_pipe_seq.h"
+#include "ast/nodes/ast_andor_item.h"
 
-t_ast_pipe_seq			*ast_pipe_seq_new(void)
+t_ast_andor_item			*ast_andor_item_new(void)
 {
-	t_ast_pipe_seq		*ast_pipe_seq;
+	t_ast_andor_item		*ast_andor_item;
 
-	ast_pipe_seq = twl_malloc_x0(sizeof(t_ast_pipe_seq));
-	ast_pipe_seq->tokens = twl_lst_new();
-	ast_pipe_seq->ast_cmd_seq_lst = twl_lst_new();
-	return (ast_pipe_seq);
+	ast_andor_item = twl_malloc_x0(sizeof(t_ast_andor_item));
+	ast_andor_item->tokens = twl_lst_new();
+	ast_andor_item->ast_cmd_seq_lst = twl_lst_new();
+	return (ast_andor_item);
 }

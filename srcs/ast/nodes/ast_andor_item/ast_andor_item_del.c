@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_pipe_seq.h"
+#include "ast/nodes/ast_andor_item.h"
 
-void				ast_pipe_seq_del(t_ast_pipe_seq *ast_pipe_seq)
+void				ast_andor_item_del(t_ast_andor_item *ast_andor_item)
 {
-	free(ast_pipe_seq);
+	free(ast_andor_item);
 }

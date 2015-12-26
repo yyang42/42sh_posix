@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_pipe_seq.h"
+#include "ast/nodes/ast_andor_item.h"
 
 bool				ast_cmd_seq_is_delimiter(t_token *token)
 {

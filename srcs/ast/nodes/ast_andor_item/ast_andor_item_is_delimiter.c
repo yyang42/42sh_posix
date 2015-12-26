@@ -10,28 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_PIPE_SEQ_H
-# define AST_PIPE_SEQ_H
+#include "ast/nodes/ast_andor_item.h"
 
-# include "basics.h"
-
-# include "token_mgr.h"
-# include "ast/ast_utils.h"
-
-# include "ast/nodes/ast_cmd_seq.h"
-
-typedef struct		s_ast_pipe_seq
+bool				ast_andor_item_is_delimiter(t_token *token)
 {
-	t_lst			*tokens;
-	t_lst			*ast_cmd_seq_lst;
-}					t_ast_pipe_seq;
-
-t_ast_pipe_seq			*ast_pipe_seq_new(void);
-void				ast_pipe_seq_del(t_ast_pipe_seq *ast_pipe_seq);
-
-t_ast_pipe_seq		*ast_pipe_seq_new_from_tokens(t_lst *tokens);
-void				ast_pipe_seq_print_rec(t_ast_pipe_seq *ast_pipe_seq, int depth);
-
-bool				ast_pipe_seq_is_delimiter(t_token *tokens);
-
-#endif
+	return (twl_strequ(token->text, "&&")
+		|| twl_strequ(token->text, "||"));
+}

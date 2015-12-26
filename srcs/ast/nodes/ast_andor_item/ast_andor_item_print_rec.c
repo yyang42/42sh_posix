@@ -10,25 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_pipe_seq.h"
-#include "ast/nodes/ast_list_item.h"
+#include "ast/nodes/ast_andor_item.h"
 
-t_ast_pipe_seq	*ast_pipe_seq_new_from_tokens(t_lst *tokens)
+static void			iter_fn(void *ast_cmd_seq, void *depth_ptr)
 {
-	t_ast_pipe_seq		*ast_pipe_seq;
-	t_token					*token;
+	ast_cmd_seq_print_rec(ast_cmd_seq, *(int *)depth_ptr);
+}
 
-	ast_pipe_seq = ast_pipe_seq_new();
-	while (twl_lst_len(tokens))
-	{
-		twl_lst_push(ast_pipe_seq->ast_cmd_seq_lst, ast_cmd_seq_new_from_tokens(tokens));
-		token = twl_lst_first(tokens);
-		if (!token)
-			break ;
-		if (ast_cmd_seq_is_delimiter(token))
-			twl_lst_shift(tokens);
-		else
-			break ;
-	}
-	return (ast_pipe_seq);
+void				ast_andor_item_print_rec(t_ast_andor_item *ast_andor_item, int depth)
+{
+	ast_print_indent(depth);
+	twl_putstr("ast_andor_item\n");
+	depth++;
+	twl_lst_iter(ast_andor_item->ast_cmd_seq_lst, iter_fn, &depth);
 }

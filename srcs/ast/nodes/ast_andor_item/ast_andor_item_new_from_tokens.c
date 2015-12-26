@@ -10,10 +10,25 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_pipe_seq.h"
+#include "ast/nodes/ast_andor_item.h"
+#include "ast/nodes/ast_list_item.h"
 
-bool				ast_pipe_seq_is_delimiter(t_token *token)
+t_ast_andor_item	*ast_andor_item_new_from_tokens(t_lst *tokens)
 {
-	return (twl_strequ(token->text, "&&")
-		|| twl_strequ(token->text, "||"));
+	t_ast_andor_item		*ast_andor_item;
+	t_token					*token;
+
+	ast_andor_item = ast_andor_item_new();
+	while (twl_lst_len(tokens))
+	{
+		twl_lst_push(ast_andor_item->ast_cmd_seq_lst, ast_cmd_seq_new_from_tokens(tokens));
+		token = twl_lst_first(tokens);
+		if (!token)
+			break ;
+		if (ast_cmd_seq_is_delimiter(token))
+			twl_lst_shift(tokens);
+		else
+			break ;
+	}
+	return (ast_andor_item);
 }
