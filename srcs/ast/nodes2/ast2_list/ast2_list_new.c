@@ -12,7 +12,7 @@
 
 #include "twl_xstdlib.h"
 
-#include "ast/nodes2/ast2_list.h"
+#include "ast/nodes/ast2_list.h"
 
 t_ast2_list			*ast2_list_new(void)
 {

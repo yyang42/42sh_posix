@@ -12,7 +12,7 @@
 
 #include "twl_xstdlib.h"
 
-#include "ast/nodes2/ast2_separator.h"
+#include "ast/nodes/ast2_separator.h"
 
 t_ast2_separator			*ast2_separator_new(void)
 {

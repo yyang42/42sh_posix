@@ -10,35 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-
 #include "ast/ast.h"
-#include "token_mgr.h"
 
-static char			*get_list_text(t_ast2_list *list)
+#include "twl_arr.h"
+#include "utils.h"
+
+t_ast2_complete_command *ast_build_complete_command(t_ast *ast)
 {
-	t_token			*token;
-	char			*out;
+	t_ast2_complete_command		*complete_command;
 
-	out = twl_strdup("list");
-	token = twl_lst_first(list->tokens);
-	if (token)
-	{
-		out = twl_strjoinfree(out, " ", 'l');
-		out = twl_strjoinfree(out, token->text, 'l');
-	}
-	return (out);
-}
-
-void				ast_str_append2_list(t_ast *ast, t_ast2_list *list)
-{
-	char			*text;
-
-	text = get_list_text(list);
-	ast_str_push_line(ast, text, 0);
-	ast->out_depth++;
-	if (list->list)
-		ast_str_append2_list(ast, list->list);
-	ast->out_depth--;
-	free(text);
+	complete_command = ast2_complete_command_new();
+	complete_command->list = ast_build_list(ast, ast->tokens);
+	return (complete_command);
+	(void)ast;
 }

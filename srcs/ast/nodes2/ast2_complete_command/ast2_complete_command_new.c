@@ -12,7 +12,7 @@
 
 #include "twl_xstdlib.h"
 
-#include "ast/nodes2/ast2_complete_command.h"
+#include "ast/nodes/ast2_complete_command.h"
 
 t_ast2_complete_command			*ast2_complete_command_new(void)
 {

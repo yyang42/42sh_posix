@@ -12,7 +12,7 @@
 
 #include "twl_xstdlib.h"
 
-#include "ast/nodes2/<OBJ_NAME>.h"
+#include "ast/nodes/<OBJ_NAME>.h"
 
 t_<OBJ_NAME>			<PADDING>*<OBJ_NAME>_new(void)
 {

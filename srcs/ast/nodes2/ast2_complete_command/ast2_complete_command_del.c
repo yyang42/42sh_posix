@@ -12,7 +12,7 @@
 
 #include <stdlib.h>
 
-#include "ast/nodes2/ast2_complete_command.h"
+#include "ast/nodes/ast2_complete_command.h"
 
 void				ast2_complete_command_del(t_ast2_complete_command *ast2_complete_command)
 {

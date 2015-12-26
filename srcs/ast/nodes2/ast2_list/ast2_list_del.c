@@ -12,7 +12,7 @@
 
 #include <stdlib.h>
 
-#include "ast/nodes2/ast2_list.h"
+#include "ast/nodes/ast2_list.h"
 
 void				ast2_list_del(t_ast2_list *ast2_list)
 {

@@ -10,21 +10,35 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST2_COMPLETE_COMMAND_H
-# define AST2_COMPLETE_COMMAND_H
+#include <stdlib.h>
 
-# include "basics.h"
+#include "ast/ast.h"
+#include "token_mgr.h"
 
-# include "ast/nodes2/ast2_list.h"
-# include "ast/nodes2/ast2_separator.h"
-
-typedef struct		s_ast2_complete_command
+static char			*get_list_text(t_ast2_list *list)
 {
-	t_ast2_list		 	*list;
-	t_ast2_separator 	*separator;
-}					t_ast2_complete_command;
+	t_token			*token;
+	char			*out;
 
-t_ast2_complete_command		*ast2_complete_command_new(void);
-void						ast2_complete_command_del(t_ast2_complete_command *ast2_complete_command);
+	out = twl_strdup("list");
+	token = twl_lst_first(list->tokens);
+	if (token)
+	{
+		out = twl_strjoinfree(out, " ", 'l');
+		out = twl_strjoinfree(out, token->text, 'l');
+	}
+	return (out);
+}
 
-#endif
+void				ast_str_append_list(t_ast *ast, t_ast2_list *list)
+{
+	char			*text;
+
+	text = get_list_text(list);
+	ast_str_push_line(ast, text, 0);
+	ast->out_depth++;
+	if (list->list)
+		ast_str_append_list(ast, list->list);
+	ast->out_depth--;
+	free(text);
+}

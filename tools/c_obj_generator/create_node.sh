@@ -7,7 +7,7 @@ export path_to_create=$2
 export up_name=$(echo $obj_name | tr 'a-z' 'A-Z')
 export h_file_name=$obj_name".h"
 export git_root="$(git rev-parse --show-toplevel)"
-export src_folder=$path_to_create/srcs/ast/nodes2/$obj_name
+export src_folder=$path_to_create/srcs/ast/nodes/$obj_name
 export template_folder=$BASEDIR/node_templates
 
 LEN=$(echo ${#obj_name})
@@ -26,8 +26,8 @@ function generate_file ()
 	cat $src | sed -e "s/<OBJ_NAME>/$obj_name/g" | sed -e "s/<PADDING>/$padding/g" | sed -e "s/<OBJ_NAME_UPPER>/$up_name/g" > $dst
 }
 
-mkdir -p includes/ast/nodes2
+mkdir -p includes/ast/nodes
 mkdir -p $src_folder
-generate_file $template_folder/obj.h includes/ast/nodes2/$h_file_name
+generate_file $template_folder/obj.h includes/ast/nodes/$h_file_name
 generate_file $template_folder/obj_new.c $src_folder/$obj_name"_new.c"
 generate_file $template_folder/obj_del.c $src_folder/$obj_name"_del.c"
