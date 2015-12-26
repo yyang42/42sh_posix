@@ -18,9 +18,12 @@
 # include "token_mgr.h"
 # include "ast/ast_utils.h"
 
+# include "ast/nodes/ast_command.h"
+
 typedef struct		s_ast_pipe_item
 {
 	t_lst			*tokens;
+	t_ast_command	*ast_command;
 }					t_ast_pipe_item;
 
 t_ast_pipe_item			*ast_pipe_item_new(void);

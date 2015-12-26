@@ -2,15 +2,22 @@ complete_command
   ast_list_item
     ast_andor_item
       ast_pipe_item
+        ast_command
       ast_pipe_item
+        ast_command
       ast_pipe_item
+        ast_command
     ast_andor_item
       ast_pipe_item
+        ast_command
     ast_andor_item
       ast_pipe_item
+        ast_command
   ast_list_item
     ast_andor_item
       ast_pipe_item
+        ast_command
   ast_list_item
     ast_andor_item
       ast_pipe_item
+        ast_command

@@ -10,12 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_pipe_item.h"
+#include "ast/nodes/ast_command.h"
 
-void				ast_pipe_item_print_rec(t_ast_pipe_item *ast_pipe_item, int depth)
+void				ast_command_del(t_ast_command *ast_command)
 {
-	ast_print_indent(depth);
-	twl_putstr("ast_pipe_item\n");
-	depth++;
-	ast_command_print_rec(ast_pipe_item->ast_command, depth);
+	free(ast_command);
 }

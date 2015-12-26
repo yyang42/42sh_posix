@@ -10,27 +10,30 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ast/nodes/ast_command.h"
 #include "ast/nodes/ast_pipe_item.h"
-#include "ast/nodes/ast_andor_item.h"
 #include "ast/nodes/ast_list_item.h"
 
 t_ast_pipe_item	*ast_pipe_item_new_from_tokens(t_lst *tokens)
 {
 	t_ast_pipe_item		*ast_pipe_item;
-	t_token				*token;
+	// t_token					*token;
 
 	ast_pipe_item = ast_pipe_item_new();
-	while (true)
-	{
-		token = token_mgr_first(tokens);
-		if (!token)
-			break ;
-		if (ast_pipe_item_is_delimiter(token)
-			|| ast_andor_item_is_delimiter(token)
-			|| ast_list_item_is_delimiter(token))
-			break ;
-		twl_lst_shift(tokens);
-	}
+	ast_pipe_item->ast_command = ast_command_new_from_tokens(tokens);
+	// while (twl_lst_len(tokens))
+	// {
+	// 	COUCOU;
+
+	// 	COUCOU;
+	// 	// token = twl_lst_first(tokens);
+	// 	// if (!token)
+	// 	// 	break ;
+	// 	// if (ast_command_is_delimiter(token))
+	// 	// 	twl_lst_shift(tokens);
+	// 	// else
+	// 	// 	break ;
+	// }
+	// 	COUCOU;
 	return (ast_pipe_item);
-	(void)tokens;
 }

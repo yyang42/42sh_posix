@@ -10,12 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_pipe_item.h"
+#include "ast/nodes/ast_command.h"
 
-void				ast_pipe_item_print_rec(t_ast_pipe_item *ast_pipe_item, int depth)
+t_ast_command			*ast_command_new(void)
 {
-	ast_print_indent(depth);
-	twl_putstr("ast_pipe_item\n");
-	depth++;
-	ast_command_print_rec(ast_pipe_item->ast_command, depth);
+	t_ast_command		*ast_command;
+
+	ast_command = twl_malloc_x0(sizeof(t_ast_command));
+	ast_command->tokens = twl_lst_new();
+	return (ast_command);
 }
