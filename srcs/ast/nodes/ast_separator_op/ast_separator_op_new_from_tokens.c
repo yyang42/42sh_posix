@@ -19,7 +19,7 @@ t_ast_separator_op	*ast_separator_op_new_from_tokens(t_lst *tokens)
 	if (!ast_separator_op_is_own_type(tokens))
 		return (NULL);
 	ast_separator_op = ast_separator_op_new();
-	twl_lst_shift(tokens);
+	twl_lst_push(ast_separator_op->tokens, twl_lst_shift(tokens));
 	return (ast_separator_op);
 	(void)tokens;
 }

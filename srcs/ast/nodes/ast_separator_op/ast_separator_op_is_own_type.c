@@ -18,10 +18,10 @@ bool				ast_separator_op_is_own_type(t_lst *tokens)
 
 	first_token = twl_lst_first(tokens);
 	if (first_token
-		&& twl_strequ(first_token->text, "&")
-		&& twl_strequ(first_token->text, ";"))
+		&& (twl_strequ(first_token->text, "&")
+			|| twl_strequ(first_token->text, ";")))
 	{
 		return (true);
 	}
-	return (true);
+	return (false);
 }

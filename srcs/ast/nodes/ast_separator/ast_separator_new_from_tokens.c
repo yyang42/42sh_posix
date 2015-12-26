@@ -19,6 +19,7 @@ t_ast_separator	*ast_separator_new_from_tokens(t_lst *tokens)
 	ast_separator = ast_separator_new();
 	// twl_printf("ast_newline_list_is_own_type(tokens) %d\n", ast_newline_list_is_own_type(tokens));
 	// twl_printf("ast_separator_op_is_own_type(tokens) %d\n", ast_separator_op_is_own_type(tokens));
+	// token_mgr_print(tokens);
 	ast_separator->ast_newline_list = ast_newline_list_new_from_tokens(tokens);
 	if (ast_separator->ast_newline_list)
 	{
