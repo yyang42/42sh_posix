@@ -48,22 +48,23 @@ int					openclose_matcher_token_find_matching(
 	t_lst			*tokens_copy;
 	t_token			*token;
 
+	token = token_mgr_first(tokens);
+	if (!token
+		|| !twl_lst_find(matcher->oc_pairs, find_open_start_fn, token->text))
+	{
+		return (-1);
+	}
 	stack = twl_lst_new();
 	tokens_copy = twl_lst_copy(tokens, NULL);
 	while ((token = twl_lst_first(tokens_copy)))
 	{
-		COUCOU;
 		resolve(matcher, stack, tokens_copy, token);
-		COUCOU;
 		if (twl_lst_len(stack) == 0)
 		{
-		COUCOU;
 			twl_lst_del(stack, NULL);
-		COUCOU;
 			return (twl_lst_len(tokens) - twl_lst_len(tokens_copy));
 		}
 	}
-		COUCOU;
 	openclose_mgr_print(stack);
 	twl_lst_del(stack, NULL);
 	return (-1);

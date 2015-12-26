@@ -19,7 +19,7 @@ t_openclose			*openclose_new(char *open, char *close)
 	t_openclose		*this;
 
 	this = twl_malloc_x0(sizeof(t_openclose));
-	twl_strcpy(this->open, open);
-	twl_strcpy(this->close, close);
+	this->open = twl_strdup(open);
+	this->close = twl_strdup(close);
 	return (this);
 }

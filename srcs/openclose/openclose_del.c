@@ -15,5 +15,7 @@
 
 void				openclose_del(t_openclose *this)
 {
+	free(this->close);
+	free(this->open);
 	free(this);
 }
