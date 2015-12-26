@@ -23,20 +23,13 @@
 
 typedef struct		s_ast
 {
-	char						*raw;
-	t_ast_list					*root;
-	t_parser					*parser;
-	t_lst						*out_lines;
-	int							out_depth;
 	t_lst						*tokens;
-	int							tokenpos;
 	t_ast_complete_command		*complete_command;
 }					t_ast;
 
 t_ast				*ast_new(char *input);
 void				ast_del(t_ast *this);
 
-void				ast_build(t_ast *this);
 void				ast_print_tokens(t_ast *ast);
 void				ast_print_rec(t_ast *ast);
 

@@ -16,14 +16,11 @@
 
 t_ast				*ast_new(char *input)
 {
-	t_ast			*this;
+	t_ast			*ast;
+	t_lst			*tokens;
 
-	this = twl_malloc_x0(sizeof(t_ast));
-	this->raw = twl_strdup(input);
-	this->parser = parser_new(input);
-	this->out_lines = twl_lst_new();
-	this->out_depth = 0;
-	this->tokens = tokenizer_tokenize(input);
-	this->tokenpos = 0;
-	return (this);
+	ast = twl_malloc_x0(sizeof(t_ast));
+	tokens = tokenizer_tokenize(input);
+	ast->complete_command = ast_complete_command_new_from_tokens(tokens);
+	return (ast);
 }
