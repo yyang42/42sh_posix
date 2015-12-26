@@ -19,34 +19,29 @@ static bool			find_fn(void *str, void *needle)
 
 static void			do_split(t_lst *tokens, t_lst *tokens_list, t_lst **token_tmp_ptr, t_lst *split_strings)
 {
-	t_lst_elem__	*elem;
-	t_lst_elem__	*next;
+	t_token			*token;
 
-	elem = tokens->head;
-	while (elem)
+	while ((token = twl_lst_shift(tokens)))
 	{
-		next = elem->next;
-		twl_lst_push(*token_tmp_ptr, elem->data);
-		if (twl_lst_find(split_strings, find_fn, ((t_token *)elem->data)->text))
+		twl_lst_push(*token_tmp_ptr, token);
+		if (twl_lst_find(split_strings, find_fn, token->text))
 		{
 			*token_tmp_ptr = twl_lst_new();
 			twl_lst_push(tokens_list, *token_tmp_ptr);
 		}
-		elem = next;
 	}
-	(void)split_strings;
 }
 
 t_lst				*token_mgr_split(t_lst *tokens, t_lst *split_strings)
 {
 	t_lst			*tokens_list;
 	t_lst			*tokens_tmp;
+	t_lst			*tokens_copy;
 
+	tokens_copy = twl_lst_copy(tokens, NULL);
 	tokens_list = twl_lst_new();
 	tokens_tmp = twl_lst_new();
 	twl_lst_push(tokens_list, tokens_tmp);
-	do_split(tokens, tokens_list, &tokens_tmp, split_strings);
-	(void)split_strings;
-	(void)tokens;
+	do_split(tokens_copy, tokens_list, &tokens_tmp, split_strings);
 	return (tokens_list);
 }

@@ -9,7 +9,6 @@ mt_test_token_mgr_split(num2, "echo 1 ; echo 2 ; echo 3", ";_&",
 									"echo_1_; / echo_2_; / echo_3", false);
 mt_test_token_mgr_split(num3, "echo 1&echo 2;echo 3", ";_&",
 									"echo_1_& / echo_2_; / echo_3", false);
-
 // mt_test_token_mgr_split(num4, "cmd1;(cmd3;cmd4);cmd5", ";_&",
 // 									"cmd1_; / (_cmd3_;_cmd4_)_; / cmd5", true);
 

@@ -36,4 +36,7 @@ void				openclose_matcher_print(t_openclose_matcher *matcher);
 void				openclose_matcher_set_skip_quoted(
 							t_openclose_matcher *matcher, bool skip_quoted);
 
+int					openclose_matcher_token_find_matching(
+								t_openclose_matcher *matcher, t_lst *tokens);
+
 #endif
