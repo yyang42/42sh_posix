@@ -1,16 +1,16 @@
 complete_command
   ast_list_item
     ast_andor_item
-      ast_cmd_seq
-      ast_cmd_seq
-      ast_cmd_seq
+      ast_pipe_item
+      ast_pipe_item
+      ast_pipe_item
     ast_andor_item
-      ast_cmd_seq
+      ast_pipe_item
     ast_andor_item
-      ast_cmd_seq
+      ast_pipe_item
   ast_list_item
     ast_andor_item
-      ast_cmd_seq
+      ast_pipe_item
   ast_list_item
     ast_andor_item
-      ast_cmd_seq
+      ast_pipe_item

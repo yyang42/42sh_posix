@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_cmd_seq.h"
+#include "ast/nodes/ast_andor_item.h"
 
-void				ast_cmd_seq_del(t_ast_cmd_seq *ast_cmd_seq)
+bool				ast_pipe_item_is_delimiter(t_token *token)
 {
-	free(ast_cmd_seq);
+	return (twl_strequ(token->text, "|"));
 }

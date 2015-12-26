@@ -10,13 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_cmd_seq.h"
+#include "ast/nodes/ast_pipe_item.h"
 
-t_ast_cmd_seq			*ast_cmd_seq_new(void)
+t_ast_pipe_item			*ast_pipe_item_new(void)
 {
-	t_ast_cmd_seq		*ast_cmd_seq;
+	t_ast_pipe_item		*ast_pipe_item;
 
-	ast_cmd_seq = twl_malloc_x0(sizeof(t_ast_cmd_seq));
-	ast_cmd_seq->tokens = twl_lst_new();
-	return (ast_cmd_seq);
+	ast_pipe_item = twl_malloc_x0(sizeof(t_ast_pipe_item));
+	ast_pipe_item->tokens = twl_lst_new();
+	return (ast_pipe_item);
 }

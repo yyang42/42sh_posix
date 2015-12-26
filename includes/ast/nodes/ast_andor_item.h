@@ -18,12 +18,12 @@
 # include "token_mgr.h"
 # include "ast/ast_utils.h"
 
-# include "ast/nodes/ast_cmd_seq.h"
+# include "ast/nodes/ast_pipe_item.h"
 
 typedef struct		s_ast_andor_item
 {
 	t_lst			*tokens;
-	t_lst			*ast_cmd_seq_lst;
+	t_lst			*ast_pipe_item_lst;
 }					t_ast_andor_item;
 
 t_ast_andor_item			*ast_andor_item_new(void);

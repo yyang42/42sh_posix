@@ -21,11 +21,11 @@ t_ast_andor_item	*ast_andor_item_new_from_tokens(t_lst *tokens)
 	ast_andor_item = ast_andor_item_new();
 	while (twl_lst_len(tokens))
 	{
-		twl_lst_push(ast_andor_item->ast_cmd_seq_lst, ast_cmd_seq_new_from_tokens(tokens));
+		twl_lst_push(ast_andor_item->ast_pipe_item_lst, ast_pipe_item_new_from_tokens(tokens));
 		token = twl_lst_first(tokens);
 		if (!token)
 			break ;
-		if (ast_cmd_seq_is_delimiter(token))
+		if (ast_pipe_item_is_delimiter(token))
 			twl_lst_shift(tokens);
 		else
 			break ;

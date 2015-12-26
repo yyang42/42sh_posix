@@ -10,25 +10,27 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_CMD_SEQ_H
-# define AST_CMD_SEQ_H
+#include "ast/nodes/ast_pipe_item.h"
+#include "ast/nodes/ast_andor_item.h"
+#include "ast/nodes/ast_list_item.h"
 
-# include "basics.h"
-
-# include "token_mgr.h"
-# include "ast/ast_utils.h"
-
-typedef struct		s_ast_cmd_seq
+t_ast_pipe_item	*ast_pipe_item_new_from_tokens(t_lst *tokens)
 {
-	t_lst			*tokens;
-}					t_ast_cmd_seq;
+	t_ast_pipe_item		*ast_pipe_item;
+	t_token				*token;
 
-t_ast_cmd_seq			*ast_cmd_seq_new(void);
-void				ast_cmd_seq_del(t_ast_cmd_seq *ast_cmd_seq);
-
-t_ast_cmd_seq		*ast_cmd_seq_new_from_tokens(t_lst *tokens);
-void				ast_cmd_seq_print_rec(t_ast_cmd_seq *ast_cmd_seq, int depth);
-
-bool				ast_cmd_seq_is_delimiter(t_token *token);
-
-#endif
+	ast_pipe_item = ast_pipe_item_new();
+	while (true)
+	{
+		token = token_mgr_first(tokens);
+		if (!token)
+			break ;
+		if (ast_pipe_item_is_delimiter(token)
+			|| ast_andor_item_is_delimiter(token)
+			|| ast_list_item_is_delimiter(token))
+			break ;
+		twl_lst_shift(tokens);
+	}
+	return (ast_pipe_item);
+	(void)tokens;
+}
