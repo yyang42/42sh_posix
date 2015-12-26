@@ -17,7 +17,7 @@ bool				ast_newline_list_is_own_type(t_lst *tokens)
 	t_token			*first_token;
 
 	first_token = twl_lst_first(tokens);
-	if (twl_strequ(first_token->text, "\n"))
+	if (first_token && twl_strequ(first_token->text, "\n"))
 		return (true);
 	return (false);
 }

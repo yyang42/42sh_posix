@@ -18,9 +18,11 @@
 # include "token_mgr.h"
 # include "ast/ast_utils.h"
 
+struct				s_ast_newline_list;
 typedef struct		s_ast_newline_list
 {
-	t_lst			*tokens;
+	t_lst						*tokens;
+	struct s_ast_newline_list	*ast_newline_list;
 }					t_ast_newline_list;
 
 t_ast_newline_list	*ast_newline_list_new(void);

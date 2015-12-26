@@ -18,5 +18,6 @@ void				ast_newline_list_print_rec(
 {
 	ast_print_indent(depth);
 	twl_putstr("newline_list\n");
-	(void)ast_newline_list;
+	if (ast_newline_list->ast_newline_list)
+		ast_newline_list_print_rec(ast_newline_list->ast_newline_list, depth + 1);;
 }
