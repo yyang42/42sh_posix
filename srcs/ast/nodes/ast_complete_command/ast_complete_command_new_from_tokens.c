@@ -18,7 +18,7 @@ t_ast_complete_command	*ast_complete_command_new_from_tokens(t_lst *tokens)
 	t_token						*token;
 
 	ast_complete_command = ast_complete_command_new();
-	while (true)
+	while (twl_lst_len(tokens))
 	{
 		twl_lst_push(ast_complete_command->ast_and_or_seq_lst, ast_and_or_seq_new_from_tokens(tokens));
 		token = token_mgr_first(tokens);
