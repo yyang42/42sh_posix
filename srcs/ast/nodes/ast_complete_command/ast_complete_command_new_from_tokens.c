@@ -10,10 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/ast.h"
-
-#include "twl_arr.h"
-#include "utils.h"
+#include "ast/nodes/ast_complete_command.h"
 
 t_ast_complete_command	*ast_complete_command_new_from_tokens(t_lst *tokens)
 {
@@ -22,5 +19,4 @@ t_ast_complete_command	*ast_complete_command_new_from_tokens(t_lst *tokens)
 	complete_command = ast_complete_command_new();
 	complete_command->list = ast_list_new_from_tokens(tokens);
 	return (complete_command);
-	(void)tokens;
 }

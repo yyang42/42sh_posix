@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 
 #include "ast/nodes/ast_complete_command.h"
 

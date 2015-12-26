@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-
 #include "<OBJ_NAME>.h"
 
 void				<OBJ_NAME>_del(t_<OBJ_NAME> *<OBJ_NAME>)
