@@ -10,22 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TOKEN_MGR_H
-# define TOKEN_MGR_H
+#include "token_mgr.h"
 
-# include "basics.h"
-# include "token.h"
+static void			push_fn(void *tokens, void *segs)
+{
+	twl_lst_push(segs, token_mgr_strjoin(tokens));
+}
 
-t_lst				*token_mgr_new(void);
-void				token_mgr_del(t_lst *tokens);
-void				token_mgr_add(t_lst *tokens, t_token *token);
-void				token_mgr_remove(t_lst *tokens, t_token *token);
-void				token_mgr_print(t_lst *tokens);
-void				token_mgr_print_token_text_by_index(t_lst *tokens,
-																	int index);
+char				*token_mgr_split_strjoin(t_lst *tokens_list)
+{
+	t_lst			*segs;
 
-char				*token_mgr_strjoin(t_lst *tokens);
-t_lst				*token_mgr_split(t_lst *tokens, t_lst *split_strings);
-char				*token_mgr_split_strjoin(t_lst *tokens_list);
-
-#endif
+	segs = twl_lst_new();
+	twl_lst_iter(tokens_list, push_fn, segs);
+	return (twl_lst_strjoin(segs, " / "));
+}
