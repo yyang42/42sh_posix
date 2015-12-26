@@ -15,7 +15,7 @@
 void				ast_linebreak_print_rec(t_ast_linebreak *ast_linebreak, int depth)
 {
 	ast_print_indent(depth);
-	twl_putstr("ast_linebreak\n");
+	twl_putstr("linebreak\n");
 	if (ast_linebreak->ast_newline_list)
 	{
 		ast_newline_list_print_rec(ast_linebreak->ast_newline_list, depth + 1);

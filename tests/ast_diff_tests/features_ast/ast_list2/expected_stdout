@@ -4,7 +4,7 @@ complete_command
       list (echo2)
         list (echo1)
   separator
-    ast_separator_op (;)
-    ast_linebreak
+    separator_op (;)
+    linebreak
       newline_list
         newline_list

@@ -18,6 +18,6 @@ void				ast_separator_op_print_rec(t_ast_separator_op *ast_separator_op, int dep
 
 	ast_print_indent(depth);
 	token = twl_lst_first(ast_separator_op->tokens);
-	twl_printf("ast_separator_op (%s)\n", token->text);
+	twl_printf("separator_op (%s)\n", token->text);
 	(void)ast_separator_op;
 }
