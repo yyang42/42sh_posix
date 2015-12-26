@@ -9,13 +9,22 @@ mt_test_token_mgr_split(num2, "echo 1 ; echo 2 ; echo 3", ";_&",
 									"echo_1_; / echo_2_; / echo_3", false);
 mt_test_token_mgr_split(num3, "echo 1&echo 2;echo 3", ";_&",
 									"echo_1_& / echo_2_; / echo_3", false);
-// mt_test_token_mgr_split(num4, "cmd1;(cmd3;cmd4);cmd5", ";_&",
-// 									"cmd1_; / (_cmd3_;_cmd4_)_; / cmd5", true);
+mt_test_token_mgr_split(num4, "cmd1;(cmd3;cmd4);cmd5", ";_&",
+									"cmd1_; / (_cmd3_;_cmd4_)_; / cmd5", false);
+mt_test_token_mgr_split(num5, "cmd1;(cmd3;(echo abc)cmd4);cmd5 & cmd6", ";_&",
+									"cmd1_; / (_cmd3_;_(_echo_abc_)_cmd4_)_; / cmd5_& / cmd6", false);
+mt_test_token_mgr_split(num6, "if abc; then 123; fi; echo hello & date", ";_&",
+									"if_abc_;_then_123_;_fi_; / echo_hello_& / date", false);
+mt_test_token_mgr_split(num7, "{echo abc; echo 123} & echo 777", ";_&",
+									"{_echo_abc_;_echo_123_}_& / echo_777", false);
 
 void	suite_token_mgr_split(t_suite *suite)
 {
 	SUITE_ADD_TEST(suite, test_num1);
 	SUITE_ADD_TEST(suite, test_num2);
 	SUITE_ADD_TEST(suite, test_num3);
-	// SUITE_ADD_TEST(suite, test_num4);
+	SUITE_ADD_TEST(suite, test_num4);
+	SUITE_ADD_TEST(suite, test_num5);
+	SUITE_ADD_TEST(suite, test_num6);
+	SUITE_ADD_TEST(suite, test_num7);
 }

@@ -10,37 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef OPENCLOSE_MATCHER_H
-# define OPENCLOSE_MATCHER_H
+#include "openclose_matcher.h"
 
-# include "basics.h"
-
-# include "openclose.h"
-
-typedef struct		s_openclose_matcher
+static bool			find_open_start_fn(void *oc_, void *text)
 {
-	t_lst			*oc_pairs;
-	int				skip_quoted;
-}					t_openclose_matcher;
+	t_openclose		*oc;
 
-t_openclose_matcher	*openclose_matcher_new(void);
-void				openclose_matcher_del(t_openclose_matcher *this);
+	oc = oc_;
+	return (twl_strequ(text, oc->open));
+}
 
-void				openclose_matcher_add(t_openclose_matcher *matcher,
-												char *open, char *close);
-
-char				*openclose_matcher_find_matching(t_openclose_matcher *this,
-																char *s);
-void				openclose_matcher_print(t_openclose_matcher *matcher);
-
-void				openclose_matcher_set_skip_quoted(
-							t_openclose_matcher *matcher, bool skip_quoted);
-
-int					openclose_matcher_token_find_matching(
-								t_openclose_matcher *matcher, t_lst *tokens);
 bool				openclose_matcher_is_open(
-								t_openclose_matcher *matcher, char *str);
-
-t_openclose_matcher *openclose_matcher_singleton_parser(void);
-
-#endif
+								t_openclose_matcher *matcher, char *str)
+{
+	return (twl_lst_find(matcher->oc_pairs, find_open_start_fn, str));
+}

@@ -11,23 +11,45 @@
 /* ************************************************************************** */
 
 #include "token_mgr.h"
+#include "openclose_matcher.h"
 
-static bool			find_fn(void *str, void *needle)
+static void			hande_openclose(t_openclose_matcher *matcher,
+								t_lst *tokens, t_lst *tokens_tmp)
 {
-	return (twl_strequ(str, needle));
+	int				pos;
+
+	pos = openclose_matcher_token_find_matching(matcher, tokens);
+	while (pos > 0)
+	{
+		twl_lst_push(tokens_tmp, twl_lst_shift(tokens));
+		pos--;
+	}
 }
 
-static void			do_split(t_lst *tokens, t_lst *tokens_list, t_lst **token_tmp_ptr, t_lst *split_strings)
+static void			do_split(t_lst *tokens, t_lst *tokens_list, t_lst *split_strings)
 {
-	t_token			*token;
+	t_token					*token;
+	t_lst					*tokens_tmp;
+	t_openclose_matcher		*matcher;
 
-	while ((token = twl_lst_shift(tokens)))
+	matcher = openclose_matcher_singleton_parser();
+	tokens_tmp = twl_lst_new();
+	twl_lst_push(tokens_list, tokens_tmp);
+	while ((token = twl_lst_first(tokens)))
 	{
-		twl_lst_push(*token_tmp_ptr, token);
-		if (twl_lst_find(split_strings, find_fn, token->text))
+		if (openclose_matcher_is_open(matcher, token->text))
 		{
-			*token_tmp_ptr = twl_lst_new();
-			twl_lst_push(tokens_list, *token_tmp_ptr);
+			hande_openclose(matcher, tokens, tokens_tmp);
+		}
+		else if (twl_lst_find(split_strings, twl_strequ_void, token->text))
+		{
+			twl_lst_push(tokens_tmp, twl_lst_shift(tokens));
+			tokens_tmp = twl_lst_new();
+			twl_lst_push(tokens_list, tokens_tmp);
+		}
+		else
+		{
+			twl_lst_push(tokens_tmp, twl_lst_shift(tokens));
 		}
 	}
 }
@@ -35,13 +57,10 @@ static void			do_split(t_lst *tokens, t_lst *tokens_list, t_lst **token_tmp_ptr,
 t_lst				*token_mgr_split(t_lst *tokens, t_lst *split_strings)
 {
 	t_lst			*tokens_list;
-	t_lst			*tokens_tmp;
 	t_lst			*tokens_copy;
 
 	tokens_copy = twl_lst_copy(tokens, NULL);
 	tokens_list = twl_lst_new();
-	tokens_tmp = twl_lst_new();
-	twl_lst_push(tokens_list, tokens_tmp);
-	do_split(tokens_copy, tokens_list, &tokens_tmp, split_strings);
+	do_split(tokens_copy, tokens_list, split_strings);
 	return (tokens_list);
 }
