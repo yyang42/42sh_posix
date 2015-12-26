@@ -10,38 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_SEPARATOR_H
-# define AST_SEPARATOR_H
+#include "ast/nodes/ast_newline_list.h"
 
-# include "basics.h"
-
-# include "token.h"
-# include "ast/ast_utils.h"
-# include "ast/nodes/ast_newline_list.h"
-
-typedef enum		e_ast_separator_type
+void				ast_newline_list_print_rec(
+							t_ast_newline_list *ast_newline_list,
+							int depth)
 {
-	AST_SEPERATOR_NONE,
-	AST_SEPERATOR_NEWLINE_LIST,
-	AST_SEPERATOR_SEPARATOR_OP
-}					t_ast_separator_type;
-
-typedef struct		s_ast_separator
-{
-	t_lst				*tokens;
-
-	t_ast_separator_type type;
-	union {
-		t_ast_newline_list	*newline_list;
-	} u;
-}					t_ast_separator;
-
-t_ast_separator			*ast_separator_new(void);
-void				ast_separator_del(t_ast_separator *ast_separator);
-
-t_ast_separator		*ast_separator_new_from_tokens(
-								t_lst *tokens);
-void						ast_separator_print_rec(
-								t_ast_separator *ast_separator,
-								int depth);
-#endif
+	ast_print_indent(depth);
+	twl_putstr("newline_list\n");
+	(void)ast_newline_list;
+}

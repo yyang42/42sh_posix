@@ -15,6 +15,7 @@
 
 # include "basics.h"
 
+# include "token_mgr.h"
 # include "ast/ast_utils.h"
 
 typedef struct		s_<OBJ_NAME>
@@ -25,9 +26,9 @@ typedef struct		s_<OBJ_NAME>
 t_<OBJ_NAME>			<PADDING>*<OBJ_NAME>_new(void);
 void				<OBJ_NAME>_del(t_<OBJ_NAME> *<OBJ_NAME>);
 
-t_<OBJ_NAME>		*<OBJ_NAME>_new_from_tokens(
-								t_lst *tokens);
-void						<OBJ_NAME>_print_rec(
-								t_<OBJ_NAME> *<OBJ_NAME>,
-								int depth);
+t_<OBJ_NAME>		*<OBJ_NAME>_new_from_tokens(t_lst *tokens);
+void				<OBJ_NAME>_print_rec(t_<OBJ_NAME> *<OBJ_NAME>, int depth);
+
+bool				<OBJ_NAME>_is_own_type(t_lst *tokens);
+
 #endif

@@ -18,5 +18,6 @@ t_ast_separator			*ast_separator_new(void)
 
 	ast_separator = twl_malloc_x0(sizeof(t_ast_separator));
 	ast_separator->tokens = twl_lst_new();
+	ast_separator->type = AST_SEPERATOR_NONE;
 	return (ast_separator);
 }

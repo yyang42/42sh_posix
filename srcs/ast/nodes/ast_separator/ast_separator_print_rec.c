@@ -18,5 +18,10 @@ void				ast_separator_print_rec(
 {
 	ast_print_indent(depth);
 	twl_putstr("separator\n");
+	if (ast_separator->type == AST_SEPERATOR_NEWLINE_LIST)
+	{
+		ast_separator->type = AST_SEPERATOR_NEWLINE_LIST;
+		ast_newline_list_print_rec(ast_separator->u.newline_list, depth + 1);
+	}
 	(void)ast_separator;
 }
