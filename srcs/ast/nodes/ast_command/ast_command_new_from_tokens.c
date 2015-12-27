@@ -20,7 +20,8 @@ static bool			is_compound_command(t_lst *tokens)
 	t_token			*first;
 
 	first = token_mgr_first(tokens);
-	return (twl_strequ(first->text, "("));
+	return (twl_strequ(first->text, "(")
+		|| twl_strequ(first->text, "if"));
 }
 
 t_ast_command	*ast_command_new_from_tokens(t_lst *tokens)

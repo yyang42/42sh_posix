@@ -16,5 +16,6 @@ void				<OBJ_NAME>_print_rec(t_<OBJ_NAME> *<OBJ_NAME>, int depth)
 {
 	ast_print_indent(depth);
 	twl_printf("<OBJ_NAME>\n");
+	depth++;
 	(void)<OBJ_NAME>;
 }

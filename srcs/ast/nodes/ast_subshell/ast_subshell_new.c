@@ -10,23 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "token_mgr.h"
+#include "ast/nodes/ast_subshell.h"
 
-static void			print_token_fn(void *token_)
+t_ast_subshell			*ast_subshell_new(void)
 {
-	t_token	*token;
+	t_ast_subshell		*ast_subshell;
 
-	token = token_;
-	COUCOU;
-	twl_printf("<%s>\n", token->text);
-	COUCOU;
-}
-
-void				token_mgr_print(t_lst *tokens)
-{
-	twl_printf("%s>>>>>>>>>> token list%s\n", C_CYAN, C_CLEAR);
-	COUCOU;
-	twl_lst_iter0(tokens, print_token_fn);
-	COUCOU;
-	twl_printf("%s-------------------------------------%s\n", C_CYAN, C_CLEAR);
+	ast_subshell = twl_malloc_x0(sizeof(t_ast_subshell));
+	ast_subshell->tokens = twl_lst_new();
+	return (ast_subshell);
 }

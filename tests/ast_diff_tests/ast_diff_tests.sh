@@ -53,7 +53,8 @@ if ! `env | grep -q ^LAST_ONLY=`
 then
 
     diff_test features_ast 01_empty
-    diff_test features_ast 10_andor_seq_list
+    diff_test features_ast 10_simple_command
+    # diff_test features_ast 20_subshell
     # diff_test features_ast ast_list2
     # diff_test features_ast ast_list3
     # diff_test features_ast ast_list4

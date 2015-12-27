@@ -17,6 +17,6 @@ t_<OBJ_NAME>	*<OBJ_NAME>_new_from_tokens(t_lst *tokens)
 	t_<OBJ_NAME>		*<OBJ_NAME>;
 
 	<OBJ_NAME> = <OBJ_NAME>_new();
+	<OBJ_NAME>->tokens = twl_lst_copy(tokens, NULL);
 	return (<OBJ_NAME>);
-	(void)tokens;
 }

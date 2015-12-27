@@ -10,23 +10,27 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "token_mgr.h"
+#ifndef AST_IF_CLAUSE_H
+# define AST_IF_CLAUSE_H
 
-static void			print_token_fn(void *token_)
+# include "basics.h"
+
+# include "token_mgr.h"
+# include "ast/ast_utils.h"
+
+typedef struct		s_ast_if_clause
 {
-	t_token	*token;
+	t_lst			*tokens;
+}					t_ast_if_clause;
 
-	token = token_;
-	COUCOU;
-	twl_printf("<%s>\n", token->text);
-	COUCOU;
-}
+t_ast_if_clause		*ast_if_clause_new(void);
+void				ast_if_clause_del(t_ast_if_clause *ast_if_clause);
 
-void				token_mgr_print(t_lst *tokens)
-{
-	twl_printf("%s>>>>>>>>>> token list%s\n", C_CYAN, C_CLEAR);
-	COUCOU;
-	twl_lst_iter0(tokens, print_token_fn);
-	COUCOU;
-	twl_printf("%s-------------------------------------%s\n", C_CYAN, C_CLEAR);
-}
+t_ast_if_clause		*ast_if_clause_new_from_tokens(t_lst *tokens);
+void				*ast_if_clause_new_from_tokens_void(t_lst *tokens);
+void				ast_if_clause_print_rec(t_ast_if_clause *ast_if_clause, int depth);
+void				ast_if_clause_print_rec_void(void *ast_if_clause, int depth);
+
+bool				ast_if_clause_is_own_type(t_lst *tokens);
+
+#endif
