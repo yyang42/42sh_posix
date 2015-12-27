@@ -17,6 +17,7 @@ t_ast_simple_command	*ast_simple_command_new_from_tokens(t_lst *tokens)
 	t_ast_simple_command		*ast_simple_command;
 
 	ast_simple_command = ast_simple_command_new();
+	ast_simple_command->tokens = twl_lst_copy(tokens, NULL);
 	return (ast_simple_command);
 	(void)tokens;
 }

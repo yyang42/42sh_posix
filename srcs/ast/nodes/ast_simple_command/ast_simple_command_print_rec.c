@@ -15,6 +15,6 @@
 void				ast_simple_command_print_rec(t_ast_simple_command *ast_simple_command, int depth)
 {
 	ast_print_indent(depth);
-	twl_putstr("ast_simple_command\n");
+	twl_printf("ast_simple_command %s\n", token_mgr_first(ast_simple_command->tokens)->text);
 	(void)ast_simple_command;
 }

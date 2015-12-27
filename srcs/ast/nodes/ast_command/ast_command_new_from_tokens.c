@@ -15,18 +15,29 @@
 #include "ast/nodes/ast_andor_item.h"
 #include "ast/nodes/ast_list_item.h"
 
+static bool			is_compound_command(t_lst *tokens)
+{
+	t_token			*first;
+
+	first = token_mgr_first(tokens);
+	return (twl_strequ(first->text, "("));
+}
+
 t_ast_command	*ast_command_new_from_tokens(t_lst *tokens)
 {
 	t_ast_command		*ast_command;
-	t_token				*token;
 
 	ast_command = ast_command_new();
-	while (true)
+	ast_command->tokens = twl_lst_copy(tokens, NULL);
+	if (is_compound_command(tokens))
 	{
-		token = token_mgr_first(tokens);
-		if (!token)
-			break ;
-		twl_lst_push(ast_command->tokens, twl_lst_shift(tokens));
+		ast_command->command_type = COMMAND_COMPOUND_COMMAND;
+		ast_command->command = ast_compound_command_new_from_tokens(tokens);
+	}
+	else
+	{
+		ast_command->command_type = COMMAND_SIMPLE_COMMAND;
+		ast_command->command = ast_simple_command_new_from_tokens(tokens);
 	}
 	return (ast_command);
 }

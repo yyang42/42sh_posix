@@ -10,11 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/<OBJ_NAME>.h"
+#include "ast/nodes/ast_compound_command.h"
 
-void				<OBJ_NAME>_print_rec(t_<OBJ_NAME> *<OBJ_NAME>, int depth)
+void				ast_compound_command_del(t_ast_compound_command *ast_compound_command)
 {
-	ast_print_indent(depth);
-	twl_printf("<OBJ_NAME>\n");
-	(void)<OBJ_NAME>;
+	free(ast_compound_command);
 }

@@ -10,11 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/<OBJ_NAME>.h"
+#include "ast/nodes/ast_compound_command.h"
 
-void				<OBJ_NAME>_print_rec(t_<OBJ_NAME> *<OBJ_NAME>, int depth)
+t_ast_compound_command	*ast_compound_command_new_from_tokens(t_lst *tokens)
 {
-	ast_print_indent(depth);
-	twl_printf("<OBJ_NAME>\n");
-	(void)<OBJ_NAME>;
+	t_ast_compound_command		*ast_compound_command;
+
+	ast_compound_command = ast_compound_command_new();
+	ast_compound_command->tokens = twl_lst_copy(tokens, NULL);
+	return (ast_compound_command);
+	(void)tokens;
 }

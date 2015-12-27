@@ -10,11 +10,25 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/<OBJ_NAME>.h"
+#ifndef AST_COMPOUND_COMMAND_H
+# define AST_COMPOUND_COMMAND_H
 
-void				<OBJ_NAME>_print_rec(t_<OBJ_NAME> *<OBJ_NAME>, int depth)
+# include "basics.h"
+
+# include "token_mgr.h"
+# include "ast/ast_utils.h"
+
+typedef struct		s_ast_compound_command
 {
-	ast_print_indent(depth);
-	twl_printf("<OBJ_NAME>\n");
-	(void)<OBJ_NAME>;
-}
+	t_lst			*tokens;
+}					t_ast_compound_command;
+
+t_ast_compound_command			*ast_compound_command_new(void);
+void				ast_compound_command_del(t_ast_compound_command *ast_compound_command);
+
+t_ast_compound_command		*ast_compound_command_new_from_tokens(t_lst *tokens);
+void				ast_compound_command_print_rec(t_ast_compound_command *ast_compound_command, int depth);
+
+bool				ast_compound_command_is_own_type(t_lst *tokens);
+
+#endif
