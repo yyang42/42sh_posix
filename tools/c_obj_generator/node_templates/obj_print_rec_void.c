@@ -10,15 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/ast.h"
+#include "ast/nodes/<OBJ_NAME>.h"
 
-t_ast				*ast_new(char *input)
+void				<OBJ_NAME>_print_rec_void(void *<OBJ_NAME>, int depth)
 {
-	t_ast			*ast;
-	t_lst			*tokens;
-
-	ast = twl_malloc_x0(sizeof(t_ast));
-	tokens = tokenizer_tokenize(input);
-	ast->complete_command = ast_complete_command_new_from_tokens(tokens);
-	return (ast);
+	<OBJ_NAME>_print_rec(<OBJ_NAME>, depth);
 }

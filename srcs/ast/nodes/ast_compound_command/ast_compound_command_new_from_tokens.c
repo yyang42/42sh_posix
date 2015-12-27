@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "openclose_matcher.h"
 #include "ast/nodes/ast_compound_command.h"
 
 static t_compound_command_new_from_token_fn * get_new_from_token_fns(void)
@@ -37,6 +38,18 @@ static t_compound_command_type get_compound_command_type(t_lst *tokens)
 	return (COMPOUND_COMMAND_NONE);
 }
 
+static void			new_compound_command_sequel(t_ast_compound_command *this, t_lst *tokens)
+{
+	int						pos;
+	t_openclose_matcher		*matcher;
+
+	matcher = openclose_matcher_singleton_parser();
+	pos = openclose_matcher_token_find_matching(matcher, tokens);
+	this->command_tokens = twl_lst_slice(tokens, 0, pos);
+	this->redirect_tokens = twl_lst_slice(tokens, pos, twl_lst_len(tokens));
+	this->command = get_new_from_token_fns()[this->type](this->command_tokens);
+}
+
 t_ast_compound_command	*ast_compound_command_new_from_tokens(t_lst *tokens)
 {
 	t_ast_compound_command		*this;
@@ -46,8 +59,7 @@ t_ast_compound_command	*ast_compound_command_new_from_tokens(t_lst *tokens)
 	this->type = get_compound_command_type(tokens);
 	if (this->type != COMPOUND_COMMAND_NONE)
 	{
-		this->command = get_new_from_token_fns()[this->type](tokens);
+		new_compound_command_sequel(this, tokens);
 	}
 	return (this);
-	(void)tokens;
 }

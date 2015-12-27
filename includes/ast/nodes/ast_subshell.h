@@ -18,9 +18,11 @@
 # include "token_mgr.h"
 # include "ast/ast_utils.h"
 
+struct s_ast_complete_command;
 typedef struct		s_ast_subshell
 {
-	t_lst			*tokens;
+	t_lst							*tokens;
+	struct s_ast_complete_command	*ast_complete_command;
 }					t_ast_subshell;
 
 t_ast_subshell			*ast_subshell_new(void);

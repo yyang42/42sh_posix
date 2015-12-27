@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "ast/nodes/ast_subshell.h"
+#include "ast/nodes/ast_complete_command.h"
 
 t_ast_subshell	*ast_subshell_new_from_tokens(t_lst *tokens)
 {
@@ -18,6 +19,10 @@ t_ast_subshell	*ast_subshell_new_from_tokens(t_lst *tokens)
 
 	ast_subshell = ast_subshell_new();
 	ast_subshell->tokens = twl_lst_copy(tokens, NULL);
+	// token_mgr_print(ast_subshell->tokens);
+	twl_lst_pop_front(ast_subshell->tokens);
+	twl_lst_pop_back(ast_subshell->tokens);
+	ast_subshell->ast_complete_command = ast_complete_command_new_from_tokens(ast_subshell->tokens);
 	return (ast_subshell);
 	(void)tokens;
 }

@@ -32,6 +32,8 @@ typedef enum		s_compound_command_type
 typedef struct		s_ast_compound_command
 {
 	t_lst						*tokens;
+	t_lst						*command_tokens;
+	t_lst						*redirect_tokens;
 	void						*command;
 	t_compound_command_type		type;
 }					t_ast_compound_command;
