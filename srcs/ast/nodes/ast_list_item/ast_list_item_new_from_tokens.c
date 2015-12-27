@@ -33,7 +33,7 @@ static void				build_ast_list_item(
 		sep = twl_lst_pop(tokens_tmp);
 	else
 		sep = NULL;
-	twl_lst_push(ast_list_item->ast_andor_item_lst, ast_andor_item_new_from_tokens(tokens_tmp, sep));
+	twl_lst_push(ast_list_item->ast_andor_items, ast_andor_item_new_from_tokens(tokens_tmp, sep));
 }
 
 t_ast_list_item		*ast_list_item_new_from_tokens(t_lst *tokens, t_token *sep)

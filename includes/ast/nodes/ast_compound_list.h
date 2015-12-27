@@ -21,13 +21,13 @@
 
 typedef struct				s_ast_compound_list
 {
-	t_lst					*ast_list_item_lst;
+	t_lst					*ast_list_items;
 }							t_ast_compound_list;
 
-t_ast_compound_list		*ast_compound_list_new(void);
+t_ast_compound_list			*ast_compound_list_new(void);
 void						ast_compound_list_del(t_ast_compound_list *ast_compound_list);
 
-t_ast_compound_list		*ast_compound_list_new_from_tokens(t_lst *tokens);
+t_ast_compound_list			*ast_compound_list_new_from_tokens(t_lst *tokens);
 void						ast_compound_list_print_rec(t_ast_compound_list *ast_compound_list, int depth);
 
 #endif

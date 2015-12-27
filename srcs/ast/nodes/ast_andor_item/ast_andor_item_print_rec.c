@@ -25,5 +25,5 @@ void				ast_andor_item_print_rec(t_ast_andor_item *ast_andor_item, int depth)
 		twl_printf_escape_nl(" (sep=%s)", ast_andor_item->separator->text);
 	twl_putstr("\n");
 	depth++;
-	twl_lst_iter(ast_andor_item->ast_pipe_item_lst, iter_fn, &depth);
+	twl_lst_iter(ast_andor_item->ast_pipe_items, iter_fn, &depth);
 }

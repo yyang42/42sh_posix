@@ -17,6 +17,6 @@ t_ast_compound_list			*ast_compound_list_new(void)
 	t_ast_compound_list		*ast_compound_list;
 
 	ast_compound_list = twl_malloc_x0(sizeof(t_ast_compound_list));
-	ast_compound_list->ast_list_item_lst = twl_lst_new();
+	ast_compound_list->ast_list_items = twl_lst_new();
 	return (ast_compound_list);
 }

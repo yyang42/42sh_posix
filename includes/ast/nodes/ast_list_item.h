@@ -22,7 +22,7 @@
 
 typedef struct		s_ast_list_item
 {
-	t_lst			*ast_andor_item_lst;
+	t_lst			*ast_andor_items;
 	t_token			*separator;
 }					t_ast_list_item;
 

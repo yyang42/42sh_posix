@@ -24,5 +24,5 @@ void				ast_compound_list_print_rec(
 	ast_print_indent(depth);
 	twl_putstr("compound_list\n");
 	depth++;
-	twl_lst_iter(ast_compound_list->ast_list_item_lst, iter_fn, &depth);
+	twl_lst_iter(ast_compound_list->ast_list_items, iter_fn, &depth);
 }
