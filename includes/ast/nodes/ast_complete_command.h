@@ -19,10 +19,10 @@
 # include "ast/ast_utils.h"
 # include "ast/nodes/ast_list_item.h"
 
-typedef struct		s_ast_complete_command
+typedef struct				s_ast_complete_command
 {
-	t_lst			*ast_list_item_lst;
-}					t_ast_complete_command;
+	t_lst					*ast_list_item_lst;
+}							t_ast_complete_command;
 
 t_ast_complete_command		*ast_complete_command_new(void);
 void						ast_complete_command_del(t_ast_complete_command *ast_complete_command);

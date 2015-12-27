@@ -26,10 +26,10 @@ typedef struct		s_ast_andor_item
 	t_token			*separator;
 }					t_ast_andor_item;
 
-t_ast_andor_item			*ast_andor_item_new(void);
+t_ast_andor_item	*ast_andor_item_new(void);
 void				ast_andor_item_del(t_ast_andor_item *ast_andor_item);
 
-t_ast_andor_item		*ast_andor_item_new_from_tokens(t_lst *tokens, t_token *sep);
+t_ast_andor_item	*ast_andor_item_new_from_tokens(t_lst *tokens, t_token *sep);
 void				ast_andor_item_print_rec(t_ast_andor_item *ast_andor_item, int depth);
 
 bool				ast_andor_item_is_delimiter(t_token *tokens);

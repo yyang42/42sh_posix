@@ -26,7 +26,7 @@ typedef struct		s_ast_list_item
 	t_token			*separator;
 }					t_ast_list_item;
 
-t_ast_list_item			*ast_list_item_new(void);
+t_ast_list_item		*ast_list_item_new(void);
 void				ast_list_item_del(t_ast_list_item *ast_list_item);
 
 t_ast_list_item		*ast_list_item_new_from_tokens(t_lst *tokens, t_token *sep);

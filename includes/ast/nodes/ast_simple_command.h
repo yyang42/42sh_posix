@@ -18,10 +18,10 @@
 # include "token_mgr.h"
 # include "ast/ast_utils.h"
 
-typedef struct		s_ast_simple_command
+typedef struct			s_ast_simple_command
 {
-	t_lst			*tokens;
-}					t_ast_simple_command;
+	t_lst				*tokens;
+}						t_ast_simple_command;
 
 t_ast_simple_command	*ast_simple_command_new(void);
 void					ast_simple_command_del(t_ast_simple_command *ast_simple_command);

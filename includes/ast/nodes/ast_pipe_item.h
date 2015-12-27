@@ -27,7 +27,7 @@ typedef struct		s_ast_pipe_item
 	t_token			*separator;
 }					t_ast_pipe_item;
 
-t_ast_pipe_item			*ast_pipe_item_new(void);
+t_ast_pipe_item		*ast_pipe_item_new(void);
 void				ast_pipe_item_del(t_ast_pipe_item *ast_pipe_item);
 
 t_ast_pipe_item		*ast_pipe_item_new_from_tokens(t_lst *tokens, t_token *sep);
