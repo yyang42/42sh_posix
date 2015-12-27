@@ -1,4 +1,4 @@
-complete_command
+compound_list
   ast_list_item
     ast_andor_item
       ast_pipe_item

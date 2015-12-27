@@ -10,10 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ast/nodes/ast_compound_list.h"
 
-#include "ast/nodes/ast_complete_command.h"
-
-void				ast_complete_command_del(t_ast_complete_command *ast_complete_command)
+static void			iter_fn(void *ast_list_item, void *depth_ptr)
 {
-	free(ast_complete_command);
+	ast_list_item_print_rec(ast_list_item, *(int *)depth_ptr);
+}
+
+void				ast_compound_list_print_rec(
+							t_ast_compound_list *ast_compound_list,
+							int depth)
+{
+	ast_print_indent(depth);
+	twl_putstr("compound_list\n");
+	depth++;
+	twl_lst_iter(ast_compound_list->ast_list_item_lst, iter_fn, &depth);
 }

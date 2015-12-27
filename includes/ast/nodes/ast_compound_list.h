@@ -10,19 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_complete_command.h"
+#ifndef AST_COMPLETE_COMMAND_H
+# define AST_COMPLETE_COMMAND_H
 
-static void			iter_fn(void *ast_list_item, void *depth_ptr)
-{
-	ast_list_item_print_rec(ast_list_item, *(int *)depth_ptr);
-}
+# include "basics.h"
 
-void				ast_complete_command_print_rec(
-							t_ast_complete_command *ast_complete_command,
-							int depth)
+# include "token_mgr.h"
+# include "ast/ast_utils.h"
+# include "ast/nodes/ast_list_item.h"
+
+typedef struct				s_ast_compound_list
 {
-	ast_print_indent(depth);
-	twl_putstr("complete_command\n");
-	depth++;
-	twl_lst_iter(ast_complete_command->ast_list_item_lst, iter_fn, &depth);
-}
+	t_lst					*ast_list_item_lst;
+}							t_ast_compound_list;
+
+t_ast_compound_list		*ast_compound_list_new(void);
+void						ast_compound_list_del(t_ast_compound_list *ast_compound_list);
+
+t_ast_compound_list		*ast_compound_list_new_from_tokens(t_lst *tokens);
+void						ast_compound_list_print_rec(t_ast_compound_list *ast_compound_list, int depth);
+
+#endif

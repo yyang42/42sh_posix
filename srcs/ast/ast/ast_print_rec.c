@@ -15,5 +15,5 @@
 
 void				ast_print_rec(t_ast *ast)
 {
-	ast_complete_command_print_rec(ast->complete_command, 0);
+	ast_compound_list_print_rec(ast->compound_list, 0);
 }

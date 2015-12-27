@@ -1,4 +1,4 @@
-complete_command
+compound_list
   list (echo4)
     list (echo3)
       list (echo2)

@@ -10,13 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_complete_command.h"
+#include "ast/nodes/ast_compound_list.h"
 
-t_ast_complete_command			*ast_complete_command_new(void)
+t_ast_compound_list			*ast_compound_list_new(void)
 {
-	t_ast_complete_command		*ast_complete_command;
+	t_ast_compound_list		*ast_compound_list;
 
-	ast_complete_command = twl_malloc_x0(sizeof(t_ast_complete_command));
-	ast_complete_command->ast_list_item_lst = twl_lst_new();
-	return (ast_complete_command);
+	ast_compound_list = twl_malloc_x0(sizeof(t_ast_compound_list));
+	ast_compound_list->ast_list_item_lst = twl_lst_new();
+	return (ast_compound_list);
 }

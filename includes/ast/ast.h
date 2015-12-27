@@ -18,14 +18,14 @@
 # include "parser.h"
 # include "ast/ast_defines.h"
 
-# include "ast/nodes/ast_complete_command.h"
+# include "ast/nodes/ast_compound_list.h"
 # include "token_mgr.h"
 # include "tokenizer.h"
 
 typedef struct		s_ast
 {
 	t_lst						*tokens;
-	t_ast_complete_command		*complete_command;
+	t_ast_compound_list		*compound_list;
 }					t_ast;
 
 t_ast				*ast_new(char *input);

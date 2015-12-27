@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_complete_command.h"
+#include "ast/nodes/ast_compound_list.h"
 
 static t_lst			*get_split_strings(void)
 {
@@ -24,7 +24,7 @@ static t_lst			*get_split_strings(void)
 }
 
 static void				build_ast_list_item(
-								t_ast_complete_command *ast_complete_command,
+								t_ast_compound_list *ast_compound_list,
 								t_lst *tokens_tmp)
 {
 	t_token						*sep;
@@ -33,23 +33,23 @@ static void				build_ast_list_item(
 		sep = twl_lst_pop(tokens_tmp);
 	else
 		sep = NULL;
-	twl_lst_push(ast_complete_command->ast_list_item_lst, ast_list_item_new_from_tokens(tokens_tmp, sep));
+	twl_lst_push(ast_compound_list->ast_list_item_lst, ast_list_item_new_from_tokens(tokens_tmp, sep));
 }
 
-t_ast_complete_command	*ast_complete_command_new_from_tokens(t_lst *tokens)
+t_ast_compound_list	*ast_compound_list_new_from_tokens(t_lst *tokens)
 {
-	t_ast_complete_command		*ast_complete_command;
+	t_ast_compound_list		*ast_compound_list;
 	t_lst						*tokens_list;
 	t_lst						*tokens_tmp;
 
 	tokens_list = token_mgr_split(tokens, get_split_strings());
-	ast_complete_command = ast_complete_command_new();
+	ast_compound_list = ast_compound_list_new();
 	while ((tokens_tmp = twl_lst_shift(tokens_list)))
 	{
 		if (twl_lst_len(tokens_tmp) > 0)
 		{
-			build_ast_list_item(ast_complete_command, tokens_tmp);
+			build_ast_list_item(ast_compound_list, tokens_tmp);
 		}
 	}
-	return (ast_complete_command);
+	return (ast_compound_list);
 }
