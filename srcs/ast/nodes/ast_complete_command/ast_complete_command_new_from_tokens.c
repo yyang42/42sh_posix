@@ -23,6 +23,19 @@ static t_lst			*get_split_strings(void)
 	return (split_strings);
 }
 
+static void				build_ast_list_item(
+								t_ast_complete_command *ast_complete_command,
+								t_lst *tokens_tmp)
+{
+	t_token						*sep;
+
+	if (twl_lst_find(get_split_strings(), twl_strequ_void, token_mgr_last(tokens_tmp)->text))
+		sep = twl_lst_pop(tokens_tmp);
+	else
+		sep = NULL;
+	twl_lst_push(ast_complete_command->ast_list_item_lst, ast_list_item_new_from_tokens(tokens_tmp, sep));
+}
+
 t_ast_complete_command	*ast_complete_command_new_from_tokens(t_lst *tokens)
 {
 	t_ast_complete_command		*ast_complete_command;
@@ -35,7 +48,7 @@ t_ast_complete_command	*ast_complete_command_new_from_tokens(t_lst *tokens)
 	{
 		if (twl_lst_len(tokens_tmp) > 0)
 		{
-			twl_lst_push(ast_complete_command->ast_list_item_lst, ast_list_item_new_from_tokens(tokens_tmp));
+			build_ast_list_item(ast_complete_command, tokens_tmp);
 		}
 	}
 	return (ast_complete_command);

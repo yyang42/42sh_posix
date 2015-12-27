@@ -16,7 +16,8 @@ void				ast_pipe_item_print_rec(t_ast_pipe_item *ast_pipe_item, int depth)
 {
 	ast_print_indent(depth);
 	twl_putstr("ast_pipe_item");
-	twl_printf_escape_nl(" (sep=%s)", token_mgr_last(ast_pipe_item->tokens)->text);
+	if (ast_pipe_item->separator)
+		twl_printf_escape_nl(" (sep=%s)", ast_pipe_item->separator->text);
 	twl_putstr("\n");
 	depth++;
 	ast_command_print_rec(ast_pipe_item->ast_command, depth);

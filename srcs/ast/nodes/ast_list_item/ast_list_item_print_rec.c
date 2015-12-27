@@ -21,7 +21,7 @@ void				ast_list_item_print_rec(t_ast_list_item *ast_list_item, int depth)
 {
 	ast_print_indent(depth);
 	twl_putstr("ast_list_item");
-	twl_printf_escape_nl(" (sep=%s)", token_mgr_last(ast_list_item->tokens)->text);
+	twl_printf_escape_nl(" (sep=%s)", ast_list_item->separator->text);
 	twl_putstr("\n");
 	depth++;
 	twl_lst_iter(ast_list_item->ast_andor_item_lst, iter_fn, &depth);

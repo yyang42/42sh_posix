@@ -23,18 +23,31 @@ static t_lst		*get_split_strings(void)
 	return (split_strings);
 }
 
-t_ast_list_item		*ast_list_item_new_from_tokens(t_lst *tokens)
+static void				build_ast_list_item(
+								t_ast_list_item *ast_list_item,
+								t_lst *tokens_tmp)
+{
+	t_token						*sep;
+
+	if (twl_lst_find(get_split_strings(), twl_strequ_void, token_mgr_last(tokens_tmp)->text))
+		sep = twl_lst_pop(tokens_tmp);
+	else
+		sep = NULL;
+	twl_lst_push(ast_list_item->ast_andor_item_lst, ast_andor_item_new_from_tokens(tokens_tmp, sep));
+}
+
+t_ast_list_item		*ast_list_item_new_from_tokens(t_lst *tokens, t_token *sep)
 {
 	t_ast_list_item				*ast_list_item;
 	t_lst						*tokens_list;
 	t_lst						*tokens_tmp;
 
 	ast_list_item = ast_list_item_new();
-	ast_list_item->tokens = twl_lst_copy(tokens, NULL);
+	ast_list_item->separator = sep;
 	tokens_list = token_mgr_split(tokens, get_split_strings());
 	while ((tokens_tmp = twl_lst_shift(tokens_list)))
 	{
-		twl_lst_push(ast_list_item->ast_andor_item_lst, ast_andor_item_new_from_tokens(tokens_tmp));
+		build_ast_list_item(ast_list_item, tokens_tmp);
 	}
 	return (ast_list_item);
 }
