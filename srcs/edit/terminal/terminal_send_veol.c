@@ -10,30 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EDIT_MOVE_H
-# define EDIT_MOVE_H
+#include "edit/terminal.h"
 
-# include "basics.h"
-# include "edit/edit_key_func.h"
-
-# define ARROW_LEFT 4479771
-# define ARROW_RIGHT 4414235
-# define DELETE_KEY 127
-# define CTRL_A 1
-# define CTRL_D 4
-# define CTRL_E 5
-# define RETURN_KEY 10
-# define CTRL_C -1
-
-typedef void		(*key_fn)(void *edit);
-
-typedef struct		s_edit_key
+void				terminal_send_veol(void)
 {
-	int				key;
-	key_fn			func;
-}					t_edit_key;
+	char			cp[2];
+	t_termios		*term;
 
-t_edit_key			*edit_key_new(int key, key_fn fn);
-void				edit_key_del(t_edit_key *this);
-
-#endif
+	term = terminal_singleton();
+	cp[0] = term->c_cc[VEOL];
+	cp[1] = 0;
+	ioctl(0, TIOCSTI, cp);
+}

@@ -10,30 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EDIT_MOVE_H
-# define EDIT_MOVE_H
+#include "edit/edit.h"
+#include "edit/edit_key_func.h"
+#include "edit/terminal.h"
 
-# include "basics.h"
-# include "edit/edit_key_func.h"
-
-# define ARROW_LEFT 4479771
-# define ARROW_RIGHT 4414235
-# define DELETE_KEY 127
-# define CTRL_A 1
-# define CTRL_D 4
-# define CTRL_E 5
-# define RETURN_KEY 10
-# define CTRL_C -1
-
-typedef void		(*key_fn)(void *edit);
-
-typedef struct		s_edit_key
+void				edit_handle_ctrl_c(void *_edit)
 {
-	int				key;
-	key_fn			func;
-}					t_edit_key;
+	t_edit			*edit;
 
-t_edit_key			*edit_key_new(int key, key_fn fn);
-void				edit_key_del(t_edit_key *this);
-
-#endif
+	edit = _edit;
+	edit->return_cmd = true;
+	edit_print_letters(edit);
+	edit_clear_line(edit);
+	edit->return_cmd = false;
+}
