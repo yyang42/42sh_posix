@@ -23,6 +23,7 @@
 typedef struct		s_ast_pipe_item
 {
 	t_ast_command	*ast_command;
+	t_lst			*tokens;
 }					t_ast_pipe_item;
 
 t_ast_pipe_item			*ast_pipe_item_new(void);

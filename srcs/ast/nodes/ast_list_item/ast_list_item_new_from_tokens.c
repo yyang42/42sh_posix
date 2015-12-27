@@ -12,22 +12,29 @@
 
 #include "ast/nodes/ast_list_item.h"
 
-t_ast_list_item	*ast_list_item_new_from_tokens(t_lst *tokens)
+static t_lst		*get_split_strings(void)
 {
-	t_ast_list_item		*ast_list_item;
-	t_token					*token;
+	static t_lst	*split_strings = NULL;
+
+	if (split_strings == NULL)
+	{
+		split_strings = twl_str_split_to_lst("&&_||", "_");
+	}
+	return (split_strings);
+}
+
+t_ast_list_item		*ast_list_item_new_from_tokens(t_lst *tokens)
+{
+	t_ast_list_item				*ast_list_item;
+	t_lst						*tokens_list;
+	t_lst						*tokens_tmp;
 
 	ast_list_item = ast_list_item_new();
-	while (twl_lst_len(tokens))
+	ast_list_item->tokens = twl_lst_copy(tokens, NULL);
+	tokens_list = token_mgr_split(tokens, get_split_strings());
+	while ((tokens_tmp = twl_lst_shift(tokens_list)))
 	{
-		twl_lst_push(ast_list_item->ast_andor_item_lst, ast_andor_item_new_from_tokens(tokens));
-		token = twl_lst_first(tokens);
-		if (!token)
-			break ;
-		if (ast_andor_item_is_delimiter(token))
-			twl_lst_shift(tokens);
-		else
-			break ;
+		twl_lst_push(ast_list_item->ast_andor_item_lst, ast_andor_item_new_from_tokens(tokens_tmp));
 	}
 	return (ast_list_item);
 }

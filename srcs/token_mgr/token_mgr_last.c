@@ -10,14 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_pipe_item.h"
+#include "token_mgr.h"
 
-void				ast_pipe_item_print_rec(t_ast_pipe_item *ast_pipe_item, int depth)
+t_token				*token_mgr_last(t_lst *tokens)
 {
-	ast_print_indent(depth);
-	twl_putstr("ast_pipe_item");
-	twl_printf_escape_nl(" (sep=%s)", token_mgr_last(ast_pipe_item->tokens)->text);
-	twl_putstr("\n");
-	depth++;
-	ast_command_print_rec(ast_pipe_item->ast_command, depth);
+	return (twl_lst_last(tokens));
 }

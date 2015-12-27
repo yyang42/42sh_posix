@@ -26,12 +26,7 @@ t_ast_command	*ast_command_new_from_tokens(t_lst *tokens)
 		token = token_mgr_first(tokens);
 		if (!token)
 			break ;
-		if (ast_pipe_item_is_delimiter(token)
-			|| ast_andor_item_is_delimiter(token)
-			|| ast_list_item_is_delimiter(token))
-			break ;
 		twl_lst_push(ast_command->tokens, twl_lst_shift(tokens));
 	}
 	return (ast_command);
-	(void)tokens;
 }

@@ -23,6 +23,7 @@
 typedef struct		s_ast_list_item
 {
 	t_lst			*ast_andor_item_lst;
+	t_lst			*tokens;
 }					t_ast_list_item;
 
 t_ast_list_item			*ast_list_item_new(void);
