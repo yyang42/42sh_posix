@@ -30,4 +30,5 @@ char				*token_mgr_split_strjoin(t_lst *tokens_list);
 t_token				*token_mgr_first(t_lst *tokens);
 t_token				*token_mgr_last(t_lst *tokens);
 
+t_lst				*token_mgr_extract_io_redirect(t_lst *tokens);
 #endif

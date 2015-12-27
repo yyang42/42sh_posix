@@ -10,20 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "data.h"
-#include "tokenizer.h"
+#include "twl_lst.h"
 
-static bool			can_form_operator_with_fn(void *op, void *candidate)
+t_lst				*data_redir_operators(void)
 {
-	return (twl_strncmp(candidate, op, twl_strlen(candidate)) == 0);
-}
+	t_lst			*operators = NULL;
 
-bool				tokenizer_utils_can_form_operator(t_tokenizer *t,
-															char *candidate)
-{
-	if (*candidate == '\0')
-		return (false);
-	return (twl_lst_find(
-		data_all_operators(), can_form_operator_with_fn, candidate));
-	(void)t;
+	if (operators == NULL)
+	{
+		operators = twl_lst_new();
+		twl_lst_push_back(operators, "<");
+		twl_lst_push_back(operators, "<&");
+		twl_lst_push_back(operators, ">");
+		twl_lst_push_back(operators, ">&");
+		twl_lst_push_back(operators, ">>");
+		twl_lst_push_back(operators, "<>");
+		twl_lst_push_back(operators, ">|");
+		twl_lst_push_back(operators, "<<");
+		twl_lst_push_back(operators, "<<-");
+	}
+	return (operators);
 }

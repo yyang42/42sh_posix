@@ -10,20 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "data.h"
-#include "tokenizer.h"
+#include "ast/nodes/ast_io_redirect.h"
 
-static bool			can_form_operator_with_fn(void *op, void *candidate)
+void				ast_io_redirect_print_rec(t_ast_io_redirect *ast_io_redirect, int depth)
 {
-	return (twl_strncmp(candidate, op, twl_strlen(candidate)) == 0);
-}
-
-bool				tokenizer_utils_can_form_operator(t_tokenizer *t,
-															char *candidate)
-{
-	if (*candidate == '\0')
-		return (false);
-	return (twl_lst_find(
-		data_all_operators(), can_form_operator_with_fn, candidate));
-	(void)t;
+	ast_print_indent(depth);
+	twl_printf("ast_io_redirect\n");
+	depth++;
+	(void)ast_io_redirect;
 }

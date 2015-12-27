@@ -10,20 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "data.h"
-#include "tokenizer.h"
+#ifndef DATA_H
+# define DATA_H
 
-static bool			can_form_operator_with_fn(void *op, void *candidate)
-{
-	return (twl_strncmp(candidate, op, twl_strlen(candidate)) == 0);
-}
+# include "basics.h"
 
-bool				tokenizer_utils_can_form_operator(t_tokenizer *t,
-															char *candidate)
-{
-	if (*candidate == '\0')
-		return (false);
-	return (twl_lst_find(
-		data_all_operators(), can_form_operator_with_fn, candidate));
-	(void)t;
-}
+t_lst				*data_all_operators(void);
+t_lst				*data_redir_operators(void);
+
+#endif

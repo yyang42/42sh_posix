@@ -16,6 +16,7 @@ mt_test_tokenizer(num10, "aa<&bb",              "aa_<&_bb", false);
 mt_test_tokenizer(num11, "aa>&bb",              "aa_>&_bb", false);
 mt_test_tokenizer(num12, "aa<>bb",              "aa_<>_bb", false);
 mt_test_tokenizer(num13, "aa>|bb",              "aa_>|_bb", false);
+mt_test_tokenizer(num14, "aa>>bb",              "aa_>>_bb", false);
 
 void    suite_tokenizer_rule02(t_suite *suite)
 {
@@ -32,4 +33,5 @@ void    suite_tokenizer_rule02(t_suite *suite)
     SUITE_ADD_TEST(suite, test_num11);
     SUITE_ADD_TEST(suite, test_num12);
     SUITE_ADD_TEST(suite, test_num13);
+    SUITE_ADD_TEST(suite, test_num14);
 }

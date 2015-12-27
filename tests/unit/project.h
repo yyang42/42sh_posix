@@ -41,27 +41,4 @@ void	reset_sandbox(void);
 		free(joined); \
 	}
 
-# define mt_test_token_mgr_split(test_name, input, split_strings_str, expected, debug) \
-	static void test_## test_name(t_test *test) \
-	{ \
-		t_lst			*tokens_list; \
-		t_lst			*split_strings; \
-		t_lst			*tokens; \
-		char			*joined_str; \
-		tokens = tokenizer_tokenize(input); \
-		split_strings = twl_str_split_to_lst(split_strings_str, "_"); \
-		tokens_list = token_mgr_split(tokens, split_strings); \
-		joined_str = token_mgr_split_strjoin(tokens_list); \
-		if (debug) \
-		{ \
-			token_mgr_print(tokens); \
-			twl_printf("actual   {%s}\n", joined_str); \
-			twl_printf("expected {%s}\n", expected); \
-		} \
-		mt_assert(strcmp(joined_str, expected) == 0); \
-		free(joined_str); \
-		twl_lst_del(split_strings, free); \
-		twl_lst_del(tokens, free); \
-		twl_lst_del(tokens_list, NULL); \
-	}
 #endif

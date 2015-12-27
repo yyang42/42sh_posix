@@ -10,20 +10,35 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "data.h"
-#include "tokenizer.h"
+#ifndef AST_IO_REDIRECT_H
+# define AST_IO_REDIRECT_H
 
-static bool			can_form_operator_with_fn(void *op, void *candidate)
-{
-	return (twl_strncmp(candidate, op, twl_strlen(candidate)) == 0);
-}
+# include "basics.h"
 
-bool				tokenizer_utils_can_form_operator(t_tokenizer *t,
-															char *candidate)
+# include "token_mgr.h"
+# include "ast/ast_utils.h"
+
+typedef enum				s_io_filehere_type
 {
-	if (*candidate == '\0')
-		return (false);
-	return (twl_lst_find(
-		data_all_operators(), can_form_operator_with_fn, candidate));
-	(void)t;
-}
+	IO_FILEHERE_FILE,
+	IO_FILEHERE_HERE
+}							t_io_filehere_type;
+
+typedef struct				s_ast_io_redirect
+{
+	t_lst					*tokens;
+	int						io_number;
+	t_io_filehere_type		type;
+	void					*io_filehere;
+}							t_ast_io_redirect;
+
+t_ast_io_redirect	*ast_io_redirect_new(void);
+void				ast_io_redirect_del(t_ast_io_redirect *ast_io_redirect);
+
+t_ast_io_redirect	*ast_io_redirect_new_from_tokens(t_lst *tokens);
+void				*ast_io_redirect_new_from_tokens_void(t_lst *tokens);
+void				ast_io_redirect_print_rec(t_ast_io_redirect *ast_io_redirect, int depth);
+
+bool				ast_io_redirect_is_own_type(t_lst *tokens);
+
+#endif
