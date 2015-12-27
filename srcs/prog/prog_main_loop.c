@@ -36,6 +36,7 @@ void				prog_main_loop(t_prog *prog, t_environment *env)
 			prog_del(prog);
 			exit(0);
 		}
+		free(cmd);
 	}
 	(void)prog;
 	(void)env;

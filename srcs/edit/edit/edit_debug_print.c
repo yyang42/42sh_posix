@@ -10,16 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EDIT_KEY_FUNC_H
-# define EDIT_KEY_FUNC_H
+#include "edit/edit.h"
 
-void				edit_move_left(void *edit);
-void				edit_move_right(void *edit);
-void				edit_move_start(void *edit);
-void				edit_move_end(void *edit);
-void				edit_delete_letter(void *_edit);
-void				edit_handle_ctrl_c(void *_edit);
-void				edit_handle_ctrl_d(void *_edit);
-void				edit_key_return(void *_edit);
+static void			print_fn(void *_letter)
+{
+	t_letter		*letter;
 
-#endif
+	letter = _letter;
+	twl_lprintf("%s", letter->letter);
+}
+
+void				edit_debug_print(t_edit *this)
+{
+	twl_lprintf("index: %d\n", this->index);
+	twl_lprintf("return cmd: %d\n", this->return_cmd);
+	twl_lprintf("letters : ");
+	twl_lst_iter0(this->letters, print_fn);
+	twl_lprintf("\n");
+}
