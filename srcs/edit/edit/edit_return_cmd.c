@@ -12,14 +12,13 @@
 
 #include "edit/edit.h"
 
-char				*edit_return_cmd(t_edit *this, int key)
+char				*edit_return_cmd(t_edit *this)
 {
 	char			*cmd;
 
 	cmd = NULL;
-	if (key != RETURN_KEY)
+	if (!this->return_cmd)
 		return cmd;
 	cmd = letter_mgr_concat_string(this->letters);
-	this->return_cmd = true;
 	return (cmd);
 }

@@ -29,13 +29,14 @@ char				*edit_loop(t_edit *this)
 	terminal_enable();
 	// TODO Error handling
 	edit_print_letters(this);
-	while (!cmd)
+	while (!this->return_cmd)
 	{
 		key = twl_getch();
 		twl_lprintf("key: %d\n", key);
 		cmd = edit_handle_one_input(this, key);
 		edit_print_letters(this);
 		edit_clear_line(this);
+		edit_debug_print(this);
 	}
 	terminal_disable();
 	return twl_strtrim_free(cmd);

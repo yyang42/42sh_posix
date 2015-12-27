@@ -29,6 +29,9 @@ typedef struct		s_edit
 }					t_edit;
 
 t_edit				*edit_new(void);
+
+void				edit_debug_print(t_edit *this);
+
 void				edit_del(t_edit *this);
 char				*edit_loop(t_edit *this);
 
@@ -38,7 +41,7 @@ char				*edit_handle_string(t_edit *this, char *str);
 void				edit_handle_printable(t_edit *this, int key);
 void				edit_handle_move(t_edit *this);
 void				edit_print_letters(t_edit *this);
-char				*edit_return_cmd(t_edit *this, int key);
+char				*edit_return_cmd(t_edit *this);
 
 void				edit_clear_line(t_edit *this);
 
