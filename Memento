@@ -1,0 +1,57 @@
+expression:					: assignment_expression
+							| expression , assignment_expression
+							;
+assignment_expression		: conditional_expression
+							| unary_expression assignment_operator assignment_expression
+							;
+assignment_operator			: one of those:  = += -= *= /= %= <<= >>= &= ^= |=
+							;
+conditional_expression		: logical_OR_expression
+							| logical_OR_expression ? expression : conditional_expression
+							;
+logical_OR_expression		: logical_AND_expression
+							| logical_OR_expression || logical_AND_expression
+							;
+logical_AND_expression		: inclusive_OR_expression
+							| logical_AND_expression && inclusive_OR_expression
+							;
+inclusive_OR_expression		: exclusive_OR_expression
+							| inclusive_OR_expression | exclusive_OR_expression
+							;
+exclusive_OR_expression		: AND_expression
+							| exclusive_OR_expression ^ AND_expression
+							;
+AND_expression				: equality_expression
+							| AND_expression & equality_expression
+							;
+equality_expression			: relational_expression
+							| equality_expression == relational_expression
+							| equality_expression != relational_expression
+							;
+relational_expression		: shifth_expression
+							| relational_expression < shifth_expression
+							| relational_expression > shifth_expression
+							| relational_expression <= shifth_expression
+							| relational_expression >= shifth_expression
+							;
+shifth_expression			: additive_expression
+							| shifth_expression << additive_expression
+							| shifth_expression >> additive_expression
+							;
+additive_expression			: multiplicative_expression
+							| additive_expression + multiplicative_expression
+							| additive_expression - multiplicative_expression
+							;
+multiplicative_expression	: unary_expression
+							| multiplicative_expression * unary_expression
+							| multiplicative_expression / unary_expression
+							| multiplicative_expression % unary_expression
+							;
+unary_expression			: primary_expression
+							| unary_operator unary_expression
+							;
+unary_operator				: one of those:	+ - ! ~
+							;
+primary_expression			: constant
+							| ( expression )
+							;
