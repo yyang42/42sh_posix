@@ -24,5 +24,6 @@ t_lst				*edit_key_mgr_new(void)
 	edit_key_mgr_add(edit_keys, edit_key_new(CTRL_A, edit_move_start));
 	edit_key_mgr_add(edit_keys, edit_key_new(CTRL_E, edit_move_end));
 	edit_key_mgr_add(edit_keys, edit_key_new(DELETE_KEY, edit_delete_letter));
+	edit_key_mgr_add(edit_keys, edit_key_new(CTRL_C, edit_handle_ctrl_c));
 	return (edit_keys);
 }

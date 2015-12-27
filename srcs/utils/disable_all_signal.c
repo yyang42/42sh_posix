@@ -10,30 +10,27 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EDIT_MOVE_H
-# define EDIT_MOVE_H
+#include <signal.h>
 
-# include "basics.h"
-# include "edit/edit_key_func.h"
-
-# define ARROW_LEFT 4479771
-# define ARROW_RIGHT 4414235
-# define DELETE_KEY 127
-# define CTRL_A 1
-# define CTRL_D 4
-# define CTRL_E 5
-# define RETURN_KEY 10
-# define CTRL_C -1
-
-typedef void		(*key_fn)(void *edit);
-
-typedef struct		s_edit_key
+static void			do_nothing(int sig)
 {
-	int				key;
-	key_fn			func;
-}					t_edit_key;
+	/*
+	** Usage later for kill child
+	*/
 
-t_edit_key			*edit_key_new(int key, key_fn fn);
-void				edit_key_del(t_edit_key *this);
+	// kill(g_child_pid, sig);
+	// signal(sig, SIG_DFL);
+	(void)sig;
+}
 
-#endif
+void				disable_all_sigs(void)
+{
+	int i;
+
+	i = 1;
+	while (i <= 31)
+	{
+		signal(i, do_nothing);
+		i++;
+	}
+}
