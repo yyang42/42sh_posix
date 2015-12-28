@@ -2,41 +2,41 @@
 
 #include "token_type.h"
 
-# define mt_test_token_type(test_name, input, type) \
+# define mt_test_token_type_get_type(test_name, input, type) \
 	static void test_## test_name(t_test *test) \
 	{ \
 		mt_assert(token_type_get_type(input) == type); \
 	}
 
-mt_test_token_type(num1, "\n", TOKEN_NEWLINE);
-mt_test_token_type(num2, "&&", TOKEN_AND_IF);
-mt_test_token_type(num3, "&&", TOKEN_AND_IF);
-mt_test_token_type(num4, "||", TOKEN_OR_IF);
-mt_test_token_type(num5, ";;", TOKEN_DSEMI);
-mt_test_token_type(num6, "<<", TOKEN_DLESS);
-mt_test_token_type(num7, ">>", TOKEN_DGREAT);
-mt_test_token_type(num8, "<&", TOKEN_LESSAND);
-mt_test_token_type(num9, ">&", TOKEN_GREATAND);
-mt_test_token_type(num10, "<>", TOKEN_LESSGREAT);
-mt_test_token_type(num11, "<<-", TOKEN_DLESSDASH);
-mt_test_token_type(num12, ">|", TOKEN_CLOBBER);
-mt_test_token_type(num13, "if", TOKEN_IF);
-mt_test_token_type(num14, "then", TOKEN_THEN);
-mt_test_token_type(num15, "else", TOKEN_ELSE);
-mt_test_token_type(num16, "elif", TOKEN_ELIF);
-mt_test_token_type(num17, "fi", TOKEN_FI);
-mt_test_token_type(num18, "do", TOKEN_DO);
-mt_test_token_type(num19, "done", TOKEN_DONE);
-mt_test_token_type(num20, "case", TOKEN_CASE);
-mt_test_token_type(num21, "esac", TOKEN_ESAC);
-mt_test_token_type(num22, "while", TOKEN_WHILE);
-mt_test_token_type(num23, "until", TOKEN_UNTIL);
-mt_test_token_type(num24, "for", TOKEN_FOR);
-mt_test_token_type(num25, "{", TOKEN_LBRACE);
-mt_test_token_type(num26, "}", TOKEN_RBRACE);
-mt_test_token_type(num27, "!", TOKEN_BANG);
-mt_test_token_type(num28, "in", TOKEN_IN);
-mt_test_token_type(num29, "xyz", TOKEN_UNKNOWN);
+mt_test_token_type_get_type(num1, "\n", TOKEN_NEWLINE);
+mt_test_token_type_get_type(num2, "&&", TOKEN_AND_IF);
+mt_test_token_type_get_type(num3, "&&", TOKEN_AND_IF);
+mt_test_token_type_get_type(num4, "||", TOKEN_OR_IF);
+mt_test_token_type_get_type(num5, ";;", TOKEN_DSEMI);
+mt_test_token_type_get_type(num6, "<<", TOKEN_DLESS);
+mt_test_token_type_get_type(num7, ">>", TOKEN_DGREAT);
+mt_test_token_type_get_type(num8, "<&", TOKEN_LESSAND);
+mt_test_token_type_get_type(num9, ">&", TOKEN_GREATAND);
+mt_test_token_type_get_type(num10, "<>", TOKEN_LESSGREAT);
+mt_test_token_type_get_type(num11, "<<-", TOKEN_DLESSDASH);
+mt_test_token_type_get_type(num12, ">|", TOKEN_CLOBBER);
+mt_test_token_type_get_type(num13, "if", TOKEN_IF);
+mt_test_token_type_get_type(num14, "then", TOKEN_THEN);
+mt_test_token_type_get_type(num15, "else", TOKEN_ELSE);
+mt_test_token_type_get_type(num16, "elif", TOKEN_ELIF);
+mt_test_token_type_get_type(num17, "fi", TOKEN_FI);
+mt_test_token_type_get_type(num18, "do", TOKEN_DO);
+mt_test_token_type_get_type(num19, "done", TOKEN_DONE);
+mt_test_token_type_get_type(num20, "case", TOKEN_CASE);
+mt_test_token_type_get_type(num21, "esac", TOKEN_ESAC);
+mt_test_token_type_get_type(num22, "while", TOKEN_WHILE);
+mt_test_token_type_get_type(num23, "until", TOKEN_UNTIL);
+mt_test_token_type_get_type(num24, "for", TOKEN_FOR);
+mt_test_token_type_get_type(num25, "{", TOKEN_LBRACE);
+mt_test_token_type_get_type(num26, "}", TOKEN_RBRACE);
+mt_test_token_type_get_type(num27, "!", TOKEN_BANG);
+mt_test_token_type_get_type(num28, "in", TOKEN_IN);
+mt_test_token_type_get_type(num29, "xyz", TOKEN_UNKNOWN);
 
 void	suite_token_type_get_type(t_suite *suite)
 {
