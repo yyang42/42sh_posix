@@ -10,22 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "twl_dict.h"
 
-#include "tokenizer.h"
+#include "token.h"
+#include "data.h"
 
-static t_token		*create_token(t_tokenizer *this)
+t_token_type		token_type_get_type(char *str)
 {
-	t_token			*token;
+	t_token_type	*type_ptr;
 
-	token = token_new(twl_strdup(this->curtoken));
-	return (token);
-}
-
-void				tokenizer_delimit(t_tokenizer *this)
-{
-	if (*this->curtoken != '\0')
-	{
-		twl_lst_push(this->tokens, create_token(this));
-		this->curtoken[0] = '\0';
-	}
+	type_ptr = twl_dict_get(data_token_type_dict(), str);
+	if (!type_ptr)
+		return (TOKEN_UNKNOWN);
+	return (*type_ptr);
 }

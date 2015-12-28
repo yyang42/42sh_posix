@@ -13,9 +13,12 @@
 #ifndef DATA_H
 # define DATA_H
 
+# include "twl_dict.h"
+
 # include "basics.h"
 
 t_lst				*data_all_operators(void);
 t_lst				*data_redir_operators(void);
+t_dict				*data_token_type_dict(void);
 
 #endif
