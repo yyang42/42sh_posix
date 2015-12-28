@@ -15,7 +15,12 @@
 void				ast_redir_print_rec(t_ast_redir *ast_redir, int depth)
 {
 	ast_print_indent(depth);
-	twl_printf("ast_redir\n");
+	twl_printf("ast_redir (");
+	if (ast_redir->io_number != IO_NUMBER_NOT_DEFINED)
+	{
+		twl_printf("%d", ast_redir->io_number);
+	}
+	twl_printf("%s %s)\n", ast_redir->operator, ast_redir->param);
 	depth++;
 	(void)ast_redir;
 }

@@ -10,36 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_redir.h"
-
 #include "ast/nodes/ast_compound_command.h"
 
-static t_compound_command_print_rec_fn *get_print_rec_fns(void)
+t_compound_command_type	compound_command_get_type_from_tokens(t_lst *tokens)
 {
-	static t_compound_command_print_rec_fn	fns[COMPOUND_COMMAND_NBR];
-	static bool								already_loaded = false;
+	t_token			*first;
 
-	if (already_loaded == false)
+	first = token_mgr_first(tokens);
+	if (twl_strequ(first->text, "("))
 	{
-		fns[COMPOUND_COMMAND_SUBSHELL] = ast_subshell_print_rec_void;
-		fns[COMPOUND_COMMAND_IF_CLAUSE] = ast_if_clause_print_rec_void;
+		return (COMPOUND_COMMAND_SUBSHELL);
 	}
-	return (fns);
-}
-
-static void			iter_redir_rec_fn(void *ast_redir, void *depth_ptr)
-{
-	ast_redir_print_rec(ast_redir, *(int *)depth_ptr);
-}
-
-void				ast_compound_command_print_rec(t_ast_compound_command *ast_compound_command, int depth)
-{
-	ast_print_indent(depth);
-	twl_printf("ast_compound_command\n");
-	depth++;
-	if (ast_compound_command->type != COMPOUND_COMMAND_NONE)
+	else if (twl_strequ(first->text, "if"))
 	{
-		get_print_rec_fns()[ast_compound_command->type](ast_compound_command->command, depth);
-		twl_lst_iter(ast_compound_command->redir_items, iter_redir_rec_fn, &depth);
+		return (COMPOUND_COMMAND_IF_CLAUSE);
 	}
+	return (COMPOUND_COMMAND_NONE);
 }

@@ -18,24 +18,20 @@
 # include "token_mgr.h"
 # include "ast/ast_utils.h"
 
-typedef enum				s_redir_param_type
-{
-	IO_FILEHERE_FILE,
-	IO_FILEHERE_HERE
-}							t_redir_param_type;
+# define IO_NUMBER_NOT_DEFINED -1
 
-typedef struct				s_ast_redir
+typedef struct		s_ast_redir
 {
-	t_lst					*tokens;
-	t_redir_param_type		type;
-	int						io_number;
-	char					*param;
-}							t_ast_redir;
+	t_lst			*tokens;
+	int				io_number;
+	char			*operator;
+	char			*param;
+}					t_ast_redir;
 
-t_ast_redir	*ast_redir_new(void);
+t_ast_redir			*ast_redir_new(void);
 void				ast_redir_del(t_ast_redir *ast_redir);
 
-t_ast_redir	*ast_redir_new_from_tokens(t_lst *tokens);
+t_ast_redir			*ast_redir_new_from_tokens(t_lst *tokens);
 void				*ast_redir_new_from_tokens_void(t_lst *tokens);
 void				ast_redir_print_rec(t_ast_redir *ast_redir, int depth);
 

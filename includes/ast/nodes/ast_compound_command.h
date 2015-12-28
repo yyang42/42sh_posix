@@ -50,4 +50,7 @@ bool						ast_compound_command_is_own_type(t_lst *tokens);
 typedef void *(*t_compound_command_new_from_token_fn)(t_lst *tokens);
 typedef void (*t_compound_command_print_rec_fn)(void *command, int depth);
 
+t_compound_command_new_from_token_fn *compound_command_from_token_fns(void);
+t_compound_command_type	compound_command_get_type_from_tokens(t_lst *tokens);
+
 #endif
