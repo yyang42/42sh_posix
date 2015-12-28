@@ -10,11 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ast/nodes/ast_redir.h"
 #include "ast/nodes/ast_simple_command.h"
 
-void				ast_simple_command_print_rec(t_ast_simple_command *ast_simple_command, int depth)
+void				ast_simple_command_print_rec(t_ast_simple_command *this, int depth)
 {
 	ast_print_indent(depth);
-	twl_printf("ast_simple_command (%s)\n", token_mgr_first(ast_simple_command->tokens)->text);
-	(void)ast_simple_command;
+	twl_printf("ast_simple_command (%s)\n", token_mgr_first(this->command_tokens)->text);
+	depth++;
+	ast_redir_print_rec_list(this->redir_items, depth);
 }

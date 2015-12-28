@@ -20,7 +20,8 @@
 
 typedef struct			s_ast_simple_command
 {
-	t_lst				*tokens;
+	t_lst				*command_tokens;
+	t_lst				*redir_items;
 }						t_ast_simple_command;
 
 t_ast_simple_command	*ast_simple_command_new(void);

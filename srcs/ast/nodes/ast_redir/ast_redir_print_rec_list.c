@@ -10,32 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_IO_REDIRECT_H
-# define AST_IO_REDIRECT_H
+#include "ast/nodes/ast_redir.h"
 
-# include "basics.h"
-
-# include "token_mgr.h"
-# include "ast/ast_utils.h"
-
-# define IO_NUMBER_NOT_DEFINED -1
-
-typedef struct		s_ast_redir
+static void			iter_redir_rec_fn(void *ast_redir, void *depth_ptr)
 {
-	t_lst			*tokens;
-	int				io_number;
-	char			*operator;
-	char			*param;
-}					t_ast_redir;
+	ast_redir_print_rec(ast_redir, *(int *)depth_ptr);
+}
 
-t_ast_redir			*ast_redir_new(void);
-void				ast_redir_del(t_ast_redir *ast_redir);
-
-t_ast_redir			*ast_redir_new_from_tokens(t_lst *tokens);
-void				*ast_redir_new_from_tokens_void(t_lst *tokens);
-void				ast_redir_print_rec(t_ast_redir *ast_redir, int depth);
-void				ast_redir_print_rec_list(t_lst *redir_items, int depth);
-
-bool				ast_redir_is_own_type(t_lst *tokens);
-
-#endif
+void				ast_redir_print_rec_list(t_lst *redir_items, int depth)
+{
+	twl_lst_iter(redir_items, iter_redir_rec_fn, &depth);
+}

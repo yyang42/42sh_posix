@@ -27,19 +27,14 @@ static t_compound_command_print_rec_fn *get_print_rec_fns(void)
 	return (fns);
 }
 
-static void			iter_redir_rec_fn(void *ast_redir, void *depth_ptr)
-{
-	ast_redir_print_rec(ast_redir, *(int *)depth_ptr);
-}
-
 void				ast_compound_command_print_rec(t_ast_compound_command *ast_compound_command, int depth)
 {
 	ast_print_indent(depth);
 	twl_printf("ast_compound_command\n");
 	depth++;
-	if (ast_compound_command->type != COMPOUND_COMMAND_NONE)
+	if (ast_compound_command->command_type != COMPOUND_COMMAND_NONE)
 	{
-		get_print_rec_fns()[ast_compound_command->type](ast_compound_command->command, depth);
-		twl_lst_iter(ast_compound_command->redir_items, iter_redir_rec_fn, &depth);
+		get_print_rec_fns()[ast_compound_command->command_type](ast_compound_command->command, depth);
+		ast_redir_print_rec_list(ast_compound_command->redir_items, depth);
 	}
 }
