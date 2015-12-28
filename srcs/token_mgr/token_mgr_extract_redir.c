@@ -19,6 +19,13 @@ static bool			is_redirect_token(t_token *token)
 	return (twl_lst_find(data_redir_operators(), twl_strequ_void, token->text));
 }
 
+static bool			is_redirect_token_with_io_number(t_lst *tokens)
+{
+	return (twl_lst_len(tokens) >= 2
+		&& twl_str_is_pos_num(token_mgr_get(tokens, 0)->text)
+		&& is_redirect_token(token_mgr_get(tokens, 1)));
+}
+
 static void			do_extract(t_lst *tokens, t_lst *tokens_list, t_lst *remaining_tokens)
 {
 	t_token			*token;
@@ -26,9 +33,12 @@ static void			do_extract(t_lst *tokens, t_lst *tokens_list, t_lst *remaining_tok
 
 	while ((token = twl_lst_first(tokens)))
 	{
-		if (is_redirect_token(token))
+		if (is_redirect_token(token)
+			|| is_redirect_token_with_io_number(tokens))
 		{
 			redir = twl_lst_new();
+			if (twl_str_is_pos_num(token->text))
+				twl_lst_push_back(redir, twl_lst_pop_front(tokens));
 			twl_lst_push_back(redir, twl_lst_pop_front(tokens));
 			if (twl_lst_len(tokens))
 			{

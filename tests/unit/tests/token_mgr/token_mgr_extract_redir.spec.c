@@ -17,6 +17,7 @@
 		if (debug) \
 		{ \
 			token_mgr_print(tokens); \
+			twl_printf("input         {%s}\n", input); \
 			twl_printf("actual        {%s}\n", joined_str); \
 			twl_printf("expected      {%s}\n", expected); \
 			twl_printf("remaining_str {%s}\n", remaining_str); \
@@ -42,6 +43,12 @@ mt_test_token_mgr_extract_redir(num4,
 mt_test_token_mgr_extract_redir(num5,
 	"echo aa > file1 bb > file2 cc > file3 dd", ">_file1 / >_file2 / >_file3", "echo_aa_bb_cc_dd", false);
 
+mt_test_token_mgr_extract_redir(num6,
+	"echo aa 2> file1", "2_>_file1", "echo_aa", false);
+
+mt_test_token_mgr_extract_redir(num7,
+	"echo aa 0 <<- file1 42>> file2 21>file3", "0_<<-_file1 / 42_>>_file2 / 21_>_file3", "echo_aa", false);
+
 void	suite_token_mgr_extract_redir(t_suite *suite)
 {
 	SUITE_ADD_TEST(suite, test_num1);
@@ -49,8 +56,6 @@ void	suite_token_mgr_extract_redir(t_suite *suite)
 	SUITE_ADD_TEST(suite, test_num3);
 	SUITE_ADD_TEST(suite, test_num4);
 	SUITE_ADD_TEST(suite, test_num5);
-	// SUITE_ADD_TEST(suite, test_num4);
-	// SUITE_ADD_TEST(suite, test_num5);
-	// SUITE_ADD_TEST(suite, test_num6);
-	// SUITE_ADD_TEST(suite, test_num7);
+	SUITE_ADD_TEST(suite, test_num6);
+	SUITE_ADD_TEST(suite, test_num7);
 }
