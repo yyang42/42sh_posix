@@ -14,7 +14,7 @@
 
 t_lst				*data_redir_operators(void)
 {
-	t_lst			*operators = NULL;
+	static t_lst	*operators = NULL;
 
 	if (operators == NULL)
 	{

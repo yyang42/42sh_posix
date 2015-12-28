@@ -43,7 +43,7 @@ static void			do_extract(t_lst *tokens, t_lst *tokens_list, t_lst *remaining_tok
 	}
 }
 
-t_lst				*token_mgr_extract_io_redirect(t_lst *tokens)
+t_lst				*token_mgr_extract_redir(t_lst *tokens)
 {
 	t_lst			*tokens_list;
 	t_lst			*tokens_copy;

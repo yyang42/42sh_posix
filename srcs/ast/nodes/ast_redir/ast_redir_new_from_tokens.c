@@ -10,13 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_io_redirect.h"
+#include "ast/nodes/ast_redir.h"
 
-t_ast_io_redirect	*ast_io_redirect_new_from_tokens(t_lst *tokens)
+t_ast_redir	*ast_redir_new_from_tokens(t_lst *tokens)
 {
-	t_ast_io_redirect		*ast_io_redirect;
+	t_ast_redir		*ast_redir;
 
-	ast_io_redirect = ast_io_redirect_new();
-	ast_io_redirect->tokens = twl_lst_copy(tokens, NULL);
-	return (ast_io_redirect);
+	ast_redir = ast_redir_new();
+	ast_redir->tokens = twl_lst_copy(tokens, NULL);
+	return (ast_redir);
 }

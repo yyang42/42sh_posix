@@ -10,12 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_io_redirect.h"
+#include "ast/nodes/ast_redir.h"
 
-void				ast_io_redirect_print_rec(t_ast_io_redirect *ast_io_redirect, int depth)
+void				ast_redir_del(t_ast_redir *ast_redir)
 {
-	ast_print_indent(depth);
-	twl_printf("ast_io_redirect\n");
-	depth++;
-	(void)ast_io_redirect;
+	free(ast_redir);
 }

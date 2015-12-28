@@ -35,7 +35,7 @@ typedef struct		s_ast_compound_command
 	t_lst						*command_tokens;
 	t_lst						*redirect_tokens;
 	void						*command;
-	t_lst						*io_redirect_items;
+	t_lst						*redir_items;
 	t_compound_command_type		type;
 }					t_ast_compound_command;
 

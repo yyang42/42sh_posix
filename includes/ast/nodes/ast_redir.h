@@ -10,13 +10,35 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_io_redirect.h"
+#ifndef AST_IO_REDIRECT_H
+# define AST_IO_REDIRECT_H
 
-t_ast_io_redirect			*ast_io_redirect_new(void)
+# include "basics.h"
+
+# include "token_mgr.h"
+# include "ast/ast_utils.h"
+
+typedef enum				s_redir_param_type
 {
-	t_ast_io_redirect		*ast_io_redirect;
+	IO_FILEHERE_FILE,
+	IO_FILEHERE_HERE
+}							t_redir_param_type;
 
-	ast_io_redirect = twl_malloc_x0(sizeof(t_ast_io_redirect));
-	ast_io_redirect->tokens = twl_lst_new();
-	return (ast_io_redirect);
-}
+typedef struct				s_ast_redir
+{
+	t_lst					*tokens;
+	t_redir_param_type		type;
+	int						io_number;
+	char					*param;
+}							t_ast_redir;
+
+t_ast_redir	*ast_redir_new(void);
+void				ast_redir_del(t_ast_redir *ast_redir);
+
+t_ast_redir	*ast_redir_new_from_tokens(t_lst *tokens);
+void				*ast_redir_new_from_tokens_void(t_lst *tokens);
+void				ast_redir_print_rec(t_ast_redir *ast_redir, int depth);
+
+bool				ast_redir_is_own_type(t_lst *tokens);
+
+#endif
