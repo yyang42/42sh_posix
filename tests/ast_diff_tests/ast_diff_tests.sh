@@ -39,6 +39,7 @@ diff_test ()
     mkdir -p $testcase_tmp
     rm -f $testcase_tmp/*
     $RENDU_PATH/42sh -z $testcase_path/input.sh > $testcase_tmp_stdout 2> $testcase_tmp_stderr
+    echo "./42sh -z tests/ast_diff_tests/$testsuite/$testcase/input.sh"
     diff $testcase_path/expected_stdout $testcase_tmp_stdout
     print_result "$?"
     echo " stdout $testsuite/$testcase"
@@ -51,19 +52,34 @@ echo $C_CYAN"====== START AST DIFF TESTS ======"$C_CLEAR
 if ! `env | grep -q ^LAST_ONLY=`
 then
 
-    for CASE_PATH in $TESTS_ROOT_PATH/*; do
-        if [ -d "${CASE_PATH}" ]; then
-            for TEST_PATH in $CASE_PATH/*; do
-                if [ -d "${TEST_PATH}" ]; then
-                    diff_test `basename $CASE_PATH` `basename $TEST_PATH`
-                fi
-            done
-        fi
-    done
+    diff_test features_ast 01_empty
+    diff_test features_ast 10_simple_command
+    diff_test features_ast 20_subshell
+    diff_test features_ast 30_redir
+    diff_test features_ast 40_assignment
+    # diff_test features_ast ast_list2
+    # diff_test features_ast ast_list3
+    # diff_test features_ast ast_list4
+    # diff_test features ast_echo
+    # diff_test features ast_list
+    # diff_test features ast_andor_seq
+    # diff_test features ast_andor_item
+    # diff_test features ast_subshell
+    # diff_test features ast_subshell_err
+
+    # for CASE_PATH in $TESTS_ROOT_PATH/*; do
+    #     if [ -d "${CASE_PATH}" ]; then
+    #         for TEST_PATH in $CASE_PATH/*; do
+    #             if [ -d "${TEST_PATH}" ]; then
+    #                 diff_test `basename $CASE_PATH` `basename $TEST_PATH`
+    #             fi
+    #         done
+    #     fi
+    # done
 
 else
 
-    diff_test first_tests echo_abc_123
+    diff_test features_ast ast_list
 
 fi
 echo $C_CYAN"======  END TESTS  ======"$C_CLEAR

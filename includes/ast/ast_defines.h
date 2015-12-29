@@ -13,8 +13,6 @@
 #ifndef AST_DEFINES_H
 # define AST_DEFINES_H
 
-# define AST_SEPARATOR "\n"
-# define AST_WHITE_SPACE "\t\n "
-# define AST_TAB_WIDTH 2
+# define AST_TAB_WIDTH 4
 
 #endif

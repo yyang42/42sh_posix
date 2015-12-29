@@ -10,14 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "twl_xstdlib.h"
-
 #include "<OBJ_NAME>.h"
 
 t_<OBJ_NAME>			<PADDING>*<OBJ_NAME>_new(void)
 {
-	t_<OBJ_NAME>		<PADDING>*this;
+	t_<OBJ_NAME>		<PADDING>*<OBJ_NAME>;
 
-	this = twl_malloc_x0(sizeof(t_<OBJ_NAME>));
-	return (this);
+	<OBJ_NAME> = twl_malloc_x0(sizeof(t_<OBJ_NAME>));
+	return (<OBJ_NAME>);
 }

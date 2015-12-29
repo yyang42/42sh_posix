@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "environment.h"
 
 char		**environment_get_paths(t_environment *this)

@@ -1,0 +1,42 @@
+compound_list
+    ast_list_item (sep=\n)
+        ast_andor_item
+            ast_pipe_item
+                ast_command
+                    ast_simple_command (cmd_level_1)
+    ast_list_item (sep=\n)
+        ast_andor_item
+            ast_pipe_item
+                ast_command
+                    ast_compound_command
+                        ast_subshell
+                            compound_list
+                                ast_list_item (sep=;)
+                                    ast_andor_item
+                                        ast_pipe_item
+                                            ast_command
+                                                ast_simple_command (cmd_level_2a)
+                                ast_list_item
+                                    ast_andor_item
+                                        ast_pipe_item
+                                            ast_command
+                                                ast_compound_command
+                                                    ast_subshell
+                                                        compound_list
+                                                            ast_list_item
+                                                                ast_andor_item
+                                                                    ast_pipe_item
+                                                                        ast_command
+                                                                            ast_simple_command (cmd_level_3)
+    ast_list_item (sep=\n)
+        ast_andor_item
+            ast_pipe_item
+                ast_command
+                    ast_compound_command
+                        ast_subshell
+                            compound_list
+                                ast_list_item
+                                    ast_andor_item
+                                        ast_pipe_item
+                                            ast_command
+                                                ast_simple_command (cmd_level_2b)

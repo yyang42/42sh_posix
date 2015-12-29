@@ -20,6 +20,6 @@ typedef struct		s_<OBJ_NAME>
 }					t_<OBJ_NAME>;
 
 t_<OBJ_NAME>			<PADDING>*<OBJ_NAME>_new(void);
-void				<OBJ_NAME>_del(t_<OBJ_NAME> *this);
+void				<OBJ_NAME>_del(t_<OBJ_NAME> *<OBJ_NAME>);
 
 #endif

@@ -15,23 +15,23 @@
 
 # include "basics.h"
 
+# include "parser.h"
 # include "ast/ast_defines.h"
-# include "ast/nodes/ast_list.h"
-# include "ast/nodes/ast_if.h"
-# include "ast/nodes/ast_cmd.h"
-# include "ast/nodes/ast_cmd_field.h"
-# include "ast/nodes/ast_node.h"
+
+# include "ast/nodes/ast_compound_list.h"
+# include "token_mgr.h"
+# include "tokenizer.h"
 
 typedef struct		s_ast
 {
-	char			*raw;
-	t_ast_list		*root;
+	t_lst						*tokens;
+	t_ast_compound_list		*compound_list;
 }					t_ast;
 
 t_ast				*ast_new(char *input);
 void				ast_del(t_ast *this);
 
-char				*ast_to_str(t_ast *this);
-void				ast_build(t_ast *this);
+void				ast_print_tokens(t_ast *ast);
+void				ast_print_rec(t_ast *ast);
 
 #endif

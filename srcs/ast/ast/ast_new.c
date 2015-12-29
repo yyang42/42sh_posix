@@ -10,15 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "twl_xstdlib.h"
-
 #include "ast/ast.h"
 
 t_ast				*ast_new(char *input)
 {
-	t_ast			*this;
+	t_ast			*ast;
+	t_lst			*tokens;
 
-	this = twl_malloc_x0(sizeof(t_ast));
-	this->raw = twl_strdup(input);
-	return (this);
+	ast = twl_malloc_x0(sizeof(t_ast));
+	tokens = tokenizer_tokenize(input);
+	ast->compound_list = ast_compound_list_new_from_tokens(tokens);
+	return (ast);
 }

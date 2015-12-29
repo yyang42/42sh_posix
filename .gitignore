@@ -1,4 +1,5 @@
 .tmp
+.valgrind.log
 
 /42sh
 .debug.out
@@ -6,3 +7,5 @@
 /tests/unit/test.out.dSYM/Contents/Resources/DWARF/test.out
 /.DS_store
 /.valgrind.log
+/.idea
+/CMakeLists.txt
