@@ -19,6 +19,6 @@
 
 t_lst				*data_all_operators(void);
 t_lst				*data_redir_operators(void);
-t_dict				*data_token_type_dict(void);
+t_lst				*data_token_item_list(void);
 
 #endif

@@ -10,17 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "twl_dict.h"
+#include "token_type_item_mgr.h"
 
-#include "token.h"
-#include "data.h"
-
-t_token_type		token_type_get_type(char *str)
+void				token_type_item_mgr_add(t_lst *token_type_items,
+							char *text, t_token_type type)
 {
-	t_token_type	*type_ptr;
-
-	type_ptr = twl_dict_get(data_token_type_dict(), str);
-	if (!type_ptr)
-		return (TOKEN_UNKNOWN);
-	return (*type_ptr);
+	twl_lst_push(token_type_items, token_type_item_new(text, type));
 }

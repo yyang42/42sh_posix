@@ -12,53 +12,43 @@
 
 #include "twl_lst.h"
 
-#include "twl_dict.h"
-
 #include "token.h"
+#include "token_type_item_mgr.h"
 
-static t_token_type	*malloc_type(t_token_type type)
+t_lst				*data_token_item_list(void)
 {
-	t_token_type	*type_ptr;
+	static t_lst	*data = NULL;
 
-	type_ptr = twl_malloc_x0(sizeof(t_token_type));
-	*type_ptr = type;
-	return (type_ptr);
-}
-
-t_dict				*data_token_type_dict(void)
-{
-	static t_lst	*dict = NULL;
-
-	if (dict == NULL)
+	if (data == NULL)
 	{
-		dict = twl_lst_new();
-		twl_dict_add(dict, "\n", malloc_type(TOKEN_NEWLINE));
-		twl_dict_add(dict, "&&", malloc_type(TOKEN_AND_IF));
-		twl_dict_add(dict, "||", malloc_type(TOKEN_OR_IF));
-		twl_dict_add(dict, ";;", malloc_type(TOKEN_DSEMI));
-		twl_dict_add(dict, "<<", malloc_type(TOKEN_DLESS));
-		twl_dict_add(dict, ">>", malloc_type(TOKEN_DGREAT));
-		twl_dict_add(dict, "<&", malloc_type(TOKEN_LESSAND));
-		twl_dict_add(dict, ">&", malloc_type(TOKEN_GREATAND));
-		twl_dict_add(dict, "<>", malloc_type(TOKEN_LESSGREAT));
-		twl_dict_add(dict, "<<-", malloc_type(TOKEN_DLESSDASH));
-		twl_dict_add(dict, ">|", malloc_type(TOKEN_CLOBBER));
-		twl_dict_add(dict, "if", malloc_type(TOKEN_IF));
-		twl_dict_add(dict, "then", malloc_type(TOKEN_THEN));
-		twl_dict_add(dict, "else", malloc_type(TOKEN_ELSE));
-		twl_dict_add(dict, "elif", malloc_type(TOKEN_ELIF));
-		twl_dict_add(dict, "fi", malloc_type(TOKEN_FI));
-		twl_dict_add(dict, "do", malloc_type(TOKEN_DO));
-		twl_dict_add(dict, "done", malloc_type(TOKEN_DONE));
-		twl_dict_add(dict, "case", malloc_type(TOKEN_CASE));
-		twl_dict_add(dict, "esac", malloc_type(TOKEN_ESAC));
-		twl_dict_add(dict, "while", malloc_type(TOKEN_WHILE));
-		twl_dict_add(dict, "until", malloc_type(TOKEN_UNTIL));
-		twl_dict_add(dict, "for", malloc_type(TOKEN_FOR));
-		twl_dict_add(dict, "{", malloc_type(TOKEN_LBRACE));
-		twl_dict_add(dict, "}", malloc_type(TOKEN_RBRACE));
-		twl_dict_add(dict, "!", malloc_type(TOKEN_BANG));
-		twl_dict_add(dict, "in", malloc_type(TOKEN_IN));
+		data = twl_lst_new();
+		token_type_item_mgr_add(data, "\n", TOKEN_NEWLINE);
+		token_type_item_mgr_add(data, "&&", TOKEN_AND_IF);
+		token_type_item_mgr_add(data, "||", TOKEN_OR_IF);
+		token_type_item_mgr_add(data, ";;", TOKEN_DSEMI);
+		token_type_item_mgr_add(data, "<<", TOKEN_DLESS);
+		token_type_item_mgr_add(data, ">>", TOKEN_DGREAT);
+		token_type_item_mgr_add(data, "<&", TOKEN_LESSAND);
+		token_type_item_mgr_add(data, ">&", TOKEN_GREATAND);
+		token_type_item_mgr_add(data, "<>", TOKEN_LESSGREAT);
+		token_type_item_mgr_add(data, "<<-", TOKEN_DLESSDASH);
+		token_type_item_mgr_add(data, ">|", TOKEN_CLOBBER);
+		token_type_item_mgr_add(data, "if", TOKEN_IF);
+		token_type_item_mgr_add(data, "then", TOKEN_THEN);
+		token_type_item_mgr_add(data, "else", TOKEN_ELSE);
+		token_type_item_mgr_add(data, "elif", TOKEN_ELIF);
+		token_type_item_mgr_add(data, "fi", TOKEN_FI);
+		token_type_item_mgr_add(data, "do", TOKEN_DO);
+		token_type_item_mgr_add(data, "done", TOKEN_DONE);
+		token_type_item_mgr_add(data, "case", TOKEN_CASE);
+		token_type_item_mgr_add(data, "esac", TOKEN_ESAC);
+		token_type_item_mgr_add(data, "while", TOKEN_WHILE);
+		token_type_item_mgr_add(data, "until", TOKEN_UNTIL);
+		token_type_item_mgr_add(data, "for", TOKEN_FOR);
+		token_type_item_mgr_add(data, "{", TOKEN_LBRACE);
+		token_type_item_mgr_add(data, "}", TOKEN_RBRACE);
+		token_type_item_mgr_add(data, "!", TOKEN_BANG);
+		token_type_item_mgr_add(data, "in", TOKEN_IN);
 	}
-	return (dict);
+	return (data);
 }

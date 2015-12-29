@@ -10,16 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "twl_xstdlib.h"
+#include "token_type_item_mgr.h"
 
-#include "token.h"
-
-t_token				*token_new(char *text)
+void				token_type_item_mgr_remove(t_lst *token_type_items, t_token_type_item *token_type_item)
 {
-	t_token		*this;
+	int				index;
 
-	this = twl_malloc_x0(sizeof(t_token));
-	this->type = token_type_from_str(text);
-	this->text = twl_strdup(text);
-	return (this);
+	index = twl_lst_indexof(token_type_items, token_type_item);
+	if (index == -1)
+	{
+		assert(!"[ERROR] Object not found!");
+	}
+	twl_lst_popi(token_type_items, index);
+	token_type_item_del(token_type_item);
 }

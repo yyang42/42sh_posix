@@ -10,16 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "twl_xstdlib.h"
+#include "token_type_item_mgr.h"
 
-#include "token.h"
-
-t_token				*token_new(char *text)
+static bool			find_fn(void *item_, void *text)
 {
-	t_token		*this;
+	t_token_type_item	*item;
 
-	this = twl_malloc_x0(sizeof(t_token));
-	this->type = token_type_from_str(text);
-	this->text = twl_strdup(text);
-	return (this);
+	item = item_;
+	return (twl_strequ(item->text, text));
+}
+
+t_token_type_item		*token_type_item_mgr_get_by_text(t_lst *token_type_items, char *text)
+{
+	return (twl_lst_find(token_type_items, find_fn, text));
 }

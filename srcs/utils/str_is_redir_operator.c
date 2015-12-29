@@ -10,16 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "twl_xstdlib.h"
+#include "utils.h"
+#include "data.h"
 
-#include "token.h"
-
-t_token				*token_new(char *text)
+bool				str_is_redir_operator(char *str)
 {
-	t_token		*this;
-
-	this = twl_malloc_x0(sizeof(t_token));
-	this->type = token_type_from_str(text);
-	this->text = twl_strdup(text);
-	return (this);
+	return (twl_lst_find(data_redir_operators(), twl_strequ_void, str));
 }

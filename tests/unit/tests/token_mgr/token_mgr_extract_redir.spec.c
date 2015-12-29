@@ -46,8 +46,17 @@ mt_test_token_mgr_extract_redir(num5,
 mt_test_token_mgr_extract_redir(num6,
 	"echo aa 2> file1", "2_>_file1", "echo_aa", false);
 
-// mt_test_token_mgr_extract_redir(num7,
-// 	"echo aa 0 <<- file1 42>> file2 21>file3", "<<-_file1 / 42_>>_file2 / 21_>_file3", "echo_aa_0", false);
+mt_test_token_mgr_extract_redir(num7,
+	"echo abc 2 > 123", ">_123", "echo_abc_2", false);
+
+mt_test_token_mgr_extract_redir(num8,
+	"echo aa 0 <<- file1 42>> file2 21>file3", "<<-_file1 / 42_>>_file2 / 21_>_file3", "echo_aa_0", false);
+
+mt_test_token_mgr_extract_redir(num9,
+	"echo aa -1<file1", "<_file1", "echo_aa_-1", false);
+
+mt_test_token_mgr_extract_redir(num10,
+	"echo aa abc123<file1", "<_file1", "echo_aa_abc123", false);
 
 void	suite_token_mgr_extract_redir(t_suite *suite)
 {
@@ -57,5 +66,8 @@ void	suite_token_mgr_extract_redir(t_suite *suite)
 	SUITE_ADD_TEST(suite, test_num4);
 	SUITE_ADD_TEST(suite, test_num5);
 	SUITE_ADD_TEST(suite, test_num6);
-	// SUITE_ADD_TEST(suite, test_num7);
+	SUITE_ADD_TEST(suite, test_num7);
+	SUITE_ADD_TEST(suite, test_num8);
+	SUITE_ADD_TEST(suite, test_num9);
+	SUITE_ADD_TEST(suite, test_num10);
 }

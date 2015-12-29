@@ -10,16 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "twl_xstdlib.h"
+#include "token_type_item.h"
 
-#include "token.h"
-
-t_token				*token_new(char *text)
+t_token_type_item			*token_type_item_new(char *text, t_token_type type)
 {
-	t_token		*this;
+	t_token_type_item		*token_type_item;
 
-	this = twl_malloc_x0(sizeof(t_token));
-	this->type = token_type_from_str(text);
-	this->text = twl_strdup(text);
-	return (this);
+	token_type_item = twl_malloc_x0(sizeof(t_token_type_item));
+	token_type_item->text = twl_strdup(text);
+	token_type_item->type = type;
+	return (token_type_item);
 }

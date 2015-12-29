@@ -10,16 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "twl_xstdlib.h"
+#include "token_type_item_mgr.h"
 
-#include "token.h"
-
-t_token				*token_new(char *text)
+static void			print_token_type_item_fn(void *token_type_item_)
 {
-	t_token		*this;
+	t_token_type_item	*token_type_item;
 
-	this = twl_malloc_x0(sizeof(t_token));
-	this->type = token_type_from_str(text);
-	this->text = twl_strdup(text);
-	return (this);
+	token_type_item = token_type_item_;
+	twl_printf("<Object #%p>\n", token_type_item);
+}
+
+void				token_type_item_mgr_print(t_lst *token_type_items)
+{
+	twl_printf("%s>>>>>>>>>> token_type_item list%s\n", C_CYAN, C_CLEAR);
+	twl_lst_iter0(token_type_items, print_token_type_item_fn);
+	twl_printf("%s-------------------------------------%s\n", C_CYAN, C_CLEAR);
 }

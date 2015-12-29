@@ -54,7 +54,8 @@ typedef enum		e_token_type
 	TOKEN_IN
 }					t_token_type;
 
-t_token_type		token_type_get_type(char *str);
+t_token_type		token_type_from_str(char *str);
+char				*token_type_to_str(t_token_type type);
 
 #endif
 

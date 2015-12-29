@@ -10,14 +10,35 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "tokenizer.h"
+#include "token_mgr.h"
+#include "utils.h"
+#include "twl_ctype.h"
+
+static void			set_prev_to_io_number_if_necessary(t_tokenizer *this,
+													t_token *token)
+{
+	t_token			*prev;
+
+	if (str_is_redir_operator(token->text))
+	{
+		prev = token_mgr_last(this->tokens);
+		if (prev && twl_str_is_pos_num(prev->text))
+		{
+			if (twl_isdigit(*(this->curpos - twl_strlen(token->text) - 1)))
+			{
+				prev->type = TOKEN_IO_NUMBER;
+			}
+		}
+	}
+}
 
 static t_token		*create_token(t_tokenizer *this)
 {
 	t_token			*token;
 
 	token = token_new(twl_strdup(this->curtoken));
+	set_prev_to_io_number_if_necessary(this, token);
 	return (token);
 }
 

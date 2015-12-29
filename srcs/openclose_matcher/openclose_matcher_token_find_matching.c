@@ -65,7 +65,6 @@ int					openclose_matcher_token_find_matching(
 			return (twl_lst_len(tokens) - twl_lst_len(tokens_copy));
 		}
 	}
-	openclose_mgr_print(stack);
 	twl_lst_del(stack, NULL);
 	return (-1);
 }
