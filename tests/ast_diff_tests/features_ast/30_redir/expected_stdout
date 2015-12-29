@@ -26,3 +26,15 @@ compound_list
                         ast_redir (>> appendB)
                         ast_redir (<< eofB)
                         ast_redir (<<- eof_dashB)
+    ast_list_item (sep=\n)
+        ast_andor_item
+            ast_pipe_item
+                ast_command
+                    ast_simple_command (cmd_level_1b)
+                        ast_redir (2> file)
+    ast_list_item (sep=\n)
+        ast_andor_item
+            ast_pipe_item
+                ast_command
+                    ast_simple_command (cmd_level_1b)
+                        ast_redir (> file)
