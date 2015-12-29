@@ -24,3 +24,42 @@ make
 make obj obj=product          # create an object
 make mgr obj=product          # create a manager
 ```
+
+## AST-Parser
+To run the tests
+```
+make check_ast
+```
+
+**High level view with diff tests**
+
+To have a high level view of the AST, please look at the ast\_diff\_tests here:
+
+`/tests/ast_diff_tests/features_ast`
+
+**Low level view with print files**
+
+The recursive print files used to print the ast is a good way to understand how to use the ast
+
+`/srcs/ast/nodes/ast_*/ast_*_print_rec`
+
+To have a high level view of the AST, please look at the ast\_diff\_tests here:
+
+**Status**
+
+The ast-parser is not finished. It currently implement (see also diff tests):
+
+- compound_list (commandes separated with ";", "&" or "\n"
+- andor "&&" "||"
+- pipe "|"
+- redirections < > >> << ... (all of them)
+- assignment `key=value echo abc`
+- subshell
+
+Not implemented:
+
+- All the expansion stuff
+- The rest
+
+The AST-Parser is compliant with the Tokenization Rules and the POSIX Shell Grammar.
+It something is wrong, please raise an issue.
