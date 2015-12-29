@@ -33,27 +33,26 @@ make check_ast
 
 **High level view with diff tests**
 
-To have a high level view of the AST, please look at the ast\_diff\_tests here:
+To have a high level view of the AST, look at the ast\_diff\_tests here:
 
 `/tests/ast_diff_tests/features_ast`
 
 **Low level view with print files**
 
-The recursive print files used to print the ast is a good way to understand how to use the ast
+The recursive print files used to print the AST is a good way to understand how to use the ast
 
 `/srcs/ast/nodes/ast_*/ast_*_print_rec`
 
-To have a high level view of the AST, please look at the ast\_diff\_tests here:
-
 **Status**
 
-The ast-parser is not finished. It currently implement (see also diff tests):
+The AST is not finished. It currently implements (see also diff tests):
 
 - compound_list (commandes separated with ";", "&" or "\n"
 - andor "&&" "||"
 - pipe "|"
 - redirections < > >> << ... (all of them)
 - assignment `key=value echo abc`
+- simple_command
 - subshell
 
 Not implemented:
