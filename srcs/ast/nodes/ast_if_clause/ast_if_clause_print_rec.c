@@ -17,6 +17,5 @@ void				ast_if_clause_print_rec(t_ast_if_clause *ast_if_clause, int depth)
 	ast_print_indent(depth);
 	twl_printf("ast_if_clause\n");
 	depth++;
-	// token_mgr_print(ast_if_clause->tokens);
 	(void)ast_if_clause;
 }

@@ -18,6 +18,5 @@ t_ast_if_clause	*ast_if_clause_new_from_tokens(t_lst *tokens)
 
 	ast_if_clause = ast_if_clause_new();
 	ast_if_clause->tokens = twl_lst_copy(tokens, NULL);
-	// token_mgr_print(ast_if_clause->tokens);
 	return (ast_if_clause);
 }

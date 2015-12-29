@@ -19,8 +19,5 @@ void				ast_subshell_print_rec(t_ast_subshell *ast_subshell, int depth)
 	twl_printf("ast_subshell\n");
 	depth++;
 	ast_compound_list_print_rec(ast_subshell->ast_compound_list, depth);
-	// token_mgr_print(ast_subshell->tokens);
-	// if (twl_strequ(twl_lst_first(ast_subshell->tokens), "(")
-	// 	&& twl_strequ(twl_lst_last(ast_subshell->tokens), ")"))
 	(void)ast_subshell;
 }
