@@ -5,15 +5,15 @@
 # define mt_test_token_type_from_str(test_name, input, type) \
 	static void test_## test_name(t_test *test) \
 	{ \
-		if (token_type_to_str(type)) \
-		{ \
-			mt_assert(strcmp(token_type_to_str(type), input) == 0); \
-		} \
-		else \
-		{ \
-			mt_assert(token_type_to_str(type) == input); \
-		} \
+		mt_assert(strcmp(token_type_to_str(type), input) == 0); \
 	}
+
+# define mt_test_token_type_from_str_equal(test_name, input, type) \
+	static void test_## test_name(t_test *test) \
+	{ \
+		mt_assert(token_type_to_str(type) == input); \
+	}
+
 
 mt_test_token_type_from_str(num1, "\n", TOKEN_NEWLINE);
 mt_test_token_type_from_str(num2, "&&", TOKEN_AND_IF);
@@ -42,7 +42,7 @@ mt_test_token_type_from_str(num24, "{", TOKEN_LBRACE);
 mt_test_token_type_from_str(num25, "}", TOKEN_RBRACE);
 mt_test_token_type_from_str(num26, "!", TOKEN_BANG);
 mt_test_token_type_from_str(num27, "in", TOKEN_IN);
-mt_test_token_type_from_str(num28, NULL, TOKEN_UNKNOWN);
+mt_test_token_type_from_str_equal(num28, NULL, TOKEN_UNKNOWN);
 
 void	suite_token_type_to_str(t_suite *suite)
 {
