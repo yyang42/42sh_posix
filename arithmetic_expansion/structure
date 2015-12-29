@@ -1,0 +1,101 @@
+struct						s_arith_expr
+{
+	t_arith_assig_expr		*assig_expr;
+	struct s_arith_expr		*expr;								<- Could be NULL
+}							t_arith_expr;
+
+struct						s_arith_assig_expr
+{
+	t_arith_unary_expr		*unary_expr;
+	enum_assig				= += -= *= /= %= <<= >>= &= ^= |=;
+	t_arith_assig_expr		*assign_expr;
+	OR
+	t_arith_conditionnal_expr	*conditionnal_expr;
+}							t_arith_assig_expr;
+
+struct						s_arith_conditionnal_expr
+{
+	t_arith_logical_or_expr	*logical_or_expr;
+	t_arith_expr			*expression;						<- Could be NULL
+	t_arith_conditionnal_expr	*conditionnal_expr;				<- Could be NULL
+}							t_arith_conditionnal_expr;
+
+struct						s_arith_logical_or_expr
+{
+	t_arith_logical_and_expr	*logical_and_expr;
+	t_arith_logical_or_expr	*logical_or_expr;					<- Could be NULL
+}							t_arith_logical_or_expr;
+
+struct						s_arith_logical_and_expr
+{
+	t_arith_inclusive_or_expr	*inclusive_or_expr;
+	t_arith_logical_and_expr	*logical_and_expr;				<- Could be NULL
+}							t_arith_logical_and_expr
+
+struct						s_arith_inclusive_or_expr
+{
+	t_arith_exclusive_or_expr	*exclusive_or_expr;
+	t_arith_inclusive_or_expr	*inclusive_or_expr;				<- Could be NULL
+}							t_arith_inclusive_or_expr;
+
+struct						s_arith_exclusive_or_expr
+{
+	t_arith_and_expr		*and_expr;
+	t_arith_exclusive_or_expr	*exclusive_or_expr;				<- Could be NULL
+}							t_arith_exclusive_or_expr;
+
+struct						s_arith_and_expr
+{
+	t_arith_equality_expr	*equality_expr;
+	t_arith_and_expr		*and_expr;							<- Could be NULL
+}							t_arith_and_expr;
+
+struct						s_arith_equality_expr
+{
+	char					equal;								// ! | =
+	t_arith_relational_expr	*relational_expr;
+	t_arith_equality_expr	*equality_expr;						<- Could be NULL
+}							t_arith_equality_expr;
+
+struct						s_arith_relational_expr
+{
+	char[2]					relat;								// < > =< =>
+	t_arith_shift_expr		*shift_expr;
+	t_arith_relational_expr	*relational_expr;					<- Could be NULL
+}							t_arith_relational_expr;
+
+struct						s_arith_shift_expr
+{
+	char					shift;								// < >
+	t_arith_additive_expr	*additive_expr;
+	t_arith_shift_expr		*shift_expr;						<- Could be NULL
+}							t_arith_shift_expr;
+
+struct						s_arith_additive_expr
+{
+	char					add;								// + -
+	t_arith_multiplicative_expr	*multiplicative_expr;
+	t_arith_additive_expr	*additive_expr;						<- Could be NULL
+}							t_arith_additive_expr;
+
+struct						s_arith_multiplicative_expr
+{
+	char					mult;								// * / %
+	t_arith_unary_expr		*unary_expr;
+	t_arith_multiplicative_expr	*multiplicative_expr;			<- Could be NULL
+}							t_arith_multiplicative_expr;
+
+struct						s_arith_unary_expr
+{
+	t_arith_primary_expr	*primary_expr;
+	OR
+	enum_unary_ope			+ - ! ~;
+	t_arith_unary_expr		*unary_expr;
+}							t_arith_unary_expr;
+
+struct						s_arith_primary_expr
+{
+	int						constant;
+	OR
+	t_arith_expr			*expr;
+}							t_arith_primary_expr;

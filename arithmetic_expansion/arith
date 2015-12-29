@@ -1,0 +1,169 @@
+$((1+2))
+expression																	1+2
+ assignement_expression														1+2
+  conditionnal_expression													1+2
+   logical_OR_expression													1+2
+	logical_AND_expression													1+2
+	 inclusive_OR_expression												1+2
+	  exclusive_OR_expression												1+2
+	   AND_expression														1+2
+		equality_expression													1+2
+		 relational_expression												1+2
+		  shift_expression													1+2
+		   additive_expression												1+2
+			additive_expression												1
+			 multiplicative_expression										1
+			  unary_expression												1
+			   primary_expression											1
+				constant													1
+																			+
+			multiplicative_expression										2
+			 unary_expression												2
+			  primary_expression											2
+			   constant														2
+
+$((0-1+2*3/4%5))
+expression															0-1+2*3/4%5
+ assignement_expression												0-1+2*3/4%5
+  conditionnal_expression											0-1+2*3/4%5
+   logical_OR_expression											0-1+2*3/4%5
+	logical_AND_expression											0-1+2*3/4%5
+	 inclusive_OR_expression										0-1+2*3/4%5
+	  exclusive_OR_expression										0-1+2*3/4%5
+	   AND_expression												0-1+2*3/4%5
+		equality_expression											0-1+2*3/4%5
+		 relational_expression										0-1+2*3/4%5
+		  shift_expression											0-1+2*3/4%5
+		   additive_expression										0-1+2*3/4%5
+			additive_expression										0-1
+			 additive_expression									0
+			  multiplicative_expression								0
+			   unary_expression										0
+				primary_expression									0
+				 constant											0
+			 														-
+			 multiplicative_expression								1
+			  unary_expression										1
+			   primary_expression									1
+				constant											1
+			 														+
+			multiplicative_expression								2*3/4%5
+			 multiplicative_expression								2*3/4
+			  multiplicative_expression								2*3
+			   multiplicative_expression							2
+				unary_expression									2
+				 primary_expression									2
+				  constant											2
+			   														*
+			   unary_expression										3
+				primary_expression									3
+				 constant											3
+			  														/
+			  unary_expression										4
+			   primary_expression									4
+				constant											4
+			 														%
+			 unary_expression										5
+			  primary_expression									5
+			   constant												5
+
+$((1+2*3+5))
+expression																1+2*3+5
+ assignement_expression													1+2*3+5
+  conditionnal_expression												1+2*3+5
+   logical_OR_expression												1+2*3+5
+	logical_AND_expression												1+2*3+5
+	 inclusive_OR_expression											1+2*3+5
+	  exclusive_OR_expression											1+2*3+5
+	   AND_expression													1+2*3+5
+		equality_expression												1+2*3+5
+		 relational_expression											1+2*3+5
+		  shift_expression												1+2*3+5
+		   additive_expression											1+2*3+5
+			additive_expression											1+2*3
+			 additive_expression										1
+			  multiplicative_expression									1
+			   unary_expression											1
+				primary_expression										1
+				 constant												1
+			 															+
+			 multiplicative_expression									2*3
+			  multiplicative_expression									2
+			   unary_expression											2
+				primary_expression										2
+				 constant												2
+			  															*
+			  unary_expression											3
+			   primary_expression										3
+				constant												3
+																		+
+			multiplicative_expression									5
+			 unary_expression											5
+			  primary_expression										5
+			   constant													5
+
+$((a>b?0:1))
+expression																a>b?0:1
+ assignement_expression													a>b?0:1
+  conditionnal_expression												a>b?0:1
+   logical_OR_expression												a>b
+	logical_AND_expression												a>b
+	inclusive_OR_expression												a>b
+	 exclusive_OR_expression											a>b
+	  AND_expression													a>b
+	   equality_expression												a>b
+		relational_expression											a>b
+		 relational_expression											a
+		  shift_expression												a
+		   additive_expression											a
+			multiplicative_expression									a
+			 unary_expression											a
+			  primary_expression										a
+			   constant													a
+		 																>
+		 shift_expression												b
+		  additive_expression											b
+		   multiplicative_expression									b
+			unary_expression											b
+			 primary_expression											b
+			  constant													b
+		 																?
+   expression															0
+	assignement_expression												0
+	 conditionnal_expression											0
+	  logical_OR_expression												0
+	   logical_AND_expression											0
+		inclusive_OR_expression											0
+		 exclusive_OR_expression										0
+		  AND_expression												0
+		   equality_expression											0
+			relational_expression										0
+			 shift_expression											0
+			  additive_expression										0
+			   multiplicative_expression								0
+				unary_expression										0
+				 primary_expression										0
+				  constant												0
+   																		:
+   conditionnal_expression												1
+	logical_OR_expression												1
+	 logical_AND_expression												1
+	  inclusive_OR_expression											1
+	   exclusive_OR_expression											1
+		AND_expression													1
+		 equality_expression											1
+		  relational_expression											1
+		   shift_expression												1
+			additive_expression											1
+			 multiplicative_expression									1
+			  unary_expression											1
+			   primary_expression										1
+				constant												1
+
+$((0,1))																	0,1
+expression																	0,1
+ expression																	0
+ 																			,
+ assignement_expression														1
+
+$((a=12))
