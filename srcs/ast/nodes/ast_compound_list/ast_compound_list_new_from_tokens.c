@@ -38,13 +38,13 @@ static void				build_ast_list_item(
 
 t_ast_compound_list	*ast_compound_list_new_from_tokens(t_lst *tokens)
 {
-	t_ast_compound_list		*ast_compound_list;
+	t_ast_compound_list			*ast_compound_list;
 	t_lst						*tokens_list;
 	t_lst						*tokens_tmp;
 
 	tokens_list = token_mgr_split(tokens, get_split_strings());
 	ast_compound_list = ast_compound_list_new();
-	while ((tokens_tmp = twl_lst_shift(tokens_list)))
+	while ((tokens_tmp = twl_lst_pop_front(tokens_list)))
 	{
 		if (twl_lst_len(tokens_tmp) > 0)
 		{

@@ -41,6 +41,8 @@ mt_test_token_mgr_split(num6, "if abc; then 123; fi; echo hello & date", ";_&",
 									"if_abc_;_then_123_;_fi_; / echo_hello_& / date", false);
 mt_test_token_mgr_split(num7, "{echo abc; echo 123} & echo 777", ";_&",
 									"{_echo_abc_;_echo_123_}_& / echo_777", false);
+mt_test_token_mgr_split(num8, "echo 123 | echo abc", "|",
+									"echo_123_| / echo_abc", false);
 
 void	suite_token_mgr_split(t_suite *suite)
 {
@@ -51,4 +53,5 @@ void	suite_token_mgr_split(t_suite *suite)
 	SUITE_ADD_TEST(suite, test_num5);
 	SUITE_ADD_TEST(suite, test_num6);
 	SUITE_ADD_TEST(suite, test_num7);
+	SUITE_ADD_TEST(suite, test_num8);
 }

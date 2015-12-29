@@ -19,7 +19,7 @@ t_token				*token_new(char *text)
 	t_token		*this;
 
 	this = twl_malloc_x0(sizeof(t_token));
-	this->type = TOKEN_UNKNOWN;
 	this->text = twl_strdup(text);
+	this->type = token_type_get_type(text);
 	return (this);
 }
