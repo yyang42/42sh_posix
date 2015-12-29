@@ -42,7 +42,7 @@ mt_test_token_type_from_str(num24, "{", TOKEN_LBRACE);
 mt_test_token_type_from_str(num25, "}", TOKEN_RBRACE);
 mt_test_token_type_from_str(num26, "!", TOKEN_BANG);
 mt_test_token_type_from_str(num27, "in", TOKEN_IN);
-mt_test_token_type_from_str_equal(num28, NULL, TOKEN_UNKNOWN);
+mt_test_token_type_from_str_equal(num28, NULL, TOKEN_TOKEN);
 
 void	suite_token_type_to_str(t_suite *suite)
 {

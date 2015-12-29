@@ -36,7 +36,7 @@ mt_test_token_new(num24, "{", TOKEN_LBRACE);
 mt_test_token_new(num25, "}", TOKEN_RBRACE);
 mt_test_token_new(num26, "!", TOKEN_BANG);
 mt_test_token_new(num27, "in", TOKEN_IN);
-mt_test_token_new(num28, "xyz", TOKEN_UNKNOWN);
+mt_test_token_new(num28, "xyz", TOKEN_TOKEN);
 
 void	suite_token_new(t_suite *suite)
 {

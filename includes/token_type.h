@@ -17,7 +17,7 @@
 
 typedef enum		e_token_type
 {
-	TOKEN_UNKNOWN,
+	TOKEN_TOKEN,
 	TOKEN_WORD,
 	TOKEN_ASSIGNMENT_WORD,
 	TOKEN_NAME,

@@ -20,6 +20,6 @@ t_token_type		token_type_from_str(char *str)
 
 	item = token_type_item_mgr_get_by_text(data_token_item_list(), str);
 	if (!item)
-		return (TOKEN_UNKNOWN);
+		return (TOKEN_TOKEN);
 	return (item->type);
 }
