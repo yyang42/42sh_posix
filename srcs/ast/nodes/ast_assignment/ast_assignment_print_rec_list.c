@@ -11,14 +11,13 @@
 /* ************************************************************************** */
 
 #include "ast/nodes/ast_assignment.h"
-#include "ast/nodes/ast_redir.h"
-#include "ast/nodes/ast_simple_command.h"
 
-void				ast_simple_command_print_rec(t_ast_simple_command *this, int depth)
+static void			iter_assignment_rec_fn(void *ast_assignment, void *depth_ptr)
 {
-	ast_print_indent(depth);
-	twl_printf("ast_simple_command (%s)\n", token_mgr_first(this->command_tokens)->text);
-	depth++;
-	ast_redir_print_rec_list(this->redir_items, depth);
-	ast_assignment_print_rec_list(this->assignment_items, depth);
+	ast_assignment_print_rec(ast_assignment, *(int *)depth_ptr);
+}
+
+void				ast_assignment_print_rec_list(t_lst *assignment_items, int depth)
+{
+	twl_lst_iter(assignment_items, iter_assignment_rec_fn, &depth);
 }

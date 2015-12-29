@@ -17,6 +17,5 @@ t_ast_assignment			*ast_assignment_new(void)
 	t_ast_assignment		*ast_assignment;
 
 	ast_assignment = twl_malloc_x0(sizeof(t_ast_assignment));
-	ast_assignment->tokens = twl_lst_new();
 	return (ast_assignment);
 }

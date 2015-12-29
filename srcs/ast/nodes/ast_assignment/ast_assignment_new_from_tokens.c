@@ -12,11 +12,12 @@
 
 #include "ast/nodes/ast_assignment.h"
 
-t_ast_assignment	*ast_assignment_new_from_tokens(t_lst *tokens)
+t_ast_assignment	*ast_assignment_new_from_tokens(char *key, char *value)
 {
 	t_ast_assignment		*ast_assignment;
 
 	ast_assignment = ast_assignment_new();
-	ast_assignment->tokens = twl_lst_copy(tokens, NULL);
+	ast_assignment->key = twl_strdup(key);
+	ast_assignment->value = value ? twl_strdup(value) : NULL;
 	return (ast_assignment);
 }

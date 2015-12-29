@@ -20,15 +20,17 @@
 
 typedef struct		s_ast_assignment
 {
-	t_lst			*tokens;
+	char			*key;
+	char			*value;
 }					t_ast_assignment;
 
 t_ast_assignment	*ast_assignment_new(void);
 void				ast_assignment_del(t_ast_assignment *ast_assignment);
 
-t_ast_assignment	*ast_assignment_new_from_tokens(t_lst *tokens);
-void				*ast_assignment_new_from_tokens_void(t_lst *tokens);
+t_ast_assignment	*ast_assignment_new_from_tokens(char *key, char *value);
+void				*ast_assignment_new_from_tokens_void(char *key, char *value);
 void				ast_assignment_print_rec(t_ast_assignment *ast_assignment, int depth);
+void				ast_assignment_print_rec_list(t_lst *assignment_items, int depth);
 
 bool				ast_assignment_is_own_type(t_lst *tokens);
 
