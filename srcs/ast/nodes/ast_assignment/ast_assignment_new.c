@@ -10,27 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_SIMPLE_COMMAND_H
-# define AST_SIMPLE_COMMAND_H
+#include "ast/nodes/ast_assignment.h"
 
-# include "basics.h"
-
-# include "token_mgr.h"
-# include "ast/ast_utils.h"
-
-typedef struct			s_ast_simple_command
+t_ast_assignment			*ast_assignment_new(void)
 {
-	t_lst				*command_tokens;
-	t_lst				*redir_items;
-	t_lst				*assignment_items;
-}						t_ast_simple_command;
+	t_ast_assignment		*ast_assignment;
 
-t_ast_simple_command	*ast_simple_command_new(void);
-void					ast_simple_command_del(t_ast_simple_command *ast_simple_command);
-
-t_ast_simple_command	*ast_simple_command_new_from_tokens(t_lst *tokens);
-void					ast_simple_command_print_rec(t_ast_simple_command *ast_simple_command, int depth);
-
-bool					ast_simple_command_is_own_type(t_lst *tokens);
-
-#endif
+	ast_assignment = twl_malloc_x0(sizeof(t_ast_assignment));
+	ast_assignment->tokens = twl_lst_new();
+	return (ast_assignment);
+}

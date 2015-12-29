@@ -32,4 +32,6 @@ t_token				*token_mgr_last(t_lst *tokens);
 t_token				*token_mgr_get(t_lst *tokens, int index);
 
 t_lst				*token_mgr_extract_redir(t_lst *tokens);
+t_lst				*token_mgr_extract_assignment(t_lst *tokens);
+
 #endif
