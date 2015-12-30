@@ -1,5 +1,6 @@
 .tmp
 .valgrind.log
+42sh.dSYM/
 
 /42sh
 .debug.out
