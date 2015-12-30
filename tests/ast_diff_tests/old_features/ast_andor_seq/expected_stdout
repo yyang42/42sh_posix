@@ -1,8 +1,0 @@
-LIST
-  ANDOR_SEQ
-    PIPE_SEQ
-      SIMPLE_CMD echo aaa && echo bbb
-    PIPE_SEQ
-      SIMPLE_CMD  echo bbb || echo cc
-    PIPE_SEQ
-      SIMPLE_CMD  echo ccc\n
