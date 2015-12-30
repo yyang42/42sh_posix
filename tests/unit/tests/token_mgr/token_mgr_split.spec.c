@@ -43,7 +43,16 @@ mt_test_token_mgr_split(num7, "(echo abc; echo 123) & echo 777", ";_&",
 									"(_echo_abc_;_echo_123_)_& / echo_777", false);
 mt_test_token_mgr_split(num8, "echo 123 | echo abc", "|",
 									"echo_123_| / echo_abc", false);
-
+mt_test_token_mgr_split(num9, "; ; ; ;", ";",
+									"; / ; / ; / ;", true);
+mt_test_token_mgr_split(num101, "(abc", ";",
+									"(_abc", true);
+mt_test_token_mgr_split(num102, "(abc);(", ";",
+									"(_abc_)_; / (", true);
+mt_test_token_mgr_split(num103, "(aaa;bbb", ";",
+									"(_aaa_;_bbb", true);
+mt_test_token_mgr_split(num104, "(abc; ; ;", ";",
+									"(_abc_;_;_;", true);
 void	suite_token_mgr_split(t_suite *suite)
 {
 	SUITE_ADD_TEST(suite, test_num1);
@@ -54,4 +63,9 @@ void	suite_token_mgr_split(t_suite *suite)
 	SUITE_ADD_TEST(suite, test_num6);
 	SUITE_ADD_TEST(suite, test_num7);
 	SUITE_ADD_TEST(suite, test_num8);
+	SUITE_ADD_TEST(suite, test_num9);
+	SUITE_ADD_TEST(suite, test_num101);
+	SUITE_ADD_TEST(suite, test_num102);
+	SUITE_ADD_TEST(suite, test_num103);
+	SUITE_ADD_TEST(suite, test_num104);
 }

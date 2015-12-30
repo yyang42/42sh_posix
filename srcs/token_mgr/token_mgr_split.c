@@ -19,6 +19,8 @@ static void			hande_openclose(t_openclose_matcher *matcher,
 	int				pos;
 
 	pos = openclose_matcher_token_find_matching(matcher, tokens);
+	if (pos == -1)
+		pos = twl_lst_len(tokens);
 	while (pos > 0)
 	{
 		twl_lst_push(tokens_tmp, twl_lst_shift(tokens));
@@ -44,6 +46,8 @@ static void			do_split(t_lst *tokens, t_lst *tokens_list, t_lst *split_strings)
 		else if (twl_lst_find(split_strings, twl_strequ_void, token->text))
 		{
 			twl_lst_push(tokens_tmp, twl_lst_shift(tokens));
+			if (twl_lst_len(tokens) == 0)
+				return ;
 			tokens_tmp = twl_lst_new();
 			twl_lst_push(tokens_list, tokens_tmp);
 		}
