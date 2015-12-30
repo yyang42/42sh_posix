@@ -30,7 +30,7 @@ static void			build_redir_tokens(t_lst *redir_items, t_lst *orig_redir_tokens)
 	twl_lst_del(redir_tokens, NULL);
 }
 
-static void			new_compound_command_sequel(t_ast_compound_command *this, t_lst *tokens)
+static void			new_compound_command_do(t_ast_compound_command *this, t_lst *tokens)
 {
 	int						pos;
 	t_openclose_matcher		*matcher;
@@ -53,7 +53,7 @@ t_ast_compound_command	*ast_compound_command_new_from_tokens(t_lst *tokens)
 	this->command_type = compound_command_get_type_from_tokens(tokens);
 	if (this->command_type != COMPOUND_COMMAND_NONE)
 	{
-		new_compound_command_sequel(this, tokens);
+		new_compound_command_do(this, tokens);
 	}
 	return (this);
 }

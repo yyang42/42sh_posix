@@ -10,13 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_if_clause.h"
+#include "ast/nodes/ast_if_then.h"
 
-void				ast_if_clause_print_rec(t_ast_if_clause *ast_if_clause, int depth)
+t_ast_if_then	*ast_if_then_new_from_tokens(t_lst *tokens)
 {
-	ast_print_indent(depth);
-	twl_printf("ast_if_clause\n");
-	depth++;
-	token_mgr_print(ast_if_clause->tokens);
-	(void)ast_if_clause;
+	t_ast_if_then		*ast_if_then;
+
+	ast_if_then = ast_if_then_new();
+	ast_if_then->tokens = twl_lst_copy(tokens, NULL);
+	return (ast_if_then);
 }

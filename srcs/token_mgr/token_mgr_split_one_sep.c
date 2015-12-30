@@ -10,13 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_if_clause.h"
+#include "token_mgr.h"
 
-void				ast_if_clause_print_rec(t_ast_if_clause *ast_if_clause, int depth)
+t_lst				*token_mgr_split_by_one_sep(t_lst *tokens, char *sep)
 {
-	ast_print_indent(depth);
-	twl_printf("ast_if_clause\n");
-	depth++;
-	token_mgr_print(ast_if_clause->tokens);
-	(void)ast_if_clause;
+	t_lst			*sep_list;
+	t_lst			*result;
+
+	sep_list = twl_lst_new();
+	twl_lst_push(sep_list, twl_strdup(sep));
+	result = token_mgr_split(tokens, sep_list);
+	twl_lst_del(sep_list, free);
+	return (result);
 }

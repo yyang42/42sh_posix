@@ -10,18 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "data.h"
+
 #include "ast/nodes/ast_compound_list.h"
-
-static t_lst			*get_split_strings(void)
-{
-	static t_lst	*split_strings = NULL;
-
-	if (split_strings == NULL)
-	{
-		split_strings = twl_str_split_to_lst(";_&_\n", "_");
-	}
-	return (split_strings);
-}
 
 static void				build_ast_list_item(
 								t_ast_compound_list *ast_compound_list,
@@ -29,7 +20,7 @@ static void				build_ast_list_item(
 {
 	t_token						*sep;
 
-	if (twl_lst_find(get_split_strings(), twl_strequ_void, token_mgr_last(tokens_tmp)->text))
+	if (twl_lst_find(data_separators(), twl_strequ_void, token_mgr_last(tokens_tmp)->text))
 		sep = twl_lst_pop(tokens_tmp);
 	else
 		sep = NULL;
@@ -42,7 +33,7 @@ t_ast_compound_list	*ast_compound_list_new_from_tokens(t_lst *tokens)
 	t_lst						*tokens_list;
 	t_lst						*tokens_tmp;
 
-	tokens_list = token_mgr_split(tokens, get_split_strings());
+	tokens_list = token_mgr_split(tokens, data_separators());
 	ast_compound_list = ast_compound_list_new();
 	while ((tokens_tmp = twl_lst_pop_front(tokens_list)))
 	{

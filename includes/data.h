@@ -20,5 +20,6 @@
 t_lst				*data_all_operators(void);
 t_lst				*data_redir_operators(void);
 t_lst				*data_token_item_list(void);
+t_lst				*data_separators(void);
 
 #endif

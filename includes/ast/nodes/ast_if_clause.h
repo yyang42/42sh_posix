@@ -21,6 +21,7 @@
 typedef struct		s_ast_if_clause
 {
 	t_lst			*tokens;
+	t_lst			*if_then_list;
 }					t_ast_if_clause;
 
 t_ast_if_clause		*ast_if_clause_new(void);

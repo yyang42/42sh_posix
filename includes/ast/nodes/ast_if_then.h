@@ -10,13 +10,30 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_if_clause.h"
+#ifndef AST_IF_THEN_H
+# define AST_IF_THEN_H
 
-void				ast_if_clause_print_rec(t_ast_if_clause *ast_if_clause, int depth)
+# include "basics.h"
+
+# include "token_mgr.h"
+# include "ast/ast_utils.h"
+
+# include "ast/nodes/ast_compound_list.h"
+
+typedef struct		s_ast_if_then
 {
-	ast_print_indent(depth);
-	twl_printf("ast_if_clause\n");
-	depth++;
-	token_mgr_print(ast_if_clause->tokens);
-	(void)ast_if_clause;
-}
+	t_lst					*tokens;
+	t_ast_compound_list		*condition;
+	t_ast_compound_list		*body;
+}					t_ast_if_then;
+
+t_ast_if_then		*ast_if_then_new(void);
+void				ast_if_then_del(t_ast_if_then *ast_if_then);
+
+t_ast_if_then		*ast_if_then_new_from_tokens(t_lst *tokens);
+void				*ast_if_then_new_from_tokens_void(t_lst *tokens);
+void				ast_if_then_print_rec(t_ast_if_then *ast_if_then, int depth);
+
+bool				ast_if_then_is_own_type(t_lst *tokens);
+
+#endif

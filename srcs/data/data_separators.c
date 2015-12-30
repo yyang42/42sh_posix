@@ -10,13 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_if_clause.h"
+#include "twl_lst.h"
 
-void				ast_if_clause_print_rec(t_ast_if_clause *ast_if_clause, int depth)
+#include "data.h"
+
+t_lst				*data_separators(void)
 {
-	ast_print_indent(depth);
-	twl_printf("ast_if_clause\n");
-	depth++;
-	token_mgr_print(ast_if_clause->tokens);
-	(void)ast_if_clause;
+	static t_lst	*separators = NULL;
+
+	if (separators == NULL)
+	{
+		separators = twl_lst_new();
+		twl_lst_push_back(separators, ";");
+		twl_lst_push_back(separators, "&");
+		twl_lst_push_back(separators, "\n");
+	}
+	return (separators);
 }
