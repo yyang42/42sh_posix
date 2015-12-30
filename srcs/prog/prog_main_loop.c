@@ -13,23 +13,28 @@
 #include "prog.h"
 #include "edit/edit.h"
 
+static char			*get_cmd(void)
+{
+	t_edit			*edit;
+	char 			*cmd;
+
+	edit = edit_new();
+	cmd = edit_loop(edit);
+	edit_del(edit);
+	return (cmd);
+}
+
 void				prog_main_loop(t_prog *prog, t_environment *env)
 {
-
-	t_edit			*edit;
 	char			*cmd;
-	/*
-	** TODO: how delete exit when we exit of shell ?
-	*/
+
 	while (1)
 	{
+		cmd = get_cmd();
 		// Do your job with the CMD ^^
-		edit = edit_new();
-		cmd = edit_loop(edit);
 		/*
 		** Simple exit for test. Remove when handle exit cmd
 		*/
-		edit_del(edit);
 		if (twl_strcmp(cmd, "exit") == 0)
 		{
 			free(cmd);
