@@ -10,8 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <signal.h>
+
 #include "edit/terminal.h"
 #include "utils.h"
+
 
 static void			sig_handler_prompt(int signum)
 {
