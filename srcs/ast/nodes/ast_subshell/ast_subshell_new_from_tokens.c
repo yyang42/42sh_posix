@@ -19,10 +19,11 @@ t_ast_subshell	*ast_subshell_new_from_tokens(t_lst *tokens)
 
 	ast_subshell = ast_subshell_new();
 	ast_subshell->tokens = twl_lst_copy(tokens, NULL);
-	// token_mgr_print(ast_subshell->tokens);
 	twl_lst_pop_front(ast_subshell->tokens);
 	twl_lst_pop_back(ast_subshell->tokens);
 	ast_subshell->ast_compound_list = ast_compound_list_new_from_tokens(ast_subshell->tokens);
+	if (ast_subshell->ast_compound_list == NULL)
+		return (NULL);
 	return (ast_subshell);
 	(void)tokens;
 }

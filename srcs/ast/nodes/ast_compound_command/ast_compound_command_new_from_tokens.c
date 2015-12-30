@@ -30,7 +30,7 @@ static void			build_redir_tokens(t_lst *redir_items, t_lst *orig_redir_tokens)
 	twl_lst_del(redir_tokens, NULL);
 }
 
-static void			new_compound_command_do(t_ast_compound_command *this, t_lst *tokens)
+static int			new_compound_command_do(t_ast_compound_command *this, t_lst *tokens)
 {
 	int						pos;
 	t_openclose_matcher		*matcher;
@@ -38,11 +38,17 @@ static void			new_compound_command_do(t_ast_compound_command *this, t_lst *token
 
 	matcher = openclose_matcher_singleton_parser();
 	pos = openclose_matcher_token_find_matching(matcher, tokens);
+	if (pos == -1)
+		return (-1);
 	this->command_tokens = twl_lst_slice(tokens, 0, pos);
+	// token_mgr_print(this->command_tokens);
 	redir_tokens = twl_lst_slice(tokens, pos, twl_lst_len(tokens));
 	this->command = compound_command_from_token_fns()[this->command_type](this->command_tokens);
+	if (this->command == NULL)
+		return (-1);
 	build_redir_tokens(this->redir_items, redir_tokens);
 	twl_lst_del(redir_tokens, NULL);
+	return (0);
 }
 
 t_ast_compound_command	*ast_compound_command_new_from_tokens(t_lst *tokens)
@@ -51,9 +57,11 @@ t_ast_compound_command	*ast_compound_command_new_from_tokens(t_lst *tokens)
 
 	this = ast_compound_command_new();
 	this->command_type = compound_command_get_type_from_tokens(tokens);
+
 	if (this->command_type != COMPOUND_COMMAND_NONE)
 	{
-		new_compound_command_do(this, tokens);
+		if (new_compound_command_do(this, tokens) == -1)
+			return (NULL);
 	}
 	return (this);
 }

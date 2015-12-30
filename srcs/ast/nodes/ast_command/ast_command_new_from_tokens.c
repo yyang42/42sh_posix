@@ -34,6 +34,8 @@ t_ast_command	*ast_command_new_from_tokens(t_lst *tokens)
 	{
 		ast_command->command_type = COMMAND_COMPOUND_COMMAND;
 		ast_command->command = ast_compound_command_new_from_tokens(tokens);
+		if (ast_command->command == NULL)
+			return (NULL);
 	}
 	else
 	{

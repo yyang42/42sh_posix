@@ -14,17 +14,22 @@
 
 #include "ast/nodes/ast_compound_list.h"
 
-static void				build_ast_list_item(
+static int				build_ast_list_item(
 								t_ast_compound_list *ast_compound_list,
 								t_lst *tokens_tmp)
 {
 	t_token						*sep;
+	t_ast_list_item				*ast_list_item;
 
 	if (twl_lst_find(data_separators(), twl_strequ_void, token_mgr_last(tokens_tmp)->text))
 		sep = twl_lst_pop(tokens_tmp);
 	else
 		sep = NULL;
-	twl_lst_push(ast_compound_list->ast_list_items, ast_list_item_new_from_tokens(tokens_tmp, sep));
+	ast_list_item = ast_list_item_new_from_tokens(tokens_tmp, sep);
+	if (ast_list_item == NULL)
+		return (-1);
+	twl_lst_push(ast_compound_list->ast_list_items, ast_list_item);
+	return (0);
 }
 
 t_ast_compound_list	*ast_compound_list_new_from_tokens(t_lst *tokens)
@@ -39,7 +44,8 @@ t_ast_compound_list	*ast_compound_list_new_from_tokens(t_lst *tokens)
 	{
 		if (twl_lst_len(tokens_tmp) > 0)
 		{
-			build_ast_list_item(ast_compound_list, tokens_tmp);
+			if (build_ast_list_item(ast_compound_list, tokens_tmp) == -1)
+				return (NULL);
 		}
 	}
 	return (ast_compound_list);
