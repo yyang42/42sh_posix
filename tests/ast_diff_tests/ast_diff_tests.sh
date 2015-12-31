@@ -55,7 +55,6 @@ then
     diff_test features_ast 01_empty
     diff_test features_ast 10_simple_command
     diff_test features_ast 20_subshell
-    diff_test features_ast 21_subshell_err
     diff_test features_ast 30_redir
     diff_test features_ast 40_assignment
     # diff_test features_ast 50_if_clause
