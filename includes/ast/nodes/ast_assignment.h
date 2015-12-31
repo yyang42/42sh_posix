@@ -17,6 +17,7 @@
 
 # include "token_mgr.h"
 # include "ast/ast_utils.h"
+# include "ast/ast_defines.h"
 
 typedef struct		s_ast_assignment
 {
@@ -27,8 +28,8 @@ typedef struct		s_ast_assignment
 t_ast_assignment	*ast_assignment_new(void);
 void				ast_assignment_del(t_ast_assignment *ast_assignment);
 
-t_ast_assignment	*ast_assignment_new_from_tokens(char *key, char *value);
-void				*ast_assignment_new_from_tokens_void(char *key, char *value);
+t_ast_assignment	*ast_assignment_new_from_tokens(char *key, char *value, struct s_ast *ast);
+void				*ast_assignment_new_from_tokens_void(char *key, char *value, struct s_ast *ast);
 void				ast_assignment_print_rec(t_ast_assignment *ast_assignment, int depth);
 void				ast_assignment_print_rec_list(t_lst *assignment_items, int depth);
 

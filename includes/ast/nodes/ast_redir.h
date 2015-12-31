@@ -16,6 +16,8 @@
 # include "basics.h"
 
 # include "token_mgr.h"
+
+# include "ast/ast_defines.h"
 # include "ast/ast_utils.h"
 
 # define IO_NUMBER_NOT_DEFINED -1
@@ -31,8 +33,8 @@ typedef struct		s_ast_redir
 t_ast_redir			*ast_redir_new(void);
 void				ast_redir_del(t_ast_redir *ast_redir);
 
-t_ast_redir			*ast_redir_new_from_tokens(t_lst *tokens);
-void				*ast_redir_new_from_tokens_void(t_lst *tokens);
+t_ast_redir			*ast_redir_new_from_tokens(t_lst *tokens, struct s_ast *ast);
+void				*ast_redir_new_from_tokens_void(t_lst *tokens, struct s_ast *ast);
 void				ast_redir_print_rec(t_ast_redir *ast_redir, int depth);
 void				ast_redir_print_rec_list(t_lst *redir_items, int depth);
 

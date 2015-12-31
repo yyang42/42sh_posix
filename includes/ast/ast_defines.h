@@ -15,4 +15,6 @@
 
 # define AST_TAB_WIDTH 4
 
+struct s_ast;
+
 #endif

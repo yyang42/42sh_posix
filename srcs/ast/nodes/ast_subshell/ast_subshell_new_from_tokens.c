@@ -13,7 +13,7 @@
 #include "ast/nodes/ast_subshell.h"
 #include "ast/nodes/ast_compound_list.h"
 
-t_ast_subshell	*ast_subshell_new_from_tokens(t_lst *tokens)
+t_ast_subshell	*ast_subshell_new_from_tokens(t_lst *tokens, struct s_ast *ast)
 {
 	t_ast_subshell		*ast_subshell;
 
@@ -21,9 +21,10 @@ t_ast_subshell	*ast_subshell_new_from_tokens(t_lst *tokens)
 	ast_subshell->tokens = twl_lst_copy(tokens, NULL);
 	twl_lst_pop_front(ast_subshell->tokens);
 	twl_lst_pop_back(ast_subshell->tokens);
-	ast_subshell->ast_compound_list = ast_compound_list_new_from_tokens(ast_subshell->tokens);
+	ast_subshell->ast_compound_list = ast_compound_list_new_from_tokens(ast_subshell->tokens, ast);
 	if (ast_subshell->ast_compound_list == NULL)
 		return (NULL);
 	return (ast_subshell);
 	(void)tokens;
+	(void)ast;
 }

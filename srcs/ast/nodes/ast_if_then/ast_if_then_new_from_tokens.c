@@ -12,11 +12,12 @@
 
 #include "ast/nodes/ast_if_then.h"
 
-t_ast_if_then	*ast_if_then_new_from_tokens(t_lst *tokens)
+t_ast_if_then	*ast_if_then_new_from_tokens(t_lst *tokens, struct s_ast *ast)
 {
 	t_ast_if_then		*ast_if_then;
 
 	ast_if_then = ast_if_then_new();
 	ast_if_then->tokens = twl_lst_copy(tokens, NULL);
 	return (ast_if_then);
+	(void)ast;
 }

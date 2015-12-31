@@ -16,6 +16,8 @@
 # include "basics.h"
 
 # include "token_mgr.h"
+
+# include "ast/ast_defines.h"
 # include "ast/ast_utils.h"
 
 typedef struct		s_ast_if_clause
@@ -27,8 +29,8 @@ typedef struct		s_ast_if_clause
 t_ast_if_clause		*ast_if_clause_new(void);
 void				ast_if_clause_del(t_ast_if_clause *ast_if_clause);
 
-t_ast_if_clause		*ast_if_clause_new_from_tokens(t_lst *tokens);
-void				*ast_if_clause_new_from_tokens_void(t_lst *tokens);
+t_ast_if_clause		*ast_if_clause_new_from_tokens(t_lst *tokens, struct s_ast *ast);
+void				*ast_if_clause_new_from_tokens_void(t_lst *tokens, struct s_ast *ast);
 void				ast_if_clause_print_rec(t_ast_if_clause *ast_if_clause, int depth);
 void				ast_if_clause_print_rec_void(void *ast_if_clause, int depth);
 

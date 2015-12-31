@@ -16,6 +16,8 @@
 # include "basics.h"
 
 # include "token_mgr.h"
+
+# include "ast/ast_defines.h"
 # include "ast/ast_utils.h"
 
 struct s_ast_compound_list;
@@ -28,8 +30,8 @@ typedef struct					s_ast_subshell
 t_ast_subshell		*ast_subshell_new(void);
 void				ast_subshell_del(t_ast_subshell *ast_subshell);
 
-t_ast_subshell		*ast_subshell_new_from_tokens(t_lst *tokens);
-void				*ast_subshell_new_from_tokens_void(t_lst *tokens);
+t_ast_subshell		*ast_subshell_new_from_tokens(t_lst *tokens, struct s_ast *ast);
+void				*ast_subshell_new_from_tokens_void(t_lst *tokens, struct s_ast *ast);
 void				ast_subshell_print_rec(t_ast_subshell *ast_subshell, int depth);
 void				ast_subshell_print_rec_void(void *ast_subshell, int depth);
 

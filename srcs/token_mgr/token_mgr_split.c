@@ -46,8 +46,6 @@ static void			do_split(t_lst *tokens, t_lst *tokens_list, t_lst *split_strings)
 		else if (twl_lst_find(split_strings, twl_strequ_void, token->text))
 		{
 			twl_lst_push(tokens_tmp, twl_lst_shift(tokens));
-			if (twl_lst_len(tokens) == 0)
-				return ;
 			tokens_tmp = twl_lst_new();
 			twl_lst_push(tokens_list, tokens_tmp);
 		}

@@ -12,11 +12,12 @@
 
 #include "ast/nodes/ast_if_clause.h"
 
-t_ast_if_clause	*ast_if_clause_new_from_tokens(t_lst *tokens)
+t_ast_if_clause	*ast_if_clause_new_from_tokens(t_lst *tokens, struct s_ast *ast)
 {
 	t_ast_if_clause		*ast_if_clause;
 
 	ast_if_clause = ast_if_clause_new();
 	ast_if_clause->tokens = twl_lst_copy(tokens, NULL);
 	return (ast_if_clause);
+	(void)ast;
 }

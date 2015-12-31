@@ -1,1 +1,1 @@
-{echo,abc}
+echo abc |

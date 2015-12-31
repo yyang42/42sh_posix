@@ -25,7 +25,8 @@
 typedef struct		s_ast
 {
 	t_lst						*tokens;
-	t_ast_compound_list		*compound_list;
+	t_ast_compound_list			*compound_list;
+	char						*error_msg;
 }					t_ast;
 
 t_ast				*ast_new(char *input);

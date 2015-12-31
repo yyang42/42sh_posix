@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ast/ast.h"
 #include "ast/nodes/ast_andor_item.h"
 #include "ast/nodes/ast_list_item.h"
 
@@ -26,7 +27,8 @@ static t_lst		*get_split_strings(void)
 
 static int				build_ast_list_item(
 								t_ast_andor_item *ast_andor_item,
-								t_lst *tokens_tmp)
+								t_lst *tokens_tmp,
+								struct s_ast *ast)
 {
 	t_token						*sep;
 	t_ast_pipe_item				*ast_pipe_item;
@@ -35,14 +37,14 @@ static int				build_ast_list_item(
 		sep = twl_lst_pop(tokens_tmp);
 	else
 		sep = NULL;
-	ast_pipe_item = ast_pipe_item_new_from_tokens(tokens_tmp, sep);
+	ast_pipe_item = ast_pipe_item_new_from_tokens(tokens_tmp, sep, ast);
 	if (ast_pipe_item == NULL)
 		return (-1);
 	twl_lst_push(ast_andor_item->ast_pipe_items, ast_pipe_item);
 	return (0);
 }
 
-t_ast_andor_item	*ast_andor_item_new_from_tokens(t_lst *tokens, t_token *sep)
+t_ast_andor_item	*ast_andor_item_new_from_tokens(t_lst *tokens, t_token *sep, struct s_ast *ast)
 {
 	t_ast_andor_item			*ast_andor_item;
 	t_lst						*tokens_list;
@@ -53,7 +55,12 @@ t_ast_andor_item	*ast_andor_item_new_from_tokens(t_lst *tokens, t_token *sep)
 	tokens_list = token_mgr_split(tokens, get_split_strings());
 	while ((tokens_tmp = twl_lst_shift(tokens_list)))
 	{
-		if (build_ast_list_item(ast_andor_item, tokens_tmp) == -1)
+		if (twl_lst_len(tokens_tmp) == 0)
+		{
+			twl_asprintf(&ast->error_msg, "SyntaxError: Expected input after '|' but found nothing");
+			return (NULL);
+		}
+		if (build_ast_list_item(ast_andor_item, tokens_tmp, ast) == -1)
 			return (NULL);
 	}
 	return (ast_andor_item);

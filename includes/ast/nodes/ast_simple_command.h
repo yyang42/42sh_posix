@@ -16,6 +16,8 @@
 # include "basics.h"
 
 # include "token_mgr.h"
+
+# include "ast/ast_defines.h"
 # include "ast/ast_utils.h"
 
 typedef struct			s_ast_simple_command
@@ -28,7 +30,7 @@ typedef struct			s_ast_simple_command
 t_ast_simple_command	*ast_simple_command_new(void);
 void					ast_simple_command_del(t_ast_simple_command *ast_simple_command);
 
-t_ast_simple_command	*ast_simple_command_new_from_tokens(t_lst *tokens);
+t_ast_simple_command	*ast_simple_command_new_from_tokens(t_lst *tokens, struct s_ast *ast);
 void					ast_simple_command_print_rec(t_ast_simple_command *ast_simple_command, int depth);
 
 bool					ast_simple_command_is_own_type(t_lst *tokens);

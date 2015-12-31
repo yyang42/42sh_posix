@@ -12,7 +12,7 @@
 
 #include "ast/nodes/ast_subshell.h"
 
-void				*ast_subshell_new_from_tokens_void(t_lst *tokens)
+void				*ast_subshell_new_from_tokens_void(t_lst *tokens, struct s_ast *ast)
 {
-	return (ast_subshell_new_from_tokens(tokens));
+	return (ast_subshell_new_from_tokens(tokens, ast));
 }

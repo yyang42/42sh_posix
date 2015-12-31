@@ -16,6 +16,7 @@
 # include "basics.h"
 
 # include "token_mgr.h"
+# include "ast/ast_defines.h"
 # include "ast/ast_utils.h"
 
 typedef struct		s_<OBJ_NAME>

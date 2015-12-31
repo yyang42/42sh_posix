@@ -16,7 +16,10 @@
 # include "basics.h"
 
 # include "token_mgr.h"
+
 # include "ast/ast_utils.h"
+# include "ast/ast_defines.h"
+
 # include "ast/nodes/ast_list_item.h"
 
 typedef struct				s_ast_compound_list
@@ -27,7 +30,7 @@ typedef struct				s_ast_compound_list
 t_ast_compound_list			*ast_compound_list_new(void);
 void						ast_compound_list_del(t_ast_compound_list *ast_compound_list);
 
-t_ast_compound_list			*ast_compound_list_new_from_tokens(t_lst *tokens);
+t_ast_compound_list			*ast_compound_list_new_from_tokens(t_lst *tokens, struct s_ast *ast);
 void						ast_compound_list_print_rec(t_ast_compound_list *ast_compound_list, int depth);
 
 #endif

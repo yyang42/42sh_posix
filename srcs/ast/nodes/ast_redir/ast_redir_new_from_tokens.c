@@ -16,7 +16,7 @@
 
 #include "ast/nodes/ast_redir.h"
 
-t_ast_redir	*ast_redir_new_from_tokens(t_lst *tokens)
+t_ast_redir	*ast_redir_new_from_tokens(t_lst *tokens, struct s_ast *ast)
 {
 	t_ast_redir		*ast_redir;
 
@@ -32,4 +32,5 @@ t_ast_redir	*ast_redir_new_from_tokens(t_lst *tokens)
 		ast_redir->param = twl_strdup(token_mgr_get(tokens, -1)->text);
 	}
 	return (ast_redir);
+	(void)ast;
 }
