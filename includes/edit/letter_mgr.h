@@ -28,4 +28,7 @@ size_t				letter_mgr_get_size(t_lst *letters);
 char				*letter_mgr_concat_string(t_lst *letters);
 t_lst				*letter_mgr_clear(t_lst *letters);
 
+void				letter_mgr_move_prev_word(t_lst *letters, void *edit_);
+void				letter_mgr_move_next_word(t_lst *letters, void *edit_);
+
 #endif

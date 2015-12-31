@@ -24,6 +24,8 @@
 # define CTRL_E 5
 # define RETURN_KEY 10
 # define CTRL_C -1
+# define CTRL_T 20
+# define CTRL_U 21
 
 typedef void		(*key_fn)(void *edit);
 

@@ -10,3 +10,4 @@
 /.valgrind.log
 /.idea
 /CMakeLists.txt
+*.out
