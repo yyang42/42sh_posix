@@ -11,3 +11,4 @@
 /.idea
 /CMakeLists.txt
 *.out
+*.DS_Store
