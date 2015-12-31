@@ -10,46 +10,39 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <fcntl.h>
-#include "prog.h"
-#include "environment.h"
-#include "set.h"
-#include "twl_get_next_line.h"
+#include "twl_ctype.h"
 
-void				prog_run(t_prog *prog)
+#include "edit/edit.h"
+#include "edit/letter_mgr.h"
+
+static bool			on_word_begin(char *cmd, int count)
 {
-	t_environment	*env;
-	char			*input;
+	if (!twl_isspace(cmd[count]))
+		if (twl_isspace(cmd[count - 1]))
+			return (true);
+	return (false);
+}
 
-	// input = twl_strdup("cat << Makefile\n lol");
-	input = NULL;
-	if (xopt_singleton()->command)
-	{
-		input = twl_strdup(xopt_singleton()->command);
-	}
-	else if (twl_lst_len(xopt_singleton()->opt->args) > 0)
-	{
-		// TODO: READ LIMITÉ A 2 MILLION, REMPLACER PAR AUTRE CHOSE
-		input = twl_file_to_str(twl_lst_get(xopt_singleton()->opt->args, 0));
-	}
+void				letter_mgr_move_prev_word(t_lst *letters, void *edit_)
+{
+	char			*cmd;
+	int				count;
+	int				i;
+	t_edit			*edit;
 
-	if (input)
-	{
-		if (xopt_singleton()->print_ast)
-			prog_print_ast(prog, input);
-		else
-		{
-			env = environment_singleton();
-			prog_run_input(prog, input);
-		}
-	}
+	i = 0;
+	edit = edit_;
+	cmd = letter_mgr_concat_string(letters);
+	count = edit->index;
+	if (on_word_begin(cmd, count))
+		count -= 2;
+	while (twl_isspace(cmd[count]))
+		count--;
+	while (!twl_isspace(cmd[count]) && !twl_isspace(cmd[count - 1]))
+		count--;
+	if (count >= 0)
+		edit->index = count;
 	else
-	{
-		env = environment_new();
-		environment_init(env);
-		prog_main_loop(prog, env);
-		environment_del(env);
-		(void)prog;
-	}
-	free(input);
+		edit->index = 0;
+	free(cmd);
 }

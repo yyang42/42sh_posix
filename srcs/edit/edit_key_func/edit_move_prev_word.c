@@ -10,46 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <fcntl.h>
-#include "prog.h"
-#include "environment.h"
-#include "set.h"
-#include "twl_get_next_line.h"
+#include "edit/edit.h"
 
-void				prog_run(t_prog *prog)
+void				edit_move_prev_word(void *edit_)
 {
-	t_environment	*env;
-	char			*input;
+	t_edit			*edit;
 
-	// input = twl_strdup("cat << Makefile\n lol");
-	input = NULL;
-	if (xopt_singleton()->command)
-	{
-		input = twl_strdup(xopt_singleton()->command);
-	}
-	else if (twl_lst_len(xopt_singleton()->opt->args) > 0)
-	{
-		// TODO: READ LIMITÉ A 2 MILLION, REMPLACER PAR AUTRE CHOSE
-		input = twl_file_to_str(twl_lst_get(xopt_singleton()->opt->args, 0));
-	}
-
-	if (input)
-	{
-		if (xopt_singleton()->print_ast)
-			prog_print_ast(prog, input);
-		else
-		{
-			env = environment_singleton();
-			prog_run_input(prog, input);
-		}
-	}
-	else
-	{
-		env = environment_new();
-		environment_init(env);
-		prog_main_loop(prog, env);
-		environment_del(env);
-		(void)prog;
-	}
-	free(input);
+	edit = edit_;
+	letter_mgr_move_prev_word(edit->letters, edit);
 }
