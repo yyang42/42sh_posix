@@ -108,6 +108,51 @@ static void test_move_end(t_test *test)
 	edit_del(edit);
 }
 
+static void test_move_word_prev(t_test *test)
+{
+	t_edit			*edit;
+
+	edit = edit_new();
+
+	edit_handle_string(edit, "01 34 67 90");
+	mt_assert(edit->index == 11);
+	edit_handle_one_input(edit, CTRL_T);
+	mt_assert(edit->index == 9);
+	edit_handle_one_input(edit, CTRL_T);
+	mt_assert(edit->index == 6);
+	edit_handle_one_input(edit, CTRL_T);
+	mt_assert(edit->index == 3);
+	edit_handle_one_input(edit, CTRL_T);
+	mt_assert(edit->index == 0);
+	// No movement at begin
+	edit_handle_one_input(edit, CTRL_T);
+	mt_assert(edit->index == 0);
+	edit_del(edit);
+}
+
+static void test_move_word_next(t_test *test)
+{
+	t_edit			*edit;
+
+	edit = edit_new();
+
+	edit_handle_string(edit, "01 34 67 90");
+	edit_handle_one_input(edit, CTRL_A);
+	mt_assert(edit->index == 0);
+	edit_handle_one_input(edit, CTRL_U);
+	mt_assert(edit->index == 3);
+	edit_handle_one_input(edit, CTRL_U);
+	mt_assert(edit->index == 6);
+	edit_handle_one_input(edit, CTRL_U);
+	mt_assert(edit->index == 9);
+	edit_handle_one_input(edit, CTRL_U);
+	mt_assert(edit->index == 11);
+	// No movement at end
+	edit_handle_one_input(edit, CTRL_U);
+	mt_assert(edit->index == 11);
+	edit_del(edit);
+}
+
 void	suite_edit_move_func(t_suite *suite)
 {
 	SUITE_ADD_TEST(suite, test_move_left_two);
@@ -117,4 +162,6 @@ void	suite_edit_move_func(t_suite *suite)
 	SUITE_ADD_TEST(suite, test_move_right_max);
 	SUITE_ADD_TEST(suite, test_move_begin);
 	SUITE_ADD_TEST(suite, test_move_end);
+	SUITE_ADD_TEST(suite, test_move_word_prev);
+	SUITE_ADD_TEST(suite, test_move_word_next);
 }
