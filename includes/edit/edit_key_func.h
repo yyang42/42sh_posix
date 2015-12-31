@@ -18,6 +18,8 @@ void				edit_delete_prev_word(void *edit_);
 void				edit_handle_ctrl_c(void *_edit);
 
 void				edit_key_return(void *_edit);
+void				edit_move_prev_word(void *edit_);
+void				edit_move_next_word(void *edit_);
 
 void				edit_handle_ctrl_c(void *_edit);
 void				edit_handle_ctrl_d(void *_edit);
