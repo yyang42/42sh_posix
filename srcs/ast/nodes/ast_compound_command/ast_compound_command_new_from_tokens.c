@@ -41,8 +41,8 @@ static int			new_compound_command_do(t_ast_compound_command *this, t_lst *tokens
 	pos = openclose_matcher_token_find_matching(matcher, tokens);
 	if (pos == -1)
 	{
-		twl_asprintf(&(ast->error_msg), "SyntaxError: Expected ')' but found EOF");
-		// token_mgr_print(tokens);
+		ast_set_error_msg(ast, token_mgr_first(tokens),
+				"Expected ')' but found EOF");
 		return (-1);
 	}
 	this->command_tokens = twl_lst_slice(tokens, 0, pos);

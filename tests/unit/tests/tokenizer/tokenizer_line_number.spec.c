@@ -26,6 +26,7 @@ mt_test_tokenizer_line_no(num3, "echo 'a\nb' 123\n", "echo(1:1)_'a\nb'(1:6)_123(
 mt_test_tokenizer_line_no(num4, "echo 'a\n\nb' 123\n", "echo(1:1)_'a\n\nb'(1:6)_123(3:4)_\n(3:7)", false);
 mt_test_tokenizer_line_no(num5, "\n", "\n(1:1)", false);
 mt_test_tokenizer_line_no(num6, "", "", false);
+mt_test_tokenizer_line_no(num7, "\n\n\n", "\n(1:1)_\n(2:1)_\n(3:1)", false);
 
 void	suite_tokenizer_line_number(t_suite *suite)
 {
@@ -35,4 +36,5 @@ void	suite_tokenizer_line_number(t_suite *suite)
 	SUITE_ADD_TEST(suite, test_num4);
 	SUITE_ADD_TEST(suite, test_num5);
 	SUITE_ADD_TEST(suite, test_num6);
+	SUITE_ADD_TEST(suite, test_num7);
 }

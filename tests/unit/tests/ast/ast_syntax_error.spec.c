@@ -17,11 +17,17 @@
 		ast_del(ast); \
 	}
 
-mt_test_macro(01, "(cmd_level_1); (\n", "SyntaxError: Expected ')' but found EOF", false);
-mt_test_macro(02, "echo abc |\n",       "SyntaxError: Expected input after '|' but found nothing", false);
+mt_test_macro(01, "(cmd_level_1); (\n", "SyntaxError 1:16 : Expected ')' but found EOF", false);
+mt_test_macro(02, "echo abc |\n",       "SyntaxError 1:10 : Expected input after '|' but found nothing", false);
+mt_test_macro(03, "echo abc | ; echo 123\n",       "SyntaxError 1:10 : Expected input after '|' but found nothing", false);
+mt_test_macro(04, "echo abc \necho 1 |\necho 123\n",       "SyntaxError 2:8 : Expected input after '|' but found nothing", false);
+mt_test_macro(05, "echo abc\n\necho 123 |;",       "SyntaxError 3:10 : Expected input after '|' but found nothing", true);
 
 void	suite_ast_syntax_error(t_suite *suite)
 {
 	SUITE_ADD_TEST(suite, test_01);
 	SUITE_ADD_TEST(suite, test_02);
+	SUITE_ADD_TEST(suite, test_03);
+	SUITE_ADD_TEST(suite, test_04);
+	SUITE_ADD_TEST(suite, test_05);
 }

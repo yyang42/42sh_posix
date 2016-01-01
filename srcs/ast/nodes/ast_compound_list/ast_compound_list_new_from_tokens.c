@@ -43,11 +43,10 @@ t_ast_compound_list	*ast_compound_list_new_from_tokens(t_lst *tokens, struct s_a
 	ast_compound_list = ast_compound_list_new();
 	while ((tokens_tmp = twl_lst_pop_front(tokens_list)))
 	{
-		if (twl_lst_len(tokens_tmp) > 0)
-		{
-			if (build_ast_list_item(ast_compound_list, tokens_tmp, ast) == -1)
-				return (NULL);
-		}
+		if (twl_lst_len(tokens_tmp) <= 1)
+			continue ;
+		if (build_ast_list_item(ast_compound_list, tokens_tmp, ast) == -1)
+			return (NULL);
 	}
 	return (ast_compound_list);
 	(void)ast;
