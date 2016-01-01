@@ -1,9 +1,6 @@
-if false; then
-    if true; then
-        echo level2
-    fi
-    echo level1
-elif false; then
-    echo ok2
-else echo ko
+if cond1; then
+    then1
+elif cond2; then
+    then2
+else else1
 fi

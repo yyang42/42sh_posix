@@ -25,8 +25,8 @@
 typedef struct		s_ast_if_then
 {
 	t_lst					*tokens;
-	t_ast_compound_list		*condition;
-	t_ast_compound_list		*body;
+	t_ast_compound_list		*cond_compound;
+	t_ast_compound_list		*then_compound;
 }					t_ast_if_then;
 
 t_ast_if_then		*ast_if_then_new(void);

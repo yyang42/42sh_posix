@@ -17,7 +17,7 @@ mt_test_tokenizer(num11, "aa>&bb",              "aa_>&_bb", false);
 mt_test_tokenizer(num12, "aa<>bb",              "aa_<>_bb", false);
 mt_test_tokenizer(num13, "aa>|bb",              "aa_>|_bb", false);
 mt_test_tokenizer(num14, "aa>>bb",              "aa_>>_bb", false);
-mt_test_tokenizer(num15, "; ;",                 ";_;", true);
+mt_test_tokenizer(num15, "; ;",                 ";_;", false);
 
 void    suite_tokenizer_rule02(t_suite *suite)
 {

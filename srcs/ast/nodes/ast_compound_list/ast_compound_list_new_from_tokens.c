@@ -53,7 +53,7 @@ t_ast_compound_list	*ast_compound_list_new_from_tokens(t_lst *tokens, struct s_a
 	ast_compound_list = ast_compound_list_new();
 	while ((tokens_tmp = twl_lst_pop_front(tokens_list)))
 	{
-		// token_mgr_print(tokens_tmp);
+
 		if (twl_lst_len(tokens_tmp) == 0)
 			continue ;
 		if (twl_lst_len(tokens_tmp) == 1

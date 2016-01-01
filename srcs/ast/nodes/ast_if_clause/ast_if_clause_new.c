@@ -17,5 +17,6 @@ t_ast_if_clause			*ast_if_clause_new(void)
 	t_ast_if_clause		*ast_if_clause;
 
 	ast_if_clause = twl_malloc_x0(sizeof(t_ast_if_clause));
+	ast_if_clause->if_then_list = twl_lst_new();
 	return (ast_if_clause);
 }
