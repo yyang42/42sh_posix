@@ -1,0 +1,78 @@
+compound_list
+    ast_list_item (sep=\n)
+        ast_andor_item
+            ast_pipe_item
+                ast_command
+                    ast_compound_command
+                        ast_if_clause
+                            if_then_body
+                                ast_if_then
+                                    compound_list
+                                        ast_list_item (sep=;)
+                                            ast_andor_item
+                                                ast_pipe_item
+                                                    ast_command
+                                                        ast_simple_command (cond_A1)
+                                    compound_list
+                                        ast_list_item (sep=\n)
+                                            ast_andor_item
+                                                ast_pipe_item
+                                                    ast_command
+                                                        ast_compound_command
+                                                            ast_if_clause
+                                                                if_then_body
+                                                                    ast_if_then
+                                                                        compound_list
+                                                                            ast_list_item (sep=;)
+                                                                                ast_andor_item
+                                                                                    ast_pipe_item
+                                                                                        ast_command
+                                                                                            ast_simple_command (cond_B1)
+                                                                        compound_list
+                                                                            ast_list_item (sep=\n)
+                                                                                ast_andor_item
+                                                                                    ast_pipe_item
+                                                                                        ast_command
+                                                                                            ast_simple_command (then_B1)
+                                                                if_then_body
+                                                                    ast_if_then
+                                                                        compound_list
+                                                                            ast_list_item (sep=;)
+                                                                                ast_andor_item
+                                                                                    ast_pipe_item
+                                                                                        ast_command
+                                                                                            ast_simple_command (cond_B2)
+                                                                        compound_list
+                                                                            ast_list_item (sep=\n)
+                                                                                ast_andor_item
+                                                                                    ast_pipe_item
+                                                                                        ast_command
+                                                                                            ast_simple_command (then_B2)
+                                                                else_body
+                                                                    compound_list
+                                                                        ast_list_item (sep=\n)
+                                                                            ast_andor_item
+                                                                                ast_pipe_item
+                                                                                    ast_command
+                                                                                        ast_simple_command (else_B1)
+                            if_then_body
+                                ast_if_then
+                                    compound_list
+                                        ast_list_item (sep=;)
+                                            ast_andor_item
+                                                ast_pipe_item
+                                                    ast_command
+                                                        ast_simple_command (cond_A2)
+                                    compound_list
+                                        ast_list_item (sep=\n)
+                                            ast_andor_item
+                                                ast_pipe_item
+                                                    ast_command
+                                                        ast_simple_command (then_A2)
+                            else_body
+                                compound_list
+                                    ast_list_item (sep=\n)
+                                        ast_andor_item
+                                            ast_pipe_item
+                                                ast_command
+                                                    ast_simple_command (else_A1)

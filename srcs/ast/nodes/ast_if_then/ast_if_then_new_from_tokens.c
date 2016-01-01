@@ -23,14 +23,8 @@ static void			build(t_ast_if_then *ast_if_then, struct s_ast *ast)
 	if (twl_strequ(token_mgr_last(cond_tokens)->text, "then"))
 		twl_lst_pop_back(cond_tokens);
 	then_tokens = twl_lst_get(splits_split_then, 1);
-	// twl_printf("cond_tokens {%s}\n", token_mgr_strjoin(cond_tokens));
 	ast_if_then->cond_compound = ast_compound_list_new_from_tokens(cond_tokens, ast);
-	// twl_printf("then_tokens {%s}\n", token_mgr_strjoin(then_tokens));
-	COUCOU;
 	ast_if_then->then_compound = ast_compound_list_new_from_tokens(then_tokens, ast);
-	COUCOU;
-	// twl_printf("splits_split_then {%s}\n", token_mgr_split_strjoin(splits_split_then));
-	(void)ast;
 }
 
 t_ast_if_then	*ast_if_then_new_from_tokens(t_lst *tokens, struct s_ast *ast)

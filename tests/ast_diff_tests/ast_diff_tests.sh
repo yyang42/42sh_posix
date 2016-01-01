@@ -60,6 +60,7 @@ then
     diff_test features_ast 30_redir
     diff_test features_ast 40_assignment
     diff_test features_ast 50_if_clause
+    diff_test features_ast 51_if_clause_nested
     # diff_test features_ast ast_list2
     # diff_test features_ast ast_list3
     # diff_test features_ast ast_list4
