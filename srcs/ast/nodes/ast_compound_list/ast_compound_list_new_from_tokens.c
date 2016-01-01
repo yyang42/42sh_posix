@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ast/ast.h"
 #include "data.h"
 
 #include "ast/nodes/ast_compound_list.h"
@@ -26,6 +27,15 @@ static int				build_ast_list_item(
 		sep = twl_lst_pop(tokens_tmp);
 	else
 		sep = NULL;
+	// token_mgr_print(tokens_tmp);
+	if (twl_lst_len(tokens_tmp) == 0)
+	{
+		if (sep)
+			ast_set_error_msg_format(ast, sep, "Unexpected token '%s'", sep->text);
+		else
+			ast_set_error_msg_syntax_error(ast);
+		return (-1);
+	}
 	ast_list_item = ast_list_item_new_from_tokens(tokens_tmp, sep, ast);
 	if (ast_list_item == NULL)
 		return (-1);
