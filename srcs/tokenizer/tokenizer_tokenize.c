@@ -12,7 +12,7 @@
 
 #include "tokenizer.h"
 
-t_rule_fn			tokenizer_rule_fns[13] = {
+t_rule_fn			g_tokenizer_rule_fns[13] = {
 					tokenizer_apply_rule01,
 					tokenizer_apply_rule01_extra1,
 					tokenizer_apply_rule02,
@@ -53,9 +53,9 @@ t_lst				*tokenizer_tokenize(char *input)
 	{
 		set_quoted_status(t);
 		i = 0;
-		while (tokenizer_rule_fns[i])
+		while (g_tokenizer_rule_fns[i])
 		{
-			status = tokenizer_rule_fns[i](t);
+			status = g_tokenizer_rule_fns[i](t);
 			if (status != RULE_STATUS_NOT_APPLIED)
 				break ;
 			i++;

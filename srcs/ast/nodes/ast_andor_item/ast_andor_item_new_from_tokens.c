@@ -10,20 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "token_mgr.h"
+
 #include "ast/ast.h"
 #include "ast/nodes/ast_andor_item.h"
 #include "ast/nodes/ast_list_item.h"
-
-static t_lst		*get_split_strings(void)
-{
-	static t_lst	*split_strings = NULL;
-
-	if (split_strings == NULL)
-	{
-		split_strings = twl_str_split_to_lst("|", "_");
-	}
-	return (split_strings);
-}
 
 static int				build_ast_list_item(
 								t_ast_andor_item *ast_andor_item,
@@ -33,7 +24,7 @@ static int				build_ast_list_item(
 	t_token						*sep;
 	t_ast_pipe_item				*ast_pipe_item;
 
-	if (twl_lst_find(get_split_strings(), twl_strequ_void, token_mgr_last(tokens_tmp)->text))
+	if (twl_strequ(token_mgr_last(tokens_tmp)->text, "|"))
 		sep = twl_lst_pop(tokens_tmp);
 	else
 		sep = NULL;
@@ -52,7 +43,7 @@ t_ast_andor_item	*ast_andor_item_new_from_tokens(t_lst *tokens, t_token *sep, st
 
 	ast_andor_item = ast_andor_item_new();
 	ast_andor_item->separator = sep;
-	tokens_list = token_mgr_split(tokens, get_split_strings());
+	tokens_list = token_mgr_split_by_one_sep(tokens, "|");
 	while ((tokens_tmp = twl_lst_shift(tokens_list)))
 	{
 		if (twl_lst_len(tokens_tmp) == 0)

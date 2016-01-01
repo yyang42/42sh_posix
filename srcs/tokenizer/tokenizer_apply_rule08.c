@@ -25,6 +25,7 @@ t_rule_status		tokenizer_apply_rule08(t_tokenizer *t)
 		COUCOU;
 		tokenizer_delimit(t);
 		t->curpos++;
+		t->cur_col++;
 		return (RULE_STATUS_APPLIED);
 	}
 	return (RULE_STATUS_NOT_APPLIED);

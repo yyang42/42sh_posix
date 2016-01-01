@@ -33,6 +33,8 @@ typedef struct		s_tokenizer
 	char			*curtoken;
 	char			*curtokenplus;
 	bool			cur_is_quoted;
+	int				cur_line;
+	int				cur_col;
 }					t_tokenizer;
 
 t_lst				*tokenizer_tokenize(char *input);

@@ -27,14 +27,11 @@
 mt_test_token_mgr_split_by_one_sep(num1, "echo 1;echo 2", ";",
 									"echo_1_; / echo_2", false);
 
+mt_test_token_mgr_split_by_one_sep(num2, "a|b|", "|",
+									"a_| / b_| / ", false);
+
 void	suite_token_mgr_split_by_one_sep(t_suite *suite)
 {
 	SUITE_ADD_TEST(suite, test_num1);
-	// SUITE_ADD_TEST(suite, test_num2);
-	// SUITE_ADD_TEST(suite, test_num3);
-	// SUITE_ADD_TEST(suite, test_num4);
-	// SUITE_ADD_TEST(suite, test_num5);
-	// SUITE_ADD_TEST(suite, test_num6);
-	// SUITE_ADD_TEST(suite, test_num7);
-	// SUITE_ADD_TEST(suite, test_num8);
+	SUITE_ADD_TEST(suite, test_num2);
 }

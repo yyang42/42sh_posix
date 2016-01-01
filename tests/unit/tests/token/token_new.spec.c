@@ -6,7 +6,7 @@
 # define mt_test_token_new(test_name, input, expected_type) \
 	static void test_## test_name(t_test *test) \
 	{ \
-		mt_assert((token_new(input)->type) == expected_type); \
+		mt_assert((token_new(input, 0, 0)->type) == expected_type); \
 	}
 
 mt_test_token_new(num1, "\n", TOKEN_NEWLINE);

@@ -16,13 +16,15 @@
 
 t_tokenizer			*tokenizer_new(char *input)
 {
-	t_tokenizer		*this;
+	t_tokenizer		*t;
 
-	this = twl_malloc_x0(sizeof(t_tokenizer));
-	this->input = twl_strdup(input);
-	this->curpos = input;
-	this->curtoken = twl_strnew(twl_strlen(input));
-	this->curtokenplus = twl_strnew(twl_strlen(input));
-	this->cur_is_quoted = false;
-	return (this);
+	t = twl_malloc_x0(sizeof(t_tokenizer));
+	t->input = twl_strdup(input);
+	t->curpos = t->input;
+	t->curtoken = twl_strnew(twl_strlen(input));
+	t->curtokenplus = twl_strnew(twl_strlen(input));
+	t->cur_is_quoted = false;
+	t->cur_line = 1;
+	t->cur_col = 1;
+	return (t);
 }

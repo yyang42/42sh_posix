@@ -33,12 +33,22 @@ static void			set_prev_to_io_number_if_necessary(t_tokenizer *this,
 	}
 }
 
-static t_token		*create_token(t_tokenizer *this)
+static void			update_line_and_col(t_tokenizer *t)
+{
+	t->cur_line += twl_str_count_char(t->curtoken, '\n');
+	if (twl_str_count_char(t->curtoken, '\n'))
+		t->cur_col = twl_strlen(twl_strrchr(t->curtoken, '\n'));
+	else
+		t->cur_col += twl_strlen(t->curtoken);
+}
+
+static t_token		*create_token(t_tokenizer *t)
 {
 	t_token			*token;
 
-	token = token_new(twl_strdup(this->curtoken));
-	set_prev_to_io_number_if_necessary(this, token);
+	token = token_new(twl_strdup(t->curtoken), t->cur_line, t->cur_col);
+	update_line_and_col(t);
+	set_prev_to_io_number_if_necessary(t, token);
 	return (token);
 }
 

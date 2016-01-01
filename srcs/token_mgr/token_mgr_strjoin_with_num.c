@@ -10,18 +10,26 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "twl_xstdlib.h"
+#include "token_mgr.h"
 
-#include "token.h"
-
-t_token				*token_new(char *text, int line, int col)
+static void			print_token_fn(void *token_, void *segs)
 {
-	t_token		*this;
+	t_token	*token;
+	char			*str;
 
-	this = twl_malloc_x0(sizeof(t_token));
-	this->type = token_type_from_str(text);
-	this->text = twl_strdup(text);
-	this->line = line;
-	this->col = col;
-	return (this);
+	token = token_;
+	twl_asprintf(&str, "%s(%d:%d)", token->text, token->line, token->col);
+	twl_lst_push(segs, str);
+}
+
+char				*token_mgr_strjoin_with_num(t_lst *tokens)
+{
+	t_lst			*segs;
+	char			*final_str;
+
+	segs = twl_lst_new();
+	twl_lst_iter(tokens, print_token_fn, segs);
+	final_str = twl_lst_strjoin(segs, "_");
+	twl_lst_del(segs, free);
+	return (final_str);
 }
