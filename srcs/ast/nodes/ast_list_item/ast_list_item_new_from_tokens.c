@@ -36,6 +36,15 @@ static int				build_ast_list_item(
 		sep = twl_lst_pop(tokens_tmp);
 	else
 		sep = NULL;
+	if (twl_lst_len(tokens_tmp) == 0)
+	{
+		if (sep)
+		{
+			ast_set_error_msg_format(ast, sep,
+				"Unexpected token '%s'", sep->text);
+		}
+		return (-1);
+	}
 	ast_andor_item = ast_andor_item_new_from_tokens(tokens_tmp, sep, ast);
 	if (ast_andor_item == NULL)
 		return (-1);
