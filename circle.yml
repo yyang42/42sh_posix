@@ -12,4 +12,4 @@ test:
     - make check_unit
     # - make check_leaks
     # - make check_libtowel
-    # - make check_ast
+    - make check_ast

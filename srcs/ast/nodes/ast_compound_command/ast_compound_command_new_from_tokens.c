@@ -41,7 +41,7 @@ static int			new_compound_command_do(t_ast_compound_command *this, t_lst *tokens
 	pos = openclose_matcher_token_find_matching(matcher, tokens);
 	if (pos == -1)
 	{
-		ast_set_error_msg(ast, token_mgr_first(tokens),
+		ast_set_error_msg_format(ast, token_mgr_first(tokens),
 				"Matching ')' not found");
 		return (-1);
 	}

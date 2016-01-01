@@ -48,7 +48,7 @@ t_ast_andor_item	*ast_andor_item_new_from_tokens(t_lst *tokens, t_token *sep, st
 	{
 		if (twl_lst_len(tokens_tmp) == 0)
 		{
-			ast_set_error_msg(ast, token_mgr_last(tokens),
+			ast_set_error_msg_format(ast, token_mgr_last(tokens),
 				"Expected input after '|' but found nothing");
 			return (NULL);
 		}

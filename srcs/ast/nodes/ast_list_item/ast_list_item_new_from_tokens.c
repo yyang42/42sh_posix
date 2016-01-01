@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "ast/nodes/ast_list_item.h"
+#include "ast/ast.h"
 
 static t_lst		*get_split_strings(void)
 {
@@ -53,6 +54,12 @@ t_ast_list_item		*ast_list_item_new_from_tokens(t_lst *tokens, t_token *sep, str
 	tokens_list = token_mgr_split(tokens, get_split_strings());
 	while ((tokens_tmp = twl_lst_shift(tokens_list)))
 	{
+		if (twl_lst_len(tokens_tmp) == 0)
+		{
+			ast_set_error_msg_format(ast, token_mgr_last(tokens),
+				"Expected input after '%s' but found nothing", token_mgr_last(tokens)->text);
+			return (NULL);
+		}
 		if (build_ast_list_item(ast_list_item, tokens_tmp, ast) == -1)
 			return (NULL);
 	}

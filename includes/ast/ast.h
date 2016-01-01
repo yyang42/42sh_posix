@@ -35,6 +35,6 @@ void				ast_del(t_ast *this);
 void				ast_print_tokens(t_ast *ast);
 void				ast_print_rec(t_ast *ast);
 
-void				ast_set_error_msg(t_ast *ast, t_token *token, char *msg);
+void				ast_set_error_msg_format(t_ast *ast, t_token *token, const char *fmt, ...);
 
 #endif
