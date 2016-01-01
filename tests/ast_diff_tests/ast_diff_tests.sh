@@ -61,25 +61,6 @@ then
     diff_test features_ast 40_assignment
     diff_test features_ast 50_if_clause
     diff_test features_ast 51_if_clause_nested
-    # diff_test features_ast ast_list2
-    # diff_test features_ast ast_list3
-    # diff_test features_ast ast_list4
-    # diff_test features ast_echo
-    # diff_test features ast_list
-    # diff_test features ast_andor_seq
-    # diff_test features ast_andor_item
-    # diff_test features ast_subshell
-    # diff_test features ast_subshell_err
-
-    # for CASE_PATH in $TESTS_ROOT_PATH/*; do
-    #     if [ -d "${CASE_PATH}" ]; then
-    #         for TEST_PATH in $CASE_PATH/*; do
-    #             if [ -d "${TEST_PATH}" ]; then
-    #                 diff_test `basename $CASE_PATH` `basename $TEST_PATH`
-    #             fi
-    #         done
-    #     fi
-    # done
 
 else
 
