@@ -41,4 +41,19 @@ void	reset_sandbox(void);
 		free(joined); \
 	}
 
+# define mt_test_ast_error(test_name, input, expected, debug) \
+	static void test_## test_name(t_test *test) \
+	{ \
+		t_ast			*ast; \
+		ast = ast_new(input); \
+		if (debug) \
+		{ \
+			twl_printf("input    : %s\n", input); \
+			twl_printf("actual   : %s\n", ast->error_msg); \
+			twl_printf("expected : %s\n", expected); \
+		} \
+		mt_assert(ast->error_msg && strcmp(ast->error_msg, expected) == 0); \
+		ast_del(ast); \
+	}
+
 #endif

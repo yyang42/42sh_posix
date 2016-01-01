@@ -42,7 +42,7 @@ static int			new_compound_command_do(t_ast_compound_command *this, t_lst *tokens
 	if (pos == -1)
 	{
 		ast_set_error_msg(ast, token_mgr_first(tokens),
-				"Expected ')' but found EOF");
+				"Matching ')' not found");
 		return (-1);
 	}
 	this->command_tokens = twl_lst_slice(tokens, 0, pos);
