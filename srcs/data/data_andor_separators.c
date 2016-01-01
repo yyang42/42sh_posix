@@ -10,17 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DATA_H
-# define DATA_H
+#include "twl_lst.h"
 
-# include "twl_dict.h"
+#include "data.h"
 
-# include "basics.h"
+t_lst				*data_andor_separators(void)
+{
+	static t_lst	*separators = NULL;
 
-t_lst				*data_all_operators(void);
-t_lst				*data_redir_operators(void);
-t_lst				*data_token_item_list(void);
-t_lst				*data_separators(void);
-t_lst				*data_andor_separators(void);
-
-#endif
+	if (separators == NULL)
+	{
+		separators = twl_lst_new();
+		twl_lst_push_back(separators, "&&");
+		twl_lst_push_back(separators, "||");
+	}
+	return (separators);
+}

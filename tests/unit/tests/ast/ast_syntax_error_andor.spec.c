@@ -11,7 +11,7 @@ mt_test_ast_error(03, "echo abcd && &&",
 mt_test_ast_error(04, "echo abcd && ||",
 	"SyntaxError 1:14 : Unexpected token '||'", false);
 mt_test_ast_error(05, "&&",
-	"SyntaxError 1:1 : Unexpected token '&&'", true);
+	"SyntaxError 1:1 : Unexpected token '&&'", false);
 
 void	suite_ast_syntax_error_andor(t_suite *suite)
 {

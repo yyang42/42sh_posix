@@ -12,17 +12,7 @@
 
 #include "ast/nodes/ast_list_item.h"
 #include "ast/ast.h"
-
-static t_lst		*get_split_strings(void)
-{
-	static t_lst	*split_strings = NULL;
-
-	if (split_strings == NULL)
-	{
-		split_strings = twl_str_split_to_lst("&&_||", "_");
-	}
-	return (split_strings);
-}
+#include "data.h"
 
 static int				build_ast_list_item(
 								t_ast_list_item *ast_list_item,
@@ -32,7 +22,7 @@ static int				build_ast_list_item(
 	t_token						*sep;
 	t_ast_andor_item			*ast_andor_item;
 
-	if (twl_lst_find(get_split_strings(), twl_strequ_void, token_mgr_last(tokens_tmp)->text))
+	if (twl_lst_find(data_andor_separators(), twl_strequ_void, token_mgr_last(tokens_tmp)->text))
 		sep = twl_lst_pop(tokens_tmp);
 	else
 		sep = NULL;
@@ -60,7 +50,7 @@ t_ast_list_item		*ast_list_item_new_from_tokens(t_lst *tokens, t_token *sep, str
 
 	ast_list_item = ast_list_item_new();
 	ast_list_item->separator = sep;
-	tokens_list = token_mgr_split(tokens, get_split_strings());
+	tokens_list = token_mgr_split(tokens, data_andor_separators());
 	while ((tokens_tmp = twl_lst_shift(tokens_list)))
 	{
 		if (twl_lst_len(tokens_tmp) == 0)
