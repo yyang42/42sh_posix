@@ -55,6 +55,7 @@ then
     diff_test features_ast 01_empty
     diff_test features_ast 10_simple_command
     diff_test features_ast 11_simple_command_empty_lines
+    diff_test features_ast 12_simple_command_no_newline
     diff_test features_ast 20_subshell
     diff_test features_ast 30_redir
     diff_test features_ast 40_assignment
