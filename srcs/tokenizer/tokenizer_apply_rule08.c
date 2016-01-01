@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "twl_ctype.h"
+
 #include "tokenizer.h"
 
 /*  Rule 8
@@ -20,7 +22,7 @@
 
 t_rule_status		tokenizer_apply_rule08(t_tokenizer *t)
 {
-	if (!t->cur_is_quoted && *t->curpos == ' ')
+	if (!t->cur_is_quoted && twl_isblank(*t->curpos))
 	{
 		COUCOU;
 		tokenizer_delimit(t);
