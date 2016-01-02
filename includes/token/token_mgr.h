@@ -31,7 +31,9 @@ t_lst				*token_mgr_split(t_lst *tokens, t_lst *split_strings);
 t_lst				*token_mgr_split_by_one_sep(t_lst *tokens, char *sep);
 char				*token_list_mgr_strjoin(t_lst *tokens_list);
 t_token				*token_mgr_first(t_lst *tokens);
+bool				token_mgr_first_equ(t_lst *tokens, char *str);
 t_token				*token_mgr_last(t_lst *tokens);
+bool				token_mgr_last_equ(t_lst *tokens, char *str);
 t_token				*token_mgr_get(t_lst *tokens, int index);
 
 t_lst				*token_mgr_extract_redir(t_lst *tokens);

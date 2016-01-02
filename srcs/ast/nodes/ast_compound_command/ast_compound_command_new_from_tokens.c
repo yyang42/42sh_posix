@@ -42,7 +42,7 @@ static int			new_compound_command_do(t_ast_compound_command *this, t_lst *tokens
 	if (pos == -1)
 	{
 		ast_set_error_msg_format(ast, token_mgr_first(tokens),
-				"Matching ')' not found");
+				"Closing token for '%s' not found", token_mgr_first(tokens)->text);
 		return (-1);
 	}
 	this->command_tokens = twl_lst_slice(tokens, 0, pos);

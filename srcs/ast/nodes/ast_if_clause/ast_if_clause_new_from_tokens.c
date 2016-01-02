@@ -12,15 +12,15 @@
 
 #include "data.h"
 #include "ast/nodes/ast_if_clause.h"
-# include "ast/nodes/ast_compound_list.h"
-# include "ast/nodes/ast_if_then.h"
+#include "ast/nodes/ast_compound_list.h"
+#include "ast/nodes/ast_if_then.h"
 
 static void			iter_elif_fn(void *elif_tokens, void *ast_if_clause_, void *ast)
 {
 	t_ast_if_clause	*ast_if_clause;
 
 	ast_if_clause = ast_if_clause_;
-	if (twl_strequ(token_mgr_last(elif_tokens)->text, "elif"))
+	if (token_mgr_last_equ(elif_tokens, "elif"))
 		twl_lst_pop_back(elif_tokens);
 	twl_lst_push(ast_if_clause->if_then_list, ast_if_then_new_from_tokens(elif_tokens, ast));
 }
@@ -43,8 +43,8 @@ static void			split_by_else(t_ast_if_clause *ast_if_clause, struct s_ast *ast)
 	t_lst			*else_tokens;
 
 	copy = twl_lst_copy(ast_if_clause->tokens, NULL);
-	twl_lst_pop_front(copy); // pop if
-	twl_lst_pop_back(copy); // pop fi
+	twl_lst_pop_front(copy); // pop if, guaranted to exist
+	twl_lst_pop_back(copy); // pop fi, guaranted to exist
 	splits_by_else = token_mgr_split_by_one_sep(copy, "else");
 	else_tokens = NULL;
 	elif_parts = NULL;
