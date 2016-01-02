@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <prog.h>
+#include <ast/ast.h>
 
 int					prog_run_input(t_prog *this, char *input)
 {
@@ -21,10 +22,11 @@ int					prog_run_input(t_prog *this, char *input)
 	if (ast->error_msg)
 	{
 		twl_dprintf(2, "%s\n", ast->error_msg);
+		ast_del(ast);
 		return (1);
 	}
 	ret = ast_exec(ast);
 	ast_del(ast);
-	return (0);
+	return (ret);
 	(void)this;
 }

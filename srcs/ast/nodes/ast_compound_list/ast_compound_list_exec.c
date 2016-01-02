@@ -20,10 +20,10 @@ static void		iter_fn(void *ast_list_item, void *context)
 	*ret = ast_list_item_exec(ast_list_item);
 }
 
-int				ast_compound_list_exec(t_ast_compount_list *ast_compound_list)
+int				ast_compound_list_exec(t_ast_compound_list *ast_compound_list)
 {
 	int			ret;
 
-	twl_list_iter(ast_compound_list->ast_list_item, &iter_fn, &ret);
+	twl_lst_iter(ast_compound_list->ast_list_items, &iter_fn, &ret);
 	return (ret);
 }

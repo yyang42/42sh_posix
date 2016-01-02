@@ -19,4 +19,6 @@ int					ast_list_item_exec(t_ast_list_item *ast_list_item)
 //	ret = -1;
 //	twl_lst_iterp(ast_list_item->ast_andor_item, &iter_fn, &ret);
 //	return (ret);
+	return (0);
+	(void)ast_list_item;
 }
