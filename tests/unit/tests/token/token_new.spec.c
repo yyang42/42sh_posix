@@ -1,7 +1,7 @@
 #include <project.h>
 
-#include "token.h"
-#include "token_type.h"
+#include "token/token.h"
+#include "token/token_type.h"
 
 # define mt_test_token_new(test_name, input, expected_type) \
 	static void test_## test_name(t_test *test) \

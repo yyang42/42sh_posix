@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "ast/ast.h"
-#include "token_mgr.h"
+#include "token/token_mgr.h"
 #include "twl_printf.h"
 
 void				ast_set_error_msg_format(t_ast *ast, t_token *token, const char *fmt, ...)

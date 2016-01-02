@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "ast/ast.h"
-#include "token_mgr.h"
+#include "token/token_mgr.h"
 
 void				ast_print_tokens(t_ast *ast)
 {

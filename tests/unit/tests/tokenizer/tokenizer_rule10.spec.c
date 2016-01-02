@@ -1,7 +1,7 @@
 #include <project.h>
 
-#include "tokenizer.h"
-#include "token_mgr.h"
+#include "token/tokenizer.h"
+#include "token/token_mgr.h"
 
 mt_test_tokenizer(num1, "abc#123\nxyz",  "abc_\n_xyz", false);
 mt_test_tokenizer(num2, "abc\\#123\nxyz",  "abc\\#123_\n_xyz", false);

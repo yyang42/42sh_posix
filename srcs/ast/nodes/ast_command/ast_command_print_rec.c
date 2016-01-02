@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "ast/nodes/ast_command.h"
-#include "token_mgr.h"
+#include "token/token_mgr.h"
 
 void				ast_command_print_rec(t_ast_command *ast_command, int depth)
 {

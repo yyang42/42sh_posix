@@ -12,7 +12,7 @@
 
 #include "twl_stdlib.h"
 
-#include "token_mgr.h"
+#include "token/token_mgr.h"
 
 #include "ast/nodes/ast_redir.h"
 

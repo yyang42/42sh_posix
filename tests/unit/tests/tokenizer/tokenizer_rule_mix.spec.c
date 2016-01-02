@@ -1,7 +1,7 @@
 #include <project.h>
 
-#include "tokenizer.h"
-#include "token_mgr.h"
+#include "token/tokenizer.h"
+#include "token/token_mgr.h"
 
 mt_test_tokenizer(num01, "> wc",                 ">_wc",                 false);
 mt_test_tokenizer(num02, ">\nwc",                ">_\n_wc",              false);

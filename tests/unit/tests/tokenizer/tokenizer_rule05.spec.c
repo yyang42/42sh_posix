@@ -1,7 +1,7 @@
 #include <project.h>
 
-#include "tokenizer.h"
-#include "token_mgr.h"
+#include "token/tokenizer.h"
+#include "token/token_mgr.h"
 
 mt_test_tokenizer(num1, "a $(1 2) b",               "a_$(1 2)_b",    false);
 mt_test_tokenizer(num2, "a b$(1 2)c d",             "a_b$(1 2)c_d",  false);

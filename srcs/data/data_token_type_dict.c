@@ -12,8 +12,8 @@
 
 #include "twl_lst.h"
 
-#include "token.h"
-#include "token_type_item_mgr.h"
+#include "token/token.h"
+#include "token/token_type_item_mgr.h"
 
 t_lst				*data_token_item_list(void)
 {

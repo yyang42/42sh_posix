@@ -1,7 +1,7 @@
 #include <project.h>
 
-#include "tokenizer.h"
-#include "token_mgr.h"
+#include "token/tokenizer.h"
+#include "token/token_mgr.h"
 #include "openclose_matcher.h"
 
 # define mt_test_openclose_token(test_name, input, expected, debug) \

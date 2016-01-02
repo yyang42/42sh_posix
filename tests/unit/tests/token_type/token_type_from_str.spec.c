@@ -1,6 +1,6 @@
 #include <project.h>
 
-#include "token_type.h"
+#include "token/token_type.h"
 
 # define mt_test_token_type_from_str(test_name, input, type) \
 	static void test_## test_name(t_test *test) \

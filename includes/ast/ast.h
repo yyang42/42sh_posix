@@ -19,8 +19,8 @@
 # include "ast/ast_defines.h"
 
 # include "ast/nodes/ast_compound_list.h"
-# include "token_mgr.h"
-# include "tokenizer.h"
+# include "token/token_mgr.h"
+# include "token/tokenizer.h"
 
 typedef struct		s_ast
 {

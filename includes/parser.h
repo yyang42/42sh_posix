@@ -15,7 +15,7 @@
 
 # include "basics.h"
 
-# include "token.h"
+# include "token/token.h"
 
 typedef struct		s_parser
 {

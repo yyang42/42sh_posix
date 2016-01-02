@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "token_mgr.h"
+#include "token/token_mgr.h"
 
 #include "ast/ast.h"
 #include "ast/nodes/ast_andor_item.h"

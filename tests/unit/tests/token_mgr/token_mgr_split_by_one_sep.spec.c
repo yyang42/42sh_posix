@@ -1,7 +1,7 @@
 #include <project.h>
 
-#include "tokenizer.h"
-#include "token_mgr.h"
+#include "token/tokenizer.h"
+#include "token/token_mgr.h"
 
 # define mt_test_token_mgr_split_by_one_sep(test_name, input, sep, expected, debug) \
 	static void test_## test_name(t_test *test) \
