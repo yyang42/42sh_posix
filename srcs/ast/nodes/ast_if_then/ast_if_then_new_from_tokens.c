@@ -18,7 +18,7 @@ static void			build(t_ast_if_then *ast_if_then, struct s_ast *ast)
 	t_lst			*cond_tokens;
 	t_lst			*then_tokens;
 
-	splits_split_then = token_mgr_split_by_one_sep(ast_if_then->tokens, "then");
+	splits_split_then = token_mgr_split_by_one_sep(ast_if_then->tokens, "then", true);
 	cond_tokens = twl_lst_get(splits_split_then, 0);
 	if (twl_strequ(token_mgr_last(cond_tokens)->text, "then"))
 		twl_lst_pop_back(cond_tokens);

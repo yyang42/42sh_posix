@@ -49,7 +49,7 @@ t_ast_list_item		*ast_list_item_new_from_tokens(t_lst *tokens, t_token *sep, str
 
 	ast_list_item = ast_list_item_new();
 	ast_list_item->separator = sep;
-	tokens_list = token_mgr_split(tokens, data_andor_separators());
+	tokens_list = token_mgr_split(tokens, data_andor_separators(), true);
 	while ((tokens_tmp = twl_lst_shift(tokens_list)))
 	{
 		if (twl_lst_len(tokens_tmp) == 0)

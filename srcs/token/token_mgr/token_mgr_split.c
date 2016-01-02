@@ -28,7 +28,8 @@ static void			hande_openclose(t_openclose_matcher *matcher,
 	}
 }
 
-static void			do_split(t_lst *tokens, t_lst *tokens_list, t_lst *split_strings)
+static void			do_split(t_lst *tokens, t_lst *tokens_list,
+									t_lst *split_strings, bool keep_delimiter)
 {
 	t_token					*token;
 	t_lst					*tokens_tmp;
@@ -45,7 +46,10 @@ static void			do_split(t_lst *tokens, t_lst *tokens_list, t_lst *split_strings)
 		}
 		else if (twl_lst_find(split_strings, twl_strequ_void, token->text))
 		{
-			twl_lst_push(tokens_tmp, twl_lst_shift(tokens));
+			if (keep_delimiter)
+				twl_lst_push(tokens_tmp, twl_lst_shift(tokens));
+			else
+				twl_lst_shift(tokens);
 			tokens_tmp = twl_lst_new();
 			twl_lst_push(tokens_list, tokens_tmp);
 		}
@@ -56,13 +60,15 @@ static void			do_split(t_lst *tokens, t_lst *tokens_list, t_lst *split_strings)
 	}
 }
 
-t_lst				*token_mgr_split(t_lst *tokens, t_lst *split_strings)
+t_lst				*token_mgr_split(t_lst *tokens, t_lst *split_strings,
+														bool keep_delimiter)
 {
 	t_lst			*tokens_list;
 	t_lst			*tokens_copy;
 
 	tokens_copy = twl_lst_copy(tokens, NULL);
 	tokens_list = twl_lst_new();
-	do_split(tokens_copy, tokens_list, split_strings);
+	do_split(tokens_copy, tokens_list, split_strings, keep_delimiter);
 	return (tokens_list);
+	(void)keep_delimiter;
 }

@@ -27,8 +27,10 @@ void				token_mgr_print_token_text_by_index(t_lst *tokens,
 
 char				*token_mgr_strjoin(t_lst *tokens);
 char				*token_mgr_strjoin_with_num(t_lst *tokens);
-t_lst				*token_mgr_split(t_lst *tokens, t_lst *split_strings);
-t_lst				*token_mgr_split_by_one_sep(t_lst *tokens, char *sep);
+t_lst				*token_mgr_split(t_lst *tokens, t_lst *split_strings,
+														bool keep_delimiter);
+t_lst				*token_mgr_split_by_one_sep(t_lst *tokens, char *sep,
+														bool keep_delimiter);
 char				*token_list_mgr_strjoin(t_lst *tokens_list);
 t_token				*token_mgr_first(t_lst *tokens);
 bool				token_mgr_first_equ(t_lst *tokens, char *str);

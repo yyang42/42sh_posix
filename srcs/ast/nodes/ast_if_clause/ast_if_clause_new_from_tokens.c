@@ -30,7 +30,7 @@ static void			split_by_elif_fn(t_ast_if_clause *ast_if_clause, t_lst *elif_parts
 	t_lst			*splits_by_elif;
 
 
-	splits_by_elif = token_mgr_split_by_one_sep(elif_parts, "elif");
+	splits_by_elif = token_mgr_split_by_one_sep(elif_parts, "elif", true);
 	twl_lst_iter2(splits_by_elif, iter_elif_fn, ast_if_clause, ast);
 	twl_lst_del(splits_by_elif, NULL);
 }
@@ -45,7 +45,7 @@ static void			split_by_else(t_ast_if_clause *ast_if_clause, struct s_ast *ast)
 	copy = twl_lst_copy(ast_if_clause->tokens, NULL);
 	twl_lst_pop_front(copy); // pop if, guaranted to exist
 	twl_lst_pop_back(copy); // pop fi, guaranted to exist
-	splits_by_else = token_mgr_split_by_one_sep(copy, "else");
+	splits_by_else = token_mgr_split_by_one_sep(copy, "else", true);
 	else_tokens = NULL;
 	elif_parts = NULL;
 	if (twl_lst_len(splits_by_else) == 1)
