@@ -12,14 +12,14 @@
 
 #include "twl_xstdlib.h"
 
-#include "openclose.h"
+#include "openclose/openclose_matcher.h"
 
-t_openclose			*openclose_new(char *open, char *close)
+t_openclose_matcher			*openclose_matcher_new(void)
 {
-	t_openclose		*this;
+	t_openclose_matcher		*this;
 
-	this = twl_malloc_x0(sizeof(t_openclose));
-	this->open = twl_strdup(open);
-	this->close = twl_strdup(close);
+	this = twl_malloc_x0(sizeof(t_openclose_matcher));
+	this->oc_pairs = twl_lst_new();
+	this->skip_quoted = false;
 	return (this);
 }

@@ -10,17 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "openclose_mgr.h"
+#include "openclose/openclose_matcher.h"
 
-void				openclose_mgr_remove(t_lst *opencloses, t_openclose *openclose)
+static void			print_openclose_fn(void *openclose_)
 {
-	int				index;
+	t_openclose	*openclose;
 
-	index = twl_lst_indexof(opencloses, openclose);
-	if (index == -1)
-	{
-		assert(!"[ERROR] Object not found!");
-	}
-	twl_lst_popi(opencloses, index);
-	openclose_del(openclose);
+	openclose = openclose_;
+	twl_printf("%s - %s\n", openclose->open, openclose->close);
+}
+
+void				openclose_matcher_print(t_openclose_matcher *matcher)
+{
+	twl_printf("%s>>>>>>>>>> openclose list%s\n", C_CYAN, C_CLEAR);
+	twl_lst_iter0(matcher->oc_pairs, print_openclose_fn);
+	twl_printf("%s-------------------------------------%s\n", C_CYAN, C_CLEAR);
 }

@@ -10,9 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "openclose_mgr.h"
+#include "openclose/openclose_matcher.h"
 
-void				openclose_mgr_del(t_lst *opencloses)
+void				openclose_matcher_add(t_openclose_matcher *matcher,
+												char *open, char *close)
 {
-	twl_lst_del(opencloses, openclose_del);
+	twl_lst_push(matcher->oc_pairs, openclose_new(open, close));
 }

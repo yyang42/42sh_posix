@@ -10,10 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "twl_xstdlib.h"
 
-#include "openclose_matcher.h"
+#include "openclose/openclose.h"
 
-void				openclose_matcher_del(t_openclose_matcher *this)
+t_openclose			*openclose_new(char *open, char *close)
 {
-	free(this);
+	t_openclose		*this;
+
+	this = twl_malloc_x0(sizeof(t_openclose));
+	this->open = twl_strdup(open);
+	this->close = twl_strdup(close);
+	return (this);
 }

@@ -1,6 +1,6 @@
 #include <project.h>
 
-#include "openclose_matcher.h"
+#include "openclose/openclose_matcher.h"
 
 # define mt_test_openclose(test_name, input, expected, debug) \
 	static void test_## test_name(t_test *test) \

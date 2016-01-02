@@ -10,16 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "twl_xstdlib.h"
+#include "openclose/openclose_mgr.h"
 
-#include "openclose_matcher.h"
-
-t_openclose_matcher			*openclose_matcher_new(void)
+t_lst				*openclose_mgr_new(void)
 {
-	t_openclose_matcher		*this;
+	t_lst			*opencloses;
 
-	this = twl_malloc_x0(sizeof(t_openclose_matcher));
-	this->oc_pairs = twl_lst_new();
-	this->skip_quoted = false;
-	return (this);
+	opencloses = twl_lst_new();
+	return (opencloses);
 }

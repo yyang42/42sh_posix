@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "token/tokenizer.h"
-#include "openclose_matcher.h"
+#include "openclose/openclose_matcher.h"
 
 /*  Rule 5
 	If the current character is an unquoted '$' or '`', the shell shall

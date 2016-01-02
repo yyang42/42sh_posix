@@ -10,19 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "openclose_matcher.h"
 
-static void			print_openclose_fn(void *openclose_)
+#include "openclose/openclose.h"
+
+void				openclose_del(t_openclose *this)
 {
-	t_openclose	*openclose;
-
-	openclose = openclose_;
-	twl_printf("%s - %s\n", openclose->open, openclose->close);
-}
-
-void				openclose_matcher_print(t_openclose_matcher *matcher)
-{
-	twl_printf("%s>>>>>>>>>> openclose list%s\n", C_CYAN, C_CLEAR);
-	twl_lst_iter0(matcher->oc_pairs, print_openclose_fn);
-	twl_printf("%s-------------------------------------%s\n", C_CYAN, C_CLEAR);
+	free(this->close);
+	free(this->open);
+	free(this);
 }

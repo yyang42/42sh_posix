@@ -10,12 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "openclose/openclose_mgr.h"
 
-#include "openclose.h"
-
-void				openclose_del(t_openclose *this)
+void				openclose_mgr_del(t_lst *opencloses)
 {
-	free(this->close);
-	free(this->open);
-	free(this);
+	twl_lst_del(opencloses, openclose_del);
 }

@@ -10,16 +10,37 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef OPENCLOSE_MGR_H
-# define OPENCLOSE_MGR_H
+#ifndef OPENCLOSE_MATCHER_H
+# define OPENCLOSE_MATCHER_H
 
 # include "basics.h"
-# include "openclose.h"
 
-t_lst				*openclose_mgr_new(void);
-void				openclose_mgr_del(t_lst *opencloses);
-void				openclose_mgr_add(t_lst *opencloses, t_openclose *openclose);
-void				openclose_mgr_remove(t_lst *opencloses, t_openclose *openclose);
-void				openclose_mgr_print(t_lst *opencloses);
+# include "openclose/openclose.h"
+
+typedef struct		s_openclose_matcher
+{
+	t_lst			*oc_pairs;
+	int				skip_quoted;
+}					t_openclose_matcher;
+
+t_openclose_matcher	*openclose_matcher_new(void);
+void				openclose_matcher_del(t_openclose_matcher *this);
+
+void				openclose_matcher_add(t_openclose_matcher *matcher,
+												char *open, char *close);
+
+char				*openclose_matcher_find_matching(t_openclose_matcher *this,
+																char *s);
+void				openclose_matcher_print(t_openclose_matcher *matcher);
+
+void				openclose_matcher_set_skip_quoted(
+							t_openclose_matcher *matcher, bool skip_quoted);
+
+int					openclose_matcher_token_find_matching(
+								t_openclose_matcher *matcher, t_lst *tokens);
+bool				openclose_matcher_is_open(
+								t_openclose_matcher *matcher, char *str);
+
+t_openclose_matcher *openclose_matcher_singleton_parser(void);
 
 #endif

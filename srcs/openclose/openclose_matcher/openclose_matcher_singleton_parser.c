@@ -10,18 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "openclose_matcher.h"
+#include "openclose/openclose_matcher.h"
 
-static bool			find_open_start_fn(void *oc_, void *text)
+t_openclose_matcher *openclose_matcher_singleton_parser(void)
 {
-	t_openclose		*oc;
+	static t_openclose_matcher *matcher = NULL;
 
-	oc = oc_;
-	return (twl_strequ(text, oc->open));
-}
-
-bool				openclose_matcher_is_open(
-								t_openclose_matcher *matcher, char *str)
-{
-	return (twl_lst_find(matcher->oc_pairs, find_open_start_fn, str));
+	if (matcher == NULL)
+	{
+		matcher = openclose_matcher_new();
+		openclose_matcher_add(matcher, "(", ")");
+		openclose_matcher_add(matcher, "{", "}");
+		openclose_matcher_add(matcher, "if", "fi");
+		// openclose_matcher_add(matcher, "while", "done");
+	}
+	return (matcher);
 }

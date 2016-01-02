@@ -2,7 +2,7 @@
 
 #include "token/tokenizer.h"
 #include "token/token_mgr.h"
-#include "openclose_matcher.h"
+#include "openclose/openclose_matcher.h"
 
 # define mt_test_openclose_token(test_name, input, expected, debug) \
 	static void test_## test_name(t_test *test) \

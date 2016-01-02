@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "openclose_matcher.h"
+#include "openclose/openclose_matcher.h"
 #include "ast/nodes/ast_compound_command.h"
 #include "ast/nodes/ast_redir.h"
 #include "ast/ast.h"

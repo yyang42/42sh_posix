@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "openclose_matcher.h"
 
-void				openclose_matcher_set_skip_quoted(
-							t_openclose_matcher *matcher, bool skip_quoted)
+#include "openclose/openclose_matcher.h"
+
+void				openclose_matcher_del(t_openclose_matcher *this)
 {
-	matcher->skip_quoted = skip_quoted;
+	free(this);
 }

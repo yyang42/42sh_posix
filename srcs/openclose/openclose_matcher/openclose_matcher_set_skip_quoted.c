@@ -10,12 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "openclose_mgr.h"
+#include "openclose/openclose_matcher.h"
 
-t_lst				*openclose_mgr_new(void)
+void				openclose_matcher_set_skip_quoted(
+							t_openclose_matcher *matcher, bool skip_quoted)
 {
-	t_lst			*opencloses;
-
-	opencloses = twl_lst_new();
-	return (opencloses);
+	matcher->skip_quoted = skip_quoted;
 }

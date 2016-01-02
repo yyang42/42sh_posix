@@ -10,18 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "openclose/openclose_matcher.h"
-#include "ast/nodes/ast_compound_command.h"
+#include "openclose/openclose_mgr.h"
 
-t_compound_command_new_from_token_fn *compound_command_from_token_fns(void)
+void				openclose_mgr_add(t_lst *opencloses, t_openclose *openclose)
 {
-	static t_compound_command_new_from_token_fn	fns[COMPOUND_COMMAND_NBR];
-	static bool									is_loaded = false;
-
-	if (is_loaded == false)
-	{
-		fns[COMPOUND_COMMAND_SUBSHELL] = ast_subshell_new_from_tokens_void;
-		fns[COMPOUND_COMMAND_IF_CLAUSE] = ast_if_clause_new_from_tokens_void;
-	}
-	return (fns);
+	twl_lst_push(opencloses, openclose);
 }
