@@ -24,10 +24,9 @@ static int				build_ast_list_item(
 	t_token						*sep;
 	t_ast_pipe_item				*ast_pipe_item;
 
-	if (twl_strequ(token_mgr_last(tokens_tmp)->text, "|"))
+	sep = NULL;
+	if (token_mgr_last_equ(tokens_tmp, "|"))
 		sep = twl_lst_pop(tokens_tmp);
-	else
-		sep = NULL;
 	if (twl_lst_len(tokens_tmp) == 0)
 	{
 		if (sep)

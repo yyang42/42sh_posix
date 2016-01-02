@@ -24,6 +24,7 @@ void				prog_print_ast(t_prog *prog)
 	xopt = xopt_singleton();
 	if (xopt->print_ast && twl_lst_len(xopt->opt->args))
 	{
+		// TODO: READ LIMITÉ A 2 MILLION, REMPLACER PAR AUTRE CHOSE
 		str = twl_file_to_str(twl_lst_get(xopt->opt->args, 0));
 		ast = ast_new(str);
 		if (ast->error_msg)

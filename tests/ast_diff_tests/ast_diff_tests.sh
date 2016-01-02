@@ -62,6 +62,7 @@ then
     diff_test features_ast 50_if_clause
     diff_test features_ast 51_if_clause_nested
     diff_test features_ast 52_if_clause_complex_compound
+    diff_test features_ast 53_if_clause_without_else
 
 else
 

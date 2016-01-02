@@ -63,5 +63,4 @@ t_ast_compound_list	*ast_compound_list_new_from_tokens(t_lst *tokens, struct s_a
 			return (NULL);
 	}
 	return (ast_compound_list);
-	(void)ast;
 }

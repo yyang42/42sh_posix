@@ -15,27 +15,25 @@
 #include "ast/nodes/ast_compound_list.h"
 #include "ast/nodes/ast_if_then.h"
 
-static void			iter_elif_fn(void *elif_tokens, void *ast_if_clause_, void *ast)
-{
-	t_ast_if_clause	*ast_if_clause;
-
-	ast_if_clause = ast_if_clause_;
-	if (token_mgr_last_equ(elif_tokens, "elif"))
-		twl_lst_pop_back(elif_tokens);
-	twl_lst_push(ast_if_clause->if_then_list, ast_if_then_new_from_tokens(elif_tokens, ast));
-}
-
-static void			split_by_elif_fn(t_ast_if_clause *ast_if_clause, t_lst *elif_parts, struct s_ast *ast)
+static int			split_by_elif_fn(t_ast_if_clause *ast_if_clause, t_lst *elif_parts, struct s_ast *ast)
 {
 	t_lst			*splits_by_elif;
+	t_lst			*elif_tokens;
+	t_ast_if_then	*ast_if_then;
 
-
-	splits_by_elif = token_mgr_split_by_one_sep(elif_parts, "elif", true);
-	twl_lst_iter2(splits_by_elif, iter_elif_fn, ast_if_clause, ast);
+	splits_by_elif = token_mgr_split_by_one_sep(elif_parts, "elif", false);
+	while ((elif_tokens = twl_lst_pop_front(splits_by_elif)))
+	{
+		ast_if_then = ast_if_then_new_from_tokens(elif_tokens, ast);
+		if (ast_if_then == NULL)
+			return (-1);
+		twl_lst_push(ast_if_clause->if_then_list, ast_if_then);
+	}
 	twl_lst_del(splits_by_elif, NULL);
+	return (0);
 }
 
-static void			split_by_else(t_ast_if_clause *ast_if_clause, struct s_ast *ast)
+static int			split_by_else(t_ast_if_clause *ast_if_clause, struct s_ast *ast)
 {
 	t_lst			*copy;
 	t_lst			*splits_by_else;
@@ -45,7 +43,7 @@ static void			split_by_else(t_ast_if_clause *ast_if_clause, struct s_ast *ast)
 	copy = twl_lst_copy(ast_if_clause->tokens, NULL);
 	twl_lst_pop_front(copy); // pop if, guaranted to exist
 	twl_lst_pop_back(copy); // pop fi, guaranted to exist
-	splits_by_else = token_mgr_split_by_one_sep(copy, "else", true);
+	splits_by_else = token_mgr_split_by_one_sep(copy, "else", false);
 	else_tokens = NULL;
 	elif_parts = NULL;
 	if (twl_lst_len(splits_by_else) == 1)
@@ -56,12 +54,13 @@ static void			split_by_else(t_ast_if_clause *ast_if_clause, struct s_ast *ast)
 	{
 		elif_parts = twl_lst_get(splits_by_else, 0);
 		else_tokens = twl_lst_get(splits_by_else, 1);
-		twl_lst_pop_back(elif_parts); // pop else
-		split_by_elif_fn(ast_if_clause, elif_parts, ast);
 	}
+	if (split_by_elif_fn(ast_if_clause, elif_parts, ast) == -1)
+		return (-1);
 	if (else_tokens)
 		ast_if_clause->else_body = ast_compound_list_new_from_tokens(else_tokens, ast);
 	twl_lst_del(splits_by_else, NULL);
+	return (0);
 }
 
 t_ast_if_clause	*ast_if_clause_new_from_tokens(t_lst *tokens, struct s_ast *ast)
@@ -70,6 +69,7 @@ t_ast_if_clause	*ast_if_clause_new_from_tokens(t_lst *tokens, struct s_ast *ast)
 
 	ast_if_clause = ast_if_clause_new();
 	ast_if_clause->tokens = twl_lst_copy(tokens, NULL);
-	split_by_else(ast_if_clause, ast);
+	if (split_by_else(ast_if_clause, ast) == -1)
+		return (NULL);
 	return (ast_if_clause);
 }
