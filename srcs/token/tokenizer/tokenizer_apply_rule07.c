@@ -26,6 +26,8 @@ t_rule_status		tokenizer_apply_rule07(t_tokenizer *t)
 		tokenizer_append_to_curtoken(t, 1);
 		t->curpos++;
 		tokenizer_delimit(t);
+		if (t->heredoc_pos > t->curpos)
+			t->curpos = t->heredoc_pos;
 		return (RULE_STATUS_APPLIED);
 	}
 	return (RULE_STATUS_NOT_APPLIED);

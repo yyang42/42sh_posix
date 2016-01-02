@@ -26,5 +26,6 @@ t_tokenizer			*tokenizer_new(char *input)
 	t->cur_is_quoted = false;
 	t->cur_line = 1;
 	t->cur_col = 1;
+	t->heredoc_pos = NULL;
 	return (t);
 }

@@ -32,6 +32,7 @@ void				prog_run(t_prog *prog)
 	}
 	else if (xopt_singleton()->command)
 	{
+		// twl_printf("xopt_singleton()->command %s\n", xopt_singleton()->command);
 		prog_print_ast(prog, xopt_singleton()->command);
 		return ;
 	}

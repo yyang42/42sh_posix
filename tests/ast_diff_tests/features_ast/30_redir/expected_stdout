@@ -7,8 +7,6 @@ compound_list
                         ast_redir (> outputA)
                         ast_redir (< inputA)
                         ast_redir (>> appendA)
-                        ast_redir (<< eofA)
-                        ast_redir (<<- eof_dashA)
     ast_list_item (sep=\n)
         ast_andor_item
             ast_pipe_item
@@ -24,8 +22,6 @@ compound_list
                         ast_redir (> outputB)
                         ast_redir (< inputB)
                         ast_redir (>> appendB)
-                        ast_redir (<< eofB)
-                        ast_redir (<<- eof_dashB)
     ast_list_item (sep=\n)
         ast_andor_item
             ast_pipe_item

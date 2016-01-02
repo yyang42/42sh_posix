@@ -19,6 +19,7 @@
 t_ast_redir	*ast_redir_new_from_tokens(t_lst *tokens, struct s_ast *ast)
 {
 	t_ast_redir		*ast_redir;
+	t_token			*last_token;
 
 	ast_redir = ast_redir_new();
 	ast_redir->tokens = twl_lst_copy(tokens, NULL);
@@ -30,6 +31,11 @@ t_ast_redir	*ast_redir_new_from_tokens(t_lst *tokens, struct s_ast *ast)
 	{
 		ast_redir->operator = twl_strdup(token_mgr_get(tokens, -2)->text);
 		ast_redir->param = twl_strdup(token_mgr_get(tokens, -1)->text);
+	}
+	last_token = token_mgr_get(tokens, -1);
+	if (last_token->heredoc_text)
+	{
+		ast_redir->heredoc_text = twl_strdup(last_token->heredoc_text);
 	}
 	return (ast_redir);
 	(void)ast;

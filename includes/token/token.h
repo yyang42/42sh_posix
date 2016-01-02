@@ -23,6 +23,7 @@ typedef struct		s_token
 	char			*text;
 	int				line;
 	int				col;
+	char			*heredoc_text;
 }					t_token;
 
 t_token				*token_new(char *text, int line, int col);
