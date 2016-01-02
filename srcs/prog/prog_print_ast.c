@@ -15,26 +15,18 @@
 #include "ast/ast.h"
 #include "prog.h"
 
-void				prog_print_ast(t_prog *prog)
+int					prog_print_ast(t_prog *prog, char *input)
 {
-	t_xopt			*xopt;
-	char			*str;
 	t_ast			*ast;
 
-	xopt = xopt_singleton();
-	if (xopt->print_ast && twl_lst_len(xopt->opt->args))
+	ast = ast_new(input);
+	if (ast->error_msg)
 	{
-		// TODO: READ LIMITÉ A 2 MILLION, REMPLACER PAR AUTRE CHOSE
-		str = twl_file_to_str(twl_lst_get(xopt->opt->args, 0));
-		ast = ast_new(str);
-		if (ast->error_msg)
-		{
-			twl_dprintf(2, "%s\n", ast->error_msg);
-			exit(1);
-		}
-		ast_print_rec(ast);
-		ast_del(ast);
-		free(str);
+		twl_dprintf(2, "%s\n", ast->error_msg);
+		return (1);
 	}
+	ast_print_rec(ast);
+	ast_del(ast);
 	(void)prog;
+	return (0);
 }

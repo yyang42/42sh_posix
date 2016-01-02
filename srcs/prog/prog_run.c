@@ -20,7 +20,19 @@ void				prog_run(t_prog *prog)
 
 	if (xopt_singleton()->print_ast)
 	{
-		prog_print_ast(prog);
+		char			*str;
+
+		if (twl_lst_len(xopt_singleton()->opt->args))
+		{
+			// TODO: READ LIMITÉ A 2 MILLION, REMPLACER PAR AUTRE CHOSE
+			str = twl_file_to_str(twl_lst_get(xopt_singleton()->opt->args, 0));
+			prog_print_ast(prog, str);
+		}
+		return ;
+	}
+	else if (xopt_singleton()->command)
+	{
+		prog_print_ast(prog, xopt_singleton()->command);
 		return ;
 	}
 

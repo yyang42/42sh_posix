@@ -18,4 +18,5 @@ void				xopt_init(t_xopt *xopt, char **av)
 	xopt->opt = twl_opt_new(av, XOPT_VALID_OPTS);
 	xopt_check_valid_opts(xopt);
 	xopt->print_ast = twl_opt_exist(xopt->opt, "z");
+	xopt->command = twl_opt_get_param(xopt->opt, "c");
 }
