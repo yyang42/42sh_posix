@@ -45,7 +45,6 @@ static int			split_by_else(t_ast_if_clause *ast_if_clause, struct s_ast *ast)
 	twl_lst_pop_back(copy); // pop fi, guaranted to exist
 	splits_by_else = token_mgr_split_by_one_sep(copy, "else", false);
 	else_tokens = NULL;
-	elif_parts = NULL;
 	if (twl_lst_len(splits_by_else) == 1)
 	{
 		elif_parts = twl_lst_get(splits_by_else, 0);
@@ -58,7 +57,11 @@ static int			split_by_else(t_ast_if_clause *ast_if_clause, struct s_ast *ast)
 	if (split_by_elif_fn(ast_if_clause, elif_parts, ast) == -1)
 		return (-1);
 	if (else_tokens)
+	{
 		ast_if_clause->else_body = ast_compound_list_new_from_tokens(else_tokens, ast);
+		if (ast_if_clause->else_body == NULL)
+			return (-1);
+	}
 	twl_lst_del(splits_by_else, NULL);
 	return (0);
 }
