@@ -32,7 +32,7 @@ void				prog_run(t_prog *prog)
 	}
 	else if (xopt_singleton()->command)
 	{
-		prog_print_ast(prog, xopt_singleton()->command);
+		prog_run_input(prog, xopt_singleton()->command);
 		return ;
 	}
 
