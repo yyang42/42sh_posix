@@ -52,16 +52,10 @@ static void			record_heredoc(t_tokenizer *t, t_token *new_token)
 void				tokenizer_delimit_handle_heredoc(t_tokenizer *t,
 														t_token *new_token)
 {
-	t_token			*prev_token;
-
 	if (token_mgr_last_equ(t->tokens, "<<")
 		|| token_mgr_last_equ(t->tokens, "<<-"))
 	{
-		prev_token = token_mgr_last(t->tokens);
 		/* TODO: check delimiter is valid */
 		record_heredoc(t, new_token);
-		// twl_printf("prev_token     : {%s}\n", prev_token->text);
-		// twl_printf("new_token      : {%s}\n", new_token->text);
-		// twl_printf("heredoc        : {%s}\n", new_token->heredoc_text);
 	}
 }
