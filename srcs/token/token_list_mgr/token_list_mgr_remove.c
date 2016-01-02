@@ -10,18 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "token/token_mgr.h"
+#include "token/token_list_mgr.h"
 
-static void			push_fn(void *tokens, void *segs)
+void				token_list_mgr_remove(t_lst *token_lists, t_lst *token_list)
 {
-	twl_lst_push(segs, token_mgr_strjoin(tokens));
-}
+	int				index;
 
-char				*token_mgr_split_strjoin(t_lst *tokens_list)
-{
-	t_lst			*segs;
-
-	segs = twl_lst_new();
-	twl_lst_iter(tokens_list, push_fn, segs);
-	return (twl_lst_strjoin(segs, " / "));
+	index = twl_lst_indexof(token_lists, token_list);
+	if (index == -1)
+	{
+		assert(!"[ERROR] Object not found!");
+	}
+	twl_lst_popi(token_lists, index);
+	token_mgr_del(token_list);
 }

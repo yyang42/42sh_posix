@@ -10,31 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TOKEN_MGR_H
-# define TOKEN_MGR_H
+#ifndef TOKEN_LIST_MGR_H
+# define TOKEN_LIST_MGR_H
 
 # include "basics.h"
-# include "token/token.h"
+# include "token/token_mgr.h"
 
-t_lst				*token_mgr_new(void);
-void				token_mgr_del(t_lst *tokens);
-void				token_mgr_del_void(void *tokens);
-void				token_mgr_add(t_lst *tokens, t_token *token);
-void				token_mgr_remove(t_lst *tokens, t_token *token);
-void				token_mgr_print(t_lst *tokens);
-void				token_mgr_print_token_text_by_index(t_lst *tokens,
-																	int index);
+t_lst				*token_list_mgr_new(void);
+void				token_list_mgr_del(t_lst *token_lists);
+void				token_list_mgr_add(t_lst *token_lists, t_lst *token_list);
+void				token_list_mgr_remove(t_lst *token_lists, t_lst *token_list);
+void				token_list_mgr_print(t_lst *token_lists);
 
-char				*token_mgr_strjoin(t_lst *tokens);
-char				*token_mgr_strjoin_with_num(t_lst *tokens);
-t_lst				*token_mgr_split(t_lst *tokens, t_lst *split_strings);
-t_lst				*token_mgr_split_by_one_sep(t_lst *tokens, char *sep);
 char				*token_list_mgr_strjoin(t_lst *tokens_list);
-t_token				*token_mgr_first(t_lst *tokens);
-t_token				*token_mgr_last(t_lst *tokens);
-t_token				*token_mgr_get(t_lst *tokens, int index);
-
-t_lst				*token_mgr_extract_redir(t_lst *tokens);
-t_lst				*token_mgr_extract_assignment(t_lst *tokens);
 
 #endif

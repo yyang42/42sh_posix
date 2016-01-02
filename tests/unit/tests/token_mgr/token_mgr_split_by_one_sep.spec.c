@@ -1,7 +1,7 @@
 #include <project.h>
 
 #include "token/tokenizer.h"
-#include "token/token_mgr.h"
+#include "token/token_list_mgr.h"
 
 # define mt_test_token_mgr_split_by_one_sep(test_name, input, sep, expected, debug) \
 	static void test_## test_name(t_test *test) \
@@ -11,7 +11,7 @@
 		char			*joined_str; \
 		tokens = tokenizer_tokenize(input); \
 		tokens_list = token_mgr_split_by_one_sep(tokens, sep); \
-		joined_str = token_mgr_split_strjoin(tokens_list); \
+		joined_str = token_list_mgr_strjoin(tokens_list); \
 		if (debug) \
 		{ \
 			token_mgr_print(tokens); \

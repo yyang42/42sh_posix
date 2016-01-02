@@ -1,7 +1,7 @@
 #include <project.h>
 
 #include "token/tokenizer.h"
-#include "token/token_mgr.h"
+#include "token/token_list_mgr.h"
 
 # define mt_test_token_mgr_extract_redir(test_name, input, expected, remain, debug) \
 	static void test_## test_name(t_test *test) \
@@ -12,7 +12,7 @@
 		char			*remaining_str; \
 		tokens = tokenizer_tokenize(input); \
 		tokens_list = token_mgr_extract_redir(tokens); \
-		joined_str = token_mgr_split_strjoin(tokens_list); \
+		joined_str = token_list_mgr_strjoin(tokens_list); \
 		remaining_str = token_mgr_strjoin(tokens); \
 		if (debug) \
 		{ \
