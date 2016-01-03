@@ -22,5 +22,6 @@ t_lst				*data_redir_operators(void);
 t_lst				*data_token_item_list(void);
 t_lst				*data_separators(void);
 t_lst				*data_andor_separators(void);
+t_lst				*data_compound_commands(void);
 
 #endif

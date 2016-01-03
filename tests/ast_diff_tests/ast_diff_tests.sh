@@ -58,6 +58,7 @@ then
     diff_test features_ast 12_simple_command_no_newline
     diff_test features_ast 13_simple_command_long
     diff_test features_ast 20_subshell
+    diff_test features_ast 25_brace_group
     diff_test features_ast 30_redir
     diff_test features_ast 31_redir_heredoc
     diff_test features_ast 40_assignment

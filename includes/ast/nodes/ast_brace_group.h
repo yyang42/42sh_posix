@@ -10,13 +10,31 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_subshell.h"
-#include "ast/nodes/ast_compound_list.h"
+#ifndef AST_BRACE_GROUP_H
+# define AST_BRACE_GROUP_H
 
-void				ast_subshell_print_rec(t_ast_subshell *ast_subshell, int depth)
+# include "basics.h"
+
+# include "token/token_mgr.h"
+
+# include "ast/ast_defines.h"
+# include "ast/ast_utils.h"
+
+struct s_ast_compound_list;
+typedef struct					s_ast_brace_group
 {
-	ast_print_indent(depth);
-	twl_printf("ast_subshell\n");
-	depth++;
-	ast_compound_list_print_rec(ast_subshell->ast_compound_list, depth);
-}
+	t_lst						*tokens;
+	struct s_ast_compound_list	*ast_compound_list;
+}								t_ast_brace_group;
+
+t_ast_brace_group	*ast_brace_group_new(void);
+void				ast_brace_group_del(t_ast_brace_group *ast_brace_group);
+
+t_ast_brace_group	*ast_brace_group_new_from_tokens(t_lst *tokens, struct s_ast *ast);
+void				*ast_brace_group_new_from_tokens_void(t_lst *tokens, struct s_ast *ast);
+void				ast_brace_group_print_rec(t_ast_brace_group *ast_brace_group, int depth);
+void				ast_brace_group_print_rec_void(void *ast_brace_group, int depth);
+
+bool				ast_brace_group_is_own_type(t_lst *tokens);
+
+#endif

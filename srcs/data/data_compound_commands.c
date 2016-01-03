@@ -10,13 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_subshell.h"
-#include "ast/nodes/ast_compound_list.h"
+#include "twl_lst.h"
 
-void				ast_subshell_print_rec(t_ast_subshell *ast_subshell, int depth)
+#include "data.h"
+
+t_lst				*data_compound_commands(void)
 {
-	ast_print_indent(depth);
-	twl_printf("ast_subshell\n");
-	depth++;
-	ast_compound_list_print_rec(ast_subshell->ast_compound_list, depth);
+	static t_lst	*compounds = NULL;
+
+	if (compounds == NULL)
+	{
+		compounds = twl_lst_new();
+		twl_lst_push_back(compounds, twl_str_split_to_lst("(_)", "_"));
+		twl_lst_push_back(compounds, twl_str_split_to_lst("{_}", "_"));
+		twl_lst_push_back(compounds, twl_str_split_to_lst("if_fi", "_"));
+	}
+	return (compounds);
 }

@@ -10,13 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_subshell.h"
+#include "ast/nodes/ast_brace_group.h"
 #include "ast/nodes/ast_compound_list.h"
 
-void				ast_subshell_print_rec(t_ast_subshell *ast_subshell, int depth)
+void				ast_brace_group_print_rec(t_ast_brace_group *ast_brace_group, int depth)
 {
 	ast_print_indent(depth);
-	twl_printf("ast_subshell\n");
+	twl_printf("ast_brace_group\n");
 	depth++;
-	ast_compound_list_print_rec(ast_subshell->ast_compound_list, depth);
+	ast_compound_list_print_rec(ast_brace_group->ast_compound_list, depth);
 }

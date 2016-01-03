@@ -10,20 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_compound_command.h"
+#include "ast/nodes/ast_brace_group.h"
 
-t_compound_command_type	compound_command_get_type_from_tokens(t_lst *tokens)
+t_ast_brace_group			*ast_brace_group_new(void)
 {
-	t_token			*first;
+	t_ast_brace_group		*ast_brace_group;
 
-	first = token_mgr_first(tokens);
-	if (twl_strequ(first->text, "("))
-	{
-		return (COMPOUND_COMMAND_SUBSHELL);
-	}
-	else if (twl_strequ(first->text, "if"))
-	{
-		return (COMPOUND_COMMAND_IF_CLAUSE);
-	}
-	return (COMPOUND_COMMAND_NONE);
+	ast_brace_group = twl_malloc_x0(sizeof(t_ast_brace_group));
+	ast_brace_group->tokens = twl_lst_new();
+	return (ast_brace_group);
 }

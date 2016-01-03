@@ -17,7 +17,7 @@
 
 # include "basics.h"
 
-# define XOPT_VALID_OPTS "abc:Cefimnosuvxz"
+# define XOPT_VALID_OPTS "abc:Cefhimnosuvxz"
 
 typedef struct		s_xopt
 {
