@@ -17,37 +17,40 @@
 void				prog_run(t_prog *prog)
 {
 	t_environment	*env;
+	char			*input;
 
-	if (xopt_singleton()->print_ast)
+	input = NULL;
+	if (xopt_singleton()->command)
 	{
-		char			*str;
-
-		if (twl_lst_len(xopt_singleton()->opt->args))
-		{
-			// TODO: READ LIMITÉ A 2 MILLION, REMPLACER PAR AUTRE CHOSE
-			str = twl_file_to_str(twl_lst_get(xopt_singleton()->opt->args, 0));
-			prog_print_ast(prog, str);
-		}
-		return ;
+		input = twl_strdup(xopt_singleton()->command);
 	}
-	else if (xopt_singleton()->command)
+	else if (twl_lst_len(xopt_singleton()->opt->args) > 0)
 	{
-		// twl_printf("xopt_singleton()->command %s\n", xopt_singleton()->command);
-		prog_print_ast(prog, xopt_singleton()->command);
-		return ;
+		// TODO: READ LIMITÉ A 2 MILLION, REMPLACER PAR AUTRE CHOSE
+		input = twl_file_to_str(twl_lst_get(xopt_singleton()->opt->args, 0));
 	}
 
-	/*
-	** REMOVE the printf
-	*/
+	if (input)
+	{
+		if (xopt_singleton()->print_ast)
+			prog_print_ast(prog, input);
+		else
+			twl_dprintf(2, "EXECUTION NOT IMPLEMENTED\n");
+	}
+	else
+	{
+		/*
+		** REMOVE the printf
+		*/
 
-	twl_printf("For developpement of command line, I put an 'exit' in the edit loop\n");
-	twl_printf("Comment or remove for use the full shell (srcs/edit/edit/edit_loop.c)\n");
-	twl_printf("Work with arrow left/right, ctrl + a/e, delete. No multiline Yet\n");
+		twl_printf("For developpement of command line, I put an 'exit' in the edit loop\n");
+		twl_printf("Comment or remove for use the full shell (srcs/edit/edit/edit_loop.c)\n");
+		twl_printf("Work with arrow left/right, ctrl + a/e, delete. No multiline Yet\n");
 
-	env = environment_new();
-	environment_init(env);
-	prog_main_loop(prog, env);
-	environment_del(env);
-	(void)prog;
+		env = environment_new();
+		environment_init(env);
+		prog_main_loop(prog, env);
+		environment_del(env);
+		(void)prog;
+	}
 }
