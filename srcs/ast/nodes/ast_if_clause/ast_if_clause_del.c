@@ -10,9 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ast/nodes/ast_if_then.h"
 #include "ast/nodes/ast_if_clause.h"
 
-void				ast_if_clause_del(t_ast_if_clause *ast_if_clause)
+void				ast_if_clause_del(t_ast_if_clause *this)
 {
-	free(ast_if_clause);
+	twl_lst_del(this->if_then_list, ast_if_then_del_void);
+	if (this->else_body)
+		ast_compound_list_del(this->else_body);
+	free(this);
 }

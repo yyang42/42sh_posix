@@ -10,15 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ast/nodes/ast_redir.h"
 
-#include "ast/ast.h"
-
-void				ast_del(t_ast *this)
+void				ast_redir_del_void(t_ast_redir *this)
 {
-	token_mgr_del(this->tokens);
-	if (this->compound_list)
-		ast_compound_list_del(this->compound_list);
-	if (this->error_msg)
-		free(this->error_msg);
-	free(this);
+	ast_redir_del(this);
 }

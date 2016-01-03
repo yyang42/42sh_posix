@@ -10,9 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ast/nodes/ast_redir.h"
+#include "ast/nodes/ast_assignment.h"
 #include "ast/nodes/ast_simple_command.h"
 
-void				ast_simple_command_del(t_ast_simple_command *ast_simple_command)
+void				ast_simple_command_del(t_ast_simple_command *this)
 {
-	free(ast_simple_command);
+	twl_lst_del(this->redir_items, ast_redir_del);
+	twl_lst_del(this->assignment_items, ast_assignment_del);
+	free(this);
 }

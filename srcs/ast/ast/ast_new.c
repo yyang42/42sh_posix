@@ -15,10 +15,9 @@
 t_ast				*ast_new(char *input)
 {
 	t_ast			*ast;
-	t_lst			*tokens;
 
 	ast = twl_malloc_x0(sizeof(t_ast));
-	tokens = tokenizer_tokenize(input);
-	ast->compound_list = ast_compound_list_new_from_tokens(tokens, ast);
+	ast->tokens = tokenizer_tokenize(input);
+	ast->compound_list = ast_compound_list_new_from_tokens(ast->tokens, ast);
 	return (ast);
 }

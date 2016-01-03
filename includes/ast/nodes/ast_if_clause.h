@@ -31,6 +31,7 @@ typedef struct		s_ast_if_clause
 
 t_ast_if_clause		*ast_if_clause_new(void);
 void				ast_if_clause_del(t_ast_if_clause *ast_if_clause);
+void				ast_if_clause_del_void(void *this);
 
 t_ast_if_clause		*ast_if_clause_new_from_tokens(t_lst *tokens, struct s_ast *ast);
 void				*ast_if_clause_new_from_tokens_void(t_lst *tokens, struct s_ast *ast);

@@ -10,9 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ast/nodes/ast_compound_list.h"
 #include "ast/nodes/ast_if_then.h"
 
-void				ast_if_then_del(t_ast_if_then *ast_if_then)
+void				ast_if_then_del(t_ast_if_then *this)
 {
-	free(ast_if_then);
+	ast_compound_list_del(this->cond_compound);
+	ast_compound_list_del(this->then_compound);
+	free(this);
 }

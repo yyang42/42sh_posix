@@ -12,7 +12,9 @@
 
 #include "ast/nodes/ast_assignment.h"
 
-void				ast_assignment_del(t_ast_assignment *ast_assignment)
+void				ast_assignment_del(t_ast_assignment *this)
 {
-	free(ast_assignment);
+	free(this->key);
+	free(this->value);
+	free(this);
 }

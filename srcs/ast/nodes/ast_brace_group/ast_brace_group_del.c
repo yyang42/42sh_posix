@@ -10,9 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ast/nodes/ast_compound_list.h"
+
 #include "ast/nodes/ast_brace_group.h"
 
-void				ast_brace_group_del(t_ast_brace_group *ast_brace_group)
+void				ast_brace_group_del(t_ast_brace_group *this)
 {
-	free(ast_brace_group);
+	ast_compound_list_del(this->ast_compound_list);
+	free(this);
 }

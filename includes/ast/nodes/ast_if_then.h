@@ -31,6 +31,7 @@ typedef struct		s_ast_if_then
 
 t_ast_if_then		*ast_if_then_new(void);
 void				ast_if_then_del(t_ast_if_then *ast_if_then);
+void				ast_if_then_del_void(void *ast_if_then);
 
 t_ast_if_then		*ast_if_then_new_from_tokens(t_lst *tokens, struct s_ast *ast);
 void				*ast_if_then_new_from_tokens_void(t_lst *tokens, struct s_ast *ast);

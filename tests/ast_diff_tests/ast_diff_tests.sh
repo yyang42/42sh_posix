@@ -20,9 +20,9 @@ print_result ()
 {
     if [ $1 -eq 0 ]
     then
-        echo $C_GREEN"OK"$C_CLEAR"\c"
+        echo $C_GREEN"$2"$C_CLEAR"\c"
     else
-        echo $C_RED"KO"$C_CLEAR"\c"
+        echo $C_RED"$2"$C_CLEAR"\c"
         exit_status=1
     fi
     echo " \c"
@@ -40,13 +40,15 @@ diff_test ()
     mkdir -p $testcase_tmp
     rm -f $testcase_tmp/*
     $RENDU_PATH/42sh -z $testcase_path/input.sh > $testcase_tmp_stdout 2> $testcase_tmp_stderr
-
+    exec_res="$?"
     diff $testcase_path/expected_stdout $testcase_tmp_stdout
     stdout_res="$?"
     diff $testcase_path/expected_stderr $testcase_tmp_stderr
     stdout_err="$?"
-    print_result "$stdout_err"
-    print_result "$stdout_res"
+
+    print_result "$exec_res" exec
+    print_result "$stdout_res" stdout
+    print_result "$stdout_err" stderr
     echo "./42sh -z tests/ast_diff_tests/$testsuite/$testcase/input.sh"
 }
 

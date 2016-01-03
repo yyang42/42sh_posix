@@ -12,7 +12,9 @@
 
 #include "ast/nodes/ast_pipe_item.h"
 
-void				ast_pipe_item_del(t_ast_pipe_item *ast_pipe_item)
+void				ast_pipe_item_del(t_ast_pipe_item *this)
 {
-	free(ast_pipe_item);
+	ast_command_del(this->ast_command);
+	twl_lst_del(this->tokens, NULL);
+	free(this);
 }

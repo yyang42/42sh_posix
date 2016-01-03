@@ -14,5 +14,9 @@
 
 void				ast_command_del(t_ast_command *ast_command)
 {
+	if (ast_command->command_type == COMMAND_COMPOUND_COMMAND)
+		ast_compound_command_del(ast_command->command);
+	else
+		ast_simple_command_del(ast_command->command);
 	free(ast_command);
 }

@@ -10,15 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ast/nodes/ast_brace_group.h"
 
-#include "ast/ast.h"
-
-void				ast_del(t_ast *this)
+void				ast_brace_group_del_void(void *this)
 {
-	token_mgr_del(this->tokens);
-	if (this->compound_list)
-		ast_compound_list_del(this->compound_list);
-	if (this->error_msg)
-		free(this->error_msg);
-	free(this);
+	ast_brace_group_del(this);
 }

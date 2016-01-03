@@ -33,6 +33,7 @@ typedef struct		s_ast_redir
 
 t_ast_redir			*ast_redir_new(void);
 void				ast_redir_del(t_ast_redir *ast_redir);
+void				ast_redir_del_void(t_ast_redir *this);
 
 t_ast_redir			*ast_redir_new_from_tokens(t_lst *tokens, struct s_ast *ast);
 void				*ast_redir_new_from_tokens_void(t_lst *tokens, struct s_ast *ast);
