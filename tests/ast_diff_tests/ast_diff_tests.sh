@@ -25,6 +25,7 @@ print_result ()
         echo $C_RED"KO"$C_CLEAR"\c"
         exit_status=1
     fi
+    echo " \c"
 }
 
 diff_test ()
@@ -39,13 +40,14 @@ diff_test ()
     mkdir -p $testcase_tmp
     rm -f $testcase_tmp/*
     $RENDU_PATH/42sh -z $testcase_path/input.sh > $testcase_tmp_stdout 2> $testcase_tmp_stderr
-    echo "./42sh -z tests/ast_diff_tests/$testsuite/$testcase/input.sh"
+
     diff $testcase_path/expected_stdout $testcase_tmp_stdout
-    print_result "$?"
-    echo " stdout $testsuite/$testcase"
+    stdout_res="$?"
     diff $testcase_path/expected_stderr $testcase_tmp_stderr
-    print_result "$?"
-    echo " stderr $1/$2"
+    stdout_err="$?"
+    print_result "$stdout_err"
+    print_result "$stdout_res"
+    echo "./42sh -z tests/ast_diff_tests/$testsuite/$testcase/input.sh"
 }
 
 echo $C_CYAN"====== START AST DIFF TESTS ======"$C_CLEAR
