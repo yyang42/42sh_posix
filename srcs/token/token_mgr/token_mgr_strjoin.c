@@ -20,11 +20,11 @@ static void			print_token_fn(void *token_, void *segs)
 	twl_lst_push(segs, token->text);
 }
 
-char				*token_mgr_strjoin(t_lst *tokens)
+char				*token_mgr_strjoin(t_lst *tokens, char *sep)
 {
 	t_lst			*segs;
 
 	segs = twl_lst_new();
 	twl_lst_iter(tokens, print_token_fn, segs);
-	return (twl_lst_strjoin(segs, "_"));
+	return (twl_lst_strjoin(segs, sep));
 }

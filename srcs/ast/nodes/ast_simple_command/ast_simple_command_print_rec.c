@@ -16,6 +16,9 @@
 
 void				ast_simple_command_print_rec(t_ast_simple_command *this, int depth)
 {
+	//char			*joined_tokens;
+
+	// joined_tokens = token_mgr_strjoin(this->command_tokens, "_");
 	ast_print_indent(depth);
 	twl_printf("ast_simple_command (%s)\n", token_mgr_first(this->command_tokens)->text);
 	depth++;

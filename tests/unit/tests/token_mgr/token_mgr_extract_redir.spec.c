@@ -13,7 +13,7 @@
 		tokens = tokenizer_tokenize(input); \
 		tokens_list = token_mgr_extract_redir(tokens); \
 		joined_str = token_list_mgr_strjoin(tokens_list); \
-		remaining_str = token_mgr_strjoin(tokens); \
+		remaining_str = token_mgr_strjoin(tokens, "_"); \
 		if (debug) \
 		{ \
 			token_mgr_print(tokens); \

@@ -21,7 +21,7 @@
 			slice = twl_lst_slice(tokens, pos, twl_lst_len(tokens)); \
 		else \
 			slice = twl_lst_new(); \
-		char *res = token_mgr_strjoin(slice); \
+		char *res = token_mgr_strjoin(slice, "_"); \
 		if (debug) \
 		{ \
 			token_mgr_print(tokens); \
