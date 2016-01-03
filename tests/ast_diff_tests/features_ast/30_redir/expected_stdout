@@ -32,5 +32,5 @@ compound_list
         ast_andor_item
             ast_pipe_item
                 ast_command
-                    ast_simple_command (cmd_level_1b)
+                    ast_simple_command (cmd_level_1b 2)
                         ast_redir (> file)

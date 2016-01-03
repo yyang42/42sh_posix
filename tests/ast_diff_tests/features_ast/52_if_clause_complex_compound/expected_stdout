@@ -12,25 +12,25 @@ compound_list
                                             ast_andor_item (sep=&&)
                                                 ast_pipe_item (sep=|)
                                                     ast_command
-                                                        ast_simple_command (find)
+                                                        ast_simple_command (find .)
                                                 ast_pipe_item
                                                     ast_command
-                                                        ast_simple_command (grep)
+                                                        ast_simple_command (grep 123)
                                             ast_andor_item
                                                 ast_pipe_item
                                                     ast_command
-                                                        ast_simple_command (grep)
+                                                        ast_simple_command (grep /)
                                     compound_list
                                         ast_list_item (sep=\n)
                                             ast_andor_item
                                                 ast_pipe_item
                                                     ast_command
-                                                        ast_simple_command (echo)
+                                                        ast_simple_command (echo 123)
                                         ast_list_item (sep=\n)
                                             ast_andor_item
                                                 ast_pipe_item
                                                     ast_command
-                                                        ast_simple_command (ls)
+                                                        ast_simple_command (ls /)
                             if_then_body
                                 ast_if_then
                                     compound_list
@@ -44,16 +44,16 @@ compound_list
                                             ast_andor_item
                                                 ast_pipe_item
                                                     ast_command
-                                                        ast_simple_command (cat)
+                                                        ast_simple_command (cat /tmp/bla)
                             else_body
                                 compound_list
                                     ast_list_item (sep=\n)
                                         ast_andor_item
                                             ast_pipe_item
                                                 ast_command
-                                                    ast_simple_command (echo)
+                                                    ast_simple_command (echo fromelse)
                                     ast_list_item (sep=\n)
                                         ast_andor_item
                                             ast_pipe_item
                                                 ast_command
-                                                    ast_simple_command (echo)
+                                                    ast_simple_command (echo fromelse1)
