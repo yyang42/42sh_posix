@@ -18,11 +18,15 @@
 
 # define ARROW_LEFT 4479771
 # define ARROW_RIGHT 4414235
+# define ARROW_UP 4283163
+# define ARROW_DOWN 4348699
+
 # define DELETE_KEY 127
+# define RETURN_KEY 10
+
 # define CTRL_A 1
 # define CTRL_D 4
 # define CTRL_E 5
-# define RETURN_KEY 10
 # define CTRL_C -1
 # define CTRL_T 20
 # define CTRL_U 21

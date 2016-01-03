@@ -10,47 +10,32 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "prog.h"
-#include "edit/edit.h"
+#include <fcntl.h>
 
-static char			*get_cmd(void)
+#include "edit/history_mgr.h"
+
+#include "twl_get_next_line.h"
+
+t_lst				*history_mgr_new(void)
 {
-	t_edit			*edit;
-	char 			*cmd;
+	t_lst			*history;
+	char			*filename;
+	int				fd;
+	char			*line;
 
-	edit = edit_new();
-	cmd = edit_loop(edit);
-	/*
-	** TODO: Handle History case
-	*/
-	if (twl_strcmp(cmd, "history") == 0)
+
+	history = twl_lst_new();
+	filename = twl_joinpath(getenv("HOME"), HISTORY_FILENAME);
+	// twl_lprintf("file: %s\n", filename);
+	fd = open(filename, O_RDONLY | O_CREAT, 0644);
+	// twl_lprintf("fd: %d\n", fd);
+	while (twl_get_next_line(fd, &line))
 	{
-		history_mgr_print(edit->history);
+		// twl_lprintf("line: %s\n", line);
+		history_mgr_add(history, line);
+		free(line);
 	}
-	history_mgr_add(edit->history, cmd);
-	edit_del(edit);
-	return (cmd);
-}
-
-void				prog_main_loop(t_prog *prog, t_environment *env)
-{
-	char			*cmd;
-
-	while (1)
-	{
-		cmd = get_cmd();
-		// Do your job with the CMD ^^
-		/*
-		** Simple exit for test. Remove when handle exit cmd
-		*/
-		if (twl_strcmp(cmd, "exit") == 0)
-		{
-			free(cmd);
-			prog_del(prog);
-			exit(0);
-		}
-		free(cmd);
-	}
-	(void)prog;
-	(void)env;
+	free(filename);
+	close(fd);
+	return (history);
 }
