@@ -21,7 +21,7 @@ void				edit_history_down(void *edit_)
 	/*
 	** TODO: Error handling (begin / end of list)
 	*/
-	if (edit->history_index > 1)
+	if (edit->history_index > 0)
 		edit->history_index--;
 	str = twl_lst_get(edit->history, (edit->history_index * -1));
 	if (!str)
