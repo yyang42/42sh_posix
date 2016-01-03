@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 
+#include "ast/ast.h"
 #include "ast/nodes/ast_assignment.h"
 #include "ast/nodes/ast_redir.h"
 #include "ast/nodes/ast_simple_command.h"
@@ -30,7 +31,12 @@ static void			push_asign_fn(void *assignment_token_, void *assignment_items, voi
 
 static void			push_redir_fn(void *one_redir_tokens, void *redir_items, void *ast)
 {
-	twl_lst_push(redir_items, ast_redir_new_from_tokens(one_redir_tokens, ast));
+	t_ast_redir		*ast_redir;
+
+	ast_redir = ast_redir_new_from_tokens(one_redir_tokens, ast);
+	if (ast_has_error(ast))
+		return ;
+	twl_lst_push(redir_items, ast_redir);
 }
 
 static void			build_tokens(t_ast_simple_command *this, t_lst *orig_tokens, struct s_ast *ast)

@@ -14,21 +14,27 @@
 #include "ast/nodes/ast_compound_command.h"
 #include "ast/nodes/ast_redir.h"
 #include "ast/ast.h"
+#include "token/token_list_mgr.h"
 
-static void			push_redir_fn(void *one_redir_tokens, void *redir_items, void *ast)
-{
-	twl_lst_push(redir_items, ast_redir_new_from_tokens(one_redir_tokens, ast));
-}
-
-static void			build_redir_tokens(t_lst *redir_items, t_lst *orig_redir_tokens, struct s_ast *ast)
+static int			build_redir_tokens(t_lst *redir_items, t_lst *orig_redir_tokens, struct s_ast *ast)
 {
 	t_lst			*redir_tokens_groups;
 	t_lst			*redir_tokens;
+	t_lst			*cur_redir_tokens;
+	t_ast_redir		*redir;
 
 	redir_tokens = twl_lst_copy(orig_redir_tokens, NULL);
 	redir_tokens_groups = token_mgr_extract_redir(redir_tokens);
-	twl_lst_iter2(redir_tokens_groups, push_redir_fn, redir_items, ast);
+	while ((cur_redir_tokens = twl_lst_pop_front(redir_tokens_groups)))
+	{
+		redir = ast_redir_new_from_tokens(cur_redir_tokens, ast);
+		if (redir == NULL)
+			return (-1);
+		twl_lst_push(redir_items, redir);
+	}
 	twl_lst_del(redir_tokens, NULL);
+	token_list_mgr_del(redir_tokens_groups);
+	return (0);
 }
 
 static int			new_compound_command_do(t_ast_compound_command *this, t_lst *tokens, struct s_ast *ast)
@@ -36,6 +42,7 @@ static int			new_compound_command_do(t_ast_compound_command *this, t_lst *tokens
 	int						pos;
 	t_openclose_matcher		*matcher;
 	t_lst					*redir_tokens;
+	t_lst					*command_tokens;
 
 	matcher = openclose_matcher_singleton_parser();
 	pos = openclose_matcher_token_find_matching(matcher, tokens);
@@ -45,13 +52,14 @@ static int			new_compound_command_do(t_ast_compound_command *this, t_lst *tokens
 				"Closing token for '%s' not found", token_mgr_first(tokens)->text);
 		return (-1);
 	}
-	this->command_tokens = twl_lst_slice(tokens, 0, pos);
-	// token_mgr_print(this->command_tokens);
+	command_tokens = twl_lst_slice(tokens, 0, pos);
 	redir_tokens = twl_lst_slice(tokens, pos, twl_lst_len(tokens));
-	this->command = compound_command_from_token_fns()[this->command_type](this->command_tokens, ast);
+	this->command = compound_command_from_token_fns()[this->command_type](command_tokens, ast);
+	twl_lst_del(command_tokens, NULL);
 	if (this->command == NULL)
 		return (-1);
-	build_redir_tokens(this->redir_items, redir_tokens, ast);
+	if (build_redir_tokens(this->redir_items, redir_tokens, ast) == -1)
+		return (-1);
 	twl_lst_del(redir_tokens, NULL);
 	return (0);
 }

@@ -10,34 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_H
-# define AST_H
 
-# include "basics.h"
+#include "ast/ast.h"
 
-# include "parser.h"
-# include "ast/ast_defines.h"
-
-# include "ast/nodes/ast_compound_list.h"
-# include "token/token_mgr.h"
-# include "token/tokenizer.h"
-
-typedef struct		s_ast
+bool				ast_has_error(t_ast *this)
 {
-	t_lst						*tokens;
-	t_ast_compound_list			*compound_list;
-	char						*error_msg;
-}					t_ast;
-
-t_ast				*ast_new(char *input);
-void				ast_del(t_ast *this);
-
-void				ast_print_tokens(t_ast *ast);
-void				ast_print_rec(t_ast *ast);
-
-void				ast_set_error_msg_format(t_ast *ast, t_token *token, const char *fmt, ...);
-void				ast_set_error_msg_syntax_error(t_ast *ast);
-
-bool				ast_has_error(t_ast *this);
-
-#endif
+	return (this->error_msg);
+}
