@@ -10,11 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <fcntl.h>
+
+#include "twl_get_next_line.h"
 #include "twl_xstdlib.h"
 
 #include "edit/edit.h"
-
-
 
 t_edit				*edit_new(void)
 {
@@ -25,5 +26,7 @@ t_edit				*edit_new(void)
 	this->letters = letter_mgr_new();
 	this->edit_keys = edit_key_mgr_new();
 	this->return_cmd = false;
+	this->history = history_mgr_new();
+	this->history_index = 0;
 	return (this);
 }

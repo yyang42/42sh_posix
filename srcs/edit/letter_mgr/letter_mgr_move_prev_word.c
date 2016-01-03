@@ -27,10 +27,8 @@ void				letter_mgr_move_prev_word(t_lst *letters, void *edit_)
 {
 	char			*cmd;
 	int				count;
-	int				i;
 	t_edit			*edit;
 
-	i = 0;
 	edit = edit_;
 	cmd = letter_mgr_concat_string(letters);
 	count = edit->index;

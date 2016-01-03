@@ -10,47 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "prog.h"
-#include "edit/edit.h"
+#ifndef HISTORY_MGR_H
+# define HISTORY_MGR_H
 
-static char			*get_cmd(void)
-{
-	t_edit			*edit;
-	char 			*cmd;
+# include "basics.h"
 
-	edit = edit_new();
-	cmd = edit_loop(edit);
-	/*
-	** TODO: Handle History case
-	*/
-	if (twl_strcmp(cmd, "history") == 0)
-	{
-		history_mgr_print(edit->history);
-	}
-	history_mgr_add(edit->history, cmd);
-	edit_del(edit);
-	return (cmd);
-}
+# define HISTORY_FILENAME ".42sh_history"
 
-void				prog_main_loop(t_prog *prog, t_environment *env)
-{
-	char			*cmd;
+t_lst				*history_mgr_new(void);
+void				history_mgr_del(t_lst *history);
+void				history_mgr_add(t_lst *history, char *line);
+void				history_mgr_remove(t_lst *historys, char *str);
+void				history_mgr_print(t_lst *history);
+void				history_mgr_export(t_lst *history);
 
-	while (1)
-	{
-		cmd = get_cmd();
-		// Do your job with the CMD ^^
-		/*
-		** Simple exit for test. Remove when handle exit cmd
-		*/
-		if (twl_strcmp(cmd, "exit") == 0)
-		{
-			free(cmd);
-			prog_del(prog);
-			exit(0);
-		}
-		free(cmd);
-	}
-	(void)prog;
-	(void)env;
-}
+#endif

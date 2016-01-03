@@ -30,5 +30,7 @@ t_lst				*edit_key_mgr_new(void)
 	edit_key_mgr_add(edit_keys, edit_key_new(CTRL_T, edit_move_prev_word));
 	edit_key_mgr_add(edit_keys, edit_key_new(CTRL_U, edit_move_next_word));
 	edit_key_mgr_add(edit_keys, edit_key_new(CTRL_W, edit_delete_prev_word));
+	edit_key_mgr_add(edit_keys, edit_key_new(ARROW_UP, edit_history_up));
+	edit_key_mgr_add(edit_keys, edit_key_new(ARROW_DOWN, edit_history_down));
 	return (edit_keys);
 }

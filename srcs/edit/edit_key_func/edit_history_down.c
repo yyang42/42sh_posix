@@ -10,47 +10,29 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "prog.h"
 #include "edit/edit.h"
 
-static char			*get_cmd(void)
+void				edit_history_down(void *edit_)
 {
 	t_edit			*edit;
-	char 			*cmd;
+	char			*str;
 
-	edit = edit_new();
-	cmd = edit_loop(edit);
+	edit = edit_;
 	/*
-	** TODO: Handle History case
+	** TODO: Error handling (begin / end of list)
 	*/
-	if (twl_strcmp(cmd, "history") == 0)
+	if (edit->history_index > 0)
+		edit->history_index--;
+	str = twl_lst_get(edit->history, (edit->history_index * -1));
+	if (!str)
 	{
-		history_mgr_print(edit->history);
+		edit->history_index++;
 	}
-	history_mgr_add(edit->history, cmd);
-	edit_del(edit);
-	return (cmd);
-}
-
-void				prog_main_loop(t_prog *prog, t_environment *env)
-{
-	char			*cmd;
-
-	while (1)
+	else
 	{
-		cmd = get_cmd();
-		// Do your job with the CMD ^^
-		/*
-		** Simple exit for test. Remove when handle exit cmd
-		*/
-		if (twl_strcmp(cmd, "exit") == 0)
-		{
-			free(cmd);
-			prog_del(prog);
-			exit(0);
-		}
-		free(cmd);
+		edit->return_cmd = true;
+		edit_clear_line(edit);
+		edit->return_cmd = false;
+		edit_handle_string(edit, str);
 	}
-	(void)prog;
-	(void)env;
 }
