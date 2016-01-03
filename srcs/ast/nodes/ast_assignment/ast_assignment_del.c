@@ -15,6 +15,7 @@
 void				ast_assignment_del(t_ast_assignment *this)
 {
 	free(this->key);
-	free(this->value);
+	if (this->value)
+		free(this->value);
 	free(this);
 }

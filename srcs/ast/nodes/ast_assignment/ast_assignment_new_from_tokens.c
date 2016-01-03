@@ -20,5 +20,4 @@ t_ast_assignment	*ast_assignment_new_from_tokens(char *key, char *value, struct 
 	ast_assignment->key = twl_strdup(key);
 	ast_assignment->value = value ? twl_strdup(value) : NULL;
 	return (ast_assignment);
-	(void)ast;
 }
