@@ -18,4 +18,4 @@ compound_list
                                             ast_andor_item
                                                 ast_pipe_item
                                                     ast_command
-                                                        ast_simple_command (echo)
+                                                        ast_simple_command (echo abc)

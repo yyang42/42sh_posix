@@ -56,8 +56,10 @@ then
     diff_test features_ast 10_simple_command
     diff_test features_ast 11_simple_command_empty_lines
     diff_test features_ast 12_simple_command_no_newline
+    diff_test features_ast 13_simple_command_long
     diff_test features_ast 20_subshell
     diff_test features_ast 30_redir
+    diff_test features_ast 31_redir_heredoc
     diff_test features_ast 40_assignment
     diff_test features_ast 50_if_clause
     diff_test features_ast 51_if_clause_nested

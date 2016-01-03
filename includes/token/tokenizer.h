@@ -35,6 +35,7 @@ typedef struct		s_tokenizer
 	bool			cur_is_quoted;
 	int				cur_line;
 	int				cur_col;
+	char			*heredoc_pos;
 }					t_tokenizer;
 
 t_lst				*tokenizer_tokenize(char *input);
@@ -42,12 +43,15 @@ t_lst				*tokenizer_tokenize(char *input);
 t_tokenizer			*tokenizer_new(char *input);
 void				tokenizer_del(t_tokenizer *this);
 
-void				tokenizer_delimit(t_tokenizer *this);
 void				tokenizer_append_to_curtoken(t_tokenizer *t, int len);
 
 bool				tokenizer_utils_is_start_of_op(t_tokenizer *this, char c);
 bool				tokenizer_utils_can_form_operator(t_tokenizer *this,
 															char *candidate);
+
+void				tokenizer_delimit(t_tokenizer *this);
+void				tokenizer_delimit_handle_heredoc(t_tokenizer *this,
+														t_token *new_token);
 
 /*
 	Tokenizer rules

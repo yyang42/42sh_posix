@@ -25,7 +25,7 @@ void				token_mgr_print(t_lst *tokens);
 void				token_mgr_print_token_text_by_index(t_lst *tokens,
 																	int index);
 
-char				*token_mgr_strjoin(t_lst *tokens);
+char				*token_mgr_strjoin(t_lst *tokens, char *sep);
 char				*token_mgr_strjoin_with_num(t_lst *tokens);
 t_lst				*token_mgr_split(t_lst *tokens, t_lst *split_strings,
 														bool keep_delimiter);

@@ -36,7 +36,7 @@ void	reset_sandbox(void);
 		{ \
 			token_mgr_print(tokens); \
 		} \
-		joined = token_mgr_strjoin(tokens); \
+		joined = token_mgr_strjoin(tokens, "_"); \
 		mt_assert(strcmp(joined, expected) == 0); \
 		free(joined); \
 	}

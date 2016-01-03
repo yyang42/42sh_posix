@@ -10,33 +10,52 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "twl_stdlib.h"
-
 #include "token/token_mgr.h"
+#include "token/tokenizer.h"
 
-#include "ast/nodes/ast_redir.h"
-
-t_ast_redir	*ast_redir_new_from_tokens(t_lst *tokens, struct s_ast *ast)
+static void			record_heredoc(t_tokenizer *t, t_token *new_token)
 {
-	t_ast_redir		*ast_redir;
-	t_token			*last_token;
+	char			*delimiter;
+	char			*pos;
+	char			*heredoc_text;
 
-	ast_redir = ast_redir_new();
-	ast_redir->tokens = twl_lst_copy(tokens, NULL);
-	if (twl_lst_len(tokens) == 3)
+	twl_asprintf(&delimiter, "\n%s\n", new_token->text);
+	heredoc_text = twl_strnew(twl_strlen(t->curpos));
+	if (t->heredoc_pos > t->curpos)
 	{
-		ast_redir->io_number = twl_atoi(token_mgr_get(tokens, 0)->text);
+		pos = t->heredoc_pos;
 	}
-	if (twl_lst_len(tokens) >= 2)
+	else
 	{
-		ast_redir->operator = twl_strdup(token_mgr_get(tokens, -2)->text);
-		ast_redir->param = twl_strdup(token_mgr_get(tokens, -1)->text);
+		pos = t->curpos;
+		while (42)
+		{
+			if (*pos == '\n' || *pos == '\0')
+				break;
+			pos++;
+		}
+		if (*pos == '\n')
+			pos++;
 	}
-	last_token = token_mgr_get(tokens, -1);
-	if (last_token->heredoc_text)
+	while (*pos)
 	{
-		ast_redir->heredoc_text = twl_strdup(last_token->heredoc_text);
+		twl_strncat(heredoc_text, pos, 1);
+		if (twl_str_starts_with(pos, delimiter))
+			break ;
+		pos++;
 	}
-	return (ast_redir);
-	(void)ast;
+	new_token->heredoc_text = twl_strdup(heredoc_text);
+	t->heredoc_pos = pos + twl_strlen(delimiter);
+	free(heredoc_text);
+}
+
+void				tokenizer_delimit_handle_heredoc(t_tokenizer *t,
+														t_token *new_token)
+{
+	if (token_mgr_last_equ(t->tokens, "<<")
+		|| token_mgr_last_equ(t->tokens, "<<-"))
+	{
+		/* TODO: check delimiter is valid */
+		record_heredoc(t, new_token);
+	}
 }

@@ -12,8 +12,8 @@
 		char			*remaining_str; \
 		tokens = tokenizer_tokenize(input); \
 		tokens_list = token_mgr_extract_assignment(tokens); \
-		joined_str = token_mgr_strjoin(tokens_list); \
-		remaining_str = token_mgr_strjoin(tokens); \
+		joined_str = token_mgr_strjoin(tokens_list, "_"); \
+		remaining_str = token_mgr_strjoin(tokens, "_"); \
 		if (debug) \
 		{ \
 			token_mgr_print(tokens); \

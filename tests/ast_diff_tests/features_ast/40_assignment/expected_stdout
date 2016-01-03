@@ -3,23 +3,23 @@ compound_list
         ast_andor_item
             ast_pipe_item
                 ast_command
-                    ast_simple_command (echo)
+                    ast_simple_command (echo abc)
                         ast_assignment (xxx=yyy)
     ast_list_item (sep=\n)
         ast_andor_item
             ast_pipe_item
                 ast_command
-                    ast_simple_command (echo)
+                    ast_simple_command (echo abc)
                         ast_assignment (aa=11)
                         ast_assignment (bb=22)
     ast_list_item (sep=\n)
         ast_andor_item
             ast_pipe_item
                 ast_command
-                    ast_simple_command (=11)
+                    ast_simple_command (=11 bb=22 echo abc)
     ast_list_item (sep=\n)
         ast_andor_item
             ast_pipe_item
                 ast_command
-                    ast_simple_command (bb\=22)
+                    ast_simple_command (bb\=22 echo abc)
                         ast_assignment (aa=11)

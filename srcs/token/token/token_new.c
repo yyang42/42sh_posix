@@ -23,5 +23,6 @@ t_token				*token_new(char *text, int line, int col)
 	this->text = twl_strdup(text);
 	this->line = line;
 	this->col = col;
+	this->heredoc_text = NULL;
 	return (this);
 }

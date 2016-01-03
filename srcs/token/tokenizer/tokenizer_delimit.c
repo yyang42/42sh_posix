@@ -49,6 +49,7 @@ static t_token		*create_token(t_tokenizer *t)
 	token = token_new(twl_strdup(t->curtoken), t->cur_line, t->cur_col);
 	update_line_and_col(t);
 	set_prev_to_io_number_if_necessary(t, token);
+	tokenizer_delimit_handle_heredoc(t, token);
 	return (token);
 }
 
