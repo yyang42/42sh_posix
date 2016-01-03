@@ -20,8 +20,11 @@ static void			push_fn(void *tokens, void *segs)
 char				*token_list_mgr_strjoin(t_lst *tokens_list)
 {
 	t_lst			*segs;
+	char			*out;
 
 	segs = twl_lst_new();
 	twl_lst_iter(tokens_list, push_fn, segs);
-	return (twl_lst_strjoin(segs, " / "));
+	out = twl_lst_strjoin(segs, " / ");
+	twl_lst_del(segs, free);
+	return (out);
 }

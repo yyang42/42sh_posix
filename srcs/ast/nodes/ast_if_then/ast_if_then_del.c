@@ -15,7 +15,9 @@
 
 void				ast_if_then_del(t_ast_if_then *this)
 {
-	ast_compound_list_del(this->cond_compound);
-	ast_compound_list_del(this->then_compound);
+	if (this->cond_compound)
+		ast_compound_list_del(this->cond_compound);
+	if (this->then_compound)
+		ast_compound_list_del(this->then_compound);
 	free(this);
 }

@@ -23,6 +23,9 @@ t_ast_subshell	*ast_subshell_new_from_tokens(t_lst *tokens, struct s_ast *ast)
 	twl_lst_pop_back(ast_subshell->tokens);
 	ast_subshell->ast_compound_list = ast_compound_list_new_from_tokens(ast_subshell->tokens, ast);
 	if (ast_subshell->ast_compound_list == NULL)
+	{
+		ast_subshell_del(ast_subshell);
 		return (NULL);
+	}
 	return (ast_subshell);
 }

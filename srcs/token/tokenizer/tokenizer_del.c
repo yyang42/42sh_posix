@@ -15,5 +15,8 @@
 
 void				tokenizer_del(t_tokenizer *this)
 {
+	free(this->input);
+	free(this->curtoken);
+	free(this->curtokenplus);
 	free(this);
 }

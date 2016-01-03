@@ -10,12 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_pipe_item.h"
+#include "token/token_mgr.h"
 
-void				ast_pipe_item_del(t_ast_pipe_item *this)
+void				token_mgr_del_inner(t_lst *tokens)
 {
-	if (this->ast_command)
-		ast_command_del(this->ast_command);
-	twl_lst_del(this->tokens, NULL);
-	free(this);
+	twl_lst_del(tokens, token_del);
 }

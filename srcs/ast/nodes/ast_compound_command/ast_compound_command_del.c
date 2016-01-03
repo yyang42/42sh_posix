@@ -30,7 +30,8 @@ void				ast_compound_command_del(t_ast_compound_command *this)
 {
 	if (this->command_type != COMPOUND_COMMAND_NONE)
 	{
-		get_print_del_fns()[this->command_type](this->command);
+		if (this->command)
+			get_print_del_fns()[this->command_type](this->command);
 		twl_lst_del(this->redir_items, ast_redir_del_void);
 	}
 	free(this);

@@ -24,7 +24,6 @@ struct s_ast_compound_list;
 
 typedef struct		s_ast_if_clause
 {
-	t_lst						*tokens;
 	t_lst						*if_then_list;
 	struct s_ast_compound_list	*else_body;
 }					t_ast_if_clause;

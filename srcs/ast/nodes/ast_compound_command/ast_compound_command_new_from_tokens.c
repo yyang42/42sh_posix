@@ -65,7 +65,10 @@ t_ast_compound_command	*ast_compound_command_new_from_tokens(t_lst *tokens, stru
 	if (this->command_type != COMPOUND_COMMAND_NONE)
 	{
 		if (new_compound_command_do(this, tokens, ast) == -1)
+		{
+			ast_compound_command_del(this);
 			return (NULL);
+		}
 	}
 	return (this);
 }

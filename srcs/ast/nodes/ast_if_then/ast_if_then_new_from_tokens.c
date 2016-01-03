@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "token/token_list_mgr.h"
 #include "ast/ast.h"
 #include "ast/nodes/ast_if_then.h"
 
@@ -30,6 +31,7 @@ static int			build(t_ast_if_then *ast_if_then, struct s_ast *ast)
 	then_tokens = twl_lst_get(splits_split_then, 1);
 	ast_if_then->cond_compound = ast_compound_list_new_from_tokens(cond_tokens, ast);
 	ast_if_then->then_compound = ast_compound_list_new_from_tokens(then_tokens, ast);
+	token_list_mgr_del(splits_split_then);
 	return (0);
 }
 
@@ -40,6 +42,9 @@ t_ast_if_then	*ast_if_then_new_from_tokens(t_lst *tokens, struct s_ast *ast)
 	ast_if_then = ast_if_then_new();
 	ast_if_then->tokens = twl_lst_copy(tokens, NULL);
 	if (build(ast_if_then, ast) == -1)
+	{
+		ast_if_then_del(ast_if_then);
 		return (NULL);
+	}
 	return (ast_if_then);
 }

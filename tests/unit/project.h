@@ -29,7 +29,7 @@ void	reset_sandbox(void);
 # define mt_test_tokenizer(test_name, input, expected, debug) \
 	static void test_## test_name(t_test *test) \
 	{ \
-		t_lst		*tokens; \
+		t_lst			*tokens; \
 		char			*joined; \
 		tokens = tokenizer_tokenize(input); \
 		if (debug) \
@@ -39,6 +39,7 @@ void	reset_sandbox(void);
 		joined = token_mgr_strjoin(tokens, "_"); \
 		mt_assert(strcmp(joined, expected) == 0); \
 		free(joined); \
+		token_mgr_del(tokens); \
 	}
 
 # define mt_test_ast_error(test_name, input, expected, debug) \

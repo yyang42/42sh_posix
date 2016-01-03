@@ -45,6 +45,7 @@ t_lst				*tokenizer_tokenize(char *input)
 	t_rule_status	status;
 	t_tokenizer		*t;
 	int				i;
+	t_lst			*tokens;
 
 	t = tokenizer_new(input);
 	t->tokens = twl_lst_new();
@@ -63,5 +64,8 @@ t_lst				*tokenizer_tokenize(char *input)
 		if (status == RULE_STATUS_END_OF_INPUT)
 			break ;
 	}
-	return (t->tokens);
+	tokens = t->tokens;
+	t->tokens = NULL;
+	tokenizer_del(t);
+	return (tokens);
 }

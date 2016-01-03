@@ -56,10 +56,14 @@ t_ast_list_item		*ast_list_item_new_from_tokens(t_lst *tokens, t_token *sep, str
 		{
 			ast_set_error_msg_format(ast, token_mgr_last(tokens),
 				"Expected input after '%s' but found nothing", token_mgr_last(tokens)->text);
+			ast_list_item_del(ast_list_item);
 			return (NULL);
 		}
 		if (build_ast_list_item(ast_list_item, tokens_tmp, ast) == -1)
+		{
+			ast_list_item_del(ast_list_item);
 			return (NULL);
+		}
 	}
 	return (ast_list_item);
 }

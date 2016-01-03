@@ -55,10 +55,14 @@ t_ast_andor_item	*ast_andor_item_new_from_tokens(t_lst *tokens, t_token *sep, st
 		{
 			ast_set_error_msg_format(ast, token_mgr_last(tokens),
 				"Expected input after '|' but found nothing");
+			ast_andor_item_del(ast_andor_item);
 			return (NULL);
 		}
 		if (build_ast_list_item(ast_andor_item, tokens_tmp, ast) == -1)
+		{
+			ast_andor_item_del(ast_andor_item);
 			return (NULL);
+		}
 	}
 	return (ast_andor_item);
 }

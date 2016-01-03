@@ -58,6 +58,6 @@ t_lst				*token_mgr_extract_redir(t_lst *tokens)
 	twl_lst_clear(tokens, NULL);
 	tokens_list = twl_lst_new();
 	do_extract(tokens_copy, tokens_list, tokens);
-	(void)tokens_copy;
+	twl_lst_del(tokens_copy, NULL);
 	return (tokens_list);
 }
