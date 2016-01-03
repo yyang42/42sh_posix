@@ -16,12 +16,13 @@
 
 void				ast_simple_command_print_rec(t_ast_simple_command *this, int depth)
 {
-	char			*joined_tokens;
+	char			*command_str;
 
-	joined_tokens = token_mgr_strjoin(this->command_tokens, " ");
+	command_str = twl_str_truncate(
+		token_mgr_strjoin(this->command_tokens, " "), 20);
 	ast_print_indent(depth);
-	twl_printf("ast_simple_command (%s)\n", joined_tokens);
-	free(joined_tokens);
+	twl_printf("ast_simple_command (%s)\n", command_str);
+	free(command_str);
 	depth++;
 	ast_redir_print_rec_list(this->redir_items, depth);
 	ast_assignment_print_rec_list(this->assignment_items, depth);
