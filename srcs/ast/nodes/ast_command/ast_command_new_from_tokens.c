@@ -21,7 +21,6 @@ t_ast_command	*ast_command_new_from_tokens(t_lst *tokens, struct s_ast *ast)
 	t_ast_command		*ast_command;
 
 	ast_command = ast_command_new();
-	ast_command->tokens = twl_lst_copy(tokens, NULL);
 	if (ast_compound_command_get_type_from_tokens(tokens) == COMPOUND_COMMAND_NONE)
 	{
 		ast_command->command_type = COMMAND_SIMPLE_COMMAND;
