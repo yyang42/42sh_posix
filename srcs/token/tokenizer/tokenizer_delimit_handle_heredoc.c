@@ -39,9 +39,9 @@ static void			record_heredoc(t_tokenizer *t, t_token *new_token)
 	}
 	while (*pos)
 	{
+		twl_strncat(heredoc_text, pos, 1);
 		if (twl_str_starts_with(pos, delimiter))
 			break ;
-		twl_strncat(heredoc_text, pos, 1);
 		pos++;
 	}
 	new_token->heredoc_text = twl_strdup(heredoc_text);
