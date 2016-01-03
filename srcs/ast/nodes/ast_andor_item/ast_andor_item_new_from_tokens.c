@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "token/token_mgr.h"
+#include "token/token_list_mgr.h"
 
 #include "ast/ast.h"
 #include "ast/nodes/ast_andor_item.h"
@@ -41,7 +42,7 @@ static void				build_ast_list_item(
 	twl_lst_push(ast_andor_item->ast_pipe_items, ast_pipe_item);
 }
 
-static void			build_ast_list_item_fn(void *tokens_tmp,
+static void			build_ast_pipe_item_fn(void *tokens_tmp,
 	void *ast_andor_item, void *last_token, void *ast)
 {
 	if (ast_has_error(ast))
@@ -63,7 +64,8 @@ t_ast_andor_item	*ast_andor_item_new_from_tokens(t_lst *tokens, t_token *sep, st
 	ast_andor_item = ast_andor_item_new();
 	ast_andor_item->separator = sep;
 	tokens_list = token_mgr_split_by_one_sep(tokens, "|", true);
-	twl_lst_iter3(tokens_list, build_ast_list_item_fn, ast_andor_item, twl_lst_last(tokens), ast);
+	twl_lst_iter3(tokens_list, build_ast_pipe_item_fn, ast_andor_item, twl_lst_last(tokens), ast);
+	token_list_mgr_del(tokens_list);
 	if (ast_has_error(ast))
 	{
 		ast_andor_item_del(ast_andor_item);

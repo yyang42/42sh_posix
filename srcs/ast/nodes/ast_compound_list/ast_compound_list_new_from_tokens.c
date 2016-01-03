@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "token/token_list_mgr.h"
+
 #include "ast/ast.h"
 #include "data.h"
 
@@ -43,26 +45,32 @@ static int				build_ast_list_item(
 	return (0);
 }
 
+static void			build_children_fn(void *tokens_tmp,
+	void *this, void *ast)
+{
+	if (ast_has_error(ast))
+		return ;
+	if (twl_lst_len(tokens_tmp) == 0)
+		return ;
+	if (twl_lst_len(tokens_tmp) == 1
+		&& twl_strequ(token_mgr_first(tokens_tmp)->text, "\n"))
+		return ;
+	build_ast_list_item(this, tokens_tmp, ast);
+}
+
 t_ast_compound_list	*ast_compound_list_new_from_tokens(t_lst *tokens, struct s_ast *ast)
 {
-	t_ast_compound_list			*ast_compound_list;
+	t_ast_compound_list			*this;
 	t_lst						*tokens_list;
-	t_lst						*tokens_tmp;
 
 	tokens_list = token_mgr_split(tokens, data_separators(), true);
-	ast_compound_list = ast_compound_list_new();
-	while ((tokens_tmp = twl_lst_pop_front(tokens_list)))
+	this = ast_compound_list_new();
+	twl_lst_iter2(tokens_list, build_children_fn, this, ast);
+	token_list_mgr_del(tokens_list);
+	if (ast_has_error(ast))
 	{
-		if (twl_lst_len(tokens_tmp) == 0)
-			continue ;
-		if (twl_lst_len(tokens_tmp) == 1
-			&& twl_strequ(token_mgr_first(tokens_tmp)->text, "\n"))
-			continue ;
-		if (build_ast_list_item(ast_compound_list, tokens_tmp, ast) == -1)
-		{
-			ast_compound_list_del(ast_compound_list);
-			return (NULL);
-		}
+		ast_compound_list_del(this);
+		return (NULL);
 	}
-	return (ast_compound_list);
+	return (this);
 }

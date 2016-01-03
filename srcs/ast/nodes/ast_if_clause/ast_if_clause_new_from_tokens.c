@@ -27,10 +27,13 @@ static int			split_by_elif_fn(t_ast_if_clause *ast_if_clause, t_lst *elif_parts,
 	{
 		ast_if_then = ast_if_then_new_from_tokens(elif_tokens, ast);
 		if (ast_if_then == NULL)
+		{
+			token_list_mgr_del(splits_by_elif);
 			return (-1);
+		}
 		twl_lst_push(ast_if_clause->if_then_list, ast_if_then);
 	}
-	twl_lst_del(splits_by_elif, NULL);
+	token_list_mgr_del(splits_by_elif);
 	return (0);
 }
 

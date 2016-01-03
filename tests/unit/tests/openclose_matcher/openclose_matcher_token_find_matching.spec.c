@@ -30,7 +30,7 @@
 			printf("expected {%s}\n", expected); \
 		} \
 		mt_assert(strcmp(res, expected) == 0); \
-		token_mgr_del(tokens); \
+		token_mgr_del_inner(tokens); \
 		openclose_matcher_del(matcher); \
 		free(res); \
 	}

@@ -14,17 +14,18 @@
 #include "ast/ast.h"
 #include "ast/nodes/ast_if_then.h"
 
-static int			build(t_ast_if_then *ast_if_then, struct s_ast *ast)
+static int			build(t_ast_if_then *ast_if_then, t_lst *tokens, struct s_ast *ast)
 {
 	t_lst			*splits_split_then;
 	t_lst			*cond_tokens;
 	t_lst			*then_tokens;
 
-	splits_split_then = token_mgr_split_by_one_sep(ast_if_then->tokens, "then", false);
+	splits_split_then = token_mgr_split_by_one_sep(tokens, "then", false);
 	if (twl_lst_len(splits_split_then) != 2)
 	{
-		ast_set_error_msg_format(ast, token_mgr_first(ast_if_then->tokens),
+		ast_set_error_msg_format(ast, token_mgr_first(tokens),
 			"'then' token is expected but not found");
+		token_list_mgr_del(splits_split_then);
 		return (-1);
 	}
 	cond_tokens = twl_lst_get(splits_split_then, 0);
@@ -40,8 +41,7 @@ t_ast_if_then	*ast_if_then_new_from_tokens(t_lst *tokens, struct s_ast *ast)
 	t_ast_if_then		*ast_if_then;
 
 	ast_if_then = ast_if_then_new();
-	ast_if_then->tokens = twl_lst_copy(tokens, NULL);
-	if (build(ast_if_then, ast) == -1)
+	if (build(ast_if_then, tokens, ast) == -1)
 	{
 		ast_if_then_del(ast_if_then);
 		return (NULL);

@@ -17,6 +17,7 @@
 			printf("expected  {%s}\n", expected); \
 		} \
 		mt_assert(strcmp(actual, expected) == 0); \
+		token_mgr_del_inner(tokens); \
 		free(actual); \
 	}
 

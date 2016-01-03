@@ -39,7 +39,7 @@ void	reset_sandbox(void);
 		joined = token_mgr_strjoin(tokens, "_"); \
 		mt_assert(strcmp(joined, expected) == 0); \
 		free(joined); \
-		token_mgr_del(tokens); \
+		token_mgr_del_inner(tokens); \
 	}
 
 # define mt_test_ast_error(test_name, input, expected, debug) \

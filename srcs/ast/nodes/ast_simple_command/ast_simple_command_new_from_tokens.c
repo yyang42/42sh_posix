@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
+#include "token/token_list_mgr.h"
 #include "ast/ast.h"
 #include "ast/nodes/ast_assignment.h"
 #include "ast/nodes/ast_redir.h"
@@ -52,6 +52,8 @@ static void			build_tokens(t_ast_simple_command *this, t_lst *orig_tokens, struc
 	twl_lst_iter2(redir_tokens_groups, push_redir_fn, this->redir_items, ast);
 	twl_lst_iter2(assignment_tokens, push_asign_fn, this->assignment_items, ast);
 	twl_lst_del(tmp_tokens, NULL);
+	token_list_mgr_del(redir_tokens_groups);
+	token_list_mgr_del(assignment_tokens);
 }
 
 t_ast_simple_command	*ast_simple_command_new_from_tokens(t_lst *tokens, struct s_ast *ast)

@@ -27,7 +27,7 @@
 		mt_assert(strcmp(joined_str, expected) == 0); \
 		free(joined_str); \
 		free(remaining_str); \
-		token_mgr_del(tokens); \
+		token_mgr_del_inner(tokens); \
 		token_mgr_del(cpy); \
 		token_list_mgr_del(tokens_list); \
 	}
