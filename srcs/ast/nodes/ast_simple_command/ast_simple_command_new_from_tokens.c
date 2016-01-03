@@ -26,7 +26,6 @@ static void			push_asign_fn(void *assignment_token_, void *assignment_items, voi
 	twl_lst_push(assignment_items, ast_assignment_new_from_tokens(
 		twl_lst_get(segs, 0), twl_lst_get(segs, 1), ast));
 	twl_lst_del(segs, free);
-	(void)assignment_items;
 }
 
 static void			push_redir_fn(void *one_redir_tokens, void *redir_items, void *ast)
@@ -53,7 +52,7 @@ static void			build_tokens(t_ast_simple_command *this, t_lst *orig_tokens, struc
 	twl_lst_iter2(assignment_tokens, push_asign_fn, this->assignment_items, ast);
 	twl_lst_del(tmp_tokens, NULL);
 	token_list_mgr_del(redir_tokens_groups);
-	token_list_mgr_del(assignment_tokens);
+	twl_lst_del(assignment_tokens, NULL);
 }
 
 t_ast_simple_command	*ast_simple_command_new_from_tokens(t_lst *tokens, struct s_ast *ast)

@@ -15,7 +15,8 @@
 void				ast_assignment_print_rec(t_ast_assignment *ast_assignment, int depth)
 {
 	ast_print_indent(depth);
-	twl_printf("ast_assignment (%s=%s)\n", ast_assignment->key, ast_assignment->value);
+	twl_printf("ast_assignment (%s=%s)\n",
+		ast_assignment->key, ast_assignment->value ? ast_assignment->value : "");
 	depth++;
 	(void)ast_assignment;
 }
