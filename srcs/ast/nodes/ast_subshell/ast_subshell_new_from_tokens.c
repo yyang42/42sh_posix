@@ -25,6 +25,4 @@ t_ast_subshell	*ast_subshell_new_from_tokens(t_lst *tokens, struct s_ast *ast)
 	if (ast_subshell->ast_compound_list == NULL)
 		return (NULL);
 	return (ast_subshell);
-	(void)tokens;
-	(void)ast;
 }

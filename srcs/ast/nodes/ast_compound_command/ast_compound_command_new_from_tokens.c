@@ -61,7 +61,7 @@ t_ast_compound_command	*ast_compound_command_new_from_tokens(t_lst *tokens, stru
 	t_ast_compound_command		*this;
 
 	this = ast_compound_command_new();
-	this->command_type = compound_command_get_type_from_tokens(tokens);
+	this->command_type = ast_compound_command_get_type_from_tokens(tokens);
 	if (this->command_type != COMPOUND_COMMAND_NONE)
 	{
 		if (new_compound_command_do(this, tokens, ast) == -1)

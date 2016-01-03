@@ -10,13 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_subshell.h"
-#include "ast/nodes/ast_compound_list.h"
+#include "ast/nodes/ast_compound_command.h"
 
-void				ast_subshell_print_rec(t_ast_subshell *ast_subshell, int depth)
+t_compound_command_type	ast_compound_command_get_type_from_tokens(t_lst *tokens)
 {
-	ast_print_indent(depth);
-	twl_printf("ast_subshell\n");
-	depth++;
-	ast_compound_list_print_rec(ast_subshell->ast_compound_list, depth);
+	t_token			*first;
+
+	first = token_mgr_first(tokens);
+	if (twl_strequ(first->text, "("))
+		return (COMPOUND_COMMAND_SUBSHELL);
+	else if (first->type == TOKEN_IF)
+		return (COMPOUND_COMMAND_IF_CLAUSE);
+	else if (first->type == TOKEN_LBRACE)
+		return (COMPOUND_COMMAND_BRACE_GROUP);
+	return (COMPOUND_COMMAND_NONE);
 }

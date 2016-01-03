@@ -10,7 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "data.h"
 #include "openclose/openclose_matcher.h"
+
+static void			push_fn(void *compound_segs, void *matcher)
+{
+	openclose_matcher_add(
+		matcher, twl_lst_first(compound_segs), twl_lst_last(compound_segs));
+}
 
 t_openclose_matcher *openclose_matcher_singleton_parser(void)
 {
@@ -19,10 +26,7 @@ t_openclose_matcher *openclose_matcher_singleton_parser(void)
 	if (matcher == NULL)
 	{
 		matcher = openclose_matcher_new();
-		openclose_matcher_add(matcher, "(", ")");
-		openclose_matcher_add(matcher, "{", "}");
-		openclose_matcher_add(matcher, "if", "fi");
-		// openclose_matcher_add(matcher, "while", "done");
+		twl_lst_iter(data_compound_commands(), push_fn, matcher);
 	}
 	return (matcher);
 }

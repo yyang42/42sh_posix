@@ -18,7 +18,7 @@
 
 t_rule_status		tokenizer_apply_rule01_extra1(t_tokenizer *t)
 {
-	if (twl_strchr("()", *t->curpos))
+	if (twl_strchr("(){}", *t->curpos))
 	{
 		COUCOU;
 		tokenizer_delimit(t);
