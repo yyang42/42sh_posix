@@ -18,5 +18,7 @@ void				ast_simple_command_del(t_ast_simple_command *this)
 {
 	twl_lst_del(this->redir_items, ast_redir_del);
 	twl_lst_del(this->assignment_items, ast_assignment_del);
+	if (this->command_tokens)
+		twl_lst_del(this->command_tokens, NULL);
 	free(this);
 }

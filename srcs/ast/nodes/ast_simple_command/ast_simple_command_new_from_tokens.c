@@ -32,6 +32,8 @@ static void			push_redir_fn(void *one_redir_tokens, void *redir_items, void *ast
 {
 	t_ast_redir		*ast_redir;
 
+	if (ast_has_error(ast))
+		return ;
 	ast_redir = ast_redir_new_from_tokens(one_redir_tokens, ast);
 	if (ast_has_error(ast))
 		return ;
@@ -42,15 +44,16 @@ static void			build_tokens(t_ast_simple_command *this, t_lst *orig_tokens, struc
 {
 	t_lst			*redir_tokens_groups;
 	t_lst			*assignment_tokens;
-	t_lst			*tmp_tokens;
+	t_lst			*remaining_tokens;
 
-	tmp_tokens = twl_lst_copy(orig_tokens, NULL);
-	redir_tokens_groups = token_mgr_extract_redir(tmp_tokens);
-	assignment_tokens = token_mgr_extract_assignment(tmp_tokens);
-	this->command_tokens = twl_lst_copy(tmp_tokens, NULL);
+	remaining_tokens = twl_lst_new();
+	redir_tokens_groups = token_mgr_extract_redir(orig_tokens, remaining_tokens);
+	assignment_tokens = token_mgr_extract_assignment(remaining_tokens);
+	this->command_tokens = twl_lst_copy(remaining_tokens, NULL);
 	twl_lst_iter2(redir_tokens_groups, push_redir_fn, this->redir_items, ast);
-	twl_lst_iter2(assignment_tokens, push_asign_fn, this->assignment_items, ast);
-	twl_lst_del(tmp_tokens, NULL);
+	if (!ast_has_error(ast))
+		twl_lst_iter2(assignment_tokens, push_asign_fn, this->assignment_items, ast);
+	twl_lst_del(remaining_tokens, NULL);
 	token_list_mgr_del(redir_tokens_groups);
 	twl_lst_del(assignment_tokens, NULL);
 }
@@ -61,5 +64,10 @@ t_ast_simple_command	*ast_simple_command_new_from_tokens(t_lst *tokens, struct s
 
 	this = ast_simple_command_new();
 	build_tokens(this, tokens, ast);
+	if (ast_has_error(ast))
+	{
+		ast_simple_command_del(this);
+		return (NULL);
+	}
 	return (this);
 }

@@ -50,15 +50,15 @@ static void			do_extract(t_lst *tokens, t_lst *tokens_list, t_lst *remaining_tok
 	}
 }
 
-t_lst				*token_mgr_extract_redir(t_lst *tokens)
+t_lst				*token_mgr_extract_redir(t_lst *tokens,
+													t_lst *remaining_tokens)
 {
 	t_lst			*tokens_list;
 	t_lst			*tokens_copy;
 
 	tokens_copy = twl_lst_copy(tokens, NULL);
-	twl_lst_clear(tokens, NULL);
 	tokens_list = twl_lst_new();
-	do_extract(tokens_copy, tokens_list, tokens);
+	do_extract(tokens_copy, tokens_list, remaining_tokens);
 	twl_lst_del(tokens_copy, NULL);
 	return (tokens_list);
 }

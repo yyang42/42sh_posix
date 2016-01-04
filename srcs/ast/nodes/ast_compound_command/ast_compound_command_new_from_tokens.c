@@ -23,8 +23,8 @@ static int			build_redir_tokens(t_lst *redir_items, t_lst *orig_redir_tokens, st
 	t_lst			*cur_redir_tokens;
 	t_ast_redir		*redir;
 
-	redir_tokens = twl_lst_copy(orig_redir_tokens, NULL);
-	redir_tokens_groups = token_mgr_extract_redir(redir_tokens);
+	redir_tokens = twl_lst_new();
+	redir_tokens_groups = token_mgr_extract_redir(orig_redir_tokens, redir_tokens);
 	while ((cur_redir_tokens = twl_lst_pop_front(redir_tokens_groups)))
 	{
 		redir = ast_redir_new_from_tokens(cur_redir_tokens, ast);
