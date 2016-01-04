@@ -8,6 +8,7 @@ C_CLEAR="\033[0m"
 BASEDIR=$(dirname $0)
 ROOTDIR="$BASEDIR/.."
 LOGFILE=$ROOTDIR/.tmp/valgrind.log
+make check_unit
 valgrind --leak-check=full --num-callers=40 --log-file="$LOGFILE" $BASEDIR/../tests/unit/test.out
 cat $LOGFILE
 
