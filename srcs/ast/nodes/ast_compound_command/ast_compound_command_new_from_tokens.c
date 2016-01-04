@@ -16,22 +16,26 @@
 #include "ast/ast.h"
 #include "token/token_list_mgr.h"
 
+static void			build_redir_fn(void *redir_tokens, void *redir_items, void *ast)
+{
+	t_ast_redir		*redir;
+
+	if (ast_has_error(ast))
+		return ;
+	redir = ast_redir_new_from_tokens(redir_tokens, ast);
+	if (ast_has_error(ast))
+		return ;
+	twl_lst_push(redir_items, redir);
+}
+
 static int			build_redir_tokens(t_lst *redir_items, t_lst *orig_redir_tokens, struct s_ast *ast)
 {
 	t_lst			*redir_tokens_groups;
 	t_lst			*redir_tokens;
-	t_lst			*cur_redir_tokens;
-	t_ast_redir		*redir;
 
 	redir_tokens = twl_lst_new();
 	redir_tokens_groups = token_mgr_extract_redir(orig_redir_tokens, redir_tokens);
-	while ((cur_redir_tokens = twl_lst_pop_front(redir_tokens_groups)))
-	{
-		redir = ast_redir_new_from_tokens(cur_redir_tokens, ast);
-		if (redir == NULL)
-			return (-1);
-		twl_lst_push(redir_items, redir);
-	}
+	twl_lst_iter2(redir_tokens_groups, build_redir_fn, redir_items, ast);
 	twl_lst_del(redir_tokens, NULL);
 	token_list_mgr_del(redir_tokens_groups);
 	return (0);
