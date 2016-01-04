@@ -14,5 +14,6 @@
 
 void				xopt_del(t_xopt *xopt)
 {
+	twl_opt_del(xopt->opt);
 	free(xopt);
 }

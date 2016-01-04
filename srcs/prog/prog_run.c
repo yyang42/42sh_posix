@@ -53,4 +53,5 @@ void				prog_run(t_prog *prog)
 		environment_del(env);
 		(void)prog;
 	}
+	free(input);
 }
