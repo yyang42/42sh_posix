@@ -14,6 +14,7 @@
 # define AST_H
 
 # include "basics.h"
+# include "execute.h"
 
 # include "parser.h"
 # include "ast/ast_defines.h"

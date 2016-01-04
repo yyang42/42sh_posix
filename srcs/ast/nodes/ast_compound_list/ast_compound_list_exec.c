@@ -12,6 +12,10 @@
 
 #include <ast/nodes/ast_compound_list.h>
 
+/*
+** TODO: @Julien <- job control begin here !
+*/
+
 static void		iter_fn(void *ast_list_item, void *context)
 {
 	int			*ret;
