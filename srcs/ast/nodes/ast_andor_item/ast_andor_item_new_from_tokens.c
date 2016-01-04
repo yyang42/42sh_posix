@@ -19,16 +19,16 @@
 
 static void				build_ast_list_item(
 								t_ast_andor_item *ast_andor_item,
-								t_lst *tokens_tmp,
+								t_lst *tokens,
 								struct s_ast *ast)
 {
 	t_token						*sep;
 	t_ast_pipe_item				*ast_pipe_item;
 
 	sep = NULL;
-	if (token_mgr_last_equ(tokens_tmp, "|"))
-		sep = twl_lst_pop(tokens_tmp);
-	if (twl_lst_len(tokens_tmp) == 0)
+	if (token_mgr_last_equ(tokens, "|"))
+		sep = twl_lst_pop(tokens);
+	if (twl_lst_len(tokens) == 0)
 	{
 		if (sep)
 			ast_set_error_msg_format(ast, sep, "Unexpected token '%s'", sep->text);
@@ -36,7 +36,7 @@ static void				build_ast_list_item(
 			ast_set_error_msg_syntax_error(ast);
 		return ;
 	}
-	ast_pipe_item = ast_pipe_item_new_from_tokens(tokens_tmp, sep, ast);
+	ast_pipe_item = ast_pipe_item_new_from_tokens(tokens, sep, ast);
 	if (ast_pipe_item == NULL)
 		return ;
 	twl_lst_push(ast_andor_item->ast_pipe_items, ast_pipe_item);

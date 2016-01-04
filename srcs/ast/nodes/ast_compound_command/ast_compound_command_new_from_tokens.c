@@ -37,7 +37,7 @@ static int			build_redir_tokens(t_lst *redir_items, t_lst *orig_redir_tokens, st
 	return (0);
 }
 
-static int			new_compound_command_do(t_ast_compound_command *this, t_lst *tokens, struct s_ast *ast)
+static void			new_compound_command_do(t_ast_compound_command *this, t_lst *tokens, struct s_ast *ast)
 {
 	int						pos;
 	t_openclose_matcher		*matcher;
@@ -50,18 +50,16 @@ static int			new_compound_command_do(t_ast_compound_command *this, t_lst *tokens
 	{
 		ast_set_error_msg_format(ast, token_mgr_first(tokens),
 				"Closing token for '%s' not found", token_mgr_first(tokens)->text);
-		return (-1);
+		return ;
 	}
 	command_tokens = twl_lst_slice(tokens, 0, pos);
-	redir_tokens = twl_lst_slice(tokens, pos, twl_lst_len(tokens));
 	this->command = compound_command_from_token_fns()[this->command_type](command_tokens, ast);
 	twl_lst_del(command_tokens, NULL);
-	if (this->command == NULL)
-		return (-1);
-	if (build_redir_tokens(this->redir_items, redir_tokens, ast) == -1)
-		return (-1);
+	if (ast_has_error(ast))
+		return ;
+	redir_tokens = twl_lst_slice(tokens, pos, twl_lst_len(tokens));
+	build_redir_tokens(this->redir_items, redir_tokens, ast);
 	twl_lst_del(redir_tokens, NULL);
-	return (0);
 }
 
 t_ast_compound_command	*ast_compound_command_new_from_tokens(t_lst *tokens, struct s_ast *ast)
@@ -72,7 +70,8 @@ t_ast_compound_command	*ast_compound_command_new_from_tokens(t_lst *tokens, stru
 	this->command_type = ast_compound_command_get_type_from_tokens(tokens);
 	if (this->command_type != COMPOUND_COMMAND_NONE)
 	{
-		if (new_compound_command_do(this, tokens, ast) == -1)
+		new_compound_command_do(this, tokens, ast);
+		if (ast_has_error(ast))
 		{
 			ast_compound_command_del(this);
 			return (NULL);

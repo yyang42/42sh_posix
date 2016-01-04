@@ -23,7 +23,7 @@
 		mt_assert(strcmp(joined_str, expected) == 0); \
 		free(joined_str); \
 		twl_lst_del(split_strings, free); \
-		twl_lst_del(tokens, free); \
+		token_mgr_del_inner(tokens); \
 		token_list_mgr_del(tokens_list); \
 	}
 

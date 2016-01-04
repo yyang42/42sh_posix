@@ -17,6 +17,5 @@ t_ast_subshell			*ast_subshell_new(void)
 	t_ast_subshell		*ast_subshell;
 
 	ast_subshell = twl_malloc_x0(sizeof(t_ast_subshell));
-	ast_subshell->tokens = twl_lst_new();
 	return (ast_subshell);
 }

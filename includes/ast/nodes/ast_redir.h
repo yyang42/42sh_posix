@@ -24,7 +24,6 @@
 
 typedef struct		s_ast_redir
 {
-	t_lst			*tokens;
 	int				io_number;
 	char			*operator;
 	char			*param;

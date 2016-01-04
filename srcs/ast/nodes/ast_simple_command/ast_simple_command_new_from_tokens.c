@@ -44,16 +44,19 @@ static void			build_tokens(t_ast_simple_command *this, t_lst *orig_tokens, struc
 {
 	t_lst			*redir_tokens_groups;
 	t_lst			*assignment_tokens;
-	t_lst			*remaining_tokens;
+	t_lst			*remaining_of_redir_tokens;
+	t_lst			*remaining_of_assign_tokens;
 
-	remaining_tokens = twl_lst_new();
-	redir_tokens_groups = token_mgr_extract_redir(orig_tokens, remaining_tokens);
-	assignment_tokens = token_mgr_extract_assignment(remaining_tokens);
-	this->command_tokens = twl_lst_copy(remaining_tokens, NULL);
+	remaining_of_redir_tokens = twl_lst_new();
+	remaining_of_assign_tokens = twl_lst_new();
+	redir_tokens_groups = token_mgr_extract_redir(orig_tokens, remaining_of_redir_tokens);
+	assignment_tokens = token_mgr_extract_assignment(remaining_of_redir_tokens, remaining_of_assign_tokens);
+	this->command_tokens = twl_lst_copy(remaining_of_assign_tokens, NULL);
 	twl_lst_iter2(redir_tokens_groups, push_redir_fn, this->redir_items, ast);
 	if (!ast_has_error(ast))
 		twl_lst_iter2(assignment_tokens, push_asign_fn, this->assignment_items, ast);
-	twl_lst_del(remaining_tokens, NULL);
+	twl_lst_del(remaining_of_redir_tokens, NULL);
+	twl_lst_del(remaining_of_assign_tokens, NULL);
 	token_list_mgr_del(redir_tokens_groups);
 	twl_lst_del(assignment_tokens, NULL);
 }

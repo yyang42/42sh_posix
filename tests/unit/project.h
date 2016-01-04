@@ -23,7 +23,7 @@
 # include <stdbool.h>
 
 char	*get_cmd_out(const char *cmd);
-char	*sandbox_cmd(const char *cmd);
+void	sandbox_cmd(const char *cmd);
 void	reset_sandbox(void);
 
 # define mt_test_tokenizer(test_name, input, expected, debug) \

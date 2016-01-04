@@ -51,15 +51,14 @@ static void			do_extract(t_lst *tokens, t_lst *assign_tokens, t_lst *remaining_t
 	}
 }
 
-t_lst				*token_mgr_extract_assignment(t_lst *tokens)
+t_lst				*token_mgr_extract_assignment(t_lst *tokens, t_lst *remaining_tokens)
 {
 	t_lst			*assign_tokens;
 	t_lst			*tokens_copy;
 
 	tokens_copy = twl_lst_copy(tokens, NULL);
-	twl_lst_clear(tokens, NULL);
 	assign_tokens = twl_lst_new();
-	do_extract(tokens_copy, assign_tokens, tokens);
-	(void)tokens_copy;
+	do_extract(tokens_copy, assign_tokens, remaining_tokens);
+	twl_lst_del(tokens_copy, NULL);
 	return (assign_tokens);
 }

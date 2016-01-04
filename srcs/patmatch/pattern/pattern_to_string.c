@@ -19,17 +19,14 @@ static void			iter_to_string(void *data_, void *ret_)
 
 	data = data_;
 	ret = ret_;
-	if (!*ret)
-		*ret = twl_strdup(data->split);
-	else
-		*ret = twl_strjoinfree(*ret, data->split, 'l');
+	*ret = twl_strjoinfree(*ret, data->split, 'l');
 }
 
 char				*pattern_to_string(t_pattern *this)
 {
 	char			*ret;
 
-	ret = NULL;
+	ret = twl_strdup("");
 	twl_lst_iter(this->split, &iter_to_string, &ret);
 	return (ret);
 }

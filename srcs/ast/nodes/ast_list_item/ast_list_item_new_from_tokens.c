@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "token/token_list_mgr.h"
+#include "token/token_mgr.h"
 #include "ast/nodes/ast_list_item.h"
 #include "ast/ast.h"
 #include "data.h"

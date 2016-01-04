@@ -22,7 +22,6 @@ t_ast_redir	*ast_redir_new_from_tokens(t_lst *tokens, struct s_ast *ast)
 	t_token			*last_token;
 
 	ast_redir = ast_redir_new();
-	ast_redir->tokens = twl_lst_copy(tokens, NULL);
 	if (twl_lst_len(tokens) == 3)
 	{
 		ast_redir->io_number = twl_atoi(token_mgr_get(tokens, 0)->text);

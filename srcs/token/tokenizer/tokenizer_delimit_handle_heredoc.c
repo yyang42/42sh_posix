@@ -47,6 +47,7 @@ static void			record_heredoc(t_tokenizer *t, t_token *new_token)
 	new_token->heredoc_text = twl_strdup(heredoc_text);
 	t->heredoc_pos = pos + twl_strlen(delimiter);
 	free(heredoc_text);
+	free(delimiter);
 }
 
 void				tokenizer_delimit_handle_heredoc(t_tokenizer *t,
@@ -55,7 +56,7 @@ void				tokenizer_delimit_handle_heredoc(t_tokenizer *t,
 	if (token_mgr_last_equ(t->tokens, "<<")
 		|| token_mgr_last_equ(t->tokens, "<<-"))
 	{
-		/* TODO: check delimiter is valid */
+		/* TODO: check delimiter is composed of valid chars */
 		record_heredoc(t, new_token);
 	}
 }

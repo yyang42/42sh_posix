@@ -21,7 +21,6 @@ t_rule_status		tokenizer_apply_rule07(t_tokenizer *t)
 {
 	if (!t->cur_is_quoted && *t->curpos == '\n')
 	{
-		COUCOU;
 		tokenizer_delimit(t);
 		tokenizer_append_to_curtoken(t, 1);
 		t->curpos++;

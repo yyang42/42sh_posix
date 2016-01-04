@@ -23,7 +23,6 @@
 struct s_ast_compound_list;
 typedef struct					s_ast_brace_group
 {
-	t_lst						*tokens;
 	struct s_ast_compound_list	*ast_compound_list;
 }								t_ast_brace_group;
 

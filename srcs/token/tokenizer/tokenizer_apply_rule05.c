@@ -60,10 +60,7 @@ t_rule_status		tokenizer_apply_rule05(t_tokenizer *t)
 	if (!t->cur_is_quoted
 		&& is_start_candidate(*t->curpos))
 	{
-		COUCOU;
-		// found = tokenizer_utils_find_closing_plus(t->curpos);
 		found = match(t->curpos);
-		(void)match;
 		if (!found)
 			found = t->curpos + twl_strlen(t->curpos);
 		tokenizer_append_to_curtoken(t, found - t->curpos);

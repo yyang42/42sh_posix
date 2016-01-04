@@ -20,7 +20,6 @@ t_rule_status		tokenizer_apply_rule01_extra1(t_tokenizer *t)
 {
 	if (twl_strchr("(){}", *t->curpos))
 	{
-		COUCOU;
 		tokenizer_delimit(t);
 		tokenizer_append_to_curtoken(t, 1);
 		t->curpos++;

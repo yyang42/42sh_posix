@@ -24,7 +24,6 @@ t_rule_status		tokenizer_apply_rule08(t_tokenizer *t)
 {
 	if (!t->cur_is_quoted && twl_isblank(*t->curpos))
 	{
-		COUCOU;
 		tokenizer_delimit(t);
 		t->curpos++;
 		t->cur_col++;
