@@ -10,11 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_assignment.h"
 
-void				ast_assignment_del(t_ast_assignment *this)
+#include "ast/ast.h"
+
+bool				ast_has_error(t_ast *this)
 {
-	free(this->key);
-	free(this->value);
-	free(this);
+	return (this->error_msg);
 }

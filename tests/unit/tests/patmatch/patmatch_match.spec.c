@@ -1,7 +1,8 @@
 #include <project.h>
 #include "patmatch.h"
 
-#define PATMATCH_TEST(str, nb, sret) {								\
+#define PATMATCH_TEST(str, nb, sret) 								\
+{																	\
 	t_patmatch	*tmp = patmatch_new();								\
 	t_lst		*lst = patmatch_match(tmp, str);					\
 	mt_assert(strcmp(twl_lst_get(lst, nb), sret) == 0);				\
@@ -9,7 +10,8 @@
 	patmatch_del(tmp);												\
 }
 
-#define PATMATCH_NULL(str, nb) {									\
+#define PATMATCH_NULL(str, nb) 										\
+{																	\
 	t_patmatch	*tmp = patmatch_new();								\
 	t_lst		*lst = patmatch_match(tmp, str);					\
 	mt_assert(twl_lst_get(lst, nb) == NULL);						\
@@ -79,11 +81,11 @@ static void	test_middle_asterisk(t_test *test)
 	PATMATCH_TEST("/tmp/sandbox/*/*", 0, "/tmp/sandbox/test0/test1");
 	PATMATCH_TEST("/tmp/sandbox/*/*", 1, "/tmp/sandbox/test1/test1");
 	PATMATCH_TEST("/tmp/sandbox/*/*", 2, "/tmp/sandbox/test3/test1");
-	PATMATCH_NULL("/tmp/sandbox/*/*", 3); 
+	PATMATCH_NULL("/tmp/sandbox/*/*", 3);
 	PATMATCH_TEST("/tmp/sandbox/.*/t*2", 0, "/tmp/sandbox/./test2");
 	PATMATCH_TEST("/tmp/sandbox/.*/t*2", 1, "/tmp/sandbox/.test0/test2");
 	PATMATCH_TEST("/tmp/sandbox/.*/t*2", 2, "/tmp/sandbox/.test1/test2");
-	PATMATCH_NULL("/tmp/sandbox/.*/t*2", 3); 
+	PATMATCH_NULL("/tmp/sandbox/.*/t*2", 3);
 	PATMATCH_TEST("\"/tmp/sandbox/.*/t*2\"", 0, "/tmp/sandbox/.*/t*2");
 }
 

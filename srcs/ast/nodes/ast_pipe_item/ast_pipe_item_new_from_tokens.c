@@ -23,6 +23,9 @@ t_ast_pipe_item	*ast_pipe_item_new_from_tokens(t_lst *tokens, t_token *separator
 	ast_pipe_item->separator = separator;
 	ast_pipe_item->ast_command = ast_command_new_from_tokens(tokens, ast);
 	if (ast_pipe_item->ast_command == NULL)
+	{
+		ast_pipe_item_del(ast_pipe_item);
 		return (NULL);
+	}
 	return (ast_pipe_item);
 }

@@ -15,5 +15,10 @@
 
 void				ast_del(t_ast *this)
 {
+	token_mgr_del_inner(this->tokens);
+	if (this->compound_list)
+		ast_compound_list_del(this->compound_list);
+	if (this->error_msg)
+		free(this->error_msg);
 	free(this);
 }

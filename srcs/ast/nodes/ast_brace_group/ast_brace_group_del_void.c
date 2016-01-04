@@ -10,11 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_assignment.h"
+#include "ast/nodes/ast_brace_group.h"
 
-void				ast_assignment_del(t_ast_assignment *this)
+void				ast_brace_group_del_void(void *this)
 {
-	free(this->key);
-	free(this->value);
-	free(this);
+	ast_brace_group_del(this);
 }

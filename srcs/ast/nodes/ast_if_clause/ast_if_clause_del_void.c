@@ -10,11 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_assignment.h"
+#include "ast/nodes/ast_if_clause.h"
 
-void				ast_assignment_del(t_ast_assignment *this)
+void				ast_if_clause_del_void(void *this)
 {
-	free(this->key);
-	free(this->value);
-	free(this);
+	ast_if_clause_del(this);
 }

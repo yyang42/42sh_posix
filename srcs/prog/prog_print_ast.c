@@ -27,6 +27,6 @@ int					prog_print_ast(t_prog *prog, char *input)
 	}
 	ast_print_rec(ast);
 	ast_del(ast);
-	(void)prog;
 	return (0);
+	(void)prog;
 }

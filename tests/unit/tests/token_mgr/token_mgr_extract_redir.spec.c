@@ -8,12 +8,14 @@
 	{ \
 		t_lst			*tokens_list; \
 		t_lst			*tokens; \
+		t_lst			*remaining_tokens; \
 		char			*joined_str; \
 		char			*remaining_str; \
 		tokens = tokenizer_tokenize(input); \
-		tokens_list = token_mgr_extract_redir(tokens); \
+		remaining_tokens = twl_lst_new(); \
+		tokens_list = token_mgr_extract_redir(tokens, remaining_tokens); \
 		joined_str = token_list_mgr_strjoin(tokens_list); \
-		remaining_str = token_mgr_strjoin(tokens, "_"); \
+		remaining_str = token_mgr_strjoin(remaining_tokens, "_"); \
 		if (debug) \
 		{ \
 			token_mgr_print(tokens); \
@@ -24,8 +26,10 @@
 		} \
 		mt_assert(strcmp(joined_str, expected) == 0); \
 		free(joined_str); \
-		twl_lst_del(tokens, free); \
-		twl_lst_del(tokens_list, NULL); \
+		free(remaining_str); \
+		token_mgr_del_inner(tokens); \
+		token_mgr_del(remaining_tokens); \
+		token_list_mgr_del(tokens_list); \
 	}
 
 mt_test_token_mgr_extract_redir(num1,

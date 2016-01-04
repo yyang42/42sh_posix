@@ -12,7 +12,13 @@
 
 #include "ast/nodes/ast_redir.h"
 
-void				ast_redir_del(t_ast_redir *ast_redir)
+void				ast_redir_del(t_ast_redir *this)
 {
-	free(ast_redir);
+	if (this->operator)
+		free(this->operator);
+	if (this->param)
+		free(this->param);
+	if (this->heredoc_text)
+		free(this->heredoc_text);
+	free(this);
 }

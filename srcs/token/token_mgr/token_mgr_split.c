@@ -69,6 +69,6 @@ t_lst				*token_mgr_split(t_lst *tokens, t_lst *split_strings,
 	tokens_copy = twl_lst_copy(tokens, NULL);
 	tokens_list = twl_lst_new();
 	do_split(tokens_copy, tokens_list, split_strings, keep_delimiter);
+	token_mgr_del(tokens_copy);
 	return (tokens_list);
-	(void)keep_delimiter;
 }

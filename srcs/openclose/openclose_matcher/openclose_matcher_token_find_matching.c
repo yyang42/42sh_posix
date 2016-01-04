@@ -47,12 +47,14 @@ int					openclose_matcher_token_find_matching(
 	t_lst			*stack;
 	t_lst			*tokens_copy;
 	t_token			*token;
+	int				ret;
 
+	ret = -1;
 	token = token_mgr_first(tokens);
 	if (!token
 		|| !twl_lst_find(matcher->oc_pairs, find_open_start_fn, token->text))
 	{
-		return (-1);
+		return (ret);
 	}
 	stack = twl_lst_new();
 	tokens_copy = twl_lst_copy(tokens, NULL);
@@ -61,10 +63,11 @@ int					openclose_matcher_token_find_matching(
 		resolve(matcher, stack, tokens_copy, token);
 		if (twl_lst_len(stack) == 0)
 		{
-			twl_lst_del(stack, NULL);
-			return (twl_lst_len(tokens) - twl_lst_len(tokens_copy));
+			ret = twl_lst_len(tokens) - twl_lst_len(tokens_copy);
+			break ;
 		}
 	}
 	twl_lst_del(stack, NULL);
-	return (-1);
+	twl_lst_del(tokens_copy, NULL);
+	return (ret);
 }

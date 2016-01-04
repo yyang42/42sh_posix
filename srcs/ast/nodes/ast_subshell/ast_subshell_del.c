@@ -10,9 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ast/nodes/ast_compound_list.h"
+
 #include "ast/nodes/ast_subshell.h"
 
-void				ast_subshell_del(t_ast_subshell *ast_subshell)
+void				ast_subshell_del(t_ast_subshell *this)
 {
-	free(ast_subshell);
+	if (this->ast_compound_list)
+		ast_compound_list_del(this->ast_compound_list);
+	free(this);
 }

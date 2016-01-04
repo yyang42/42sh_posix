@@ -23,8 +23,8 @@
 		mt_assert(strcmp(joined_str, expected) == 0); \
 		free(joined_str); \
 		twl_lst_del(split_strings, free); \
-		twl_lst_del(tokens, free); \
-		twl_lst_del(tokens_list, NULL); \
+		token_mgr_del_inner(tokens); \
+		token_list_mgr_del(tokens_list); \
 	}
 
 mt_test_token_mgr_split(num1, "echo 1;echo 2", ";",

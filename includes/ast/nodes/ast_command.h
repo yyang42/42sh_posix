@@ -31,7 +31,6 @@ typedef enum		s_command_type
 
 typedef struct		s_ast_command
 {
-	t_lst			*tokens;
 	t_command_type	command_type;
 	void			*command;
 }					t_ast_command;

@@ -17,6 +17,5 @@ t_ast_command			*ast_command_new(void)
 	t_ast_command		*ast_command;
 
 	ast_command = twl_malloc_x0(sizeof(t_ast_command));
-	ast_command->tokens = twl_lst_new();
 	return (ast_command);
 }

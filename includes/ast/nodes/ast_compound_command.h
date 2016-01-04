@@ -19,6 +19,7 @@
 # include "ast/ast_utils.h"
 # include "ast/ast_defines.h"
 
+# include "ast/nodes/ast_redir.h"
 # include "ast/nodes/ast_subshell.h"
 # include "ast/nodes/ast_if_clause.h"
 # include "ast/nodes/ast_brace_group.h"
@@ -50,6 +51,7 @@ bool						ast_compound_command_is_own_type(t_lst *tokens);
 
 typedef void *(*t_compound_command_new_from_token_fn)(t_lst *tokens, struct s_ast *ast);
 typedef void (*t_compound_command_print_rec_fn)(void *command, int depth);
+typedef void (*t_compound_command_print_del_fn)(void *command);
 
 t_compound_command_new_from_token_fn *compound_command_from_token_fns(void);
 t_compound_command_type	ast_compound_command_get_type_from_tokens(t_lst *tokens);

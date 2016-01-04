@@ -10,11 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_assignment.h"
+#include "token/token_mgr.h"
 
-void				ast_assignment_del(t_ast_assignment *this)
+void				token_mgr_del_inner(t_lst *tokens)
 {
-	free(this->key);
-	free(this->value);
-	free(this);
+	twl_lst_del(tokens, token_del);
 }

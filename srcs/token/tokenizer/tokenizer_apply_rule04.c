@@ -54,7 +54,6 @@ t_rule_status		tokenizer_apply_rule04(t_tokenizer *t)
 	if (!t->cur_is_quoted
 		&& is_start_of_quote(*t->curpos))
 	{
-		COUCOU;
 		// found = tokenizer_utils_find_closing_plus(t->curpos);
 		found = match(t->curpos);
 		if (!found)

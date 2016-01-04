@@ -23,12 +23,12 @@
 struct s_ast_compound_list;
 typedef struct					s_ast_brace_group
 {
-	t_lst						*tokens;
 	struct s_ast_compound_list	*ast_compound_list;
 }								t_ast_brace_group;
 
 t_ast_brace_group	*ast_brace_group_new(void);
 void				ast_brace_group_del(t_ast_brace_group *ast_brace_group);
+void				ast_brace_group_del_void(void *this);
 
 t_ast_brace_group	*ast_brace_group_new_from_tokens(t_lst *tokens, struct s_ast *ast);
 void				*ast_brace_group_new_from_tokens_void(t_lst *tokens, struct s_ast *ast);

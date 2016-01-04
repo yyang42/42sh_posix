@@ -36,7 +36,8 @@ static void			do_extract(t_lst *tokens, t_lst *tokens_list, t_lst *remaining_tok
 			if (twl_str_is_pos_num(token->text))
 				twl_lst_push_back(redir, twl_lst_pop_front(tokens));
 			twl_lst_push_back(redir, twl_lst_pop_front(tokens));
-			if (twl_lst_len(tokens))
+			if (twl_lst_len(tokens)
+				&& !str_is_redir_operator(token_mgr_first(tokens)->text))
 			{
 				twl_lst_push_back(redir, twl_lst_pop_front(tokens));
 			}
@@ -49,15 +50,15 @@ static void			do_extract(t_lst *tokens, t_lst *tokens_list, t_lst *remaining_tok
 	}
 }
 
-t_lst				*token_mgr_extract_redir(t_lst *tokens)
+t_lst				*token_mgr_extract_redir(t_lst *tokens,
+													t_lst *remaining_tokens)
 {
 	t_lst			*tokens_list;
 	t_lst			*tokens_copy;
 
 	tokens_copy = twl_lst_copy(tokens, NULL);
-	twl_lst_clear(tokens, NULL);
 	tokens_list = twl_lst_new();
-	do_extract(tokens_copy, tokens_list, tokens);
-	(void)tokens_copy;
+	do_extract(tokens_copy, tokens_list, remaining_tokens);
+	twl_lst_del(tokens_copy, NULL);
 	return (tokens_list);
 }

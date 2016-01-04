@@ -24,7 +24,6 @@ t_rule_status		tokenizer_apply_rule02(t_tokenizer *t)
 	if (!t->cur_is_quoted
 		&& tokenizer_utils_can_form_operator(t, t->curtokenplus))
 	{
-		COUCOU;
 		tokenizer_append_to_curtoken(t, 1);
 		t->curpos++;
 		return (RULE_STATUS_APPLIED);

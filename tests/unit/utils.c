@@ -29,7 +29,12 @@ char	*get_cmd_out(const char *cmd)
 	return (out);
 }
 
-char	*sandbox_cmd(const char *cmd)
+void	exec_cmd(const char *cmd)
+{
+	free(get_cmd_out(cmd));
+}
+
+void	sandbox_cmd(const char *cmd)
 {
 	char full_cmd[MAX_CMD_SIZE];
 
@@ -39,12 +44,12 @@ char	*sandbox_cmd(const char *cmd)
 	strcat(full_cmd, cmd);
 	if(debug)
 		strcat(full_cmd, " 1>&2");
-	return get_cmd_out(full_cmd);
+	exec_cmd(full_cmd);
 }
 
 void	reset_sandbox()
 {
-	get_cmd_out("chmod -Rf 777 /tmp/sandbox 2> /dev/null");
-	get_cmd_out("rm -rf /tmp/sandbox");
-	get_cmd_out("mkdir /tmp/sandbox ");
+	exec_cmd("chmod -Rf 777 /tmp/sandbox 2> /dev/null");
+	exec_cmd("rm -rf /tmp/sandbox");
+	exec_cmd("mkdir /tmp/sandbox ");
 }

@@ -24,7 +24,6 @@ t_rule_status		tokenizer_apply_rule01(t_tokenizer *this)
 {
 	if (*this->curpos == '\0')
 	{
-		COUCOU;
 		if (*this->curtoken)
 		{
 			tokenizer_delimit(this);

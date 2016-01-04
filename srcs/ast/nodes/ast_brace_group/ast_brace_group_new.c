@@ -17,6 +17,5 @@ t_ast_brace_group			*ast_brace_group_new(void)
 	t_ast_brace_group		*ast_brace_group;
 
 	ast_brace_group = twl_malloc_x0(sizeof(t_ast_brace_group));
-	ast_brace_group->tokens = twl_lst_new();
 	return (ast_brace_group);
 }

@@ -15,5 +15,9 @@
 
 void				token_del(t_token *this)
 {
+	if (this->text)
+		free(this->text);
+	if (this->heredoc_text)
+		free(this->heredoc_text);
 	free(this);
 }

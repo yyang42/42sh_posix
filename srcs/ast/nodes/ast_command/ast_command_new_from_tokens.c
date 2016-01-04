@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ast/ast.h"
 #include "ast/nodes/ast_command.h"
 #include "ast/nodes/ast_pipe_item.h"
 #include "ast/nodes/ast_andor_item.h"
@@ -21,7 +22,6 @@ t_ast_command	*ast_command_new_from_tokens(t_lst *tokens, struct s_ast *ast)
 	t_ast_command		*ast_command;
 
 	ast_command = ast_command_new();
-	ast_command->tokens = twl_lst_copy(tokens, NULL);
 	if (ast_compound_command_get_type_from_tokens(tokens) == COMPOUND_COMMAND_NONE)
 	{
 		ast_command->command_type = COMMAND_SIMPLE_COMMAND;
@@ -31,8 +31,11 @@ t_ast_command	*ast_command_new_from_tokens(t_lst *tokens, struct s_ast *ast)
 	{
 		ast_command->command_type = COMMAND_COMPOUND_COMMAND;
 		ast_command->command = ast_compound_command_new_from_tokens(tokens, ast);
-		if (ast_command->command == NULL)
-			return (NULL);
+	}
+	if (ast_has_error(ast))
+	{
+		ast_command_del(ast_command);
+		return (NULL);
 	}
 	return (ast_command);
 }

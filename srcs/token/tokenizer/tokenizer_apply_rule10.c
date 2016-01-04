@@ -24,7 +24,6 @@ t_rule_status		tokenizer_apply_rule10(t_tokenizer *t)
 
 	if (!t->cur_is_quoted && *t->curpos == '#')
 	{
-		COUCOU;
 		tokenizer_delimit(t);
 		endpos = twl_strchr(t->curpos, '\n');
 		if (!endpos)
