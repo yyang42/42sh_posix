@@ -12,13 +12,34 @@
 
 #include <ast/nodes/ast_list_item.h>
 
+static void			iter_fn(void *ast_andor_item_, void *prev_, void *context_)
+{
+	t_ast_andor_item	*ast_andor_item;
+	t_ast_andor_item	*prev;
+	int					*context;
+
+	ast_andor_item = ast_andor_item_;
+	prev = prev_;
+	context = context_;
+	if (!prev || *context == -1)
+	{
+		*context = ast_andor_item_exec(ast_andor_item);
+	}
+	else if (prev->separator->type == TOKEN_AND_IF && context == 0)
+	{
+		*context = ast_andor_item_exec(ast_andor_item);
+	}
+	else if (prev->separator->type == TOKEN_OR_IF && context != 0)
+	{
+		*context = ast_andor_item_exec(ast_andor_item);
+	}
+}
+
 int					ast_list_item_exec(t_ast_list_item *ast_list_item)
 {
-//	int				ret;
-//
-//	ret = -1;
-//	twl_lst_iterp(ast_list_item->ast_andor_item, &iter_fn, &ret);
-//	return (ret);
-	return (0);
-	(void)ast_list_item;
+	int				ret;
+
+	ret = -1;
+	twl_lst_iterp(ast_list_item->ast_andor_items, &iter_fn, &ret);
+	return (ret);
 }
