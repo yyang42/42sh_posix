@@ -35,6 +35,8 @@ int					unset_function(t_environment *env, t_opt *opt)
 	int	ret;
 
 	ret = BUILTIN_EXEC_FAILURE;
+	(void)opt;
+	(void)env;
 	twl_lst_iter2(opt->args, unset_something, env, &ret);
 	return (ret);
 }

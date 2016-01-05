@@ -23,7 +23,7 @@ static int		check_flags(t_environment *env, t_opt *opt)
 	else
 	{
 		ret = unset_variable(env, opt);
-		if (ret == 1)
+		if (ret == BUILTIN_EXEC_FAILURE)
 			return (unset_function(env, opt));
 		else
 			return (ret);
