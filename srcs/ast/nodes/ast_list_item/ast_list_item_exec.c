@@ -21,15 +21,9 @@ static void			iter_fn(void *ast_andor_item_, void *prev_, void *context_)
 	ast_andor_item = ast_andor_item_;
 	prev = prev_;
 	context = context_;
-	if (!prev || *context == -1)
-	{
-		*context = ast_andor_item_exec(ast_andor_item);
-	}
-	else if (prev->separator->type == TOKEN_AND_IF && context == 0)
-	{
-		*context = ast_andor_item_exec(ast_andor_item);
-	}
-	else if (prev->separator->type == TOKEN_OR_IF && context != 0)
+	if (!prev || *context == -1 ||
+		(prev->separator->type == TOKEN_AND_IF && context == 0) ||
+		(prev->separator->type == TOKEN_OR_IF && context != 0))
 	{
 		*context = ast_andor_item_exec(ast_andor_item);
 	}
