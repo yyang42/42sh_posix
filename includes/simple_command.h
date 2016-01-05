@@ -37,17 +37,10 @@ void					travel_ast_cmd(t_simple_command *cmd, void *ast_node);
 char					*concatenate_ast_cmd(t_lst *ast_nodes);
 bool					is_builtin(char *cmd);
 char					*get_binary_path(char *cmd);
-void					exec_simple_command_builtin(t_ast_cmd *ast_cmd, t_simple_command *cmd, char *builtin);
-char					*get_cmd_name_from_ast_cmd(t_ast_cmd *ast_cmd);
-char					**get_cmd_args_from_ast_cmd(t_ast_cmd *ast_cmd);
 int						file_isexecutable(char *file);
 void					command_execution(char *path, char **args, char **env);
-void					exec_simple_command_builtin(t_ast_cmd *ast_cmd, t_simple_command *cmd, char *builtin);
-char					*get_cmd_name_from_ast_cmd(t_ast_cmd *ast_cmd);
 void 					redirect_in(int fd);
 void 					redirect_out(int fd);
 void 					dup_fds(int fd1, int fd2);
-void					execute_binary(t_ast_cmd *ast_cmd, char *path);
-void					execute_builtin(t_simple_command *cmd, t_ast_cmd *ast_cmd, char *path);
 
 #endif
