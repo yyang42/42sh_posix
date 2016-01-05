@@ -34,5 +34,6 @@ t_ast_simple_command	*ast_simple_command_new_from_tokens(t_lst *tokens, struct s
 void					ast_simple_command_print_rec(t_ast_simple_command *ast_simple_command, int depth);
 
 bool					ast_simple_command_is_own_type(t_lst *tokens);
+int						ast_simple_command_exec(t_ast_simple_command *cmd);
 
 #endif

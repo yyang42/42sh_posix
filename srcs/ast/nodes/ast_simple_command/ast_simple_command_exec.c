@@ -10,17 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ast/nodes/ast_pipe_item.h>
+#include "ast/nodes/ast_simple_command.h"
 
-int			ast_pipe_item_exec(t_ast_pipe_item *ast_pipe_item)
+int			ast_simple_command_exec(t_ast_simple_command *cmd)
 {
-	(void)ast_pipe_item;
-	t_ast_command *ast_command;
-
-	ast_command = ast_pipe_item->ast_command;
-	if (ast_command->command_type == COMMAND_SIMPLE_COMMAND)
-	{
-			return (ast_simple_command_exec(ast_command->command));
-	}
+	(void)cmd;
+	twl_printf("YOLO\n");
 	return (0);
 }
