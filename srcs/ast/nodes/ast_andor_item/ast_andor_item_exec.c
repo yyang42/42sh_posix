@@ -28,6 +28,7 @@ static void			iter_fn(void *ast_pipe_item_)
 	if (!ast_pipe_item->separator)
 	{
 		ast_pipe_item_exec(ast_pipe_item);
+		exit(0);
 	}
 	pipe(pids);
 	child_pid = fork();
