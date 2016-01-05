@@ -38,7 +38,7 @@ void				prog_run(t_prog *prog)
 		if (xopt_singleton()->print_ast)
 			prog_print_ast(prog, input);
 		else
-			twl_dprintf(2, "EXECUTION NOT IMPLEMENTED\n");
+			prog_run_input(prog, input);
 	}
 	else
 	{

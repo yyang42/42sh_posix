@@ -14,9 +14,6 @@
 # define ERROR_H
 
 # include "basics.h"
-# include "twl_dict.h"
-# include "ast/ast.h"
-# include "twl_arr.h"
 
 void 	error_file_not_found(char *file);
 void 	error_permission_denied(char *file);

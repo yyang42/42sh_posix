@@ -14,6 +14,7 @@
 # define AST_PIPE_SEQ_H
 
 # include "basics.h"
+# include "execute.h"
 
 # include "token/token_mgr.h"
 # include "ast/ast_defines.h"
@@ -34,5 +35,7 @@ t_ast_andor_item	*ast_andor_item_new_from_tokens(t_lst *tokens, t_token *sep, st
 void				ast_andor_item_print_rec(t_ast_andor_item *ast_andor_item, int depth);
 
 bool				ast_andor_item_is_delimiter(t_token *tokens);
+
+int					ast_andor_item_exec(t_ast_andor_item *ast_andor_item);
 
 #endif

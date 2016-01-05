@@ -10,33 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CD_H
-# define CD_H
+#include <ast/nodes/ast_compound_list.h>
 
-# include <unistd.h>
-# include <sys/types.h>
-# include <string.h>
-# include <sys/param.h>
-# include <sys/stat.h>
-# include <errno.h>
-# include <fcntl.h>
-# include <string.h>
-# include <stdlib.h>
-# include <stdio.h>
-# include "builtin.h"
-# include "twl_opt.h"
-# include "twl_opt_elem.h"
+/*
+** TODO: @Julien <- job control begin here !
+*/
 
-# define MAX_SIZE 4096
+static void		iter_fn(void *ast_list_item, void *context)
+{
+	int			*ret;
 
-void		cd(char *str);
-void		execute_cd(char *path, int no_symlinks, t_environment *this);
-int			cd_with_env(char *str, t_environment *this);
-char		*join_paths(char *path, char *dirname);
-char		*get_cdpath(char *dirname, t_environment *this);
-char		*join_pwd_to_path(char *dirname);
-char		*set_canonical_form(char *path);
-void		get_flags(t_opt *opt, int *no_symlinks);
-int			free_all(char *dirname, char **args, t_opt *opt);
+	ret = context;
+	*ret = ast_list_item_exec(ast_list_item);
+}
 
-#endif
+int				ast_compound_list_exec(t_ast_compound_list *ast_compound_list)
+{
+	int			ret;
+
+	twl_lst_iter(ast_compound_list->ast_list_items, &iter_fn, &ret);
+	return (ret);
+}

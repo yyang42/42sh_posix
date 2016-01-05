@@ -10,33 +10,36 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CD_H
-# define CD_H
+#include <ast/nodes/ast_list_item.h>
 
-# include <unistd.h>
-# include <sys/types.h>
-# include <string.h>
-# include <sys/param.h>
-# include <sys/stat.h>
-# include <errno.h>
-# include <fcntl.h>
-# include <string.h>
-# include <stdlib.h>
-# include <stdio.h>
-# include "builtin.h"
-# include "twl_opt.h"
-# include "twl_opt_elem.h"
+static void			iter_fn(void *ast_andor_item_, void *prev_, void *context_)
+{
+	t_ast_andor_item	*ast_andor_item;
+	t_ast_andor_item	*prev;
+	int					*context;
 
-# define MAX_SIZE 4096
+	ast_andor_item = ast_andor_item_;
+	prev = prev_;
+	context = context_;
+	if (!prev || *context == -1)
+	{
+		*context = ast_andor_item_exec(ast_andor_item);
+	}
+	else if (prev->separator->type == TOKEN_AND_IF && context == 0)
+	{
+		*context = ast_andor_item_exec(ast_andor_item);
+	}
+	else if (prev->separator->type == TOKEN_OR_IF && context != 0)
+	{
+		*context = ast_andor_item_exec(ast_andor_item);
+	}
+}
 
-void		cd(char *str);
-void		execute_cd(char *path, int no_symlinks, t_environment *this);
-int			cd_with_env(char *str, t_environment *this);
-char		*join_paths(char *path, char *dirname);
-char		*get_cdpath(char *dirname, t_environment *this);
-char		*join_pwd_to_path(char *dirname);
-char		*set_canonical_form(char *path);
-void		get_flags(t_opt *opt, int *no_symlinks);
-int			free_all(char *dirname, char **args, t_opt *opt);
+int					ast_list_item_exec(t_ast_list_item *ast_list_item)
+{
+	int				ret;
 
-#endif
+	ret = -1;
+	twl_lst_iterp(ast_list_item->ast_andor_items, &iter_fn, &ret);
+	return (ret);
+}

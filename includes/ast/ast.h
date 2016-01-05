@@ -39,5 +39,6 @@ void				ast_set_error_msg_format(t_ast *ast, t_token *token, const char *fmt, ..
 void				ast_set_error_msg_syntax_error(t_ast *ast);
 
 bool				ast_has_error(t_ast *this);
+int					ast_exec(t_ast *ast);
 
 #endif
