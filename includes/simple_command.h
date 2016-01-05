@@ -22,6 +22,7 @@
 # include <string.h>
 # include <errno.h>
 # include "signals.h"
+# include "environment.h"
 
 // typedef struct				s_simple_command
 // {
@@ -34,12 +35,10 @@
 // // void					simple_command_entrance(t_simple_command *cmd, t_ast *this);
 // // void					travel_ast_cmd(t_simple_command *cmd, void *ast_node);
 // char					*concatenate_ast_cmd(t_lst *ast_nodes);
-// bool					is_builtin(char *cmd);
-// char					*get_binary_path(char *cmd);
-// int						file_isexecutable(char *file);
+bool					is_builtin(char *cmd);
+char					*get_binary_path(char *cmd);
+int						file_isexecutable(char *file);
 void					command_execution(char *path, char **args, char **env);
-// void 					redirect_in(int fd);
-// void 					redirect_out(int fd);
-// void 					dup_fds(int fd1, int fd2);
+void 					dup_fds(int fd1, int fd2);
 
 #endif

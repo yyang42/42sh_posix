@@ -13,45 +13,48 @@
 #include "ast/nodes/ast_simple_command.h"
 #include "ast/nodes/ast_assignment.h"
 #include "ast/nodes/ast_redir.h"
+#include "simple_command.h"
 
-static void	iter_redir_fn(void *redir_)
-{
-	t_ast_redir *redir;
-
-	redir = redir_;
-	twl_printf("REDIR : %d, %s, %s, %s\n", redir->io_number, redir->operator, redir->param, redir->heredoc_text);
-}
-
-static void	iter_token_fn(void *token_)
-{
-	t_token	*token;
-
-	token = token_;
-	twl_printf("TOKEN : %s\n",token->text);
-}
-
-static void	iter_assign_fn(void *assign_)
+static void	iter_assign_fn(void *data, void *context)
 {
 	t_ast_assignment	*assign;
+	t_environment		*env;
 
-	assign = assign_;
-	twl_printf("ASSIGNEMENT : %s=>%s\n",assign->key, assign->value);
+	assign = data;
+	env = context;
+	environment_setenv_value(env, assign->key, assign->value);
+}
+
+void		execute_simple_command(t_lst *tokens, t_environment *env) //TODO: a mettre ailleurs
+{
+	char			**cmd_arr;
+	char			**env_arr;
+	char			*path;
+	char			*token_joined;
+
+	token_joined = token_mgr_strjoin(tokens, " "); //TODO: voir si fn qui split directement
+	cmd_arr = twl_strsplit(token_joined, ' ');
+	env_arr = (char **)environment_get_env_arr(env);
+	path = get_binary_path(cmd_arr[0]);
+	command_execution(path, cmd_arr, env_arr);
+	twl_arr_del(cmd_arr, free);
+	twl_arr_del(env_arr, free);
+	free(token_joined);
+	free(path);
 }
 
 int			ast_simple_command_exec(t_ast_simple_command *cmd)
 {
-	(void)cmd;
-	if (twl_lst_len(cmd->redir_items) > 0)
-	{
-		twl_lst_iter0(cmd->redir_items, iter_redir_fn);
-	}
-	if (twl_lst_len(cmd->command_tokens) > 0)
-	{
-		twl_lst_iter0(cmd->command_tokens, iter_token_fn);
-	}
+	t_environment	*this;
+	t_environment	*clone;
+
+	this = environment_singleton();
+	clone = environment_clone(this);
 	if (twl_lst_len(cmd->assignment_items) > 0)
-	{
-		twl_lst_iter0(cmd->assignment_items, iter_assign_fn);
-	}
+		twl_lst_iter(cmd->assignment_items, iter_assign_fn, clone);
+	if (twl_lst_len(cmd->redir_items) > 0)
+		;//TODO: faire une fonction a part entiere
+	else
+		execute_simple_command(cmd->command_tokens, clone);
 	return (0);
 }
