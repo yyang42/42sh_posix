@@ -36,7 +36,7 @@ int		create_file(char *str)
 {
 	int fd;
 
-	fd = open(str, O_RDWR | O_TRUNC, 0666);
+	fd = open(str, O_CREAT | O_RDWR | O_TRUNC, 0666);
 	if (fd == -1)
 		perror(str);
 	return (fd);

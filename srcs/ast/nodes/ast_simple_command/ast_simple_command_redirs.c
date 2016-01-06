@@ -21,19 +21,22 @@ static void	iter_redir_fn(void *redir_, void *cmd_)
 
 	redir = redir_;
 	cmd = cmd_;
-	twl_printf("REDIR : %d, %s, %s, -->>%s<<--\n", redir->io_number, redir->operator, redir->param, redir->heredoc_text);
+	// twl_printf("REDIR : %d, %s, %s, -->>%s<<--\n", redir->io_number, redir->operator, redir->param, redir->heredoc_text);
 	redir_fd = twl_malloc_x0(sizeof(t_ast_redir_fd));
 	if (!twl_strcmp("<", redir->operator))
 	{
-		redir_fd->fd_save = dup(STDIN_FILENO);
-		redir_fd->fd_origin = STDIN_FILENO;
+		redir_fd->fd_save = dup(redir->io_number == -1 ? STDIN_FILENO : redir->io_number);
+		redir_fd->fd_origin = redir->io_number == -1 ? STDIN_FILENO : redir->io_number;
 		redir_fd->fd_file = read_file(redir->param);
 	}
 	else if (!twl_strcmp(">", redir->operator) || !twl_strcmp(">>", redir->operator))
 	{
-		redir_fd->fd_save = dup(STDOUT_FILENO);
-		redir_fd->fd_origin = STDOUT_FILENO;
-		redir_fd->fd_file = create_file(redir->param);
+		redir_fd->fd_save = dup(redir->io_number == -1 ? STDOUT_FILENO : redir->io_number);
+		redir_fd->fd_origin = redir->io_number == -1 ? STDOUT_FILENO : redir->io_number;
+		if (!twl_strcmp(">", redir->operator))
+			redir_fd->fd_file = create_file(redir->param);
+		else if (!twl_strcmp(">>", redir->operator))
+			redir_fd->fd_file = append_to_file(redir->param);
 	}
 	dup_fds(redir_fd->fd_file, redir_fd->fd_origin);
 	twl_lst_push_front(cmd->redir_fds, redir_fd);
