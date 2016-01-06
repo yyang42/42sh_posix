@@ -13,6 +13,19 @@
 #include "ast/nodes/ast_simple_command.h"
 #include "ast/nodes/ast_redir.h"
 
+static int	write_heredoc_to_tmp_file(t_ast_redir *redir)
+{
+	int fd;
+
+	fd = create_file("/tmp/.tmpfilefor42shposix");
+	if (fd == -1)
+		return (fd);
+	write(fd, redir->heredoc_text, twl_strlen(redir->heredoc_text) + 1);
+	close(fd);
+	fd = read_file("/tmp/.tmpfilefor42shposix");
+	return (fd);
+}
+
 static void	iter_redir_fn(void *redir_, void *cmd_)
 {
 	t_ast_redir				*redir;
@@ -21,13 +34,15 @@ static void	iter_redir_fn(void *redir_, void *cmd_)
 
 	redir = redir_;
 	cmd = cmd_;
-	// twl_printf("REDIR : %d, %s, %s, -->>%s<<--\n", redir->io_number, redir->operator, redir->param, redir->heredoc_text);
 	redir_fd = twl_malloc_x0(sizeof(t_ast_redir_fd));
-	if (!twl_strcmp("<", redir->operator))
+	if (!twl_strcmp("<", redir->operator) || !twl_strcmp("<<", redir->operator))
 	{
 		redir_fd->fd_save = dup(redir->io_number == -1 ? STDIN_FILENO : redir->io_number);
 		redir_fd->fd_origin = redir->io_number == -1 ? STDIN_FILENO : redir->io_number;
-		redir_fd->fd_file = read_file(redir->param);
+		if (!twl_strcmp("<", redir->operator))
+			redir_fd->fd_file = read_file(redir->param);
+		else if (!twl_strcmp("<<", redir->operator))
+			redir_fd->fd_file = write_heredoc_to_tmp_file(redir);
 	}
 	else if (!twl_strcmp(">", redir->operator) || !twl_strcmp(">>", redir->operator))
 	{
@@ -38,7 +53,8 @@ static void	iter_redir_fn(void *redir_, void *cmd_)
 		else if (!twl_strcmp(">>", redir->operator))
 			redir_fd->fd_file = append_to_file(redir->param);
 	}
-	dup_fds(redir_fd->fd_file, redir_fd->fd_origin);
+	if (redir_fd->fd_file != -1)
+		dup_fds(redir_fd->fd_file, redir_fd->fd_origin);
 	twl_lst_push_front(cmd->redir_fds, redir_fd);
 }
 
@@ -47,7 +63,9 @@ static void	iter_redir_fds_fn(void *redir_fd_)
 	t_ast_redir_fd			*redir_fd;
 
 	redir_fd = redir_fd_;
-	close_file(redir_fd->fd_file);
+
+	if (redir_fd->fd_file != -1)
+		close_file(redir_fd->fd_file);
 	dup_fds(redir_fd->fd_save, redir_fd->fd_origin);
 }
 

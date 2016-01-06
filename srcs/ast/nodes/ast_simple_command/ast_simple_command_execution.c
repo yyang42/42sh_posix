@@ -42,5 +42,5 @@ void			command_execution(char *path, char **args, char **env)
 			error_permission_denied(path);
 	}
 	else
-		error_file_not_found(path);
+		error_file_not_found(args[0]);
 }
