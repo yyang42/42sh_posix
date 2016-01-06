@@ -30,13 +30,13 @@ static void		shift_action(t_environment *env, t_opt *opt)
 		twl_printf("shift count must be <= $#");
 		environment_set_last_exit_status_2(env, BUILTIN_EXEC_FAILURE);
 	}
-	if (twl_lst_len(env->pos_params) <= shift_nb)
+	if (twl_lst_len(env->pos_params) < shift_nb)
 		twl_lst_clear(env->pos_params, &free);
 	else
 	{
 		while (shift_nb > 0)
 		{
-			twl_lst_pop(env->pos_params);
+			free(twl_lst_pop(env->pos_params));
 			shift_nb--;
 		}
 	}
@@ -52,7 +52,7 @@ int		shift_builtin(char *cmd)
 	arr = twl_strsplit_mul(cmd, " \n\t");
 	opt = twl_opt_new(arr, UMASK_OPT_VALID_OPTS);
 	environment_set_last_exit_status_2(env, BUILTIN_EXEC_SUCCESS);
-	if (!check_invalid_opts(opt, "umask", SHIFT_OPT_VALID_OPTS))
+	if (!check_invalid_opts(opt, "shift", SHIFT_OPT_VALID_OPTS))
 	{
 		if (twl_lst_len(opt->args) > 1)
 		{
@@ -75,7 +75,7 @@ int		test_shift_builtin(char *cmd, t_environment *env)
 	arr = twl_strsplit_mul(cmd, " \n\t");
 	opt = twl_opt_new(arr, UMASK_OPT_VALID_OPTS);
 	environment_set_last_exit_status_2(env, BUILTIN_EXEC_SUCCESS);
-	if (!check_invalid_opts(opt, "umask", SHIFT_OPT_VALID_OPTS))
+	if (!check_invalid_opts(opt, "shift", SHIFT_OPT_VALID_OPTS))
 	{
 		if (twl_lst_len(opt->args) > 1)
 		{
