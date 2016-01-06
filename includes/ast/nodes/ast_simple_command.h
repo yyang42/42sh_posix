@@ -36,6 +36,7 @@ typedef struct			s_ast_simple_command
 	t_lst				*redir_items;
 	t_lst				*assignment_items;
 	t_lst				*redir_fds;
+	t_dict				*builtin_func;
 }						t_ast_simple_command;
 
 
