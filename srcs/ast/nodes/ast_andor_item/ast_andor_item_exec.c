@@ -42,14 +42,14 @@ static void			iter_fn(void *ast_pipe_item_)
 	{
 		dup2(pids[1], 1);
 		close(pids[0]);
+		ast_pipe_item_exec(ast_pipe_item);
+		exit(0);
 	}
 	else
 	{
+		wait(NULL);
 		dup2(pids[0], 0);
 		close(pids[1]);
-		wait(NULL);
-		ast_pipe_item_exec(ast_pipe_item);
-		exit(0);
 	}
 }
 
