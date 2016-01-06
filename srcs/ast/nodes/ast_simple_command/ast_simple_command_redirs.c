@@ -23,7 +23,7 @@ static void	iter_redir_fn(void *redir_, void *cmd_)
 	cmd = cmd_;
 	twl_printf("REDIR : %d, %s, %s, -->>%s<<--\n", redir->io_number, redir->operator, redir->param, redir->heredoc_text);
 	redir_fd = twl_malloc_x0(sizeof(t_ast_redir_fd));
-	if (!twl_strcmp("<", redir->operator) || !twl_strcmp("<<", redir->operator))
+	if (!twl_strcmp("<", redir->operator))
 	{
 		redir_fd->fd_save = dup(STDIN_FILENO);
 		redir_fd->fd_origin = STDIN_FILENO;
