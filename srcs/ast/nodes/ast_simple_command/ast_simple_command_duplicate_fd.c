@@ -10,44 +10,27 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "file.h"
+#include "ast/nodes/ast_redir.h"
+#include "ast/nodes/ast_assignment.h"
+#include "ast/nodes/ast_simple_command.h"
 
-int		append_to_file(char *str)
+int			get_duplication_fd(char *str)
 {
 	int fd;
 
-	fd = open(str, O_CREAT | O_RDWR | O_APPEND, 0666);
-	if (fd == -1)
-		perror(str);
-	return (fd);
-}
-
-int 	read_file(char *str)
-{
-	int fd;
-
-	fd = open(str, O_RDONLY, 0666);
-	if (fd == -1)
-		perror(str);
-	return (fd);
-}
-
-int		create_file(char *str)
-{
-	int fd;
-
-	fd = open(str, O_CREAT | O_RDWR | O_TRUNC, 0666);
-	if (fd == -1)
-		perror(str);
-	return (fd);
-}
-
-int		read_write_file(char *str)
-{
-	int fd;
-
-	fd = open(str, O_CREAT | O_RDWR, 0666);
-	if (fd == -1)
-		perror(str);
-	return (fd);
+	if (twl_str_is_pos_num(str))
+	{
+		fd = twl_atoi(str);
+		if (fd > getdtablesize())
+		{
+			twl_dprintf(2, "42sh: %d: Bad file descriptor", fd);
+			return (-1);
+		}
+		return (fd);
+	}
+	else
+	{
+		twl_dprintf(2, "42sh: %s: ambiguous redirect", str);
+		return (-1);
+	}
 }

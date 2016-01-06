@@ -12,7 +12,7 @@
 
 #include "ast/nodes/ast_simple_command.h"
 
-void 	dup_fds(int fd1, int fd2)
+void 		dup_fds(int fd1, int fd2)
 {
 	if (dup2(fd1, fd2) == -1)
 		perror("dup2");
@@ -40,7 +40,7 @@ char		*get_binary_path(char *cmd)
 	return (NULL);
 }
 
-static bool find_bultin(void *builtin_, void *cmd_)
+static bool		find_bultin(void *builtin_, void *cmd_)
 {
 	char	*builtin;
 	char	*cmd;
@@ -52,7 +52,7 @@ static bool find_bultin(void *builtin_, void *cmd_)
 	return (false);
 }
 
-bool  is_builtin(char *cmd)
+bool  			is_builtin(char *cmd)
 {
 	static const char	*builtins[26] = {"echo", "cd", "env", "unsetenv",
 	"setenv", "alias", "unalias", "false", "true", "umask", "newgrp" ,"fc",

@@ -28,5 +28,6 @@ int			append_to_file(char *str);
 int 		read_file(char *str);
 int			create_file(char *str);
 void		close_file(int fd);
+int			read_write_file(char *str);
 
 #endif

@@ -14,6 +14,7 @@
 # define AST_SIMPLE_COMMAND_H
 
 # include "basics.h"
+# include "twl_stdlib.h"
 # include "token/token_mgr.h"
 # include "ast/ast_defines.h"
 # include "ast/ast_utils.h"
@@ -58,4 +59,6 @@ void					ast_simple_command_redirs(t_ast_simple_command *cmd);
 void					execute_simple_command(t_ast_simple_command *cmd,
 	t_environment *env);
 void					command_execution(char *path, char **args, char **env);
+int						get_duplication_fd(char *str);
+
 #endif
