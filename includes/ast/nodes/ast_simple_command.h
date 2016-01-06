@@ -31,15 +31,17 @@ typedef struct			s_ast_simple_command
 }						t_ast_simple_command;
 
 t_ast_simple_command	*ast_simple_command_new(void);
-void					ast_simple_command_del(t_ast_simple_command *ast_simple_command);
-
-t_ast_simple_command	*ast_simple_command_new_from_tokens(t_lst *tokens, struct s_ast *ast);
-void					ast_simple_command_print_rec(t_ast_simple_command *ast_simple_command, int depth);
+void					ast_simple_command_del(t_ast_simple_command *ast_s_cmd);
+bool					ast_simple_command_check_files(t_ast_simple_command *t);
+t_ast_simple_command	*ast_simple_command_new_from_tokens(t_lst *tokens,
+	struct s_ast *ast);
+void					ast_simple_command_print_rec(t_ast_simple_command
+	*ast_s_cmd, int depth);
 
 bool					ast_simple_command_is_own_type(t_lst *tokens);
 int						ast_simple_command_exec(t_ast_simple_command *cmd);
 bool					is_builtin(char *cmd);
 char					*get_binary_path(char *cmd);
 void 					dup_fds(int fd1, int fd2);
-
+bool					ast_simple_command_check_files(t_ast_simple_command *c);
 #endif
