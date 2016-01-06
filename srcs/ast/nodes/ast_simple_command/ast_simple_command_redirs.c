@@ -20,7 +20,7 @@ static int	write_heredoc_to_tmp_file(t_ast_redir *redir)
 	fd = create_file("/tmp/.tmpfilefor42shposix");
 	if (fd == -1)
 		return (fd);
-	write(fd, redir->heredoc_text, twl_strlen(redir->heredoc_text) + 1);
+	write(fd, redir->heredoc_text, twl_strlen(redir->heredoc_text));
 	close(fd);
 	fd = read_file("/tmp/.tmpfilefor42shposix");
 	return (fd);
@@ -77,6 +77,6 @@ void		ast_simple_command_redirs(t_ast_simple_command *cmd)
 	twl_lst_iter(cmd->redir_items, iter_redir_fn, cmd);
 	this = environment_singleton();
 	clone = environment_clone(this);
-	execute_simple_command(cmd->command_tokens, clone);
+	execute_simple_command(cmd, clone);
 	twl_lst_iter0(cmd->redir_fds, iter_redir_fds_fn);
 }

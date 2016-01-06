@@ -21,8 +21,8 @@
 # include "utils.h"
 # include "twl_arr.h"
 # include "twl_opt.h"
-# include "simple_command.h"
 # include "twl_arr2.h"
+# include "ast/nodes/ast_simple_command.h"
 
 # define ENV_OPT_VALID_OPTS "i"
 

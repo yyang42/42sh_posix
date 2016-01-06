@@ -13,7 +13,6 @@
 #include "ast/nodes/ast_simple_command.h"
 #include "ast/nodes/ast_assignment.h"
 #include "ast/nodes/ast_redir.h"
-#include "simple_command.h"
 
 static void	iter_assign_fn(void *data, void *context)
 {
@@ -25,24 +24,37 @@ static void	iter_assign_fn(void *data, void *context)
 	environment_setenv_value(env, assign->key, assign->value);
 }
 
-void		execute_simple_command(t_lst *tokens, t_environment *env)
+static void	execute_builtin(t_ast_simple_command *cmd, char *builtin, char *string)
+{
+	void *func;
+	void (*f)(char *str);
+
+	func = twl_dict_get(cmd->builtin_func, builtin);
+	if (func)
+	{
+		f = func;
+		f(string);
+	}
+}
+
+void		execute_simple_command(t_ast_simple_command *cmd, t_environment *env)
 {
 	char			**cmd_arr;
 	char			**env_arr;
 	char			*path;
 	char			*token_joined;
 
-	token_joined = token_mgr_strjoin(tokens, " "); //TODO: voir si fn qui split directement
+	token_joined = token_mgr_strjoin(cmd->command_tokens, " ");
 	cmd_arr = twl_strsplit(token_joined, ' ');
 	env_arr = (char **)environment_get_env_arr(env);
-	if (!is_builtin(cmd_arr[0))
+	if (!is_builtin(cmd_arr[0]))
 	{
 		path = get_binary_path(cmd_arr[0]);
 		command_execution(path, cmd_arr, env_arr);
 		free(path);
 	}
 	else
-		execute_builtin(token_joined);
+		execute_builtin(cmd, cmd_arr[0], token_joined);
 	twl_arr_del(cmd_arr, free);
 	twl_arr_del(env_arr, free);
 	free(token_joined);
@@ -63,6 +75,6 @@ int			ast_simple_command_exec(t_ast_simple_command *cmd)
 			ast_simple_command_redirs(cmd);
 	}
 	else
-		execute_simple_command(cmd->command_tokens, clone);
+		execute_simple_command(cmd, clone);
 	return (0);
 }

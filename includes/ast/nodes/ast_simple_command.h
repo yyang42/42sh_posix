@@ -36,6 +36,7 @@ typedef struct			s_ast_simple_command
 	t_lst				*redir_items;
 	t_lst				*assignment_items;
 	t_lst				*redir_fds;
+	t_dict				*builtin_func;
 }						t_ast_simple_command;
 
 
@@ -54,6 +55,7 @@ char					*get_binary_path(char *cmd);
 void 					dup_fds(int fd1, int fd2);
 bool					ast_simple_command_check_files(t_ast_simple_command *c);
 void					ast_simple_command_redirs(t_ast_simple_command *cmd);
-void					execute_simple_command(t_lst *tokens, t_environment *env);
-
+void					execute_simple_command(t_ast_simple_command *cmd,
+	t_environment *env);
+void					command_execution(char *path, char **args, char **env);
 #endif

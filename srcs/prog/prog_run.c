@@ -15,7 +15,6 @@
 #include "environment.h"
 #include "set.h"
 #include "twl_get_next_line.h"
-#include "simple_command.h"
 
 void				prog_run(t_prog *prog)
 {
