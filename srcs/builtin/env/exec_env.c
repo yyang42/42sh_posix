@@ -56,4 +56,5 @@ void			exec_env(t_env_args *env, t_environment *this)
 		index = arr2_indexof(env->args, env->utility);
 		command_execution(env->utility, &env->args[index], env->env_arr);
 	}
+	twl_arr_del(fpaths,free);
 }

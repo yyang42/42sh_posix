@@ -37,6 +37,7 @@ char		*get_binary_path(char *cmd)
 			return (path);
 		free(path);
 	}
+	twl_arr_del(paths, free);
 	return (NULL);
 }
 
