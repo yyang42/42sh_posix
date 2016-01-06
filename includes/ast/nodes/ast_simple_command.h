@@ -60,5 +60,6 @@ void					execute_simple_command(t_ast_simple_command *cmd,
 	t_environment *env);
 void					command_execution(char *path, char **args, char **env);
 int						get_duplication_fd(char *str);
+bool					is_valid_duplicate_fd(int fd);
 
 #endif

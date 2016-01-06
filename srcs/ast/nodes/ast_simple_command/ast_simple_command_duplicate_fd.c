@@ -14,6 +14,16 @@
 #include "ast/nodes/ast_assignment.h"
 #include "ast/nodes/ast_simple_command.h"
 
+bool		is_valid_duplicate_fd(int fd)
+{
+	if (fd > getdtablesize())
+	{
+		twl_dprintf(2, "42sh: %d: Bad file descriptor", fd);
+		return false;
+	}
+	return true;
+}
+
 int			get_duplication_fd(char *str)
 {
 	int fd;
@@ -21,11 +31,8 @@ int			get_duplication_fd(char *str)
 	if (twl_str_is_pos_num(str))
 	{
 		fd = twl_atoi(str);
-		if (fd > getdtablesize())
-		{
-			twl_dprintf(2, "42sh: %d: Bad file descriptor", fd);
+		if (is_valid_duplicate_fd(fd))
 			return (-1);
-		}
 		return (fd);
 	}
 	else
