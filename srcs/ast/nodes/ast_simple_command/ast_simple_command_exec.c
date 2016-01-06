@@ -43,6 +43,21 @@ void		execute_simple_command(t_lst *tokens, t_environment *env) //TODO: a mettre
 	free(path);
 }
 
+
+static void	iter_redir_fn(void *redir_)
+{
+	t_ast_redir *redir;
+
+	redir = redir_;
+	twl_printf("REDIR : %d, %s, %s, -->>%s<<--\n", redir->io_number, redir->operator, redir->param, redir->heredoc_text);
+}
+
+static void		ast_simple_command_redirs(t_ast_simple_command *cmd)
+{
+	// if (twl_lst_find)
+	twl_lst_iter0(cmd->redir_items, iter_redir_fn);
+}
+
 int			ast_simple_command_exec(t_ast_simple_command *cmd)
 {
 	t_environment	*this;
@@ -53,7 +68,7 @@ int			ast_simple_command_exec(t_ast_simple_command *cmd)
 	if (twl_lst_len(cmd->assignment_items) > 0)
 		twl_lst_iter(cmd->assignment_items, iter_assign_fn, clone);
 	if (twl_lst_len(cmd->redir_items) > 0)
-		;//TODO: faire une fonction a part entiere
+		ast_simple_command_redirs(cmd);
 	else
 		execute_simple_command(cmd->command_tokens, clone);
 	return (0);

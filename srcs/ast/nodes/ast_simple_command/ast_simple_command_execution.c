@@ -10,28 +10,37 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "simple_command.h"
+#include "ast/nodes/ast_simple_command.h"
 
-static bool find_bultin(void *builtin_, void *cmd_)
+static void		fork_and_execute(char *path, char **args, char **env)
 {
-	char	*builtin;
-	char	*cmd;
+	int			pid;
 
-	builtin = builtin_;
-	cmd = cmd_;
-	if (twl_strcmp(builtin, cmd) == 0)
-		return (true);
-	return (false);
+	pid = fork();
+	if (pid == -1)
+		twl_dprintf(2, "cannot fork: %s", strerror(errno));
+	else if (pid == 0)
+	{
+		execve(path, args, env);
+		perror(path);
+		exit(0);
+	}
+	else
+	{
+		wait(&pid);
+		handle_signal(pid);
+	}
 }
 
-bool  is_builtin(char *cmd)
+void			command_execution(char *path, char **args, char **env)
 {
-	static const char	*builtins[26] = {"echo", "cd", "env", "unsetenv",
-	"setenv", "alias", "unalias", "false", "true", "umask", "newgrp" ,"fc",
-	"command", "kill", "getopts", "read", "break", "colon", "continue", "return",
-	"return", "shift", "set", "unset", "export", NULL};
-
-	if (twl_arr_find(builtins, find_bultin, cmd))
-		return (true);
-	return (false);
+	if (file_exists(path))
+	{
+		if (file_isexecutable(path))
+			fork_and_execute(path, args, env);
+		else
+			error_permission_denied(path);
+	}
+	else
+		error_file_not_found(path);
 }

@@ -10,10 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "check_file.h"
-#include "simple_command.h"
-#include "environment.h"
-#include "builtin.h"
+#include "ast/nodes/ast_simple_command.h"
+
+void 	dup_fds(int fd1, int fd2)
+{
+	if (dup2(fd1, fd2) == -1)
+		perror("dup2");
+}
 
 char		*get_binary_path(char *cmd)
 {
@@ -35,4 +38,28 @@ char		*get_binary_path(char *cmd)
 		free(path);
 	}
 	return (NULL);
+}
+
+static bool find_bultin(void *builtin_, void *cmd_)
+{
+	char	*builtin;
+	char	*cmd;
+
+	builtin = builtin_;
+	cmd = cmd_;
+	if (twl_strcmp(builtin, cmd) == 0)
+		return (true);
+	return (false);
+}
+
+bool  is_builtin(char *cmd)
+{
+	static const char	*builtins[26] = {"echo", "cd", "env", "unsetenv",
+	"setenv", "alias", "unalias", "false", "true", "umask", "newgrp" ,"fc",
+	"command", "kill", "getopts", "read", "break", "colon", "continue", "return",
+	"return", "shift", "set", "unset", "export", NULL};
+
+	if (twl_arr_find(builtins, find_bultin, cmd))
+		return (true);
+	return (false);
 }

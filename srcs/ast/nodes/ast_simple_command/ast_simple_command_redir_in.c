@@ -10,37 +10,31 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "simple_command.h"
+#include "ast/nodes/ast_simple_command.h"
 
-static void		fork_and_execute(char *path, char **args, char **env)
+void		ast_redirect_in(t_ast_simple_command *cmd)
 {
-	int			pid;
-
-	pid = fork();
-	if (pid == -1)
-		twl_dprintf(2, "cannot fork: %s", strerror(errno));
-	else if (pid == 0)
-	{
-		execve(path, args, env);
-		perror(path);
-		exit(0);
-	}
-	else
-	{
-		wait(&pid);
-		handle_signal(pid);
-	}
-}
-
-void			command_execution(char *path, char **args, char **env)
-{
-	if (file_exists(path))
-	{
-		if (file_isexecutable(path))
-			fork_and_execute(path, args, env);
-		else
-			error_permission_denied(path);
-	}
-	else
-		error_file_not_found(path);
+	(void)cmd;
+	// int				fd;
+	// char			*file_name;
+	// char			**args;
+	// char			**env;
+	// int				save_stdin;
+	//
+	// file_name = get_redir_in_file_name_from_ast_command(ast_cmd);
+	// if (file_name)
+	// {
+	// 	twl_printf("fn1: %s\n", binary_path);
+	// 	fd = read_file(file_name);
+	// 	if (fd >= 0 && binary_path)
+	// 	{
+	// 		save_stdin = dup(0);
+	// 		args = get_cmd_args_from_ast_cmd(ast_cmd, binary_path);
+	// 		dup_fds(fd, 0);
+	// 		env = environment_get_env_arr(environment_singleton());
+	// 		command_execution(binary_path, args, env);
+	// 		close_file(fd);
+	// 		dup2(save_stdin, 0);
+	// 	}
+	// }
 }
