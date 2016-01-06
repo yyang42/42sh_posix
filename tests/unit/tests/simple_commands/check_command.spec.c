@@ -1,4 +1,4 @@
-#include "simple_command.h"
+#include "ast/nodes/ast_simple_command.h"
 #include <project.h>
 
 static void test_is_builtin(t_test *test)
