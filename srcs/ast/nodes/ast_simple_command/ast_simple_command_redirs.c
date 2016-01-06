@@ -20,7 +20,7 @@ static int	write_heredoc_to_tmp_file(t_ast_redir *redir)
 	fd = create_file("/tmp/.tmpfilefor42shposix");
 	if (fd == -1)
 		return (fd);
-	write(fd, redir->heredoc_text, twl_strlen(redir->heredoc_text) + 1);
+	write(fd, redir->heredoc_text, twl_strlen(redir->heredoc_text));
 	close(fd);
 	fd = read_file("/tmp/.tmpfilefor42shposix");
 	return (fd);
