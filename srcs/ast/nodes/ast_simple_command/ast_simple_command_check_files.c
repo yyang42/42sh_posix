@@ -34,7 +34,8 @@ static void		iter_check_fn(void *data, void *context)
 		return ;
 	if (fd < 0 || !is_valid_duplicate_fd(redir->io_number))
 		*is_good_file = false;
-	close_file(fd);
+	else
+		close_file(fd);
 }
 
 bool			ast_simple_command_check_files(t_ast_simple_command *this)

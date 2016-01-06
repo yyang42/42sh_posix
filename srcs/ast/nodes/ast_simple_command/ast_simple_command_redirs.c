@@ -26,10 +26,11 @@ static int	write_heredoc_to_tmp_file(t_ast_redir *redir)
 	return (fd);
 }
 
-static void	duplication_input(t_ast_redir *redir, t_ast_redir_fd *redir_fd)
+static int	duplication_input(t_ast_redir *redir, t_ast_redir_fd *redir_fd)
 {
 	int duplicated_fd;
 
+	duplicated_fd = -1;
 	if (!twl_strcmp("-", redir->param))
 		close_file(redir->io_number);
 	else
@@ -42,12 +43,14 @@ static void	duplication_input(t_ast_redir *redir, t_ast_redir_fd *redir_fd)
 			dup_fds(duplicated_fd, redir_fd->fd_origin);
 		}
 	}
+	return (duplicated_fd);
 }
 
-static void	duplication_output(t_ast_redir *redir, t_ast_redir_fd *redir_fd)
+static int	duplication_output(t_ast_redir *redir, t_ast_redir_fd *redir_fd)
 {
 	int duplicated_fd;
 
+	duplicated_fd = -1;
 	if (!twl_strcmp("-", redir->param))
 		close_file(redir->io_number);
 	else
@@ -60,6 +63,7 @@ static void	duplication_output(t_ast_redir *redir, t_ast_redir_fd *redir_fd)
 			dup_fds(duplicated_fd, redir_fd->fd_origin);
 		}
 	}
+	return (duplicated_fd);
 }
 
 static void	iter_redir_fn(void *redir_, void *cmd_)
@@ -91,9 +95,22 @@ static void	iter_redir_fn(void *redir_, void *cmd_)
 			redir_fd->fd_file = append_to_file(redir->param);
 	}
 	else if (!twl_strcmp(">&", redir->operator))
-		duplication_output(redir, redir_fd);
+	{
+		if (duplication_output(redir, redir_fd) == -1)
+		{
+			free(redir_fd);
+			return ;
+		}
+
+	}
 	else if (!twl_strcmp("<&", redir->operator))
-		duplication_input(redir, redir_fd);
+	{
+		if (duplication_input(redir, redir_fd) == -1)
+		{
+			free(redir_fd);
+			return ;
+		}
+	}
 	else if (!twl_strcmp("<>", redir->operator))
 	{
 		redir_fd->fd_save = dup(redir->io_number == -1 ? STDIN_FILENO : redir->io_number);
