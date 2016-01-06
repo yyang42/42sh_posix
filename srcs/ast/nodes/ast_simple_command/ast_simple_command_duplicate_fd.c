@@ -32,8 +32,8 @@ int			get_duplication_fd(char *str)
 	{
 		fd = twl_atoi(str);
 		if (is_valid_duplicate_fd(fd))
-			return (-1);
-		return (fd);
+			return (fd);
+		return (-1);
 	}
 	else
 	{
