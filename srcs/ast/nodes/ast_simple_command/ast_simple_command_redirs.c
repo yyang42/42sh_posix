@@ -26,6 +26,32 @@ static int	write_heredoc_to_tmp_file(t_ast_redir *redir)
 	return (fd);
 }
 
+static void	duplication_input(t_ast_redir *redir)
+{
+	int duplicated_fd;
+
+	to_duplicate_fd = get_duplication_fd(redir->param);
+	if (duplicated_fd > -1)
+	{
+		redir_fd->fd_save = dup(redir->io_number == -1 ? STDIN_FILENO : redir->io_number);
+		redir_fd->fd_origin = redir->io_number == -1 ? STDIN_FILENO : redir->io_number;
+		dup_fds(duplicated_fd, redir_fd->fd_origin);
+	}
+}
+
+static void	duplication_output(t_ast_redir *redir)
+{
+	int duplicated_fd;
+
+	to_duplicate_fd = get_duplication_fd(redir->param);
+	if (duplicated_fd > -1)
+	{
+		redir_fd->fd_save = dup(redir->io_number == -1 ? STDOUT_FILENO : redir->io_number);
+		redir_fd->fd_origin = redir->io_number == -1 ? STDOUT_FILENO : redir->io_number;
+		dup_fds(duplicated_fd, redir_fd->fd_origin);
+	}
+}
+
 static void	iter_redir_fn(void *redir_, void *cmd_)
 {
 	t_ast_redir				*redir;
@@ -35,6 +61,7 @@ static void	iter_redir_fn(void *redir_, void *cmd_)
 	redir = redir_;
 	cmd = cmd_;
 	redir_fd = twl_malloc_x0(sizeof(t_ast_redir_fd));
+	redir_fd->fd_file = -1;
 	if (!twl_strcmp("<", redir->operator) || !twl_strcmp("<<", redir->operator))
 	{
 		redir_fd->fd_save = dup(redir->io_number == -1 ? STDIN_FILENO : redir->io_number);
@@ -44,7 +71,7 @@ static void	iter_redir_fn(void *redir_, void *cmd_)
 		else if (!twl_strcmp("<<", redir->operator))
 			redir_fd->fd_file = write_heredoc_to_tmp_file(redir);
 	}
-	else if (!twl_strcmp(">", redir->operator) || !twl_strcmp(">>", redir->operator))
+	else if (!twl_strcmp(">", redir->operator) || !twl_strcmp(">|", redir->operator) || !twl_strcmp(">>", redir->operator))
 	{
 		redir_fd->fd_save = dup(redir->io_number == -1 ? STDOUT_FILENO : redir->io_number);
 		redir_fd->fd_origin = redir->io_number == -1 ? STDOUT_FILENO : redir->io_number;
@@ -52,6 +79,14 @@ static void	iter_redir_fn(void *redir_, void *cmd_)
 			redir_fd->fd_file = create_file(redir->param);
 		else if (!twl_strcmp(">>", redir->operator))
 			redir_fd->fd_file = append_to_file(redir->param);
+	}
+	else if (!twl_strcmp(">&", redir->operator))
+		duplication_output(redir);
+	else if (!twl_strcmp("<&", redir->operator))
+		duplication_input(redir);
+	else if (!twl_strcmp("<>", redir->operator))
+	{
+		twl_printf("YOLO POUET GNUK\n");
 	}
 	if (redir_fd->fd_file != -1)
 		dup_fds(redir_fd->fd_file, redir_fd->fd_origin);
