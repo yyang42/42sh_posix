@@ -14,8 +14,13 @@ static void test_is_builtin(t_test *test)
 static void test_get_binary_path(t_test *test)
 {
 	(void)test;
-	mt_assert(get_binary_path("pouet") == NULL);
-	mt_assert(get_binary_path("ls") != NULL);
+	char *str;
+
+	str = get_binary_path("pouet");
+	mt_assert( str == NULL);
+	str = get_binary_path("ls");
+	mt_assert(str != NULL);
+	twl_strdel(&str);
 }
 
 void	suite_check_command(t_suite *suite)
