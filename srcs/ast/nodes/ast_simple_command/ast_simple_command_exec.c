@@ -54,7 +54,10 @@ int			ast_simple_command_exec(t_ast_simple_command *cmd)
 	if (twl_lst_len(cmd->assignment_items) > 0)
 		twl_lst_iter(cmd->assignment_items, iter_assign_fn, clone);
 	if (twl_lst_len(cmd->redir_items) > 0)
-		ast_simple_command_redirs(cmd);
+	{
+		if (ast_simple_command_check_files(cmd) == true)
+			ast_simple_command_redirs(cmd);
+	}
 	else
 		execute_simple_command(cmd->command_tokens, clone);
 	return (0);
