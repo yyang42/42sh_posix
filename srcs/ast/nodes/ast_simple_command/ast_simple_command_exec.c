@@ -25,7 +25,7 @@ static void	iter_assign_fn(void *data, void *context)
 	environment_setenv_value(env, assign->key, assign->value);
 }
 
-void		execute_simple_command(t_lst *tokens, t_environment *env) //TODO: a mettre ailleurs
+void		execute_simple_command(t_lst *tokens, t_environment *env)
 {
 	char			**cmd_arr;
 	char			**env_arr;
@@ -35,14 +35,18 @@ void		execute_simple_command(t_lst *tokens, t_environment *env) //TODO: a mettre
 	token_joined = token_mgr_strjoin(tokens, " "); //TODO: voir si fn qui split directement
 	cmd_arr = twl_strsplit(token_joined, ' ');
 	env_arr = (char **)environment_get_env_arr(env);
-	path = get_binary_path(cmd_arr[0]);
-	command_execution(path, cmd_arr, env_arr);
+	if (!is_builtin(cmd_arr[0))
+	{
+		path = get_binary_path(cmd_arr[0]);
+		command_execution(path, cmd_arr, env_arr);
+		free(path);
+	}
+	else
+		execute_builtin(token_joined);
 	twl_arr_del(cmd_arr, free);
 	twl_arr_del(env_arr, free);
 	free(token_joined);
-	free(path);
 }
-
 
 int			ast_simple_command_exec(t_ast_simple_command *cmd)
 {
