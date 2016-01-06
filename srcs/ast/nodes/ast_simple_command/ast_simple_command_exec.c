@@ -62,19 +62,20 @@ void		execute_simple_command(t_ast_simple_command *cmd, t_environment *env)
 
 int			ast_simple_command_exec(t_ast_simple_command *cmd)
 {
-	t_environment	*this;
-	t_environment	*clone;
+	t_environment	*env;
 
-	this = environment_singleton();
-	clone = environment_clone(this);
+	env = environment_singleton();
+	env = twl_lst_len(cmd->command_tokens) != 0 ? environment_clone(env) : env;
 	if (twl_lst_len(cmd->assignment_items) > 0)
-		twl_lst_iter(cmd->assignment_items, iter_assign_fn, clone);
+		twl_lst_iter(cmd->assignment_items, iter_assign_fn, env);
 	if (twl_lst_len(cmd->redir_items) > 0)
 	{
 		if (ast_simple_command_check_files(cmd) == true)
 			ast_simple_command_redirs(cmd);
 	}
 	else
-		execute_simple_command(cmd, clone);
+		execute_simple_command(cmd, env);
+	if (twl_lst_len(cmd->command_tokens) != 0)
+		environment_del(env);
 	return (0);
 }
