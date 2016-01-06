@@ -25,16 +25,19 @@ char		*get_binary_path(char *cmd)
 	char			*path;
 	int 			i;
 
-	env = environment_singleton();
-	paths = environment_get_paths(env);
 	if (cmd && (cmd[0] == '/' || twl_strncmp(cmd, "./", 2) == 0))
 		return (!file_exists(cmd) ? NULL : cmd);
+	env = environment_singleton();
+	paths = environment_get_paths(env);
 	i = -1;
 	while (paths[++i])
 	{
 		path = twl_joinpath(paths[i], cmd);
 		if (file_exists(path))
+		{
+			twl_arr_del(paths, free);
 			return (path);
+		}
 		free(path);
 	}
 	twl_arr_del(paths, free);
