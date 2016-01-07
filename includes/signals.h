@@ -14,6 +14,9 @@
 # define SIGNALS_H
 
 # include "basics.h"
+# include <signal.h>
+# include <sys/wait.h>
+# include <sys/types.h>
 
 void			handle_signal(int signal);
 

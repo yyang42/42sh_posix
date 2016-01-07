@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "ast/nodes/ast_simple_command.h"
+#include "signals.h"
 
 static void		fork_and_execute(char *path, char **args, char **env)
 {

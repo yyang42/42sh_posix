@@ -25,6 +25,7 @@
 # include "environment.h"
 # include "ast/nodes/ast_redir.h"
 
+
 typedef struct			s_ast_redir_fd
 {
 	int					fd_save;
