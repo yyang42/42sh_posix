@@ -17,7 +17,7 @@ static void		print_key_value(char *key, void *data, void *context_)
 	char *str;
 
 	str = data;
-	twl_printf("%s=%s\n", key, str);
+	twl_printf("%s='%s'\n", key, str);
 	(void)context_;
 }
 
