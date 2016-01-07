@@ -11,32 +11,33 @@
 /* ************************************************************************** */
 
 #include "umask.h"
-void	agou_loop(t_parse_mask *pm)
+
+void		agou_loop(t_parse_mask *pm)
 {
 	while (twl_strpos("agou", *pm->s) > -1 && (pm->c = *pm->s++))
 	{
 		if (pm->c == 'u')
 		{
 			pm->who |= S_IRWXU;
-			continue;
+			continue ;
 		}
 		else if (pm->c == 'g')
 		{
 			pm->who |= S_IRWXG;
-			continue;
+			continue ;
 		}
 		else if (pm->c == 'o')
 		{
 			pm->who |= S_IRWXO;
-			continue;
+			continue ;
 		}
 		else if (pm->c == 'a')
 		{
 			pm->who |= S_IRWXU | S_IRWXG | S_IRWXO;
-			continue;
+			continue ;
 		}
 		else
-			break;
+			break ;
 	}
 }
 
@@ -48,17 +49,17 @@ static void	rwx_loop(t_parse_mask *pm)
 		if (pm->c == 'r')
 		{
 			pm->perm |= S_IRUGO;
-			break;
+			break ;
 		}
 		else if (pm->c == 'w')
 		{
 			pm->perm |= S_IWUGO;
-			break;
+			break ;
 		}
 		else if (pm->c == 'x')
 		{
 			pm->perm |= S_IXUGO;
-			break;
+			break ;
 		}
 	}
 }
@@ -67,7 +68,6 @@ static int	parse_symbolic_mode_2(t_parse_mask *pm)
 {
 	if (!*pm->s || *pm->s == ',')
 	{
-
 		if (pm->who)
 			pm->perm &= pm->who;
 		if (pm->op == '+')
@@ -90,13 +90,13 @@ static int	parse_symbolic_mode_2(t_parse_mask *pm)
 	}
 	else
 	{
-		twl_dprintf (2,"%c: invalid symbolic mode character", *pm->s);
+		twl_dprintf(2, "%c: invalid symbolic mode character", *pm->s);
 		return (false);
 	}
 	return (2);
 }
 
-int		parse_symbolic_mode(char *mode, int initial_bits)
+int			parse_symbolic_mode(char *mode, int initial_bits)
 {
 	t_parse_mask	pm;
 	int				flag;
@@ -120,7 +120,7 @@ int		parse_symbolic_mode(char *mode, int initial_bits)
 		if (flag == false)
 			return (-1);
 		else if (flag == 3)
-			break;
+			break ;
 	}
 	return (pm.bits);
 }

@@ -15,8 +15,9 @@
 
 t_dict							*get_builtin_func_dict(void)
 {
-	t_dict *dict = twl_dict_new();
+	t_dict *dict;
 
+	dict = twl_dict_new();
 	twl_dict_add(dict, "echo", &echo);
 	twl_dict_add(dict, "cd", &cd);
 	twl_dict_add(dict, "env", &env);

@@ -10,23 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_assignment.h"
-#include "ast/nodes/ast_redir.h"
 #include "ast/nodes/ast_simple_command.h"
 
-void				ast_simple_command_print_rec(t_ast_simple_command *this,
-	int depth)
+int	write_heredoc_to_tmp_file(t_ast_redir *redir)
 {
-	char			*command_str;
-	char			*joined_command;
+	int fd;
 
-	joined_command = token_mgr_strjoin(this->command_tokens, " ");
-	command_str = twl_str_truncate(joined_command, 20);
-	ast_print_indent(depth);
-	twl_printf("ast_simple_command (%s)\n", command_str);
-	free(command_str);
-	depth++;
-	ast_redir_print_rec_list(this->redir_items, depth);
-	ast_assignment_print_rec_list(this->assignment_items, depth);
-	free(joined_command);
+	fd = create_file("/tmp/.tmpfilefor42shposix");
+	if (fd == -1)
+		return (fd);
+	write(fd, redir->heredoc_text, twl_strlen(redir->heredoc_text));
+	close(fd);
+	fd = read_file("/tmp/.tmpfilefor42shposix");
+	return (fd);
 }

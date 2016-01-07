@@ -12,23 +12,22 @@
 
 #include "umask.h"
 
-static void print_symbolic_umask_2(mode_t um, t_mask *mask)
+static void	print_symbolic_umask_2(mode_t um, t_mask *mask)
 {
 	int i;
-	
+
 	i = 0;
 	if ((um & S_IROTH) == 0)
-	  mask->obits[i++] = 'r';
+		mask->obits[i++] = 'r';
 	if ((um & S_IWOTH) == 0)
-	  mask->obits[i++] = 'w';
+		mask->obits[i++] = 'w';
 	if ((um & S_IXOTH) == 0)
-	  mask->obits[i++] = 'x';
+		mask->obits[i++] = 'x';
 	mask->obits[i] = '\0';
-
 	twl_printf("u=%s,g=%s,o=%s\n", mask->ubits, mask->gbits, mask->obits);
 }
 
-void print_symbolic_umask(mode_t um)
+void		print_symbolic_umask(mode_t um)
 {
 	t_mask	mask;
 	int		i;

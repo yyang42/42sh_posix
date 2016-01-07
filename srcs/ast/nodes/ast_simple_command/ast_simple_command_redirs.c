@@ -11,60 +11,6 @@
 /* ************************************************************************** */
 
 #include "ast/nodes/ast_simple_command.h"
-#include "ast/nodes/ast_redir.h"
-
-static int	write_heredoc_to_tmp_file(t_ast_redir *redir)
-{
-	int fd;
-
-	fd = create_file("/tmp/.tmpfilefor42shposix");
-	if (fd == -1)
-		return (fd);
-	write(fd, redir->heredoc_text, twl_strlen(redir->heredoc_text));
-	close(fd);
-	fd = read_file("/tmp/.tmpfilefor42shposix");
-	return (fd);
-}
-
-static int	duplication_input(t_ast_redir *redir, t_ast_redir_fd *redir_fd)
-{
-	int duplicated_fd;
-
-	duplicated_fd = -1;
-	if (!twl_strcmp("-", redir->param))
-		close_file(redir->io_number);
-	else
-	{
-		duplicated_fd = get_duplication_fd(redir->param);
-		if (duplicated_fd > -1)
-		{
-			redir_fd->fd_save = dup(redir->io_number == -1 ? STDIN_FILENO : redir->io_number);
-			redir_fd->fd_origin = redir->io_number == -1 ? STDIN_FILENO : redir->io_number;
-			dup_fds(duplicated_fd, redir_fd->fd_origin);
-		}
-	}
-	return (duplicated_fd);
-}
-
-static int	duplication_output(t_ast_redir *redir, t_ast_redir_fd *redir_fd)
-{
-	int duplicated_fd;
-
-	duplicated_fd = -1;
-	if (!twl_strcmp("-", redir->param))
-		close_file(redir->io_number);
-	else
-	{
-		duplicated_fd = get_duplication_fd(redir->param);
-		if (duplicated_fd > -1)
-		{
-			redir_fd->fd_save = dup(redir->io_number == -1 ? STDOUT_FILENO : redir->io_number);
-			redir_fd->fd_origin = redir->io_number == -1 ? STDOUT_FILENO : redir->io_number;
-			dup_fds(duplicated_fd, redir_fd->fd_origin);
-		}
-	}
-	return (duplicated_fd);
-}
 
 static void	iter_redir_fn(void *redir_, void *cmd_)
 {
@@ -77,23 +23,9 @@ static void	iter_redir_fn(void *redir_, void *cmd_)
 	redir_fd = twl_malloc_x0(sizeof(t_ast_redir_fd));
 	redir_fd->fd_file = -1;
 	if (!twl_strcmp("<", redir->operator) || !twl_strcmp("<<", redir->operator))
-	{
-		redir_fd->fd_save = dup(redir->io_number == -1 ? STDIN_FILENO : redir->io_number);
-		redir_fd->fd_origin = redir->io_number == -1 ? STDIN_FILENO : redir->io_number;
-		if (!twl_strcmp("<", redir->operator))
-			redir_fd->fd_file = read_file(redir->param);
-		else if (!twl_strcmp("<<", redir->operator))
-			redir_fd->fd_file = write_heredoc_to_tmp_file(redir);
-	}
+		redir_input(redir, redir_fd);
 	else if (!twl_strcmp(">", redir->operator) || !twl_strcmp(">|", redir->operator) || !twl_strcmp(">>", redir->operator))
-	{
-		redir_fd->fd_save = dup(redir->io_number == -1 ? STDOUT_FILENO : redir->io_number);
-		redir_fd->fd_origin = redir->io_number == -1 ? STDOUT_FILENO : redir->io_number;
-		if (!twl_strcmp(">", redir->operator))
-			redir_fd->fd_file = create_file(redir->param);
-		else if (!twl_strcmp(">>", redir->operator))
-			redir_fd->fd_file = append_to_file(redir->param);
-	}
+		redir_output(redir, redir_fd);
 	else if (!twl_strcmp(">&", redir->operator))
 	{
 		if (duplication_output(redir, redir_fd) == -1)
@@ -112,11 +44,7 @@ static void	iter_redir_fn(void *redir_, void *cmd_)
 		}
 	}
 	else if (!twl_strcmp("<>", redir->operator))
-	{
-		redir_fd->fd_save = dup(redir->io_number == -1 ? STDIN_FILENO : redir->io_number);
-		redir_fd->fd_origin = redir->io_number == -1 ? STDIN_FILENO : redir->io_number;
-		redir_fd->fd_file = read_write_file(redir->param);
-	}
+		redir_input_output(redir, redir_fd);
 	if (redir_fd->fd_file != -1)
 		dup_fds(redir_fd->fd_file, redir_fd->fd_origin);
 	twl_lst_push_front(cmd->redir_fds, redir_fd);

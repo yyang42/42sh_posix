@@ -38,7 +38,8 @@ static void	execute_builtin(t_ast_simple_command *cmd, char *builtin,
 	}
 }
 
-void		execute_simple_command(t_ast_simple_command *cmd, t_environment *env)
+void		execute_simple_command(t_ast_simple_command *cmd,
+	t_environment *env)
 {
 	char			**cmd_arr;
 	char			**env_arr;
@@ -68,7 +69,8 @@ int			ast_simple_command_exec(t_ast_simple_command *cmd)
 	env = environment_singleton();
 	if (twl_lst_len(cmd->assignment_items) > 0)
 	{
-		env = twl_lst_len(cmd->command_tokens) != 0 ? environment_clone(env) : env;
+		env = twl_lst_len(cmd->command_tokens) != 0
+			? environment_clone(env) : env;
 		twl_lst_iter(cmd->assignment_items, iter_assign_fn, env);
 	}
 	if (twl_lst_len(cmd->redir_items) > 0)
@@ -78,7 +80,8 @@ int			ast_simple_command_exec(t_ast_simple_command *cmd)
 	}
 	else
 		execute_simple_command(cmd, env);
-	if (twl_lst_len(cmd->command_tokens) != 0 && twl_lst_len(cmd->assignment_items) > 0)
+	if (twl_lst_len(cmd->command_tokens) != 0
+		&& twl_lst_len(cmd->assignment_items) > 0)
 		environment_del(env);
 	return (0);
 }

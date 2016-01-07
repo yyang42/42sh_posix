@@ -10,23 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_assignment.h"
-#include "ast/nodes/ast_redir.h"
 #include "ast/nodes/ast_simple_command.h"
 
-void				ast_simple_command_print_rec(t_ast_simple_command *this,
-	int depth)
+void	redir_input(t_ast_redir *redir, t_ast_redir_fd *redir_fd)
 {
-	char			*command_str;
-	char			*joined_command;
-
-	joined_command = token_mgr_strjoin(this->command_tokens, " ");
-	command_str = twl_str_truncate(joined_command, 20);
-	ast_print_indent(depth);
-	twl_printf("ast_simple_command (%s)\n", command_str);
-	free(command_str);
-	depth++;
-	ast_redir_print_rec_list(this->redir_items, depth);
-	ast_assignment_print_rec_list(this->assignment_items, depth);
-	free(joined_command);
+	redir_fd->fd_save = dup(redir->io_number == -1 ? STDIN_FILENO : redir->io_number);
+	redir_fd->fd_origin = redir->io_number == -1 ? STDIN_FILENO : redir->io_number;
+	if (!twl_strcmp("<", redir->operator))
+		redir_fd->fd_file = read_file(redir->param);
+	else if (!twl_strcmp("<<", redir->operator))
+		redir_fd->fd_file = write_heredoc_to_tmp_file(redir);
 }

@@ -26,7 +26,8 @@ static void		iter_check_fn(void *data, void *context)
 		return ;
 	if (!twl_strcmp(redir->operator, "<"))
 		fd = read_file(redir->param);
-	else if (!twl_strcmp(redir->operator, ">") || !twl_strcmp(">|", redir->operator))
+	else if (!twl_strcmp(redir->operator, ">")
+		|| !twl_strcmp(">|", redir->operator))
 		fd = create_file(redir->param);
 	else if (!twl_strcmp(redir->operator, ">>"))
 		fd = append_to_file(redir->param);
@@ -44,5 +45,5 @@ bool			ast_simple_command_check_files(t_ast_simple_command *this)
 
 	is_good_file = true;
 	twl_lst_iter(this->redir_items, iter_check_fn, &is_good_file);
-	return is_good_file;
+	return (is_good_file);
 }

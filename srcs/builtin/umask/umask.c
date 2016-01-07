@@ -12,37 +12,37 @@
 
 #include "umask.h"
 
-int			read_octal (char *string)
+int			read_octal(char *string)
 {
 	int result;
 	int digits;
 
 	result = 0;
 	digits = 0;
-	while (*string && ISOCTAL (*string))
+	while (*string && ISOCTAL(*string))
 	{
 		digits++;
 		result = (result * 8) + (*string++ - '0');
 		if (result > 0777)
-			return -1;
+			return (-1);
 	}
 	if (digits == 0 || *string)
 		result = -1;
 	return (result);
 }
 
-static int	symbolic_umask (char *arg)
+static int	symbolic_umask(char *arg)
 {
-  int	um;
-  int	bits;
+	int	um;
+	int	bits;
 
-  um = umask (022);
-  umask (um);
-  bits = parse_symbolic_mode (arg, ~um & 0777);
-  if (bits == -1)
-    return (-1);
-  um = ~bits & 0777;
-  return (um);
+	um = umask(022);
+	umask(um);
+	bits = parse_symbolic_mode(arg, ~um & 0777);
+	if (bits == -1)
+		return (-1);
+	um = ~bits & 0777;
+	return (um);
 }
 
 static int	modify_umask(t_opt *opt, char *arg)
@@ -52,12 +52,12 @@ static int	modify_umask(t_opt *opt, char *arg)
 
 	if (twl_isdigit(*arg))
 	{
-		umask_value = read_octal (arg);
+		umask_value = read_octal(arg);
 		if (umask_value == -1)
-	    {
-	      error_octal_out_of_range(arg);
-	      return (BUILTIN_EXEC_FAILURE);
-	    }
+		{
+			error_octal_out_of_range(arg);
+			return (BUILTIN_EXEC_FAILURE);
+		}
 	}
 	else
 	{
@@ -66,7 +66,7 @@ static int	modify_umask(t_opt *opt, char *arg)
 			return (BUILTIN_EXEC_FAILURE);
 	}
 	umask_arg = (mode_t)umask_value;
-	umask (umask_arg);
+	umask(umask_arg);
 	if (twl_opt_exist(opt, "-S"))
 		print_symbolic_umask(umask_arg);
 	return (BUILTIN_EXEC_SUCCESS);
@@ -87,8 +87,8 @@ int			umask_builtin(char *cmd, t_environment *this)
 	{
 		if (twl_opt_args_len(opt) < 1)
 		{
-			umask_arg = umask (022);
-			umask (umask_arg);
+			umask_arg = umask(022);
+			umask(umask_arg);
 			if (twl_opt_exist(opt, "S"))
 				print_symbolic_umask(umask_arg);
 			else
