@@ -16,16 +16,17 @@ static void			iter_fn(void *ast_andor_item_, void *prev_, void *context_)
 {
 	t_ast_andor_item	*ast_andor_item;
 	t_ast_andor_item	*prev;
-	int					*context;
+	t_environment		*env;
 
 	ast_andor_item = ast_andor_item_;
 	prev = prev_;
-	context = context_;
-	if (!prev || *context == -1 ||
-		(prev->separator->type == TOKEN_AND_IF && context == 0) ||
-		(prev->separator->type == TOKEN_OR_IF && context != 0))
+	(void)context_;
+	env = environment_singleton();
+	if (!prev ||
+		(prev->separator->type == TOKEN_AND_IF && env->info.last_exit_status == 0) ||
+		(prev->separator->type == TOKEN_OR_IF && env->info.last_exit_status > 0))
 	{
-		*context = ast_andor_item_exec(ast_andor_item);
+		ast_andor_item_exec(ast_andor_item);
 	}
 }
 

@@ -58,6 +58,7 @@ static void			iter_fn(void *ast_pipe_item_, void *ret_)
 int					ast_andor_item_exec(t_ast_andor_item *ast_andor_item)
 {
 	int				ret;
+	
 	twl_lst_iter(ast_andor_item->ast_pipe_items, iter_fn, &ret);
 	return (ret);
 }
