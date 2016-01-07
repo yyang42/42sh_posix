@@ -18,16 +18,14 @@ void 		dup_fds(int fd1, int fd2)
 		perror("dup2");
 }
 
-char		*get_binary_path(char *cmd)
+char		*get_binary_path(char *cmd, t_environment *env)
 {
-	t_environment	*env;
 	char			**paths;
 	char			*path;
 	int 			i;
 
 	if (cmd && (cmd[0] == '/' || twl_strncmp(cmd, "./", 2) == 0))
 		return (!file_exists(cmd) ? NULL : cmd);
-	env = environment_singleton();
 	paths = environment_get_paths(env);
 	i = -1;
 	while (paths[++i])
