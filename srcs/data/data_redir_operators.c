@@ -21,6 +21,7 @@ t_lst				*data_redir_operators(void)
 		operators = twl_lst_new();
 		twl_lst_push_back(operators, "<");
 		twl_lst_push_back(operators, "<&");
+		twl_lst_push_back(operators, "&>");
 		twl_lst_push_back(operators, ">");
 		twl_lst_push_back(operators, ">&");
 		twl_lst_push_back(operators, ">>");
