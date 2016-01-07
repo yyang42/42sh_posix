@@ -18,17 +18,19 @@ static int			fork_error(void)
 	return (1);
 }
 
-static void			iter_fn(void *ast_pipe_item_)
+static void			iter_fn(void *ast_pipe_item_, void *ret_)
 {
 	t_ast_pipe_item	*ast_pipe_item;
 	int				pids[2];
 	pid_t			child_pid;
+	int				*ret;
 
+	ret = ret_;
 	ast_pipe_item = ast_pipe_item_;
 	if (!ast_pipe_item->separator)
 	{
 		ast_pipe_item_exec(ast_pipe_item);
-		exit(0);
+		return ;
 	}
 	pipe(pids);
 	child_pid = fork();
@@ -47,7 +49,7 @@ static void			iter_fn(void *ast_pipe_item_)
 	}
 	else
 	{
-		wait(NULL);
+		wait(ret);
 		dup2(pids[0], 0);
 		close(pids[1]);
 	}
@@ -56,14 +58,6 @@ static void			iter_fn(void *ast_pipe_item_)
 int					ast_andor_item_exec(t_ast_andor_item *ast_andor_item)
 {
 	int				ret;
-	int				child_pid;
-
-	ret = -1;
-	child_pid = fork();
-	if (child_pid == -1)
-		ret = fork_error();
-	else if (child_pid == 0)
-		twl_lst_iter0(ast_andor_item->ast_pipe_items, iter_fn);
-	wait(&ret);
-	return (WEXITSTATUS(ret));
+	twl_lst_iter(ast_andor_item->ast_pipe_items, iter_fn, &ret);
+	return (ret);
 }

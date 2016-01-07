@@ -51,13 +51,14 @@ int				set(char *str)
 	env = environment_singleton();
 	arr = twl_strsplit_mul(str, " \n\t");
 	opt = set_opt_new(arr, SET_OPT_VALID_OPTS);
+
 	if (!set_check_invalid_opts(opt, "set", SET_OPT_VALID_OPTS))
 	{
 		twl_lst_iter2(opt->positive_opts, remove_shell_flags, env, opt->args);
 		twl_lst_iter2(opt->negative_opts, add_shell_flags, env, opt->args);
 		if (twl_lst_len(opt->args) > 0)
 			set_check_args(opt, env);
-		else
+		else if (!set_opt_exist(opt, "o"))
 		{
 			environment_print_all(env);
 			environment_set_last_exit_status(BUILTIN_EXEC_SUCCESS);

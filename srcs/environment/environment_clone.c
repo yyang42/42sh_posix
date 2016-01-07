@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "environment.h"
+#include "twl_opt_elem.h"
 
 static void			*copy_fn(void *data)
 {
@@ -24,6 +25,18 @@ static void			*copy_fn(void *data)
 	return (var);
 }
 
+static void			*copy_flags_fn(void *data_)
+{
+	t_opt_elem *var;
+	t_opt_elem *data;
+
+	data = data_;
+	var = twl_malloc_x0(sizeof(t_opt_elem));
+	var->key = twl_strdup(data->key);
+	var->value = twl_strdup(data->value);
+	return (var);
+}
+
 t_environment		*environment_clone(t_environment *this)
 {
 	t_environment *clone;
@@ -34,7 +47,7 @@ t_environment		*environment_clone(t_environment *this)
 	// clone->flag_verbose = twl_lst_copy(this->env_vars, copy_dict);
 	// clone->shell_func = twl_lst_copy(this->env_vars, copy_dict);
 	clone->pos_params = twl_lst_new();
-	clone->flags = twl_lst_new();
+	clone->flags = twl_lst_copy(this->flags, copy_flags_fn);
 	clone->flag_verbose = NULL;
 	clone->shell_func = NULL;
 	return (clone);
