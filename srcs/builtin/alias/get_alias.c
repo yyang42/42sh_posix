@@ -18,6 +18,6 @@ char			*get_alias(char *key, t_environment *this)
 
 	value = twl_dict_get(this->alias, key);
 	if (!value)
-		environment_set_last_exit_status(BUILTIN_EXEC_FAILURE);
+		environment_set_last_exit_status_2(this, BUILTIN_EXEC_FAILURE);
 	return (value);
 }

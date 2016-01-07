@@ -28,10 +28,10 @@ int				echo(char *str, t_environment *this)
 			twl_printf("%s", str + 5);
 		else
 			twl_printf("%s\n", str + 5);
-		environment_set_last_exit_status(BUILTIN_EXEC_SUCCESS);
+		environment_set_last_exit_status_2(this, BUILTIN_EXEC_SUCCESS);
 	}
 	else
-		environment_set_last_exit_status(BUILTIN_EXEC_FAILURE);
+		environment_set_last_exit_status_2(this, BUILTIN_EXEC_FAILURE);
 	twl_arr_del(arr, &free);
 	twl_opt_del(opt);
 	return (flag);

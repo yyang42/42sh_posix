@@ -13,5 +13,6 @@ pwd | grep test1
 cd ..
 cd -P test2_cd
 pwd | grep test2
+cd ..
 rm -rf test1_cd
 rm -rf test2_cd
