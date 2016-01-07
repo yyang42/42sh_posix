@@ -31,6 +31,7 @@ static void			andor_fn_2(t_ast_pipe_item *ast_pipe_item, int pids[2],
 	else
 	{
 		wait(ret);
+		handle_signal(*ret);
 		dup2(pids[0], 0);
 		close(pids[1]);
 	}

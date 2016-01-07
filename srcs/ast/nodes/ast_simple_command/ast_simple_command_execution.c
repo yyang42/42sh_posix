@@ -29,7 +29,11 @@ static void		fork_and_execute(char *path, char **args, char **env)
 	}
 	else
 	{
+		signal(SIGINT, SIG_IGN);
+		signal(SIGKILL, SIG_IGN);
 		wait(&pid);
+		signal(SIGINT, SIG_DFL);
+		signal(SIGKILL, SIG_DFL);
 		handle_signal(pid);
 		enviro->info.last_exit_status = pid;
 	}
