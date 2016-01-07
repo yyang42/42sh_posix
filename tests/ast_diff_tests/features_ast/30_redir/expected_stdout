@@ -3,7 +3,7 @@ compound_list
         ast_andor_item
             ast_pipe_item
                 ast_command
-                    ast_simple_command (cmd_level_1)
+                    ast_simple_command (ls)
                         ast_redir (> outputA)
                         ast_redir (< inputA)
                         ast_redir (>> appendA)
@@ -18,19 +18,19 @@ compound_list
                                     ast_andor_item
                                         ast_pipe_item
                                             ast_command
-                                                ast_simple_command (cmd_level_2)
-                        ast_redir (> outputB)
+                                                ast_simple_command (echo cat)
+                        ast_redir (>| outputB)
                         ast_redir (< inputB)
                         ast_redir (>> appendB)
     ast_list_item (sep=\n)
         ast_andor_item
             ast_pipe_item
                 ast_command
-                    ast_simple_command (cmd_level_1b)
+                    ast_simple_command (ls pouet)
                         ast_redir (2> file)
     ast_list_item (sep=\n)
         ast_andor_item
             ast_pipe_item
                 ast_command
-                    ast_simple_command (cmd_level_1b 2)
-                        ast_redir (> file)
+                    ast_simple_command (ls -y 2)
+                        ast_redir (> file2)
