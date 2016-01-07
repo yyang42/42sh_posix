@@ -30,10 +30,11 @@ t_environment			*environment_new(void)
 	this->pos_params = xopt_get_args(xopt);
 	this->flags = xopt_get_opts(xopt);
 	*/
+	this->alias = twl_dict_new();
+	this->flag_verbose = twl_dict_new();
+	this->shell_func = twl_dict_new();
 	this->pos_params = twl_lst_new();
 	this->flags = twl_lst_new();
-	this->flag_verbose = NULL;
-	this->shell_func = NULL;
 	this->info.name = NULL;
 	return (this);
 }

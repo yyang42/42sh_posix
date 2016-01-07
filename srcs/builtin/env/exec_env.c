@@ -39,9 +39,26 @@ static void		exec_with_path(void *elem, void *context)
 	if (!stat(path, &sb))
 	{
 		index = arr2_indexof(env->args, env->utility);
-		env->was_executed = execute(path, &env->args[index],
-			env->env_arr);
+		command_execution(path, &env->args[index], env->env_arr);
 	}
+}
+
+static void		env_with_builtin(char *builtin, char **args, t_environment *env)
+{
+	t_dict	*dict;
+	void	*func;
+	void	(*f)(char *str, t_environment *env);
+	char	*string;
+
+	dict = get_builtin_func_dict();
+	string = twl_strjoinarr((const char **)args, " ");
+	func = twl_dict_get(dict, builtin);
+	if (func)
+	{
+		f = func;
+		f(string, env);
+	}
+	free(string);
 }
 
 void			exec_env(t_env_args *env, t_environment *this)
@@ -50,14 +67,15 @@ void			exec_env(t_env_args *env, t_environment *this)
 	int		index;
 
 	fpaths = environment_get_paths(this);
+	index = arr2_indexof(env->args, env->utility);
 	if (fpaths && !twl_strchr(env->utility, '/'))
-		twl_arr_iter(fpaths, exec_with_path, env);
-	else
 	{
-		index = arr2_indexof(env->args, env->utility);
-		env->was_executed = execute(env->utility, &env->args[index],
-			env->env_arr);
+		if (!is_builtin(env->utility))
+			twl_arr_iter(fpaths, exec_with_path, env);
+		else
+			env_with_builtin(env->utility, &env->args[index], this);
 	}
-	if (!env->was_executed)
-		twl_dprintf(2, "env: %s: No such file or directory\n", env->utility);
+	else
+		command_execution(env->utility, &env->args[index], env->env_arr);
+	twl_arr_del(fpaths, free);
 }

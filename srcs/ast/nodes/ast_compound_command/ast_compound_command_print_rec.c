@@ -14,7 +14,7 @@
 
 #include "ast/nodes/ast_compound_command.h"
 
-static t_compound_command_print_rec_fn *get_print_rec_fns(void)
+static t_compound_command_print_rec_fn	*get_print_rec_fns(void)
 {
 	static t_compound_command_print_rec_fn	fns[COMPOUND_COMMAND_NBR];
 	static bool								already_loaded = false;
@@ -28,14 +28,16 @@ static t_compound_command_print_rec_fn *get_print_rec_fns(void)
 	return (fns);
 }
 
-void				ast_compound_command_print_rec(t_ast_compound_command *ast_compound_command, int depth)
+void									ast_compound_command_print_rec(
+	t_ast_compound_command *ast_compound_command, int depth)
 {
 	ast_print_indent(depth);
 	twl_printf("ast_compound_command\n");
 	depth++;
 	if (ast_compound_command->command_type != COMPOUND_COMMAND_NONE)
 	{
-		get_print_rec_fns()[ast_compound_command->command_type](ast_compound_command->command, depth);
+		get_print_rec_fns()[ast_compound_command->command_type](
+			ast_compound_command->command, depth);
 		ast_redir_print_rec_list(ast_compound_command->redir_items, depth);
 	}
 }

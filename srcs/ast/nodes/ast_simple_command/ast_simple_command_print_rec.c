@@ -14,7 +14,8 @@
 #include "ast/nodes/ast_redir.h"
 #include "ast/nodes/ast_simple_command.h"
 
-void				ast_simple_command_print_rec(t_ast_simple_command *this, int depth)
+void				ast_simple_command_print_rec(t_ast_simple_command *this,
+	int depth)
 {
 	char			*command_str;
 	char			*joined_command;

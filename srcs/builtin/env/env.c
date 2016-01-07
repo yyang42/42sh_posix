@@ -30,29 +30,26 @@ static void		init_env_args(t_env_args *env, char *str)
 {
 	env->utility = NULL;
 	env->has_utility = 0;
-	env->was_executed = 0;
 	env->env_arr = NULL;
 	env->args = twl_strsplit_mul(str, " \t");
 }
 
-int				env(char *str)
+int				env(char *str, t_environment *this)
 {
 	t_environment		*clone;
-	t_environment		*this;
 	t_opt				*opt;
 	t_env_args			env;
 
 	clone = NULL;
 	init_env_args(&env, str);
 	opt = twl_opt_new(env.args, "i");
-	if (!check_invalid_opts(opt, "env", ENV_OPT_VALID_OPTS))
+	if (check_invalid_opts(opt, "env", ENV_OPT_VALID_OPTS))
 		return (-1);
-	this = environment_singleton();
 	clone = !twl_lst_len(opt->opts) ? environment_clone(this)
 		: environment_new();
 	twl_lst_iter(opt->args, add_env_var, clone);
 	twl_lst_iter(opt->args, get_utility, &env);
-	env.env_arr = (char **)env_lst_to_arr(clone->env_vars);
+	env.env_arr = (char **)environment_get_env_arr(clone);
 	if (env.has_utility)
 		exec_env(&env, this);
 	else

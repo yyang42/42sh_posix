@@ -14,7 +14,8 @@
 #include "ast/ast.h"
 #include "ast/nodes/ast_if_then.h"
 
-static int			build(t_ast_if_then *ast_if_then, t_lst *tokens, struct s_ast *ast)
+static int		build(t_ast_if_then *ast_if_then,
+	t_lst *tokens, struct s_ast *ast)
 {
 	t_lst			*splits_split_then;
 	t_lst			*cond_tokens;
@@ -30,8 +31,10 @@ static int			build(t_ast_if_then *ast_if_then, t_lst *tokens, struct s_ast *ast)
 	}
 	cond_tokens = twl_lst_get(splits_split_then, 0);
 	then_tokens = twl_lst_get(splits_split_then, 1);
-	ast_if_then->cond_compound = ast_compound_list_new_from_tokens(cond_tokens, ast);
-	ast_if_then->then_compound = ast_compound_list_new_from_tokens(then_tokens, ast);
+	ast_if_then->cond_compound = ast_compound_list_new_from_tokens(cond_tokens,
+		ast);
+	ast_if_then->then_compound = ast_compound_list_new_from_tokens(then_tokens,
+		ast);
 	token_list_mgr_del(splits_split_then);
 	return (0);
 }

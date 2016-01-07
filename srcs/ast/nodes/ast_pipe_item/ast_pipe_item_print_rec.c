@@ -12,7 +12,8 @@
 
 #include "ast/nodes/ast_pipe_item.h"
 
-void				ast_pipe_item_print_rec(t_ast_pipe_item *ast_pipe_item, int depth)
+void				ast_pipe_item_print_rec(t_ast_pipe_item *ast_pipe_item,
+	int depth)
 {
 	ast_print_indent(depth);
 	twl_putstr("ast_pipe_item");

@@ -42,29 +42,23 @@ static void	cd_symlink(char *path, t_environment *this)
 
 void		execute_cd(char *path, int no_symlinks, t_environment *this)
 {
-	struct stat		sb;
 	char			*new_path;
 
 	new_path = NULL;
 	if (!no_symlinks)
 		new_path = set_canonical_form(path);
-	if (!lstat(path, &sb) || no_symlinks)
+	if (no_symlinks)
+		cd_symlink(path, this);
+	else
 	{
-		if (S_ISLNK(sb.st_mode) || no_symlinks)
-			cd_symlink(no_symlinks ? path : new_path, this);
-		else if (S_ISDIR(sb.st_mode) && sb.st_mode & 0111)
+		if (chdir(new_path) == 0)
 		{
 			set_oldpwd(this);
-			if (chdir(no_symlinks ? path : new_path) == 0)
-				set_pwd(no_symlinks ? path : new_path, this);
+			set_pwd(new_path, this);
 		}
-		else if (!S_ISDIR(sb.st_mode))
-			twl_dprintf(2, "cd: %s: Not a directory\n", path);
-		else if (S_ISDIR(sb.st_mode) && !(sb.st_mode & 0111))
-			twl_dprintf(2, "cd: %s: Permission denied\n", path);
+		else
+			perror("cd");
 	}
-	else
-		twl_dprintf(2, "cd: %s: No such file or directory\n", path);
 	if (!no_symlinks)
 		free(new_path);
 }

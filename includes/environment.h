@@ -17,6 +17,8 @@
 
 # include "twl_dict.h"
 # include <errno.h>
+# include "twl_arr.h"
+# include "twl_arr2.h"
 
 # define READ_ONLY 1
 # define NOT_READ_ONLY 0
@@ -41,6 +43,7 @@ typedef struct				s_environment
 	t_lst					*env_vars;
 	t_lst					*pos_params;
 	t_lst					*flags;
+	t_dict					*alias;
 	t_dict					*flag_verbose;
 	t_dict					*shell_func;
 	t_environment_info		info;
@@ -74,6 +77,7 @@ int							environment_flag_exist(t_environment *this,
 	char *flag);
 char						*environment_concat_flags(t_environment *env);
 void						environment_print_flags(t_environment *env);
+void						environment_print_all(t_environment *this);
 char						**environment_get_paths(t_environment *this);
 void						environment_add_flag(char *flag,
 														t_environment *env);
@@ -92,4 +96,9 @@ void						environment_remove_shell_func(t_environment *env,
 																	char *key);
 void						environment_add_shell_func(t_environment *env,
 														char *key, char *data);
+void						**environment_get_env_arr(t_environment *this);
+void						environment_set_last_exit_status(int status);
+void						environment_set_last_exit_status_2(t_environment *e,
+																	int status);
+
 #endif

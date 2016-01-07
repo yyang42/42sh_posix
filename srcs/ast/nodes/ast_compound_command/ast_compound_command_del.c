@@ -12,7 +12,7 @@
 
 #include "ast/nodes/ast_compound_command.h"
 
-static t_compound_command_print_del_fn *get_print_del_fns(void)
+static t_compound_command_print_del_fn	*get_print_del_fns(void)
 {
 	static t_compound_command_print_del_fn	fns[COMPOUND_COMMAND_NBR];
 	static bool								already_loaded = false;
@@ -26,7 +26,8 @@ static t_compound_command_print_del_fn *get_print_del_fns(void)
 	return (fns);
 }
 
-void				ast_compound_command_del(t_ast_compound_command *this)
+void									ast_compound_command_del(
+	t_ast_compound_command *this)
 {
 	if (this->command_type != COMPOUND_COMMAND_NONE)
 	{

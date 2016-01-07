@@ -14,10 +14,10 @@ static void     simple_test(t_test *test)
     env = environment_new();
 	environment_init(env);
 	i = twl_lst_len(env->env_vars);
-	test_export("export POPO=PAPA", env);
+	export("export POPO=PAPA", env);
 	j = twl_lst_len(env->env_vars);
     mt_assert((j - i) == 1);
-	test_export("export PIPI=POPO", env);
+	export("export PIPI=POPO", env);
 	i = twl_lst_len(env->env_vars);
 	mt_assert((i - j) == 1);
 	environment_del(env);
@@ -33,7 +33,7 @@ static void     value_is_empty(t_test *test)
     env = environment_new();
 	environment_init(env);
 	i = twl_lst_len(env->env_vars);
-	test_export("export HOHO=", env);
+	export("export HOHO=", env);
 	j = twl_lst_len(env->env_vars);
 	mt_assert((j - i) == 1);
 	environment_del(env);
@@ -49,9 +49,9 @@ static void     value_is_null(t_test *test)
     env = environment_new();
 	environment_init(env);
 	i = twl_lst_len(env->env_vars);
-	test_export("export HUHIAH", env);
+	export("export HUHIAH", env);
 	j = twl_lst_len(env->env_vars);
-	// test_export("export  -p", env);
+	// export("export  -p", env);
 	mt_assert((j - i) == 1);
 	environment_del(env);
 }

@@ -16,7 +16,7 @@
 #include "ast/ast.h"
 #include "data.h"
 
-static int				build_ast_andor_item(
+static int			build_ast_andor_item(
 								t_ast_list_item *ast_list_item,
 								t_lst *tokens_tmp,
 								struct s_ast *ast)
@@ -24,14 +24,16 @@ static int				build_ast_andor_item(
 	t_token						*sep;
 	t_ast_andor_item			*ast_andor_item;
 
-	if (twl_lst_find(data_andor_separators(), twl_strequ_void, token_mgr_last(tokens_tmp)->text))
+	if (twl_lst_find(data_andor_separators(), twl_strequ_void,
+		token_mgr_last(tokens_tmp)->text))
 		sep = twl_lst_pop(tokens_tmp);
 	else
 		sep = NULL;
 	if (twl_lst_len(tokens_tmp) == 0)
 	{
 		if (sep)
-			ast_set_error_msg_format(ast, sep, "Unexpected token '%s'", sep->text);
+			ast_set_error_msg_format(ast, sep, "Unexpected token '%s'",
+				sep->text);
 		else
 			ast_set_error_msg_syntax_error(ast);
 		return (-1);
@@ -60,7 +62,8 @@ static void			build_ast_andor_item_fn(void *tokens_tmp,
 	build_ast_andor_item(ast_list_item, tokens_tmp, ast);
 }
 
-t_ast_list_item		*ast_list_item_new_from_tokens(t_lst *tokens, t_token *sep, struct s_ast *ast)
+t_ast_list_item		*ast_list_item_new_from_tokens(t_lst *tokens, t_token *sep,
+	struct s_ast *ast)
 {
 	t_ast_list_item				*ast_list_item;
 	t_lst						*tokens_list;
@@ -68,7 +71,8 @@ t_ast_list_item		*ast_list_item_new_from_tokens(t_lst *tokens, t_token *sep, str
 	ast_list_item = ast_list_item_new();
 	ast_list_item->separator = sep;
 	tokens_list = token_mgr_split(tokens, data_andor_separators(), true);
-	twl_lst_iter3(tokens_list, build_ast_andor_item_fn, ast_list_item, twl_lst_last(tokens), ast);
+	twl_lst_iter3(tokens_list, build_ast_andor_item_fn, ast_list_item,
+		twl_lst_last(tokens), ast);
 	token_list_mgr_del(tokens_list);
 	if (ast_has_error(ast))
 	{

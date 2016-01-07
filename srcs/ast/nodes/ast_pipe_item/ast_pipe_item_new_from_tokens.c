@@ -14,7 +14,8 @@
 #include "ast/nodes/ast_pipe_item.h"
 #include "ast/nodes/ast_list_item.h"
 
-t_ast_pipe_item	*ast_pipe_item_new_from_tokens(t_lst *tokens, t_token *separator, struct s_ast *ast)
+t_ast_pipe_item	*ast_pipe_item_new_from_tokens(t_lst *tokens,
+	t_token *separator, struct s_ast *ast)
 {
 	t_ast_pipe_item		*ast_pipe_item;
 

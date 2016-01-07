@@ -12,7 +12,7 @@
 
 #include "ast/nodes/ast_brace_group.h"
 
-void				ast_brace_group_print_rec_void(void *ast_brace_group, int depth)
+void			ast_brace_group_print_rec_void(void *ast_brace_group, int depth)
 {
 	ast_brace_group_print_rec(ast_brace_group, depth);
 }
