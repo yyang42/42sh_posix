@@ -12,7 +12,8 @@
 
 #include "ast/nodes/ast_simple_command.h"
 
-static int	redir_fn_2(t_ast_redir *redir, t_ast_redir_fd *redir_fd)
+static int	redir_fn_2(t_ast_simple_command	*cmd,
+	t_ast_redir *redir, t_ast_redir_fd *redir_fd)
 {
 	if (!twl_strcmp(">&", redir->operator))
 	{
@@ -32,6 +33,11 @@ static int	redir_fn_2(t_ast_redir *redir, t_ast_redir_fd *redir_fd)
 	}
 	else if (!twl_strcmp("<>", redir->operator))
 		redir_input_output(redir, redir_fd);
+	else if (!twl_strcmp("&>", redir->operator))
+	{
+		redir_agreg(cmd, redir, redir_fd);
+		return (1) ;
+	}
 	return (0);
 }
 
@@ -53,7 +59,7 @@ static void	iter_redir_fn(void *redir_, void *cmd_)
 		redir_output(redir, redir_fd);
 	else
 	{
-		if (redir_fn_2(redir, redir_fd) == 1)
+		if (redir_fn_2(cmd, redir, redir_fd) == 1)
 			return ;
 	}
 	if (redir_fd->fd_file != -1)

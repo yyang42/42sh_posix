@@ -75,5 +75,6 @@ void					redir_output(t_ast_redir *redir,
 	t_ast_redir_fd *redir_fd);
 void					redir_input_output(t_ast_redir *redir,
 	t_ast_redir_fd *redir_fd);
-
+void					redir_agreg(t_ast_simple_command *cmd,
+	t_ast_redir *redir, t_ast_redir_fd *redir_fd);
 #endif
