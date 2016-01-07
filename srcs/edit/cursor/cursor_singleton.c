@@ -10,23 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "edit/edit.h"
+#include "edit/cursor.h"
 
-static void			print_fn(void *_letter)
+t_cursor			*cursor_singleton(void)
 {
-	t_letter		*letter;
+	static t_cursor *cursor = NULL;
 
-	letter = _letter;
-	twl_lprintf("%s", letter->letter);
-}
-
-void				edit_debug_print(t_edit *this)
-{
-	// twl_lprintf("index: %d\n", this->index);
-	// twl_lprintf("return cmd: %d\n", this->return_cmd);
-	// twl_lprintf("letters : ");
-	// twl_lst_iter0(this->letters, print_fn);
-	// twl_lprintf("\n");
-	(void)this;
-	(void)print_fn;
+	if (!cursor)
+	{
+		cursor = cursor_new();
+	}
+	return (cursor);
 }

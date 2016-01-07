@@ -10,23 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "edit/edit.h"
+#include "twl_xsys/ioctl.h"
 
-static void			print_fn(void *_letter)
+#include "edit/cursor.h"
+#include "utils.h"
+
+t_cursor			*cursor_new(void)
 {
-	t_letter		*letter;
+	t_cursor		*cursor;
 
-	letter = _letter;
-	twl_lprintf("%s", letter->letter);
-}
-
-void				edit_debug_print(t_edit *this)
-{
-	// twl_lprintf("index: %d\n", this->index);
-	// twl_lprintf("return cmd: %d\n", this->return_cmd);
-	// twl_lprintf("letters : ");
-	// twl_lst_iter0(this->letters, print_fn);
-	// twl_lprintf("\n");
-	(void)this;
-	(void)print_fn;
+	cursor = twl_malloc_x0(sizeof(t_cursor));
+	cursor->prompt_size = twl_strlen(get_prompt());
+	cursor->screen_width = term_cols();
+	cursor->current_cursor_pos = 0;
+	// twl_lprintf("ps: %d, sw: %d\n", cursor->prompt_size, cursor->screen_width);
+	return (cursor);
 }
