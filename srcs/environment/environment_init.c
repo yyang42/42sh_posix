@@ -17,11 +17,11 @@
 
 static void			init_env_info(t_environment_info *info)
 {
-	info->last_exit_status = 42;
-	info->cur_shell_pid = 42;
-	info->parent_shell_pid = 42;
-	info->most_recent_background_command_pid = 42;
-	info->name = twl_strdup("le shell qui mal !");
+	info->last_exit_status = 0;
+	info->cur_shell_pid = getpid();
+	info->parent_shell_pid = -1;
+	info->most_recent_background_command_pid = -1;
+	info->name = twl_strdup("42shPosix");
 }
 
 static void			init_env(void *elem, void *context)
@@ -54,9 +54,6 @@ void				environment_init(t_environment *this)
 	extern char **environ;
 
 	twl_arr_iter(environ, init_env, this);
-	this->alias = twl_dict_new();
-	this->flag_verbose = twl_dict_new();
-	this->shell_func = twl_dict_new();
 	fill_flag_verbose_dict(this->flag_verbose);
 	init_env_info(&this->info);
 }

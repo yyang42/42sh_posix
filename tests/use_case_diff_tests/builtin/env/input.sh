@@ -1,2 +1,5 @@
-export hello=pouet
-env
+export hello=pouet ahah=hehe
+env | grep hello | cat -e
+env | grep ahah | cat -e
+unset hello
+env | grep hello | cat -e

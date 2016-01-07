@@ -31,7 +31,6 @@ int					export(char *str)
 	twl_arr_del(arr, &free);
 	twl_opt_del(opt);
 	environment_set_last_exit_status(BUILTIN_EXEC_SUCCESS);
-	environment_print(env);
 	return (BUILTIN_EXEC_SUCCESS);
 }
 
