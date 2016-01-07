@@ -31,13 +31,13 @@ static void			unset_something(void *data, void *context, void *ret_)
 			if (var->read_only != READ_ONLY)
 			{
 				environment_unsetenv(env, arg);
-				*ret = 0;
+				*ret = BUILTIN_EXEC_SUCCESS;
 			}
 			else
 			{
 				twl_printf("unset: %s: cannot unset: readonly variable",
-																	var->key);
-				*ret = 1;
+																	arg);
+				*ret = BUILTIN_EXEC_FAILURE;
 			}
 		}
 	}
@@ -47,7 +47,9 @@ int					unset_variable(t_environment *env, t_opt *opt)
 {
 	int	ret;
 
-	ret = 1;
+	ret = BUILTIN_EXEC_FAILURE;
+	(void)opt;
+	(void)env;
 	twl_lst_iter2(opt->args, unset_something, env, &ret);
 	return (ret);
 }

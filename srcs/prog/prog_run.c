@@ -10,15 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <fcntl.h>
 #include "prog.h"
 #include "environment.h"
 #include "set.h"
+#include "twl_get_next_line.h"
 
 void				prog_run(t_prog *prog)
 {
 	t_environment	*env;
 	char			*input;
 
+	// input = twl_strdup("cat << Makefile\n lol");
 	input = NULL;
 	if (xopt_singleton()->command)
 	{
@@ -35,7 +38,10 @@ void				prog_run(t_prog *prog)
 		if (xopt_singleton()->print_ast)
 			prog_print_ast(prog, input);
 		else
-			twl_dprintf(2, "EXECUTION NOT IMPLEMENTED\n");
+		{
+			env = environment_singleton();
+			prog_run_input(prog, input);
+		}
 	}
 	else
 	{

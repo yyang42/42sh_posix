@@ -16,11 +16,11 @@ int main()
 {
 	t_mt	*mt = mt_create("libft");
 
-	// setbuf(stdout, NULL);
+	setbuf(stdout, NULL);
 
 	ADD_TESTS
 
-	int exit_code = mt_exec(mt);
-	mt_del(mt);
-	return(exit_code);
+	mt_exec(mt);
+	// mt_del(mt);
+	return(0);
 }

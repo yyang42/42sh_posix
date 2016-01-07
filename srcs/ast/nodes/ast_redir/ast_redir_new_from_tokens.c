@@ -40,8 +40,6 @@ t_ast_redir	*ast_redir_new_from_tokens(t_lst *tokens, struct s_ast *ast)
 	}
 	last_token = token_mgr_get(tokens, -1);
 	if (last_token->heredoc_text)
-	{
 		ast_redir->heredoc_text = twl_strdup(last_token->heredoc_text);
-	}
 	return (ast_redir);
 }

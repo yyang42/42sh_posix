@@ -1,0 +1,33 @@
+allexport       off
+errexit         off
+noclobber       off
+noglob          off
+notify          off
+ignoreeof       off
+monitor         off
+noexec          off
+nounset         off
+verbose         off
+vi              off
+set +o allexport
+set +o errexit
+set +o noclobber
+set +o noglob
+set +o notify
+set +o ignoreeof
+set +o monitor
+set +o noexec
+set +o nounset
+set +o verbose
+set +o vi
+allexport       off
+errexit         off
+noclobber       off
+noglob          off
+notify          off
+ignoreeof       off
+monitor         off
+noexec          off
+nounset         off
+verbose         on
+vi              off

@@ -14,12 +14,11 @@
 # define ECHO_H
 
 # include "basics.h"
-# include "environment.h"
 # include "twl_opt.h"
 # include "builtin.h"
 
 # define ECHO_OPT_VALID_OPTS "n"
 
-int					echo(char *str);
+int				echo(char *str, t_environment *this);
 
 #endif

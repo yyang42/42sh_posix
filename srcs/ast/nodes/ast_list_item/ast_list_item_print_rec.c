@@ -17,7 +17,8 @@ static void			iter_fn(void *ast_andor_item, void *depth_ptr)
 	ast_andor_item_print_rec(ast_andor_item, *(int *)depth_ptr);
 }
 
-void				ast_list_item_print_rec(t_ast_list_item *ast_list_item, int depth)
+void				ast_list_item_print_rec(t_ast_list_item *ast_list_item,
+	int depth)
 {
 	ast_print_indent(depth);
 	twl_putstr("ast_list_item");

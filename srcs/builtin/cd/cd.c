@@ -58,7 +58,7 @@ static int	get_dirname(char **dirname, t_opt *opt, char *str,
 	return (0);
 }
 
-int			cd_with_env(char *str, t_environment *this)
+int			cd(char *str, t_environment *this)
 {
 	int					no_symlinks;
 	t_opt				*opt;
@@ -76,24 +76,13 @@ int			cd_with_env(char *str, t_environment *this)
 	if (get_dirname(&dirname, opt, str, this) < 0)
 		return (free_all(dirname, args, opt));
 	else if (!dirname)
-	{
 		if (!(dirname = get_dirname_from_arg(opt, this)))
 			return (free_all(dirname, args, opt));
-	}
-	if (dirname && dirname[0] != '/' && !no_symlinks)
+	if (dirname && dirname[0] != '/' && !no_symlinks && (old_dirname = dirname))
 	{
-		old_dirname = dirname;
 		dirname = join_pwd_to_path(dirname);
 		free(old_dirname);
 	}
 	execute_cd(dirname, no_symlinks, this);
 	return (free_all(dirname, args, opt));
-}
-
-void		cd(char *str)
-{
-	t_environment *env;
-
-	env = environment_singleton();
-	cd_with_env(str, env);
 }

@@ -13,11 +13,6 @@
 #ifndef CD_H
 # define CD_H
 
-# include "builtin.h"
-# include "environment.h"
-# include "twl_opt.h"
-# include "twl_opt_elem.h"
-# include "execute.h"
 # include <unistd.h>
 # include <sys/types.h>
 # include <string.h>
@@ -25,13 +20,17 @@
 # include <sys/stat.h>
 # include <errno.h>
 # include <fcntl.h>
+# include <string.h>
 # include <stdlib.h>
+# include <stdio.h>
+# include "builtin.h"
+# include "twl_opt.h"
+# include "twl_opt_elem.h"
 
 # define MAX_SIZE 4096
 
-void		cd(char *str);
 void		execute_cd(char *path, int no_symlinks, t_environment *this);
-int			cd_with_env(char *str, t_environment *this);
+int			cd(char *str, t_environment *this);
 char		*join_paths(char *path, char *dirname);
 char		*get_cdpath(char *dirname, t_environment *this);
 char		*join_pwd_to_path(char *dirname);
