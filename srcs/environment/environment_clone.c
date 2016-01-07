@@ -37,18 +37,26 @@ static void			*copy_flags_fn(void *data_)
 	return (var);
 }
 
+static void			*copy_dict_fn(void *data_)
+{
+	char	*data;
+
+	data = data_;
+	if (data)
+		return (twl_strdup(data));
+	else
+		return (NULL);
+}
+
 t_environment		*environment_clone(t_environment *this)
 {
 	t_environment *clone;
 
 	clone = twl_malloc_x0(sizeof(t_environment));
 	clone->env_vars = twl_lst_copy(this->env_vars, copy_fn);
-	// @TODO
-	// clone->flag_verbose = twl_lst_copy(this->env_vars, copy_dict);
-	// clone->shell_func = twl_lst_copy(this->env_vars, copy_dict);
+	clone->flag_verbose = twl_lst_copy(this->flag_verbose, copy_dict_fn);
+	clone->shell_func = twl_lst_copy(this->shell_func, copy_dict_fn);
 	clone->pos_params = twl_lst_new();
 	clone->flags = twl_lst_copy(this->flags, copy_flags_fn);
-	clone->flag_verbose = NULL;
-	clone->shell_func = NULL;
 	return (clone);
 }

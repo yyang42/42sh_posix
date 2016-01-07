@@ -18,10 +18,10 @@
 static void			init_env_info(t_environment_info *info)
 {
 	info->last_exit_status = 0;
-	info->cur_shell_pid = -1;
+	info->cur_shell_pid = getpid();
 	info->parent_shell_pid = -1;
 	info->most_recent_background_command_pid = -1;
-	info->name = twl_strdup("le shell qui mal !");
+	info->name = twl_strdup("42shPosix");
 }
 
 static void			init_env(void *elem, void *context)
