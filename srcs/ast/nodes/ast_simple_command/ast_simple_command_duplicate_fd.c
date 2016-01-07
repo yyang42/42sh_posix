@@ -19,9 +19,9 @@ bool		is_valid_duplicate_fd(int fd)
 	if (fd > getdtablesize())
 	{
 		twl_dprintf(2, "42sh: %d: Bad file descriptor", fd);
-		return false;
+		return (false);
 	}
-	return true;
+	return (true);
 }
 
 int			get_duplication_fd(char *str)

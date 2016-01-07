@@ -15,7 +15,7 @@
 
 static void		shift_action(t_environment *env, t_opt *opt)
 {
-	size_t 	shift_nb;
+	size_t	shift_nb;
 	char	*shift_str;
 
 	if (twl_lst_len(opt->args) > 0)
@@ -42,7 +42,7 @@ static void		shift_action(t_environment *env, t_opt *opt)
 	}
 }
 
-int		shift_builtin(char *cmd, t_environment *env)
+int				shift_builtin(char *cmd, t_environment *env)
 {
 	t_opt			*opt;
 	char			**arr;

@@ -12,17 +12,17 @@
 
 #include "ast/nodes/ast_simple_command.h"
 
-void 		dup_fds(int fd1, int fd2)
+void			dup_fds(int fd1, int fd2)
 {
 	if (dup2(fd1, fd2) == -1)
 		perror("dup2");
 }
 
-char		*get_binary_path(char *cmd, t_environment *env)
+char			*get_binary_path(char *cmd, t_environment *env)
 {
 	char			**paths;
 	char			*path;
-	int 			i;
+	int				i;
 
 	if (cmd && (cmd[0] == '/' || twl_strncmp(cmd, "./", 2) == 0))
 		return (!file_exists(cmd) ? NULL : cmd);
@@ -54,12 +54,12 @@ static bool		find_bultin(void *builtin_, void *cmd_)
 	return (false);
 }
 
-bool  			is_builtin(char *cmd)
+bool			is_builtin(char *cmd)
 {
 	static const char	*builtins[27] = {"echo", "cd", "env", "unsetenv",
 	"setenv", "alias", "unalias", "false", "true", "umask", "newgrp" ,"fc",
-	"command", "kill", "getopts", "read", "break", "colon", "continue", "return",
-	"return", "shift", "set", "unset", "export", "setenv", NULL};
+	"command", "kill", "getopts", "read", "break", "colon", "continue", "return"
+	, "return", "shift", "set", "unset", "export", "setenv", NULL};
 
 	if (twl_arr_find(builtins, find_bultin, cmd))
 		return (true);

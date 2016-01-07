@@ -77,5 +77,5 @@ void			exec_env(t_env_args *env, t_environment *this)
 	}
 	else
 		command_execution(env->utility, &env->args[index], env->env_arr);
-	twl_arr_del(fpaths,free);
+	twl_arr_del(fpaths, free);
 }

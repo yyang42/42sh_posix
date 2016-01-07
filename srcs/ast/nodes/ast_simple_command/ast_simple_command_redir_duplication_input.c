@@ -10,23 +10,26 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_assignment.h"
-#include "ast/nodes/ast_redir.h"
 #include "ast/nodes/ast_simple_command.h"
 
-void				ast_simple_command_print_rec(t_ast_simple_command *this,
-	int depth)
+int	duplication_input(t_ast_redir *redir, t_ast_redir_fd *redir_fd)
 {
-	char			*command_str;
-	char			*joined_command;
+	int duplicated_fd;
 
-	joined_command = token_mgr_strjoin(this->command_tokens, " ");
-	command_str = twl_str_truncate(joined_command, 20);
-	ast_print_indent(depth);
-	twl_printf("ast_simple_command (%s)\n", command_str);
-	free(command_str);
-	depth++;
-	ast_redir_print_rec_list(this->redir_items, depth);
-	ast_assignment_print_rec_list(this->assignment_items, depth);
-	free(joined_command);
+	duplicated_fd = -1;
+	if (!twl_strcmp("-", redir->param))
+		close_file(redir->io_number);
+	else
+	{
+		duplicated_fd = get_duplication_fd(redir->param);
+		if (duplicated_fd > -1)
+		{
+			redir_fd->fd_save = dup(redir->io_number == -1
+				? STDIN_FILENO : redir->io_number);
+			redir_fd->fd_origin = redir->io_number == -1
+				? STDIN_FILENO : redir->io_number;
+			dup_fds(duplicated_fd, redir_fd->fd_origin);
+		}
+	}
+	return (duplicated_fd);
 }
