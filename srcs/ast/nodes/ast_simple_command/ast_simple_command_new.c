@@ -25,7 +25,6 @@ t_dict							*get_builtin_func_dict(void)
 	twl_dict_add(dict, "unset", &unset);
 	twl_dict_add(dict, "alias", &alias);
 	twl_dict_add(dict, "umask", &umask_builtin);
-
 	return (dict);
 }
 

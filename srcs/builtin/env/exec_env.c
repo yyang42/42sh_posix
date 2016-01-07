@@ -59,7 +59,6 @@ static void		env_with_builtin(char *builtin, char **args)
 		f(string);
 	}
 	free(string);
-	twl_dict_del(func, NULL);
 }
 
 void			exec_env(t_env_args *env, t_environment *this)
