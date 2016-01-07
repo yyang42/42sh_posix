@@ -22,7 +22,5 @@ void				ast_simple_command_del(t_ast_simple_command *this)
 		twl_lst_del(this->command_tokens, NULL);
 	twl_lst_del(this->redir_fds, NULL);
 	twl_dict_del(this->builtin_func, NULL);
-	// if (this->redir_fds)
-	// 	twl_lst_del(this->redir_fds, NULL);
 	free(this);
 }
