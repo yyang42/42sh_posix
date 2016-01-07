@@ -1,2 +1,2 @@
-cat -x || echo lol
+cat pouet || echo lol
 echo pouet || echo lol
