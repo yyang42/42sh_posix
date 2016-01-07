@@ -25,10 +25,9 @@
 
 # define UMASK_OPT_VALID_OPTS "S"
 # define ISOCTAL(c)	((c) >= '0' && (c) <= '7')
-#define S_IRUGO         (S_IRUSR|S_IRGRP|S_IROTH)
-#define S_IWUGO         (S_IWUSR|S_IWGRP|S_IWOTH)
-#define S_IXUGO         (S_IXUSR|S_IXGRP|S_IXOTH)
-
+# define S_IRUGO         (S_IRUSR|S_IRGRP|S_IROTH)
+# define S_IWUGO         (S_IWUSR|S_IWGRP|S_IWOTH)
+# define S_IXUGO         (S_IXUSR|S_IXGRP|S_IXOTH)
 
 typedef struct	s_mask
 {
@@ -39,16 +38,16 @@ typedef struct	s_mask
 
 typedef struct	s_parse_mask
 {
-	int who;
-	int	op;
-	int	perm;
-	int	bits;
-	int	c;
-    char *s;
+	int			who;
+	int			op;
+	int			perm;
+	int			bits;
+	int			c;
+	char		*s;
 }				t_parse_mask;
 
-int		umask_builtin(char *cmd, t_environment *this);
-void	print_symbolic_umask(mode_t um);
-int		parse_symbolic_mode(char *mode, int initial_bits);
+int				umask_builtin(char *cmd, t_environment *this);
+void			print_symbolic_umask(mode_t um);
+int				parse_symbolic_mode(char *mode, int initial_bits);
 
 #endif
