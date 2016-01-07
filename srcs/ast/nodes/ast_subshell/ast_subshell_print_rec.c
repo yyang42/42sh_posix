@@ -13,7 +13,8 @@
 #include "ast/nodes/ast_subshell.h"
 #include "ast/nodes/ast_compound_list.h"
 
-void				ast_subshell_print_rec(t_ast_subshell *ast_subshell, int depth)
+void				ast_subshell_print_rec(t_ast_subshell *ast_subshell,
+	int depth)
 {
 	ast_print_indent(depth);
 	twl_printf("ast_subshell\n");

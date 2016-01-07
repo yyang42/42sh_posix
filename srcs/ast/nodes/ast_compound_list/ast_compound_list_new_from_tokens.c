@@ -17,7 +17,7 @@
 
 #include "ast/nodes/ast_compound_list.h"
 
-static int				build_ast_list_item(
+static int			build_ast_list_item(
 								t_ast_compound_list *ast_compound_list,
 								t_lst *tokens_tmp,
 								struct s_ast *ast)
@@ -25,15 +25,16 @@ static int				build_ast_list_item(
 	t_token						*sep;
 	t_ast_list_item				*ast_list_item;
 
-	if (twl_lst_find(data_separators(), twl_strequ_void, token_mgr_last(tokens_tmp)->text))
+	if (twl_lst_find(data_separators(), twl_strequ_void,
+		token_mgr_last(tokens_tmp)->text))
 		sep = twl_lst_pop(tokens_tmp);
 	else
 		sep = NULL;
-	// token_mgr_print(tokens_tmp);
 	if (twl_lst_len(tokens_tmp) == 0)
 	{
 		if (sep)
-			ast_set_error_msg_format(ast, sep, "Unexpected token '%s'", sep->text);
+			ast_set_error_msg_format(ast, sep, "Unexpected token '%s'",
+				sep->text);
 		else
 			ast_set_error_msg_syntax_error(ast);
 		return (-1);
@@ -58,7 +59,8 @@ static void			build_children_fn(void *tokens_tmp,
 	build_ast_list_item(this, tokens_tmp, ast);
 }
 
-t_ast_compound_list	*ast_compound_list_new_from_tokens(t_lst *tokens, struct s_ast *ast)
+t_ast_compound_list	*ast_compound_list_new_from_tokens(t_lst *tokens,
+	struct s_ast *ast)
 {
 	t_ast_compound_list			*this;
 	t_lst						*tokens_list;

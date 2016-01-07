@@ -12,7 +12,8 @@
 
 #include "ast/nodes/ast_if_clause.h"
 
-void				*ast_if_clause_new_from_tokens_void(t_lst *tokens, struct s_ast *ast)
+void				*ast_if_clause_new_from_tokens_void(t_lst *tokens,
+	struct s_ast *ast)
 {
 	return (ast_if_clause_new_from_tokens(tokens, ast));
 }

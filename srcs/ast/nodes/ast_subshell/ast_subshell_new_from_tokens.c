@@ -22,7 +22,8 @@ t_ast_subshell	*ast_subshell_new_from_tokens(t_lst *tokens, struct s_ast *ast)
 	copy = twl_lst_copy(tokens, NULL);
 	twl_lst_pop_front(copy);
 	twl_lst_pop_back(copy);
-	ast_subshell->ast_compound_list = ast_compound_list_new_from_tokens(copy, ast);
+	ast_subshell->ast_compound_list = ast_compound_list_new_from_tokens(copy,
+		ast);
 	token_mgr_del(copy);
 	if (ast_subshell->ast_compound_list == NULL)
 	{

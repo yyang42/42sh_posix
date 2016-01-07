@@ -36,7 +36,8 @@ static int				build_redir_tokens(t_lst *redir_items,
 	t_lst			*redir_tokens;
 
 	redir_tokens = twl_lst_new();
-	redir_tokens_groups = token_mgr_extract_redir(orig_redir_tokens, redir_tokens);
+	redir_tokens_groups = token_mgr_extract_redir(orig_redir_tokens,
+		redir_tokens);
 	twl_lst_iter2(redir_tokens_groups, build_redir_fn, redir_items, ast);
 	twl_lst_del(redir_tokens, NULL);
 	token_list_mgr_del(redir_tokens_groups);
@@ -56,12 +57,12 @@ static void				new_compound_command_do(t_ast_compound_command *this,
 	if (pos == -1)
 	{
 		ast_set_error_msg_format(ast, token_mgr_first(tokens),
-				"Closing token for '%s' not found", token_mgr_first(tokens)->text);
+			"Closing token for '%s' not found", token_mgr_first(tokens)->text);
 		return ;
 	}
 	command_tokens = twl_lst_slice(tokens, 0, pos);
-	this->command
- = compound_command_from_token_fns()[this->command_type](command_tokens, ast);
+	this->command =
+	compound_command_from_token_fns()[this->command_type](command_tokens, ast);
 	twl_lst_del(command_tokens, NULL);
 	if (ast_has_error(ast))
 		return ;

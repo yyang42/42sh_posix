@@ -24,7 +24,8 @@ static void			if_then_list_iter_fn(void *if_then_list, void *depth_ptr)
 	ast_if_then_print_rec(if_then_list, depth + 1);
 }
 
-void				ast_if_clause_print_rec(t_ast_if_clause *ast_if_clause, int depth)
+void				ast_if_clause_print_rec(t_ast_if_clause *ast_if_clause,
+	int depth)
 {
 	ast_print_indent(depth);
 	twl_printf("ast_if_clause\n");

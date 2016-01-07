@@ -22,5 +22,6 @@
 int					export(char *str, t_environment *env);
 void				export_verbose(t_environment *env);
 void				export_add(t_environment *env, t_opt *opt);
+int					setenv_builtin(char *str, t_environment *env);
 
 #endif

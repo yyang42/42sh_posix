@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "ast/nodes/ast_compound_list.h"
 
-void				ast_compound_list_del(t_ast_compound_list *ast_compound_list)
+void				ast_compound_list_del(
+	t_ast_compound_list *ast_compound_list)
 {
 	twl_lst_del(ast_compound_list->ast_list_items, ast_list_item_del);
 	free(ast_compound_list);

@@ -10,21 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_list_item.h"
+#include "export.h"
 
-static void			iter_fn(void *ast_andor_item, void *depth_ptr)
+int					setenv_builtin(char *str, t_environment *env)
 {
-	ast_andor_item_print_rec(ast_andor_item, *(int *)depth_ptr);
-}
-
-void				ast_list_item_print_rec(t_ast_list_item *ast_list_item,
-	int depth)
-{
-	ast_print_indent(depth);
-	twl_putstr("ast_list_item");
-	if (ast_list_item->separator)
-		twl_printf_escape_nl(" (sep=%s)", ast_list_item->separator->text);
-	twl_putstr("\n");
-	depth++;
-	twl_lst_iter(ast_list_item->ast_andor_items, iter_fn, &depth);
+	twl_memcpy(str, "export", 6);
+	export(str, env);
+	return(0);
 }

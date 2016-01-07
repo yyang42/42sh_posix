@@ -22,6 +22,7 @@ t_dict							*get_builtin_func_dict(void)
 	twl_dict_add(dict, "cd", &cd);
 	twl_dict_add(dict, "env", &env);
 	twl_dict_add(dict, "export", &export);
+	twl_dict_add(dict, "setenv", &setenv_builtin);
 	twl_dict_add(dict, "set", &set);
 	twl_dict_add(dict, "unset", &unset);
 	twl_dict_add(dict, "alias", &alias);

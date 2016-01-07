@@ -17,28 +17,32 @@
 #include "ast/nodes/ast_compound_list.h"
 #include "ast/nodes/ast_if_then.h"
 
-static void			build_if_then_fn(void *elif_tokens, void *if_then_list, void *ast)
+static void			build_if_then_fn(void *elif_tokens, void *if_then_list,
+	void *ast)
 {
 	t_ast_if_then	*ast_if_then;
 
 	if (ast_has_error(ast))
-		return;
+		return ;
 	ast_if_then = ast_if_then_new_from_tokens(elif_tokens, ast);
 	if (ast_has_error(ast))
-		return;
+		return ;
 	twl_lst_push(if_then_list, ast_if_then);
 }
 
-static void			split_by_elif_fn(t_ast_if_clause *ast_if_clause, t_lst *elif_parts, struct s_ast *ast)
+static void			split_by_elif_fn(t_ast_if_clause *ast_if_clause,
+	t_lst *elif_parts, struct s_ast *ast)
 {
 	t_lst			*splits_by_elif;
 
 	splits_by_elif = token_mgr_split_by_one_sep(elif_parts, "elif", false);
-	twl_lst_iter2(splits_by_elif, build_if_then_fn, ast_if_clause->if_then_list, ast);
+	twl_lst_iter2(splits_by_elif, build_if_then_fn,
+		ast_if_clause->if_then_list, ast);
 	token_list_mgr_del(splits_by_elif);
 }
 
-static void			split_by_else(t_ast_if_clause *ast_if_clause, t_lst *tokens, struct s_ast *ast)
+static void			split_by_else(t_ast_if_clause *ast_if_clause,
+	t_lst *tokens, struct s_ast *ast)
 {
 	t_lst			*copy;
 	t_lst			*splits_by_else;
@@ -46,8 +50,8 @@ static void			split_by_else(t_ast_if_clause *ast_if_clause, t_lst *tokens, struc
 	t_lst			*else_tokens;
 
 	copy = twl_lst_copy(tokens, NULL);
-	twl_lst_pop_front(copy); // pop if, guaranted to exist
-	twl_lst_pop_back(copy); // pop fi, guaranted to exist
+	twl_lst_pop_front(copy);
+	twl_lst_pop_back(copy);
 	splits_by_else = token_mgr_split_by_one_sep(copy, "else", false);
 	token_mgr_del(copy);
 	else_tokens = NULL;
@@ -62,13 +66,13 @@ static void			split_by_else(t_ast_if_clause *ast_if_clause, t_lst *tokens, struc
 	}
 	split_by_elif_fn(ast_if_clause, elif_parts, ast);
 	if (!ast_has_error(ast) && else_tokens)
-	{
-		ast_if_clause->else_body = ast_compound_list_new_from_tokens(else_tokens, ast);
-	}
+		ast_if_clause->else_body = ast_compound_list_new_from_tokens(
+			else_tokens, ast);
 	token_list_mgr_del(splits_by_else);
 }
 
-t_ast_if_clause	*ast_if_clause_new_from_tokens(t_lst *tokens, struct s_ast *ast)
+t_ast_if_clause		*ast_if_clause_new_from_tokens(t_lst *tokens,
+	struct s_ast *ast)
 {
 	t_ast_if_clause		*ast_if_clause;
 

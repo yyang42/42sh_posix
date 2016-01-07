@@ -23,8 +23,8 @@ static void			iter_fn(void *ast_andor_item_, void *prev_, void *context_)
 	(void)context_;
 	env = environment_singleton();
 	if (!prev ||
-		(prev->separator->type == TOKEN_AND_IF && env->info.last_exit_status == 0) ||
-		(prev->separator->type == TOKEN_OR_IF && env->info.last_exit_status > 0))
+	(prev->separator->type == TOKEN_AND_IF && env->info.last_exit_status == 0)
+	|| (prev->separator->type == TOKEN_OR_IF && env->info.last_exit_status > 0))
 	{
 		ast_andor_item_exec(ast_andor_item);
 	}
