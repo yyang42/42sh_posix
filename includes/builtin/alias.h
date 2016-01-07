@@ -22,9 +22,9 @@
 # include "builtin.h"
 # include <stdbool.h>
 
-char 			*get_alias(char *key);
-void 			set_alias(char *str);
-void 			print_alias();
-void 			alias(char *str);
+char 			*get_alias(char *key, t_environment *this);
+void 			set_alias(char *str, t_environment *this);
+void 			print_alias(t_environment *this);
+void			alias(char *str, t_environment *this);
 
 #endif

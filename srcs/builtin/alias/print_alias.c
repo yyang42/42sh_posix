@@ -21,10 +21,7 @@ static void		print_key_value(char *key, void *data, void *context_)
 	(void)context_;
 }
 
-void			print_alias(void)
+void			print_alias(t_environment *env)
 {
-	t_environment *env;
-
-	env = environment_singleton();
 	twl_dict_iter(env->alias, print_key_value, NULL);
 }

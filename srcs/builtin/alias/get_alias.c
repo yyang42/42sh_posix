@@ -12,13 +12,11 @@
 
 #include "alias.h"
 
-char			*get_alias(char *key)
+char			*get_alias(char *key, t_environment *this)
 {
-	t_environment	*env;
 	char			*value;
 
-	env = environment_singleton();
-	value = twl_dict_get(env->alias, key);
+	value = twl_dict_get(this->alias, key);
 	if (!value)
 		environment_set_last_exit_status(BUILTIN_EXEC_FAILURE);
 	return (value);

@@ -14,29 +14,30 @@
 
 static void		iter_fn(void *elem, void *context)
 {
-	char	*str;
-	char	*tmp;
+	char			*str;
+	char			*tmp;
+	t_environment	*this;
 
 	str = elem;
+	this = context;
 	if (twl_strchr(str, '='))
-		set_alias(str);
+		set_alias(str, this);
 	else
 	{
-		tmp = get_alias(str);
+		tmp = get_alias(str, this);
 		if (tmp)
 			twl_printf("%s=\'%s\'\n", str, tmp);
 	}
-	(void)context;
 }
 
-void			alias(char *str)
+void			alias(char *str, t_environment *this)
 {
 	char **tab;
 
 	tab = twl_strsplit(str, ' ');
 	if (twl_arr_len(tab) == 1)
-		print_alias();
+		print_alias(this);
 	else if (twl_arr_len(tab) > 1)
-		twl_arr_iter(&tab[1], iter_fn, NULL);
+		twl_arr_iter(&tab[1], iter_fn, this);
 	twl_arr_del(tab, free);
 }

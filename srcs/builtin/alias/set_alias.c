@@ -12,13 +12,11 @@
 
 #include "alias.h"
 
-void			set_alias(char *str)
+void			set_alias(char *str, t_environment *env)
 {
 	char			*value;
 	char			*key;
-	t_environment	*env;
 
-	env = environment_singleton();
 	value = twl_strchr(str, '=');
 	if (value)
 		key = twl_strsub(str, 0, twl_strlen(str) - twl_strlen(value));
