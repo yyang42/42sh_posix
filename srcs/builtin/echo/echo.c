@@ -24,7 +24,6 @@ int				echo(char *str, t_environment *this)
 	opt = twl_opt_new(arr, ECHO_OPT_VALID_OPTS);
 	if (!check_invalid_opts(opt, "echo", ECHO_OPT_VALID_OPTS))
 	{
-		//TODO Faire un truc plus propre que +5 XD TCALC
 		if (twl_opt_get_param(opt, "n"))
 			twl_printf("%s", str + 5);
 		else

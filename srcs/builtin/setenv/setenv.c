@@ -15,5 +15,5 @@
 int					setenv_builtin(char *str, t_environment *env)
 {
 	twl_memcpy(str, "export", 6);
-	return(export(str, env));
+	return (export(str, env));
 }

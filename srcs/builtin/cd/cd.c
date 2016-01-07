@@ -76,13 +76,10 @@ int			cd(char *str, t_environment *this)
 	if (get_dirname(&dirname, opt, str, this) < 0)
 		return (free_all(dirname, args, opt));
 	else if (!dirname)
-	{
 		if (!(dirname = get_dirname_from_arg(opt, this)))
 			return (free_all(dirname, args, opt));
-	}
-	if (dirname && dirname[0] != '/' && !no_symlinks)
+	if (dirname && dirname[0] != '/' && !no_symlinks && (old_dirname = dirname))
 	{
-		old_dirname = dirname;
 		dirname = join_pwd_to_path(dirname);
 		free(old_dirname);
 	}
