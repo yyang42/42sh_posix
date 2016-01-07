@@ -52,7 +52,7 @@ void					ast_simple_command_print_rec(t_ast_simple_command
 bool					ast_simple_command_is_own_type(t_lst *tokens);
 int						ast_simple_command_exec(t_ast_simple_command *cmd);
 bool					is_builtin(char *cmd);
-char					*get_binary_path(char *cmd);
+char					*get_binary_path(char *cmd, t_environment *env);
 void 					dup_fds(int fd1, int fd2);
 bool					ast_simple_command_check_files(t_ast_simple_command *c);
 void					ast_simple_command_redirs(t_ast_simple_command *cmd);
@@ -61,5 +61,6 @@ void					execute_simple_command(t_ast_simple_command *cmd,
 void					command_execution(char *path, char **args, char **env);
 int						get_duplication_fd(char *str);
 bool					is_valid_duplicate_fd(int fd);
+t_dict					*get_builtin_func_dict(void);
 
 #endif

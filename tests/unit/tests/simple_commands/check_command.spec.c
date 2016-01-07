@@ -15,12 +15,15 @@ static void test_get_binary_path(t_test *test)
 {
 	(void)test;
 	char *str;
+	t_environment *env;
 
-	str = get_binary_path("pouet");
+	env = environment_singleton();
+	str = get_binary_path("pouet", env);
 	mt_assert( str == NULL);
-	str = get_binary_path("ls");
+	str = get_binary_path("ls", env);
 	mt_assert(str != NULL);
 	twl_strdel(&str);
+	environment_del(env);
 }
 
 void	suite_check_command(t_suite *suite)
