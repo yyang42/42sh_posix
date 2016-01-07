@@ -31,8 +31,7 @@ typedef struct		s_set_opt
 	char			*cmd;
 }					t_set_opt;
 
-int					set(char *str);
-int					test_set(char *str, t_environment *env);
+int					set(char *str, t_environment *env);
 t_set_opt			*set_opt_new(char **argv, char *valid_opts);
 void				set_opt_del(t_set_opt *xopt);
 char				**set_opt_new_parse_arg_opt_and_return_non_opt_args__(

@@ -42,32 +42,7 @@ static void		shift_action(t_environment *env, t_opt *opt)
 	}
 }
 
-int		shift_builtin(char *cmd)
-{
-	t_environment *env;
-	t_opt			*opt;
-	char			**arr;
-
-	env = environment_singleton();
-	arr = twl_strsplit_mul(cmd, " \n\t");
-	opt = twl_opt_new(arr, UMASK_OPT_VALID_OPTS);
-	environment_set_last_exit_status_2(env, BUILTIN_EXEC_SUCCESS);
-	if (!check_invalid_opts(opt, "shift", SHIFT_OPT_VALID_OPTS))
-	{
-		if (twl_lst_len(opt->args) > 1)
-		{
-			twl_printf("shift: too many arguments");
-			environment_set_last_exit_status_2(env, BUILTIN_EXEC_FAILURE);
-		}
-		else
-			shift_action(env, opt);
-	}
-	twl_arr_del(arr, &free);
-	twl_opt_del(opt);
-	return (0);
-}
-
-int		test_shift_builtin(char *cmd, t_environment *env)
+int		shift_builtin(char *cmd, t_environment *env)
 {
 	t_opt			*opt;
 	char			**arr;

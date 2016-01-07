@@ -27,11 +27,11 @@
 # include "umask.h"
 # include "ast/nodes/ast_simple_command.h"
 
-#define BUILTIN_EXEC_SUCCESS 1
-#define BUILTIN_EXEC_FAILURE 0
+#define BUILTIN_EXEC_SUCCESS 0
+#define BUILTIN_EXEC_FAILURE 1
 
 int				check_invalid_opts(t_opt *opt, char *exe_name, char *flags);
-bool			builtin_true();
-bool			builtin_false();
+bool			builtin_true(char *str, t_environment *env);
+bool			builtin_false(char *str, t_environment *env);
 
 #endif

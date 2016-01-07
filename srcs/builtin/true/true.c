@@ -12,11 +12,10 @@
 
 #include "builtin.h"
 
-bool		builtin_true()
+bool		builtin_true(char *str, t_environment *env)
 {
-	t_environment *env;
-
-	env = environment_singleton();
+	(void)str;
+	(void)env;
 	environment_set_last_exit_status(BUILTIN_EXEC_SUCCESS);
 	return (true);
 }

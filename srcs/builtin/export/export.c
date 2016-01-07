@@ -12,29 +12,7 @@
 
 #include "export.h"
 
-int					export(char *str)
-{
-	t_opt			*opt;
-	char			**arr;
-	t_environment	*env;
-
-	env = environment_singleton();
-	arr = twl_strsplit_mul(str, " \n\t");
-	opt = twl_opt_new(arr, EXPORT_OPT_VALID_OPTS);
-	if (!check_invalid_opts(opt, "export", EXPORT_OPT_VALID_OPTS))
-	{
-		if (twl_opt_exist(opt, "p") && twl_opt_args_len(opt) == 0)
-			export_verbose(env);
-		else
-			export_add(env, opt);
-	}
-	twl_arr_del(arr, &free);
-	twl_opt_del(opt);
-	environment_set_last_exit_status(BUILTIN_EXEC_SUCCESS);
-	return (BUILTIN_EXEC_SUCCESS);
-}
-
-int					test_export(char *str, t_environment *env)
+int					export(char *str, t_environment *env)
 {
 	t_opt			*opt;
 	char			**arr;

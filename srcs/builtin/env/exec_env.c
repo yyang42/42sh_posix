@@ -43,11 +43,11 @@ static void		exec_with_path(void *elem, void *context)
 	}
 }
 
-static void		env_with_builtin(char *builtin, char **args)
+static void		env_with_builtin(char *builtin, char **args, t_environment *env)
 {
 	t_dict	*dict;
 	void	*func;
-	void	(*f)(char *str);
+	void	(*f)(char *str, t_environment *env);
 	char	*string;
 
 	dict = get_builtin_func_dict();
@@ -56,7 +56,7 @@ static void		env_with_builtin(char *builtin, char **args)
 	if (func)
 	{
 		f = func;
-		f(string);
+		f(string, env);
 	}
 	free(string);
 }
@@ -73,7 +73,7 @@ void			exec_env(t_env_args *env, t_environment *this)
 		if (!is_builtin(env->utility))
 			twl_arr_iter(fpaths, exec_with_path, env);
 		else
-			env_with_builtin(env->utility, &env->args[index]);
+			env_with_builtin(env->utility, &env->args[index], this);
 	}
 	else
 		command_execution(env->utility, &env->args[index], env->env_arr);

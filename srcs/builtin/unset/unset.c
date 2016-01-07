@@ -30,37 +30,7 @@ static int		check_flags(t_environment *env, t_opt *opt)
 	}
 }
 
-int				unset(char	*str)
-{
-	t_opt			*opt;
-	char			**arr;
-	t_environment	*env;
-	int				flag;
-
-	flag = BUILTIN_EXEC_SUCCESS;
-	env = environment_singleton();
-	arr = twl_strsplit_mul(str, " \n\t");
-	opt = twl_opt_new(arr, UNSET_OPT_VALID_OPTS);
-	if (check_invalid_opts(opt, "unset", UNSET_OPT_VALID_OPTS))
-		flag = BUILTIN_EXEC_FAILURE;
-	else
-	{
-		if (twl_opt_get_param(opt, "f") && twl_opt_get_param(opt, "v"))
-		{
-			twl_printf("unset: cannot simultaneously unset \
-													a function and a variable");
-			flag = BUILTIN_EXEC_FAILURE;
-		}
-		else
-			flag = check_flags(env, opt);
-	}
-	environment_set_last_exit_status(flag);
-	twl_arr_del(arr, &free);
-	twl_opt_del(opt);
-	return (flag);
-}
-
-int				test_unset(char *str, t_environment *env)
+int				unset(char *str, t_environment *env)
 {
 	t_opt			*opt;
 	char			**arr;

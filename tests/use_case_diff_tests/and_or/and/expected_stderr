@@ -1,0 +1,2 @@
+cat: illegal option -- x
+usage: cat [-benstuv] [file ...]

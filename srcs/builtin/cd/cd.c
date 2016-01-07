@@ -58,7 +58,7 @@ static int	get_dirname(char **dirname, t_opt *opt, char *str,
 	return (0);
 }
 
-int			cd_with_env(char *str, t_environment *this)
+int			cd(char *str, t_environment *this)
 {
 	int					no_symlinks;
 	t_opt				*opt;
@@ -88,12 +88,4 @@ int			cd_with_env(char *str, t_environment *this)
 	}
 	execute_cd(dirname, no_symlinks, this);
 	return (free_all(dirname, args, opt));
-}
-
-void		cd(char *str)
-{
-	t_environment *env;
-
-	env = environment_singleton();
-	cd_with_env(str, env);
 }

@@ -24,16 +24,17 @@ static void	iter_assign_fn(void *data, void *context)
 	environment_setenv_value(env, assign->key, assign->value);
 }
 
-static void	execute_builtin(t_ast_simple_command *cmd, char *builtin, char *string)
+static void	execute_builtin(t_ast_simple_command *cmd, char *builtin,
+	char *string, t_environment *this)
 {
 	void *func;
-	void (*f)(char *str);
+	void (*f)(char *str, t_environment *this);
 
 	func = twl_dict_get(cmd->builtin_func, builtin);
 	if (func)
 	{
 		f = func;
-		f(string);
+		f(string, this);
 	}
 }
 
@@ -54,7 +55,7 @@ void		execute_simple_command(t_ast_simple_command *cmd, t_environment *env)
 		free(path);
 	}
 	else
-		execute_builtin(cmd, cmd_arr[0], token_joined);
+		execute_builtin(cmd, cmd_arr[0], token_joined, env);
 	twl_arr_del(cmd_arr, free);
 	twl_arr_del(env_arr, free);
 	free(token_joined);

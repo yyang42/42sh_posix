@@ -47,7 +47,7 @@ typedef struct	s_parse_mask
     char *s;
 }				t_parse_mask;
 
-int		umask_builtin(char *cmd);
+int		umask_builtin(char *cmd, t_environment *this);
 void	print_symbolic_umask(mode_t um);
 int		parse_symbolic_mode(char *mode, int initial_bits);
 

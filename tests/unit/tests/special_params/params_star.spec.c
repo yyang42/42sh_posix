@@ -13,8 +13,8 @@ static void unquoted_star(t_test *test)
 	(void)test;
 	env = environment_new();
 	environment_init(env);
-	test_export("export IFS=[", env);
-	test_set("set lol pouet", env);
+	export("export IFS=[", env);
+	set("set lol pouet", env);
 	ret = test_params_star(env, false);
 	mt_assert(twl_strcmp(ret,"lol pouet") == 0);
 	free(ret);
@@ -29,8 +29,8 @@ static void quoted_star(t_test *test)
 	(void)test;
 	env = environment_new();
 	environment_init(env);
-	test_export("export IFS=[", env);
-	test_set("set lol pouet", env);
+	export("export IFS=[", env);
+	set("set lol pouet", env);
 	ret = test_params_star(env, true);
 	mt_assert(twl_strcmp(ret,"lol[pouet") == 0);
 	free(ret);
@@ -45,8 +45,8 @@ static void null_ifs(t_test *test)
 	(void)test;
 	env = environment_new();
 	environment_init(env);
-	test_export("export IFS", env);
-	test_set("set lol pouet", env);
+	export("export IFS", env);
+	set("set lol pouet", env);
 	ret = test_params_star(env, true);
 	mt_assert(twl_strcmp(ret,"lol pouet") == 0);
 	free(ret);
@@ -61,8 +61,8 @@ static void zero_ifs(t_test *test)
 	(void)test;
 	env = environment_new();
 	environment_init(env);
-	test_export("export IFS=", env);
-	test_set("set lol pouet", env);
+	export("export IFS=", env);
+	set("set lol pouet", env);
 	ret = test_params_star(env, true);
 	mt_assert(twl_strcmp(ret,"lolpouet") == 0);
 	free(ret);

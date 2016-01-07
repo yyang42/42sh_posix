@@ -20,8 +20,7 @@
 
 # define UNSET_OPT_VALID_OPTS "fv"
 
-int					test_unset(char *str, t_environment *env);
-int					unset(char *str);
+int					unset(char *str, t_environment *env);
 int					unset_variable(t_environment *env, t_opt *opt);
 int					unset_function(t_environment *env, t_opt *opt);
 
