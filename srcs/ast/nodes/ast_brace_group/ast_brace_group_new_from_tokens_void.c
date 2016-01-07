@@ -12,7 +12,8 @@
 
 #include "ast/nodes/ast_brace_group.h"
 
-void				*ast_brace_group_new_from_tokens_void(t_lst *tokens, struct s_ast *ast)
+void				*ast_brace_group_new_from_tokens_void(t_lst *tokens,
+	struct s_ast *ast)
 {
 	return (ast_brace_group_new_from_tokens(tokens, ast));
 }

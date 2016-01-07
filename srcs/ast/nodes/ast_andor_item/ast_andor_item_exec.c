@@ -18,7 +18,25 @@ static int			fork_error(void)
 	return (1);
 }
 
-static void			iter_fn(void *ast_pipe_item_, void *ret_)
+static void			andor_fn_2(t_ast_pipe_item *ast_pipe_item, int pids[2],
+	pid_t child_pid, int *ret)
+{
+	if (child_pid == 0)
+	{
+		dup2(pids[1], 1);
+		close(pids[0]);
+		ast_pipe_item_exec(ast_pipe_item);
+		exit(0);
+	}
+	else
+	{
+		wait(ret);
+		dup2(pids[0], 0);
+		close(pids[1]);
+	}
+}
+
+static void			iter_andor_fn(void *ast_pipe_item_, void *ret_)
 {
 	t_ast_pipe_item	*ast_pipe_item;
 	int				pids[2];
@@ -40,25 +58,14 @@ static void			iter_fn(void *ast_pipe_item_, void *ret_)
 		close(pids[1]);
 		fork_error();
 	}
-	else if (child_pid == 0)
-	{
-		dup2(pids[1], 1);
-		close(pids[0]);
-		ast_pipe_item_exec(ast_pipe_item);
-		exit(0);
-	}
 	else
-	{
-		wait(ret);
-		dup2(pids[0], 0);
-		close(pids[1]);
-	}
+		andor_fn_2(ast_pipe_item, pids, child_pid, ret);
 }
 
 int					ast_andor_item_exec(t_ast_andor_item *ast_andor_item)
 {
 	int				ret;
-	
-	twl_lst_iter(ast_andor_item->ast_pipe_items, iter_fn, &ret);
+
+	twl_lst_iter(ast_andor_item->ast_pipe_items, iter_andor_fn, &ret);
 	return (ret);
 }

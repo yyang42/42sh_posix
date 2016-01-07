@@ -16,7 +16,8 @@
 #include "ast/ast.h"
 #include "token/token_list_mgr.h"
 
-static void			build_redir_fn(void *redir_tokens, void *redir_items, void *ast)
+static void				build_redir_fn(void *redir_tokens, void *redir_items,
+	void *ast)
 {
 	t_ast_redir		*redir;
 
@@ -28,7 +29,8 @@ static void			build_redir_fn(void *redir_tokens, void *redir_items, void *ast)
 	twl_lst_push(redir_items, redir);
 }
 
-static int			build_redir_tokens(t_lst *redir_items, t_lst *orig_redir_tokens, struct s_ast *ast)
+static int				build_redir_tokens(t_lst *redir_items,
+	t_lst *orig_redir_tokens, struct s_ast *ast)
 {
 	t_lst			*redir_tokens_groups;
 	t_lst			*redir_tokens;
@@ -41,7 +43,8 @@ static int			build_redir_tokens(t_lst *redir_items, t_lst *orig_redir_tokens, st
 	return (0);
 }
 
-static void			new_compound_command_do(t_ast_compound_command *this, t_lst *tokens, struct s_ast *ast)
+static void				new_compound_command_do(t_ast_compound_command *this,
+	t_lst *tokens, struct s_ast *ast)
 {
 	int						pos;
 	t_openclose_matcher		*matcher;
@@ -57,7 +60,8 @@ static void			new_compound_command_do(t_ast_compound_command *this, t_lst *token
 		return ;
 	}
 	command_tokens = twl_lst_slice(tokens, 0, pos);
-	this->command = compound_command_from_token_fns()[this->command_type](command_tokens, ast);
+	this->command
+ = compound_command_from_token_fns()[this->command_type](command_tokens, ast);
 	twl_lst_del(command_tokens, NULL);
 	if (ast_has_error(ast))
 		return ;
@@ -66,7 +70,8 @@ static void			new_compound_command_do(t_ast_compound_command *this, t_lst *token
 	twl_lst_del(redir_tokens, NULL);
 }
 
-t_ast_compound_command	*ast_compound_command_new_from_tokens(t_lst *tokens, struct s_ast *ast)
+t_ast_compound_command	*ast_compound_command_new_from_tokens(t_lst *tokens,
+	struct s_ast *ast)
 {
 	t_ast_compound_command		*this;
 
