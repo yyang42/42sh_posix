@@ -10,18 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXPORT_H
-# define EXPORT_H
+#include "export.h"
 
-# include "basics.h"
-# include "twl_opt.h"
-# include "builtin.h"
-
-# define EXPORT_OPT_VALID_OPTS "p"
-
-int					export(char *str, t_environment *env);
-void				export_verbose(t_environment *env);
-void				export_add(t_environment *env, t_opt *opt);
-int					setenv_builtin(char *str, t_environment *env);
-
-#endif
+int					setenv_builtin(char *str, t_environment *env)
+{
+	twl_memcpy(str, "export", 6);
+	export(str, env);
+	return(0);
+}

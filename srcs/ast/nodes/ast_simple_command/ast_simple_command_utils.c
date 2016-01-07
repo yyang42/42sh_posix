@@ -56,10 +56,10 @@ static bool		find_bultin(void *builtin_, void *cmd_)
 
 bool  			is_builtin(char *cmd)
 {
-	static const char	*builtins[26] = {"echo", "cd", "env", "unsetenv",
+	static const char	*builtins[27] = {"echo", "cd", "env", "unsetenv",
 	"setenv", "alias", "unalias", "false", "true", "umask", "newgrp" ,"fc",
 	"command", "kill", "getopts", "read", "break", "colon", "continue", "return",
-	"return", "shift", "set", "unset", "export", NULL};
+	"return", "shift", "set", "unset", "export", "setenv", NULL};
 
 	if (twl_arr_find(builtins, find_bultin, cmd))
 		return (true);
