@@ -16,12 +16,18 @@
 
 static void	iter_assign_fn(void *data, void *context)
 {
-	t_ast_assignment	*assign;
-	t_environment		*env;
+	t_ast_assignment		*assign;
+	t_environment			*env;
+	t_environment_var_type	type;
+	char					*str;
 
 	assign = data;
 	env = context;
-	environment_setenv_value(env, assign->key, assign->value);
+	type = (env == environment_singleton() ? LOCAL : ENVIRONMENT);
+	str = twl_strjoin(assign->key, "=");
+	str = twl_strjoinfree(str, assign->value, 'l');
+	environment_setenv_or_setlocal__(env, str, type);
+	free(str);
 }
 
 static void	execute_builtin(t_ast_simple_command *cmd, char *builtin,
