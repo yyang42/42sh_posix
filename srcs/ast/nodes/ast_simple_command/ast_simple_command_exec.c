@@ -81,6 +81,8 @@ int			ast_simple_command_exec(t_ast_simple_command *cmd)
 	}
 	if (twl_lst_len(cmd->redir_items) > 0)
 	{
+		if (twl_lst_len(cmd->command_tokens) == 0)
+			return (-1);
 		if (ast_simple_command_check_files(cmd) == true)
 			ast_simple_command_redirs(cmd);
 	}
