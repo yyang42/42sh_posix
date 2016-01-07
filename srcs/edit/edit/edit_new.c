@@ -17,6 +17,8 @@
 
 #include "edit/edit.h"
 
+#include "edit/cursor.h"
+
 t_edit				*edit_new(void)
 {
 	t_edit			*this;
@@ -28,5 +30,6 @@ t_edit				*edit_new(void)
 	this->return_cmd = false;
 	this->history = history_mgr_new();
 	this->history_index = 0;
+	cursor_reset_pos();
 	return (this);
 }

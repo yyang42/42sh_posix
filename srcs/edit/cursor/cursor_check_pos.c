@@ -10,23 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "edit/edit.h"
+#include "edit/cursor.h"
 
-static void			print_fn(void *_letter)
+void				cursor_check_pos(int size)
 {
-	t_letter		*letter;
+	t_cursor		*cursor;
+	int				move_index;
 
-	letter = _letter;
-	twl_lprintf("%s", letter->letter);
-}
-
-void				edit_debug_print(t_edit *this)
-{
-	// twl_lprintf("index: %d\n", this->index);
-	// twl_lprintf("return cmd: %d\n", this->return_cmd);
-	// twl_lprintf("letters : ");
-	// twl_lst_iter0(this->letters, print_fn);
-	// twl_lprintf("\n");
-	(void)this;
-	(void)print_fn;
+	cursor = cursor_singleton();
+	move_index = cursor->screen_width * (cursor->current_cursor_pos + 1) - cursor->prompt_size;
+	twl_lprintf("i: %d - mi: %d\n", size, move_index);
+	cursor_print();
+	while (size > move_index)
+	{
+		terminal_delete_line();
+		terminal_cursor_up();
+		size -= cursor->screen_width;
+	}
 }

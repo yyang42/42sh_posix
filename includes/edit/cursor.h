@@ -10,23 +10,29 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "edit/edit.h"
+#ifndef CURSOR_H
+# define CURSOR_H
 
-static void			print_fn(void *_letter)
+# include "basics.h"
+# include "edit/terminal.h"
+
+
+typedef struct		s_cursor
 {
-	t_letter		*letter;
+	int				prompt_size;
+	int				screen_width;
+	int				current_cursor_pos;
+}					t_cursor;
 
-	letter = _letter;
-	twl_lprintf("%s", letter->letter);
-}
+t_cursor			*cursor_new(void);
+void				cursor_del(t_cursor *cursor);
+void				cursor_reset_pos(void);
 
-void				edit_debug_print(t_edit *this)
-{
-	// twl_lprintf("index: %d\n", this->index);
-	// twl_lprintf("return cmd: %d\n", this->return_cmd);
-	// twl_lprintf("letters : ");
-	// twl_lst_iter0(this->letters, print_fn);
-	// twl_lprintf("\n");
-	(void)this;
-	(void)print_fn;
-}
+
+void				cursor_print(void);
+
+t_cursor			*cursor_singleton();
+
+void				cursor_check_pos(int index);
+
+#endif

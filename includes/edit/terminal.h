@@ -49,5 +49,7 @@ void				terminal_delete_line(void);
 void				terminal_radio_letter(void);
 void				terminal_clear_letter(void);
 void				terminal_send_veol(void);
+void				terminal_cursor_up(void);
+void				terminal_cursor_down(void);
 
 #endif
