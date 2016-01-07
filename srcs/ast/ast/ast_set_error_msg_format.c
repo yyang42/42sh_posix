@@ -14,7 +14,8 @@
 #include "token/token_mgr.h"
 #include "twl_printf.h"
 
-void				ast_set_error_msg_format(t_ast *ast, t_token *token, const char *fmt, ...)
+void				ast_set_error_msg_format(t_ast *ast, t_token *token,
+	const char *fmt, ...)
 {
 	t_pf	*pf;
 
