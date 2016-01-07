@@ -10,10 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "export.h"
+#include "unset.h"
 
-int					setenv_builtin(char *str, t_environment *env)
+int				unsetenv_builtin(char *str, t_environment *env)
 {
-	twl_memcpy(str, "export", 6);
-	return(export(str, env));
+	char	*new_str;
+	int		flag;
+
+	new_str = twl_strjoin("unset", &str[8]);
+	flag = unset(new_str, env);
+	free(new_str);
+	return flag;
 }

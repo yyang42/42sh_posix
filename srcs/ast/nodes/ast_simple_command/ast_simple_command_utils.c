@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "ast/nodes/ast_simple_command.h"
+#include "builtin.h"
 
 void			dup_fds(int fd1, int fd2)
 {
@@ -54,12 +55,30 @@ static bool		find_bultin(void *builtin_, void *cmd_)
 	return (false);
 }
 
+t_dict							*get_builtin_func_dict(void)
+{
+	t_dict *dict;
+
+	dict = twl_dict_new();
+	twl_dict_add(dict, "echo", &echo);
+	twl_dict_add(dict, "cd", &cd);
+	twl_dict_add(dict, "env", &env);
+	twl_dict_add(dict, "export", &export);
+	twl_dict_add(dict, "setenv", &setenv_builtin);
+	twl_dict_add(dict, "unsetenv", &unsetenv_builtin);
+	twl_dict_add(dict, "set", &set);
+	twl_dict_add(dict, "unset", &unset);
+	twl_dict_add(dict, "alias", &alias);
+	twl_dict_add(dict, "umask", &umask_builtin);
+	return (dict);
+}
+
 bool			is_builtin(char *cmd)
 {
-	static const char	*builtins[27] = {"echo", "cd", "env", "unsetenv",
+	static const char	*builtins[28] = {"echo", "cd", "env", "unsetenv",
 	"setenv", "alias", "unalias", "false", "true", "umask", "newgrp" ,"fc",
 	"command", "kill", "getopts", "read", "break", "colon", "continue", "return"
-	, "return", "shift", "set", "unset", "export", "setenv", NULL};
+	, "return", "shift", "set", "unset", "export", "setenv", "unsetenv", NULL};
 
 	if (twl_arr_find(builtins, find_bultin, cmd))
 		return (true);

@@ -11,24 +11,6 @@
 /* ************************************************************************** */
 
 #include "ast/nodes/ast_simple_command.h"
-#include "builtin.h"
-
-t_dict							*get_builtin_func_dict(void)
-{
-	t_dict *dict;
-
-	dict = twl_dict_new();
-	twl_dict_add(dict, "echo", &echo);
-	twl_dict_add(dict, "cd", &cd);
-	twl_dict_add(dict, "env", &env);
-	twl_dict_add(dict, "export", &export);
-	twl_dict_add(dict, "setenv", &setenv_builtin);
-	twl_dict_add(dict, "set", &set);
-	twl_dict_add(dict, "unset", &unset);
-	twl_dict_add(dict, "alias", &alias);
-	twl_dict_add(dict, "umask", &umask_builtin);
-	return (dict);
-}
 
 t_ast_simple_command			*ast_simple_command_new(void)
 {
