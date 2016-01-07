@@ -39,10 +39,10 @@ diff_test ()
     mkdir -p $testcase_tmp
     rm -f $testcase_tmp/*
     $RENDU_PATH/42sh -y $testcase_path/input.sh > $testcase_tmp_stdout 2> $testcase_tmp_stderr
-    diff -y $testcase_path/expected_stdout $testcase_tmp_stdout
+    diff $testcase_path/expected_stdout $testcase_tmp_stdout
     print_result "$?"
     echo " stdout $testsuite/$testcase"
-    diff -y $testcase_path/expected_stderr $testcase_tmp_stderr
+    diff $testcase_path/expected_stderr $testcase_tmp_stderr
     print_result "$?"
     echo " stderr $1/$2"
 }
