@@ -16,22 +16,22 @@ int				echo(char *str)
 {
 	t_opt			*opt;
 	char			**arr;
-	char			*c;
 	int				flag;
 
 	flag = 0;
 	arr = twl_strsplit_mul(str, " \n\t");
 	opt = twl_opt_new(arr, ECHO_OPT_VALID_OPTS);
-	if ((c = twl_opt_check_invalid_opts(opt)))
-		flag = check_invalid_opts(opt, "echo", ECHO_OPT_VALID_OPTS);
-	else
+	if (!check_invalid_opts(opt, "echo", ECHO_OPT_VALID_OPTS))
 	{
 		//TODO Faire un truc plus propre que +5 XD TCALC
 		if (twl_opt_get_param(opt, "n"))
 			twl_printf("%s", str + 5);
 		else
 			twl_printf("%s\n", str + 5);
+		environment_set_last_exit_status(BUILTIN_EXEC_SUCCESS);
 	}
+	else
+		environment_set_last_exit_status(BUILTIN_EXEC_FAILURE);
 	twl_arr_del(arr, &free);
 	twl_opt_del(opt);
 	return (flag);

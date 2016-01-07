@@ -26,8 +26,8 @@
 # include "alias.h"
 # include "umask.h"
 
-#define BUILTIN_EXEC_SUCCESS 1
-#define BUILTIN_EXEC_FAILURE 0
+#define BUILTIN_EXEC_SUCCESS 0
+#define BUILTIN_EXEC_FAILURE 1
 
 int				check_invalid_opts(t_opt *opt, char *exe_name, char *flags);
 bool			builtin_true();
