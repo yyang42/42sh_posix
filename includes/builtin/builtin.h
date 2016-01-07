@@ -25,6 +25,7 @@
 # include "unset.h"
 # include "alias.h"
 # include "umask.h"
+# include "ast/nodes/ast_simple_command.h"
 
 #define BUILTIN_EXEC_SUCCESS 1
 #define BUILTIN_EXEC_FAILURE 0

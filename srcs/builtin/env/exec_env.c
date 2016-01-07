@@ -43,18 +43,40 @@ static void		exec_with_path(void *elem, void *context)
 	}
 }
 
+static void		env_with_builtin(char *builtin, char **args)
+{
+	t_dict	*dict;
+	void	*func;
+	void	(*f)(char *str);
+	char	*string;
+
+	dict = get_builtin_func_dict();
+	string = twl_strjoinarr((const char **)args, " ");
+	func = twl_dict_get(dict, builtin);
+	if (func)
+	{
+		f = func;
+		f(string);
+	}
+	free(string);
+	twl_dict_del(func, NULL);
+}
+
 void			exec_env(t_env_args *env, t_environment *this)
 {
 	char	**fpaths;
 	int		index;
 
 	fpaths = environment_get_paths(this);
+	index = arr2_indexof(env->args, env->utility);
 	if (fpaths && !twl_strchr(env->utility, '/'))
-		twl_arr_iter(fpaths, exec_with_path, env);
-	else
 	{
-		index = arr2_indexof(env->args, env->utility);
-		command_execution(env->utility, &env->args[index], env->env_arr);
+		if (!is_builtin(env->utility))
+			twl_arr_iter(fpaths, exec_with_path, env);
+		else
+			env_with_builtin(env->utility, &env->args[index]);
 	}
+	else
+		command_execution(env->utility, &env->args[index], env->env_arr);
 	twl_arr_del(fpaths,free);
 }

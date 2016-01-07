@@ -1,1 +1,2 @@
-env -i env | cat -e
+export hello=pouet
+env
