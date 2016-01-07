@@ -14,8 +14,10 @@
 
 void	redir_output(t_ast_redir *redir, t_ast_redir_fd *redir_fd)
 {
-	redir_fd->fd_save = dup(redir->io_number == -1 ? STDOUT_FILENO : redir->io_number);
-	redir_fd->fd_origin = redir->io_number == -1 ? STDOUT_FILENO : redir->io_number;
+	redir_fd->fd_save = dup(redir->io_number == -1
+		? STDOUT_FILENO : redir->io_number);
+	redir_fd->fd_origin = redir->io_number == -1
+		? STDOUT_FILENO : redir->io_number;
 	if (!twl_strcmp(">", redir->operator))
 		redir_fd->fd_file = create_file(redir->param);
 	else if (!twl_strcmp(">>", redir->operator))

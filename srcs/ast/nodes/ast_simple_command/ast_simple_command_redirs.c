@@ -12,6 +12,29 @@
 
 #include "ast/nodes/ast_simple_command.h"
 
+static int	redir_fn_2(t_ast_redir *redir, t_ast_redir_fd *redir_fd)
+{
+	if (!twl_strcmp(">&", redir->operator))
+	{
+		if (duplication_output(redir, redir_fd) == -1)
+		{
+			free(redir_fd);
+			return (1);
+		}
+	}
+	else if (!twl_strcmp("<&", redir->operator))
+	{
+		if (duplication_input(redir, redir_fd) == -1)
+		{
+			free(redir_fd);
+			return (1);
+		}
+	}
+	else if (!twl_strcmp("<>", redir->operator))
+		redir_input_output(redir, redir_fd);
+	return (0);
+}
+
 static void	iter_redir_fn(void *redir_, void *cmd_)
 {
 	t_ast_redir				*redir;
@@ -24,27 +47,15 @@ static void	iter_redir_fn(void *redir_, void *cmd_)
 	redir_fd->fd_file = -1;
 	if (!twl_strcmp("<", redir->operator) || !twl_strcmp("<<", redir->operator))
 		redir_input(redir, redir_fd);
-	else if (!twl_strcmp(">", redir->operator) || !twl_strcmp(">|", redir->operator) || !twl_strcmp(">>", redir->operator))
+	else if (!twl_strcmp(">", redir->operator)
+		|| !twl_strcmp(">|", redir->operator)
+			|| !twl_strcmp(">>", redir->operator))
 		redir_output(redir, redir_fd);
-	else if (!twl_strcmp(">&", redir->operator))
+	else
 	{
-		if (duplication_output(redir, redir_fd) == -1)
-		{
-			free(redir_fd);
+		if (redir_fn_2(redir, redir_fd) == 1)
 			return ;
-		}
-
 	}
-	else if (!twl_strcmp("<&", redir->operator))
-	{
-		if (duplication_input(redir, redir_fd) == -1)
-		{
-			free(redir_fd);
-			return ;
-		}
-	}
-	else if (!twl_strcmp("<>", redir->operator))
-		redir_input_output(redir, redir_fd);
 	if (redir_fd->fd_file != -1)
 		dup_fds(redir_fd->fd_file, redir_fd->fd_origin);
 	twl_lst_push_front(cmd->redir_fds, redir_fd);
@@ -55,7 +66,6 @@ static void	iter_redir_fds_fn(void *redir_fd_)
 	t_ast_redir_fd			*redir_fd;
 
 	redir_fd = redir_fd_;
-
 	if (redir_fd->fd_file != -1)
 		close_file(redir_fd->fd_file);
 	dup_fds(redir_fd->fd_save, redir_fd->fd_origin);
