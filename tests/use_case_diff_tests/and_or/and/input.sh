@@ -1,3 +1,3 @@
 echo lol && echo pouet && echo truc
-cat -x && echo lol
+cat pouet && echo lol
 false && echo pouet
