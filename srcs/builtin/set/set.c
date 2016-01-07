@@ -58,7 +58,7 @@ int				set(char *str, t_environment *env)
 		else if (!set_opt_exist(opt, "o"))
 		{
 			environment_print_all(env);
-			environment_set_last_exit_status(BUILTIN_EXEC_SUCCESS);
+			environment_set_last_exit_status_2(env, BUILTIN_EXEC_SUCCESS);
 		}
 	}
 	set_opt_del(opt);

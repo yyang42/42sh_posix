@@ -15,7 +15,6 @@
 bool		builtin_false(char *str, t_environment *env)
 {
 	(void)str;
-	(void)env;
-	environment_set_last_exit_status(BUILTIN_EXEC_FAILURE);
+	environment_set_last_exit_status_2(env, BUILTIN_EXEC_FAILURE);
 	return (false);
 }

@@ -104,7 +104,7 @@ int				umask_builtin(char *cmd, t_environment *this)
 		else
 			flag = modify_umask(opt, (char *)twl_lst_first(opt->args));
 	}
-	environment_set_last_exit_status(flag);
+	environment_set_last_exit_status_2(this, flag);
 	twl_arr_del(arr, &free);
 	twl_opt_del(opt);
 	return (flag);
