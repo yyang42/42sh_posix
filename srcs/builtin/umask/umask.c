@@ -12,7 +12,7 @@
 
 #include "umask.h"
 
-int			read_octal(char *string)
+int				read_octal(char *string)
 {
 	int result;
 	int digits;
@@ -31,7 +31,7 @@ int			read_octal(char *string)
 	return (result);
 }
 
-static int	symbolic_umask(char *arg)
+static int		symbolic_umask(char *arg)
 {
 	int	um;
 	int	bits;
@@ -45,7 +45,7 @@ static int	symbolic_umask(char *arg)
 	return (um);
 }
 
-static int	modify_umask(t_opt *opt, char *arg)
+static int		modify_umask(t_opt *opt, char *arg)
 {
 	int		umask_value;
 	mode_t	umask_arg;
@@ -72,28 +72,35 @@ static int	modify_umask(t_opt *opt, char *arg)
 	return (BUILTIN_EXEC_SUCCESS);
 }
 
-int			umask_builtin(char *cmd, t_environment *this)
+static void		umask_builtin_2(t_opt *opt, int *flag)
+{
+	int				umask_arg;
+
+	umask_arg = umask(022);
+	umask(umask_arg);
+	if (twl_opt_exist(opt, "S"))
+	{
+		print_symbolic_umask(umask_arg);
+		*flag = BUILTIN_EXEC_SUCCESS;
+	}
+	else
+		twl_printf("%04lo\n", (unsigned long)umask_arg);
+}
+
+int				umask_builtin(char *cmd, t_environment *this)
 {
 	t_opt			*opt;
 	char			**arr;
 	int				flag;
-	int				umask_arg;
 
 	(void)this;
 	arr = twl_strsplit_mul(cmd, " \n\t");
 	opt = twl_opt_new(arr, UMASK_OPT_VALID_OPTS);
-	flag = 0;
+	flag = BUILTIN_EXEC_FAILURE;
 	if (!check_invalid_opts(opt, "umask", UMASK_OPT_VALID_OPTS))
 	{
 		if (twl_opt_args_len(opt) < 1)
-		{
-			umask_arg = umask(022);
-			umask(umask_arg);
-			if (twl_opt_exist(opt, "S"))
-				print_symbolic_umask(umask_arg);
-			else
-				twl_printf("%04lo\n", (unsigned long)umask_arg);
-		}
+			umask_builtin_2(opt, &flag);
 		else
 			flag = modify_umask(opt, (char *)twl_lst_first(opt->args));
 	}

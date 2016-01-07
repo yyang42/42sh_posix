@@ -20,5 +20,5 @@ int				unsetenv_builtin(char *str, t_environment *env)
 	new_str = twl_strjoin("unset", &str[8]);
 	flag = unset(new_str, env);
 	free(new_str);
-	return flag;
+	return (flag);
 }

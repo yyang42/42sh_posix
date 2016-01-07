@@ -55,7 +55,7 @@ static bool		find_bultin(void *builtin_, void *cmd_)
 	return (false);
 }
 
-t_dict							*get_builtin_func_dict(void)
+t_dict			*get_builtin_func_dict(void)
 {
 	t_dict *dict;
 

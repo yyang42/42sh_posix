@@ -64,25 +64,30 @@ static void	rwx_loop(t_parse_mask *pm)
 	}
 }
 
+static void	parse_symbolic_mode_3(t_parse_mask *pm)
+{
+	if (pm->who)
+		pm->perm &= pm->who;
+	if (pm->op == '+')
+		pm->bits |= pm->perm;
+	else if (pm->op == '-')
+		pm->bits &= ~pm->perm;
+	else if (pm->op == '=')
+	{
+		if (pm->who == 0)
+		{
+			pm->who = S_IRWXU | S_IRWXG | S_IRWXO;
+			pm->bits &= ~pm->who;
+			pm->bits |= pm->perm;
+		}
+	}
+}
+
 static int	parse_symbolic_mode_2(t_parse_mask *pm)
 {
 	if (!*pm->s || *pm->s == ',')
 	{
-		if (pm->who)
-			pm->perm &= pm->who;
-		if (pm->op == '+')
-			pm->bits |= pm->perm;
-		else if (pm->op == '-')
-			pm->bits &= ~pm->perm;
-		else if (pm->op == '=')
-		{
-			if (pm->who == 0)
-			{
-				pm->who = S_IRWXU | S_IRWXG | S_IRWXO;
-				pm->bits &= ~pm->who;
-				pm->bits |= pm->perm;
-			}
-		}
+		parse_symbolic_mode_3(pm);
 		if (*pm->s == 0)
 			return (3);
 		else
