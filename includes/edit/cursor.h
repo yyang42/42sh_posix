@@ -22,17 +22,21 @@ typedef struct		s_cursor
 	int				prompt_size;
 	int				screen_width;
 	int				current_cursor_pos;
+	bool			up_char;
 }					t_cursor;
 
 t_cursor			*cursor_new(void);
 void				cursor_del(t_cursor *cursor);
 void				cursor_reset_pos(void);
 
-
 void				cursor_print(void);
 
 t_cursor			*cursor_singleton();
 
-void				cursor_check_pos(int index);
+void				cursor_check_pos(int size);
+void				cursor_handle_pos(int size);
+
+void				cursor_set_up_char(void);
+void				cursor_reset_screen_width(void);
 
 #endif

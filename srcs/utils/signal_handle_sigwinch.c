@@ -10,13 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <signal.h>
+
 #include "edit/cursor.h"
+#include "utils.h"
 
-void				cursor_reset_pos(void)
+
+static void			sig_handler(int signum)
 {
+	cursor_reset_screen_width();
+	(void)signum;
+}
 
-	t_cursor		*cursor;
-
-	cursor = cursor_singleton();
-	cursor->current_cursor_pos = 1;
+void				signal_handle_sigwinch(void)
+{
+	signal(SIGWINCH, sig_handler);
 }

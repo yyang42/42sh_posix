@@ -18,13 +18,11 @@ void				cursor_check_pos(int size)
 	int				move_index;
 
 	cursor = cursor_singleton();
-	move_index = cursor->screen_width * (cursor->current_cursor_pos + 1) - cursor->prompt_size;
-	twl_lprintf("i: %d - mi: %d\n", size, move_index);
-	cursor_print();
-	while (size > move_index)
+	move_index = cursor->screen_width - cursor->prompt_size;
+	cursor_handle_pos(size);
+	while ((size - 1) > move_index)
 	{
-		terminal_delete_line();
-		terminal_cursor_up();
+		terminal_clean_line();
 		size -= cursor->screen_width;
 	}
 }

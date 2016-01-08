@@ -30,11 +30,11 @@ static void			print_letter_fn(void *_letter, int index, void *_edit)
 
 void				edit_print_letters(t_edit *this)
 {
-	// terminal_delete_line();
+	terminal_delete_line();
 	terminal_carriage_return();
 	cursor_check_pos(letter_mgr_get_size(this->letters));
 	twl_putstr(get_prompt());
 	twl_lst_iteri(this->letters, print_letter_fn, this);
 	if (this->return_cmd)
-		write(1, "\n", 1);
+		twl_putchar('\n');
 }

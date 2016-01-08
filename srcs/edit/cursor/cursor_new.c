@@ -22,7 +22,7 @@ t_cursor			*cursor_new(void)
 	cursor = twl_malloc_x0(sizeof(t_cursor));
 	cursor->prompt_size = twl_strlen(get_prompt());
 	cursor->screen_width = term_cols();
-	cursor->current_cursor_pos = 0;
-	// twl_lprintf("ps: %d, sw: %d\n", cursor->prompt_size, cursor->screen_width);
+	cursor->current_cursor_pos = 1;
+	cursor->up_char = false;
 	return (cursor);
 }

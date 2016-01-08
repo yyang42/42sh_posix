@@ -45,7 +45,6 @@ void				prog_run(t_prog *prog)
 	}
 	else
 	{
-
 		prog_signal_handling();
 		env = environment_new();
 		environment_init(env);

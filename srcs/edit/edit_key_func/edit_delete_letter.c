@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "edit/edit.h"
+#include "edit/cursor.h"
 
 void				edit_delete_letter(void *_edit)
 {
@@ -22,4 +23,5 @@ void				edit_delete_letter(void *_edit)
 		edit->index -= 1;
 		letter_mgr_remove(edit->letters, edit->index);
 	}
+	cursor_set_up_char();
 }

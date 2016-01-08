@@ -12,11 +12,11 @@
 
 #include "edit/cursor.h"
 
-void				cursor_reset_pos(void)
+void				cursor_set_up_char(void)
 {
 
 	t_cursor		*cursor;
 
 	cursor = cursor_singleton();
-	cursor->current_cursor_pos = 1;
+	cursor->up_char = true;
 }
