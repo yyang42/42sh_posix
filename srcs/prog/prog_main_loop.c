@@ -36,11 +36,13 @@ void				prog_main_loop(t_prog *prog, t_environment *env)
 	while (1)
 	{
 		cmd = get_cmd();
-		/*
-		** do the jobs
-		*/
+		if (twl_strequ(cmd, "exit"))
+		{
+			free(cmd);
+			exit(0);
+		}
+		prog_run_input(prog, cmd);
 		free(cmd);
 	}
-	(void)prog;
 	(void)env;
 }
