@@ -49,7 +49,7 @@ diff_test ()
     print_result "$exec_res" exec
     print_result "$stdout_res" stdout
     print_result "$stdout_err" stderr
-    echo "./42sh -y tests/ast_diff_tests/$testsuite/$testcase/input.sh"
+    echo "./42sh -y tests/use_case_diff_tests/$testsuite/$testcase/input.sh"
 }
 
 echo $C_CYAN"====== START AST DIFF TESTS ======"$C_CLEAR

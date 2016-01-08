@@ -56,20 +56,15 @@ echo $C_CYAN"====== START AST DIFF TESTS ======"$C_CLEAR
 if ! `env | grep -q ^LAST_ONLY=`
 then
 
-    diff_test features_ast 01_empty
-    diff_test features_ast 10_simple_command
-    diff_test features_ast 11_simple_command_empty_lines
-    diff_test features_ast 12_simple_command_no_newline
-    diff_test features_ast 13_simple_command_long
-    diff_test features_ast 20_subshell
-    diff_test features_ast 25_brace_group
-    diff_test features_ast 30_redir
-    diff_test features_ast 31_redir_heredoc
-    diff_test features_ast 40_assignment
-    diff_test features_ast 50_if_clause
-    diff_test features_ast 51_if_clause_nested
-    diff_test features_ast 52_if_clause_complex_compound
-    diff_test features_ast 53_if_clause_without_else
+    for CASE_PATH in $TESTS_ROOT_PATH/*; do
+        if [ -d "${CASE_PATH}" ]; then
+            for TEST_PATH in $CASE_PATH/*; do
+                if [ -d "${TEST_PATH}" ]; then
+                    diff_test `basename $CASE_PATH` `basename $TEST_PATH`
+                fi
+            done
+        fi
+    done
 
 else
 
