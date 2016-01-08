@@ -16,4 +16,5 @@ void				prog_signal_handling(void)
 {
 	disable_all_sigs();
 	signal_handle_ctrl_c();
+	signal_handle_sigwinch();
 }

@@ -12,11 +12,27 @@
 
 #include "edit/cursor.h"
 
-void				cursor_reset_pos(void)
+void				cursor_handle_pos(int size)
 {
-
 	t_cursor		*cursor;
 
 	cursor = cursor_singleton();
-	cursor->current_cursor_pos = 1;
+
+	/*
+	** TODO: Ugly but work fine refactor later (not in the train)
+	*/
+
+	if ((cursor->current_cursor_pos * cursor->screen_width) < (size + cursor->prompt_size))
+	{
+		cursor->current_cursor_pos++;
+	}
+	if (cursor->up_char && size == ((cursor->current_cursor_pos - 1) * cursor->screen_width - cursor->prompt_size + 1))
+	{
+		terminal_clean_line();
+	}
+	if (cursor->up_char && size == ((cursor->current_cursor_pos - 1) * cursor->screen_width - cursor->prompt_size))
+	{
+		terminal_clean_line();
+	}
+	cursor->up_char = false;
 }

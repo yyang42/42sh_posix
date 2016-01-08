@@ -10,13 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "edit/cursor.h"
+#include "edit/terminal.h"
 
-void				cursor_reset_pos(void)
+void				terminal_clean_line(void)
 {
-
-	t_cursor		*cursor;
-
-	cursor = cursor_singleton();
-	cursor->current_cursor_pos = 1;
+	terminal_cursor_up();
+	terminal_delete_line();
 }
