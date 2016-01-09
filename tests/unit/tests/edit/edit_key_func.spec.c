@@ -98,6 +98,23 @@ static void test_ctrl_w_no_word(t_test *test)
 	mt_assert(strcmp(cmd, " ") == 0);
 	edit_del(edit);
 }
+static void test_delete_first_letter(t_test *test)
+{
+	t_edit			*edit;
+	char			*cmd;
+
+	edit = edit_new();
+	edit_handle_string(edit, "123");
+	mt_assert(edit->index == 3);
+	cmd = edit_handle_one_input(edit, ARROW_LEFT);
+	cmd = edit_handle_one_input(edit, ARROW_LEFT);
+	mt_assert(edit->index == 1);
+	cmd = edit_handle_one_input(edit, DELETE_KEY);
+	mt_assert(edit->index == 0);
+	cmd = edit_handle_one_input(edit, DELETE_KEY);
+	mt_assert(edit->index == 0);
+	edit_del(edit);
+}
 
 void	suite_edit_key_func(t_suite *suite)
 {
@@ -108,4 +125,5 @@ void	suite_edit_key_func(t_suite *suite)
 	SUITE_ADD_TEST(suite, test_ctrl_d_filled_string);
 	SUITE_ADD_TEST(suite, test_ctrl_w_one_word);
 	SUITE_ADD_TEST(suite, test_ctrl_w_no_word);
+	SUITE_ADD_TEST(suite, test_delete_first_letter);
 }
