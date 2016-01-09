@@ -12,7 +12,7 @@
 		char			*joined_str; \
 		tokens = tokenizer_tokenize(input); \
 		split_strings = twl_str_split_to_lst(split_strings_str, "_"); \
-		tokens_list = token_mgr_split(tokens, split_strings, keep_delimiter); \
+		tokens_list = token_mgr_split_ast(tokens, split_strings, keep_delimiter); \
 		joined_str = token_list_mgr_strjoin(tokens_list); \
 		if (debug) \
 		{ \
@@ -53,7 +53,7 @@ mt_test_token_mgr_split(num102, "(abc);(", ";", "(_abc_)_; / (", true, false);
 mt_test_token_mgr_split(num103, "(aaa;bbb", ";", "(_aaa_;_bbb", true, false);
 mt_test_token_mgr_split(num104, "(abc; ; ;", ";", "(_abc_;_;_;", true, false);
 
-void	suite_token_mgr_split(t_suite *suite)
+void	suite_token_mgr_split_ast(t_suite *suite)
 {
 	SUITE_ADD_TEST(suite, test_num1);
 	SUITE_ADD_TEST(suite, test_num2);

@@ -65,7 +65,7 @@ t_ast_compound_list	*ast_compound_list_new_from_tokens(t_lst *tokens,
 	t_ast_compound_list			*this;
 	t_lst						*tokens_list;
 
-	tokens_list = token_mgr_split(tokens, data_separators(), true);
+	tokens_list = token_mgr_split_ast(tokens, data_separators(), true);
 	this = ast_compound_list_new();
 	twl_lst_iter2(tokens_list, build_children_fn, this, ast);
 	token_list_mgr_del(tokens_list);

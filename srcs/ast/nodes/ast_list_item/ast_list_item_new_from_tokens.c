@@ -70,7 +70,7 @@ t_ast_list_item		*ast_list_item_new_from_tokens(t_lst *tokens, t_token *sep,
 
 	ast_list_item = ast_list_item_new();
 	ast_list_item->separator = sep;
-	tokens_list = token_mgr_split(tokens, data_andor_separators(), true);
+	tokens_list = token_mgr_split_ast(tokens, data_andor_separators(), true);
 	twl_lst_iter3(tokens_list, build_ast_andor_item_fn, ast_list_item,
 		twl_lst_last(tokens), ast);
 	token_list_mgr_del(tokens_list);

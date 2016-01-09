@@ -11,16 +11,11 @@
 /* ************************************************************************** */
 
 #include "token/token_mgr.h"
+#include "openclose/openclose_matcher.h"
 
-t_lst				*token_mgr_split_by_one_sep(t_lst *tokens, char *sep,
+t_lst				*token_mgr_split_ast(t_lst *tokens, t_lst *split_strings,
 														bool keep_delimiter)
 {
-	t_lst			*sep_list;
-	t_lst			*result;
-
-	sep_list = twl_lst_new();
-	twl_lst_push(sep_list, twl_strdup(sep));
-	result = token_mgr_split_ast(tokens, sep_list, keep_delimiter);
-	twl_lst_del(sep_list, free);
-	return (result);
+	return (token_mgr_split_base(tokens, split_strings,
+		openclose_matcher_singleton_parser(), keep_delimiter));
 }
