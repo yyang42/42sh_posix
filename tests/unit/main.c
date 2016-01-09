@@ -20,7 +20,7 @@ int main()
 
 	ADD_TESTS
 
-	mt_exec(mt);
-	// mt_del(mt);
-	return(0);
+	int ret = mt_exec(mt);
+	mt_del(mt);
+	return(ret);
 }
