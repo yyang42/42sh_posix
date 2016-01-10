@@ -22,4 +22,9 @@ char				*get_prompt(void);
 char				*build_ast_line(int depth, char *s1, char *s2);
 bool				str_is_redir_operator(char *str);
 
+
+void				disable_all_sigs(void);
+void				signal_handle_ctrl_c(void);
+void				signal_handle_sigwinch(void);
+
 #endif

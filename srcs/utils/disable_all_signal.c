@@ -10,26 +10,27 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LETTER_MGR_H
-# define LETTER_MGR_H
+#include <signal.h>
 
-# include "basics.h"
-# include "edit/letter.h"
+static void			do_nothing(int sig)
+{
+	/*
+	** Usage later for kill child
+	*/
 
-t_lst				*letter_mgr_new(void);
-void				letter_mgr_del(t_lst *letters);
-void				letter_mgr_add(t_lst *letters, t_letter *letter,
-															unsigned int index);
-void				letter_mgr_remove(t_lst *letters, int index);
-void				letter_mgr_print(t_lst *letters, int index);
+	// kill(g_child_pid, sig);
+	// signal(sig, SIG_DFL);
+	(void)sig;
+}
 
-size_t				letter_mgr_get_size(t_lst *letters);
+void				disable_all_sigs(void)
+{
+	int i;
 
-char				*letter_mgr_concat_string(t_lst *letters);
-t_lst				*letter_mgr_clear(t_lst *letters);
-
-void				letter_mgr_move_prev_word(t_lst *letters, void *edit_);
-void				letter_mgr_move_next_word(t_lst *letters, void *edit_);
-void				letter_mgr_delete_prev_word(t_lst *letters, void *edit_);
-
-#endif
+	i = 1;
+	while (i <= 31)
+	{
+		signal(i, do_nothing);
+		i++;
+	}
+}

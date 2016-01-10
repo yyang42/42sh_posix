@@ -36,17 +36,21 @@ typedef struct		s_terminal
 	t_termios		*term;
 }					t_terminal;
 
-t_terminal			*terminal_new();
+t_terminal			*terminal_new(void);
 void				terminal_del(t_terminal *term);
 
-t_termios			*terminal_singleton();
+t_termios			*terminal_singleton(void);
 
 int					terminal_enable(void);
 void				terminal_disable(void);
 
+void				terminal_clean_line(void);
 void				terminal_carriage_return(void);
 void				terminal_delete_line(void);
 void				terminal_radio_letter(void);
 void				terminal_clear_letter(void);
+void				terminal_send_veol(void);
+void				terminal_cursor_up(void);
+void				terminal_cursor_down(void);
 
 #endif

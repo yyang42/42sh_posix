@@ -10,26 +10,37 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LETTER_MGR_H
-# define LETTER_MGR_H
+#include "twl_ctype.h"
 
-# include "basics.h"
-# include "edit/letter.h"
+#include "edit/edit.h"
+#include "edit/letter_mgr.h"
 
-t_lst				*letter_mgr_new(void);
-void				letter_mgr_del(t_lst *letters);
-void				letter_mgr_add(t_lst *letters, t_letter *letter,
-															unsigned int index);
-void				letter_mgr_remove(t_lst *letters, int index);
-void				letter_mgr_print(t_lst *letters, int index);
+static bool			on_word_end(char *cmd, int count)
+{
+	if (!twl_isspace(cmd[count]))
+		if (twl_isspace(cmd[count + 1]))
+			return (true);
+	return (false);
+}
 
-size_t				letter_mgr_get_size(t_lst *letters);
+void				letter_mgr_move_next_word(t_lst *letters, void *edit_)
+{
+	char			*cmd;
+	int				count;
+	t_edit			*edit;
 
-char				*letter_mgr_concat_string(t_lst *letters);
-t_lst				*letter_mgr_clear(t_lst *letters);
-
-void				letter_mgr_move_prev_word(t_lst *letters, void *edit_);
-void				letter_mgr_move_next_word(t_lst *letters, void *edit_);
-void				letter_mgr_delete_prev_word(t_lst *letters, void *edit_);
-
-#endif
+	edit = edit_;
+	cmd = letter_mgr_concat_string(letters);
+	count = edit->index;
+	if (on_word_end(cmd, count))
+		count++;
+	while (!twl_isspace(cmd[count]))
+		count++;
+	while (twl_isspace(cmd[count]))
+		count++;
+	if (count < (int)twl_strlen(cmd))
+		edit->index = count;
+	else
+		edit->index = (int)twl_strlen(cmd) - 1;
+	free(cmd);
+}

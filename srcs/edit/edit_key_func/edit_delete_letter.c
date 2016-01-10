@@ -11,15 +11,17 @@
 /* ************************************************************************** */
 
 #include "edit/edit.h"
+#include "edit/cursor.h"
 
 void				edit_delete_letter(void *_edit)
 {
 	t_edit			*edit;
 
 	edit = _edit;
-	if (letter_mgr_get_size(edit->letters) > 1)
+	if (letter_mgr_get_size(edit->letters) > 1 && ((edit->index -1) >= 0))
 	{
 		edit->index -= 1;
 		letter_mgr_remove(edit->letters, edit->index);
 	}
+	cursor_set_up_char();
 }
