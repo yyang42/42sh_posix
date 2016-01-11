@@ -10,26 +10,31 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LETTER_MGR_H
-# define LETTER_MGR_H
+#include <fcntl.h>
 
-# include "basics.h"
-# include "edit/letter.h"
+#include "edit/history_mgr.h"
 
-t_lst				*letter_mgr_new(void);
-void				letter_mgr_del(t_lst *letters);
-void				letter_mgr_add(t_lst *letters, t_letter *letter,
-															unsigned int index);
-void				letter_mgr_remove(t_lst *letters, int index);
-void				letter_mgr_print(t_lst *letters, int index);
+static void			iter_fn(void *history_line, void *fd_ptr)
+{
+	int				fd;
 
-size_t				letter_mgr_get_size(t_lst *letters);
+	fd = *((int *)fd_ptr);
+	if (twl_strlen(history_line) > 0)
+	{
+		write(fd, history_line, twl_strlen(history_line));
+		write(fd, "\n", 1);
+	}
+}
 
-char				*letter_mgr_concat_string(t_lst *letters);
-t_lst				*letter_mgr_clear(t_lst *letters);
+void				history_mgr_export(t_lst *history)
+{
+	char			*filename;
+	int				fd;
 
-void				letter_mgr_move_prev_word(t_lst *letters, void *edit_);
-void				letter_mgr_move_next_word(t_lst *letters, void *edit_);
-void				letter_mgr_delete_prev_word(t_lst *letters, void *edit_);
 
-#endif
+	filename = twl_joinpath(getenv("HOME"), HISTORY_FILENAME);
+	fd = open(filename, O_WRONLY | O_CREAT, 0644);
+	twl_lst_iter(history, iter_fn, &fd);
+	free(filename);
+	close(fd);
+}

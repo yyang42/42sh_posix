@@ -10,26 +10,32 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LETTER_MGR_H
-# define LETTER_MGR_H
+#include <fcntl.h>
 
-# include "basics.h"
-# include "edit/letter.h"
+#include "edit/history_mgr.h"
 
-t_lst				*letter_mgr_new(void);
-void				letter_mgr_del(t_lst *letters);
-void				letter_mgr_add(t_lst *letters, t_letter *letter,
-															unsigned int index);
-void				letter_mgr_remove(t_lst *letters, int index);
-void				letter_mgr_print(t_lst *letters, int index);
+#include "twl_get_next_line.h"
 
-size_t				letter_mgr_get_size(t_lst *letters);
+t_lst				*history_mgr_new(void)
+{
+	t_lst			*history;
+	char			*filename;
+	int				fd;
+	char			*line;
 
-char				*letter_mgr_concat_string(t_lst *letters);
-t_lst				*letter_mgr_clear(t_lst *letters);
 
-void				letter_mgr_move_prev_word(t_lst *letters, void *edit_);
-void				letter_mgr_move_next_word(t_lst *letters, void *edit_);
-void				letter_mgr_delete_prev_word(t_lst *letters, void *edit_);
-
-#endif
+	history = twl_lst_new();
+	filename = twl_joinpath(getenv("HOME"), HISTORY_FILENAME);
+	// twl_lprintf("file: %s\n", filename);
+	fd = open(filename, O_RDONLY | O_CREAT, 0644);
+	// twl_lprintf("fd: %d\n", fd);
+	while (twl_get_next_line(fd, &line))
+	{
+		// twl_lprintf("line: %s\n", line);
+		history_mgr_add(history, line);
+		free(line);
+	}
+	free(filename);
+	close(fd);
+	return (history);
+}

@@ -24,5 +24,13 @@ t_lst				*edit_key_mgr_new(void)
 	edit_key_mgr_add(edit_keys, edit_key_new(CTRL_A, edit_move_start));
 	edit_key_mgr_add(edit_keys, edit_key_new(CTRL_E, edit_move_end));
 	edit_key_mgr_add(edit_keys, edit_key_new(DELETE_KEY, edit_delete_letter));
+	edit_key_mgr_add(edit_keys, edit_key_new(CTRL_C, edit_handle_ctrl_c));
+	edit_key_mgr_add(edit_keys, edit_key_new(CTRL_D, edit_handle_ctrl_d));
+	edit_key_mgr_add(edit_keys, edit_key_new(RETURN_KEY, edit_key_return));
+	edit_key_mgr_add(edit_keys, edit_key_new(CTRL_T, edit_move_prev_word));
+	edit_key_mgr_add(edit_keys, edit_key_new(CTRL_U, edit_move_next_word));
+	edit_key_mgr_add(edit_keys, edit_key_new(CTRL_W, edit_delete_prev_word));
+	edit_key_mgr_add(edit_keys, edit_key_new(ARROW_UP, edit_history_up));
+	edit_key_mgr_add(edit_keys, edit_key_new(ARROW_DOWN, edit_history_down));
 	return (edit_keys);
 }

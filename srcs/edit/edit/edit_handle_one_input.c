@@ -16,5 +16,5 @@ char				*edit_handle_one_input(t_edit *this, int key)
 {
 	edit_handle_printable(this, key);
 	edit_key_mgr_do(this->edit_keys, this, key);
-	return (edit_return_cmd(this, key));
+	return (edit_return_cmd(this));
 }

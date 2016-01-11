@@ -45,19 +45,11 @@ void				prog_run(t_prog *prog)
 	}
 	else
 	{
-		/*
-		** REMOVE the printf
-		*/
-
-		twl_printf("For developpement of command line, I put an 'exit' in the edit loop\n");
-		twl_printf("Comment or remove for use the full shell (srcs/edit/edit/edit_loop.c)\n");
-		twl_printf("Work with arrow left/right, ctrl + a/e, delete. No multiline Yet\n");
-
+		prog_signal_handling();
 		env = environment_new();
 		environment_init(env);
 		prog_main_loop(prog, env);
 		environment_del(env);
-		(void)prog;
 	}
 	free(input);
 }

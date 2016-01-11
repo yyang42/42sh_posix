@@ -10,26 +10,33 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LETTER_MGR_H
-# define LETTER_MGR_H
+#ifndef CURSOR_H
+# define CURSOR_H
 
 # include "basics.h"
-# include "edit/letter.h"
+# include "edit/terminal.h"
 
-t_lst				*letter_mgr_new(void);
-void				letter_mgr_del(t_lst *letters);
-void				letter_mgr_add(t_lst *letters, t_letter *letter,
-															unsigned int index);
-void				letter_mgr_remove(t_lst *letters, int index);
-void				letter_mgr_print(t_lst *letters, int index);
 
-size_t				letter_mgr_get_size(t_lst *letters);
+typedef struct		s_cursor
+{
+	int				prompt_size;
+	int				screen_width;
+	int				current_cursor_pos;
+	bool			up_char;
+}					t_cursor;
 
-char				*letter_mgr_concat_string(t_lst *letters);
-t_lst				*letter_mgr_clear(t_lst *letters);
+t_cursor			*cursor_new(void);
+void				cursor_del(t_cursor *cursor);
+void				cursor_reset_pos(void);
 
-void				letter_mgr_move_prev_word(t_lst *letters, void *edit_);
-void				letter_mgr_move_next_word(t_lst *letters, void *edit_);
-void				letter_mgr_delete_prev_word(t_lst *letters, void *edit_);
+void				cursor_print(void);
+
+t_cursor			*cursor_singleton();
+
+void				cursor_check_pos(int size);
+void				cursor_handle_pos(int size);
+
+void				cursor_set_up_char(void);
+void				cursor_reset_screen_width(void);
 
 #endif

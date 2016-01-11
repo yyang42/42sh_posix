@@ -1,5 +1,6 @@
 .tmp
 .valgrind.log
+42sh.dSYM/
 
 /42sh
 .debug.out
@@ -9,3 +10,5 @@
 /.valgrind.log
 /.idea
 /CMakeLists.txt
+*.out
+*.DS_Store

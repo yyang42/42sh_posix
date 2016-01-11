@@ -62,3 +62,21 @@ Not implemented:
 
 The AST-Parser is compliant with the Tokenization Rules and the POSIX Shell Grammar.
 It something is wrong, please raise an issue.
+
+
+## Command Line
+- Arrow left / right :  Move 1 char left or right
+- ctrl + a : begin of the line
+- ctrl + e : end of line
+- delete : remove previous char
+- ctrl + t : on word after
+- ctrl + u : on word before
+- ctrl + w : remove prev word
+- arrow up / down : navigate on history
+- history cmd : print history
+- multiline
+
+### Not implemented yet
+- copy / paste
+- search in history
+-
