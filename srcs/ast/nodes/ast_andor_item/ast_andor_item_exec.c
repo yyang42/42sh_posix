@@ -81,7 +81,6 @@ static void			iter_fds_fn(void *data, void *next_data, void *context_)
 		pipe_item_next->fds[0] = fds[0];
 		pipe_item->fds[1] = fds[1];
 	}
-
 }
 
 int					ast_andor_item_exec(t_ast_andor_item *ast_andor_item)
