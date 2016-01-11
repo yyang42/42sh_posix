@@ -18,55 +18,83 @@ static int			fork_error(void)
 	return (1);
 }
 
-static void			andor_fn_2(t_ast_pipe_item *ast_pipe_item, int pids[2],
-	pid_t child_pid, int *ret)
+static void			andor_fn_2(t_ast_pipe_item *pipe_item, pid_t pid, int *ret)
 {
-	if (child_pid == 0)
+	if (pid == 0)
 	{
-		dup2(pids[1], 1);
-		close(pids[0]);
-		ast_pipe_item_exec(ast_pipe_item);
+		if (pipe_item->fds[1] != -1)
+		{
+			close(1);
+			dup2(pipe_item->fds[1], 1);
+		}
+		if (pipe_item->fds[0] != -1)
+		{
+			close(0);
+			dup2(pipe_item->fds[0], 0);
+		}
+		ast_pipe_item_exec(pipe_item);
 		exit(0);
 	}
 	else
 	{
 		wait(ret);
 		handle_signal(*ret);
-		dup2(pids[0], 0);
-		close(pids[1]);
+		close(pipe_item->fds[1]);
+		if (pipe_item->fds[0] != -1)
+			close(pipe_item->fds[0]);
 	}
 }
 
 static void			iter_andor_fn(void *ast_pipe_item_, void *ret_)
 {
 	t_ast_pipe_item	*ast_pipe_item;
-	int				pids[2];
 	pid_t			child_pid;
 	int				*ret;
 
 	ret = ret_;
 	ast_pipe_item = ast_pipe_item_;
-	if (!ast_pipe_item->separator)
-	{
-		ast_pipe_item_exec(ast_pipe_item);
-		return ;
-	}
-	pipe(pids);
 	child_pid = fork();
 	if (child_pid == -1)
 	{
-		close(pids[0]);
-		close(pids[1]);
+		if (ast_pipe_item->fds[0] != -1)
+			close(ast_pipe_item->fds[0]);
+		if (ast_pipe_item->fds[1] != -1)
+			close(ast_pipe_item->fds[1]);
 		fork_error();
 	}
 	else
-		andor_fn_2(ast_pipe_item, pids, child_pid, ret);
+		andor_fn_2(ast_pipe_item, child_pid, ret);
+}
+
+static void			iter_fds_fn(void *data, void *next_data, void *context_)
+{
+	t_ast_pipe_item	*pipe_item;
+	t_ast_pipe_item	*pipe_item_next;
+	int				fds[2];
+
+	(void)context_;
+	pipe(fds);
+	pipe_item = data;
+	pipe_item_next = next_data;
+	if (pipe_item_next)
+	{
+		pipe_item_next->fds[0] = fds[0];
+		pipe_item->fds[1] = fds[1];
+	}
+
 }
 
 int					ast_andor_item_exec(t_ast_andor_item *ast_andor_item)
 {
 	int				ret;
 
-	twl_lst_iter(ast_andor_item->ast_pipe_items, iter_andor_fn, &ret);
+	ret = 0;
+	if (twl_lst_len(ast_andor_item->ast_pipe_items) == 1)
+		ast_pipe_item_exec(twl_lst_get(ast_andor_item->ast_pipe_items, 0));
+	else
+	{
+		twl_lst_itern(ast_andor_item->ast_pipe_items, iter_fds_fn, NULL);
+		twl_lst_iter(ast_andor_item->ast_pipe_items, iter_andor_fn, &ret);
+	}
 	return (ret);
 }
