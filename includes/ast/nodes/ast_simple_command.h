@@ -24,6 +24,7 @@
 # include "signals.h"
 # include "environment.h"
 # include "ast/nodes/ast_redir.h"
+# include <pwd.h>
 
 
 typedef struct			s_ast_redir_fd
@@ -42,7 +43,6 @@ typedef struct			s_ast_simple_command
 	t_dict				*builtin_func;
 }						t_ast_simple_command;
 
-
 t_ast_simple_command	*ast_simple_command_new(void);
 void					ast_simple_command_del(t_ast_simple_command *ast_s_cmd);
 bool					ast_simple_command_check_files(t_ast_simple_command *t);
@@ -54,6 +54,10 @@ void					ast_simple_command_print_rec(t_ast_simple_command
 bool					ast_simple_command_is_own_type(t_lst *tokens);
 int						ast_simple_command_exec(t_ast_simple_command *cmd);
 int						ast_simple_command_expan(t_ast_simple_command *cmd);
+
+void					ast_simple_command_expan_tilde(t_token *token);
+bool					isDoubleQuoted(char *str);
+bool					isSingleQuoted(char *str);
 
 bool					is_builtin(char *cmd);
 char					*get_binary_path(char *cmd, t_environment *env);

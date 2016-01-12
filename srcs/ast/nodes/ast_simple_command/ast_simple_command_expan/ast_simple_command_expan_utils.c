@@ -11,19 +11,34 @@
 /* ************************************************************************** */
 
 #include "ast/nodes/ast_simple_command.h"
-#include "ast/nodes/ast_assignment.h"
-#include "ast/nodes/ast_redir.h"
+#include "builtin.h"
 
-void 		iter_fn(void *token_)
+bool			isDoubleQuoted(char *str)
 {
-	t_token	*token;
-
-	token = token_;
-	ast_simple_command_expan_tilde(token);
+	int	len;
+	if (str)
+	{
+		len = twl_strlen(str);
+		if (twl_strlen(str) > 1)
+		{
+			if (str[0] == '"' && str[len] == '"')
+				return (true);
+		}
+	}
+	return (false);
 }
 
-int			ast_simple_command_expan(t_ast_simple_command *cmd)
+bool			isSingleQuoted(char *str)
 {
-	twl_lst_iter0(cmd->command_tokens, iter_fn);
-	return (0);
+	int	len;
+	if (str)
+	{
+		len = twl_strlen(str);
+		if (twl_strlen(str) > 1)
+		{
+			if (str[0] == '\'' && str[len] == '\'')
+				return (true);
+		}
+	}
+	return (false);
 }
