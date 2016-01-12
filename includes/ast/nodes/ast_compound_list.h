@@ -31,6 +31,7 @@ t_ast_compound_list			*ast_compound_list_new(void);
 void						ast_compound_list_del(t_ast_compound_list *ast_compound_list);
 
 t_ast_compound_list			*ast_compound_list_new_from_tokens(t_lst *tokens, struct s_ast *ast);
+t_ast_compound_list			*ast_compound_list_new_from_tokens_bis(t_lst *tokens, struct s_ast *ast);
 void						ast_compound_list_print_rec(t_ast_compound_list *ast_compound_list, int depth);
 
 int							ast_compound_list_exec(t_ast_compound_list *ast_compound_list);

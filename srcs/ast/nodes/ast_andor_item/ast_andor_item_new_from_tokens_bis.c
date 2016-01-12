@@ -10,36 +10,25 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_COMMAND_H
-# define AST_COMMAND_H
+#include "token/token_mgr.h"
+#include "token/token_list_mgr.h"
 
-# include "basics.h"
+#include "ast/ast.h"
+#include "ast/nodes/ast_andor_item.h"
+#include "ast/nodes/ast_list_item.h"
 
-# include "token/token_mgr.h"
-# include "ast/ast_utils.h"
-# include "ast/ast_defines.h"
-
-# include "ast/nodes/ast_simple_command.h"
-# include "ast/nodes/ast_compound_command.h"
-
-typedef enum		s_command_type
+t_ast_andor_item		*ast_andor_item_new_from_tokens_bis(t_lst *tokens, struct s_ast *ast)
 {
-	COMMAND_SIMPLE_COMMAND,
-	COMMAND_COMPOUND_COMMAND,
-	COMMAND_FUNCTION_DEFINITION
-}					t_command_type;
+	t_ast_andor_item			*this;
 
-typedef struct		s_ast_command
-{
-	t_command_type	command_type;
-	void			*command;
-}					t_ast_command;
+	this = ast_andor_item_new();
 
-t_ast_command		*ast_command_new(void);
-void				ast_command_del(t_ast_command *ast_command);
 
-t_ast_command		*ast_command_new_from_tokens(t_lst *tokens, struct s_ast *ast);
-t_ast_command		*ast_command_new_from_tokens_bis(t_lst *tokens, struct s_ast *ast);
-void				ast_command_print_rec(t_ast_command *ast_command, int depth);
+	t_ast_pipe_item				*ast_pipe_item;
+	ast_pipe_item = ast_pipe_item_new_from_tokens_bis(tokens, ast);
+	twl_lst_push(this->ast_pipe_items, ast_pipe_item);
 
-#endif
+	return (this);
+	(void)tokens;
+	(void)ast;
+}

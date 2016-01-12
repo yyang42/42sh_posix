@@ -10,36 +10,25 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_COMMAND_H
-# define AST_COMMAND_H
+#include "token/token_list_mgr.h"
+#include "ast/ast.h"
+#include "ast/nodes/ast_assignment.h"
+#include "ast/nodes/ast_redir.h"
+#include "ast/nodes/ast_simple_command.h"
 
-# include "basics.h"
-
-# include "token/token_mgr.h"
-# include "ast/ast_utils.h"
-# include "ast/ast_defines.h"
-
-# include "ast/nodes/ast_simple_command.h"
-# include "ast/nodes/ast_compound_command.h"
-
-typedef enum		s_command_type
+t_ast_simple_command	*ast_simple_command_new_from_tokens_bis(t_lst *tokens, struct s_ast *ast)
 {
-	COMMAND_SIMPLE_COMMAND,
-	COMMAND_COMPOUND_COMMAND,
-	COMMAND_FUNCTION_DEFINITION
-}					t_command_type;
+	t_ast_simple_command		*this;
 
-typedef struct		s_ast_command
-{
-	t_command_type	command_type;
-	void			*command;
-}					t_ast_command;
-
-t_ast_command		*ast_command_new(void);
-void				ast_command_del(t_ast_command *ast_command);
-
-t_ast_command		*ast_command_new_from_tokens(t_lst *tokens, struct s_ast *ast);
-t_ast_command		*ast_command_new_from_tokens_bis(t_lst *tokens, struct s_ast *ast);
-void				ast_command_print_rec(t_ast_command *ast_command, int depth);
-
-#endif
+	this = ast_simple_command_new();
+	this->command_tokens = twl_lst_copy(tokens, NULL);
+	// build_tokens(this, tokens, ast);
+	// if (ast_has_error(ast))
+	// {
+	// 	ast_simple_command_del(this);
+	// 	return (NULL);
+	// }
+	return (this);
+	(void)ast;
+	(void)tokens;
+}
