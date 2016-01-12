@@ -10,31 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_COMPLETE_COMMAND_H
-# define AST_COMPLETE_COMMAND_H
+#include "token/token_mgr.h"
+#include "token/token_list_mgr.h"
 
-# include "basics.h"
+#include "ast/ast.h"
+#include "ast/nodes/ast_andor_item.h"
+#include "ast/nodes/ast_list_item.h"
 
-# include "token/token_mgr.h"
-
-# include "ast/ast_utils.h"
-# include "ast/ast_defines.h"
-
-# include "ast/nodes/ast_list_item.h"
-
-typedef struct				s_ast_compound_list
+void				*ast_andor_item_new_from_tokens_bis_void(t_lst *tokens, struct s_ast *ast)
 {
-	t_lst					*ast_list_items;
-
-}							t_ast_compound_list;
-
-t_ast_compound_list			*ast_compound_list_new(void);
-void						ast_compound_list_del(t_ast_compound_list *ast_compound_list);
-
-t_ast_compound_list			*ast_compound_list_new_from_tokens(t_lst *tokens, struct s_ast *ast);
-t_ast_compound_list			*ast_compound_list_new_from_tokens_bis(t_lst *tokens, struct s_ast *ast);
-void						ast_compound_list_print_rec(t_ast_compound_list *ast_compound_list, int depth);
-
-int							ast_compound_list_exec(t_ast_compound_list *ast_compound_list);
-
-#endif
+	return (ast_andor_item_new_from_tokens_bis(tokens, ast));
+}

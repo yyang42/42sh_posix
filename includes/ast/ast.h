@@ -22,6 +22,14 @@
 # include "token/token_mgr.h"
 # include "token/tokenizer.h"
 
+typedef enum		e_ast_type
+{
+	AST_TYPE_LIST_ITEM = 0,
+	AST_TYPE_ANDOR_ITEM,
+	AST_TYPE_PIPE_ITEM,
+	AST_TYPE_NBR,
+}					t_ast_type;
+
 typedef struct		s_ast
 {
 	t_lst						*tokens;

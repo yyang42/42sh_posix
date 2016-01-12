@@ -16,16 +16,14 @@
 #include "data.h"
 
 #include "ast/nodes/ast_compound_list.h"
+#include "ast/ast_lap.h"
 
 t_ast_compound_list	*ast_compound_list_new_from_tokens_bis(t_lst *tokens,
 	struct s_ast *ast)
 {
 	t_ast_compound_list			*this;
 	this = ast_compound_list_new();
-
-	t_ast_list_item				*ast_list_item;
-	ast_list_item = ast_list_item_new_from_tokens_bis(tokens, ast);
-	twl_lst_push(this->ast_list_items, ast_list_item);
+	this->ast_list_items = ast_lap_build_items(tokens, AST_TYPE_LIST_ITEM, ast);
 	return this;
 	(void)ast;
 }

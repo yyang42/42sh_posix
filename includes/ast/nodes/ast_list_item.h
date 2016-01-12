@@ -33,11 +33,15 @@ void				ast_list_item_del(t_ast_list_item *ast_list_item);
 
 t_ast_list_item		*ast_list_item_new_from_tokens(t_lst *tokens, t_token *sep, struct s_ast *ast);
 t_ast_list_item		*ast_list_item_new_from_tokens_bis(t_lst *tokens, struct s_ast *ast);
+void				*ast_list_item_new_from_tokens_bis_void(t_lst *tokens, struct s_ast *ast);
 
 void				ast_list_item_print_rec(t_ast_list_item *ast_list_item, int depth);
 
 bool				ast_list_item_is_delimiter(t_token *token);
 
 int					ast_list_item_exec(t_ast_list_item *ast_list_item);
+
+void				ast_list_item_set_separator(t_ast_list_item *this, t_token *token);
+void				ast_list_item_set_separator_void(void *this, t_token *token);
 
 #endif

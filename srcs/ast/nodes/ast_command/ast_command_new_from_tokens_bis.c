@@ -26,7 +26,7 @@ t_ast_command	*ast_command_new_from_tokens_bis(t_lst *tokens, struct s_ast *ast)
 		COMPOUND_COMMAND_NONE)
 	{
 		ast_command->command_type = COMMAND_SIMPLE_COMMAND;
-		ast_command->command = ast_simple_command_new_from_tokens(tokens, ast);
+		ast_command->command = ast_simple_command_new_from_tokens_bis(tokens, ast);
 	}
 	else
 	{

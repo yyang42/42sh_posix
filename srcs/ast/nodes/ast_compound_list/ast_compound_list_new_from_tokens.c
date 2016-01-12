@@ -25,7 +25,7 @@ static int			build_ast_list_item(
 	t_token						*sep;
 	t_ast_list_item				*ast_list_item;
 
-	if (twl_lst_find(data_separators(), twl_strequ_void,
+	if (twl_lst_find(data_list_separators(), twl_strequ_void,
 		token_mgr_last(tokens_tmp)->text))
 		sep = twl_lst_pop(tokens_tmp);
 	else
@@ -65,7 +65,7 @@ t_ast_compound_list	*ast_compound_list_new_from_tokens(t_lst *tokens,
 	t_ast_compound_list			*this;
 	t_lst						*tokens_list;
 
-	tokens_list = token_mgr_split_ast(tokens, data_separators(), true);
+	tokens_list = token_mgr_split_ast(tokens, data_list_separators(), true);
 	this = ast_compound_list_new();
 	twl_lst_iter2(tokens_list, build_children_fn, this, ast);
 	token_list_mgr_del(tokens_list);

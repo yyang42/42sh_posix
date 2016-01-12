@@ -10,31 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_COMPLETE_COMMAND_H
-# define AST_COMPLETE_COMMAND_H
+#ifndef AST_LAP_H
+# define AST_LAP_H
 
 # include "basics.h"
 
 # include "token/token_mgr.h"
-
-# include "ast/ast_utils.h"
 # include "ast/ast_defines.h"
+# include "ast/ast_utils.h"
+# include "ast/ast.h"
 
-# include "ast/nodes/ast_list_item.h"
+t_lst				*ast_lap_build_items(t_lst *tokens, t_ast_type type, struct s_ast *ast);
 
-typedef struct				s_ast_compound_list
-{
-	t_lst					*ast_list_items;
-
-}							t_ast_compound_list;
-
-t_ast_compound_list			*ast_compound_list_new(void);
-void						ast_compound_list_del(t_ast_compound_list *ast_compound_list);
-
-t_ast_compound_list			*ast_compound_list_new_from_tokens(t_lst *tokens, struct s_ast *ast);
-t_ast_compound_list			*ast_compound_list_new_from_tokens_bis(t_lst *tokens, struct s_ast *ast);
-void						ast_compound_list_print_rec(t_ast_compound_list *ast_compound_list, int depth);
-
-int							ast_compound_list_exec(t_ast_compound_list *ast_compound_list);
+typedef void *(*t_ast_lap_new_from_tokens_fn)(t_lst *tokens, struct s_ast *ast);
+typedef void (*t_ast_lap_set_separator_fn)(void *item, t_token *token);
 
 #endif

@@ -13,6 +13,7 @@
 #include "token/token_list_mgr.h"
 #include "token/token_mgr.h"
 #include "ast/nodes/ast_list_item.h"
+#include "ast/ast_lap.h"
 #include "ast/ast.h"
 #include "data.h"
 
@@ -21,11 +22,7 @@ t_ast_list_item		*ast_list_item_new_from_tokens_bis(t_lst *tokens, struct s_ast 
 	t_ast_list_item				*this;
 
 	this = ast_list_item_new();
-
-
-	t_ast_andor_item			*ast_andor_item;
-	ast_andor_item = ast_andor_item_new_from_tokens_bis(tokens, ast);
-	twl_lst_push(this->ast_andor_items, ast_andor_item);
+	this->ast_andor_items = ast_lap_build_items(tokens, AST_TYPE_ANDOR_ITEM, ast);
 	(void)ast;
 	(void)tokens;
 	return (this);

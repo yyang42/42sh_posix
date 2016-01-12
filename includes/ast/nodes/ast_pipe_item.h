@@ -35,10 +35,14 @@ void				ast_pipe_item_del(t_ast_pipe_item *ast_pipe_item);
 
 t_ast_pipe_item		*ast_pipe_item_new_from_tokens(t_lst *tokens, t_token *sep, struct s_ast *ast);
 t_ast_pipe_item		*ast_pipe_item_new_from_tokens_bis(t_lst *tokens, struct s_ast *ast);
+void				*ast_pipe_item_new_from_tokens_bis_void(t_lst *tokens, struct s_ast *ast);
 void				ast_pipe_item_print_rec(t_ast_pipe_item *ast_pipe_item, int depth);
 
 bool				ast_pipe_item_is_delimiter(t_token *token);
 
 int					ast_pipe_item_exec(t_ast_pipe_item *ast_pipe_item);
+
+void				ast_pipe_item_set_separator(t_ast_pipe_item *this, t_token *token);
+void				ast_pipe_item_set_separator_void(void *this, t_token *token);
 
 #endif
