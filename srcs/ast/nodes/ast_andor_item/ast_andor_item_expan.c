@@ -10,33 +10,22 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_PIPE_SEQ_H
-# define AST_PIPE_SEQ_H
+#include <ast/nodes/ast_andor_item.h>
 
-# include "basics.h"
-# include "execute.h"
-
-# include "token/token_mgr.h"
-# include "ast/ast_defines.h"
-# include "ast/ast_utils.h"
-
-# include "ast/nodes/ast_pipe_item.h"
-
-typedef struct		s_ast_andor_item
+static void			iter_andor_fn(void *ast_pipe_item_, void *ret_)
 {
-	t_lst			*ast_pipe_items;
-	t_token			*separator;
-}					t_ast_andor_item;
+	t_ast_pipe_item	*ast_pipe_item;
+	int				*ret;
 
-t_ast_andor_item	*ast_andor_item_new(void);
-void				ast_andor_item_del(t_ast_andor_item *ast_andor_item);
+	ast_pipe_item = ast_pipe_item_;
+	ret = ret_;
+	*ret = ast_pipe_item_expan(ast_pipe_item);
+}
 
-t_ast_andor_item	*ast_andor_item_new_from_tokens(t_lst *tokens, t_token *sep, struct s_ast *ast);
-void				ast_andor_item_print_rec(t_ast_andor_item *ast_andor_item, int depth);
+int					ast_andor_item_expan(t_ast_andor_item *ast_andor_item)
+{
+	int				ret;
 
-bool				ast_andor_item_is_delimiter(t_token *tokens);
-
-int					ast_andor_item_exec(t_ast_andor_item *ast_andor_item);
-int					ast_andor_item_expan(t_ast_andor_item *ast_andor_item);
-
-#endif
+	twl_lst_iter(ast_andor_item->ast_pipe_items, iter_andor_fn, &ret);
+	return (ret);
+}

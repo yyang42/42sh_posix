@@ -10,33 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_PIPE_SEQ_H
-# define AST_PIPE_SEQ_H
+#include "ast/nodes/ast_simple_command.h"
+#include "ast/nodes/ast_assignment.h"
+#include "ast/nodes/ast_redir.h"
 
-# include "basics.h"
-# include "execute.h"
-
-# include "token/token_mgr.h"
-# include "ast/ast_defines.h"
-# include "ast/ast_utils.h"
-
-# include "ast/nodes/ast_pipe_item.h"
-
-typedef struct		s_ast_andor_item
+int			ast_simple_command_expan(t_ast_simple_command *cmd)
 {
-	t_lst			*ast_pipe_items;
-	t_token			*separator;
-}					t_ast_andor_item;
-
-t_ast_andor_item	*ast_andor_item_new(void);
-void				ast_andor_item_del(t_ast_andor_item *ast_andor_item);
-
-t_ast_andor_item	*ast_andor_item_new_from_tokens(t_lst *tokens, t_token *sep, struct s_ast *ast);
-void				ast_andor_item_print_rec(t_ast_andor_item *ast_andor_item, int depth);
-
-bool				ast_andor_item_is_delimiter(t_token *tokens);
-
-int					ast_andor_item_exec(t_ast_andor_item *ast_andor_item);
-int					ast_andor_item_expan(t_ast_andor_item *ast_andor_item);
-
-#endif
+	(void)cmd;
+	return (0);
+}
