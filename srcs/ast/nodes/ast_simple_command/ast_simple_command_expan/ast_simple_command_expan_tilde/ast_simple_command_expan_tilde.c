@@ -15,11 +15,8 @@
 #include "ast/nodes/ast_redir.h"
 #include "environment.h"
 
-// "tilde-prefix" consists of an unquoted <tilde> character at the beginning of a word,
-//followed by all of the characters preceding the first unquoted <slash> in the word,
-// or all the characters in the word if there is no <slash>
-
 /*
+TODO
 In an assignment (see XBD Variable Assignment),
 multiple tilde-prefixes can be used: at the beginning of the word (that is, following the <equals-sign> of the assignment),
 following any unquoted <colon>, or both. A tilde-prefix in an assignment is terminated by the first unquoted <colon> or <slash>.
@@ -75,6 +72,7 @@ int		get_position_last_char_of_tilde_prefix(char *str)
 	}
 	return (i);
 }
+
 void	ast_simple_command_expan_tilde(t_token *token)
 {
 	char	*temp_string;

@@ -24,6 +24,7 @@
 # include "signals.h"
 # include "environment.h"
 # include "ast/nodes/ast_redir.h"
+# include "ast/nodes/ast_simple_command_expan.h"
 # include <pwd.h>
 
 
@@ -54,10 +55,6 @@ void					ast_simple_command_print_rec(t_ast_simple_command
 bool					ast_simple_command_is_own_type(t_lst *tokens);
 int						ast_simple_command_exec(t_ast_simple_command *cmd);
 int						ast_simple_command_expan(t_ast_simple_command *cmd);
-
-void					ast_simple_command_expan_tilde(t_token *token);
-bool					isDoubleQuoted(char *str);
-bool					isSingleQuoted(char *str);
 
 bool					is_builtin(char *cmd);
 char					*get_binary_path(char *cmd, t_environment *env);

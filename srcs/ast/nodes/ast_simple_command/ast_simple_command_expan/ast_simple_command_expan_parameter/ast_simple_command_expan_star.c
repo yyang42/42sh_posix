@@ -11,20 +11,9 @@
 /* ************************************************************************** */
 
 #include "ast/nodes/ast_simple_command.h"
-#include "ast/nodes/ast_assignment.h"
-#include "ast/nodes/ast_redir.h"
+#include "environment.h"
 
-void 		iter_fn(void *token_)
-{
-	t_token	*token;
-
-	token = token_;
-	ast_simple_command_expan_tilde(token);
-	ast_simple_command_expan_parameter(token);
-}
-
-int			ast_simple_command_expan(t_ast_simple_command *cmd)
-{
-	twl_lst_iter0(cmd->command_tokens, iter_fn);
-	return (0);
+void	ast_simple_command_expan_star(t_token *token, int i){
+	(void)token;
+	(void)i;
 }
