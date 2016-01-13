@@ -50,23 +50,26 @@ char	*get_path_from_user_database(char *data){
 	if((e = getpwnam_r("mgiraud-", &result, buffer, 10000, &resultp)) != 0)
 	{
 		if (result.pw_dir)
-			twl_printf("%s\n", result.pw_dir);
 			return(twl_strdup(result.pw_dir));
 	}
-	return (get_home_path());
+	return (NULL);
 }
 
 int		get_position_last_char_of_tilde_prefix(char *str)
 {
 	int 	i;
-	bool	between_quotes;
+	bool	between_double_quotes;
+	bool	between_single_quotes;
 
 	i = 0;
-	between_quotes = false;
+	between_double_quotes = false;
+	between_single_quotes = false;
 	while (str[i] != 0){
 		if (str[i] == '"')
-			between_quotes = !between_quotes;
-		else if (str[i] == '/' && !between_quotes)
+			between_double_quotes = !between_double_quotes;
+		if (str[i] == '\'')
+			between_single_quotes = !between_single_quotes;
+		else if (str[i] == '/' && !between_double_quotes && !between_single_quotes)
 			return (i - 1);
 		i++;
 	}
@@ -74,17 +77,14 @@ int		get_position_last_char_of_tilde_prefix(char *str)
 }
 void	ast_simple_command_expan_tilde(t_token *token)
 {
-	char	*save_string;
 	char	*temp_string;
 	char	*expansion_string;
 	int		prefix_length;
 
-	save_string = NULL;
 	if (token->text)
 	{
 		if (token->text[0] == '~')
 		{
-			save_string = twl_strdup(token->text);
 			prefix_length = get_position_last_char_of_tilde_prefix(token->text);
 			if (prefix_length > 1 && token->text[1] != '/'){
 				temp_string = twl_strsub(token->text, 1, prefix_length);
@@ -100,21 +100,4 @@ void	ast_simple_command_expan_tilde(t_token *token)
 			return ;
 		}
 	}
-
-	// t_token *token;
-	// char	*words;
-	// char	*home;
-	// t_environment	*env;
-	//
-	// token = cmd->command_tokens;
-	// words = twl_strsplit(token->text, " ")
-	// env = environment_singleton();
-	// if (!isDoubleQuoted(token->text) && !isSingleQuoted(token->text)){
-	// 	twl_strdel(&token->text);
-	// 	home = environment_getenv_value(env, "HOME")
-	// 	if (home)
-	// 		token->text = twl_strdup(home);
-	// 	else
-	// 		token->text = twl_strdup("");
-	// }
 }

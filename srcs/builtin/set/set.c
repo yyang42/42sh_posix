@@ -55,7 +55,7 @@ int				set(char *str, t_environment *env)
 		twl_lst_iter2(opt->negative_opts, add_shell_flags, env, opt->args);
 		if (twl_lst_len(opt->args) > 0)
 			set_check_args(opt, env);
-		else if (!set_opt_exist(opt, "o"))
+		else if (twl_lst_len(opt->positive_opts) == 0 && opt->negative_opts == 0)
 		{
 			environment_print_all(env);
 			environment_set_last_exit_status_2(env, BUILTIN_EXEC_SUCCESS);
