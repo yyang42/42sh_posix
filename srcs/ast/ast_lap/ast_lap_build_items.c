@@ -85,6 +85,7 @@ t_lst				*ast_lap_build_items(t_lst *tokens,
 		if (token_mgr_first(tokens) &&
 			twl_lst_find(ast_lap_get_seps_list()[type], twl_strequ_void, token_mgr_first(tokens)->text))
 		{
+
 			ast_lap_set_separator_fns()[type](item, twl_lst_first(tokens));
 			twl_lst_pop_front(tokens);
 		}

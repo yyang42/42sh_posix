@@ -60,6 +60,7 @@ then
         if [ -d "${CASE_PATH}" ]; then
             for TEST_PATH in $CASE_PATH/*; do
                 if [ -d "${TEST_PATH}" ]; then
+                    echo diff_test `basename $CASE_PATH` `basename $TEST_PATH`
                     diff_test `basename $CASE_PATH` `basename $TEST_PATH`
                 fi
             done
@@ -68,7 +69,13 @@ then
 
 else
 
-    diff_test features_ast ast_list
+    diff_test redir redir
+    diff_test list_pipe_andor empty_case
+    diff_test list_pipe_andor simple_command
+    diff_test simple_command empty_lines
+    diff_test simple_command long
+    diff_test simple_command no_newline
+    diff_test simple_command simple_case
 
 fi
 echo $C_CYAN"======  END TESTS  ======"$C_CLEAR

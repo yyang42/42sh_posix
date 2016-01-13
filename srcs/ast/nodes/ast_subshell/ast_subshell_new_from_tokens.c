@@ -16,15 +16,17 @@
 t_ast_subshell	*ast_subshell_new_from_tokens(t_lst *tokens, struct s_ast *ast)
 {
 	t_ast_subshell		*ast_subshell;
-	t_lst				*copy;
+	// t_lst				*copy;
 
 	ast_subshell = ast_subshell_new();
-	copy = twl_lst_copy(tokens, NULL);
-	twl_lst_pop_front(copy);
-	twl_lst_pop_back(copy);
-	ast_subshell->ast_compound_list = ast_compound_list_new_from_tokens(copy,
+	// copy = twl_lst_copy(tokens, NULL);
+	twl_lst_pop_front(tokens);
+
+	ast_subshell->ast_compound_list = ast_compound_list_new_from_tokens_bis(tokens,
 		ast);
-	token_mgr_del(copy);
+
+	twl_lst_pop_front(tokens);
+	// token_mgr_del(copy);
 	if (ast_subshell->ast_compound_list == NULL)
 	{
 		ast_subshell_del(ast_subshell);

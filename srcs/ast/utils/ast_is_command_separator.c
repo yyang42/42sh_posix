@@ -10,10 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_UTILS_H
-# define AST_UTILS_H
+#include "ast/ast.h"
+#include "data.h"
 
-void				ast_print_indent(int depth);
-bool				ast_is_command_separator(char *str);
-
-#endif
+bool				ast_is_command_separator(char *str)
+{
+	return (twl_lst_find(data_all_separators(), twl_strequ_void, str)
+		|| *str == ')');
+}
