@@ -16,5 +16,7 @@
 bool				ast_is_command_separator(char *str)
 {
 	return (twl_lst_find(data_all_separators(), twl_strequ_void, str)
-		|| *str == ')');
+		|| *str == ')'
+		|| *str == '}'
+	);
 }

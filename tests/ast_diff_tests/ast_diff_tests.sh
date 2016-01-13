@@ -69,6 +69,7 @@ then
 
 else
 
+    diff_test brace_group simple_case
     diff_test redir redir
     diff_test list_pipe_andor empty_case
     diff_test list_pipe_andor simple_command

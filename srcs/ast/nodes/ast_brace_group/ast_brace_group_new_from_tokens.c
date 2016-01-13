@@ -17,15 +17,16 @@ t_ast_brace_group	*ast_brace_group_new_from_tokens(t_lst *tokens,
 	struct s_ast *ast)
 {
 	t_ast_brace_group		*ast_brace_group;
-	t_lst					*copy;
+	// t_lst					*tokens;
 
 	ast_brace_group = ast_brace_group_new();
-	copy = twl_lst_copy(tokens, NULL);
-	twl_lst_pop_front(copy);
-	twl_lst_pop_back(copy);
-	ast_brace_group->ast_compound_list = ast_compound_list_new_from_tokens(copy,
+	// tokens = twl_lst_copy(tokens, NULL);
+	twl_lst_pop_front(tokens);
+	// twl_lst_pop_back(tokens);
+	ast_brace_group->ast_compound_list = ast_compound_list_new_from_tokens_bis(tokens,
 		ast);
-	token_mgr_del(copy);
+	twl_lst_pop_front(tokens);
+	// token_mgr_del(tokens);
 	if (ast_brace_group->ast_compound_list == NULL)
 		return (NULL);
 	return (ast_brace_group);
