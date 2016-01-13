@@ -33,7 +33,7 @@ void				history_mgr_export(t_lst *history)
 
 
 	filename = twl_joinpath(getenv("HOME"), HISTORY_FILENAME);
-	fd = open(filename, O_WRONLY | O_CREAT, 0644);
+	fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0666);
 	twl_lst_iter(history, iter_fn, &fd);
 	free(filename);
 	close(fd);

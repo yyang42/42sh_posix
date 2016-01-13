@@ -12,7 +12,11 @@
 
 #include <fcntl.h>
 
+#include "twl_xsys/stat.h"
+
 #include "edit/history_mgr.h"
+
+#include "environment.h"
 
 #include "twl_get_next_line.h"
 
@@ -22,16 +26,19 @@ t_lst				*history_mgr_new(void)
 	char			*filename;
 	int				fd;
 	char			*line;
+	char			*home_path;
 
-
+	home_path = environment_getenv_value(environment_singleton(), "HOME");
+	if (!home_path || !twl_isdir(home_path))
+		home_path = ".";
 	history = twl_lst_new();
-	filename = twl_joinpath(getenv("HOME"), HISTORY_FILENAME);
-	// twl_lprintf("file: %s\n", filename);
-	fd = open(filename, O_RDONLY | O_CREAT, 0644);
-	// twl_lprintf("fd: %d\n", fd);
+	filename = twl_joinpath(home_path, HISTORY_FILENAME);
+	fd = open(filename, O_CREAT | O_RDONLY, 0644);
+	/*
+	** TODO : FD Error handling
+	*/
 	while (twl_get_next_line(fd, &line))
 	{
-		// twl_lprintf("line: %s\n", line);
 		history_mgr_add(history, line);
 		free(line);
 	}
@@ -39,3 +46,4 @@ t_lst				*history_mgr_new(void)
 	close(fd);
 	return (history);
 }
+
