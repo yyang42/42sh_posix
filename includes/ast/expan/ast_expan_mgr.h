@@ -10,9 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_EXPAN_H
-# define AST_EXPAN_H
+#ifndef AST_EXPAN_MGR_H
+# define AST_EXPAN_MGR_H
+# include "ast/expan/ast_expan_token.h"
 void				expan_token_mgr_del(t_lst *tokens);
 t_lst				*expan_token_mgr_new(void);
-t_lst				*expan_token_mgr_add(void);
+void				expan_token_mgr_add(t_lst *tokens, t_expan_token *token);
 #endif

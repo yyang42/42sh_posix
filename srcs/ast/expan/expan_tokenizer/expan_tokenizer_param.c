@@ -10,17 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_EXPAN_TOKENIZER_H
-# define AST_EXPAN_TOKENIZER_H
+#include "ast/expan/ast_expan_tokenizer.h"
 
-# include "basics.h"
-# include "ast/ast.h"
-# include "token/token.h"
-# include "ast/expan/ast_expan.h"
+int					expan_tokenizer_param(t_ast_simple_command *cmd,
+	t_token *token, t_lst *expan_tokens, int i){
 
-void							expan_tokenizer(t_ast_simple_command *cmd,
-	t_token *token, t_lst *expan_tokens);
-void							expan_tokenizer_none(t_lst *expan_tokens,
-	char *str, int len);
-
-#endif
+	if (token->text[i] == '$')
+	{
+		i++;
+	}
+	(void)expan_tokens;
+	(void)cmd;
+	return (i);
+}
