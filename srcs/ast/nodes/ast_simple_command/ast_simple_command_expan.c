@@ -15,6 +15,7 @@
 #include "ast/nodes/ast_redir.h"
 #include "ast/expan/ast_expan_mgr.h"
 #include "ast/expan/ast_expan_tokenizer.h"
+#include "ast/expan/ast_expan_exec.h"
 
 void 		iter_fn(void *token_, void *cmd_)
 {
@@ -26,6 +27,7 @@ void 		iter_fn(void *token_, void *cmd_)
 	cmd = cmd_;
 	expan_tokens = expan_token_mgr_new();
 	expan_tokenizer(cmd, token, expan_tokens);
+	expan_exec(expan_tokens);
 	expan_token_mgr_del(expan_tokens);
 }
 

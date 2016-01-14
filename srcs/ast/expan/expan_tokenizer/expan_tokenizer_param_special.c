@@ -71,5 +71,6 @@ int							expan_tokenizer_param_special(t_expan_token *expan_token,
 		i = expan_tokenizer_param_var_name(expan_param, token, i);
 	}
 	expan_token->exec_expan = &expan_exec_param;
+	expan_token->expan_data = expan_param;
 	return (i);
 }

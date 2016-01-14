@@ -13,9 +13,18 @@
 #include "basics.h"
 #include "ast/expan/ast_expan_exec.h"
 
-void			expan_exec_param_star(t_expan_token *expan_token,
-	t_expan_param *expan_param)
+static void		iter_fn(void *expan_token_)
 {
-	(void)expan_token;
-	(void)expan_param;
+	t_expan_token *expan_token;
+
+	expan_token = expan_token_;
+	if (expan_token->type == PARAMETER)
+	{
+		expan_exec_param(expan_token);
+	}
+}
+
+void			expan_exec(t_lst *expan_tokens)
+{
+	twl_lst_iter0(expan_tokens, iter_fn);
 }

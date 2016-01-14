@@ -15,5 +15,11 @@
 
 void			expan_exec_param(t_expan_token *expan_token)
 {
-	(void)expan_token;
+	t_expan_param *expan_param;
+
+	expan_param = expan_token->expan_data;
+	if (expan_param->type == S_STAR)
+	{
+		expan_exec_param_star(expan_token, expan_param);
+	}
 }

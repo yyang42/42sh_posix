@@ -18,6 +18,9 @@
 # include "ast/expan/ast_expan_param.h"
 # include "basics.h"
 
+void			expan_exec(t_lst *expan_tokens);
 void			expan_exec_param(t_expan_token *expan_token);
+void			expan_exec_param_star(t_expan_token *expan_token,
+	t_expan_param *expan_param);
 
 #endif
