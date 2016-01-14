@@ -49,7 +49,7 @@ int							expan_tokenizer_param_var_name(t_expan_param *expan_param,
 	}
 	if (i != j)
 	{
-		expan_param->parameter = twl_strndup(&token->text[i], i - j);
+		expan_param->parameter = twl_strndup(&token->text[j], i - j);
 	}
 	return (i);
 }
@@ -72,6 +72,9 @@ int							expan_tokenizer_param_var_name(t_expan_param *expan_param,
 		return (expan_exec_param_dollar);
 	else if (type == S_AT)
 		return (expan_exec_param_at);
+	else if (type == EXPAN_VAR)
+		return (expan_exec_param_var);
+
 	return (NULL);
  }
 

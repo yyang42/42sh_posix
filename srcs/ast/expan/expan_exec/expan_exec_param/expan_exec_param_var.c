@@ -10,23 +10,25 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_EXPAN_EXEC_H
-# define AST_EXPAN_EXEC_H
+#include "basics.h"
+#include "ast/expan/ast_expan_exec.h"
+#include "special_params.h"
 
-# include "ast/expan/ast_expan_tokenizer.h"
-# include "ast/expan/ast_expan_token.h"
-# include "ast/expan/ast_expan_param.h"
-# include "basics.h"
+void			expan_exec_param_var(t_expan_token *expan_token)
+{
+	t_expan_param		*expan_param;
+	t_environment		*env;
+	t_environment_var	*var;
 
-void			expan_exec(t_lst *expan_tokens);
-void			expan_exec_param_star(t_expan_token *expan_token);
-void			expan_exec_param_zero(t_expan_token *expan_token);
-void			expan_exec_param_at(t_expan_token *expan_token);
-void			expan_exec_param_dollar(t_expan_token *expan_token);
-void			expan_exec_param_hyphen(t_expan_token *expan_token);
-void			expan_exec_param_sharp(t_expan_token *expan_token);
-void			expan_exec_param_exclamation(t_expan_token *expan_token);
-void			expan_exec_param_question(t_expan_token *expan_token);
-void			expan_exec_param_var(t_expan_token *expan_token);
-
-#endif
+	expan_param = expan_token->expan_data;
+	env = environment_singleton();
+	var = environment_get(env, expan_param->parameter);
+	if (var && var->value_is_set == 1 && var->value)
+	{
+		expan_token->res = twl_strdup(var->value);
+	}
+	else
+	{
+		expan_token->res = twl_strdup("");
+	}
+}

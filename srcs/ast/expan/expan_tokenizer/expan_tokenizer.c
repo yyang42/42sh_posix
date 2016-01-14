@@ -16,6 +16,8 @@ static t_expan_type	identify_expan(char c)
 {
 	if (c == '$')
 		return (PARAMETER);
+	else if (c == '~')
+		return (TILDE);
 	return (NONE);
 }
 
@@ -44,6 +46,11 @@ void					expan_tokenizer(t_ast_simple_command *cmd,
 					tokenizer->i = expan_tokenizer_param(tokenizer, expan_tokens, token, tokenizer->i);
 					tokenizer->last = tokenizer->i;
 				}
+				// else if (type == TILDE)
+				// {
+				// 	tokenizer->i = expan_tokenizer_tilde(tokenizer, expan_tokens, token, tokenizer->i);
+				// 	tokenizer->last = tokenizer->i;
+				// }
 			}
 			tokenizer->i++;
 		}
