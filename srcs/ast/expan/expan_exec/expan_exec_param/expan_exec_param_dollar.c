@@ -12,15 +12,9 @@
 
 #include "basics.h"
 #include "ast/expan/ast_expan_exec.h"
+#include "special_params.h"
 
-void			expan_exec_param(t_expan_token *expan_token)
+void			expan_exec_param_dollar(t_expan_token *expan_token)
 {
-	t_expan_param *expan_param;
-
-	expan_param = expan_token->expan_data;
-	if (expan_param->type == S_STAR)
-		expan_exec_param_star(expan_token, expan_param);
-	else if (expan_param->type == S_ZERO)
-		expan_exec_param_zero(expan_token, expan_param);
-
+	expan_token->res = params_dollar();
 }

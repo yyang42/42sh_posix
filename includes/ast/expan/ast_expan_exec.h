@@ -19,10 +19,13 @@
 # include "basics.h"
 
 void			expan_exec(t_lst *expan_tokens);
-void			expan_exec_param(t_expan_token *expan_token);
-void			expan_exec_param_star(t_expan_token *expan_token,
-	t_expan_param *expan_param);
-void			expan_exec_param_zero(t_expan_token *expan_token,
-	t_expan_param *expan_param);
+void			expan_exec_param_star(t_expan_token *expan_token);
+void			expan_exec_param_zero(t_expan_token *expan_token);
+void			expan_exec_param_at(t_expan_token *expan_token);
+void			expan_exec_param_dollar(t_expan_token *expan_token);
+void			expan_exec_param_hyphen(t_expan_token *expan_token);
+void			expan_exec_param_sharp(t_expan_token *expan_token);
+void			expan_exec_param_exclamation(t_expan_token *expan_token);
+void			expan_exec_param_question(t_expan_token *expan_token);
 
 #endif

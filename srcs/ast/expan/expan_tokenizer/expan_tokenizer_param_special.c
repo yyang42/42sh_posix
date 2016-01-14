@@ -54,6 +54,27 @@ int							expan_tokenizer_param_var_name(t_expan_param *expan_param,
 	return (i);
 }
 
+ void *expan_param_type_to_func(t_expan_param_type type)
+ {
+	if (type == S_STAR)
+		return (expan_exec_param_star);
+	else if (type == S_ZERO)
+		return (expan_exec_param_zero);
+	else if (type == S_QUESTION)
+		return (expan_exec_param_question);
+	else if (type == S_SHARP)
+		return (expan_exec_param_sharp);
+	else if (type == S_HYPHEN)
+		return (expan_exec_param_hyphen);
+	else if (type == S_EXCLAMATION)
+		return (expan_exec_param_exclamation);
+	else if (type == S_DOLLAR)
+		return (expan_exec_param_dollar);
+	else if (type == S_AT)
+		return (expan_exec_param_at);
+	return (NULL);
+ }
+
 int							expan_tokenizer_param_special(t_expan_token *expan_token,
 	t_token *token, int i)
 {
@@ -70,7 +91,7 @@ int							expan_tokenizer_param_special(t_expan_token *expan_token,
 	{
 		i = expan_tokenizer_param_var_name(expan_param, token, i);
 	}
-	expan_token->exec_expan = &expan_exec_param;
+	expan_token->exec_expan = expan_param_type_to_func(expan_param->type);
 	expan_token->expan_data = expan_param;
 	return (i);
 }

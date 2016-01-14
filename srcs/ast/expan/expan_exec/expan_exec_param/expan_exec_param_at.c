@@ -10,25 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SPECIAL_PARAMS_H
-# define SPECIAL_PARAMS_H
+#include "basics.h"
+#include "ast/expan/ast_expan_exec.h"
+#include "special_params.h"
 
-char				*test_params_zero(t_environment *env);
-char				*params_zero();
-char				*test_params_at(t_environment *env);
-char				*params_at();
-char				*test_params_star(t_environment *env, bool between_quotes);
-char				*params_star(bool between_quotes);
-char				*test_params_sharp(t_environment *env);
-char				*params_sharp();
-char				*test_params_question(t_environment *env);
-char				*params_question();
-char				*test_params_hyphen(t_environment *env);
-char				*params_hyphen();
-char				*test_params_dollar(t_environment *env);
-char				*params_dollar();
-char				*test_params_hyphen(t_environment *env);
-char				*params_hyphen();
-char				*test_params_exclamation(t_environment *env);
-char				*params_exclamation();
-#endif
+void			expan_exec_param_at(t_expan_token *expan_token)
+{
+	expan_token->res = params_at();
+}
