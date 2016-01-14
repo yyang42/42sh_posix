@@ -10,27 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_simple_command.h"
-#include "ast/nodes/ast_assignment.h"
-#include "ast/nodes/ast_redir.h"
-#include "ast/expan/ast_expan_mgr.h"
 #include "ast/expan/ast_expan_tokenizer.h"
 
-void 		iter_fn(void *token_, void *cmd_)
-{
-	t_token	*token;
-	t_lst	*expan_tokens;
-	t_ast_simple_command *cmd;
-
-	token = token_;
-	cmd = cmd_;
-	expan_tokens = expan_token_mgr_new();
-	expan_tokenizer(cmd, token, expan_tokens);
-	expan_token_mgr_del(expan_tokens);
-}
-
-int			ast_simple_command_expan(t_ast_simple_command *cmd)
-{
-	twl_lst_iter(cmd->command_tokens, iter_fn, cmd);
-	return (0);
+void					expan_tokenizer(t_ast_simple_command *cmd, t_token *token, t_lst *expan_tokens){
+	(void)token;
+	(void)expan_tokens;
+	(void)cmd;
 }
