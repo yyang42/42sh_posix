@@ -74,14 +74,29 @@ static void			split_by_else(t_ast_if_clause *ast_if_clause,
 t_ast_if_clause		*ast_if_clause_new_from_tokens(t_lst *tokens,
 	struct s_ast *ast)
 {
-	t_ast_if_clause		*ast_if_clause;
+	t_ast_if_clause		*this;
 
-	ast_if_clause = ast_if_clause_new();
-	split_by_else(ast_if_clause, tokens, ast);
+	this = ast_if_clause_new();
+	while (token_mgr_first_equ(tokens, "if")
+		|| token_mgr_first_equ(tokens, "elif"))
+	{
+		twl_lst_push(this->if_then_list, ast_if_then_new_from_tokens(tokens, ast));
+	}
+	// token_mgr_print(tokens);
+	if (token_mgr_first_equ(tokens, "else"))
+	{
+		twl_lst_pop_front(tokens);
+		this->else_body = ast_compound_list_new_from_tokens_bis(tokens, ast);
+	}
+	// twl_lst_pop_front(tokens);
+
+	// split_by_else(this, tokens, ast);
+	(void)tokens;
+	(void)split_by_else;
 	if (ast_has_error(ast))
 	{
-		ast_if_clause_del(ast_if_clause);
-		ast_if_clause = NULL;
+		ast_if_clause_del(this);
+		this = NULL;
 	}
-	return (ast_if_clause);
+	return (this);
 }

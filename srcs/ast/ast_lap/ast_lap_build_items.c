@@ -21,15 +21,9 @@ t_ast_lap_new_from_tokens_fn	*ast_lap_new_from_tokens_fns(void)
 
 	if (is_loaded == false)
 	{
-	// 		AST_TYPE_LIST_ITEM = 0,
-	// AST_TYPE_ANDOR_ITEM,
-	// AST_TYPE_PIPE_ITEM,
 		fns[AST_TYPE_LIST_ITEM] = ast_list_item_new_from_tokens_bis_void;
 		fns[AST_TYPE_ANDOR_ITEM] = ast_andor_item_new_from_tokens_bis_void;
 		fns[AST_TYPE_PIPE_ITEM] = ast_pipe_item_new_from_tokens_bis_void;
-		// fns[COMPOUND_COMMAND_IF_CLAUSE] = ast_if_clause_new_from_tokens_void;
-		// fns[COMPOUND_COMMAND_BRACE_GROUP] =
-		// 	ast_brace_group_new_from_tokens_void;
 	}
 	return (fns);
 }
@@ -41,15 +35,9 @@ t_lst				**ast_lap_get_seps_list(void)
 
 	if (is_loaded == false)
 	{
-	// 		AST_TYPE_LIST_ITEM = 0,
-	// AST_TYPE_ANDOR_ITEM,
-	// AST_TYPE_PIPE_ITEM,
 		segs[AST_TYPE_LIST_ITEM] = data_list_separators();
 		segs[AST_TYPE_ANDOR_ITEM] = data_andor_separators();
 		segs[AST_TYPE_PIPE_ITEM] = data_pipe_separators();
-		// fns[COMPOUND_COMMAND_IF_CLAUSE] = ast_if_clause_new_from_tokens_void;
-		// fns[COMPOUND_COMMAND_BRACE_GROUP] =
-		// 	ast_brace_group_new_from_tokens_void;
 	}
 	return (segs);
 }
@@ -74,19 +62,26 @@ t_lst				*ast_lap_build_items(t_lst *tokens,
 {
 	void			*item;
 	t_lst			*container;
+	t_token			*first;
 
 	container = twl_lst_new();
 	while (true)
 	{
 		if (twl_lst_len(tokens) == 0)
 			break ;
+		if (twl_strequ(token_mgr_first(tokens)->text, "then")
+			|| twl_strequ(token_mgr_first(tokens)->text, "elif")
+			|| twl_strequ(token_mgr_first(tokens)->text, "else")
+			|| twl_strequ(token_mgr_first(tokens)->text, "fi")
+			)
+			break ;
+		// twl_printf("first %s\n", token_mgr_first(tokens)->text);
 		item = ast_lap_new_from_tokens_fns()[type](tokens, ast);
 		twl_lst_push(container, item);
-		if (token_mgr_first(tokens) &&
-			twl_lst_find(ast_lap_get_seps_list()[type], twl_strequ_void, token_mgr_first(tokens)->text))
+		first = token_mgr_first(tokens);
+		if (first && twl_lst_find(ast_lap_get_seps_list()[type], twl_strequ_void, first->text))
 		{
-
-			ast_lap_set_separator_fns()[type](item, twl_lst_first(tokens));
+			ast_lap_set_separator_fns()[type](item, first);
 			twl_lst_pop_front(tokens);
 			// if (!token_mgr_first(tokens) ||
 			// 	twl_lst_find(ast_lap_get_seps_list()[type], twl_strequ_void, token_mgr_first(tokens)->text))

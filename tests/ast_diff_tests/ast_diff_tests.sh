@@ -77,7 +77,8 @@ else
     diff_test simple_command long
     diff_test simple_command no_newline
     diff_test simple_command simple_case
-    # diff_test if_clause simple_case
+    diff_test if_clause simple_case
+    diff_test if_clause without_else
 fi
 echo $C_CYAN"======  END TESTS  ======"$C_CLEAR
 
