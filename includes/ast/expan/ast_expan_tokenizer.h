@@ -28,6 +28,7 @@ typedef struct			s_expan_tokenizer
 }						t_expan_tokenizer;
 t_expan_tokenizer				*expan_tokenizer_new(void);
 void							expan_tokenizer_del(t_expan_tokenizer *tokenizer);
+char							*expan_tokenizer_concat(t_lst *lst);
 void							expan_tokenizer(t_ast_simple_command *cmd,
 	t_token *token, t_lst *expan_tokens);
 void							expan_tokenizer_none(t_lst *expan_tokens,

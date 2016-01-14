@@ -18,13 +18,14 @@ static void		iter_fn(void *expan_token_)
 	t_expan_token *expan_token;
 
 	expan_token = expan_token_;
-	if (expan_token->type == PARAMETER)
+	if (expan_token->exec_expan)
 	{
-		expan_exec_param(expan_token);
+		expan_token->exec_expan(expan_token);
 	}
 }
 
 void			expan_exec(t_lst *expan_tokens)
 {
+	(void)expan_tokens;
 	twl_lst_iter0(expan_tokens, iter_fn);
 }

@@ -30,7 +30,7 @@ int				expan_tokenizer_param(t_lst *expan_tokens,
 	if (token->text[i] == '{')
 		expan_tokenizer_param_substitution(expan_token, token, i);
 	else
-		expan_tokenizer_param_special(expan_token, token, i);
+		i = expan_tokenizer_param_special(expan_token, token, i);
 	expan_token_mgr_add(expan_tokens, expan_token);
-	return (i++);
+	return (i);
 }

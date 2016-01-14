@@ -37,13 +37,19 @@ void					expan_tokenizer(t_ast_simple_command *cmd,
 			type = identify_expan(token->text[tokenizer->i]);
 			if (type != NONE)
 				expan_tokenizer_none(expan_tokens, &token->text[tokenizer->last], tokenizer->i - tokenizer->last);
-			if (type == PARAMETER)
-				expan_tokenizer_param(expan_tokens, token, tokenizer->i);
+			if (!tokenizer->is_between_sq)
+			{
+				if (type == PARAMETER)
+				{
+					tokenizer->i = expan_tokenizer_param(expan_tokens, token, tokenizer->i);
+					tokenizer->last = tokenizer->i;
+				}
+			}
 			tokenizer->i++;
 		}
-		expan_tokenizer_none(expan_tokens, &token->text[tokenizer->last], tokenizer->i - tokenizer->last);
+		if (token->text[tokenizer->last] != 0)
+			expan_tokenizer_none(expan_tokens, &token->text[tokenizer->last], tokenizer->i - tokenizer->last);
 	}
 	(void)cmd;
-	twl_printf("Expand token nb %d\n", twl_lst_len(expan_tokens));
 	expan_tokenizer_del(tokenizer);
 }

@@ -19,15 +19,22 @@
 
 void 		iter_fn(void *token_, void *cmd_)
 {
-	t_token	*token;
-	t_lst	*expan_tokens;
-	t_ast_simple_command *cmd;
+	t_token					*token;
+	t_lst					*expan_tokens;
+	t_ast_simple_command	*cmd;
+	char					*concat;
 
 	token = token_;
 	cmd = cmd_;
 	expan_tokens = expan_token_mgr_new();
 	expan_tokenizer(cmd, token, expan_tokens);
 	expan_exec(expan_tokens);
+	concat = expan_tokenizer_concat(expan_tokens);
+	if (concat)
+	{
+		twl_strdel(&token->text);
+		token->text = concat;
+	}
 	expan_token_mgr_del(expan_tokens);
 }
 

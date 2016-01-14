@@ -11,16 +11,24 @@
 /* ************************************************************************** */
 
 #include "basics.h"
-#include "ast/expan/ast_expan_exec.h"
+#include "ast/expan/ast_expan_token.h"
 
-void			expan_exec_param(t_expan_token *expan_token)
+char				*expan_tokenizer_concat(t_lst *lst)
 {
-	t_expan_param *expan_param;
+	t_lst_elem__	*elem;
+	t_lst_elem__	*next;
+	t_expan_token	*token;
+	char			*out;
 
-	expan_param = expan_token->expan_data;
-	if (expan_param->type == S_STAR)
-		expan_exec_param_star(expan_token, expan_param);
-	else if (expan_param->type == S_ZERO)
-		expan_exec_param_zero(expan_token, expan_param);
-
+	out = twl_strdup("");
+	elem = lst->head;
+	while (elem)
+	{
+		next = elem->next;
+		token = elem->data;
+		if (token && token->res)
+			out = twl_strjoinfree(out, token->res, 'l');
+		elem = next;
+	}
+	return (out);
 }
