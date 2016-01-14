@@ -14,6 +14,6 @@
 
 void			expan_token_del(t_expan_token *token)
 {
-	twl_strdel(&token->token);
+	twl_strdel(&token->res);
 	free(token);
 }

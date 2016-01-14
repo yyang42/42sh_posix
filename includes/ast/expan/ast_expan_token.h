@@ -30,8 +30,8 @@ typedef enum	e_expan_type
 typedef struct	s_expan_token
 {
 	t_expan_type	type;
-	char			*token;
-	void			(*do_expan)(t_token *);
+	char			*res;
+	void			(*exec_expan)(struct s_expan_token *);
 	void			(*free_expan)(void *);
 	bool			isDoubleQuoted;
 	void			*expan_data;

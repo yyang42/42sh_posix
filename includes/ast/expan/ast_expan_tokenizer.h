@@ -34,7 +34,7 @@ void							expan_tokenizer_none(t_lst *expan_tokens,
 	char *str, int len);
 int								expan_tokenizer_param(t_lst *expan_tokens,
 		t_token *token,  int i);
-bool							expan_tokenizer_param_special(t_expan_token *expan_token,
+int								expan_tokenizer_param_special(t_expan_token *expan_token,
 	t_token *token, int i);
 
 #endif

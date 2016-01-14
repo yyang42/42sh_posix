@@ -18,8 +18,8 @@ t_expan_token *expan_token_new()
 
 	token = twl_malloc_x0(sizeof(t_expan_token));
 	token->type = NONE;
-	token->token = NULL;
-	token->do_expan = NULL;
+	token->res = NULL;
+	token->exec_expan = NULL;
 	token->free_expan = NULL;
 	token->isDoubleQuoted = false;
 	token->expan_data = NULL;

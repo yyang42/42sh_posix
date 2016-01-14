@@ -10,10 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_simple_command.h"
-#include "environment.h"
+#ifndef AST_EXPAN_EXEC_H
+# define AST_EXPAN_EXEC_H
 
-void	ast_simple_command_expan_hyphen(t_token *token, int i){
-	(void)token;
-	(void)i;
-}
+# include "ast/expan/ast_expan_tokenizer.h"
+# include "ast/expan/ast_expan_token.h"
+# include "ast/expan/ast_expan_param.h"
+# include "basics.h"
+
+void			expan_exec_param(t_expan_token *expan_token);
+
+#endif

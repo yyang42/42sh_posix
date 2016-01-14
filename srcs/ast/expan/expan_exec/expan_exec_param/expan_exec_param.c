@@ -10,35 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_simple_command.h"
-#include "builtin.h"
+#include "basics.h"
+#include "ast/expan/ast_expan_exec.h"
 
-bool			isDoubleQuoted(char *str)
+void			expan_exec_param(t_expan_token *expan_token)
 {
-	int	len;
-	if (str)
-	{
-		len = twl_strlen(str);
-		if (twl_strlen(str) > 1)
-		{
-			if (str[0] == '"' && str[len] == '"')
-				return (true);
-		}
-	}
-	return (false);
-}
-
-bool			isSingleQuoted(char *str)
-{
-	int	len;
-	if (str)
-	{
-		len = twl_strlen(str);
-		if (twl_strlen(str) > 1)
-		{
-			if (str[0] == '\'' && str[len] == '\'')
-				return (true);
-		}
-	}
-	return (false);
+	(void)expan_token;
 }
