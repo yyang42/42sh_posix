@@ -14,4 +14,5 @@
 # define AST_EXPAN_H
 void				expan_token_mgr_del(t_lst *tokens);
 t_lst				*expan_token_mgr_new(void);
+t_lst				*expan_token_mgr_add(void);
 #endif

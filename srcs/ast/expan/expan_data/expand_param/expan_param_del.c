@@ -12,13 +12,9 @@
 
 #include "ast/expan/ast_expan.h"
 
-t_expan_param *expan_field_param_new(void)
+void			expan_param_del(t_expan_param *expan_param)
 {
-	t_expan_param *expan_param;
-
-	expan_param = twl_malloc_x0(sizeof(t_expan_param));
-	expan_param->isDoubleQuoted = false;
-	expan_param->token = NULL;
-	expan_param->result = NULL;
-	return (expan_param);
+	twl_strdel(&expan_param->token);
+	twl_strdel(&expan_param->result);
+	free(expan_param);
 }

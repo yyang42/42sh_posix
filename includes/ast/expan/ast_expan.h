@@ -12,7 +12,7 @@
 
 #ifndef AST_EXPAN_H
 # define AST_EXPAN_H
+# include "ast/expan/ast_expan_mgr.h"
 # include "ast/expan/ast_expan_token.h"
 # include "ast/expan/ast_expan_param.h"
-# include "ast/expan/ast_expan_mgr.h"
 #endif

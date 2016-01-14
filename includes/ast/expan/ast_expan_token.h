@@ -18,6 +18,7 @@
 
 typedef enum	e_expan_type
 {
+	NONE,
 	TILDE,
 	PARAMETER,
 	COMMAND_SUBSTITUTION,

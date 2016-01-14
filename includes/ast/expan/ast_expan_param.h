@@ -35,7 +35,7 @@ typedef struct			s_expan_param
 	char				*result;
 }						t_expan_param;
 
-t_expan_param			*expan_field_param_new(void);
-void					expan_field_param_del(t_expan_param *expan_param);
+t_expan_param			*expan_param_new(void);
+void					expan_param_del(t_expan_param *expan_param);
 
 #endif

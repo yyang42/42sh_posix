@@ -13,14 +13,18 @@
 #include "ast/nodes/ast_simple_command.h"
 #include "ast/nodes/ast_assignment.h"
 #include "ast/nodes/ast_redir.h"
+#include "ast/expan/ast_expan_mgr.h"
 
 void 		iter_fn(void *token_)
 {
 	t_token	*token;
+	t_lst	*expan_tokens;
 
 	token = token_;
+	expan_tokens = expan_token_mgr_new();
 	ast_simple_command_expan_tilde(token);
 	ast_simple_command_expan_parameter(token);
+	expan_token_mgr_del(expan_tokens);
 }
 
 int			ast_simple_command_expan(t_ast_simple_command *cmd)
