@@ -33,8 +33,8 @@ void							expan_tokenizer(t_ast_simple_command *cmd,
 	t_token *token, t_lst *expan_tokens);
 void							expan_tokenizer_none(t_lst *expan_tokens,
 	char *str, int len);
-int								expan_tokenizer_param(t_lst *expan_tokens,
-		t_token *token,  int i);
+int								expan_tokenizer_param(t_expan_tokenizer *tokenizer,
+	t_lst *expan_tokens, t_token *token,  int i);
 int								expan_tokenizer_param_special(t_expan_token *expan_token,
 	t_token *token, int i);
 

@@ -21,8 +21,8 @@ void			expan_tokenizer_param_substitution(t_expan_token *expan_token,
 }
 
 
-int				expan_tokenizer_param(t_lst *expan_tokens,
-	t_token *token,  int i){
+int				expan_tokenizer_param(t_expan_tokenizer *tokenizer,
+	t_lst *expan_tokens, t_token *token,  int i){
 	t_expan_token	*expan_token;
 
 	i++;
@@ -31,6 +31,7 @@ int				expan_tokenizer_param(t_lst *expan_tokens,
 		expan_tokenizer_param_substitution(expan_token, token, i);
 	else
 		i = expan_tokenizer_param_special(expan_token, token, i);
+	expan_token->isDoubleQuoted = tokenizer->is_between_dq;
 	expan_token_mgr_add(expan_tokens, expan_token);
 	return (i);
 }

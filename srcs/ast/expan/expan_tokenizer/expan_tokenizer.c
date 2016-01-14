@@ -41,7 +41,7 @@ void					expan_tokenizer(t_ast_simple_command *cmd,
 			{
 				if (type == PARAMETER)
 				{
-					tokenizer->i = expan_tokenizer_param(expan_tokens, token, tokenizer->i);
+					tokenizer->i = expan_tokenizer_param(tokenizer, expan_tokens, token, tokenizer->i);
 					tokenizer->last = tokenizer->i;
 				}
 			}

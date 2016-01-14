@@ -20,10 +20,10 @@ char				*params_zero(void)
 	t_environment	*env;
 
 	env = environment_singleton();
-	return (env->info.name);
+	return (twl_strdup(env->info.name));
 }
 
 char				*test_params_zero(t_environment *env)
 {
-	return (env->info.name);
+	return (twl_strdup(env->info.name));
 }

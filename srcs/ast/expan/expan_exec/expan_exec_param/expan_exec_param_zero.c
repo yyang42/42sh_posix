@@ -12,14 +12,11 @@
 
 #include "basics.h"
 #include "ast/expan/ast_expan_exec.h"
-#include "environment.h"
+#include "special_params.h"
 
 void			expan_exec_param_zero(t_expan_token *expan_token,
 	t_expan_param *expan_param)
 {
-	t_environment	*env;
-
 	(void)expan_param;
-	env = environment_singleton();
-	expan_token->res = twl_strdup(env->info.name);
+	expan_token->res = params_zero();
 }
