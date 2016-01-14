@@ -15,18 +15,6 @@
 
 #include "basics.h"
 
-typedef enum			e_expan_special_param_type
-{
-	S_AT,
-	S_DOLLAR,
-	S_QUESTION,
-	S_EXCLAMATION,
-	S_HYPHEN,
-	S_ZERO,
-	S_SHARP,
-	S_STAR
-}						t_expan_special_param_type;
-
 typedef enum			e_expan_param_type
 {
 	SPECIAL_PARAMETER,
@@ -37,7 +25,15 @@ typedef enum			e_expan_param_type
 	COLON_QUESTION,
 	QUESTION,
 	HYPHEN_PLUS,
-	PLUS
+	PLUS,
+	S_AT,
+	S_DOLLAR,
+	S_QUESTION,
+	S_EXCLAMATION,
+	S_HYPHEN,
+	S_ZERO,
+	S_SHARP,
+	S_STAR
 }						t_expan_param_type;
 
 typedef struct			s_expan_param

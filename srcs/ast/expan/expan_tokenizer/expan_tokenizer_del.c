@@ -10,35 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "basics.h"
 #include "ast/expan/ast_expan_tokenizer.h"
 
-static t_expan_type	identify_expan(char c)
+void				expan_tokenizer_del(t_expan_tokenizer *tokenizer)
 {
-	if (c == '$')
-		return (PARAMETER);
-	return (NONE);
-}
-
-void					expan_tokenizer(t_ast_simple_command *cmd,
-	t_token *token, t_lst *expan_tokens)
-{
-	t_expan_tokenizer *tokenizer;
-	t_expan_type type;
-
-	tokenizer = expan_tokenizer_new();
-	if (token->text)
-	{
-		while (token->text[tokenizer->i] != 0)
-		{
-			type = identify_expan(token->text[tokenizer->i]);
-			if (type != NONE)
-				expan_tokenizer_none(expan_tokens, &token->text[tokenizer->last], tokenizer->i - tokenizer->last);
-			if (type == PARAMETER)
-				expan_tokenizer_param(expan_tokens, token, tokenizer->i);
-			tokenizer->i++;
-		}
-		expan_tokenizer_none(expan_tokens, &token->text[tokenizer->last], tokenizer->i - tokenizer->last);
-	}
-	(void)cmd;
-	expan_tokenizer_del(tokenizer);
+	free(tokenizer);
 }

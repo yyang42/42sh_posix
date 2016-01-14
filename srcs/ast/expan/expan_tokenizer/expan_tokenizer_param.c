@@ -12,14 +12,13 @@
 
 #include "ast/expan/ast_expan_tokenizer.h"
 
-int					expan_tokenizer_param(t_ast_simple_command *cmd,
-	t_token *token, t_lst *expan_tokens, int i){
+int					expan_tokenizer_param(t_lst *expan_tokens,
+	t_token *token,  int i){
 
-	if (token->text[i] == '$')
+	if (token->text[i + 1] == '{')
 	{
 		i++;
 	}
 	(void)expan_tokens;
-	(void)cmd;
 	return (i);
 }
