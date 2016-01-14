@@ -10,25 +10,32 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ast/nodes/ast_compound_list.h>
+#ifndef AST_EXPAN_TOKEN_H
+# define AST_EXPAN_TOKEN_H
 
-/*
-** TODO: @Julien <- job control begin here !
-*/
+#include "basics.h"
+#include "token/token.h"
 
-static void		iter_fn(void *ast_list_item, void *context)
+typedef enum	e_expan_type
 {
-	int			*ret;
+	TILDE,
+	PARAMETER,
+	COMMAND_SUBSTITUTION,
+	ARITHMETIC,
+	PATHNAME,
+	QUOTE_REMOVAL
+}				t_expan_type;
 
-	ret = context;
-	*ret = ast_list_item_expan(ast_list_item);
-	*ret = ast_list_item_exec(ast_list_item);
-}
-
-int				ast_compound_list_exec(t_ast_compound_list *ast_compound_list)
+typedef struct	s_expan_token
 {
-	int			ret;
+	t_expan_type	type;
+	char			*token;
+	void			(*do_expan)(t_token *);
+	void			(*free_expan)(void *);
+	bool			isDoubleQuoted;
+	void			*expan_data;
+}				t_expan_token;
 
-	twl_lst_iter(ast_compound_list->ast_list_items, &iter_fn, &ret);
-	return (ret);
-}
+t_expan_token					*expan_token_new(t_expan_type type);
+void							expan_token_del(t_expan_token *token);
+#endif

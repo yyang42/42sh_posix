@@ -25,7 +25,6 @@ int					prog_run_input(t_prog *this, char *input)
 		ast_del(ast);
 		return (1);
 	}
-	ast_expan(ast);
 	ret = ast_exec(ast);
 	ast_del(ast);
 	return (ret);

@@ -10,25 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ast/nodes/ast_compound_list.h>
+#include "ast/expan/ast_expan.h"
 
-/*
-** TODO: @Julien <- job control begin here !
-*/
-
-static void		iter_fn(void *ast_list_item, void *context)
+t_lst				*expan_token_mgr_new(void)
 {
-	int			*ret;
+	t_lst			*tokens;
 
-	ret = context;
-	*ret = ast_list_item_expan(ast_list_item);
-	*ret = ast_list_item_exec(ast_list_item);
-}
-
-int				ast_compound_list_exec(t_ast_compound_list *ast_compound_list)
-{
-	int			ret;
-
-	twl_lst_iter(ast_compound_list->ast_list_items, &iter_fn, &ret);
-	return (ret);
+	tokens = twl_lst_new();
+	return (tokens);
 }

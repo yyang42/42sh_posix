@@ -10,9 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ast/ast.h>
+#include "ast/expan/ast_expan.h"
 
-int				ast_expan(t_ast *this)
+void			expan_field_param_del(t_expan_param *expan_param)
 {
-	return (ast_compound_list_expan(this->compound_list));
+	twl_strdel(&expan_param->token);
+	twl_strdel(&expan_param->result);
+	free(expan_param);
 }

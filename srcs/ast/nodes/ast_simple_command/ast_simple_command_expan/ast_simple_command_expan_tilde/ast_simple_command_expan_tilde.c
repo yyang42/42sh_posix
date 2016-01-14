@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include "ast/nodes/ast_simple_command.h"
-#include "ast/nodes/ast_assignment.h"
-#include "ast/nodes/ast_redir.h"
 #include "environment.h"
 
 /*

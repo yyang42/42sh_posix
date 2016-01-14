@@ -13,6 +13,7 @@
 #include "ast/nodes/ast_simple_command.h"
 #include "environment.h"
 
+
 void	ast_simple_command_expan_unenclose_parameter(t_token *token, int i){
 	(void)token;
 	(void)i;
@@ -37,27 +38,32 @@ void	ast_simple_command_expan_enclose_parameter(t_token *token, int i){
 		ast_simple_command_expan_dollar(token, i);
 }
 
+//#2.2.3 Double-Quotes
 void	ast_simple_command_expan_parameter(t_token *token)
 {
 	int		i;
+	bool	isDoubleQuoted;
+	bool	isSingleQuoted;
 
 	i = 0;
+	isDoubleQuoted = false;
+	isSingleQuoted = false;
 	if (token->text)
 	{
 		while (token->text[i] != 0)
 		{
-			if (token->text[i] == '$')
+			if (token->text[i] == '$' && !isSingleQuoted)
 			{
 				if (token->text[i + 1] == '{')
-				{
 					ast_simple_command_expan_enclose_parameter(token, i);
-				}
 				else
-				{
 					ast_simple_command_expan_unenclose_parameter(token, i);
-				}
-				twl_printf("%s\n", token->text);
 			}
+			else if (token->text[i] == '\'')
+				isSingleQuoted = !isSingleQuoted;
+			else if (token->text[i] == '"')
+				isDoubleQuoted = !isDoubleQuoted;
+			i++;
 		}
 	}
 }

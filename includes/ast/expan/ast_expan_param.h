@@ -10,25 +10,32 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ast/nodes/ast_compound_list.h>
+#ifndef AST_EXPAN_PARAM_H
+# define AST_EXPAN_PARAM_H
 
-/*
-** TODO: @Julien <- job control begin here !
-*/
+#include "basics.h"
 
-static void		iter_fn(void *ast_list_item, void *context)
+typedef enum			e_expan_param_type
 {
-	int			*ret;
+	AT,
+	DOLLAR,
+	QUESTION,
+	EXCLAMATION,
+	HYPHEN,
+	ZERO,
+	SHARP,
+	STAR
+}						t_expan_param_type;
 
-	ret = context;
-	*ret = ast_list_item_expan(ast_list_item);
-	*ret = ast_list_item_exec(ast_list_item);
-}
-
-int				ast_compound_list_exec(t_ast_compound_list *ast_compound_list)
+typedef struct			s_expan_param
 {
-	int			ret;
+	t_expan_param_type	type;
+	bool				isDoubleQuoted;
+	char				*token;
+	char				*result;
+}						t_expan_param;
 
-	twl_lst_iter(ast_compound_list->ast_list_items, &iter_fn, &ret);
-	return (ret);
-}
+t_expan_param			*expan_field_param_new(void);
+void					expan_field_param_del(t_expan_param *expan_param);
+
+#endif
