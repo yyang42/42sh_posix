@@ -24,6 +24,7 @@
 
 typedef struct		s_ast_pipe_item
 {
+	int				fds[2];
 	t_ast_command	*ast_command;
 	t_lst			*tokens;
 	t_token			*separator;
