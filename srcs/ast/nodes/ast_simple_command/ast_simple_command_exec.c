@@ -86,7 +86,7 @@ int			ast_simple_command_exec(t_ast_simple_command *cmd)
 		if (ast_simple_command_check_files(cmd) == true)
 			ast_simple_command_redirs(cmd);
 	}
-	else
+	else if (twl_lst_len(cmd->command_tokens) > 0)
 		execute_simple_command(cmd, env);
 	if (twl_lst_len(cmd->command_tokens) != 0
 		&& twl_lst_len(cmd->assignment_items) > 0)
