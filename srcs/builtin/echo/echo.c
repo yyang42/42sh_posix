@@ -22,16 +22,11 @@ int				echo(char *str, t_environment *this)
 	(void)this;
 	arr = twl_strsplit_mul(str, " \n\t");
 	opt = twl_opt_new(arr, ECHO_OPT_VALID_OPTS);
-	if (!check_invalid_opts(opt, "echo", ECHO_OPT_VALID_OPTS))
-	{
-		if (twl_opt_get_param(opt, "n"))
-			twl_printf("%s", str + 5);
-		else
-			twl_printf("%s\n", str + 5);
-		environment_set_last_exit_status_2(this, BUILTIN_EXEC_SUCCESS);
-	}
+	if (twl_opt_exist(opt, "n"))
+		twl_printf(str + 8);
 	else
-		environment_set_last_exit_status_2(this, BUILTIN_EXEC_FAILURE);
+		twl_printf("%s\n", str + 5);
+	environment_set_last_exit_status_2(this, BUILTIN_EXEC_SUCCESS);
 	twl_arr_del(arr, &free);
 	twl_opt_del(opt);
 	return (flag);
