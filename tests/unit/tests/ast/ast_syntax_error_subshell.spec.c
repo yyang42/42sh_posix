@@ -2,10 +2,10 @@
 
 #include "ast/ast.h"
 
-mt_test_ast_error(01, "(cmd_level_1); (\n", "SyntaxError 1:16 : Closing token for '(' not found", false);
+mt_test_ast_error(01, "(cmd_level_1); (\n", "SyntaxError 1:16 : Syntax error near '('", true);
 
-mt_test_ast_error(02, "( ( )\n", "SyntaxError 1:1 : Closing token for '(' not found", false);
-mt_test_ast_error(03, "( ; ; )\n", "SyntaxError 1:3 : Unexpected token ';'", false);
+mt_test_ast_error(02, "( ( )\n", "SyntaxError 1:1 : Syntax error near '('", true);
+mt_test_ast_error(03, "( ; ; )\n", "SyntaxError 1:3 : Syntax error near ';'", true);
 
 void	suite_ast_syntax_error_subshell(t_suite *suite)
 {

@@ -10,43 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "token/token_list_mgr.h"
+
 #include "ast/ast.h"
-#include "ast/nodes/ast_subshell.h"
+#include "data.h"
+
 #include "ast/nodes/ast_compound_list.h"
+#include "ast/ast_lap.h"
 
-t_ast_subshell	*ast_subshell_new_from_tokens(t_lst *tokens, struct s_ast *ast)
+t_ast_compound_list	*ast_compound_list_new_wrap(t_lst *tokens,
+	struct s_ast *ast)
 {
-	t_ast_subshell		*ast_subshell;
-	// t_lst				*copy;
-	t_token					*open;
-
-	ast_subshell = ast_subshell_new();
-	// copy = twl_lst_copy(tokens, NULL);
-	open = twl_lst_pop_front(tokens);
-
-	ast_subshell->ast_compound_list = ast_compound_list_new_from_tokens_bis(tokens,
-		ast);
-	// twl_printf("after ast_subshell->ast_compound_list\n");
-	// token_mgr_print(tokens);
-
-	// if (ast_has_error(ast))
-	// {
-	// 		twl_printf("has error\n");
-
-	// 	return (NULL);
-	// }
-	// token_mgr_print(tokens);
-	if (token_mgr_first_equ(tokens, ")") == false)
-	{
-		ast_set_error_msg_syntax_error_near(ast, open);
+	t_ast_compound_list			*this;
+	this = ast_compound_list_new();
+	token_mgr_pop_linebreak(tokens);
+	this->ast_list_items = ast_lap_build_items(tokens, AST_TYPE_LIST_ITEM, ast);
+	if (ast_has_error(ast))
 		return NULL;
-	}
-	twl_lst_pop_front(tokens);
-	// token_mgr_del(copy);
-	if (ast_subshell->ast_compound_list == NULL)
-	{
-		ast_subshell_del(ast_subshell);
-		return (NULL);
-	}
-	return (ast_subshell);
+	return this;
+	(void)ast;
 }

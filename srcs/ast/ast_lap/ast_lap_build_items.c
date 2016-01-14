@@ -69,24 +69,58 @@ t_lst				*ast_lap_build_items(t_lst *tokens,
 	{
 		if (twl_lst_len(tokens) == 0)
 			break ;
-		if (twl_strequ(token_mgr_first(tokens)->text, "then")
-			|| twl_strequ(token_mgr_first(tokens)->text, "elif")
-			|| twl_strequ(token_mgr_first(tokens)->text, "else")
-			|| twl_strequ(token_mgr_first(tokens)->text, "fi")
+		if (token_mgr_first_equ(tokens, "then")
+			|| token_mgr_first_equ(tokens, "elif")
+			|| token_mgr_first_equ(tokens, "else")
+			|| token_mgr_first_equ(tokens, "fi")
 			)
 			break ;
+
+
 		// twl_printf("first %s\n", token_mgr_first(tokens)->text);
+		// token_mgr_print(tokens);
+		if (!token_mgr_first_equ(tokens, "\n")
+			&& twl_lst_find(data_all_separators(), twl_strequ_void, token_mgr_first(tokens)->text))
+		{
+			ast_set_error_msg_syntax_error_near(ast, token_mgr_first(tokens));
+			return NULL;
+		}
 		item = ast_lap_new_from_tokens_fns()[type](tokens, ast);
 		twl_lst_push(container, item);
 		first = token_mgr_first(tokens);
 		if (first && twl_lst_find(ast_lap_get_seps_list()[type], twl_strequ_void, first->text))
 		{
+			t_token *sep = first;
 			ast_lap_set_separator_fns()[type](item, first);
 			twl_lst_pop_front(tokens);
+			t_token *next_token = twl_lst_first(tokens);
+
+			if (twl_strequ(sep->text, "&&")
+				|| twl_strequ(sep->text, "||")
+				|| twl_strequ(sep->text, "|")
+				)
+			{
+				if (!next_token || ast_is_command_separator(next_token->text))
+				{
+					ast_set_error_msg_syntax_error_near(ast, sep);
+					return (NULL);
+				}
+			}
+			// if (next_token)
+
+
+			// token_mgr_print(tokens);
+			// first = token_mgr_first(tokens);
+			// if (first
+			// 	&& twl_lst_find(ast_lap_get_seps_list()[type], twl_strequ_void, first->text)
+			// 	&& )
+			// {
+			// 	ast_set_error_msg_syntax_error_near(ast, first);
+			// }
 			// if (!token_mgr_first(tokens) ||
 			// 	twl_lst_find(ast_lap_get_seps_list()[type], twl_strequ_void, token_mgr_first(tokens)->text))
 			// {
-			// 	ast_set_error_msg_format(ast, sep, "Unexpected token '%s'", sep->text);
+			// 	ast_set_error_msg_format(ast, first, "Unexpected token '%s'", first->text);
 			// }
 		}
 		else

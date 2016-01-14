@@ -10,44 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_H
-# define AST_H
+#include "ast/ast.h"
+#include "token/token_mgr.h"
+#include "twl_printf.h"
 
-# include "basics.h"
-
-# include "parser.h"
-# include "ast/ast_defines.h"
-
-# include "ast/nodes/ast_compound_list.h"
-# include "token/token_mgr.h"
-# include "token/tokenizer.h"
-
-typedef enum		e_ast_type
+void				ast_set_error_msg_syntax_error_near(t_ast *ast, t_token *token)
 {
-	AST_TYPE_LIST_ITEM = 0,
-	AST_TYPE_ANDOR_ITEM,
-	AST_TYPE_PIPE_ITEM,
-	AST_TYPE_NBR,
-}					t_ast_type;
-
-typedef struct		s_ast
-{
-	t_lst						*tokens;
-	t_ast_compound_list			*compound_list;
-	char						*error_msg;
-}					t_ast;
-
-t_ast				*ast_new(char *input);
-void				ast_del(t_ast *this);
-
-void				ast_print_tokens(t_ast *ast);
-void				ast_print_rec(t_ast *ast);
-
-void				ast_set_error_msg_format(t_ast *ast, t_token *token, const char *fmt, ...);
-void				ast_set_error_msg_syntax_error(t_ast *ast);
-void				ast_set_error_msg_syntax_error_near(t_ast *ast, t_token *token);
-
-bool				ast_has_error(t_ast *this);
-int					ast_exec(t_ast *ast);
-
-#endif
+	ast_set_error_msg_format(ast, token, "Syntax error near '%s'", token->text);
+}

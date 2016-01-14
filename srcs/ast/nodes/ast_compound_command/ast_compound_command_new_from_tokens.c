@@ -62,9 +62,10 @@ static void				new_compound_command_do(t_ast_compound_command *this,
 	// }
 	// command_tokens = twl_lst_slice(tokens, 0, pos);
 	this->command = compound_command_from_token_fns()[this->command_type](tokens, ast);
+
 	// twl_lst_del(command_tokens, NULL);
-	// if (ast_has_error(ast))
-	// 	return ;
+	if (ast_has_error(ast))
+		return ;
 	redir_tokens = twl_lst_new();
 	while (twl_lst_len(tokens)
 		&& !ast_is_command_separator(token_mgr_first(tokens)->text))
