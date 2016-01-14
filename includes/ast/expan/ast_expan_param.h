@@ -33,13 +33,13 @@ typedef enum			e_expan_param_type
 	S_HYPHEN,
 	S_ZERO,
 	S_SHARP,
-	S_STAR
+	S_STAR,
+	EXPAN_VAR
 }						t_expan_param_type;
 
 typedef struct			s_expan_param
 {
 	t_expan_param_type	type;
-	bool				isDoubleQuoted;
 	char				*parameter;
 	char				*word;
 }						t_expan_param;

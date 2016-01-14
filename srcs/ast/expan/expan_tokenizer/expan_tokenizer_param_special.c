@@ -11,26 +11,38 @@
 /* ************************************************************************** */
 
 #include "ast/expan/ast_expan_tokenizer.h"
+#include "ast/expan/ast_expan_token.h"
 
-void			expan_tokenizer_param_substitution(t_expan_token *expan_token,
-	t_token *token, int i)
+static				t_expan_param_type char_to_special_param_type(char c)
 {
-	(void)expan_token;
-	(void)token;
-	(void)i;
+	if (c == '*')
+		return (S_STAR);
+	else if (c == '-')
+		return (S_HYPHEN);
+	else if (c == '@')
+		return (S_AT);
+	else if (c == '?')
+		return (S_QUESTION);
+	else if (c == '!')
+		return (S_EXCLAMATION);
+	else if (c == '0')
+		return (S_ZERO);
+	else if (c == '$')
+		return (S_DOLLAR);
+	else if (c == '#')
+		return (S_SHARP);
+	else
+		return (EXPAN_VAR);
 }
 
+bool				expan_tokenizer_param_special(t_expan_token *expan_token,
+	t_token *token, int i)
+{
+	t_expan_param *expan_param;
 
-int				expan_tokenizer_param(t_lst *expan_tokens,
-	t_token *token,  int i){
-	t_expan_token	*expan_token;
-
-	i++;
-	expan_token = expan_token_new(PARAMETER);
-	if (token->text[i] == '{')
-		expan_tokenizer_param_substitution(expan_token, token, i);
-	else
-		expan_tokenizer_param_special(expan_token, token, i);
-	expan_token_mgr_add(expan_tokens, expan_token);
-	return (i++);
+	expan_param = expan_param_new();
+	expan_param->type = char_to_special_param_type(token->text[i]);
+	(void)expan_token;
+	return (true);
+	// expan_token->type = type;
 }
