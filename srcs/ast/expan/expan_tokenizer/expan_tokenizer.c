@@ -12,11 +12,19 @@
 
 #include "ast/expan/ast_expan_tokenizer.h"
 
+static t_expan_type	identify_expan(char c)
+{
+	if (c == '$')
+		return (PARAMETER);
+	return (NONE);
+}
+
 void					expan_tokenizer(t_ast_simple_command *cmd,
 	t_token *token, t_lst *expan_tokens)
 {
-	int i;
-	int	last;
+	int				i;
+	int				last;
+	t_expan_type	type;
 
 	i = 0;
 	last = 0;
@@ -24,14 +32,14 @@ void					expan_tokenizer(t_ast_simple_command *cmd,
 	{
 		while (token->text[i] != 0)
 		{
-			if (token->text[i] == '$')
-			{
+			type = identify_expan(token->text[i]);
+			if (type != NONE)
 				expan_tokenizer_none(expan_tokens, &token->text[last], i - last);
-			}
+			if (type == PARAMETER)
+				expan_tokenizer_param(cmd, token, expan_tokens, i);
 			i++;
 		}
+		expan_tokenizer_none(expan_tokens, &token->text[last], i - last);
 	}
-	(void)token;
-	(void)expan_tokens;
 	(void)cmd;
 }

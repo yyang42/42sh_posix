@@ -14,7 +14,7 @@
 
 void			expan_param_del(t_expan_param *expan_param)
 {
-	twl_strdel(&expan_param->token);
-	twl_strdel(&expan_param->result);
+	twl_strdel(&expan_param->parameter);
+	twl_strdel(&expan_param->word);
 	free(expan_param);
 }

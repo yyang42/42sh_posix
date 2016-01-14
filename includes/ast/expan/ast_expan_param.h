@@ -15,24 +15,37 @@
 
 #include "basics.h"
 
+typedef enum			e_expan_special_param_type
+{
+	S_AT,
+	S_DOLLAR,
+	S_QUESTION,
+	S_EXCLAMATION,
+	S_HYPHEN,
+	S_ZERO,
+	S_SHARP,
+	S_STAR
+}						t_expan_special_param_type;
+
 typedef enum			e_expan_param_type
 {
-	AT,
-	DOLLAR,
-	QUESTION,
-	EXCLAMATION,
+	SPECIAL_PARAMETER,
+	COLON_HYPHEN,
 	HYPHEN,
-	ZERO,
-	SHARP,
-	STAR
+	COLON_EQUAL,
+	EQUAL,
+	COLON_QUESTION,
+	QUESTION,
+	HYPHEN_PLUS,
+	PLUS
 }						t_expan_param_type;
 
 typedef struct			s_expan_param
 {
 	t_expan_param_type	type;
 	bool				isDoubleQuoted;
-	char				*token;
-	char				*result;
+	char				*parameter;
+	char				*word;
 }						t_expan_param;
 
 t_expan_param			*expan_param_new(void);

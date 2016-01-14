@@ -22,5 +22,7 @@ void							expan_tokenizer(t_ast_simple_command *cmd,
 	t_token *token, t_lst *expan_tokens);
 void							expan_tokenizer_none(t_lst *expan_tokens,
 	char *str, int len);
+int								expan_tokenizer_param(t_ast_simple_command *cmd,
+		t_token *token, t_lst *expan_tokens, int i);
 
 #endif

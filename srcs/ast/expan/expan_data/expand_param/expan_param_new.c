@@ -18,7 +18,7 @@ t_expan_param *expan_param_new(void)
 
 	expan_param = twl_malloc_x0(sizeof(t_expan_param));
 	expan_param->isDoubleQuoted = false;
-	expan_param->token = NULL;
-	expan_param->result = NULL;
+	expan_param->parameter = NULL;
+	expan_param->word = NULL;
 	return (expan_param);
 }
