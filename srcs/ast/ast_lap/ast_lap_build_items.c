@@ -79,12 +79,12 @@ t_lst				*ast_lap_build_items(t_lst *tokens,
 
 		// twl_printf("first %s\n", token_mgr_first(tokens)->text);
 		// token_mgr_print(tokens);
-		if (!token_mgr_first_equ(tokens, "\n")
-			&& twl_lst_find(data_all_separators(), twl_strequ_void, token_mgr_first(tokens)->text))
-		{
-			ast_set_error_msg_syntax_error_near(ast, token_mgr_first(tokens));
-			return NULL;
-		}
+		// if (!token_mgr_first_equ(tokens, "\n")
+		// 	&& twl_lst_find(data_all_separators(), twl_strequ_void, token_mgr_first(tokens)->text))
+		// {
+		// 	ast_set_error_msg_syntax_error_near(ast, token_mgr_first(tokens));
+		// 	return NULL;
+		// }
 		item = ast_lap_new_from_tokens_fns()[type](tokens, ast);
 		twl_lst_push(container, item);
 		first = token_mgr_first(tokens);
@@ -96,11 +96,21 @@ t_lst				*ast_lap_build_items(t_lst *tokens,
 			t_token *next_token = twl_lst_first(tokens);
 
 			if (twl_strequ(sep->text, "&&")
-				|| twl_strequ(sep->text, "||")
-				|| twl_strequ(sep->text, "|")
+					|| twl_strequ(sep->text, "||")
+					|| twl_strequ(sep->text, "|")
+					|| twl_strequ(sep->text, ";")
+					|| twl_strequ(sep->text, "&")
 				)
 			{
-				if (!next_token || ast_is_command_separator(next_token->text))
+				if (!next_token
+					|| (twl_strequ(next_token->text, "&&")
+						|| twl_strequ(next_token->text, "||")
+						|| twl_strequ(next_token->text, "|")
+						|| twl_strequ(next_token->text, ";")
+						|| twl_strequ(next_token->text, "&")
+						|| twl_strequ(next_token->text, "\n")
+						)
+					)
 				{
 					ast_set_error_msg_syntax_error_near(ast, sep);
 					return (NULL);

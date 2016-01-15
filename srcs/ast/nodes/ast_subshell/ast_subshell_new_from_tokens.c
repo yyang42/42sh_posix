@@ -29,12 +29,12 @@ t_ast_subshell	*ast_subshell_new_from_tokens(t_lst *tokens, struct s_ast *ast)
 	// twl_printf("after ast_subshell->ast_compound_list\n");
 	// token_mgr_print(tokens);
 
-	// if (ast_has_error(ast))
-	// {
-	// 		twl_printf("has error\n");
+	if (ast_has_error(ast))
+	{
+			// twl_printf("has error\n");
 
-	// 	return (NULL);
-	// }
+		return (NULL);
+	}
 	// token_mgr_print(tokens);
 	if (token_mgr_first_equ(tokens, ")") == false)
 	{
