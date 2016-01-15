@@ -13,24 +13,24 @@
 #include "ast/expan/ast_expan_tokenizer.h"
 
 void			expan_tokenizer_param_substitution(t_expan_token *expan_token,
-	t_token *token, int i)
+	char *str, int i)
 {
 	(void)expan_token;
-	(void)token;
+	(void)str;
 	(void)i;
 }
 
 
 int				expan_tokenizer_param(t_expan_tokenizer *tokenizer,
-	t_lst *expan_tokens, t_token *token,  int i){
+	t_lst *expan_tokens, char *str,  int i){
 	t_expan_token	*expan_token;
 
 	i++;
 	expan_token = expan_token_new(PARAMETER);
-	if (token->text[i] == '{')
-		expan_tokenizer_param_substitution(expan_token, token, i);
+	if (str[i] == '{')
+		expan_tokenizer_param_substitution(expan_token, str, i);
 	else
-		i = expan_tokenizer_param_special(expan_token, token, i);
+		i = expan_tokenizer_param_special(expan_token, str, i);
 	expan_token->isDoubleQuoted = tokenizer->is_between_dq;
 	expan_token_mgr_add(expan_tokens, expan_token);
 	return (i);

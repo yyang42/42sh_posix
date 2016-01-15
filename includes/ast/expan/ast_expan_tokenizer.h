@@ -18,6 +18,15 @@
 # include "token/token.h"
 # include "ast/expan/ast_expan.h"
 
+typedef enum			s_token_origin
+{
+	SIMPLE_COMMAND_TOKEN,
+	ASSIGNMENT_KEY,
+	ASSIGNMENT_VALUE,
+	REDIR_PARAM,
+	REDIR_HEREDOC
+}						t_token_origin;
+
 typedef struct			s_expan_tokenizer
 {
 	int				i;
@@ -30,12 +39,12 @@ t_expan_tokenizer				*expan_tokenizer_new(void);
 void							expan_tokenizer_del(t_expan_tokenizer *tokenizer);
 char							*expan_tokenizer_concat(t_lst *lst);
 void							expan_tokenizer(t_ast_simple_command *cmd,
-	t_token *token, t_lst *expan_tokens);
+	char *str, t_lst *expan_tokens, t_token_origin origin);
 void							expan_tokenizer_none(t_lst *expan_tokens,
 	char *str, int len);
 int								expan_tokenizer_param(t_expan_tokenizer *tokenizer,
-	t_lst *expan_tokens, t_token *token,  int i);
+	t_lst *expan_tokens, char *str,  int i);
 int								expan_tokenizer_param_special(t_expan_token *expan_token,
-	t_token *token, int i);
+	char *str, int i);
 
 #endif

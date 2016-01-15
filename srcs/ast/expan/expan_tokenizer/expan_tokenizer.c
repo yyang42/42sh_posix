@@ -21,29 +21,30 @@ static t_expan_type	identify_expan(char c)
 	return (NONE);
 }
 
-void					expan_tokenizer(t_ast_simple_command *cmd,
-	t_token *token, t_lst *expan_tokens)
+void					expan_tokenizer(t_ast_simple_command *cmd, char *str,
+	t_lst *expan_tokens, t_token_origin origin)
 {
 	t_expan_tokenizer *tokenizer;
 	t_expan_type type;
 
+	(void)origin;
 	tokenizer = expan_tokenizer_new();
-	if (token->text)
+	if (str)
 	{
-		while (token->text[tokenizer->i] != 0)
+		while (str[tokenizer->i] != 0)
 		{
-			if (token->text[tokenizer->i] == '\'')
+			if (str[tokenizer->i] == '\'')
 				tokenizer->is_between_sq = !tokenizer->is_between_sq;
-			else if (token->text[tokenizer->i] == '"')
+			else if (str[tokenizer->i] == '"')
 				tokenizer->is_between_dq = !tokenizer->is_between_dq;
-			type = identify_expan(token->text[tokenizer->i]);
+			type = identify_expan(str[tokenizer->i]);
 			if (type != NONE)
-				expan_tokenizer_none(expan_tokens, &token->text[tokenizer->last], tokenizer->i - tokenizer->last);
+				expan_tokenizer_none(expan_tokens, &str[tokenizer->last], tokenizer->i - tokenizer->last);
 			if (!tokenizer->is_between_sq)
 			{
 				if (type == PARAMETER)
 				{
-					tokenizer->i = expan_tokenizer_param(tokenizer, expan_tokens, token, tokenizer->i);
+					tokenizer->i = expan_tokenizer_param(tokenizer, expan_tokens, str, tokenizer->i);
 					tokenizer->last = tokenizer->i;
 				}
 				// else if (type == TILDE)
@@ -54,8 +55,8 @@ void					expan_tokenizer(t_ast_simple_command *cmd,
 			}
 			tokenizer->i++;
 		}
-		if (token->text[tokenizer->last] != 0)
-			expan_tokenizer_none(expan_tokens, &token->text[tokenizer->last], tokenizer->i - tokenizer->last);
+		if (str[tokenizer->last] != 0)
+			expan_tokenizer_none(expan_tokens, &str[tokenizer->last], tokenizer->i - tokenizer->last);
 	}
 	(void)cmd;
 	expan_tokenizer_del(tokenizer);

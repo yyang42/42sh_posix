@@ -15,12 +15,12 @@
 
 void			expan_tokenizer_none(t_lst *expan_tokens, char *str, int len)
 {
-	t_expan_token	*token;
+	t_expan_token	*expan_token;
 
 	if (len > 0)
 	{
-		token = expan_token_new(NONE);
-		token->res = twl_strndup(str, len);
-		expan_token_mgr_add(expan_tokens, token);
+		expan_token = expan_token_new(NONE);
+		expan_token->res = twl_strndup(str, len);
+		expan_token_mgr_add(expan_tokens, expan_token);
 	}
 }
