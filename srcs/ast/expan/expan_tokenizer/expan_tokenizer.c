@@ -50,11 +50,19 @@ void					expan_tokenizer(t_ast_simple_command *cmd, char *str,
 				}
 				else if (type == TILDE && tokenizer->origin != ASSIGNMENT_KEY)
 				{
-					tokenizer->i = expan_tokenizer_tilde(tokenizer, expan_tokens, str, tokenizer->i);
-					tokenizer->last = tokenizer->i;
+					if (tokenizer->i == 0 || (tokenizer->i > 0 && tokenizer->origin == ASSIGNMENT_VALUE))
+					{
+						tokenizer->i = expan_tokenizer_tilde(tokenizer, expan_tokens, str, tokenizer->i);
+						tokenizer->last = tokenizer->i;
+					}
+					else
+						tokenizer->i++;
 				}
+				else
+					tokenizer->i++;
 			}
-			tokenizer->i++;
+			else
+				tokenizer->i++;
 		}
 		if (str[tokenizer->last] != 0)
 			expan_tokenizer_none(expan_tokens, &str[tokenizer->last], tokenizer->i - tokenizer->last);

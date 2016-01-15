@@ -53,7 +53,7 @@ void 		iter_assign_fn(void *assign_, void *cmd_)
 	cmd = cmd_;
 	assign = assign_;
 	do_expan(&assign->key, ASSIGNMENT_KEY, cmd);
-	do_expan(&assign->key, ASSIGNMENT_VALUE, cmd);
+	do_expan(&assign->value, ASSIGNMENT_VALUE, cmd);
 }
 
 void 		iter_redir_fn(void *redir_, void *cmd_)
