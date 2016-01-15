@@ -10,23 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_EXPAN_EXEC_H
-# define AST_EXPAN_EXEC_H
+#ifndef AST_EXPAN_TILDE_H
+# define AST_EXPAN_TILDE_H
 
-# include "ast/expan/ast_expan_token.h"
-# include "basics.h"
-# include "environment.h"
+#include "basics.h"
 
-void			expan_exec(t_lst *expan_tokens);
-void			expan_exec_param_star(t_expan_token *expan_token);
-void			expan_exec_param_zero(t_expan_token *expan_token);
-void			expan_exec_param_at(t_expan_token *expan_token);
-void			expan_exec_param_dollar(t_expan_token *expan_token);
-void			expan_exec_param_hyphen(t_expan_token *expan_token);
-void			expan_exec_param_sharp(t_expan_token *expan_token);
-void			expan_exec_param_exclamation(t_expan_token *expan_token);
-void			expan_exec_param_question(t_expan_token *expan_token);
-void			expan_exec_param_var(t_expan_token *expan_token);
-void			expan_exec_tilde(t_expan_token *expan_token);
+typedef struct			s_expan_tilde
+{
+	char				*token;
+	char				*suffix;
+}						t_expan_tilde;
+
+t_expan_tilde			*expan_tilde_new(void);
+void					expan_tilde_del(t_expan_tilde *expan_tilde);
 
 #endif

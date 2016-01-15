@@ -10,23 +10,38 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_EXPAN_EXEC_H
-# define AST_EXPAN_EXEC_H
+#include "basics.h"
+#include "ast/expan/ast_expan_exec.h"
+#include "ast/expan/ast_expan_tilde.h"
+#include "special_params.h"
+#include "environment.h"
 
-# include "ast/expan/ast_expan_token.h"
-# include "basics.h"
-# include "environment.h"
+char			*expan_exec_tilde_get_home()
+{
+	t_environment *env;
 
-void			expan_exec(t_lst *expan_tokens);
-void			expan_exec_param_star(t_expan_token *expan_token);
-void			expan_exec_param_zero(t_expan_token *expan_token);
-void			expan_exec_param_at(t_expan_token *expan_token);
-void			expan_exec_param_dollar(t_expan_token *expan_token);
-void			expan_exec_param_hyphen(t_expan_token *expan_token);
-void			expan_exec_param_sharp(t_expan_token *expan_token);
-void			expan_exec_param_exclamation(t_expan_token *expan_token);
-void			expan_exec_param_question(t_expan_token *expan_token);
-void			expan_exec_param_var(t_expan_token *expan_token);
-void			expan_exec_tilde(t_expan_token *expan_token);
+	env = environment_singleton();
+	return (environment_getenv_value(env, "HOME"));
+}
 
-#endif
+void			expan_exec_tilde(t_expan_token *expan_token)
+{
+	t_expan_tilde	*expan_tilde;
+	char			*home;
+
+	expan_tilde = expan_token->expan_data;
+	twl_strdel(&expan_token->res);
+	home = expan_exec_tilde_get_home();
+	if (home)
+	{
+		expan_token->res = twl_strdup(home);
+	}
+	else
+	{
+		expan_token->res = twl_strdup("");
+	}
+	if (expan_tilde->suffix)
+	{
+		// twl_strjoinfree(expan_token->res, expan_tilde->suffix, 'l');
+	}
+}
