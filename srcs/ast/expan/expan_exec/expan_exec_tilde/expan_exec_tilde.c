@@ -32,12 +32,13 @@ void			expan_exec_tilde(t_expan_token *expan_token)
 	expan_tilde = expan_token->expan_data;
 	twl_strdel(&expan_token->res);
 	home = expan_exec_tilde_get_home();
-	twl_printf(expan_tilde->suffix);
-	if (!expan_tilde->suffix && !expan_tilde->suffix && home)
+	// twl_printf("Tilde suffix ->%s\n", expan_tilde->suffix);
+	// twl_printf("Tilde token ->%s\n", expan_tilde->token);
+	if ((!expan_tilde->suffix || !*expan_tilde->suffix) && home)
 	{
 		expan_token->res = twl_strdup(home);
 	}
-	if (expan_tilde->suffix)
+	else if (expan_tilde->suffix)
 	{
 		//TODO Check si le suffix existe, si c'est le cas remplacer par le vrai chemin
 		expan_token->res = twl_strjoin(expan_tilde->token, expan_tilde->suffix);

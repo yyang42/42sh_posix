@@ -53,5 +53,5 @@ int				expan_tokenizer_tilde(t_expan_tokenizer *tokenizer,
 	expan_token->exec_expan = expan_exec_tilde;
 	expan_token->expan_data = expan_tilde;
 	expan_token_mgr_add(expan_tokens, expan_token);
-	return (j);
+	return (j - 1);
 }
