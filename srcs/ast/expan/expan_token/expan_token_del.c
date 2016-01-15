@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/expan/ast_expan.h"
+#include "ast/expan/ast_expan_token.h"
 
 void			expan_token_del(t_expan_token *token)
 {

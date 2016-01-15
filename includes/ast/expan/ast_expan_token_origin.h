@@ -10,10 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_EXPAN_H
-# define AST_EXPAN_H
-# include "basics.h"
-# include "ast/expan/ast_expan_token.h"
-# include "ast/expan/ast_expan_mgr.h"
-# include "ast/expan/ast_expan_param.h"
+#ifndef AST_EXPAN_TOKEN_ORIGIN_H
+# define AST_EXPAN_TOKEN_ORIGIN_H
+
+typedef enum			s_token_origin
+{
+	SIMPLE_COMMAND_TOKEN,
+	ASSIGNMENT_KEY,
+	ASSIGNMENT_VALUE,
+	REDIR_PARAM,
+	REDIR_HEREDOC
+}						t_token_origin;
+
 #endif

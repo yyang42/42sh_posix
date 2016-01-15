@@ -12,6 +12,7 @@
 
 #include "basics.h"
 #include "ast/expan/ast_expan_exec.h"
+#include "ast/expan/ast_expan_param.h"
 #include "special_params.h"
 
 void			expan_exec_param_var(t_expan_token *expan_token)

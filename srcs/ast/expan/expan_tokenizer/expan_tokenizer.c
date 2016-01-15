@@ -29,6 +29,7 @@ void					expan_tokenizer(t_ast_simple_command *cmd, char *str,
 
 	(void)origin;
 	tokenizer = expan_tokenizer_new();
+	tokenizer->origin = origin;
 	if (str)
 	{
 		while (str[tokenizer->i] != 0)

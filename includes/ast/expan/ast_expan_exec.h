@@ -13,10 +13,9 @@
 #ifndef AST_EXPAN_EXEC_H
 # define AST_EXPAN_EXEC_H
 
-# include "ast/expan/ast_expan_tokenizer.h"
 # include "ast/expan/ast_expan_token.h"
-# include "ast/expan/ast_expan_param.h"
 # include "basics.h"
+# include "environment.h"
 
 void			expan_exec(t_lst *expan_tokens);
 void			expan_exec_param_star(t_expan_token *expan_token);

@@ -13,6 +13,7 @@
 #include "ast/expan/ast_expan_tokenizer.h"
 #include "ast/expan/ast_expan_token.h"
 #include "ast/expan/ast_expan_exec.h"
+#include "ast/expan/ast_expan_param.h"
 
 static t_expan_param_type	char_to_special_param_type(char c)
 {

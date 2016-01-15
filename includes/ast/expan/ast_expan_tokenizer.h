@@ -16,16 +16,8 @@
 # include "basics.h"
 # include "ast/ast.h"
 # include "token/token.h"
-# include "ast/expan/ast_expan.h"
-
-typedef enum			s_token_origin
-{
-	SIMPLE_COMMAND_TOKEN,
-	ASSIGNMENT_KEY,
-	ASSIGNMENT_VALUE,
-	REDIR_PARAM,
-	REDIR_HEREDOC
-}						t_token_origin;
+# include "ast/expan/ast_expan_type.h"
+# include "ast/expan/ast_expan_token.h"
 
 typedef struct			s_expan_tokenizer
 {
@@ -34,9 +26,12 @@ typedef struct			s_expan_tokenizer
 	t_expan_type	type;
 	bool			is_between_dq;
 	bool			is_between_sq;
+	t_token_origin	origin;
 }						t_expan_tokenizer;
+
 t_expan_tokenizer				*expan_tokenizer_new(void);
 void							expan_tokenizer_del(t_expan_tokenizer *tokenizer);
+void							expan_token_mgr_add(t_lst *tokens, t_expan_token *token);
 char							*expan_tokenizer_concat(t_lst *lst);
 void							expan_tokenizer(t_ast_simple_command *cmd,
 	char *str, t_lst *expan_tokens, t_token_origin origin);

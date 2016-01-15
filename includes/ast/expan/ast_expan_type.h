@@ -10,12 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/expan/ast_expan_token.h"
+#ifndef AST_EXPAN_TYPE_H
+# define AST_EXPAN_TYPE_H
 
-t_lst				*expan_token_mgr_new(void)
+typedef enum	e_expan_type
 {
-	t_lst			*tokens;
+	NONE,
+	TILDE,
+	PARAMETER,
+	COMMAND_SUBSTITUTION,
+	ARITHMETIC,
+	PATHNAME,
+	QUOTE_REMOVAL
+}				t_expan_type;
 
-	tokens = twl_lst_new();
-	return (tokens);
-}
+#endif

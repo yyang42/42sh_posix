@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/expan/ast_expan.h"
+#include "ast/expan/ast_expan_param.h"
 
 t_expan_param *expan_param_new(void)
 {

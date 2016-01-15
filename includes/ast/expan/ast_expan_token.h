@@ -13,19 +13,10 @@
 #ifndef AST_EXPAN_TOKEN_H
 # define AST_EXPAN_TOKEN_H
 
-#include "basics.h"
-#include "token/token.h"
-
-typedef enum	e_expan_type
-{
-	NONE,
-	TILDE,
-	PARAMETER,
-	COMMAND_SUBSTITUTION,
-	ARITHMETIC,
-	PATHNAME,
-	QUOTE_REMOVAL
-}				t_expan_type;
+# include "basics.h"
+# include "token/token.h"
+# include "ast/expan/ast_expan_type.h"
+# include "ast/expan/ast_expan_token_origin.h"
 
 typedef struct	s_expan_token
 {
@@ -35,6 +26,7 @@ typedef struct	s_expan_token
 	void			(*free_expan)(void *);
 	bool			isDoubleQuoted;
 	void			*expan_data;
+	t_token_origin	origin;
 }				t_expan_token;
 
 t_expan_token					*expan_token_new(t_expan_type type);

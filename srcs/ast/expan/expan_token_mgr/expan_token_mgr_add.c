@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/expan/ast_expan.h"
+#include "ast/expan/ast_expan_token.h"
 
 void				expan_token_mgr_add(t_lst *tokens, t_expan_token *token)
 {
