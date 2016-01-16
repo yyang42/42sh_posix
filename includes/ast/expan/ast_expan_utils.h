@@ -16,5 +16,7 @@
 # include "ast/expan/ast_expan_param.h"
 
 void				*expan_param_type_to_func_dict(t_expan_param_type type);
-void				*expan_type_to_print_func(t_expan_type type);
+void				*expan_param_type_to_print_func(t_expan_type type);
+t_expan_param_type	string_1_to_expan_type(char *str);
+t_expan_param_type	string_2_to_expan_type(char *str);
 #endif

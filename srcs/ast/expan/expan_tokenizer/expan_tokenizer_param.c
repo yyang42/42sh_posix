@@ -11,10 +11,27 @@
 /* ************************************************************************** */
 
 #include "ast/expan/ast_expan_tokenizer.h"
+#include "ast/expan/ast_expan_param.h"
+#include "ast/expan/ast_expan_utils.h"
+
+t_expan_param_type	expan_tokenizer_param_substitution_get_parameter(char *str)
+{
+	char				*operator;
+	t_expan_param_type	type;
+
+	operator = twl_strndup(str, 2);
+	type = string_2_to_expan_type(operator);
+	if (type != UNDEFINED_PARAM)
+		return (type);
+	twl_strdel(&operator);
+	operator = twl_strndup(str, 1);
+	return (string_1_to_expan_type(operator));
+}
 
 void			expan_tokenizer_param_substitution(t_expan_token *expan_token,
 	char *str, int i)
 {
+	// char	*trim_param_substitution;
 	(void)expan_token;
 	(void)str;
 	(void)i;

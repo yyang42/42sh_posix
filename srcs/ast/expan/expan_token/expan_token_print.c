@@ -23,7 +23,7 @@ void				expan_token_print(t_expan_token *expan_token)
 	twl_printf("\tRes : %s\n", expan_token->res);
 	twl_printf("\tDouble quote : %d\n", expan_token->is_double_quoted);
 	twl_printf("\tOrigin : %d\n", expan_token->origin);
-	raw_func = expan_type_to_print_func(expan_token->type);
+	raw_func = expan_param_type_to_print_func(expan_token->type);
 	print_func = raw_func;
 	if (print_func)
 	{

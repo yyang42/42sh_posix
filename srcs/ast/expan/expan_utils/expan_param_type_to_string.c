@@ -16,7 +16,7 @@
 #include "ast/expan/ast_expan_type.h"
 #include "twl_dict.h"
 
-void *expan_type_to_print_func(t_expan_type type)
+void *expan_param_type_to_print_func(t_expan_type type)
 {
 	static t_dict *dict = NULL;
 	char			*str;
