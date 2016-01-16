@@ -12,11 +12,16 @@
 
 #include "ast/expan/ast_expan_tokenizer.h"
 
-static t_expan_type	identify_expan(char c)
+static t_expan_type	identify_expan(char *str)
 {
-	if (c == '$')
-		return (PARAMETER);
-	else if (c == '~')
+	if (str[0] == '$')
+	{
+		if (str[1] == '(')
+			return (COMMAND_SUBSTITUTION);
+		else
+			return (PARAMETER);
+	}
+	else if (str[0] == '~')
 		return (TILDE);
 	return (NONE);
 }
@@ -37,7 +42,7 @@ void					expan_tokenizer(char *str, t_lst *expan_tokens,
 				tokenizer->is_between_sq = !tokenizer->is_between_sq;
 			else if (str[tokenizer->i] == '"')
 				tokenizer->is_between_dq = !tokenizer->is_between_dq;
-			type = identify_expan(str[tokenizer->i]);
+			type = identify_expan(&str[tokenizer->i]);
 			if (type != NONE)
 				expan_tokenizer_none(expan_tokens, &str[tokenizer->last], tokenizer->i - tokenizer->last);
 			if (!tokenizer->is_between_sq)

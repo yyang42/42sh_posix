@@ -40,7 +40,7 @@ static t_expan_param_type	char_to_special_param_type(char c)
 
 static bool					is_expan_tokenizer_param_separator(char c)
 {
-	if (c != '\\' || c != '\'' || c != '"' || c == 0 || c == '$')
+	if (c == '\\' || c == '\'' || c == '"' || c == 0 || c == '$')
 		return (true);
 	return (false);
 }
