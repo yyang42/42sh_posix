@@ -10,29 +10,25 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ast/nodes/ast_simple_command.h"
+#include "ast/expan/ast_expan_mgr.h"
 #include "ast/expan/ast_expan_tokenizer.h"
+#include "ast/expan/ast_expan_exec.h"
 
-void			expan_tokenizer_param_substitution(t_expan_token *expan_token,
-	char *str, int i)
+void	expan_init(char **ptr, t_token_origin origin)
 {
-	(void)expan_token;
-	(void)str;
-	(void)i;
-}
+	t_lst					*expan_tokens;
+	char					*concat;
 
-
-int				expan_tokenizer_param(t_expan_tokenizer *tokenizer,
-	t_lst *expan_tokens, char *str,  int i){
-	t_expan_token	*expan_token;
-
-	i++;
-	expan_token = expan_token_new(PARAMETER);
-	expan_token->origin = tokenizer->origin;
-	if (str[i] == '{')
-		expan_tokenizer_param_substitution(expan_token, str, ++i);
-	else
-		i = expan_tokenizer_param_special(expan_token, str, i);
-	expan_token->is_double_quoted = tokenizer->is_between_dq;
-	expan_token_mgr_add(expan_tokens, expan_token);
-	return (i);
+	expan_tokens = expan_token_mgr_new();
+	expan_tokenizer(*ptr, expan_tokens, origin);
+	expan_exec(expan_tokens);
+	concat = expan_tokenizer_concat(expan_tokens);
+	if (concat)
+	{
+		twl_strdel(ptr);
+		*ptr = concat;
+	}
+	expan_token_mgr_print(expan_tokens);
+	expan_token_mgr_del(expan_tokens);
 }

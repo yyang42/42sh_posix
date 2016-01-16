@@ -21,8 +21,8 @@ static t_expan_type	identify_expan(char c)
 	return (NONE);
 }
 
-void					expan_tokenizer(t_ast_simple_command *cmd, char *str,
-	t_lst *expan_tokens, t_token_origin origin)
+void					expan_tokenizer(char *str, t_lst *expan_tokens,
+	t_token_origin origin)
 {
 	t_expan_tokenizer *tokenizer;
 	t_expan_type type;
@@ -63,6 +63,5 @@ void					expan_tokenizer(t_ast_simple_command *cmd, char *str,
 		if (str[tokenizer->last] != 0 && tokenizer->i > tokenizer->last)
 			expan_tokenizer_none(expan_tokens, &str[tokenizer->last], tokenizer->i - tokenizer->last);
 	}
-	(void)cmd;
 	expan_tokenizer_del(tokenizer);
 }
