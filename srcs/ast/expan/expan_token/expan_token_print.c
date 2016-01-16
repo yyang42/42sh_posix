@@ -25,7 +25,7 @@ void				expan_token_print(t_expan_token *expan_token)
 	twl_printf("\tOrigin : %d\n", expan_token->origin);
 	raw_func = expan_param_type_to_print_func(expan_token->type);
 	print_func = raw_func;
-	if (print_func)
+	if (print_func && expan_token->expan_data)
 	{
 		print_func(expan_token->expan_data);
 	}
