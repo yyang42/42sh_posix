@@ -34,5 +34,5 @@ int				expan_tokenizer_param(t_expan_tokenizer *tokenizer,
 		i = expan_tokenizer_param_special(expan_token, str, i);
 	expan_token->is_double_quoted = tokenizer->is_between_dq;
 	expan_token_mgr_add(expan_tokens, expan_token);
-	return (i - 1);
+	return (i);
 }

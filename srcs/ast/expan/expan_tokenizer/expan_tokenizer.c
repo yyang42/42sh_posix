@@ -27,7 +27,6 @@ void					expan_tokenizer(t_ast_simple_command *cmd, char *str,
 	t_expan_tokenizer *tokenizer;
 	t_expan_type type;
 
-	(void)origin;
 	tokenizer = expan_tokenizer_new();
 	tokenizer->origin = origin;
 	if (str)
@@ -47,21 +46,21 @@ void					expan_tokenizer(t_ast_simple_command *cmd, char *str,
 				{
 					tokenizer->i = expan_tokenizer_param(tokenizer, expan_tokens, str, tokenizer->i);
 					tokenizer->last = tokenizer->i;
+					tokenizer->i--;
 				}
 				else if (type == TILDE && tokenizer->origin != ASSIGNMENT_KEY)
 				{
 					if (tokenizer->i == 0 || (tokenizer->i > 0 && tokenizer->origin == ASSIGNMENT_VALUE))
 					{
-						// twl_printf("Avant->%d<-\n", tokenizer->i);
 						tokenizer->i = expan_tokenizer_tilde(tokenizer, expan_tokens, str, tokenizer->i);
 						tokenizer->last = tokenizer->i;
-						// twl_printf("Apres->%d<-\n", tokenizer->i);
+						tokenizer->i--;
 					}
 				}
 			}
 			tokenizer->i++;
 		}
-		if (str[tokenizer->last] != 0)
+		if (str[tokenizer->last] != 0 && tokenizer->i > tokenizer->last)
 			expan_tokenizer_none(expan_tokens, &str[tokenizer->last], tokenizer->i - tokenizer->last);
 	}
 	(void)cmd;
