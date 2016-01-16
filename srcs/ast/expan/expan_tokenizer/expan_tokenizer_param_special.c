@@ -54,6 +54,8 @@ int							expan_tokenizer_param_var_name(t_expan_param *expan_param,
 	while (!is_expan_tokenizer_param_separator(str[i]))
 	{
 		i++;
+		if (i - j == 1 && twl_isdigit(str[j]))
+			break;
 	}
 	if (i != j)
 	{

@@ -100,5 +100,7 @@ void						**environment_get_env_arr(t_environment *this);
 void						environment_set_last_exit_status(int status);
 void						environment_set_last_exit_status_2(t_environment *e,
 																	int status);
+char						*environment_get_pos_param_at(t_environment *env,
+	size_t index);
 
 #endif
