@@ -18,4 +18,5 @@
 void				expan_token_mgr_del(t_lst *tokens);
 t_lst				*expan_token_mgr_new(void);
 void				expan_token_mgr_add(t_lst *tokens, t_expan_token *token);
+void				expan_token_mgr_print(t_lst *tokens);
 #endif

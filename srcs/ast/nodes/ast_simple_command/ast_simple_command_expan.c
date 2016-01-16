@@ -32,7 +32,7 @@ static void	do_expan(char **ptr, t_token_origin origin,
 		twl_strdel(ptr);
 		*ptr = concat;
 	}
-	twl_printf("Expansiion result : %s\n", concat);
+	expan_token_mgr_print(expan_tokens);
 	expan_token_mgr_del(expan_tokens);
 }
 

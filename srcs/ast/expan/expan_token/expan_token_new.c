@@ -12,16 +12,16 @@
 
 #include "ast/expan/ast_expan_token.h"
 
-t_expan_token *expan_token_new()
+t_expan_token *expan_token_new(t_expan_type type)
 {
 	t_expan_token *token;
 
 	token = twl_malloc_x0(sizeof(t_expan_token));
-	token->type = NONE;
+	token->type = type;
 	token->res = NULL;
 	token->exec_expan = NULL;
 	token->free_expan = NULL;
-	token->isDoubleQuoted = false;
+	token->is_double_quoted = false;
 	token->expan_data = NULL;
 	return (token);
 }

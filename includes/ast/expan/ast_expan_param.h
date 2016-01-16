@@ -46,5 +46,6 @@ typedef struct			s_expan_param
 
 t_expan_param			*expan_param_new(void);
 void					expan_param_del(t_expan_param *expan_param);
+void					expan_param_print(t_expan_param *expan_param);
 
 #endif

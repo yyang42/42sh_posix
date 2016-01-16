@@ -10,26 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_EXPAN_TOKEN_H
-# define AST_EXPAN_TOKEN_H
+#include "ast/expan/ast_expan_token.h"
 
-# include "basics.h"
-# include "token/token.h"
-# include "ast/expan/ast_expan_type.h"
-# include "ast/expan/ast_expan_token_origin.h"
-
-typedef struct	s_expan_token
+static void			iter_fn(void *expan_token_)
 {
-	t_expan_type	type;
-	char			*res;
-	void			(*exec_expan)(struct s_expan_token *);
-	void			(*free_expan)(void *);
-	bool			is_double_quoted;
-	void			*expan_data;
-	t_token_origin	origin;
-}				t_expan_token;
+	t_expan_token *expan_token;
 
-t_expan_token					*expan_token_new(t_expan_type type);
-void							expan_token_del(t_expan_token *token);
-void							expan_token_print(t_expan_token *token);
-#endif
+	expan_token = expan_token_;
+	expan_token_print(expan_token);
+}
+
+void				expan_token_mgr_print(t_lst *tokens)
+{
+	twl_lst_iter0(tokens, iter_fn);
+}

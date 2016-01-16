@@ -12,8 +12,12 @@
 
 #include "ast/expan/ast_expan_token.h"
 
-void			expan_token_del(t_expan_token *token)
+void			expan_token_del(t_expan_token *expan_token)
 {
-	twl_strdel(&token->res);
-	free(token);
+	if (expan_token->free_expan)
+	{
+		expan_token->free_expan(expan_token->expan_data);
+	}
+	twl_strdel(&expan_token->res);
+	free(expan_token);
 }

@@ -15,7 +15,7 @@
 
 void		ast_simple_command_expan_tilde(t_token *token);
 void		ast_simple_command_expan_parameter(t_token *token);
-bool		isDoubleQuoted(char *str);
+bool		is_double_quoted(char *str);
 bool		isSingleQuoted(char *str);
 
 void		ast_simple_command_expan_parameter(t_token *token);
