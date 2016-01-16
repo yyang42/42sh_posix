@@ -17,5 +17,7 @@ t_ast_pipe_item			*ast_pipe_item_new(void)
 	t_ast_pipe_item		*ast_pipe_item;
 
 	ast_pipe_item = twl_malloc_x0(sizeof(t_ast_pipe_item));
+	ast_pipe_item->fds[0] = -1;
+	ast_pipe_item->fds[1] = -1;
 	return (ast_pipe_item);
 }

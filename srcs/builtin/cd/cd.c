@@ -35,24 +35,29 @@ static char	*get_dirname_from_arg(t_opt *opt, t_environment *this)
 static int	get_dirname(char **dirname, t_opt *opt, char *str,
 	t_environment *this)
 {
-	if (twl_opt_args_len(opt) == 0)
+	char	*tmp;
+
+	if (twl_strcmp(str, "cd -") == 0)
 	{
-		*dirname = twl_strdup(environment_getenv_value(this, "HOME"));
-		if (*dirname == NULL || **dirname == '\0')
-		{
-			twl_dprintf(2, "%s: HOME not set\n", str);
-			return (-1);
-		}
-		return (1);
-	}
-	else if (twl_strcmp(twl_opt_args_get(opt, 0), "-") == 0)
-	{
-		*dirname = twl_strdup(environment_getenv_value(this, "OLDPWD"));
-		if (*dirname == NULL)
+		tmp = environment_getenv_value(this, "OLDPWD");
+		if (tmp == NULL)
 		{
 			twl_dprintf(2, "%s: OLDPWD not set\n", str);
 			return (-1);
 		}
+		*dirname = twl_strdup(tmp);
+		twl_printf("%s\n", *dirname);
+		return (1);
+	}
+	else if (twl_opt_args_len(opt) == 0)
+	{
+		tmp = twl_strdup(environment_getenv_value(this, "HOME"));
+		if (tmp == NULL || *tmp == '\0')
+		{
+			twl_dprintf(2, "%s: HOME not set\n", str);
+			return (-1);
+		}
+		*dirname = twl_strdup(tmp);
 		return (1);
 	}
 	return (0);

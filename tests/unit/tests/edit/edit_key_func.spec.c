@@ -114,6 +114,7 @@ static void test_delete_first_letter(t_test *test)
 	cmd = edit_handle_one_input(edit, DELETE_KEY);
 	mt_assert(edit->index == 0);
 	edit_del(edit);
+	(void)cmd;
 }
 
 void	suite_edit_key_func(t_suite *suite)
