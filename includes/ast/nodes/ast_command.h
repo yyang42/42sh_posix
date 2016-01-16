@@ -39,7 +39,7 @@ t_ast_command		*ast_command_new(void);
 void				ast_command_del(t_ast_command *ast_command);
 
 t_ast_command		*ast_command_new_from_tokens(t_lst *tokens, struct s_ast *ast);
-t_ast_command		*ast_command_new_from_tokens_bis(t_lst *tokens, struct s_ast *ast);
+t_ast_command		*ast_command_new_from_tokens(t_lst *tokens, struct s_ast *ast);
 void				ast_command_print_rec(t_ast_command *ast_command, int depth);
 
 #endif

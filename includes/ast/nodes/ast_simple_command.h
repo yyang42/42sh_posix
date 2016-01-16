@@ -48,7 +48,7 @@ void					ast_simple_command_del(t_ast_simple_command *ast_s_cmd);
 bool					ast_simple_command_check_files(t_ast_simple_command *t);
 t_ast_simple_command	*ast_simple_command_new_from_tokens(t_lst *tokens,
 	struct s_ast *ast);
-t_ast_simple_command	*ast_simple_command_new_from_tokens_bis(t_lst *tokens, struct s_ast *ast);
+t_ast_simple_command	*ast_simple_command_new_from_tokens(t_lst *tokens, struct s_ast *ast);
 void					ast_simple_command_print_rec(t_ast_simple_command
 	*ast_s_cmd, int depth);
 

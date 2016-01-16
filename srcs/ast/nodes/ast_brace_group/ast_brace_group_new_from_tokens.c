@@ -27,7 +27,7 @@ t_ast_brace_group	*ast_brace_group_new_from_tokens(t_lst *tokens,
 	// twl_lst_pop_back(tokens);
 	// token_mgr_print(tokens);
 	// twl_printf("before\n");
-	ast_brace_group->ast_compound_list = ast_compound_list_new_from_tokens_bis(tokens, ast);
+	ast_brace_group->ast_compound_list = ast_compound_list_new_from_tokens(tokens, ast);
 	if (token_mgr_first_equ(tokens, "}") == false)
 	{
 		ast_set_error_msg_syntax_error_near(ast, open);

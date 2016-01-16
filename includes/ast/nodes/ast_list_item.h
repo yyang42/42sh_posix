@@ -31,9 +31,8 @@ typedef struct		s_ast_list_item
 t_ast_list_item		*ast_list_item_new(void);
 void				ast_list_item_del(t_ast_list_item *ast_list_item);
 
-t_ast_list_item		*ast_list_item_new_from_tokens(t_lst *tokens, t_token *sep, struct s_ast *ast);
-t_ast_list_item		*ast_list_item_new_from_tokens_bis(t_lst *tokens, struct s_ast *ast);
-void				*ast_list_item_new_from_tokens_bis_void(t_lst *tokens, struct s_ast *ast);
+t_ast_list_item		*ast_list_item_new_from_tokens(t_lst *tokens, struct s_ast *ast);
+void				*ast_list_item_new_from_tokens_void(t_lst *tokens, struct s_ast *ast);
 
 void				ast_list_item_print_rec(t_ast_list_item *ast_list_item, int depth);
 

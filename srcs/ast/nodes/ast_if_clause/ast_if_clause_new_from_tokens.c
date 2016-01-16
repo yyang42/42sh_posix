@@ -95,7 +95,7 @@ t_ast_if_clause		*ast_if_clause_new_from_tokens(t_lst *tokens,
 	if (token_mgr_first_equ(tokens, "else"))
 	{
 		twl_lst_pop_front(tokens);
-		this->else_body = ast_compound_list_new_from_tokens_bis(tokens, ast);
+		this->else_body = ast_compound_list_new_from_tokens(tokens, ast);
 	}
 	if (ast_has_error(ast))
 	{

@@ -20,7 +20,7 @@ t_ast				*ast_new(char *input)
 	ast = twl_malloc_x0(sizeof(t_ast));
 	ast->tokens = tokenizer_tokenize(input);
 	tokens = twl_lst_copy(ast->tokens, NULL);
-	ast->compound_list = ast_compound_list_new_from_tokens_bis(ast->tokens, ast);
+	ast->compound_list = ast_compound_list_new_from_tokens(ast->tokens, ast);
 	token_mgr_del(tokens);
 	return (ast);
 }

@@ -21,9 +21,9 @@ t_ast_lap_new_from_tokens_fn	*ast_lap_new_from_tokens_fns(void)
 
 	if (is_loaded == false)
 	{
-		fns[AST_TYPE_LIST_ITEM] = ast_list_item_new_from_tokens_bis_void;
-		fns[AST_TYPE_ANDOR_ITEM] = ast_andor_item_new_from_tokens_bis_void;
-		fns[AST_TYPE_PIPE_ITEM] = ast_pipe_item_new_from_tokens_bis_void;
+		fns[AST_TYPE_LIST_ITEM] = ast_list_item_new_from_tokens_void;
+		fns[AST_TYPE_ANDOR_ITEM] = ast_andor_item_new_from_tokens_void;
+		fns[AST_TYPE_PIPE_ITEM] = ast_pipe_item_new_from_tokens_void;
 	}
 	return (fns);
 }

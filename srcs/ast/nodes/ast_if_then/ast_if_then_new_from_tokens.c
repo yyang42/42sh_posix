@@ -50,7 +50,7 @@ t_ast_if_then	*ast_if_then_new_from_tokens(t_lst *tokens, struct s_ast *ast)
 
 	ast_if_then = ast_if_then_new();
 	open = twl_lst_pop_front(tokens);
-	ast_if_then->cond_compound = ast_compound_list_new_from_tokens_bis(tokens, ast);
+	ast_if_then->cond_compound = ast_compound_list_new_from_tokens(tokens, ast);
 
 	if (!token_mgr_first_equ(tokens, "then"))
 	{
@@ -59,15 +59,15 @@ t_ast_if_then	*ast_if_then_new_from_tokens(t_lst *tokens, struct s_ast *ast)
 	}
 	twl_lst_pop_front(tokens);
 	// token_mgr_print(tokens);
-	ast_if_then->then_compound = ast_compound_list_new_from_tokens_bis(tokens, ast);
+	ast_if_then->then_compound = ast_compound_list_new_from_tokens(tokens, ast);
 	// twl_lst_pop_front(tokens);
-	// ast_if_then->cond_compound = ast_compound_list_new_from_tokens_bis(tokens, ast);
+	// ast_if_then->cond_compound = ast_compound_list_new_from_tokens(tokens, ast);
 	// twl_lst_pop_front(tokens);
-	// ast_if_then->then_compound = ast_compound_list_new_from_tokens_bis(tokens, ast);
+	// ast_if_then->then_compound = ast_compound_list_new_from_tokens(tokens, ast);
 	// token_mgr_print(tokens);
 	// twl_lst_clear(tokens, NULL);
 	// twl_lst_clear(tokens, NULL);
-	// ast_if_then->then_compound = ast_compound_list_new_from_tokens_bis(tokens,
+	// ast_if_then->then_compound = ast_compound_list_new_from_tokens(tokens,
 	// 	ast);
 	// ast_if_then->then_compound = ast_compound_list_new_from_tokens(then_tokens,
 	// 	ast);

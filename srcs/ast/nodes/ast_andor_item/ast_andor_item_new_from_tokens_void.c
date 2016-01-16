@@ -10,11 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_command.h"
-#include "ast/nodes/ast_pipe_item.h"
+#include "token/token_mgr.h"
+#include "token/token_list_mgr.h"
+
+#include "ast/ast.h"
+#include "ast/nodes/ast_andor_item.h"
 #include "ast/nodes/ast_list_item.h"
 
-void				*ast_pipe_item_new_from_tokens_bis_void(t_lst *tokens, struct s_ast *ast)
+void				*ast_andor_item_new_from_tokens_void(t_lst *tokens, struct s_ast *ast)
 {
-	return (ast_pipe_item_new_from_tokens_bis(tokens, ast));
+	return (ast_andor_item_new_from_tokens(tokens, ast));
 }
