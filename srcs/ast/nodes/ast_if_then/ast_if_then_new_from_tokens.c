@@ -46,10 +46,17 @@ static int		build(t_ast_if_then *ast_if_then,
 t_ast_if_then	*ast_if_then_new_from_tokens(t_lst *tokens, struct s_ast *ast)
 {
 	t_ast_if_then		*ast_if_then;
+	t_token				*open;
 
 	ast_if_then = ast_if_then_new();
-	twl_lst_pop_front(tokens);
+	open = twl_lst_pop_front(tokens);
 	ast_if_then->cond_compound = ast_compound_list_new_from_tokens_bis(tokens, ast);
+
+	if (!token_mgr_first_equ(tokens, "then"))
+	{
+		ast_set_error_msg_syntax_error_missing(ast, open, "then");
+		return (NULL);
+	}
 	twl_lst_pop_front(tokens);
 	// token_mgr_print(tokens);
 	ast_if_then->then_compound = ast_compound_list_new_from_tokens_bis(tokens, ast);

@@ -76,15 +76,6 @@ t_lst				*ast_lap_build_items(t_lst *tokens,
 			)
 			break ;
 
-
-		// twl_printf("first %s\n", token_mgr_first(tokens)->text);
-		// token_mgr_print(tokens);
-		// if (!token_mgr_first_equ(tokens, "\n")
-		// 	&& twl_lst_find(data_all_separators(), twl_strequ_void, token_mgr_first(tokens)->text))
-		// {
-		// 	ast_set_error_msg_syntax_error_near(ast, token_mgr_first(tokens));
-		// 	return NULL;
-		// }
 		item = ast_lap_new_from_tokens_fns()[type](tokens, ast);
 		twl_lst_push(container, item);
 		first = token_mgr_first(tokens);
@@ -116,22 +107,6 @@ t_lst				*ast_lap_build_items(t_lst *tokens,
 					return (NULL);
 				}
 			}
-			// if (next_token)
-
-
-			// token_mgr_print(tokens);
-			// first = token_mgr_first(tokens);
-			// if (first
-			// 	&& twl_lst_find(ast_lap_get_seps_list()[type], twl_strequ_void, first->text)
-			// 	&& )
-			// {
-			// 	ast_set_error_msg_syntax_error_near(ast, first);
-			// }
-			// if (!token_mgr_first(tokens) ||
-			// 	twl_lst_find(ast_lap_get_seps_list()[type], twl_strequ_void, token_mgr_first(tokens)->text))
-			// {
-			// 	ast_set_error_msg_format(ast, first, "Unexpected token '%s'", first->text);
-			// }
 		}
 		else
 		{

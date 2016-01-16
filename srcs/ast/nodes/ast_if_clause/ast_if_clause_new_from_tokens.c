@@ -75,19 +75,39 @@ t_ast_if_clause		*ast_if_clause_new_from_tokens(t_lst *tokens,
 	struct s_ast *ast)
 {
 	t_ast_if_clause		*this;
+	t_token				*open;
+	t_ast_if_then 		*if_then;
 
 	this = ast_if_clause_new();
+	open = token_mgr_first(tokens);
 	while (token_mgr_first_equ(tokens, "if")
 		|| token_mgr_first_equ(tokens, "elif"))
 	{
-		twl_lst_push(this->if_then_list, ast_if_then_new_from_tokens(tokens, ast));
+		if_then = ast_if_then_new_from_tokens(tokens, ast);
+		if (if_then)
+			twl_lst_push(this->if_then_list, if_then);
 	}
-	// token_mgr_print(tokens);
+	if (ast_has_error(ast))
+	{
+		ast_if_clause_del(this);
+		return (NULL);
+	}
 	if (token_mgr_first_equ(tokens, "else"))
 	{
 		twl_lst_pop_front(tokens);
 		this->else_body = ast_compound_list_new_from_tokens_bis(tokens, ast);
 	}
+	if (ast_has_error(ast))
+	{
+		ast_if_clause_del(this);
+		return (NULL);
+	}
+	if (!token_mgr_first_equ(tokens, "fi"))
+	{
+		ast_set_error_msg_syntax_error_missing(ast, open, "fi");
+		return (NULL);
+	}
+
 	// twl_lst_pop_front(tokens);
 
 	// split_by_else(this, tokens, ast);

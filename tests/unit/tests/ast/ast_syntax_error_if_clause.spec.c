@@ -2,14 +2,14 @@
 
 #include "ast/ast.h"
 
-mt_test_ast_error(01, "if true; then echo abc;",
-	"SyntaxError 1:1 : Closing token for 'if' not found", false);
-mt_test_ast_error(02, "if true; echo abc;fi",
-	"SyntaxError 1:4 : 'then' token is expected but not found", false);
-mt_test_ast_error(03, "if true; then echo abc; elif true; echo abc ; fi",
-	"SyntaxError 1:30 : 'then' token is expected but not found", false);
-mt_test_ast_error(04, "if true; then ls; else echo | ;fi",
-	"SyntaxError 1:29 : Expected input after '|' but found nothing", false);
+mt_test_ast_error(01, "echo abc; if true; then echo abc;fu",
+	"SyntaxError 1:11 : Syntax error near 'if' : Missing 'fi'", false);
+mt_test_ast_error(02, "ls; if true; echo abc;fi",
+	"SyntaxError 1:5 : Syntax error near 'if' : Missing 'then'", false);
+mt_test_ast_error(03, "ls; if true; then echo abc; elif true; echo abc ; fi",
+	"SyntaxError 1:29 : Syntax error near 'elif' : Missing 'then'", false);
+mt_test_ast_error(04, "ls; if true; then ls; else echo | ;fi",
+	"SyntaxError 1:33 : Syntax error near '|'", false);
 
 void	suite_ast_syntax_error_if_clause(t_suite *suite)
 {
