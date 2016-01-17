@@ -1,6 +1,16 @@
 compound_list
-    ast_list_item
+    ast_list_item (sep=\n)
         ast_andor_item
             ast_pipe_item
                 ast_command
-                    ast_simple_command (echo11)
+                    ast_simple_command (echo1)
+    ast_list_item (sep=\n)
+        ast_andor_item
+            ast_pipe_item
+                ast_command
+                    ast_simple_command (echo2)
+    ast_list_item (sep=\n)
+        ast_andor_item
+            ast_pipe_item
+                ast_command
+                    ast_simple_command (echo3)

@@ -67,6 +67,7 @@ t_lst				*ast_lap_build_items(t_lst *tokens,
 	container = twl_lst_new();
 	while (true)
 	{
+		token_mgr_pop_linebreak(tokens);
 		if (twl_lst_len(tokens) == 0)
 			break ;
 		if (token_mgr_first_equ(tokens, "then")
@@ -75,7 +76,6 @@ t_lst				*ast_lap_build_items(t_lst *tokens,
 			|| token_mgr_first_equ(tokens, "fi")
 			)
 			break ;
-
 		item = ast_lap_new_from_tokens_fns()[type](tokens, ast);
 		twl_lst_push(container, item);
 		first = token_mgr_first(tokens);

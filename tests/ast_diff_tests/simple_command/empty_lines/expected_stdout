@@ -8,14 +8,4 @@ compound_list
         ast_andor_item
             ast_pipe_item
                 ast_command
-                    ast_simple_command ()
-    ast_list_item (sep=\n)
-        ast_andor_item
-            ast_pipe_item
-                ast_command
-                    ast_simple_command ()
-    ast_list_item (sep=\n)
-        ast_andor_item
-            ast_pipe_item
-                ast_command
                     ast_simple_command (echo2)
