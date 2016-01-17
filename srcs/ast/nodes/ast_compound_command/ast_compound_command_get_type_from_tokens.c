@@ -21,6 +21,8 @@ t_compound_command_type	ast_compound_command_get_type_from_tokens(t_lst *tokens)
 		return (COMPOUND_COMMAND_SUBSHELL);
 	else if (first->type == TOKEN_IF)
 		return (COMPOUND_COMMAND_IF_CLAUSE);
+	else if (first->type == TOKEN_FOR)
+		return (COMPOUND_COMMAND_FOR_CLAUSE);
 	else if (first->type == TOKEN_LBRACE)
 		return (COMPOUND_COMMAND_BRACE_GROUP);
 	return (COMPOUND_COMMAND_NONE);

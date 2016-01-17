@@ -21,6 +21,7 @@ static t_compound_command_print_del_fn	*get_print_del_fns(void)
 	{
 		fns[COMPOUND_COMMAND_SUBSHELL] = ast_subshell_del_void;
 		fns[COMPOUND_COMMAND_IF_CLAUSE] = ast_if_clause_del_void;
+		fns[COMPOUND_COMMAND_FOR_CLAUSE] = ast_for_clause_del_void;
 		fns[COMPOUND_COMMAND_BRACE_GROUP] = ast_brace_group_del_void;
 	}
 	return (fns);

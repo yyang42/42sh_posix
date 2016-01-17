@@ -10,32 +10,27 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_COMPLETE_COMMAND_H
-# define AST_COMPLETE_COMMAND_H
+#include "ast/nodes/ast_for_clause.h"
+#include "ast/nodes/ast_compound_list.h"
+#include "ast/nodes/ast_if_then.h"
 
-# include "basics.h"
-
-# include "token/token_mgr.h"
-
-# include "ast/ast_utils.h"
-# include "ast/ast_defines.h"
-
-# include "ast/nodes/ast_list_item.h"
-
-typedef struct				s_ast_compound_list
+void				ast_for_clause_print_rec(t_ast_for_clause *this,
+	int depth)
 {
-	t_lst					*ast_list_items;
+	ast_print_indent(depth);
+	twl_printf("ast_for_clause (name=%s", this->name);
 
-}							t_ast_compound_list;
-
-t_ast_compound_list			*ast_compound_list_new(void);
-void						ast_compound_list_del(t_ast_compound_list *ast_compound_list);
-
-t_ast_compound_list			*ast_compound_list_new_from_tokens(t_lst *tokens, struct s_ast *ast);
-t_ast_compound_list	*ast_compound_list_new_from_tokens_wrap(t_lst *tokens,
-								char *open, char *close, struct s_ast *ast);
-void						ast_compound_list_print_rec(t_ast_compound_list *ast_compound_list, int depth);
-
-int							ast_compound_list_exec(t_ast_compound_list *ast_compound_list);
-
-#endif
+	if (twl_lst_len(this->wordlist))
+	{
+		char *joined_wordlist = token_mgr_strjoin(this->wordlist, " ");
+		twl_printf(", wordlist=`%s`", joined_wordlist);
+	}
+	twl_printf(")\n");
+	depth++;
+	if (this->do_group)
+	{
+		ast_print_indent(depth);
+		twl_printf("do_group\n");
+		ast_compound_list_print_rec(this->do_group, depth + 1);
+	}
+}

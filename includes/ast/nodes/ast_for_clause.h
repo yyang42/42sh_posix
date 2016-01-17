@@ -10,32 +10,34 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_COMPLETE_COMMAND_H
-# define AST_COMPLETE_COMMAND_H
+#ifndef AST_FOR_CLAUSE_H
+# define AST_FOR_CLAUSE_H
 
 # include "basics.h"
 
 # include "token/token_mgr.h"
 
-# include "ast/ast_utils.h"
 # include "ast/ast_defines.h"
+# include "ast/ast_utils.h"
 
-# include "ast/nodes/ast_list_item.h"
+struct s_ast_compound_list;
 
-typedef struct				s_ast_compound_list
+typedef struct		s_ast_for_clause
 {
-	t_lst					*ast_list_items;
+	char			*name;
+	t_lst			*wordlist;
+	struct s_ast_compound_list	*do_group;
+}					t_ast_for_clause;
 
-}							t_ast_compound_list;
+t_ast_for_clause	*ast_for_clause_new(void);
+void				ast_for_clause_del(t_ast_for_clause *ast_for_clause);
+void				ast_for_clause_del_void(void *this);
 
-t_ast_compound_list			*ast_compound_list_new(void);
-void						ast_compound_list_del(t_ast_compound_list *ast_compound_list);
+t_ast_for_clause	*ast_for_clause_new_from_tokens(t_lst *tokens, struct s_ast *ast);
+void				*ast_for_clause_new_from_tokens_void(t_lst *tokens, struct s_ast *ast);
+void				ast_for_clause_print_rec(t_ast_for_clause *ast_for_clause, int depth);
+void				ast_for_clause_print_rec_void(void *ast_for_clause, int depth);
 
-t_ast_compound_list			*ast_compound_list_new_from_tokens(t_lst *tokens, struct s_ast *ast);
-t_ast_compound_list	*ast_compound_list_new_from_tokens_wrap(t_lst *tokens,
-								char *open, char *close, struct s_ast *ast);
-void						ast_compound_list_print_rec(t_ast_compound_list *ast_compound_list, int depth);
-
-int							ast_compound_list_exec(t_ast_compound_list *ast_compound_list);
+bool				ast_for_clause_is_own_type(t_lst *tokens);
 
 #endif
