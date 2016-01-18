@@ -24,6 +24,8 @@ typedef struct		s_copast
 	bool			has_copy;
 	t_lst			*clip;
 	int				inc_index;
+	t_lst			*clipboard_letters;
+	bool			has_copy;
 }					t_copast;
 
 t_copast			*copast_new(int index);
