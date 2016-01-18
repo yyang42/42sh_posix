@@ -12,24 +12,18 @@
 
 #include "basics.h"
 #include "ast/expan/ast_expan_exec.h"
-#include "ast/expan/ast_expan_quote_removal.h"
 #include "patmatch.h"
 
-static void		iter_fn(void *expan_token_)
+void		expan_exec_field_splitting(t_expan_token *token)
 {
-	t_expan_token *expan_token;
+	t_environment		*env;
+	t_environment_var	*ifs;
 
-	expan_token = expan_token_;
-	if (expan_token->exec_expan)
+	(void)token;
+	env = environment_singleton();
+	ifs = environment_get(env, "IFS");
+	if (ifs && ifs->value_is_set == 1)
 	{
-		expan_token->exec_expan(expan_token);
-	}
-	expan_exec_pattern_matching(expan_token);
-	expan_quote_removal(&expan_token->res);
-}
 
-void			expan_exec(t_lst *expan_tokens)
-{
-	(void)expan_tokens;
-	twl_lst_iter0(expan_tokens, iter_fn);
+	}
 }

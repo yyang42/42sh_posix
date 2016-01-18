@@ -44,9 +44,11 @@ static int	expan_tokenizer_param_substitution_get_parameter_word(t_expan_param *
 	j = i;
 	word_start = i;
 	op_len = 0;
+	twl_printf("IN %d %s\n", i, &str[j]);
 	while (str[j] != 0 && str[j] != '}')
 	{
 		type = expan_tokenizer_param_substitution_get_operator(&str[j], &op_len);
+		twl_printf("FOUND TYPE %d\n", type);
 		if (type != UNDEFINED_PARAM)
 		{
 			expan_param->parameter = twl_strndup(&str[i], j - i);
@@ -57,6 +59,7 @@ static int	expan_tokenizer_param_substitution_get_parameter_word(t_expan_param *
 		else
 			j++;
 	}
+	twl_printf("OUT %d %s\n", j, &str[j]);
 	if (word_start == i)
 		expan_param->parameter = twl_strndup(&str[i], j - i);
 	else
