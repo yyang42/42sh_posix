@@ -19,6 +19,7 @@
 # include "edit/edit_key_mgr.h"
 # include "edit/letter_mgr.h"
 # include "edit/history_mgr.h"
+# include "edit/copast.h"
 # include "utils.h"
 
 typedef struct		s_edit
@@ -29,6 +30,7 @@ typedef struct		s_edit
 	bool			return_cmd;
 	t_lst			*history;
 	int				history_index;
+	t_copast		*copast;
 }					t_edit;
 
 t_edit				*edit_new(void);

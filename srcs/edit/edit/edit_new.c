@@ -30,6 +30,7 @@ t_edit				*edit_new(void)
 	this->return_cmd = false;
 	this->history = history_mgr_new();
 	this->history_index = 0;
+	this->copast = NULL;
 	cursor_reset_pos();
 	return (this);
 }

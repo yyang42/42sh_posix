@@ -10,29 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LETTER_MGR_H
-# define LETTER_MGR_H
+#include "edit/copast.h"
 
-# include "basics.h"
-# include "edit/letter.h"
-
-t_lst				*letter_mgr_new(void);
-void				letter_mgr_del(t_lst *letters);
-void				letter_mgr_add(t_lst *letters, t_letter *letter,
-															unsigned int index);
-void				letter_mgr_remove(t_lst *letters, int index);
-void				letter_mgr_print(t_lst *letters, int index);
-
-size_t				letter_mgr_get_size(t_lst *letters);
-
-char				*letter_mgr_concat_string(t_lst *letters);
-t_lst				*letter_mgr_clear(t_lst *letters);
-
-void				letter_mgr_move_prev_word(t_lst *letters, void *edit_);
-void				letter_mgr_move_next_word(t_lst *letters, void *edit_);
-void				letter_mgr_delete_prev_word(t_lst *letters, void *edit_);
-
-void				letters_mgr_insert_clip(t_lst *letters, int index, t_lst *clip);
-
-void				letter_mgr_debug_print(t_lst *letters);
-#endif
+void				copast_stop_copy(t_copast *this, int index, t_lst *letters)
+{
+	this->stop_index = index;
+	this->clipboard_letters = twl_lst_slice(letters, this->start_index, this->stop_index);
+	letter_mgr_debug_print(this->clipboard_letters);
+	this->has_copy = true;
+}

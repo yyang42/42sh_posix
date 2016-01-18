@@ -26,5 +26,7 @@ void				edit_move_next_word(void *edit_);
 void				edit_move_prev_word(void *edit_);
 void				edit_move_right(void *edit);
 void				edit_move_start(void *edit);
+void				edit_start_stop_cpy(void *_edit);
+void				edit_paste_clip(void *_edit);
 
 #endif
