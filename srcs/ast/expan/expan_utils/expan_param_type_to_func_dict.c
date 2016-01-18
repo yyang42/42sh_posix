@@ -33,6 +33,7 @@ void *expan_param_type_to_func_dict(t_expan_param_type type)
 		twl_dict_add(dict, twl_itoa(S_DOLLAR), expan_exec_param_dollar);
 		twl_dict_add(dict, twl_itoa(S_AT), expan_exec_param_at);
 		twl_dict_add(dict, twl_itoa(EXPAN_VAR), expan_exec_param_var);
+		twl_dict_add(dict, twl_itoa(COLON_HYPHEN), expan_exec_params_colon_hyphen);
 	}
 	str = twl_itoa(type);
 	ret = twl_dict_get(dict, str);
