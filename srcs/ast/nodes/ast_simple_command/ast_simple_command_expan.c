@@ -40,7 +40,7 @@ static void 	iter_redir_fn(void *redir_)
 
 	redir = redir_;
 	expan_init(&redir->param, REDIR_PARAM);
-	expan_init(&redir->param, REDIR_HEREDOC);
+	expan_init(&redir->heredoc_text, REDIR_HEREDOC);
 }
 
 int				ast_simple_command_expan(t_ast_simple_command *cmd)
