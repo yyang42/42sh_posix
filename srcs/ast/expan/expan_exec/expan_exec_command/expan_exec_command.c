@@ -10,19 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_EXPAN_TYPE_H
-# define AST_EXPAN_TYPE_H
+#include "basics.h"
+#include "ast/expan/ast_expan_exec.h"
+#include "ast/expan/ast_expan_command.h"
+#include "special_params.h"
+#include "environment.h"
 
-typedef enum	e_expan_type
+
+void			expan_exec_command(t_expan_token *expan_token)
 {
-	NONE,
-	TILDE,
-	PARAMETER,
-	COMMAND_SUBSTITUTION_DOLLAR,
-	COMMAND_SUBSTITUTION_BACKQUOTE,
-	ARITHMETIC,
-	PATHNAME,
-	QUOTE_REMOVAL
-}				t_expan_type;
+	t_expan_command	*expan_command;
 
-#endif
+	expan_command = expan_token->expan_data;
+	//TODO
+}

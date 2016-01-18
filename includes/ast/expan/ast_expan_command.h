@@ -10,19 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_EXPAN_TYPE_H
-# define AST_EXPAN_TYPE_H
+#ifndef AST_EXPAN_COMMAND_H
+# define AST_EXPAN_COMMAND_H
 
-typedef enum	e_expan_type
+#include "basics.h"
+
+typedef struct			s_expan_command
 {
-	NONE,
-	TILDE,
-	PARAMETER,
-	COMMAND_SUBSTITUTION_DOLLAR,
-	COMMAND_SUBSTITUTION_BACKQUOTE,
-	ARITHMETIC,
-	PATHNAME,
-	QUOTE_REMOVAL
-}				t_expan_type;
+	char				*command;
+}						t_expan_command;
 
+t_expan_command			*expan_command_new(void);
+void					expan_command_del(t_expan_command *expan_command);
+void					expan_command_print(t_expan_command *expan_command);
 #endif

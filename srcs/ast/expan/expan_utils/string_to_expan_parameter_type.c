@@ -15,7 +15,7 @@
 #include "ast/expan/ast_expan_param.h"
 #include "twl_dict.h"
 
-t_expan_param_type	string_1_to_expan_type(char *str)
+t_expan_param_type	string_1_to_expan_parameter_type(char *str)
 {
 	static t_dict	*dict_single = NULL;
 	char			*ret;
@@ -37,7 +37,7 @@ t_expan_param_type	string_1_to_expan_type(char *str)
 		return (UNDEFINED_PARAM);
 }
 
-t_expan_param_type	string_2_to_expan_type(char *str)
+t_expan_param_type	string_2_to_expan_parameter_type(char *str)
 {
 	static t_dict	*dict_double = NULL;
 	char			*ret;

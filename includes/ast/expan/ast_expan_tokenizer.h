@@ -44,5 +44,8 @@ int								expan_tokenizer_tilde(t_expan_tokenizer *tokenizer,
 	t_lst *expan_tokens, char *str,  int i);
 int								expan_tokenizer_param_substitution(t_expan_token *expan_token,
 		char *str, int i);
-
+int								expan_tokenizer_command_dollar(t_expan_tokenizer *tokenizer,
+			t_lst *expan_tokens, char *str,  int i);
+int								expan_tokenizer_command_backquote(t_expan_tokenizer *tokenizer,
+				t_lst *expan_tokens, char *str,  int i);
 #endif

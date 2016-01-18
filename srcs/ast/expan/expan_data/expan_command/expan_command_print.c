@@ -10,19 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_EXPAN_TYPE_H
-# define AST_EXPAN_TYPE_H
+#include "ast/expan/ast_expan_command.h"
 
-typedef enum	e_expan_type
+void				expan_command_print(t_expan_command *expan_command)
 {
-	NONE,
-	TILDE,
-	PARAMETER,
-	COMMAND_SUBSTITUTION_DOLLAR,
-	COMMAND_SUBSTITUTION_BACKQUOTE,
-	ARITHMETIC,
-	PATHNAME,
-	QUOTE_REMOVAL
-}				t_expan_type;
-
-#endif
+	twl_printf("\t\tToken : %s\n", expan_command->command);
+}

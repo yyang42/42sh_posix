@@ -17,12 +17,14 @@ static t_expan_type	identify_expan(char *str)
 	if (str[0] == '$')
 	{
 		if (str[1] == '(')
-			return (COMMAND_SUBSTITUTION);
+			return (COMMAND_SUBSTITUTION_DOLLAR);
 		else
 			return (PARAMETER);
 	}
 	else if (str[0] == '~')
 		return (TILDE);
+	else if (str[0] == '`')
+		return (COMMAND_SUBSTITUTION_BACKQUOTE);
 	return (NONE);
 }
 
