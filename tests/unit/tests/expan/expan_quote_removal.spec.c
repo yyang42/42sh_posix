@@ -100,7 +100,6 @@ static void hard_core_test(t_test *test)
 	char			*str;
 	str = twl_strdup("lol\"\\\\\'\\\'\\\"\"pouet");
 	expan_quote_removal(&str);
-	twl_printf("%s\n", str);
 	mt_assert(twl_strcmp(str,"lol\\\'\\\'\"pouet") == 0);
 	twl_strdel(&str);
 }
