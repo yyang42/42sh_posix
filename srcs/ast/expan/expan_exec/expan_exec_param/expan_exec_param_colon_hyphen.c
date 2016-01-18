@@ -10,25 +10,33 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_EXPAN_EXEC_H
-# define AST_EXPAN_EXEC_H
+#include "basics.h"
+#include "ast/expan/ast_expan_exec.h"
+#include "ast/expan/ast_expan_param.h"
+#include "special_params.h"
 
-# include "ast/expan/ast_expan_token.h"
-# include "basics.h"
-# include "environment.h"
 
-void			expan_exec(t_lst *expan_tokens);
-void			expan_exec_param_star(t_expan_token *expan_token);
-void			expan_exec_param_zero(t_expan_token *expan_token);
-void			expan_exec_param_at(t_expan_token *expan_token);
-void			expan_exec_param_dollar(t_expan_token *expan_token);
-void			expan_exec_param_hyphen(t_expan_token *expan_token);
-void			expan_exec_param_sharp(t_expan_token *expan_token);
-void			expan_exec_param_exclamation(t_expan_token *expan_token);
-void			expan_exec_param_question(t_expan_token *expan_token);
-void			expan_exec_param_var(t_expan_token *expan_token);
-void			expan_exec_tilde(t_expan_token *expan_token);
-void			expan_exec_command(t_expan_token *expan_token);
-void			expan_exec_params_colon_hyphen(t_expan_token *expan_token);
+void			expan_exec_params_colon_hyphen(t_expan_token *expan_token)
+{
+	t_expan_param		*data;
+	t_environment_var	*env_var;
+	t_environment		*env;
 
-#endif
+	data = expan_token->expan_data;
+	env = environment_singleton();
+	if (data->parameter)
+	{
+		env_var = environment_get(env, data->parameter);
+		if (env_var && env_var->value_is_set)
+		{
+			if (env_var->value != NULL && twl_strcmp(env_var->value, "") == 0)
+				expan_token->res = twl_strdup(env_var->value);
+			else
+				expan_token->res = twl_strdup(data->word);
+		}
+		else
+			expan_token->res = twl_strdup(data->word);
+	}
+	else
+		expan_token->res = twl_strdup("");
+}
