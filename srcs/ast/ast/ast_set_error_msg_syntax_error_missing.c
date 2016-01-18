@@ -16,5 +16,9 @@
 
 void				ast_set_error_msg_syntax_error_missing(t_ast *ast, t_token *token, char *msg)
 {
-	ast_set_error_msg_format(ast, token, "Syntax error near '%s' : Missing '%s'", token->text, msg);
+	char			*missing_msg;
+
+	twl_asprintf(&missing_msg, "Missing '%s'", msg);
+	ast_set_error_msg_syntax_error_near(ast, token, missing_msg);
+	free(missing_msg);
 }

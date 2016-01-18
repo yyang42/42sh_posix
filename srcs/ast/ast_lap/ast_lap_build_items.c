@@ -105,7 +105,7 @@ t_lst				*ast_lap_build_items(t_lst *tokens,
 						)
 					)
 				{
-					ast_set_error_msg_syntax_error_near(ast, sep);
+					ast_set_error_msg_syntax_error_near(ast, sep, NULL);
 					return (NULL);
 				}
 			}

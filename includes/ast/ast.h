@@ -44,10 +44,8 @@ void				ast_print_tokens(t_ast *ast);
 void				ast_print_rec(t_ast *ast);
 
 void				ast_set_error_msg_format(t_ast *ast, t_token *token, const char *fmt, ...);
-void				ast_set_error_msg_syntax_error(t_ast *ast);
-void				ast_set_error_msg_syntax_error_near(t_ast *ast, t_token *token);
+void				ast_set_error_msg_syntax_error_near(t_ast *ast, t_token *token, char *msg);
 void				ast_set_error_msg_syntax_error_missing(t_ast *ast, t_token *token, char *msg);
-void				ast_set_error_msg_syntax_error_msg(t_ast *ast, t_token *token, char *msg);
 
 bool				ast_has_error(t_ast *this);
 int					ast_exec(t_ast *ast);

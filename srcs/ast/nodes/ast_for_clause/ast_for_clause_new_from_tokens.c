@@ -48,7 +48,7 @@ t_ast_for_clause		*ast_for_clause_new_from_tokens(t_lst *tokens,
 	twl_lst_pop_front(tokens);
 	if (!token_utils_is_valid_name(this->name))
 	{
-		ast_set_error_msg_syntax_error_msg(ast, open, "invalid NAME token");
+		ast_set_error_msg_syntax_error_near(ast, open, "invalid NAME token");
 		return (NULL);
 	}
 	if (token_mgr_first_equ(tokens, "in"))
@@ -60,7 +60,7 @@ t_ast_for_clause		*ast_for_clause_new_from_tokens(t_lst *tokens,
 	this->do_group = ast_compound_list_new_from_tokens_wrap(tokens, "do", "done", ast);
 	if (this->do_group == NULL)
 	{
-		ast_set_error_msg_syntax_error_near(ast, open);
+		ast_set_error_msg_syntax_error_near(ast, open, NULL);
 		return (NULL);
 	}
 	return (this);
