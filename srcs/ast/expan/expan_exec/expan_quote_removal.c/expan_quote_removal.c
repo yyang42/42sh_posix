@@ -33,7 +33,7 @@ static void		expan_quote_remove_char(char **str, int i, size_t *len)
 	res = twl_strnew(*len);
 	twl_strncat(res, tmp, i);
 	i++;
-	twl_strncat(res, &tmp[i], *len - i);
+	twl_strncat(res, &tmp[i], *len - i + 1);
 	twl_strdel(&tmp);
 	*str = res;
 }
@@ -67,8 +67,10 @@ void			expan_quote_removal(char **res)
 			if (!q.is_backslashed && !q.is_single_quoted)
 				expan_quote_remove_char(&q.str, q.i, &len);
 			else
-				q.is_single_quoted = !q.is_single_quoted;
+				q.is_double_quoted = !q.is_double_quoted;
 		}
 		q.i++;
+		*res = q.str;
+		twl_printf("END OF LOOP ->%s\n", *res);
 	}
 }
