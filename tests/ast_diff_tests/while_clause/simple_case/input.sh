@@ -1,4 +1,4 @@
-while ;
+while true ;
 do
-	echo $namevar
+	echo abc
 done

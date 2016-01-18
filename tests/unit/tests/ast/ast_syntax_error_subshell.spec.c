@@ -4,7 +4,7 @@
 
 mt_test_ast_error(01, "(cmd_level_1); (\n", "SyntaxError 1:16 : Syntax error near '('", false);
 mt_test_ast_error(02, "( ( )\n", "SyntaxError 1:5 : Syntax error near ')' : Empty simple command", false);
-mt_test_ast_error(03, "( ; ; )\n", "SyntaxError 1:7 : Syntax error near ')' : Empty simple command", false);
+mt_test_ast_error(03, "( ; ; )\n", "SyntaxError 1:3 : Syntax error near ';' : Empty simple command", false);
 mt_test_ast_error(04, "( \n", "SyntaxError 1:1 : Syntax error near '('", false);
 
 void	suite_ast_syntax_error_subshell(t_suite *suite)

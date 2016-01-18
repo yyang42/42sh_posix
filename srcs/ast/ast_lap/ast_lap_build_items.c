@@ -63,14 +63,26 @@ t_lst				*ast_lap_build_items(t_lst *tokens,
 	void			*item;
 	t_lst			*container;
 	t_token			*first;
+	t_token			*last_sep;
 
+	last_sep = NULL;
 	container = twl_lst_new();
 	while (true)
 	{
 		token_mgr_pop_linebreak(tokens);
 		if (twl_lst_len(tokens) == 0)
+		{
+			if (last_sep && (twl_strequ(last_sep->text, "&&")
+							|| twl_strequ(last_sep->text, "||")
+							|| twl_strequ(last_sep->text, "|"))
+				)
+			{
+				ast_set_error_msg_syntax_error_near(ast, last_sep, NULL);
+				return (NULL);
+			}
 			break ;
-		// token_mgr_print(tokens);
+		}
+		last_sep = NULL;
 		if (token_mgr_first_equ(tokens, "then")
 			|| token_mgr_first_equ(tokens, "elif")
 			|| token_mgr_first_equ(tokens, "else")
@@ -80,36 +92,38 @@ t_lst				*ast_lap_build_items(t_lst *tokens,
 			)
 			break ;
 		item = ast_lap_new_from_tokens_fns()[type](tokens, ast);
+		if (ast_has_error(ast))
+			return (NULL);
 		first = token_mgr_first(tokens);
 		twl_lst_push(container, item);
 		if (first && twl_lst_find(ast_lap_get_seps_list()[type], twl_strequ_void, first->text))
 		{
-			t_token *sep = first;
+			// t_token *sep = first;
 			ast_lap_set_separator_fns()[type](item, first);
-			twl_lst_pop_front(tokens);
-			t_token *next_token = twl_lst_first(tokens);
+			last_sep = twl_lst_pop_front(tokens);
 
-			if (twl_strequ(sep->text, "&&")
-					|| twl_strequ(sep->text, "||")
-					|| twl_strequ(sep->text, "|")
-					|| twl_strequ(sep->text, ";")
-					|| twl_strequ(sep->text, "&")
-				)
-			{
-				if (!next_token
-					|| (twl_strequ(next_token->text, "&&")
-						|| twl_strequ(next_token->text, "||")
-						|| twl_strequ(next_token->text, "|")
-						|| twl_strequ(next_token->text, ";")
-						|| twl_strequ(next_token->text, "&")
-						|| twl_strequ(next_token->text, "\n")
-						)
-					)
-				{
-					ast_set_error_msg_syntax_error_near(ast, sep, NULL);
-					return (NULL);
-				}
-			}
+			// t_token *next_token = twl_lst_first(tokens);
+
+			// if (twl_strequ(sep->text, "&&")
+			// 		|| twl_strequ(sep->text, "||")
+			// 		|| twl_strequ(sep->text, "|")
+			// 		|| twl_strequ(sep->text, ";")
+			// 		|| twl_strequ(sep->text, "&")
+			// 	)
+			// {
+			// 	if (!next_token
+			// 		|| (twl_strequ(next_token->text, "&&")
+			// 			|| twl_strequ(next_token->text, "||")
+			// 			|| twl_strequ(next_token->text, "|")
+			// 			|| twl_strequ(next_token->text, ";")
+			// 			|| twl_strequ(next_token->text, "&")
+			// 			)
+			// 		)
+			// 	{
+			// 		ast_set_error_msg_syntax_error_near(ast, sep, NULL);
+			// 		return (NULL);
+			// 	}
+			// }
 		}
 		else
 		{
