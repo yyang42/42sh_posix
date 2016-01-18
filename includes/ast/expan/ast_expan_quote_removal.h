@@ -10,30 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/expan/ast_expan_tokenizer.h"
-#include "ast/expan/ast_expan_tilde.h"
-#include "ast/expan/ast_expan_param.h"
-#include "ast/expan/ast_expan_command.h"
-#include "ast/expan/ast_expan_type.h"
-#include "twl_dict.h"
+#ifndef AST_EXPAN_QUOTE_REMOVAL_H
+# define AST_EXPAN_QUOTE_REMOVAL_H
 
-void *expan_param_type_to_print_func(t_expan_type type)
+#include "basics.h"
+
+typedef struct			s_expan_quote_removal
 {
-	static t_dict *dict = NULL;
-	char			*str;
-	void			*ret;
+	char				*str;
+	int					i;
+	bool				is_single_quoted;
+	bool				is_double_quoted;
+	bool				is_backslashed;
+}						t_expan_quote_removal;
 
-	if (dict == NULL)
-	{
-		dict = twl_dict_new();
-		twl_dict_add(dict, twl_itoa(NONE), NULL);
-		twl_dict_add(dict, twl_itoa(TILDE), expan_tilde_print);
-		twl_dict_add(dict, twl_itoa(PARAMETER), expan_param_print);
-		twl_dict_add(dict, twl_itoa(COMMAND_SUBSTITUTION_BACKQUOTE), expan_command_print);
-		twl_dict_add(dict, twl_itoa(COMMAND_SUBSTITUTION_DOLLAR), expan_command_print);
-	}
-	str = twl_itoa(type);
-	ret = twl_dict_get(dict, str);
-	twl_strdel(&str);
-	return (ret);
-}
+#endif

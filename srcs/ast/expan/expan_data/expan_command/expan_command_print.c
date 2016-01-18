@@ -14,5 +14,5 @@
 
 void				expan_command_print(t_expan_command *expan_command)
 {
-	twl_printf("\t\tToken : %s\n", expan_command->command);
+	twl_printf("\t\tCommand : %s\n", expan_command->command);
 }

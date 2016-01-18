@@ -32,6 +32,7 @@ static int		expan_token_parse_command_backquote(t_expan_command *command, char *
 				is_between_dq = !is_between_dq;
 			else if (str[j] == '`' && !is_between_dq && !is_between_sq)
 				break;
+		j++;
 	}
 	if (i < j)
 		command->command = twl_strndup(&str[i], j - i);
@@ -47,10 +48,10 @@ int				expan_tokenizer_command_backquote(t_expan_tokenizer *tokenizer,
 	expan_token = expan_token_new(COMMAND_SUBSTITUTION_BACKQUOTE);
 	expan_command = expan_command_new();
 	expan_token->origin = tokenizer->origin;
-	i += 2;
+	i++;
 	i = expan_token_parse_command_backquote(expan_command, str, i);
 	expan_token->exec_expan = expan_exec_command;
 	expan_token->expan_data = expan_command;
 	expan_token_mgr_add(expan_tokens, expan_token);
-	return (i);
+	return (++i);
 }

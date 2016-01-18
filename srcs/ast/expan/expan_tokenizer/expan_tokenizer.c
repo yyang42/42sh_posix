@@ -25,6 +25,11 @@ static t_expan_type	identify_expan(char *str)
 		return (TILDE);
 	else if (str[0] == '`')
 		return (COMMAND_SUBSTITUTION_BACKQUOTE);
+	else if (str[0] == '(')
+	{
+		if (str[1] == '(')
+			return (ARITHMETIC);
+	}
 	return (NONE);
 }
 
@@ -63,6 +68,22 @@ void					expan_tokenizer(char *str, t_lst *expan_tokens,
 						tokenizer->last = tokenizer->i;
 						tokenizer->i--;
 					}
+				}
+				else if (type == COMMAND_SUBSTITUTION_DOLLAR)
+				{
+					tokenizer->i = expan_tokenizer_command_dollar(tokenizer, expan_tokens, str, tokenizer->i);
+					tokenizer->last = tokenizer->i;
+					tokenizer->i--;
+				}
+				else if (type == COMMAND_SUBSTITUTION_BACKQUOTE)
+				{
+					tokenizer->i = expan_tokenizer_command_backquote(tokenizer, expan_tokens, str, tokenizer->i);
+					tokenizer->last = tokenizer->i;
+					tokenizer->i--;
+				}
+				else if (type == ARITHMETIC)
+				{
+					//GO @LUDO GO @LUDO
 				}
 			}
 			tokenizer->i++;

@@ -32,6 +32,7 @@ static int		expan_token_parse_command_dollar(t_expan_command *command, char *str
 				is_between_dq = !is_between_dq;
 			else if (str[j] == ')' && !is_between_dq && !is_between_sq)
 				break;
+		j++;
 	}
 	if (i < j)
 		command->command = twl_strndup(&str[i], j - i);
