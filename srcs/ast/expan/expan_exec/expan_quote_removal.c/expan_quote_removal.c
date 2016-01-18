@@ -30,7 +30,7 @@ static void		expan_quote_remove_char(char **str, int i, size_t *len)
 
 	tmp = *str;
 	*len = *len - 1;
-	res = twl_strnew(*len - 1);
+	res = twl_strnew(*len);
 	twl_strncat(res, tmp, i);
 	i++;
 	twl_strncat(res, &tmp[i], *len - i);
@@ -50,21 +50,21 @@ void			expan_quote_removal(char **res)
 	{
 		if (q.str[q.i] == '\\')
 		{
-			if (q.is_single_quoted || q.is_double_quoted)
+			if (!q.is_single_quoted && !q.is_double_quoted)
 				expan_quote_remove_char(&q.str, q.i, &len);
 			else
 				q.is_backslashed = !q.is_backslashed;
 		}
 		else if (q.str[q.i] == '\'')
 		{
-			if (q.is_backslashed || q.is_double_quoted)
+			if (!q.is_backslashed && !q.is_double_quoted)
 				expan_quote_remove_char(&q.str, q.i, &len);
 			else
 				q.is_single_quoted = !q.is_single_quoted;
 		}
 		else if (q.str[q.i] == '"')
 		{
-			if (q.is_backslashed || q.is_single_quoted)
+			if (!q.is_backslashed && !q.is_single_quoted)
 				expan_quote_remove_char(&q.str, q.i, &len);
 			else
 				q.is_single_quoted = !q.is_single_quoted;

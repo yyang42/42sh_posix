@@ -24,4 +24,6 @@ typedef struct			s_expan_quote_removal
 	bool				is_backslashed;
 }						t_expan_quote_removal;
 
+void					expan_quote_removal(char **res);
+
 #endif
