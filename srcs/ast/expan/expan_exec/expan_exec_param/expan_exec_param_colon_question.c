@@ -15,14 +15,16 @@
 #include "ast/expan/ast_expan_param.h"
 #include "special_params.h"
 
-static void		set_env_and_token(t_environment *env, t_expan_token *expan_tok,
-	t_expan_param *data)
+static void		print_error_msg(t_expan_param *data)
 {
-	environment_setenv_value(env, data->parameter, data->word);
-	expan_tok->res = twl_strdup(data->word);
+	if (twl_strcmp(data->word, ""))
+		twl_dprintf(2, "42sh: %s: %s\n", data->parameter, data->word);
+	else
+		twl_dprintf(2, "42sh: %s: parameter null or not set\n",
+			data->parameter);
 }
 
-void			expan_exec_params_colon_equal(t_expan_token *expan_token)
+void			expan_exec_params_colon_question(t_expan_token *expan_token)
 {
 	t_expan_param		*data;
 	t_environment_var	*env_var;
@@ -36,13 +38,18 @@ void			expan_exec_params_colon_equal(t_expan_token *expan_token)
 		if (env_var && env_var->value_is_set)
 		{
 			if (env_var->value != NULL && twl_strcmp(env_var->value, "") != 0)
+			{
 				expan_token->res = twl_strdup(env_var->value);
+				return ;
+			}
 			else
-				set_env_and_token(env, expan_token, data);
+				print_error_msg(data);
 		}
 		else
-			set_env_and_token(env, expan_token, data);
+			print_error_msg(data);
+
 	}
 	else
-		expan_token->res = twl_strdup("");
+		print_error_msg(data);
+	expan_token->res = twl_strdup("");
 }
