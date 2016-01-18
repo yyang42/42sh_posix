@@ -12,6 +12,7 @@
 
 #include "basics.h"
 #include "ast/expan/ast_expan_exec.h"
+#include "ast/expan/ast_expan_quote_removal.h"
 
 static void		iter_fn(void *expan_token_)
 {
@@ -22,6 +23,7 @@ static void		iter_fn(void *expan_token_)
 	{
 		expan_token->exec_expan(expan_token);
 	}
+	expan_quote_removal(&expan_token->res);
 }
 
 void			expan_exec(t_lst *expan_tokens)
