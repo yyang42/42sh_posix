@@ -75,12 +75,13 @@ t_lst				*ast_lap_build_items(t_lst *tokens,
 			|| token_mgr_first_equ(tokens, "elif")
 			|| token_mgr_first_equ(tokens, "else")
 			|| token_mgr_first_equ(tokens, "fi")
+			|| token_mgr_first_equ(tokens, "do")
 			|| token_mgr_first_equ(tokens, "done")
 			)
 			break ;
 		item = ast_lap_new_from_tokens_fns()[type](tokens, ast);
-		twl_lst_push(container, item);
 		first = token_mgr_first(tokens);
+		twl_lst_push(container, item);
 		if (first && twl_lst_find(ast_lap_get_seps_list()[type], twl_strequ_void, first->text))
 		{
 			t_token *sep = first;

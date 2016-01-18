@@ -10,24 +10,43 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "token/token_list_mgr.h"
-
-#include "ast/ast.h"
 #include "data.h"
-
+#include "ast/ast.h"
+#include "token/token_list_mgr.h"
+#include "token/token_utils.h"
+#include "ast/nodes/ast_while_clause.h"
 #include "ast/nodes/ast_compound_list.h"
-#include "ast/ast_lap.h"
+#include "ast/nodes/ast_if_then.h"
 
-t_ast_compound_list	*ast_compound_list_new_from_tokens(t_lst *tokens,
+t_ast_while_clause		*ast_while_clause_new_from_tokens(t_lst *tokens,
 	struct s_ast *ast)
 {
-	t_ast_compound_list			*this;
-	this = ast_compound_list_new();
-	token_mgr_pop_linebreak(tokens);
-	this->ast_list_items = ast_lap_build_items(tokens, AST_TYPE_LIST_ITEM, ast);
+	t_ast_while_clause		*this;
+	t_token				*open;
 
+	this = ast_while_clause_new();
+	open = twl_lst_pop_front(tokens);
+	// token_mgr_print(tokens);
+	this->cond_compound = ast_compound_list_new_from_tokens(tokens,
+		ast);
+	if (this->cond_compound == NULL
+		|| twl_lst_len(this->cond_compound->ast_list_items) == 0)
+	{
+		ast_set_error_msg_syntax_error_near(ast, open, "Missing condition");
+		return (NULL);
+	}
+	// token_mgr_print(tokens);
+	twl_printf("len %zu\n", twl_lst_len(this->cond_compound->ast_list_items));
 	if (ast_has_error(ast))
-		return NULL;
-	return this;
+		return (NULL);
+	// token_mgr_print(tokens);
+	this->do_group = ast_compound_list_new_from_tokens_wrap(tokens, "do", "done", ast);
+	if (this->do_group == NULL)
+	{
+		ast_set_error_msg_syntax_error_near(ast, open, NULL);
+		return (NULL);
+	}
+	return (this);
 	(void)ast;
+	(void)tokens;
 }

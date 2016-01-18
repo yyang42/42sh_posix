@@ -24,6 +24,7 @@ static t_compound_command_print_rec_fn	*get_print_rec_fns(void)
 		fns[COMPOUND_COMMAND_SUBSHELL] = ast_subshell_print_rec_void;
 		fns[COMPOUND_COMMAND_IF_CLAUSE] = ast_if_clause_print_rec_void;
 		fns[COMPOUND_COMMAND_FOR_CLAUSE] = ast_for_clause_print_rec_void;
+		fns[COMPOUND_COMMAND_WHILE_CLAUSE] = ast_while_clause_print_rec_void;
 		fns[COMPOUND_COMMAND_BRACE_GROUP] = ast_brace_group_print_rec_void;
 	}
 	return (fns);

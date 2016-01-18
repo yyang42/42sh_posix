@@ -10,32 +10,26 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_compound_command.h"
+#include "ast/nodes/ast_while_clause.h"
+#include "ast/nodes/ast_compound_list.h"
+#include "ast/nodes/ast_if_then.h"
 
-static t_compound_command_print_del_fn	*get_print_del_fns(void)
+void				ast_while_clause_print_rec(t_ast_while_clause *this,
+	int depth)
 {
-	static t_compound_command_print_del_fn	fns[COMPOUND_COMMAND_NBR];
-	static bool								already_loaded = false;
-
-	if (already_loaded == false)
+	ast_print_indent(depth);
+	twl_printf("ast_while_clause\n");
+	depth++;
+	if (this->cond_compound)
 	{
-		fns[COMPOUND_COMMAND_SUBSHELL] = ast_subshell_del_void;
-		fns[COMPOUND_COMMAND_IF_CLAUSE] = ast_if_clause_del_void;
-		fns[COMPOUND_COMMAND_FOR_CLAUSE] = ast_for_clause_del_void;
-		fns[COMPOUND_COMMAND_WHILE_CLAUSE] = ast_while_clause_del_void;
-		fns[COMPOUND_COMMAND_BRACE_GROUP] = ast_brace_group_del_void;
+		ast_print_indent(depth);
+		twl_printf("cond_compound\n");
+		ast_compound_list_print_rec(this->cond_compound, depth + 1);
 	}
-	return (fns);
-}
-
-void									ast_compound_command_del(
-	t_ast_compound_command *this)
-{
-	if (this->command_type != COMPOUND_COMMAND_NONE)
+	if (this->do_group)
 	{
-		if (this->command)
-			get_print_del_fns()[this->command_type](this->command);
-		twl_lst_del(this->redir_items, ast_redir_del_void);
+		ast_print_indent(depth);
+		twl_printf("do_group\n");
+		ast_compound_list_print_rec(this->do_group, depth + 1);
 	}
-	free(this);
 }
