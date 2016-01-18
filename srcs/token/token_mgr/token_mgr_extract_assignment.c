@@ -16,19 +16,23 @@
 #include "token/token_mgr.h"
 #include "openclose/openclose_matcher.h"
 
+static bool			is_assignment_from_lst(t_lst *segs, char *str)
+{
+	if (!token_utils_is_valid_name(twl_lst_first(segs)))
+		return (false);
+	if ((str[twl_strlen(str) - 1] == '=')
+		|| twl_lst_len(segs) >= 2)
+		return (true);
+	return (false);
+}
+
 static bool			is_assignment(char *str)
 {
 	t_lst			*segs;
 	bool			is_assign;
 
 	segs = twl_str_split_to_lst(str, "=");
-	if (*str && str[twl_strlen(str) - 1] == '=')
-		return (true);
-	if (twl_lst_len(segs) >= 2
-		&& token_utils_is_valid_name(twl_lst_first(segs)))
-		is_assign = true;
-	else
-		is_assign = false;
+	is_assign = is_assignment_from_lst(segs, str);
 	twl_lst_del(segs, free);
 	return (is_assign);
 }
