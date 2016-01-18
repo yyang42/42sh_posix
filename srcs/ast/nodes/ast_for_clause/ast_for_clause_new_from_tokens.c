@@ -34,7 +34,6 @@ t_ast_for_clause		*ast_for_clause_new_from_tokens(t_lst *tokens,
 {
 	t_ast_for_clause		*this;
 	t_token				*open;
-	// t_ast_if_then 		*if_then;
 
 	this = ast_for_clause_new();
 	open = twl_lst_pop_front(tokens);
@@ -64,6 +63,4 @@ t_ast_for_clause		*ast_for_clause_new_from_tokens(t_lst *tokens,
 		return (NULL);
 	}
 	return (this);
-	(void)ast;
-	(void)tokens;
 }

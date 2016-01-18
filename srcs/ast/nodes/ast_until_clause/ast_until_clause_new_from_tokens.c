@@ -28,7 +28,6 @@ t_ast_until_clause		*ast_until_clause_new_from_tokens(t_lst *tokens,
 	open = twl_lst_pop_front(tokens);
 	this->cond_compound = ast_compound_list_new_from_tokens(tokens,
 		ast);
-	// token_mgr_print(tokens);
 	if (ast_has_error(ast))
 		return (NULL);
 	if (this->cond_compound == NULL
@@ -37,11 +36,8 @@ t_ast_until_clause		*ast_until_clause_new_from_tokens(t_lst *tokens,
 		ast_set_error_msg_syntax_error_near(ast, open, "Missing condition");
 		return (NULL);
 	}
-	// token_mgr_print(tokens);
-	// twl_printf("len %zu\n", twl_lst_len(this->cond_compound->ast_list_items));
 	if (ast_has_error(ast))
 		return (NULL);
-	// token_mgr_print(tokens);
 	this->do_group = ast_compound_list_new_from_tokens_wrap(tokens, "do", "done", ast);
 	if (ast_has_error(ast))
 		return (NULL);
@@ -51,6 +47,4 @@ t_ast_until_clause		*ast_until_clause_new_from_tokens(t_lst *tokens,
 		return (NULL);
 	}
 	return (this);
-	(void)ast;
-	(void)tokens;
 }
