@@ -24,6 +24,7 @@
 # include "ast/nodes/ast_if_clause.h"
 # include "ast/nodes/ast_for_clause.h"
 # include "ast/nodes/ast_while_clause.h"
+# include "ast/nodes/ast_until_clause.h"
 # include "ast/nodes/ast_brace_group.h"
 
 typedef enum		s_compound_command_type
@@ -33,6 +34,7 @@ typedef enum		s_compound_command_type
 	COMPOUND_COMMAND_IF_CLAUSE,
 	COMPOUND_COMMAND_FOR_CLAUSE,
 	COMPOUND_COMMAND_WHILE_CLAUSE,
+	COMPOUND_COMMAND_UNTIL_CLAUSE,
 	COMPOUND_COMMAND_BRACE_GROUP,
 	COMPOUND_COMMAND_NBR
 }					t_compound_command_type;
