@@ -4,7 +4,7 @@
 #include "token/token_mgr.h"
 #include "token/token_list_mgr.h"
 
-# define mt_test_extract_assign(test_name, input, expected, remain, debug) \
+# define mt_test_extract_assign(test_name, input, expected, expected_remain, debug) \
 	static void test_## test_name(t_test *test) \
 	{ \
 		t_lst			*tokens_list; \
@@ -26,6 +26,7 @@
 			twl_printf("remaining_str {%s}\n", remaining_str); \
 		} \
 		mt_assert(strcmp(joined_str, expected) == 0); \
+		mt_assert(strcmp(remaining_str, expected_remain) == 0); \
 		free(joined_str); \
 		free(remaining_str); \
 		token_mgr_del_inner(tokens); \
@@ -40,6 +41,9 @@ mt_test_extract_assign(num4, "a=b",            "a=b",     "", 			  false);
 mt_test_extract_assign(num5, "a= echo abc",    "a=",      "echo_abc",     false);
 mt_test_extract_assign(num6, "a=1 b=2 c=3 echo abc d=4",
 							 "a=1_b=2_c=3", "echo_abc_d=4", 			  false);
+mt_test_extract_assign(num7, "123=b echo a",    "",      "123=b_echo_a",       false);
+mt_test_extract_assign(num8, "123= echo a",    "",      "123=_echo_a",       false);
+mt_test_extract_assign(num9, "${x=ls}",    "",      "${x=ls}",       false);
 
 void	suite_token_mgr_extract_assignment(t_suite *suite)
 {
@@ -49,4 +53,7 @@ void	suite_token_mgr_extract_assignment(t_suite *suite)
 	SUITE_ADD_TEST(suite, test_num4);
 	SUITE_ADD_TEST(suite, test_num5);
 	SUITE_ADD_TEST(suite, test_num6);
+	SUITE_ADD_TEST(suite, test_num7);
+	SUITE_ADD_TEST(suite, test_num8);
+	SUITE_ADD_TEST(suite, test_num9);
 }
