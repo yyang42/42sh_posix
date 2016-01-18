@@ -21,7 +21,6 @@ t_expan_param_type	expan_tokenizer_param_substitution_get_operator(char *str, in
 	t_expan_param_type	type;
 
 	operator = twl_strndup(str, 2);
-	twl_printf("2-Lookin for %s\n", operator);
 	type = string_2_to_expan_parameter_type(operator);
 	if (type != UNDEFINED_PARAM)
 	{
@@ -30,7 +29,6 @@ t_expan_param_type	expan_tokenizer_param_substitution_get_operator(char *str, in
 	}
 	twl_strdel(&operator);
 	operator = twl_strndup(str, 1);
-	twl_printf("1-Lookin for %s\n", operator);
 	*j = 1;
 	return (string_1_to_expan_parameter_type(operator));
 }

@@ -17,7 +17,7 @@
 
 static void		expan_quote_removal_init(t_expan_quote_removal *q)
 {
-	q->i = 0;
+	q->i = -1;
 	q->is_single_quoted = false;
 	q->is_double_quoted = false;
 	q->is_backslashed = false;
@@ -38,6 +38,44 @@ static void		expan_quote_remove_char(char **str, int i, size_t *len)
 	*str = res;
 }
 
+static void		expan_quote_slash(t_expan_quote_removal *q, size_t *len)
+{
+	if (!q->is_backslashed && !q->is_single_quoted && !q->is_double_quoted)
+	{
+		expan_quote_remove_char(&q->str, q->i, len);
+		q->is_backslashed = !q->is_backslashed;
+		q->i--;
+	}
+	else if (!q->is_backslashed && q->is_double_quoted && q->str[q->i + 1] == '\\')
+	{
+		q->is_backslashed = !q->is_backslashed;
+		expan_quote_remove_char(&q->str, q->i, len);
+		q->i--;
+	}
+	else if (!q->is_backslashed && !q->is_single_quoted && q->str[q->i + 1] == '"')
+	{
+		q->is_backslashed = !q->is_backslashed;
+		expan_quote_remove_char(&q->str, q->i, len);
+		q->i--;
+	}
+	else if (q->is_backslashed)
+	{
+		q->is_backslashed = !q->is_backslashed;
+	}
+}
+
+static void		expan_quote_double(t_expan_quote_removal *q, size_t *len)
+{
+	if (!q->is_backslashed && !q->is_single_quoted)
+	{
+		expan_quote_remove_char(&q->str, q->i, len);
+		q->is_double_quoted = !q->is_double_quoted;
+		q->i--;
+	}
+	else if (!q->is_single_quoted)
+		q->is_backslashed = !q->is_backslashed;
+}
+
 void			expan_quote_removal(char **res)
 {
 	t_expan_quote_removal	q;
@@ -46,33 +84,10 @@ void			expan_quote_removal(char **res)
 	expan_quote_removal_init(&q);
 	q.str = *res;
 	len = twl_strlen(q.str);
-	while (q.str[q.i] != 0)
+	while (q.str[++q.i] != 0)
 	{
 		if (q.str[q.i] == '\\')
-		{
-			if (!q.is_backslashed && !q.is_single_quoted && !q.is_double_quoted)
-			{
-				expan_quote_remove_char(&q.str, q.i, &len);
-				q.is_backslashed = !q.is_backslashed;
-				q.i--;
-			}
-			else if (!q.is_backslashed && q.is_double_quoted && q.str[q.i + 1] == '\\')
-			{
-				q.is_backslashed = !q.is_backslashed;
-				expan_quote_remove_char(&q.str, q.i, &len);
-				q.i--;
-			}
-			else if (!q.is_backslashed && !q.is_single_quoted && q.str[q.i + 1] == '"')
-			{
-				q.is_backslashed = !q.is_backslashed;
-				expan_quote_remove_char(&q.str, q.i, &len);
-				q.i--;
-			}
-			else if (q.is_backslashed)
-			{
-				q.is_backslashed = !q.is_backslashed;
-			}
-		}
+			expan_quote_slash(&q, &len);
 		else if (q.str[q.i] == '\'')
 		{
 			if (!q.is_backslashed && !q.is_double_quoted)
@@ -83,19 +98,9 @@ void			expan_quote_removal(char **res)
 			}
 		}
 		else if (q.str[q.i] == '"')
-		{
-			if (!q.is_backslashed && !q.is_single_quoted)
-			{
-				expan_quote_remove_char(&q.str, q.i, &len);
-				q.is_double_quoted = !q.is_double_quoted;
-				q.i--;
-			}
-			else if (!q.is_single_quoted)
-				q.is_backslashed = !q.is_backslashed;
-		}
+			expan_quote_double(&q, &len);
 		else if (q.is_backslashed)
 			q.is_backslashed = !q.is_backslashed;
-		q.i++;
 		*res = q.str;
 	}
 }
