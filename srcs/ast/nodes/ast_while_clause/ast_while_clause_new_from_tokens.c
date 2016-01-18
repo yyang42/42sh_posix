@@ -29,6 +29,8 @@ t_ast_while_clause		*ast_while_clause_new_from_tokens(t_lst *tokens,
 	// token_mgr_print(tokens);
 	this->cond_compound = ast_compound_list_new_from_tokens(tokens,
 		ast);
+	if (ast_has_error(ast))
+		return (NULL);
 	if (this->cond_compound == NULL
 		|| twl_lst_len(this->cond_compound->ast_list_items) == 0)
 	{
@@ -36,11 +38,13 @@ t_ast_while_clause		*ast_while_clause_new_from_tokens(t_lst *tokens,
 		return (NULL);
 	}
 	// token_mgr_print(tokens);
-	twl_printf("len %zu\n", twl_lst_len(this->cond_compound->ast_list_items));
+	// twl_printf("len %zu\n", twl_lst_len(this->cond_compound->ast_list_items));
 	if (ast_has_error(ast))
 		return (NULL);
 	// token_mgr_print(tokens);
 	this->do_group = ast_compound_list_new_from_tokens_wrap(tokens, "do", "done", ast);
+	if (ast_has_error(ast))
+		return (NULL);
 	if (this->do_group == NULL)
 	{
 		ast_set_error_msg_syntax_error_near(ast, open, NULL);

@@ -80,6 +80,13 @@ t_ast_simple_command	*ast_simple_command_new_from_tokens(t_lst *tokens, struct s
 	{
 		twl_lst_push(this->command_tokens, twl_lst_pop_front(tokens));
 	}
+	if (twl_lst_len(this->command_tokens) == 0)
+	{
+		ast_simple_command_del(this);
+		ast_set_error_msg_syntax_error_near(ast,
+			token_mgr_first(tokens), "Empty simple command");
+		return (NULL);
+	}
 	build_tokens(this, this->command_tokens, ast);
 	(void)build_tokens;
 
