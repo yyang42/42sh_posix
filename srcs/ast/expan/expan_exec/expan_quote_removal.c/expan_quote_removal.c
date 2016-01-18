@@ -56,10 +56,16 @@ void			expan_quote_removal(char **res)
 				q.is_backslashed = !q.is_backslashed;
 				q.i--;
 			}
-			else if (!q.is_backslashed && q.is_double_quoted)
+			else if (!q.is_backslashed && q.is_double_quoted && q.str[q.i + 1] == '\\')
 			{
-				expan_quote_remove_char(&q.str, q.i, &len);
 				q.is_backslashed = !q.is_backslashed;
+				expan_quote_remove_char(&q.str, q.i, &len);
+				q.i--;
+			}
+			else if (!q.is_backslashed && !q.is_single_quoted && q.str[q.i + 1] == '"')
+			{
+				q.is_backslashed = !q.is_backslashed;
+				expan_quote_remove_char(&q.str, q.i, &len);
 				q.i--;
 			}
 			else if (q.is_backslashed)
@@ -84,6 +90,8 @@ void			expan_quote_removal(char **res)
 				q.is_double_quoted = !q.is_double_quoted;
 				q.i--;
 			}
+			else if (!q.is_single_quoted)
+				q.is_backslashed = !q.is_backslashed;
 		}
 		else if (q.is_backslashed)
 			q.is_backslashed = !q.is_backslashed;
