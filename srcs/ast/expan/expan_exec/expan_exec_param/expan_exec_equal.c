@@ -18,7 +18,7 @@
 static void		set_env_and_token(t_environment *env, t_expan_token *expan_tok,
 	t_expan_param *data)
 {
-	environment_setenv_value(env, data->parameter, data->word);
+	environment_setenv_value(env, data->parameter, data->word, 1);
 	expan_tok->res = twl_strdup(data->word);
 }
 

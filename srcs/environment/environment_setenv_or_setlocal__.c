@@ -30,12 +30,11 @@ void				environment_setenv_or_setlocal__(t_environment *this,
 		if (twl_strlen(key) > 0)
 		{
 			temp = value;
-			value = value ? value + 1 : "";
 			if (environment_getenv_value(this, key))
-				environment_setenv_value(this, key, value);
+				environment_setenv_value(this, key, value ? value + 1 : "", value ? 1 : 0);
 			else
 				twl_lst_push(this->env_vars, environment_var_new(key, value,
-					type, temp != NULL));
+					type, value ? 1 : 0));
 			free(key);
 			return ;
 		}

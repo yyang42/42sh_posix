@@ -10,39 +10,28 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "basics.h"
+#include "ast/expan/ast_expan_field_splitting.h"
 #include "environment.h"
+#include "patmatch.h"
+#include "twl_xstring.h"
 
-static bool			find_env_key(void *data, void *context)
+void		expan_field_splitting_ifs(char **res, char *ifs)
 {
-	t_environment_var	*var;
-	char				*str;
+	int		i;
+	char	*str;
 
-	var = data;
-	str = context;
-	return (twl_strcmp(var->key, str) == 0);
-}
-
-int					environment_setenv_value(t_environment *this,
-	char *key, char *value, int value_is_set)
-{
-	t_environment_var	*var;
-
-	if (key == NULL || *key == '\0')
+	i = 0;
+	str = *res;
+	while (str[i] != 0)
 	{
-		errno = EINVAL;
-		return (-1);
+		if (twl_strchr(ifs, str[i]))
+		{
+			if (str[i + 1] == 0)
+				str[i] = 0;
+			else
+				str[i] = ' ';
+		}
+		i++;
 	}
-	var = (t_environment_var *)(twl_lst_find(this->env_vars, find_env_key,
-																		key));
-	if (var != NULL)
-	{
-		twl_strdel(&var->value);
-		var->value = twl_strdup(value);
-		var->value_is_set = value_is_set;
-		return (1);
-	}
-	else
-		twl_lst_push(this->env_vars, environment_var_new(key, value, LOCAL,
-			value_is_set));
-	return (0);
 }
