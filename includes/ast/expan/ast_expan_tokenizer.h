@@ -34,7 +34,7 @@ void							expan_tokenizer_del(t_expan_tokenizer *tokenizer);
 void							expan_token_mgr_add(t_lst *tokens, t_expan_token *token);
 void							expan_tokenizer(char *str, t_lst *expan_tokens,
 	t_token_origin origin);
-void							expan_tokenizer_none(t_lst *expan_tokens,
+void							expan_tokenizer_none(t_expan_tokenizer *tokenizer, t_lst *expan_tokens,
 	char *str, int len);
 int								expan_tokenizer_param(t_expan_tokenizer *tokenizer,
 	t_lst *expan_tokens, char *str,  int i);

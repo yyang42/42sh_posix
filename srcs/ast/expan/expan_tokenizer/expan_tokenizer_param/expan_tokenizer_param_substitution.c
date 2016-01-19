@@ -13,6 +13,7 @@
 #include "ast/expan/ast_expan_tokenizer.h"
 #include "ast/expan/ast_expan_param.h"
 #include "ast/expan/ast_expan_utils.h"
+#include "ast/expan/ast_expan_quote.h"
 
 
 t_expan_param_type	expan_tokenizer_param_substitution_get_operator(char *str, int *j)
@@ -30,41 +31,49 @@ t_expan_param_type	expan_tokenizer_param_substitution_get_operator(char *str, in
 	twl_strdel(&operator);
 	operator = twl_strndup(str, 1);
 	*j = 1;
-	return (string_1_to_expan_parameter_type(operator));
+	type = string_1_to_expan_parameter_type(operator);
+	twl_strdel(&operator);
+	return (type);
+}
+
+static bool expan_tokenizer_param_substitution_get_parameter(t_expan_param *expan_param, char *str, char *sep_addr)
+{
+	if (sep_addr == str)
+	{
+		twl_dprintf(2, "42sh: bad substitution\n");
+		return (false);
+	}
+	expan_param->parameter = twl_strndup(str, sep_addr - str);
+	return (true);
 }
 
 static int	expan_tokenizer_param_substitution_get_parameter_word(t_expan_param *expan_param,
 	char *str, int i)
 {
 	int					j;
-	t_expan_param_type	type;
-	int					word_start;
 	int					op_len;
+	int					word_len;
+	t_expan_param_type	type;
 
 	j = i;
-	word_start = i;
 	op_len = 0;
-	while (str[j] != 0 && str[j] != '}')
+	word_len = 0;
+	while (str[j] != 0)
 	{
 		type = expan_tokenizer_param_substitution_get_operator(&str[j], &op_len);
 		if (type != UNDEFINED_PARAM)
 		{
-			expan_param->parameter = twl_strndup(&str[i], j - i);
 			expan_param->type = type;
-			j += op_len;
-			word_start = j;
+			break;
 		}
 		else
 			j++;
 	}
-	if (word_start == i)
-		expan_param->parameter = twl_strndup(&str[i], j - i);
-	else
-		expan_param->word = twl_strndup(&str[word_start], j - word_start);
-	if (str[j] == '}')
-		j++;
-	return (j);
+	if (expan_tokenizer_param_substitution_get_parameter(expan_param, &str[i], &str[j]))
+		word_len = expan_tokenizer_param_substitution_get_word(expan_param, &str[j] + op_len);
+	return (j + word_len + op_len + 1);
 }
+
 
 int		expan_tokenizer_param_substitution(t_expan_token *expan_token,
 	char *str, int i)

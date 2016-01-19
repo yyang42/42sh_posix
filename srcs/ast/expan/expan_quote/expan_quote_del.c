@@ -10,33 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "basics.h"
-#include "ast/expan/ast_expan_exec.h"
-#include "ast/expan/ast_expan_param.h"
-#include "special_params.h"
+#include "ast/expan/ast_expan_quote.h"
 
-
-void			expan_exec_params_colon_plus(t_expan_token *expan_token)
+void 	expan_quote_del(void *quote_)
 {
-	t_expan_param		*data;
-	t_environment_var	*env_var;
-	t_environment		*env;
+	t_expan_quote *quote;
 
-	data = expan_token->expan_data;
-	env = environment_singleton();
-	if (data->parameter && twl_strcmp(data->parameter, ""))
-	{
-		env_var = environment_get(env, data->parameter);
-		if (env_var && env_var->value_is_set)
-		{
-			if (env_var->value != NULL && twl_strcmp(env_var->value, "") != 0)
-				expan_token->res = expan_exec_param_word_expan(data->word);
-			else
-				expan_token->res = twl_strdup("");
-		}
-		else
-			expan_token->res = twl_strdup("");
-	}
-	else
-		expan_token->res = twl_strdup("");
+	quote = quote_;
+	twl_strdel(&quote->str);
+	free(quote);
 }
