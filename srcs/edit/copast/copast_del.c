@@ -14,6 +14,5 @@
 
 void				copast_del(t_copast *copast)
 {
-	letter_mgr_del(copast->clipboard_letters);
 	free(copast);
 }

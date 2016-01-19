@@ -33,5 +33,6 @@ void				copast_del(t_copast *copast);
 
 void				copast_stop_copy(t_copast *this, int index, t_lst *letters);
 void				copast_is_selected_index(t_copast *this, int letter_index, int cur_index);
+void				copast_stop_copy(t_copast *this, int index);
 
 #endif

@@ -12,9 +12,18 @@
 
 #include "edit/edit.h"
 
+static void			*void_letter_copy(void *letter)
+{
+	return (letter_cpy(letter));
+}
+
 void				edit_paste_clip(void *_edit)
 {
 	t_edit			*edit;
+	t_lst			*slice;
+	t_lst			*slice_new;
+	int				max;
+	int				min;
 
 	edit = _edit;
 	letter_mgr_debug_print(edit->copast->clip);
