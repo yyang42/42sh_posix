@@ -10,26 +10,26 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_compound_command.h"
+#include "ast/nodes/ast_case_clause.h"
+#include "ast/nodes/ast_compound_list.h"
+#include "ast/nodes/ast_if_then.h"
 
-t_compound_command_type	ast_compound_command_get_type_from_tokens(t_lst *tokens)
+void				ast_case_clause_print_rec(t_ast_case_clause *this,
+	int depth)
 {
-	t_token			*first;
-
-	first = token_mgr_first(tokens);
-	if (first->type == TOKEN_LBRACE)
-		return (COMPOUND_COMMAND_BRACE_GROUP);
-	else if (twl_strequ(first->text, "("))
-		return (COMPOUND_COMMAND_SUBSHELL);
-	else if (first->type == TOKEN_FOR)
-		return (COMPOUND_COMMAND_FOR_CLAUSE);
-	else if (first->type == TOKEN_CASE)
-		return (COMPOUND_COMMAND_CASE_CLAUSE);
-	else if (first->type == TOKEN_IF)
-		return (COMPOUND_COMMAND_IF_CLAUSE);
-	else if (first->type == TOKEN_WHILE)
-		return (COMPOUND_COMMAND_WHILE_CLAUSE);
-	else if (first->type == TOKEN_UNTIL)
-		return (COMPOUND_COMMAND_UNTIL_CLAUSE);
-	return (COMPOUND_COMMAND_NONE);
+	ast_print_indent(depth);
+	twl_printf("ast_case_clause\n");
+	depth++;
+	if (this->cond_compound)
+	{
+		ast_print_indent(depth);
+		twl_printf("cond_compound\n");
+		ast_compound_list_print_rec(this->cond_compound, depth + 1);
+	}
+	if (this->do_group)
+	{
+		ast_print_indent(depth);
+		twl_printf("do_group\n");
+		ast_compound_list_print_rec(this->do_group, depth + 1);
+	}
 }

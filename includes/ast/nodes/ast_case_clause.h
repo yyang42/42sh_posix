@@ -10,26 +10,33 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_compound_command.h"
+#ifndef AST_CASE_CLAUSE_H
+# define AST_CASE_CLAUSE_H
 
-t_compound_command_type	ast_compound_command_get_type_from_tokens(t_lst *tokens)
+# include "basics.h"
+
+# include "token/token_mgr.h"
+
+# include "ast/ast_defines.h"
+# include "ast/ast_utils.h"
+
+struct s_ast_compound_list;
+
+typedef struct		s_ast_case_clause
 {
-	t_token			*first;
+	struct s_ast_compound_list	*cond_compound;
+	struct s_ast_compound_list	*do_group;
+}					t_ast_case_clause;
 
-	first = token_mgr_first(tokens);
-	if (first->type == TOKEN_LBRACE)
-		return (COMPOUND_COMMAND_BRACE_GROUP);
-	else if (twl_strequ(first->text, "("))
-		return (COMPOUND_COMMAND_SUBSHELL);
-	else if (first->type == TOKEN_FOR)
-		return (COMPOUND_COMMAND_FOR_CLAUSE);
-	else if (first->type == TOKEN_CASE)
-		return (COMPOUND_COMMAND_CASE_CLAUSE);
-	else if (first->type == TOKEN_IF)
-		return (COMPOUND_COMMAND_IF_CLAUSE);
-	else if (first->type == TOKEN_WHILE)
-		return (COMPOUND_COMMAND_WHILE_CLAUSE);
-	else if (first->type == TOKEN_UNTIL)
-		return (COMPOUND_COMMAND_UNTIL_CLAUSE);
-	return (COMPOUND_COMMAND_NONE);
-}
+t_ast_case_clause	*ast_case_clause_new(void);
+void				ast_case_clause_del(t_ast_case_clause *ast_case_clause);
+void				ast_case_clause_del_void(void *this);
+
+t_ast_case_clause	*ast_case_clause_new_from_tokens(t_lst *tokens, struct s_ast *ast);
+void				*ast_case_clause_new_from_tokens_void(t_lst *tokens, struct s_ast *ast);
+void				ast_case_clause_print_rec(t_ast_case_clause *ast_case_clause, int depth);
+void				ast_case_clause_print_rec_void(void *ast_case_clause, int depth);
+
+bool				ast_case_clause_is_own_type(t_lst *tokens);
+
+#endif
