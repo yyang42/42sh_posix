@@ -18,5 +18,6 @@
 
 void				expan_field_splitting(char **res);
 void				expan_field_splitting_white_spaces(char **res);
+void				expan_field_splitting_ifs(char **res, char *ifs);
 
 #endif

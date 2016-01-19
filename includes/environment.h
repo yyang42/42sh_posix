@@ -66,7 +66,7 @@ void						environment_setenv(t_environment *this, char *str);
 char						*environment_getenv_value(t_environment *this,
 	char *key);
 int							environment_setenv_value(t_environment *t,
-	char *k, char *v);
+	char *k, char *v, int value_is_set);
 t_environment_var			*environment_var_new(char *key, char *value,
 	t_environment_var_type type, bool value_is_set);
 void						environment_print(t_environment *this);

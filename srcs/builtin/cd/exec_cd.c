@@ -19,13 +19,13 @@ static void	set_oldpwd(t_environment *env)
 	oldpwd = environment_getenv_value(env, "PWD");
 	if (oldpwd != NULL)
 	{
-		environment_setenv_value(env, "OLDPWD", oldpwd);
+		environment_setenv_value(env, "OLDPWD", oldpwd, 1);
 	}
 }
 
 static void	set_pwd(char *pwd, t_environment *env)
 {
-	environment_setenv_value(env, "PWD", pwd);
+	environment_setenv_value(env, "PWD", pwd, 1);
 }
 
 static void	cd_symlink(char *path, t_environment *this)

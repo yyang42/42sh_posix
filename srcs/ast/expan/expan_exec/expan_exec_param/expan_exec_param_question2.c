@@ -26,11 +26,7 @@ static void		print_error_msg(t_expan_param *data)
 
 static void		set_env_value_to_null(t_environment *env, t_expan_param *data)
 {
-	t_environment_var	*env_var;
-
-	environment_setenv_value(env, data->parameter, "");
-	env_var = environment_get(env, data->parameter);
-	env_var->value_is_set = 0;
+	environment_setenv_value(env, data->parameter, "", 0);
 	print_error_msg(data);
 }
 void			expan_exec_params_question2(t_expan_token *expan_token)

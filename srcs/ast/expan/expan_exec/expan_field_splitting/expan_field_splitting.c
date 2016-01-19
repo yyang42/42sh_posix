@@ -16,12 +16,6 @@
 #include "patmatch.h"
 #include "twl_xstring.h"
 
-static void expan_field_splitting_str(char **res, char *ifs)
-{
-	(void)res;
-	(void)ifs;
-}
-
 void		expan_field_splitting(char **res)
 {
 	t_environment		*env;
@@ -31,11 +25,12 @@ void		expan_field_splitting(char **res)
 	ifs = environment_get(env, "IFS");
 	if (ifs && ifs->value_is_set == 1)
 	{
+		twl_printf("IFS : %s\n", ifs->value);
 		if (!twl_strcmp(ifs->value, " ") || !twl_strcmp(ifs->value, "\t")
 			|| !twl_strcmp(ifs->value, "\n"))
 			expan_field_splitting_white_spaces(res);
 		else
-			expan_field_splitting_str(res, ifs->value);
+			expan_field_splitting_ifs(res, ifs->value);
 	}
 	else if (!ifs)
 	{

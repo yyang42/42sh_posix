@@ -23,7 +23,7 @@ static bool			find_env_key(void *data, void *context)
 }
 
 int					environment_setenv_value(t_environment *this,
-	char *key, char *value)
+	char *key, char *value, int value_is_set)
 {
 	t_environment_var	*var;
 
@@ -36,13 +36,13 @@ int					environment_setenv_value(t_environment *this,
 																		key));
 	if (var != NULL)
 	{
-		if (var->value)
-			free(var->value);
+		twl_strdel(&var->value);
 		var->value = twl_strdup(value);
+		var->value_is_set = value_is_set;
 		return (1);
 	}
 	else
 		twl_lst_push(this->env_vars, environment_var_new(key, value, LOCAL,
-			value != NULL));
+			value_is_set));
 	return (0);
 }

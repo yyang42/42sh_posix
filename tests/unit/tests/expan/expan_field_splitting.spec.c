@@ -37,6 +37,7 @@ static void simple_ifs_test(t_test *test)
 	export("export IFS=o", env);
 	str = twl_strdup("oooolopotorototoooo");
 	expan_field_splitting(&str);
+	twl_printf("%s\n", str);
 	mt_assert(twl_strcmp(str,"    l p t r t t   ") == 0);
 	twl_strdel(&str);
 }
