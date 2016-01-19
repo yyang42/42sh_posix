@@ -22,14 +22,16 @@ void		expan_field_splitting_ifs(char **res, char *ifs)
 	char	*str;
 
 	i = 0;
-	twl_printf("COUCOUC\n");
 	str = *res;
 	while (str[i] != 0)
 	{
-		if (!twl_strchr(ifs, str[i]))
-			str[i] = ' ';
+		if (twl_strchr(ifs, str[i]))
+		{
+			if (str[i + 1] == 0)
+				str[i] = 0;
+			else
+				str[i] = ' ';
+		}
 		i++;
 	}
-	if (i > 0 && twl_strchr(ifs, str[i - 1]))
-		str[i - 1] = 0;
 }

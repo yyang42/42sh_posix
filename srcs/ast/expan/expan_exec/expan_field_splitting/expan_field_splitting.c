@@ -25,7 +25,6 @@ void		expan_field_splitting(char **res)
 	ifs = environment_get(env, "IFS");
 	if (ifs && ifs->value_is_set == 1)
 	{
-		twl_printf("IFS : %s\n", ifs->value);
 		if (!twl_strcmp(ifs->value, " ") || !twl_strcmp(ifs->value, "\t")
 			|| !twl_strcmp(ifs->value, "\n"))
 			expan_field_splitting_white_spaces(res);
