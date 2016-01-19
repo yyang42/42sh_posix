@@ -151,7 +151,7 @@ void		iter_fn_get_word(void *quote_, void *len_, void *nb_open_brace_, void *fin
 	}
 }
 
-static bool expan_tokenizer_param_substitution_get_word(t_expan_param *expan_param, char *str)
+static int expan_tokenizer_param_substitution_get_word(t_expan_param *expan_param, char *str)
 {
 	int				word_len;
 	t_lst			*quotes;
@@ -167,40 +167,43 @@ static bool expan_tokenizer_param_substitution_get_word(t_expan_param *expan_par
 	{
 		quote = expan_quote_new();
 		quote->str = twl_strndup(&str[word_len], 1);
+		twl_lst_push(quotes, quote);
 		word_len++;
 	}
 	word_len = 0;
 	twl_lst_iterp(quotes, iter_fn_setup_quotes, NULL);
 	twl_lst_iter3(quotes, iter_fn_get_word, &word_len, &nb_open_brace, &finished);
 	twl_lst_del(quotes, expan_quote_del);
-	(void)expan_param;
-	return (true);
-	// expan_param->parameter = twl_strndup(str, sep_addr - str);
+	if (word_len > 0)
+		expan_param->word = twl_strndup(str, word_len);
+	return (word_len);
 }
 
 static int	expan_tokenizer_param_substitution_get_parameter_word(t_expan_param *expan_param,
 	char *str, int i)
 {
 	int					j;
-	char				*sep_addr;
 	int					op_len;
+	int					word_len;
+	t_expan_param_type	type;
 
 	j = i;
-	sep_addr = &str[j];
 	op_len = 0;
+	word_len = 0;
 	while (str[j] != 0)
 	{
-		if (expan_tokenizer_param_substitution_get_operator(&str[j], &op_len) != UNDEFINED_PARAM)
+		type = expan_tokenizer_param_substitution_get_operator(&str[j], &op_len);
+		if (type != UNDEFINED_PARAM)
 		{
-			sep_addr = &str[j];
+			expan_param->type = type;
 			break;
 		}
 		else
 			j++;
 	}
-	if (expan_tokenizer_param_substitution_get_parameter(expan_param, &str[i], sep_addr))
-		expan_tokenizer_param_substitution_get_word(expan_param, sep_addr + op_len);
-	return (j);
+	if (expan_tokenizer_param_substitution_get_parameter(expan_param, &str[i], &str[j]))
+		word_len = expan_tokenizer_param_substitution_get_word(expan_param, &str[j] + op_len);
+	return (j + word_len + op_len + 1);
 }
 
 
