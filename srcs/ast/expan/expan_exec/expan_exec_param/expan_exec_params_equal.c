@@ -22,11 +22,11 @@ static void		set_env_and_token(t_environment *env, t_expan_token *expan_tok,
 	expan_tok->res = twl_strdup(data->word);
 }
 
-void			expan_exec_params_colon_equal(t_expan_token *expan_token)
+void			expan_exec_params_equal(t_expan_token *expan_token)
 {
 	t_expan_param		*data;
-	t_environment_var	*env_var;
 	t_environment		*env;
+	t_environment_var	*env_var;
 
 	data = expan_token->expan_data;
 	env = environment_singleton();
@@ -38,7 +38,7 @@ void			expan_exec_params_colon_equal(t_expan_token *expan_token)
 			if (env_var->value != NULL && twl_strcmp(env_var->value, "") != 0)
 				expan_token->res = twl_strdup(env_var->value);
 			else
-				set_env_and_token(env, expan_token, data);
+				expan_token->res = twl_strdup("");
 		}
 		else
 			set_env_and_token(env, expan_token, data);

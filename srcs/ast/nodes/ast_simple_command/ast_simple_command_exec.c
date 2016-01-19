@@ -66,6 +66,8 @@ void		execute_simple_command(t_ast_simple_command *cmd,
 		else
 		execute_builtin(cmd, cmd_arr[0], token_joined, env);
 	}
+	else
+		error_command_not_found("");
 	twl_arr_del(cmd_arr, free);
 	twl_arr_del(env_arr, free);
 	free(token_joined);
