@@ -74,13 +74,11 @@ void		iter_fn_get_word(void *quote_, void *len_, void *nb_open_brace_, void *fin
 	{
 		if (!twl_strcmp(quote->str, "{") && !quote->is_double_quoted && !quote->is_single_quoted && !quote->is_backslashed)
 		{
-			twl_printf("COUCOUCOUCOU1\n");
 			*nb_open_brace = *nb_open_brace + 1;
 			*len = *len + 1;
 		}
 		else if (!twl_strcmp(quote->str, "}") && !quote->is_double_quoted && !quote->is_single_quoted && !quote->is_backslashed)
 		{
-			twl_printf("COUCOUCOUCOU2\n");
 			*nb_open_brace = *nb_open_brace - 1;
 			if (*nb_open_brace == 0)
 				*finished = true;
