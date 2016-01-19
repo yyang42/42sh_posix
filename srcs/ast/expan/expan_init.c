@@ -15,14 +15,16 @@
 #include "ast/expan/ast_expan_tokenizer.h"
 #include "ast/expan/ast_expan_exec.h"
 
-void	expan_init(char **ptr, t_token_origin origin)
+bool	expan_init(char **ptr, t_token_origin origin)
 {
 	t_lst					*expan_tokens;
 	char					*concat;
+	bool					should_exec;
 
+	should_exec = true;
 	expan_tokens = expan_token_mgr_new();
 	expan_tokenizer(*ptr, expan_tokens, origin);
-	expan_exec(expan_tokens);
+	expan_exec(expan_tokens, &should_exec);
 	// expan_token_mgr_print(expan_tokens);
 	concat = expan_tokenizer_concat(expan_tokens);
 	if (concat)
@@ -31,4 +33,5 @@ void	expan_init(char **ptr, t_token_origin origin)
 		*ptr = concat;
 	}
 	expan_token_mgr_del(expan_tokens);
+	return (should_exec);
 }

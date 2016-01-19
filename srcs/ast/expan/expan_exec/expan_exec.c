@@ -15,14 +15,16 @@
 #include "ast/expan/ast_expan_quote_removal.h"
 #include "patmatch.h"
 
-static void		iter_fn(void *expan_token_)
+static void		iter_fn(void *expan_token_, void *should_exec_)
 {
-	t_expan_token *expan_token;
+	t_expan_token	*expan_token;
+	bool			*should_exec;
 
+	should_exec = should_exec_;
 	expan_token = expan_token_;
 	if (expan_token->exec_expan)
 	{
-		expan_token->exec_expan(expan_token);
+		*should_exec = expan_token->exec_expan(expan_token);
 	}
 	if (expan_token->origin != PARAMETER_SUBSTITUTION_WORD)
 	{
@@ -31,8 +33,8 @@ static void		iter_fn(void *expan_token_)
 	}
 }
 
-void			expan_exec(t_lst *expan_tokens)
+void			expan_exec(t_lst *expan_tokens, bool *should_exec)
 {
 	(void)expan_tokens;
-	twl_lst_iter0(expan_tokens, iter_fn);
+	twl_lst_iter(expan_tokens, iter_fn, should_exec);
 }

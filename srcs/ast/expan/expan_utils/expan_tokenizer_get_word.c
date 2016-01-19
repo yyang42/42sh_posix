@@ -19,6 +19,8 @@ static char		*get_matching_delimiter(char *str)
 {
 	if (!twl_strcmp("{", str))
 		return ("}");
+	else if (!twl_strcmp("(", str))
+		return (")");
 	else
 		return (0);
 }
@@ -82,7 +84,7 @@ static void		iter_fn_get_word(void *quote_, void *len_, void *nb_open_brace_, vo
 	*delimiter = tmp;
 }
 
-int				expan_tokenizer_get_word_len(t_expan_param *expan_param, char *str, char *delimiter)
+int				expan_tokenizer_get_word_len(char **res, char *str, char *delimiter)
 {
 	int				word_len;
 	t_lst			*quotes;
@@ -105,8 +107,8 @@ int				expan_tokenizer_get_word_len(t_expan_param *expan_param, char *str, char 
 	twl_lst_del(quotes, expan_quote_del);
 	if (word_len > 0)
 	{
-		twl_strdel(&expan_param->word);
-		expan_param->word = twl_strndup(str, word_len);
+		twl_strdel(res);
+		*res = twl_strndup(str, word_len);
 	}
 	return (word_len);
 }

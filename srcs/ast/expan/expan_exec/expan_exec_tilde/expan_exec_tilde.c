@@ -24,7 +24,7 @@ char			*expan_exec_tilde_get_home()
 	return (environment_getenv_value(env, "HOME"));
 }
 
-void			expan_exec_tilde(t_expan_token *expan_token)
+bool			expan_exec_tilde(t_expan_token *expan_token)
 {
 	t_expan_tilde	*expan_tilde;
 	char			*home;
@@ -47,4 +47,5 @@ void			expan_exec_tilde(t_expan_token *expan_token)
 	{
 		expan_token->res = twl_strdup("");
 	}
+	return (true);
 }

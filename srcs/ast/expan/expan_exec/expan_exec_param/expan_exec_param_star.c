@@ -14,7 +14,8 @@
 #include "ast/expan/ast_expan_exec.h"
 #include "special_params.h"
 
-void			expan_exec_param_star(t_expan_token *expan_token)
+bool			expan_exec_param_star(t_expan_token *expan_token)
 {
 	expan_token->res = params_star(expan_token->is_double_quoted);
+	return (true);
 }

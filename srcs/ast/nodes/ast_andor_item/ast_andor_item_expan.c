@@ -19,13 +19,15 @@ static void			iter_andor_fn(void *ast_pipe_item_, void *ret_)
 
 	ast_pipe_item = ast_pipe_item_;
 	ret = ret_;
-	*ret = ast_pipe_item_expan(ast_pipe_item);
+	if (*ret)
+		*ret = ast_pipe_item_expan(ast_pipe_item);
 }
 
 int					ast_andor_item_expan(t_ast_andor_item *ast_andor_item)
 {
 	int				ret;
 
+	ret = 1;
 	twl_lst_iter(ast_andor_item->ast_pipe_items, iter_andor_fn, &ret);
 	return (ret);
 }

@@ -14,7 +14,7 @@
 #include "ast/expan/ast_expan_exec.h"
 #include "patmatch.h"
 
-void		expan_exec_pattern_matching(t_expan_token *token)
+bool		expan_exec_pattern_matching(t_expan_token *token)
 {
 	t_environment	*env;
 	t_patmatch 		*patmatch;
@@ -29,4 +29,5 @@ void		expan_exec_pattern_matching(t_expan_token *token)
 		twl_lst_del(res, &free);
 		patmatch_del(patmatch);
 	}
+	return (true);
 }

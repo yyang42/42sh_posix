@@ -22,7 +22,7 @@ typedef struct	s_expan_token
 {
 	t_expan_type	type;
 	char			*res;
-	void			(*exec_expan)(struct s_expan_token *);
+	bool			(*exec_expan)(struct s_expan_token *);
 	void			(*free_expan)(void *);
 	bool			is_double_quoted;
 	void			*expan_data;

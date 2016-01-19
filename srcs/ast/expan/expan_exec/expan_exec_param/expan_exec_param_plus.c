@@ -16,7 +16,7 @@
 #include "special_params.h"
 
 
-void			expan_exec_params_plus(t_expan_token *expan_token)
+bool			expan_exec_params_plus(t_expan_token *expan_token)
 {
 	t_expan_param		*data;
 	t_environment_var	*env_var;
@@ -34,4 +34,5 @@ void			expan_exec_params_plus(t_expan_token *expan_token)
 	}
 	else
 		expan_token->res = twl_strdup("");
+	return (true);
 }

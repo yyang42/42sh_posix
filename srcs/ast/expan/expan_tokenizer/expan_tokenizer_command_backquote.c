@@ -12,31 +12,16 @@
 
 #include "ast/expan/ast_expan_tokenizer.h"
 #include "ast/expan/ast_expan_exec.h"
+#include "ast/expan/ast_expan_utils.h"
 #include "ast/expan/ast_expan_command.h"
 #include "ast/expan/ast_expan_token_origin.h"
 
 static int		expan_token_parse_command_backquote(t_expan_command *command, char *str, int i)
 {
-	bool	is_between_sq;
-	bool	is_between_dq;
-	int		j;
+	int	len;
 
-	is_between_dq = false;
-	is_between_sq = false;
-	j = i;
-	while (str[j] != 0)
-	{
-			if (str[j] == '\'')
-				is_between_sq = !is_between_sq;
-			else if (str[j] == '"')
-				is_between_dq = !is_between_dq;
-			else if (str[j] == '`' && !is_between_dq && !is_between_sq)
-				break;
-		j++;
-	}
-	if (i < j)
-		command->command = twl_strndup(&str[i], j - i);
-	return (j);
+	len = expan_tokenizer_get_word_len(&command->command, &str[i], "(");
+	return (len);
 }
 
 int				expan_tokenizer_command_backquote(t_expan_tokenizer *tokenizer,

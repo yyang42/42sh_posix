@@ -24,7 +24,7 @@ static void		print_error_msg(t_expan_param *data)
 			data->parameter);
 }
 
-void			expan_exec_params_colon_question(t_expan_token *expan_token)
+bool			expan_exec_params_colon_question(t_expan_token *expan_token)
 {
 	t_expan_param		*data;
 	t_environment_var	*env_var;
@@ -40,7 +40,7 @@ void			expan_exec_params_colon_question(t_expan_token *expan_token)
 			if (env_var->value != NULL && twl_strcmp(env_var->value, "") != 0)
 			{
 				expan_token->res = twl_strdup(env_var->value);
-				return ;
+				return (true);
 			}
 			else
 				print_error_msg(data);
@@ -52,4 +52,5 @@ void			expan_exec_params_colon_question(t_expan_token *expan_token)
 	else
 		print_error_msg(data);
 	expan_token->res = twl_strdup("");
+	return (true);
 }

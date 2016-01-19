@@ -18,7 +18,7 @@
 #include "twl_stdlib.h"
 #include "twl_ctype.h"
 
-void			expan_exec_param_var(t_expan_token *expan_token)
+bool			expan_exec_param_var(t_expan_token *expan_token)
 {
 	t_expan_param		*expan_param;
 	t_environment		*env;
@@ -45,4 +45,5 @@ void			expan_exec_param_var(t_expan_token *expan_token)
 	{
 		expan_token->res = twl_strdup("");
 	}
+	return (true);
 }

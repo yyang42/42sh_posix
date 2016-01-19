@@ -31,7 +31,7 @@ static char		*ft_treat_sharp(char *str, char *word)
 }
 
 //TODO: implementer le pattern matching pour finir
-void			expan_exec_params_sharp2(t_expan_token *expan_token)
+bool			expan_exec_params_sharp2(t_expan_token *expan_token)
 {
 	t_expan_param		*data;
 	t_environment		*env;
@@ -54,4 +54,5 @@ void			expan_exec_params_sharp2(t_expan_token *expan_token)
 	}
 	else
 		expan_token->res = twl_strdup("");
+	return (true);
 }

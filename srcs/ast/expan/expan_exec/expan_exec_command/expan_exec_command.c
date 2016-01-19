@@ -16,7 +16,7 @@
 #include "prog.h"
 #include <stdio.h>
 
-void			expan_exec_command(t_expan_token *expan_token)
+bool			expan_exec_command(t_expan_token *expan_token)
 {
 	t_expan_command	*expan_command;
 	char			buffer[CMD_MAX_LEN + 1];
@@ -29,7 +29,7 @@ void			expan_exec_command(t_expan_token *expan_token)
 	twl_bzero(buffer, CMD_MAX_LEN + 1);
 	saved_stdout = dup(STDOUT_FILENO);
 	if(pipe(out_pipe) != 0)
-		return ;
+		return (false);
 	dup2(out_pipe[1], STDOUT_FILENO);   /* redirect stdout to the pipe */
 	close(out_pipe[1]);
 	prog_run_input(prog, expan_command->command);
@@ -38,4 +38,5 @@ void			expan_exec_command(t_expan_token *expan_token)
 	dup2(saved_stdout, STDOUT_FILENO);
 	expan_token->res = twl_strdup(buffer);
 	prog_del(prog);
+	return (true);
 }

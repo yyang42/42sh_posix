@@ -17,36 +17,45 @@
 #include "ast/expan/ast_expan_tokenizer.h"
 #include "ast/expan/ast_expan_exec.h"
 
-static void 	iter_fn(void *token_)
+static void 	iter_fn(void *token_, void *should_exec_)
 {
 	t_token					*token;
+	bool					*should_exec;
 
+	should_exec = should_exec_;
 	token = token_;
-	expan_init(&token->text, SIMPLE_COMMAND_TOKEN);
+	*should_exec = expan_init(&token->text, SIMPLE_COMMAND_TOKEN);
 }
 
-static void 	iter_assign_fn(void *assign_)
+static void 	iter_assign_fn(void *assign_, void *should_exec_)
 {
 	t_ast_assignment		*assign;
+	bool					*should_exec;
 
+	should_exec = should_exec_;
 	assign = assign_;
-	expan_init(&assign->key, ASSIGNMENT_KEY);
-	expan_init(&assign->value, ASSIGNMENT_VALUE);
+	*should_exec = expan_init(&assign->key, ASSIGNMENT_KEY);
+	*should_exec = expan_init(&assign->value, ASSIGNMENT_VALUE);
 }
 
-static void 	iter_redir_fn(void *redir_)
+static void 	iter_redir_fn(void *redir_, void *should_exec_)
 {
 	t_ast_redir				*redir;
+	bool					*should_exec;
 
+	should_exec = should_exec_;
 	redir = redir_;
-	expan_init(&redir->param, REDIR_PARAM);
-	expan_init(&redir->heredoc_text, REDIR_HEREDOC);
+	*should_exec = expan_init(&redir->param, REDIR_PARAM);
+	*should_exec = expan_init(&redir->heredoc_text, REDIR_HEREDOC);
 }
 
-int				ast_simple_command_expan(t_ast_simple_command *cmd)
+bool			ast_simple_command_expan(t_ast_simple_command *cmd)
 {
-	twl_lst_iter0(cmd->command_tokens, iter_fn);
-	twl_lst_iter0(cmd->redir_items, iter_redir_fn);
-	twl_lst_iter0(cmd->assignment_items, iter_assign_fn);
-	return (0);
+	bool		should_exec;
+
+	should_exec = true;
+	twl_lst_iter(cmd->command_tokens, iter_fn, &should_exec);
+	twl_lst_iter(cmd->redir_items, iter_redir_fn, &should_exec);
+	twl_lst_iter(cmd->assignment_items, iter_assign_fn, &should_exec);
+	return (should_exec);
 }

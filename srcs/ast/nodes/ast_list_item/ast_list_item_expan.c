@@ -12,21 +12,23 @@
 
 #include <ast/nodes/ast_list_item.h>
 
-static void			iter_fn(void *ast_andor_item_, void *prev_, void *context_)
+static void			iter_fn(void *ast_andor_item_, void *prev_, void *ret_)
 {
 	t_ast_andor_item	*ast_andor_item;
 	t_ast_andor_item	*prev;
 	t_environment		*env;
+	int					*ret;
 
 	ast_andor_item = ast_andor_item_;
 	prev = prev_;
-	(void)context_;
+	ret = ret_;
 	env = environment_singleton();
-	if (!prev ||
+	if (*ret && (!prev ||
 	(prev->separator->type == TOKEN_AND_IF && env->info.last_exit_status == 0)
 	|| (prev->separator->type == TOKEN_OR_IF && env->info.last_exit_status > 0))
+	)
 	{
-		ast_andor_item_expan(ast_andor_item);
+		*ret = ast_andor_item_expan(ast_andor_item);
 	}
 }
 
@@ -34,7 +36,7 @@ int					ast_list_item_expan(t_ast_list_item *ast_list_item)
 {
 	int				ret;
 
-	ret = -1;
+	ret = 1;
 	twl_lst_iterp(ast_list_item->ast_andor_items, &iter_fn, &ret);
 	return (ret);
 }
