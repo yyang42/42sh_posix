@@ -3,17 +3,17 @@
 #include "ast/ast.h"
 
 mt_test_ast_error(01, "|",
-	"SyntaxError 1:1 : Unexpected token '|'", false);
+	"SyntaxError 1:1 : Syntax error near '|' : Empty simple command", false);
 mt_test_ast_error(02, "echo abc |\n",
-	"SyntaxError 1:10 : Expected input after '|' but found nothing", false);
+	"SyntaxError 1:10 : Syntax error near '|'", false);
 mt_test_ast_error(03, "echo abc | ; echo 123\n",
-	"SyntaxError 1:10 : Expected input after '|' but found nothing", false);
-mt_test_ast_error(04, "echo abc \necho 1 |\necho 123\n",
-	"SyntaxError 2:8 : Expected input after '|' but found nothing", false);
+	"SyntaxError 1:12 : Syntax error near ';' : Empty simple command", false);
+mt_test_ast_error(04, "echo abc \necho 1 | |echo 123\n",
+	"SyntaxError 2:10 : Syntax error near '|' : Empty simple command", false);
 mt_test_ast_error(05, "echo abc\n\necho 123 |;",
-	"SyntaxError 3:10 : Expected input after '|' but found nothing", false);
+	"SyntaxError 3:11 : Syntax error near ';' : Empty simple command", false);
 mt_test_ast_error(06, "| |",
-	"SyntaxError 1:1 : Unexpected token '|'", false);
+	"SyntaxError 1:1 : Syntax error near '|' : Empty simple command", false);
 
 void	suite_ast_syntax_error_pipe(t_suite *suite)
 {

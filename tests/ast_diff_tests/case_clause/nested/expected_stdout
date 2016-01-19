@@ -1,0 +1,64 @@
+compound_list
+    ast_list_item (sep=\n)
+        ast_andor_item
+            ast_pipe_item
+                ast_command
+                    ast_simple_command ()
+                        ast_assignment (space=a)
+    ast_list_item (sep=\n)
+        ast_andor_item
+            ast_pipe_item
+                ast_command
+                    ast_compound_command
+                        ast_case_clause
+                            ast_case_needle ($space)
+                            ast_case_list
+                                case_item
+                                    ast_case_item
+                                        ast_case_item_pattern (42*)
+                                        compound_list
+                                            ast_list_item (sep=\n)
+                                                ast_andor_item
+                                                    ast_pipe_item
+                                                        ast_command
+                                                            ast_simple_command (echo 42A)
+                                            ast_list_item (sep=\n)
+                                                ast_andor_item
+                                                    ast_pipe_item
+                                                        ast_command
+                                                            ast_compound_command
+                                                                ast_case_clause
+                                                                    ast_case_needle ($space)
+                                                                    ast_case_list
+                                                                        case_item
+                                                                            ast_case_item
+                                                                                ast_case_item_pattern (21*)
+                                                                                compound_list
+                                                                                    ast_list_item (sep=\n)
+                                                                                        ast_andor_item
+                                                                                            ast_pipe_item
+                                                                                                ast_command
+                                                                                                    ast_simple_command (echo 21A)
+                                                                        case_item
+                                                                            ast_case_item
+                                                                                ast_case_item_pattern (*)
+                                                                                compound_list
+                                                                                    ast_list_item (sep=\n)
+                                                                                        ast_andor_item
+                                                                                            ast_pipe_item
+                                                                                                ast_command
+                                                                                                    ast_simple_command (echo 21B)
+                                case_item
+                                    ast_case_item
+                                        ast_case_item_pattern (*)
+                                        compound_list
+                                            ast_list_item (sep=\n)
+                                                ast_andor_item
+                                                    ast_pipe_item
+                                                        ast_command
+                                                            ast_simple_command (echo 42B)
+    ast_list_item (sep=\n)
+        ast_andor_item
+            ast_pipe_item
+                ast_command
+                    ast_simple_command (echo $Message)

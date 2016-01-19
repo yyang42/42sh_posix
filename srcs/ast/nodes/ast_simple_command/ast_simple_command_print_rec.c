@@ -23,7 +23,8 @@ void				ast_simple_command_print_rec(t_ast_simple_command *this,
 	joined_command = token_mgr_strjoin(this->command_tokens, " ");
 	command_str = twl_str_truncate(joined_command, 20);
 	ast_print_indent(depth);
-	twl_printf("ast_simple_command (%s)\n", command_str);
+	twl_printf_escape_nl("ast_simple_command (%s)", command_str);
+	twl_printf("\n");
 	free(command_str);
 	depth++;
 	ast_redir_print_rec_list(this->redir_items, depth);

@@ -20,15 +20,24 @@
 # include "ast/ast_defines.h"
 
 # include "ast/nodes/ast_redir.h"
-# include "ast/nodes/ast_subshell.h"
-# include "ast/nodes/ast_if_clause.h"
+
 # include "ast/nodes/ast_brace_group.h"
+# include "ast/nodes/ast_subshell.h"
+# include "ast/nodes/ast_for_clause.h"
+# include "ast/nodes/ast_case_clause.h"
+# include "ast/nodes/ast_if_clause.h"
+# include "ast/nodes/ast_while_clause.h"
+# include "ast/nodes/ast_until_clause.h"
 
 typedef enum		s_compound_command_type
 {
 	COMPOUND_COMMAND_NONE = 0,
 	COMPOUND_COMMAND_SUBSHELL,
 	COMPOUND_COMMAND_IF_CLAUSE,
+	COMPOUND_COMMAND_FOR_CLAUSE,
+	COMPOUND_COMMAND_WHILE_CLAUSE,
+	COMPOUND_COMMAND_CASE_CLAUSE,
+	COMPOUND_COMMAND_UNTIL_CLAUSE,
 	COMPOUND_COMMAND_BRACE_GROUP,
 	COMPOUND_COMMAND_NBR
 }					t_compound_command_type;

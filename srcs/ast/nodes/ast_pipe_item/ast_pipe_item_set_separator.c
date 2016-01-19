@@ -10,20 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "twl_lst.h"
+#include "ast/nodes/ast_pipe_item.h"
 
-#include "data.h"
-
-t_lst				*data_separators(void)
+void				ast_pipe_item_set_separator(t_ast_pipe_item *this, t_token *token)
 {
-	static t_lst	*separators = NULL;
-
-	if (separators == NULL)
-	{
-		separators = twl_lst_new();
-		twl_lst_push_back(separators, ";");
-		twl_lst_push_back(separators, "&");
-		twl_lst_push_back(separators, "\n");
-	}
-	return (separators);
+	this->separator = token;
 }

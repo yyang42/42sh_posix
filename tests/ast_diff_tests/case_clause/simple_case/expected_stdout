@@ -1,0 +1,80 @@
+compound_list
+    ast_list_item (sep=\n)
+        ast_andor_item
+            ast_pipe_item
+                ast_command
+                    ast_simple_command ()
+                        ast_assignment (space=a)
+    ast_list_item (sep=\n)
+        ast_andor_item
+            ast_pipe_item
+                ast_command
+                    ast_compound_command
+                        ast_case_clause
+                            ast_case_needle ($space)
+                            ast_case_list
+                                case_item
+                                    ast_case_item
+                                        ast_case_item_pattern (`echo a`*)
+                                        compound_list
+                                            ast_list_item (sep=\n)
+                                                ast_andor_item
+                                                    ast_pipe_item
+                                                        ast_command
+                                                            ast_simple_command ()
+                                                                ast_assignment (Message="I am 1")
+                                case_item
+                                    ast_case_item
+                                        ast_case_item_pattern ([1-6]*)
+                                        compound_list
+                                            ast_list_item (sep=\n)
+                                                ast_andor_item
+                                                    ast_pipe_item
+                                                        ast_command
+                                                            ast_simple_command ()
+                                                                ast_assignment (Message="All is quiet.")
+                                case_item
+                                    ast_case_item
+                                        ast_case_item_pattern ([7-8]*)
+                                        compound_list
+                                            ast_list_item (sep=\n)
+                                                ast_andor_item
+                                                    ast_pipe_item
+                                                        ast_command
+                                                            ast_simple_command ()
+                                                                ast_assignment (Message="Start thinking about cleaning out some stuff.  There's a partition that is $space % full.")
+                                case_item
+                                    ast_case_item
+                                        ast_case_item_pattern (9[1-8])
+                                        compound_list
+                                            ast_list_item (sep=\n)
+                                                ast_andor_item
+                                                    ast_pipe_item
+                                                        ast_command
+                                                            ast_simple_command ()
+                                                                ast_assignment (Message="Better hurry with that new disk...  One partition is $space % full.")
+                                case_item
+                                    ast_case_item
+                                        ast_case_item_pattern (99)
+                                        compound_list
+                                            ast_list_item (sep=\n)
+                                                ast_andor_item
+                                                    ast_pipe_item
+                                                        ast_command
+                                                            ast_simple_command ()
+                                                                ast_assignment (Message="I'm drowning here!  There's a partition at $space %!")
+                                case_item
+                                    ast_case_item
+                                        ast_case_item_pattern (*)
+                                        compound_list
+                                            ast_list_item (sep=\n)
+                                                ast_andor_item
+                                                    ast_pipe_item
+                                                        ast_command
+                                                            ast_simple_command ()
+                                                                ast_assignment (Message="I seem to be running with an nonexistent amount of disk space...")
+    ast_list_item (sep=\n)
+        ast_andor_item
+            ast_pipe_item
+                ast_command
+                    ast_simple_command (echo $Message)
