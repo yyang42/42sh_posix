@@ -18,7 +18,12 @@ char			*expan_exec_param_word_expan(char *word)
 {
 	char *tmp;
 
-	tmp = twl_strdup(word);
-	expan_init(&tmp, PARAMETER_SUBSTITUTION_WORD);
+	if (word)
+	{
+		tmp = twl_strdup(word);
+		expan_init(&tmp, PARAMETER_SUBSTITUTION_WORD);
+	}
+	else
+		tmp = twl_strdup("");
 	return (tmp);
 }

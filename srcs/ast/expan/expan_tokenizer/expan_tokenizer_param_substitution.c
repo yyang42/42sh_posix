@@ -31,51 +31,9 @@ t_expan_param_type	expan_tokenizer_param_substitution_get_operator(char *str, in
 	twl_strdel(&operator);
 	operator = twl_strndup(str, 1);
 	*j = 1;
-	return (string_1_to_expan_parameter_type(operator));
-}
-
-// static int	expan_tokenizer_param_substitution_get_parameter_word(t_expan_param *expan_param,
-// 	char *str, int i)
-// {
-// 	int					j;
-// 	t_expan_param_type	type;
-// 	int					word_start;
-// 	int					op_len;
-//
-// 	j = i;
-// 	word_start = i;
-// 	op_len = 0;
-// 	while (str[j] != 0 && (str[j] != '}'))
-// 	{
-// 		type = expan_tokenizer_param_substitution_get_operator(&str[j], &op_len);
-// 		if (type != UNDEFINED_PARAM)
-// 		{
-// 			expan_param->parameter = twl_strndup(&str[i], j - i);
-// 			expan_param->type = type;
-// 			j += op_len;
-// 			word_start = j;
-// 		}
-// 		else
-// 			j++;
-// 	}
-// 	if (word_start == i)
-// 		expan_param->parameter = twl_strndup(&str[i], j - i);
-// 	else
-// 		expan_param->word = twl_strndup(&str[word_start], j - word_start);
-// 	if (str[j] == '}')
-// 		j++;
-// 	return (j);
-// }
-
-static bool expan_tokenizer_param_substitution_get_parameter(t_expan_param *expan_param, char *str, char *sep_addr)
-{
-	if (sep_addr == str)
-	{
-		twl_dprintf(2, "42sh: bad substitution\n");
-		return (false);
-	}
-	expan_param->parameter = twl_strndup(str, sep_addr - str);
-	return (true);
+	type = string_1_to_expan_parameter_type(operator);
+	twl_strdel(&operator);
+	return (type);
 }
 
 void iter_fn_setup_quotes(void *quote_, void *prev_quote_, void *context_)
@@ -175,8 +133,22 @@ static int expan_tokenizer_param_substitution_get_word(t_expan_param *expan_para
 	twl_lst_iter3(quotes, iter_fn_get_word, &word_len, &nb_open_brace, &finished);
 	twl_lst_del(quotes, expan_quote_del);
 	if (word_len > 0)
+	{
+		twl_strdel(&expan_param->word);
 		expan_param->word = twl_strndup(str, word_len);
+	}
 	return (word_len);
+}
+
+static bool expan_tokenizer_param_substitution_get_parameter(t_expan_param *expan_param, char *str, char *sep_addr)
+{
+	if (sep_addr == str)
+	{
+		twl_dprintf(2, "42sh: bad substitution\n");
+		return (false);
+	}
+	expan_param->parameter = twl_strndup(str, sep_addr - str);
+	return (true);
 }
 
 static int	expan_tokenizer_param_substitution_get_parameter_word(t_expan_param *expan_param,
