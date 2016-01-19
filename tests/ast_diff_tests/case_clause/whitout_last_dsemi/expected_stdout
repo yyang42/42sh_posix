@@ -1,0 +1,38 @@
+compound_list
+    ast_list_item (sep=\n)
+        ast_andor_item
+            ast_pipe_item
+                ast_command
+                    ast_simple_command ()
+                        ast_assignment (space=a)
+    ast_list_item (sep=\n)
+        ast_andor_item
+            ast_pipe_item
+                ast_command
+                    ast_compound_command
+                        ast_case_clause
+                            ast_case_needle ($space)
+                            ast_case_list
+                                case_item
+                                    ast_case_item
+                                        ast_case_item_pattern (`echo a`*)
+                                        compound_list
+                                            ast_list_item (sep=\n)
+                                                ast_andor_item
+                                                    ast_pipe_item
+                                                        ast_command
+                                                            ast_simple_command (echo 123)
+                                case_item
+                                    ast_case_item
+                                        ast_case_item_pattern (*)
+                                        compound_list
+                                            ast_list_item (sep=\n)
+                                                ast_andor_item
+                                                    ast_pipe_item
+                                                        ast_command
+                                                            ast_simple_command (echo abc)
+    ast_list_item (sep=\n)
+        ast_andor_item
+            ast_pipe_item
+                ast_command
+                    ast_simple_command (echo $Message)
