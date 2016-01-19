@@ -37,6 +37,8 @@ void *expan_param_type_to_func_dict(t_expan_param_type type)
 		twl_dict_add(dict, twl_itoa(COLON_EQUAL), expan_exec_params_colon_equal);
 		twl_dict_add(dict, twl_itoa(COLON_QUESTION), expan_exec_params_colon_question);
 		twl_dict_add(dict, twl_itoa(QUESTION), expan_exec_params_question2);
+		twl_dict_add(dict, twl_itoa(HYPHEN), expan_exec_params_hyphen2);
+		twl_dict_add(dict, twl_itoa(EQUAL), expan_exec_params_equal);
 	}
 	str = twl_itoa(type);
 	ret = twl_dict_get(dict, str);
