@@ -15,6 +15,26 @@
 #include "ast/expan/ast_expan_param.h"
 #include "special_params.h"
 
+static char		*ft_treat_percent(char *str, char *word)
+{
+	int		len_str;;
+	int		len_word;
+	char	*end_sub;
+
+	len_str = twl_strlen(str);
+	len_word = twl_strlen(word);
+	if (len_str < len_word)
+		return (twl_strdup(str));
+	else
+	{
+		end_sub = twl_strsub(str, len_str - len_word, len_word);
+		if (!twl_strcmp(end_sub, word))
+			return (twl_strsub(str, 0, len_str - len_word));
+	}
+	return (twl_strdup(str));
+}
+
+//TODO: implementer le pattern matching pour finir
 void			expan_exec_params_percent_percent(t_expan_token *expan_token)
 {
 	t_expan_param		*data;
@@ -29,7 +49,7 @@ void			expan_exec_params_percent_percent(t_expan_token *expan_token)
 		if (env_var && env_var->value_is_set)
 		{
 			if (env_var->value != NULL && twl_strcmp(env_var->value, "") != 0)
-				expan_token->res = twl_strdup(env_var->value);
+				expan_token->res = ft_treat_percent(env_var->value, data->word);
 			else
 				expan_token->res = twl_strdup("");
 		}
