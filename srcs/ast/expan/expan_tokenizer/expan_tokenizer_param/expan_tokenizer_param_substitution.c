@@ -70,7 +70,7 @@ static int	expan_tokenizer_param_substitution_get_parameter_word(t_expan_param *
 			j++;
 	}
 	if (expan_tokenizer_param_substitution_get_parameter(expan_param, &str[i], &str[j]))
-		word_len = expan_tokenizer_param_substitution_get_word(expan_param, &str[j] + op_len);
+		word_len = expan_tokenizer_get_word_len(expan_param, &str[j] + op_len, "{");
 	return (j + word_len + op_len + 1);
 }
 

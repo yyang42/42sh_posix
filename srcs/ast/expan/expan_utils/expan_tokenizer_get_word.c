@@ -15,6 +15,14 @@
 #include "ast/expan/ast_expan_utils.h"
 #include "ast/expan/ast_expan_quote.h"
 
+static char		*get_matching_delimiter(char *str)
+{
+	if (!twl_strcmp("{", str))
+		return ("}");
+	else
+		return (0);
+}
+
 static void 	iter_fn_setup_quotes(void *quote_, void *prev_quote_, void *context_)
 {
 	t_expan_quote	*quote;
@@ -38,49 +46,52 @@ static void 	iter_fn_setup_quotes(void *quote_, void *prev_quote_, void *context
 	}
 }
 
-static void		iter_fn_get_word(void *quote_, void *len_, void *nb_open_brace_, void *finished_)
+static void		iter_fn_get_word(void *quote_, void *len_, void *nb_open_brace_, void *delimiter_)
 {
 	t_expan_quote	*quote;
 	int				*len;
 	int				*nb_open_brace;
-	bool			*finished;
+	char			**delimiter;
+	char			*tmp;
+	char			*matching_delimiter;
 
 	quote = quote_;
 	len = len_;
 	nb_open_brace = nb_open_brace_;
-	finished = finished_;
-	if (*finished == false)
+	delimiter = delimiter_;
+	tmp = *delimiter;
+	matching_delimiter = get_matching_delimiter(tmp);
+	if (twl_strcmp(tmp,""))
 	{
-		if (!twl_strcmp(quote->str, "{") && !quote->is_double_quoted && !quote->is_single_quoted && !quote->is_backslashed)
+		if (!twl_strcmp(quote->str, tmp) && !quote->is_double_quoted && !quote->is_single_quoted && !quote->is_backslashed)
 		{
 			*nb_open_brace = *nb_open_brace + 1;
 			*len = *len + 1;
 		}
-		else if (!twl_strcmp(quote->str, "}") && !quote->is_double_quoted && !quote->is_single_quoted && !quote->is_backslashed)
+		else if (!twl_strcmp(quote->str, matching_delimiter) && !quote->is_double_quoted && !quote->is_single_quoted && !quote->is_backslashed)
 		{
 			*nb_open_brace = *nb_open_brace - 1;
 			if (*nb_open_brace == 0)
-				*finished = true;
+				*delimiter = 0;
 			else
 				*len = *len + 1;
 		}
 		else
 			*len = *len + 1;
 	}
+	*delimiter = tmp;
 }
 
-int				expan_tokenizer_param_substitution_get_word(t_expan_param *expan_param, char *str)
+int				expan_tokenizer_get_word_len(t_expan_param *expan_param, char *str, char *delimiter)
 {
 	int				word_len;
 	t_lst			*quotes;
 	t_expan_quote	*quote;
 	int				nb_open_brace;
-	bool			finished;
 
 	word_len = 0;
 	quotes = twl_lst_new();
 	nb_open_brace = 1;
-	finished = false;
 	while (str[word_len] != 0)
 	{
 		quote = expan_quote_new();
@@ -90,7 +101,7 @@ int				expan_tokenizer_param_substitution_get_word(t_expan_param *expan_param, c
 	}
 	word_len = 0;
 	twl_lst_iterp(quotes, iter_fn_setup_quotes, NULL);
-	twl_lst_iter3(quotes, iter_fn_get_word, &word_len, &nb_open_brace, &finished);
+	twl_lst_iter3(quotes, iter_fn_get_word, &word_len, &nb_open_brace, &delimiter);
 	twl_lst_del(quotes, expan_quote_del);
 	if (word_len > 0)
 	{
