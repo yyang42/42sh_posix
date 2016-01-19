@@ -12,27 +12,13 @@
 
 #include "basics.h"
 #include "ast/expan/ast_expan_exec.h"
-#include "ast/expan/ast_expan_quote_removal.h"
-#include "patmatch.h"
+#include "ast/expan/ast_expan_mgr.h"
 
-static void		iter_fn(void *expan_token_)
+char			*expan_exec_param_word_expan(char *word)
 {
-	t_expan_token *expan_token;
+	char *tmp;
 
-	expan_token = expan_token_;
-	if (expan_token->exec_expan)
-	{
-		expan_token->exec_expan(expan_token);
-	}
-	if (expan_token->type != PARAMETER_SUBSTITUTION_WORD)
-	{
-		expan_exec_pattern_matching(expan_token);
-		expan_quote_removal(&expan_token->res);
-	}
-}
-
-void			expan_exec(t_lst *expan_tokens)
-{
-	(void)expan_tokens;
-	twl_lst_iter0(expan_tokens, iter_fn);
+	tmp = twl_strdup(word);
+	expan_init(&tmp, PARAMETER_SUBSTITUTION_WORD);
+	return (tmp);
 }

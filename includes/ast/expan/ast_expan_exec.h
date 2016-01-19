@@ -34,5 +34,6 @@ void			expan_exec_params_colon_equal(t_expan_token *expan_token);
 void			expan_exec_pattern_matching(t_expan_token *token);
 void			expan_exec_params_colon_question(t_expan_token *expan_token);
 void			expan_exec_params_question2(t_expan_token *expan_token);
+char			*expan_exec_param_word_expan(char *word);
 
 #endif
