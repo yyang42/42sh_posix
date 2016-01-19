@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "token/token_list_mgr.h"
+#include "data.h"
 #include "ast/ast.h"
 #include "ast/nodes/ast_assignment.h"
 #include "ast/nodes/ast_redir.h"
@@ -67,17 +68,35 @@ static void				build_tokens(t_ast_simple_command *this,
 	twl_lst_del(assignment_tokens, NULL);
 }
 
-t_ast_simple_command	*ast_simple_command_new_from_tokens(t_lst *tokens,
-	struct s_ast *ast)
+t_ast_simple_command	*ast_simple_command_new_from_tokens(t_lst *tokens, struct s_ast *ast)
 {
 	t_ast_simple_command		*this;
 
 	this = ast_simple_command_new();
-	build_tokens(this, tokens, ast);
-	if (ast_has_error(ast))
+	this->command_tokens = twl_lst_new();
+	while (token_mgr_first(tokens)
+		&& !ast_is_command_separator(token_mgr_first(tokens)->text)
+		)
+	{
+		twl_lst_push(this->command_tokens, twl_lst_pop_front(tokens));
+	}
+	if (twl_lst_len(this->command_tokens) == 0)
 	{
 		ast_simple_command_del(this);
+		ast_set_error_msg_syntax_error_near(ast,
+			token_mgr_first(tokens), "Empty simple command");
 		return (NULL);
 	}
+	build_tokens(this, this->command_tokens, ast);
+	(void)build_tokens;
+
+	// build_tokens(this, tokens, ast);
+	// if (ast_has_error(ast))
+	// {
+	// 	ast_simple_command_del(this);
+	// 	return (NULL);
+	// }
 	return (this);
+	(void)ast;
+	(void)tokens;
 }

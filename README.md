@@ -53,16 +53,14 @@ The AST is not finished. It currently implements (see also diff tests):
 - redirections < > >> << ... (all of them)
 - assignment `key=value echo abc`
 - simple_command
-- subshell
-
-Not implemented:
-
-- All the expansion stuff
-- The rest
-
-The AST-Parser is compliant with the Tokenization Rules and the POSIX Shell Grammar.
-It something is wrong, please raise an issue.
-
+- compound commands
+	- brace_group
+	- subshell
+	- for_clause
+	- case_clause (not yet)
+	- if_clause
+	- while_clause
+	- until_clause
 
 ## Command Line
 - Arrow left / right :  Move 1 char left or right

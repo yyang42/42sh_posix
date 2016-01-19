@@ -10,11 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/ast.h"
-#include "token/token_mgr.h"
-#include "twl_printf.h"
+#include "ast/nodes/ast_while_clause.h"
 
-void				ast_set_error_msg_syntax_error(t_ast *ast)
+t_ast_while_clause			*ast_while_clause_new(void)
 {
-	twl_asprintf(&ast->error_msg, "SyntaxError");
+	t_ast_while_clause		*ast_while_clause;
+
+	ast_while_clause = twl_malloc_x0(sizeof(t_ast_while_clause));
+	return (ast_while_clause);
 }
