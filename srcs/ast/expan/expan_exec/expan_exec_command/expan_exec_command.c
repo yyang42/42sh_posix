@@ -30,10 +30,9 @@ bool			expan_exec_command(t_expan_token *expan_token)
 	saved_stdout = dup(STDOUT_FILENO);
 	if(pipe(out_pipe) != 0)
 		return (false);
-	dup2(out_pipe[1], STDOUT_FILENO);   /* redirect stdout to the pipe */
+	dup2(out_pipe[1], STDOUT_FILENO);
 	close(out_pipe[1]);
 	prog_run_input(prog, expan_command->command);
-	fflush(stdout);
 	read(out_pipe[0], buffer, CMD_MAX_LEN);
 	dup2(saved_stdout, STDOUT_FILENO);
 	expan_token->res = twl_strdup(buffer);

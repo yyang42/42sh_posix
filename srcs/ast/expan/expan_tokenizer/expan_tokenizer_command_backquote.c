@@ -20,8 +20,9 @@ static int		expan_token_parse_command_backquote(t_expan_command *command, char *
 {
 	int	len;
 
-	len = expan_tokenizer_get_word_len(&command->command, &str[i], "(");
-	return (len);
+	//TODO specific function for backquote
+	len = expan_tokenizer_get_word_len(&command->command, &str[i], "`");
+	return (len + i + 1);
 }
 
 int				expan_tokenizer_command_backquote(t_expan_tokenizer *tokenizer,
