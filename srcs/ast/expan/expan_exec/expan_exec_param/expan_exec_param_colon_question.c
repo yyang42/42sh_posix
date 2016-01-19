@@ -17,8 +17,11 @@
 
 static void		print_error_msg(t_expan_param *data)
 {
-	if (twl_strcmp(data->word, ""))
-		twl_dprintf(2, "42sh: %s: %s\n", data->parameter, data->word);
+	char *word;
+
+	word = expan_exec_param_word_expan(data->word);
+	if (twl_strcmp(word, ""))
+		twl_dprintf(2, "42sh: %s: %s\n", data->parameter, word);
 	else
 		twl_dprintf(2, "42sh: %s: parameter null or not set\n",
 			data->parameter);
