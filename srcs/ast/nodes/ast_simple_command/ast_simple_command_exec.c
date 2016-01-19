@@ -55,14 +55,19 @@ void		execute_simple_command(t_ast_simple_command *cmd,
 	token_joined = token_mgr_strjoin(cmd->command_tokens, " ");
 	cmd_arr = twl_strsplit(token_joined, ' ');
 	env_arr = (char **)environment_get_env_arr(env);
-	if (!is_builtin(cmd_arr[0]))
+	if (cmd_arr[0])
 	{
-		path = get_binary_path(cmd_arr[0], env);
-		command_execution(path, cmd_arr, env_arr);
-		free(path);
+		if (!is_builtin(cmd_arr[0]))
+		{
+			path = get_binary_path(cmd_arr[0], env);
+			command_execution(path, cmd_arr, env_arr);
+			free(path);
+		}
+		else
+		execute_builtin(cmd, cmd_arr[0], token_joined, env);
 	}
 	else
-		execute_builtin(cmd, cmd_arr[0], token_joined, env);
+		error_command_not_found("");
 	twl_arr_del(cmd_arr, free);
 	twl_arr_del(env_arr, free);
 	free(token_joined);

@@ -19,7 +19,8 @@ typedef enum			s_token_origin
 	ASSIGNMENT_KEY,
 	ASSIGNMENT_VALUE,
 	REDIR_PARAM,
-	REDIR_HEREDOC
+	REDIR_HEREDOC,
+	PARAMETER_SUBSTITUTION_WORD
 }						t_token_origin;
 
 #endif

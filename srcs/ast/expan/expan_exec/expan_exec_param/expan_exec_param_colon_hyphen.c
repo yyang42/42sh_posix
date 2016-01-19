@@ -32,10 +32,10 @@ void			expan_exec_params_colon_hyphen(t_expan_token *expan_token)
 			if (env_var->value != NULL && twl_strcmp(env_var->value, "") != 0)
 				expan_token->res = twl_strdup(env_var->value);
 			else
-				expan_token->res = twl_strdup(data->word);
+				expan_token->res = expan_exec_param_word_expan(data->word);
 		}
 		else
-			expan_token->res = twl_strdup(data->word);
+			expan_token->res = expan_exec_param_word_expan(data->word);
 	}
 	else
 		expan_token->res = twl_strdup("");
