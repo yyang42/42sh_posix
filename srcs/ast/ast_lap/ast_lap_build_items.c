@@ -89,6 +89,8 @@ t_lst				*ast_lap_build_items(t_lst *tokens,
 			|| token_mgr_first_equ(tokens, "fi")
 			|| token_mgr_first_equ(tokens, "do")
 			|| token_mgr_first_equ(tokens, "done")
+			|| token_mgr_first_equ(tokens, ";;")
+			|| token_mgr_first_equ(tokens, "esac")
 			)
 			break ;
 		item = ast_lap_new_from_tokens_fns()[type](tokens, ast);

@@ -10,32 +10,27 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_case_clause.h"
+#include "token/token_list_mgr.h"
+#include "ast/ast.h"
 #include "ast/nodes/ast_case_item.h"
-#include "ast/nodes/ast_compound_list.h"
-#include "ast/nodes/ast_if_then.h"
 
-static void			case_list_iter_fn(void *case_item, void *depth_ptr)
+t_ast_case_item	*ast_case_item_new_from_tokens(t_lst *tokens, struct s_ast *ast)
 {
-	int				depth;
+	t_ast_case_item		*this;
 
-	depth = *(int *)depth_ptr;
-	ast_print_indent(depth);
-	twl_printf("case_item\n");
-	ast_case_item_print_rec(case_item, depth + 1);
-	(void)case_item;
-}
-
-void				ast_case_clause_print_rec(t_ast_case_clause *this,
-	int depth)
-{
-	ast_print_indent(depth);
-	twl_printf("ast_case_clause\n", this->needle_token->text);
-	depth++;
-	ast_print_indent(depth);
-	twl_printf("ast_case_needle (%s)\n", this->needle_token->text);
-	ast_print_indent(depth);
-	twl_printf("ast_case_list\n");
-	depth++;
-	twl_lst_iter(this->case_list, case_list_iter_fn, &depth);
+	this = ast_case_item_new();
+	this->pattern_token = twl_lst_pop_front(tokens); // TODO: handle missing pattern
+	twl_lst_pop_front(tokens); // TODO: handle missing ')'
+	// token_mgr_print(tokens);
+	this->compound_list = ast_compound_list_new_from_tokens(tokens, ast);
+	// if (!token_mgr_first_equ(tokens, "then"))
+	// {
+	// 	ast_set_error_msg_syntax_error_missing(ast, open, "then");
+	// 	return (NULL);
+	// }
+	// twl_lst_pop_front(tokens);
+	// this->then_compound = ast_compound_list_new_from_tokens(tokens, ast);
+	return (this);
+	(void)ast;
+	(void)tokens;
 }

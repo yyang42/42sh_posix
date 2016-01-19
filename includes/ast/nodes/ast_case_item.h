@@ -10,32 +10,32 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_case_clause.h"
-#include "ast/nodes/ast_case_item.h"
-#include "ast/nodes/ast_compound_list.h"
-#include "ast/nodes/ast_if_then.h"
+#ifndef AST_CASE_ITEM_H
+# define AST_CASE_ITEM_H
 
-static void			case_list_iter_fn(void *case_item, void *depth_ptr)
+# include "basics.h"
+
+# include "token/token_mgr.h"
+
+# include "ast/ast_defines.h"
+# include "ast/ast_utils.h"
+
+# include "ast/nodes/ast_compound_list.h"
+
+typedef struct		s_ast_case_item
 {
-	int				depth;
+	t_token					*pattern_token;
+	t_ast_compound_list		*compound_list;
+}					t_ast_case_item;
 
-	depth = *(int *)depth_ptr;
-	ast_print_indent(depth);
-	twl_printf("case_item\n");
-	ast_case_item_print_rec(case_item, depth + 1);
-	(void)case_item;
-}
+t_ast_case_item		*ast_case_item_new(void);
+void				ast_case_item_del(t_ast_case_item *ast_case_item);
+void				ast_case_item_del_void(void *ast_case_item);
 
-void				ast_case_clause_print_rec(t_ast_case_clause *this,
-	int depth)
-{
-	ast_print_indent(depth);
-	twl_printf("ast_case_clause\n", this->needle_token->text);
-	depth++;
-	ast_print_indent(depth);
-	twl_printf("ast_case_needle (%s)\n", this->needle_token->text);
-	ast_print_indent(depth);
-	twl_printf("ast_case_list\n");
-	depth++;
-	twl_lst_iter(this->case_list, case_list_iter_fn, &depth);
-}
+t_ast_case_item		*ast_case_item_new_from_tokens(t_lst *tokens, struct s_ast *ast);
+void				*ast_case_item_new_from_tokens_void(t_lst *tokens, struct s_ast *ast);
+void				ast_case_item_print_rec(t_ast_case_item *ast_case_item, int depth);
+
+bool				ast_case_item_is_own_type(t_lst *tokens);
+
+#endif

@@ -14,8 +14,9 @@
 
 t_ast_case_clause			*ast_case_clause_new(void)
 {
-	t_ast_case_clause		*ast_case_clause;
+	t_ast_case_clause		*this;
 
-	ast_case_clause = twl_malloc_x0(sizeof(t_ast_case_clause));
-	return (ast_case_clause);
+	this = twl_malloc_x0(sizeof(t_ast_case_clause));
+	this->case_list = twl_lst_new();
+	return (this);
 }

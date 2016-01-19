@@ -15,6 +15,7 @@
 #include "token/token_list_mgr.h"
 #include "token/token_utils.h"
 #include "ast/nodes/ast_case_clause.h"
+#include "ast/nodes/ast_case_item.h"
 #include "ast/nodes/ast_compound_list.h"
 #include "ast/nodes/ast_if_then.h"
 
@@ -26,25 +27,27 @@ t_ast_case_clause		*ast_case_clause_new_from_tokens(t_lst *tokens,
 
 	this = ast_case_clause_new();
 	open = twl_lst_pop_front(tokens);
-	this->cond_compound = ast_compound_list_new_from_tokens(tokens,
-		ast);
-	if (ast_has_error(ast))
-		return (NULL);
-	if (this->cond_compound == NULL
-		|| twl_lst_len(this->cond_compound->ast_list_items) == 0)
+	this->needle_token = twl_lst_pop_front(tokens); // TODO: handle missing needle
+	twl_lst_pop_front(tokens); // TODO: handle missing 'in'
+	while (true)
 	{
-		ast_set_error_msg_syntax_error_near(ast, open, "Missing condition");
-		return (NULL);
+		token_mgr_pop_linebreak(tokens);
+		if (token_mgr_first_equ(tokens, "esac"))
+			break ;
+		twl_lst_push(this->case_list, ast_case_item_new_from_tokens(tokens, ast));
+
+		if (token_mgr_first_equ(tokens, ";;"))
+		{
+			twl_lst_pop_front(tokens);
+			continue;
+		}
+		else
+		{
+			break;
+		}
 	}
-	if (ast_has_error(ast))
-		return (NULL);
-	this->do_group = ast_compound_list_new_from_tokens_wrap(tokens, "do", "done", ast);
-	if (ast_has_error(ast))
-		return (NULL);
-	if (this->do_group == NULL)
-	{
-		ast_set_error_msg_syntax_error_near(ast, open, NULL);
-		return (NULL);
-	}
+	// token_mgr_print(tokens);
+	twl_lst_pop_front(tokens); // TODO: handle missing esac
 	return (this);
+	(void)open;
 }
