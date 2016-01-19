@@ -36,8 +36,8 @@ static t_expan_type	identify_expan(char *str)
 void					expan_tokenizer(char *str, t_lst *expan_tokens,
 	t_token_origin origin)
 {
-	t_expan_tokenizer *tokenizer;
-	t_expan_type type;
+	t_expan_tokenizer	*tokenizer;
+	t_expan_type 		type;
 
 	tokenizer = expan_tokenizer_new();
 	tokenizer->origin = origin;
@@ -51,7 +51,7 @@ void					expan_tokenizer(char *str, t_lst *expan_tokens,
 				tokenizer->is_between_dq = !tokenizer->is_between_dq;
 			type = identify_expan(&str[tokenizer->i]);
 			if (type != NONE)
-				expan_tokenizer_none(expan_tokens, &str[tokenizer->last], tokenizer->i - tokenizer->last);
+				expan_tokenizer_none(tokenizer, expan_tokens, &str[tokenizer->last], tokenizer->i - tokenizer->last);
 			if (!tokenizer->is_between_sq)
 			{
 				if (type == PARAMETER)
@@ -89,7 +89,7 @@ void					expan_tokenizer(char *str, t_lst *expan_tokens,
 			tokenizer->i++;
 		}
 		if (str[tokenizer->last] != 0 && tokenizer->i > tokenizer->last)
-			expan_tokenizer_none(expan_tokens, &str[tokenizer->last], tokenizer->i - tokenizer->last);
+			expan_tokenizer_none(tokenizer, expan_tokens, &str[tokenizer->last], tokenizer->i - tokenizer->last);
 	}
 	expan_tokenizer_del(tokenizer);
 }

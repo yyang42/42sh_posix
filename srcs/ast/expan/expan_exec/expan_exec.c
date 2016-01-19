@@ -24,7 +24,7 @@ static void		iter_fn(void *expan_token_)
 	{
 		expan_token->exec_expan(expan_token);
 	}
-	if (expan_token->type != PARAMETER_SUBSTITUTION_WORD)
+	if (expan_token->origin != PARAMETER_SUBSTITUTION_WORD)
 	{
 		expan_exec_pattern_matching(expan_token);
 		expan_quote_removal(&expan_token->res);
