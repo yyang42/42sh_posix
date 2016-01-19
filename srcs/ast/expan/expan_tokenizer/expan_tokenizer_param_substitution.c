@@ -44,36 +44,17 @@ void iter_fn_setup_quotes(void *quote_, void *prev_quote_, void *context_)
 	(void)context_;
 	quote = quote_;
 	prev_quote = prev_quote_;
-	if (!twl_strcmp(quote->str,"'") || !twl_strcmp(quote->str,"\"") || !twl_strcmp(quote->str,"\\"))
+	if (prev_quote)
 	{
-		if (prev_quote)
-		{
-			if (!twl_strcmp(quote->str,"'") && twl_strcmp(prev_quote->str, "\\"))
-				quote->is_single_quoted = !quote->is_single_quoted;
-			else if (!twl_strcmp(quote->str,"\"") && twl_strcmp(prev_quote->str, "\\"))
-				quote->is_double_quoted = !quote->is_double_quoted;
-			else if (!twl_strcmp(quote->str,"\"") && twl_strcmp(prev_quote->str, "\\"))
-				quote->is_backslashed = true;
-		}
-		else
-		{
-			if (!twl_strcmp(quote->str,"'"))
-				quote->is_single_quoted = !quote->is_single_quoted;
-			else if (!twl_strcmp(quote->str,"\""))
-				quote->is_double_quoted = !quote->is_double_quoted;
-		}
-	}
-	else if (prev_quote)
-	{
-		if (!twl_strcmp(prev_quote->str,"'") && prev_quote->is_backslashed == false)
-			quote->is_single_quoted = prev_quote->is_single_quoted;
-		else if (!twl_strcmp(prev_quote->str, "'") && prev_quote->is_backslashed == true)
+		if (!twl_strcmp(prev_quote->str,"'") && !prev_quote->is_backslashed)
 			quote->is_single_quoted = !prev_quote->is_single_quoted;
-		if (!twl_strcmp(prev_quote->str, "\"") && prev_quote->is_backslashed == false)
-			quote->is_double_quoted = prev_quote->is_double_quoted;
-		else if (!twl_strcmp(prev_quote->str, "\"") && prev_quote->is_backslashed == true)
+		else
+			quote->is_single_quoted = prev_quote->is_single_quoted;
+		if (!twl_strcmp(prev_quote->str,"\"") && !prev_quote->is_backslashed)
 			quote->is_double_quoted = !prev_quote->is_double_quoted;
-		if (!twl_strcmp(prev_quote->str, "\\"))
+		else
+			quote->is_double_quoted = prev_quote->is_double_quoted;
+		if (!twl_strcmp(prev_quote->str, "\\") && !prev_quote->is_backslashed)
 			quote->is_backslashed = true;
 	}
 }
@@ -93,11 +74,13 @@ void		iter_fn_get_word(void *quote_, void *len_, void *nb_open_brace_, void *fin
 	{
 		if (!twl_strcmp(quote->str, "{") && !quote->is_double_quoted && !quote->is_single_quoted && !quote->is_backslashed)
 		{
+			twl_printf("COUCOUCOUCOU1\n");
 			*nb_open_brace = *nb_open_brace + 1;
 			*len = *len + 1;
 		}
 		else if (!twl_strcmp(quote->str, "}") && !quote->is_double_quoted && !quote->is_single_quoted && !quote->is_backslashed)
 		{
+			twl_printf("COUCOUCOUCOU2\n");
 			*nb_open_brace = *nb_open_brace - 1;
 			if (*nb_open_brace == 0)
 				*finished = true;
@@ -175,6 +158,8 @@ static int	expan_tokenizer_param_substitution_get_parameter_word(t_expan_param *
 	}
 	if (expan_tokenizer_param_substitution_get_parameter(expan_param, &str[i], &str[j]))
 		word_len = expan_tokenizer_param_substitution_get_word(expan_param, &str[j] + op_len);
+	twl_printf("PARAMETER : %s\n", expan_param->parameter);
+	twl_printf("WORD : %s\n", expan_param->word);
 	return (j + word_len + op_len + 1);
 }
 
