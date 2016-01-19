@@ -38,7 +38,7 @@ void			expan_exec_params_equal(t_expan_token *expan_token)
 			if (env_var->value != NULL && twl_strcmp(env_var->value, "") != 0)
 				expan_token->res = twl_strdup(env_var->value);
 			else
-				expan_tok->res = twl_strdup("");
+				expan_token->res = twl_strdup("");
 		}
 		else
 			set_env_and_token(env, expan_token, data);
