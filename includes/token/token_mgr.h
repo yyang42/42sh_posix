@@ -48,4 +48,6 @@ t_lst				*token_mgr_extract_redir(t_lst *tokens,
 t_lst				*token_mgr_extract_assignment(t_lst *tokens,
 													t_lst *remaining_tokens);
 
+void				token_mgr_pop_linebreak(t_lst *tokens);
+
 #endif

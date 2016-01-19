@@ -47,28 +47,35 @@ static int				build_redir_tokens(t_lst *redir_items,
 static void				new_compound_command_do(t_ast_compound_command *this,
 	t_lst *tokens, struct s_ast *ast)
 {
-	int						pos;
-	t_openclose_matcher		*matcher;
+	// int						pos;
+	// t_openclose_matcher		*matcher;
 	t_lst					*redir_tokens;
-	t_lst					*command_tokens;
+	// t_lst					*command_tokens;
 
-	matcher = openclose_matcher_singleton_parser();
-	pos = openclose_matcher_token_find_matching(matcher, tokens);
-	if (pos == -1)
-	{
-		ast_set_error_msg_format(ast, token_mgr_first(tokens),
-			"Closing token for '%s' not found", token_mgr_first(tokens)->text);
-		return ;
-	}
-	command_tokens = twl_lst_slice(tokens, 0, pos);
-	this->command =
-	compound_command_from_token_fns()[this->command_type](command_tokens, ast);
-	twl_lst_del(command_tokens, NULL);
+	// matcher = openclose_matcher_singleton_parser();
+	// pos = openclose_matcher_token_find_matching(matcher, tokens);
+	// if (pos == -1)
+	// {
+	// 	ast_set_error_msg_format(ast, token_mgr_first(tokens),
+	// 		"Closing token for '%s' not found", token_mgr_first(tokens)->text);
+	// 	return ;
+	// }
+	// command_tokens = twl_lst_slice(tokens, 0, pos);
+	this->command = compound_command_from_token_fns()[this->command_type](tokens, ast);
+
+	// twl_lst_del(command_tokens, NULL);
 	if (ast_has_error(ast))
 		return ;
-	redir_tokens = twl_lst_slice(tokens, pos, twl_lst_len(tokens));
+	redir_tokens = twl_lst_new();
+	while (twl_lst_len(tokens)
+		&& !ast_is_command_separator(token_mgr_first(tokens)->text))
+	{
+		twl_lst_push_back(redir_tokens, twl_lst_pop_front(tokens));
+	}
+	// redir_tokens = twl_lst_slice(tokens, pos, twl_lst_len(tokens));
 	build_redir_tokens(this->redir_items, redir_tokens, ast);
 	twl_lst_del(redir_tokens, NULL);
+	(void)build_redir_tokens;
 }
 
 t_ast_compound_command	*ast_compound_command_new_from_tokens(t_lst *tokens,
@@ -77,6 +84,7 @@ t_ast_compound_command	*ast_compound_command_new_from_tokens(t_lst *tokens,
 	t_ast_compound_command		*this;
 
 	this = ast_compound_command_new();
+	// twl_printf("===> ast_compound_command_new_from_tokens");
 	this->command_type = ast_compound_command_get_type_from_tokens(tokens);
 	if (this->command_type != COMPOUND_COMMAND_NONE)
 	{

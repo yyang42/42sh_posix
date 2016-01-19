@@ -1,0 +1,9 @@
+compound_list
+    ast_list_item (sep=\n)
+        ast_andor_item
+            ast_pipe_item (sep=|)
+                ast_command
+                    ast_simple_command (echo abc)
+            ast_pipe_item
+                ast_command
+                    ast_simple_command (wc)

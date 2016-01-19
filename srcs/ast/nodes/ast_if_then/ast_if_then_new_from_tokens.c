@@ -13,6 +13,7 @@
 #include "token/token_list_mgr.h"
 #include "ast/ast.h"
 #include "ast/nodes/ast_if_then.h"
+/*
 
 static int		build(t_ast_if_then *ast_if_then,
 	t_lst *tokens, struct s_ast *ast)
@@ -39,15 +40,43 @@ static int		build(t_ast_if_then *ast_if_then,
 	return (0);
 }
 
+*/
+
+
 t_ast_if_then	*ast_if_then_new_from_tokens(t_lst *tokens, struct s_ast *ast)
 {
 	t_ast_if_then		*ast_if_then;
+	t_token				*open;
 
 	ast_if_then = ast_if_then_new();
-	if (build(ast_if_then, tokens, ast) == -1)
+	open = twl_lst_pop_front(tokens);
+	ast_if_then->cond_compound = ast_compound_list_new_from_tokens(tokens, ast);
+
+	if (!token_mgr_first_equ(tokens, "then"))
 	{
-		ast_if_then_del(ast_if_then);
+		ast_set_error_msg_syntax_error_missing(ast, open, "then");
 		return (NULL);
 	}
+	twl_lst_pop_front(tokens);
+	// token_mgr_print(tokens);
+	ast_if_then->then_compound = ast_compound_list_new_from_tokens(tokens, ast);
+	// twl_lst_pop_front(tokens);
+	// ast_if_then->cond_compound = ast_compound_list_new_from_tokens(tokens, ast);
+	// twl_lst_pop_front(tokens);
+	// ast_if_then->then_compound = ast_compound_list_new_from_tokens(tokens, ast);
+	// token_mgr_print(tokens);
+	// twl_lst_clear(tokens, NULL);
+	// twl_lst_clear(tokens, NULL);
+	// ast_if_then->then_compound = ast_compound_list_new_from_tokens(tokens,
+	// 	ast);
+	// ast_if_then->then_compound = ast_compound_list_new_from_tokens(then_tokens,
+	// 	ast);
+	// if (build(ast_if_then, tokens, ast) == -1)
+	// {
+	// 	ast_if_then_del(ast_if_then);
+	// 	return (NULL);
+	// }
+	(void)tokens;
+	(void)ast;
 	return (ast_if_then);
 }
