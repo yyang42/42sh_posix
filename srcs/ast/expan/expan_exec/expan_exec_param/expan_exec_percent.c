@@ -15,18 +15,30 @@
 #include "ast/expan/ast_expan_param.h"
 #include "special_params.h"
 
-static void		set_env_and_token(t_environment *env, t_expan_token *expan_tok,
-	t_expan_param *data)
+static char		*ft_treat_percent(char *str, char *word)
 {
-	environment_setenv_value(env, data->parameter, data->word, 1);
-	expan_tok->res = twl_strdup(data->word);
+	int		len_str;;
+	int		len_word;
+	char	*end_sub;
+
+	len_str = twl_strlen(str);
+	len_word = twl_strlen(word);
+	if (len_str < len_word)
+		return (twl_strdup(str));
+	else
+	{
+		end_sub = twl_strsub(str, len_str - len_word, len_word);
+		if (!twl_strcmp(end_sub, word))
+			return (twl_strsub(str, 0, len_str - len_word));
+	}
+	return (twl_strdup(str));
 }
 
-void			expan_exec_params_colon_equal(t_expan_token *expan_token)
+void			expan_exec_params_percent(t_expan_token *expan_token)
 {
 	t_expan_param		*data;
-	t_environment_var	*env_var;
 	t_environment		*env;
+	t_environment_var	*env_var;
 
 	data = expan_token->expan_data;
 	env = environment_singleton();
@@ -36,12 +48,12 @@ void			expan_exec_params_colon_equal(t_expan_token *expan_token)
 		if (env_var && env_var->value_is_set)
 		{
 			if (env_var->value != NULL && twl_strcmp(env_var->value, "") != 0)
-				expan_token->res = twl_strdup(env_var->value);
+				expan_token->res = ft_treat_percent(env_var->value, data->word);
 			else
-				set_env_and_token(env, expan_token, data);
+				expan_token->res = twl_strdup("");
 		}
 		else
-			set_env_and_token(env, expan_token, data);
+			expan_token->res = twl_strdup("");
 	}
 	else
 		expan_token->res = twl_strdup("");

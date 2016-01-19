@@ -41,6 +41,9 @@ void *expan_param_type_to_func_dict(t_expan_param_type type)
 		twl_dict_add(dict, twl_itoa(EQUAL), expan_exec_params_equal);
 		twl_dict_add(dict, twl_itoa(COLON_PLUS), expan_exec_params_colon_plus);
 		twl_dict_add(dict, twl_itoa(PLUS), expan_exec_params_plus);
+		twl_dict_add(dict, twl_itoa(PERCENT), expan_exec_params_percent);
+		twl_dict_add(dict, twl_itoa(PERCENT_PERCENT),
+			expan_exec_params_percent_percent);
 	}
 	str = twl_itoa(type);
 	ret = twl_dict_get(dict, str);

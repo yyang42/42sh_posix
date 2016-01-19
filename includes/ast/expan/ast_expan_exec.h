@@ -39,5 +39,7 @@ void			expan_exec_params_equal(t_expan_token *expan_token);
 void			expan_exec_params_colon_plus(t_expan_token *expan_token);
 char			*expan_exec_param_word_expan(char *word);
 void			expan_exec_params_plus(t_expan_token *expan_token);
+void			expan_exec_params_percent(t_expan_token *expan_token);
+void			expan_exec_params_percent_percent(t_expan_token *expan_token);
 
 #endif
