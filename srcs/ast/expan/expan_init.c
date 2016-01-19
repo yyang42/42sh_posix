@@ -23,7 +23,7 @@ void	expan_init(char **ptr, t_token_origin origin)
 	expan_tokens = expan_token_mgr_new();
 	expan_tokenizer(*ptr, expan_tokens, origin);
 	expan_exec(expan_tokens);
-	expan_token_mgr_print(expan_tokens);
+	// expan_token_mgr_print(expan_tokens);
 	concat = expan_tokenizer_concat(expan_tokens);
 	if (concat)
 	{

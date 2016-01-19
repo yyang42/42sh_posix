@@ -16,7 +16,7 @@
 #include "ast/expan/ast_expan_quote.h"
 
 
-t_expan_param_type	expan_tokenizer_param_substitution_get_operator(char *str, int *j)
+static t_expan_param_type	expan_tokenizer_param_substitution_get_operator(char *str, int *j)
 {
 	char				*operator;
 	t_expan_param_type	type;

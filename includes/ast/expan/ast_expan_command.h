@@ -14,6 +14,7 @@
 # define AST_EXPAN_COMMAND_H
 
 #include "basics.h"
+# define CMD_MAX_LEN 2048
 
 typedef struct			s_expan_command
 {

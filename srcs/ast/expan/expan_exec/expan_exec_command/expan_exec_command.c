@@ -13,14 +13,29 @@
 #include "basics.h"
 #include "ast/expan/ast_expan_exec.h"
 #include "ast/expan/ast_expan_command.h"
-#include "special_params.h"
-#include "environment.h"
-
+#include "prog.h"
+#include <stdio.h>
 
 void			expan_exec_command(t_expan_token *expan_token)
 {
 	t_expan_command	*expan_command;
+	char			buffer[CMD_MAX_LEN + 1];
+	int				out_pipe[2];
+	int				saved_stdout;
+	t_prog			*prog;
 
 	expan_command = expan_token->expan_data;
-	//TODO
+	prog = prog_new();
+	twl_bzero(buffer, CMD_MAX_LEN + 1);
+	saved_stdout = dup(STDOUT_FILENO);
+	if(pipe(out_pipe) != 0)
+		return ;
+	dup2(out_pipe[1], STDOUT_FILENO);   /* redirect stdout to the pipe */
+	close(out_pipe[1]);
+	prog_run_input(prog, expan_command->command);
+	fflush(stdout);
+	read(out_pipe[0], buffer, CMD_MAX_LEN);
+	dup2(saved_stdout, STDOUT_FILENO);
+	expan_token->res = twl_strdup(buffer);
+	prog_del(prog);
 }
