@@ -12,21 +12,29 @@
 
 #include "utils.h"
 #include "data.h"
+#include "token/token_utils.h"
 #include "token/token_mgr.h"
 #include "openclose/openclose_matcher.h"
 
-static bool			contains_assignment_equal(char *str)
+static bool			is_assignment_from_lst(t_lst *segs, char *str)
 {
-	while (*str)
-	{
-		if (twl_str_starts_with(str, "\\="))
-			str += 2;
-		else if (*str == '=')
-			return (true);
-		else
-			str++;
-	}
+	if (!token_utils_is_valid_name(twl_lst_first(segs)))
+		return (false);
+	if ((str[twl_strlen(str) - 1] == '=')
+		|| twl_lst_len(segs) >= 2)
+		return (true);
 	return (false);
+}
+
+static bool			is_assignment(char *str)
+{
+	t_lst			*segs;
+	bool			is_assign;
+
+	segs = twl_str_split_to_lst(str, "=");
+	is_assign = is_assignment_from_lst(segs, str);
+	twl_lst_del(segs, free);
+	return (is_assign);
 }
 
 static void			do_extract(t_lst *tokens, t_lst *assign_tokens, t_lst *remaining_tokens)
@@ -35,8 +43,7 @@ static void			do_extract(t_lst *tokens, t_lst *assign_tokens, t_lst *remaining_t
 
 	while ((token = twl_lst_first(tokens)))
 	{
-		if (contains_assignment_equal(token->text)
-			&& !twl_str_starts_with(token->text, "="))
+		if (is_assignment(token->text))
 		{
 			twl_lst_push_back(assign_tokens, twl_lst_pop_front(tokens));
 		}
