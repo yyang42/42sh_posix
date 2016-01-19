@@ -20,6 +20,12 @@ t_ast_case_item	*ast_case_item_new_from_tokens(t_lst *tokens, struct s_ast *ast)
 
 	this = ast_case_item_new();
 	this->pattern_token = twl_lst_pop_front(tokens); // TODO: handle missing pattern
+
+	if (!token_mgr_first_equ(tokens, ")"))
+	{
+		ast_set_error_msg_syntax_error_missing(ast, this->pattern_token, ")");
+		return (NULL);
+	}
 	twl_lst_pop_front(tokens); // TODO: handle missing ')'
 	// token_mgr_print(tokens);
 	this->compound_list = ast_compound_list_new_from_tokens(tokens, ast);
