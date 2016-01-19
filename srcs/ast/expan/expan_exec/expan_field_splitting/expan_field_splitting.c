@@ -11,19 +11,34 @@
 /* ************************************************************************** */
 
 #include "basics.h"
-#include "ast/expan/ast_expan_exec.h"
+#include "ast/expan/ast_expan_field_splitting.h"
+#include "environment.h"
 #include "patmatch.h"
+#include "twl_xstring.h"
 
-void		expan_exec_field_splitting(t_expan_token *token)
+static void expan_field_splitting_str(char **res, char *ifs)
+{
+	(void)res;
+	(void)ifs;
+}
+
+void		expan_field_splitting(char **res)
 {
 	t_environment		*env;
 	t_environment_var	*ifs;
 
-	(void)token;
 	env = environment_singleton();
 	ifs = environment_get(env, "IFS");
 	if (ifs && ifs->value_is_set == 1)
 	{
-
+		if (!twl_strcmp(ifs->value, " ") || !twl_strcmp(ifs->value, "\t")
+			|| !twl_strcmp(ifs->value, "\n"))
+			expan_field_splitting_white_spaces(res);
+		else
+			expan_field_splitting_str(res, ifs->value);
+	}
+	else if (!ifs)
+	{
+		expan_field_splitting_white_spaces(res);
 	}
 }
