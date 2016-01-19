@@ -28,6 +28,8 @@ char			*get_binary_path(char *cmd, t_environment *env)
 	if (cmd && (cmd[0] == '/' || twl_strncmp(cmd, "./", 2) == 0))
 		return (!file_exists(cmd) ? NULL : cmd);
 	paths = environment_get_paths(env);
+	if (!paths)
+		return (NULL);
 	i = -1;
 	while (paths[++i])
 	{
