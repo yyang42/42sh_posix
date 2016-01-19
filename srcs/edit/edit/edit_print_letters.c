@@ -24,6 +24,7 @@ static void			print_letter_fn(void *_letter, int index, void *_edit)
 	{
 		terminal_radio_letter();
 	}
+	copast_is_selected_index(edit->copast, index, edit->index);
 	twl_putstr(letter->letter);
 	terminal_clear_letter();
 }

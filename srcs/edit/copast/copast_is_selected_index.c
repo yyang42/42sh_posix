@@ -10,10 +10,22 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "edit/terminal.h"
+#include "edit/copast.h"
 
-void				terminal_clear_letter(void)
+void				copast_is_selected_index(t_copast *this, int letter_index, int cur_index)
 {
-	tputs(tgetstr("me", NULL), 1, twl_putchar);
-	twl_putstr(C_CLEAR);
+	if (this != NULL && !this->has_copy)
+	{
+		if (cur_index > letter_index && letter_index >= this->start_index)
+			twl_putstr(C_YELLOW);
+		if (cur_index < letter_index && letter_index <= this->start_index)
+			twl_putstr(C_YELLOW);
+	}
+	if (this != NULL && this->has_copy)
+	{
+		if (letter_index > this->start_index && letter_index < this->stop_index)
+			twl_putstr(C_RED);
+		if (letter_index < this->start_index && letter_index > this->stop_index)
+			twl_putstr(C_RED);
+	}
 }

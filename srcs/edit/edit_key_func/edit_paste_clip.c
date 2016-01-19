@@ -26,6 +26,8 @@ void				edit_paste_clip(void *_edit)
 	int				min;
 
 	edit = _edit;
+	if (edit->copast->stop_index == -1)
+		return ;
 	min = edit->copast->start_index > edit->copast->stop_index ? edit->copast->stop_index : edit->copast->start_index;
 	max = edit->copast->start_index > edit->copast->stop_index ? edit->copast->start_index : edit->copast->stop_index;
 	slice = twl_lst_slice(edit->letters, min, max);

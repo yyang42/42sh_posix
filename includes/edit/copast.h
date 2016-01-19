@@ -28,5 +28,6 @@ t_copast			*copast_new(int index);
 void				copast_del(t_copast *copast);
 
 void				copast_stop_copy(t_copast *this, int index);
+void				copast_is_selected_index(t_copast *this, int letter_index, int cur_index);
 
 #endif
