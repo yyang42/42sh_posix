@@ -47,6 +47,12 @@ static bool expan_tokenizer_param_substitution_get_parameter(t_expan_param *expa
 	return (true);
 }
 
+static void	expan_tokenizer_param_check_parameter(t_expan_param *expan_param)
+{
+	(void)expan_param;
+	//TODO expan numeric our varaibel
+}
+
 static int	expan_tokenizer_param_substitution_get_parameter_word(t_expan_param *expan_param,
 	char *str, int i)
 {
@@ -54,6 +60,7 @@ static int	expan_tokenizer_param_substitution_get_parameter_word(t_expan_param *
 	int					op_len;
 	int					word_len;
 	t_expan_param_type	type;
+	bool				parameter_is_ok;
 
 	j = i;
 	op_len = 0;
@@ -69,8 +76,11 @@ static int	expan_tokenizer_param_substitution_get_parameter_word(t_expan_param *
 		else
 			j++;
 	}
-	if (expan_tokenizer_param_substitution_get_parameter(expan_param, &str[i], &str[j]))
+	parameter_is_ok = expan_tokenizer_param_substitution_get_parameter(expan_param, &str[i], &str[j]);
+	if (type != UNDEFINED_PARAM)
 		word_len = expan_tokenizer_get_word_len(&expan_param->word, &str[j] + op_len, "{");
+	else
+		expan_tokenizer_param_check_parameter(expan_param);
 	return (j + word_len + op_len + 1);
 }
 
