@@ -21,13 +21,12 @@ typedef struct		s_copast
 {
 	int				start_index;
 	int				stop_index;
-	t_lst			*clipboard_letters;
 	bool			has_copy;
 }					t_copast;
 
 t_copast			*copast_new(int index);
 void				copast_del(t_copast *copast);
 
-void				copast_stop_copy(t_copast *this, int index, t_lst *letters);
+void				copast_stop_copy(t_copast *this, int index);
 
 #endif

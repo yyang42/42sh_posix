@@ -18,7 +18,6 @@ t_copast			*copast_new(int index)
 
 	copast = twl_malloc_x0(sizeof(t_copast));
 	copast->start_index = index;
-	copast->clipboard_letters = NULL;
 	copast->stop_index = -1;
 	copast->has_copy = false;
 	return (copast);

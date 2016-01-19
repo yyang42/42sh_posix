@@ -19,11 +19,10 @@ void				edit_start_stop_cpy(void *_edit)
 	edit = _edit;
 	if (edit->copast == NULL)
 	{
-		twl_lprintf("copast: %d\n", edit->index);
 		edit->copast = copast_new(edit->index);
 	}
 	else
 	{
-		copast_stop_copy(edit->copast, edit->index, edit->letters);
+		copast_stop_copy(edit->copast, edit->index);
 	}
 }

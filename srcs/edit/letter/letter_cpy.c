@@ -10,18 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LETTER_H
-# define LETTER_H
+#include "twl_xstdlib.h"
 
-# include "basics.h"
+#include "edit/letter.h"
 
-typedef struct		s_letter
+t_letter			*letter_cpy(t_letter *letter)
 {
-	char			letter[2];
-}					t_letter;
+	t_letter		*new_letter;
 
-t_letter			*letter_new(int letter);
-void				letter_del(t_letter *this);
-t_letter			*letter_cpy(t_letter *letter);
-
-#endif
+	new_letter = twl_malloc_x0(sizeof(t_letter));
+	twl_memcpy(new_letter, letter, sizeof(t_letter));
+	return (new_letter);
+}

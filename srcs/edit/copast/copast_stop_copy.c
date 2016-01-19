@@ -12,10 +12,8 @@
 
 #include "edit/copast.h"
 
-void				copast_stop_copy(t_copast *this, int index, t_lst *letters)
+void				copast_stop_copy(t_copast *this, int index)
 {
 	this->stop_index = index;
-	this->clipboard_letters = twl_lst_slice(letters, this->start_index, this->stop_index);
-	letter_mgr_debug_print(this->clipboard_letters);
 	this->has_copy = true;
 }
