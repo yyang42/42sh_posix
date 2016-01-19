@@ -15,27 +15,23 @@
 #include "ast/expan/ast_expan_param.h"
 #include "special_params.h"
 
-static char		*ft_treat_percent(char *str, char *word)
+static char		*ft_treat_sharp(char *str, char *word)
 {
-	int		len_str;;
-	int		len_word;
-	char	*end_sub;
+	int len_str;
+	int len_word;
 
-	len_str = twl_strlen(str);
 	len_word = twl_strlen(word);
-	if (len_str < len_word)
-		return (twl_strdup(str));
-	else
+	if (!twl_strncmp(str, word, len_word))
 	{
-		end_sub = twl_strsub(str, len_str - len_word, len_word);
-		if (!twl_strcmp(end_sub, word))
-			return (twl_strsub(str, 0, len_str - len_word));
+		len_str = twl_strlen(str);
+		return (twl_strsub(str, len_word, len_str - len_word));
 	}
-	return (twl_strdup(str));
+	else
+		return (twl_strdup(str));
 }
 
 //TODO: implementer le pattern matching pour finir
-void			expan_exec_params_percent_percent(t_expan_token *expan_token)
+void			expan_exec_params_sharp2(t_expan_token *expan_token)
 {
 	t_expan_param		*data;
 	t_environment		*env;
@@ -49,7 +45,7 @@ void			expan_exec_params_percent_percent(t_expan_token *expan_token)
 		if (env_var && env_var->value_is_set)
 		{
 			if (env_var->value != NULL && twl_strcmp(env_var->value, "") != 0)
-				expan_token->res = ft_treat_percent(env_var->value, data->word);
+				expan_token->res = ft_treat_sharp(env_var->value, data->word);
 			else
 				expan_token->res = twl_strdup("");
 		}
