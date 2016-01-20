@@ -26,6 +26,7 @@ static t_expan_param_type	expan_tokenizer_param_substitution_get_operator(char *
 	if (type != UNDEFINED_PARAM)
 	{
 		*j = 2;
+		twl_strdel(&operator);
 		return (type);
 	}
 	twl_strdel(&operator);

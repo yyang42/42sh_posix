@@ -38,7 +38,7 @@ static void tilde_with_known_suffix(t_test *test)
 	res = NULL;
 	token = twl_strdup("~");
 	suffix = twl_strdup("root");
-	expan_tilde_do(&res, twl_strdup("~"), twl_strdup("root"));
+	expan_tilde_do(&res, token, suffix);
 	mt_assert(twl_strcmp("/var/root",res) == 0);
 	twl_strdel(&res);
 	twl_strdel(&token);
@@ -57,7 +57,7 @@ static void tilde_with_unknown_suffix(t_test *test)
 	res = NULL;
 	token = twl_strdup("~");
 	suffix = twl_strdup("pouet");
-	expan_tilde_do(&res, twl_strdup("~"), twl_strdup("pouet"));
+	expan_tilde_do(&res, token, suffix);
 	mt_assert(twl_strcmp("~pouet",res) == 0);
 	twl_strdel(&res);
 	twl_strdel(&token);
