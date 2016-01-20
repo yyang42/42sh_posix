@@ -55,12 +55,12 @@ static void			end_bef(t_bracket_expr *this, t_brackexpr_find_ *bef)
 {
 	if (twl_strlen(bef->ret) == 0)
 	{
-		twl_dict_add(this->dict, bef->expr, NULL);
+		bracket_expr_add(this, bef->expr, (void *)-1);
 		return ;
 	}
 	if (bef->rev)
 		reverse_expr(bef);
-	twl_dict_add(this->dict, bef->expr, twl_strdup(bef->ret));
+	bracket_expr_add(this, bef->expr, twl_strdup(bef->ret));
 }
 
 void				bracket_expr_find_(t_bracket_expr *this, char *expr)
