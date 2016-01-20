@@ -18,7 +18,7 @@
 static void		set_env_and_token(t_environment *env, t_expan_token *expan_tok,
 	t_expan_param *data)
 {
-	environment_setenv_value(env, data->parameter, data->word, 1);
+	environment_setenv_value(env, data->parameter, twl_strdup(data->word), 1);
 	expan_tok->res = twl_strdup(data->word);
 }
 
@@ -33,9 +33,9 @@ bool			expan_exec_params_colon_equal(t_expan_token *expan_token)
 	if (data->parameter && twl_strcmp(data->parameter, ""))
 	{
 		env_var = environment_get(env, data->parameter);
-		if (env_var && env_var->value_is_set)
+		if (env_var )
 		{
-			if (env_var->value != NULL && twl_strcmp(env_var->value, "") != 0)
+			if (env_var->value != NULL && env_var->value_is_set == 1)
 				expan_token->res = twl_strdup(env_var->value);
 			else
 				set_env_and_token(env, expan_token, data);

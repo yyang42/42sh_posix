@@ -135,6 +135,25 @@ static void hyphen_param_str(t_test *test)
 	twl_strdel(&str);
 }
 
+static void colon_equal_param_str(t_test *test)
+{
+	t_environment	*env;
+	char			*str;
+
+	(void)test;
+	env = environment_singleton();
+	unset("unset X", env);
+	str = twl_strdup("${X:=abc}");
+	expan_init(&str, SIMPLE_COMMAND_TOKEN);
+	mt_assert(twl_strcmp(environment_getenv_value(env, "X"),"abc") == 0);
+	twl_strdel(&str);
+	str = twl_strdup("${X:=lol}");
+	expan_init(&str, SIMPLE_COMMAND_TOKEN);
+	mt_assert(twl_strcmp(environment_getenv_value(env, "X"),"abc") == 0);
+	twl_strdel(&str);
+	unset("unset X", env);
+}
+
 void	suite_expan_param(t_suite *suite)
 {
 	SUITE_ADD_TEST(suite, simple_pos_param);
@@ -143,4 +162,5 @@ void	suite_expan_param(t_suite *suite)
 	SUITE_ADD_TEST(suite, colon_hyphen_param_str);
 	SUITE_ADD_TEST(suite, colon_hyphen_param_str_quoted);
 	SUITE_ADD_TEST(suite, hyphen_param_str);
+	SUITE_ADD_TEST(suite, colon_equal_param_str);
 }

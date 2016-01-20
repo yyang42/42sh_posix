@@ -105,10 +105,10 @@ int				expan_tokenizer_get_word_len(char **res, char *str, char *delimiter)
 	twl_lst_iterp(quotes, iter_fn_setup_quotes, NULL);
 	twl_lst_iter3(quotes, iter_fn_get_word, &word_len, &nb_open_brace, &delimiter);
 	twl_lst_del(quotes, expan_quote_del);
+	twl_strdel(res);
 	if (word_len > 0)
-	{
-		twl_strdel(res);
 		*res = twl_strndup(str, word_len);
-	}
+	else
+		*res = twl_strdup("");
 	return (word_len);
 }
