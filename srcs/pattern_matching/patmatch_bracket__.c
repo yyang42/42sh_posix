@@ -21,15 +21,20 @@ int					patmatch_bracket__(t_patmatch *this, t_match__ *m,
 
 	content = twl_strndup(data->split + 1, twl_strlen(data->split) - 2);
 	ret = 0;
-	if (!(possibilities = twl_dict_get(this->class_expr, content)))
+	if (!(possibilities = bracket_expr_get(this->brack_expr, content)))
 	{
-		patmatch_add_class_expr_(this, content);
-		if (!(possibilities = twl_dict_get(this->class_expr, content)))
-		{
-			free(content);
-			return (0);
-		}
+		free(content);
+		return (0);
 	}
+//	if (!(possibilities = twl_dict_get(this->class_expr, content)))
+//	{
+//		patmatch_add_class_expr_(this, content);
+//		if (!(possibilities = twl_dict_get(this->class_expr, content)))
+//		{
+//			free(content);
+//			return (0);
+//		}
+//	}
 	free(content);
 	if (twl_strchr(possibilities, m->name[m->ind_n]))
 	{

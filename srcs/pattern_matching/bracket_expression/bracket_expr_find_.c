@@ -18,7 +18,7 @@ static void			init_find(t_brackexpr_find_ *bef, char *expr)
 	bef->ind_e = 0;
 	bef->ind_r = 0;
 	bef->rev = false;
-	twl_bzero(bef->expr, 128);
+	twl_bzero(bef->ret, 128);
 	if (bef->expr[0] == '^')
 	{
 		bef->rev = true;
@@ -48,7 +48,7 @@ static void			reverse_expr(t_brackexpr_find_ *bef)
 		}
 		ind_n += 1;
 	}
-	twl_strcpy(bef->expr, new);
+	twl_strcpy(bef->ret, new);
 }
 
 static void			end_bef(t_bracket_expr *this, t_brackexpr_find_ *bef)
@@ -74,7 +74,7 @@ void				bracket_expr_find_(t_bracket_expr *this, char *expr)
 			bracket_expr_find_hyphen_(this, &bef);
 		else if (bef.expr[bef.ind_e] == '[')
 			bracket_expr_find_bracket_(this, &bef);
-		else if (!twl_strchr(bef.expr, bef.expr[bef.ind_e]))
+		else if (!twl_strchr(bef.ret, bef.expr[bef.ind_e]))
 		{
 			bef.ret[bef.ind_r] = bef.expr[bef.ind_e];
 			bef.ind_r += 1;

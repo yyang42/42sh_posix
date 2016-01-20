@@ -50,7 +50,7 @@ static void			bracket_colon(t_bracket_expr *this, t_brackexpr_find_ *bef)
 	index = 0;
 	while (data[index])
 	{
-		if (!twl_strchr(bef->expr, data[index]))
+		if (!twl_strchr(bef->ret, data[index]))
 		{
 			bef->ret[bef->ind_r] = data[index];
 			bef->ind_r += 1;
@@ -66,7 +66,7 @@ void				bracket_expr_find_bracket_(t_bracket_expr *this,
 		goto_close_bracket(bef);
 	else if (bef->expr[bef->ind_e + 1] == ':')
 		bracket_colon(this, bef);
-	else if (!twl_strchr(bef->expr, bef->expr[bef->ind_e]))
+	else if (!twl_strchr(bef->ret, bef->expr[bef->ind_e]))
 	{
 		bef->ret[bef->ind_r] = bef->expr[bef->ind_e];
 		bef->ind_r += 1;

@@ -10,13 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pattern_matching/patmatch.h"
+#include "pattern_matching/bracket_expr.h"
+#include <stdio.h>
 
 static void			loop_fill(t_brackexpr_find_ *bef, char beg, char end)
 {
 	while (beg <= end)
 	{
-		if (!twl_strchr(bef->expr, beg))
+		if (!twl_strchr(bef->ret, beg))
 		{
 			bef->ret[bef->ind_r] = beg;
 			bef->ind_r += 1;
@@ -36,7 +37,7 @@ void				bracket_expr_find_hyphen_(t_bracket_expr *this,
 	end = bef->expr[bef->ind_e + 2];
 	if (bef->ind_e + 2 == (int)twl_strlen(bef->expr))
 	{
-		if (!twl_strchr(bef->expr, bef->expr[bef->ind_e]))
+		if (!twl_strchr(bef->ret, bef->expr[bef->ind_e]))
 		{
 			bef->ret[bef->ind_r] = bef->expr[bef->ind_e];
 			bef->ind_r += 1;
