@@ -70,6 +70,7 @@ t_lst				*ast_lap_build_items(t_lst *tokens,
 	while (true)
 	{
 		token_mgr_pop_linebreak(tokens);
+
 		if (twl_lst_len(tokens) == 0)
 		{
 			if (last_sep && (twl_strequ(last_sep->text, "&&")
@@ -101,32 +102,8 @@ t_lst				*ast_lap_build_items(t_lst *tokens,
 		twl_lst_push(container, item);
 		if (first && twl_lst_find(ast_lap_get_seps_list()[type], twl_strequ_void, first->text))
 		{
-			// t_token *sep = first;
 			ast_lap_set_separator_fns()[type](item, first);
 			last_sep = twl_lst_pop_front(tokens);
-
-			// t_token *next_token = twl_lst_first(tokens);
-
-			// if (twl_strequ(sep->text, "&&")
-			// 		|| twl_strequ(sep->text, "||")
-			// 		|| twl_strequ(sep->text, "|")
-			// 		|| twl_strequ(sep->text, ";")
-			// 		|| twl_strequ(sep->text, "&")
-			// 	)
-			// {
-			// 	if (!next_token
-			// 		|| (twl_strequ(next_token->text, "&&")
-			// 			|| twl_strequ(next_token->text, "||")
-			// 			|| twl_strequ(next_token->text, "|")
-			// 			|| twl_strequ(next_token->text, ";")
-			// 			|| twl_strequ(next_token->text, "&")
-			// 			)
-			// 		)
-			// 	{
-			// 		ast_set_error_msg_syntax_error_near(ast, sep, NULL);
-			// 		return (NULL);
-			// 	}
-			// }
 		}
 		else
 		{

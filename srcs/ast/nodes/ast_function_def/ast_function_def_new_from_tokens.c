@@ -25,7 +25,14 @@ t_ast_function_def	*ast_function_def_new_from_tokens(t_lst *tokens,
 	this->name = twl_strdup(name_token->text);
 	twl_lst_pop_front(tokens);
 	twl_lst_pop_front(tokens);
+	if (twl_lst_len(tokens) == 0)
+	{
+		ast_set_error_msg_syntax_error_near(ast, name_token, "Missing compound command");
+		return (NULL);
+	}
 	this->compound_command = ast_compound_command_new_from_tokens(tokens, ast);
+	if (ast_has_error(ast))
+		return (NULL);
 	// token_mgr_print(tokens);
 	(void)tokens;
 	(void)ast;

@@ -17,6 +17,8 @@ t_compound_command_type	ast_compound_command_get_type_from_tokens(t_lst *tokens)
 	t_token			*first;
 
 	first = token_mgr_first(tokens);
+	if (first == NULL)
+		return (COMPOUND_COMMAND_NONE);
 	if (first->type == TOKEN_LBRACE)
 		return (COMPOUND_COMMAND_BRACE_GROUP);
 	else if (twl_strequ(first->text, "("))
