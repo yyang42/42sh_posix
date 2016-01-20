@@ -12,8 +12,11 @@
 
 #include "ast/expan/ast_expan_param.h"
 
-void			expan_param_del(t_expan_param *expan_param)
+void			expan_param_del(void *expan_param_)
 {
+	t_expan_param	*expan_param;
+
+	expan_param = expan_param_;
 	twl_strdel(&expan_param->parameter);
 	twl_strdel(&expan_param->word);
 	free(expan_param);

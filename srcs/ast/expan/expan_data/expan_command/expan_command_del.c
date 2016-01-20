@@ -12,8 +12,11 @@
 
 #include "ast/expan/ast_expan_command.h"
 
-void			expan_command_del(t_expan_command *expan_command)
+void			expan_command_del(void *expan_command_)
 {
+	t_expan_command *expan_command;
+	
+	expan_command = expan_command_;
 	twl_strdel(&expan_command->command);
 	free(expan_command);
 }

@@ -12,8 +12,11 @@
 
 #include "ast/expan/ast_expan_tilde.h"
 
-void			expan_tilde_del(t_expan_tilde *expan_tilde)
+void			expan_tilde_del(void *expan_tilde_)
 {
+	t_expan_tilde *expan_tilde;
+
+	expan_tilde = expan_tilde_;
 	twl_strdel(&expan_tilde->token);
 	twl_strdel(&expan_tilde->suffix);
 	free(expan_tilde);

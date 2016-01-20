@@ -22,6 +22,6 @@ typedef struct			s_expan_command
 }						t_expan_command;
 
 t_expan_command			*expan_command_new(void);
-void					expan_command_del(t_expan_command *expan_command);
+void					expan_command_del(void *expan_command);
 void					expan_command_print(t_expan_command *expan_command);
 #endif

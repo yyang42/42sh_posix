@@ -22,7 +22,7 @@ typedef struct			s_expan_tilde
 }						t_expan_tilde;
 
 t_expan_tilde			*expan_tilde_new(void);
-void					expan_tilde_del(t_expan_tilde *expan_tilde);
+void					expan_tilde_del(void *expan_tilde);
 void					expan_tilde_print(t_expan_tilde *expan_tilde);
 void					expan_tilde_do(char **res, char *token, char *suffix);
 #endif
