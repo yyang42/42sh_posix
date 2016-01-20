@@ -70,7 +70,6 @@ static void				new_compound_command_do(t_ast_compound_command *this,
 	}
 	build_redir_tokens(this->redir_items, redir_tokens, ast);
 	twl_lst_del(redir_tokens, NULL);
-	(void)build_redir_tokens;
 }
 
 t_ast_compound_command	*ast_compound_command_new_from_tokens(t_lst *tokens,

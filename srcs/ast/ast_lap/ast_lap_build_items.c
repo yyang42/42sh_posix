@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "data.h"
+#include "data_utils.h"
 #include "ast/ast_lap.h"
 #include "ast/nodes/ast_pipe_item.h"
 
@@ -84,16 +85,8 @@ t_lst				*ast_lap_build_items(t_lst *tokens,
 			break ;
 		}
 		last_sep = NULL;
-		if (token_mgr_first_equ(tokens, "then")
-			|| token_mgr_first_equ(tokens, "elif")
-			|| token_mgr_first_equ(tokens, "else")
-			|| token_mgr_first_equ(tokens, "fi")
-			|| token_mgr_first_equ(tokens, "do")
-			|| token_mgr_first_equ(tokens, "done")
-			|| token_mgr_first_equ(tokens, ";;")
-			|| token_mgr_first_equ(tokens, "esac")
-			|| token_mgr_first_equ(tokens, "}")
-			)
+		if (data_utils_is_reserved_words_middle_end(token_mgr_first(tokens)->text)
+			|| token_mgr_first_equ(tokens, ";;"))
 			break ;
 		item = ast_lap_new_from_tokens_fns()[type](tokens, ast);
 		if (ast_has_error(ast))

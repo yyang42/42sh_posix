@@ -21,6 +21,9 @@ t_ast				*ast_new(char *input)
 	ast->tokens = tokenizer_tokenize(input);
 	tokens = twl_lst_copy(ast->tokens, NULL);
 	ast->compound_list = ast_compound_list_new_from_tokens(ast->tokens, ast);
+	if ((twl_lst_len(ast->tokens) > 0)
+		&& !ast->error_msg)
+		ast_set_error_msg_syntax_error_near(ast, twl_lst_first(ast->tokens), NULL);
 	token_mgr_del(tokens);
 	return (ast);
 }

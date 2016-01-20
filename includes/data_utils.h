@@ -18,5 +18,7 @@
 
 bool				data_utils_is_control_operators(char *str);
 bool				data_utils_is_control_operators_nl(char *str);
+bool				data_utils_is_reserved_word(char *str);
+bool				data_utils_is_reserved_words_middle_end(char *str);
 
 #endif

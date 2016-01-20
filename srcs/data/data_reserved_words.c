@@ -10,24 +10,33 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DATA_H
-# define DATA_H
+#include "twl_lst.h"
 
-# include "twl_dict.h"
+#include "data.h"
 
-# include "basics.h"
+t_lst				*data_reserved_words(void)
+{
+	static t_lst	*separators = NULL;
 
-t_lst				*data_all_operators(void);
-t_lst				*data_all_separators(void);
-t_lst				*data_redir_operators(void);
-t_lst				*data_token_item_list(void);
-t_lst				*data_list_separators(void);
-t_lst				*data_pipe_separators(void);
-t_lst				*data_andor_separators(void);
-t_lst				*data_compound_commands(void);
-t_lst				*data_control_operators(void);
-t_lst				*data_control_operators_nl(void);
-t_lst				*data_reserved_words(void);
-t_lst				*data_reserved_words_middle_end(void);
-
-#endif
+	if (separators == NULL)
+	{
+		separators = twl_lst_new();
+		twl_lst_push_back(separators, "!");
+		twl_lst_push_back(separators, "{");
+		twl_lst_push_back(separators, "}");
+		twl_lst_push_back(separators, "case");
+		twl_lst_push_back(separators, "do");
+		twl_lst_push_back(separators, "done");
+		twl_lst_push_back(separators, "elif");
+		twl_lst_push_back(separators, "else");
+		twl_lst_push_back(separators, "esac");
+		twl_lst_push_back(separators, "fi");
+		twl_lst_push_back(separators, "for");
+		twl_lst_push_back(separators, "if");
+		twl_lst_push_back(separators, "in");
+		twl_lst_push_back(separators, "then");
+		twl_lst_push_back(separators, "until");
+		twl_lst_push_back(separators, "while");
+	}
+	return (separators);
+}
