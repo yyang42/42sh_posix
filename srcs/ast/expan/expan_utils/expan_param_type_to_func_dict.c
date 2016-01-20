@@ -15,6 +15,15 @@
 #include "ast/expan/ast_expan_param.h"
 #include "twl_dict.h"
 
+static void		add_to_dict(t_dict *dict, t_expan_param_type type, bool (*f)(t_expan_token *))
+{
+	char	*tmp;
+
+	tmp = twl_itoa(type);
+	twl_dict_add(dict, tmp, f);
+	twl_strdel(&tmp);
+}
+
 void *expan_param_type_to_func_dict(t_expan_param_type type)
 {
 	static t_dict *dict = NULL;
@@ -24,27 +33,27 @@ void *expan_param_type_to_func_dict(t_expan_param_type type)
 	if (dict == NULL)
 	{
 		dict = twl_dict_new();
-		twl_dict_add(dict, twl_itoa(S_STAR), expan_exec_param_star);
-		twl_dict_add(dict, twl_itoa(S_ZERO), expan_exec_param_zero);
-		twl_dict_add(dict, twl_itoa(S_QUESTION), expan_exec_param_question);
-		twl_dict_add(dict, twl_itoa(S_SHARP), expan_exec_param_sharp);
-		twl_dict_add(dict, twl_itoa(S_HYPHEN), expan_exec_param_hyphen);
-		twl_dict_add(dict, twl_itoa(S_EXCLAMATION), expan_exec_param_exclamation);
-		twl_dict_add(dict, twl_itoa(S_DOLLAR), expan_exec_param_dollar);
-		twl_dict_add(dict, twl_itoa(S_AT), expan_exec_param_at);
-		twl_dict_add(dict, twl_itoa(EXPAN_VAR), expan_exec_param_var);
-		twl_dict_add(dict, twl_itoa(COLON_HYPHEN), expan_exec_params_colon_hyphen);
-		twl_dict_add(dict, twl_itoa(COLON_EQUAL), expan_exec_params_colon_equal);
-		twl_dict_add(dict, twl_itoa(COLON_QUESTION), expan_exec_params_colon_question);
-		twl_dict_add(dict, twl_itoa(QUESTION), expan_exec_params_question2);
-		twl_dict_add(dict, twl_itoa(HYPHEN), expan_exec_params_hyphen2);
-		twl_dict_add(dict, twl_itoa(EQUAL), expan_exec_params_equal);
-		twl_dict_add(dict, twl_itoa(COLON_PLUS), expan_exec_params_colon_plus);
-		twl_dict_add(dict, twl_itoa(PLUS), expan_exec_params_plus);
-		twl_dict_add(dict, twl_itoa(SHARP), expan_exec_params_sharp2);
-		twl_dict_add(dict, twl_itoa(SHARP_SHARP), expan_exec_params_sharp_sharp);
-		twl_dict_add(dict, twl_itoa(PERCENT), expan_exec_params_percent);
-		twl_dict_add(dict, twl_itoa(PERCENT_PERCENT),
+		add_to_dict(dict, S_STAR, expan_exec_param_star);
+		add_to_dict(dict, S_ZERO, expan_exec_param_zero);
+		add_to_dict(dict, S_QUESTION, expan_exec_param_question);
+		add_to_dict(dict, S_SHARP, expan_exec_param_sharp);
+		add_to_dict(dict, S_HYPHEN, expan_exec_param_hyphen);
+		add_to_dict(dict, S_EXCLAMATION, expan_exec_param_exclamation);
+		add_to_dict(dict, S_DOLLAR, expan_exec_param_dollar);
+		add_to_dict(dict, S_AT, expan_exec_param_at);
+		add_to_dict(dict, EXPAN_VAR, expan_exec_param_var);
+		add_to_dict(dict, COLON_HYPHEN, expan_exec_params_colon_hyphen);
+		add_to_dict(dict, COLON_EQUAL, expan_exec_params_colon_equal);
+		add_to_dict(dict, COLON_QUESTION, expan_exec_params_colon_question);
+		add_to_dict(dict, QUESTION, expan_exec_params_question2);
+		add_to_dict(dict, HYPHEN, expan_exec_params_hyphen2);
+		add_to_dict(dict, EQUAL, expan_exec_params_equal);
+		add_to_dict(dict, COLON_PLUS, expan_exec_params_colon_plus);
+		add_to_dict(dict, PLUS, expan_exec_params_plus);
+		add_to_dict(dict, SHARP, expan_exec_params_sharp2);
+		add_to_dict(dict, SHARP_SHARP, expan_exec_params_sharp_sharp);
+		add_to_dict(dict, PERCENT, expan_exec_params_percent);
+		add_to_dict(dict, PERCENT_PERCENT,
 			expan_exec_params_percent_percent);
 	}
 	str = twl_itoa(type);

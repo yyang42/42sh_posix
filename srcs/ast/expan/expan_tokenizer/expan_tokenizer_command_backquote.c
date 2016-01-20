@@ -38,6 +38,7 @@ int				expan_tokenizer_command_backquote(t_expan_tokenizer *tokenizer,
 	i = expan_token_parse_command_backquote(expan_command, str, i);
 	expan_token->exec_expan = expan_exec_command;
 	expan_token->expan_data = expan_command;
+	expan_token->free_expan = expan_command_del;
 	expan_token_mgr_add(expan_tokens, expan_token);
 	return (++i);
 }
