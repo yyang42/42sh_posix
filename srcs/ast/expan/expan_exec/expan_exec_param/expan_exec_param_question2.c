@@ -27,11 +27,6 @@ static void		print_error_msg(t_expan_param *data)
 			data->parameter);
 }
 
-static void		set_env_value_to_null(t_environment *env, t_expan_param *data)
-{
-	environment_setenv_value(env, data->parameter, "", 0);
-	print_error_msg(data);
-}
 bool			expan_exec_params_question2(t_expan_token *expan_token)
 {
 	t_expan_param		*data;
@@ -43,15 +38,13 @@ bool			expan_exec_params_question2(t_expan_token *expan_token)
 	if (data->parameter && twl_strcmp(data->parameter, ""))
 	{
 		env_var = environment_get(env, data->parameter);
-		if (env_var && env_var->value_is_set)
+		if (env_var)
 		{
-			if (env_var->value != NULL && twl_strcmp(env_var->value, "") != 0)
-			{
+			if (env_var->value != NULL && env_var->value_is_set == 1)
 				expan_token->res = twl_strdup(env_var->value);
-				return (true);
-			}
 			else
-				set_env_value_to_null(env, data);
+				expan_token->res = twl_strdup("");
+			return (true);
 		}
 		else
 			print_error_msg(data);
@@ -59,5 +52,5 @@ bool			expan_exec_params_question2(t_expan_token *expan_token)
 	else
 		print_error_msg(data);
 	expan_token->res = twl_strdup("");
-	return (true);
+	return (false);
 }
