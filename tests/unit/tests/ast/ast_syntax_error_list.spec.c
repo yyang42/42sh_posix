@@ -7,6 +7,7 @@ mt_test_ast_error(02, ";\n", "SyntaxError 1:1 : Syntax error near ';' : Empty si
 mt_test_ast_error(03, "; ;\n", "SyntaxError 1:1 : Syntax error near ';' : Empty simple command", false);
 mt_test_ast_error(04, "echo abc; ;\n", "SyntaxError 1:11 : Syntax error near ';' : Empty simple command", false);
 mt_test_ast_error(05, "echo abc; &\n", "SyntaxError 1:11 : Syntax error near '&' : Empty simple command", false);
+// mt_test_ast_error(06, ";;;", "SyntaxError 1:11 : Syntax error near '&' : Empty simple command", true);
 
 void	suite_ast_syntax_error_list(t_suite *suite)
 {
@@ -15,4 +16,5 @@ void	suite_ast_syntax_error_list(t_suite *suite)
 	SUITE_ADD_TEST(suite, test_03);
 	SUITE_ADD_TEST(suite, test_04);
 	SUITE_ADD_TEST(suite, test_05);
+	// SUITE_ADD_TEST(suite, test_06);
 }
