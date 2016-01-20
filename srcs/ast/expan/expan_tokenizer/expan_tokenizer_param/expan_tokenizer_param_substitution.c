@@ -58,22 +58,30 @@ static int	check_if_special_param(t_expan_param *expan_param, char *str)
 {
 	size_t				len;
 	t_expan_param_type	type;
+	int					i;
 
-	type = char_to_special_param_type(*str);
-	if (type != EXPAN_VAR)
+	if (!(i = 0) && (type = char_to_special_param_type(*str)) != EXPAN_VAR)
 	{
-		len = twl_strlen(str);
-		if (len == 2)
+		if ((len = twl_strlen(str)) == 2)
 		{
 			expan_param->parameter = twl_strndup(str, 1);
 			expan_param->type = type;
-			return (len);
 		}
-		else
-			return (len);
+		return (len);
 	}
 	else
+	{
+		i = 0;
+		while (twl_isdigit(str[i]))
+			i++;
+		if (str[i] == '}')
+		{
+			expan_param->parameter = twl_strndup(str, i);
+			expan_param->type = type;
+			return (i + 1);
+		}
 		return (0);
+	}
 }
 
 static int	expan_tokenizer_param_substitution_get_parameter_word(t_expan_param *expan_param,
