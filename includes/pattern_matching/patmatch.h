@@ -38,31 +38,15 @@ typedef struct		s_matching_
 	int				depth;
 }					t_matching_;
 
-typedef struct		s_class_expr__
-{
-	char			*name;
-	char			expr[128];
-	int				ind_n;
-	int				ind_e;
-	int				reverse;
-}					t_class_expr__;
-
 typedef struct		s_patmatch
 {
 	t_pattern		*pattern;
 	t_lst			*match;
 	t_bracket_expr	*brack_expr;
-	t_dict			*class_expr;
 }					t_patmatch;
 
 t_patmatch			*patmatch_new(void);
 void				patmatch_del(t_patmatch *this);
-
-void				patmatch_add_class_expr_(t_patmatch *this, char *content);
-void				patmatch_ce_open_bracket__(t_patmatch *this,
-															t_class_expr__ *ce);
-void				patmatch_ce_hyphen__(t_class_expr__ *ce);
-															
 
 t_lst				*patmatch_match(t_patmatch *this, char *pattern);
 void				patmatch_recurs__(t_patmatch *this, t_matching_ *match);

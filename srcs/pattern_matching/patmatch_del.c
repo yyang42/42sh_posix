@@ -14,8 +14,6 @@
 
 void				patmatch_del(t_patmatch *this)
 {
-	twl_dict_del(this->class_expr, &free);
-	this->class_expr = NULL;
 	this->match = NULL;
 	this->pattern = NULL;
 	free(this);
