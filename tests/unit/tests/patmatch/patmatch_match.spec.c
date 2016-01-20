@@ -1,5 +1,5 @@
 #include <project.h>
-#include "patmatch.h"
+#include "pattern_matching/patmatch.h"
 
 #define PATMATCH_TEST(str, nb, sret) 								\
 {																	\

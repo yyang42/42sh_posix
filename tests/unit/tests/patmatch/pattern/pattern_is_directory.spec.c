@@ -1,5 +1,5 @@
 #include <project.h>
-#include "pattern.h"
+#include "pattern_matching/pattern.h"
 
 #define PATTERN_TEST(a, b, c) {						\
 	t_pattern	*tmp;								\

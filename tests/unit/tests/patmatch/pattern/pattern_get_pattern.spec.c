@@ -1,5 +1,5 @@
 #include <project.h>
-#include "pattern.h"
+#include "pattern_matching/pattern.h"
 
 #define PATTERN_TEST(str, nulst, nudata, cmp) {					\
 	t_pattern		*tmp = pattern_new(str);					\
