@@ -10,20 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "twl_lst.h"
+#include "data_utils.h"
 
-#include "data.h"
-
-t_lst				*data_all_separators(void)
+bool				data_utils_is_control_operators(char *str)
 {
-	static t_lst	*separators = NULL;
-
-	if (separators == NULL)
-	{
-		separators = twl_lst_new();
-		twl_lst_extend(separators, data_list_separators());
-		twl_lst_extend(separators, data_andor_separators());
-		twl_lst_extend(separators, data_pipe_separators());
-	}
-	return (separators);
+	return (twl_lst_find(data_control_operators(), twl_strequ_void, str));
 }

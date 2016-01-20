@@ -10,20 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "twl_lst.h"
+#ifndef DATA_UTILS_H
+# define DATA_UTILS_H
 
-#include "data.h"
+# include "basics.h"
+# include "data.h"
 
-t_lst				*data_all_separators(void)
-{
-	static t_lst	*separators = NULL;
+bool				data_utils_is_control_operators(char *str);
+bool				data_utils_is_control_operators_nl(char *str);
 
-	if (separators == NULL)
-	{
-		separators = twl_lst_new();
-		twl_lst_extend(separators, data_list_separators());
-		twl_lst_extend(separators, data_andor_separators());
-		twl_lst_extend(separators, data_pipe_separators());
-	}
-	return (separators);
-}
+#endif

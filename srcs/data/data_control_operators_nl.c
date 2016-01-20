@@ -14,16 +14,19 @@
 
 #include "data.h"
 
-t_lst				*data_all_separators(void)
-{
-	static t_lst	*separators = NULL;
+/*
+** source: https://www.gnu.org/software/bash/manual/bashref.html
+*/
 
-	if (separators == NULL)
+t_lst				*data_control_operators_nl(void)
+{
+	static t_lst	*operators = NULL;
+
+	if (operators == NULL)
 	{
-		separators = twl_lst_new();
-		twl_lst_extend(separators, data_list_separators());
-		twl_lst_extend(separators, data_andor_separators());
-		twl_lst_extend(separators, data_pipe_separators());
+		operators = twl_lst_new();
+		twl_lst_push(operators, "\n");
+		twl_lst_extend(operators, data_control_operators());
 	}
-	return (separators);
+	return (operators);
 }

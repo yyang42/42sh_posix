@@ -10,13 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/ast.h"
-#include "data.h"
 
-bool				ast_is_command_separator(char *str)
+#include "token/token.h"
+#include "data_utils.h"
+
+bool				token_is_control_operators_nl(t_token *this)
 {
-	return (twl_lst_find(data_all_separators(), twl_strequ_void, str)
-		|| *str == ')'
-		// || *str == '}'
-	);
+	if (this == NULL)
+		return (false);
+	return (data_utils_is_control_operators_nl(this->text));
 }

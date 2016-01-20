@@ -14,6 +14,5 @@
 # define AST_UTILS_H
 
 void				ast_print_indent(int depth);
-bool				ast_is_command_separator(char *str);
 
 #endif
