@@ -17,6 +17,7 @@
 # include "twl_dict.h"
 # include "twl_ctype.h"
 # include "pattern_matching/pattern.h"
+# include "pattern_matching/bracket_expr.h"
 # include <dirent.h>
 # include <sys/stat.h>
 
@@ -50,6 +51,7 @@ typedef struct		s_patmatch
 {
 	t_pattern		*pattern;
 	t_lst			*match;
+	t_bracket_expr	*brack_expr;
 	t_dict			*class_expr;
 }					t_patmatch;
 

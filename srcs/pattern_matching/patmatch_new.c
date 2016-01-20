@@ -61,6 +61,7 @@ t_patmatch		*patmatch_new(void)
 
 	this = twl_malloc_x0(sizeof(t_patmatch));
 	patmatch_build_class_expr_(this);
+	this->brack_expr = bracket_expr_singleton();
 	this->pattern = NULL;
 	this->match = NULL;
 	return (this);
