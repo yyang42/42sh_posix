@@ -25,5 +25,6 @@ t_lst				*data_list_separators(void);
 t_lst				*data_pipe_separators(void);
 t_lst				*data_andor_separators(void);
 t_lst				*data_compound_commands(void);
+t_lst				*data_control_operators(void);
 
 #endif

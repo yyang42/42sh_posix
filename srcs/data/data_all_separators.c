@@ -21,6 +21,7 @@ t_lst				*data_all_separators(void)
 	if (separators == NULL)
 	{
 		separators = twl_lst_new();
+		twl_lst_push_back(separators, "\n");
 		twl_lst_extend(separators, data_list_separators());
 		twl_lst_extend(separators, data_andor_separators());
 		twl_lst_extend(separators, data_pipe_separators());

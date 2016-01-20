@@ -17,6 +17,12 @@
 #include "ast/nodes/ast_redir.h"
 #include "ast/nodes/ast_simple_command.h"
 
+/*
+** A "simple command" is a sequence of optional variable assignments and
+** redirections, in any sequence, optionally followed by words and redirections,
+** terminated by a control operator.
+*/
+
 static void				push_asign_fn(void *assignment_token_,
 	void *assignment_items, void *ast)
 {

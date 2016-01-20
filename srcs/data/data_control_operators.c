@@ -10,21 +10,30 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "token/tokenizer.h"
+#include "twl_lst.h"
 
-/*  Rule 1 extra 1
-	Tokenize parenthesis
+#include "data.h"
+
+/*
+** source: https://www.gnu.org/software/bash/manual/bashref.html
 */
 
-t_rule_status		tokenizer_apply_rule01_extra1(t_tokenizer *t)
+t_lst				*data_control_operators(void)
 {
-	if (twl_strchr("(){}", *t->curpos))
+	static t_lst	*operators = NULL;
+
+	if (operators == NULL)
 	{
-		tokenizer_delimit(t);
-		tokenizer_append_to_curtoken(t, 1);
-		t->curpos++;
-		tokenizer_delimit(t);
-		return (RULE_STATUS_APPLIED);
+		operators = twl_lst_new();
+		twl_lst_push_back(operators, "||");
+		twl_lst_push_back(operators, "&&");
+		twl_lst_push_back(operators, "&");
+		twl_lst_push_back(operators, ";");
+		twl_lst_push_back(operators, ";;");
+		twl_lst_push_back(operators, "|");
+		// twl_lst_push_back(operators, "|&");
+		twl_lst_push_back(operators, "(");
+		twl_lst_push_back(operators, ")");
 	}
-	return (RULE_STATUS_NOT_APPLIED);
+	return (operators);
 }

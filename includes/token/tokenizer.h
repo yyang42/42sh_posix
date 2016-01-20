@@ -58,7 +58,6 @@ void				tokenizer_delimit_handle_heredoc(t_tokenizer *this,
 */
 
 t_rule_status		tokenizer_apply_rule01(t_tokenizer *this);
-t_rule_status		tokenizer_apply_rule01_extra1(t_tokenizer *this);
 t_rule_status		tokenizer_apply_rule02(t_tokenizer *this);
 t_rule_status		tokenizer_apply_rule03(t_tokenizer *this);
 t_rule_status		tokenizer_apply_rule04(t_tokenizer *this);

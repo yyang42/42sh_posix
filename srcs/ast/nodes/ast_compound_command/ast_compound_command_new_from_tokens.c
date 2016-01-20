@@ -16,6 +16,16 @@
 #include "ast/ast.h"
 #include "token/token_list_mgr.h"
 
+/*
+** The shell has several programming constructs that are "compound commands",
+** which provide control flow for commands. Each of these compound commands
+** has a reserved word or control operator at the beginning, and a corresponding
+** terminator reserved word or operator at the end. In addition, each can be
+** followed by redirections on the same line as the terminator. Each redirection
+** shall apply to all the commands within the compound command that do not
+** explicitly override that redirection.
+*/
+
 static void				build_redir_fn(void *redir_tokens, void *redir_items,
 	void *ast)
 {
