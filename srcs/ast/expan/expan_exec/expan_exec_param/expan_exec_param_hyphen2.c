@@ -26,9 +26,9 @@ bool			expan_exec_params_hyphen2(t_expan_token *expan_token)
 	if (data->parameter && twl_strcmp(data->parameter, ""))
 	{
 		env_var = environment_get(env, data->parameter);
-		if (env_var && env_var->value_is_set)
+		if (env_var)
 		{
-			if (env_var->value != NULL && twl_strcmp(env_var->value, "") != 0)
+			if (env_var->value && env_var->value_is_set == 1)
 				expan_token->res = twl_strdup(env_var->value);
 			else
 				expan_token->res = twl_strdup("");

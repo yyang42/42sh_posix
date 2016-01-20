@@ -86,10 +86,61 @@ static void colon_hyphen_param_str(t_test *test)
 	unset("unset HAHA", env);
 }
 
+static void colon_hyphen_param_str_quoted(t_test *test)
+{
+	t_environment	*env;
+	char			*str;
+
+	(void)test;
+	env = environment_singleton();
+	unset("unset HAHA", env);
+	str = twl_strdup("${HAHA:-l\"}\"s}");
+	expan_init(&str, SIMPLE_COMMAND_TOKEN);
+	mt_assert(twl_strcmp(str,"l}s") == 0);
+	twl_strdel(&str);
+	str = twl_strdup("${HAHA:-l\'}\'s}");
+	expan_init(&str, SIMPLE_COMMAND_TOKEN);
+	mt_assert(twl_strcmp(str,"l}s") == 0);
+	twl_strdel(&str);
+	str = twl_strdup("${HAHA:-l\\}s}");
+	expan_init(&str, SIMPLE_COMMAND_TOKEN);
+	mt_assert(twl_strcmp(str,"l}s") == 0);
+	twl_strdel(&str);
+	unset("unset HAHA", env);
+}
+
+static void hyphen_param_str(t_test *test)
+{
+	t_environment	*env;
+	char			*str;
+
+	(void)test;
+	env = environment_singleton();
+	unset("unset HAHA", env);
+	export("export HAHA=HOHO", env);
+	str = twl_strdup("${HAHA-ls}");
+	expan_init(&str, SIMPLE_COMMAND_TOKEN);
+	mt_assert(twl_strcmp(str,"HOHO") == 0);
+	twl_strdel(&str);
+	unset("unset HAHA", env);
+	str = twl_strdup("${HAHA-HOHO}");
+	expan_init(&str, SIMPLE_COMMAND_TOKEN);
+	mt_assert(twl_strcmp(str,"HOHO") == 0);
+	twl_strdel(&str);
+	export("export HAHA", env);
+	str = twl_strdup("${HAHA-HOHO}");
+	expan_init(&str, SIMPLE_COMMAND_TOKEN);
+	twl_printf("%s\n", str);
+	mt_assert(twl_strcmp(str,"") == 0);
+	twl_strdel(&str);
+}
+
 void	suite_expan_param(t_suite *suite)
 {
 	SUITE_ADD_TEST(suite, simple_pos_param);
 	SUITE_ADD_TEST(suite, simple_pos_param_sub);
 	SUITE_ADD_TEST(suite, simple_param_str);
 	SUITE_ADD_TEST(suite, colon_hyphen_param_str);
+	SUITE_ADD_TEST(suite, colon_hyphen_param_str_quoted);
+	SUITE_ADD_TEST(suite, hyphen_param_str);
 }
