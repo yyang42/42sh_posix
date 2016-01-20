@@ -130,7 +130,6 @@ static void hyphen_param_str(t_test *test)
 	export("export HAHA", env);
 	str = twl_strdup("${HAHA-HOHO}");
 	expan_init(&str, SIMPLE_COMMAND_TOKEN);
-	twl_printf("%s\n", str);
 	mt_assert(twl_strcmp(str,"") == 0);
 	twl_strdel(&str);
 }

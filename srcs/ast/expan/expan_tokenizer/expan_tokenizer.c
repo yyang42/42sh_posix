@@ -68,6 +68,8 @@ void					expan_tokenizer(char *str, t_lst *expan_tokens,
 						tokenizer->last = tokenizer->i;
 						tokenizer->i--;
 					}
+					else
+						tokenizer->last = tokenizer->i;
 				}
 				else if (type == COMMAND_SUBSTITUTION_DOLLAR)
 				{

@@ -3,6 +3,7 @@
 #include "basics.h"
 #include "environment.h"
 #include "export.h"
+#include "unset.h"
 #include "ast/expan/ast_expan_field_splitting.h"
 
 static void simple_unset_ifs_test(t_test *test)
@@ -28,6 +29,7 @@ static void simple_null_ifs_test(t_test *test)
 	str = twl_strdup(" \t\n lol \t\n poiuet \t \n   ");
 	expan_field_splitting(&str);
 	mt_assert(twl_strcmp(str," \t\n lol \t\n poiuet \t \n   ") == 0);
+	unset("unset IFS", env);
 	twl_strdel(&str);
 }
 
@@ -41,6 +43,7 @@ static void simple_ifs_test(t_test *test)
 	str = twl_strdup("oooolopotorototoooo");
 	expan_field_splitting(&str);
 	mt_assert(twl_strcmp(str,"    l p t r t t   ") == 0);
+	unset("unset IFS", env);
 	twl_strdel(&str);
 }
 
