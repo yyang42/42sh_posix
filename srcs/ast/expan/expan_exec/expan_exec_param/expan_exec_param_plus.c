@@ -27,7 +27,7 @@ bool			expan_exec_params_plus(t_expan_token *expan_token)
 	if (data->parameter && twl_strcmp(data->parameter, ""))
 	{
 		env_var = environment_get(env, data->parameter);
-		if (env_var && env_var->value_is_set)
+		if (env_var)
 				expan_token->res = twl_strdup(data->word);
 		else
 			expan_token->res = twl_strdup("");
