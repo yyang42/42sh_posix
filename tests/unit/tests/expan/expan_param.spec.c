@@ -53,17 +53,16 @@ static void simple_pos_param_str(t_test *test)
 
 	(void)test;
 	env = environment_singleton();
-	set("export LOL=POUET", env);
+	export("export LOL=POUET", env);
 	str = twl_strdup("$LOL");
 	expan_init(&str, SIMPLE_COMMAND_TOKEN);
-	// twl_printf("->%s<-\n", str);
 	mt_assert(twl_strcmp(str,"POUET") == 0);
 	twl_strdel(&str);
 	str = twl_strdup("${LOL}");
 	expan_init(&str, SIMPLE_COMMAND_TOKEN);
-	// twl_printf("->%s<-\n", str);
 	mt_assert(twl_strcmp(str,"POUET") == 0);
 	twl_strdel(&str);
+	unset("unset LOL", env);
 }
 
 void	suite_expan_param(t_suite *suite)
