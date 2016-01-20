@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_norris_loves_the_norminette.h                :+:      :+:    :+:   */
+/*   check_norris_loves_the_norminette.c                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chuck <chuck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,24 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BRACKET_EXPR_H
-# define BRACKET_EXPR_H
+#include "pattern_matching/bracket_expr.h"
 
-# include "basics.h"
-
-typedef struct		s_bracket_expr
+t_bracket_expr		*bracket_expr_singleton(void)
 {
-	t_dict			*dict;
-}					t_bracket_expr;
+	static t_bracket_expr	*this = NULL;
 
-t_bracket_expr		*bracket_expr_new(void);
-void				bracket_expr_del(t_bracket_expr *this);
-
-t_bracket_expr		*bracket_expr_singleton(void);
-
-void				bracket_expr_add(t_bracket_expr *this, char *key,
-																	char *val);
-char				*bracket_expr_get(t_bracket_expr *this, char *key);
-
-
-#endif
+	if (this == NULL)
+	{
+		this = bracket_expr_new();
+	}
+	return (this);
+}
