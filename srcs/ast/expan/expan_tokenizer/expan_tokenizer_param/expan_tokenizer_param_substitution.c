@@ -37,21 +37,13 @@ static t_expan_param_type	expan_tokenizer_param_substitution_get_operator(char *
 }
 
 
-static bool	expan_tokenizer_param_check_parameter(t_expan_param *expan_param)
+static void	expan_tokenizer_param_env_var(t_expan_param *expan_param, char *str)
 {
-	t_expan_param_type	type;
+	int		len;
 
-	type = char_to_special_param_type(*expan_param->parameter);
-	if (twl_strlen(expan_param->parameter) == 1)
-		expan_param->type = type;
-	else if (type == EXPAN_VAR)
-		expan_param->type = EXPAN_VAR;
-	else
-	{
-		twl_dprintf(2, "42sh: bad substitution\n");
-		return (false);
-	}
-	return (true);
+	len = twl_strlen(str);
+	twl_strdel(&expan_param->parameter);
+	expan_param->parameter = twl_strndup(str, len - 1);
 }
 
 static int	check_if_special_param(t_expan_param *expan_param, char *str)
@@ -110,12 +102,12 @@ static int	expan_tokenizer_param_substitution_get_parameter_word(t_expan_param *
 			j++;
 	}
 	if (j > i)
-		expan_param->parameter = twl_strndup(str, j - i);
+		expan_param->parameter = twl_strndup(&str[i], j - i);
 	j = str[j] == 0 ? j - 1 : j;
 	if (type != UNDEFINED_PARAM)
 		word_len = expan_tokenizer_get_word_len(&expan_param->word, &str[j] + op_len, "{");
 	else
-		expan_tokenizer_param_check_parameter(expan_param);
+		expan_tokenizer_param_env_var(expan_param, &str[i]);
 	return (j + word_len + op_len + 1);
 }
 
