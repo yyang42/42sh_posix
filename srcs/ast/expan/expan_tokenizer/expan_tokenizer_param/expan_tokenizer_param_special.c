@@ -16,28 +16,6 @@
 #include "ast/expan/ast_expan_param.h"
 #include "ast/expan/ast_expan_utils.h"
 
-static t_expan_param_type	char_to_special_param_type(char c)
-{
-	if (c == '*')
-		return (S_STAR);
-	else if (c == '-')
-		return (S_HYPHEN);
-	else if (c == '@')
-		return (S_AT);
-	else if (c == '?')
-		return (S_QUESTION);
-	else if (c == '!')
-		return (S_EXCLAMATION);
-	else if (c == '0')
-		return (S_ZERO);
-	else if (c == '$')
-		return (S_DOLLAR);
-	else if (c == '#')
-		return (S_SHARP);
-	else
-		return (EXPAN_VAR);
-}
-
 static bool					is_expan_tokenizer_param_separator(char c)
 {
 	if (c == '\\' || c == '\'' || c == '"' || c == 0 || c == '$')

@@ -27,7 +27,12 @@ bool			expan_exec_param_var(t_expan_token *expan_token)
 
 	expan_param = expan_token->expan_data;
 	env = environment_singleton();
-	if (twl_strlen(expan_param->parameter) == 1 && twl_isdigit(expan_param->parameter[0]))
+	if (!expan_param->parameter)
+	{
+		twl_dprintf(2, "42sh: Bad substitution\n");
+		return (false);
+	}
+	if (twl_str_is_num(expan_param->parameter))
 	{
 		temp = environment_get_pos_param_at(env, twl_atoi(expan_param->parameter) - 1);
 		if (temp)

@@ -10,15 +10,27 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_EXPAN_UTILS_H
-# define AST_EXPAN_UTILS_H
-# include "ast/expan/ast_expan_type.h"
-# include "ast/expan/ast_expan_param.h"
+#include "ast/expan/ast_expan_param.h"
+#include "ast/expan/ast_expan_utils.h"
 
-void				*expan_param_type_to_func_dict(t_expan_param_type type);
-void				*expan_param_type_to_print_func(t_expan_type type);
-t_expan_param_type	string_1_to_expan_parameter_type(char *str);
-t_expan_param_type	string_2_to_expan_parameter_type(char *str);
-int					expan_tokenizer_get_word_len(char **res, char *str, char *delimiter);
-t_expan_param_type	char_to_special_param_type(char c);
-#endif
+t_expan_param_type	char_to_special_param_type(char c)
+{
+	if (c == '*')
+		return (S_STAR);
+	else if (c == '-')
+		return (S_HYPHEN);
+	else if (c == '@')
+		return (S_AT);
+	else if (c == '?')
+		return (S_QUESTION);
+	else if (c == '!')
+		return (S_EXCLAMATION);
+	else if (c == '0')
+		return (S_ZERO);
+	else if (c == '$')
+		return (S_DOLLAR);
+	else if (c == '#')
+		return (S_SHARP);
+	else
+		return (EXPAN_VAR);
+}

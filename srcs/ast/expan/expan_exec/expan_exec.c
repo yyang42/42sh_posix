@@ -22,14 +22,17 @@ static void		iter_fn(void *expan_token_, void *should_exec_)
 
 	should_exec = should_exec_;
 	expan_token = expan_token_;
-	if (expan_token->exec_expan)
+	if (*should_exec == true)
 	{
-		*should_exec = expan_token->exec_expan(expan_token);
-	}
-	if (expan_token->origin != PARAMETER_SUBSTITUTION_WORD)
-	{
-		expan_exec_pattern_matching(expan_token);
-		expan_quote_removal(&expan_token->res);
+		if (expan_token->exec_expan)
+		{
+			*should_exec = expan_token->exec_expan(expan_token);
+		}
+		if (*should_exec == true && expan_token->origin != PARAMETER_SUBSTITUTION_WORD)
+		{
+			expan_exec_pattern_matching(expan_token);
+			expan_quote_removal(&expan_token->res);
+		}
 	}
 }
 
