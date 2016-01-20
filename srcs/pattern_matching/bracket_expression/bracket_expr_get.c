@@ -14,5 +14,15 @@
 
 char			*bracket_expr_get(t_bracket_expr *this, char *key)
 {
-	return (twl_dict_get(this->dict, key));
+	char		*ret;
+
+	ret = twl_dict_get(this->dict, key);
+	if (ret == NULL)
+	{
+		bracket_expr_find_(this, key);
+		ret = twl_dict_get(this->dict, key);
+	}
+	if (ret == (void *)-1)
+		ret = NULL;
+	return (ret);
 }
