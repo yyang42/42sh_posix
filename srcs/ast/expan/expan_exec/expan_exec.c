@@ -13,6 +13,7 @@
 #include "basics.h"
 #include "ast/expan/ast_expan_exec.h"
 #include "ast/expan/ast_expan_quote_removal.h"
+#include "ast/expan/ast_expan_field_splitting.h"
 #include "patmatch.h"
 
 static void		iter_fn(void *expan_token_, void *should_exec_)
@@ -25,11 +26,12 @@ static void		iter_fn(void *expan_token_, void *should_exec_)
 	if (*should_exec == true)
 	{
 		if (expan_token->exec_expan)
-		{
 			*should_exec = expan_token->exec_expan(expan_token);
-		}
 		if (*should_exec == true && expan_token->origin != PARAMETER_SUBSTITUTION_WORD)
 		{
+			if (expan_token->type == PARAMETER || expan_token->type == COMMAND_SUBSTITUTION_DOLLAR
+			|| expan_token->type == COMMAND_SUBSTITUTION_BACKQUOTE || expan_token->type == ARITHMETIC)
+				expan_field_splitting(&expan_token->res);
 			expan_exec_pattern_matching(expan_token);
 			expan_quote_removal(&expan_token->res);
 		}
