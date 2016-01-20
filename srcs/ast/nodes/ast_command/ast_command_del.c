@@ -18,8 +18,10 @@ void				ast_command_del(t_ast_command *ast_command)
 	{
 		if (ast_command->command_type == COMMAND_COMPOUND_COMMAND)
 			ast_compound_command_del(ast_command->command);
-		else
+		else if (ast_command->command_type == COMMAND_SIMPLE_COMMAND)
 			ast_simple_command_del(ast_command->command);
+		else if (ast_command->command_type == COMMAND_FUNCTION_DEF)
+			ast_function_def_del(ast_command->command);
 	}
 	free(ast_command);
 }

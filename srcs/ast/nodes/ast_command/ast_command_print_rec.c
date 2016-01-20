@@ -20,6 +20,8 @@ void				ast_command_print_rec(t_ast_command *ast_command, int depth)
 	depth++;
 	if (ast_command->command_type == COMMAND_COMPOUND_COMMAND)
 		ast_compound_command_print_rec(ast_command->command, depth);
-	else
+	else if (ast_command->command_type == COMMAND_SIMPLE_COMMAND)
 		ast_simple_command_print_rec(ast_command->command, depth);
+	else if (ast_command->command_type == COMMAND_FUNCTION_DEF)
+		ast_function_def_print_rec(ast_command->command, depth);
 }

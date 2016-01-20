@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_COMMAND_H
-# define AST_COMMAND_H
+#ifndef AST_FUNCTION_DEF_H
+# define AST_FUNCTION_DEF_H
 
 # include "basics.h"
 
@@ -19,30 +19,21 @@
 # include "ast/ast_utils.h"
 # include "ast/ast_defines.h"
 
-# include "ast/nodes/ast_simple_command.h"
-# include "ast/nodes/ast_compound_command.h"
-# include "ast/nodes/ast_function_def.h"
+struct s_ast_compound_command;
 
-typedef enum		s_command_type
+typedef struct		s_ast_function_def
 {
-	COMMAND_SIMPLE_COMMAND,
-	COMMAND_COMPOUND_COMMAND,
-	COMMAND_FUNCTION_DEF
-}					t_command_type;
+	void							*name;
+	struct s_ast_compound_command	*compound_command;
+	t_lst							*redir_items;
+}					t_ast_function_def;
 
-typedef struct		s_ast_command
-{
-	t_command_type	command_type;
-	void			*command;
-}					t_ast_command;
+t_ast_function_def	*ast_function_def_new(void);
+void				ast_function_def_del(t_ast_function_def *ast_function_def);
 
-t_ast_command		*ast_command_new(void);
-void				ast_command_del(t_ast_command *ast_command);
+t_ast_function_def	*ast_function_def_new_from_tokens(t_lst *tokens, struct s_ast *ast);
+void				ast_function_def_print_rec(t_ast_function_def *ast_function_def, int depth);
 
-t_ast_command		*ast_command_new_from_tokens(t_lst *tokens, struct s_ast *ast);
-t_ast_command		*ast_command_new_from_tokens(t_lst *tokens, struct s_ast *ast);
-void				ast_command_print_rec(t_ast_command *ast_command, int depth);
-
-t_command_type		ast_command_utils_get_command_type(t_lst *tokens);
+bool				ast_function_def_is_own_type(t_lst *tokens);
 
 #endif

@@ -22,6 +22,7 @@ t_ast_brace_group	*ast_brace_group_new_from_tokens(t_lst *tokens,
 	t_token					*open;
 
 	ast_brace_group = ast_brace_group_new();
+	token_mgr_pop_linebreak(tokens);
 	// tokens = twl_lst_copy(tokens, NULL);
 	open = twl_lst_pop_front(tokens);
 	// twl_lst_pop_back(tokens);
