@@ -103,11 +103,11 @@ static int	expan_tokenizer_param_substitution_get_parameter_word(t_expan_param *
 	}
 	if (j > i)
 		expan_param->parameter = twl_strndup(&str[i], j - i);
-	j = str[j] == 0 ? j - 1 : j;
 	if (type != UNDEFINED_PARAM)
 		word_len = expan_tokenizer_get_word_len(&expan_param->word, &str[j] + op_len, "{");
 	else
 		expan_tokenizer_param_env_var(expan_param, &str[i]);
+	j = str[j] == 0 ? j - 2 : j;
 	return (j + word_len + op_len + 1);
 }
 
