@@ -21,6 +21,7 @@ typedef struct			s_expan_quote
 	bool				is_single_quoted;
 	bool				is_double_quoted;
 	bool				is_backslashed;
+	bool				is_back_quoted;
 }						t_expan_quote;
 
 t_expan_quote			*expan_quote_new();

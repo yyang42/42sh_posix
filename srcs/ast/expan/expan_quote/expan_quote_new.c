@@ -21,5 +21,6 @@ t_expan_quote	*expan_quote_new(void)
 	quote->is_single_quoted = false;
 	quote->is_double_quoted = false;
 	quote->is_backslashed = false;
+	quote->is_back_quoted = false;
 	return (quote);
 }
