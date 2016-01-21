@@ -12,6 +12,20 @@
 
 #include "pattern_matching/pattern_substr.h"
 
+static void		pattern_substr_build_end_(t_pattern_substr *this)
+{
+	if (this->ind_tp)
+	{
+		pattern_substr_build_push_(this);
+	}
+	else if (this->to_push)
+	{
+		free(this->to_push->piece);
+		free(this->to_push);
+		this->to_push = NULL;
+	}
+}
+
 void			pattern_substr_build_(t_pattern_substr *this)
 {
 	while (this->pattern[this->ind_p])
@@ -31,4 +45,5 @@ void			pattern_substr_build_(t_pattern_substr *this)
 		else
 			pattern_substr_build_normal_char_(this);
 	}
+	pattern_substr_build_end_(this);
 }
