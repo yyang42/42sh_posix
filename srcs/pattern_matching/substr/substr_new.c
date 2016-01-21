@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_norris_loves_the_norminette.h                :+:      :+:    :+:   */
+/*   check_norris_loves_the_norminette.c                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chuck <chuck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,22 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SUBSTR_H
-# define SUBSTR_H
+#include "pattern_matching/substr.h"
 
-# include "basics.h"
-# include "pattern_matching/bracket_expr.h"
-# include "pattern_matching/pattern_substr.h"
-
-typedef struct			s_substr
+t_substr			*substr_new(void)
 {
-	t_pattern_substr	*patss;
-	t_bracket_expr		*brack_expr;
-}						t_substr;
+	t_substr		*this;
 
-t_substr				*substr_new(void);
-void					substr_del(t_substr *this);
-
-
-
-#endif
+	this = twl_malloc_x0(sizeof(t_substr));
+	this->brack_expr = bracket_expr_singleton();
+	this->patss = NULL;
+	return (this);
+}
