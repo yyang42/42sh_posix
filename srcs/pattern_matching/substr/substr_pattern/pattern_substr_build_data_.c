@@ -12,23 +12,13 @@
 
 #include "pattern_matching/pattern_substr.h"
 
-void			pattern_substr_build_(t_pattern_substr *this)
+void			pattern_substr_build_data_(t_pattern_substr *this)
 {
-	while (this->pattern[this->ind_p])
+	if (this->to_push == NULL)
 	{
-		pattern_substr_build_data_(this);
-		if (this->pattern[this->ind_p] == '\\')
-			pattern_substr_build_escaped_(this);
-		else if (this->pattern[this->ind_p] == '*' ||
-				this->pattern[this->ind_p] == '?')
-			pattern_substr_build_special_(this);
-		else if (this->pattern[this->ind_p] == '[')
-			pattern_substr_build_bracket_(this);
-		else if (this->pattern[this->ind_p] == '\'')
-			pattern_substr_build_simple_quote_(this);
-		else if (this->pattern[this->ind_p] == '"')
-			pattern_substr_build_double_quote_(this);
-		else
-			pattern_substr_build_normal_char_(this);
+		this->to_push = twl_malloc_x0(sizeof(t_pattern_substr_data));
+		this->to_push->piece = twl_strnew(this->len - this->ind_p);
+		this->to_push->fixed = true;
+		this->ind_tp = 0;
 	}
 }

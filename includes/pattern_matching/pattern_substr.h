@@ -43,8 +43,19 @@ t_pattern_substr			*pattern_substr_new(char *pattern);
 void						pattern_substr_del(t_pattern_substr *this);
 
 void						pattern_substr_build_(t_pattern_substr *this);
-void						pattern_substr_build_push_(t_pattern_substr *this);
 void						pattern_substr_build_data_(t_pattern_substr *this);
-void						pattern_substr_build_bracket_(t_pattern_substr *this);
+void						pattern_substr_build_push_(t_pattern_substr *this);
+void						pattern_substr_build_double_quote_(t_pattern_substr
+																		*this);
+void						pattern_substr_build_simple_quote_(t_pattern_substr
+																		*this);
+void						pattern_substr_build_escaped_(t_pattern_substr
+																		*this);
+void						pattern_substr_build_special_(t_pattern_substr
+																		*this);
+void						pattern_substr_build_normal_char_(t_pattern_substr
+																		*this);
+void						pattern_substr_build_bracket_(t_pattern_substr
+																		*this);
 
 #endif
