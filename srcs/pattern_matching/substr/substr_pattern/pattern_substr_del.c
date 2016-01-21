@@ -12,8 +12,18 @@
 
 #include "pattern_matching/pattern_substr.h"
 
+static void		del_pattern_data_fn(void *data_)
+{
+	t_pattern_substr_data	*data;
+
+	data = data_;
+	free(data->piece);
+	free(data);
+}
+
 void			pattern_substr_del(t_pattern_substr *this)
 {
+	twl_lst_del(this->split, &del_pattern_data_fn);
+	free(this->pattern);
 	free(this);
-	(void)this;
 }
