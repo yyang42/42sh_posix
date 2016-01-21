@@ -33,7 +33,7 @@ t_ast_redir	*ast_redir_new_from_tokens(t_lst *tokens, struct s_ast *ast)
 	}
 	else
 	{
-		ast_set_error_msg_format(ast, token_mgr_first(tokens),
+		ast_set_error_msg_format_token(ast, token_mgr_first(tokens),
 				"Expect argument after '%s'", token_mgr_first(tokens)->text);
 		ast_redir_del(ast_redir);
 		return (NULL);

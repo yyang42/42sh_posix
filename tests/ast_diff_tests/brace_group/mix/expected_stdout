@@ -1,0 +1,94 @@
+compound_list
+    ast_list_item (sep=\n)
+        ast_andor_item (negate=false, sep=none)
+            ast_pipe_item
+                ast_command
+                    ast_compound_command
+                        ast_brace_group
+                            compound_list
+                                ast_list_item (sep=\n)
+                                    ast_andor_item (negate=false, sep=none)
+                                        ast_pipe_item
+                                            ast_command
+                                                ast_simple_command (echo 111)
+    ast_list_item (sep=\n)
+        ast_andor_item (negate=false, sep=none)
+            ast_pipe_item
+                ast_command
+                    ast_compound_command
+                        ast_brace_group
+                            compound_list
+                                ast_list_item (sep=;)
+                                    ast_andor_item (negate=false, sep=none)
+                                        ast_pipe_item
+                                            ast_command
+                                                ast_simple_command (echo 222)
+    ast_list_item (sep=\n)
+        ast_andor_item (negate=false, sep=none)
+            ast_pipe_item
+                ast_command
+                    ast_compound_command
+                        ast_brace_group
+                            compound_list
+                                ast_list_item (sep=;)
+                                    ast_andor_item (negate=false, sep=none)
+                                        ast_pipe_item
+                                            ast_command
+                                                ast_simple_command (echo 333)
+    ast_list_item (sep=\n)
+        ast_andor_item (negate=false, sep=none)
+            ast_pipe_item
+                ast_command
+                    ast_compound_command
+                        ast_brace_group
+                            compound_list
+                                ast_list_item (sep=;)
+                                    ast_andor_item (negate=false, sep=none)
+                                        ast_pipe_item
+                                            ast_command
+                                                ast_simple_command (echo 444)
+    ast_list_item (sep=\n)
+        ast_andor_item (negate=false, sep=none)
+            ast_pipe_item
+                ast_command
+                    ast_compound_command
+                        ast_brace_group
+                            compound_list
+                                ast_list_item (sep=;)
+                                    ast_andor_item (negate=false, sep=none)
+                                        ast_pipe_item
+                                            ast_command
+                                                ast_simple_command (echo 555)
+    ast_list_item (sep=\n)
+        ast_andor_item (negate=false, sep=none)
+            ast_pipe_item
+                ast_command
+                    ast_compound_command
+                        ast_brace_group
+                            compound_list
+                                ast_list_item (sep=;)
+                                    ast_andor_item (negate=false, sep=none)
+                                        ast_pipe_item (sep=|)
+                                            ast_command
+                                                ast_simple_command (echo aaa)
+                                        ast_pipe_item
+                                            ast_command
+                                                ast_simple_command (echo a1)
+                                ast_list_item (sep=;)
+                                    ast_andor_item (negate=false, sep=&&)
+                                        ast_pipe_item
+                                            ast_command
+                                                ast_simple_command (echo bbb)
+                                    ast_andor_item (negate=false, sep=none)
+                                        ast_pipe_item
+                                            ast_command
+                                                ast_simple_command (echo b1)
+                                ast_list_item (sep=;)
+                                    ast_andor_item (negate=false, sep=||)
+                                        ast_pipe_item
+                                            ast_command
+                                                ast_simple_command (echo ccc)
+                                    ast_andor_item (negate=false, sep=none)
+                                        ast_pipe_item
+                                            ast_command
+                                                ast_simple_command (echo c1)

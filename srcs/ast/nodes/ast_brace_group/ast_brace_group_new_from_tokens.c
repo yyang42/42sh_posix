@@ -24,6 +24,12 @@ t_ast_brace_group	*ast_brace_group_new_from_tokens(t_lst *tokens,
 
 	open = twl_lst_pop_front(tokens);
 	ast_brace_group->ast_compound_list = ast_compound_list_new_from_tokens(tokens, ast);
+	if (ast_brace_group->ast_compound_list
+		&& twl_lst_len(ast_brace_group->ast_compound_list->ast_list_items) == 0)
+	{
+		ast_set_error_msg_syntax_error_near(ast, open, "Brace group missing compound list");
+		return (NULL);
+	}
 	if (token_mgr_first_equ(tokens, "}") == false)
 	{
 		ast_set_error_msg_syntax_error_near(ast, open, NULL);
