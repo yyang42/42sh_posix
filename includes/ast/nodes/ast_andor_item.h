@@ -26,6 +26,7 @@ typedef struct		s_ast_andor_item
 {
 	t_lst			*ast_pipe_items;
 	t_token			*separator;
+	bool			negate;
 }					t_ast_andor_item;
 
 t_ast_andor_item	*ast_andor_item_new(void);

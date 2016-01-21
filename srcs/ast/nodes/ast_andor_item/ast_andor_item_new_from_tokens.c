@@ -23,9 +23,12 @@ t_ast_andor_item		*ast_andor_item_new_from_tokens(t_lst *tokens, struct s_ast *a
 	t_ast_andor_item			*this;
 
 	this = ast_andor_item_new();
-
+	if (token_mgr_first_equ(tokens, "!"))
+	{
+		this->negate = true;
+		twl_lst_pop_front(tokens);
+	}
 	this->ast_pipe_items = ast_lap_build_items(tokens, AST_TYPE_PIPE_ITEM, ast);
-
 	return (this);
 	(void)tokens;
 	(void)ast;

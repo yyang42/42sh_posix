@@ -1,6 +1,6 @@
 compound_list
     ast_list_item (sep=\n)
-        ast_andor_item
+        ast_andor_item (negate=false, sep=none)
             ast_pipe_item
                 ast_command
                     ast_compound_command
@@ -8,19 +8,19 @@ compound_list
                             cond_compound
                                 compound_list
                                     ast_list_item (sep=;)
-                                        ast_andor_item
+                                        ast_andor_item (negate=false, sep=none)
                                             ast_pipe_item
                                                 ast_command
                                                     ast_simple_command (true0)
                             do_group
                                 compound_list
                                     ast_list_item (sep=\n)
-                                        ast_andor_item
+                                        ast_andor_item (negate=false, sep=none)
                                             ast_pipe_item
                                                 ast_command
                                                     ast_simple_command (echo abc0)
                                     ast_list_item (sep=\n)
-                                        ast_andor_item
+                                        ast_andor_item (negate=false, sep=none)
                                             ast_pipe_item
                                                 ast_command
                                                     ast_compound_command
@@ -28,19 +28,19 @@ compound_list
                                                             cond_compound
                                                                 compound_list
                                                                     ast_list_item (sep=;)
-                                                                        ast_andor_item
+                                                                        ast_andor_item (negate=false, sep=none)
                                                                             ast_pipe_item
                                                                                 ast_command
                                                                                     ast_simple_command (true1)
                                                             do_group
                                                                 compound_list
                                                                     ast_list_item (sep=\n)
-                                                                        ast_andor_item
+                                                                        ast_andor_item (negate=false, sep=none)
                                                                             ast_pipe_item
                                                                                 ast_command
                                                                                     ast_simple_command (echo abc1)
                                     ast_list_item (sep=\n)
-                                        ast_andor_item
+                                        ast_andor_item (negate=false, sep=none)
                                             ast_pipe_item
                                                 ast_command
                                                     ast_compound_command
@@ -48,14 +48,14 @@ compound_list
                                                             cond_compound
                                                                 compound_list
                                                                     ast_list_item (sep=\n)
-                                                                        ast_andor_item
+                                                                        ast_andor_item (negate=false, sep=none)
                                                                             ast_pipe_item
                                                                                 ast_command
                                                                                     ast_simple_command (true2)
                                                             do_group
                                                                 compound_list
                                                                     ast_list_item (sep=\n)
-                                                                        ast_andor_item
+                                                                        ast_andor_item (negate=false, sep=none)
                                                                             ast_pipe_item
                                                                                 ast_command
                                                                                     ast_simple_command (echo abc2)

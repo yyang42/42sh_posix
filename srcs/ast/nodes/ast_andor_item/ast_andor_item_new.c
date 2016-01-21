@@ -14,9 +14,10 @@
 
 t_ast_andor_item			*ast_andor_item_new(void)
 {
-	t_ast_andor_item		*ast_andor_item;
+	t_ast_andor_item		*this;
 
-	ast_andor_item = twl_malloc_x0(sizeof(t_ast_andor_item));
-	ast_andor_item->ast_pipe_items = twl_lst_new();
-	return (ast_andor_item);
+	this = twl_malloc_x0(sizeof(t_ast_andor_item));
+	this->ast_pipe_items = twl_lst_new();
+	this->negate = false;
+	return (this);
 }

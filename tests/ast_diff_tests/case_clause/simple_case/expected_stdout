@@ -1,12 +1,12 @@
 compound_list
     ast_list_item (sep=\n)
-        ast_andor_item
+        ast_andor_item (negate=false, sep=none)
             ast_pipe_item
                 ast_command
                     ast_simple_command ()
                         ast_assignment (space=a)
     ast_list_item (sep=\n)
-        ast_andor_item
+        ast_andor_item (negate=false, sep=none)
             ast_pipe_item
                 ast_command
                     ast_compound_command
@@ -18,7 +18,7 @@ compound_list
                                         ast_case_item_pattern (`echo a`*)
                                         compound_list
                                             ast_list_item (sep=\n)
-                                                ast_andor_item
+                                                ast_andor_item (negate=false, sep=none)
                                                     ast_pipe_item
                                                         ast_command
                                                             ast_simple_command ()
@@ -28,7 +28,7 @@ compound_list
                                         ast_case_item_pattern ([1-6]*)
                                         compound_list
                                             ast_list_item (sep=\n)
-                                                ast_andor_item
+                                                ast_andor_item (negate=false, sep=none)
                                                     ast_pipe_item
                                                         ast_command
                                                             ast_simple_command ()
@@ -38,7 +38,7 @@ compound_list
                                         ast_case_item_pattern ([7-8]*)
                                         compound_list
                                             ast_list_item (sep=\n)
-                                                ast_andor_item
+                                                ast_andor_item (negate=false, sep=none)
                                                     ast_pipe_item
                                                         ast_command
                                                             ast_simple_command ()
@@ -48,7 +48,7 @@ compound_list
                                         ast_case_item_pattern (9[1-8])
                                         compound_list
                                             ast_list_item (sep=\n)
-                                                ast_andor_item
+                                                ast_andor_item (negate=false, sep=none)
                                                     ast_pipe_item
                                                         ast_command
                                                             ast_simple_command ()
@@ -58,7 +58,7 @@ compound_list
                                         ast_case_item_pattern (99)
                                         compound_list
                                             ast_list_item (sep=\n)
-                                                ast_andor_item
+                                                ast_andor_item (negate=false, sep=none)
                                                     ast_pipe_item
                                                         ast_command
                                                             ast_simple_command ()
@@ -68,13 +68,13 @@ compound_list
                                         ast_case_item_pattern (*)
                                         compound_list
                                             ast_list_item (sep=\n)
-                                                ast_andor_item
+                                                ast_andor_item (negate=false, sep=none)
                                                     ast_pipe_item
                                                         ast_command
                                                             ast_simple_command ()
                                                                 ast_assignment (Message="I seem to be running with an nonexistent amount of disk space...")
     ast_list_item (sep=\n)
-        ast_andor_item
+        ast_andor_item (negate=false, sep=none)
             ast_pipe_item
                 ast_command
                     ast_simple_command (echo $Message)
