@@ -10,28 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_LAP_H
-# define AST_LAP_H
+#include "ast/ast_lap.h"
 
-# include "basics.h"
+t_ast_lap_new_from_tokens_fn	*ast_lap_new_from_tokens_fns(void)
+{
+	static t_ast_lap_new_from_tokens_fn	fns[AST_TYPE_NBR];
+	static bool									is_loaded = false;
 
-# include "token/token_mgr.h"
-# include "ast/ast_defines.h"
-# include "ast/ast_utils.h"
-# include "ast/ast.h"
-
-# include "data.h"
-# include "data_utils.h"
-# include "ast/nodes/ast_pipe_item.h"
-
-t_lst							*ast_lap_build_items(t_lst *tokens,
-										t_ast_type type, struct s_ast *ast);
-
-typedef void *(*t_ast_lap_new_from_tokens_fn)(t_lst *tokens, struct s_ast *ast);
-typedef void (*t_ast_lap_set_separator_fn)(void *item, t_token *token);
-
-t_ast_lap_set_separator_fn		*ast_lap_set_separator_fns(void);
-t_ast_lap_new_from_tokens_fn	*ast_lap_new_from_tokens_fns(void);
-t_lst							**ast_lap_get_seps_list(void);
-
-#endif
+	if (is_loaded == false)
+	{
+		fns[AST_TYPE_LIST_ITEM] = ast_list_item_new_from_tokens_void;
+		fns[AST_TYPE_ANDOR_ITEM] = ast_andor_item_new_from_tokens_void;
+		fns[AST_TYPE_PIPE_ITEM] = ast_pipe_item_new_from_tokens_void;
+	}
+	return (fns);
+}

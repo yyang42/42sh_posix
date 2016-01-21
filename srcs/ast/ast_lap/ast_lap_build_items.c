@@ -10,99 +10,60 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "data.h"
-#include "data_utils.h"
 #include "ast/ast_lap.h"
-#include "ast/nodes/ast_pipe_item.h"
 
-t_ast_lap_new_from_tokens_fn	*ast_lap_new_from_tokens_fns(void)
+static bool is_reserved_word_delimiter(t_lst *tokens)
 {
-	static t_ast_lap_new_from_tokens_fn	fns[AST_TYPE_NBR];
-	static bool									is_loaded = false;
-
-	if (is_loaded == false)
-	{
-		fns[AST_TYPE_LIST_ITEM] = ast_list_item_new_from_tokens_void;
-		fns[AST_TYPE_ANDOR_ITEM] = ast_andor_item_new_from_tokens_void;
-		fns[AST_TYPE_PIPE_ITEM] = ast_pipe_item_new_from_tokens_void;
-	}
-	return (fns);
+	return (data_utils_is_reserved_words_middle_end(
+				token_mgr_first(tokens)->text)
+			|| token_mgr_first_equ(tokens, ";;"));
 }
 
-t_lst				**ast_lap_get_seps_list(void)
+static bool is_last_sep_that_require_more_tokens(t_token *token)
 {
-	static t_lst	*segs[AST_TYPE_NBR];
-	static bool									is_loaded = false;
-
-	if (is_loaded == false)
-	{
-		segs[AST_TYPE_LIST_ITEM] = data_list_separators();
-		segs[AST_TYPE_ANDOR_ITEM] = data_andor_separators();
-		segs[AST_TYPE_PIPE_ITEM] = data_pipe_separators();
-	}
-	return (segs);
+	return (token
+		&& (twl_strequ(token->text, "&&")
+			|| twl_strequ(token->text, "||")
+			|| twl_strequ(token->text, "|"))
+		);
 }
 
-t_ast_lap_set_separator_fn	*ast_lap_set_separator_fns(void)
+static bool is_type_separator(t_ast_type type, t_token *token)
 {
-	static t_ast_lap_set_separator_fn	fns[AST_TYPE_NBR];
-	static bool									is_loaded = false;
-
-	if (is_loaded == false)
-	{
-		fns[AST_TYPE_LIST_ITEM] = ast_list_item_set_separator_void;
-		fns[AST_TYPE_ANDOR_ITEM] = ast_andor_item_set_separator_void;
-		fns[AST_TYPE_PIPE_ITEM] = ast_pipe_item_set_separator_void;
-	}
-	return (fns);
+	return (token
+		&& twl_lst_find(ast_lap_get_seps_list()[type],
+			twl_strequ_void, token->text)
+		);
 }
 
 t_lst				*ast_lap_build_items(t_lst *tokens,
-							t_ast_type type,
-							struct s_ast *ast)
+							t_ast_type type, struct s_ast *ast)
 {
 	void			*item;
 	t_lst			*container;
-	t_token			*first;
 	t_token			*last_sep;
 
 	last_sep = NULL;
 	container = twl_lst_new();
-	while (true)
+	while (42)
 	{
 		token_mgr_pop_linebreak(tokens);
-
-		if (twl_lst_len(tokens) == 0)
-		{
-			if (last_sep && (twl_strequ(last_sep->text, "&&")
-							|| twl_strequ(last_sep->text, "||")
-							|| twl_strequ(last_sep->text, "|"))
-				)
-			{
-				ast_set_error_msg_syntax_error_near(ast, last_sep, NULL);
-				return (NULL);
-			}
+		if (twl_lst_len(tokens) == 0 || is_reserved_word_delimiter(tokens))
 			break ;
-		}
 		last_sep = NULL;
-		if (data_utils_is_reserved_words_middle_end(token_mgr_first(tokens)->text)
-			|| token_mgr_first_equ(tokens, ";;"))
-			break ;
 		item = ast_lap_new_from_tokens_fns()[type](tokens, ast);
 		if (ast_has_error(ast))
 			return (NULL);
-		first = token_mgr_first(tokens);
 		twl_lst_push(container, item);
-		if (first && twl_lst_find(ast_lap_get_seps_list()[type], twl_strequ_void, first->text))
-		{
-			ast_lap_set_separator_fns()[type](item, first);
-			last_sep = twl_lst_pop_front(tokens);
-		}
-		else
-		{
+		if (!is_type_separator(type, token_mgr_first(tokens)))
 			break ;
-		}
+		ast_lap_set_separator_fns()[type](item, token_mgr_first(tokens));
+		last_sep = twl_lst_pop_front(tokens);
+	}
+	if (is_last_sep_that_require_more_tokens(last_sep))
+	{
+		ast_set_error_msg_syntax_error_near(ast, last_sep, NULL);
+		return (NULL);
 	}
 	return (container);
-	(void)type;
 }
