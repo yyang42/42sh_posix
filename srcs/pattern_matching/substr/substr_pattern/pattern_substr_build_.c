@@ -51,6 +51,49 @@ void			pattern_substr_build_special_(t_pattern_substr *this)
 	this->ind_p += 1;
 }
 
+void			pattern_substr_build_simple_quote_(t_pattern_substr *this)
+{
+	this->ind_p += 1;
+	while (this->pattern[this->ind_p])
+	{
+		if (this->pattern[this->ind_p] == '\'')
+		{
+			this->ind_p += 1;
+			break ;
+		}
+		this->to_push->piece[this->ind_tp] = this->pattern[this->ind_p];
+		this->ind_p += 1;
+		this->ind_tp += 1;
+	}
+}
+
+void			pattern_substr_build_double_quote_(t_pattern_substr *this)
+{
+	this->ind_p += 1;
+	while (this->pattern[this->ind_p])
+	{
+		if (this->pattern[this->ind_p] == '"')
+		{
+			this->ind_p += 1;
+			break ;
+		}
+		if (this->pattern[this->ind_p] == '\\' &&
+				(this->pattern[this->ind_p + 1] == '"' ||
+				 this->pattern[this->ind_p + 1] == '\\'))
+			this->ind_p += 1;
+		this->to_push->piece[this->ind_tp] = this->pattern[this->ind_p];
+		this->ind_p += 1;
+		this->ind_tp += 1;
+	}
+}
+
+void			pattern_substr_build_normal_char_(t_pattern_substr *this)
+{
+	this->to_push->piece[this->ind_tp] = this->pattern[this->ind_p];
+	this->ind_p += 1;
+	this->ind_tp += 1;
+}
+
 void			pattern_substr_build_(t_pattern_substr *this)
 {
 	while (this->pattern[this->ind_p])
@@ -63,5 +106,11 @@ void			pattern_substr_build_(t_pattern_substr *this)
 			pattern_substr_build_special_(this);
 		else if (this->pattern[this->ind_p] == '[')
 			pattern_substr_build_bracket_(this);
+		else if (this->pattern[this->ind_p] == '\'')
+			pattern_substr_build_simple_quote_(this);
+		else if (this->pattern[this->ind_p] == '"')
+			pattern_substr_build_double_quote_(this);
+		else
+			pattern_substr_build_normal_char_(this);
 	}
 }
