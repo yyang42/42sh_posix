@@ -12,16 +12,7 @@
 
 #include "pattern_matching/pattern_substr.h"
 
-t_pattern_substr		*pattern_substr_new(char *pattern)
+t_pattern_substr_data	*pattern_substr_get_data(t_pattern_substr *this, int no)
 {
-	t_pattern_substr	*this;
-
-	this = twl_malloc_x0(sizeof(t_pattern_substr));
-	this->pattern = twl_strdup(pattern);
-	this->len = twl_strlen(this->pattern);
-	this->ind_p = 0;
-	this->to_push = NULL;
-	this->split = twl_lst_new();
-	pattern_substr_build_(this);
-	return (this);
+	return (twl_lst_get(this->split, no));
 }

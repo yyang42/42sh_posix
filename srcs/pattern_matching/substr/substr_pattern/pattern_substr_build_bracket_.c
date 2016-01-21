@@ -41,9 +41,9 @@ static void		bracket_close(t_pattern_substr *this, t_patss_bracket *bracket)
 	}
 	else if (this->pattern[bracket->ind_p - 1] == '=')
 	{
-		if (bracket->flag[2] == 0)
+		if (bracket->flag[3] == 0)
 			bracket->flag[0] = -1;
-		bracket->flag[2] = 0;
+		bracket->flag[3] = 0;
 	}
 	else
 		bracket->flag[0] = (bracket->flag[1] || bracket->flag[2] ||
@@ -79,8 +79,11 @@ static void		bracket_finish_it(t_pattern_substr *this,
 	}
 	else
 	{
-		pattern_substr_build_push_(this);
-		pattern_substr_build_data_(this);
+		if (this->ind_tp > 0)
+		{
+			pattern_substr_build_push_(this);
+			pattern_substr_build_data_(this);
+		}
 		twl_strcpy(this->to_push->piece, bracket->brack);
 		this->to_push->fixed = false;
 		pattern_substr_build_push_(this);
