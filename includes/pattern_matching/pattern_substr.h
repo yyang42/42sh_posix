@@ -14,6 +14,7 @@
 # define PATTERN_SUBSTR_H
 
 # include "basics.h"
+#include <stdio.h>
 
 typedef struct				s_patss_bracket
 {
@@ -57,5 +58,7 @@ void						pattern_substr_build_normal_char_(t_pattern_substr
 																		*this);
 void						pattern_substr_build_bracket_(t_pattern_substr
 																		*this);
+t_pattern_substr_data		*pattern_substr_get_data(t_pattern_substr *this,
+																		int no);
 
 #endif
