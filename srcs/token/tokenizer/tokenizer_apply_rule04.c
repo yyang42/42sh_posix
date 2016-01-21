@@ -39,8 +39,10 @@ static char			*match(char *input)
 	char					*match;
 
 	matcher = openclose_matcher_new();
-	openclose_matcher_add(matcher, "'", "'");
-	openclose_matcher_add(matcher, "\"", "\"");
+	if (*input == '\'')
+		openclose_matcher_add(matcher, "'", "'");
+	else
+		openclose_matcher_add(matcher, "\"", "\"");
 	openclose_matcher_set_skip_quoted(matcher, true);
 	match = openclose_matcher_find_matching(matcher, input);
 	openclose_matcher_del(matcher);

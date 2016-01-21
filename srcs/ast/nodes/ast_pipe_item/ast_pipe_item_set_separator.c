@@ -10,21 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "token/tokenizer.h"
+#include "ast/nodes/ast_pipe_item.h"
 
-/*  Rule 1 extra 1
-	Tokenize parenthesis
-*/
-
-t_rule_status		tokenizer_apply_rule01_extra1(t_tokenizer *t)
+void				ast_pipe_item_set_separator(t_ast_pipe_item *this, t_token *token)
 {
-	if (twl_strchr("(){}", *t->curpos))
-	{
-		tokenizer_delimit(t);
-		tokenizer_append_to_curtoken(t, 1);
-		t->curpos++;
-		tokenizer_delimit(t);
-		return (RULE_STATUS_APPLIED);
-	}
-	return (RULE_STATUS_NOT_APPLIED);
+	this->separator = token;
 }

@@ -21,9 +21,7 @@ t_lst				*data_all_operators(void)
 	if (operators == NULL)
 	{
 		operators = twl_lst_new();
-		twl_lst_push_back(operators, "&&");
-		twl_lst_push_back(operators, "||");
-		twl_lst_push_back(operators, ";;");
+		twl_lst_extend(operators, data_control_operators());
 		twl_lst_extend(operators, data_redir_operators());
 	}
 	return (operators);

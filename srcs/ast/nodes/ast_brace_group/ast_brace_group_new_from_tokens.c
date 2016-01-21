@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ast/ast.h"
 #include "ast/nodes/ast_brace_group.h"
 #include "ast/nodes/ast_compound_list.h"
 
@@ -17,15 +18,26 @@ t_ast_brace_group	*ast_brace_group_new_from_tokens(t_lst *tokens,
 	struct s_ast *ast)
 {
 	t_ast_brace_group		*ast_brace_group;
-	t_lst					*copy;
+	t_token					*open;
 
 	ast_brace_group = ast_brace_group_new();
-	copy = twl_lst_copy(tokens, NULL);
-	twl_lst_pop_front(copy);
-	twl_lst_pop_back(copy);
-	ast_brace_group->ast_compound_list = ast_compound_list_new_from_tokens(copy,
-		ast);
-	token_mgr_del(copy);
+
+	open = twl_lst_pop_front(tokens);
+	ast_brace_group->ast_compound_list = ast_compound_list_new_from_tokens(tokens, ast);
+	if (ast_has_error(ast))
+		return (NULL);
+	if (ast_brace_group->ast_compound_list
+		&& twl_lst_len(ast_brace_group->ast_compound_list->ast_list_items) == 0)
+	{
+		ast_set_error_msg_syntax_error_near(ast, open, "Brace group missing compound list");
+		return (NULL);
+	}
+	if (token_mgr_first_equ(tokens, "}") == false)
+	{
+		ast_set_error_msg_syntax_error_near(ast, open, NULL);
+		return NULL;
+	}
+	twl_lst_pop_front(tokens);
 	if (ast_brace_group->ast_compound_list == NULL)
 		return (NULL);
 	return (ast_brace_group);

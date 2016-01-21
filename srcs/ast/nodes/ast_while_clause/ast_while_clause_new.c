@@ -10,20 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "twl_lst.h"
+#include "ast/nodes/ast_while_clause.h"
 
-#include "data.h"
-
-t_lst				*data_separators(void)
+t_ast_while_clause			*ast_while_clause_new(void)
 {
-	static t_lst	*separators = NULL;
+	t_ast_while_clause		*ast_while_clause;
 
-	if (separators == NULL)
-	{
-		separators = twl_lst_new();
-		twl_lst_push_back(separators, ";");
-		twl_lst_push_back(separators, "&");
-		twl_lst_push_back(separators, "\n");
-	}
-	return (separators);
+	ast_while_clause = twl_malloc_x0(sizeof(t_ast_while_clause));
+	return (ast_while_clause);
 }

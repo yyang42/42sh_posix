@@ -14,7 +14,6 @@
 
 t_rule_fn			g_tokenizer_rule_fns[13] = {
 					tokenizer_apply_rule01,
-					tokenizer_apply_rule01_extra1,
 					tokenizer_apply_rule02,
 					tokenizer_apply_rule03,
 					tokenizer_apply_rule04,

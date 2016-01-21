@@ -29,4 +29,7 @@ typedef struct		s_token
 t_token				*token_new(char *text, int line, int col);
 void				token_del(t_token *this);
 
+bool				token_is_control_operators_nl(t_token *this);
+bool				token_is_reserved_word(t_token *this);
+
 #endif

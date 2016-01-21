@@ -16,63 +16,20 @@
 #include "ast/ast.h"
 #include "ast/nodes/ast_andor_item.h"
 #include "ast/nodes/ast_list_item.h"
+#include "ast/ast_lap.h"
 
-static void				build_ast_list_item(
-								t_ast_andor_item *ast_andor_item,
-								t_lst *tokens,
-								struct s_ast *ast)
+t_ast_andor_item		*ast_andor_item_new_from_tokens(t_lst *tokens, struct s_ast *ast)
 {
-	t_token						*sep;
-	t_ast_pipe_item				*ast_pipe_item;
+	t_ast_andor_item			*this;
 
-	sep = NULL;
-	if (token_mgr_last_equ(tokens, "|"))
-		sep = twl_lst_pop(tokens);
-	if (twl_lst_len(tokens) == 0)
+	this = ast_andor_item_new();
+	if (token_mgr_first_equ(tokens, "!"))
 	{
-		if (sep)
-			ast_set_error_msg_format(ast, sep, "Unexpected token '%s'",
-				sep->text);
-		else
-			ast_set_error_msg_syntax_error(ast);
-		return ;
+		this->negate = true;
+		twl_lst_pop_front(tokens);
 	}
-	ast_pipe_item = ast_pipe_item_new_from_tokens(tokens, sep, ast);
-	if (ast_pipe_item == NULL)
-		return ;
-	twl_lst_push(ast_andor_item->ast_pipe_items, ast_pipe_item);
-}
-
-static void				build_ast_pipe_item_fn(void *tokens_tmp,
-	void *ast_andor_item, void *last_token, void *ast)
-{
-	if (ast_has_error(ast))
-		return ;
-	if (twl_lst_len(tokens_tmp) == 0)
-	{
-		ast_set_error_msg_format(ast, last_token,
-			"Expected input after '|' but found nothing");
-		return ;
-	}
-	build_ast_list_item(ast_andor_item, tokens_tmp, ast);
-}
-
-t_ast_andor_item		*ast_andor_item_new_from_tokens(t_lst *tokens,
-	t_token *sep, struct s_ast *ast)
-{
-	t_ast_andor_item			*ast_andor_item;
-	t_lst						*tokens_list;
-
-	ast_andor_item = ast_andor_item_new();
-	ast_andor_item->separator = sep;
-	tokens_list = token_mgr_split_by_one_sep(tokens, "|", true);
-	twl_lst_iter3(tokens_list, build_ast_pipe_item_fn, ast_andor_item,
-		twl_lst_last(tokens), ast);
-	token_list_mgr_del(tokens_list);
-	if (ast_has_error(ast))
-	{
-		ast_andor_item_del(ast_andor_item);
-		return (NULL);
-	}
-	return (ast_andor_item);
+	this->ast_pipe_items = ast_lap_build_items(tokens, AST_TYPE_PIPE_ITEM, ast);
+	return (this);
+	(void)tokens;
+	(void)ast;
 }

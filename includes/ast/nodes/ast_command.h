@@ -21,12 +21,13 @@
 
 # include "ast/nodes/ast_simple_command.h"
 # include "ast/nodes/ast_compound_command.h"
+# include "ast/nodes/ast_function_def.h"
 
 typedef enum		s_command_type
 {
 	COMMAND_SIMPLE_COMMAND,
 	COMMAND_COMPOUND_COMMAND,
-	COMMAND_FUNCTION_DEFINITION
+	COMMAND_FUNCTION_DEF
 }					t_command_type;
 
 typedef struct		s_ast_command
@@ -39,6 +40,9 @@ t_ast_command		*ast_command_new(void);
 void				ast_command_del(t_ast_command *ast_command);
 
 t_ast_command		*ast_command_new_from_tokens(t_lst *tokens, struct s_ast *ast);
+t_ast_command		*ast_command_new_from_tokens(t_lst *tokens, struct s_ast *ast);
 void				ast_command_print_rec(t_ast_command *ast_command, int depth);
+
+t_command_type		ast_command_utils_get_command_type(t_lst *tokens);
 
 #endif

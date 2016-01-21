@@ -14,16 +14,16 @@
 #include "token/token_mgr.h"
 #include "twl_printf.h"
 
-void				ast_set_error_msg_format(t_ast *ast, t_token *token,
-	const char *fmt, ...)
+void				ast_set_error_msg_format(t_ast *ast, const char *fmt, ...)
 {
 	t_pf	*pf;
 
+	// if (ast->error_msg)
+	// 	return ;
 	pf = pf_create((char *)fmt);
 	va_start(pf->arglist, (char *)fmt);
 	pf_prepare_xprintf__(pf);
 	va_end(pf->arglist);
-	twl_asprintf(&ast->error_msg, "SyntaxError %d:%d : %s",
-				token->line, token->col, pf->output);
+	twl_asprintf(&ast->error_msg, "SyntaxError: %s", pf->output);
 	pf_free(pf);
 }

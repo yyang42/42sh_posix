@@ -14,7 +14,18 @@
 #include "ast/nodes/ast_compound_command.h"
 #include "ast/nodes/ast_redir.h"
 #include "ast/ast.h"
+#include "data_utils.h"
 #include "token/token_list_mgr.h"
+
+/*
+** The shell has several programming constructs that are "compound commands",
+** which provide control flow for commands. Each of these compound commands
+** has a reserved word or control operator at the beginning, and a corresponding
+** terminator reserved word or operator at the end. In addition, each can be
+** followed by redirections on the same line as the terminator. Each redirection
+** shall apply to all the commands within the compound command that do not
+** explicitly override that redirection.
+*/
 
 static void				build_redir_fn(void *redir_tokens, void *redir_items,
 	void *ast)
@@ -47,26 +58,16 @@ static int				build_redir_tokens(t_lst *redir_items,
 static void				new_compound_command_do(t_ast_compound_command *this,
 	t_lst *tokens, struct s_ast *ast)
 {
-	int						pos;
-	t_openclose_matcher		*matcher;
 	t_lst					*redir_tokens;
-	t_lst					*command_tokens;
-
-	matcher = openclose_matcher_singleton_parser();
-	pos = openclose_matcher_token_find_matching(matcher, tokens);
-	if (pos == -1)
-	{
-		ast_set_error_msg_format(ast, token_mgr_first(tokens),
-			"Closing token for '%s' not found", token_mgr_first(tokens)->text);
-		return ;
-	}
-	command_tokens = twl_lst_slice(tokens, 0, pos);
-	this->command =
-	compound_command_from_token_fns()[this->command_type](command_tokens, ast);
-	twl_lst_del(command_tokens, NULL);
+	this->command = compound_command_from_token_fns()[this->command_type](tokens, ast);
 	if (ast_has_error(ast))
 		return ;
-	redir_tokens = twl_lst_slice(tokens, pos, twl_lst_len(tokens));
+	redir_tokens = twl_lst_new();
+	while (twl_lst_len(tokens)
+		&& !token_is_control_operators_nl(token_mgr_first(tokens)))
+	{
+		twl_lst_push_back(redir_tokens, twl_lst_pop_front(tokens));
+	}
 	build_redir_tokens(this->redir_items, redir_tokens, ast);
 	twl_lst_del(redir_tokens, NULL);
 }

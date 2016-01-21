@@ -1,0 +1,38 @@
+compound_list
+    ast_list_item (sep=;)
+        ast_andor_item (negate=false, sep=||)
+            ast_pipe_item (sep=|)
+                ast_command
+                    ast_simple_command (echo 111)
+            ast_pipe_item
+                ast_command
+                    ast_simple_command (echo 222)
+        ast_andor_item (negate=false, sep=&&)
+            ast_pipe_item
+                ast_command
+                    ast_simple_command (echo 333)
+        ast_andor_item (negate=false, sep=none)
+            ast_pipe_item
+                ast_command
+                    ast_simple_command (echo 4aa)
+    ast_list_item (sep=&)
+        ast_andor_item (negate=false, sep=none)
+            ast_pipe_item
+                ast_command
+                    ast_simple_command (echo 4bb)
+    ast_list_item (sep=\n)
+        ast_andor_item (negate=false, sep=&&)
+            ast_pipe_item
+                ast_command
+                    ast_simple_command (echo 555)
+        ast_andor_item (negate=false, sep=||)
+            ast_pipe_item
+                ast_command
+                    ast_simple_command (echo 666)
+        ast_andor_item (negate=false, sep=none)
+            ast_pipe_item (sep=|)
+                ast_command
+                    ast_simple_command (echo 777)
+            ast_pipe_item
+                ast_command
+                    ast_simple_command (echo 888)

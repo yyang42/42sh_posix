@@ -18,10 +18,16 @@
 # include "basics.h"
 
 t_lst				*data_all_operators(void);
+t_lst				*data_all_separators(void);
 t_lst				*data_redir_operators(void);
 t_lst				*data_token_item_list(void);
-t_lst				*data_separators(void);
+t_lst				*data_list_separators(void);
+t_lst				*data_pipe_separators(void);
 t_lst				*data_andor_separators(void);
 t_lst				*data_compound_commands(void);
+t_lst				*data_control_operators(void);
+t_lst				*data_control_operators_nl(void);
+t_lst				*data_reserved_words(void);
+t_lst				*data_reserved_words_middle_end(void);
 
 #endif

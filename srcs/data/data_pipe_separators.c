@@ -10,11 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/ast.h"
-#include "token/token_mgr.h"
-#include "twl_printf.h"
+#include "twl_lst.h"
 
-void				ast_set_error_msg_syntax_error(t_ast *ast)
+#include "data.h"
+
+t_lst				*data_pipe_separators(void)
 {
-	twl_asprintf(&ast->error_msg, "SyntaxError");
+	static t_lst	*separators = NULL;
+
+	if (separators == NULL)
+	{
+		separators = twl_lst_new();
+		twl_lst_push_back(separators, "|");
+	}
+	return (separators);
 }
