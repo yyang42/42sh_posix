@@ -28,6 +28,8 @@ t_ast_case_item	*ast_case_item_new_from_tokens(t_lst *tokens, struct s_ast *ast)
 	}
 	twl_lst_pop_front(tokens); // TODO: handle missing ')'
 	this->compound_list = ast_compound_list_new_from_tokens(tokens, ast);
+	if (ast_has_error(ast))
+		return (NULL);
 	return (this);
 	(void)ast;
 	(void)tokens;

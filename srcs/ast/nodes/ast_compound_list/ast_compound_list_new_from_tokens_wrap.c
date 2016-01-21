@@ -30,10 +30,11 @@ t_ast_compound_list	*ast_compound_list_new_from_tokens_wrap(t_lst *tokens,
 	twl_lst_pop_front(tokens);
 
 	this = ast_compound_list_new_from_tokens(tokens, ast);
+	if (ast_has_error(ast))
+		return (NULL);
 	if (token_mgr_first_equ(tokens, close) == false)
 		return (NULL);
 	twl_lst_pop_front(tokens);
-
 	return this;
 	(void)open;
 	(void)close;

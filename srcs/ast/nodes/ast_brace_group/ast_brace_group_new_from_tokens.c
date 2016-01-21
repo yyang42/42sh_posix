@@ -24,6 +24,8 @@ t_ast_brace_group	*ast_brace_group_new_from_tokens(t_lst *tokens,
 
 	open = twl_lst_pop_front(tokens);
 	ast_brace_group->ast_compound_list = ast_compound_list_new_from_tokens(tokens, ast);
+	if (ast_has_error(ast))
+		return (NULL);
 	if (ast_brace_group->ast_compound_list
 		&& twl_lst_len(ast_brace_group->ast_compound_list->ast_list_items) == 0)
 	{
