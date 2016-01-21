@@ -23,5 +23,6 @@ typedef struct		s_letter
 t_letter			*letter_new(int letter);
 void				letter_del(t_letter *this);
 t_letter			*letter_cpy(t_letter *letter);
+void				*letter_copy_void(void *letter);
 
 #endif

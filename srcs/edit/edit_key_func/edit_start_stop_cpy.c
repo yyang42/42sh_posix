@@ -21,8 +21,14 @@ void				edit_start_stop_cpy(void *_edit)
 	{
 		edit->copast = copast_new(edit->index);
 	}
+	else if (edit->copast->has_copy)
+	{
+		copast_del(edit->copast);
+		edit->copast = copast_new(edit->index);
+
+	}
 	else
 	{
-		copast_stop_copy(edit->copast, edit->index);
+		copast_stop_copy(edit->copast, edit->index, edit->letters);
 	}
 }

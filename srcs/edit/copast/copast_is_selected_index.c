@@ -23,9 +23,9 @@ void				copast_is_selected_index(t_copast *this, int letter_index, int cur_index
 	}
 	if (this != NULL && this->has_copy)
 	{
-		if (letter_index > this->start_index && letter_index < this->stop_index)
+		if (letter_index >= this->start_index && letter_index < this->stop_index)
 			twl_putstr(C_RED);
-		if (letter_index < this->start_index && letter_index > this->stop_index)
+		if (letter_index <= this->start_index && letter_index > this->stop_index)
 			twl_putstr(C_RED);
 	}
 }

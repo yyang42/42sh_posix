@@ -12,28 +12,14 @@
 
 #include "edit/edit.h"
 
-static void			*void_letter_copy(void *letter)
-{
-	return (letter_cpy(letter));
-}
+
 
 void				edit_paste_clip(void *_edit)
 {
 	t_edit			*edit;
-	t_lst			*slice;
-	t_lst			*slice_new;
-	int				max;
-	int				min;
 
 	edit = _edit;
-	if (edit->copast->stop_index == -1)
-		return ;
-	min = edit->copast->start_index > edit->copast->stop_index ? edit->copast->stop_index : edit->copast->start_index;
-	max = edit->copast->start_index > edit->copast->stop_index ? edit->copast->start_index : edit->copast->stop_index;
-	slice = twl_lst_slice(edit->letters, min, max);
-	slice_new = twl_lst_copy(slice, void_letter_copy);
-	twl_lst_insert_lst(edit->letters, edit->index, slice_new);
-	free(slice);
-	free(slice_new);
-	edit->index = edit->index + max - min;
+	letter_mgr_debug_print(edit->copast->clip);
+	twl_lst_insert_lst(edit->letters, edit->index, twl_lst_copy(edit->copast->clip, letter_copy_void));
+	edit->index = edit->index + edit->copast->inc_index;
 }
