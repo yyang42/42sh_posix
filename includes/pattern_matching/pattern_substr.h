@@ -15,13 +15,36 @@
 
 # include "basics.h"
 
-typedef struct		s_pattern_substr
+typedef struct				s_patss_bracket
 {
-	t_lst			*split;
-	char			*pattern;
-}					t_pattern_substr;
+	char					*brack;
+	int						ind_p;
+	int						ind_b;
+	char					flag[4];
+}							t_patss_bracket;
 
-t_pattern_substr	*pattern_substr_new(char *pattern);
-void				pattern_substr_del(t_pattern_substr *this);
+typedef struct				s_pattern_substr_data
+{
+	char					*piece;
+	bool					fixed;
+}							t_pattern_substr_data;
+
+typedef struct				s_pattern_substr
+{
+	t_lst					*split;
+	char					*pattern;
+	int						len;
+	int						ind_p;
+	t_pattern_substr_data	*to_push;
+	int						ind_tp;
+}							t_pattern_substr;
+
+t_pattern_substr			*pattern_substr_new(char *pattern);
+void						pattern_substr_del(t_pattern_substr *this);
+
+void						pattern_substr_build_(t_pattern_substr *this);
+void						pattern_substr_build_push_(t_pattern_substr *this);
+void						pattern_substr_build_data_(t_pattern_substr *this);
+void						pattern_substr_build_bracket_(t_pattern_substr *this);
 
 #endif

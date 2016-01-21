@@ -17,6 +17,10 @@ t_pattern_substr		*pattern_substr_new(char *pattern)
 	t_pattern_substr	*this;
 
 	this = twl_malloc_x0(sizeof(t_pattern_substr));
-	this->pattern = pattern;
+	this->pattern = twl_strdup(pattern);
+	this->len = twl_strlen(this->pattern);
+	this->ind_p = 0;
+	this->to_push = NULL;
+	pattern_substr_build_(this);
 	return (this);
 }
