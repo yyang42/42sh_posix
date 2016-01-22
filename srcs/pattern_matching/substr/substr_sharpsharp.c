@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_norris_loves_the_norminette.h                :+:      :+:    :+:   */
+/*   check_norris_loves_the_norminette.c                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chuck <chuck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,30 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SUBSTR_H
-# define SUBSTR_H
+#include "pattern_matching/substr.h"
 
-# include "basics.h"
-# include "pattern_matching/bracket_expr.h"
-# include "pattern_matching/pattern_substr.h"
-
-typedef struct			s_substr
+char		*substr_sharpsharp(t_substr *this, char *str, char *pattern)
 {
-	t_pattern_substr	*patss;
-	t_bracket_expr		*brack_expr;
-	char				*str;
-	char				*match;
-	int					ind_m;
-	int					ind_p;
-}						t_substr;
+	char	*ret;
 
-t_substr				*substr_new(void);
-void					substr_del(t_substr *this);
-
-char					*substr_sharp(t_substr *this, char *str, char *pattern);
-bool					substr_sharp_supervisor(t_substr *this);
-
-char					*substr_sharpsharp(t_substr *this, char *s, char *patt);
-bool					substr_sharpsharp_supervisor(t_substr *this);
-
-#endif
+	this->patss = pattern_substr_new(pattern); 
+	this->match = twl_strnew(twl_strlen(str));
+	this->str = str;
+	this->ind_m = 0;
+	this->ind_p = 0;
+	substr_sharpsharp_supervisor(this);
+	ret = twl_strdup(this->str + twl_strlen(this->match));
+	free(this->match);
+	pattern_substr_del(this->patss);
+	this->patss = NULL;
+	return (ret);
+}
