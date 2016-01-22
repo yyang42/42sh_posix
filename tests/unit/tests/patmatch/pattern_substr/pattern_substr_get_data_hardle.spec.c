@@ -20,29 +20,29 @@ static void test_## test_name(t_test *test)								\
 mt_test_pattern_getpattern(num1, "a[aze", 0, "a[aze", false);
 mt_test_pattern_getpattern(num2, "a[az*e", 0, "a[az", false);
 mt_test_pattern_getpattern(num3, "a[az*e", 1, "*", false);
-//mt_test_pattern_getpattern(num4, "", 0, "", false);
-//mt_test_pattern_getpattern(num5, "", 0, "", false);
-//mt_test_pattern_getpattern(num6, "", 0, "", false);
-//mt_test_pattern_getpattern(num7, "", 0, "", false);
-//mt_test_pattern_getpattern(num8, "", 0, "", false);
-//mt_test_pattern_getpattern(num9, "", 0, "", false);
-//mt_test_pattern_getpattern(num10, "", 0, "", false);
-//mt_test_pattern_getpattern(num11, "", 0, "", false);
-//mt_test_pattern_getpattern(num12, "", 0, "", false);
+mt_test_pattern_getpattern(num4, "a[\\^*'?\"]b", 0, "a", false);
+mt_test_pattern_getpattern(num5, "a[\\^*'?\"]b", 1, "[\\^*'?\"]", false);
+mt_test_pattern_getpattern(num6, "a[\\^*'?\"]b", 2, "b", false);
+mt_test_pattern_getpattern(num7, "1\\[[\\]]\\*a", 0, "1[", false);
+mt_test_pattern_getpattern(num8, "1\\[[\\]]\\*a", 1, "[]]", false);
+mt_test_pattern_getpattern(num9, "1\\[[\\]]\\*a", 2, "*a", false);
+mt_test_pattern_getpattern(num10, "'''['['['']'''[]'", 0, "[", false);
+mt_test_pattern_getpattern(num11, "'''['['['']'''[]'", 1, "['['']", false);
+mt_test_pattern_getpattern(num12, "'''['['['']'''[]'", 2, "[]", false);
 
 void		suite_pattern_substr_get_data_hardle(t_suite *suite)
 {
 	SUITE_ADD_TEST(suite, test_num1);
 	SUITE_ADD_TEST(suite, test_num2);
 	SUITE_ADD_TEST(suite, test_num3);
-//	SUITE_ADD_TEST(suite, test_num4);
-//	SUITE_ADD_TEST(suite, test_num5);
-//	SUITE_ADD_TEST(suite, test_num6);
-//	SUITE_ADD_TEST(suite, test_num7);
-//	SUITE_ADD_TEST(suite, test_num8);
-//	SUITE_ADD_TEST(suite, test_num9);
-//	SUITE_ADD_TEST(suite, test_num10);
-//	SUITE_ADD_TEST(suite, test_num11);
-//	SUITE_ADD_TEST(suite, test_num12);
+	SUITE_ADD_TEST(suite, test_num4);
+	SUITE_ADD_TEST(suite, test_num5);
+	SUITE_ADD_TEST(suite, test_num6);
+	SUITE_ADD_TEST(suite, test_num7);
+	SUITE_ADD_TEST(suite, test_num8);
+	SUITE_ADD_TEST(suite, test_num9);
+	SUITE_ADD_TEST(suite, test_num10);
+	SUITE_ADD_TEST(suite, test_num11);
+	SUITE_ADD_TEST(suite, test_num12);
 }
 
