@@ -30,6 +30,8 @@ mt_test_pattern_getpattern(num9, "/////u*r/////b[[:lower:]]n/////l?", 2, 1, "?",
 mt_test_pattern_getpattern(num10, "*?[a]", 0, 0, "*", false);
 mt_test_pattern_getpattern(num11, "*?[a]", 0, 1, "?", false);
 mt_test_pattern_getpattern(num12, "*?[a]", 0, 2, "[a]", false);
+mt_test_pattern_getpattern(num13, "a[*", 0, 0, "a[", false);
+mt_test_pattern_getpattern(num14, "a[*", 0, 1, "*", false);
 
 void		suite_pattern_get_pattern_hardle(t_suite *suite)
 {
@@ -45,4 +47,6 @@ void		suite_pattern_get_pattern_hardle(t_suite *suite)
 	SUITE_ADD_TEST(suite, test_num10);
 	SUITE_ADD_TEST(suite, test_num11);
 	SUITE_ADD_TEST(suite, test_num12);
+	SUITE_ADD_TEST(suite, test_num13);
+	SUITE_ADD_TEST(suite, test_num14);
 }

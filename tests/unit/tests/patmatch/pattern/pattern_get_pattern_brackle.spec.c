@@ -21,20 +21,21 @@ static void test_## test_name(t_test *test)									\
 mt_test_pattern_getpattern(num1, "Makefil[aze", 0, 0, "Makefil[aze", false);
 mt_test_pattern_getpattern(num2, "Makefil[az/e]", 0, 0, "Makefil[az", false);
 mt_test_pattern_getpattern(num3, "Makefil[az/e]", 1, 0, "e]", false);
-mt_test_pattern_getpattern(num4, "Makefil[aze[:digit:]", 0, 0, "Makefil[aze[:digit:]", false);
-mt_test_pattern_getpattern(num5, "Makefil[aze[digit:]", 0, 0, "Makefil", false);
-mt_test_pattern_getpattern(num6, "Makefil[aze[digit:]", 0, 1, "[aze[digit:]", false);
-mt_test_pattern_getpattern(num7, "Makefil[aze[:digit]", 0, 0, "Makefil[aze[:digit]", false);
-mt_test_pattern_getpattern(num8, "Makefil[aze[.t]", 0, 0, "Makefil[aze[.t]", false);
-mt_test_pattern_getpattern(num9, "Makefil[aze[=t]", 0, 0, "Makefil[aze[=t]", false);
-mt_test_pattern_getpattern(num10, "Makefil[aze[:digit:][.a.][=b=]azw]", 0, 0, "Makefil", false);
-mt_test_pattern_getpattern(num11, "Makefil[aze[:digit:][.a.][=b=]azw]", 0, 1, "[aze[:digit:][.a.][=b=]azw]", false);
-mt_test_pattern_getpattern(num12, "a[b[.[:[=b=]:].]b]c", 0, 0, "a", false);
-mt_test_pattern_getpattern(num13, "a[b[.[:[=b=]:].]b]c", 0, 1, "[b[.[:[=b=]:].]b]", false);
-mt_test_pattern_getpattern(num14, "a[b[.[:[=b=]:].]b]c", 0, 2, "c", false);
-mt_test_pattern_getpattern(num15, "a[b[.[:[=b.]:]=]b]c", 0, 0, "a", false);
-mt_test_pattern_getpattern(num16, "a[b[.[:[=b.]:]=]b]c", 0, 1, "[b[.[:[=b.]:]=]b]", false);
-mt_test_pattern_getpattern(num17, "a[b[.[:[=b.]:]=]b]c", 0, 2, "c", false);
+mt_test_pattern_getpattern(num4, "Makefil[aze[:digit:]", 0, 0, "Makefil[aze", false);
+mt_test_pattern_getpattern(num5, "Makefil[aze[:digit:]", 0, 1, "[:digit:]", false);
+mt_test_pattern_getpattern(num6, "Makefil[aze[digit:]", 0, 0, "Makefil", false);
+mt_test_pattern_getpattern(num7, "Makefil[aze[digit:]", 0, 1, "[aze[digit:]", false);
+mt_test_pattern_getpattern(num8, "Makefil[aze[:digit]", 0, 0, "Makefil[aze[:digit]", false);
+mt_test_pattern_getpattern(num9, "Makefil[aze[.t]", 0, 0, "Makefil[aze[.t]", false);
+mt_test_pattern_getpattern(num10, "Makefil[aze[=t]", 0, 0, "Makefil[aze[=t]", false);
+mt_test_pattern_getpattern(num11, "Makefil[aze[:digit:][.a.][=b=]azw]", 0, 0, "Makefil", false);
+mt_test_pattern_getpattern(num12, "Makefil[aze[:digit:][.a.][=b=]azw]", 0, 1, "[aze[:digit:][.a.][=b=]azw]", false);
+mt_test_pattern_getpattern(num13, "a[b[.[:[=b=]:].]b]c", 0, 0, "a", false);
+mt_test_pattern_getpattern(num14, "a[b[.[:[=b=]:].]b]c", 0, 1, "[b[.[:[=b=]:].]b]", false);
+mt_test_pattern_getpattern(num15, "a[b[.[:[=b=]:].]b]c", 0, 2, "c", false);
+mt_test_pattern_getpattern(num16, "a[b[.[:[=b.]:]=]b]c", 0, 0, "a", false);
+mt_test_pattern_getpattern(num17, "a[b[.[:[=b.]:]=]b]c", 0, 1, "[b[.[:[=b.]:]=]b]", false);
+mt_test_pattern_getpattern(num18, "a[b[.[:[=b.]:]=]b]c", 0, 2, "c", false);
 
 void		suite_pattern_get_pattern_brackle(t_suite *suite)
 {
@@ -55,4 +56,5 @@ void		suite_pattern_get_pattern_brackle(t_suite *suite)
 	SUITE_ADD_TEST(suite, test_num15);
 	SUITE_ADD_TEST(suite, test_num16);
 	SUITE_ADD_TEST(suite, test_num17);
+	SUITE_ADD_TEST(suite, test_num18);
 }

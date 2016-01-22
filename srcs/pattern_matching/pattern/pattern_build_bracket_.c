@@ -63,7 +63,15 @@ static void			bracket_normal_char(t_pattern *this, int *index,
 static void			bracket_finish_it(t_pattern *this, int *index,
 													t_pattern_bracket_ *brack)
 {
-	if (brack->save[brack->index - 1] == '/' ||
+	if (brack->flag == 0)
+	{
+		this->to_push_->split[this->itp_] = this->pattern[this->index];
+		this->index += 1;
+		this->itp_ += 1;
+		free(brack->save);
+		return ;
+	}
+	else if (brack->save[brack->index - 1] == '/' ||
 			brack->flag != -1)
 	{
 		twl_strcat(this->to_push_->split, brack->save);
