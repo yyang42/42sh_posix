@@ -21,11 +21,16 @@ typedef struct			s_substr
 {
 	t_pattern_substr	*patss;
 	t_bracket_expr		*brack_expr;
+	char				*str;
+	char				*match;
+	int					ind_m;
+	int					ind_p;
 }						t_substr;
 
 t_substr				*substr_new(void);
 void					substr_del(t_substr *this);
 
-
+char					*substr_sharp(t_substr *this, char *str, char *pattern);
+bool					substr_sharp_supervisor(t_substr *this);
 
 #endif
