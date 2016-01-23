@@ -33,7 +33,13 @@ void					substr_del(t_substr *this);
 char					*substr_sharp(t_substr *this, char *str, char *pattern);
 bool					substr_sharp_supervisor(t_substr *this);
 
-char					*substr_sharpsharp(t_substr *this, char *s, char *patt);
+char					*substr_sharpsharp(t_substr *this, char *str,
+																char *pattern);
 bool					substr_sharpsharp_supervisor(t_substr *this);
+
+char					*substr_percent(t_substr *this, char *str,
+																char *pattern);
+char					*substr_percentpercent(t_substr *this, char *str,
+																char *pattern);
 
 #endif

@@ -58,7 +58,9 @@ void						pattern_substr_build_normal_char_(t_pattern_substr
 																		*this);
 void						pattern_substr_build_bracket_(t_pattern_substr
 																		*this);
+
 t_pattern_substr_data		*pattern_substr_get_data(t_pattern_substr *this,
 																		int no);
+void						pattern_substr_rev(t_pattern_substr *this);
 
 #endif
