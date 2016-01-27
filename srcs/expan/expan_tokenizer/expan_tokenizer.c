@@ -74,7 +74,10 @@ t_expan_quote *quote, t_expan_quote *next_quote, int *wait)
 	type = identify_expan(quote, next_quote);
 
 	if (type != NONE)
+	{
 		expan_tokenizer_none(tokenizer, tokenizer->expan_tokens, &tokenizer->str[tokenizer->last], tokenizer->i - tokenizer->last);
+		tokenizer->last = tokenizer->i;
+	}
 	if (type == PARAMETER)
 	{
 		tokenizer->i = expan_tokenizer_param(tokenizer, tokenizer->expan_tokens, tokenizer->str, tokenizer->i);
