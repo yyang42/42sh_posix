@@ -16,6 +16,7 @@
 # include "expan/expan_token.h"
 # include "basics.h"
 # include "environment.h"
+# define CMD_SUB_FILE ".42sh_subcmd"
 
 void			expan_exec(t_lst *expan_tokens, bool *should_exec);
 bool			expan_exec_param_star(t_expan_token *expan_token);
