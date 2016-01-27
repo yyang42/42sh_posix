@@ -47,7 +47,7 @@ static t_expan_type	identify_expan(t_expan_quote *quote, t_expan_quote *next_quo
 	{
 		if (!twl_strcmp(quote->str, "$"))
 		{
-			if (next_quote && !twl_strcmp(quote->str, "("))
+			if (next_quote && !twl_strcmp(next_quote->str, "("))
 				type = COMMAND_SUBSTITUTION_DOLLAR;
 			else
 				type = PARAMETER;
@@ -58,7 +58,7 @@ static t_expan_type	identify_expan(t_expan_quote *quote, t_expan_quote *next_quo
 			type = COMMAND_SUBSTITUTION_BACKQUOTE;
 		else if (!twl_strcmp(quote->str, "("))
 		{
-			if (next_quote && !twl_strcmp(quote->str, "("))
+			if (next_quote && !twl_strcmp(next_quote->str, "("))
 				type = ARITHMETIC;
 		}
 	}
@@ -126,8 +126,6 @@ static void 		iter_fn_parse(void *quote_,
 		expan_do_create_tokenizer(tokenizer, quote, next_quote, &wait);
 	else
 		wait--;
-	if (tokenizer->str[tokenizer->i] == 0)
-		wait = 0;
 }
 
 void				expan_tokenizer(char *str, t_lst *expan_tokens,

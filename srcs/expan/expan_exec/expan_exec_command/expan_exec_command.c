@@ -13,6 +13,8 @@
 #include "expan/expan_exec.h"
 #include "expan/expan_command.h"
 #include "prog.h"
+#include <stdio.h>
+#include <fcntl.h>
 
 bool			expan_exec_command(t_expan_token *expan_token)
 {
@@ -23,17 +25,18 @@ bool			expan_exec_command(t_expan_token *expan_token)
 	t_prog			*prog;
 
 	expan_command = expan_token->expan_data;
-	prog = prog_new();
 	twl_bzero(buffer, CMD_MAX_LEN + 1);
 	saved_stdout = dup(STDOUT_FILENO);
 	if(pipe(out_pipe) != 0)
 		return (false);
 	dup2(out_pipe[1], STDOUT_FILENO);
 	close(out_pipe[1]);
+	prog = prog_new();
 	prog_run_input(prog, expan_command->command);
+	prog_del(prog);
 	read(out_pipe[0], buffer, CMD_MAX_LEN);
+	close(out_pipe[0]);
 	dup2(saved_stdout, STDOUT_FILENO);
 	expan_token->res = twl_strdup(buffer);
-	prog_del(prog);
 	return (true);
 }
