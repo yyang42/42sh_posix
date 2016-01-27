@@ -10,29 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_H
-# define BUILTIN_H
+#ifndef TIMES_H
+# define TIMES_H
 
-# include "twl_arr.h"
+# include <sys/stat.h>
+# include <sys/types.h>
+# include "basics.h"
+# include "builtin.h"
 # include "twl_opt.h"
-# include "twl_stdio.h"
-# include "environment.h"
-# include "cd.h"
-# include "echo.h"
-# include "env.h"
-# include "export.h"
-# include "set.h"
-# include "unset.h"
-# include "alias.h"
-# include "umask.h"
-# include "times.h"
-# include "ast/nodes/ast_simple_command.h"
+# include "twl_opt_elem.h"
+# include "error.h"
 
-# define BUILTIN_EXEC_SUCCESS 0
-# define BUILTIN_EXEC_FAILURE 1
-
-int				check_invalid_opts(t_opt *opt, char *exe_name, char *flags);
-bool			builtin_true(char *str, t_environment *env);
-bool			builtin_false(char *str, t_environment *env);
+int				times_builtin(char *cmd, t_environment *env);
 
 #endif
