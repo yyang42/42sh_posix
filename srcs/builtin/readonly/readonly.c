@@ -21,7 +21,8 @@ int					readonly(char *str, t_environment *env)
 	opt = twl_opt_new(arr, EXPORT_OPT_VALID_OPTS);
 	if (!check_invalid_opts(opt, "readonly", EXPORT_OPT_VALID_OPTS))
 	{
-		if (twl_opt_exist(opt, "p") && twl_opt_args_len(opt) == 0)
+		if ((twl_opt_exist(opt, "p") && twl_opt_args_len(opt) == 0)
+		|| twl_opt_args_len(opt) == 0)
 			readonly_verbose(env);
 		else
 			readonly_add(env, opt);

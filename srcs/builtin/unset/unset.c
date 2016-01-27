@@ -45,8 +45,8 @@ int				unset(char *str, t_environment *env)
 	{
 		if (twl_opt_get_param(opt, "f") && twl_opt_get_param(opt, "v"))
 		{
-			twl_printf("unset: cannot simultaneously unset \
-													a function and a variable");
+			twl_dprintf(2, "unset: cannot simultaneously unset \
+													a function and a variable\n");
 			flag = BUILTIN_EXEC_FAILURE;
 		}
 		else
