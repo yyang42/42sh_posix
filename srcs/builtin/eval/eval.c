@@ -10,30 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_H
-# define BUILTIN_H
+#include "eval.h"
+# include "ast/ast.h"
+# include "ast/nodes/ast_compound_list.h"
 
-# include "twl_arr.h"
-# include "twl_opt.h"
-# include "twl_stdio.h"
-# include "environment.h"
-# include "cd.h"
-# include "echo.h"
-# include "env.h"
-# include "export.h"
-# include "set.h"
-# include "unset.h"
-# include "alias.h"
-# include "umask.h"
-# include "times.h"
-# include "eval.h"
-# include "ast/nodes/ast_simple_command.h"
+int					eval_builtin(char *cmd, t_environment *env)
+{
+	t_ast			*ast;
+	int				ret;
 
-# define BUILTIN_EXEC_SUCCESS 0
-# define BUILTIN_EXEC_FAILURE 1
-
-int				check_invalid_opts(t_opt *opt, char *exe_name, char *flags);
-bool			builtin_true(char *str, t_environment *env);
-bool			builtin_false(char *str, t_environment *env);
-
-#endif
+	(void)env;
+	ast = ast_new(&cmd[5]);
+	if (ast->error_msg)
+	{
+		twl_dprintf(2, "%s\n", ast->error_msg);
+		ast_del(ast);
+		return (1);
+	}
+	ret = ast_exec(ast);
+	ast_del(ast);
+	return (ret);
+}
