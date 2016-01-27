@@ -36,7 +36,7 @@ static void		shift_action(t_environment *env, t_opt *opt)
 	{
 		while (shift_nb > 0)
 		{
-			free(twl_lst_pop(env->pos_params));
+			free(twl_lst_pop_front(env->pos_params));
 			shift_nb--;
 		}
 	}

@@ -77,6 +77,7 @@ t_dict			*get_builtin_func_dict(void)
 	twl_dict_add(dict, "times", &times_builtin);
 	twl_dict_add(dict, "eval", &eval_builtin);
 	twl_dict_add(dict, "readonly", &readonly);
+	twl_dict_add(dict, "shift", &shift_builtin);
 	twl_dict_add(dict, ".", &dot_builtin);
 	return (dict);
 }
