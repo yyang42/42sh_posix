@@ -10,10 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "environment.h"
-#include <stdio.h>
+#ifndef READONLY_H
+# define READONLY_H
 
-t_environment_var		*environment_setenv(t_environment *this, char *str)
-{
-	return (environment_setenv_or_setlocal__(this, str, ENVIRONMENT));
-}
+# include "basics.h"
+# include "twl_opt.h"
+# include "builtin.h"
+
+# define READONLY_OPT_VALID_OPTS "p"
+
+int					readonly(char *str, t_environment *env);
+void				readonly_verbose(t_environment *env);
+void				readonly_add(t_environment *env, t_opt *opt);
+
+#endif

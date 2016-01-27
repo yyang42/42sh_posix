@@ -10,10 +10,26 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "readonly.h"
 #include "environment.h"
-#include <stdio.h>
+#include "twl_opt.h"
+#include "twl_lst.h"
 
-t_environment_var		*environment_setenv(t_environment *this, char *str)
+static void			readonly_something(void *data)
 {
-	return (environment_setenv_or_setlocal__(this, str, ENVIRONMENT));
+	t_environment_var	*env_var;
+
+	env_var = data;
+	if (env_var->read_only == READ_ONLY)
+	{
+		if (env_var->value_is_set == true)
+			twl_printf("readonly\t%s=\"%s\"\n", env_var->key, env_var->value);
+		else
+			twl_printf("readonly\t%s\n", env_var->key);
+	}
+}
+
+void				readonly_verbose(t_environment *env)
+{
+	twl_lst_iter0(env->env_vars, readonly_something);
 }

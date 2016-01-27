@@ -28,6 +28,7 @@
 # include "times.h"
 # include "eval.h"
 # include "dot.h"
+# include "readonly.h"
 # include "ast/nodes/ast_simple_command.h"
 
 # define BUILTIN_EXEC_SUCCESS 0

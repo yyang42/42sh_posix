@@ -10,10 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "environment.h"
-#include <stdio.h>
+#include "readonly.h"
 
-t_environment_var		*environment_setenv(t_environment *this, char *str)
+int					readonly(char *str, t_environment *env)
 {
-	return (environment_setenv_or_setlocal__(this, str, ENVIRONMENT));
+	t_opt			*opt;
+	char			**arr;
+
+	arr = twl_strsplit_mul(str, " \n\t");
+	opt = twl_opt_new(arr, EXPORT_OPT_VALID_OPTS);
+	if (!check_invalid_opts(opt, "readonly", EXPORT_OPT_VALID_OPTS))
+	{
+		if (twl_opt_exist(opt, "p") && twl_opt_args_len(opt) == 0)
+			readonly_verbose(env);
+		else
+			readonly_add(env, opt);
+	}
+	twl_arr_del(arr, &free);
+	twl_opt_del(opt);
+	environment_set_last_exit_status_2(env, BUILTIN_EXEC_SUCCESS);
+	return (BUILTIN_EXEC_SUCCESS);
 }
