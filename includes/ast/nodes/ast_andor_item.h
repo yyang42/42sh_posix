@@ -38,5 +38,6 @@ bool				ast_andor_item_is_delimiter(t_token *tokens);
 
 int					ast_andor_item_exec(t_ast_andor_item *ast_andor_item);
 int					ast_andor_item_expan(t_ast_andor_item *ast_andor_item);
+int					ast_andor_item_create_files(t_ast_andor_item *andor_item);
 
 #endif
