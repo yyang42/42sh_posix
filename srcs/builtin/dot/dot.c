@@ -14,13 +14,32 @@
 #include "ast/ast.h"
 #include "ast/nodes/ast_compound_list.h"
 
+static char		*get_file2(char **av, t_environment *this)
+{
+	char			*file;
+	char			buf[DOT_BUFSIZE];
+	int				fd;
+
+	file = NULL;
+	if (!twl_strncmp(av[1], "./", 2))
+	{
+		getcwd(buf, DOT_BUFSIZE);
+		file = twl_joinpath(buf, &av[1][2]);
+		fd = open(file, O_RDWR);
+		if (fd < 0)
+			return (NULL);
+		close(fd);
+	}
+	else if (get_binary_path(av[1], this))
+		file = twl_strdup(get_binary_path(av[1], this));
+	return (file);
+}
+
 static char		*get_file(char *str, t_environment *this)
 {
 	char			*file;
 	char			**av;
-	char			buf[DOT_BUFSIZE];
 
-	file = NULL;
 	av = twl_strsplit(str, ' ');
 	if (twl_arr_len(av) < 2)
 	{
@@ -28,13 +47,7 @@ static char		*get_file(char *str, t_environment *this)
 		twl_arr_del(av, free);
 		return (NULL);
 	}
-	if (!twl_strncmp(av[1], "./", 2))
-	{
-		getcwd(buf, DOT_BUFSIZE);
-		file = twl_joinpath(buf, &av[1][2]);
-	}
-	else if (get_binary_path(av[1], this))
-		file = twl_strdup(get_binary_path(av[1], this));
+	file = get_file2(av, this);
 	if (!file || file[0] == '\0')
 	{
 		error_file_not_found(av[1]);
