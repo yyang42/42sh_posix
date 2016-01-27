@@ -10,17 +10,50 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "eval.h"
+#include "dot.h"
 #include "ast/ast.h"
 #include "ast/nodes/ast_compound_list.h"
 
-int					eval_builtin(char *cmd, t_environment *env)
+static char		*get_file(char *str, t_environment *this)
 {
-	t_ast			*ast;
-	int				ret;
+	char			*file;
+	char			**av;
+	char			buf[DOT_BUFSIZE];
 
-	(void)env;
-	ast = ast_new(&cmd[5]);
+	file = NULL;
+	av = twl_strsplit(str, ' ');
+	if (twl_arr_len(av) < 2)
+	{
+		twl_dprintf(2, "%s\n", ".: not enough arguments");
+		twl_arr_del(av, free);
+		return (NULL);
+	}
+	if (!twl_strncmp(av[1], "./", 2))
+	{
+		getcwd(buf, DOT_BUFSIZE);
+		file = twl_joinpath(buf, &av[1][2]);
+	}
+	else if (get_binary_path(av[1], this))
+		file = twl_strdup(get_binary_path(av[1], this));
+	if (!file || file[0] == '\0')
+	{
+		error_file_not_found(av[1]);
+		twl_arr_del(av, free);
+		return (NULL);
+	}
+	twl_arr_del(av, free);
+	return (file);
+}
+
+int				dot_builtin(char *str, t_environment *this)
+{
+	int				ret;
+	char			*file;
+	t_ast			*ast;
+
+	if (!(file = get_file(str, this)))
+		return (0);
+	ast = ast_new(twl_file_to_str(file));
 	if (ast->error_msg)
 	{
 		twl_dprintf(2, "%s\n", ast->error_msg);
@@ -28,6 +61,7 @@ int					eval_builtin(char *cmd, t_environment *env)
 		return (1);
 	}
 	ret = ast_exec(ast);
+	free(file);
 	ast_del(ast);
 	return (ret);
 }

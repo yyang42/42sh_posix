@@ -21,7 +21,6 @@ void				prog_run(t_prog *prog)
 	t_environment	*env;
 	char			*input;
 
-	// input = twl_strdup("cat << Makefile\n lol");
 	input = NULL;
 	if (xopt_singleton()->command)
 	{
