@@ -16,24 +16,34 @@
 #include <stdio.h>
 #include <fcntl.h>
 
+static void		expan_exec_execute(char *command)
+{
+	t_prog			*prog;
+
+	prog = prog_new();
+	prog_run_input(prog, command);
+	prog_del(prog);
+}
+
 bool			expan_exec_command(t_expan_token *expan_token)
 {
 	t_expan_command	*expan_command;
 	char			buffer[CMD_MAX_LEN + 1];
 	int				out_pipe[2];
 	int				saved_stdout;
-	t_prog			*prog;
+	long			flags;
 
 	expan_command = expan_token->expan_data;
 	twl_bzero(buffer, CMD_MAX_LEN + 1);
 	saved_stdout = dup(STDOUT_FILENO);
 	if(pipe(out_pipe) != 0)
 		return (false);
+	flags = fcntl(out_pipe[0], F_GETFL);
+	flags |= O_NONBLOCK;
+	fcntl(out_pipe[0], F_SETFL, flags);
 	dup2(out_pipe[1], STDOUT_FILENO);
 	close(out_pipe[1]);
-	prog = prog_new();
-	prog_run_input(prog, expan_command->command);
-	prog_del(prog);
+	expan_exec_execute(expan_command->command);
 	read(out_pipe[0], buffer, CMD_MAX_LEN);
 	close(out_pipe[0]);
 	dup2(saved_stdout, STDOUT_FILENO);
