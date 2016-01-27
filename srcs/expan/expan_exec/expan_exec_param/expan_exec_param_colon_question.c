@@ -46,10 +46,16 @@ bool			expan_exec_params_colon_question(t_expan_token *expan_token)
 				return (true);
 			}
 			else
+			{
 				print_error_msg(data);
+				return (false);
+			}
 		}
 		else
+		{
 			print_error_msg(data);
+			return (false);
+		}
 
 	}
 	else

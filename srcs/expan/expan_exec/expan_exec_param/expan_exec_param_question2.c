@@ -47,10 +47,16 @@ bool			expan_exec_params_question2(t_expan_token *expan_token)
 			return (true);
 		}
 		else
+		{
 			print_error_msg(data);
+			return (false);
+		}
 	}
 	else
+	{
 		print_error_msg(data);
+		return (false);
+	}
 	expan_token->res = twl_strdup("");
 	return (false);
 }

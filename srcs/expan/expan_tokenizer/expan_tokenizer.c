@@ -126,6 +126,8 @@ static void 		iter_fn_parse(void *quote_,
 		expan_do_create_tokenizer(tokenizer, quote, next_quote, &wait);
 	else
 		wait--;
+	if (tokenizer->str[tokenizer->i] == 0)
+		wait = 0;
 }
 
 void				expan_tokenizer(char *str, t_lst *expan_tokens,
