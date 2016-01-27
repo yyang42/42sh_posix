@@ -19,6 +19,7 @@ void				*expan_param_type_to_func_dict(t_expan_param_type type);
 void				*expan_param_type_to_print_func(t_expan_type type);
 t_expan_param_type	string_1_to_expan_parameter_type(char *str);
 t_expan_param_type	string_2_to_expan_parameter_type(char *str);
-int					expan_tokenizer_get_word_len(char **res, char *str, char *delimiter);
+int					expan_tokenizer_get_word_len(char **res, char *str,
+	char *delimiter);
 t_expan_param_type	char_to_special_param_type(char c);
 #endif

@@ -23,9 +23,11 @@ typedef struct			s_expan_tokenizer
 {
 	int				i;
 	int				last;
-	t_expan_type	type;
 	bool			is_between_dq;
 	bool			is_between_sq;
+	char			*str;
+	t_lst			*expan_tokens;
+	t_expan_type	type;
 	t_token_origin	origin;
 }						t_expan_tokenizer;
 
