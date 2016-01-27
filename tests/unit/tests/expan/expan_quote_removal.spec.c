@@ -2,7 +2,7 @@
 
 #include "basics.h"
 #include "environment.h"
-#include "ast/expan/ast_expan_quote_removal.h"
+#include "expan/expan_quote_removal.h"
 
 static void simple_quote_test(t_test *test)
 {

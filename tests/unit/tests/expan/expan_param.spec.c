@@ -1,10 +1,10 @@
 #include <project.h>
 
 #include "basics.h"
-#include "ast/expan/ast_expan_mgr.h"
-#include "ast/expan/ast_expan_param.h"
-#include "ast/expan/ast_expan_exec.h"
-#include "ast/expan/ast_expan_token_origin.h"
+#include "expan/expan_mgr.h"
+#include "expan/expan_param.h"
+#include "expan/expan_exec.h"
+#include "expan/expan_token_origin.h"
 #include "environment.h"
 #include "set.h"
 #include "export.h"

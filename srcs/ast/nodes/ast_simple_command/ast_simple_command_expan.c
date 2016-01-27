@@ -13,9 +13,9 @@
 #include "ast/nodes/ast_simple_command.h"
 #include "ast/nodes/ast_assignment.h"
 #include "ast/nodes/ast_redir.h"
-#include "ast/expan/ast_expan_mgr.h"
-#include "ast/expan/ast_expan_tokenizer.h"
-#include "ast/expan/ast_expan_exec.h"
+#include "expan/expan_mgr.h"
+#include "expan/expan_tokenizer.h"
+#include "expan/expan_exec.h"
 
 static void 	iter_fn(void *token_, void *should_exec_)
 {
