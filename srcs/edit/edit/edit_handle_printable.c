@@ -26,6 +26,8 @@ void				edit_handle_printable(t_edit *edit, int key)
 	edit->index++;
 	if (edit->state == SEARCH)
 	{
+		if (edit->history->match != NULL)
+			twl_lst_del(edit->history->match, NULL);
 		tmp_str = letter_mgr_concat_string(edit->letters);
 		tmp_str = twl_strtrim_free(tmp_str);
 		edit->history->match = history_mgr_find_match(edit->history->history, tmp_str);

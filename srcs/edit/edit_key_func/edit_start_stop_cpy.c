@@ -17,6 +17,8 @@ void				edit_start_stop_cpy(void *_edit)
 	t_edit			*edit;
 
 	edit = _edit;
+	if (edit->state == SEARCH)
+		return ;
 	if (edit->copast == NULL)
 	{
 <<<<<<< 26612ca8cdec31f01c4a596d5df1d615262e430d

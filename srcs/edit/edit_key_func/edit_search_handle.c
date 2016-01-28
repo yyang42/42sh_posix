@@ -19,5 +19,5 @@ void				edit_search_handle(void *_edit)
 
 	edit = _edit;
 	edit->state = SEARCH;
-	twl_lprintf("Search\n");
+	// twl_lprintf("Search\n");
 }

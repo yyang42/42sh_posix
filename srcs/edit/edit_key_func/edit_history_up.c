@@ -25,6 +25,8 @@ void				edit_history_up(void *edit_)
 	/*
 	** TODO: Factoriser up && down ?
 	*/
+	if (edit->state == SEARCH)
+		return ;
 	str = twl_lst_get(edit->history->history, (edit->history->history_index * -1));
 	if (!str)
 	{

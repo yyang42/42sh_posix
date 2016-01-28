@@ -17,6 +17,6 @@ void				edit_move_start(void *_edit)
 	t_edit			*edit;
 
 	edit = _edit;
-
-	edit->index = 0;
+	if (edit->state == NORMAL)
+		edit->index = 0;
 }

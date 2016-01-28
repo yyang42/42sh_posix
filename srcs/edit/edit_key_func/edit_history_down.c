@@ -21,6 +21,8 @@ void				edit_history_down(void *edit_)
 	/*
 	** TODO: Error handling (begin / end of list)
 	*/
+	if (edit->state == SEARCH)
+		return ;
 	if (edit->history->history_index > 0)
 		edit->history->history_index--;
 	str = twl_lst_get(edit->history->history, (edit->history->history_index * -1));

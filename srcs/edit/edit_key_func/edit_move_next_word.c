@@ -17,5 +17,6 @@ void				edit_move_next_word(void *edit_)
 	t_edit			*edit;
 
 	edit = edit_;
-	letter_mgr_move_next_word(edit->letters, edit);
+	if (edit->state == NORMAL)
+		letter_mgr_move_next_word(edit->letters, edit);
 }
