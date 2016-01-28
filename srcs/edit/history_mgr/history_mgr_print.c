@@ -12,13 +12,12 @@
 
 #include "edit/history_mgr.h"
 
-static void			print_history_fn(void *history, int index, void *ctx)
+static void			print_history_fn(void *history)
 {
-	twl_printf("%5d  %s\n",index, (char *)history);
-	(void)ctx;
+	twl_lprintf("%s\n", history);
 }
 
 void				history_mgr_print(t_lst *historys)
 {
-	twl_lst_iteri(historys, print_history_fn, NULL);
+	twl_lst_iter0(historys, print_history_fn);
 }

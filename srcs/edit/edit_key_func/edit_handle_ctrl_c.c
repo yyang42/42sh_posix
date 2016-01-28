@@ -22,5 +22,6 @@ void				edit_handle_ctrl_c(void *_edit)
 	edit->return_cmd = true;
 	edit_print_letters(edit);
 	edit_clear_line(edit);
+	edit->state = NORMAL;
 	edit->return_cmd = false;
 }

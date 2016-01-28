@@ -10,32 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "edit/edit.h"
+#include "edit/history.h"
 
-void				edit_history_up(void *edit_)
+void				history_del(t_history *this)
 {
-	t_edit			*edit;
-	char			*str;
-
-	edit = edit_;
-	/*
-	** TODO: Error handling (start / end of List)
-	*/
-	edit->history->history_index++;
-	/*
-	** TODO: Factoriser up && down ?
-	*/
-	str = twl_lst_get(edit->history->history, (edit->history->history_index * -1));
-	if (!str)
-	{
-		edit->history->history_index--;
-	}
-	else
-	{
-		edit->return_cmd = true;
-		edit_clear_line(edit);
-		edit->return_cmd = false;
-		edit_handle_string(edit, str);
-	}
-	// twl_lprintf("history_index: %d, str: %s\n", edit->history_index, str);
+	history_mgr_export(this->history);
+	history_mgr_del(this->history);
+	free(this);
 }

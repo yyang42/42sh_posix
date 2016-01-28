@@ -29,13 +29,23 @@ static void			print_letter_fn(void *_letter, int index, void *_edit)
 	terminal_clear_letter();
 }
 
+static void			print_prompt(t_edit *edit)
+{
+	if (edit->state == NORMAL)
+		twl_putstr(get_prompt());
+	else if (edit->state == SEARCH)
+		twl_putstr(get_search_prompt());
+}
+
 void				edit_print_letters(t_edit *this)
 {
 	terminal_delete_line();
 	terminal_carriage_return();
 	cursor_check_pos(letter_mgr_get_size(this->letters));
-	twl_putstr(get_prompt());
+	print_prompt(this);
 	twl_lst_iteri(this->letters, print_letter_fn, this);
+	if (this->state == SEARCH)
+		twl_printf(": %s", history_get_search_at_index(this->history));
 	if (this->return_cmd)
 		twl_putchar('\n');
 }

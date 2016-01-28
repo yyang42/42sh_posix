@@ -10,32 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "edit/edit.h"
+#ifndef HISTORY_H
+# define HISTORY_H
 
-void				edit_history_up(void *edit_)
+# include "basics.h"
+
+# include "edit/history_mgr.h"
+
+typedef struct		s_history
 {
-	t_edit			*edit;
-	char			*str;
+	t_lst			*history;
+	t_lst			*match;
+	int				search_index;
+	int				history_index;
+}					t_history;
 
-	edit = edit_;
-	/*
-	** TODO: Error handling (start / end of List)
-	*/
-	edit->history->history_index++;
-	/*
-	** TODO: Factoriser up && down ?
-	*/
-	str = twl_lst_get(edit->history->history, (edit->history->history_index * -1));
-	if (!str)
-	{
-		edit->history->history_index--;
-	}
-	else
-	{
-		edit->return_cmd = true;
-		edit_clear_line(edit);
-		edit->return_cmd = false;
-		edit_handle_string(edit, str);
-	}
-	// twl_lprintf("history_index: %d, str: %s\n", edit->history_index, str);
-}
+t_history			*history_new(void);
+void				history_del(t_history *history);
+char				*history_get_search_at_index(t_history *history);
+
+#endif

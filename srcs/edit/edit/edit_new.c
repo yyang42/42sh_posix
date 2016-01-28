@@ -28,9 +28,9 @@ t_edit				*edit_new(void)
 	this->letters = letter_mgr_new();
 	this->edit_keys = edit_key_mgr_new();
 	this->return_cmd = false;
-	this->history = history_mgr_new();
-	this->history_index = 0;
+	this->history = history_new();
 	this->copast = NULL;
+	this->state = NORMAL;
 	cursor_reset_pos();
 	return (this);
 }

@@ -20,7 +20,14 @@
 # include "edit/letter_mgr.h"
 # include "edit/history_mgr.h"
 # include "edit/copast.h"
+# include "edit/history.h"
 # include "utils.h"
+
+typedef enum		e_state
+{
+	NORMAL,
+	SEARCH,
+}					t_state;
 
 typedef struct		s_edit
 {
@@ -28,9 +35,9 @@ typedef struct		s_edit
 	t_lst			*edit_keys;
 	int				index;
 	bool			return_cmd;
-	t_lst			*history;
-	int				history_index;
+	t_history		*history;
 	t_copast		*copast;
+	t_state			state;
 }					t_edit;
 
 t_edit				*edit_new(void);

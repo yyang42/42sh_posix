@@ -10,32 +10,27 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "edit/edit.h"
+#include <fcntl.h>
 
-void				edit_history_up(void *edit_)
+#include "twl_xsys/stat.h"
+
+#include "edit/history_mgr.h"
+
+#include "environment.h"
+
+#include "twl_get_next_line.h"
+
+static bool			find_fn(void *data, void *ctx)
 {
-	t_edit			*edit;
-	char			*str;
-
-	edit = edit_;
-	/*
-	** TODO: Error handling (start / end of List)
-	*/
-	edit->history->history_index++;
-	/*
-	** TODO: Factoriser up && down ?
-	*/
-	str = twl_lst_get(edit->history->history, (edit->history->history_index * -1));
-	if (!str)
-	{
-		edit->history->history_index--;
-	}
-	else
-	{
-		edit->return_cmd = true;
-		edit_clear_line(edit);
-		edit->return_cmd = false;
-		edit_handle_string(edit, str);
-	}
-	// twl_lprintf("history_index: %d, str: %s\n", edit->history_index, str);
+	return twl_strstr(data, ctx);
 }
+
+t_lst				*history_mgr_find_match(t_lst *history, char *str)
+{
+	t_lst			*match_lst;
+
+	match_lst = twl_lst_findall(history, find_fn, str);
+	twl_lprintf("len: %zu", twl_lst_len(match_lst));
+	return (match_lst);
+}
+

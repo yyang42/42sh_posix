@@ -17,9 +17,19 @@
 
 void				edit_handle_printable(t_edit *edit, int key)
 {
+	char			*tmp_str;
+
+
 	if (!twl_isprint(key))
 		return ;
 	letter_mgr_add(edit->letters, letter_new(key), edit->index);
 	edit->index++;
-	(void)edit;
+	if (edit->state == SEARCH)
+	{
+		tmp_str = letter_mgr_concat_string(edit->letters);
+		tmp_str = twl_strtrim_free(tmp_str);
+		edit->history->match = history_mgr_find_match(edit->history->history, tmp_str);
+		// history_mgr_print(edit->history->match);
+		// twl_lprintf("tmp: %s\n", tmp_str);
+	}
 }

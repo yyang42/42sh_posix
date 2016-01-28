@@ -38,6 +38,7 @@
 # define CTRL_W 23
 # define CTRL_I 9
 # define CTRL_P 16
+# define CTRL_R 18
 
 typedef void		(*key_fn)(void *edit);
 
