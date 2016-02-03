@@ -21,23 +21,18 @@ t_ast_subshell	*ast_subshell_new_from_tokens(t_lst *tokens, struct s_ast *ast)
 
 	ast_subshell = ast_subshell_new();
 	open = twl_lst_pop_front(tokens);
-
-		// token_mgr_print(tokens);
 	ast_subshell->ast_compound_list = ast_compound_list_new_from_tokens(tokens,
 		ast);
-	if (ast_has_error(ast))
-		return (NULL);
-	if (token_mgr_first_equ(tokens, ")") == false)
-	{
-		// token_mgr_print(tokens);
-		ast_set_error_msg_syntax_error_near(ast, open, NULL);
-		return NULL;
-	}
-	twl_lst_pop_front(tokens);
-	if (ast_subshell->ast_compound_list == NULL)
+	if (ast_has_error(ast) || ast_subshell->ast_compound_list == NULL)
 	{
 		ast_subshell_del(ast_subshell);
 		return (NULL);
 	}
+	if (token_mgr_first_equ(tokens, ")") == false)
+	{
+		ast_set_error_msg_syntax_error_near(ast, open, NULL);
+		return NULL;
+	}
+	twl_lst_pop_front(tokens);
 	return (ast_subshell);
 }
