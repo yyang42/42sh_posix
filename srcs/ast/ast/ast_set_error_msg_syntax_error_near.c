@@ -18,6 +18,8 @@ void				ast_set_error_msg_syntax_error_near(t_ast *ast, t_token *token, char *ms
 {
 	char			*error_msg;
 
+	if (ast->error_msg)
+		return ;
 	ast_set_error_msg_format_token(ast, token, "Syntax error near '%s'", token->text);
 	if (msg)
 	{
