@@ -18,6 +18,12 @@ void				edit_search_handle(void *_edit)
 	t_edit			*edit;
 
 	edit = _edit;
-	edit->state = SEARCH;
-	// twl_lprintf("Search\n");
+	if (edit->state == SEARCH)
+	{
+		edit->history->search_index++;
+	}
+	else
+	{
+		edit->state = SEARCH;
+	}
 }

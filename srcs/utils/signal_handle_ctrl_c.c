@@ -17,6 +17,7 @@
 
 static void			sig_handler_prompt(int signum)
 {
+	twl_lprintf("CTRL+C\n");
 	terminal_send_veol();
 	(void)signum;
 }

@@ -10,27 +10,26 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <dirent.h>
 
-#include "twl_ctype.h"
+#include "utils.h"
+#include "data.h"
 
-#include "edit/edit.h"
-
-void				edit_handle_printable(t_edit *edit, int key)
+t_lst				*read_directory(char *path)
 {
-	char			*tmp_str;
+	t_lst			*files;
+	DIR				*dirp;
+	struct dirent	*dp;
 
-
-	if (!twl_isprint(key))
-		return ;
-	letter_mgr_add(edit->letters, letter_new(key), edit->index);
-	edit->index++;
-	if (edit->state == SEARCH)
+	dirp = opendir(path);
+	files = twl_lst_new();
+	while ((dp = readdir(dirp)) != NULL)
 	{
-		edit->history->search_index = 0;
-		if (edit->history->match != NULL)
-			twl_lst_del(edit->history->match, NULL);
-		tmp_str = letter_mgr_concat_string(edit->letters);
-		tmp_str = twl_strtrim_free(tmp_str);
-		edit->history->match = history_mgr_find_match(edit->history->history, tmp_str);
+		if (!twl_strequ(dp->d_name, ".") && !twl_strequ(dp->d_name, ".."))
+		{
+			twl_lst_push(files, twl_strdup(dp->d_name));
+		}
 	}
+	closedir(dirp);
+	return (files);
 }

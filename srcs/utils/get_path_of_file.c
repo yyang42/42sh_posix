@@ -10,27 +10,33 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "twl_xsys/stat.h"
 
-#include "twl_ctype.h"
+#include "utils.h"
+#include "data.h"
 
-#include "edit/edit.h"
-
-void				edit_handle_printable(t_edit *edit, int key)
+char				*get_path_of_file(char *str)
 {
-	char			*tmp_str;
+	t_lst			*path_lst;
+	char			*path;
 
-
-	if (!twl_isprint(key))
-		return ;
-	letter_mgr_add(edit->letters, letter_new(key), edit->index);
-	edit->index++;
-	if (edit->state == SEARCH)
+	if (twl_isdir(str))
 	{
-		edit->history->search_index = 0;
-		if (edit->history->match != NULL)
-			twl_lst_del(edit->history->match, NULL);
-		tmp_str = letter_mgr_concat_string(edit->letters);
-		tmp_str = twl_strtrim_free(tmp_str);
-		edit->history->match = history_mgr_find_match(edit->history->history, tmp_str);
+		return (twl_strdup(str));
+	}
+	else
+	{
+		path_lst = twl_str_split_to_lst(str, "/");
+		if (twl_lst_len(path_lst) > 0)
+		{
+			free(twl_lst_pop(path_lst));
+			path = twl_strjoinlst(path_lst, "/");
+			twl_lst_del(path_lst, NULL);
+			return (path);
+		}
+		else
+		{
+			return (NULL);
+		}
 	}
 }

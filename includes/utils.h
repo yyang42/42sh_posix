@@ -31,5 +31,9 @@ void				signal_handle_ctrl_c(void);
 void				disable_all_sigs(void);
 void				signal_handle_ctrl_c(void);
 void				signal_handle_sigwinch(void);
+char				*get_path_of_file(char *str);
+char				*get_last_part_of_path(char *str);
+t_lst				*read_directory(char *path);
+
 
 #endif

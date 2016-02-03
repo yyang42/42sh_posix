@@ -35,5 +35,6 @@ void				edit_move_start(void *edit);
 void				edit_start_stop_cpy(void *_edit);
 void				edit_paste_clip(void *_edit);
 void				edit_search_handle(void *_edit);
+void				edit_autocomplete(void *_edit);
 
 #endif

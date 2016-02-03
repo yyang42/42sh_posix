@@ -32,5 +32,6 @@ t_edit				*edit_new(void)
 	this->copast = NULL;
 	this->state = NORMAL;
 	cursor_reset_pos();
+	signal_handle_ctrl_c();
 	return (this);
 }
