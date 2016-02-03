@@ -10,32 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_if_clause.h"
-#include "ast/nodes/ast_compound_list.h"
-#include "ast/nodes/ast_if_then.h"
+#include "ast/nodes/ast_command.h"
 
-static void			if_then_list_iter_fn(void *if_then, void *depth_ptr)
+int					ast_command_exec(t_ast_command *this)
 {
-	int				depth;
-
-	depth = *(int *)depth_ptr;
-	ast_print_indent(depth);
-	twl_printf("if_then_body\n");
-	ast_if_then_print_rec(if_then, depth + 1);
-}
-
-void				ast_if_clause_print_rec(t_ast_if_clause *ast_if_clause,
-	int depth)
-{
-	ast_print_indent(depth);
-	twl_printf("ast_if_clause\n");
-	depth++;
-	twl_lst_iter(ast_if_clause->if_then_list, if_then_list_iter_fn, &depth);
-	if (ast_if_clause->else_body)
-	{
-		ast_print_indent(depth);
-		twl_printf("else_body\n");
-		ast_compound_list_print_rec(ast_if_clause->else_body, depth + 1);
-	}
-	(void)ast_if_clause;
+	if (this->command_type == COMMAND_SIMPLE_COMMAND)
+		return (ast_simple_command_exec(this->command));
+	else if (this->command_type == COMMAND_COMPOUND_COMMAND)
+		return (ast_compound_command_exec(this->command));
+	// else if (this->command_type == COMMAND_FUNCTION_DEF)
+	// 	return (ast_function_def_exec(this->command));
+	return (0);
 }

@@ -39,4 +39,7 @@ void				ast_if_clause_print_rec_void(void *ast_if_clause, int depth);
 
 bool				ast_if_clause_is_own_type(t_lst *tokens);
 
+int					ast_if_clause_exec(t_ast_if_clause *this);
+int					ast_if_clause_exec_void(void *this);
+
 #endif
