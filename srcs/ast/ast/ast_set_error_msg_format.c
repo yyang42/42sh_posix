@@ -18,8 +18,8 @@ void				ast_set_error_msg_format(t_ast *ast, const char *fmt, ...)
 {
 	t_pf	*pf;
 
-	// if (ast->error_msg)
-	// 	return ;
+	if (ast->error_msg)
+		return ;
 	pf = pf_create((char *)fmt);
 	va_start(pf->arglist, (char *)fmt);
 	pf_prepare_xprintf__(pf);

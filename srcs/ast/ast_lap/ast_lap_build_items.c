@@ -14,7 +14,7 @@
 
 static bool is_reserved_word_delimiter(t_lst *tokens)
 {
-	return (data_utils_is_reserved_words_middle_end(
+	return (data_utils_is_reserved_word_middle_end(
 				token_mgr_first(tokens)->text)
 			|| token_mgr_first_equ(tokens, ";;"));
 }

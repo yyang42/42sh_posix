@@ -22,7 +22,8 @@ t_ast_if_then	*ast_if_then_new_from_tokens(t_lst *tokens, struct s_ast *ast)
 	ast_if_then = ast_if_then_new();
 	open = twl_lst_pop_front(tokens);
 	ast_if_then->cond_compound = ast_compound_list_new_from_tokens(tokens, ast);
-
+	if (ast_has_error(ast))
+		return (NULL);
 	if (!token_mgr_first_equ(tokens, "then"))
 	{
 		ast_set_error_msg_syntax_error_missing(ast, open, "then");
@@ -32,7 +33,5 @@ t_ast_if_then	*ast_if_then_new_from_tokens(t_lst *tokens, struct s_ast *ast)
 	ast_if_then->then_compound = ast_compound_list_new_from_tokens(tokens, ast);
 	if (ast_has_error(ast))
 		return (NULL);
-	(void)tokens;
-	(void)ast;
 	return (ast_if_then);
 }

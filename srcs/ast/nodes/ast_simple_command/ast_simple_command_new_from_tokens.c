@@ -67,8 +67,10 @@ static void				build_tokens(t_ast_simple_command *this,
 	this->command_tokens = twl_lst_copy(remaining_of_assign_tokens, NULL);
 	twl_lst_iter2(redir_tokens_groups, push_redir_fn, this->redir_items, ast);
 	if (!ast_has_error(ast))
+	{
 		twl_lst_iter2(assignment_tokens, push_asign_fn, this->assignment_items,
 			ast);
+	}
 	twl_lst_del(remaining_of_redir_tokens, NULL);
 	twl_lst_del(remaining_of_assign_tokens, NULL);
 	token_list_mgr_del(redir_tokens_groups);
@@ -95,14 +97,8 @@ t_ast_simple_command	*ast_simple_command_new_from_tokens(t_lst *tokens, struct s
 		return (NULL);
 	}
 	build_tokens(this, this->command_tokens, ast);
-	(void)build_tokens;
-
-	// build_tokens(this, tokens, ast);
-	// if (ast_has_error(ast))
-	// {
-	// 	ast_simple_command_del(this);
-	// 	return (NULL);
-	// }
+	if (ast_has_error(ast))
+		return (NULL);
 	return (this);
 	(void)ast;
 	(void)tokens;

@@ -26,8 +26,7 @@ t_ast_while_clause		*ast_while_clause_new_from_tokens(t_lst *tokens,
 
 	this = ast_while_clause_new();
 	open = twl_lst_pop_front(tokens);
-	this->cond_compound = ast_compound_list_new_from_tokens(tokens,
-		ast);
+	this->cond_compound = ast_compound_list_new_from_tokens(tokens, ast);
 	if (ast_has_error(ast))
 		return (NULL);
 	if (this->cond_compound == NULL

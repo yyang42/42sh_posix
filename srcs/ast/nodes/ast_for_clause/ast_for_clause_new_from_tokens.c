@@ -42,7 +42,6 @@ t_ast_for_clause		*ast_for_clause_new_from_tokens(t_lst *tokens,
 		ast_set_error_msg_syntax_error_missing(ast, open, "NAME token");
 		return (NULL);
 	}
-
 	this->name = twl_strdup(token_mgr_first(tokens)->text);
 	twl_lst_pop_front(tokens);
 	if (!token_utils_is_valid_name(this->name))
@@ -56,8 +55,9 @@ t_ast_for_clause		*ast_for_clause_new_from_tokens(t_lst *tokens,
 		pop_word_list(this, tokens);
 	}
 	token_mgr_pop_linebreak(tokens);
-	this->do_group = ast_compound_list_new_from_tokens_wrap(tokens, "do", "done", ast);
-	if (this->do_group == NULL)
+	this->do_group = ast_compound_list_new_from_tokens_wrap(tokens,
+		"do", "done", ast);
+	if (ast_has_error(ast) || this->do_group == NULL)
 	{
 		ast_set_error_msg_syntax_error_near(ast, open, NULL);
 		return (NULL);

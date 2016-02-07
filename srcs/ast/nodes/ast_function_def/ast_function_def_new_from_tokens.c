@@ -33,8 +33,5 @@ t_ast_function_def	*ast_function_def_new_from_tokens(t_lst *tokens,
 	this->compound_command = ast_compound_command_new_from_tokens(tokens, ast);
 	if (ast_has_error(ast))
 		return (NULL);
-	// token_mgr_print(tokens);
-	(void)tokens;
-	(void)ast;
 	return (this);
 }
