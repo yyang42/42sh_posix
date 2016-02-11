@@ -39,6 +39,7 @@ void				ast_list_item_print_rec(t_ast_list_item *ast_list_item, int depth);
 bool				ast_list_item_is_delimiter(t_token *token);
 
 int					ast_list_item_exec(t_ast_list_item *ast_list_item);
+int					ast_list_item_expan(t_ast_list_item *ast_list_item);
 
 void				ast_list_item_set_separator(t_ast_list_item *this, t_token *token);
 void				ast_list_item_set_separator_void(void *this, t_token *token);

@@ -88,6 +88,7 @@ int					ast_andor_item_exec(t_ast_andor_item *ast_andor_item)
 	int				ret;
 
 	ret = 0;
+	ast_andor_item_create_files(ast_andor_item);
 	if (twl_lst_len(ast_andor_item->ast_pipe_items) == 1)
 		ast_pipe_item_exec(twl_lst_get(ast_andor_item->ast_pipe_items, 0));
 	else

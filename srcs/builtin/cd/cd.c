@@ -58,6 +58,7 @@ static int	get_dirname(char **dirname, t_opt *opt, char *str,
 			return (-1);
 		}
 		*dirname = twl_strdup(tmp);
+		twl_strdel(&tmp);
 		return (1);
 	}
 	return (0);

@@ -21,7 +21,8 @@ int					export(char *str, t_environment *env)
 	opt = twl_opt_new(arr, EXPORT_OPT_VALID_OPTS);
 	if (!check_invalid_opts(opt, "export", EXPORT_OPT_VALID_OPTS))
 	{
-		if (twl_opt_exist(opt, "p") && twl_opt_args_len(opt) == 0)
+		if ((twl_opt_exist(opt, "p") && twl_opt_args_len(opt) == 0)
+			|| twl_opt_args_len(opt) == 0)
 			export_verbose(env);
 		else
 			export_add(env, opt);

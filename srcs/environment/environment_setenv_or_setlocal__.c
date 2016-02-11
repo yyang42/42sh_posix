@@ -13,13 +13,14 @@
 #include "environment.h"
 #include <stdio.h>
 
-void				environment_setenv_or_setlocal__(t_environment *this,
+t_environment_var	*environment_setenv_or_setlocal__(t_environment *this,
 										char *str, t_environment_var_type type)
 {
 	char				*value;
 	char				*key;
-	char				*temp;
+	t_environment_var	*var;
 
+	var = NULL;
 	if (str != NULL && *str != '\0')
 	{
 		value = twl_strchr(str, '=');
@@ -29,17 +30,19 @@ void				environment_setenv_or_setlocal__(t_environment *this,
 			key = twl_strsub(str, 0, twl_strlen(str));
 		if (twl_strlen(key) > 0)
 		{
-			temp = value;
-			value = value ? value + 1 : "";
 			if (environment_getenv_value(this, key))
-				environment_setenv_value(this, key, value);
+			{
+				var = environment_setenv_value(this, key, value ? value + 1 : "", value ? 1 : 0);
+			}
 			else
-				twl_lst_push(this->env_vars, environment_var_new(key, value,
-					type, temp != NULL));
-			free(key);
-			return ;
+			{
+				var = environment_var_new(key, value ? value + 1 : "",
+				type, value ? 1 : 0);
+				twl_lst_push(this->env_vars, var);
+			}
 		}
 		free(key);
 	}
 	errno = EINVAL;
+	return (var);
 }

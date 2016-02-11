@@ -28,6 +28,8 @@ char			*get_binary_path(char *cmd, t_environment *env)
 	if (cmd && (cmd[0] == '/' || twl_strncmp(cmd, "./", 2) == 0))
 		return (!file_exists(cmd) ? NULL : cmd);
 	paths = environment_get_paths(env);
+	if (!paths)
+		return (NULL);
 	i = -1;
 	while (paths[++i])
 	{
@@ -72,15 +74,21 @@ t_dict			*get_builtin_func_dict(void)
 	twl_dict_add(dict, "unset", &unset);
 	twl_dict_add(dict, "alias", &alias);
 	twl_dict_add(dict, "umask", &umask_builtin);
+	twl_dict_add(dict, "times", &times_builtin);
+	twl_dict_add(dict, "eval", &eval_builtin);
+	twl_dict_add(dict, "readonly", &readonly);
+	twl_dict_add(dict, "shift", &shift_builtin);
+	twl_dict_add(dict, ".", &dot_builtin);
 	return (dict);
 }
 
 bool			is_builtin(char *cmd)
 {
-	static const char	*builtins[27] = {"echo", "cd", "env", "unsetenv"
+	static const char	*builtins[31] = {"echo", "cd", "env", "unsetenv"
 	, "setenv", "alias", "unalias", "false", "true", "umask", "newgrp", "fc"
 	, "command", "kill", "getopts", "read", "break", "colon", "continue"
-	, "return", "shift", "set", "unset", "export", "setenv", NULL};
+	, "return", "shift", "set", "unset", "export", "setenv", "times"
+	, "eval", ".", "readonly", NULL};
 
 	if (twl_arr_find(builtins, find_bultin, cmd))
 		return (true);

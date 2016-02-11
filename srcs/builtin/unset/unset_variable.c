@@ -35,7 +35,7 @@ static void			unset_something(void *data, void *context, void *ret_)
 			}
 			else
 			{
-				twl_printf("unset: %s: cannot unset: readonly variable",
+				twl_dprintf(2, "unset: %s: cannot unset: readonly variable\n",
 																	arg);
 				*ret = BUILTIN_EXEC_FAILURE;
 			}

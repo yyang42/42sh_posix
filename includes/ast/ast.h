@@ -52,4 +52,6 @@ void				ast_set_error_msg_syntax_error_unexpected(t_ast *ast, t_token *token);
 bool				ast_has_error(t_ast *this);
 int					ast_exec(t_ast *ast);
 
+int					ast_expan(t_ast *ast);
+
 #endif
