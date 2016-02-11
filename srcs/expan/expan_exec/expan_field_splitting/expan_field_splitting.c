@@ -13,7 +13,7 @@
 #include "basics.h"
 #include "expan/expan_field_splitting.h"
 #include "environment.h"
-#include "patmatch.h"
+#include "pattern_matching/patmatch.h"
 #include "twl_xstring.h"
 
 void		expan_field_splitting(char **res)

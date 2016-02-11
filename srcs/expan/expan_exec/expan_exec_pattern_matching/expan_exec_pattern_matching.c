@@ -12,7 +12,7 @@
 
 #include "basics.h"
 #include "expan/expan_exec.h"
-#include "patmatch.h"
+#include "pattern_matching/patmatch.h"
 
 bool		expan_exec_pattern_matching(t_expan_token *token)
 {

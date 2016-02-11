@@ -12,7 +12,7 @@
 
 #include "basics.h"
 #include "expan/expan_exec.h"
-#include "patmatch.h"
+#include "pattern_matching/patmatch.h"
 #include "twl_xstring.h"
 #include "twl_arr.h"
 

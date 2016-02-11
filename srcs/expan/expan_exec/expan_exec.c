@@ -14,7 +14,7 @@
 #include "expan/expan_exec.h"
 #include "expan/expan_quote_removal.h"
 #include "expan/expan_field_splitting.h"
-#include "patmatch.h"
+#include "pattern_matching/patmatch.h"
 
 static void		iter_fn(void *expan_token_, void *should_exec_)
 {
