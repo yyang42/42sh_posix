@@ -26,7 +26,7 @@ static void		iter_fn(void *ast_list_item, void *expan_ret_, void *exec_ret_)
 	*expan_ret = ast_list_item_expan(ast_list_item);
 	if (*expan_ret)
 	{
-		ast_list_item_exec(ast_list_item);
+		*exec_ret = ast_list_item_exec(ast_list_item);
 	}
 }
 

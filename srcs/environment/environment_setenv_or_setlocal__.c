@@ -18,7 +18,6 @@ t_environment_var	*environment_setenv_or_setlocal__(t_environment *this,
 {
 	char				*value;
 	char				*key;
-	char				*temp;
 	t_environment_var	*var;
 
 	var = NULL;
@@ -31,7 +30,6 @@ t_environment_var	*environment_setenv_or_setlocal__(t_environment *this,
 			key = twl_strsub(str, 0, twl_strlen(str));
 		if (twl_strlen(key) > 0)
 		{
-			temp = value;
 			if (environment_getenv_value(this, key))
 			{
 				var = environment_setenv_value(this, key, value ? value + 1 : "", value ? 1 : 0);

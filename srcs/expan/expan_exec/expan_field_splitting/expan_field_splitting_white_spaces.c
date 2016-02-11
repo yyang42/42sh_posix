@@ -94,12 +94,10 @@ void		expan_field_splitting_white_spaces(char **res)
 	char	*tmp;
 	int		nb_words;
 	char	**arr;
-	int		len;
 
 	tmp = *res;
 	*res = twl_strtrim(*res);
 	twl_strdel(&tmp);
-	len = twl_strlen(*res);
 	nb_words = expan_field_splitting_count_words(*res);
 	arr = twl_arr_new(nb_words);
 	expan_field_splitting_fill_array(arr, *res);
