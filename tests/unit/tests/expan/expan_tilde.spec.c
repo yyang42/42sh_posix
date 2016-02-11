@@ -26,24 +26,24 @@ static void simple_tilde(t_test *test)
 	twl_strdel(&suffix);
 }
 
-static void tilde_with_known_suffix(t_test *test)
-{
-	t_environment	*env;
-	char		 	*res;
-	char			*token;
-	char			*suffix;
-
-	(void)test;
-	env = environment_singleton();
-	res = NULL;
-	token = twl_strdup("~");
-	suffix = twl_strdup("root");
-	expan_tilde_do(&res, token, suffix);
-	mt_assert(twl_strcmp("/var/root",res) == 0);
-	twl_strdel(&res);
-	twl_strdel(&token);
-	twl_strdel(&suffix);
-}
+// static void tilde_with_known_suffix(t_test *test)
+// {
+// 	t_environment	*env;
+// 	char		 	*res;
+// 	char			*token;
+// 	char			*suffix;
+//
+// 	(void)test;
+// 	env = environment_singleton();
+// 	res = NULL;
+// 	token = twl_strdup("~");
+// 	suffix = twl_strdup("root");
+// 	expan_tilde_do(&res, token, suffix);
+// 	mt_assert(twl_strcmp("/var/root",res) == 0);
+// 	twl_strdel(&res);
+// 	twl_strdel(&token);
+// 	twl_strdel(&suffix);
+// }
 
 static void tilde_with_unknown_suffix(t_test *test)
 {
@@ -68,6 +68,6 @@ void	suite_expan_tilde(t_suite *suite)
 {
 	(void)suite;
 	SUITE_ADD_TEST(suite, simple_tilde);
-	SUITE_ADD_TEST(suite, tilde_with_known_suffix);
+	// SUITE_ADD_TEST(suite, tilde_with_known_suffix);
 	SUITE_ADD_TEST(suite, tilde_with_unknown_suffix);
 }
