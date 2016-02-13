@@ -6,7 +6,7 @@
 /*   By: chuck <chuck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2042/02/30 42:00:00 by chuck             #+#    #+#             */
-/*   Updated: 2042/02/30 41:59:59 by chuck            ###   ########.fr       */
+/*   Updated: 2016/02/13 18:53:28 by lchenut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "basics.h"
 # include "token/token_arexp/token_arepx_type.h"
 
-typedef struct			s_tokarexp
+typedef struct			s_token_arexp
 {
 	t_token_arexp_type	type;
 	char				*text;
