@@ -97,6 +97,7 @@ void						environment_remove_shell_func(t_environment *env,
 void						environment_add_shell_func(t_environment *env,
 														char *key, char *data);
 void						**environment_get_env_arr(t_environment *this);
+int							environment_get_last_exit_status(void);
 void						environment_set_last_exit_status(int status);
 void						environment_set_last_exit_status_2(t_environment *e,
 																	int status);

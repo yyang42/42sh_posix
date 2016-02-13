@@ -91,6 +91,9 @@ check_unit:
 check_use_case:
 	sh tests/use_case_diff_tests/use_case_diff_tests.sh
 
+check_exit_code:
+	sh tests/exit_code_diff_tests/exit_code_diff_tests.sh
+
 check_ast:
 	sh tests/ast_diff_tests/ast_diff_tests.sh
 
