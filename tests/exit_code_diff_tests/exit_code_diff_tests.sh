@@ -1,4 +1,4 @@
-#!/bin/sh
+f#!/bin/sh
 
 C_CYAN="\033[36;1m"
 C_GREEN="\033[32;1m"
@@ -38,7 +38,11 @@ diff_test ()
 
     mkdir -p $testcase_tmp
     rm -f $testcase_tmp/*
-    $RENDU_PATH/42sh -y $testcase_path/input.sh &> /dev/null ; echo $? > $testcase_tmp_exit_code
+    $RENDU_PATH/42sh $testcase_path/input.sh > /dev/null 2>&1 &
+    pid=$!
+    wait $pid
+    status=$?
+    echo $status > $testcase_tmp_exit_code
     exec_res="$?"
     diff $testcase_path/expected_exit_code $testcase_tmp_exit_code
     exit_code_res="$?"
