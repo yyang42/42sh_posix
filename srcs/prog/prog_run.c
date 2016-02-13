@@ -16,12 +16,14 @@
 #include "set.h"
 #include "twl_get_next_line.h"
 
-void				prog_run(t_prog *prog)
+int					prog_run(t_prog *prog)
 {
 	t_environment	*env;
 	char			*input;
+	int				exit_code;
 
 	input = NULL;
+	exit_code = 0;
 	if (xopt_singleton()->command)
 	{
 		input = twl_strdup(xopt_singleton()->command);
@@ -39,7 +41,7 @@ void				prog_run(t_prog *prog)
 			prog_print_ast(prog, input);
 		else
 		{
-			prog_run_input(prog, input);
+			exit_code = prog_run_input(prog, input);
 		}
 	}
 	else
@@ -48,4 +50,5 @@ void				prog_run(t_prog *prog)
 		prog_main_loop(prog, env);
 	}
 	free(input);
+	return (exit_code);
 }

@@ -16,17 +16,19 @@
 int					prog_run_input(t_prog *this, char *input)
 {
 	t_ast			*ast;
-	int				ret;
+	int				exit_code;
 
 	ast = ast_new(input);
 	if (ast->error_msg)
 	{
 		twl_dprintf(2, "%s\n", ast->error_msg);
-		ast_del(ast);
-		return (1);
+		exit_code = 1;
 	}
-	ret = ast_exec(ast);
+	else
+	{
+		exit_code = ast_exec(ast);
+	}
 	ast_del(ast);
-	return (ret);
+	return (exit_code);
 	(void)this;
 }

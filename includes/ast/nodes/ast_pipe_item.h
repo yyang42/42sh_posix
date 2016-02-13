@@ -39,7 +39,7 @@ void				ast_pipe_item_print_rec(t_ast_pipe_item *ast_pipe_item, int depth);
 
 bool				ast_pipe_item_is_delimiter(t_token *token);
 
-int					ast_pipe_item_exec(t_ast_pipe_item *ast_pipe_item);
+void				ast_pipe_item_exec(t_ast_pipe_item *ast_pipe_item);
 int					ast_pipe_item_expan(t_ast_pipe_item *ast_pipe_item);
 
 void				ast_pipe_item_set_separator(t_ast_pipe_item *this, t_token *token);

@@ -73,7 +73,7 @@ void		execute_simple_command(t_ast_simple_command *cmd,
 	free(token_joined);
 }
 
-int			ast_simple_command_exec(t_ast_simple_command *cmd)
+void				ast_simple_command_exec(t_ast_simple_command *cmd)
 {
 	t_environment	*env;
 
@@ -87,7 +87,7 @@ int			ast_simple_command_exec(t_ast_simple_command *cmd)
 	if (twl_lst_len(cmd->redir_items) > 0)
 	{
 		if (twl_lst_len(cmd->command_tokens) == 0)
-			return (-1);
+			return ;
 		if (ast_simple_command_check_files(cmd) == true)
 			ast_simple_command_redirs(cmd);
 	}
@@ -96,5 +96,4 @@ int			ast_simple_command_exec(t_ast_simple_command *cmd)
 	if (twl_lst_len(cmd->command_tokens) != 0
 		&& twl_lst_len(cmd->assignment_items) > 0)
 		environment_del(env);
-	return (0);
 }

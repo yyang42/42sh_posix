@@ -19,16 +19,17 @@
 int					main(int ac, char **av)
 {
 	t_prog			*prog;
+	int				ret;
 
 	twl_debug_main_start();
 	prog = prog_new();
 	xopt_init(xopt_singleton(), av);
-	prog_run(prog);
+	ret = prog_run(prog);
 	xopt_del(xopt_singleton());
 	prog_del(prog);
 	twl_debug_main_end();
+	return (ret);
 	(void)ac;
-	return (0);
 }
 
 #endif

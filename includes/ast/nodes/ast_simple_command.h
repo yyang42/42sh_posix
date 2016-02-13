@@ -54,7 +54,7 @@ void					ast_simple_command_print_rec(t_ast_simple_command
 	*ast_s_cmd, int depth);
 
 bool					ast_simple_command_is_own_type(t_lst *tokens);
-int						ast_simple_command_exec(t_ast_simple_command *cmd);
+void					ast_simple_command_exec(t_ast_simple_command *cmd);
 bool					ast_simple_command_expan(t_ast_simple_command *cmd);
 
 bool					is_builtin(char *cmd);

@@ -16,6 +16,7 @@
 static void		fork_and_execute(char *path, char **args, char **env)
 {
 	int				pid;
+	int				res;
 	t_environment	*enviro;
 
 	pid = fork();
@@ -32,11 +33,12 @@ static void		fork_and_execute(char *path, char **args, char **env)
 	{
 		signal(SIGINT, SIG_IGN);
 		signal(SIGKILL, SIG_IGN);
-		wait(&pid);
+		wait(&res);
 		signal(SIGINT, SIG_DFL);
 		signal(SIGKILL, SIG_DFL);
-		handle_signal(pid);
-		enviro->info.last_exit_status = pid;
+		handle_signal(res);
+    	if (WIFEXITED(res))
+			enviro->info.last_exit_status = WEXITSTATUS(res);
 	}
 }
 
