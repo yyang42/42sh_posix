@@ -33,18 +33,26 @@ diff_test ()
     testsuite=$1
     testcase=$2
     testcase_path="$TESTS_ROOT_PATH/$testsuite/$testcase"
-    testcase_tmp="$testcase_path/.tmp"
-    testcase_tmp_exit_code="$testcase_tmp/actual_exit_code"
+    # testcase_tmp="$testcase_path/.tmp"
+    actual="/tmp/test_actual_exit_code"
+    expected="/tmp/test_expected_exit_code"
 
-    mkdir -p $testcase_tmp
-    rm -f $testcase_tmp/*
-    $RENDU_PATH/42sh $testcase_path/input.sh > /dev/null 2>&1 &
+    # mkdir -p $testcase_tmp
+    rm $actual $expected
+    $RENDU_PATH/42sh $testcase_path > /dev/null 2>&1 &
     pid=$!
     wait $pid
     status=$?
-    echo $status > $testcase_tmp_exit_code
+    echo $status > $actual
+
+    bash --posix $testcase_path > /dev/null 2>&1 &
+    pid=$!
+    wait $pid
+    status=$?
+    echo $status > $expected
+
     exec_res="$?"
-    diff $testcase_path/expected_exit_code $testcase_tmp_exit_code
+    diff $expected $actual
     exit_code_res="$?"
     exit_code_err="$?"
 
@@ -57,10 +65,12 @@ echo $C_CYAN"====== START AST DIFF TESTS ======"$C_CLEAR
 if ! `env | grep -q ^LAST_ONLY=`
 then
 
+    # diff_test andor false_and_true
+
     for CASE_PATH in $TESTS_ROOT_PATH/*; do
         if [ -d "${CASE_PATH}" ]; then
             for TEST_PATH in $CASE_PATH/*; do
-                if [ -d "${TEST_PATH}" ]; then
+                if [ -f "${TEST_PATH}" ]; then
                     diff_test `basename $CASE_PATH` `basename $TEST_PATH`
                 fi
             done

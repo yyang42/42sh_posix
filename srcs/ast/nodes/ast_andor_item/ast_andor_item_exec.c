@@ -42,7 +42,6 @@ static void			andor_fn_2(t_ast_pipe_item *pipe_item, pid_t pid)
 		handle_signal(res);
     	if (WIFEXITED(res))
 			environment_singleton()->info.last_exit_status = WEXITSTATUS(res);
-		twl_lprintf("WEXITSTATUS(res) %d\n", WEXITSTATUS(res));
 		close(pipe_item->fds[1]);
 		if (pipe_item->fds[0] != -1)
 			close(pipe_item->fds[0]);
