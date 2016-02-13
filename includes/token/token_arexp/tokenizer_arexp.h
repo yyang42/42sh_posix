@@ -35,7 +35,6 @@ typedef struct		s_tokenizer
 	bool			cur_is_quoted;
 	int				cur_line;
 	int				cur_col;
-	char			*heredoc_pos;
 }					t_tokenizer;
 
 t_lst				*tokenizer_tokenize(char *input);
