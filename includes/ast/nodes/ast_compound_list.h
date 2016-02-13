@@ -36,7 +36,7 @@ t_ast_compound_list	*ast_compound_list_new_from_tokens_wrap(t_lst *tokens,
 								char *open, char *close, struct s_ast *ast);
 void						ast_compound_list_print_rec(t_ast_compound_list *ast_compound_list, int depth);
 
-int							ast_compound_list_exec(t_ast_compound_list *ast_compound_list);
+void						ast_compound_list_exec(t_ast_compound_list *ast_compound_list);
 int							ast_compound_list_expan(t_ast_compound_list *ast_compound_list);
 
 #endif

@@ -38,7 +38,7 @@ diff_test ()
 
     mkdir -p $testcase_tmp
     rm -f $testcase_tmp/*
-    $RENDU_PATH/42sh -y $testcase_path/input.sh ; echo $? > $testcase_tmp_exit_code
+    $RENDU_PATH/42sh -y $testcase_path/input.sh &> /dev/null ; echo $? > $testcase_tmp_exit_code
     exec_res="$?"
     diff $testcase_path/expected_exit_code $testcase_tmp_exit_code
     exit_code_res="$?"
@@ -46,7 +46,7 @@ diff_test ()
 
     print_result "$exec_res" exec
     print_result "$exit_code_res" exit_code
-    echo "./42sh -y tests/use_case_diff_tests/$testsuite/$testcase/input.sh"
+    echo "./42sh -y tests/exit_code_diff_tests/$testsuite/$testcase/input.sh"
 }
 
 echo $C_CYAN"====== START AST DIFF TESTS ======"$C_CLEAR
