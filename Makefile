@@ -81,6 +81,7 @@ check:
 	make check_unit
 	make check_ast
 	make check_use_case
+	make check_exit_code
 
 check_libtowel:
 	make -C $(LIB_TOWEL_PATH) check
