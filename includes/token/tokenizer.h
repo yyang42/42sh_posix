@@ -40,6 +40,8 @@ typedef struct		s_tokenizer
 
 t_lst				*tokenizer_tokenize(char *input);
 
+t_lst				*tokenizer_tokenize_arexp(char *input);
+
 t_tokenizer			*tokenizer_new(char *input);
 void				tokenizer_del(t_tokenizer *this);
 
