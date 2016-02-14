@@ -38,7 +38,7 @@ diff_test ()
     expected="/tmp/test_expected_exit_code"
 
     # mkdir -p $testcase_tmp
-    rm $actual $expected
+    rm -f $actual $expected
     $RENDU_PATH/42sh $testcase_path > /dev/null 2>&1 &
     pid=$!
     wait $pid
