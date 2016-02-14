@@ -88,10 +88,7 @@ void				ast_simple_command_exec(t_ast_simple_command *cmd)
 	{
 		if (twl_lst_len(cmd->command_tokens) == 0)
 			return ;
-		if (ast_simple_command_check_files(cmd) == true)
-		{
-			ast_simple_command_redirs(cmd);
-		}
+		ast_simple_command_redirs(cmd);
 	}
 	else if (twl_lst_len(cmd->command_tokens) > 0)
 		execute_simple_command(cmd, env);

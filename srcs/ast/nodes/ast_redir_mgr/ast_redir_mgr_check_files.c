@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_redir.h"
+#include "ast/nodes/ast_redir_mgr.h"
 #include "ast/nodes/ast_assignment.h"
 #include "ast/nodes/ast_simple_command.h"
 
@@ -39,11 +39,11 @@ static void		iter_check_fn(void *data, void *context)
 		close_file(fd);
 }
 
-bool			ast_simple_command_check_files(t_ast_simple_command *this)
+bool				ast_redir_mgr_check_files(t_lst *redirs)
 {
 	bool is_good_file;
 
 	is_good_file = true;
-	twl_lst_iter(this->redir_items, iter_check_fn, &is_good_file);
+	twl_lst_iter(redirs, iter_check_fn, &is_good_file);
 	return (is_good_file);
 }
