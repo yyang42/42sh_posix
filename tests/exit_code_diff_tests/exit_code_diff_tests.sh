@@ -1,4 +1,4 @@
-f#!/bin/sh
+#!/bin/sh
 
 C_CYAN="\033[36;1m"
 C_GREEN="\033[32;1m"

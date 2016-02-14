@@ -10,34 +10,31 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_SUBSHELL_H
-# define AST_SUBSHELL_H
+#include "ast/nodes/ast_subshell.h"
+#include "ast/nodes/ast_compound_list.h"
 
-# include "basics.h"
-
-# include "token/token_mgr.h"
-
-# include "ast/ast_defines.h"
-# include "ast/ast_utils.h"
-
-struct s_ast_compound_list;
-typedef struct					s_ast_subshell
+void				ast_subshell_exec(t_ast_subshell *this)
 {
-	struct s_ast_compound_list	*ast_compound_list;
-}								t_ast_subshell;
+	twl_printf("ast_subshell_exec not implented yet\n");
+	// ast_compound_list_exec(this->ast_compound_list);
+	// t_lst			*if_then_list;
+	// t_ast_if_then	*if_then;
+	// int				already_exec;
 
-t_ast_subshell		*ast_subshell_new(void);
-void				ast_subshell_del(t_ast_subshell *ast_subshell);
-void				ast_subshell_del_void(void *this);
-
-t_ast_subshell		*ast_subshell_new_from_tokens(t_lst *tokens, struct s_ast *ast);
-void				*ast_subshell_new_from_tokens_void(t_lst *tokens, struct s_ast *ast);
-void				ast_subshell_print_rec(t_ast_subshell *ast_subshell, int depth);
-void				ast_subshell_print_rec_void(void *ast_subshell, int depth);
-
-bool				ast_subshell_is_own_type(t_lst *tokens);
-
-void				ast_subshell_exec(t_ast_subshell *this);
-void				ast_subshell_exec_void(void *this);
-
-#endif
+	// already_exec = false;
+	// if_then_list = twl_lst_copy(this->if_then_list, NULL);
+	// while ((if_then = twl_lst_pop_front(if_then_list)))
+	// {
+	// 	ast_compound_list_exec(if_then->cond_compound);
+	// 	if (environment_get_last_exit_status() == 0)
+	// 	{
+	// 		ast_compound_list_exec(if_then->then_compound);
+	// 		already_exec = true;
+	// 		break ;
+	// 	}
+	// }
+	// if (!already_exec && this->else_body)
+	// 	ast_compound_list_exec(this->else_body);
+	// twl_lst_del(if_then_list, NULL);
+	(void)this;
+}
