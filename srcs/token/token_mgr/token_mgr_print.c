@@ -17,7 +17,7 @@ static void			print_token_fn(void *token_)
 	t_token	*token;
 
 	token = token_;
-	twl_lprintf("<%s>\n", token->text);
+	twl_printf("<%s>\n", token->text);
 }
 
 void				token_mgr_print(t_lst *tokens)
@@ -25,5 +25,5 @@ void				token_mgr_print(t_lst *tokens)
 	twl_printf("%s>>>>>>>>>> token list (%zu) %s\n", C_CYAN,
 												twl_lst_len(tokens), C_CLEAR);
 	twl_lst_iter0(tokens, print_token_fn);
-	twl_lprintf("%s-------------------------------------%s\n", C_CYAN, C_CLEAR);
+	twl_printf("%s-------------------------------------%s\n", C_CYAN, C_CLEAR);
 }

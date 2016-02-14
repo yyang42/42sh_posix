@@ -15,6 +15,5 @@
 
 void				ast_brace_group_exec(t_ast_brace_group *this)
 {
-	// twl_printf("ast_brace_group_exec not implented yet\n");
 	ast_compound_list_exec(this->ast_compound_list);
 }

@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ast/ast.h"
 #include "ast/nodes/ast_command.h"
 #include "ast/nodes/ast_pipe_item.h"
 #include "ast/nodes/ast_list_item.h"
