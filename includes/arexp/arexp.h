@@ -19,7 +19,7 @@
 typedef struct			s_arexp
 {
 	t_lst				*tokens;
-	t_arexp_tot			*arexp_tot;
+//	t_arexp_tot			*arexp_tot;
 	char				*error_msg;
 }						t_arexp;
 
