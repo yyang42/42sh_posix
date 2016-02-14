@@ -45,6 +45,7 @@ void				ast_command_print_rec(t_ast_command *ast_command, int depth);
 
 t_command_type		ast_command_utils_get_command_type(t_lst *tokens);
 
-int					ast_command_exec(t_ast_command *this);
+void				ast_command_exec(t_ast_command *this);
+int					ast_command_expan(t_ast_command *this);;
 
 #endif

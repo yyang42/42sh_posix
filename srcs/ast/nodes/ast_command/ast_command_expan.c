@@ -10,9 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ast/nodes/ast_pipe_item.h>
+#include "ast/nodes/ast_command.h"
 
-void				ast_pipe_item_exec(t_ast_pipe_item *ast_pipe_item)
+int					ast_command_expan(t_ast_command *this)
 {
-	ast_command_exec(ast_pipe_item->ast_command);
+	int				ret;
+
+	ret = 1;
+	if (this->command_type == COMMAND_SIMPLE_COMMAND)
+		ret = ast_simple_command_expan(this->command);
+	// else if (this->command_type == COMMAND_COMPOUND_COMMAND)
+	// 	ret = ast_compound_command_expan(this->command);
+	// else if (this->command_type == COMMAND_FUNCTION_DEF)
+	// 	return (ast_function_def_expan(this->command));
+	return (ret);
 }

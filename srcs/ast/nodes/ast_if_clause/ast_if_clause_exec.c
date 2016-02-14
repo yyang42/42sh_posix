@@ -21,9 +21,10 @@ int					ast_if_clause_exec(t_ast_if_clause *this)
 	if_then_list = twl_lst_copy(this->if_then_list, NULL);
 	while ((if_then = twl_lst_pop_front(if_then_list)))
 	{
-		twl_printf("if then ret %d\n", ast_compound_list_exec(if_then->cond_compound));
+		ast_compound_list_exec(if_then->cond_compound);
+		twl_lprintf("if then ret %d\n", environment_get_last_exit_status());
 	}
-	twl_printf("[exec if clause]\n");
+	twl_lprintf("[exec if clause]\n");
 	(void)this;
 	twl_lst_del(if_then_list, NULL);
 	return (1);

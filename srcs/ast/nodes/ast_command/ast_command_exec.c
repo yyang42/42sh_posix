@@ -12,13 +12,12 @@
 
 #include "ast/nodes/ast_command.h"
 
-int					ast_command_exec(t_ast_command *this)
+void				ast_command_exec(t_ast_command *this)
 {
 	if (this->command_type == COMMAND_SIMPLE_COMMAND)
-		return (ast_simple_command_exec(this->command));
+		ast_simple_command_exec(this->command);
 	else if (this->command_type == COMMAND_COMPOUND_COMMAND)
-		return (ast_compound_command_exec(this->command));
+		ast_compound_command_exec(this->command);
 	// else if (this->command_type == COMMAND_FUNCTION_DEF)
 	// 	return (ast_function_def_exec(this->command));
-	return (0);
 }
