@@ -14,6 +14,7 @@
 # define AST_REDIR_FD_H
 
 # include "basics.h"
+# include "ast/nodes/ast_redir.h"
 
 typedef struct		s_ast_redir_fd
 {
@@ -23,6 +24,14 @@ typedef struct		s_ast_redir_fd
 }					t_ast_redir_fd;
 
 t_ast_redir_fd			*ast_redir_fd_new(void);
-void				ast_redir_fd_del(t_ast_redir_fd *ast_redir_fd);
+void					ast_redir_fd_del(t_ast_redir_fd *ast_redir_fd);
+
+int						ast_redir_fd_duplication_input(t_ast_redir *redir, t_ast_redir_fd *redir_fd);
+int						ast_redir_fd_duplication_output(t_ast_redir *redir, t_ast_redir_fd *redir_fd);
+int						ast_redir_fd_write_heredoc_to_tmp_file(t_ast_redir *redir);
+void					ast_redir_fd_redir_input(t_ast_redir *redir, t_ast_redir_fd *redir_fd);
+void					ast_redir_fd_redir_output(t_ast_redir *redir, t_ast_redir_fd *redir_fd);
+void					ast_redir_fd_redir_input_output(t_ast_redir *redir, t_ast_redir_fd *redir_fd);
+void					ast_redir_fd_redir_agreg(t_ast_redir *redir, t_lst *redir_fds, t_ast_redir_fd *redir_fd);
 
 #endif

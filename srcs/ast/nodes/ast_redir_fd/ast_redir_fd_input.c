@@ -12,24 +12,14 @@
 
 #include "ast/nodes/ast_simple_command.h"
 
-int	duplication_output(t_ast_redir *redir, t_ast_redir_fd *redir_fd)
+void	ast_redir_fd_redir_input(t_ast_redir *redir, t_ast_redir_fd *redir_fd)
 {
-	int duplicated_fd;
-
-	duplicated_fd = -1;
-	if (!twl_strcmp("-", redir->param))
-		close_file(redir->io_number);
-	else
-	{
-		duplicated_fd = get_duplication_fd(redir->param);
-		if (duplicated_fd > -1)
-		{
-			redir_fd->fd_save = dup(redir->io_number == -1
-				? STDOUT_FILENO : redir->io_number);
-			redir_fd->fd_origin = redir->io_number == -1
-				? STDOUT_FILENO : redir->io_number;
-			dup_fds(duplicated_fd, redir_fd->fd_origin);
-		}
-	}
-	return (duplicated_fd);
+	redir_fd->fd_save = dup(redir->io_number == -1
+		? STDIN_FILENO : redir->io_number);
+	redir_fd->fd_origin = redir->io_number == -1
+		? STDIN_FILENO : redir->io_number;
+	if (!twl_strcmp("<", redir->operator))
+		redir_fd->fd_file = read_file(redir->param);
+	else if (!twl_strcmp("<<", redir->operator))
+		redir_fd->fd_file = ast_redir_fd_write_heredoc_to_tmp_file(redir);
 }

@@ -12,7 +12,7 @@
 
 #include "ast/nodes/ast_simple_command.h"
 
-void	redir_agreg(t_ast_redir *redir, t_lst *redir_fds,
+void	ast_redir_fd_redir_agreg(t_ast_redir *redir, t_lst *redir_fds,
 	t_ast_redir_fd *redir_fd)
 {
 	t_ast_redir_fd *redir_fd2;

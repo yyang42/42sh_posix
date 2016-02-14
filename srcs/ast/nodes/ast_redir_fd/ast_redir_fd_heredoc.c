@@ -12,14 +12,15 @@
 
 #include "ast/nodes/ast_simple_command.h"
 
-void	redir_output(t_ast_redir *redir, t_ast_redir_fd *redir_fd)
+int	ast_redir_fd_write_heredoc_to_tmp_file(t_ast_redir *redir)
 {
-	redir_fd->fd_save = dup(redir->io_number == -1
-		? STDOUT_FILENO : redir->io_number);
-	redir_fd->fd_origin = redir->io_number == -1
-		? STDOUT_FILENO : redir->io_number;
-	if (!twl_strcmp(">", redir->operator))
-		redir_fd->fd_file = create_file(redir->param);
-	else if (!twl_strcmp(">>", redir->operator))
-		redir_fd->fd_file = append_to_file(redir->param);
+	int fd;
+
+	fd = create_file("/tmp/.tmpfilefor42shposix");
+	if (fd == -1)
+		return (fd);
+	write(fd, redir->heredoc_text, twl_strlen(redir->heredoc_text));
+	close(fd);
+	fd = read_file("/tmp/.tmpfilefor42shposix");
+	return (fd);
 }

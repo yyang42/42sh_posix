@@ -12,7 +12,7 @@
 
 #include "ast/nodes/ast_simple_command.h"
 
-void	redir_input_output(t_ast_redir *redir, t_ast_redir_fd *redir_fd)
+void	ast_redir_fd_redir_input_output(t_ast_redir *redir, t_ast_redir_fd *redir_fd)
 {
 	redir_fd->fd_save = dup(redir->io_number == -1
 		? STDIN_FILENO : redir->io_number);
