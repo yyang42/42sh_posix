@@ -18,5 +18,6 @@ t_ast_compound_command			*ast_compound_command_new(void)
 
 	ast_compound_command = twl_malloc_x0(sizeof(t_ast_compound_command));
 	ast_compound_command->redir_items = twl_lst_new();
+	ast_compound_command->redir_fds = twl_lst_new();
 	return (ast_compound_command);
 }

@@ -12,14 +12,7 @@
 
 #include <ast/nodes/ast_pipe_item.h>
 
-int			ast_pipe_item_expan(t_ast_pipe_item *ast_pipe_item)
+int			ast_pipe_item_expan(t_ast_pipe_item *this)
 {
-	t_ast_command *ast_command;
-
-	ast_command = ast_pipe_item->ast_command;
-	if (ast_command->command_type == COMMAND_SIMPLE_COMMAND)
-	{
-		return (ast_simple_command_expan(ast_command->command));
-	}
-	return (0);
+	return (ast_command_expan(this->ast_command));
 }

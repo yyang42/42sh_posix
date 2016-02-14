@@ -39,7 +39,7 @@ static void		exec_with_path(void *elem, void *context)
 	if (!stat(path, &sb))
 	{
 		index = arr2_indexof(env->args, env->utility);
-		command_execution(path, &env->args[index], env->env_arr);
+		ast_simple_command_execution(path, &env->args[index], env->env_arr);
 	}
 }
 
@@ -76,6 +76,6 @@ void			exec_env(t_env_args *env, t_environment *this)
 			env_with_builtin(env->utility, &env->args[index], this);
 	}
 	else
-		command_execution(env->utility, &env->args[index], env->env_arr);
+		ast_simple_command_execution(env->utility, &env->args[index], env->env_arr);
 	twl_arr_del(fpaths, free);
 }

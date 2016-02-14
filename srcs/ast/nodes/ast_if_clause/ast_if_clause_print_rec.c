@@ -14,14 +14,14 @@
 #include "ast/nodes/ast_compound_list.h"
 #include "ast/nodes/ast_if_then.h"
 
-static void			if_then_list_iter_fn(void *if_then_list, void *depth_ptr)
+static void			if_then_list_iter_fn(void *if_then, void *depth_ptr)
 {
 	int				depth;
 
 	depth = *(int *)depth_ptr;
 	ast_print_indent(depth);
 	twl_printf("if_then_body\n");
-	ast_if_then_print_rec(if_then_list, depth + 1);
+	ast_if_then_print_rec(if_then, depth + 1);
 }
 
 void				ast_if_clause_print_rec(t_ast_if_clause *ast_if_clause,

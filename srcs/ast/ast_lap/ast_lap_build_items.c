@@ -36,6 +36,16 @@ static bool is_type_separator(t_ast_type type, t_token *token)
 		);
 }
 
+/*
+** Special case for list items
+*/
+static bool is_list_sep_followed_by_closing_parenthesis(t_lst *tokens,
+							t_ast_type type, t_token *last_sep)
+{
+	return (type == AST_TYPE_LIST_ITEM && last_sep
+		&& token_mgr_first_equ(tokens, ")"));
+}
+
 t_lst				*ast_lap_build_items(t_lst *tokens,
 							t_ast_type type, struct s_ast *ast)
 {
@@ -49,6 +59,8 @@ t_lst				*ast_lap_build_items(t_lst *tokens,
 	{
 		token_mgr_pop_linebreak(tokens);
 		if (twl_lst_len(tokens) == 0 || is_reserved_word_delimiter(tokens))
+			break ;
+		if (is_list_sep_followed_by_closing_parenthesis(tokens, type, last_sep))
 			break ;
 		last_sep = NULL;
 		item = ast_lap_new_from_tokens_fns()[type](tokens, ast);

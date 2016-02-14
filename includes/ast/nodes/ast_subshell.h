@@ -37,4 +37,7 @@ void				ast_subshell_print_rec_void(void *ast_subshell, int depth);
 
 bool				ast_subshell_is_own_type(t_lst *tokens);
 
+void				ast_subshell_exec(t_ast_subshell *this);
+void				ast_subshell_exec_void(void *this);
+
 #endif

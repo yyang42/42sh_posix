@@ -48,6 +48,7 @@ typedef struct		s_ast_compound_command
 	void						*command;
 	t_lst						*command_tokens;
 	t_lst						*redir_items;
+	t_lst						*redir_fds;
 }					t_ast_compound_command;
 
 t_ast_compound_command		*ast_compound_command_new(void);
@@ -61,8 +62,11 @@ bool						ast_compound_command_is_own_type(t_lst *tokens);
 typedef void *(*t_compound_command_new_from_token_fn)(t_lst *tokens, struct s_ast *ast);
 typedef void (*t_compound_command_print_rec_fn)(void *command, int depth);
 typedef void (*t_compound_command_print_del_fn)(void *command);
+typedef void (*t_compound_command_exec_fn)(void *command);
 
 t_compound_command_new_from_token_fn *compound_command_from_token_fns(void);
 t_compound_command_type	ast_compound_command_get_type_from_tokens(t_lst *tokens);
+
+void				ast_compound_command_exec(t_ast_compound_command *this);
 
 #endif

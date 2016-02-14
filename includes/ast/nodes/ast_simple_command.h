@@ -23,17 +23,11 @@
 # include "errno.h"
 # include "signals.h"
 # include "environment.h"
-# include "ast/nodes/ast_redir.h"
+# include "ast/nodes/ast_redir_mgr.h"
+# include "ast/nodes/ast_redir_fd.h"
+# include "ast/nodes/ast_redir_fd_mgr.h"
 # include "ast/nodes/ast_simple_command_expan.h"
 # include <pwd.h>
-
-
-typedef struct			s_ast_redir_fd
-{
-	int					fd_save;
-	int					fd_origin;
-	int					fd_file;
-}						t_ast_redir_fd;
 
 typedef struct			s_ast_simple_command
 {
@@ -64,21 +58,9 @@ bool					ast_simple_command_check_files(t_ast_simple_command *c);
 void					ast_simple_command_redirs(t_ast_simple_command *cmd);
 void					execute_simple_command(t_ast_simple_command *cmd,
 	t_environment *env);
-void					command_execution(char *path, char **args, char **env);
+void					ast_simple_command_execution(char *path, char **args, char **env);
 int						get_duplication_fd(char *str);
 bool					is_valid_duplicate_fd(int fd);
 t_dict					*get_builtin_func_dict(void);
-int						duplication_input(t_ast_redir *redir,
-	t_ast_redir_fd *redir_fd);
-int						duplication_output(t_ast_redir *redir,
-	t_ast_redir_fd *redir_fd);
-int						write_heredoc_to_tmp_file(t_ast_redir *redir);
-void					redir_input(t_ast_redir *redir,
-	t_ast_redir_fd *redir_fd);
-void					redir_output(t_ast_redir *redir,
-	t_ast_redir_fd *redir_fd);
-void					redir_input_output(t_ast_redir *redir,
-	t_ast_redir_fd *redir_fd);
-void					redir_agreg(t_ast_simple_command *cmd,
-	t_ast_redir *redir, t_ast_redir_fd *redir_fd);
+
 #endif

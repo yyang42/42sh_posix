@@ -30,6 +30,7 @@
 # include "dot.h"
 # include "readonly.h"
 # include "shift.h"
+# include "builtin/exit.h"
 # include "ast/nodes/ast_simple_command.h"
 
 # define BUILTIN_EXEC_SUCCESS 0
