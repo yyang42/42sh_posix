@@ -60,6 +60,7 @@ then
         if [ -d "${CASE_PATH}" ]; then
             for TEST_PATH in $CASE_PATH/*; do
                 if [ -d "${TEST_PATH}" ]; then
+                    # mv $TESTS_ROOT_PATH/`basename $CASE_PATH`/`basename $TEST_PATH` $TESTS_ROOT_PATH/`basename $CASE_PATH`/`basename $TEST_PATH`_spec
                     # echo diff_test `basename $CASE_PATH` `basename $TEST_PATH`
                     diff_test `basename $CASE_PATH` `basename $TEST_PATH`
                 fi
