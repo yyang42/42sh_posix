@@ -18,16 +18,16 @@ static void			print_token_fn(void *token_)
 
 	token = token_;
 	COUCOU;
-	twl_printf("<%s>\n", token->text);
+	twl_lprintf("<%s>\n", token->text);
 	COUCOU;
 }
 
 void				token_mgr_print(t_lst *tokens)
 {
-	twl_printf("%s>>>>>>>>>> token list (%zu) %s\n", C_CYAN,
+	twl_lprintf("%s>>>>>>>>>> token list (%zu) %s\n", C_CYAN,
 												twl_lst_len(tokens), C_CLEAR);
 	COUCOU;
 	twl_lst_iter0(tokens, print_token_fn);
 	COUCOU;
-	twl_printf("%s-------------------------------------%s\n", C_CYAN, C_CLEAR);
+	twl_lprintf("%s-------------------------------------%s\n", C_CYAN, C_CLEAR);
 }
