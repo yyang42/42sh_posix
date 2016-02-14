@@ -23,7 +23,7 @@ static t_compound_command_exec_fn	*get_exec_fns(void)
 	{
 		fns[COMPOUND_COMMAND_BRACE_GROUP] = ast_brace_group_exec_void;
 		fns[COMPOUND_COMMAND_SUBSHELL] = ast_subshell_exec_void;
-		// fns[COMPOUND_COMMAND_FOR_CLAUSE] = ast_for_clause_exec_void;
+		fns[COMPOUND_COMMAND_FOR_CLAUSE] = ast_for_clause_exec_void;
 		// fns[COMPOUND_COMMAND_CASE_CLAUSE] = ast_case_clause_exec_void;
 		fns[COMPOUND_COMMAND_IF_CLAUSE] = ast_if_clause_exec_void;
 		fns[COMPOUND_COMMAND_WHILE_CLAUSE] = ast_while_clause_exec_void;

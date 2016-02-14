@@ -54,7 +54,7 @@ t_ast_for_clause		*ast_for_clause_new_from_tokens(t_lst *tokens,
 		twl_lst_pop_front(tokens);
 		pop_word_list(this, tokens);
 	}
-	token_mgr_pop_linebreak(tokens);
+	token_mgr_pop_linebreak_colon_linebreak(tokens);
 	this->do_group = ast_compound_list_new_from_tokens_wrap(tokens,
 		"do", "done", ast);
 	if (ast_has_error(ast) || this->do_group == NULL)

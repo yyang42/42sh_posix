@@ -10,11 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_if_then.h"
-#include "ast/nodes/ast_while_clause.h"
+#include "token/token_mgr.h"
 
-void				ast_while_clause_exec(t_ast_while_clause *this)
+void				token_mgr_pop_linebreak_colon_linebreak(t_lst *tokens)
 {
-	twl_printf("ast_while_clause_exec not implented yet\n");
-	(void)this;
+	token_mgr_pop_linebreak(tokens);
+	if (token_mgr_first_equ(tokens, ";"))
+	{
+		twl_lst_pop_front(tokens);
+		token_mgr_pop_linebreak(tokens);
+	}
 }

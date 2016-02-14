@@ -11,10 +11,9 @@
 /* ************************************************************************** */
 
 #include "ast/nodes/ast_if_then.h"
-#include "ast/nodes/ast_while_clause.h"
+#include "ast/nodes/ast_for_clause.h"
 
-void				ast_while_clause_exec(t_ast_while_clause *this)
+void				ast_for_clause_exec_void(void *this)
 {
-	twl_printf("ast_while_clause_exec not implented yet\n");
-	(void)this;
+	ast_for_clause_exec(this);
 }
