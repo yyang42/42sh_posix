@@ -81,6 +81,7 @@ check:
 	make check_unit
 	make check_ast
 	make check_use_case
+	make check_exit_code
 
 check_libtowel:
 	make -C $(LIB_TOWEL_PATH) check
@@ -90,6 +91,9 @@ check_unit:
 
 check_use_case:
 	sh tests/use_case_diff_tests/use_case_diff_tests.sh
+
+check_exit_code:
+	sh tests/exit_code_diff_tests/exit_code_diff_tests.sh
 
 check_ast:
 	sh tests/ast_diff_tests/ast_diff_tests.sh

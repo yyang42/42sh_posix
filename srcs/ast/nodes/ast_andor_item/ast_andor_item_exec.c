@@ -18,8 +18,9 @@ static int			fork_error(void)
 	return (1);
 }
 
-static void			andor_fn_2(t_ast_pipe_item *pipe_item, pid_t pid, int *ret)
+static void			andor_fn_2(t_ast_pipe_item *pipe_item, pid_t pid)
 {
+	int				res;
 	if (pid == 0)
 	{
 		if (pipe_item->fds[1] != -1)
@@ -33,25 +34,25 @@ static void			andor_fn_2(t_ast_pipe_item *pipe_item, pid_t pid, int *ret)
 			dup2(pipe_item->fds[0], 0);
 		}
 		ast_pipe_item_exec(pipe_item);
-		exit(0);
+		exit(environment_get_last_exit_status());
 	}
 	else
 	{
-		wait(ret);
-		handle_signal(*ret);
+		wait(&res);
+		handle_signal(res);
+    	if (WIFEXITED(res))
+			environment_singleton()->info.last_exit_status = WEXITSTATUS(res);
 		close(pipe_item->fds[1]);
 		if (pipe_item->fds[0] != -1)
 			close(pipe_item->fds[0]);
 	}
 }
 
-static void			iter_andor_fn(void *ast_pipe_item_, void *ret_)
+static void			iter_andor_fn(void *ast_pipe_item_)
 {
 	t_ast_pipe_item	*ast_pipe_item;
 	pid_t			child_pid;
-	int				*ret;
 
-	ret = ret_;
 	ast_pipe_item = ast_pipe_item_;
 	child_pid = fork();
 	if (child_pid == -1)
@@ -63,7 +64,7 @@ static void			iter_andor_fn(void *ast_pipe_item_, void *ret_)
 		fork_error();
 	}
 	else
-		andor_fn_2(ast_pipe_item, child_pid, ret);
+		andor_fn_2(ast_pipe_item, child_pid);
 }
 
 static void			iter_fds_fn(void *data, void *next_data, void *context_)
@@ -83,18 +84,14 @@ static void			iter_fds_fn(void *data, void *next_data, void *context_)
 	}
 }
 
-int					ast_andor_item_exec(t_ast_andor_item *ast_andor_item)
+void					ast_andor_item_exec(t_ast_andor_item *ast_andor_item)
 {
-	int				ret;
-
-	ret = 0;
 	ast_andor_item_create_files(ast_andor_item);
 	if (twl_lst_len(ast_andor_item->ast_pipe_items) == 1)
 		ast_pipe_item_exec(twl_lst_get(ast_andor_item->ast_pipe_items, 0));
 	else
 	{
 		twl_lst_itern(ast_andor_item->ast_pipe_items, iter_fds_fn, NULL);
-		twl_lst_iter(ast_andor_item->ast_pipe_items, iter_andor_fn, &ret);
+		twl_lst_iter0(ast_andor_item->ast_pipe_items, iter_andor_fn);
 	}
-	return (ret);
 }

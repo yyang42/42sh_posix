@@ -14,5 +14,6 @@
 
 int				ast_exec(t_ast *this)
 {
-	return (ast_compound_list_exec(this->compound_list));
+	ast_compound_list_exec(this->compound_list);
+	return (environment_get_last_exit_status());
 }

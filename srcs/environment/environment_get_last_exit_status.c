@@ -10,25 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "alias.h"
+#include "environment.h"
 
-void			set_alias(char *str, t_environment *env)
+int					environment_get_last_exit_status(void)
 {
-	char			*value;
-	char			*key;
-
-	value = twl_strchr(str, '=');
-	if (value)
-		key = twl_strsub(str, 0, twl_strlen(str) - twl_strlen(value));
-	else
-	{
-		COUCOU;environment_set_last_exit_status_2(env, BUILTIN_EXEC_FAILURE);
-		return ;
-	}
-	COUCOU;environment_set_last_exit_status_2(env, BUILTIN_EXEC_SUCCESS);
-	if (twl_dict_key_exist(env->alias, key))
-		twl_dict_set(env->alias, key, twl_strdup(value + 1), free);
-	else
-		twl_dict_add(env->alias, key, twl_strdup(value + 1));
-	free(key);
+	return (environment_singleton()->info.last_exit_status);
 }

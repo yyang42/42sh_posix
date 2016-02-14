@@ -20,7 +20,6 @@ static void			iter_fn(void *ast_andor_item_, void *prev_, void *context_)
 
 	ast_andor_item = ast_andor_item_;
 	prev = prev_;
-	(void)context_;
 	env = environment_singleton();
 	if (!prev ||
 	(prev->separator->type == TOKEN_AND_IF && env->info.last_exit_status == 0)
@@ -28,13 +27,10 @@ static void			iter_fn(void *ast_andor_item_, void *prev_, void *context_)
 	{
 		ast_andor_item_exec(ast_andor_item);
 	}
+	(void)context_;
 }
 
-int					ast_list_item_exec(t_ast_list_item *ast_list_item)
+void				ast_list_item_exec(t_ast_list_item *ast_list_item)
 {
-	int				ret;
-
-	ret = -1;
-	twl_lst_iterp(ast_list_item->ast_andor_items, &iter_fn, &ret);
-	return (ret);
+	twl_lst_iterp(ast_list_item->ast_andor_items, &iter_fn, NULL);
 }

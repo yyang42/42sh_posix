@@ -1,4 +1,4 @@
-#!/bin/sh
+f#!/bin/sh
 
 C_CYAN="\033[36;1m"
 C_GREEN="\033[32;1m"
@@ -6,7 +6,7 @@ C_RED="\033[31;1m"
 C_CLEAR="\033[0m"
 
 RENDU_PATH="`pwd`"
-TESTS_ROOT_PATH="$RENDU_PATH/tests/use_case_diff_tests/"
+TESTS_ROOT_PATH="$RENDU_PATH/tests/exit_code_diff_tests/"
 
 exit_status=0
 
@@ -33,31 +33,44 @@ diff_test ()
     testsuite=$1
     testcase=$2
     testcase_path="$TESTS_ROOT_PATH/$testsuite/$testcase"
-    testcase_tmp="$testcase_path/.tmp"
-    testcase_tmp_stdout="$testcase_tmp/actual_stdout"
-    testcase_tmp_stderr="$testcase_tmp/actual_stderr"
+    # testcase_tmp="$testcase_path/.tmp"
+    actual="/tmp/test_actual_exit_code"
+    expected="/tmp/test_expected_exit_code"
 
-    mkdir -p $testcase_tmp
-    rm -f $testcase_tmp/*
-    $RENDU_PATH/42sh -y $testcase_path/input.sh > $testcase_tmp_stdout 2> $testcase_tmp_stderr
-    diff $testcase_path/expected_stdout $testcase_tmp_stdout
-    stdout_res="$?"
-    diff $testcase_path/expected_stderr $testcase_tmp_stderr
-    stdout_err="$?"
+    # mkdir -p $testcase_tmp
+    rm $actual $expected
+    $RENDU_PATH/42sh $testcase_path > /dev/null 2>&1 &
+    pid=$!
+    wait $pid
+    status=$?
+    echo $status > $actual
 
-    print_result "$stdout_res" stdout
-    print_result "$stdout_err" stderr
-    echo "./42sh -y tests/use_case_diff_tests/$testsuite/$testcase/input.sh"
+    bash --posix $testcase_path > /dev/null 2>&1 &
+    pid=$!
+    wait $pid
+    status=$?
+    echo $status > $expected
+
+    exec_res="$?"
+    diff $expected $actual
+    exit_code_res="$?"
+    exit_code_err="$?"
+
+    print_result "$exec_res" exec
+    print_result "$exit_code_res" exit_code
+    echo "./42sh tests/exit_code_diff_tests/$testsuite/$testcase"
 }
 
 echo $C_CYAN"====== START AST DIFF TESTS ======"$C_CLEAR
 if ! `env | grep -q ^LAST_ONLY=`
 then
 
+    # diff_test andor false_and_true
+
     for CASE_PATH in $TESTS_ROOT_PATH/*; do
         if [ -d "${CASE_PATH}" ]; then
             for TEST_PATH in $CASE_PATH/*; do
-                if [ -d "${TEST_PATH}" ]; then
+                if [ -f "${TEST_PATH}" ]; then
                     if [[ ${TEST_PATH} != *"TO_BE_FIXED"* ]]
                     then
                         diff_test `basename $CASE_PATH` `basename $TEST_PATH`

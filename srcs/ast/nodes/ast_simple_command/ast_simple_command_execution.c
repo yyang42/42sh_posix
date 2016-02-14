@@ -16,10 +16,9 @@
 static void		fork_and_execute(char *path, char **args, char **env)
 {
 	int				pid;
-	t_environment	*enviro;
+	int				res;
 
 	pid = fork();
-	enviro = environment_singleton();
 	if (pid == -1)
 		twl_dprintf(2, "cannot fork: %s", strerror(errno));
 	else if (pid == 0)
@@ -32,11 +31,12 @@ static void		fork_and_execute(char *path, char **args, char **env)
 	{
 		signal(SIGINT, SIG_IGN);
 		signal(SIGKILL, SIG_IGN);
-		wait(&pid);
+		wait(&res);
 		signal(SIGINT, SIG_DFL);
 		signal(SIGKILL, SIG_DFL);
-		handle_signal(pid);
-		enviro->info.last_exit_status = pid;
+		handle_signal(res);
+    	if (WIFEXITED(res))
+			environment_singleton()->info.last_exit_status = WEXITSTATUS(res);
 	}
 }
 

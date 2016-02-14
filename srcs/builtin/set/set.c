@@ -58,7 +58,7 @@ int				set(char *str, t_environment *env)
 		else if (twl_lst_len(opt->positive_opts) == 0 && opt->negative_opts == 0)
 		{
 			environment_print_all(env);
-			environment_set_last_exit_status_2(env, BUILTIN_EXEC_SUCCESS);
+			COUCOU;environment_set_last_exit_status_2(env, BUILTIN_EXEC_SUCCESS);
 		}
 	}
 	set_opt_del(opt);
