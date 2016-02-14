@@ -29,6 +29,6 @@ int					readonly(char *str, t_environment *env)
 	}
 	twl_arr_del(arr, &free);
 	twl_opt_del(opt);
-	COUCOU;environment_set_last_exit_status_2(env, BUILTIN_EXEC_SUCCESS);
+	environment_set_last_exit_status_2(env, BUILTIN_EXEC_SUCCESS);
 	return (BUILTIN_EXEC_SUCCESS);
 }

@@ -69,12 +69,9 @@ then
 
     for CASE_PATH in $TESTS_ROOT_PATH/*; do
         if [ -d "${CASE_PATH}" ]; then
-            for TEST_PATH in $CASE_PATH/*; do
+            for TEST_PATH in $CASE_PATH/*_spec.sh; do
                 if [ -f "${TEST_PATH}" ]; then
-                    if [[ ${TEST_PATH} != *"TO_BE_FIXED"* ]]
-                    then
-                        diff_test `basename $CASE_PATH` `basename $TEST_PATH`
-                    fi
+                    diff_test `basename $CASE_PATH` `basename $TEST_PATH`
                 fi
             done
         fi

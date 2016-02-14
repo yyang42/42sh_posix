@@ -16,6 +16,6 @@ bool		builtin_true(char *str, t_environment *env)
 {
 	(void)str;
 	(void)env;
-	COUCOU;environment_set_last_exit_status_2(env, BUILTIN_EXEC_SUCCESS);
+	environment_set_last_exit_status_2(env, BUILTIN_EXEC_SUCCESS);
 	return (true);
 }

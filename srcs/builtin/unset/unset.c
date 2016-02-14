@@ -52,7 +52,7 @@ int				unset(char *str, t_environment *env)
 		else
 			flag = check_flags(env, opt);
 	}
-	COUCOU;environment_set_last_exit_status_2(env, flag);
+	environment_set_last_exit_status_2(env, flag);
 	twl_arr_del(arr, &free);
 	twl_opt_del(opt);
 	return (flag);
