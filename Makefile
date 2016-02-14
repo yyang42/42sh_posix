@@ -90,13 +90,13 @@ check_unit:
 	make -C tests/unit
 
 check_use_case:
-	sh tests/use_case_diff_tests/use_case_diff_tests.sh
+	bash tests/use_case_diff_tests/use_case_diff_tests.sh
 
 check_exit_code:
-	sh tests/exit_code_diff_tests/exit_code_diff_tests.sh
+	bash tests/exit_code_diff_tests/exit_code_diff_tests.sh
 
 check_ast:
-	sh tests/ast_diff_tests/ast_diff_tests.sh
+	bash tests/ast_diff_tests/ast_diff_tests.sh
 
 check_ast_last:
 	LAST_ONLY=1 sh tests/ast_diff_tests/ast_diff_tests.sh

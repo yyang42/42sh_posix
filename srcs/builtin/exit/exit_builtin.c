@@ -10,34 +10,30 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_H
-# define BUILTIN_H
+#include "twl_stdlib.h"
 
-# include "twl_arr.h"
-# include "twl_opt.h"
-# include "twl_stdio.h"
-# include "environment.h"
-# include "cd.h"
-# include "echo.h"
-# include "env.h"
-# include "export.h"
-# include "set.h"
-# include "unset.h"
-# include "alias.h"
-# include "umask.h"
-# include "times.h"
-# include "eval.h"
-# include "dot.h"
-# include "readonly.h"
-# include "shift.h"
-# include "builtin/exit.h"
-# include "ast/nodes/ast_simple_command.h"
+#include "exit.h"
 
-# define BUILTIN_EXEC_SUCCESS 0
-# define BUILTIN_EXEC_FAILURE 1
+int					exit_builtin(char *str, t_environment *this)
+{
+	char			*arg_str;
+	int				exit_code;
 
-int				check_invalid_opts(t_opt *opt, char *exe_name, char *flags);
-bool			builtin_true(char *str, t_environment *env);
-bool			builtin_false(char *str, t_environment *env);
-
-#endif
+	arg_str = str + ((int)twl_strlen("exit") + 1);
+	if (twl_strlen(arg_str) == 0)
+	{
+		exit_code = 0;
+	}
+	else if (twl_str_is_num(arg_str))
+	{
+		exit_code = twl_atoi(arg_str);
+	}
+	else
+	{
+		twl_dprintf(2, "exit: %s: numeric argument required\n", arg_str);
+		exit_code = 255;
+	}
+	exit(exit_code);
+	return (0);
+	(void)this;
+}
