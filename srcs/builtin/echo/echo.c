@@ -26,7 +26,7 @@ int				echo(char *str, t_environment *this)
 		twl_printf(str + 8);
 	else
 		twl_printf("%s\n", str + 5);
-	COUCOU;environment_set_last_exit_status_2(this, BUILTIN_EXEC_SUCCESS);
+	environment_set_last_exit_status_2(this, BUILTIN_EXEC_SUCCESS);
 	twl_arr_del(arr, &free);
 	twl_opt_del(opt);
 	return (flag);
