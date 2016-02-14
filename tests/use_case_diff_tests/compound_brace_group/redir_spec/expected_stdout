@@ -1,0 +1,6 @@
+--- stdout
+123
+abc
+--- stderr
+ls: xxxxxx: No such file or directory
+---

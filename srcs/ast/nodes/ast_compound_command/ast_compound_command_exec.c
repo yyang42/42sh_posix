@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "ast/nodes/ast_compound_command.h"
+#include "ast/nodes/ast_redir_mgr.h"
+#include "ast/nodes/ast_redir_fd_mgr.h"
 
 static t_compound_command_exec_fn	*get_exec_fns(void)
 {
@@ -30,11 +32,23 @@ static t_compound_command_exec_fn	*get_exec_fns(void)
 	return (fns);
 }
 
+void				ast_compound_command_exec_with_redirs(t_ast_compound_command *this)
+{
+	if (this->command_type == COMPOUND_COMMAND_NONE)
+		return ;
+	if (ast_redir_mgr_check_files(this->redir_items) == false)
+		return ;
+	ast_redir_fd_mgr_init(this->redir_fds, this->redir_items);
+	get_exec_fns()[this->command_type](this->command);
+	// execute_simple_command(this, environment_clone(environment_singleton()));
+	ast_redir_fd_mgr_close(this->redir_fds);
+}
+
 void				ast_compound_command_exec(t_ast_compound_command *this)
 {
 	if (this->command_type != COMPOUND_COMMAND_NONE)
 	{
-		get_exec_fns()[this->command_type](this->command);
-		// ast_redir_exec_list(this->redir_items, depth);
+
+		ast_compound_command_exec_with_redirs(this);
 	}
 }

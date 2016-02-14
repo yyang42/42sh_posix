@@ -48,6 +48,7 @@ typedef struct		s_ast_compound_command
 	void						*command;
 	t_lst						*command_tokens;
 	t_lst						*redir_items;
+	t_lst						*redir_fds;
 }					t_ast_compound_command;
 
 t_ast_compound_command		*ast_compound_command_new(void);
