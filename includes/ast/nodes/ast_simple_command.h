@@ -25,6 +25,7 @@
 # include "environment.h"
 # include "ast/nodes/ast_redir.h"
 # include "ast/nodes/ast_redir_fd.h"
+# include "ast/nodes/ast_redir_fd_mgr.h"
 # include "ast/nodes/ast_simple_command_expan.h"
 # include <pwd.h>
 

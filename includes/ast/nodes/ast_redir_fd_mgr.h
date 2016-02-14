@@ -10,11 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_simple_command.h"
+#ifndef AST_REDIR_FD_MGR_H
+# define AST_REDIR_FD_MGR_H
 
-void		ast_simple_command_redirs(t_ast_simple_command *cmd)
-{
-	ast_redir_fd_mgr_init(cmd->redir_fds, cmd->redir_items);
-	execute_simple_command(cmd, environment_clone(environment_singleton()));
-	ast_redir_fd_mgr_close(cmd->redir_fds);
-}
+# include "basics.h"
+
+void				ast_redir_fd_mgr_init(t_lst *redir_fds, t_lst *redir_items);
+void				ast_redir_fd_mgr_close(t_lst *redir_fds);
+
+#endif
