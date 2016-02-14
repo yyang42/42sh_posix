@@ -24,16 +24,9 @@
 # include "signals.h"
 # include "environment.h"
 # include "ast/nodes/ast_redir.h"
+# include "ast/nodes/ast_redir_fd.h"
 # include "ast/nodes/ast_simple_command_expan.h"
 # include <pwd.h>
-
-
-typedef struct			s_ast_redir_fd
-{
-	int					fd_save;
-	int					fd_origin;
-	int					fd_file;
-}						t_ast_redir_fd;
 
 typedef struct			s_ast_simple_command
 {
@@ -79,6 +72,5 @@ void					redir_output(t_ast_redir *redir,
 	t_ast_redir_fd *redir_fd);
 void					redir_input_output(t_ast_redir *redir,
 	t_ast_redir_fd *redir_fd);
-void					redir_agreg(t_ast_simple_command *cmd,
-	t_ast_redir *redir, t_ast_redir_fd *redir_fd);
+void					redir_agreg(t_ast_redir *redir, t_lst *redir_fds, t_ast_redir_fd *redir_fd);
 #endif

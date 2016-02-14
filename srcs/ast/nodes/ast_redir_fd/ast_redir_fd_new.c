@@ -10,22 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_simple_command.h"
+#include "ast/nodes/ast_redir_fd.h"
 
-void	redir_agreg(t_ast_redir *redir, t_lst *redir_fds,
-	t_ast_redir_fd *redir_fd)
+t_ast_redir_fd			*ast_redir_fd_new(void)
 {
-	t_ast_redir_fd *redir_fd2;
+	t_ast_redir_fd		*ast_redir_fd;
 
-	redir_fd2 = ast_redir_fd_new();
-	redir_fd->fd_save = dup(STDOUT_FILENO);
-	redir_fd->fd_origin = STDOUT_FILENO;
-	redir_fd2->fd_save = dup(STDERR_FILENO);
-	redir_fd2->fd_origin = STDERR_FILENO;
-	redir_fd->fd_file = create_file(redir->param);
-	redir_fd2->fd_file = create_file(redir->param);
-	dup_fds(redir_fd->fd_file, redir_fd->fd_origin);
-	dup_fds(redir_fd2->fd_file, redir_fd2->fd_origin);
-	twl_lst_push_front(redir_fds, redir_fd);
-	twl_lst_push_front(redir_fds, redir_fd2);
+	ast_redir_fd = twl_malloc_x0(sizeof(t_ast_redir_fd));
+	return (ast_redir_fd);
 }
