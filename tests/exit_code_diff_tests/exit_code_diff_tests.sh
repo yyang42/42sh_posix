@@ -58,7 +58,7 @@ diff_test ()
 
     print_result "$exec_res" exec
     print_result "$exit_code_res" exit_code
-    echo "./42sh -y tests/exit_code_diff_tests/$testsuite/$testcase/input.sh"
+    echo "./42sh tests/exit_code_diff_tests/$testsuite/$testcase"
 }
 
 echo $C_CYAN"====== START AST DIFF TESTS ======"$C_CLEAR
