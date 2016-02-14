@@ -15,9 +15,10 @@
 t_arexp				*arexp_new(char *input)
 {
 	t_arexp			*arexp;
-	t_lst			*tokens;
+//	t_lst			*tokens;
 
 	arexp = twl_malloc_x0(sizeof(t_arexp));
-	ast->tokens = tokenizer_tokenize_arexp(input);
+	//ast->tokens = tokenizer_tokenize_arexp(input);
 	return (arexp);
+	(void) input;
 }
