@@ -39,4 +39,7 @@ void				ast_while_clause_print_rec_void(void *ast_while_clause, int depth);
 
 bool				ast_while_clause_is_own_type(t_lst *tokens);
 
+void				ast_while_clause_exec(t_ast_while_clause *this);
+void				ast_while_clause_exec_void(void *this);
+
 #endif
