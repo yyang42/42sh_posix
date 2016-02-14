@@ -13,8 +13,18 @@
 #include "ast/nodes/ast_if_then.h"
 #include "ast/nodes/ast_for_clause.h"
 
+static void			iter_wordlist_fn(void *word_token_, void *this_)
+{
+	t_ast_for_clause	*this;
+	t_token				*word_token;
+
+	this = this_;
+	word_token = word_token_;
+	environment_setenv_value(environment_singleton(), this->name, word_token->text, 1);
+	ast_compound_list_exec(this->do_group);
+}
+
 void				ast_for_clause_exec(t_ast_for_clause *this)
 {
-	twl_printf("ast_for_clause_exec not implented yet\n");
-	(void)this;
+	twl_lst_iter(this->wordlist, iter_wordlist_fn, this);
 }
