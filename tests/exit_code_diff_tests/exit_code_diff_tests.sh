@@ -71,7 +71,7 @@ then
         if [ -d "${CASE_PATH}" ]; then
             for TEST_PATH in $CASE_PATH/*; do
                 if [ -f "${TEST_PATH}" ]; then
-                    if [[ ${TEST_PATH} != *"TO_BE_FIXED"* ]]
+                    if test "${TEST_PATH#*TO_BE_FIXED}" == "$TEST_PATH"
                     then
                         diff_test `basename $CASE_PATH` `basename $TEST_PATH`
                     fi
