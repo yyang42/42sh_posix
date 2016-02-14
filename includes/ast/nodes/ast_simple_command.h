@@ -64,7 +64,7 @@ bool					ast_simple_command_check_files(t_ast_simple_command *c);
 void					ast_simple_command_redirs(t_ast_simple_command *cmd);
 void					execute_simple_command(t_ast_simple_command *cmd,
 	t_environment *env);
-void					command_execution(char *path, char **args, char **env);
+void					ast_simple_command_execution(char *path, char **args, char **env);
 int						get_duplication_fd(char *str);
 bool					is_valid_duplicate_fd(int fd);
 t_dict					*get_builtin_func_dict(void);

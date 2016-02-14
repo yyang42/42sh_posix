@@ -40,7 +40,7 @@ static void		fork_and_execute(char *path, char **args, char **env)
 	}
 }
 
-void			command_execution(char *path, char **args, char **env)
+void			ast_simple_command_execution(char *path, char **args, char **env)
 {
 	if (file_exists(path))
 	{

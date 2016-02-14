@@ -60,7 +60,7 @@ void		execute_simple_command(t_ast_simple_command *cmd,
 		if (!is_builtin(cmd_arr[0]))
 		{
 			path = get_binary_path(cmd_arr[0], env);
-			command_execution(path, cmd_arr, env_arr);
+			ast_simple_command_execution(path, cmd_arr, env_arr);
 			free(path);
 		}
 		else
