@@ -58,7 +58,10 @@ then
         if [ -d "${CASE_PATH}" ]; then
             for TEST_PATH in $CASE_PATH/*; do
                 if [ -d "${TEST_PATH}" ]; then
-                    diff_test `basename $CASE_PATH` `basename $TEST_PATH`
+                    if [[ ${TEST_PATH} != *"TO_BE_FIXED"* ]]
+                    then
+                        diff_test `basename $CASE_PATH` `basename $TEST_PATH`
+                    fi
                 fi
             done
         fi
