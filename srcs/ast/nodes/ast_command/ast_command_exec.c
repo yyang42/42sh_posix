@@ -18,6 +18,6 @@ void				ast_command_exec(t_ast_command *this)
 		ast_simple_command_exec(this->command);
 	else if (this->command_type == COMMAND_COMPOUND_COMMAND)
 		ast_compound_command_exec(this->command);
-	// else if (this->command_type == COMMAND_FUNCTION_DEF)
-	// 	return (ast_function_def_exec(this->command));
+	else if (this->command_type == COMMAND_FUNCTION_DEF)
+		return (ast_function_def_exec(this->command));
 }

@@ -43,8 +43,10 @@ static void			ast_simple_command_create_file(t_ast_simple_command *this)
 
 static void			ast_command_create_file(t_ast_command *this)
 {
-	if (this->command_type != COMMAND_COMPOUND_COMMAND)
+	if (this->command_type == COMMAND_SIMPLE_COMMAND)
+	{
 		ast_simple_command_create_file(this->command);
+	}
 }
 
 static void			iter_pipe_fn(void *ast_pipe_item_, void *nothing_)

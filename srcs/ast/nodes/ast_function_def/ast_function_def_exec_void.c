@@ -10,33 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_FUNCTION_DEF_H
-# define AST_FUNCTION_DEF_H
+#include "ast/nodes/ast_function_def.h"
 
-# include "basics.h"
-
-# include "token/token_mgr.h"
-# include "ast/ast_utils.h"
-# include "ast/ast_defines.h"
-
-struct s_ast_compound_command;
-
-typedef struct		s_ast_function_def
+void				ast_function_def_exec_void(void *this)
 {
-	void							*name;
-	struct s_ast_compound_command	*compound_command;
-	t_lst							*redir_items;
-}					t_ast_function_def;
-
-t_ast_function_def	*ast_function_def_new(void);
-void				ast_function_def_del(t_ast_function_def *ast_function_def);
-
-t_ast_function_def	*ast_function_def_new_from_tokens(t_lst *tokens, struct s_ast *ast);
-void				ast_function_def_print_rec(t_ast_function_def *ast_function_def, int depth);
-
-bool				ast_function_def_is_own_type(t_lst *tokens);
-
-void				ast_function_def_exec(t_ast_function_def *this);
-void				ast_function_def_exec_void(void *this);
-
-#endif
+	ast_function_def_exec(this);
+}

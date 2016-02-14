@@ -1,0 +1,4 @@
+fn () {
+	echo abc
+}
+fn
