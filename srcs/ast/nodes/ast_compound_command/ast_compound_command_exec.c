@@ -30,13 +30,11 @@ static t_compound_command_exec_fn	*get_exec_fns(void)
 	return (fns);
 }
 
-int					ast_compound_command_exec(t_ast_compound_command *this)
+void				ast_compound_command_exec(t_ast_compound_command *this)
 {
 	if (this->command_type != COMPOUND_COMMAND_NONE)
 	{
 		get_exec_fns()[this->command_type](this->command);
 		// ast_redir_exec_list(this->redir_items, depth);
 	}
-	(void)this;
-	return (0);
 }

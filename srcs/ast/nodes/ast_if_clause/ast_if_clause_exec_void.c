@@ -13,7 +13,7 @@
 #include "ast/nodes/ast_if_then.h"
 #include "ast/nodes/ast_if_clause.h"
 
-int					ast_if_clause_exec_void(void *this)
+void				ast_if_clause_exec_void(void *this)
 {
-	return (ast_if_clause_exec(this));
+	ast_if_clause_exec(this);
 }

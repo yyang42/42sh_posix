@@ -13,19 +13,25 @@
 #include "ast/nodes/ast_if_then.h"
 #include "ast/nodes/ast_if_clause.h"
 
-int					ast_if_clause_exec(t_ast_if_clause *this)
+void				ast_if_clause_exec(t_ast_if_clause *this)
 {
 	t_lst			*if_then_list;
 	t_ast_if_then	*if_then;
+	int				already_exec;
 
+	already_exec = false;
 	if_then_list = twl_lst_copy(this->if_then_list, NULL);
 	while ((if_then = twl_lst_pop_front(if_then_list)))
 	{
 		ast_compound_list_exec(if_then->cond_compound);
-		twl_lprintf("if then ret %d\n", environment_get_last_exit_status());
+		if (environment_get_last_exit_status() == 0)
+		{
+			ast_compound_list_exec(if_then->then_compound);
+			already_exec = true;
+			break ;
+		}
 	}
-	twl_lprintf("[exec if clause]\n");
-	(void)this;
+	if (!already_exec && this->else_body)
+		ast_compound_list_exec(this->else_body);
 	twl_lst_del(if_then_list, NULL);
-	return (1);
 }
