@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "export.h"
+#include "builtin/export.h"
 
 int					export(char *str, t_environment *env)
 {

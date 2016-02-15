@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin.h"
+#include "builtin/builtin.h"
 
 bool		builtin_true(char *str, t_environment *env)
 {

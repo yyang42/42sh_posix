@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "export.h"
+#include "builtin/export.h"
 #include "environment.h"
 #include "twl_opt.h"
 #include "twl_lst.h"

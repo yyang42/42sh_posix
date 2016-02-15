@@ -16,7 +16,7 @@
 # include <sys/stat.h>
 # include <sys/types.h>
 # include "basics.h"
-# include "builtin.h"
+# include "builtin/builtin.h"
 # include "twl_opt.h"
 # include "twl_opt_elem.h"
 # include "error.h"

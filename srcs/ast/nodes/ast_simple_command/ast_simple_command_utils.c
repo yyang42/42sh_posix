@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "ast/nodes/ast_simple_command.h"
-#include "builtin.h"
+#include "builtin/builtin.h"
 
 void			dup_fds(int fd1, int fd2)
 {

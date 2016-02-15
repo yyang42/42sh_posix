@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "umask.h"
+#include "builtin/umask.h"
 
 void		agou_loop(t_parse_mask *pm)
 {

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "eval.h"
+#include "builtin/eval.h"
 #include "ast/ast.h"
 #include "ast/nodes/ast_compound_list.h"
 

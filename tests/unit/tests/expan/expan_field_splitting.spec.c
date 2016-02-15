@@ -2,8 +2,8 @@
 
 #include "basics.h"
 #include "environment.h"
-#include "export.h"
-#include "unset.h"
+#include "builtin/export.h"
+#include "builtin/unset.h"
 #include "expan/expan_field_splitting.h"
 
 static void simple_unset_ifs_test(t_test *test)

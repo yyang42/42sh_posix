@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cd.h"
+#include "builtin/cd.h"
 
 static bool	is_dir_or_symlink(char *path)
 {

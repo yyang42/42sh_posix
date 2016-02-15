@@ -15,7 +15,7 @@
 
 # include "basics.h"
 # include "twl_opt.h"
-# include "builtin.h"
+# include "builtin/builtin.h"
 
 # define ECHO_OPT_VALID_OPTS "n"
 

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "alias.h"
+#include "builtin/alias.h"
 
 static void		print_key_value(char *key, void *data, void *context_)
 {

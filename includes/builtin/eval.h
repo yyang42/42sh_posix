@@ -13,7 +13,7 @@
 #ifndef EVAL_H
 # define EVAL_H
 
-# include "builtin.h"
+# include "builtin/builtin.h"
 
 int					eval_builtin(char *str, t_environment *env);
 

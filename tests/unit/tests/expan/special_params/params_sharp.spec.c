@@ -2,7 +2,7 @@
 
 #include "environment.h"
 #include "expan/expan_exec.h"
-#include "set.h"
+#include "builtin/set.h"
 
 static void simple_test(t_test *test)
 {
