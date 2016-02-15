@@ -30,7 +30,7 @@ static void 	unset_func(t_test *test)
 	(void)test;
 	env = environment_new();
 	environment_init(env);
-	environment_add_shell_func(env,"LOL", "echo pouet");
+	environment_add_shell_func(env,"LOL", (void *)"echo pouet");
 	i = twl_dict_len(env->shell_func);
 	unset("unset LOL", env);
 	j = twl_dict_len(env->shell_func);
@@ -50,7 +50,7 @@ static void 	unset_var_not_func(t_test *test)
 	env = environment_new();
 	environment_init(env);
 	export("export LOL=pouet", env);
-	environment_add_shell_func(env,"LOL", "echo pouet");
+	environment_add_shell_func(env,"LOL", (void *)"echo pouet");
 	i = twl_dict_len(env->shell_func);
 	k = twl_lst_len(env->env_vars);
 	unset("unset LOL", env);
@@ -73,7 +73,7 @@ static void 	unset_both(t_test *test)
 	env = environment_new();
 	environment_init(env);
 	export("export LOL=pouet", env);
-	environment_add_shell_func(env,"LOL", "echo pouet");
+	environment_add_shell_func(env,"LOL", (void *)"echo pouet");
 	i = twl_dict_len(env->shell_func);
 	k = twl_lst_len(env->env_vars);
 	unset("unset LOL", env);

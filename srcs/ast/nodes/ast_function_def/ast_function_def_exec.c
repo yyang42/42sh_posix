@@ -11,9 +11,10 @@
 /* ************************************************************************** */
 
 #include "ast/nodes/ast_function_def.h"
+#include "environment.h"
 
 void				ast_function_def_exec(t_ast_function_def *this)
 {
-	twl_printf("function def not impl\n");
-	(void)this;
+	environment_add_shell_func(environment_singleton(), this->name,
+												this->compound_command);
 }
