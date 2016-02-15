@@ -2,8 +2,8 @@
 
 #include "environment.h"
 #include "expan/expan_exec.h"
-#include "set.h"
-#include "export.h"
+#include "builtin/set.h"
+#include "builtin/export.h"
 
 static void simple_star(t_test *test)
 {

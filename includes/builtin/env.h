@@ -15,9 +15,9 @@
 
 # include <sys/stat.h>
 # include <sys/types.h>
-# include "builtin.h"
+# include "builtin/builtin.h"
 # include "environment.h"
-# include "env.h"
+# include "builtin/env.h"
 # include "utils.h"
 # include "twl_arr.h"
 # include "twl_opt.h"

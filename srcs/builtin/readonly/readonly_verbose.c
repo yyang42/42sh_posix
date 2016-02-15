@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "readonly.h"
+#include "builtin/readonly.h"
 #include "environment.h"
 #include "twl_opt.h"
 #include "twl_lst.h"

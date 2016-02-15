@@ -1,7 +1,7 @@
 #include <project.h>
 
 #include "environment.h"
-#include "shift.h"
+#include "builtin/shift.h"
 #include "xopt.h"
 #include <stdlib.h>
 

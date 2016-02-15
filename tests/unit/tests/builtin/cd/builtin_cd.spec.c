@@ -1,11 +1,11 @@
 #include <project.h>
 
-#include "env.h"
+#include "builtin/env.h"
 #include "environment.h"
 #include <stdlib.h>
 #include <string.h>
 #include "twl_stdio.h"
-#include "cd.h"
+#include "builtin/cd.h"
 #include <unistd.h>
 
 static void test_cd_without_args(t_test *test)

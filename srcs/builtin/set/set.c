@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "set.h"
+#include "builtin/set.h"
 
 static void		remove_shell_flags(void *data, void *context, void *args_)
 {

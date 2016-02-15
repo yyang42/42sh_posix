@@ -1,8 +1,8 @@
 #include <project.h>
 
 #include "environment.h"
-#include "set.h"
-#include "export.h"
+#include "builtin/set.h"
+#include "builtin/export.h"
 
 static void     simple_test(t_test *test)
 {

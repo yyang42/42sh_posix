@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "alias.h"
+#include "builtin/alias.h"
 
 char			*get_alias(char *key, t_environment *this)
 {

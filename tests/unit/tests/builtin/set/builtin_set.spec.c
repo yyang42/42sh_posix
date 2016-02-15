@@ -1,7 +1,7 @@
 #include <project.h>
 
 #include "environment.h"
-#include "set.h"
+#include "builtin/set.h"
 #include "xopt.h"
 #include <stdlib.h>
 

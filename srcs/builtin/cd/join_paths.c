@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cd.h"
+#include "builtin/cd.h"
 
 char		*join_pwd_to_path(char *dirname)
 {

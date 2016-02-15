@@ -1,7 +1,7 @@
 #include <project.h>
 
 #include "environment.h"
-#include "set.h"
+#include "builtin/set.h"
 #include "expan/expan_exec.h"
 
 static void simple_test(t_test *test)

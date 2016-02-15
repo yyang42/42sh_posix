@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin.h"
+#include "builtin/builtin.h"
 
 int				check_invalid_opts(t_opt *opt, char *exe_name, char *flags)
 {

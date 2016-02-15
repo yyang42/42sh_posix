@@ -12,7 +12,7 @@
 
 #include "twl_stdlib.h"
 
-#include "exit.h"
+#include "builtin/exit.h"
 
 int					exit_builtin(char *str, t_environment *this)
 {

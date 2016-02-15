@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cd.h"
+#include "builtin/cd.h"
 
 static char	*get_dirname_from_arg(t_opt *opt, t_environment *this)
 {

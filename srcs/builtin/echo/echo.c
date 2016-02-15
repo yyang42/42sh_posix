@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "echo.h"
+#include "builtin/echo.h"
 
 int				echo(char *str, t_environment *this)
 {

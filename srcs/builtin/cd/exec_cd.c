@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cd.h"
+#include "builtin/cd.h"
 
 static void	set_oldpwd(t_environment *env)
 {

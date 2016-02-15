@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shift.h"
+#include "builtin/shift.h"
 #include "twl_stdlib.h"
 
 static void		shift_action(t_environment *env, t_opt *opt)
