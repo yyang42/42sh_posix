@@ -19,6 +19,6 @@ void				environment_add_shell_func(t_environment *env,
 {
 	if (key)
 	{
-		twl_dict_add(env->shell_func, key, data);
+		twl_dict_set(env->shell_func, key, data, NULL);
 	}
 }
