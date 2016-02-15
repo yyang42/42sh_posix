@@ -64,7 +64,7 @@ void		execute_simple_command(t_ast_simple_command *cmd,
 		}
 		else if (environment_get_shell_func(env, cmd_arr[0]))
 		{
-			ast_simple_command_exec_function(cmd, env, cmd_arr + 1,
+			ast_simple_command_exec_function(cmd, env, cmd_arr,
 								environment_get_shell_func(env, cmd_arr[0]));
 		}
 		else

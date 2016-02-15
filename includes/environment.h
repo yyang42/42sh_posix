@@ -22,6 +22,7 @@
 
 # define READ_ONLY 1
 # define NOT_READ_ONLY 0
+# define DEFAULT_FUNCTION_MAX_RECURSION_DEPTH 1000
 
 typedef enum				e_environment_var_type
 {
@@ -46,6 +47,7 @@ typedef struct				s_environment
 	t_dict					*alias;
 	t_dict					*flag_verbose;
 	t_dict					*shell_func;
+	int						function_depth;
 	t_environment_info		info;
 }							t_environment;
 
