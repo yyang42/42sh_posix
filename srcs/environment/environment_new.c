@@ -36,5 +36,6 @@ t_environment			*environment_new(void)
 	this->pos_params = twl_lst_new();
 	this->flags = twl_lst_new();
 	this->info.name = NULL;
+	this->function_depth = 0;
 	return (this);
 }

@@ -57,17 +57,27 @@ void		execute_simple_command(t_ast_simple_command *cmd,
 	env_arr = (char **)environment_get_env_arr(env);
 	if (cmd_arr[0])
 	{
-		if (!is_builtin(cmd_arr[0]))
+		if (is_builtin(cmd_arr[0]))
+		{
+			execute_builtin(cmd, cmd_arr[0], token_joined, env);
+
+		}
+		else if (environment_get_shell_func(env, cmd_arr[0]))
+		{
+			ast_simple_command_exec_function(cmd, env, cmd_arr,
+								environment_get_shell_func(env, cmd_arr[0]));
+		}
+		else
 		{
 			path = get_binary_path(cmd_arr[0], env);
 			ast_simple_command_execution(path, cmd_arr, env_arr);
 			free(path);
 		}
-		else
-			execute_builtin(cmd, cmd_arr[0], token_joined, env);
 	}
 	else
+	{
 		error_command_not_found("");
+	}
 	// twl_arr_del(cmd_arr, free); //TODO: probleme avec ce free
 	twl_arr_del(env_arr, free);
 	free(token_joined);

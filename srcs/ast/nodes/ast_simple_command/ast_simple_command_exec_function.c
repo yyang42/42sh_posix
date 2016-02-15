@@ -10,33 +10,31 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_FUNCTION_DEF_H
-# define AST_FUNCTION_DEF_H
+#include "ast/nodes/ast_simple_command.h"
+#include "ast/nodes/ast_compound_command.h"
 
-# include "basics.h"
-
-# include "token/token_mgr.h"
-# include "ast/ast_utils.h"
-# include "ast/ast_defines.h"
-
-struct s_ast_compound_command;
-
-typedef struct		s_ast_function_def
+static void			exit_if_function_max_depth_reached(t_environment *env,
+	char **cmd_arr)
 {
-	void							*name;
-	struct s_ast_compound_command	*compound_command;
-	t_lst							*redir_items;
-}					t_ast_function_def;
+	if (env->function_depth > DEFAULT_FUNCTION_MAX_RECURSION_DEPTH)
+	{
+		twl_dprintf(2, "%s: maximum nested function level reached\n", cmd_arr[0]);
+		exit(1);
+	}
+}
 
-t_ast_function_def	*ast_function_def_new(void);
-void				ast_function_def_del(t_ast_function_def *ast_function_def);
+void				ast_simple_command_exec_function(t_ast_simple_command *this,
+									t_environment *env, char **cmd_arr,
+									struct s_ast_compound_command *compound_cmd)
+{
+	t_lst			*pos_params_original;
 
-t_ast_function_def	*ast_function_def_new_from_tokens(t_lst *tokens, struct s_ast *ast);
-void				ast_function_def_print_rec(t_ast_function_def *ast_function_def, int depth);
-
-bool				ast_function_def_is_own_type(t_lst *tokens);
-
-void				ast_function_def_exec(t_ast_function_def *this);
-void				ast_function_def_exec_void(void *this);
-
-#endif
+	pos_params_original = env->pos_params;
+	env->pos_params = twl_arr_to_lst(cmd_arr + 1);
+	env->function_depth++;
+	exit_if_function_max_depth_reached(env, cmd_arr);
+	ast_compound_command_exec(compound_cmd);
+	twl_lst_del(env->pos_params, free);
+	env->pos_params = pos_params_original;
+	(void)this;
+}

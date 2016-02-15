@@ -15,10 +15,10 @@
 #include "twl_opt_elem.h"
 
 void				environment_add_shell_func(t_environment *env,
-														char *key, char *data)
+							char *key, struct s_ast_compound_command *data)
 {
 	if (key)
 	{
-		twl_dict_add(env->shell_func, key, data);
+		twl_dict_set(env->shell_func, key, data, NULL);
 	}
 }

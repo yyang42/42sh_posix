@@ -22,6 +22,7 @@
 
 # define READ_ONLY 1
 # define NOT_READ_ONLY 0
+# define DEFAULT_FUNCTION_MAX_RECURSION_DEPTH 1000
 
 typedef enum				e_environment_var_type
 {
@@ -46,6 +47,7 @@ typedef struct				s_environment
 	t_dict					*alias;
 	t_dict					*flag_verbose;
 	t_dict					*shell_func;
+	int						function_depth;
 	t_environment_info		info;
 }							t_environment;
 
@@ -92,10 +94,6 @@ char						*environment_concat_pos_param_char(t_environment
 t_environment_var			*environment_setenv_or_setlocal__(t_environment
 	*this, char *str, t_environment_var_type type);
 t_environment_var			*environment_get(t_environment *this, char *key);
-void						environment_remove_shell_func(t_environment *env,
-																	char *key);
-void						environment_add_shell_func(t_environment *env,
-														char *key, char *data);
 void						**environment_get_env_arr(t_environment *this);
 int							environment_get_last_exit_status(void);
 void						environment_set_last_exit_status(int status);
@@ -103,5 +101,17 @@ void						environment_set_last_exit_status_2(t_environment *e,
 																	int status);
 char						*environment_get_pos_param_at(t_environment *env,
 	size_t index);
+
+/*
+** SHELL FUNCTIONS
+*/
+struct s_ast_compound_command;
+
+void						environment_remove_shell_func(t_environment *env,
+																	char *key);
+void						environment_add_shell_func(t_environment *env,
+								char *key, struct s_ast_compound_command *data);
+struct s_ast_compound_command	*environment_get_shell_func(t_environment *env,
+														char *key);
 
 #endif

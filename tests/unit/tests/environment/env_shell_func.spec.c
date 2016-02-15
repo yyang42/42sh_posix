@@ -11,9 +11,9 @@ static void add_shell_func(t_test *test)
 	(void)test;
 	env = environment_new();
 	environment_init(env);
-	environment_add_shell_func(env, "lol", "echo pouet");
+	environment_add_shell_func(env, "lol", (void *)"echo pouet");
 	mt_assert(twl_dict_len(env->shell_func) == 1);
-	environment_add_shell_func(env, "pouet", "exec $*");
+	environment_add_shell_func(env, "pouet", (void *)"exec $*");
 	environment_del(env);
 }
 
@@ -24,7 +24,7 @@ static void unset_shell_func(t_test *test)
 	(void)test;
 	env = environment_new();
 	environment_init(env);
-	environment_add_shell_func(env, "lol", "echo pouet");
+	environment_add_shell_func(env, "lol", (void *)"echo pouet");
 	mt_assert(twl_dict_len(env->shell_func) == 1);
 	unset("unset -f lol", env);
 	mt_assert(twl_dict_len(env->shell_func) == 0);
