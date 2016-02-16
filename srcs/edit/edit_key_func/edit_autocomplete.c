@@ -13,60 +13,40 @@
 #include "edit/edit.h"
 #include "edit/cursor.h"
 
-static void			print_fn(void *str)
+static void			printfn(void *edit)
 {
-	twl_printf("%s\n", (char *)str);
+	twl_printf("%s\n", (char *)edit);
 }
 
-static bool			find_fn(void *str, void *cmp_str)
+static bool			check_if_exec_complete(t_edit *edit, t_lst *words)
 {
-	return (twl_str_starts_with(str, cmp_str));
-}
-
-static char			*complete_path(char *cur)
-{
-	char			*cur_path;
-	char			*complete_word;
-	t_lst			*dir_content;
-	t_lst			*match_path;
-	char			*return_path = NULL;
-
-	cur_path = get_path_of_file(cur);
-	if (cur_path == NULL)
-		cur_path = twl_strdup(".");
-	if (twl_strlen(cur_path) == 0)
-		cur_path = twl_strjoinfree(cur_path, ".", 'l');
-	dir_content = read_directory(cur_path);
-	complete_word = get_last_part_of_path(cur);
-	twl_lprintf("%s\n", complete_word);
-	match_path = twl_lst_findall(dir_content, find_fn, complete_word);
-	free(complete_word);
-	if (twl_lst_len(match_path) == 1)
+	if (twl_lst_len(words) == 1)
 	{
-		return_path = twl_strdup(twl_lst_get(match_path, 0));
-		if (!twl_strequ(cur_path, "."))
+		if ((int)twl_strlen(twl_lst_get(words, 0)) >= edit->index)
 		{
-			return_path = twl_joinpath(cur_path, return_path);
+			return (true);
 		}
 	}
-	else if (twl_lst_len(match_path) > 1)
-	{
-		twl_lst_iter0(match_path, print_fn);
-	}
-	twl_lst_del(dir_content, free);
-	twl_lst_del(match_path, NULL);
-	free(cur_path);
-	return return_path;
+	return (false);
 }
 
-static void			print_all_directory_content(void)
+static void			print_directory_content(char *directory)
 {
-	t_lst 			*dir_content;
+	t_lst			*files;
 
-	dir_content = read_directory(".");
-	twl_putstr("\n");
-	twl_lst_iter0(dir_content, print_fn);
-	twl_lst_del(dir_content, free);
+	files = read_directory(directory);
+	twl_printf("\n");
+	twl_lst_iter0(files, printfn);
+	twl_lst_del(files, free);
+}
+
+static void			complete_path(t_edit *edit, t_lst *words)
+{
+	(void)edit;
+	if (twl_lst_len(words) == 1)
+	{
+		print_directory_content(".");
+	}
 }
 
 void				edit_autocomplete(void *_edit)
@@ -74,39 +54,41 @@ void				edit_autocomplete(void *_edit)
 	t_edit			*edit;
 	char			*cur_cmd;
 	t_lst			*words;
-	char			*new_path;
 
 	edit = _edit;
 	cur_cmd = letter_mgr_concat_string(edit->letters);
-	if (twl_str_ends_with(cur_cmd, "  "))
+	words = twl_str_split_to_lst(cur_cmd, " ");
+	if (check_if_exec_complete(edit, words))
 	{
-		print_all_directory_content();
-		free(cur_cmd);
+		twl_lprintf("Binary complete: not yet implemented\n");
 	}
 	else
 	{
-		words = twl_str_split_to_lst(cur_cmd, " \t");
-		free(cur_cmd);
-		if (twl_lst_len(words) == 1)
-		{
-			twl_lprintf("binary + builtin complete: Not yet implemented\n");
-		}
-		else if (twl_lst_len(words) > 1)
-		{
-			new_path = complete_path(twl_lst_get(words, -1));
-			if (new_path)
-			{
-				free(twl_lst_pop(words));
-				cur_cmd = twl_lst_strjoin(words, "/");
-				edit->return_cmd = true;
-				edit_clear_line(edit);
-				edit->return_cmd = false;
-				cur_cmd = twl_strjoinfree(cur_cmd, " ", 'l');
-				cur_cmd = twl_strjoinfree(cur_cmd, new_path, 'b');
-				edit_handle_string(edit, cur_cmd);
-				free(cur_cmd);
-			}
-		}
-		twl_lst_del(words, free);
+		complete_path(edit, words);
 	}
+	twl_lst_del(words, free);
+	free(cur_cmd);
 }
+
+
+/*
+** split cmd to lst
+** check if build-in / bin(lst len == 1 && index == len 1 word)
+** if built-in / bin, complete bin
+** else complete path
+**
+** if lst len == 1
+**	print all current dir content
+** else
+** 	get last word
+**    if is dir
+**      print dir content
+**    else
+**      split path (cur path + search word)
+**      read cur path
+**      filter by search
+**      if filter lst == 1
+**        complete
+** 		else
+**		  print filter list
+*/
