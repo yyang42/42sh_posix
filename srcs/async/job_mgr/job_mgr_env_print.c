@@ -19,7 +19,7 @@
 ** [1]+ 29125 Running                 sleep 99999 && echo abc &
 */
 
-static char			get_next_char(int len, int count)
+static char			*get_next_char(int len, int count)
 {
 	if (count == len)
 		return ("+");
