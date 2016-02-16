@@ -49,6 +49,7 @@ typedef struct				s_environment
 	t_dict					*shell_func;
 	int						function_depth;
 	t_environment_info		info;
+	t_lst					*jobs;
 }							t_environment;
 
 typedef struct				s_environment_var

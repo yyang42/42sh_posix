@@ -10,36 +10,26 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_H
-# define BUILTIN_H
+#ifndef ASYNC_JOB_H
+# define ASYNC_JOB_H
 
-# include "twl_arr.h"
-# include "twl_opt.h"
-# include "twl_stdio.h"
-# include "environment.h"
-# include "builtin/cd.h"
-# include "builtin/echo.h"
-# include "builtin/env.h"
-# include "builtin/export.h"
-# include "builtin/set.h"
-# include "builtin/unset.h"
-# include "builtin/alias.h"
-# include "builtin/umask.h"
-# include "builtin/times.h"
-# include "builtin/eval.h"
-# include "builtin/dot.h"
-# include "builtin/readonly.h"
-# include "builtin/shift.h"
-# include "builtin/exit.h"
-# include "builtin/jobs.h"
+# include "basics.h"
 
-# include "ast/nodes/ast_simple_command.h"
+typedef enum		e_job_status
+{
+	RUNNING,
+	TERMINATED,
+}					t_job_status;
 
-# define BUILTIN_EXEC_SUCCESS 0
-# define BUILTIN_EXEC_FAILURE 1
+typedef struct		s_job
+{
+	int				job_id;
+	int				pid;
+	t_job_status	status;
+	char			*command;
+}					t_job;
 
-int				check_invalid_opts(t_opt *opt, char *exe_name, char *flags);
-bool			builtin_true(char *str, t_environment *env);
-bool			builtin_false(char *str, t_environment *env);
+t_job				*job_new(void);
+void				job_del(t_job *job);
 
 #endif
