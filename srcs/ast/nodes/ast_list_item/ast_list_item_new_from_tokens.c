@@ -17,12 +17,23 @@
 #include "ast/ast.h"
 #include "data.h"
 
+static void			ast_list_item_build_tokens_copy(t_ast_list_item *this, t_lst *tokens)
+{
+	int							slice_len;
+	slice_len = twl_lst_len(this->list_item_tokens) - twl_lst_len(tokens);
+	if (twl_lst_first(tokens) && ast_list_item_is_delimiter(twl_lst_first(tokens)))
+		slice_len++;
+	this->list_item_tokens = twl_lst_slice(this->list_item_tokens, 0, slice_len);
+}
+
 t_ast_list_item		*ast_list_item_new_from_tokens(t_lst *tokens, struct s_ast *ast)
 {
 	t_ast_list_item				*this;
 
 	this = ast_list_item_new();
+	this->list_item_tokens = twl_lst_copy(tokens, NULL);
 	this->ast_andor_items = ast_lap_build_items(tokens, AST_TYPE_ANDOR_ITEM, ast);
+	ast_list_item_build_tokens_copy(this, tokens);
 	(void)ast;
 	(void)tokens;
 	return (this);

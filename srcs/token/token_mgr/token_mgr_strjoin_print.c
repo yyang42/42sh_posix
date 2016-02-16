@@ -10,27 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_list_item.h"
+#include "token/token_mgr.h"
 
-static void			iter_fn(void *ast_andor_item_, void *prev_, void *context_)
+void				token_mgr_strjoin_print(t_lst *tokens, char *sep)
 {
-	t_ast_andor_item	*ast_andor_item;
-	t_ast_andor_item	*prev;
-	t_environment		*env;
+	char			*out;
 
-	ast_andor_item = ast_andor_item_;
-	prev = prev_;
-	env = environment_singleton();
-	if (!prev ||
-	(prev->separator->type == TOKEN_AND_IF && env->info.last_exit_status == 0)
-	|| (prev->separator->type == TOKEN_OR_IF && env->info.last_exit_status > 0))
-	{
-		ast_andor_item_exec(ast_andor_item);
-	}
-	(void)context_;
-}
-
-void				ast_list_item_exec(t_ast_list_item *ast_list_item)
-{
-	twl_lst_iterp(ast_list_item->ast_andor_items, &iter_fn, NULL);
+	out = token_mgr_strjoin(tokens, sep);
+	twl_putstr(out);
+	free(out);
 }

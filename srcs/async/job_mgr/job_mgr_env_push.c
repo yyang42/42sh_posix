@@ -10,27 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_list_item.h"
+#include "async/job_mgr.h"
 
-static void			iter_fn(void *ast_andor_item_, void *prev_, void *context_)
+void				job_mgr_env_push(t_job *job)
 {
-	t_ast_andor_item	*ast_andor_item;
-	t_ast_andor_item	*prev;
-	t_environment		*env;
-
-	ast_andor_item = ast_andor_item_;
-	prev = prev_;
-	env = environment_singleton();
-	if (!prev ||
-	(prev->separator->type == TOKEN_AND_IF && env->info.last_exit_status == 0)
-	|| (prev->separator->type == TOKEN_OR_IF && env->info.last_exit_status > 0))
-	{
-		ast_andor_item_exec(ast_andor_item);
-	}
-	(void)context_;
-}
-
-void				ast_list_item_exec(t_ast_list_item *ast_list_item)
-{
-	twl_lst_iterp(ast_list_item->ast_andor_items, &iter_fn, NULL);
+	twl_lst_push_back(environment_singleton()->jobs, job);
 }
