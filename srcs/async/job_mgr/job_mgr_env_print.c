@@ -22,11 +22,11 @@
 static char			get_next_char(int len, int count)
 {
 	if (count == len)
-		return ('+');
+		return ("+");
 	if (count == len - 1)
-		return ('-');
+		return ("-");
 	else
-		return (' ');
+		return (" ");
 }
 
 static void			iter_fn(void *job_, void *len_ptr, void *count_ptr_)
@@ -38,7 +38,7 @@ static void			iter_fn(void *job_, void *len_ptr, void *count_ptr_)
 	job = job_;
 	len = *(int *)len_ptr;
 	count_ptr = count_ptr_;
-	twl_printf("[%lld]%c ", job->job_id, get_next_char(len, *count_ptr));
+	twl_printf("[%lld]%s ", job->job_id, get_next_char(len, *count_ptr));
 	if (false) // job->pid
 		twl_printf("%d", job->pid);
 	twl_printf(" %-23s %s\n", job_status_str(job), job->cmd_str);

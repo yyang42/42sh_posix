@@ -1,0 +1,4 @@
+[1]   Running                 sleep 0.020 && echo 1 &> /dev/null &
+[2]   Running                 sleep 0.020 && echo 2 &> /dev/null &
+[3]-  Running                 sleep 0.020 && echo 3 &> /dev/null &
+[4]+  Running                 sleep 0.020 && echo 4 &> /dev/null &
