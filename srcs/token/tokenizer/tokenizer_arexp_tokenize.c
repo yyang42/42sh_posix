@@ -10,15 +10,49 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "arexp/arexp.h"
+#include "token/tokenizer.h"
 
-t_arexp				*arexp_new(char *input)
+t_rule_fn			g_tokenizer_rule_fns[1] = {
+					NULL};
+
+static void			set_quoted_status(t_tokenizer *t)
 {
-	t_arexp			*arexp;
-//	t_lst			*tokens;
+	if (*t->curpos == '\\')
+	{
+		t->cur_is_quoted = true;
+		t->curpos++;
+	}
+	else
+	{
+		t->cur_is_quoted = false;
+	}
+}
 
-	arexp = twl_malloc_x0(sizeof(t_arexp));
-	//ast->tokens = tokenizer_tokenize_arexp(input);
-	return (arexp);
-	(void) input;
+t_lst				*tokenizer_arexp_tokenize(char *input)
+{
+	t_rule_status	status;
+	t_tokenizer		*t;
+	int				i;
+	t_lst			*tokens;
+
+	t = tokenizer_new(input);
+	t->tokens = twl_lst_new();
+	status = RULE_STATUS_NONE;
+	while (true)
+	{
+		i = 0;
+		while (g_tokenizer_rule_fns[i])
+		{
+			status = g_tokenizer_rule_fns[i](t);
+			if (status != RULE_STATUS_NOT_APPLIED)
+				break ;
+			i++;
+		}
+		if (status == RULE_STATUS_END_OF_INPUT)
+			break ;
+	}
+	tokens = t->tokens;
+	t->tokens = NULL;
+	tokenizer_del(t);
+	return (tokens);
 }

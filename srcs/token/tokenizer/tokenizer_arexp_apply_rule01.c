@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_norris_loves_the_norminette.h                :+:      :+:    :+:   */
+/*   check_norris_loves_the_norminette.c                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chuck <chuck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,20 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AREXP_H
-# define AREXP_H
+#include "token/tokenizer.h"
 
-# include "basics.h"
-# include "arexp/arexp_basics.h"
-
-typedef struct			s_arexp
+t_rule_status		tokenizer_arexp_apply_rule01(t_tokenizer *this)
 {
-	t_lst				*tokens;
-//	t_arexp_tot			*arexp_tot;
-	char				*error_msg;
-}						t_arexp;
-
-t_arexp					*arexp_new(char *expr);
-void					arexp_del(t_arexp *this);
-
-#endif
+	if (*this->curpos == '\0')
+	{
+		if (*this->curtoken)
+		{
+			tokenizer_arexp_delimit(this);
+		}
+		return (RULE_STATUS_END_OF_INPUT);
+	}
+	return (RULE_STATUS_NOT_APPLIED);
+}

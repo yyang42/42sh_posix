@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_norris_loves_the_norminette.h                :+:      :+:    :+:   */
+/*   check_norris_loves_the_norminette.c                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chuck <chuck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,20 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AREXP_H
-# define AREXP_H
+#include "token/token.h"
 
-# include "basics.h"
-# include "arexp/arexp_basics.h"
-
-typedef struct			s_arexp
+t_token				*token_arexp(char *text)
 {
-	t_lst				*tokens;
-//	t_arexp_tot			*arexp_tot;
-	char				*error_msg;
-}						t_arexp;
+	t_token		*this;
 
-t_arexp					*arexp_new(char *expr);
-void					arexp_del(t_arexp *this);
-
-#endif
+	this = twl_malloc_x0(sizeof(t_token));
+	this->type = token_type_from_str(text);
+	this->text = twl_strdup(text);
+	this->line = line;
+	this->col = col;
+	this->heredoc_text = NULL;
+	return (this);
+}
