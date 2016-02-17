@@ -21,24 +21,12 @@ void				edit_start_stop_cpy(void *_edit)
 		return ;
 	if (edit->copast == NULL)
 	{
-<<<<<<< 26612ca8cdec31f01c4a596d5df1d615262e430d
 		edit->copast = copast_new(edit->index);
 	}
 	else if (edit->copast->has_copy)
 	{
 		copast_del(edit->copast);
 		edit->copast = copast_new(edit->index);
-
-	}
-=======
->>>>>>> line_edition_final: [WIP] copy / paste vim mode - error handling todo
-		edit->copast = copast_new(edit->index);
-	}
-	else if (edit->copast->has_copy)
-	{
-		copast_del(edit->copast);
-		edit->copast = copast_new(edit->index);
-
 	}
 	else
 	{

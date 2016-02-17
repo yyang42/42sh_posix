@@ -19,7 +19,7 @@ void				edit_paste_clip(void *_edit)
 	t_edit			*edit;
 
 	edit = _edit;
-	if (edit->state == SEARCH)
+	if (edit->state == SEARCH || !edit->copast ||!edit->copast->has_copy)
 		return ;
 	letter_mgr_debug_print(edit->copast->clip);
 	twl_lst_insert_lst(edit->letters, edit->index, twl_lst_copy(edit->copast->clip, letter_copy_void));
