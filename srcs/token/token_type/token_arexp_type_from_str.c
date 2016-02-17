@@ -10,37 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "token/tokenizer.h"
+#include "data.h"
 
-t_rule_fn			g_tokenizer_rule_fns[1] = {
-					tokenizer_arexp_rule01,
-					NULL};
+#include "token/token_type_item_mgr.h"
 
-t_lst				*tokenizer_arexp_tokenize(char *input)
+t_token_type		token_type_from_str(char *str)
 {
-	t_rule_status	status;
-	t_tokenizer		*t;
-	int				i;
-	t_lst			*tokens;
+	t_token_type_item	*item;
 
-	t = tokenizer_new(input);
-	t->tokens = twl_lst_new();
-	status = RULE_STATUS_NONE;
-	while (true)
-	{
-		i = 0;
-		while (g_tokenizer_rule_fns[i])
-		{
-			status = g_tokenizer_rule_fns[i](t);
-			if (status != RULE_STATUS_NOT_APPLIED)
-				break ;
-			i++;
-		}
-		if (status == RULE_STATUS_END_OF_INPUT)
-			break ;
-	}
-	tokens = t->tokens;
-	t->tokens = NULL;
-	tokenizer_del(t);
-	return (tokens);
+	item = token_type_item_mgr_get_by_text(data_token_arexp_item_list(), str);
+	if (!item)
+		return (TOKEN_TOKEN);
+	return (item->type);
 }

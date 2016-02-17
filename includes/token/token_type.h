@@ -90,8 +90,6 @@ typedef enum		e_token_type
 	/* ...Things */
 	TOK_AREXP_TILDE,
 	TOK_AREXP_EXC_MARK,
-	TOK_AREXP_INCREMENT,
-	TOK_AREXP_DECREMENT,
 	/* Comparisons */
 	TOK_AREXP_LESS,
 	TOK_AREXP_GREAT,
