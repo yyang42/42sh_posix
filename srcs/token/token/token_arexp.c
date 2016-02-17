@@ -17,10 +17,10 @@ t_token				*token_arexp(char *text)
 	t_token		*this;
 
 	this = twl_malloc_x0(sizeof(t_token));
-	this->type = token_type_from_str(text);
+	this->type = token_arexp_type_from_str(text);
 	this->text = twl_strdup(text);
-	this->line = line;
-	this->col = col;
+	this->line = 0;
+	this->col = 0;
 	this->heredoc_text = NULL;
 	return (this);
 }
