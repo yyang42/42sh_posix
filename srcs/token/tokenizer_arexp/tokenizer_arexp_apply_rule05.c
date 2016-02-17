@@ -10,42 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "twl_ctype.h"
+
 #include "token/tokenizer.h"
 
-t_rule_fn			g_tokenizer_rule_fns[1] = {
-					tokenizer_arexp_rule01,
-					tokenizer_arexp_rule02,
-					tokenizer_arexp_rule03,
-					tokenizer_arexp_rule04,
-					tokenizer_arexp_rule05,
-					tokenizer_arexp_rule06,
-					NULL};
-
-t_lst				*tokenizer_arexp_tokenize(char *input)
+t_rule_status		tokenizer_arexp_apply_rule05(t_tokenizer *t)
 {
-	t_rule_status	status;
-	t_tokenizer		*t;
-	int				i;
-	t_lst			*tokens;
-
-	t = tokenizer_new(input);
-	t->tokens = twl_lst_new();
-	status = RULE_STATUS_NONE;
-	while (true)
+	if (twl_isblank(*t->curpos))
 	{
-		i = 0;
-		while (g_tokenizer_rule_fns[i])
-		{
-			status = g_tokenizer_rule_fns[i](t);
-			if (status != RULE_STATUS_NOT_APPLIED)
-				break ;
-			i++;
-		}
-		if (status == RULE_STATUS_END_OF_INPUT)
-			break ;
+		tokenizer_arexp_delimit(t);
+		t->curpos++;
+		t->cur_col++;
+		return (RULE_STATUS_APPLIED);
 	}
-	tokens = t->tokens;
-	t->tokens = NULL;
-	tokenizer_del(t);
-	return (tokens);
+	return (RULE_STATUS_NOT_APPLIED);
 }
