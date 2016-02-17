@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "twl_xsys/stat.h"
+
 #include "edit/edit.h"
 #include "edit/cursor.h"
 
@@ -30,6 +32,11 @@ static bool			check_if_exec_complete(t_edit *edit, t_lst *words)
 	return (false);
 }
 
+static bool			find_fn(void *str, void *ctx)
+{
+	return (twl_str_starts_with(str, ctx));
+}
+
 static void			print_directory_content(char *directory)
 {
 	t_lst			*files;
@@ -39,13 +46,56 @@ static void			print_directory_content(char *directory)
 	twl_lst_iter0(files, printfn);
 	twl_lst_del(files, free);
 }
+static void			filter_path_and_match(t_edit *edit, char *path)
+{
+	char			*cur_path;
+	char			*match_str;
+	t_lst			*dir_content;
+
+	cur_path = get_path_of_file(path);
+	match_str = get_last_part_of_path(path);
+	if (cur_path && twl_strlen(cur_path))
+	{
+		dir_content = read_directory(cur_path);
+		twl_lst_iter0(twl_lst_findall(dir_content, find_fn, match_str), printfn);
+	}
+	else
+	{
+		dir_content = read_directory(".");
+		twl_lst_iter0(twl_lst_findall(dir_content, find_fn, match_str), printfn);
+	}
+
+	(void)edit;
+}
+
+static void			search_matching_path(t_edit *edit, t_lst *words)
+{
+	char			*search_path;
+
+	search_path = twl_lst_last(words);
+	if (twl_isdirl(search_path))
+	{
+		print_directory_content(search_path);
+		if (!twl_str_ends_with(search_path, "/"))
+		{
+			edit_handle_one_input(edit, '/');
+		}
+	}
+	else
+	{
+		filter_path_and_match(edit, search_path);
+	}
+}
 
 static void			complete_path(t_edit *edit, t_lst *words)
 {
-	(void)edit;
 	if (twl_lst_len(words) == 1)
 	{
 		print_directory_content(".");
+	}
+	else
+	{
+		search_matching_path(edit, words);
 	}
 }
 
