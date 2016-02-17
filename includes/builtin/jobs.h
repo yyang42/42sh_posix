@@ -10,27 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_list_item.h"
+#ifndef BUILTIN_JOBS_H
+# define BUILTIN_JOBS_H
 
-static void			iter_fn(void *ast_andor_item_, void *prev_, void *context_)
-{
-	t_ast_andor_item	*ast_andor_item;
-	t_ast_andor_item	*prev;
-	t_environment		*env;
+# include "basics.h"
+# include "twl_opt.h"
+# include "environment.h"
 
-	ast_andor_item = ast_andor_item_;
-	prev = prev_;
-	env = environment_singleton();
-	if (!prev ||
-	(prev->separator->type == TOKEN_AND_IF && env->info.last_exit_status == 0)
-	|| (prev->separator->type == TOKEN_OR_IF && env->info.last_exit_status > 0))
-	{
-		ast_andor_item_exec(ast_andor_item);
-	}
-	(void)context_;
-}
+int					builtin_jobs(char *str, t_environment *this);
 
-void				ast_list_item_exec(t_ast_list_item *ast_list_item)
-{
-	twl_lst_iterp(ast_list_item->ast_andor_items, &iter_fn, NULL);
-}
+#endif

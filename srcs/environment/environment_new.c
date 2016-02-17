@@ -37,5 +37,6 @@ t_environment			*environment_new(void)
 	this->flags = twl_lst_new();
 	this->info.name = NULL;
 	this->function_depth = 0;
+	this->jobs = twl_lst_new();
 	return (this);
 }

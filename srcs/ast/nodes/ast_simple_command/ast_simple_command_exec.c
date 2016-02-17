@@ -53,7 +53,7 @@ void		execute_simple_command(t_ast_simple_command *cmd,
 	char			*token_joined;
 
 	token_joined = token_mgr_strjoin(cmd->command_tokens, " ");
-	cmd_arr = twl_strsplit(token_joined, ' ');
+	cmd_arr = token_mgr_to_str_arr(cmd->command_tokens);
 	env_arr = (char **)environment_get_env_arr(env);
 	if (cmd_arr[0])
 	{

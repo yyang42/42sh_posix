@@ -28,6 +28,7 @@ void				token_mgr_print_token_text_by_index(t_lst *tokens,
 																	int index);
 
 char				*token_mgr_strjoin(t_lst *tokens, char *sep);
+void				token_mgr_strjoin_print(t_lst *tokens, char *sep);
 char				*token_mgr_strjoin_with_num(t_lst *tokens);
 t_lst				*token_mgr_split_base(t_lst *tokens, t_lst *split_strings,
 												t_openclose_matcher *matcher,
@@ -50,5 +51,7 @@ t_lst				*token_mgr_extract_assignment(t_lst *tokens,
 
 void				token_mgr_pop_linebreak(t_lst *tokens);
 void				token_mgr_pop_linebreak_colon_linebreak(t_lst *tokens);
+
+char				**token_mgr_to_str_arr(t_lst *tokens);
 
 #endif

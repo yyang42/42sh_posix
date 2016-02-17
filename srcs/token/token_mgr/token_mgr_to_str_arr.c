@@ -10,27 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_list_item.h"
+#include "token/token_mgr.h"
 
-static void			iter_fn(void *ast_andor_item_, void *prev_, void *context_)
+static void			print_token_fn(void *token_, void *segs)
 {
-	t_ast_andor_item	*ast_andor_item;
-	t_ast_andor_item	*prev;
-	t_environment		*env;
+	t_token	*token;
 
-	ast_andor_item = ast_andor_item_;
-	prev = prev_;
-	env = environment_singleton();
-	if (!prev ||
-	(prev->separator->type == TOKEN_AND_IF && env->info.last_exit_status == 0)
-	|| (prev->separator->type == TOKEN_OR_IF && env->info.last_exit_status > 0))
-	{
-		ast_andor_item_exec(ast_andor_item);
-	}
-	(void)context_;
+	token = token_;
+	twl_lst_push(segs, token->text);
 }
 
-void				ast_list_item_exec(t_ast_list_item *ast_list_item)
+char				**token_mgr_to_str_arr(t_lst *tokens)
 {
-	twl_lst_iterp(ast_list_item->ast_andor_items, &iter_fn, NULL);
+	t_lst			*segs;
+	char			**arr;
+
+	segs = twl_lst_new();
+	twl_lst_iter(tokens, print_token_fn, segs);
+	arr = (char **)twl_lst_to_arr(segs);
+	twl_lst_del(segs, NULL);
+	return (arr);
 }

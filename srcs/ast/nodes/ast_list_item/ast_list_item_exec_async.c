@@ -11,26 +11,35 @@
 /* ************************************************************************** */
 
 #include "ast/nodes/ast_list_item.h"
+#include "async/job_mgr.h"
 
-static void			iter_fn(void *ast_andor_item_, void *prev_, void *context_)
+static void			ast_list_item_after_fork(t_ast_list_item *this, int pid)
 {
-	t_ast_andor_item	*ast_andor_item;
-	t_ast_andor_item	*prev;
-	t_environment		*env;
+	char			*cmd_str;
+	t_job			*job;
 
-	ast_andor_item = ast_andor_item_;
-	prev = prev_;
-	env = environment_singleton();
-	if (!prev ||
-	(prev->separator->type == TOKEN_AND_IF && env->info.last_exit_status == 0)
-	|| (prev->separator->type == TOKEN_OR_IF && env->info.last_exit_status > 0))
-	{
-		ast_andor_item_exec(ast_andor_item);
-	}
-	(void)context_;
+	cmd_str = token_mgr_strjoin(this->list_item_tokens, " ");
+	job = job_new(pid, cmd_str);
+	job_mgr_env_push(job);
+	free(cmd_str);
 }
 
-void				ast_list_item_exec(t_ast_list_item *ast_list_item)
+void				ast_list_item_exec_async(t_ast_list_item *this)
 {
-	twl_lst_iterp(ast_list_item->ast_andor_items, &iter_fn, NULL);
+	int				pid;
+
+	pid = fork();
+	if (pid == -1)
+	{
+		twl_dprintf(2, "cannot fork: %s", strerror(errno));
+	}
+	else if (pid == 0)
+	{
+		ast_list_item_exec(this);
+		exit(0);
+	}
+	else
+	{
+		ast_list_item_after_fork(this, pid);
+	}
 }

@@ -25,7 +25,6 @@
 typedef struct				s_ast_compound_list
 {
 	t_lst					*ast_list_items;
-
 }							t_ast_compound_list;
 
 t_ast_compound_list			*ast_compound_list_new(void);

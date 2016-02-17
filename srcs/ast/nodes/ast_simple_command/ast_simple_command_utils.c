@@ -80,16 +80,17 @@ t_dict			*get_builtin_func_dict(void)
 	twl_dict_add(dict, "shift", &shift_builtin);
 	twl_dict_add(dict, ".", &dot_builtin);
 	twl_dict_add(dict, "exit", &exit_builtin);
+	twl_dict_add(dict, "jobs", &builtin_jobs);
 	return (dict);
 }
 
 bool			is_builtin(char *cmd)
 {
-	static const char	*builtins[32] = {"echo", "cd", "env", "unsetenv"
+	static const char	*builtins[33] = {"echo", "cd", "env", "unsetenv"
 	, "setenv", "alias", "unalias", "false", "true", "umask", "newgrp", "fc"
 	, "command", "kill", "getopts", "read", "break", "colon", "continue"
 	, "return", "shift", "set", "unset", "export", "setenv", "times"
-	, "eval", ".", "readonly", "exit", NULL};
+	, "eval", ".", "readonly", "exit", "jobs", NULL};
 
 	if (twl_arr_find(builtins, find_bultin, cmd))
 		return (true);

@@ -31,6 +31,8 @@
 # include "builtin/readonly.h"
 # include "builtin/shift.h"
 # include "builtin/exit.h"
+# include "builtin/jobs.h"
+
 # include "ast/nodes/ast_simple_command.h"
 
 # define BUILTIN_EXEC_SUCCESS 0
