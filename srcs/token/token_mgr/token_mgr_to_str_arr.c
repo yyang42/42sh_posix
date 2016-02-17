@@ -10,14 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/jobs.h"
-#include "async/job_mgr.h"
+#include "token/token_mgr.h"
 
-int					builtin_jobs(char *str, t_environment *this)
+static void			print_token_fn(void *token_, void *segs)
 {
-	/* TODO: Not fully implemented yet */
-	job_mgr_env_print();
-	return (0);
-	(void)this;
-	(void)str;
+	t_token	*token;
+
+	token = token_;
+	twl_lst_push(segs, token->text);
+}
+
+char				**token_mgr_to_str_arr(t_lst *tokens)
+{
+	t_lst			*segs;
+	char			**arr;
+
+	segs = twl_lst_new();
+	twl_lst_iter(tokens, print_token_fn, segs);
+	arr = (char **)twl_lst_to_arr(segs);
+	twl_lst_del(segs, NULL);
+	return (arr);
 }

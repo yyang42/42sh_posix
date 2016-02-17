@@ -52,4 +52,6 @@ t_lst				*token_mgr_extract_assignment(t_lst *tokens,
 void				token_mgr_pop_linebreak(t_lst *tokens);
 void				token_mgr_pop_linebreak_colon_linebreak(t_lst *tokens);
 
+char				**token_mgr_to_str_arr(t_lst *tokens);
+
 #endif
