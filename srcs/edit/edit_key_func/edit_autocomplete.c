@@ -20,6 +20,11 @@ static void			printfn(void *edit)
 	twl_printf("%s\n", (char *)edit);
 }
 
+// static void			printlfn(void *edit)
+// {
+// 	twl_lprintf("%s\n", (char *)edit);
+// }
+
 static bool			check_if_exec_complete(t_edit *edit, t_lst *words)
 {
 	if (twl_lst_len(words) == 1)
@@ -46,26 +51,58 @@ static void			print_directory_content(char *directory)
 	twl_lst_iter0(files, printfn);
 	twl_lst_del(files, free);
 }
+
+static void			delete_search_word(t_edit *edit, char *match_str)
+{
+	int 			len;
+
+	len = twl_strlen(match_str);
+	edit->index -= len;
+	while (len > 0)
+	{
+		letter_mgr_remove(edit->letters, twl_lst_len(edit->letters) - 2);
+		len--;
+	}
+}
+
+static void			handle_matches(t_edit *edit, t_lst *matches, char *match_str)
+{
+	if (twl_lst_len(matches) > 1)
+	{
+		twl_printf("\n");
+		twl_lst_iter0(matches, printfn);
+	}
+	else if (twl_lst_len(matches) == 1)
+	{
+		delete_search_word(edit, match_str);
+		edit_handle_string(edit, twl_lst_first(matches));
+
+	}
+	(void)edit;
+}
+
 static void			filter_path_and_match(t_edit *edit, char *path)
 {
 	char			*cur_path;
 	char			*match_str;
 	t_lst			*dir_content;
+	t_lst			*matches;
 
 	cur_path = get_path_of_file(path);
 	match_str = get_last_part_of_path(path);
 	if (cur_path && twl_strlen(cur_path))
 	{
 		dir_content = read_directory(cur_path);
-		twl_lst_iter0(twl_lst_findall(dir_content, find_fn, match_str), printfn);
 	}
 	else
 	{
 		dir_content = read_directory(".");
-		twl_lst_iter0(twl_lst_findall(dir_content, find_fn, match_str), printfn);
 	}
-
-	(void)edit;
+	matches = twl_lst_findall(dir_content, find_fn, match_str);
+	handle_matches(edit, matches, match_str);
+	twl_lst_del(matches, free);
+	free(cur_path);
+	free(match_str);
 }
 
 static void			search_matching_path(t_edit *edit, t_lst *words)
@@ -106,6 +143,8 @@ void				edit_autocomplete(void *_edit)
 	t_lst			*words;
 
 	edit = _edit;
+	if (twl_lst_len(edit->letters) <= 1)
+		return ;
 	cur_cmd = letter_mgr_concat_string(edit->letters);
 	words = twl_str_split_to_lst(cur_cmd, " ");
 	if (check_if_exec_complete(edit, words))

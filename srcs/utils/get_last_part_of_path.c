@@ -23,10 +23,8 @@ char				*get_last_part_of_path(char *str)
 	path_lst = twl_str_split_to_lst(str, "/");
 	if (twl_lst_len(path_lst) > 0)
 	{
-		twl_lst_putstr(path_lst, ", ");
 		path = twl_lst_pop(path_lst);
 		twl_lst_del(path_lst, NULL);
-		twl_lprintf("path: %s\n", path);
 		return (path);
 	}
 	return (str);
