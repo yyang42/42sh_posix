@@ -50,8 +50,6 @@ t_lst				*data_all_arexp_operators(void)
 		twl_lst_push_back(operators, "<<=");
 		twl_lst_push_back(operators, "~");
 		twl_lst_push_back(operators, "!");
-		twl_lst_push_back(operators, "++");
-		twl_lst_push_back(operators, "--");
 		twl_lst_push_back(operators, ">");
 		twl_lst_push_back(operators, "<");
 		twl_lst_push_back(operators, ">=");

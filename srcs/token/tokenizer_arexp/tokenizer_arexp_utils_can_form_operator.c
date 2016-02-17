@@ -10,42 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "data.h"
 #include "token/tokenizer.h"
 
-t_rule_fn			g_tokenizer_rule_fns[1] = {
-					tokenizer_arexp_rule01,
-					tokenizer_arexp_rule02,
-					tokenizer_arexp_rule03,
-					tokenizer_arexp_rule04,
-					tokenizer_arexp_rule05,
-					tokenizer_arexp_rule06,
-					NULL};
-
-t_lst				*tokenizer_arexp_tokenize(char *input)
+static bool			can_form_operator_with_fn(void *op, void *candidate)
 {
-	t_rule_status	status;
-	t_tokenizer		*t;
-	int				i;
-	t_lst			*tokens;
+	return (twl_strncmp(candidate, op, twl_strlen(candidate)) == 0);
+}
 
-	t = tokenizer_new(input);
-	t->tokens = twl_lst_new();
-	status = RULE_STATUS_NONE;
-	while (true)
-	{
-		i = 0;
-		while (g_tokenizer_rule_fns[i])
-		{
-			status = g_tokenizer_rule_fns[i](t);
-			if (status != RULE_STATUS_NOT_APPLIED)
-				break ;
-			i++;
-		}
-		if (status == RULE_STATUS_END_OF_INPUT)
-			break ;
-	}
-	tokens = t->tokens;
-	t->tokens = NULL;
-	tokenizer_del(t);
-	return (tokens);
+bool				tokenizer_arexp_utils_can_form_operator(t_tokenizer *t,
+															char *candidate)
+{
+	if (*candidate == '\0')
+		return (false);
+	return (twl_lst_find(
+		data_all_arexp_operators(), can_form_operator_with_fn, candidate));
+	(void)t;
 }

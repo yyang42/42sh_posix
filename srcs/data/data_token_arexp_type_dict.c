@@ -39,6 +39,7 @@ t_lst				*data_token_arexp_item_list(void)
 		token_type_item_mgr_add(data, "%", TOK_AREXP_MOD);
 		token_type_item_mgr_add(data, "<<", TOK_AREXP_LSHIFT);
 		token_type_item_mgr_add(data, ">>", TOK_AREXP_RSHIFT);
+		token_type_item_mgr_add(data, "=", TOK_AREXP_ASSIGN);
 		token_type_item_mgr_add(data, "|=", TOK_AREXP_ASSIGN_INC_OR);
 		token_type_item_mgr_add(data, "^=", TOK_AREXP_ASSIGN_EXC_OR);
 		token_type_item_mgr_add(data, "&=", TOK_AREXP_ASSIGN_AND);
