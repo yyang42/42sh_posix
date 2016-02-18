@@ -102,6 +102,8 @@ typedef enum		e_token_type
 t_token_type		token_type_from_str(char *str);
 char				*token_type_to_str(t_token_type type);
 
+t_token_type		token_arexp_type_from_str(char *str);
+
 #endif
 
 	// TOKEN_WORD
