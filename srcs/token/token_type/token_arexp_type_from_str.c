@@ -14,7 +14,7 @@
 
 #include "token/token_type_item_mgr.h"
 
-t_token_type		token_type_from_str(char *str)
+t_token_type		token_arexp_type_from_str(char *str)
 {
 	t_token_type_item	*item;
 

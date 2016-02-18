@@ -30,4 +30,7 @@ t_lst				*data_control_operators_nl(void);
 t_lst				*data_reserved_words(void);
 t_lst				*data_reserved_words_middle_end(void);
 
+t_lst				*data_all_arexp_operators(void);
+t_lst				*data_token_arexp_item_list(void);
+
 #endif
