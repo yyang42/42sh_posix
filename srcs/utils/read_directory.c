@@ -10,29 +10,26 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LETTER_MGR_H
-# define LETTER_MGR_H
+#include <dirent.h>
 
-# include "basics.h"
-# include "edit/letter.h"
+#include "utils.h"
+#include "data.h"
 
-t_lst				*letter_mgr_new(void);
-void				letter_mgr_del(t_lst *letters);
-void				letter_mgr_add(t_lst *letters, t_letter *letter,
-															unsigned int index);
-void				letter_mgr_remove(t_lst *letters, int index);
-void				letter_mgr_print(t_lst *letters, int index);
+t_lst				*read_directory(char *path)
+{
+	t_lst			*files;
+	DIR				*dirp;
+	struct dirent	*dp;
 
-size_t				letter_mgr_get_size(t_lst *letters);
-
-char				*letter_mgr_concat_string(t_lst *letters);
-t_lst				*letter_mgr_clear(t_lst *letters);
-
-void				letter_mgr_move_prev_word(t_lst *letters, void *edit_);
-void				letter_mgr_move_next_word(t_lst *letters, void *edit_);
-void				letter_mgr_delete_prev_word(t_lst *letters, void *edit_);
-
-void				letters_mgr_insert_clip(t_lst *letters, int index, t_lst *clip);
-
-void				letter_mgr_debug_print(t_lst *letters);
-#endif
+	dirp = opendir(path);
+	files = twl_lst_new();
+	while ((dp = readdir(dirp)) != NULL)
+	{
+		if (!twl_strequ(dp->d_name, ".") && !twl_strequ(dp->d_name, ".."))
+		{
+			twl_lst_push(files, twl_strdup(dp->d_name));
+		}
+	}
+	closedir(dirp);
+	return (files);
+}

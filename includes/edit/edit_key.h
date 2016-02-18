@@ -31,6 +31,15 @@
 # define CTRL_T 20
 # define CTRL_U 21
 # define CTRL_W 23
+# define RETURN_KEY 10
+# define CTRL_C -1
+# define CTRL_T 20
+# define CTRL_U 21
+# define CTRL_W 23
+# define CTRL_K 11
+# define CTRL_P 16
+# define CTRL_R 18
+# define TAB    9
 
 typedef void		(*key_fn)(void *edit);
 

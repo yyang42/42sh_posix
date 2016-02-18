@@ -10,29 +10,27 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LETTER_MGR_H
-# define LETTER_MGR_H
+#include <fcntl.h>
 
-# include "basics.h"
-# include "edit/letter.h"
+#include "twl_xsys/stat.h"
 
-t_lst				*letter_mgr_new(void);
-void				letter_mgr_del(t_lst *letters);
-void				letter_mgr_add(t_lst *letters, t_letter *letter,
-															unsigned int index);
-void				letter_mgr_remove(t_lst *letters, int index);
-void				letter_mgr_print(t_lst *letters, int index);
+#include "edit/history_mgr.h"
 
-size_t				letter_mgr_get_size(t_lst *letters);
+#include "environment.h"
 
-char				*letter_mgr_concat_string(t_lst *letters);
-t_lst				*letter_mgr_clear(t_lst *letters);
+#include "twl_get_next_line.h"
 
-void				letter_mgr_move_prev_word(t_lst *letters, void *edit_);
-void				letter_mgr_move_next_word(t_lst *letters, void *edit_);
-void				letter_mgr_delete_prev_word(t_lst *letters, void *edit_);
+static bool			find_fn(void *data, void *ctx)
+{
+	return twl_strstr(data, ctx);
+}
 
-void				letters_mgr_insert_clip(t_lst *letters, int index, t_lst *clip);
+t_lst				*history_mgr_find_match(t_lst *history, char *str)
+{
+	t_lst			*match_lst;
 
-void				letter_mgr_debug_print(t_lst *letters);
-#endif
+	match_lst = twl_lst_findall(history, find_fn, str);
+	twl_lprintf("len: %zu", twl_lst_len(match_lst));
+	return (match_lst);
+}
+

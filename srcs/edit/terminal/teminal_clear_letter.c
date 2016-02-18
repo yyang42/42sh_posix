@@ -15,4 +15,5 @@
 void				terminal_clear_letter(void)
 {
 	tputs(tgetstr("me", NULL), 1, twl_putchar);
+	twl_putstr(C_CLEAR);
 }

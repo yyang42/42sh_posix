@@ -26,7 +26,10 @@ char				*edit_loop(t_edit *this)
 	char			*cmd;
 
 	cmd = NULL;
-	terminal_enable();
+	if (terminal_enable() == -1)
+	{
+		twl_xprintf("TERMINAL ERROR");
+	}
 	// TODO Error handling
 	edit_print_letters(this);
 	while (!this->return_cmd)

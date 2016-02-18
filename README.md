@@ -73,6 +73,8 @@ The AST is not finished. It currently implements (see also diff tests):
 - arrow up / down : navigate on history
 - history cmd : print history
 - multiline
+- ctrl + i : start + stop copy
+- ctrl + p : paste clip
 
 ### Not implemented yet
 - copy / paste

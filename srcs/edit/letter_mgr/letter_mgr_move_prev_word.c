@@ -18,7 +18,7 @@
 static bool			on_word_begin(char *cmd, int count)
 {
 	if (!twl_isspace(cmd[count]))
-		if (twl_isspace(cmd[count - 1]))
+		if (count > 0 && twl_isspace(cmd[count - 1]))
 			return (true);
 	return (false);
 }
@@ -36,7 +36,7 @@ void				letter_mgr_move_prev_word(t_lst *letters, void *edit_)
 		count -= 2;
 	while (twl_isspace(cmd[count]))
 		count--;
-	while (!twl_isspace(cmd[count]) && !twl_isspace(cmd[count - 1]))
+	while (count > 0 && !twl_isspace(cmd[count]) && !twl_isspace(cmd[count - 1]))
 		count--;
 	if (count >= 0)
 		edit->index = count;

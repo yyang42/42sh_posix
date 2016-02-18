@@ -10,29 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LETTER_MGR_H
-# define LETTER_MGR_H
+#include "edit/edit.h"
 
-# include "basics.h"
-# include "edit/letter.h"
 
-t_lst				*letter_mgr_new(void);
-void				letter_mgr_del(t_lst *letters);
-void				letter_mgr_add(t_lst *letters, t_letter *letter,
-															unsigned int index);
-void				letter_mgr_remove(t_lst *letters, int index);
-void				letter_mgr_print(t_lst *letters, int index);
 
-size_t				letter_mgr_get_size(t_lst *letters);
+void				edit_paste_clip(void *_edit)
+{
+	t_edit			*edit;
 
-char				*letter_mgr_concat_string(t_lst *letters);
-t_lst				*letter_mgr_clear(t_lst *letters);
-
-void				letter_mgr_move_prev_word(t_lst *letters, void *edit_);
-void				letter_mgr_move_next_word(t_lst *letters, void *edit_);
-void				letter_mgr_delete_prev_word(t_lst *letters, void *edit_);
-
-void				letters_mgr_insert_clip(t_lst *letters, int index, t_lst *clip);
-
-void				letter_mgr_debug_print(t_lst *letters);
-#endif
+	edit = _edit;
+	if (edit->state == SEARCH || !edit->copast ||!edit->copast->has_copy)
+		return ;
+	letter_mgr_debug_print(edit->copast->clip);
+	twl_lst_insert_lst(edit->letters, edit->index, twl_lst_copy(edit->copast->clip, letter_copy_void));
+	edit->index = edit->index + edit->copast->inc_index;
+}

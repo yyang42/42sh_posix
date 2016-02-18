@@ -21,12 +21,14 @@ void				edit_history_down(void *edit_)
 	/*
 	** TODO: Error handling (begin / end of list)
 	*/
-	if (edit->history_index > 1)
-		edit->history_index--;
-	str = twl_lst_get(edit->history, (edit->history_index * -1));
+	if (edit->state == SEARCH)
+		return ;
+	if (edit->history->history_index > 0)
+		edit->history->history_index--;
+	str = twl_lst_get(edit->history->history, (edit->history->history_index * -1));
 	if (!str)
 	{
-		edit->history_index++;
+		edit->history->history_index++;
 	}
 	else
 	{

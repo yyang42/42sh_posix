@@ -17,5 +17,6 @@ void				edit_delete_prev_word(void *edit_)
 	t_edit			*edit;
 
 	edit = edit_;
-	letter_mgr_delete_prev_word(edit->letters, edit);
+	if (edit->state == NORMAL)
+		letter_mgr_delete_prev_word(edit->letters, edit);
 }

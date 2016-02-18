@@ -23,5 +23,6 @@ void				history_mgr_add(t_lst *history, char *line);
 void				history_mgr_remove(t_lst *historys, char *str);
 void				history_mgr_print(t_lst *history);
 void				history_mgr_export(t_lst *history);
+t_lst				*history_mgr_find_match(t_lst *history, char *str);
 
 #endif

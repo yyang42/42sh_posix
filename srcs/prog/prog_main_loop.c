@@ -22,9 +22,9 @@ static char			*get_cmd(void)
 	cmd = edit_loop(edit);
 	if (twl_strcmp(cmd, "history") == 0)
 	{
-		history_mgr_print(edit->history);
+		history_mgr_print(edit->history->history);
 	}
-	history_mgr_add(edit->history, cmd);
+	history_mgr_add(edit->history->history, cmd);
 	edit_del(edit);
 	return (cmd);
 }

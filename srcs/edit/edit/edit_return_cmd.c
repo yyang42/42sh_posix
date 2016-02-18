@@ -19,6 +19,9 @@ char				*edit_return_cmd(t_edit *this)
 	cmd = NULL;
 	if (!this->return_cmd)
 		return cmd;
-	cmd = letter_mgr_concat_string(this->letters);
+	if (this->state == NORMAL)
+		cmd = letter_mgr_concat_string(this->letters);
+	else if (this->state == SEARCH)
+		cmd = twl_strdup(history_get_search_at_index(this->history));
 	return (cmd);
 }
