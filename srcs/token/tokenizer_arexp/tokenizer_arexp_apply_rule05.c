@@ -16,7 +16,7 @@
 
 t_rule_status		tokenizer_arexp_apply_rule05(t_tokenizer *t)
 {
-	if (twl_isblank(*t->curpos))
+	if (twl_isspace(*t->curpos))
 	{
 		tokenizer_arexp_delimit(t);
 		t->curpos++;
