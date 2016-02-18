@@ -1,6 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
+/*   check_norris_loves_the_norminette.h                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: chuck <chuck@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2042/02/30 42:00:00 by chuck             #+#    #+#             */
+/*   Updated: 2042/02/30 41:59:59 by chuck            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
 /*   check_norris_loves_the_norminette.c                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chuck <chuck@student.42.fr>                +#+  +:+       +#+        */
@@ -40,8 +52,6 @@ typedef struct		s_tokenizer
 
 t_lst				*tokenizer_tokenize(char *input);
 
-t_lst				*tokenizer_tokenize_arexp(char *input);
-
 t_tokenizer			*tokenizer_new(char *input);
 void				tokenizer_del(t_tokenizer *this);
 
@@ -56,7 +66,7 @@ void				tokenizer_delimit_handle_heredoc(t_tokenizer *this,
 														t_token *new_token);
 
 /*
-	Tokenizer rules
+**	Tokenizer rules
 */
 
 t_rule_status		tokenizer_apply_rule01(t_tokenizer *this);
@@ -70,6 +80,23 @@ t_rule_status		tokenizer_apply_rule08(t_tokenizer *this);
 t_rule_status		tokenizer_apply_rule09(t_tokenizer *this);
 t_rule_status		tokenizer_apply_rule10(t_tokenizer *this);
 t_rule_status		tokenizer_apply_rule11(t_tokenizer *this);
+
+/*
+**	Tokenizer Arithmetic Expansion
+*/
+
+t_lst				*tokenizer_arexp_tokenize(char *input);
+bool				tokenizer_arexp_utils_is_start_of_op(t_tokenizer *this, char c);
+bool				tokenizer_arexp_utils_can_form_operator(t_tokenizer *this,
+															char *candidate);
+void				tokenizer_arexp_delimit(t_tokenizer *this);
+t_rule_status		tokenizer_arexp_apply_rule01(t_tokenizer *this);
+t_rule_status		tokenizer_arexp_apply_rule02(t_tokenizer *this);
+t_rule_status		tokenizer_arexp_apply_rule03(t_tokenizer *this);
+t_rule_status		tokenizer_arexp_apply_rule04(t_tokenizer *this);
+t_rule_status		tokenizer_arexp_apply_rule05(t_tokenizer *this);
+t_rule_status		tokenizer_arexp_apply_rule06(t_tokenizer *this);
+
 
 typedef t_rule_status (*t_rule_fn)(t_tokenizer *this);
 

@@ -12,13 +12,13 @@
 
 #include "token/tokenizer.h"
 
-t_rule_fn			g_tokenizer_rule_fns[1] = {
-					tokenizer_arexp_rule01,
-					tokenizer_arexp_rule02,
-					tokenizer_arexp_rule03,
-					tokenizer_arexp_rule04,
-					tokenizer_arexp_rule05,
-					tokenizer_arexp_rule06,
+t_rule_fn			g_tokenizer_arexp_rule_fns[7] = {
+					tokenizer_arexp_apply_rule01,
+					tokenizer_arexp_apply_rule02,
+					tokenizer_arexp_apply_rule03,
+					tokenizer_arexp_apply_rule04,
+					tokenizer_arexp_apply_rule05,
+					tokenizer_arexp_apply_rule06,
 					NULL};
 
 t_lst				*tokenizer_arexp_tokenize(char *input)
@@ -34,9 +34,9 @@ t_lst				*tokenizer_arexp_tokenize(char *input)
 	while (true)
 	{
 		i = 0;
-		while (g_tokenizer_rule_fns[i])
+		while (g_tokenizer_arexp_rule_fns[i])
 		{
-			status = g_tokenizer_rule_fns[i](t);
+			status = g_tokenizer_arexp_rule_fns[i](t);
 			if (status != RULE_STATUS_NOT_APPLIED)
 				break ;
 			i++;

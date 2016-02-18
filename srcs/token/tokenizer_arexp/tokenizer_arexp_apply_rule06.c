@@ -12,7 +12,7 @@
 
 #include "token/tokenizer.h"
 
-t_rule_status		tokenizer_apply_rule11(t_tokenizer *t)
+t_rule_status		tokenizer_arexp_apply_rule06(t_tokenizer *t)
 {
 	tokenizer_append_to_curtoken(t, 1);
 	t->curpos++;

@@ -19,7 +19,7 @@ void				tokenizer_arexp_delimit(t_tokenizer *this)
 
 	if (*this->curtoken != '\0')
 	{
-		token = token_arexp(t->curtoken);
+		token = token_arexp(this->curtoken);
 		twl_lst_push(this->tokens, token);
 		this->curtoken[0] = '\0';
 	}
