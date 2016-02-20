@@ -10,15 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "arexp/arexp.h"
+#include "twl_lst.h"
 
-t_arexp				*arexp_new(char *input)
+#include "data.h"
+
+t_lst				*data_arexp_parenthesis(void)
 {
-	t_arexp			*arexp;
-//	t_lst			*tokens;
+	static t_lst	*parenthesis = NULL;
 
-	arexp = twl_malloc_x0(sizeof(t_arexp));
-//	ast->tokens = tokenizer_arexp_tokenize(input);
-	return (arexp);
-	(void) input;
+	if (parenthesis == NULL)
+	{
+		parenthesis = twl_lst_new();
+		twl_lst_push_back(parenthesis, twl_str_split_to_lst("(_)", "_"));
+	}
+	return (parenthesis);
 }
