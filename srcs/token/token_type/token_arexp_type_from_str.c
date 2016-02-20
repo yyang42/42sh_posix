@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "data.h"
-
+#include "twl_ctype.h"
 #include "token/token_type_item_mgr.h"
 
 t_token_type		token_arexp_type_from_str(char *str)
@@ -20,6 +20,10 @@ t_token_type		token_arexp_type_from_str(char *str)
 
 	item = token_type_item_mgr_get_by_text(data_token_arexp_item_list(), str);
 	if (!item)
-		return (TOKEN_TOKEN);
+	{
+		if (twl_isdigit(str[0]))
+			return (TOK_AREXP_NUMBER);
+		return (TOK_AREXP_ENV_VAR);
+	}
 	return (item->type);
 }
