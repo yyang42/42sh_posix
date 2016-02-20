@@ -35,6 +35,8 @@ t_lst				*token_mgr_split_base(t_lst *tokens, t_lst *split_strings,
 														bool keep_delimiter);
 t_lst				*token_mgr_split_ast(t_lst *tokens, t_lst *split_strings,
 														bool keep_delimiter);
+t_lst				*token_mgr_split_arexp(t_lst *tokens, t_lst *split_strings,
+														bool keep_delimiter);
 t_lst				*token_mgr_split_by_one_sep(t_lst *tokens, char *sep,
 														bool keep_delimiter);
 char				*token_list_mgr_strjoin(t_lst *tokens_list);

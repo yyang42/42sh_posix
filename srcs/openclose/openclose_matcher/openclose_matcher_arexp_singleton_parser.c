@@ -10,28 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DATA_H
-# define DATA_H
+#include "data.h"
+#include "openclose/openclose_matcher.h"
 
-# include "twl_dict.h"
+static void			push_fn(void *compound_segs, void *matcher)
+{
+	openclose_matcher_add(
+		matcher, twl_lst_first(compound_segs), twl_lst_last(compound_segs));
+}
 
-# include "basics.h"
+t_openclose_matcher *openclose_matcher_arexp_singleton_parser(void)
+{
+	static t_openclose_matcher *matcher = NULL;
 
-t_lst				*data_all_operators(void);
-t_lst				*data_all_separators(void);
-t_lst				*data_redir_operators(void);
-t_lst				*data_token_item_list(void);
-t_lst				*data_list_separators(void);
-t_lst				*data_pipe_separators(void);
-t_lst				*data_andor_separators(void);
-t_lst				*data_compound_commands(void);
-t_lst				*data_control_operators(void);
-t_lst				*data_control_operators_nl(void);
-t_lst				*data_reserved_words(void);
-t_lst				*data_reserved_words_middle_end(void);
-
-t_lst				*data_all_arexp_operators(void);
-t_lst				*data_token_arexp_item_list(void);
-t_lst				*data_arexp_parenthesis(void);
-
-#endif
+	if (matcher == NULL)
+	{
+		matcher = openclose_matcher_new();
+		twl_lst_iter(data_arexp_parenthesis(), push_fn, matcher);
+	}
+	return (matcher);
+}
