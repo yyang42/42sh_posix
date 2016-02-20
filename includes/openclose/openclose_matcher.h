@@ -42,5 +42,6 @@ bool				openclose_matcher_is_open(
 								t_openclose_matcher *matcher, char *str);
 
 t_openclose_matcher *openclose_matcher_singleton_parser(void);
+t_openclose_matcher *openclose_matcher_arexp_singleton_parser(void);
 
 #endif
