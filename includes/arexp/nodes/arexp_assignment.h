@@ -10,21 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AREXP_EXPRESSION_H
-# define AREXP_EXPRESSION_H
+#ifndef AREXP_ASSIGNMENT_H
+# define AREXP_ASSIGNMENT_H
 
 # include "basics.h"
-# include "arexp/nodes/arexp_assignment.h"
 # include "arexp/arexp_defines.h"
 
-typedef struct			s_arexp_expression
+typedef struct			s_arexp_assignment
 {
-	t_lst				*arexp_assignment;
-}						t_arexp_expression;
+	int					lololol;
+}						t_arexp_assignment;
 
-t_arexp_expression		*arexp_expression_new(void);
-void					arexp_expression_del(t_arexp_expression *arexp_expression);
+t_arexp_assignment		*arexp_assignment_new(void);
+void					arexp_assignment_del(t_arexp_assignment *arexp_assignment);
 
-t_arexp_expression		*arexp_expression_new_from_tokens(t_lst *tokens, struct s_arexp *arexp);
+t_arexp_assignment		*arexp_assignment_new_from_tokens(t_lst *tokens, struct s_arexp *arexp);
 
 #endif
