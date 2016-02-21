@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_norris_loves_the_norminette.h                :+:      :+:    :+:   */
+/*   check_norris_loves_the_norminette.c                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chuck <chuck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,21 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AREXP_H
-# define AREXP_H
+#ifndef AREXP_EXPRESSION_H
+# define AREXP_EXPRESSION_H
 
 # include "basics.h"
-# include "token/token.h"
-# include "arexp/nodes/arexp_expression.h"
 
-typedef struct			s_arexp
+typedef struct			s_arexp_expression
 {
-	t_lst				*tokens;
-	t_arexp_expression	*arexp_expression;
-	char				*error_msg;
-}						t_arexp;
+	t_lst				*arexp_assignment;
+}						t_arexp_expression;
 
-t_arexp					*arexp_new(char *expr);
-void					arexp_del(t_arexp *this);
+t_arexp_expression		*arexp_expression_new(void);
+void					arexp_expression_del(t_arexp_expression *arexp_expression);
+
+t_arexp_expression		*arexp_expression_new_from_tokens(t_lst *tokens);
 
 #endif

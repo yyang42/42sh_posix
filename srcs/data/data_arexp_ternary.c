@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_norris_loves_the_norminette.h                :+:      :+:    :+:   */
+/*   check_norris_loves_the_norminette.c                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chuck <chuck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,21 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AREXP_H
-# define AREXP_H
+#include "twl_lst.h"
 
-# include "basics.h"
-# include "token/token.h"
-# include "arexp/nodes/arexp_expression.h"
+#include "data.h"
 
-typedef struct			s_arexp
+t_lst				*data_arexp_ternary(void)
 {
-	t_lst				*tokens;
-	t_arexp_expression	*arexp_expression;
-	char				*error_msg;
-}						t_arexp;
+	static t_lst	*ternary = NULL;
 
-t_arexp					*arexp_new(char *expr);
-void					arexp_del(t_arexp *this);
-
-#endif
+	if (ternary == NULL)
+	{
+		ternary = twl_lst_new();
+		twl_lst_push_back(ternary, twl_str_split_to_lst("?_:", "_"));
+	}
+	return (ternary);
+}
