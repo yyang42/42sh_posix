@@ -10,21 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AREXP_EXPRESSION_H
-# define AREXP_EXPRESSION_H
+#include "arexp/nodes/arexp_assignment.h"
 
-# include "basics.h"
-# include "arexp/nodes/arexp_assignment.h"
-# include "arexp/arexp_defines.h"
+/*
+** TODO: FREE CLEAR LOLOLOL :kappa: just freed it
+*/
 
-typedef struct			s_arexp_expression
+void			arexp_assignment_del(t_arexp_assignment *arexp_assignment)
 {
-	t_lst				*arexp_assignment;
-}						t_arexp_expression;
-
-t_arexp_expression		*arexp_expression_new(void);
-void					arexp_expression_del(t_arexp_expression *arexp_expression);
-
-t_arexp_expression		*arexp_expression_new_from_tokens(t_lst *tokens, struct s_arexp *arexp);
-
-#endif
+	free(arexp_assignment);
+}

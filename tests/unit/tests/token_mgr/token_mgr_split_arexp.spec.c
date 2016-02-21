@@ -29,9 +29,12 @@
 
 mt_test_token_mgr_split(num1, "1, 2, 3", ",", "1_, / 2_, / 3", true, false);
 mt_test_token_mgr_split(num2, "1, (2, 3)", ",", "1_, / (_2_,_3_)", true, false);
+mt_test_token_mgr_split(num3, "a=2*(2,(3,4)),(2, 3)", ",",
+		"a_=_2_*_(_2_,_(_3_,_4_)_)_, / (_2_,_3_)", true, false);
 
 void	suite_token_mgr_split_arexp(t_suite *suite)
 {
 	SUITE_ADD_TEST(suite, test_num1);
 	SUITE_ADD_TEST(suite, test_num2);
+	SUITE_ADD_TEST(suite, test_num3);
 }
