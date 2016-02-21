@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_norris_loves_the_norminette.h                :+:      :+:    :+:   */
+/*   check_norris_loves_the_norminette.c                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chuck <chuck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,9 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AREXP_BASICS_H
-# define AREXP_BASICS_H
+#include "arexp/arexp.h"
 
-# include "arexp/arexp.h"
-
-#endif
+void			arexp_del(t_arexp *this)
+{
+	twl_lst_del(this->tokens, token_del);
+	arexp_expression_del(this->arexp_expression);
+	if (this->error_msg)
+		free(this->error_msg);
+}

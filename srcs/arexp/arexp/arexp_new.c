@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "token/tokenizer.h"
 #include "arexp/arexp.h"
 
 t_arexp				*arexp_new(char *input)
@@ -18,7 +19,7 @@ t_arexp				*arexp_new(char *input)
 //	t_lst			*tokens;
 
 	arexp = twl_malloc_x0(sizeof(t_arexp));
-//	ast->tokens = tokenizer_arexp_tokenize(input);
+	arexp->tokens = tokenizer_arexp_tokenize(input);
+	//arexp->arexp_expression = arexp_expression_new_from_tokens(arexp->tokens);
 	return (arexp);
-	(void) input;
 }
