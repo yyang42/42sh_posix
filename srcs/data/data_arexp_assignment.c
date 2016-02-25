@@ -10,24 +10,26 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AREXP_ASSIGNMENT_H
-# define AREXP_ASSIGNMENT_H
+#include "data.h"
+#include "token/token.h"
 
-# include "basics.h"
-# include "twl_lst.h"
-# include "arexp/arexp_defines.h"
-
-typedef struct			s_arexp_assignment
+t_lst				*data_arexp_assignment(void)
 {
-	t_lst				*lst_assign;
-	//t_arexp_condition	*arexp_condition;
-}						t_arexp_assignment;
+	static t_lst	*assignment = NULL;
 
-t_arexp_assignment		*arexp_assignment_new(void);
-void					arexp_assignment_del(t_arexp_assignment
-															*arexp_assignment);
-
-t_arexp_assignment		*arexp_assignment_new_from_tokens(t_lst *tokens,
-														struct s_arexp *arexp);
-
-#endif
+	if (assignment == NULL)
+	{
+		twl_lst_push_back(assignment, "=");
+		twl_lst_push_back(assignment, "|=");
+		twl_lst_push_back(assignment, "^=");
+		twl_lst_push_back(assignment, "&=");
+		twl_lst_push_back(assignment, "+=");
+		twl_lst_push_back(assignment, "-=");
+		twl_lst_push_back(assignment, "*=");
+		twl_lst_push_back(assignment, "/=");
+		twl_lst_push_back(assignment, "%=");
+		twl_lst_push_back(assignment, "<<=");
+		twl_lst_push_back(assignment, ">>=");
+	}
+	return (assignment);
+}

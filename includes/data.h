@@ -32,6 +32,7 @@ t_lst				*data_reserved_words_middle_end(void);
 
 t_lst				*data_all_arexp_operators(void);
 t_lst				*data_token_arexp_item_list(void);
+t_lst				*data_arexp_assignment(void);
 t_lst				*data_arexp_parenthesis(void);
 t_lst				*data_arexp_comma(void);
 

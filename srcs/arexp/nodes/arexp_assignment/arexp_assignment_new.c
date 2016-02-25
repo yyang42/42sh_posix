@@ -17,5 +17,6 @@ t_arexp_assignment		*arexp_assignment_new(void)
 	t_arexp_assignment	*arexp_assignment;
 
 	arexp_assignment = twl_malloc_x0(sizeof(t_arexp_assignment));
+	arexp_assignment->lst_assign = twl_lst_new();
 	return (arexp_assignment);
 }

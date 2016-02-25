@@ -47,13 +47,13 @@ static void simple_tilde(t_test *test)
 
 static void tilde_with_unknown_suffix(t_test *test)
 {
-	t_environment	*env;
+	//t_environment	*env;
 	char		 	*res;
 	char			*token;
 	char			*suffix;
 
 	(void)test;
-	env = environment_singleton();
+	//env = environment_singleton();
 	res = NULL;
 	token = twl_strdup("~");
 	suffix = twl_strdup("pouet");
