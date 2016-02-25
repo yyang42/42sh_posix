@@ -10,24 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AREXP_ASSIGNMENT_H
-# define AREXP_ASSIGNMENT_H
+#include "token/token_mgr.h"
+#include "data_utils.h"
 
-# include "basics.h"
-# include "twl_lst.h"
-# include "arexp/arexp_defines.h"
-
-typedef struct			s_arexp_assignment
+bool			token_mgr_arexp_is_assign(t_lst *tokens)
 {
-	t_lst				*lst_assign;
-	//t_arexp_condition	*arexp_condition;
-}						t_arexp_assignment;
-
-t_arexp_assignment		*arexp_assignment_new(void);
-void					arexp_assignment_del(t_arexp_assignment
-															*arexp_assignment);
-
-t_arexp_assignment		*arexp_assignment_new_from_tokens(t_lst *tokens,
-														struct s_arexp *arexp);
-
-#endif
+	if (twl_lst_len(tokens) < 2)
+		return (false);
+	return (((t_token *)twl_lst_first(tokens))->type == TOK_AREXP_ENV_VAR &&
+			data_utils_arexp_is_assign(((t_token *)twl_lst_get(tokens, 1))->text));
+}

@@ -18,9 +18,19 @@ t_arexp_assignment		*arexp_assignment_new_from_tokens(t_lst *tokens,
 														struct s_arexp *arexp)
 {
 	t_arexp_assignment	*arexp_assignment;
+	t_token				**assign;
 
 	arexp_assignment = arexp_assignment_new();
+	while (42)
+	{
+		if (!token_mgr_arexp_is_assign(tokens))
+			break ;
+		assign = twl_malloc_x0(sizeof(t_token *) * 2);
+		assign[0] = twl_lst_pop(tokens);
+		assign[1] = twl_lst_pop(tokens);
+		twl_lst_push_front(arexp_assignment->lst_assign, assign);
+	}
+	// TODO: condition toussa
 	return (arexp_assignment);
-	(void)tokens;
 	(void)arexp;
 }

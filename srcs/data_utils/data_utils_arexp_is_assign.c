@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_norris_loves_the_norminette.h                :+:      :+:    :+:   */
+/*   check_norris_loves_the_norminette.c                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chuck <chuck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,17 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AREXP_TOT_H
-# define AREXP_TOT_H
+#include "data_utils.h"
 
-# include "basics.h"
-# include "arexp/arexp_basics.h"
-
-typedef struct			s_arexp_tot
+bool				data_utils_arexp_is_assign(char *str)
 {
-}						t_arexp_tot;
-
-t_arexp_tot				*arexp_tot_new();
-void					arexp_tot_del(t_arexp_tot *this);
-
-#endif
+	return (twl_lst_find(data_arexp_assignment(), twl_strequ_void, str));
+}
