@@ -10,24 +10,31 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AREXP_LOGICAL_OR_H
-# define AREXP_LOGICAL_OR_H
+#include "arexp/nodes/arexp_logical_or.h"
+#include "arexp/arexp.h"
+#include "token/token_mgr.h"
 
-# include "basics.h"
-# include "twl_lst.h"
-# include "arexp/arexp_defines.h"
-# include "arexp/nodes/arexp_logical_and.h"
-
-typedef struct			s_arexp_logical_or
+t_arexp_logical_or			*arexp_logical_or_new_from_tokens(t_lst *tokens,
+														struct s_arexp *arexp)
 {
-	t_lst				*arexp_logical_and;
-}						t_arexp_logical_or;
+	t_arexp_logical_or		*logical_or;
+	t_arexp_logical_and		*logical_and;
+	t_token					*token;
 
-t_arexp_logical_or		*arexp_logical_or_new(void);
-void					arexp_logical_or_del(t_arexp_logical_or
-															*arexp_logical_or);
-
-t_arexp_logical_or		*arexp_logical_or_new_from_tokens(t_lst *tokens,
-														struct s_arexp *arexp);
-
-#endif
+	logical_or = arexp_logical_or_new();
+	while (42)
+	{
+		logical_and = arexp_logical_and_new_from_tokens(tokens, arexp);
+		if (arexp_has_error(arexp))
+		{
+			arexp_logical_or_del(logical_or);
+			return (NULL);
+		}
+		twl_lst_push_back(logical_or->arexp_logical_and, logical_and);
+		if (token_mgr_first(tokens)->type != TOK_AREXP_LOGICAL_OR)
+			break ;
+		token = twl_lst_pop(tokens);
+		token_del(token);
+	}
+	return (logical_or);
+}
