@@ -16,11 +16,12 @@
 # include "basics.h"
 # include "twl_lst.h"
 # include "arexp/arexp_defines.h"
+# include "arexp/nodes/arexp_condition.h"
 
 typedef struct			s_arexp_assignment
 {
 	t_lst				*lst_assign;
-	//t_arexp_condition	*arexp_condition;
+	t_arexp_condition	*arexp_condition;
 }						t_arexp_assignment;
 
 t_arexp_assignment		*arexp_assignment_new(void);
