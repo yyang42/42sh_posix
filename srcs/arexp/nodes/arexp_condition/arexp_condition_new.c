@@ -10,25 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AREXP_CONDITION_H
-# define AREXP_CONDITION_H
+#include "arexp/nodes/arexp_condition.h"
 
-# include "basics.h"
-# include "twl_lst.h"
-# include "arexp/arexp_defines.h"
-
-typedef struct					s_arexp_condition
+t_arexp_condition		*arepx_condition_new(void)
 {
-	//t_arexp_logical_or	*arexp_logical_or;
-	struct s_arexp_expression	*expression_if;
-	struct s_arexp_condition	*condition_else;
-}								t_arexp_condition;
+	t_arexp_condition	*arexp_condition;
 
-t_arexp_condition				*arexp_condition_new(void);
-void							arexp_condition_del(t_arexp_condition
-															*arexp_condition);
-
-t_arexp_condition				*arexp_condition_new_from_tokens(t_lst *tokens,
-														struct s_arexp *arexp);
-
-#endif
+	arexp_condition = twl_malloc_x0(sizeof(t_arexp_condition));
+	return (arexp_condition);
+}
