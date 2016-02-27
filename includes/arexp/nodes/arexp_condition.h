@@ -10,10 +10,25 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AREXP_DEFINES_H
-# define AREXP_DEFINES_H
+#ifndef AREXP_CONDITION_H
+# define AREXP_CONDITION_H
 
-struct s_arexp;
-struct s_arexp_expression;
+# include "basics.h"
+# include "twl_lst.h"
+# include "arexp/arexp_defines.h"
+
+typedef struct			s_arexp_condition
+{
+	//t_arexp_logical_or	*arexp_logical_or;
+	struct s_arexp_expression		*expr_if;
+	struct s_arexp_condition	*expr_else;
+}						t_arexp_condition;
+
+t_arexp_condition		*arexp_condition_new(void);
+void					arexp_condition_del(t_arexp_condition
+															*arexp_condition);
+
+t_arexp_condition		*arexp_condition_new_from_tokens(t_lst *tokens,
+														struct s_arexp *arexp);
 
 #endif

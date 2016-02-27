@@ -10,13 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "token/token_mgr.h"
 #include "data_utils.h"
 
-bool			token_mgr_arexp_is_assign(t_lst *tokens)
+bool				data_utils_arexp_is_unary_operator(char *str)
 {
-	if (twl_lst_len(tokens) < 2)
-		return (false);
-	return (((t_token *)twl_lst_first(tokens))->type == TOK_AREXP_ENV_VAR &&
-			data_utils_arexp_is_assign(((t_token *)twl_lst_get(tokens, 1))->text));
+	return (twl_lst_find(data_arexp_unary_operators(), twl_strequ_void, str));
 }

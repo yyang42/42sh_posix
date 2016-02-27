@@ -10,10 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AREXP_DEFINES_H
-# define AREXP_DEFINES_H
+#include "data.h"
 
-struct s_arexp;
-struct s_arexp_expression;
+t_lst				*data_arexp_unary_operators(void)
+{
+	static t_lst	*assignment = NULL;
 
-#endif
+	if (assignment == NULL)
+	{
+		twl_lst_push_back(assignment, "+");
+		twl_lst_push_back(assignment, "-");
+		twl_lst_push_back(assignment, "~");
+		twl_lst_push_back(assignment, "!");
+	}
+	return (assignment);
+}
