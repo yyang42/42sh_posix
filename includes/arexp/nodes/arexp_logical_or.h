@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_norris_loves_the_norminette.h                :+:      :+:    :+:   */
+/*   check_norris_loves_the_norminette.c                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chuck <chuck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,25 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AREXP_H
-# define AREXP_H
+#ifndef AREXP_LOGICAL_OR_H
+# define AREXP_LOGICAL_OR_H
 
 # include "basics.h"
-# include "token/token.h"
-# include "arexp/nodes/arexp_expression.h"
+# include "twl_lst.h"
+# include "arexp/arexp_defines.h"
 
-typedef struct			s_arexp
+typedef struct			s_arexp_logical_or
 {
-	t_lst				*tokens;
-	t_arexp_expression	*arexp_expression;
-	char				*error_msg;
-}						t_arexp;
+}						t_arexp_logical_or;
 
-t_arexp					*arexp_new(char *expr);
-void					arexp_del(t_arexp *this);
+t_arexp_logical_or		*arexp_logical_or_new(void);
+void					arexp_logical_or_del(t_arexp_logical_or
+															*arexp_logical_or);
 
-bool					arexp_has_error(t_arexp *this);
-
-void					arexp_set_error_msg(t_arexp *this, char *msg, t_token *token);
+t_arexp_logical_or		*arexp_logical_or_new_from_tokens(t_lst *tokens,
+														struct s_arexp *arexp);
 
 #endif
+

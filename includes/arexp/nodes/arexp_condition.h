@@ -15,11 +15,13 @@
 
 # include "basics.h"
 # include "twl_lst.h"
+# include "token/token.h"
 # include "arexp/arexp_defines.h"
+# include "arexp/nodes/arexp_logical_or.h"
 
 typedef struct					s_arexp_condition
 {
-	//t_arexp_logical_or	*arexp_logical_or;
+	t_arexp_logical_or			*logical_or;
 	struct s_arexp_expression	*expression_if;
 	struct s_arexp_condition	*condition_else;
 }								t_arexp_condition;

@@ -12,7 +12,7 @@
 
 #include "arexp/nodes/arexp_condition.h"
 
-t_arexp_condition		*arepx_condition_new(void)
+t_arexp_condition		*arexp_condition_new(void)
 {
 	t_arexp_condition	*arexp_condition;
 
