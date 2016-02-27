@@ -28,7 +28,6 @@ t_arexp_assignment		*arexp_assignment_new_from_tokens(t_lst *tokens,
 			break ;
 		twl_lst_push_front(arexp_assignment->lst_assign, assign);
 	}
-
+	arexp_condition_new_from_tokens(tokens, arexp);
 	return (arexp_assignment);
-	(void)arexp;
 }
