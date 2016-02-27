@@ -16,6 +16,7 @@
 # include "basics.h"
 # include "token/token.h"
 # include "arexp/arexp_defines.h"
+# include "arexp/nodes/arexp_inclusive_or.h"
 
 typedef struct			s_arexp_logical_and
 {
@@ -25,6 +26,6 @@ typedef struct			s_arexp_logical_and
 t_arexp_logical_and		*arexp_logical_and_new(void);
 void					arexp_logical_and_del(t_arexp_logical_and *arexp_logical_and);
 
-t_arexp_logical_and		*arepx_logical_and_new_from_tokens(t_lst *tokens, struct s_arexp *arexp);
+t_arexp_logical_and		*arexp_logical_and_new_from_tokens(t_lst *tokens, struct s_arexp *arexp);
 
 #endif

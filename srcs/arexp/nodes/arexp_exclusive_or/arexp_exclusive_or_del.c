@@ -10,24 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AREXP_LOGICAL_OR_H
-# define AREXP_LOGICAL_OR_H
+#include "arexp/nodes/arexp_exclusive_or.h"
 
-# include "basics.h"
-# include "twl_lst.h"
-# include "arexp/arexp_defines.h"
-# include "arexp/nodes/arexp_logical_and.h"
-
-typedef struct			s_arexp_logical_or
+void			arexp_exclusive_or_del(t_arexp_exclusive_or *arexp_exclusive_or)
 {
-	t_lst				*arexp_logical_and;
-}						t_arexp_logical_or;
-
-t_arexp_logical_or		*arexp_logical_or_new(void);
-void					arexp_logical_or_del(t_arexp_logical_or
-															*arexp_logical_or);
-
-t_arexp_logical_or		*arexp_logical_or_new_from_tokens(t_lst *tokens,
-														struct s_arexp *arexp);
-
-#endif
+	//if (arexp_exclusive_or->arexp_exclusive_or)
+	//	twl_lst_del(arexp_exclusive_or->arexp_exclusive_or, arexp_exclusive_or_del);
+	free(arexp_exclusive_or);
+}
