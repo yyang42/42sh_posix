@@ -15,7 +15,6 @@
 #include "arexp/arexp.h"
 #include "arexp/nodes/arexp_expression.h"
 
-#include<stdio.h>
 t_arexp_expression		*arexp_expression_new_from_tokens(t_lst *tokens,
 														struct s_arexp *arexp)
 {

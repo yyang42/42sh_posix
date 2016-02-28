@@ -19,7 +19,7 @@ static void	fn_iter(void *data_)
 	t_token		**data;
 
 	data = data_;
-	twl_printf(" %s %s", data[0]->text, data[1]->text);
+	twl_printf(" '%s%s'", data[0]->text, data[1]->text);
 }
 
 void		arexp_assignment_print_rec(t_arexp_assignment *this, int depth)
@@ -28,4 +28,5 @@ void		arexp_assignment_print_rec(t_arexp_assignment *this, int depth)
 	twl_printf("assignment:");
 	twl_lst_iter0(this->assign, fn_iter);
 	twl_printf("\n");
+	arexp_condition_print_rec(this->condition, depth + 1);
 }
