@@ -11,17 +11,17 @@
 /* ************************************************************************** */
 
 #include "arexp/arexp_utils.h"
-#include "arexp/nodes/arexp_logical_or.h"
+#include "arexp/nodes/arexp_exclusive_or.h"
 #include "twl_stdio.h"
 
 static void	fn_iter(void *data, void *depth)
 {
 	arexp_print_indent(*((int *)depth));
-	twl_printf("logical_or\n");
-	arexp_logical_and_print_rec(data, *((int *)depth) + 1);
+	twl_printf("exclusive_or\n");
+	arexp_and_print_rec(data, *((int *)depth) + 1);
 }
 
-void		arexp_logical_or_print_rec(t_arexp_logical_or *this, int depth)
+void		arexp_exclusive_or_print_rec(t_arexp_exclusive_or *this, int depth)
 {
-	twl_lst_iter(this->logical_and, fn_iter, &depth);
+	twl_lst_iter(this->and, fn_iter, &depth);
 }

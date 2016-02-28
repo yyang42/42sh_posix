@@ -11,17 +11,31 @@
 /* ************************************************************************** */
 
 #include "arexp/arexp_utils.h"
-#include "arexp/nodes/arexp_logical_or.h"
+#include "arexp/nodes/arexp_unary.h"
+#include "arexp/nodes/arexp_expression.h"
 #include "twl_stdio.h"
 
-static void	fn_iter(void *data, void *depth)
+static void		fn_iter(void *data)
 {
-	arexp_print_indent(*((int *)depth));
-	twl_printf("logical_or\n");
-	arexp_logical_and_print_rec(data, *((int *)depth) + 1);
+	twl_printf(" %s", ((t_token *)data)->text);
 }
 
-void		arexp_logical_or_print_rec(t_arexp_logical_or *this, int depth)
+void			arexp_unary_print_rec(t_arexp_unary *this, int depth)
 {
-	twl_lst_iter(this->logical_and, fn_iter, &depth);
+	arexp_print_indent(depth);
+	twl_printf("unary");
+	twl_lst_iter0(this->unary_operator, fn_iter);
+	if (this->primary_enum == AREXP_PRIMARY_EXPRESSION)
+	{
+		twl_printf("\n");
+		arexp_print_indent(depth);
+		twl_printf("(\n");
+		arexp_expression_print_rec(this->primary.arexp_expression, depth + 1);
+		arexp_print_indent(depth);
+		twl_printf(")\n");
+	}
+	else
+	{
+		twl_printf(" %s\n", this->primary.constant->text);
+	}
 }
