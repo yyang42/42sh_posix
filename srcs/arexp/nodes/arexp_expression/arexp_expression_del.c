@@ -12,11 +12,11 @@
 
 #include "arexp/nodes/arexp_expression.h"
 
-/*
-** TODO: FREE CLEAR LOLOLOL :kappa: just freed it
-*/
-
-void			arexp_expression_del(t_arexp_expression *arexp_expression)
+void			arexp_expression_del(t_arexp_expression *expression)
 {
-	free(arexp_expression);
+	if (!expression)
+		return ;
+	if (expression->assignment)
+		twl_lst_del(expression->assignment, arexp_assignment_del);
+	free(expression);
 }
