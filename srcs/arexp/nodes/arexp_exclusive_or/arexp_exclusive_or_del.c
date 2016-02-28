@@ -12,9 +12,11 @@
 
 #include "arexp/nodes/arexp_exclusive_or.h"
 
-void			arexp_exclusive_or_del(t_arexp_exclusive_or *arexp_exclusive_or)
+void			arexp_exclusive_or_del(t_arexp_exclusive_or *exclusive_or)
 {
-	//if (arexp_exclusive_or->arexp_exclusive_or)
-	//	twl_lst_del(arexp_exclusive_or->arexp_exclusive_or, arexp_exclusive_or_del);
-	free(arexp_exclusive_or);
+	if (!exclusive_or)
+		return ;
+	if (exclusive_or->and)
+		twl_lst_del(exclusive_or->and , arexp_and_del);
+	free(exclusive_or);
 }
