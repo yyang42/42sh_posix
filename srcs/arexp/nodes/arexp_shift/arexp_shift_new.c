@@ -14,9 +14,9 @@
 
 t_arexp_shift		*arexp_shift_new(void)
 {
-	t_arexp_shift	*arexp_shift;
+	t_arexp_shift	*shift;
 
-	arexp_shift = twl_malloc_x0(sizeof(t_arexp_shift));
-	arexp_shift->additive = twl_lst_new();
-	return (arexp_shift);
+	shift = twl_malloc_x0(sizeof(t_arexp_shift));
+	shift->additive = twl_lst_new();
+	return (shift);
 }

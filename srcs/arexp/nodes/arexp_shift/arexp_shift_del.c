@@ -12,9 +12,23 @@
 
 #include "arexp/nodes/arexp_shift.h"
 
-void			arexp_shift_del(t_arexp_shift *arexp_shift)
+static void		fn_del(void *sh_)
 {
-	//if (arexp_shift->arexp_logical_and)
-	//	twl_lst_del(arexp_shift->arexp_logical_and, arexp_logical_and_del);
-	free(arexp_shift);
+	t_arexp_shift__	*sh;
+
+	sh = sh_;
+	if (sh->shift_sign)
+		token_del(sh->shift_sign);
+	if (sh->additive)
+		arexp_additive_del(sh->additive);
+	free(sh);
+}
+
+void			arexp_shift_del(t_arexp_shift *shift)
+{
+	if (!shift)
+		return ;
+	if (shift->additive)
+		twl_lst_del(shift->additive, fn_del);
+	free(shift);
 }
