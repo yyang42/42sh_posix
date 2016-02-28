@@ -11,42 +11,56 @@
 /* ************************************************************************** */
 
 #include "arexp/nodes/arexp_condition.h"
+#include "arexp/nodes/arexp_expression.h"
 #include "arexp/arexp.h"
 #include "token/token_mgr.h"
 
-t_arexp_condition		*arexp_condition_new_from_tokens(t_lst *tokens, struct s_arexp *arexp)
+t_arexp_condition		*arexp_condition_new_from_tokens(t_lst *tokens,
+														struct s_arexp *arexp)
 {
-	t_arexp_condition	*arexp_condition;
+	t_arexp_condition	*condition;
+	t_arexp_logical_or	*logical_or;
+	t_arexp_expression	*expression_if;
+	t_arexp_condition	*condition_else;
 	t_token				*token;
 
-	arexp_condition = arexp_condition_new();
-	//arexp_condition->logical_or = arexp_logical_or_new_from_tokens(tokens, arexp);
+	condition = arexp_condition_new();
+	logical_or = arexp_logical_or_new_from_tokens(tokens, arexp);
 	if (arexp_has_error(arexp))
 	{
-		arexp_condition_del(arexp_condition);
+		arexp_condition_del(condition);
+		arexp_logical_or_del(logical_or);
 		return (NULL);
 	}
-	if (!token_mgr_first(tokens) || token_mgr_first(tokens)->type != TOK_AREXP_QUESTION_MARK)
-		return (arexp_condition);
+	condition->logical_or = logical_or;
+	token = token_mgr_first(tokens);
+	if (!token || token->type != TOK_AREXP_QUESTION_MARK)
+		return (condition);
 	token = twl_lst_pop(tokens);
 	token_del(token);
-	arexp_condition->expression_if = arexp_expression_new_from_tokens(tokens, arexp);
+	expression_if = arexp_expression_new_from_tokens(tokens, arexp);
 	if (arexp_has_error(arexp))
 	{
-		arexp_condition_del(arexp_condition);
+		arexp_condition_del(condition);
+		arexp_expression_del(expression_if);
 		return (NULL);
 	}
-	if (!token_mgr_first(tokens) || token_mgr_first(tokens)->type != TOK_AREXP_COLON)
+	condition->expression_if = expression_if;
+	token = token_mgr_first(tokens);
+	if (!token || token->type != TOK_AREXP_COLON)
 	{
-		arexp_set_error_msg(arexp, "expected `:' for conditional expression, got ", token_mgr_first(tokens));
-		arexp_condition_del(arexp_condition);
+		arexp_set_error_msg(arexp, "expected `:' for conditional "\
+													"expression, got ", token);
+		arexp_condition_del(condition);
 		return (NULL);
 	}
-	arexp_condition->condition_else = arexp_condition_new_from_tokens(tokens, arexp);
+	condition_else = arexp_condition_new_from_tokens(tokens, arexp);
 	if (arexp_has_error(arexp))
 	{
-		arexp_condition_del(arexp_condition);
+		arexp_condition_del(condition);
+		arexp_condition_del(condition_else);
 		return (NULL);
 	}
-	return (arexp_condition);
+	condition->condition_else = condition_else;
+	return (condition);
 }
