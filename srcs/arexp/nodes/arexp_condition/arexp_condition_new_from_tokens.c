@@ -26,7 +26,7 @@ t_arexp_condition		*arexp_condition_new_from_tokens(t_lst *tokens, struct s_arex
 		arexp_condition_del(arexp_condition);
 		return (NULL);
 	}
-	if (token_mgr_first(tokens)->type != TOK_AREXP_QUESTION_MARK)
+	if (!token_mgr_first(tokens) || token_mgr_first(tokens)->type != TOK_AREXP_QUESTION_MARK)
 		return (arexp_condition);
 	token = twl_lst_pop(tokens);
 	token_del(token);
@@ -39,6 +39,7 @@ t_arexp_condition		*arexp_condition_new_from_tokens(t_lst *tokens, struct s_arex
 	if (!token_mgr_first(tokens) || token_mgr_first(tokens)->type != TOK_AREXP_COLON)
 	{
 		arexp_set_error_msg(arexp, "expected `:' for conditional expression, got ", token_mgr_first(tokens));
+		arexp_condition_del(arexp_condition);
 		return (NULL);
 	}
 	arexp_condition->condition_else = arexp_condition_new_from_tokens(tokens, arexp);

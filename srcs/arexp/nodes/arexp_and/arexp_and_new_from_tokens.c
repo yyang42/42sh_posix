@@ -10,22 +10,31 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AREXP_EXCLUSIVE_OR_H
-# define AREXP_EXCLUSIVE_OR_H
+#include "arexp/nodes/arexp_and.h"
+#include "arexp/arexp.h"
+#include "token/token_mgr.h"
 
-# include "basics.h"
-# include "token/token.h"
-# include "arexp/arexp_defines.h"
-# include "arexp/nodes/arexp_and.h"
-
-typedef struct			s_arexp_exclusive_or
+t_arexp_and			*arexp_and_new_from_tokens(t_lst *tokens,
+														struct s_arexp *arexp)
 {
-	t_lst				*arexp_and;
-}						t_arexp_exclusive_or;
+	t_arexp_and					*and;
+	t_arexp_equality			*equality;
+	t_token						*token;
 
-t_arexp_exclusive_or	*arexp_exclusive_or_new(void);
-void					arexp_exclusive_or_del(t_arexp_exclusive_or *arexp_exclusive_or);
-
-t_arexp_exclusive_or	*arexp_exclusive_or_new_from_tokens(t_lst *tokens, struct s_arexp *arexp);
-
-#endif
+	and = arexp_and_new();
+	while (42)
+	{
+		equality = arexp_equality_new_from_tokens(tokens, arexp);
+		if (arexp_has_error(arexp))
+		{
+			arexp_and_del(and);
+			return (NULL);
+		}
+		twl_lst_push_back(and->equality, equality);
+		if (!token_mgr_first(tokens) || token_mgr_first(tokens)->type != TOK_AREXP_AND)
+			break ;
+		token = twl_lst_pop(tokens);
+		token_del(token);
+	}
+	return (and);
+}

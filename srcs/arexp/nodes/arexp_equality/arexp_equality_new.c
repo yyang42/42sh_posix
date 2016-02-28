@@ -10,22 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AREXP_EXCLUSIVE_OR_H
-# define AREXP_EXCLUSIVE_OR_H
+#include "arexp/nodes/arexp_equality.h"
 
-# include "basics.h"
-# include "token/token.h"
-# include "arexp/arexp_defines.h"
-# include "arexp/nodes/arexp_and.h"
-
-typedef struct			s_arexp_exclusive_or
+t_arexp_equality		*arexp_equality_new(void)
 {
-	t_lst				*arexp_and;
-}						t_arexp_exclusive_or;
+	t_arexp_equality	*arexp_equality;
 
-t_arexp_exclusive_or	*arexp_exclusive_or_new(void);
-void					arexp_exclusive_or_del(t_arexp_exclusive_or *arexp_exclusive_or);
-
-t_arexp_exclusive_or	*arexp_exclusive_or_new_from_tokens(t_lst *tokens, struct s_arexp *arexp);
-
-#endif
+	arexp_equality = twl_malloc_x0(sizeof(t_arexp_equality));
+	arexp_equality->relational = twl_lst_new();
+	return (arexp_equality);
+}
