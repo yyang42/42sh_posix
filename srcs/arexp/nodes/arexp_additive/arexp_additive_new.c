@@ -14,9 +14,9 @@
 
 t_arexp_additive		*arexp_additive_new(void)
 {
-	t_arexp_additive	*arexp_additive;
+	t_arexp_additive	*additive;
 
-	arexp_additive = twl_malloc_x0(sizeof(t_arexp_additive));
-	arexp_additive->multiplicative = twl_lst_new();
-	return (arexp_additive);
+	additive = twl_malloc_x0(sizeof(t_arexp_additive));
+	additive->multiplicative = twl_lst_new();
+	return (additive);
 }

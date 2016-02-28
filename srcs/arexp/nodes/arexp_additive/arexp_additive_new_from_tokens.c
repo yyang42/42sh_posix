@@ -14,14 +14,14 @@
 #include "arexp/arexp.h"
 #include "token/token_mgr.h"
 
-static bool							is_additive_token(t_token *token)
+static bool					is_additive_token(t_token *token)
 {
 	return (token &&
 			(token->type == TOK_AREXP_MINUS ||
 			 token->type == TOK_AREXP_PLUS));
 }
 
-static bool							push_fn(t_lst *tokens,
+static bool					push_fn(t_lst *tokens,
 						t_arexp_additive *additive,
 						t_arexp_multiplicative *multiplicative)
 {
@@ -52,6 +52,7 @@ t_arexp_additive			*arexp_additive_new_from_tokens(t_lst *tokens,
 		if (arexp_has_error(arexp))
 		{
 			arexp_additive_del(additive);
+			arexp_multiplicative_del(multiplicative);
 			return (NULL);
 		}
 		if (!push_fn(tokens, additive, multiplicative))
