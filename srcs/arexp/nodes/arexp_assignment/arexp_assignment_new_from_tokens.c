@@ -44,5 +44,6 @@ t_arexp_assignment		*arexp_assignment_new_from_tokens(t_lst *tokens,
 		arexp_condition_del(condition);
 		return (NULL);
 	}
+	assignment->condition = condition;
 	return (assignment);
 }

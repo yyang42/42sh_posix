@@ -54,6 +54,8 @@ t_arexp_condition		*arexp_condition_new_from_tokens(t_lst *tokens,
 		arexp_condition_del(condition);
 		return (NULL);
 	}
+	token = twl_lst_pop_front(tokens);
+	token_del(token);
 	condition_else = arexp_condition_new_from_tokens(tokens, arexp);
 	if (arexp_has_error(arexp))
 	{
