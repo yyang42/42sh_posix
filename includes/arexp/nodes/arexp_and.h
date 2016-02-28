@@ -18,14 +18,15 @@
 # include "arexp/arexp_defines.h"
 # include "arexp/nodes/arexp_equality.h"
 
-typedef struct			s_arexp_and
+typedef struct	s_arexp_and
 {
-	t_lst				*equality;
-}						t_arexp_and;
+	t_lst		*equality;
+}				t_arexp_and;
 
-t_arexp_and	*arexp_and_new(void);
-void					arexp_and_del(t_arexp_and *arexp_and);
+t_arexp_and		*arexp_and_new(void);
+void			arexp_and_del(t_arexp_and *and);
 
-t_arexp_and	*arexp_and_new_from_tokens(t_lst *tokens, struct s_arexp *arexp);
+t_arexp_and		*arexp_and_new_from_tokens(t_lst *tokens,
+														struct s_arexp *arexp);
 
 #endif
