@@ -23,6 +23,7 @@ typedef struct		s_xopt
 {
 	t_opt			*opt;
 	bool			print_ast;
+	bool			print_arexp;
 	char			*command;
 }					t_xopt;
 

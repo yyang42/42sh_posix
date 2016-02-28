@@ -10,31 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AREXP_RELATIONAL_H
-# define AREXP_RELATIONAL_H
+#include "arexp/arexp_utils.h"
+#include "arexp/nodes/arexp_expression.h"
+#include "twl_stdio.h"
 
-# include "basics.h"
-# include "token/token.h"
-# include "arexp/arexp_defines.h"
-# include "arexp/nodes/arexp_shift.h"
-
-typedef struct		s_arexp_relational__
+static void	fn_iter(void *data, void *ctx)
 {
-	t_arexp_shift	*shift;
-	t_token			*relational_sign;
-}					t_arexp_relational__;
+	arexp_print_indent(*((int *)ctx));
+	twl_printf("expression\n");
+	(void)data;
+}
 
-typedef struct		s_arexp_relational
+void		arexp_expression_print_rec(t_arexp_expression *this, int depth)
 {
-	t_lst			*shift;
-}					t_arexp_relational;
-
-t_arexp_relational	*arexp_relational_new(void);
-void				arexp_relational_del(t_arexp_relational *relational);
-
-t_arexp_relational	*arexp_relational_new_from_tokens(t_lst *tokens,
-														struct s_arexp *arexp);
-
-void					arexp_relational_print_rec(t_arexp_relational *this, int depth);
-
-#endif
+	twl_lst_iter(this->assignment, fn_iter, &depth);
+}

@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AREXP_multiplicative_H
-# define AREXP_multiplicative_H
+#ifndef AREXP_MULTIPLICATIVE_H
+# define AREXP_MULTIPLICATIVE_H
 
 # include "basics.h"
 # include "token/token.h"
@@ -35,5 +35,7 @@ void					arexp_multiplicative_del(t_arexp_multiplicative
 
 t_arexp_multiplicative	*arexp_multiplicative_new_from_tokens(t_lst *tokens,
 														struct s_arexp *arexp);
+
+void					arexp_multiplicative_print_rec(t_arexp_multiplicative *this, int depth);
 
 #endif

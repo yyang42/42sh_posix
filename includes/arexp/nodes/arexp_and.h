@@ -29,4 +29,6 @@ void			arexp_and_del(t_arexp_and *and);
 t_arexp_and		*arexp_and_new_from_tokens(t_lst *tokens,
 														struct s_arexp *arexp);
 
+void						arexp_and_print_rec(t_arexp_and *this, int depth);
+
 #endif

@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AREXP_shift_H
-# define AREXP_shift_H
+#ifndef AREXP_SHIFT_H
+# define AREXP_SHIFT_H
 
 # include "basics.h"
 # include "token/token.h"
@@ -34,5 +34,7 @@ void					arexp_shift_del(t_arexp_shift *arexp_shift);
 
 t_arexp_shift			*arexp_shift_new_from_tokens(t_lst *tokens,
 														struct s_arexp *arexp);
+
+void					arexp_shift_print_rec(t_arexp_shift *this, int depth);
 
 #endif

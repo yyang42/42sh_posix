@@ -33,7 +33,7 @@ t_arexp_logical_or			*arexp_logical_or_new_from_tokens(t_lst *tokens,
 		}
 		twl_lst_push_back(logical_or->logical_and, logical_and);
 		token = token_mgr_first(tokens);
-		if (token || token->type != TOK_AREXP_LOGICAL_OR)
+		if (!token || token->type != TOK_AREXP_LOGICAL_OR)
 			break ;
 		token = twl_lst_pop(tokens);
 		token_del(token);

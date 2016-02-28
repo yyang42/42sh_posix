@@ -12,14 +12,21 @@
 
 #include "token/tokenizer.h"
 #include "arexp/arexp.h"
+#include "token/token_mgr.h"
 
 t_arexp				*arexp_new(char *input)
 {
 	t_arexp			*arexp;
-//	t_lst			*tokens;
 
 	arexp = twl_malloc_x0(sizeof(t_arexp));
 	arexp->tokens = tokenizer_arexp_tokenize(input);
-	//arexp->arexp_expression = arexp_expression_new_from_tokens(arexp->tokens);
+	arexp->expression = arexp_expression_new_from_tokens(arexp->tokens, arexp);
+	if (token_mgr_first(arexp->tokens) && !arexp->error_msg)
+	{
+		arexp_set_error_msg(arexp, "unexpected token: ",
+												token_mgr_first(arexp->tokens));
+	}
+	twl_lst_del(arexp->tokens, token_del);
+	arexp->tokens = NULL;
 	return (arexp);
 }

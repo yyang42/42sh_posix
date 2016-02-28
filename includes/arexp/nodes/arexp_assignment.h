@@ -30,4 +30,6 @@ void					arexp_assignment_del(t_arexp_assignment *assignment);
 t_arexp_assignment		*arexp_assignment_new_from_tokens(t_lst *tokens,
 														struct s_arexp *arexp);
 
+void					arexp_assignement_print_rec(t_arexp_assignment *this, int depth);
+
 #endif

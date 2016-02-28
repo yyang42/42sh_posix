@@ -20,7 +20,7 @@
 typedef struct			s_arexp
 {
 	t_lst				*tokens;
-	t_arexp_expression	*arexp_expression;
+	t_arexp_expression	*expression;
 	char				*error_msg;
 }						t_arexp;
 
@@ -30,5 +30,7 @@ void					arexp_del(t_arexp *this);
 bool					arexp_has_error(t_arexp *this);
 
 void					arexp_set_error_msg(t_arexp *this, char *msg, t_token *token);
+
+void					arexp_print_rec(t_arexp *this);
 
 #endif

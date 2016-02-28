@@ -17,6 +17,8 @@
 # include "token/token.h"
 # include "arexp/arexp_defines.h"
 
+#include <stdio.h>
+
 typedef union					u_primary__
 {
 	t_token						*constant;
@@ -44,5 +46,7 @@ void							arexp_unary_del(t_arexp_unary *arexp_unary);
 
 t_arexp_unary					*arexp_unary_new_from_tokens(t_lst *tokens,
 														struct s_arexp *arexp);
+
+void					arexp_unary_print_rec(t_arexp_unary *this, int depth);
 
 #endif

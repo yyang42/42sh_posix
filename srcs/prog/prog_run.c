@@ -39,6 +39,8 @@ int					prog_run(t_prog *prog)
 	{
 		if (xopt_singleton()->print_ast)
 			prog_print_ast(prog, input);
+		else if (xopt_singleton()->print_arexp)
+			prog_print_arexp(prog, input);
 		else
 		{
 			exit_code = prog_run_input(prog, input);

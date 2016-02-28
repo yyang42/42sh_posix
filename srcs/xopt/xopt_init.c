@@ -36,5 +36,6 @@ void				xopt_init(t_xopt *xopt, char **av)
 		exit(0);
 	}
 	xopt->print_ast = twl_opt_exist(xopt->opt, "z");
+	xopt->print_arexp = twl_opt_exist(xopt->opt, "y");
 	xopt->command = twl_opt_get_param(xopt->opt, "c");
 }
