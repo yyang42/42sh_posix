@@ -11,17 +11,23 @@
 /* ************************************************************************** */
 
 #include "arexp/arexp_utils.h"
-#include "arexp/nodes/arexp_logical_or.h"
+#include "arexp/nodes/arexp_relational.h"
 #include "twl_stdio.h"
 
-static void	fn_iter(void *data, void *depth)
+static void		fn_iter(void *data, void *depth)
 {
+	t_arexp_relational__	*rel;
+
+	rel = data;
 	arexp_print_indent(*((int *)depth));
-	twl_printf("logical_or\n");
-	arexp_logical_and_print_rec(data, *((int *)depth) + 1);
+	if (rel->relational_sign)
+		twl_printf("relational %s\n", rel->relational_sign->text);
+	else
+		twl_printf("relational\n");
+	arexp_shift_print_rec(rel->shift, *((int *)depth) + 1);
 }
 
-void		arexp_logical_or_print_rec(t_arexp_logical_or *this, int depth)
+void			arexp_relational_print_rec(t_arexp_relational *this, int depth)
 {
-	twl_lst_iter(this->logical_and, fn_iter, &depth);
+	twl_lst_iter(this->shift, fn_iter, &depth);
 }
