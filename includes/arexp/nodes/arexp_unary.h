@@ -10,30 +10,38 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AREXP_multiplicative_H
-# define AREXP_multiplicative_H
+#ifndef AREXP_UNARY_H
+# define AREXP_UNARY_H
 
 # include "basics.h"
 # include "token/token.h"
 # include "arexp/arexp_defines.h"
-# include "arexp/nodes/arexp_unary.h"
 
-typedef struct			s_arexp_multiplicative__
+typedef union				u_primary__
 {
-	t_arexp_unary		*unary;
-	t_token				*multiplicative_sign;
-}						t_arexp_multiplicative__;
+	t_token					*constant;
+	t_token					*variable;
+	struct arexp_expression	*arexp_expression;
+}							t_primary__;
 
-typedef struct			s_arexp_multiplicative
+typedef enum				e_primary_enum__
 {
-	t_lst				*unary;
-}						t_arexp_multiplicative;
+	PRIMARY_CONSTANT,
+	PRIMARY_VARIABLE,
+	PRIMARY_EXPRESSION
+}							t_primary_enum__;
 
-t_arexp_multiplicative	*arexp_multiplicative_new(void);
-void					arexp_multiplicative_del(t_arexp_multiplicative
-														*arexp_multiplicative);
+typedef struct				s_arexp_unary
+{
+	t_lst					*unary_operator;
+	t_primary_enum__		primary_enum;
+	t_primary__				primary;
+}							t_arexp_unary;
 
-t_arexp_multiplicative	*arexp_multiplicative_new_from_tokens(t_lst *tokens,
+t_arexp_unary				*arexp_unary_new(void);
+void						arexp_unary_del(t_arexp_unary *arexp_unary);
+
+t_arexp_unary				*arexp_unary_new_from_tokens(t_lst *tokens,
 														struct s_arexp *arexp);
 
 #endif
