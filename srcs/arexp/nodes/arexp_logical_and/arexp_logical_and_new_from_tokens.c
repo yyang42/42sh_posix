@@ -18,7 +18,7 @@ t_arexp_logical_and			*arexp_logical_and_new_from_tokens(t_lst *tokens,
 														struct s_arexp *arexp)
 {
 	t_arexp_logical_and		*logical_and;
-	t_arexp_inclusive_or		*inclusive_or;
+	t_arexp_inclusive_or	*inclusive_or;
 	t_token					*token;
 
 	logical_and = arexp_logical_and_new();
@@ -28,10 +28,12 @@ t_arexp_logical_and			*arexp_logical_and_new_from_tokens(t_lst *tokens,
 		if (arexp_has_error(arexp))
 		{
 			arexp_logical_and_del(logical_and);
+			arexp_inclusive_or_del(inclusive_or);
 			return (NULL);
 		}
-		twl_lst_push_back(logical_and->arexp_inclusive_or, inclusive_or);
-		if (!token_mgr_first(tokens) || token_mgr_first(tokens)->type != TOK_AREXP_LOGICAL_AND)
+		twl_lst_push_back(logical_and->inclusive_or, inclusive_or);
+		token = token_mgr_first(tokens);
+		if (!token || token->type != TOK_AREXP_LOGICAL_AND)
 			break ;
 		token = twl_lst_pop(tokens);
 		token_del(token);

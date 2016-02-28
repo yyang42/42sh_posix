@@ -14,9 +14,9 @@
 
 t_arexp_logical_and		*arexp_logical_and_new(void)
 {
-	t_arexp_logical_and	*arexp_logical_and;
+	t_arexp_logical_and	*logical_and;
 
-	arexp_logical_and = twl_malloc_x0(sizeof(t_arexp_logical_and));
-	arexp_logical_and->arexp_inclusive_or = twl_lst_new();
-	return (arexp_logical_and);
+	logical_and = twl_malloc_x0(sizeof(t_arexp_logical_and));
+	logical_and->inclusive_or = twl_lst_new();
+	return (logical_and);
 }
