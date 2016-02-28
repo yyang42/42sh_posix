@@ -12,9 +12,23 @@
 
 #include "arexp/nodes/arexp_additive.h"
 
-void			arexp_additive_del(t_arexp_additive *arexp_additive)
+static void		call_bash(void *add_)
 {
-	//if (arexp_additive->arexp_logical_and)
-	//	twl_lst_del(arexp_additive->arexp_logical_and, arexp_logical_and_del);
-	free(arexp_additive);
+	t_arexp_additive__	*add;
+
+	add = add_;
+	if (add->additive_sign)
+		token_del(add->additive_sign);
+	if (add->multiplicative)
+		arexp_multiplicative_del(add->multiplicative);
+	free(add);
+}
+
+void			arexp_additive_del(t_arexp_additive *additive)
+{
+	if (!additive)
+		return ;
+	if (additive->multiplicative)
+		twl_lst_del(additive->multiplicative, call_bash);
+	free(additive);
 }
