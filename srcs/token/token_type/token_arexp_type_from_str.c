@@ -22,8 +22,8 @@ t_token_type		token_arexp_type_from_str(char *str)
 	if (!item)
 	{
 		if (twl_isdigit(str[0]))
-			return (TOK_AREXP_NUMBER);
-		return (TOK_AREXP_ENV_VAR);
+			return (TOK_AREXP_CONSTANT);
+		return (TOK_AREXP_VARIABLE);
 	}
 	return (item->type);
 }
