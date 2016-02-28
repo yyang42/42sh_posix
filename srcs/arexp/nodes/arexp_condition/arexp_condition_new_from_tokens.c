@@ -36,7 +36,7 @@ t_arexp_condition		*arexp_condition_new_from_tokens(t_lst *tokens,
 	token = token_mgr_first(tokens);
 	if (!token || token->type != TOK_AREXP_QUESTION_MARK)
 		return (condition);
-	token = twl_lst_pop(tokens);
+	token = twl_lst_pop_front(tokens);
 	token_del(token);
 	expression_if = arexp_expression_new_from_tokens(tokens, arexp);
 	if (arexp_has_error(arexp))

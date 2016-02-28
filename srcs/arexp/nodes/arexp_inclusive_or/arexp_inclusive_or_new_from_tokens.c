@@ -35,7 +35,7 @@ t_arexp_inclusive_or		*arexp_inclusive_or_new_from_tokens(t_lst *tokens,
 		token = token_mgr_first(tokens);
 		if (!token || token->type != TOK_AREXP_INC_OR)
 			break ;
-		token = twl_lst_pop(tokens);
+		token = twl_lst_pop_front(tokens);
 		token_del(token);
 	}
 	return (inclusive_or);

@@ -35,7 +35,7 @@ t_arexp_and				*arexp_and_new_from_tokens(t_lst *tokens,
 		token = token_mgr_first(tokens);
 		if (!token || token->type != TOK_AREXP_AND)
 			break ;
-		token = twl_lst_pop(tokens);
+		token = twl_lst_pop_front(tokens);
 		token_del(token);
 	}
 	return (and);

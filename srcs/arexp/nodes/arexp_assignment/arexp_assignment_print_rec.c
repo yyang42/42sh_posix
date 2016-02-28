@@ -10,39 +10,22 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "token/token_mgr.h"
-#include "data_utils.h"
+#include "arexp/arexp_utils.h"
 #include "arexp/nodes/arexp_assignment.h"
-#include "arexp/arexp.h"
+#include "twl_stdio.h"
 
-t_arexp_assignment		*arexp_assignment_new_from_tokens(t_lst *tokens,
-														struct s_arexp *arexp)
+static void	fn_iter(void *data_)
 {
-	t_arexp_assignment	*assignment;
-	t_arexp_condition	*condition;
-	t_token				**assign;
-	t_token				*token;
+	t_token		**data;
 
-	assignment = arexp_assignment_new();
-	while (42)
-	{
-		token = token_mgr_first(tokens);
-		if (!token || token->type != TOK_AREXP_VARIABLE)
-			break ;
-		token = twl_lst_get(tokens, 1);
-		if (!token || !data_utils_arexp_is_assign(token->text))
-			break ;
-		assign = twl_malloc_x0(sizeof(t_token *) * 2);
-		assign[0] = twl_lst_pop_front(tokens);
-		assign[1] = twl_lst_pop_front(tokens);
-		twl_lst_push_front(assignment->assign, assign);
-	}
-	condition = arexp_condition_new_from_tokens(tokens, arexp);
-	if (arexp_has_error(arexp))
-	{
-		arexp_assignment_del(assignment);
-		arexp_condition_del(condition);
-		return (NULL);
-	}
-	return (assignment);
+	data = data_;
+	twl_printf(" %s %s", data[0]->text, data[1]->text);
+}
+
+void		arexp_assignment_print_rec(t_arexp_assignment *this, int depth)
+{
+	arexp_print_indent(depth);
+	twl_printf("assignment:");
+	twl_lst_iter0(this->assign, fn_iter);
+	twl_printf("\n");
 }

@@ -34,7 +34,7 @@ static bool					push_fn(t_lst *tokens,
 		twl_lst_push(additive->multiplicative, to_push);
 		return (false);
 	}
-	to_push->additive_sign = twl_lst_pop(tokens);
+	to_push->additive_sign = twl_lst_pop_front(tokens);
 	twl_lst_push(additive->multiplicative, to_push);
 	return (true);
 }

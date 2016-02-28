@@ -33,7 +33,7 @@ static bool				push_fn(t_lst *tokens, t_arexp_shift *shift,
 		twl_lst_push(shift->additive, to_push);
 		return (false);
 	}
-	to_push->shift_sign = twl_lst_pop(tokens);
+	to_push->shift_sign = twl_lst_pop_front(tokens);
 	twl_lst_push(shift->additive, to_push);
 	return (true);
 }
