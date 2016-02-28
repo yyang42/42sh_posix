@@ -20,13 +20,12 @@
 
 typedef struct			s_arexp_assignment
 {
-	t_lst				*lst_assign;
-	t_arexp_condition	*arexp_condition;
+	t_lst				*assign;
+	t_arexp_condition	*condition;
 }						t_arexp_assignment;
 
 t_arexp_assignment		*arexp_assignment_new(void);
-void					arexp_assignment_del(t_arexp_assignment
-															*arexp_assignment);
+void					arexp_assignment_del(t_arexp_assignment *assignment);
 
 t_arexp_assignment		*arexp_assignment_new_from_tokens(t_lst *tokens,
 														struct s_arexp *arexp);

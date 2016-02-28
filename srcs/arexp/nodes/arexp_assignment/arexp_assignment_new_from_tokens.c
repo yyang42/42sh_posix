@@ -11,23 +11,38 @@
 /* ************************************************************************** */
 
 #include "token/token_mgr.h"
-#include "data.h"
+#include "data_utils.h"
 #include "arexp/nodes/arexp_assignment.h"
+#include "arexp/arexp.h"
 
 t_arexp_assignment		*arexp_assignment_new_from_tokens(t_lst *tokens,
 														struct s_arexp *arexp)
 {
-	t_arexp_assignment	*arexp_assignment;
+	t_arexp_assignment	*assignment;
+	t_arexp_condition	*condition;
 	t_token				**assign;
+	t_token				*token;
 
-	arexp_assignment = arexp_assignment_new();
+	assignment = arexp_assignment_new();
 	while (42)
 	{
-		assign = token_mgr_arexp_extract_assign(tokens);
-		if (assign == NULL)
+		token = token_mgr_first(tokens);
+		if (!token || token->type != TOK_AREXP_VARIABLE)
 			break ;
-		twl_lst_push_front(arexp_assignment->lst_assign, assign);
+		token = twl_lst_get(tokens, 1);
+		if (!token || !data_utils_arexp_is_assign(token->text))
+			break ;
+		assign = twl_malloc_x0(sizeof(t_token *) * 2);
+		assign[0] = twl_lst_pop(tokens);
+		assign[1] = twl_lst_pop(tokens);
+		twl_lst_push_front(assignment->assign, assign);
 	}
-	arexp_condition_new_from_tokens(tokens, arexp);
-	return (arexp_assignment);
+	condition = arexp_condition_new_from_tokens(tokens, arexp);
+	if (arexp_has_error(arexp))
+	{
+		arexp_assignment_del(assignment);
+		arexp_condition_del(condition);
+		return (NULL);
+	}
+	return (assignment);
 }

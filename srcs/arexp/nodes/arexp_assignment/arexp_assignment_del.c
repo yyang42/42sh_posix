@@ -12,11 +12,21 @@
 
 #include "arexp/nodes/arexp_assignment.h"
 
-/*
-** TODO: FREE CLEAR LOLOLOL :kappa: just freed it
-*/
-
-void			arexp_assignment_del(t_arexp_assignment *arexp_assignment)
+static void		del_fn(void *assign_)
 {
-	free(arexp_assignment);
+	t_token		**assign;
+
+	assign = assign_;
+	free(assign[0]);
+	free(assign[1]);
+	free(assign);
+}
+
+void			arexp_assignment_del(t_arexp_assignment *assignment)
+{
+	if (!assignment)
+		return ;
+	if (assignment->assign)
+		twl_lst_del(assignment->assign, del_fn);
+	free(assignment);
 }
