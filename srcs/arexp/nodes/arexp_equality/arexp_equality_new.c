@@ -14,9 +14,9 @@
 
 t_arexp_equality		*arexp_equality_new(void)
 {
-	t_arexp_equality	*arexp_equality;
+	t_arexp_equality	*equality;
 
-	arexp_equality = twl_malloc_x0(sizeof(t_arexp_equality));
-	arexp_equality->relational = twl_lst_new();
-	return (arexp_equality);
+	equality = twl_malloc_x0(sizeof(t_arexp_equality));
+	equality->relational = twl_lst_new();
+	return (equality);
 }

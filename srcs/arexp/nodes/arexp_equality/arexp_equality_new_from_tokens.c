@@ -14,14 +14,14 @@
 #include "arexp/arexp.h"
 #include "token/token_mgr.h"
 
-static bool							is_equality_token(t_token *token)
+static bool				is_equality_token(t_token *token)
 {
 	return (token &&
 			(token->type == TOK_AREXP_EQUAL ||
 			 token->type == TOK_AREXP_NOT_EQUAL));
 }
 
-static bool							push_fn(t_lst *tokens,
+static bool				push_fn(t_lst *tokens,
 						t_arexp_equality *equality,
 						t_arexp_relational *relational)
 {
@@ -39,10 +39,10 @@ static bool							push_fn(t_lst *tokens,
 	return (true);
 }
 
-t_arexp_equality			*arexp_equality_new_from_tokens(t_lst *tokens,
+t_arexp_equality		*arexp_equality_new_from_tokens(t_lst *tokens,
 														struct s_arexp *arexp)
 {
-	t_arexp_equality		*equality;
+	t_arexp_equality	*equality;
 	t_arexp_relational	*relational;
 
 	equality = arexp_equality_new();
@@ -52,6 +52,7 @@ t_arexp_equality			*arexp_equality_new_from_tokens(t_lst *tokens,
 		if (arexp_has_error(arexp))
 		{
 			arexp_equality_del(equality);
+			arexp_relational_del(relational);
 			return (NULL);
 		}
 		if (!push_fn(tokens, equality, relational))
