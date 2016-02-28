@@ -26,7 +26,7 @@ static void		fn_iter2n(void *data_, void *next_, void *assign_, void *is_assign_
 	is_assign_extracted = is_assign_extracted_;
 	if (*assign == NULL || *is_assign_extracted == true)
 		return ;
-	if (data->type == TOK_AREXP_ENV_VAR && next != NULL &&
+	if (data->type == TOK_AREXP_VARIABLE && next != NULL &&
 			data_utils_arexp_is_assign(next->text))
 	{
 		(*assign)[0] = data;

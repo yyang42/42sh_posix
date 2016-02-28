@@ -10,39 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AREXP_UNARY_H
-# define AREXP_UNARY_H
+#include "arexp/nodes/arexp_unary.h"
+#include "arexp/nodes/arexp_expression.h"
 
-# include "basics.h"
-# include "token/token.h"
-# include "arexp/arexp_defines.h"
-
-typedef union					u_primary__
+void			arexp_unary_del(t_arexp_unary *arexp_unary)
 {
-	t_token						*constant;
-	t_token						*variable;
-	struct s_arexp_expression	*arexp_expression;
-}								t_primary__;
-
-typedef enum					e_primary_enum__
-{
-	AREXP_PRIMARY_NOTHING,
-	AREXP_PRIMARY_CONSTANT,
-	AREXP_PRIMARY_VARIABLE,
-	AREXP_PRIMARY_EXPRESSION
-}								t_primary_enum__;
-
-typedef struct					s_arexp_unary
-{
-	t_lst						*unary_operator;
-	t_primary_enum__			primary_enum;
-	t_primary__					primary;
-}								t_arexp_unary;
-
-t_arexp_unary					*arexp_unary_new(void);
-void							arexp_unary_del(t_arexp_unary *arexp_unary);
-
-t_arexp_unary					*arexp_unary_new_from_tokens(t_lst *tokens,
-														struct s_arexp *arexp);
-
-#endif
+	if (!arexp_unary)
+		return ;
+	twl_lst_del(arexp_unary->unary_operator, token_del);
+	if (arexp_unary->primary_enum == AREXP_PRIMARY_CONSTANT)
+		token_del(arexp_unary->primary.constant);
+	else if (arexp_unary->primary_enum == AREXP_PRIMARY_VARIABLE)
+		token_del(arexp_unary->primary.variable);
+	else if (arexp_unary->primary_enum == AREXP_PRIMARY_EXPRESSION)
+		arexp_expression_del(arexp_unary->primary.arexp_expression);
+	free(arexp_unary);
+}
