@@ -12,9 +12,23 @@
 
 #include "arexp/nodes/arexp_relational.h"
 
-void			arexp_relational_del(t_arexp_relational *arexp_relational)
+static void		fn_del(void *rel_)
 {
-	//if (arexp_relational->arexp_logical_and)
-	//	twl_lst_del(arexp_relational->arexp_logical_and, arexp_logical_and_del);
-	free(arexp_relational);
+	t_arexp_relational__	*rel;
+
+	rel = rel_;
+	if (rel->relational_sign)
+		token_del(rel->relational_sign);
+	if (rel->shift)
+		arexp_shift_del(rel->shift);
+	free(rel);
+}
+
+void			arexp_relational_del(t_arexp_relational *relational)
+{
+	if (!relational)
+		return ;
+	if (relational->shift)
+		twl_lst_del(relational->shift, fn_del);
+	free(relational);
 }

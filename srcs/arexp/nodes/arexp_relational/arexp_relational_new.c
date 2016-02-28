@@ -14,9 +14,9 @@
 
 t_arexp_relational		*arexp_relational_new(void)
 {
-	t_arexp_relational	*arexp_relational;
+	t_arexp_relational	*relational;
 
-	arexp_relational = twl_malloc_x0(sizeof(t_arexp_relational));
-	arexp_relational->shift = twl_lst_new();
-	return (arexp_relational);
+	relational = twl_malloc_x0(sizeof(t_arexp_relational));
+	relational->shift = twl_lst_new();
+	return (relational);
 }
