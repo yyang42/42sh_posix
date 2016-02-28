@@ -11,22 +11,17 @@
 /* ************************************************************************** */
 
 #include "arexp/arexp_utils.h"
-#include "arexp/nodes/arexp_assignment.h"
+#include "arexp/nodes/arexp_logical_or.h"
 #include "twl_stdio.h"
 
-static void	fn_iter(void *data_)
+static void	fn_iter(void *data, void *depth)
 {
-	t_token		**data;
-
-	data = data_;
-	twl_printf(" '%s %s'", data[0]->text, data[1]->text);
+	arexp_print_indent(*((int *)depth));
+	twl_printf("logical_or\n");
+	(void)data;
 }
 
-void		arexp_assignment_print_rec(t_arexp_assignment *this, int depth)
+void		arexp_logical_or_print_rec(t_arexp_logical_or *this, int depth)
 {
-	arexp_print_indent(depth);
-	twl_printf("assignment");
-	twl_lst_iter0(this->assign, fn_iter);
-	twl_printf("\n");
-	arexp_condition_print_rec(this->condition, depth + 1);
+	twl_lst_iter(this->logical_and, fn_iter, &depth);
 }

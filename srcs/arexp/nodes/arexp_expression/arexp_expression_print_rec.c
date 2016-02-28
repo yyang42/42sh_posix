@@ -17,7 +17,7 @@
 static void	fn_iter(void *data, void *ctx)
 {
 	arexp_print_indent(*((int *)ctx));
-	twl_printf("expression:\n");
+	twl_printf("expression\n");
 	arexp_assignment_print_rec(data, *((int *)ctx) + 1);
 }
 
