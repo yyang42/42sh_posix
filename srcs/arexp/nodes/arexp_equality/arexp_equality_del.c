@@ -12,9 +12,23 @@
 
 #include "arexp/nodes/arexp_equality.h"
 
-void			arexp_equality_del(t_arexp_equality *arexp_equality)
+static void				fn_del(void *eq_)
 {
-	//if (arexp_equality->arexp_logical_and)
-	//	twl_lst_del(arexp_equality->arexp_logical_and, arexp_logical_and_del);
-	free(arexp_equality);
+	t_arexp_equality__	*eq;
+
+	eq = eq_;
+	if (eq->equality_sign)
+		token_del(eq->equality_sign);
+	if (eq->relational)
+		arexp_relational_del(eq->relational);
+	free(eq);
+}
+
+void					arexp_equality_del(t_arexp_equality *equality)
+{
+	if (!equality)
+		return ;
+	if (equality->relational)
+		twl_lst_del(equality->relational, fn_del);
+	free(equality);
 }
