@@ -10,30 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AREXP_multiplicative_H
-# define AREXP_multiplicative_H
+#include "arexp/nodes/arexp_multiplicative.h"
 
-# include "basics.h"
-# include "token/token.h"
-# include "arexp/arexp_defines.h"
-# include "arexp/nodes/arexp_unary.h"
-
-typedef struct			s_arexp_multiplicative__
+t_arexp_multiplicative		*arexp_multiplicative_new(void)
 {
-	t_arexp_unary		*unary;
-	t_token				*multiplicative_sign;
-}						t_arexp_multiplicative__;
+	t_arexp_multiplicative	*arexp_multiplicative;
 
-typedef struct			s_arexp_multiplicative
-{
-	t_lst				*unary;
-}						t_arexp_multiplicative;
-
-t_arexp_multiplicative	*arexp_multiplicative_new(void);
-void					arexp_multiplicative_del(t_arexp_multiplicative
-														*arexp_multiplicative);
-
-t_arexp_multiplicative	*arexp_multiplicative_new_from_tokens(t_lst *tokens,
-														struct s_arexp *arexp);
-
-#endif
+	arexp_multiplicative = twl_malloc_x0(sizeof(t_arexp_multiplicative));
+	arexp_multiplicative->unary = twl_lst_new();
+	return (arexp_multiplicative);
+}
