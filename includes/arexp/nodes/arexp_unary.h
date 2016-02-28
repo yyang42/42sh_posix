@@ -17,8 +17,6 @@
 # include "token/token.h"
 # include "arexp/arexp_defines.h"
 
-#include <stdio.h>
-
 typedef union					u_primary__
 {
 	t_token						*constant;

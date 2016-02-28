@@ -19,6 +19,7 @@ t_lst				*data_arexp_assignment(void)
 
 	if (assignment == NULL)
 	{
+		assignment = twl_lst_new();
 		twl_lst_push_back(assignment, "=");
 		twl_lst_push_back(assignment, "|=");
 		twl_lst_push_back(assignment, "^=");

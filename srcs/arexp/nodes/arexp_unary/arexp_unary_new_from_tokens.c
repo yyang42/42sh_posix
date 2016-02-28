@@ -33,17 +33,17 @@ t_arexp_unary			*arexp_unary_new_from_tokens(t_lst *tokens,
 			return (NULL);
 		}
 		if (data_utils_arexp_is_unary_operator(token->text))
-			twl_lst_push(arexp_unary->unary_operator, twl_lst_pop(tokens));
+			twl_lst_push(arexp_unary->unary_operator, twl_lst_pop_front(tokens));
 		else if (token->type == TOK_AREXP_CONSTANT)
 		{
 			arexp_unary->primary_enum = AREXP_PRIMARY_CONSTANT;
-			arexp_unary->primary.constant = twl_lst_pop(tokens);
+			arexp_unary->primary.constant = twl_lst_pop_front(tokens);
 			return (arexp_unary);
 		}
 		else if (token->type == TOK_AREXP_VARIABLE)
 		{
 			arexp_unary->primary_enum = AREXP_PRIMARY_VARIABLE;
-			arexp_unary->primary.variable = twl_lst_pop(tokens);
+			arexp_unary->primary.variable = twl_lst_pop_front(tokens);
 			return (arexp_unary);
 		}
 		else if (token->type == TOK_AREXP_LPARENTHESIS)

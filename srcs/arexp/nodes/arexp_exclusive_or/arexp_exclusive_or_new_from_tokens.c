@@ -35,7 +35,7 @@ t_arexp_exclusive_or		*arexp_exclusive_or_new_from_tokens(t_lst *tokens,
 		token = token_mgr_first(tokens);
 		if (!token || token->type != TOK_AREXP_EXC_OR)
 			break ;
-		token = twl_lst_pop(tokens);
+		token = twl_lst_pop_front(tokens);
 		token_del(token);
 	}
 	return (exclusive_or);
