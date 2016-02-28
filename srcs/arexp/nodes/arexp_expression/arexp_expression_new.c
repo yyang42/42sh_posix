@@ -14,9 +14,9 @@
 
 t_arexp_expression		*arexp_expression_new(void)
 {
-	t_arexp_expression	*arexp_expression;
+	t_arexp_expression	*expression;
 
-	arexp_expression = twl_malloc_x0(sizeof(t_arexp_expression));
-	arexp_expression->arexp_assignment = twl_lst_new();
-	return (arexp_expression);
+	expression = twl_malloc_x0(sizeof(t_arexp_expression));
+	expression->assignment = twl_lst_new();
+	return (expression);
 }

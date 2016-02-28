@@ -18,12 +18,32 @@
 t_arexp_expression		*arexp_expression_new_from_tokens(t_lst *tokens,
 														struct s_arexp *arexp)
 {
-	t_arexp_expression	*arexp_expression;
+	t_arexp_expression	*expression;
+	t_arexp_assignment	*assignment;
+	t_token				*token;
 
-	arexp_expression = arexp_expression_new();
-	while (twl_lst_len(tokens) != 0 && !(arexp->error_msg))
+	expression = arexp_expression_new();
+	assignment = arexp_assignment_new_from_tokens(tokens, arexp);
+	if (arexp_has_error(arexp))
 	{
-		arexp_assignment_new_from_tokens(tokens, arexp);
+		arexp_expression_del(expression);
+		arexp_assignment_del(assignment);
+		return (NULL);
 	}
-	return (arexp_expression);
+	twl_lst_push_back(expression->assignment, assignment);
+	while (42)
+	{
+		token = token_mgr_first(tokens);
+		if (!token || token->type != TOK_AREXP_COMMA)
+			break ;
+		assignment = arexp_assignment_new_from_tokens(tokens, arexp);
+		if (arexp_has_error(arexp))
+		{
+			arexp_expression_del(expression);
+			arexp_assignment_del(assignment);
+			return (NULL);
+		}
+		twl_lst_push_back(expression->assignment, assignment);
+	}
+	return (expression);
 }
