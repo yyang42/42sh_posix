@@ -15,6 +15,8 @@
 
 void			arexp_condition_del(t_arexp_condition *condition)
 {
+	if (!condition)
+		return ;
 	if (condition->logical_or)
 		arexp_logical_or_del(condition->logical_or);
 	if (condition->expression_if)

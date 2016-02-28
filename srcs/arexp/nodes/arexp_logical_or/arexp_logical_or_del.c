@@ -12,9 +12,11 @@
 
 #include "arexp/nodes/arexp_logical_or.h"
 
-void			arexp_logical_or_del(t_arexp_logical_or *arexp_logical_or)
+void			arexp_logical_or_del(t_arexp_logical_or *logical_or)
 {
-	//if (arexp_logical_or->arexp_logical_and)
-	//	twl_lst_del(arexp_logical_or->arexp_logical_and, arexp_logical_and_del);
-	free(arexp_logical_or);
+	if (!logical_or)
+		return ;
+	if (logical_or->logical_and)
+		twl_lst_del(logical_or->logical_and, arexp_logical_and_del);
+	free(logical_or);
 }
