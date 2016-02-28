@@ -30,7 +30,7 @@ typedef struct		s_arexp_relational
 }					t_arexp_relational;
 
 t_arexp_relational	*arexp_relational_new(void);
-void				arexp_relational_del(t_arexp_relational *arexp_relational);
+void				arexp_relational_del(t_arexp_relational *relational);
 
 t_arexp_relational	*arexp_relational_new_from_tokens(t_lst *tokens,
 														struct s_arexp *arexp);

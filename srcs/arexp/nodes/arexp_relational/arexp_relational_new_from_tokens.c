@@ -14,7 +14,7 @@
 #include "arexp/arexp.h"
 #include "token/token_mgr.h"
 
-static bool							is_relational_token(t_token *token)
+static bool				is_relational_token(t_token *token)
 {
 	return (token &&
 			(token->type == TOK_AREXP_LESS ||
@@ -23,9 +23,8 @@ static bool							is_relational_token(t_token *token)
 			 token->type == TOK_AREXP_GREAT_EQ));
 }
 
-static bool							push_fn(t_lst *tokens,
-						t_arexp_relational *relational,
-						t_arexp_shift *shift)
+static bool				push_fn(t_lst *tokens, t_arexp_relational *relational,
+														t_arexp_shift *shift)
 {
 	t_arexp_relational__	*to_push;
 
@@ -41,11 +40,11 @@ static bool							push_fn(t_lst *tokens,
 	return (true);
 }
 
-t_arexp_relational			*arexp_relational_new_from_tokens(t_lst *tokens,
+t_arexp_relational		*arexp_relational_new_from_tokens(t_lst *tokens,
 														struct s_arexp *arexp)
 {
-	t_arexp_relational		*relational;
-	t_arexp_shift	*shift;
+	t_arexp_relational	*relational;
+	t_arexp_shift		*shift;
 
 	relational = arexp_relational_new();
 	while (42)
@@ -54,6 +53,7 @@ t_arexp_relational			*arexp_relational_new_from_tokens(t_lst *tokens,
 		if (arexp_has_error(arexp))
 		{
 			arexp_relational_del(relational);
+			arexp_shift_del(shift);
 			return (NULL);
 		}
 		if (!push_fn(tokens, relational, shift))
