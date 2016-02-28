@@ -16,7 +16,8 @@
 #include "token/token_mgr.h"
 #include "data_utils.h"
 
-t_arexp_unary			*arexp_unary_new_from_tokens(t_lst *tokens, struct s_arexp *arexp)
+t_arexp_unary			*arexp_unary_new_from_tokens(t_lst *tokens,
+														struct s_arexp *arexp)
 {
 	t_token				*token;
 	t_arexp_unary		*arexp_unary;
@@ -48,7 +49,8 @@ t_arexp_unary			*arexp_unary_new_from_tokens(t_lst *tokens, struct s_arexp *arex
 		else if (token->type == TOK_AREXP_LPARENTHESIS)
 		{
 			arexp_unary->primary_enum = AREXP_PRIMARY_EXPRESSION;
-			arexp_unary->primary.arexp_expression = arexp_expression_new_from_tokens(tokens, arexp);
+			arexp_unary->primary.arexp_expression =
+								arexp_expression_new_from_tokens(tokens, arexp);
 			return (arexp_unary);
 		}
 		else
