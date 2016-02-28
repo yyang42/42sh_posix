@@ -10,29 +10,30 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AREXP_shift_H
-# define AREXP_shift_H
+#ifndef AREXP_multiplicative_H
+# define AREXP_multiplicative_H
 
 # include "basics.h"
 # include "token/token.h"
 # include "arexp/arexp_defines.h"
-# include "arexp/nodes/arexp_additive.h"
+//# include "arexp/nodes/arexp_unary.h"
 
-typedef struct			s_arexp_shift__
+typedef struct			s_arexp_multiplicative__
 {
-	t_arexp_additive	*additive;
-	t_token				*shift_sign;
-}						t_arexp_shift__;
+	//t_arexp_unary		*unary;
+	t_token				*multiplicative_sign;
+}						t_arexp_multiplicative__;
 
-typedef struct			s_arexp_shift
+typedef struct			s_arexp_multiplicative
 {
-	t_lst				*additive;
-}						t_arexp_shift;
+	t_lst				*unary;
+}						t_arexp_multiplicative;
 
-t_arexp_shift			*arexp_shift_new(void);
-void					arexp_shift_del(t_arexp_shift *arexp_shift);
+t_arexp_multiplicative	*arexp_multiplicative_new(void);
+void					arexp_multiplicative_del(t_arexp_multiplicative
+														*arexp_multiplicative);
 
-t_arexp_shift			*arexp_shift_new_from_tokens(t_lst *tokens,
+t_arexp_multiplicative	*arexp_multiplicative_new_from_tokens(t_lst *tokens,
 														struct s_arexp *arexp);
 
 #endif

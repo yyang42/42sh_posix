@@ -10,29 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AREXP_shift_H
-# define AREXP_shift_H
+#include "arexp/nodes/arexp_shift.h"
 
-# include "basics.h"
-# include "token/token.h"
-# include "arexp/arexp_defines.h"
-# include "arexp/nodes/arexp_additive.h"
-
-typedef struct			s_arexp_shift__
+void			arexp_shift_del(t_arexp_shift *arexp_shift)
 {
-	t_arexp_additive	*additive;
-	t_token				*shift_sign;
-}						t_arexp_shift__;
-
-typedef struct			s_arexp_shift
-{
-	t_lst				*additive;
-}						t_arexp_shift;
-
-t_arexp_shift			*arexp_shift_new(void);
-void					arexp_shift_del(t_arexp_shift *arexp_shift);
-
-t_arexp_shift			*arexp_shift_new_from_tokens(t_lst *tokens,
-														struct s_arexp *arexp);
-
-#endif
+	//if (arexp_shift->arexp_logical_and)
+	//	twl_lst_del(arexp_shift->arexp_logical_and, arexp_logical_and_del);
+	free(arexp_shift);
+}
