@@ -20,12 +20,14 @@
 
 typedef struct			s_arexp_inclusive_or
 {
-	t_lst				*arexp_exclusive_or;
+	t_lst				*exclusive_or;
 }						t_arexp_inclusive_or;
 
 t_arexp_inclusive_or	*arexp_inclusive_or_new(void);
-void					arexp_inclusive_or_del(t_arexp_inclusive_or *arexp_inclusive_or);
+void					arexp_inclusive_or_del(t_arexp_inclusive_or
+																*inclusive_or);
 
-t_arexp_inclusive_or	*arexp_inclusive_or_new_from_tokens(t_lst *tokens, struct s_arexp *arexp);
+t_arexp_inclusive_or	*arexp_inclusive_or_new_from_tokens(t_lst *tokens,
+														struct s_arexp *arexp);
 
 #endif

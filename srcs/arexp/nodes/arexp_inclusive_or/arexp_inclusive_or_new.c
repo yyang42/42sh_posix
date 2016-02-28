@@ -14,9 +14,9 @@
 
 t_arexp_inclusive_or		*arexp_inclusive_or_new(void)
 {
-	t_arexp_inclusive_or	*arexp_inclusive_or;
+	t_arexp_inclusive_or	*inclusive_or;
 
-	arexp_inclusive_or = twl_malloc_x0(sizeof(t_arexp_inclusive_or));
-	arexp_inclusive_or->arexp_exclusive_or = twl_lst_new();
-	return (arexp_inclusive_or);
+	inclusive_or = twl_malloc_x0(sizeof(t_arexp_inclusive_or));
+	inclusive_or->exclusive_or = twl_lst_new();
+	return (inclusive_or);
 }
