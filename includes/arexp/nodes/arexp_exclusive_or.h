@@ -30,4 +30,6 @@ void					arexp_exclusive_or_del(t_arexp_exclusive_or
 t_arexp_exclusive_or	*arexp_exclusive_or_new_from_tokens(t_lst *tokens,
 														struct s_arexp *arexp);
 
+void					arexp_exclusive_or_print_rec(t_arexp_exclusive_or *this, int depth);
+
 #endif

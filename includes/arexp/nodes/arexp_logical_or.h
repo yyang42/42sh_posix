@@ -29,4 +29,6 @@ void					arexp_logical_or_del(t_arexp_logical_or *logical_or);
 t_arexp_logical_or		*arexp_logical_or_new_from_tokens(t_lst *tokens,
 														struct s_arexp *arexp);
 
+void					arexp_logical_or_print_rec(t_arexp_logical_or *this, int depth);
+
 #endif

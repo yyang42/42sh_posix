@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_norris_loves_the_norminette.c                :+:      :+:    :+:   */
+/*   check_norris_loves_the_norminette.h                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chuck <chuck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,31 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AREXP_RELATIONAL_H
-# define AREXP_RELATIONAL_H
+#ifndef AREXP_UTILS_H
+# define AREXP_UTILS_H
 
-# include "basics.h"
-# include "token/token.h"
-# include "arexp/arexp_defines.h"
-# include "arexp/nodes/arexp_shift.h"
+# include <unistd.h>
 
-typedef struct		s_arexp_relational__
-{
-	t_arexp_shift	*shift;
-	t_token			*relational_sign;
-}					t_arexp_relational__;
-
-typedef struct		s_arexp_relational
-{
-	t_lst			*shift;
-}					t_arexp_relational;
-
-t_arexp_relational	*arexp_relational_new(void);
-void				arexp_relational_del(t_arexp_relational *relational);
-
-t_arexp_relational	*arexp_relational_new_from_tokens(t_lst *tokens,
-														struct s_arexp *arexp);
-
-void					arexp_relational_print_rec(t_arexp_relational *this, int depth);
+void			arexp_print_indent(int depth);
 
 #endif

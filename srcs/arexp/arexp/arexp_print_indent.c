@@ -10,31 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AREXP_RELATIONAL_H
-# define AREXP_RELATIONAL_H
+#include "arexp/arexp.h"
 
-# include "basics.h"
-# include "token/token.h"
-# include "arexp/arexp_defines.h"
-# include "arexp/nodes/arexp_shift.h"
-
-typedef struct		s_arexp_relational__
+void			arexp_print_indent(int depth)
 {
-	t_arexp_shift	*shift;
-	t_token			*relational_sign;
-}					t_arexp_relational__;
+	static char	*indent = NULL;
 
-typedef struct		s_arexp_relational
-{
-	t_lst			*shift;
-}					t_arexp_relational;
-
-t_arexp_relational	*arexp_relational_new(void);
-void				arexp_relational_del(t_arexp_relational *relational);
-
-t_arexp_relational	*arexp_relational_new_from_tokens(t_lst *tokens,
-														struct s_arexp *arexp);
-
-void					arexp_relational_print_rec(t_arexp_relational *this, int depth);
-
-#endif
+	if (!indent)
+	{
+		indent = twl_strnew(1023);
+		twl_memset(indent, ' ', 1023);
+	}
+	if (!write(1, indent, depth < 1023 ? depth : 1023))
+		return ;
+}

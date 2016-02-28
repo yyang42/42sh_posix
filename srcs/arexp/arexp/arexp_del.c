@@ -14,8 +14,13 @@
 
 void			arexp_del(t_arexp *this)
 {
-	twl_lst_del(this->tokens, token_del);
-	arexp_expression_del(this->arexp_expression);
+	if (!this)
+		return ;
+	if (this->tokens)
+		twl_lst_del(this->tokens, token_del);
+	if (this->expression)
+		arexp_expression_del(this->expression);
 	if (this->error_msg)
 		free(this->error_msg);
+	free(this);
 }

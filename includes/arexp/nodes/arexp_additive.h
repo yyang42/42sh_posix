@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AREXP_additive_H
-# define AREXP_additive_H
+#ifndef AREXP_ADDITIVE_H
+# define AREXP_ADDITIVE_H
 
 # include "basics.h"
 # include "token/token.h"
@@ -35,5 +35,7 @@ void						arexp_additive_del(t_arexp_additive
 
 t_arexp_additive			*arexp_additive_new_from_tokens(t_lst *tokens,
 														struct s_arexp *arexp);
+
+void						arexp_additive_print_rec(t_arexp_additive *this, int depth);
 
 #endif

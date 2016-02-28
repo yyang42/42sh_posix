@@ -10,31 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AREXP_RELATIONAL_H
-# define AREXP_RELATIONAL_H
+#include "twl_xstdio.h"
 
-# include "basics.h"
-# include "token/token.h"
-# include "arexp/arexp_defines.h"
-# include "arexp/nodes/arexp_shift.h"
+#include "arexp/arexp.h"
+#include "prog.h"
 
-typedef struct		s_arexp_relational__
+int					prog_print_arexp(t_prog *prog, char *input)
 {
-	t_arexp_shift	*shift;
-	t_token			*relational_sign;
-}					t_arexp_relational__;
+	t_arexp			*arexp;
 
-typedef struct		s_arexp_relational
-{
-	t_lst			*shift;
-}					t_arexp_relational;
-
-t_arexp_relational	*arexp_relational_new(void);
-void				arexp_relational_del(t_arexp_relational *relational);
-
-t_arexp_relational	*arexp_relational_new_from_tokens(t_lst *tokens,
-														struct s_arexp *arexp);
-
-void					arexp_relational_print_rec(t_arexp_relational *this, int depth);
-
-#endif
+	arexp = arexp_new(input);
+	if (arexp->error_msg)
+	{
+		twl_dprintf(2, "%s\n", arexp->error_msg);
+		return (1);
+	}
+	arexp_print_rec(arexp);
+	arexp_del(arexp);
+	return (0);
+	(void)prog;
+}
