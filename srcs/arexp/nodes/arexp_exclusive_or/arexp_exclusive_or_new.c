@@ -14,9 +14,9 @@
 
 t_arexp_exclusive_or		*arexp_exclusive_or_new(void)
 {
-	t_arexp_exclusive_or	*arexp_exclusive_or;
+	t_arexp_exclusive_or	*exclusive_or;
 
-	arexp_exclusive_or = twl_malloc_x0(sizeof(t_arexp_exclusive_or));
-	arexp_exclusive_or->arexp_and = twl_lst_new();
-	return (arexp_exclusive_or);
+	exclusive_or = twl_malloc_x0(sizeof(t_arexp_exclusive_or));
+	exclusive_or->and = twl_lst_new();
+	return (exclusive_or);
 }

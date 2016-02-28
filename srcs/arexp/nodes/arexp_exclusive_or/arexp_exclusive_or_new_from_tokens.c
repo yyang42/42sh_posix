@@ -18,7 +18,7 @@ t_arexp_exclusive_or		*arexp_exclusive_or_new_from_tokens(t_lst *tokens,
 														struct s_arexp *arexp)
 {
 	t_arexp_exclusive_or	*exclusive_or;
-	t_arexp_and	*and;
+	t_arexp_and				*and;
 	t_token					*token;
 
 	exclusive_or = arexp_exclusive_or_new();
@@ -28,10 +28,12 @@ t_arexp_exclusive_or		*arexp_exclusive_or_new_from_tokens(t_lst *tokens,
 		if (arexp_has_error(arexp))
 		{
 			arexp_exclusive_or_del(exclusive_or);
+			arexp_and_del(and);
 			return (NULL);
 		}
-		twl_lst_push_back(exclusive_or->arexp_and, and);
-		if (!token_mgr_first(tokens) || token_mgr_first(tokens)->type != TOK_AREXP_EXC_OR)
+		twl_lst_push_back(exclusive_or->and, and);
+		token = token_mgr_first(tokens);
+		if (!token || token->type != TOK_AREXP_EXC_OR)
 			break ;
 		token = twl_lst_pop(tokens);
 		token_del(token);
