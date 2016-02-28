@@ -12,9 +12,11 @@
 
 #include "arexp/nodes/arexp_and.h"
 
-void			arexp_and_del(t_arexp_and *arexp_and)
+void			arexp_and_del(t_arexp_and *and)
 {
-	//if (arexp_and->arexp_and)
-	//	twl_lst_del(arexp_and->arexp_and, arexp_and_del);
-	free(arexp_and);
+	if (!and)
+		return ;
+	if (and->equality)
+		twl_lst_del(and->equality, arexp_equality_del);
+	free(and);
 }

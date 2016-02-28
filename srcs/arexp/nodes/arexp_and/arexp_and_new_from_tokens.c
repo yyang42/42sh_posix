@@ -14,12 +14,12 @@
 #include "arexp/arexp.h"
 #include "token/token_mgr.h"
 
-t_arexp_and			*arexp_and_new_from_tokens(t_lst *tokens,
+t_arexp_and				*arexp_and_new_from_tokens(t_lst *tokens,
 														struct s_arexp *arexp)
 {
-	t_arexp_and					*and;
-	t_arexp_equality			*equality;
-	t_token						*token;
+	t_arexp_and			*and;
+	t_arexp_equality	*equality;
+	t_token				*token;
 
 	and = arexp_and_new();
 	while (42)
@@ -28,10 +28,12 @@ t_arexp_and			*arexp_and_new_from_tokens(t_lst *tokens,
 		if (arexp_has_error(arexp))
 		{
 			arexp_and_del(and);
+			arexp_equality_del(equality);
 			return (NULL);
 		}
 		twl_lst_push_back(and->equality, equality);
-		if (!token_mgr_first(tokens) || token_mgr_first(tokens)->type != TOK_AREXP_AND)
+		token = token_mgr_first(tokens);
+		if (!token || token->type != TOK_AREXP_AND)
 			break ;
 		token = twl_lst_pop(tokens);
 		token_del(token);
