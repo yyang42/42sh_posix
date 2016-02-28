@@ -27,7 +27,7 @@ typedef struct					s_arexp_condition
 
 t_arexp_condition				*arexp_condition_new(void);
 void							arexp_condition_del(t_arexp_condition
-															*arexp_condition);
+																	*condition);
 
 t_arexp_condition				*arexp_condition_new_from_tokens(t_lst *tokens,
 														struct s_arexp *arexp);
