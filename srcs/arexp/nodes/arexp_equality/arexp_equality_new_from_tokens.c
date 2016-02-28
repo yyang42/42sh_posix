@@ -10,31 +10,52 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "arexp/nodes/arexp_logical_and.h"
+#include "arexp/nodes/arexp_equality.h"
 #include "arexp/arexp.h"
 #include "token/token_mgr.h"
 
-t_arexp_logical_and			*arexp_logical_and_new_from_tokens(t_lst *tokens,
+static bool							is_equality_token(t_token *token)
+{
+	return (token &&
+			(token->type == TOK_AREXP_EQUAL ||
+			 token->type == TOK_AREXP_NOT_EQUAL));
+}
+
+static bool							push_fn(t_lst *tokens,
+						t_arexp_equality *equality,
+						t_arexp_relational *relational)
+{
+	t_arexp_equality__	*to_push;
+
+	to_push = twl_malloc_x0(sizeof(t_arexp_equality__));
+	to_push->relational = relational;
+	if (!is_equality_token(token_mgr_first(tokens)))
+	{
+		twl_lst_push(equality->relational, to_push);
+		return (false);
+	}
+	to_push->equality_sign = twl_lst_pop(tokens);
+	twl_lst_push(equality->relational, to_push);
+	return (true);
+}
+
+t_arexp_equality			*arexp_equality_new_from_tokens(t_lst *tokens,
 														struct s_arexp *arexp)
 {
-	t_arexp_logical_and		*logical_and;
-	t_arexp_inclusive_or		*inclusive_or;
-	t_token					*token;
+	t_arexp_equality		*equality;
+	t_arexp_relational	*relational;
 
-	logical_and = arexp_logical_and_new();
+	equality = arexp_equality_new();
 	while (42)
 	{
-		inclusive_or = arexp_inclusive_or_new_from_tokens(tokens, arexp);
+		relational = arexp_relational_new_from_tokens(tokens, arexp);
 		if (arexp_has_error(arexp))
 		{
-			arexp_logical_and_del(logical_and);
+			arexp_equality_del(equality);
 			return (NULL);
 		}
-		twl_lst_push_back(logical_and->arexp_inclusive_or, inclusive_or);
-		if (!token_mgr_first(tokens) || token_mgr_first(tokens)->type != TOK_AREXP_LOGICAL_AND)
+		if (!push_fn(tokens, equality, relational))
 			break ;
-		token = twl_lst_pop(tokens);
-		token_del(token);
 	}
-	return (logical_and);
+	return (equality);
 }

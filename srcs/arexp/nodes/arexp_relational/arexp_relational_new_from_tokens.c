@@ -10,31 +10,54 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "arexp/nodes/arexp_logical_and.h"
+#include "arexp/nodes/arexp_relational.h"
 #include "arexp/arexp.h"
 #include "token/token_mgr.h"
 
-t_arexp_logical_and			*arexp_logical_and_new_from_tokens(t_lst *tokens,
+static bool							is_relational_token(t_token *token)
+{
+	return (token &&
+			(token->type == TOK_AREXP_LESS ||
+			 token->type == TOK_AREXP_GREAT ||
+			 token->type == TOK_AREXP_LESS_EQ ||
+			 token->type == TOK_AREXP_GREAT_EQ));
+}
+
+static bool							push_fn(t_lst *tokens,
+						t_arexp_relational *relational,
+						t_arexp_shift *shift)
+{
+	t_arexp_relational__	*to_push;
+
+	to_push = twl_malloc_x0(sizeof(t_arexp_relational__));
+	to_push->shift = shift;
+	if (!is_relational_token(token_mgr_first(tokens)))
+	{
+		twl_lst_push(relational->shift, to_push);
+		return (false);
+	}
+	to_push->relational_sign = twl_lst_pop(tokens);
+	twl_lst_push(relational->shift, to_push);
+	return (true);
+}
+
+t_arexp_relational			*arexp_relational_new_from_tokens(t_lst *tokens,
 														struct s_arexp *arexp)
 {
-	t_arexp_logical_and		*logical_and;
-	t_arexp_inclusive_or		*inclusive_or;
-	t_token					*token;
+	t_arexp_relational		*relational;
+	t_arexp_shift	*shift;
 
-	logical_and = arexp_logical_and_new();
+	relational = arexp_relational_new();
 	while (42)
 	{
-		inclusive_or = arexp_inclusive_or_new_from_tokens(tokens, arexp);
+		shift = arexp_shift_new_from_tokens(tokens, arexp);
 		if (arexp_has_error(arexp))
 		{
-			arexp_logical_and_del(logical_and);
+			arexp_relational_del(relational);
 			return (NULL);
 		}
-		twl_lst_push_back(logical_and->arexp_inclusive_or, inclusive_or);
-		if (!token_mgr_first(tokens) || token_mgr_first(tokens)->type != TOK_AREXP_LOGICAL_AND)
+		if (!push_fn(tokens, relational, shift))
 			break ;
-		token = twl_lst_pop(tokens);
-		token_del(token);
 	}
-	return (logical_and);
+	return (relational);
 }
