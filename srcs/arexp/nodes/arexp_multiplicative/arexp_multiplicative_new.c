@@ -14,9 +14,9 @@
 
 t_arexp_multiplicative		*arexp_multiplicative_new(void)
 {
-	t_arexp_multiplicative	*arexp_multiplicative;
+	t_arexp_multiplicative	*multiplicative;
 
-	arexp_multiplicative = twl_malloc_x0(sizeof(t_arexp_multiplicative));
-	arexp_multiplicative->unary = twl_lst_new();
-	return (arexp_multiplicative);
+	multiplicative = twl_malloc_x0(sizeof(t_arexp_multiplicative));
+	multiplicative->unary = twl_lst_new();
+	return (multiplicative);
 }

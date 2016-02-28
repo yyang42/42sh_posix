@@ -12,9 +12,23 @@
 
 #include "arexp/nodes/arexp_multiplicative.h"
 
-void			arexp_multiplicative_del(t_arexp_multiplicative *arexp_multiplicative)
+static void		fn_del(void *mul_)
 {
-	//if (arexp_multiplicative->arexp_logical_and)
-	//	twl_lst_del(arexp_multiplicative->arexp_logical_and, arexp_logical_and_del);
-	free(arexp_multiplicative);
+	t_arexp_multiplicative__	*mul;
+
+	mul = mul_;
+	if (mul->multiplicative_sign)
+		token_del(mul->multiplicative_sign);
+	if (mul->unary)
+		arexp_unary_del(mul->unary);
+	free(mul);
+}
+
+void			arexp_multiplicative_del(t_arexp_multiplicative *multiplicative)
+{
+	if (!multiplicative)
+		return ;
+	if (multiplicative->unary)
+		twl_lst_del(multiplicative->unary, fn_del);
+	free(multiplicative);
 }
