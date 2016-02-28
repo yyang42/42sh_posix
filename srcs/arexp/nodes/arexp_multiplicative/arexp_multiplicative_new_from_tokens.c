@@ -14,14 +14,14 @@
 #include "arexp/arexp.h"
 #include "token/token_mgr.h"
 
-static bool							is_multiplicative_token(t_token *token)
+static bool					is_multiplicative_token(t_token *token)
 {
 	return (token &&
 			(token->type == TOK_AREXP_MINUS ||
 			 token->type == TOK_AREXP_PLUS));
 }
 
-static bool							push_fn(t_lst *tokens,
+static bool					push_fn(t_lst *tokens,
 						t_arexp_multiplicative *multiplicative,
 						t_arexp_unary *unary)
 {
@@ -39,11 +39,11 @@ static bool							push_fn(t_lst *tokens,
 	return (true);
 }
 
-t_arexp_multiplicative			*arexp_multiplicative_new_from_tokens(t_lst *tokens,
+t_arexp_multiplicative		*arexp_multiplicative_new_from_tokens(t_lst *tokens,
 														struct s_arexp *arexp)
 {
-	t_arexp_multiplicative		*multiplicative;
-	t_arexp_unary	*unary;
+	t_arexp_multiplicative	*multiplicative;
+	t_arexp_unary			*unary;
 
 	multiplicative = arexp_multiplicative_new();
 	while (42)
@@ -52,6 +52,7 @@ t_arexp_multiplicative			*arexp_multiplicative_new_from_tokens(t_lst *tokens,
 		if (arexp_has_error(arexp))
 		{
 			arexp_multiplicative_del(multiplicative);
+			arexp_unary_del(unary);
 			return (NULL);
 		}
 		if (!push_fn(tokens, multiplicative, unary))
