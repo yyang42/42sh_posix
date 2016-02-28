@@ -28,10 +28,12 @@ t_arexp_inclusive_or		*arexp_inclusive_or_new_from_tokens(t_lst *tokens,
 		if (arexp_has_error(arexp))
 		{
 			arexp_inclusive_or_del(inclusive_or);
+			arexp_exclusive_or_del(exclusive_or);
 			return (NULL);
 		}
-		twl_lst_push_back(inclusive_or->arexp_exclusive_or, exclusive_or);
-		if (!token_mgr_first(tokens) || token_mgr_first(tokens)->type != TOK_AREXP_INC_OR)
+		twl_lst_push_back(inclusive_or->exclusive_or, exclusive_or);
+		token = token_mgr_first(tokens);
+		if (!token || token->type != TOK_AREXP_INC_OR)
 			break ;
 		token = twl_lst_pop(tokens);
 		token_del(token);

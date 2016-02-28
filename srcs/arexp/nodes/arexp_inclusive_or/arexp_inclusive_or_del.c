@@ -12,9 +12,11 @@
 
 #include "arexp/nodes/arexp_inclusive_or.h"
 
-void			arexp_inclusive_or_del(t_arexp_inclusive_or *arexp_inclusive_or)
+void			arexp_inclusive_or_del(t_arexp_inclusive_or *inclusive_or)
 {
-	//if (arexp_inclusive_or->arexp_inclusive_or)
-	//	twl_lst_del(arexp_inclusive_or->arexp_inclusive_or, arexp_inclusive_or_del);
-	free(arexp_inclusive_or);
+	if (!inclusive_or)
+		return ;
+	if (inclusive_or->exclusive_or)
+		twl_lst_del(inclusive_or->exclusive_or, arexp_exclusive_or_del);
+	free(inclusive_or);
 }
