@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/alias.h"
+#include "builtin/builtin_alias.h"
 
 static void		iter_fn(void *elem, void *context)
 {

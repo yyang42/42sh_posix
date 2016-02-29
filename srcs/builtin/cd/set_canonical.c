@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/cd.h"
+#include "builtin/builtin_cd.h"
 
 static bool		filter_fn(void *data, void *context_)
 {

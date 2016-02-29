@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/echo.h"
+#include "builtin/builtin_echo.h"
 
 int				builtin_echo(t_lst *tokens, t_environment *this)
 {

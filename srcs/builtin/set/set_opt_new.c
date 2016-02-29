@@ -15,7 +15,7 @@
 #include "twl_xstring.h"
 #include "twl_string.h"
 #include "twl_opt_elem.h"
-#include "builtin/set.h"
+#include "builtin/builtin_set.h"
 
 static void			push_non_opt_to_lst(void *non_opt_arg,
 														void *non_opt_arg_lst_)

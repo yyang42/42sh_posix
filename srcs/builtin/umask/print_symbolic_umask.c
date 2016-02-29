@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/umask.h"
+#include "builtin/builtin_umask.h"
 
 static void	print_symbolic_umask_2(mode_t um, t_mask *mask)
 {

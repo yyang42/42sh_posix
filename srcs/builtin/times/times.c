@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/times.h"
+#include "builtin/builtin_times.h"
 #include "twl_stdlib.h"
 #include <sys/time.h>
 #include <sys/resource.h>

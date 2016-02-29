@@ -2,8 +2,8 @@
 
 #include "basics.h"
 #include "environment.h"
-#include "builtin/export.h"
-#include "builtin/unset.h"
+#include "builtin/builtin_export.h"
+#include "builtin/builtin_unset.h"
 #include "expan/expan_field_splitting.h"
 #include "token/tokenizer.h"
 

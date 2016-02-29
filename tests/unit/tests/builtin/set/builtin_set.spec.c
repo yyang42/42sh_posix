@@ -1,7 +1,7 @@
 #include <project.h>
 
 #include "environment.h"
-#include "builtin/set.h"
+#include "builtin/builtin_set.h"
 #include "xopt.h"
 #include <stdlib.h>
 #include "token/tokenizer.h"

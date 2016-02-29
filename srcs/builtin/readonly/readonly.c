@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/readonly.h"
+#include "builtin/builtin_readonly.h"
 
 int					builtin_readonly(t_lst *tokens, t_environment *env)
 {

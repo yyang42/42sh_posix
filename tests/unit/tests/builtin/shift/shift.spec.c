@@ -1,7 +1,7 @@
 #include <project.h>
 
 #include "environment.h"
-#include "builtin/shift.h"
+#include "builtin/builtin_shift.h"
 #include "xopt.h"
 #include <stdlib.h>
 #include "token/tokenizer.h"

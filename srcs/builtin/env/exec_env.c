@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/env.h"
+#include "builtin/builtin_env.h"
 
 static int		arr2_indexof(char **args, char *to_find)
 {

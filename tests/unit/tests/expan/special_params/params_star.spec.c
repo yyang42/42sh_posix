@@ -2,8 +2,8 @@
 
 #include "environment.h"
 #include "expan/expan_exec.h"
-#include "builtin/set.h"
-#include "builtin/export.h"
+#include "builtin/builtin_set.h"
+#include "builtin/builtin_export.h"
 #include "token/tokenizer.h"
 
 static void simple_star(t_test *test)

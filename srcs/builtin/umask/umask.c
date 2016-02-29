@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/umask.h"
+#include "builtin/builtin_umask.h"
 
 int				read_octal(char *string)
 {

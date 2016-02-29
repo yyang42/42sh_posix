@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/jobs.h"
+#include "builtin/builtin_jobs.h"
 #include "async/job_mgr.h"
 
 int					builtin_jobs(t_lst *tokens, t_environment *this)

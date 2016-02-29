@@ -13,7 +13,7 @@
 #include <fcntl.h>
 #include "prog.h"
 #include "environment.h"
-#include "builtin/set.h"
+#include "builtin/builtin_set.h"
 #include "twl_get_next_line.h"
 
 int					prog_run(t_prog *prog)

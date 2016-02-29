@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/dot.h"
+#include "builtin/builtin_dot.h"
 #include "ast/ast.h"
 #include "ast/nodes/ast_compound_list.h"
 
