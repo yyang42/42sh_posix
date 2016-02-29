@@ -32,14 +32,14 @@ static void	iter_assign_fn(void *data, void *context)
 }
 
 static void	execute_builtin(t_ast_simple_command *cmd, char *builtin,
-	char *string, t_environment *this)
+	t_lst *tokens, t_environment *this)
 {
 	t_builtin_fn	*builtin_fn;
 
 	builtin_fn = twl_dict_get(cmd->builtin_func, builtin);
 	if (builtin_fn)
 	{
-		builtin_fn(string, this);
+		builtin_fn(tokens, this);
 	}
 }
 
@@ -60,7 +60,7 @@ void		execute_simple_command(t_ast_simple_command *cmd,
 		first_str = token_mgr_first(cmd->command_tokens)->text;
 		if (is_builtin(first_str))
 		{
-			execute_builtin(cmd, first_str, token_joined, env);
+			execute_builtin(cmd, first_str, cmd->command_tokens, env);
 		}
 		else if (environment_get_shell_func(env, first_str))
 		{

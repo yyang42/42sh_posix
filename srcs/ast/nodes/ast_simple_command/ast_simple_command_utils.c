@@ -62,10 +62,10 @@ t_dict			*get_builtin_func_dict(void)
 	t_dict *dict;
 
 	dict = twl_dict_new();
-	twl_dict_add(dict, "echo", &echo);
+	twl_dict_add(dict, "echo", &builtin_echo);
 	twl_dict_add(dict, "false", &builtin_false);
 	twl_dict_add(dict, "true", &builtin_true);
-	twl_dict_add(dict, "cd", &cd);
+	twl_dict_add(dict, "cd", &builtin_cd);
 	twl_dict_add(dict, "env", &env);
 	twl_dict_add(dict, "export", &export);
 	twl_dict_add(dict, "setenv", &setenv_builtin);

@@ -12,9 +12,9 @@
 
 #include "builtin/builtin.h"
 
-bool		builtin_false(char *str, t_environment *env)
+bool		builtin_false(t_lst *tokens, t_environment *env)
 {
-	(void)str;
+	(void)tokens;
 	environment_set_last_exit_status_2(env, BUILTIN_EXEC_FAILURE);
 	return (false);
 }

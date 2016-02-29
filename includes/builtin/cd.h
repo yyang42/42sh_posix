@@ -30,7 +30,7 @@
 # define MAX_SIZE 4096
 
 void		execute_cd(char *path, int no_symlinks, t_environment *this);
-int			cd(char *str, t_environment *this);
+int			builtin_cd(t_lst *tokens, t_environment *this);
 char		*join_paths(char *path, char *dirname);
 char		*get_cdpath(char *dirname, t_environment *this);
 char		*join_pwd_to_path(char *dirname);

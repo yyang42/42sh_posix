@@ -38,10 +38,10 @@
 # define BUILTIN_EXEC_SUCCESS 0
 # define BUILTIN_EXEC_FAILURE 1
 
-typedef void (t_builtin_fn)(char *str, t_environment *this);
+typedef void (t_builtin_fn)(t_lst *tokens, t_environment *this);
 
 int				check_invalid_opts(t_opt *opt, char *exe_name, char *flags);
-bool			builtin_true(char *str, t_environment *env);
-bool			builtin_false(char *str, t_environment *env);
+bool			builtin_true(t_lst *tokens, t_environment *env);
+bool			builtin_false(t_lst *tokens, t_environment *env);
 
 #endif

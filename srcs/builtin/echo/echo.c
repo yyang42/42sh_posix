@@ -12,14 +12,16 @@
 
 #include "builtin/echo.h"
 
-int				echo(char *str, t_environment *this)
+int				builtin_echo(t_lst *tokens, t_environment *this)
 {
 	t_opt			*opt;
 	char			**arr;
 	int				flag;
+	char			*str;
 
 	flag = 0;
 	(void)this;
+	str = token_mgr_strjoin(tokens, " "); // TODO: refactor
 	arr = twl_strsplit_mul(str, " \n\t");
 	opt = twl_opt_new(arr, ECHO_OPT_VALID_OPTS);
 	if (twl_opt_exist(opt, "n"))
