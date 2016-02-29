@@ -13,6 +13,7 @@
 #include "ast/nodes/ast_simple_command.h"
 #include "ast/nodes/ast_assignment.h"
 #include "ast/nodes/ast_redir.h"
+#include "builtin/builtin.h"
 
 static void	iter_assign_fn(void *data, void *context)
 {
@@ -33,14 +34,12 @@ static void	iter_assign_fn(void *data, void *context)
 static void	execute_builtin(t_ast_simple_command *cmd, char *builtin,
 	char *string, t_environment *this)
 {
-	void *func;
-	void (*f)(char *str, t_environment *this);
+	t_builtin_fn	*builtin_fn;
 
-	func = twl_dict_get(cmd->builtin_func, builtin);
-	if (func)
+	builtin_fn = twl_dict_get(cmd->builtin_func, builtin);
+	if (builtin_fn)
 	{
-		f = func;
-		f(string, this);
+		builtin_fn(string, this);
 	}
 }
 
