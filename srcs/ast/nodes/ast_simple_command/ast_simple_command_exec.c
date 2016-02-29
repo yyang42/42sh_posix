@@ -55,12 +55,11 @@ void		execute_simple_command(t_ast_simple_command *cmd,
 	token_joined = token_mgr_strjoin(cmd->command_tokens, " ");
 	cmd_arr = token_mgr_to_str_arr(cmd->command_tokens);
 	env_arr = (char **)environment_get_env_arr(env);
-	if (cmd_arr[0])
+	if (twl_lst_len(cmd->command_tokens) > 0)
 	{
-		if (is_builtin(cmd_arr[0]))
+		if (is_builtin(token_mgr_first(cmd->command_tokens)->text))
 		{
 			execute_builtin(cmd, cmd_arr[0], token_joined, env);
-
 		}
 		else if (environment_get_shell_func(env, cmd_arr[0]))
 		{
@@ -90,8 +89,8 @@ void				ast_simple_command_exec(t_ast_simple_command *cmd)
 	env = environment_singleton();
 	if (twl_lst_len(cmd->assignment_items) > 0)
 	{
-		env = twl_lst_len(cmd->command_tokens) != 0
-			? environment_clone(env) : env;
+		if (twl_lst_len(cmd->command_tokens) != 0)
+			env = environment_clone(env);
 		twl_lst_iter(cmd->assignment_items, iter_assign_fn, env);
 	}
 	if (twl_lst_len(cmd->redir_items) > 0)
