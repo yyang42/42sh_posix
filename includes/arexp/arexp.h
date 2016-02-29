@@ -35,6 +35,6 @@ void					arexp_print_rec(t_arexp *this);
 
 long long				arexp_eval(t_arexp *this);
 
-long long				arexp_atoll(t_arexp *this, char *str);
+long long				arexp_atoll(t_arexp *this, t_token *token);
 
 #endif
