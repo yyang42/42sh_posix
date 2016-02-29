@@ -42,11 +42,13 @@ static void		add_shell_flags(void *data, void *context, void *args_)
 		set_o_negative(env);
 }
 
-int				set(char *str, t_environment *env)
+int				builtin_set(t_lst *tokens, t_environment *env)
 {
 	t_set_opt		*opt;
 	char			**arr;
+	char			*str;
 
+	str = token_mgr_strjoin(tokens, " "); // TODO: refactor
 	arr = twl_strsplit_mul(str, " \n\t");
 	opt = set_opt_new(arr, SET_OPT_VALID_OPTS);
 	if (!set_check_invalid_opts(opt, "set", SET_OPT_VALID_OPTS))

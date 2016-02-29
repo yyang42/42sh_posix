@@ -4,6 +4,7 @@
 #include "builtin/shift.h"
 #include "xopt.h"
 #include <stdlib.h>
+#include "token/tokenizer.h"
 
 static void 	test_simple_shift(t_test *test)
 {
@@ -12,7 +13,7 @@ static void 	test_simple_shift(t_test *test)
 	(void)test;
 	env = environment_new();
 	environment_init(env);
-	set("set lol pouet", env);
+	builtin_set(tokenizer_tokenize("set lol pouet"), env);
 	mt_assert(twl_lst_len(env->pos_params) == 2);
 	shift_builtin("shift", env);
 	mt_assert(env->info.last_exit_status == BUILTIN_EXEC_SUCCESS);

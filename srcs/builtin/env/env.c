@@ -34,12 +34,14 @@ static void		init_env_args(t_env_args *env, char *str)
 	env->args = twl_strsplit_mul(str, " \t");
 }
 
-int				env(char *str, t_environment *this)
+int				builtin_env(t_lst *tokens, t_environment *this)
 {
 	t_environment		*clone;
 	t_opt				*opt;
 	t_env_args			env;
+	char				*str;
 
+	str = token_mgr_strjoin(tokens, " "); // TODO: refactor
 	clone = NULL;
 	init_env_args(&env, str);
 	opt = twl_opt_new(env.args, "i");

@@ -4,6 +4,7 @@
 #include "builtin/set.h"
 #include "xopt.h"
 #include <stdlib.h>
+#include "token/tokenizer.h"
 
 static void     set_flag(t_test *test)
 {
@@ -13,7 +14,7 @@ static void     set_flag(t_test *test)
     (void)test;
     env = environment_new();
 	environment_init(env);
-    set("set -x -a -b", env);
+    builtin_set(tokenizer_tokenize("set -x -a -b"), env);
     flags = environment_concat_flags(env);
     mt_assert(twl_strcmp(flags, "xab") == 0);
 	environment_del(env);
@@ -28,16 +29,16 @@ static void test_unset_flag(t_test *test)
     (void)test;
 	env = environment_new();
 	environment_init(env);
-    set("set -x -a -b", env);
-    set("set +x", env);
+    builtin_set(tokenizer_tokenize("set -x -a -b"), env);
+    builtin_set(tokenizer_tokenize("set +x"), env);
     flags = environment_concat_flags(env);
     mt_assert(twl_strcmp(flags, "ab") == 0);
     free(flags);
-    set("set +b", env);
+    builtin_set(tokenizer_tokenize("set +b"), env);
     flags = environment_concat_flags(env);
     mt_assert(twl_strcmp(flags, "a") == 0);
     free(flags);
-    set("set +a", env);
+    builtin_set(tokenizer_tokenize("set +a"), env);
     flags = environment_concat_flags(env);
     mt_assert(twl_strcmp(flags, "") == 0);
     free(flags);
@@ -51,7 +52,7 @@ static void test_wrong_flag(t_test *test)
 	(void)test;
 	env = environment_new();
 	environment_init(env);
-	set("set -a -b", env);
+	builtin_set(tokenizer_tokenize("set -a -b"), env);
 	mt_assert(twl_lst_len(env->flags) == 2);
 	environment_del(env);
 }
@@ -64,9 +65,9 @@ static void 	set_verbose(t_test *test)
 	(void)test;
 	env = environment_new();
 	environment_init(env);
-	set("set -o errexit", env);
-	set("set -o nounset", env);
-	set("set -o noexec lol", env);
+	builtin_set(tokenizer_tokenize("set -o errexit"), env);
+	builtin_set(tokenizer_tokenize("set -o nounset"), env);
+	builtin_set(tokenizer_tokenize("set -o noexec lol"), env);
 	flags = environment_concat_flags(env);
 	mt_assert(twl_strcmp(flags, "eun") == 0);
 	environment_del(env);
@@ -81,10 +82,10 @@ static void 	test_unset_verbose(t_test *test)
 	(void)test;
 	env = environment_new();
 	environment_init(env);
-	set("set -o errexit", env);
-	set("set -o nounset", env);
-	set("set -o noexec lol", env);
-	set("set +o nounset", env);
+	builtin_set(tokenizer_tokenize("set -o errexit"), env);
+	builtin_set(tokenizer_tokenize("set -o nounset"), env);
+	builtin_set(tokenizer_tokenize("set -o noexec lol"), env);
+	builtin_set(tokenizer_tokenize("set +o nounset"), env);
 	flags = environment_concat_flags(env);
 	mt_assert(twl_strcmp(flags, "en") == 0);
 	environment_del(env);
@@ -98,9 +99,9 @@ static void 	set_pos_param(t_test *test)
 	(void)test;
 	env = environment_new();
 	environment_init(env);
-	set("set pouet lol", env);
+	builtin_set(tokenizer_tokenize("set pouet lol"), env);
 	mt_assert(twl_lst_len(env->pos_params) == 2);
-	set("set hihi haha", env);
+	builtin_set(tokenizer_tokenize("set hihi haha"), env);
 	mt_assert(twl_lst_len(env->pos_params) == 2);
 	environment_del(env);
 }
@@ -113,9 +114,9 @@ static void 	set_hyphen(t_test *test)
 	(void)test;
 	env = environment_new();
 	environment_init(env);
-	set("set --", env);
+	builtin_set(tokenizer_tokenize("set --"), env);
 	mt_assert(twl_lst_len(env->pos_params) == 0);
-	set("set -e -- hihi haha", env);
+	builtin_set(tokenizer_tokenize("set -e -- hihi haha"), env);
 	mt_assert(twl_lst_len(env->pos_params) == 2);
 	flags = environment_concat_flags(env);
 	mt_assert(twl_strcmp(flags, "e") == 0);

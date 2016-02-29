@@ -35,7 +35,7 @@ typedef struct		s_env_args
 	bool				has_utility;
 }					t_env_args;
 
-int					env(char *str, t_environment *this);
+int					builtin_env(t_lst *tokens, t_environment *this);
 void				exec_env(t_env_args *env, t_environment	*clone);
 void				add_env_var(void *data_, void *context_);
 

@@ -5,6 +5,7 @@
 #include "builtin/export.h"
 #include "builtin/unset.h"
 #include "expan/expan_field_splitting.h"
+#include "token/tokenizer.h"
 
 static void simple_unset_ifs_test(t_test *test)
 {
@@ -25,7 +26,7 @@ static void simple_null_ifs_test(t_test *test)
 	t_environment	*env;
 
 	env = environment_singleton();
-	export("export IFS", env);
+	builtin_export(tokenizer_tokenize("export IFS"), env);
 	str = twl_strdup(" \t\n lol \t\n poiuet \t \n   ");
 	expan_field_splitting(&str);
 	mt_assert(twl_strcmp(str," \t\n lol \t\n poiuet \t \n   ") == 0);
@@ -39,7 +40,7 @@ static void simple_ifs_test(t_test *test)
 	t_environment	*env;
 
 	env = environment_singleton();
-	export("export IFS=o", env);
+	builtin_export(tokenizer_tokenize("export IFS=o"), env);
 	str = twl_strdup("oooolopotorototoooo");
 	expan_field_splitting(&str);
 	mt_assert(twl_strcmp(str,"    l p t r t t   ") == 0);

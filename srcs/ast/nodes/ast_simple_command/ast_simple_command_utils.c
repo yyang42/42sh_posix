@@ -66,11 +66,11 @@ t_dict			*get_builtin_func_dict(void)
 	twl_dict_add(dict, "false", &builtin_false);
 	twl_dict_add(dict, "true", &builtin_true);
 	twl_dict_add(dict, "cd", &builtin_cd);
-	twl_dict_add(dict, "env", &env);
-	twl_dict_add(dict, "export", &export);
-	twl_dict_add(dict, "setenv", &setenv_builtin);
-	twl_dict_add(dict, "unsetenv", &unsetenv_builtin);
-	twl_dict_add(dict, "set", &set);
+	twl_dict_add(dict, "env", &builtin_env);
+	twl_dict_add(dict, "export", &builtin_export);
+	twl_dict_add(dict, "setenv", &builtin_setenv);
+	twl_dict_add(dict, "unsetenv", &builtin_unsetenv);
+	twl_dict_add(dict, "set", &builtin_set);
 	twl_dict_add(dict, "unset", &unset);
 	twl_dict_add(dict, "alias", &alias);
 	twl_dict_add(dict, "umask", &umask_builtin);
