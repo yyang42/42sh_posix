@@ -37,4 +37,6 @@ t_arexp_shift			*arexp_shift_new_from_tokens(t_lst *tokens,
 
 void					arexp_shift_print_rec(t_arexp_shift *this, int depth);
 
+long long				arexp_shift_eval(t_arexp_shift *this);
+
 #endif

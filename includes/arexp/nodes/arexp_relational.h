@@ -35,6 +35,9 @@ void				arexp_relational_del(t_arexp_relational *relational);
 t_arexp_relational	*arexp_relational_new_from_tokens(t_lst *tokens,
 														struct s_arexp *arexp);
 
-void					arexp_relational_print_rec(t_arexp_relational *this, int depth);
+void				arexp_relational_print_rec(t_arexp_relational *this,
+																	int depth);
+
+long long			arexp_relational_eval(t_arexp_relational *this);
 
 #endif

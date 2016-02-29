@@ -29,6 +29,9 @@ void					arexp_logical_and_del(t_arexp_logical_and *logical_and);
 t_arexp_logical_and		*arexp_logical_and_new_from_tokens(t_lst *tokens,
 														struct s_arexp *arexp);
 
-void					arexp_logical_and_print_rec(t_arexp_logical_and *this, int depth);
+void					arexp_logical_and_print_rec(t_arexp_logical_and *this,
+																	int depth);
+
+long long				arexp_logical_and_eval(t_arexp_logical_and *this);
 
 #endif
