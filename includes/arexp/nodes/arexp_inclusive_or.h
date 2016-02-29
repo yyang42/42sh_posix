@@ -30,6 +30,9 @@ void					arexp_inclusive_or_del(t_arexp_inclusive_or
 t_arexp_inclusive_or	*arexp_inclusive_or_new_from_tokens(t_lst *tokens,
 														struct s_arexp *arexp);
 
-void					arexp_inclusive_or_print_rec(t_arexp_inclusive_or *this, int depth);
+void					arexp_inclusive_or_print_rec(t_arexp_inclusive_or *this,
+																	int depth);
+
+long long				arexp_inclusive_or_eval(t_arexp_inclusive_or *this);
 
 #endif

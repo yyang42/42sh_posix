@@ -38,4 +38,6 @@ t_arexp_additive			*arexp_additive_new_from_tokens(t_lst *tokens,
 
 void						arexp_additive_print_rec(t_arexp_additive *this, int depth);
 
+long long					arexp_additive_eval(t_arexp_additive *this);
+
 #endif

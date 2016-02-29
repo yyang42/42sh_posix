@@ -28,5 +28,7 @@ void			arexp_assignment_del(t_arexp_assignment *assignment)
 		return ;
 	if (assignment->assign)
 		twl_lst_del(assignment->assign, del_fn);
+	if (assignment->condition)
+		arexp_condition_del(assignment->condition);
 	free(assignment);
 }

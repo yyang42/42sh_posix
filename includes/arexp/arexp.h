@@ -33,4 +33,8 @@ void					arexp_set_error_msg(t_arexp *this, char *msg, t_token *token);
 
 void					arexp_print_rec(t_arexp *this);
 
+long long				arexp_eval(t_arexp *this);
+
+long long				arexp_atoll(t_arexp *this, char *str);
+
 #endif

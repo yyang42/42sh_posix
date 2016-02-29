@@ -36,6 +36,9 @@ void					arexp_multiplicative_del(t_arexp_multiplicative
 t_arexp_multiplicative	*arexp_multiplicative_new_from_tokens(t_lst *tokens,
 														struct s_arexp *arexp);
 
-void					arexp_multiplicative_print_rec(t_arexp_multiplicative *this, int depth);
+void					arexp_multiplicative_print_rec(t_arexp_multiplicative
+															*this, int depth);
+
+long long				arexp_multiplicative_eval(t_arexp_multiplicative *this);
 
 #endif
