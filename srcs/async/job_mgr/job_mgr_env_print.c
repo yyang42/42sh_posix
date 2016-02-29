@@ -39,7 +39,7 @@ static void			iter_fn(void *job_, void *len_ptr, void *count_ptr_)
 	len = *(int *)len_ptr;
 	count_ptr = count_ptr_;
 	twl_printf("[%lld]%s ", job->job_id, get_next_char(len, *count_ptr));
-	if (false) // job->pid
+	if (true) // job->pid
 		twl_printf("%d", job->pid);
 	twl_printf(" %-23s %s\n", job_status_str(job), job->cmd_str);
 	(*count_ptr)++;

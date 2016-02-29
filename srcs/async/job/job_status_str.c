@@ -11,16 +11,33 @@
 /* ************************************************************************** */
 
 #include "async/job.h"
+#include "signal.h"
 
 char				*job_status_str(t_job *this)
 {
 	char			*str_status;
+	int				pid;
+	int				stat_val;
 
-	if (this->status == JOB_RUNNING)
-		str_status = "Running";
-	else if (this->status == JOB_TERMINATED)
-		str_status = "Terminated";
+	pid = this->pid;
+	waitpid(pid, &stat_val, WNOHANG);
+	if (WIFEXITED(stat_val))
+	{
+		if (WEXITSTATUS(stat_val) == 0)
+			twl_asprintf(&str_status, "Done");
+		else
+			twl_asprintf(&str_status, "Done(%d)", WEXITSTATUS(stat_val));
+	}
+	else if (WIFSTOPPED(stat_val))
+		twl_asprintf(&str_status, "WSTOPSIG(%d)", WSTOPSIG(stat_val));
+	else if (WIFSIGNALED(stat_val))
+		twl_asprintf(&str_status, "WTERMSIG(%d)", WTERMSIG(stat_val));
 	else
-		str_status = "Unknown";
+		str_status = twl_strdup("Unknown");
+	// if (this->status == JOB_RUNNING)
+	// 	str_status = twl_strdup("Running");
+	// else if (this->status == JOB_TERMINATED)
+	// 	str_status = twl_strdup("Terminated");
+	// else
 	return (str_status);
 }
