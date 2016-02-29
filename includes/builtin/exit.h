@@ -16,6 +16,6 @@
 # include "basics.h"
 # include "environment.h"
 
-int					exit_builtin(char *str, t_environment *this);
+int					builtin_exit(t_lst *tokens, t_environment *this);
 
 #endif

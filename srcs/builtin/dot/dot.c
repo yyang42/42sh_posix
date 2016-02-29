@@ -58,12 +58,14 @@ static char		*get_file(char *str, t_environment *this)
 	return (file);
 }
 
-int				dot_builtin(char *str, t_environment *this)
+int				builtin_dot(t_lst *tokens, t_environment *this)
 {
 	int				ret;
 	char			*file;
 	t_ast			*ast;
+	char			*str;
 
+	str = token_mgr_strjoin(tokens, " "); // TODO: refactor
 	if (!(file = get_file(str, this)))
 		return (0);
 	ast = ast_new(twl_file_to_str(file));

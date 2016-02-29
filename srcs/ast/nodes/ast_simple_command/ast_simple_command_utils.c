@@ -72,14 +72,14 @@ t_dict			*get_builtin_func_dict(void)
 	twl_dict_add(dict, "unsetenv", &builtin_unsetenv);
 	twl_dict_add(dict, "set", &builtin_set);
 	twl_dict_add(dict, "unset", &builtin_unset);
-	twl_dict_add(dict, "alias", &alias);
-	twl_dict_add(dict, "umask", &umask_builtin);
-	twl_dict_add(dict, "times", &times_builtin);
-	twl_dict_add(dict, "eval", &eval_builtin);
-	twl_dict_add(dict, "readonly", &readonly);
-	twl_dict_add(dict, "shift", &shift_builtin);
-	twl_dict_add(dict, ".", &dot_builtin);
-	twl_dict_add(dict, "exit", &exit_builtin);
+	twl_dict_add(dict, "alias", &builtin_alias);
+	twl_dict_add(dict, "umask", &builtin_umask);
+	twl_dict_add(dict, "times", &builtin_times);
+	twl_dict_add(dict, "eval", &builtin_eval);
+	twl_dict_add(dict, "readonly", &builtin_readonly);
+	twl_dict_add(dict, "shift", &builtin_shift);
+	twl_dict_add(dict, ".", &builtin_dot);
+	twl_dict_add(dict, "exit", &builtin_exit);
 	twl_dict_add(dict, "jobs", &builtin_jobs);
 	return (dict);
 }

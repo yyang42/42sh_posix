@@ -22,6 +22,6 @@
 # include "error.h"
 # define SHIFT_OPT_VALID_OPTS ""
 
-int				shift_builtin(char *cmd, t_environment *env);
+int				builtin_shift(t_lst *tokens, t_environment *env);
 
 #endif

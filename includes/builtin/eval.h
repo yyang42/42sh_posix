@@ -15,6 +15,6 @@
 
 # include "builtin/builtin.h"
 
-int					eval_builtin(char *str, t_environment *env);
+int					builtin_eval(t_lst *tokens, t_environment *env);
 
 #endif

@@ -30,10 +30,12 @@ static void		iter_fn(void *elem, void *context)
 	}
 }
 
-void			alias(char *str, t_environment *this)
+void				builtin_alias(t_lst *tokens, t_environment *this)
 {
 	char **tab;
+	char				*str;
 
+	str = token_mgr_strjoin(tokens, " "); // TODO: refactor
 	tab = twl_strsplit(str, ' ');
 	if (twl_arr_len(tab) == 1)
 		print_alias(this);

@@ -19,7 +19,7 @@
 
 # define READONLY_OPT_VALID_OPTS "p"
 
-int					readonly(char *str, t_environment *env);
+int					builtin_readonly(t_lst *tokens, t_environment *env);
 void				readonly_verbose(t_environment *env);
 void				readonly_add(t_environment *env, t_opt *opt);
 

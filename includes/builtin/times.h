@@ -21,6 +21,6 @@
 # include "twl_opt_elem.h"
 # include "error.h"
 
-int				times_builtin(char *cmd, t_environment *env);
+int				builtin_times(t_lst *tokens, t_environment *env);
 
 #endif

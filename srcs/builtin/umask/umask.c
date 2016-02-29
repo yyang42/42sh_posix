@@ -72,7 +72,7 @@ static int		modify_umask(t_opt *opt, char *arg)
 	return (BUILTIN_EXEC_SUCCESS);
 }
 
-static void		umask_builtin_2(t_opt *opt, int *flag)
+static void		builtin_umask_2(t_opt *opt, int *flag)
 {
 	int				umask_arg;
 
@@ -87,20 +87,21 @@ static void		umask_builtin_2(t_opt *opt, int *flag)
 		twl_printf("%04lo\n", (unsigned long)umask_arg);
 }
 
-int				umask_builtin(char *cmd, t_environment *this)
+int				builtin_umask(t_lst *tokens, t_environment *this)
 {
 	t_opt			*opt;
 	char			**arr;
 	int				flag;
+	char			*str;
 
-	(void)this;
-	arr = twl_strsplit_mul(cmd, " \n\t");
+	str = token_mgr_strjoin(tokens, " "); // TODO: refactor
+	arr = twl_strsplit_mul(str, " \n\t");
 	opt = twl_opt_new(arr, UMASK_OPT_VALID_OPTS);
 	flag = BUILTIN_EXEC_FAILURE;
 	if (!check_invalid_opts(opt, "umask", UMASK_OPT_VALID_OPTS))
 	{
 		if (twl_opt_args_len(opt) < 1)
-			umask_builtin_2(opt, &flag);
+			builtin_umask_2(opt, &flag);
 		else
 			flag = modify_umask(opt, (char *)twl_lst_first(opt->args));
 	}
