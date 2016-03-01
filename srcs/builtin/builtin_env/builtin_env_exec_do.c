@@ -46,7 +46,7 @@ static void		env_with_builtin(char *builtin, t_lst *tokens, t_environment *env)
 	}
 }
 
-void			exec_env(t_env_args *env, t_environment *this)
+void				builtin_env_exec_do(t_env_args *env, t_environment *this)
 {
 	char	**fpaths;
 	int		index;

@@ -15,7 +15,7 @@
 #include "builtin/builtin_exit.h"
 #include "token/token_mgr.h"
 
-int					builtin_exit(t_lst *tokens, t_environment *this)
+int					builtin_exit_exec(t_lst *tokens, t_environment *this)
 {
 	char			*arg_str;
 	int				exit_code;

@@ -10,17 +10,26 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/builtin_env.h"
-#include "twl_stdio.h"
-#include <stdio.h>
+#include "builtin/builtin_export.h"
+#include "environment.h"
+#include "twl_opt.h"
+#include "twl_lst.h"
 
-void			add_env_var(void *data_, void *context_)
+static void			export_something(void *data)
 {
-	t_environment	*context;
-	char			*data;
+	t_environment_var	*env_var;
 
-	data = data_;
-	context = context_;
-	if (twl_strchr(data, '='))
-		environment_setenv(context, data);
+	env_var = data;
+	if (env_var->read_only == NOT_READ_ONLY)
+	{
+		if (env_var->value_is_set == true)
+			twl_printf("export %s=\"%s\"\n", env_var->key, env_var->value);
+		else
+			twl_printf("export %s\n", env_var->key);
+	}
+}
+
+void				builtin_export_verbose(t_environment *env)
+{
+	twl_lst_iter0(env->env_vars, export_something);
 }

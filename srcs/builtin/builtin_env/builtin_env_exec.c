@@ -12,7 +12,7 @@
 
 #include "builtin/builtin_env.h"
 
-static void		get_utility(void *data_, void *context)
+static void			get_utility(void *data_, void *context)
 {
 	t_env_args		*env;
 	char			*data;
@@ -26,7 +26,7 @@ static void		get_utility(void *data_, void *context)
 	}
 }
 
-static void		init_env_args(t_env_args *env, t_lst *tokens)
+static void			init_env_args(t_env_args *env, t_lst *tokens)
 {
 	env->utility = NULL;
 	env->has_utility = 0;
@@ -34,7 +34,7 @@ static void		init_env_args(t_env_args *env, t_lst *tokens)
 	env->tokens = tokens;
 }
 
-int				builtin_env(t_lst *tokens, t_environment *this)
+int					builtin_env_exec(t_lst *tokens, t_environment *this)
 {
 	t_environment		*clone;
 	t_opt				*opt;
@@ -49,11 +49,11 @@ int				builtin_env(t_lst *tokens, t_environment *this)
 		return (-1);
 	clone = !twl_lst_len(opt->opts) ? environment_clone(this)
 		: environment_new();
-	twl_lst_iter(opt->args, add_env_var, clone);
+	twl_lst_iter(opt->args, builtin_env_utils_add_env_var, clone);
 	twl_lst_iter(opt->args, get_utility, &env);
 	env.env_arr = (char **)environment_get_env_arr(clone);
 	if (env.has_utility)
-		exec_env(&env, this);
+		builtin_env_exec_do(&env, this);
 	else
 		environment_print(clone);
 	environment_del(clone);

@@ -18,6 +18,6 @@
 # include "builtin/builtin.h"
 # define DOT_BUFSIZE 4096
 
-int				builtin_dot(t_lst *tokens, t_environment *this);
+int					builtin_dot_exec(t_lst *tokens, t_environment *this);
 
 #endif

@@ -14,7 +14,7 @@ static void 	unset_var(t_test *test)
 	(void)test;
 	env = environment_new();
 	environment_init(env);
-	builtin_export(tokenizer_tokenize("export HAHA=pouet"), env);
+	builtin_export_exec(tokenizer_tokenize("export HAHA=pouet"), env);
 	i = twl_lst_len(env->env_vars);
 	builtin_unset(tokenizer_tokenize("unset HAHA"), env);
 	j = twl_lst_len(env->env_vars);
@@ -50,7 +50,7 @@ static void 	unset_var_not_func(t_test *test)
 	(void)test;
 	env = environment_new();
 	environment_init(env);
-	builtin_export(tokenizer_tokenize("export LOL=pouet"), env);
+	builtin_export_exec(tokenizer_tokenize("export LOL=pouet"), env);
 	environment_add_shell_func(env,"LOL", (void *)"echo pouet");
 	i = twl_dict_len(env->shell_func);
 	k = twl_lst_len(env->env_vars);
@@ -73,7 +73,7 @@ static void 	unset_both(t_test *test)
 	(void)test;
 	env = environment_new();
 	environment_init(env);
-	builtin_export(tokenizer_tokenize("export LOL=pouet"), env);
+	builtin_export_exec(tokenizer_tokenize("export LOL=pouet"), env);
 	environment_add_shell_func(env,"LOL", (void *)"echo pouet");
 	i = twl_dict_len(env->shell_func);
 	k = twl_lst_len(env->env_vars);

@@ -10,26 +10,36 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/builtin_export.h"
-#include "environment.h"
-#include "twl_opt.h"
-#include "twl_lst.h"
+#include "builtin/builtin_echo.h"
 
-static void			export_something(void *data)
+static void 		iter_fn(void *token_, void *next, void *ctx)
 {
-	t_environment_var	*env_var;
+	t_token			*token;
 
-	env_var = data;
-	if (env_var->read_only == NOT_READ_ONLY)
-	{
-		if (env_var->value_is_set == true)
-			twl_printf("export %s=\"%s\"\n", env_var->key, env_var->value);
-		else
-			twl_printf("export %s\n", env_var->key);
-	}
+	token = token_;
+	twl_putstr(token->text);
+	if (next)
+		twl_putstr(" ");
+	(void)ctx;
 }
 
-void				export_verbose(t_environment *env)
+int					builtin_echo_exec(t_lst *tokens, t_environment *this)
 {
-	twl_lst_iter0(env->env_vars, export_something);
+	t_lst			*copy;
+	bool			opt_n;
+
+	opt_n = false;
+	copy = twl_lst_copy(tokens, NULL);
+	twl_lst_pop_front(copy);
+	if (token_mgr_first_equ(copy, "-n"))
+	{
+		opt_n = true;
+		twl_lst_pop_front(copy);
+	}
+	twl_lst_itern(copy, iter_fn, NULL);
+	if (!opt_n)
+		twl_putstr("\n");
+	environment_set_last_exit_status_2(this, BUILTIN_EXEC_SUCCESS);
+	twl_lst_del(copy, NULL);
+	return (0);
 }

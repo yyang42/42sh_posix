@@ -11,24 +11,26 @@
 /* ************************************************************************** */
 
 #include "builtin/builtin_export.h"
-#include "environment.h"
-#include "twl_opt.h"
-#include "twl_lst.h"
 
-static void			export_something(void *data, void *context)
+int					builtin_export_exec(t_lst *tokens, t_environment *env)
 {
-	t_environment	*env;
-	char			*arg;
+	t_opt			*opt;
+	char			**arr;
+	char			*str;
 
-	arg = data;
-	env = context;
-	if (arg)
+	str = token_mgr_strjoin(tokens, " "); // TODO: refactor
+	arr = twl_strsplit_mul(str, " \n\t");
+	opt = twl_opt_new(arr, EXPORT_OPT_VALID_OPTS);
+	if (!check_invalid_opts(opt, "export", EXPORT_OPT_VALID_OPTS))
 	{
-		environment_setenv(env, arg);
+		if ((twl_opt_exist(opt, "p") && twl_opt_args_len(opt) == 0)
+			|| twl_opt_args_len(opt) == 0)
+			builtin_export_verbose(env);
+		else
+			builtin_export_add(env, opt);
 	}
-}
-
-void				export_add(t_environment *env, t_opt *opt)
-{
-	twl_lst_iter(opt->args, export_something, env);
+	twl_arr_del(arr, &free);
+	twl_opt_del(opt);
+	environment_set_last_exit_status_2(env, BUILTIN_EXEC_SUCCESS);
+	return (BUILTIN_EXEC_SUCCESS);
 }

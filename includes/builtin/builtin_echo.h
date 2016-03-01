@@ -19,6 +19,6 @@
 
 # define ECHO_OPT_VALID_OPTS "n"
 
-int				builtin_echo(t_lst *tokens, t_environment *this);
+int					builtin_echo_exec(t_lst *tokens, t_environment *this);
 
 #endif

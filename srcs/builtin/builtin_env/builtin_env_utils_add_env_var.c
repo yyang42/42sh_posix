@@ -10,36 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/builtin_echo.h"
+#include "builtin/builtin_env.h"
+#include "twl_stdio.h"
+#include <stdio.h>
 
-static void iter_fn(void *token_, void *next, void *ctx)
+void				builtin_env_utils_add_env_var(void *data_, void *context_)
 {
-	t_token			*token;
+	t_environment	*context;
+	char			*data;
 
-	token = token_;
-	twl_putstr(token->text);
-	if (next)
-		twl_putstr(" ");
-	(void)ctx;
-}
-
-int				builtin_echo(t_lst *tokens, t_environment *this)
-{
-	t_lst			*copy;
-	bool			opt_n;
-
-	opt_n = false;
-	copy = twl_lst_copy(tokens, NULL);
-	twl_lst_pop_front(copy);
-	if (token_mgr_first_equ(copy, "-n"))
-	{
-		opt_n = true;
-		twl_lst_pop_front(copy);
-	}
-	twl_lst_itern(copy, iter_fn, NULL);
-	if (!opt_n)
-		twl_putstr("\n");
-	environment_set_last_exit_status_2(this, BUILTIN_EXEC_SUCCESS);
-	twl_lst_del(copy, NULL);
-	return (0);
+	data = data_;
+	context = context_;
+	if (twl_strchr(data, '='))
+		environment_setenv(context, data);
 }

@@ -14,7 +14,7 @@ static void simple_star(t_test *test)
 	(void)test;
 	env = environment_new();
 	environment_init(env);
-	builtin_export(tokenizer_tokenize("export IFS=["), env);
+	builtin_export_exec(tokenizer_tokenize("export IFS=["), env);
 	builtin_set(tokenizer_tokenize("set lol pouet"), env);
 	ret = test_params_star(env, false);
 	mt_assert(twl_strcmp(ret,"lol pouet") == 0);

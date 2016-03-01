@@ -36,7 +36,7 @@ static void simple_pos_param_sub(t_test *test)
 
 	(void)test;
 	env = environment_singleton();
-	builtin_export(tokenizer_tokenize("set lol pouet"), env);
+	builtin_export_exec(tokenizer_tokenize("set lol pouet"), env);
 	str = twl_strdup("$1");
 	expan_init(&str, SIMPLE_COMMAND_TOKEN);
 	mt_assert(twl_strcmp(str,"lol") == 0);
@@ -55,7 +55,7 @@ static void simple_param_str(t_test *test)
 	(void)test;
 	env = environment_singleton();
 	builtin_unset(tokenizer_tokenize("unset LOL"), env);
-	builtin_export(tokenizer_tokenize("export LOL=POUET"), env);
+	builtin_export_exec(tokenizer_tokenize("export LOL=POUET"), env);
 	str = twl_strdup("$LOL");
 	expan_init(&str, SIMPLE_COMMAND_TOKEN);
 	mt_assert(twl_strcmp(str,"POUET") == 0);
@@ -79,7 +79,7 @@ static void colon_hyphen_param_str(t_test *test)
 	expan_init(&str, SIMPLE_COMMAND_TOKEN);
 	mt_assert(twl_strcmp(str,"ls") == 0);
 	twl_strdel(&str);
-	builtin_export(tokenizer_tokenize("export HAHA=HOHO"), env);
+	builtin_export_exec(tokenizer_tokenize("export HAHA=HOHO"), env);
 	str = twl_strdup("${HAHA:-ls}");
 	expan_init(&str, SIMPLE_COMMAND_TOKEN);
 	mt_assert(twl_strcmp(str,"HOHO") == 0);
@@ -118,7 +118,7 @@ static void hyphen_param_str(t_test *test)
 	(void)test;
 	env = environment_singleton();
 	builtin_unset(tokenizer_tokenize("unset HAHA"), env);
-	builtin_export(tokenizer_tokenize("export HAHA=HOHO"), env);
+	builtin_export_exec(tokenizer_tokenize("export HAHA=HOHO"), env);
 	str = twl_strdup("${HAHA-ls}");
 	expan_init(&str, SIMPLE_COMMAND_TOKEN);
 	mt_assert(twl_strcmp(str,"HOHO") == 0);
@@ -128,7 +128,7 @@ static void hyphen_param_str(t_test *test)
 	expan_init(&str, SIMPLE_COMMAND_TOKEN);
 	mt_assert(twl_strcmp(str,"HOHO") == 0);
 	twl_strdel(&str);
-	builtin_export(tokenizer_tokenize("export HAHA"), env);
+	builtin_export_exec(tokenizer_tokenize("export HAHA"), env);
 	str = twl_strdup("${HAHA-HOHO}");
 	expan_init(&str, SIMPLE_COMMAND_TOKEN);
 	mt_assert(twl_strcmp(str,"") == 0);
@@ -171,7 +171,7 @@ static void equal_param_str(t_test *test)
 	mt_assert(twl_strcmp(environment_getenv_value(env, "X"),"abc") == 0);
 	twl_strdel(&str);
 	builtin_unset(tokenizer_tokenize("unset X"), env);
-	builtin_export(tokenizer_tokenize("export X"), env);
+	builtin_export_exec(tokenizer_tokenize("export X"), env);
 	str = twl_strdup("${X=abc}");
 	expan_init(&str, SIMPLE_COMMAND_TOKEN);
 	mt_assert(twl_strcmp(environment_getenv_value(env, "X"),"") == 0);
@@ -191,7 +191,7 @@ static void colon_question_param_str(t_test *test)
 	expan_init(&str, SIMPLE_COMMAND_TOKEN);
 	mt_assert(twl_strcmp(str,"") == 0);
 	twl_strdel(&str);
-	builtin_export(tokenizer_tokenize("export X=lol"), env);
+	builtin_export_exec(tokenizer_tokenize("export X=lol"), env);
 	str = twl_strdup("${X:?lol}");
 	expan_init(&str, SIMPLE_COMMAND_TOKEN);
 	mt_assert(twl_strcmp(str,"lol") == 0);
@@ -211,13 +211,13 @@ static void question_param_str(t_test *test)
 	expan_init(&str, SIMPLE_COMMAND_TOKEN);
 	mt_assert(twl_strcmp(str,"") == 0);
 	twl_strdel(&str);
-	builtin_export(tokenizer_tokenize("export X=lol"), env);
+	builtin_export_exec(tokenizer_tokenize("export X=lol"), env);
 	str = twl_strdup("${X?lol}");
 	expan_init(&str, SIMPLE_COMMAND_TOKEN);
 	mt_assert(twl_strcmp(str,"lol") == 0);
 	twl_strdel(&str);
 	builtin_unset(tokenizer_tokenize("unset X"), env);
-	builtin_export(tokenizer_tokenize("export X"), env);
+	builtin_export_exec(tokenizer_tokenize("export X"), env);
 	str = twl_strdup("${X?lol}");
 	expan_init(&str, SIMPLE_COMMAND_TOKEN);
 	mt_assert(twl_strcmp(str,"") == 0);
@@ -237,13 +237,13 @@ static void colon_plus_param_str(t_test *test)
 	expan_init(&str, SIMPLE_COMMAND_TOKEN);
 	mt_assert(twl_strcmp(str,"") == 0);
 	twl_strdel(&str);
-	builtin_export(tokenizer_tokenize("export X=lol"), env);
+	builtin_export_exec(tokenizer_tokenize("export X=lol"), env);
 	str = twl_strdup("${X:+lol}");
 	expan_init(&str, SIMPLE_COMMAND_TOKEN);
 	mt_assert(twl_strcmp(str,"lol") == 0);
 	twl_strdel(&str);
 	builtin_unset(tokenizer_tokenize("unset X"), env);
-	builtin_export(tokenizer_tokenize("export X"), env);
+	builtin_export_exec(tokenizer_tokenize("export X"), env);
 	str = twl_strdup("${X:+lol}");
 	expan_init(&str, SIMPLE_COMMAND_TOKEN);
 	mt_assert(twl_strcmp(str,"") == 0);
@@ -263,13 +263,13 @@ static void plus_param_str(t_test *test)
 	expan_init(&str, SIMPLE_COMMAND_TOKEN);
 	mt_assert(twl_strcmp(str,"") == 0);
 	twl_strdel(&str);
-	builtin_export(tokenizer_tokenize("export X=lol"), env);
+	builtin_export_exec(tokenizer_tokenize("export X=lol"), env);
 	str = twl_strdup("${X+lol}");
 	expan_init(&str, SIMPLE_COMMAND_TOKEN);
 	mt_assert(twl_strcmp(str,"lol") == 0);
 	twl_strdel(&str);
 	builtin_unset(tokenizer_tokenize("unset X"), env);
-	builtin_export(tokenizer_tokenize("export X"), env);
+	builtin_export_exec(tokenizer_tokenize("export X"), env);
 	str = twl_strdup("${X+lol}");
 	expan_init(&str, SIMPLE_COMMAND_TOKEN);
 	mt_assert(twl_strcmp(str,"lol") == 0);
