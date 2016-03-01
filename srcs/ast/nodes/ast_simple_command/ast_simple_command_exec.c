@@ -46,14 +46,12 @@ static void	execute_builtin(t_ast_simple_command *cmd, char *builtin,
 void		execute_simple_command(t_ast_simple_command *cmd,
 	t_environment *env)
 {
-	char			**cmd_arr;
 	char			**env_arr;
 	char			*path;
 	char			*token_joined;
 	char			*first_str;
 
 	token_joined = token_mgr_strjoin(cmd->command_tokens, " ");
-	cmd_arr = token_mgr_to_str_arr(cmd->command_tokens);
 	env_arr = (char **)environment_get_env_arr(env);
 	if (twl_lst_len(cmd->command_tokens) > 0)
 	{
@@ -70,7 +68,7 @@ void		execute_simple_command(t_ast_simple_command *cmd,
 		else
 		{
 			path = get_binary_path(first_str, env);
-			ast_simple_command_execution(path, cmd_arr, env_arr);
+			ast_simple_command_execution(path, cmd->command_tokens, env_arr);
 			free(path);
 		}
 	}
@@ -78,7 +76,6 @@ void		execute_simple_command(t_ast_simple_command *cmd,
 	{
 		error_command_not_found("");
 	}
-	// twl_arr_del(cmd_arr, free); //TODO: probleme avec ce free
 	twl_arr_del(env_arr, free);
 	free(token_joined);
 }

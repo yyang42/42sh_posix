@@ -13,11 +13,13 @@
 #include "ast/nodes/ast_simple_command.h"
 #include "signals.h"
 
-static void		fork_and_execute(char *path, char **args, char **env)
+static void		fork_and_execute(char *path, t_lst *tokens, char **env)
 {
 	int				pid;
 	int				res;
+	char			**args;
 
+	args = token_mgr_to_str_arr(tokens);
 	pid = fork();
 	if (pid == -1)
 		twl_dprintf(2, "cannot fork: %s", strerror(errno));
@@ -38,17 +40,20 @@ static void		fork_and_execute(char *path, char **args, char **env)
     	if (WIFEXITED(res))
 			environment_singleton()->info.last_exit_status = WEXITSTATUS(res);
 	}
+	twl_arr_del(args, NULL);
 }
 
-void			ast_simple_command_execution(char *path, char **args, char **env)
+void			ast_simple_command_execution(char *path, t_lst *tokens, char **env)
 {
 	if (file_exists(path))
 	{
 		if (file_isexecutable(path))
-			fork_and_execute(path, args, env);
+			fork_and_execute(path, tokens, env);
 		else
 			error_permission_denied(path);
 	}
 	else
-		error_command_not_found(args[0]);
+	{
+		error_command_not_found(token_mgr_first(tokens)->text);
+	}
 }

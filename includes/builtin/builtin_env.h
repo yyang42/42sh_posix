@@ -28,7 +28,7 @@
 
 typedef struct		s_env_args
 {
-	char				**args;
+	t_lst				*tokens;
 	char				**env_arr;
 	char				*utility;
 	int					utility_index;
