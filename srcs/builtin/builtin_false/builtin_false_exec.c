@@ -10,14 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/builtin_jobs.h"
-#include "async/job_mgr.h"
+#include "builtin/builtin.h"
 
-int					builtin_jobs(t_lst *tokens, t_environment *this)
+bool				builtin_false_exec(t_lst *tokens, t_environment *env)
 {
-	/* TODO: Not fully implemented yet */
-	job_mgr_env_print();
-	return (0);
-	(void)this;
 	(void)tokens;
+	environment_set_last_exit_status_2(env, BUILTIN_EXEC_FAILURE);
+	return (false);
 }

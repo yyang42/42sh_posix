@@ -42,7 +42,7 @@ static void		shift_action(t_environment *env, t_opt *opt)
 	}
 }
 
-int				builtin_shift(t_lst *tokens, t_environment *env)
+int				builtin_shift_exec(t_lst *tokens, t_environment *env)
 {
 	t_opt			*opt;
 	char			**arr;

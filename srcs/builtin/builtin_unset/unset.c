@@ -30,7 +30,7 @@ static int		check_flags(t_environment *env, t_opt *opt)
 	}
 }
 
-int				builtin_unset(t_lst *tokens, t_environment *env)
+int				builtin_unset_exec(t_lst *tokens, t_environment *env)
 {
 	t_opt			*opt;
 	char			**arr;

@@ -12,7 +12,7 @@
 
 #include "builtin/builtin_unset.h"
 
-int				builtin_unsetenv(t_lst *tokens, t_environment *env)
+int				builtin_unsetenv_exec(t_lst *tokens, t_environment *env)
 {
 	char	*new_str;
 	int		flag;
@@ -20,7 +20,7 @@ int				builtin_unsetenv(t_lst *tokens, t_environment *env)
 
 	str = token_mgr_strjoin(tokens, " "); // TODO: refactor
 	new_str = twl_strjoin("unset", &str[8]);
-	flag = builtin_unset(tokens, env);
+	flag = builtin_unset_exec(tokens, env);
 	free(new_str);
 	return (flag);
 }

@@ -42,7 +42,7 @@ static void		add_shell_flags(void *data, void *context, void *args_)
 		set_o_negative(env);
 }
 
-int				builtin_set(t_lst *tokens, t_environment *env)
+int				builtin_set_exec(t_lst *tokens, t_environment *env)
 {
 	t_set_opt		*opt;
 	char			**arr;

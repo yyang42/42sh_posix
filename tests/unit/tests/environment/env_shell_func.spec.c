@@ -27,7 +27,7 @@ static void unset_shell_func(t_test *test)
 	environment_init(env);
 	environment_add_shell_func(env, "lol", (void *)"echo pouet");
 	mt_assert(twl_dict_len(env->shell_func) == 1);
-	builtin_unset(tokenizer_tokenize("unset -f lol"), env);
+	builtin_unset_exec(tokenizer_tokenize("unset -f lol"), env);
 	mt_assert(twl_dict_len(env->shell_func) == 0);
 	environment_del(env);
 }

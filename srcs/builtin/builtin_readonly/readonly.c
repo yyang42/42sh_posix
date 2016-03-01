@@ -12,7 +12,7 @@
 
 #include "builtin/builtin_readonly.h"
 
-int					builtin_readonly(t_lst *tokens, t_environment *env)
+int					builtin_readonly_exec(t_lst *tokens, t_environment *env)
 {
 	t_opt			*opt;
 	char			**arr;

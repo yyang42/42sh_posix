@@ -12,7 +12,7 @@
 
 #include "builtin/builtin_export.h"
 
-int					builtin_setenv(t_lst *tokens, t_environment *env)
+int					builtin_setenv_exec(t_lst *tokens, t_environment *env)
 {
 	twl_memcpy(token_mgr_first(tokens)->text, "export", 6);
 	return (builtin_export_exec(tokens, env));

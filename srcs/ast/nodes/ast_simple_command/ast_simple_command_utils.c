@@ -70,17 +70,17 @@ t_dict			*get_builtin_func_dict(void)
 	twl_dict_add(dict, "eval", &builtin_eval_exec);
 	twl_dict_add(dict, "exit", &builtin_exit_exec);
 	twl_dict_add(dict, "export", &builtin_export_exec);
-	twl_dict_add(dict, "false", &builtin_false);
-	twl_dict_add(dict, "jobs", &builtin_jobs);
-	twl_dict_add(dict, "readonly", &builtin_readonly);
-	twl_dict_add(dict, "set", &builtin_set);
-	twl_dict_add(dict, "setenv", &builtin_setenv);
-	twl_dict_add(dict, "shift", &builtin_shift);
-	twl_dict_add(dict, "times", &builtin_times);
-	twl_dict_add(dict, "true", &builtin_true);
-	twl_dict_add(dict, "umask", &builtin_umask);
-	twl_dict_add(dict, "unset", &builtin_unset);
-	twl_dict_add(dict, "unsetenv", &builtin_unsetenv);
+	twl_dict_add(dict, "false", &builtin_false_exec);
+	twl_dict_add(dict, "jobs", &builtin_jobs_exec);
+	twl_dict_add(dict, "readonly", &builtin_readonly_exec);
+	twl_dict_add(dict, "set", &builtin_set_exec);
+	twl_dict_add(dict, "setenv", &builtin_setenv_exec);
+	twl_dict_add(dict, "shift", &builtin_shift_exec);
+	twl_dict_add(dict, "times", &builtin_times_exec);
+	twl_dict_add(dict, "true", &builtin_true_exec);
+	twl_dict_add(dict, "umask", &builtin_umask_exec);
+	twl_dict_add(dict, "unset", &builtin_unset_exec);
+	twl_dict_add(dict, "unsetenv", &builtin_unsetenv_exec);
 	return (dict);
 }
 
