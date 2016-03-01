@@ -19,8 +19,8 @@
 
 typedef union					u_primary__
 {
-	t_token						*constant;
-	t_token						*variable;
+	long long					constant;
+	char						*variable;
 	struct s_arexp_expression	*arexp_expression;
 }								t_primary__;
 

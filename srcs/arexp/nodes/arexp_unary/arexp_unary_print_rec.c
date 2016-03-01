@@ -34,8 +34,12 @@ void			arexp_unary_print_rec(t_arexp_unary *this, int depth)
 		arexp_print_indent(depth);
 		twl_printf(")\n");
 	}
-	else
+	else if (this->primary_enum == AREXP_PRIMARY_VARIABLE)
 	{
-		twl_printf(" %s\n", this->primary.constant->text);
+		twl_printf(" %s\n", this->primary.variable);
+	}
+	else if (this->primary_enum == AREXP_PRIMARY_CONSTANT)
+	{
+		twl_printf(" %lli\n", this->primary.constant);
 	}
 }
