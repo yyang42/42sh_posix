@@ -1,6 +1,6 @@
 #include "arexp/arexp.h"
 #include "twl_ctype.h"
-
+#include <stdio.h>
 long long		arexp_atoll_base(t_arexp *this, char *input, int base, t_token *token)
 {
 	long long	ret;
@@ -35,7 +35,7 @@ long long		arexp_atoll_base(t_arexp *this, char *input, int base, t_token *token
 		ret += tmp;
 		index += 1;
 	}
-	return (0);
+	return (ret);
 }
 
 static int		get_base(char *input)
@@ -71,6 +71,7 @@ long long		arexp_atoll(t_arexp *this, t_token *token)
 	int			base;
 
 	input = twl_strdup(token->text);
+	ret = 0;
 	if (input[0] == '0' && (input[1] == 'X' || input[1] == 'x'))
 	{
 		ret = arexp_atoll_base(this, twl_strlowcase(input) + 2, 16, token);
@@ -94,9 +95,13 @@ long long		arexp_atoll(t_arexp *this, t_token *token)
 			return (0);
 		}
 		if (base < 36)
-			arexp_atoll_base(this, twl_strlowcase(input) + (sharp - input + 1), base, token);
+			ret = arexp_atoll_base(this, twl_strlowcase(input) + (sharp - input + 1), base, token);
 		else
-			arexp_atoll_base(this, input + (sharp - input + 1), base, token);
+			ret = arexp_atoll_base(this, input + (sharp - input + 1), base, token);
+	}
+	else
+	{
+		ret = arexp_atoll_base(this, input, 10, token);
 	}
 	free(input);
 	return (ret);
