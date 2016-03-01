@@ -32,17 +32,18 @@ static char	*get_dirname_from_arg(t_opt *opt, t_environment *this)
 	return (dirname);
 }
 
-static int	get_dirname(char **dirname, t_opt *opt, char *str,
+static int	get_dirname(char **dirname, t_opt *opt, t_lst *tokens,
 	t_environment *this)
 {
 	char	*tmp;
 
-	if (twl_strcmp(str, "cd -") == 0)
+	if (twl_lst_len(tokens) >= 2
+		&& twl_strequ(token_mgr_get(tokens, 1)->text, "-"))
 	{
 		tmp = environment_getenv_value(this, "OLDPWD");
 		if (tmp == NULL)
 		{
-			twl_dprintf(2, "%s: OLDPWD not set\n", str);
+			twl_dprintf(2, "cd: OLDPWD not set\n");
 			return (-1);
 		}
 		*dirname = twl_strdup(tmp);
@@ -54,7 +55,7 @@ static int	get_dirname(char **dirname, t_opt *opt, char *str,
 		tmp = twl_strdup(environment_getenv_value(this, "HOME"));
 		if (tmp == NULL || *tmp == '\0')
 		{
-			twl_dprintf(2, "%s: HOME not set\n", str);
+			twl_dprintf(2, "cd: HOME not set\n");
 			return (-1);
 		}
 		*dirname = twl_strdup(tmp);
@@ -71,17 +72,17 @@ int					builtin_cd_exec(t_lst *tokens, t_environment *this)
 	char				**args;
 	char				*dirname;
 	char				*old_dirname;
-	char				*str;
+	// char				*str;
 
-	str = token_mgr_strjoin(tokens, " "); // TODO: refactor
+	// str = token_mgr_strjoin(tokens, " "); // TODO: refactor
 	dirname = NULL;
 	no_symlinks = 0;
-	args = twl_strsplit_mul(str, " \t");
+	args = token_mgr_to_str_arr(tokens);
 	opt = twl_opt_new(args, "LP");
 	if (builtin_utils_check_invalid_opts(opt, "cd", "LP"))
 		return (builtin_cd_utils_free_all(dirname, args, opt));
 	builtin_cd_utils_get_flags(opt, &no_symlinks);
-	if (get_dirname(&dirname, opt, str, this) < 0)
+	if (get_dirname(&dirname, opt, tokens, this) < 0)
 		return (builtin_cd_utils_free_all(dirname, args, opt));
 	else if (!dirname)
 		if (!(dirname = get_dirname_from_arg(opt, this)))
