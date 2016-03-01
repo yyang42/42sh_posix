@@ -10,27 +10,35 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AREXP_EXPRESSION_H
-# define AREXP_EXPRESSION_H
+#include "arexp/nodes/arexp_equality.h"
 
-# include "basics.h"
-# include "arexp/nodes/arexp_assignment.h"
-# include "arexp/arexp_defines.h"
-
-typedef struct		s_arexp_expression
+static void		fn_iter(void *data_, void *prev_, void *ret_)
 {
-	t_lst			*assignment;
-}					t_arexp_expression;
+	t_arexp_equality__	*data;
+	t_arexp_equality__	*prev;
+	long long			*ret;
+	long long			tmp;
 
-t_arexp_expression	*arexp_expression_new(void);
-void				arexp_expression_del(t_arexp_expression *expression);
+	data = data_;
+	prev = prev_;
+	ret = ret_;
+	tmp = arexp_relational_eval(data->multiplicative);
+	if (!prev)
+		*ret = tmp;
+	else
+	{
+		if (prev->equality_sign->type == TOK_AREXP_EQUAL)
+			*ret = (*ret == tmp);
+		else
+			*ret = (*ret != tmp);
+	}
+}
 
-t_arexp_expression	*arexp_expression_new_from_tokens(t_lst *tokens,
-														struct s_arexp *arexp);
+long long		arexp_equality_eval(t_arexp_equality *this)
+{
+	long long	ret;
 
-void				arexp_expression_print_rec(t_arexp_expression *this,
-																	int depth);
-
-long long			arexp_expression_eval(t_arexp_expression *this);
-
-#endif
+	ret = 0;
+	twl_lst_iterp(this->relational, fn_iter, &ret);
+	return (ret);
+}
