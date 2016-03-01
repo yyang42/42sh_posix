@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SET_H
-# define SET_H
+#ifndef BUILTIN_SET_H
+# define BUILTIN_SET_H
 
 # include "basics.h"
 # include "builtin/builtin.h"

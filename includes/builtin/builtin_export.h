@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXPORT_H
-# define EXPORT_H
+#ifndef BUILTIN_EXPORT_H
+# define BUILTIN_EXPORT_H
 
 # include "basics.h"
 # include "twl_opt.h"

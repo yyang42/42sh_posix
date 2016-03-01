@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ECHO_H
-# define ECHO_H
+#ifndef BUILTIN_ECHO_H
+# define BUILTIN_ECHO_H
 
 # include "basics.h"
 # include "twl_opt.h"

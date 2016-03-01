@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef READONLY_H
-# define READONLY_H
+#ifndef BUILTIN_READONLY_H
+# define BUILTIN_READONLY_H
 
 # include "basics.h"
 # include "twl_opt.h"

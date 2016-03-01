@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UMASK_H
-# define UMASK_H
+#ifndef BUILTIN_UMASK_H
+# define BUILTIN_UMASK_H
 
 # include <sys/stat.h>
 # include <sys/types.h>

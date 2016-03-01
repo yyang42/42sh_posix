@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EVAL_H
-# define EVAL_H
+#ifndef BUILTIN_EVAL_H
+# define BUILTIN_EVAL_H
 
 # include "builtin/builtin.h"
 

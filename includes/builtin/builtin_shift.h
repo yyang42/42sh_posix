@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SHIFT_H
-# define SHIFT_H
+#ifndef BUILTIN_SHIFT_H
+# define BUILTIN_SHIFT_H
 
 # include <sys/stat.h>
 # include <sys/types.h>

@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UNSET_H
-# define UNSET_H
+#ifndef BUILTIN_UNSET_H
+# define BUILTIN_UNSET_H
 
 # include "basics.h"
 # include "twl_opt.h"

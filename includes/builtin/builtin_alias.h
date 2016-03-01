@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ALIAS_H
-# define ALIAS_H
+#ifndef BUILTIN_ALIAS_H
+# define BUILTIN_ALIAS_H
 
 # include "twl_arr.h"
 # include "twl_opt.h"

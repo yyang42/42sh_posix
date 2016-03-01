@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CD_H
-# define CD_H
+#ifndef BUILTIN_CD_H
+# define BUILTIN_CD_H
 
 # include <unistd.h>
 # include <sys/types.h>

@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TIMES_H
-# define TIMES_H
+#ifndef BUILTIN_TIMES_H
+# define BUILTIN_TIMES_H
 
 # include <sys/stat.h>
 # include <sys/types.h>

@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DOT_H
-# define DOT_H
+#ifndef BUILTIN_DOT_H
+# define BUILTIN_DOT_H
 
 # include "basics.h"
 # include "twl_opt.h"

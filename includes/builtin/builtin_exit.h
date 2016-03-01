@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXIT_BUILTIN_H
-# define EXIT_BUILTIN_H
+#ifndef BUILTIN_EXIT_H
+# define BUILTIN_EXIT_H
 
 # include "basics.h"
 # include "environment.h"

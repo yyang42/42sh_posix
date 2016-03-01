@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENV_H
-# define ENV_H
+#ifndef BUILTIN_ENV_H
+# define BUILTIN_ENV_H
 
 # include <sys/stat.h>
 # include <sys/types.h>
