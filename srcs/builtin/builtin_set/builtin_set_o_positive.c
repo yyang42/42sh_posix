@@ -29,7 +29,7 @@ static void			get_flag_verbose(char *key, void *data, void *context)
 		twl_printf("set +o %s\n", flag);
 }
 
-void				set_o_positive(t_environment *env)
+void				builtin_set_o_positive(t_environment *env)
 {
 	if (env->flag_verbose)
 		twl_dict_iter(env->flag_verbose, get_flag_verbose, env);

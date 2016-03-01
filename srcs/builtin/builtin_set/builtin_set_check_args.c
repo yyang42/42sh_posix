@@ -58,11 +58,11 @@ static void			add_matching_flag(t_environment *env, char *arg)
 		twl_dprintf(2, "set: %s: invalid option name\n", arg);
 }
 
-void				set_check_args(t_set_opt *opt, t_environment *env)
+void				builtin_set_check_args(t_set_opt *opt, t_environment *env)
 {
 	int	i;
 
-	i = set_opt_exist(opt, "o");
+	i = builtin_set_opt_exist(opt, "o");
 	if (i == 0)
 	{
 		environment_remove_all_pos_params(env);

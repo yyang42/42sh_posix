@@ -27,7 +27,7 @@ static void	print_symbolic_umask_2(mode_t um, t_mask *mask)
 	twl_printf("u=%s,g=%s,o=%s\n", mask->ubits, mask->gbits, mask->obits);
 }
 
-void		print_symbolic_umask(mode_t um)
+void		builtin_umask_print_symbolic(mode_t um)
 {
 	t_mask	mask;
 	int		i;

@@ -13,7 +13,7 @@
 #include "builtin/builtin_set.h"
 #include "twl_opt_elem.h"
 
-void				set_opt_del(t_set_opt *opt)
+void				builtin_set_opt_del(t_set_opt *opt)
 {
 	free(opt->cmd);
 	free(opt->valid_opts);

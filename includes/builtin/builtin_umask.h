@@ -47,7 +47,7 @@ typedef struct	s_parse_mask
 }				t_parse_mask;
 
 int				builtin_umask_exec(t_lst *tokens, t_environment *this);
-void			print_symbolic_umask(mode_t um);
-int				parse_symbolic_mode(char *mode, int initial_bits);
+void			builtin_umask_print_symbolic(mode_t um);
+int				builtin_umask_parse_symbolic_mode(char *mode, int initial_bits);
 
 #endif

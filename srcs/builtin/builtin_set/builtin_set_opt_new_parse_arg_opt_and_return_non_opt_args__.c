@@ -56,7 +56,7 @@ t_lst				*get_list(t_set_opt *opt, char c)
 	return (c == '+' ? opt->positive_opts : opt->negative_opts);
 }
 
-char				**set_opt_new_parse_arg_opt_and_return_non_opt_args__(
+char				**builtin_set_opt_new_parse_arg_opt_and_return_non_opt_args__(
 							char **opts, t_set_opt *opt, char *valid_opts)
 {
 	char			*opt_wo_hyphen;

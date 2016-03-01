@@ -101,7 +101,7 @@ static int	parse_symbolic_mode_2(t_parse_mask *pm)
 	return (2);
 }
 
-int			parse_symbolic_mode(char *mode, int initial_bits)
+int					builtin_umask_parse_symbolic_mode(char *mode, int initial_bits)
 {
 	t_parse_mask	pm;
 	int				flag;

@@ -16,7 +16,7 @@
 #include <sys/resource.h>
 #include <sys/times.h>
 
-static void		timeval_to_secs(struct timeval *tvp, time_t *sp, int *sfp)
+static void			timeval_to_secs(struct timeval *tvp, time_t *sp, int *sfp)
 {
 	int rest;
 
@@ -33,7 +33,7 @@ static void		timeval_to_secs(struct timeval *tvp, time_t *sp, int *sfp)
 	}
 }
 
-static void		print_timeval(struct timeval *tvp)
+static void			print_timeval(struct timeval *tvp)
 {
 	time_t	timestamp;
 	long	minutes;
@@ -46,7 +46,7 @@ static void		print_timeval(struct timeval *tvp)
 	twl_printf("%ldm%d.%03ds", minutes, seconds, seconds_fraction);
 }
 
-int				builtin_times_exec(t_lst *tokens, t_environment *env)
+int					builtin_times_exec(t_lst *tokens, t_environment *env)
 {
 	struct rusage self;
 	struct rusage kids;

@@ -12,7 +12,7 @@
 
 #include "builtin/builtin.h"
 
-bool		builtin_true_exec(t_lst *tokens, t_environment *env)
+bool				builtin_true_exec(t_lst *tokens, t_environment *env)
 {
 	(void)tokens;
 	(void)env;

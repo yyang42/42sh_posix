@@ -12,12 +12,12 @@
 
 #include "builtin/builtin_set.h"
 
-int				set_check_invalid_opts(t_set_opt *opt, char *exe_name,
+int					builtin_set_check_invalid_opts(t_set_opt *opt, char *exe_name,
 																char *flags)
 {
 	char				*invalid;
 
-	invalid = set_opt_check_invalid_opts(opt);
+	invalid = builtin_set_opt_check_invalid_opts(opt);
 	if (invalid && twl_strlen(invalid) > 0)
 	{
 		twl_dprintf(2, "%s: illegal option -- %s\nusage: env [-%s%s\n",

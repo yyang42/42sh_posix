@@ -12,7 +12,7 @@
 
 #include "builtin/builtin_umask.h"
 
-int				read_octal(char *string)
+int					read_octal(char *string)
 {
 	int result;
 	int digits;
@@ -31,21 +31,21 @@ int				read_octal(char *string)
 	return (result);
 }
 
-static int		symbolic_umask(char *arg)
+static int			symbolic_umask(char *arg)
 {
 	int	um;
 	int	bits;
 
 	um = umask(022);
 	umask(um);
-	bits = parse_symbolic_mode(arg, ~um & 0777);
+	bits = builtin_umask_parse_symbolic_mode(arg, ~um & 0777);
 	if (bits == -1)
 		return (-1);
 	um = ~bits & 0777;
 	return (um);
 }
 
-static int		modify_umask(t_opt *opt, char *arg)
+static int			modify_umask(t_opt *opt, char *arg)
 {
 	int		umask_value;
 	mode_t	umask_arg;
@@ -68,11 +68,11 @@ static int		modify_umask(t_opt *opt, char *arg)
 	umask_arg = (mode_t)umask_value;
 	umask(umask_arg);
 	if (twl_opt_exist(opt, "-S"))
-		print_symbolic_umask(umask_arg);
+		builtin_umask_print_symbolic(umask_arg);
 	return (BUILTIN_EXEC_SUCCESS);
 }
 
-static void		builtin_umask_2(t_opt *opt, int *flag)
+static void			builtin_umask_2(t_opt *opt, int *flag)
 {
 	int				umask_arg;
 
@@ -80,14 +80,14 @@ static void		builtin_umask_2(t_opt *opt, int *flag)
 	umask(umask_arg);
 	if (twl_opt_exist(opt, "S"))
 	{
-		print_symbolic_umask(umask_arg);
+		builtin_umask_print_symbolic(umask_arg);
 		*flag = BUILTIN_EXEC_SUCCESS;
 	}
 	else
 		twl_printf("%04lo\n", (unsigned long)umask_arg);
 }
 
-int				builtin_umask_exec(t_lst *tokens, t_environment *this)
+int					builtin_umask_exec(t_lst *tokens, t_environment *this)
 {
 	t_opt			*opt;
 	char			**arr;

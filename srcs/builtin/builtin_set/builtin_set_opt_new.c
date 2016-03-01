@@ -31,14 +31,14 @@ static void			parse_argv(char **arr_opts, t_set_opt *opt,
 {
 	char			**non_opt_args;
 
-	non_opt_args = set_opt_new_parse_arg_opt_and_return_non_opt_args__(
+	non_opt_args = builtin_set_opt_new_parse_arg_opt_and_return_non_opt_args__(
 													arr_opts, opt, valid_opts);
 	opt->args = twl_lst_new();
 	if (non_opt_args)
 		twl_arr_iter(non_opt_args, push_non_opt_to_lst, opt->args);
 }
 
-t_set_opt			*set_opt_new(char **argv, char *valid_opts)
+t_set_opt			*builtin_set_opt_new(char **argv, char *valid_opts)
 {
 	t_set_opt		*opt;
 	char			**argv_without_cmd;

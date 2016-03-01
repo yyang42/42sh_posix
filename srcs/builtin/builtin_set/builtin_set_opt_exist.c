@@ -14,7 +14,7 @@
 #include "builtin/builtin_set.h"
 #include "twl_opt_elem.h"
 
-static bool		find_opt(void *opt_elem_, void *opt_key)
+static bool			find_opt(void *opt_elem_, void *opt_key)
 {
 	t_opt_elem *opt_elem;
 
@@ -24,7 +24,7 @@ static bool		find_opt(void *opt_elem_, void *opt_key)
 	return (false);
 }
 
-int				set_opt_exist(t_set_opt *twl_opt, char *opt_key)
+int					builtin_set_opt_exist(t_set_opt *twl_opt, char *opt_key)
 {
 	if (twl_lst_find(twl_opt->positive_opts, find_opt, opt_key))
 		return (POSITIVE_OPT);
