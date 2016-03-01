@@ -18,10 +18,8 @@ void			arexp_unary_del(t_arexp_unary *arexp_unary)
 	if (!arexp_unary)
 		return ;
 	twl_lst_del(arexp_unary->unary_operator, token_del);
-	if (arexp_unary->primary_enum == AREXP_PRIMARY_CONSTANT)
-		token_del(arexp_unary->primary.constant);
-	else if (arexp_unary->primary_enum == AREXP_PRIMARY_VARIABLE)
-		token_del(arexp_unary->primary.variable);
+	if (arexp_unary->primary_enum == AREXP_PRIMARY_VARIABLE)
+		free(arexp_unary->primary.variable);
 	else if (arexp_unary->primary_enum == AREXP_PRIMARY_EXPRESSION)
 		arexp_expression_del(arexp_unary->primary.arexp_expression);
 	free(arexp_unary);
