@@ -12,25 +12,25 @@
 
 #include "builtin/builtin_unset.h"
 
-static int		check_flags(t_environment *env, t_opt *opt)
+static int			check_flags(t_environment *env, t_opt *opt)
 {
 	int	ret;
 
 	if (twl_opt_exist(opt, "f"))
-		return (unset_function(env, opt));
+		return (builtin_unset_function(env, opt));
 	else if (twl_opt_exist(opt, "v"))
-		return (unset_variable(env, opt));
+		return (builtin_unset_variable(env, opt));
 	else
 	{
-		ret = unset_variable(env, opt);
+		ret = builtin_unset_variable(env, opt);
 		if (ret == BUILTIN_EXEC_FAILURE)
-			return (unset_function(env, opt));
+			return (builtin_unset_function(env, opt));
 		else
 			return (ret);
 	}
 }
 
-int				builtin_unset_exec(t_lst *tokens, t_environment *env)
+int					builtin_unset_exec(t_lst *tokens, t_environment *env)
 {
 	t_opt			*opt;
 	char			**arr;
@@ -41,7 +41,7 @@ int				builtin_unset_exec(t_lst *tokens, t_environment *env)
 	flag = BUILTIN_EXEC_SUCCESS;
 	arr = twl_strsplit_mul(str, " \n\t");
 	opt = twl_opt_new(arr, UNSET_OPT_VALID_OPTS);
-	if (check_invalid_opts(opt, "unset", UNSET_OPT_VALID_OPTS))
+	if (builtin_utils_check_invalid_opts(opt, "unset", UNSET_OPT_VALID_OPTS))
 		flag = BUILTIN_EXEC_FAILURE;
 	else
 	{

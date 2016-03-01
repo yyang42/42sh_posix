@@ -19,31 +19,18 @@ static void			unset_something(void *data, void *context, void *ret_)
 	t_environment		*env;
 	char				*arg;
 	int					*ret;
-	t_environment_var	*var;
 
 	arg = data;
 	env = context;
 	ret = ret_;
 	if (arg)
 	{
-		if ((var = environment_get(env, arg)))
-		{
-			if (var->read_only != READ_ONLY)
-			{
-				environment_unsetenv(env, arg);
-				*ret = BUILTIN_EXEC_SUCCESS;
-			}
-			else
-			{
-				twl_dprintf(2, "unset: %s: cannot unset: readonly variable\n",
-																	arg);
-				*ret = BUILTIN_EXEC_FAILURE;
-			}
-		}
+		environment_remove_shell_func(env, arg);
+		*ret = BUILTIN_EXEC_SUCCESS;
 	}
 }
 
-int					unset_variable(t_environment *env, t_opt *opt)
+int					builtin_unset_function(t_environment *env, t_opt *opt)
 {
 	int	ret;
 

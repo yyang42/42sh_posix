@@ -21,7 +21,7 @@ int					builtin_readonly_exec(t_lst *tokens, t_environment *env)
 	str = token_mgr_strjoin(tokens, " "); // TODO: refactor
 	arr = twl_strsplit_mul(str, " \n\t");
 	opt = twl_opt_new(arr, EXPORT_OPT_VALID_OPTS);
-	if (!check_invalid_opts(opt, "readonly", EXPORT_OPT_VALID_OPTS))
+	if (!builtin_utils_check_invalid_opts(opt, "readonly", EXPORT_OPT_VALID_OPTS))
 	{
 		if ((twl_opt_exist(opt, "p") && twl_opt_args_len(opt) == 0)
 		|| twl_opt_args_len(opt) == 0)

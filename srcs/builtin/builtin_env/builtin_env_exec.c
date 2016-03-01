@@ -45,7 +45,7 @@ int					builtin_env_exec(t_lst *tokens, t_environment *this)
 	init_env_args(&env, tokens);
 	args = token_mgr_to_str_arr(tokens);
 	opt = twl_opt_new(args, "i");
-	if (check_invalid_opts(opt, "env", ENV_OPT_VALID_OPTS))
+	if (builtin_utils_check_invalid_opts(opt, "env", ENV_OPT_VALID_OPTS))
 		return (-1);
 	clone = !twl_lst_len(opt->opts) ? environment_clone(this)
 		: environment_new();

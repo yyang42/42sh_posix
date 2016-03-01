@@ -98,7 +98,7 @@ int					builtin_umask_exec(t_lst *tokens, t_environment *this)
 	arr = twl_strsplit_mul(str, " \n\t");
 	opt = twl_opt_new(arr, UMASK_OPT_VALID_OPTS);
 	flag = BUILTIN_EXEC_FAILURE;
-	if (!check_invalid_opts(opt, "umask", UMASK_OPT_VALID_OPTS))
+	if (!builtin_utils_check_invalid_opts(opt, "umask", UMASK_OPT_VALID_OPTS))
 	{
 		if (twl_opt_args_len(opt) < 1)
 			builtin_umask_2(opt, &flag);

@@ -52,7 +52,7 @@ int					builtin_shift_exec(t_lst *tokens, t_environment *env)
 	arr = twl_strsplit_mul(str, " \n\t");
 	opt = twl_opt_new(arr, UMASK_OPT_VALID_OPTS);
 	environment_set_last_exit_status_2(env, BUILTIN_EXEC_SUCCESS);
-	if (!check_invalid_opts(opt, "shift", SHIFT_OPT_VALID_OPTS))
+	if (!builtin_utils_check_invalid_opts(opt, "shift", SHIFT_OPT_VALID_OPTS))
 	{
 		if (twl_lst_len(opt->args) > 1)
 		{

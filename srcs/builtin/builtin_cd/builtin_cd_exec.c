@@ -78,7 +78,7 @@ int					builtin_cd_exec(t_lst *tokens, t_environment *this)
 	no_symlinks = 0;
 	args = twl_strsplit_mul(str, " \t");
 	opt = twl_opt_new(args, "LP");
-	if (check_invalid_opts(opt, "cd", "LP"))
+	if (builtin_utils_check_invalid_opts(opt, "cd", "LP"))
 		return (builtin_cd_utils_free_all(dirname, args, opt));
 	builtin_cd_utils_get_flags(opt, &no_symlinks);
 	if (get_dirname(&dirname, opt, str, this) < 0)
