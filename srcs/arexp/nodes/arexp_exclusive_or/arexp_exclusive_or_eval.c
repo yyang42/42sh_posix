@@ -20,7 +20,7 @@ static void			fn_iter(void *data, void *prev, void *ret)
 		*((long long *)ret) ^= arexp_and_eval(data);
 }
 
-long long			arexp_and_eval(t_arexp_and *this)
+long long			arexp_exclusive_or_eval(t_arexp_exclusive_or *this)
 {
 	long long		ret;
 

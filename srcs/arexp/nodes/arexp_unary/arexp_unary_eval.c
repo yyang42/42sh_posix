@@ -10,22 +10,35 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "arexp/nodes/arexp_logical_or.h"
+#include "arexp/nodes/arexp_unary.h"
+#include "arexp/nodes/arexp_expression.h"
 
-static void			fn_iter(void *data, void *prev, void *ret)
+static void		fn_iter(void *token_, void *ret_)
 {
-	if (!prev)
-		*((long long *)ret) = arexp_logical_and_eval(data);
-	else
-		*((long long *)ret) = (*((long long *)ret) ||
-				arexp_logical_and_eval(data));
+	t_token		*token;
+	long long	*ret;
+
+	token = token_;
+	ret = ret_;
+	if (token->type == TOK_AREXP_TILDE)
+		*ret = ~(*ret);
+	else if (token->type == TOK_AREXP_EXC_MARK)
+		*ret = !(*ret);
+	else if (token->type == TOK_AREXP_MINUS)
+		*ret = -(*ret);
 }
 
-long long			arexp_logical_or_eval(t_arexp_logical_or *this)
+long long		arexp_unary_eval(t_arexp_unary *this)
 {
-	long long		ret;
+	long long	ret;
 
-	ret = 0;
-	twl_lst_iterp(this->logical_and, fn_iter, &ret);
+	if (this->primary_enum == AREXP_PRIMARY_CONSTANT)
+		ret = this->primary.constant;
+	else if (this->primary_enum == AREXP_PRIMARY_VARIABLE)
+		//TODO
+		ret = this->primary.constant;
+	else
+		ret = arexp_expression_eval(this->primary.arexp_expression);
+	twl_lst_iter(this->unary_operator, fn_iter, &ret);
 	return (ret);
 }

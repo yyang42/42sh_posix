@@ -22,7 +22,7 @@ static void		fn_iter(void *data_, void *prev_, void *ret_)
 	data = data_;
 	prev = prev_;
 	ret = ret_;
-	tmp = arexp_relational_eval(data->multiplicative);
+	tmp = arexp_relational_eval(data->relational);
 	if (!prev)
 		*ret = tmp;
 	else

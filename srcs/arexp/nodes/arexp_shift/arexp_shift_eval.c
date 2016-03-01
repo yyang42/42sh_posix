@@ -10,22 +10,35 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "arexp/nodes/arexp_logical_or.h"
+#include "arexp/nodes/arexp_shift.h"
 
-static void			fn_iter(void *data, void *prev, void *ret)
+static void		fn_iter(void *data_, void *prev_, void *ret_)
 {
+	t_arexp_shift__	*data;
+	t_arexp_shift__	*prev;
+	long long		*ret;
+	long long		tmp;
+
+	data = data_;
+	prev = prev_;
+	ret = ret_;
+	tmp = arexp_additive_eval(data->additive);
 	if (!prev)
-		*((long long *)ret) = arexp_logical_and_eval(data);
+		*ret = tmp;
 	else
-		*((long long *)ret) = (*((long long *)ret) ||
-				arexp_logical_and_eval(data));
+	{
+		if (prev->shift_sign->type == TOK_AREXP_LSHIFT)
+			*ret <<= tmp;
+		else
+			*ret >>= tmp;
+	}
 }
 
-long long			arexp_logical_or_eval(t_arexp_logical_or *this)
+long long		arexp_shift_eval(t_arexp_shift *this)
 {
-	long long		ret;
+	long long	ret;
 
 	ret = 0;
-	twl_lst_iterp(this->logical_and, fn_iter, &ret);
+	twl_lst_iterp(this->additive, fn_iter, &ret);
 	return (ret);
 }

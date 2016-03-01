@@ -18,10 +18,10 @@ static void			fn_iter(void *data, void *prev, void *ret)
 		*((long long *)ret) = arexp_inclusive_or_eval(data);
 	else
 		*((long long *)ret) = (*((long long *)ret) &&
-				arexp_inclusive_or_eval(data);
+				arexp_inclusive_or_eval(data));
 }
 
-long long			arexp_logical_and_eval(t_arexp_and *this)
+long long			arexp_logical_and_eval(t_arexp_logical_and *this)
 {
 	long long		ret;
 

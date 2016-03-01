@@ -40,6 +40,6 @@ void			arexp_unary_print_rec(t_arexp_unary *this, int depth)
 	}
 	else if (this->primary_enum == AREXP_PRIMARY_CONSTANT)
 	{
-		twl_printf(" %lli\n", this->primary.constant);
+		twl_printf("-> %lli\n", this->primary.constant);
 	}
 }

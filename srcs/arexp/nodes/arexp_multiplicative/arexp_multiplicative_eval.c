@@ -10,22 +10,37 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "arexp/nodes/arexp_logical_or.h"
+#include "arexp/nodes/arexp_multiplicative.h"
 
-static void			fn_iter(void *data, void *prev, void *ret)
+static void		fn_iter(void *data_, void *prev_, void *ret_)
 {
+	t_arexp_multiplicative__	*data;
+	t_arexp_multiplicative__	*prev;
+	long long					*ret;
+	long long					tmp;
+
+	data = data_;
+	prev = prev_;
+	ret = ret_;
+	tmp = arexp_unary_eval(data->unary);
 	if (!prev)
-		*((long long *)ret) = arexp_logical_and_eval(data);
+		*ret = tmp;
 	else
-		*((long long *)ret) = (*((long long *)ret) ||
-				arexp_logical_and_eval(data));
+	{
+		if (prev->multiplicative_sign->type == TOK_AREXP_MUL)
+			*ret *= tmp;
+		else if (prev->multiplicative_sign->type == TOK_AREXP_DIV)
+			*ret /= tmp;
+		else
+			*ret %= tmp;
+	}
 }
 
-long long			arexp_logical_or_eval(t_arexp_logical_or *this)
+long long		arexp_multiplicative_eval(t_arexp_multiplicative *this)
 {
-	long long		ret;
+	long long	ret;
 
-	ret = 0;
-	twl_lst_iterp(this->logical_and, fn_iter, &ret);
+	ret = 0LL;
+	twl_lst_iterp(this->unary, fn_iter, &ret);
 	return (ret);
 }
