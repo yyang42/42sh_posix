@@ -12,23 +12,16 @@
 
 #include "builtin/builtin_alias.h"
 
-void			set_alias(char *str, t_environment *env)
+static void			print_key_value(char *key, void *data, void *context_)
 {
-	char			*value;
-	char			*key;
+	char *str;
 
-	value = twl_strchr(str, '=');
-	if (value)
-		key = twl_strsub(str, 0, twl_strlen(str) - twl_strlen(value));
-	else
-	{
-		environment_set_last_exit_status_2(env, BUILTIN_EXEC_FAILURE);
-		return ;
-	}
-	environment_set_last_exit_status_2(env, BUILTIN_EXEC_SUCCESS);
-	if (twl_dict_key_exist(env->alias, key))
-		twl_dict_set(env->alias, key, twl_strdup(value + 1), free);
-	else
-		twl_dict_add(env->alias, key, twl_strdup(value + 1));
-	free(key);
+	str = data;
+	twl_printf("%s='%s'\n", key, str);
+	(void)context_;
+}
+
+void				builtin_alias_print(t_environment *env)
+{
+	twl_dict_iter(env->alias, print_key_value, NULL);
 }

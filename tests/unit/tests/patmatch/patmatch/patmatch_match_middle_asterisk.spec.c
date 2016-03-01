@@ -35,20 +35,20 @@ static void test_## test_name(t_test *test)							\
 	patmatch_del(tmp);												\
 }
 
-mt_test_patmatch(num1, "/tmp/sandbox/*/*", 0, "/tmp/sandbox/test0/test1", false);
-mt_test_patmatch(num2, "/tmp/sandbox/*/*", 1, "/tmp/sandbox/test1/test1", false);
-mt_test_patmatch(num3, "/tmp/sandbox/*/*", 2, "/tmp/sandbox/test3/test1", false);
+mt_test_patmatch(num1, "/tmp/sandbox/*/*", 0, "/tmp/sandbox/bouh0/bouh1", false);
+mt_test_patmatch(num2, "/tmp/sandbox/*/*", 1, "/tmp/sandbox/bouh1/bouh1", false);
+mt_test_patmatch(num3, "/tmp/sandbox/*/*", 2, "/tmp/sandbox/bouh3/bouh1", false);
 mt_test_patmatch_null(num4, "/tmp/sandbox/*/*", 3, false);
-mt_test_patmatch(num5, "/tmp/sandbox/.*/t*2", 0, "/tmp/sandbox/./test2", false);
-mt_test_patmatch(num6, "/tmp/sandbox/.*/t*2", 1, "/tmp/sandbox/.test0/test2", false);
-mt_test_patmatch(num7, "/tmp/sandbox/.*/t*2", 2, "/tmp/sandbox/.test1/test2", false);
-mt_test_patmatch_null(num8, "/tmp/sandbox/.*/t*2", 3, false);
-mt_test_patmatch(num9, "\"/tmp/sandbox/.*/t*2\"", 0, "/tmp/sandbox/.*/t*2", false);
+mt_test_patmatch(num5, "/tmp/sandbox/.*/b*2", 0, "/tmp/sandbox/./bouh2", false);
+mt_test_patmatch(num6, "/tmp/sandbox/.*/b*2", 1, "/tmp/sandbox/.bouh0/bouh2", false);
+mt_test_patmatch(num7, "/tmp/sandbox/.*/b*2", 2, "/tmp/sandbox/.bouh1/bouh2", false);
+mt_test_patmatch_null(num8, "/tmp/sandbox/.*/b*2", 3, false);
+mt_test_patmatch(num9, "\"/tmp/sandbox/.*/b*2\"", 0, "/tmp/sandbox/.*/b*2", false);
 
 void		suite_patmatch_match_middle_asterisk(t_suite *suite)
 {
 	reset_sandbox();
-	sandbox_cmd("mkdir test0 test1 test2 .test0 .test1 && touch test0/test1 test1/test1 && touch .test0/test2 .test1/test2 testnul && ln -s test0 test3");
+	sandbox_cmd("mkdir bouh0 bouh1 bouh2 .bouh0 .bouh1 && touch bouh0/bouh1 bouh1/bouh1 && touch .bouh0/bouh2 .bouh1/bouh2 bouhnul && ln -s bouh0 bouh3");
 	SUITE_ADD_TEST(suite, test_num1);
 	SUITE_ADD_TEST(suite, test_num2);
 	SUITE_ADD_TEST(suite, test_num3);

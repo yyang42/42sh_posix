@@ -12,34 +12,14 @@
 
 #include "builtin/builtin_alias.h"
 
-static void		iter_fn(void *elem, void *context)
+char				*builtin_alias_get(char *key, t_environment *this)
 {
-	char			*str;
-	char			*tmp;
-	t_environment	*this;
+	char			*value;
 
-	str = elem;
-	this = context;
-	if (twl_strchr(str, '='))
-		set_alias(str, this);
-	else
+	value = twl_dict_get(this->alias, key);
+	if (!value)
 	{
-		tmp = get_alias(str, this);
-		if (tmp)
-			twl_printf("%s=\'%s\'\n", str, tmp);
+		environment_set_last_exit_status_2(this, BUILTIN_EXEC_FAILURE);
 	}
-}
-
-void				builtin_alias(t_lst *tokens, t_environment *this)
-{
-	char **tab;
-	char				*str;
-
-	str = token_mgr_strjoin(tokens, " "); // TODO: refactor
-	tab = twl_strsplit(str, ' ');
-	if (twl_arr_len(tab) == 1)
-		print_alias(this);
-	else if (twl_arr_len(tab) > 1)
-		twl_arr_iter(&tab[1], iter_fn, this);
-	twl_arr_del(tab, free);
+	return (value);
 }

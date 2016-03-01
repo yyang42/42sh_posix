@@ -72,7 +72,7 @@ t_dict			*get_builtin_func_dict(void)
 	twl_dict_add(dict, "unsetenv", &builtin_unsetenv);
 	twl_dict_add(dict, "set", &builtin_set);
 	twl_dict_add(dict, "unset", &builtin_unset);
-	twl_dict_add(dict, "alias", &builtin_alias);
+	twl_dict_add(dict, "alias", &builtin_alias_exec);
 	twl_dict_add(dict, "umask", &builtin_umask);
 	twl_dict_add(dict, "times", &builtin_times);
 	twl_dict_add(dict, "eval", &builtin_eval);
