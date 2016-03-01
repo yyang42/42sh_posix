@@ -12,15 +12,7 @@
 
 #include "builtin/builtin_cd.h"
 
-void	get_flags(t_opt *opt, int *no_symlinks)
-{
-	if (twl_opt_exist(opt, "P"))
-		*no_symlinks = 1;
-	if (twl_opt_exist(opt, "L"))
-		*no_symlinks = 0;
-}
-
-int		free_all(char *dirname, char **args, t_opt *opt)
+int					builtin_cd_utils_free_all(char *dirname, char **args, t_opt *opt)
 {
 	if (dirname)
 		free(dirname);

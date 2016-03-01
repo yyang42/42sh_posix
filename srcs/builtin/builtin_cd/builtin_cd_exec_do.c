@@ -12,54 +12,53 @@
 
 #include "builtin/builtin_cd.h"
 
-static bool	is_dir_or_symlink(char *path)
+static void	set_oldpwd(t_environment *env)
 {
-	struct stat sb;
+	char			*oldpwd;
 
-	if (!lstat(path, &sb))
+	oldpwd = environment_getenv_value(env, "PWD");
+	if (oldpwd != NULL)
 	{
-		if (S_ISLNK(sb.st_mode) || S_ISDIR(sb.st_mode))
-			return (true);
+		environment_setenv_value(env, "OLDPWD", oldpwd, 1);
 	}
-	return (false);
 }
 
-static bool	find_matching_path(void *arr_, void *content_)
+static void	set_pwd(char *pwd, t_environment *env)
 {
-	char		*path;
-	char		*dirname;
-	char		*full_path;
-
-	path = arr_;
-	dirname = content_;
-	full_path = join_paths(path, dirname);
-	if (is_dir_or_symlink(path))
-	{
-		free(full_path);
-		return (true);
-	}
-	free(full_path);
-	return (false);
+	environment_setenv_value(env, "PWD", pwd, 1);
 }
 
-char		*get_cdpath(char *dirname, t_environment *this)
+static void	cd_symlink(char *path, t_environment *this)
 {
-	char	*cd_path;
-	char	**paths;
-	char	*to_join;
-	char	*new_path;
+	char buf[PATH_MAX];
 
-	cd_path = environment_getenv_value(this, "CDPATH");
-	if (cd_path != NULL)
+	if (chdir(path) == 0)
 	{
-		paths = twl_strsplit(cd_path, ':');
-		to_join = twl_arr_find(paths, find_matching_path, dirname);
-		if (to_join)
+		set_oldpwd(this);
+		getcwd(buf, PATH_MAX);
+		set_pwd(buf, this);
+	}
+}
+
+void				builtin_cd_exec_do(char *path, int no_symlinks, t_environment *this)
+{
+	char			*new_path;
+
+	new_path = NULL;
+	if (!no_symlinks)
+		new_path = set_canonical_form(path);
+	if (no_symlinks)
+		cd_symlink(path, this);
+	else
+	{
+		if (chdir(new_path) == 0)
 		{
-			new_path = join_paths(to_join, dirname);
-			twl_arr_del(paths, free);
-			return (new_path);
+			set_oldpwd(this);
+			set_pwd(new_path, this);
 		}
+		else
+			perror("cd");
 	}
-	return (twl_strdup(dirname));
+	if (!no_symlinks)
+		free(new_path);
 }

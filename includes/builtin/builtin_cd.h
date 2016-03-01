@@ -29,13 +29,14 @@
 
 # define MAX_SIZE 4096
 
-void		execute_cd(char *path, int no_symlinks, t_environment *this);
-int			builtin_cd(t_lst *tokens, t_environment *this);
-char		*join_paths(char *path, char *dirname);
-char		*get_cdpath(char *dirname, t_environment *this);
-char		*join_pwd_to_path(char *dirname);
-char		*set_canonical_form(char *path);
-void		get_flags(t_opt *opt, int *no_symlinks);
-int			free_all(char *dirname, char **args, t_opt *opt);
+void				builtin_cd_exec_do(char *path, int no_symlinks, t_environment *this);
+int					builtin_cd_exec(t_lst *tokens, t_environment *this);
+char				*join_paths(char *path, char *dirname);
+char				*builtin_cd_get_path(char *dirname, t_environment *this);
+char				*join_pwd_to_path(char *dirname);
+char				*set_canonical_form(char *path);
+
+void				builtin_cd_utils_get_flags(t_opt *opt, int *no_symlinks);
+int					builtin_cd_utils_free_all(char *dirname, char **args, t_opt *opt);
 
 #endif
