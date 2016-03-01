@@ -10,27 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AREXP_EXPRESSION_H
-# define AREXP_EXPRESSION_H
-
-# include "basics.h"
-# include "arexp/nodes/arexp_assignment.h"
-# include "arexp/arexp_defines.h"
-
-typedef struct		s_arexp_expression
+#include "arexp/nodes/arexp_assignment.h"
+//TODO: Obvious
+long long			arexp_assignment_eval(t_arexp_assignment *this)
 {
-	t_lst			*assignment;
-}					t_arexp_expression;
+	long long		ret;
 
-t_arexp_expression	*arexp_expression_new(void);
-void				arexp_expression_del(t_arexp_expression *expression);
-
-t_arexp_expression	*arexp_expression_new_from_tokens(t_lst *tokens,
-														struct s_arexp *arexp);
-
-void				arexp_expression_print_rec(t_arexp_expression *this,
-																	int depth);
-
-long long			arexp_expression_eval(t_arexp_expression *this);
-
-#endif
+	ret = arexp_condition_eval(this->condition);
+	//twl_lst_iter(this->assign, fn_iter, &ret);
+	return (ret);
+}
