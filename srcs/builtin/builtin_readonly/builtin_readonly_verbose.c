@@ -11,26 +11,25 @@
 /* ************************************************************************** */
 
 #include "builtin/builtin_readonly.h"
+#include "environment.h"
+#include "twl_opt.h"
+#include "twl_lst.h"
 
-int					builtin_readonly_exec(t_lst *tokens, t_environment *env)
+static void			readonly_something(void *data)
 {
-	t_opt			*opt;
-	char			**arr;
-	char			*str;
+	t_environment_var	*env_var;
 
-	str = token_mgr_strjoin(tokens, " "); // TODO: refactor
-	arr = twl_strsplit_mul(str, " \n\t");
-	opt = twl_opt_new(arr, EXPORT_OPT_VALID_OPTS);
-	if (!check_invalid_opts(opt, "readonly", EXPORT_OPT_VALID_OPTS))
+	env_var = data;
+	if (env_var->read_only == READ_ONLY)
 	{
-		if ((twl_opt_exist(opt, "p") && twl_opt_args_len(opt) == 0)
-		|| twl_opt_args_len(opt) == 0)
-			readonly_verbose(env);
+		if (env_var->value_is_set == true)
+			twl_printf("readonly %s=\"%s\"\n", env_var->key, env_var->value);
 		else
-			readonly_add(env, opt);
+			twl_printf("readonly %s\n", env_var->key);
 	}
-	twl_arr_del(arr, &free);
-	twl_opt_del(opt);
-	environment_set_last_exit_status_2(env, BUILTIN_EXEC_SUCCESS);
-	return (BUILTIN_EXEC_SUCCESS);
+}
+
+void				builtin_readonly_verbose(t_environment *env)
+{
+	twl_lst_iter0(env->env_vars, readonly_something);
 }

@@ -30,7 +30,7 @@ static void			readonly_something(void *data, void *context)
 	}
 }
 
-void				readonly_add(t_environment *env, t_opt *opt)
+void				builtin_readonly_add(t_environment *env, t_opt *opt)
 {
 	twl_lst_iter(opt->args, readonly_something, env);
 }

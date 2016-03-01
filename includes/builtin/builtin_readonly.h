@@ -20,7 +20,7 @@
 # define READONLY_OPT_VALID_OPTS "p"
 
 int					builtin_readonly_exec(t_lst *tokens, t_environment *env);
-void				readonly_verbose(t_environment *env);
-void				readonly_add(t_environment *env, t_opt *opt);
+void				builtin_readonly_verbose(t_environment *env);
+void				builtin_readonly_add(t_environment *env, t_opt *opt);
 
 #endif
