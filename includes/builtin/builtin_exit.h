@@ -10,18 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SHIFT_H
-# define SHIFT_H
+#ifndef EXIT_BUILTIN_H
+# define EXIT_BUILTIN_H
 
-# include <sys/stat.h>
-# include <sys/types.h>
 # include "basics.h"
-# include "builtin/builtin.h"
-# include "twl_opt.h"
-# include "twl_opt_elem.h"
-# include "error.h"
-# define SHIFT_OPT_VALID_OPTS ""
+# include "environment.h"
 
-int				shift_builtin(char *cmd, t_environment *env);
+int					builtin_exit(t_lst *tokens, t_environment *this);
 
 #endif

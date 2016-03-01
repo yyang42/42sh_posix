@@ -2,7 +2,8 @@
 
 #include "environment.h"
 #include "expan/expan_exec.h"
-#include "builtin/set.h"
+#include "builtin/builtin_set.h"
+#include "token/tokenizer.h"
 
 static void simple_test(t_test *test)
 {
@@ -12,11 +13,11 @@ static void simple_test(t_test *test)
 	(void)test;
 	env = environment_new();
 	environment_init(env);
-	set("set lol pouet", env);
+	builtin_set(tokenizer_tokenize("set lol pouet"), env);
 	ret = test_params_sharp(env);
 	mt_assert(twl_strcmp(ret,"2") == 0);
 	free(ret);
-	set("set lol", env);
+	builtin_set(tokenizer_tokenize("set lol"), env);
 	ret = test_params_sharp(env);
 	mt_assert(twl_strcmp(ret,"1") == 0);
 	environment_del(env);

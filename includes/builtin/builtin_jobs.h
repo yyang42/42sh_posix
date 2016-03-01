@@ -10,17 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TIMES_H
-# define TIMES_H
+#ifndef BUILTIN_JOBS_H
+# define BUILTIN_JOBS_H
 
-# include <sys/stat.h>
-# include <sys/types.h>
 # include "basics.h"
-# include "builtin/builtin.h"
 # include "twl_opt.h"
-# include "twl_opt_elem.h"
-# include "error.h"
+# include "environment.h"
 
-int				times_builtin(char *cmd, t_environment *env);
+int					builtin_jobs(t_lst *tokens, t_environment *this);
 
 #endif

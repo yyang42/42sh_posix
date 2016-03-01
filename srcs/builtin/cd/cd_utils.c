@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/cd.h"
+#include "builtin/builtin_cd.h"
 
 void	get_flags(t_opt *opt, int *no_symlinks)
 {

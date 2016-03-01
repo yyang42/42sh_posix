@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/unset.h"
+#include "builtin/builtin_unset.h"
 
 static int		check_flags(t_environment *env, t_opt *opt)
 {
@@ -30,12 +30,14 @@ static int		check_flags(t_environment *env, t_opt *opt)
 	}
 }
 
-int				unset(char *str, t_environment *env)
+int				builtin_unset(t_lst *tokens, t_environment *env)
 {
 	t_opt			*opt;
 	char			**arr;
 	int				flag;
+	char			*str;
 
+	str = token_mgr_strjoin(tokens, " "); // TODO: refactor
 	flag = BUILTIN_EXEC_SUCCESS;
 	arr = twl_strsplit_mul(str, " \n\t");
 	opt = twl_opt_new(arr, UNSET_OPT_VALID_OPTS);

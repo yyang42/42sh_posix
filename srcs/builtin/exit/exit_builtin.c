@@ -12,13 +12,16 @@
 
 #include "twl_stdlib.h"
 
-#include "builtin/exit.h"
+#include "builtin/builtin_exit.h"
+#include "token/token_mgr.h"
 
-int					exit_builtin(char *str, t_environment *this)
+int					builtin_exit(t_lst *tokens, t_environment *this)
 {
 	char			*arg_str;
 	int				exit_code;
+	char			*str;
 
+	str = token_mgr_strjoin(tokens, " "); // TODO: refactor
 	arg_str = str + ((int)twl_strlen("exit") + 1);
 	if (twl_strlen(arg_str) == 0)
 	{

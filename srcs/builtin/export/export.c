@@ -10,13 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/export.h"
+#include "builtin/builtin_export.h"
 
-int					export(char *str, t_environment *env)
+int					builtin_export(t_lst *tokens, t_environment *env)
 {
 	t_opt			*opt;
 	char			**arr;
+	char			*str;
 
+	str = token_mgr_strjoin(tokens, " "); // TODO: refactor
 	arr = twl_strsplit_mul(str, " \n\t");
 	opt = twl_opt_new(arr, EXPORT_OPT_VALID_OPTS);
 	if (!check_invalid_opts(opt, "export", EXPORT_OPT_VALID_OPTS))

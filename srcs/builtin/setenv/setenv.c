@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/export.h"
+#include "builtin/builtin_export.h"
 
-int					setenv_builtin(char *str, t_environment *env)
+int					builtin_setenv(t_lst *tokens, t_environment *env)
 {
-	twl_memcpy(str, "export", 6);
-	return (export(str, env));
+	twl_memcpy(token_mgr_first(tokens)->text, "export", 6);
+	return (builtin_export(tokens, env));
 }

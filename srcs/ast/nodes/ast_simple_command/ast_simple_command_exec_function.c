@@ -14,27 +14,30 @@
 #include "ast/nodes/ast_compound_command.h"
 
 static void			exit_if_function_max_depth_reached(t_environment *env,
-	char **cmd_arr)
+	t_lst *tokens)
 {
 	if (env->function_depth > DEFAULT_FUNCTION_MAX_RECURSION_DEPTH)
 	{
-		twl_dprintf(2, "%s: maximum nested function level reached\n", cmd_arr[0]);
+		twl_dprintf(2, "%s: maximum nested function level reached\n", token_mgr_first(tokens)->text);
 		exit(1);
 	}
 }
 
 void				ast_simple_command_exec_function(t_ast_simple_command *this,
-									t_environment *env, char **cmd_arr,
+									t_environment *env, t_lst *tokens,
 									struct s_ast_compound_command *compound_cmd)
 {
 	t_lst			*pos_params_original;
+	t_lst			*tokens_str_lst;
 
+	tokens_str_lst = token_mgr_to_lst(tokens);
+	twl_lst_pop(tokens_str_lst);
 	pos_params_original = env->pos_params;
-	env->pos_params = twl_arr_to_lst(cmd_arr + 1);
+	env->pos_params = tokens_str_lst;
 	env->function_depth++;
-	exit_if_function_max_depth_reached(env, cmd_arr);
+	exit_if_function_max_depth_reached(env, tokens);
 	ast_compound_command_exec(compound_cmd);
-	twl_lst_del(env->pos_params, free);
+	twl_lst_del(tokens_str_lst, NULL);
 	env->pos_params = pos_params_original;
 	(void)this;
 }

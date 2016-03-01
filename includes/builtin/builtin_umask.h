@@ -10,33 +10,44 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENV_H
-# define ENV_H
+#ifndef UMASK_H
+# define UMASK_H
 
 # include <sys/stat.h>
 # include <sys/types.h>
+# include "basics.h"
 # include "builtin/builtin.h"
-# include "environment.h"
-# include "builtin/env.h"
-# include "utils.h"
 # include "twl_arr.h"
 # include "twl_opt.h"
-# include "twl_arr2.h"
-# include "ast/nodes/ast_simple_command.h"
+# include "twl_opt_elem.h"
+# include "error.h"
+# include "twl_ctype.h"
 
-# define ENV_OPT_VALID_OPTS "i"
+# define UMASK_OPT_VALID_OPTS "S"
+# define ISOCTAL(c)	((c) >= '0' && (c) <= '7')
+# define S_IRUGO         (S_IRUSR|S_IRGRP|S_IROTH)
+# define S_IWUGO         (S_IWUSR|S_IWGRP|S_IWOTH)
+# define S_IXUGO         (S_IXUSR|S_IXGRP|S_IXOTH)
 
-typedef struct		s_env_args
+typedef struct	s_mask
 {
-	char				**args;
-	char				**env_arr;
-	char				*utility;
-	int					utility_index;
-	bool				has_utility;
-}					t_env_args;
+	char ubits[4];
+	char gbits[4];
+	char obits[4];
+}				t_mask;
 
-int					env(char *str, t_environment *this);
-void				exec_env(t_env_args *env, t_environment	*clone);
-void				add_env_var(void *data_, void *context_);
+typedef struct	s_parse_mask
+{
+	int			who;
+	int			op;
+	int			perm;
+	int			bits;
+	int			c;
+	char		*s;
+}				t_parse_mask;
+
+int				builtin_umask(t_lst *tokens, t_environment *this);
+void			print_symbolic_umask(mode_t um);
+int				parse_symbolic_mode(char *mode, int initial_bits);
 
 #endif

@@ -10,17 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef READONLY_H
-# define READONLY_H
+#ifndef ECHO_H
+# define ECHO_H
 
 # include "basics.h"
 # include "twl_opt.h"
 # include "builtin/builtin.h"
 
-# define READONLY_OPT_VALID_OPTS "p"
+# define ECHO_OPT_VALID_OPTS "n"
 
-int					readonly(char *str, t_environment *env);
-void				readonly_verbose(t_environment *env);
-void				readonly_add(t_environment *env, t_opt *opt);
+int				builtin_echo(t_lst *tokens, t_environment *this);
 
 #endif

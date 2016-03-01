@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/cd.h"
+#include "builtin/builtin_cd.h"
 
 static char	*get_dirname_from_arg(t_opt *opt, t_environment *this)
 {
@@ -64,14 +64,16 @@ static int	get_dirname(char **dirname, t_opt *opt, char *str,
 	return (0);
 }
 
-int			cd(char *str, t_environment *this)
+int			builtin_cd(t_lst *tokens, t_environment *this)
 {
 	int					no_symlinks;
 	t_opt				*opt;
 	char				**args;
 	char				*dirname;
 	char				*old_dirname;
+	char				*str;
 
+	str = token_mgr_strjoin(tokens, " "); // TODO: refactor
 	dirname = NULL;
 	no_symlinks = 0;
 	args = twl_strsplit_mul(str, " \t");

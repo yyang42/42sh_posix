@@ -1,9 +1,10 @@
 #include <project.h>
 
 #include "environment.h"
-#include "builtin/shift.h"
+#include "builtin/builtin_shift.h"
 #include "xopt.h"
 #include <stdlib.h>
+#include "token/tokenizer.h"
 
 static void 	test_simple_shift(t_test *test)
 {
@@ -12,12 +13,12 @@ static void 	test_simple_shift(t_test *test)
 	(void)test;
 	env = environment_new();
 	environment_init(env);
-	set("set lol pouet", env);
+	builtin_set(tokenizer_tokenize("set lol pouet"), env);
 	mt_assert(twl_lst_len(env->pos_params) == 2);
-	shift_builtin("shift", env);
+	builtin_shift(tokenizer_tokenize("shift"), env);
 	mt_assert(env->info.last_exit_status == BUILTIN_EXEC_SUCCESS);
 	mt_assert(twl_lst_len(env->pos_params) == 1);
-	// shift_builtin("shift", env);
+	// builtin_shift(tokenizer_tokenize("shift"), env);
 	// mt_assert(env->info.last_exit_status == BUILTIN_EXEC_SUCCESS);
 	// mt_assert(twl_lst_len(env->pos_params) == 0);
 	environment_del(env);
@@ -30,10 +31,10 @@ static void 	test_simple_shift(t_test *test)
 // 	(void)test;
 // 	env = environment_new();
 // 	environment_init(env);
-// 	shift_builtin("shift", env);
+// 	builtin_shift(tokenizer_tokenize("shift"), env);
 // 	mt_assert(env->info.last_exit_status == BUILTIN_EXEC_FAILURE);
 // 	mt_assert(twl_lst_len(env->pos_params) == 0);
-// 	shift_builtin("shift", env);
+// 	builtin_shift(tokenizer_tokenize("shift"), env);
 // 	mt_assert(env->info.last_exit_status == BUILTIN_EXEC_FAILURE);
 // 	mt_assert(twl_lst_len(env->pos_params) == 0);
 // 	environment_del(env);
@@ -48,7 +49,7 @@ static void 	test_simple_shift(t_test *test)
 // 	environment_init(env);
 // 	set("set lol pouet gnuk hihi", env);
 // 	mt_assert(twl_lst_len(env->pos_params) == 4);
-// 	shift_builtin("shift 6", env);
+// 	builtin_shift(tokenizer_tokenize("shift 6"), env);
 // 	mt_assert(env->info.last_exit_status == BUILTIN_EXEC_FAILURE);
 // 	mt_assert(twl_lst_len(env->pos_params) == 0);
 // 	environment_del(env);

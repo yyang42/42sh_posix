@@ -10,44 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UMASK_H
-# define UMASK_H
+#ifndef EVAL_H
+# define EVAL_H
 
-# include <sys/stat.h>
-# include <sys/types.h>
-# include "basics.h"
 # include "builtin/builtin.h"
-# include "twl_arr.h"
-# include "twl_opt.h"
-# include "twl_opt_elem.h"
-# include "error.h"
-# include "twl_ctype.h"
 
-# define UMASK_OPT_VALID_OPTS "S"
-# define ISOCTAL(c)	((c) >= '0' && (c) <= '7')
-# define S_IRUGO         (S_IRUSR|S_IRGRP|S_IROTH)
-# define S_IWUGO         (S_IWUSR|S_IWGRP|S_IWOTH)
-# define S_IXUGO         (S_IXUSR|S_IXGRP|S_IXOTH)
-
-typedef struct	s_mask
-{
-	char ubits[4];
-	char gbits[4];
-	char obits[4];
-}				t_mask;
-
-typedef struct	s_parse_mask
-{
-	int			who;
-	int			op;
-	int			perm;
-	int			bits;
-	int			c;
-	char		*s;
-}				t_parse_mask;
-
-int				umask_builtin(char *cmd, t_environment *this);
-void			print_symbolic_umask(mode_t um);
-int				parse_symbolic_mode(char *mode, int initial_bits);
+int					builtin_eval(t_lst *tokens, t_environment *env);
 
 #endif

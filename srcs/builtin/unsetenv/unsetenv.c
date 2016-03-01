@@ -10,15 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/unset.h"
+#include "builtin/builtin_unset.h"
 
-int				unsetenv_builtin(char *str, t_environment *env)
+int				builtin_unsetenv(t_lst *tokens, t_environment *env)
 {
 	char	*new_str;
 	int		flag;
+	char	*str;
 
+	str = token_mgr_strjoin(tokens, " "); // TODO: refactor
 	new_str = twl_strjoin("unset", &str[8]);
-	flag = unset(new_str, env);
+	flag = builtin_unset(tokens, env);
 	free(new_str);
 	return (flag);
 }

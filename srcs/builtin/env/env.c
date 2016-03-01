@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/env.h"
+#include "builtin/builtin_env.h"
 
 static void		get_utility(void *data_, void *context)
 {
@@ -26,23 +26,25 @@ static void		get_utility(void *data_, void *context)
 	}
 }
 
-static void		init_env_args(t_env_args *env, char *str)
+static void		init_env_args(t_env_args *env, t_lst *tokens)
 {
 	env->utility = NULL;
 	env->has_utility = 0;
 	env->env_arr = NULL;
-	env->args = twl_strsplit_mul(str, " \t");
+	env->tokens = tokens;
 }
 
-int				env(char *str, t_environment *this)
+int				builtin_env(t_lst *tokens, t_environment *this)
 {
 	t_environment		*clone;
 	t_opt				*opt;
 	t_env_args			env;
+	char				**args;
 
 	clone = NULL;
-	init_env_args(&env, str);
-	opt = twl_opt_new(env.args, "i");
+	init_env_args(&env, tokens);
+	args = token_mgr_to_str_arr(tokens);
+	opt = twl_opt_new(args, "i");
 	if (check_invalid_opts(opt, "env", ENV_OPT_VALID_OPTS))
 		return (-1);
 	clone = !twl_lst_len(opt->opts) ? environment_clone(this)
@@ -56,6 +58,5 @@ int				env(char *str, t_environment *this)
 		environment_print(clone);
 	environment_del(clone);
 	twl_opt_del(opt);
-	twl_arr_del(env.args, &free);
 	return (0);
 }

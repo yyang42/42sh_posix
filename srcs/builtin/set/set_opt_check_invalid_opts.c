@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include <stdbool.h>
-#include "builtin/set.h"
+#include "builtin/builtin_set.h"
 #include "twl_opt.h"
 #include "twl_opt_elem.h"
 #include "twl_stdio.h"

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/alias.h"
+#include "builtin/builtin_alias.h"
 
 void			set_alias(char *str, t_environment *env)
 {

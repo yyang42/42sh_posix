@@ -10,15 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ECHO_H
-# define ECHO_H
+#include "token/token_mgr.h"
 
-# include "basics.h"
-# include "twl_opt.h"
-# include "builtin/builtin.h"
+static void			print_token_fn(void *token_, void *segs)
+{
+	t_token	*token;
 
-# define ECHO_OPT_VALID_OPTS "n"
+	token = token_;
+	twl_lst_push(segs, token->text);
+}
 
-int				echo(char *str, t_environment *this);
+t_lst				*token_mgr_to_lst(t_lst *tokens)
+{
+	t_lst			*segs;
 
-#endif
+	segs = twl_lst_new();
+	twl_lst_iter(tokens, print_token_fn, segs);
+	return (segs);
+}

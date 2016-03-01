@@ -2,8 +2,9 @@
 
 #include "environment.h"
 #include "expan/expan_exec.h"
-#include "builtin/set.h"
-#include "builtin/export.h"
+#include "builtin/builtin_set.h"
+#include "builtin/builtin_export.h"
+#include "token/tokenizer.h"
 
 static void simple_star(t_test *test)
 {
@@ -13,8 +14,8 @@ static void simple_star(t_test *test)
 	(void)test;
 	env = environment_new();
 	environment_init(env);
-	export("export IFS=[", env);
-	set("set lol pouet", env);
+	builtin_export(tokenizer_tokenize("export IFS=["), env);
+	builtin_set(tokenizer_tokenize("set lol pouet"), env);
 	ret = test_params_star(env, false);
 	mt_assert(twl_strcmp(ret,"lol pouet") == 0);
 	free(ret);

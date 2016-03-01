@@ -10,24 +10,36 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/echo.h"
+#include "builtin/builtin_echo.h"
 
-int				echo(char *str, t_environment *this)
+static void iter_fn(void *token_, void *next, void *ctx)
 {
-	t_opt			*opt;
-	char			**arr;
-	int				flag;
+	t_token			*token;
 
-	flag = 0;
-	(void)this;
-	arr = twl_strsplit_mul(str, " \n\t");
-	opt = twl_opt_new(arr, ECHO_OPT_VALID_OPTS);
-	if (twl_opt_exist(opt, "n"))
-		twl_printf(str + 8);
-	else
-		twl_printf("%s\n", str + 5);
+	token = token_;
+	twl_putstr(token->text);
+	if (next)
+		twl_putstr(" ");
+	(void)ctx;
+}
+
+int				builtin_echo(t_lst *tokens, t_environment *this)
+{
+	t_lst			*copy;
+	bool			opt_n;
+
+	opt_n = false;
+	copy = twl_lst_copy(tokens, NULL);
+	twl_lst_pop_front(copy);
+	if (token_mgr_first_equ(copy, "-n"))
+	{
+		opt_n = true;
+		twl_lst_pop_front(copy);
+	}
+	twl_lst_itern(copy, iter_fn, NULL);
+	if (!opt_n)
+		twl_putstr("\n");
 	environment_set_last_exit_status_2(this, BUILTIN_EXEC_SUCCESS);
-	twl_arr_del(arr, &free);
-	twl_opt_del(opt);
-	return (flag);
+	twl_lst_del(copy, NULL);
+	return (0);
 }

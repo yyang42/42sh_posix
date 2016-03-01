@@ -10,13 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_JOBS_H
-# define BUILTIN_JOBS_H
+#ifndef EXPORT_H
+# define EXPORT_H
 
 # include "basics.h"
 # include "twl_opt.h"
-# include "environment.h"
+# include "builtin/builtin.h"
 
-int					builtin_jobs(char *str, t_environment *this);
+# define EXPORT_OPT_VALID_OPTS "p"
+
+int					builtin_export(t_lst *tokens, t_environment *env);
+void				export_verbose(t_environment *env);
+void				export_add(t_environment *env, t_opt *opt);
+int					builtin_setenv(t_lst *tokens, t_environment *env);
 
 #endif

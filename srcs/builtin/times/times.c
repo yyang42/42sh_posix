@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/times.h"
+#include "builtin/builtin_times.h"
 #include "twl_stdlib.h"
 #include <sys/time.h>
 #include <sys/resource.h>
@@ -46,12 +46,12 @@ static void		print_timeval(struct timeval *tvp)
 	twl_printf("%ldm%d.%03ds", minutes, seconds, seconds_fraction);
 }
 
-int				times_builtin(char *cmd, t_environment *env)
+int				builtin_times(t_lst *tokens, t_environment *env)
 {
 	struct rusage self;
 	struct rusage kids;
 
-	(void)cmd;
+	(void)tokens;
 	(void)env;
 	getrusage(RUSAGE_SELF, &self);
 	getrusage(RUSAGE_CHILDREN, &kids);

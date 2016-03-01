@@ -1,8 +1,9 @@
 #include <project.h>
 
 #include "environment.h"
-#include "builtin/unset.h"
+#include "builtin/builtin_unset.h"
 #include "twl_dict.h"
+#include "token/tokenizer.h"
 
 static void add_shell_func(t_test *test)
 {
@@ -26,7 +27,7 @@ static void unset_shell_func(t_test *test)
 	environment_init(env);
 	environment_add_shell_func(env, "lol", (void *)"echo pouet");
 	mt_assert(twl_dict_len(env->shell_func) == 1);
-	unset("unset -f lol", env);
+	builtin_unset(tokenizer_tokenize("unset -f lol"), env);
 	mt_assert(twl_dict_len(env->shell_func) == 0);
 	environment_del(env);
 }

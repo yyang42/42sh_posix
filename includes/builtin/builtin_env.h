@@ -10,19 +10,33 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UNSET_H
-# define UNSET_H
+#ifndef ENV_H
+# define ENV_H
 
-# include "basics.h"
-# include "twl_opt.h"
-# include "environment.h"
+# include <sys/stat.h>
+# include <sys/types.h>
 # include "builtin/builtin.h"
+# include "environment.h"
+# include "builtin/builtin_env.h"
+# include "utils.h"
+# include "twl_arr.h"
+# include "twl_opt.h"
+# include "twl_arr2.h"
+# include "ast/nodes/ast_simple_command.h"
 
-# define UNSET_OPT_VALID_OPTS "fv"
+# define ENV_OPT_VALID_OPTS "i"
 
-int					unset(char *str, t_environment *env);
-int					unset_variable(t_environment *env, t_opt *opt);
-int					unset_function(t_environment *env, t_opt *opt);
-int					unsetenv_builtin(char *str, t_environment *env);
+typedef struct		s_env_args
+{
+	t_lst				*tokens;
+	char				**env_arr;
+	char				*utility;
+	int					utility_index;
+	bool				has_utility;
+}					t_env_args;
+
+int					builtin_env(t_lst *tokens, t_environment *this);
+void				exec_env(t_env_args *env, t_environment	*clone);
+void				add_env_var(void *data_, void *context_);
 
 #endif

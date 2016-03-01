@@ -10,32 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CD_H
-# define CD_H
+#ifndef UNSET_H
+# define UNSET_H
 
-# include <unistd.h>
-# include <sys/types.h>
-# include <string.h>
-# include <sys/param.h>
-# include <sys/stat.h>
-# include <errno.h>
-# include <fcntl.h>
-# include <string.h>
-# include <stdlib.h>
-# include <stdio.h>
-# include "builtin/builtin.h"
+# include "basics.h"
 # include "twl_opt.h"
-# include "twl_opt_elem.h"
+# include "environment.h"
+# include "builtin/builtin.h"
 
-# define MAX_SIZE 4096
+# define UNSET_OPT_VALID_OPTS "fv"
 
-void		execute_cd(char *path, int no_symlinks, t_environment *this);
-int			cd(char *str, t_environment *this);
-char		*join_paths(char *path, char *dirname);
-char		*get_cdpath(char *dirname, t_environment *this);
-char		*join_pwd_to_path(char *dirname);
-char		*set_canonical_form(char *path);
-void		get_flags(t_opt *opt, int *no_symlinks);
-int			free_all(char *dirname, char **args, t_opt *opt);
+int					builtin_unset(t_lst *tokens, t_environment *env);
+int					unset_variable(t_environment *env, t_opt *opt);
+int					unset_function(t_environment *env, t_opt *opt);
+int					builtin_unsetenv(t_lst *tokens, t_environment *env);
 
 #endif

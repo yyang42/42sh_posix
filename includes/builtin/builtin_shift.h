@@ -10,11 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EVAL_H
-# define EVAL_H
+#ifndef SHIFT_H
+# define SHIFT_H
 
+# include <sys/stat.h>
+# include <sys/types.h>
+# include "basics.h"
 # include "builtin/builtin.h"
+# include "twl_opt.h"
+# include "twl_opt_elem.h"
+# include "error.h"
+# define SHIFT_OPT_VALID_OPTS ""
 
-int					eval_builtin(char *str, t_environment *env);
+int				builtin_shift(t_lst *tokens, t_environment *env);
 
 #endif

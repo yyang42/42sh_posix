@@ -10,12 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXIT_BUILTIN_H
-# define EXIT_BUILTIN_H
+#ifndef ALIAS_H
+# define ALIAS_H
 
-# include "basics.h"
+# include "twl_arr.h"
+# include "twl_opt.h"
+# include "twl_stdio.h"
 # include "environment.h"
+# include "twl_dict.h"
+# include "twl_arr.h"
+# include "builtin/builtin.h"
+# include <stdbool.h>
 
-int					exit_builtin(char *str, t_environment *this);
+char			*get_alias(char *key, t_environment *this);
+void			set_alias(char *str, t_environment *this);
+void			print_alias(t_environment *this);
+void			builtin_alias(t_lst *tokens, t_environment *this);
 
 #endif

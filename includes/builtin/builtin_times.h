@@ -10,21 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ALIAS_H
-# define ALIAS_H
+#ifndef TIMES_H
+# define TIMES_H
 
-# include "twl_arr.h"
-# include "twl_opt.h"
-# include "twl_stdio.h"
-# include "environment.h"
-# include "twl_dict.h"
-# include "twl_arr.h"
+# include <sys/stat.h>
+# include <sys/types.h>
+# include "basics.h"
 # include "builtin/builtin.h"
-# include <stdbool.h>
+# include "twl_opt.h"
+# include "twl_opt_elem.h"
+# include "error.h"
 
-char			*get_alias(char *key, t_environment *this);
-void			set_alias(char *str, t_environment *this);
-void			print_alias(t_environment *this);
-void			alias(char *str, t_environment *this);
+int				builtin_times(t_lst *tokens, t_environment *env);
 
 #endif

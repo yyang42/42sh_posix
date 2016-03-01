@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/shift.h"
+#include "builtin/builtin_shift.h"
 #include "twl_stdlib.h"
 
 static void		shift_action(t_environment *env, t_opt *opt)
@@ -42,12 +42,14 @@ static void		shift_action(t_environment *env, t_opt *opt)
 	}
 }
 
-int				shift_builtin(char *cmd, t_environment *env)
+int				builtin_shift(t_lst *tokens, t_environment *env)
 {
 	t_opt			*opt;
 	char			**arr;
+	char			*str;
 
-	arr = twl_strsplit_mul(cmd, " \n\t");
+	str = token_mgr_strjoin(tokens, " "); // TODO: refactor
+	arr = twl_strsplit_mul(str, " \n\t");
 	opt = twl_opt_new(arr, UMASK_OPT_VALID_OPTS);
 	environment_set_last_exit_status_2(env, BUILTIN_EXEC_SUCCESS);
 	if (!check_invalid_opts(opt, "shift", SHIFT_OPT_VALID_OPTS))

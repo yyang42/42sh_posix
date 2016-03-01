@@ -10,17 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/eval.h"
+#include "builtin/builtin_eval.h"
 #include "ast/ast.h"
 #include "ast/nodes/ast_compound_list.h"
 
-int					eval_builtin(char *cmd, t_environment *env)
+int					builtin_eval(t_lst *tokens, t_environment *env)
 {
 	t_ast			*ast;
 	int				ret;
+	char				*str;
 
+	str = token_mgr_strjoin(tokens, " "); // TODO: refactor
 	(void)env;
-	ast = ast_new(&cmd[5]);
+	ast = ast_new(&str[5]);
 	if (ast->error_msg)
 	{
 		twl_dprintf(2, "%s\n", ast->error_msg);

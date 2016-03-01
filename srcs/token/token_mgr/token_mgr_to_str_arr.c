@@ -12,21 +12,12 @@
 
 #include "token/token_mgr.h"
 
-static void			print_token_fn(void *token_, void *segs)
-{
-	t_token	*token;
-
-	token = token_;
-	twl_lst_push(segs, token->text);
-}
-
 char				**token_mgr_to_str_arr(t_lst *tokens)
 {
 	t_lst			*segs;
 	char			**arr;
 
-	segs = twl_lst_new();
-	twl_lst_iter(tokens, print_token_fn, segs);
+	segs = token_mgr_to_lst(tokens);
 	arr = (char **)twl_lst_to_arr(segs);
 	twl_lst_del(segs, NULL);
 	return (arr);
