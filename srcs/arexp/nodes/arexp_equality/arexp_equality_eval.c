@@ -10,12 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "arexp/arexp.h"
 #include "arexp/nodes/arexp_equality.h"
 
 static void		fn_iter(void *data, void *prev, void *ret)
 {
 	long long			tmp;
 
+	if (arexp_singleton(NULL, false)->error_msg)
+		return ;
 	tmp = arexp_relational_eval(((t_arexp_equality__ *)data)->relational);
 	if (!prev)
 		*((long long *)ret) = tmp;

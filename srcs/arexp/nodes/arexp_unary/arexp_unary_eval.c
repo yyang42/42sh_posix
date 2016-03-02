@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "arexp/arexp.h"
 #include "arexp/nodes/arexp_unary.h"
 #include "arexp/nodes/arexp_expression.h"
 
@@ -38,6 +39,8 @@ long long		arexp_unary_eval(t_arexp_unary *this)
 		ret = this->primary.constant;
 	else
 		ret = arexp_expression_eval(this->primary.arexp_expression);
+	if (arexp_singleton(NULL, false)->error_msg)
+		return (0);
 	twl_lst_iter(this->unary_operator, fn_iter, &ret);
 	return (ret);
 }

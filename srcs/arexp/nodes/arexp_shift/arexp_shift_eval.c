@@ -10,12 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "arexp/arexp.h"
 #include "arexp/nodes/arexp_shift.h"
 
 static void		fn_iter(void *data, void *prev, void *ret)
 {
 	long long		tmp;
 
+	if (arexp_singleton(NULL, false)->error_msg)
+		return ;
 	tmp = arexp_additive_eval(((t_arexp_shift__ *)data)->additive);
 	if (!prev)
 		*((long long *)ret) = tmp;
