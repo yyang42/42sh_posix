@@ -14,10 +14,12 @@
 
 #include "arexp/arexp.h"
 #include "prog.h"
+#include "environment.h"
 
 int					prog_print_arexp(t_prog *prog, char *input)
 {
 	t_arexp			*arexp;
+	long long		lol;
 
 	arexp = arexp_new(input);
 	if (arexp->error_msg)
@@ -26,6 +28,14 @@ int					prog_print_arexp(t_prog *prog, char *input)
 		return (1);
 	}
 	arexp_print_rec(arexp);
+	lol = arexp_eval(arexp);
+	if (arexp->error_msg)
+	{
+		twl_dprintf(2, "%s\n", arexp->error_msg);
+		return (1);
+	}
+	twl_printf("%lli\n", lol);
+	twl_printf("%s\n", environment_getenv_value(environment_singleton(), "a"));
 	arexp_del(arexp);
 	return (0);
 	(void)prog;
