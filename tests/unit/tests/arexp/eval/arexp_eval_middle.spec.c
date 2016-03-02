@@ -53,5 +53,4 @@ void suite_arexp_eval_middle(t_suite *suite)
 	SUITE_ADD_TEST(suite, test_num13);
 	SUITE_ADD_TEST(suite, test_num14);
 	SUITE_ADD_TEST(suite, test_num15);
-	SUITE_ADD_TEST(suite, test_num16);
 }
