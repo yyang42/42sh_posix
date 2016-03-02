@@ -16,11 +16,11 @@ static void simple_test(t_test *test)
 	ret = test_params_at(env);
 	mt_assert(twl_strcmp(ret,"") == 0);
 	free(ret);
-	builtin_set(tokenizer_tokenize("set lol"), env);
+	builtin_set_exec(tokenizer_tokenize("set lol"), env);
 	ret = test_params_at(env);
 	mt_assert(twl_strcmp(ret,"lol") == 0);
 	free(ret);
-	builtin_set(tokenizer_tokenize("set lol pouet"), env);
+	builtin_set_exec(tokenizer_tokenize("set lol pouet"), env);
 	ret = test_params_at(env);
 	mt_assert(twl_strcmp(ret,"lol pouet") == 0);
 	free(ret);

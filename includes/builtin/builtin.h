@@ -40,8 +40,8 @@
 
 typedef void (t_builtin_fn)(t_lst *tokens, t_environment *this);
 
-int				check_invalid_opts(t_opt *opt, char *exe_name, char *flags);
-bool			builtin_true(t_lst *tokens, t_environment *env);
-bool			builtin_false(t_lst *tokens, t_environment *env);
+int				builtin_utils_check_invalid_opts(t_opt *opt, char *exe_name, char *flags);
+bool			builtin_true_exec(t_lst *tokens, t_environment *env);
+bool			builtin_false_exec(t_lst *tokens, t_environment *env);
 
 #endif

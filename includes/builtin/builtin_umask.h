@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UMASK_H
-# define UMASK_H
+#ifndef BUILTIN_UMASK_H
+# define BUILTIN_UMASK_H
 
 # include <sys/stat.h>
 # include <sys/types.h>
@@ -46,8 +46,8 @@ typedef struct	s_parse_mask
 	char		*s;
 }				t_parse_mask;
 
-int				builtin_umask(t_lst *tokens, t_environment *this);
-void			print_symbolic_umask(mode_t um);
-int				parse_symbolic_mode(char *mode, int initial_bits);
+int				builtin_umask_exec(t_lst *tokens, t_environment *this);
+void			builtin_umask_print_symbolic(mode_t um);
+int				builtin_umask_parse_symbolic_mode(char *mode, int initial_bits);
 
 #endif

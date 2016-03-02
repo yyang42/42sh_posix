@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENV_H
-# define ENV_H
+#ifndef BUILTIN_ENV_H
+# define BUILTIN_ENV_H
 
 # include <sys/stat.h>
 # include <sys/types.h>
@@ -35,8 +35,8 @@ typedef struct		s_env_args
 	bool				has_utility;
 }					t_env_args;
 
-int					builtin_env(t_lst *tokens, t_environment *this);
-void				exec_env(t_env_args *env, t_environment	*clone);
-void				add_env_var(void *data_, void *context_);
+int					builtin_env_exec(t_lst *tokens, t_environment *this);
+void				builtin_env_exec_do(t_env_args *env, t_environment	*clone);
+void				builtin_env_utils_add_env_var(void *data_, void *context_);
 
 #endif

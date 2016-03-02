@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SHIFT_H
-# define SHIFT_H
+#ifndef BUILTIN_SHIFT_H
+# define BUILTIN_SHIFT_H
 
 # include <sys/stat.h>
 # include <sys/types.h>
@@ -22,6 +22,6 @@
 # include "error.h"
 # define SHIFT_OPT_VALID_OPTS ""
 
-int				builtin_shift(t_lst *tokens, t_environment *env);
+int				builtin_shift_exec(t_lst *tokens, t_environment *env);
 
 #endif

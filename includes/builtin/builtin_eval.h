@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EVAL_H
-# define EVAL_H
+#ifndef BUILTIN_EVAL_H
+# define BUILTIN_EVAL_H
 
 # include "builtin/builtin.h"
 
-int					builtin_eval(t_lst *tokens, t_environment *env);
+int					builtin_eval_exec(t_lst *tokens, t_environment *env);
 
 #endif

@@ -10,12 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXIT_BUILTIN_H
-# define EXIT_BUILTIN_H
+#ifndef BUILTIN_EXIT_H
+# define BUILTIN_EXIT_H
 
 # include "basics.h"
 # include "environment.h"
 
-int					builtin_exit(t_lst *tokens, t_environment *this);
+int					builtin_exit_exec(t_lst *tokens, t_environment *this);
 
 #endif

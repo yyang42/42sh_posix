@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef READONLY_H
-# define READONLY_H
+#ifndef BUILTIN_READONLY_H
+# define BUILTIN_READONLY_H
 
 # include "basics.h"
 # include "twl_opt.h"
@@ -19,8 +19,8 @@
 
 # define READONLY_OPT_VALID_OPTS "p"
 
-int					builtin_readonly(t_lst *tokens, t_environment *env);
-void				readonly_verbose(t_environment *env);
-void				readonly_add(t_environment *env, t_opt *opt);
+int					builtin_readonly_exec(t_lst *tokens, t_environment *env);
+void				builtin_readonly_verbose(t_environment *env);
+void				builtin_readonly_add(t_environment *env, t_opt *opt);
 
 #endif

@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UNSET_H
-# define UNSET_H
+#ifndef BUILTIN_UNSET_H
+# define BUILTIN_UNSET_H
 
 # include "basics.h"
 # include "twl_opt.h"
@@ -20,9 +20,9 @@
 
 # define UNSET_OPT_VALID_OPTS "fv"
 
-int					builtin_unset(t_lst *tokens, t_environment *env);
-int					unset_variable(t_environment *env, t_opt *opt);
-int					unset_function(t_environment *env, t_opt *opt);
-int					builtin_unsetenv(t_lst *tokens, t_environment *env);
+int					builtin_unset_exec(t_lst *tokens, t_environment *env);
+int					builtin_unset_variable(t_environment *env, t_opt *opt);
+int					builtin_unset_function(t_environment *env, t_opt *opt);
+int					builtin_unsetenv_exec(t_lst *tokens, t_environment *env);
 
 #endif

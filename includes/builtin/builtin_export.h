@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXPORT_H
-# define EXPORT_H
+#ifndef BUILTIN_EXPORT_H
+# define BUILTIN_EXPORT_H
 
 # include "basics.h"
 # include "twl_opt.h"
@@ -19,9 +19,9 @@
 
 # define EXPORT_OPT_VALID_OPTS "p"
 
-int					builtin_export(t_lst *tokens, t_environment *env);
-void				export_verbose(t_environment *env);
-void				export_add(t_environment *env, t_opt *opt);
-int					builtin_setenv(t_lst *tokens, t_environment *env);
+int					builtin_export_exec(t_lst *tokens, t_environment *env);
+void				builtin_export_verbose(t_environment *env);
+void				builtin_export_add(t_environment *env, t_opt *opt);
+int					builtin_setenv_exec(t_lst *tokens, t_environment *env);
 
 #endif

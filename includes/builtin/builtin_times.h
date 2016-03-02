@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TIMES_H
-# define TIMES_H
+#ifndef BUILTIN_TIMES_H
+# define BUILTIN_TIMES_H
 
 # include <sys/stat.h>
 # include <sys/types.h>
@@ -21,6 +21,6 @@
 # include "twl_opt_elem.h"
 # include "error.h"
 
-int				builtin_times(t_lst *tokens, t_environment *env);
+int				builtin_times_exec(t_lst *tokens, t_environment *env);
 
 #endif

@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ECHO_H
-# define ECHO_H
+#ifndef BUILTIN_ECHO_H
+# define BUILTIN_ECHO_H
 
 # include "basics.h"
 # include "twl_opt.h"
@@ -19,6 +19,6 @@
 
 # define ECHO_OPT_VALID_OPTS "n"
 
-int				builtin_echo(t_lst *tokens, t_environment *this);
+int					builtin_echo_exec(t_lst *tokens, t_environment *this);
 
 #endif
