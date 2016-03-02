@@ -35,7 +35,6 @@ long long		arexp_unary_eval(t_arexp_unary *this)
 	if (this->primary_enum == AREXP_PRIMARY_CONSTANT)
 		ret = this->primary.constant;
 	else if (this->primary_enum == AREXP_PRIMARY_VARIABLE)
-		//TODO
 		ret = this->primary.constant;
 	else
 		ret = arexp_expression_eval(this->primary.arexp_expression);

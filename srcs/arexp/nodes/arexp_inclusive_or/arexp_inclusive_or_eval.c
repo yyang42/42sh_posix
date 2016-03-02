@@ -24,7 +24,6 @@ long long			arexp_inclusive_or_eval(t_arexp_inclusive_or *this)
 {
 	long long		ret;
 
-	ret = 0;
 	twl_lst_iterp(this->exclusive_or, fn_iter, &ret);
 	return (ret);
 }
