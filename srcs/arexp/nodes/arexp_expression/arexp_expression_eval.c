@@ -21,7 +21,6 @@ long long			arexp_expression_eval(t_arexp_expression *this)
 {
 	long long		ret;
 
-	ret = 0;
 	twl_lst_iter(this->assignment, fn_iter, &ret);
 	return (ret);
 }

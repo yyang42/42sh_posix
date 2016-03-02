@@ -25,7 +25,6 @@ long long			arexp_logical_and_eval(t_arexp_logical_and *this)
 {
 	long long		ret;
 
-	ret = 0;
 	twl_lst_iterp(this->inclusive_or, fn_iter, &ret);
 	return (ret);
 }

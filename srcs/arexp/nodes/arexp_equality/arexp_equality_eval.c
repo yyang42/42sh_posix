@@ -12,33 +12,24 @@
 
 #include "arexp/nodes/arexp_equality.h"
 
-static void		fn_iter(void *data_, void *prev_, void *ret_)
+static void		fn_iter(void *data, void *prev, void *ret)
 {
-	t_arexp_equality__	*data;
-	t_arexp_equality__	*prev;
-	long long			*ret;
 	long long			tmp;
 
-	data = data_;
-	prev = prev_;
-	ret = ret_;
-	tmp = arexp_relational_eval(data->relational);
+	tmp = arexp_relational_eval(((t_arexp_equality__ *)data)->relational);
 	if (!prev)
-		*ret = tmp;
+		*((long long *)ret) = tmp;
+	else if (((t_arexp_equality__ *)prev)->equality_sign->type ==
+																TOK_AREXP_EQUAL)
+		*((long long *)ret) = (*((long long *)ret) == tmp);
 	else
-	{
-		if (prev->equality_sign->type == TOK_AREXP_EQUAL)
-			*ret = (*ret == tmp);
-		else
-			*ret = (*ret != tmp);
-	}
+		*((long long *)ret) = (*((long long *)ret) != tmp);
 }
 
 long long		arexp_equality_eval(t_arexp_equality *this)
 {
 	long long	ret;
 
-	ret = 0;
 	twl_lst_iterp(this->relational, fn_iter, &ret);
 	return (ret);
 }
