@@ -27,6 +27,8 @@ typedef struct			s_arexp
 t_arexp					*arexp_new(char *expr);
 void					arexp_del(t_arexp *this);
 
+t_arexp					*arexp_singleton(t_arexp *cpy, bool clear);
+
 bool					arexp_has_error(t_arexp *this);
 
 void					arexp_set_error_msg(t_arexp *this, char *msg, t_token *token);

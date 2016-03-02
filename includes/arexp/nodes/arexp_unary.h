@@ -42,8 +42,7 @@ typedef struct					s_arexp_unary
 t_arexp_unary					*arexp_unary_new(void);
 void							arexp_unary_del(t_arexp_unary *arexp_unary);
 
-t_arexp_unary					*arexp_unary_new_from_tokens(t_lst *tokens,
-														struct s_arexp *arexp);
+t_arexp_unary					*arexp_unary_new_from_tokens(t_lst *tokens);
 
 void							arexp_unary_print_rec(t_arexp_unary *this,
 																	int depth);
