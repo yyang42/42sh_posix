@@ -10,10 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "arexp/arexp.h"
 #include "arexp/nodes/arexp_expression.h"
 
 static void			fn_iter(void *data, void *ret)
 {
+	if (arexp_singleton(NULL, false)->error_msg)
+		return ;
 	*((long long *)ret) = arexp_assignment_eval(data);
 }
 
