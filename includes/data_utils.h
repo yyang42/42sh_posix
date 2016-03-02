@@ -21,4 +21,7 @@ bool				data_utils_is_control_operators_nl(char *str);
 bool				data_utils_is_reserved_word(char *str);
 bool				data_utils_is_reserved_word_middle_end(char *str);
 
+bool				data_utils_arexp_is_assign(char *str);
+bool				data_utils_arexp_is_unary_operator(char *str);
+
 #endif

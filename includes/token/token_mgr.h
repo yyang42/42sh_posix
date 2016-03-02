@@ -35,6 +35,8 @@ t_lst				*token_mgr_split_base(t_lst *tokens, t_lst *split_strings,
 														bool keep_delimiter);
 t_lst				*token_mgr_split_ast(t_lst *tokens, t_lst *split_strings,
 														bool keep_delimiter);
+t_lst				*token_mgr_split_arexp(t_lst *tokens, t_lst *split_strings,
+														bool keep_delimiter);
 t_lst				*token_mgr_split_by_one_sep(t_lst *tokens, char *sep,
 														bool keep_delimiter);
 char				*token_list_mgr_strjoin(t_lst *tokens_list);
@@ -54,5 +56,9 @@ void				token_mgr_pop_linebreak_colon_linebreak(t_lst *tokens);
 
 char				**token_mgr_to_str_arr(t_lst *tokens);
 t_lst				*token_mgr_to_lst(t_lst *tokens);
+
+t_token				**token_mgr_arexp_extract_assign(t_lst *tokens);
+
+t_token				**token_mgr_arexp_extract_assign(t_lst *tokens);
 
 #endif
