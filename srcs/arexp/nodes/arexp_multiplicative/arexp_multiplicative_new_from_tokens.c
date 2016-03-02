@@ -40,8 +40,7 @@ static bool					push_fn(t_lst *tokens,
 	return (true);
 }
 
-t_arexp_multiplicative		*arexp_multiplicative_new_from_tokens(t_lst *tokens,
-														struct s_arexp *arexp)
+t_arexp_multiplicative		*arexp_multiplicative_new_from_tokens(t_lst *tokens)
 {
 	t_arexp_multiplicative	*multiplicative;
 	t_arexp_unary			*unary;
@@ -49,8 +48,8 @@ t_arexp_multiplicative		*arexp_multiplicative_new_from_tokens(t_lst *tokens,
 	multiplicative = arexp_multiplicative_new();
 	while (42)
 	{
-		unary = arexp_unary_new_from_tokens(tokens, arexp);
-		if (arexp_has_error(arexp))
+		unary = arexp_unary_new_from_tokens(tokens);
+		if (arexp_has_error(arexp_singleton(NULL, false)))
 		{
 			arexp_multiplicative_del(multiplicative);
 			arexp_unary_del(unary);

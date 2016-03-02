@@ -39,8 +39,7 @@ static bool				push_fn(t_lst *tokens,
 	return (true);
 }
 
-t_arexp_equality		*arexp_equality_new_from_tokens(t_lst *tokens,
-														struct s_arexp *arexp)
+t_arexp_equality		*arexp_equality_new_from_tokens(t_lst *tokens)
 {
 	t_arexp_equality	*equality;
 	t_arexp_relational	*relational;
@@ -48,8 +47,8 @@ t_arexp_equality		*arexp_equality_new_from_tokens(t_lst *tokens,
 	equality = arexp_equality_new();
 	while (42)
 	{
-		relational = arexp_relational_new_from_tokens(tokens, arexp);
-		if (arexp_has_error(arexp))
+		relational = arexp_relational_new_from_tokens(tokens);
+		if (arexp_has_error(arexp_singleton(NULL, false)))
 		{
 			arexp_equality_del(equality);
 			arexp_relational_del(relational);

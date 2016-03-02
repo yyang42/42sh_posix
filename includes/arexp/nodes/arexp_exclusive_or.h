@@ -27,8 +27,7 @@ t_arexp_exclusive_or	*arexp_exclusive_or_new(void);
 void					arexp_exclusive_or_del(t_arexp_exclusive_or
 																*exclusive_or);
 
-t_arexp_exclusive_or	*arexp_exclusive_or_new_from_tokens(t_lst *tokens,
-														struct s_arexp *arexp);
+t_arexp_exclusive_or	*arexp_exclusive_or_new_from_tokens(t_lst *tokens);
 
 void					arexp_exclusive_or_print_rec(t_arexp_exclusive_or *this,
 																	int depth);

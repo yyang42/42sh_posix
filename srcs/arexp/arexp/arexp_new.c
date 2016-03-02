@@ -19,8 +19,9 @@ t_arexp				*arexp_new(char *input)
 	t_arexp			*arexp;
 
 	arexp = twl_malloc_x0(sizeof(t_arexp));
+	arexp_singleton(arexp, false);
 	arexp->tokens = tokenizer_arexp_tokenize(input);
-	arexp->expression = arexp_expression_new_from_tokens(arexp->tokens, arexp);
+	arexp->expression = arexp_expression_new_from_tokens(arexp->tokens);
 	if (token_mgr_first(arexp->tokens) && !arexp->error_msg)
 	{
 		arexp_set_error_msg(arexp, "unexpected token: ",

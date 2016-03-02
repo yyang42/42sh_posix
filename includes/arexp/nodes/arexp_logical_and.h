@@ -26,8 +26,7 @@ typedef struct			s_arexp_logical_and
 t_arexp_logical_and		*arexp_logical_and_new(void);
 void					arexp_logical_and_del(t_arexp_logical_and *logical_and);
 
-t_arexp_logical_and		*arexp_logical_and_new_from_tokens(t_lst *tokens,
-														struct s_arexp *arexp);
+t_arexp_logical_and		*arexp_logical_and_new_from_tokens(t_lst *tokens);
 
 void					arexp_logical_and_print_rec(t_arexp_logical_and *this,
 																	int depth);
