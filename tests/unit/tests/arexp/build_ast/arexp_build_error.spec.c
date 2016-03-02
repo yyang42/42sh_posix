@@ -26,6 +26,7 @@ mt_test_arexp_error(num07, "123456789a", "value too great for base: 123456789a",
 mt_test_arexp_error(num08, "37#abcDEF", "value too great for base: 37#abcDEF", false);
 mt_test_arexp_error(num09, "(1,2,)", "expected operand got )", false);
 mt_test_arexp_error(num10, "1,2,3?4,5,6:(7,8,9", "expected `)' got nothing", false);
+mt_test_arexp_error(num11, "a=-b=c", "unexpected token: =", false);
 
 void suite_arexp_build_error(t_suite *suite)
 {
@@ -39,4 +40,5 @@ void suite_arexp_build_error(t_suite *suite)
 	SUITE_ADD_TEST(suite, test_num08);
 	SUITE_ADD_TEST(suite, test_num09);
 	SUITE_ADD_TEST(suite, test_num10);
+	SUITE_ADD_TEST(suite, test_num11);
 }
