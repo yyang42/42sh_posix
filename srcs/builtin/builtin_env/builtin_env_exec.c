@@ -58,5 +58,6 @@ int					builtin_env_exec(t_lst *tokens, t_environment *this)
 		environment_print(clone);
 	environment_del(clone);
 	twl_opt_del(opt);
+	free(args);
 	return (0);
 }
