@@ -10,12 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "arexp/arexp.h"
 #include "arexp/nodes/arexp_additive.h"
 
 static void		fn_iter(void *data, void *prev, void *ret)
 {
 	long long			tmp;
 
+	if (arexp_singleton(NULL, false)->error_msg)
+		return ;
 	tmp = arexp_multiplicative_eval(
 								((t_arexp_additive__ *)data)->multiplicative);
 	if (!prev)
