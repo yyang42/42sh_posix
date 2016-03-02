@@ -1,6 +1,6 @@
 #include "arexp/arexp.h"
 #include "twl_ctype.h"
-#include <stdio.h>
+
 long long		arexp_atoll_base(t_arexp *this, char *input, int base, t_token *token)
 {
 	long long	ret;

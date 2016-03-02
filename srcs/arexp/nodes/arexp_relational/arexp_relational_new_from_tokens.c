@@ -40,8 +40,7 @@ static bool				push_fn(t_lst *tokens, t_arexp_relational *relational,
 	return (true);
 }
 
-t_arexp_relational		*arexp_relational_new_from_tokens(t_lst *tokens,
-														struct s_arexp *arexp)
+t_arexp_relational		*arexp_relational_new_from_tokens(t_lst *tokens)
 {
 	t_arexp_relational	*relational;
 	t_arexp_shift		*shift;
@@ -49,8 +48,8 @@ t_arexp_relational		*arexp_relational_new_from_tokens(t_lst *tokens,
 	relational = arexp_relational_new();
 	while (42)
 	{
-		shift = arexp_shift_new_from_tokens(tokens, arexp);
-		if (arexp_has_error(arexp))
+		shift = arexp_shift_new_from_tokens(tokens);
+		if (arexp_has_error(arexp_singleton(NULL, false)))
 		{
 			arexp_relational_del(relational);
 			arexp_shift_del(shift);

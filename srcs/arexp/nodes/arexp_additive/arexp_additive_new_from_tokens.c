@@ -39,8 +39,7 @@ static bool					push_fn(t_lst *tokens,
 	return (true);
 }
 
-t_arexp_additive			*arexp_additive_new_from_tokens(t_lst *tokens,
-														struct s_arexp *arexp)
+t_arexp_additive			*arexp_additive_new_from_tokens(t_lst *tokens)
 {
 	t_arexp_additive		*additive;
 	t_arexp_multiplicative	*multiplicative;
@@ -48,8 +47,8 @@ t_arexp_additive			*arexp_additive_new_from_tokens(t_lst *tokens,
 	additive = arexp_additive_new();
 	while (42)
 	{
-		multiplicative = arexp_multiplicative_new_from_tokens(tokens, arexp);
-		if (arexp_has_error(arexp))
+		multiplicative = arexp_multiplicative_new_from_tokens(tokens);
+		if (arexp_has_error(arexp_singleton(NULL, false)))
 		{
 			arexp_additive_del(additive);
 			arexp_multiplicative_del(multiplicative);

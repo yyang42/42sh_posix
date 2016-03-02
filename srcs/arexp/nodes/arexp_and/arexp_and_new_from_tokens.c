@@ -14,8 +14,7 @@
 #include "arexp/arexp.h"
 #include "token/token_mgr.h"
 
-t_arexp_and				*arexp_and_new_from_tokens(t_lst *tokens,
-														struct s_arexp *arexp)
+t_arexp_and				*arexp_and_new_from_tokens(t_lst *tokens)
 {
 	t_arexp_and			*and;
 	t_arexp_equality	*equality;
@@ -24,8 +23,8 @@ t_arexp_and				*arexp_and_new_from_tokens(t_lst *tokens,
 	and = arexp_and_new();
 	while (42)
 	{
-		equality = arexp_equality_new_from_tokens(tokens, arexp);
-		if (arexp_has_error(arexp))
+		equality = arexp_equality_new_from_tokens(tokens);
+		if (arexp_has_error(arexp_singleton(NULL, false)))
 		{
 			arexp_and_del(and);
 			arexp_equality_del(equality);

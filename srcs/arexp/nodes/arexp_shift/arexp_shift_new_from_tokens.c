@@ -38,8 +38,7 @@ static bool				push_fn(t_lst *tokens, t_arexp_shift *shift,
 	return (true);
 }
 
-t_arexp_shift			*arexp_shift_new_from_tokens(t_lst *tokens,
-														struct s_arexp *arexp)
+t_arexp_shift			*arexp_shift_new_from_tokens(t_lst *tokens)
 {
 	t_arexp_shift		*shift;
 	t_arexp_additive	*additive;
@@ -47,8 +46,8 @@ t_arexp_shift			*arexp_shift_new_from_tokens(t_lst *tokens,
 	shift = arexp_shift_new();
 	while (42)
 	{
-		additive = arexp_additive_new_from_tokens(tokens, arexp);
-		if (arexp_has_error(arexp))
+		additive = arexp_additive_new_from_tokens(tokens);
+		if (arexp_has_error(arexp_singleton(NULL, false)))
 		{
 			arexp_shift_del(shift);
 			arexp_additive_del(additive);

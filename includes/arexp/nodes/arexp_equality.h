@@ -32,8 +32,7 @@ typedef struct			s_arexp_equality
 t_arexp_equality		*arexp_equality_new(void);
 void					arexp_equality_del(t_arexp_equality *arexp_equality);
 
-t_arexp_equality		*arexp_equality_new_from_tokens(t_lst *tokens,
-														struct s_arexp *arexp);
+t_arexp_equality		*arexp_equality_new_from_tokens(t_lst *tokens);
 
 void					arexp_equality_print_rec(t_arexp_equality *this, int depth);
 

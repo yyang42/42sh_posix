@@ -14,8 +14,7 @@
 #include "arexp/arexp.h"
 #include "token/token_mgr.h"
 
-t_arexp_inclusive_or		*arexp_inclusive_or_new_from_tokens(t_lst *tokens,
-														struct s_arexp *arexp)
+t_arexp_inclusive_or		*arexp_inclusive_or_new_from_tokens(t_lst *tokens)
 {
 	t_arexp_inclusive_or	*inclusive_or;
 	t_arexp_exclusive_or	*exclusive_or;
@@ -24,8 +23,8 @@ t_arexp_inclusive_or		*arexp_inclusive_or_new_from_tokens(t_lst *tokens,
 	inclusive_or = arexp_inclusive_or_new();
 	while (42)
 	{
-		exclusive_or = arexp_exclusive_or_new_from_tokens(tokens, arexp);
-		if (arexp_has_error(arexp))
+		exclusive_or = arexp_exclusive_or_new_from_tokens(tokens);
+		if (arexp_has_error(arexp_singleton(NULL, false)))
 		{
 			arexp_inclusive_or_del(inclusive_or);
 			arexp_exclusive_or_del(exclusive_or);

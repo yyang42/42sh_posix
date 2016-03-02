@@ -12,16 +12,16 @@
 
 #include "arexp/arexp.h"
 
-void			arexp_del(t_arexp *this)
+t_arexp			*arexp_singleton(t_arexp *cpy, bool clear)
 {
-	arexp_singleton(NULL, true);
-	if (!this)
-		return ;
-	if (this->tokens)
-		twl_lst_del(this->tokens, token_del);
-	if (this->expression)
-		arexp_expression_del(this->expression);
-	if (this->error_msg)
-		free(this->error_msg);
-	free(this);
+	static t_arexp	*singleton = NULL;
+
+	if (clear)
+	{
+		singleton = NULL;
+		return (NULL);
+	}
+	if (cpy)
+		singleton = cpy;
+	return (singleton);
 }
