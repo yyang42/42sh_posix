@@ -12,37 +12,30 @@
 
 #include "arexp/nodes/arexp_relational.h"
 
-static void		fn_iter(void *data_, void *prev_, void *ret_)
+static void		fn_iter(void *data, void *prev, void *ret)
 {
-	t_arexp_relational__	*data;
-	t_arexp_relational__	*prev;
-	long long				*ret;
 	long long				tmp;
 
-	data = data_;
-	prev = prev_;
-	ret = ret_;
-	tmp = arexp_shift_eval(data->shift);
+	tmp = arexp_shift_eval(((t_arexp_relational__ *)data)->shift);
 	if (!prev)
-		*ret = tmp;
+		*((long long *)ret) = tmp;
+	else if (((t_arexp_relational__ *)prev)->relational_sign->type ==
+																TOK_AREXP_GREAT)
+		*((long long *)ret) = (*((long long *)ret) > tmp);
+	else if (((t_arexp_relational__ *)prev)->relational_sign->type ==
+																TOK_AREXP_LESS)
+		*((long long *)ret) = (*((long long *)ret) < tmp);
+	else if (((t_arexp_relational__ *)prev)->relational_sign->type ==
+															TOK_AREXP_GREAT_EQ)
+		*((long long *)ret) = (*((long long *)ret) >= tmp);
 	else
-	{
-		if (prev->relational_sign->type == TOK_AREXP_GREAT)
-			*ret = (*ret > tmp);
-		else if (prev->relational_sign->type == TOK_AREXP_LESS)
-			*ret = (*ret < tmp);
-		else if (prev->relational_sign->type == TOK_AREXP_GREAT_EQ)
-			*ret = (*ret >= tmp);
-		else
-			*ret = (*ret <= tmp);
-	}
+		*((long long *)ret) = (*((long long *)ret) <= tmp);
 }
 
 long long		arexp_relational_eval(t_arexp_relational *this)
 {
 	long long	ret;
 
-	ret = 0;
 	twl_lst_iterp(this->shift, fn_iter, &ret);
 	return (ret);
 }

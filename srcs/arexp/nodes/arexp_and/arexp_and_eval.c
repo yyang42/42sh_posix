@@ -24,7 +24,6 @@ long long			arexp_and_eval(t_arexp_and *this)
 {
 	long long		ret;
 
-	ret = 0;
 	twl_lst_iterp(this->equality, fn_iter, &ret);
 	return (ret);
 }
