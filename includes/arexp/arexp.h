@@ -22,6 +22,7 @@ typedef struct			s_arexp
 	t_lst				*tokens;
 	t_arexp_expression	*expression;
 	char				*error_msg;
+	bool				empty;
 }						t_arexp;
 
 t_arexp					*arexp_new(char *expr);

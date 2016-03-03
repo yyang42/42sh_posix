@@ -34,8 +34,7 @@ int					prog_print_arexp(t_prog *prog, char *input)
 		twl_dprintf(2, "%s\n", arexp->error_msg);
 		return (1);
 	}
-	twl_printf("%lli\n", lol);
-	twl_printf("%s\n", environment_getenv_value(environment_singleton(), "a"));
+	twl_printf("Result = %lli\n", lol);
 	arexp_del(arexp);
 	return (0);
 	(void)prog;

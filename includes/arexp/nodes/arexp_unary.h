@@ -20,7 +20,7 @@
 typedef union					u_primary__
 {
 	long long					constant;
-	char						*variable;
+	t_token						*variable;
 	struct s_arexp_expression	*arexp_expression;
 }								t_primary__;
 

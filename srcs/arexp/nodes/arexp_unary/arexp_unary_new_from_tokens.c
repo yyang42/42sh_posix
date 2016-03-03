@@ -45,10 +45,8 @@ t_arexp_unary			*arexp_unary_new_from_tokens(t_lst *tokens)
 		}
 		else if (token->type == TOK_AREXP_VARIABLE)
 		{
-			arexp_unary->primary_enum = AREXP_PRIMARY_CONSTANT;
-			//arexp_unary->primary.variable = twl_strdup(token->text);
-			token = twl_lst_pop_front(tokens);
-			token_del(token);
+			arexp_unary->primary_enum = AREXP_PRIMARY_VARIABLE;
+			arexp_unary->primary.variable = twl_lst_pop_front(tokens);
 			return (arexp_unary);
 		}
 		else if (token->type == TOK_AREXP_LPARENTHESIS)
