@@ -21,6 +21,12 @@ t_arexp				*arexp_new(char *input)
 	arexp = twl_malloc_x0(sizeof(t_arexp));
 	arexp_singleton(arexp, false);
 	arexp->tokens = tokenizer_arexp_tokenize(input);
+	if (!twl_lst_len(arexp->tokens))
+	{
+		arexp->empty = true;
+		return (arexp);
+	}
+	arexp->empty = false;
 	arexp->expression = arexp_expression_new_from_tokens(arexp->tokens);
 	if (token_mgr_first(arexp->tokens) && !arexp->error_msg)
 	{

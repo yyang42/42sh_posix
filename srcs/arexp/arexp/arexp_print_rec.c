@@ -14,5 +14,7 @@
 
 void			arexp_print_rec(t_arexp *arexp)
 {
+	if (arexp->empty)
+		return ;
 	arexp_expression_print_rec(arexp->expression, 0);
 }

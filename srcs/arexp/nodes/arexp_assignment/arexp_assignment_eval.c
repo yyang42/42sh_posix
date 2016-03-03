@@ -16,7 +16,6 @@
 
 #include "twl_xstring.h"
 
-#include <stdio.h>
 static void			fn_iter(void *token_, void *ret)
 {
 	t_token			**token;
@@ -46,7 +45,6 @@ static void			fn_iter(void *token_, void *ret)
 		if (arexp_singleton(NULL, false)->error_msg)
 			return ;
 	}
-	printf("%lli - %lli\n", ll_value, *((long long *)ret));
 	if (token[1]->type == TOK_AREXP_ASSIGN_INC_OR)
 		ll_value |= *((long long *)ret);
 	else if (token[1]->type == TOK_AREXP_ASSIGN_EXC_OR)

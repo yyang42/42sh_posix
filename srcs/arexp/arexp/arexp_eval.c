@@ -14,5 +14,7 @@
 
 long long			arexp_eval(t_arexp *this)
 {
+	if (this->empty)
+		return (0);
 	return (arexp_expression_eval(this->expression));
 }
