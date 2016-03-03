@@ -10,16 +10,25 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef edit_key_mgr_H
-# define edit_key_mgr_H
+#include <fcntl.h>
 
-# include "basics.h"
-# include "edit/edit_key.h"
+#include "twl_get_next_line.h"
+#include "twl_xstdlib.h"
 
-t_lst				*edit_key_mgr_new(void);
-t_lst				*edit_key_mgr_new_min(void);
-void				edit_key_mgr_del(t_lst *edit_keys);
-void				edit_key_mgr_add(t_lst *edit_keys, t_edit_key *edit_key);
-void				edit_key_mgr_print(t_lst *edit_keys);
-void				edit_key_mgr_do(t_lst *edit_keys, void *edit, int key);
-#endif
+#include "edit/edit.h"
+
+#include "edit/cursor.h"
+
+t_edit				*edit_new_min(void)
+{
+	t_edit			*this;
+
+	this = twl_malloc_x0(sizeof(t_edit));
+	this->index = 0;
+	this->letters = letter_mgr_new();
+	this->edit_keys = edit_key_mgr_new_min();
+	this->return_cmd = false;
+	this->copast = NULL;
+	this->state = NORMAL;
+	return (this);
+}

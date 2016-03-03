@@ -10,16 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef edit_key_mgr_H
-# define edit_key_mgr_H
+#include "openclose/openclose_matcher.h"
+#include "openclose/openclose_mgr.h"
 
-# include "basics.h"
-# include "edit/edit_key.h"
+char				*openclose_matcher_find_matching_opened(
+										t_openclose_matcher *matcher, char *s)
+{
+	t_lst			*stack;
+	char			*ret;
+	t_openclose		*oc;
 
-t_lst				*edit_key_mgr_new(void);
-t_lst				*edit_key_mgr_new_min(void);
-void				edit_key_mgr_del(t_lst *edit_keys);
-void				edit_key_mgr_add(t_lst *edit_keys, t_edit_key *edit_key);
-void				edit_key_mgr_print(t_lst *edit_keys);
-void				edit_key_mgr_do(t_lst *edit_keys, void *edit, int key);
-#endif
+	ret = NULL;
+	stack = twl_lst_new();
+	openclose_matcher_find_matching_base(matcher, s, stack);
+	oc = twl_lst_last(stack);
+	if (oc)
+	{
+		ret = twl_strdup(oc->open);
+	}
+	twl_lst_del(stack, NULL);
+	return (ret);
+}

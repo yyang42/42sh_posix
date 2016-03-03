@@ -24,6 +24,7 @@ char				*edit_loop(t_edit *this)
 {
 	int				key;
 	char			*cmd;
+	char			*final_cmd;
 
 	cmd = NULL;
 	if (terminal_enable() == -1)
@@ -41,6 +42,9 @@ char				*edit_loop(t_edit *this)
 		edit_clear_line(this);
 		edit_debug_print(this);
 	}
+	final_cmd = edit_match_valide_cmd(cmd);
+	if (cmd != final_cmd)
+		free(cmd);
 	terminal_disable();
-	return twl_strtrim_free(cmd);
+	return twl_strtrim_free(final_cmd);
 }

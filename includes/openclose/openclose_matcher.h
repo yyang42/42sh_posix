@@ -36,10 +36,17 @@ void				openclose_matcher_print(t_openclose_matcher *matcher);
 void				openclose_matcher_set_skip_quoted(
 							t_openclose_matcher *matcher, bool skip_quoted);
 
+char				*openclose_matcher_token_find_matching_opened(
+								t_openclose_matcher *matcher, t_lst *tokens);
 int					openclose_matcher_token_find_matching(
 								t_openclose_matcher *matcher, t_lst *tokens);
 bool				openclose_matcher_is_open(
 								t_openclose_matcher *matcher, char *str);
+char				*openclose_matcher_find_matching_base(
+						t_openclose_matcher *matcher, char *s, t_lst *stack);
+
+t_lst				*openclose_matcher_find_matching_stack(
+										t_openclose_matcher *matcher, char *s);
 
 t_openclose_matcher *openclose_matcher_singleton_parser(void);
 t_openclose_matcher *openclose_matcher_arexp_singleton_parser(void);
