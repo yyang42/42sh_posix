@@ -23,18 +23,11 @@ static void test_## name(t_test *test)						\
 mt_test_eval(num01, "", 0LL, false);
 mt_test_eval(num02, "(a=12,b=13,c=14),a*b<<c", 2555904LL, false);
 mt_test_eval(num03, "(a=-42,b=42),c*=a==b||b>a?c=33,(1<<1)|1:44", 99LL, false);
-mt_test_eval(num04, "0", 0LL, false);
-mt_test_eval(num05, "0", 0LL, false);
-mt_test_eval(num06, "0", 0LL, false);
-mt_test_eval(num07, "0", 0LL, false);
-mt_test_eval(num08, "0", 0LL, false);
-mt_test_eval(num09, "0", 0LL, false);
-mt_test_eval(num10, "0", 0LL, false);
-mt_test_eval(num11, "0", 0LL, false);
-mt_test_eval(num12, "0", 0LL, false);
-mt_test_eval(num13, "0", 0LL, false);
-mt_test_eval(num14, "0", 0LL, false);
-mt_test_eval(num15, "0", 0LL, false);
+mt_test_eval(num04, "(a=1,b=2,c=3,d=4),(e=5,f=g=h=-7),i=13,j=k=33", 33LL, false);
+mt_test_eval(num05, "a+=b-=c*=d/=e%=f|=g&=h^=i<<=j>>=k=42", 3LL, false);
+mt_test_eval(num06, "(a+=1)<=12", 1LL, false);
+mt_test_eval(num07, "(a+=12)<=12", 0LL, false);
+mt_test_eval(num08, "(b=33,c=76),a=b<c?a=b>c?~b: ! ~b,~b:~c", -34LL, false);
 
 void suite_arexp_eval_hardle(t_suite *suite)
 {
@@ -46,11 +39,4 @@ void suite_arexp_eval_hardle(t_suite *suite)
 	SUITE_ADD_TEST(suite, test_num06);
 	SUITE_ADD_TEST(suite, test_num07);
 	SUITE_ADD_TEST(suite, test_num08);
-	SUITE_ADD_TEST(suite, test_num09);
-	SUITE_ADD_TEST(suite, test_num10);
-	SUITE_ADD_TEST(suite, test_num11);
-	SUITE_ADD_TEST(suite, test_num12);
-	SUITE_ADD_TEST(suite, test_num13);
-	SUITE_ADD_TEST(suite, test_num14);
-	SUITE_ADD_TEST(suite, test_num15);
 }
