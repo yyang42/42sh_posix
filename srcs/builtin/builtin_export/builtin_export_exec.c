@@ -23,9 +23,13 @@ int					builtin_export_exec(t_lst *tokens, t_environment *env)
 	{
 		if ((twl_opt_exist(opt, "p") && twl_opt_args_len(opt) == 0)
 			|| twl_opt_args_len(opt) == 0)
+		{
 			builtin_export_verbose(env);
+		}
 		else
-			builtin_export_add(env, opt);
+		{
+			builtin_export_add(env, tokens);
+		}
 	}
 	free(arr);
 	twl_opt_del(opt);

@@ -24,17 +24,14 @@
 ** terminated by a control operator.
 */
 
-static void				push_asign_fn(void *assignment_token_,
+static void				push_asign_fn(void *assign_segs_,
 	void *assignment_items, void *ast)
 {
-	t_token			*assignment_token;
-	t_lst			*segs;
+	t_lst			*assign_segs;
 
-	assignment_token = assignment_token_;
-	segs = twl_str_split_to_lst(assignment_token->text, "=");
+	assign_segs = assign_segs_;
 	twl_lst_push(assignment_items, ast_assignment_new_from_tokens(
-		twl_lst_get(segs, 0), twl_lst_get(segs, 1), ast));
-	twl_lst_del(segs, free);
+		twl_lst_get(assign_segs, 0), twl_lst_get(assign_segs, 1), ast));
 }
 
 static void				push_redir_fn(void *one_redir_tokens, void *redir_items,

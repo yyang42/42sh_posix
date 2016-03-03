@@ -37,6 +37,14 @@ static bool			is_assignment(char *str)
 	return (is_assign);
 }
 
+static t_lst		*build_assign(t_token *token)
+{
+	t_lst			*segs;
+
+	segs = twl_str_split_once_to_lst(token->text, "=");
+	return (segs);
+}
+
 static void			do_extract(t_lst *tokens, t_lst *assign_tokens, t_lst *remaining_tokens)
 {
 	t_token			*token;
@@ -45,7 +53,7 @@ static void			do_extract(t_lst *tokens, t_lst *assign_tokens, t_lst *remaining_t
 	{
 		if (is_assignment(token->text))
 		{
-			twl_lst_push_back(assign_tokens, twl_lst_pop_front(tokens));
+			twl_lst_push_back(assign_tokens, build_assign(twl_lst_pop_front(tokens)));
 		}
 		else
 		{

@@ -7,15 +7,15 @@
 # define mt_test_extract_assign(test_name, input, expected, expected_remain, debug) \
 	static void test_## test_name(t_test *test) \
 	{ \
-		t_lst			*tokens_list; \
+		t_lst			*list_of_segs; \
 		t_lst			*tokens; \
 		t_lst			*remaining_tokens; \
 		char			*joined_str; \
 		char			*remaining_str; \
 		remaining_tokens = twl_lst_new(); \
 		tokens = tokenizer_tokenize(input); \
-		tokens_list = token_mgr_extract_assignment(tokens, remaining_tokens); \
-		joined_str = token_mgr_strjoin(tokens_list, "_"); \
+		list_of_segs = token_mgr_extract_assignment(tokens, remaining_tokens); \
+		joined_str = token_mgr_extract_assignment_join(list_of_segs); \
 		remaining_str = token_mgr_strjoin(remaining_tokens, "_"); \
 		if (debug) \
 		{ \
@@ -30,7 +30,7 @@
 		free(joined_str); \
 		free(remaining_str); \
 		token_mgr_del_inner(tokens); \
-		token_mgr_del(tokens_list); \
+		twl_lst_del(list_of_segs, free); \
 		token_mgr_del(remaining_tokens); \
 	}
 

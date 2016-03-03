@@ -21,7 +21,7 @@
 
 int					builtin_export_exec(t_lst *tokens, t_environment *env);
 void				builtin_export_verbose(t_environment *env);
-void				builtin_export_add(t_environment *env, t_opt *opt);
+void				builtin_export_add(t_environment *env, t_lst *tokens);
 int					builtin_setenv_exec(t_lst *tokens, t_environment *env);
 
 #endif
