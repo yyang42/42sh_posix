@@ -19,12 +19,10 @@
 char				*token_mgr_extract_assignment_join(t_lst *list_of_segs)
 {
 	t_lst			*copy;
-	char			*str;
 	t_lst			*segs;
 	t_lst			*master_segs;
 
 	copy = twl_lst_copy(list_of_segs, NULL);
-	str = twl_strdup("");
 	master_segs = twl_lst_new();
 	while ((segs = twl_lst_pop_front(copy)))
 	{

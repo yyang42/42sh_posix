@@ -13,24 +13,7 @@
 #include "environment.h"
 #include <stdio.h>
 
-t_environment_var		*environment_selocal(t_environment *this, char *str)
-{	t_lst			*segs;
-	char			*key;
-	char			*value;
-
-	if (str == NULL || *str == '\0')
-		return (NULL);
-	segs = twl_str_split_once_to_lst(str, "=");
-	if (segs)
-	{
-		key = twl_lst_get(segs, 0);
-		value = twl_lst_get(segs, 1);
-	}
-	else
-	{
-		key = str;
-		value = NULL;
-
-	}
-	return (environment_setenv_or_setlocal__(this, key, value, LOCAL));
+t_environment_var		*environment_setenv_v2(t_environment *this, char *key, char *value)
+{
+	return (environment_setenv_or_setlocal__(this, key, value, ENVIRONMENT));
 }
