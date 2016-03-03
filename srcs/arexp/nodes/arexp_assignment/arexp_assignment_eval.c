@@ -24,8 +24,6 @@ static void			fn_iter(void *token_, void *ret)
 	int				sign;
 	long long		ll_value;
 
-	if (arexp_singleton(NULL, false)->error_msg)
-		return ;
 	token = token_;
 	old_value = environment_getenv_value(environment_singleton(), token[0]->text);
 	if (!old_value)
@@ -43,7 +41,10 @@ static void			fn_iter(void *token_, void *ret)
 		ll_value = sign ? ll_value : -ll_value;
 		token[0]->text = tmp;
 		if (arexp_singleton(NULL, false)->error_msg)
-			return ;
+		{
+			twl_strdel(&arexp_singleton(NULL, false)->error_msg);
+			ll_value = 0;
+		}
 	}
 	if (token[1]->type == TOK_AREXP_ASSIGN_INC_OR)
 		ll_value |= *((long long *)ret);
