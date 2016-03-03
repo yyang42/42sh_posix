@@ -10,16 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef edit_key_mgr_H
-# define edit_key_mgr_H
+#include "edit/edit_key_mgr.h"
+#include "edit/edit.h"
 
-# include "basics.h"
-# include "edit/edit_key.h"
 
-t_lst				*edit_key_mgr_new(void);
-t_lst				*edit_key_mgr_new_min(void);
-void				edit_key_mgr_del(t_lst *edit_keys);
-void				edit_key_mgr_add(t_lst *edit_keys, t_edit_key *edit_key);
-void				edit_key_mgr_print(t_lst *edit_keys);
-void				edit_key_mgr_do(t_lst *edit_keys, void *edit, int key);
-#endif
+t_lst				*edit_key_mgr_new_min(void)
+{
+	t_lst			*edit_keys;
+
+	edit_keys = twl_lst_new();
+	edit_key_mgr_add(edit_keys, edit_key_new(ARROW_LEFT, edit_move_left));
+	edit_key_mgr_add(edit_keys, edit_key_new(ARROW_RIGHT, edit_move_right));
+	edit_key_mgr_add(edit_keys, edit_key_new(CTRL_A, edit_move_start));
+	edit_key_mgr_add(edit_keys, edit_key_new(CTRL_E, edit_move_end));
+	edit_key_mgr_add(edit_keys, edit_key_new(DELETE_KEY, edit_delete_letter));
+	edit_key_mgr_add(edit_keys, edit_key_new(RETURN_KEY, edit_key_return));
+	edit_key_mgr_add(edit_keys, edit_key_new(CTRL_T, edit_move_prev_word));
+	edit_key_mgr_add(edit_keys, edit_key_new(CTRL_U, edit_move_next_word));
+	edit_key_mgr_add(edit_keys, edit_key_new(CTRL_W, edit_delete_prev_word));
+	return (edit_keys);
+}

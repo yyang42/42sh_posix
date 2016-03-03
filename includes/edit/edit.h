@@ -41,6 +41,7 @@ typedef struct		s_edit
 }					t_edit;
 
 t_edit				*edit_new(void);
+t_edit				*edit_new_min(void);
 
 void				edit_debug_print(t_edit *this);
 
@@ -56,5 +57,7 @@ void				edit_print_letters(t_edit *this);
 char				*edit_return_cmd(t_edit *this);
 
 void				edit_clear_line(t_edit *this);
+
+char				*edit_match_valide_cmd(char *cmd);
 
 #endif
