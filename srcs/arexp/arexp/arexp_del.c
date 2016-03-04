@@ -14,6 +14,7 @@
 
 void			arexp_del(t_arexp *this)
 {
+	arexp_singleton(NULL, true);
 	if (!this)
 		return ;
 	if (this->tokens)

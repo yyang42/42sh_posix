@@ -11,28 +11,17 @@
 /* ************************************************************************** */
 
 #include "arexp/arexp.h"
-#include "arexp/nodes/arexp_equality.h"
 
-static void		fn_iter(void *data, void *prev, void *ret)
+t_arexp			*arexp_singleton(t_arexp *cpy, bool clear)
 {
-	long long			tmp;
+	static t_arexp	*singleton = NULL;
 
-	if (arexp_singleton(NULL, false)->error_msg)
-		return ;
-	tmp = arexp_relational_eval(((t_arexp_equality__ *)data)->relational);
-	if (!prev)
-		*((long long *)ret) = tmp;
-	else if (((t_arexp_equality__ *)prev)->equality_sign->type ==
-																TOK_AREXP_EQUAL)
-		*((long long *)ret) = (*((long long *)ret) == tmp);
-	else
-		*((long long *)ret) = (*((long long *)ret) != tmp);
-}
-
-long long		arexp_equality_eval(t_arexp_equality *this)
-{
-	long long	ret;
-
-	twl_lst_iterp(this->relational, fn_iter, &ret);
-	return (ret);
+	if (clear)
+	{
+		singleton = NULL;
+		return (NULL);
+	}
+	if (cpy)
+		singleton = cpy;
+	return (singleton);
 }

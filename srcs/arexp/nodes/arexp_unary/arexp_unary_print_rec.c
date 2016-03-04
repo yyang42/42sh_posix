@@ -36,7 +36,7 @@ void			arexp_unary_print_rec(t_arexp_unary *this, int depth)
 	}
 	else if (this->primary_enum == AREXP_PRIMARY_VARIABLE)
 	{
-		twl_printf(" %s\n", this->primary.variable);
+		twl_printf(" %s\n", this->primary.variable->text);
 	}
 	else if (this->primary_enum == AREXP_PRIMARY_CONSTANT)
 	{

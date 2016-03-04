@@ -15,16 +15,20 @@
 #include "arexp/arexp.h"
 #include "arexp/nodes/arexp_expression.h"
 
-t_arexp_expression		*arexp_expression_new_from_tokens(t_lst *tokens,
-														struct s_arexp *arexp)
+t_arexp_expression		*arexp_expression_new_from_tokens(t_lst *tokens)
 {
 	t_arexp_expression	*expression;
 	t_arexp_assignment	*assignment;
 	t_token				*token;
 
+	if (arexp_singleton(NULL, false)->depth > AREXP_MAX_DEPTH)
+	{
+		arexp_singleton(NULL, false)->error_msg = twl_strdup("maximum depth reached");
+		return (0);
+	}
 	expression = arexp_expression_new();
-	assignment = arexp_assignment_new_from_tokens(tokens, arexp);
-	if (arexp_has_error(arexp))
+	assignment = arexp_assignment_new_from_tokens(tokens);
+	if (arexp_has_error(arexp_singleton(NULL, false)))
 	{
 		arexp_expression_del(expression);
 		arexp_assignment_del(assignment);
@@ -38,8 +42,8 @@ t_arexp_expression		*arexp_expression_new_from_tokens(t_lst *tokens,
 			break ;
 		token = twl_lst_pop_front(tokens);
 		token_del(token);
-		assignment = arexp_assignment_new_from_tokens(tokens, arexp);
-		if (arexp_has_error(arexp))
+		assignment = arexp_assignment_new_from_tokens(tokens);
+		if (arexp_has_error(arexp_singleton(NULL, false)))
 		{
 			arexp_expression_del(expression);
 			arexp_assignment_del(assignment);

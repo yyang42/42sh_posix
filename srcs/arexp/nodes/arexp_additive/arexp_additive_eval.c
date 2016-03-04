@@ -10,26 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "arexp/arexp.h"
 #include "arexp/nodes/arexp_additive.h"
 
-static void		fn_iter(void *data_, void *prev_, void *ret_)
+static void		fn_iter(void *data, void *prev, void *ret)
 {
-	t_arexp_additive__	*data;
-	t_arexp_additive__	*prev;
-	long long			*ret;
+	long long			tmp;
 
-	data = data_;
-	prev = prev_;
-	ret = ret_;
+	if (arexp_singleton(NULL, false)->error_msg)
+		return ;
+	tmp = arexp_multiplicative_eval(
+								((t_arexp_additive__ *)data)->multiplicative);
 	if (!prev)
-		*ret = arexp_multiplicative_eval(data->multiplicative);
+		*((long long *)ret) = tmp;
+	else if (((t_arexp_additive__ *)prev)->additive_sign->type ==
+																TOK_AREXP_PLUS)
+		*((long long *)ret) += tmp;
 	else
-	{
-		if (prev->additive_sign->type == TOK_AREXP_PLUS)
-			*ret += arexp_multiplicative_eval(data->multiplicative);
-		else
-			*ret -= arexp_multiplicative_eval(data->multiplicative);
-	}
+		*((long long *)ret) -= tmp;
 		
 }
 
@@ -37,7 +35,6 @@ long long		arexp_additive_eval(t_arexp_additive *this)
 {
 	long long	ret;
 
-	ret = 0LL;
 	twl_lst_iterp(this->multiplicative, fn_iter, &ret);
 	return (ret);
 }

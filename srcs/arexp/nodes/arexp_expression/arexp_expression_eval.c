@@ -10,10 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "arexp/arexp.h"
 #include "arexp/nodes/arexp_expression.h"
 
 static void			fn_iter(void *data, void *ret)
 {
+	if (arexp_singleton(NULL, false)->error_msg)
+		return ;
 	*((long long *)ret) = arexp_assignment_eval(data);
 }
 
@@ -21,7 +24,6 @@ long long			arexp_expression_eval(t_arexp_expression *this)
 {
 	long long		ret;
 
-	ret = 0;
 	twl_lst_iter(this->assignment, fn_iter, &ret);
 	return (ret);
 }

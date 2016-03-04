@@ -10,10 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "arexp/arexp.h"
 #include "arexp/nodes/arexp_logical_or.h"
 
 static void			fn_iter(void *data, void *prev, void *ret)
 {
+	if (arexp_singleton(NULL, false)->error_msg)
+		return ;
 	if (!prev)
 		*((long long *)ret) = arexp_logical_and_eval(data);
 	else
@@ -25,7 +28,6 @@ long long			arexp_logical_or_eval(t_arexp_logical_or *this)
 {
 	long long		ret;
 
-	ret = 0;
 	twl_lst_iterp(this->logical_and, fn_iter, &ret);
 	return (ret);
 }

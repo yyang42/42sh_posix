@@ -17,8 +17,8 @@ static void		del_fn(void *assign_)
 	t_token		**assign;
 
 	assign = assign_;
-	free(assign[0]);
-	free(assign[1]);
+	token_del(assign[0]);
+	token_del(assign[1]);
 	free(assign);
 }
 

@@ -32,8 +32,7 @@ typedef struct			s_arexp_shift
 t_arexp_shift			*arexp_shift_new(void);
 void					arexp_shift_del(t_arexp_shift *arexp_shift);
 
-t_arexp_shift			*arexp_shift_new_from_tokens(t_lst *tokens,
-														struct s_arexp *arexp);
+t_arexp_shift			*arexp_shift_new_from_tokens(t_lst *tokens);
 
 void					arexp_shift_print_rec(t_arexp_shift *this, int depth);
 

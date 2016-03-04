@@ -25,8 +25,7 @@ typedef struct		s_arexp_expression
 t_arexp_expression	*arexp_expression_new(void);
 void				arexp_expression_del(t_arexp_expression *expression);
 
-t_arexp_expression	*arexp_expression_new_from_tokens(t_lst *tokens,
-														struct s_arexp *arexp);
+t_arexp_expression	*arexp_expression_new_from_tokens(t_lst *tokens);
 
 void				arexp_expression_print_rec(t_arexp_expression *this,
 																	int depth);

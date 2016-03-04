@@ -16,8 +16,7 @@
 #include "token/token_mgr.h"
 #include "data_utils.h"
 
-t_arexp_unary			*arexp_unary_new_from_tokens(t_lst *tokens,
-														struct s_arexp *arexp)
+t_arexp_unary			*arexp_unary_new_from_tokens(t_lst *tokens)
 {
 	t_token				*token;
 	t_arexp_unary		*arexp_unary;
@@ -28,7 +27,8 @@ t_arexp_unary			*arexp_unary_new_from_tokens(t_lst *tokens,
 		token = token_mgr_first(tokens);
 		if (!token)
 		{
-			arexp_set_error_msg(arexp, "expected operand got ", token);
+			arexp_set_error_msg(arexp_singleton(NULL, false),
+												"expected operand got ", token);
 			arexp_unary_del(arexp_unary);
 			return (NULL);
 		}
@@ -37,7 +37,8 @@ t_arexp_unary			*arexp_unary_new_from_tokens(t_lst *tokens,
 		else if (token->type == TOK_AREXP_CONSTANT)
 		{
 			arexp_unary->primary_enum = AREXP_PRIMARY_CONSTANT;
-			arexp_unary->primary.constant = arexp_atoll(arexp, token);
+			arexp_unary->primary.constant = arexp_atoll(arexp_singleton(NULL,
+																false), token);
 			token = twl_lst_pop_front(tokens);
 			token_del(token);
 			return (arexp_unary);
@@ -45,9 +46,7 @@ t_arexp_unary			*arexp_unary_new_from_tokens(t_lst *tokens,
 		else if (token->type == TOK_AREXP_VARIABLE)
 		{
 			arexp_unary->primary_enum = AREXP_PRIMARY_VARIABLE;
-			arexp_unary->primary.variable = twl_strdup(token->text);
-			token = twl_lst_pop_front(tokens);
-			token_del(token);
+			arexp_unary->primary.variable = twl_lst_pop_front(tokens);
 			return (arexp_unary);
 		}
 		else if (token->type == TOK_AREXP_LPARENTHESIS)
@@ -55,12 +54,20 @@ t_arexp_unary			*arexp_unary_new_from_tokens(t_lst *tokens,
 			arexp_unary->primary_enum = AREXP_PRIMARY_EXPRESSION;
 			token = twl_lst_pop_front(tokens);
 			token_del(token);
+			arexp_singleton(NULL, false)->depth += 2;
 			arexp_unary->primary.arexp_expression =
-								arexp_expression_new_from_tokens(tokens, arexp);
+								arexp_expression_new_from_tokens(tokens);
+			arexp_singleton(NULL, false)->depth -= 2;
 			token = token_mgr_first(tokens);
+			if (arexp_singleton(NULL, false)->error_msg)
+			{
+				arexp_unary_del(arexp_unary);
+				return (NULL);
+			}
 			if (!token || token->type != TOK_AREXP_RPARENTHESIS)
 			{
-				arexp_set_error_msg(arexp, "expected `)' got ", token);
+				arexp_set_error_msg(arexp_singleton(NULL, false),
+													"expected `)' got ", token);
 				arexp_unary_del(arexp_unary);
 				return (NULL);
 			}
@@ -70,7 +77,8 @@ t_arexp_unary			*arexp_unary_new_from_tokens(t_lst *tokens,
 		}
 		else
 		{
-			arexp_set_error_msg(arexp, "expected operand got ", token);
+			arexp_set_error_msg(arexp_singleton(NULL, false),
+												"expected operand got ", token);
 			arexp_unary_del(arexp_unary);
 			return (NULL);
 		}

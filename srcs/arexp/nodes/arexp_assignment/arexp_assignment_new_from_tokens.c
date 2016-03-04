@@ -15,8 +15,7 @@
 #include "arexp/nodes/arexp_assignment.h"
 #include "arexp/arexp.h"
 
-t_arexp_assignment		*arexp_assignment_new_from_tokens(t_lst *tokens,
-														struct s_arexp *arexp)
+t_arexp_assignment		*arexp_assignment_new_from_tokens(t_lst *tokens)
 {
 	t_arexp_assignment	*assignment;
 	t_arexp_condition	*condition;
@@ -37,8 +36,8 @@ t_arexp_assignment		*arexp_assignment_new_from_tokens(t_lst *tokens,
 		assign[1] = twl_lst_pop_front(tokens);
 		twl_lst_push_front(assignment->assign, assign);
 	}
-	condition = arexp_condition_new_from_tokens(tokens, arexp);
-	if (arexp_has_error(arexp))
+	condition = arexp_condition_new_from_tokens(tokens);
+	if (arexp_has_error(arexp_singleton(NULL, false)))
 	{
 		arexp_assignment_del(assignment);
 		arexp_condition_del(condition);

@@ -26,6 +26,27 @@ mt_test_arexp_error(num07, "123456789a", "value too great for base: 123456789a",
 mt_test_arexp_error(num08, "37#abcDEF", "value too great for base: 37#abcDEF", false);
 mt_test_arexp_error(num09, "(1,2,)", "expected operand got )", false);
 mt_test_arexp_error(num10, "1,2,3?4,5,6:(7,8,9", "expected `)' got nothing", false);
+mt_test_arexp_error(num11, "a=-b=c", "unexpected token: =", false);
+
+static void test_num12(t_test *test)
+{
+	char	*input = (char *)malloc(sizeof(char) * 3002);
+	memset(input, '(', 1500);
+	input[1500] = '1';
+	memset(input + 1501, ')', 1500);
+	input[3001] = 0;
+	t_arexp	*arexp = arexp_new(input);
+	if (false)
+	{
+		printf("=== case %s\n", input);
+		printf("actual   {%s}\n", arexp->error_msg);
+		printf("expected {%s}\n", "maximum depth reached");
+	}
+	mt_assert(strcmp(arexp->error_msg, "maximum depth reached") == 0);
+	free(input);
+	arexp_del(arexp);
+}
+
 
 void suite_arexp_build_error(t_suite *suite)
 {
@@ -39,4 +60,6 @@ void suite_arexp_build_error(t_suite *suite)
 	SUITE_ADD_TEST(suite, test_num08);
 	SUITE_ADD_TEST(suite, test_num09);
 	SUITE_ADD_TEST(suite, test_num10);
+	SUITE_ADD_TEST(suite, test_num11);
+	SUITE_ADD_TEST(suite, test_num12);
 }

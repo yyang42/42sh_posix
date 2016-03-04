@@ -14,8 +14,7 @@
 #include "arexp/arexp.h"
 #include "token/token_mgr.h"
 
-t_arexp_logical_or			*arexp_logical_or_new_from_tokens(t_lst *tokens,
-														struct s_arexp *arexp)
+t_arexp_logical_or			*arexp_logical_or_new_from_tokens(t_lst *tokens)
 {
 	t_arexp_logical_or		*logical_or;
 	t_arexp_logical_and		*logical_and;
@@ -24,8 +23,8 @@ t_arexp_logical_or			*arexp_logical_or_new_from_tokens(t_lst *tokens,
 	logical_or = arexp_logical_or_new();
 	while (42)
 	{
-		logical_and = arexp_logical_and_new_from_tokens(tokens, arexp);
-		if (arexp_has_error(arexp))
+		logical_and = arexp_logical_and_new_from_tokens(tokens);
+		if (arexp_has_error(arexp_singleton(NULL, false)))
 		{
 			arexp_logical_or_del(logical_or);
 			arexp_logical_and_del(logical_and);
