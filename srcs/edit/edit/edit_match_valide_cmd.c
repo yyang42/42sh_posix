@@ -82,21 +82,30 @@ char				*edit_match_valide_cmd(char *cmd)
 	res = NULL;
 	matcher = openclose_matcher_new(0);
 	create_openclose_condition(matcher);
-	while (cpy)
+	while (true)
 	{
-		res = twl_strchr("\"'{([", *cpy);
-		if (res)
+		cpy = cmd;
+		res = NULL;
+		while (cpy)
+		{
+			res = twl_strchr("\"'{([", *cpy);
+			if (res)
+				break;
+			cpy++;
+		}
+		stack = openclose_matcher_find_matching_stack(matcher, cpy);
+		if (twl_lst_len(stack) > 0)
+		{
+			new_cmd = new_loop();
+			cmd = twl_strjoinfree(cmd, new_cmd, 'b');
+			twl_lst_del(stack, NULL);
+		}
+		else
+		{
+			twl_lst_del(stack, NULL);
 			break;
-		cpy++;
+		}
 	}
-	stack = openclose_matcher_find_matching_stack(matcher, cpy);
-	if (twl_lst_len(stack) > 0)
-	{
-		new_cmd = new_loop();
-		cmd = twl_strjoinfree(cmd, new_cmd, 'r');
-		edit_match_valide_cmd(cmd);
-	}
-	twl_lst_del(stack, NULL);
 	openclose_matcher_del(matcher);
 	return (cmd);
 }
