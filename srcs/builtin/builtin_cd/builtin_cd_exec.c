@@ -72,9 +72,7 @@ int					builtin_cd_exec(t_lst *tokens, t_environment *this)
 	char				**args;
 	char				*dirname;
 	char				*old_dirname;
-	// char				*str;
 
-	// str = token_mgr_strjoin(tokens, " "); // TODO: refactor
 	dirname = NULL;
 	no_symlinks = 0;
 	args = token_mgr_to_str_arr(tokens);

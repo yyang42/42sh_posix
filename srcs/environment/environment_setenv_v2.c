@@ -13,7 +13,7 @@
 #include "environment.h"
 #include <stdio.h>
 
-t_environment_var		*environment_selocal(t_environment *this, char *str)
+t_environment_var		*environment_setenv_v2(t_environment *this, char *key, char *value)
 {
-	return (environment_setenv_or_setlocal__(this, str, LOCAL));
+	return (environment_setenv_or_setlocal__(this, key, value, ENVIRONMENT));
 }

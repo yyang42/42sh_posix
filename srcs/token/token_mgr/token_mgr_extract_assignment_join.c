@@ -10,28 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "environment.h"
-#include <stdio.h>
+#include "utils.h"
+#include "data.h"
+#include "token/token_utils.h"
+#include "token/token_mgr.h"
+#include "openclose/openclose_matcher.h"
 
-t_environment_var	*environment_setenv_or_setlocal__(t_environment *this,
-										char *key, char *value, t_environment_var_type type)
+char				*token_mgr_extract_assignment_join(t_lst *list_of_segs)
 {
-	t_environment_var	*var;
+	t_lst			*copy;
+	t_lst			*segs;
+	t_lst			*master_segs;
 
-	var = NULL;
-	if (twl_strlen(key) > 0)
+	copy = twl_lst_copy(list_of_segs, NULL);
+	master_segs = twl_lst_new();
+	while ((segs = twl_lst_pop_front(copy)))
 	{
-		if (environment_getenv_value(this, key))
-		{
-			var = environment_setenv_value(this, key, value ? value : "", value ? 1 : 0);
-		}
-		else
-		{
-			var = environment_var_new(key, value ? value : "",
-			type, value ? 1 : 0);
-			twl_lst_push(this->env_vars, var);
-		}
+		twl_lst_push_back(master_segs, twl_lst_strjoin(segs, "="));
 	}
-	errno = EINVAL;
-	return (var);
+	return (twl_lst_strjoin(master_segs, "_"));
 }

@@ -50,6 +50,7 @@ t_lst				*token_mgr_extract_redir(t_lst *tokens,
 													t_lst *remaining_tokens);
 t_lst				*token_mgr_extract_assignment(t_lst *tokens,
 													t_lst *remaining_tokens);
+char				*token_mgr_extract_assignment_join(t_lst *list_of_segs);
 
 void				token_mgr_pop_linebreak(t_lst *tokens);
 void				token_mgr_pop_linebreak_colon_linebreak(t_lst *tokens);

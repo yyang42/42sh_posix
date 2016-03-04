@@ -66,6 +66,7 @@ void						environment_del(t_environment *this);
 t_environment				*environment_clone(t_environment *this);
 void						environment_init(t_environment *this);
 t_environment_var			*environment_setenv(t_environment *this, char *str);
+t_environment_var			*environment_setenv_v2(t_environment *this, char *key, char *value);
 char						*environment_getenv_value(t_environment *this,
 	char *key);
 t_environment_var			*environment_setenv_value(t_environment *t,
@@ -93,7 +94,7 @@ void						environment_remove_all_pos_params(
 char						*environment_concat_pos_param_char(t_environment
 	*env, char *sep);
 t_environment_var			*environment_setenv_or_setlocal__(t_environment
-	*this, char *str, t_environment_var_type type);
+	*this, char *key, char *value, t_environment_var_type type);
 t_environment_var			*environment_get(t_environment *this, char *key);
 void						**environment_get_env_arr(t_environment *this);
 int							environment_get_last_exit_status(void);

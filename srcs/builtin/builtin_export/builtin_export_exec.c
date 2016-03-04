@@ -16,20 +16,22 @@ int					builtin_export_exec(t_lst *tokens, t_environment *env)
 {
 	t_opt			*opt;
 	char			**arr;
-	char			*str;
 
-	str = token_mgr_strjoin(tokens, " "); // TODO: refactor
-	arr = twl_strsplit_mul(str, " \n\t");
+	arr = token_mgr_to_str_arr(tokens);
 	opt = twl_opt_new(arr, EXPORT_OPT_VALID_OPTS);
 	if (!builtin_utils_check_invalid_opts(opt, "export", EXPORT_OPT_VALID_OPTS))
 	{
 		if ((twl_opt_exist(opt, "p") && twl_opt_args_len(opt) == 0)
 			|| twl_opt_args_len(opt) == 0)
+		{
 			builtin_export_verbose(env);
+		}
 		else
-			builtin_export_add(env, opt);
+		{
+			builtin_export_add(env, tokens);
+		}
 	}
-	twl_arr_del(arr, &free);
+	free(arr);
 	twl_opt_del(opt);
 	environment_set_last_exit_status_2(env, BUILTIN_EXEC_SUCCESS);
 	return (BUILTIN_EXEC_SUCCESS);

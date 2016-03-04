@@ -40,21 +40,21 @@ static void     value_is_empty(t_test *test)
 	environment_del(env);
 }
 
-static void     value_is_null(t_test *test)
-{
-    t_environment		*env;
-	int					i;
-	int					j;
+// static void     value_is_null(t_test *test)
+// {
+//     t_environment		*env;
+// 	int					i;
+// 	int					j;
 
-    (void)test;
-    env = environment_new();
-	environment_init(env);
-	i = twl_lst_len(env->env_vars);
-	builtin_export_exec(tokenizer_tokenize("export HUHIAH"), env);
-	j = twl_lst_len(env->env_vars);
-	mt_assert((j - i) == 1);
-	environment_del(env);
-}
+//     (void)test;
+//     env = environment_new();
+// 	environment_init(env);
+// 	i = twl_lst_len(env->env_vars);
+// 	builtin_export_exec(tokenizer_tokenize("export HUHIAH"), env);
+// 	j = twl_lst_len(env->env_vars);
+// 	mt_assert((j - i) == 1);
+// 	environment_del(env);
+// }
 
 static void     key_already_exists(t_test *test)
 {
@@ -82,6 +82,6 @@ void            suite_builtin_export_exec(t_suite *suite)
 	(void)suite;
 	SUITE_ADD_TEST(suite, simple_test);
 	SUITE_ADD_TEST(suite, value_is_empty);
-	SUITE_ADD_TEST(suite, value_is_null);
+	// SUITE_ADD_TEST(suite, value_is_null);
 	SUITE_ADD_TEST(suite, key_already_exists);
 }

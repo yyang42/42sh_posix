@@ -15,20 +15,35 @@
 #include "twl_opt.h"
 #include "twl_lst.h"
 
-static void			export_something(void *data, void *context)
+static void			export_something_segs(void *segs, void *env)
 {
-	t_environment	*env;
-	char			*arg;
-
-	arg = data;
-	env = context;
-	if (arg)
-	{
-		environment_setenv(env, arg);
-	}
+	environment_setenv_v2(env, twl_lst_get(segs, 0), twl_lst_get(segs, 1));
 }
 
-void				builtin_export_add(t_environment *env, t_opt *opt)
+static void			export_something_tokens(void *token_, void *env)
 {
-	twl_lst_iter(opt->args, export_something, env);
+	t_token			*token;
+
+	token = token_;
+	environment_setenv_or_setlocal__(env, token->text, NULL, LOCAL);
+}
+
+void				builtin_export_add(t_environment *env, t_lst *tokens)
+{
+	t_lst			*list_of_segs;
+	t_lst			*remaining_tokens;
+	t_lst			*tokens_copy;
+
+	tokens_copy = twl_lst_copy(tokens, NULL);
+	remaining_tokens = twl_lst_new();
+	twl_lst_pop_front(tokens_copy);
+	while (token_mgr_first(tokens_copy)
+		&& twl_str_starts_with(token_mgr_first(tokens_copy)->text, "-"))
+	{
+		twl_lst_pop_front(tokens_copy);
+	}
+	list_of_segs = token_mgr_extract_assignment(tokens_copy, remaining_tokens);
+	twl_lst_iter(list_of_segs, export_something_segs, env);
+	twl_lst_iter(remaining_tokens, export_something_tokens, env);
+	(void)remaining_tokens;
 }
