@@ -21,6 +21,11 @@ t_arexp_expression		*arexp_expression_new_from_tokens(t_lst *tokens)
 	t_arexp_assignment	*assignment;
 	t_token				*token;
 
+	if (arexp_singleton(NULL, false)->depth > AREXP_MAX_DEPTH)
+	{
+		arexp_singleton(NULL, false)->error_msg = twl_strdup("maximum depth reached");
+		return (0);
+	}
 	expression = arexp_expression_new();
 	assignment = arexp_assignment_new_from_tokens(tokens);
 	if (arexp_has_error(arexp_singleton(NULL, false)))

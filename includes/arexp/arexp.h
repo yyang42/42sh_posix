@@ -17,8 +17,11 @@
 # include "token/token.h"
 # include "arexp/nodes/arexp_expression.h"
 
+# define AREXP_MAX_DEPTH 2000
+
 typedef struct			s_arexp
 {
+	size_t				depth;
 	t_lst				*tokens;
 	t_arexp_expression	*expression;
 	char				*error_msg;
