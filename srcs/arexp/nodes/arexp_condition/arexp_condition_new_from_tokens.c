@@ -23,6 +23,11 @@ t_arexp_condition		*arexp_condition_new_from_tokens(t_lst *tokens)
 	t_arexp_condition	*condition_else;
 	t_token				*token;
 
+	if (arexp_singleton(NULL, false)->depth > AREXP_MAX_DEPTH)
+	{
+		arexp_singleton(NULL, false)->error_msg = twl_strdup("maximum depth reached");
+		return (0);
+	}
 	condition = arexp_condition_new();
 	logical_or = arexp_logical_or_new_from_tokens(tokens);
 	if (arexp_has_error(arexp_singleton(NULL, false)))
@@ -37,7 +42,9 @@ t_arexp_condition		*arexp_condition_new_from_tokens(t_lst *tokens)
 		return (condition);
 	token = twl_lst_pop_front(tokens);
 	token_del(token);
+	arexp_singleton(NULL, false)->depth += 1;
 	expression_if = arexp_expression_new_from_tokens(tokens);
+	arexp_singleton(NULL, false)->depth -= 1;
 	if (arexp_has_error(arexp_singleton(NULL, false)))
 	{
 		arexp_condition_del(condition);
@@ -55,7 +62,9 @@ t_arexp_condition		*arexp_condition_new_from_tokens(t_lst *tokens)
 	}
 	token = twl_lst_pop_front(tokens);
 	token_del(token);
+	arexp_singleton(NULL, false)->depth += 1;
 	condition_else = arexp_condition_new_from_tokens(tokens);
+	arexp_singleton(NULL, false)->depth -= 1;
 	if (arexp_has_error(arexp_singleton(NULL, false)))
 	{
 		arexp_condition_del(condition);

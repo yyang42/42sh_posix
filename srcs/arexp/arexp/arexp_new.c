@@ -21,6 +21,7 @@ t_arexp				*arexp_new(char *input)
 	arexp = twl_malloc_x0(sizeof(t_arexp));
 	arexp_singleton(arexp, false);
 	arexp->tokens = tokenizer_arexp_tokenize(input);
+	arexp->depth = 0;
 	if (!twl_lst_len(arexp->tokens))
 	{
 		arexp->empty = true;

@@ -54,9 +54,16 @@ t_arexp_unary			*arexp_unary_new_from_tokens(t_lst *tokens)
 			arexp_unary->primary_enum = AREXP_PRIMARY_EXPRESSION;
 			token = twl_lst_pop_front(tokens);
 			token_del(token);
+			arexp_singleton(NULL, false)->depth += 2;
 			arexp_unary->primary.arexp_expression =
 								arexp_expression_new_from_tokens(tokens);
+			arexp_singleton(NULL, false)->depth -= 2;
 			token = token_mgr_first(tokens);
+			if (arexp_singleton(NULL, false)->error_msg)
+			{
+				arexp_unary_del(arexp_unary);
+				return (NULL);
+			}
 			if (!token || token->type != TOK_AREXP_RPARENTHESIS)
 			{
 				arexp_set_error_msg(arexp_singleton(NULL, false),
