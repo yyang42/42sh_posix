@@ -15,7 +15,7 @@
 
 # include "basics.h"
 # include "async/job.h"
-# include "environment.h"
+# include "shenv/shenv.h"
 
 t_lst				*job_mgr_new(void);
 void				job_mgr_del(t_lst *jobs);

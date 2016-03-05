@@ -1,6 +1,6 @@
-for namenvvar in aa bb cc;
+for namshvar in aa bb cc;
 do
-	echo $namenvvar
+	echo $namshvar
 done
 
-for namenvvar in aa bb cc; do echo $namenvvar; done
+for namshvar in aa bb cc; do echo $namshvar; done

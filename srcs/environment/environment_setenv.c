@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "environment.h"
+#include "shenv/shenv.h"
 #include <stdio.h>
 
-t_envvar		*environment_setenv(t_shenv *this, char *str)
+t_shvar		*environment_setenv(t_shenv *this, char *str)
 {
 	t_lst			*segs;
 	char			*key;

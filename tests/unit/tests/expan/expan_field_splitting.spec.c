@@ -1,7 +1,7 @@
 #include <project.h>
 
 #include "basics.h"
-#include "environment.h"
+#include "shenv/shenv.h"
 #include "builtin/cmds/builtin_export.h"
 #include "builtin/cmds/builtin_unset.h"
 #include "expan/expan_field_splitting.h"

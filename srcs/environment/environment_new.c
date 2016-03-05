@@ -12,7 +12,7 @@
 
 #include "twl_xstdlib.h"
 
-#include "environment.h"
+#include "shenv/shenv.h"
 #include "xopt.h"
 
 t_shenv			*environment_new(void)
@@ -21,7 +21,7 @@ t_shenv			*environment_new(void)
 	// t_xopt				*xopt;
 
 	this = twl_malloc_x0(sizeof(t_shenv));
-	this->envvars = twl_lst_new();
+	this->shvars = twl_lst_new();
 	/* Note: Changing the content of xopt is dangerous.
 	xopt_get_args(xopt) will return a reference not a copy
 	and changing it may cause problems.

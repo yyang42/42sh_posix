@@ -20,7 +20,7 @@ static void			iter_assign_fn(void *assign_, void *env_)
 {
 	t_ast_assignment		*assign;
 	t_shenv			*env;
-	t_envvar_type	type;
+	t_shvar_type	type;
 
 	assign = assign_;
 	env = env_;

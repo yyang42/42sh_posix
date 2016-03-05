@@ -12,7 +12,7 @@
 
 #include "arexp/arexp.h"
 #include "arexp/nodes/arexp_assignment.h"
-#include "environment.h"
+#include "shenv/shenv.h"
 
 #include "twl_xstring.h"
 

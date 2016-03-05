@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "xopt.h"
-#include "environment.h"
+#include "shenv/shenv.h"
 #include "twl_string.h"
 #include "twl_lst.h"
 #include "twl_opt_elem.h"

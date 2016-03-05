@@ -14,7 +14,7 @@
 # define BUILTIN_EXIT_H
 
 # include "basics.h"
-# include "environment.h"
+# include "shenv/shenv.h"
 
 int					builtin_exit_exec(t_lst *tokens, t_shenv *this);
 

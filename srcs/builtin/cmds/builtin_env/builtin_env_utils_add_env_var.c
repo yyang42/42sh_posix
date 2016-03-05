@@ -14,7 +14,7 @@
 #include "twl_stdio.h"
 #include <stdio.h>
 
-void				builtin_env_utils_add_envvar(void *data_, void *context_)
+void				builtin_env_utils_add_shvar(void *data_, void *context_)
 {
 	t_shenv	*context;
 	char			*data;

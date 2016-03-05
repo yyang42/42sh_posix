@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "environment.h"
+#include "shenv/shenv.h"
 
 char		*environment_get_pos_param_at(t_shenv *env, size_t index)
 {

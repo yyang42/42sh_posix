@@ -11,25 +11,25 @@
 /* ************************************************************************** */
 
 #include "builtin/cmds/builtin_export.h"
-#include "environment.h"
+#include "shenv/shenv.h"
 #include "twl_opt.h"
 #include "twl_lst.h"
 
 static void			export_something(void *data)
 {
-	t_envvar	*envvar;
+	t_shvar	*shvar;
 
-	envvar = data;
-	if (envvar->envvar_read_only == NOT_READ_ONLY)
+	shvar = data;
+	if (shvar->shvar_read_only == NOT_READ_ONLY)
 	{
-		if (envvar->envvar_value_is_set == true)
-			twl_printf("export %s=\"%s\"\n", envvar->envvar_key, envvar->envvar_value);
+		if (shvar->shvar_value_is_set == true)
+			twl_printf("export %s=\"%s\"\n", shvar->shvar_key, shvar->shvar_value);
 		else
-			twl_printf("export %s\n", envvar->envvar_key);
+			twl_printf("export %s\n", shvar->shvar_key);
 	}
 }
 
 void				builtin_export_verbose(t_shenv *env)
 {
-	twl_lst_iter0(env->envvars, export_something);
+	twl_lst_iter0(env->shvars, export_something);
 }

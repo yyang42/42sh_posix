@@ -14,19 +14,19 @@
 #include "xopt.h"
 #include "twl_opt_elem.h"
 
-#include "environment.h"
+#include "shenv/shenv.h"
 
 
 static void			clear_environment(void *data)
 {
-	twl_strdel(&((t_envvar *)data)->envvar_key);
-	twl_strdel(&((t_envvar *)data)->envvar_value);
+	twl_strdel(&((t_shvar *)data)->shvar_key);
+	twl_strdel(&((t_shvar *)data)->shvar_value);
 	free(data);
 }
 
 void				environment_del(t_shenv *this)
 {
-	twl_lst_del(this->envvars, clear_environment);
+	twl_lst_del(this->shvars, clear_environment);
 	if (this->flag_verbose)
 		twl_lst_del(this->flag_verbose, NULL);
 	if (this->shell_func)

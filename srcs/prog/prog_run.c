@@ -12,7 +12,7 @@
 
 #include <fcntl.h>
 #include "prog.h"
-#include "environment.h"
+#include "shenv/shenv.h"
 #include "builtin/cmds/builtin_set.h"
 #include "twl_get_next_line.h"
 

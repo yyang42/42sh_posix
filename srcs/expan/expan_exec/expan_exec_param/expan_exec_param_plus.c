@@ -19,15 +19,15 @@
 bool			expan_exec_params_plus(t_expan_token *expan_token)
 {
 	t_expan_param		*data;
-	t_envvar	*envvar;
+	t_shvar	*shvar;
 	t_shenv		*env;
 
 	data = expan_token->expan_data;
 	env = environment_singleton();
 	if (data->parameter && twl_strcmp(data->parameter, ""))
 	{
-		envvar = environment_get(env, data->parameter);
-		if (envvar)
+		shvar = environment_get(env, data->parameter);
+		if (shvar)
 				expan_token->res = twl_strdup(data->word);
 		else
 			expan_token->res = twl_strdup("");

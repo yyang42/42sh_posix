@@ -38,7 +38,7 @@ static t_expan_param_type	expan_tokenizer_param_substitution_get_operator(char *
 }
 
 
-static void	expan_tokenizer_param_envvar(t_expan_param *expan_param, char *str)
+static void	expan_tokenizer_param_shvar(t_expan_param *expan_param, char *str)
 {
 	int		len;
 
@@ -107,7 +107,7 @@ static int	expan_tokenizer_param_substitution_get_parameter_word(t_expan_param *
 	if (type != UNDEFINED_PARAM)
 		word_len = expan_tokenizer_get_word_len(&expan_param->word, &str[j] + op_len, "{");
 	else
-		expan_tokenizer_param_envvar(expan_param, &str[i]);
+		expan_tokenizer_param_shvar(expan_param, &str[i]);
 	j = str[j] == 0 ? j - 2 : j;
 	return (j + word_len + op_len + 1);
 }

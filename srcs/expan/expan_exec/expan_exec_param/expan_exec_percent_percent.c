@@ -39,17 +39,17 @@ bool			expan_exec_params_percent_percent(t_expan_token *expan_token)
 {
 	t_expan_param		*data;
 	t_shenv		*env;
-	t_envvar	*envvar;
+	t_shvar	*shvar;
 
 	data = expan_token->expan_data;
 	env = environment_singleton();
 	if (data->parameter && twl_strcmp(data->parameter, ""))
 	{
-		envvar = environment_get(env, data->parameter);
-		if (envvar && envvar->envvar_value_is_set)
+		shvar = environment_get(env, data->parameter);
+		if (shvar && shvar->shvar_value_is_set)
 		{
-			if (envvar->envvar_value != NULL && twl_strcmp(envvar->envvar_value, "") != 0)
-				expan_token->res = ft_treat_percent(envvar->envvar_value, data->word);
+			if (shvar->shvar_value != NULL && twl_strcmp(shvar->shvar_value, "") != 0)
+				expan_token->res = ft_treat_percent(shvar->shvar_value, data->word);
 			else
 				expan_token->res = twl_strdup("");
 		}

@@ -22,7 +22,7 @@
 # include "error.h"
 # include "errno.h"
 # include "signals.h"
-# include "environment.h"
+# include "shenv/shenv.h"
 # include "ast/nodes/ast_redir_mgr.h"
 # include "ast/nodes/ast_redir_fd.h"
 # include "ast/nodes/ast_redir_fd_mgr.h"

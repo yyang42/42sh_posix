@@ -1,6 +1,6 @@
 #include <project.h>
 
-#include "environment.h"
+#include "shenv/shenv.h"
 #include "builtin/cmds/builtin_unset.h"
 #include "builtin/cmds/builtin_export.h"
 #include "token/tokenizer.h"
@@ -15,9 +15,9 @@ static void 	unset_var(t_test *test)
 	env = environment_new();
 	environment_init(env);
 	builtin_export_exec(tokenizer_tokenize("export HAHA=pouet"), env);
-	i = twl_lst_len(env->envvars);
+	i = twl_lst_len(env->shvars);
 	builtin_unset_exec(tokenizer_tokenize("unset HAHA"), env);
-	j = twl_lst_len(env->envvars);
+	j = twl_lst_len(env->shvars);
 	mt_assert((i - j) == 1);
 	environment_del(env);
 }
@@ -53,10 +53,10 @@ static void 	unset_var_not_func(t_test *test)
 	builtin_export_exec(tokenizer_tokenize("export LOL=pouet"), env);
 	environment_add_shell_func(env,"LOL", (void *)"echo pouet");
 	i = twl_dict_len(env->shell_func);
-	k = twl_lst_len(env->envvars);
+	k = twl_lst_len(env->shvars);
 	builtin_unset_exec(tokenizer_tokenize("unset LOL"), env);
 	j = twl_dict_len(env->shell_func);
-	l = twl_lst_len(env->envvars);
+	l = twl_lst_len(env->shvars);
 	mt_assert((i - j) == 0);
 	mt_assert((k - l) == 1);
 	environment_del(env);
@@ -76,11 +76,11 @@ static void 	unset_both(t_test *test)
 	builtin_export_exec(tokenizer_tokenize("export LOL=pouet"), env);
 	environment_add_shell_func(env,"LOL", (void *)"echo pouet");
 	i = twl_dict_len(env->shell_func);
-	k = twl_lst_len(env->envvars);
+	k = twl_lst_len(env->shvars);
 	builtin_unset_exec(tokenizer_tokenize("unset LOL"), env);
 	builtin_unset_exec(tokenizer_tokenize("unset LOL"), env);
 	j = twl_dict_len(env->shell_func);
-	l = twl_lst_len(env->envvars);
+	l = twl_lst_len(env->shvars);
 	mt_assert((i - j) == 1);
 	mt_assert((k - l) == 1);
 	environment_del(env);

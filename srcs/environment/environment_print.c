@@ -10,18 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "environment.h"
+#include "shenv/shenv.h"
 
-static void		print_envvar(void *data)
+static void		print_shvar(void *data)
 {
-	t_envvar	*var;
+	t_shvar	*var;
 
 	var = data;
-	if (var->envvar_type == ENVIRONMENT)
-		twl_printf("%s=%s\n", var->envvar_key, var->envvar_value);
+	if (var->shvar_type == ENVIRONMENT)
+		twl_printf("%s=%s\n", var->shvar_key, var->shvar_value);
 }
 
 void			environment_print(t_shenv *this)
 {
-	twl_lst_iter0(this->envvars, print_envvar);
+	twl_lst_iter0(this->shvars, print_shvar);
 }

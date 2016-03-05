@@ -30,18 +30,18 @@ static void		print_error_msg(t_expan_param *data)
 bool			expan_exec_params_question2(t_expan_token *expan_token)
 {
 	t_expan_param		*data;
-	t_envvar	*envvar;
+	t_shvar	*shvar;
 	t_shenv		*env;
 
 	data = expan_token->expan_data;
 	env = environment_singleton();
 	if (data->parameter && twl_strcmp(data->parameter, ""))
 	{
-		envvar = environment_get(env, data->parameter);
-		if (envvar)
+		shvar = environment_get(env, data->parameter);
+		if (shvar)
 		{
-			if (envvar->envvar_value != NULL && envvar->envvar_value_is_set == 1)
-				expan_token->res = twl_strdup(envvar->envvar_value);
+			if (shvar->shvar_value != NULL && shvar->shvar_value_is_set == 1)
+				expan_token->res = twl_strdup(shvar->shvar_value);
 			else
 				expan_token->res = twl_strdup("");
 			return (true);

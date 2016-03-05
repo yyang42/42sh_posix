@@ -10,12 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "environment.h"
+#include "shenv/shenv.h"
 
-t_envvar	*envvar_new(char *key, char *value,
-	t_envvar_type envvar_type, bool value_is_set)
+t_shvar	*shvar_new(char *key, char *value,
+	t_shvar_type shvar_type, bool value_is_set)
 {
-	t_envvar	*this;
+	t_shvar	*this;
 
 	if (key == NULL || *key == '\0')
 	{
@@ -23,11 +23,11 @@ t_envvar	*envvar_new(char *key, char *value,
 		return (NULL);
 	}
 	value = value ? value : "";
-	this = twl_malloc_x0(sizeof(t_envvar));
-	this->envvar_value = twl_strdup(value);
-	this->envvar_key = twl_strdup(key);
-	this->envvar_read_only = NOT_READ_ONLY;
-	this->envvar_type = envvar_type;
-	this->envvar_value_is_set = value_is_set;
+	this = twl_malloc_x0(sizeof(t_shvar));
+	this->shvar_value = twl_strdup(value);
+	this->shvar_key = twl_strdup(key);
+	this->shvar_read_only = NOT_READ_ONLY;
+	this->shvar_type = shvar_type;
+	this->shvar_value_is_set = value_is_set;
 	return (this);
 }

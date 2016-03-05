@@ -10,18 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "environment.h"
+#include "shenv/shenv.h"
 #include "twl_opt_elem.h"
 
 static void			*copy_fn(void *data)
 {
-	t_envvar *var;
+	t_shvar *var;
 
-	var = twl_malloc_x0(sizeof(t_envvar));
-	var->envvar_key = twl_strdup(((t_envvar *)data)->envvar_key);
-	var->envvar_value = twl_strdup(((t_envvar *)data)->envvar_value);
-	var->envvar_read_only = ((t_envvar *)data)->envvar_read_only;
-	var->envvar_type = ((t_envvar *)data)->envvar_type;
+	var = twl_malloc_x0(sizeof(t_shvar));
+	var->shvar_key = twl_strdup(((t_shvar *)data)->shvar_key);
+	var->shvar_value = twl_strdup(((t_shvar *)data)->shvar_value);
+	var->shvar_read_only = ((t_shvar *)data)->shvar_read_only;
+	var->shvar_type = ((t_shvar *)data)->shvar_type;
 	return (var);
 }
 
@@ -53,7 +53,7 @@ t_shenv		*environment_clone(t_shenv *this)
 	t_shenv *clone;
 
 	clone = twl_malloc_x0(sizeof(t_shenv));
-	clone->envvars = twl_lst_copy(this->envvars, copy_fn);
+	clone->shvars = twl_lst_copy(this->shvars, copy_fn);
 	clone->flag_verbose = twl_lst_copy(this->flag_verbose, copy_dict_fn);
 	clone->shell_func = twl_lst_copy(this->shell_func, copy_dict_fn);
 	clone->pos_params = twl_lst_new();

@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "ast/nodes/ast_function_def.h"
-#include "environment.h"
+#include "shenv/shenv.h"
 
 void				ast_function_def_exec(t_ast_function_def *this)
 {

@@ -10,26 +10,26 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "environment.h"
+#include "shenv/shenv.h"
 #include <stdio.h>
 
 static bool			find_env_key(void *data, void *context)
 {
-	t_envvar	*var;
+	t_shvar	*var;
 	char				*str;
 
 	var = data;
 	str = context;
-	return (twl_strcmp(var->envvar_key, str) == 0);
+	return (twl_strcmp(var->shvar_key, str) == 0);
 }
 
 static void			clear_environment(void *data)
 {
-	t_envvar	*var;
+	t_shvar	*var;
 
 	var = data;
-	twl_strdel(&var->envvar_key);
-	twl_strdel(&var->envvar_value);
+	twl_strdel(&var->shvar_key);
+	twl_strdel(&var->shvar_value);
 	free(data);
 }
 
@@ -40,5 +40,5 @@ void				environment_unsetenv(t_shenv *this, char *key)
 		errno = EINVAL;
 		return ;
 	}
-	twl_lst_remove_if(this->envvars, find_env_key, key, clear_environment);
+	twl_lst_remove_if(this->shvars, find_env_key, key, clear_environment);
 }

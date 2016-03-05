@@ -1,7 +1,7 @@
 #include <project.h>
 
 #include "arexp/arexp.h"
-#include "environment.h"
+#include "shenv/shenv.h"
 #include <limits.h>
 
 # define mt_test_eval(name, input, assign, expected, debug)	\

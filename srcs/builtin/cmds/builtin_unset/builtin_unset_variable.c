@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "builtin/cmds/builtin_unset.h"
-#include "environment.h"
+#include "shenv/shenv.h"
 #include "twl_opt.h"
 
 static void			unset_something(void *data, void *context, void *ret_)
@@ -19,7 +19,7 @@ static void			unset_something(void *data, void *context, void *ret_)
 	t_shenv		*env;
 	char				*arg;
 	int					*ret;
-	t_envvar	*var;
+	t_shvar	*var;
 
 	arg = data;
 	env = context;
@@ -28,7 +28,7 @@ static void			unset_something(void *data, void *context, void *ret_)
 	{
 		if ((var = environment_get(env, arg)))
 		{
-			if (var->envvar_read_only != READ_ONLY)
+			if (var->shvar_read_only != READ_ONLY)
 			{
 				environment_unsetenv(env, arg);
 				*ret = BUILTIN_EXEC_SUCCESS;

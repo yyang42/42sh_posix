@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "builtin/cmds/builtin_unset.h"
-#include "environment.h"
+#include "shenv/shenv.h"
 #include "twl_opt.h"
 
 static void			unset_something(void *data, void *context, void *ret_)

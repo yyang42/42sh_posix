@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "environment.h"
+#include "shenv/shenv.h"
 
 struct s_ast_compound_command	*environment_get_shell_func(t_shenv *env,
 														char *key)

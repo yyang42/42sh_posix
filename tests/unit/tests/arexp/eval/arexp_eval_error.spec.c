@@ -2,7 +2,7 @@
 
 #include "arexp/arexp.h"
 #include <limits.h>
-#include "environment.h"
+#include "shenv/shenv.h"
 
 # define mt_test_eval(name, input, expected, debug)			\
 static void test_## name(t_test *test)						\

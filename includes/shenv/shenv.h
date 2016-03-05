@@ -10,10 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENVIRONMENT_H
-# define ENVIRONMENT_H
+#ifndef SHENV_H
+# define SHENV_H
 
 # include "basics.h"
+# include "shenv/shvar.h"
 
 # include "twl_dict.h"
 # include <errno.h>
@@ -23,12 +24,6 @@
 # define READ_ONLY 1
 # define NOT_READ_ONLY 0
 # define DEFAULT_FUNCTION_MAX_RECURSION_DEPTH 1000
-
-typedef enum				e_envvar_type
-{
-	ENVIRONMENT,
-	LOCAL
-}							t_envvar_type;
 
 typedef struct				s_shenv_info
 {
@@ -41,7 +36,7 @@ typedef struct				s_shenv_info
 
 typedef struct				s_shenv
 {
-	t_lst					*envvars;
+	t_lst					*shvars;
 	t_lst					*pos_params;
 	t_lst					*flags;
 	t_dict					*alias;
@@ -52,27 +47,18 @@ typedef struct				s_shenv
 	t_lst					*jobs;
 }							t_shenv;
 
-typedef struct				s_envvar
-{
-	char					*envvar_key;
-	char					*envvar_value;
-	int						envvar_read_only;
-	t_envvar_type			envvar_type;
-	int						envvar_value_is_set;
-}							t_envvar;
-
 t_shenv				*environment_new(void);
 void						environment_del(t_shenv *this);
 t_shenv				*environment_clone(t_shenv *this);
 void						environment_init(t_shenv *this);
-t_envvar			*environment_setenv(t_shenv *this, char *str);
-t_envvar			*environment_setenv_v2(t_shenv *this, char *key, char *value);
+t_shvar			*environment_setenv(t_shenv *this, char *str);
+t_shvar			*environment_setenv_v2(t_shenv *this, char *key, char *value);
 char						*environment_getenv_value(t_shenv *this,
 	char *key);
-t_envvar			*environment_setenv_value(t_shenv *t,
+t_shvar			*environment_setenv_value(t_shenv *t,
 	char *k, char *v, int value_is_set);
-t_envvar			*envvar_new(char *key, char *value,
-	t_envvar_type type, bool value_is_set);
+t_shvar			*shvar_new(char *key, char *value,
+	t_shvar_type type, bool value_is_set);
 void						environment_print(t_shenv *this);
 void						environment_unsetenv(t_shenv *this,
 	char *str);
@@ -93,9 +79,9 @@ void						environment_remove_all_pos_params(
 														t_shenv *env);
 char						*environment_concat_pos_param_char(t_shenv
 	*env, char *sep);
-t_envvar			*environment_setenv_or_setlocal__(t_shenv
-	*this, char *key, char *value, t_envvar_type type);
-t_envvar			*environment_get(t_shenv *this, char *key);
+t_shvar			*environment_setenv_or_setlocal__(t_shenv
+	*this, char *key, char *value, t_shvar_type type);
+t_shvar			*environment_get(t_shenv *this, char *key);
 void						**environment_get_env_arr(t_shenv *this);
 int							environment_get_last_exit_status(void);
 void						environment_set_last_exit_status(int status);

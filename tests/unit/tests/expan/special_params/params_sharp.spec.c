@@ -1,6 +1,6 @@
 #include <project.h>
 
-#include "environment.h"
+#include "shenv/shenv.h"
 #include "expan/expan_exec.h"
 #include "builtin/cmds/builtin_set.h"
 #include "token/tokenizer.h"

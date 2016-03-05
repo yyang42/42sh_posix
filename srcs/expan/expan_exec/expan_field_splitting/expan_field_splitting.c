@@ -12,24 +12,24 @@
 
 #include "basics.h"
 #include "expan/expan_field_splitting.h"
-#include "environment.h"
+#include "shenv/shenv.h"
 #include "pattern_matching/patmatch.h"
 #include "twl_xstring.h"
 
 void		expan_field_splitting(char **res)
 {
 	t_shenv		*env;
-	t_envvar	*ifs;
+	t_shvar	*ifs;
 
 	env = environment_singleton();
 	ifs = environment_get(env, "IFS");
-	if (ifs && ifs->envvar_value_is_set == 1)
+	if (ifs && ifs->shvar_value_is_set == 1)
 	{
-		if (!twl_strcmp(ifs->envvar_value, " ") || !twl_strcmp(ifs->envvar_value, "\t")
-			|| !twl_strcmp(ifs->envvar_value, "\n"))
+		if (!twl_strcmp(ifs->shvar_value, " ") || !twl_strcmp(ifs->shvar_value, "\t")
+			|| !twl_strcmp(ifs->shvar_value, "\n"))
 			expan_field_splitting_white_spaces(res);
 		else
-			expan_field_splitting_ifs(res, ifs->envvar_value);
+			expan_field_splitting_ifs(res, ifs->shvar_value);
 	}
 	else if (!ifs)
 	{

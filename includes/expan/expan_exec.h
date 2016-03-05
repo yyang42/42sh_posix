@@ -15,7 +15,7 @@
 
 # include "expan/expan_token.h"
 # include "basics.h"
-# include "environment.h"
+# include "shenv/shenv.h"
 # define CMD_SUB_FILE ".42sh_subcmd"
 
 void			expan_exec(t_lst *expan_tokens, bool *should_exec);

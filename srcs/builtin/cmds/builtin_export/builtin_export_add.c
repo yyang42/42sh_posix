@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "builtin/cmds/builtin_export.h"
-#include "environment.h"
+#include "shenv/shenv.h"
 #include "twl_opt.h"
 #include "twl_lst.h"
 

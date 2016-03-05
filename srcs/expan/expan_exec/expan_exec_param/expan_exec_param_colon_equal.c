@@ -26,17 +26,17 @@ bool			expan_exec_params_colon_equal(t_expan_token *expan_token)
 {
 	t_expan_param		*data;
 	t_shenv		*env;
-	t_envvar	*envvar;
+	t_shvar	*shvar;
 
 	data = expan_token->expan_data;
 	env = environment_singleton();
 	if (data->parameter && twl_strcmp(data->parameter, ""))
 	{
-		envvar = environment_get(env, data->parameter);
-		if (envvar )
+		shvar = environment_get(env, data->parameter);
+		if (shvar )
 		{
-			if (envvar->envvar_value != NULL && envvar->envvar_value_is_set == 1)
-				expan_token->res = twl_strdup(envvar->envvar_value);
+			if (shvar->shvar_value != NULL && shvar->shvar_value_is_set == 1)
+				expan_token->res = twl_strdup(shvar->shvar_value);
 			else
 				set_env_and_token(env, expan_token, data);
 		}

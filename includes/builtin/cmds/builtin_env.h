@@ -16,7 +16,7 @@
 # include <sys/stat.h>
 # include <sys/types.h>
 # include "builtin/builtin.h"
-# include "environment.h"
+# include "shenv/shenv.h"
 # include "builtin/cmds/builtin_env.h"
 # include "utils.h"
 # include "twl_arr.h"
@@ -37,6 +37,6 @@ typedef struct		s_env_args
 
 int					builtin_env_exec(t_lst *tokens, t_shenv *this);
 void				builtin_env_exec_do(t_env_args *env, t_shenv	*clone);
-void				builtin_env_utils_add_envvar(void *data_, void *context_);
+void				builtin_env_utils_add_shvar(void *data_, void *context_);
 
 #endif

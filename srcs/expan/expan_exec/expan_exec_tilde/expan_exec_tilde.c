@@ -14,7 +14,7 @@
 #include "expan/expan_exec.h"
 #include "expan/expan_tilde.h"
 
-#include "environment.h"
+#include "shenv/shenv.h"
 #include "pwd.h"
 
 static char		*expan_exec_tilde_get_home()

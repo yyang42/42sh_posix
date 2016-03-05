@@ -11,16 +11,16 @@
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "environment.h"
+#include "shenv/shenv.h"
 
 static void		push_env_to_arr(void *data, void *arr)
 {
-	t_envvar	*var;
+	t_shvar	*var;
 	char				*str;
 
 	var = data;
-	str = twl_strjoin(var->envvar_key, "=");
-	str = twl_strjoinfree(str, var->envvar_value, 'l');
+	str = twl_strjoin(var->shvar_key, "=");
+	str = twl_strjoinfree(str, var->shvar_value, 'l');
 	twl_arr_push(arr, str);
 }
 
@@ -28,7 +28,7 @@ void			**environment_get_env_arr(t_shenv *this)
 {
 	void **arr;
 
-	arr = twl_arr_new(twl_lst_len(this->envvars));
-	twl_lst_iter(this->envvars, push_env_to_arr, arr);
+	arr = twl_arr_new(twl_lst_len(this->shvars));
+	twl_lst_iter(this->shvars, push_env_to_arr, arr);
 	return (arr);
 }

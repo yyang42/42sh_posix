@@ -10,28 +10,28 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "environment.h"
+#include "shenv/shenv.h"
 
 static bool			find_env_key(void *data, void *context)
 {
-	t_envvar	*var;
+	t_shvar	*var;
 	char				*str;
 
 	var = data;
 	str = context;
-	return (twl_strcmp(var->envvar_key, str) == 0);
+	return (twl_strcmp(var->shvar_key, str) == 0);
 }
 
 char				*environment_getenv_value(t_shenv *this, char *key)
 {
-	t_envvar	*var;
+	t_shvar	*var;
 
 	if (key == NULL || *key == '\0')
 	{
 		errno = EINVAL;
 		return (NULL);
 	}
-	var = (t_envvar *)(twl_lst_find(this->envvars,
+	var = (t_shvar *)(twl_lst_find(this->shvars,
 													find_env_key, key));
-	return (var ? var->envvar_value : NULL);
+	return (var ? var->shvar_value : NULL);
 }

@@ -11,25 +11,25 @@
 /* ************************************************************************** */
 
 #include "builtin/cmds/builtin_readonly.h"
-#include "environment.h"
+#include "shenv/shenv.h"
 #include "twl_opt.h"
 #include "twl_lst.h"
 
 static void			readonly_something(void *data)
 {
-	t_envvar	*envvar;
+	t_shvar	*shvar;
 
-	envvar = data;
-	if (envvar->envvar_read_only == READ_ONLY)
+	shvar = data;
+	if (shvar->shvar_read_only == READ_ONLY)
 	{
-		if (envvar->envvar_value_is_set == true)
-			twl_printf("readonly %s=\"%s\"\n", envvar->envvar_key, envvar->envvar_value);
+		if (shvar->shvar_value_is_set == true)
+			twl_printf("readonly %s=\"%s\"\n", shvar->shvar_key, shvar->shvar_value);
 		else
-			twl_printf("readonly %s\n", envvar->envvar_key);
+			twl_printf("readonly %s\n", shvar->shvar_key);
 	}
 }
 
 void				builtin_readonly_verbose(t_shenv *env)
 {
-	twl_lst_iter0(env->envvars, readonly_something);
+	twl_lst_iter0(env->shvars, readonly_something);
 }

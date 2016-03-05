@@ -1,6 +1,6 @@
-for namenvvar in aa bb cc
+for namshvar in aa bb cc
 do
-	echo $namenvvar
+	echo $namshvar
 	for innervar in 11 22 33
 	do
 		echo $innervar

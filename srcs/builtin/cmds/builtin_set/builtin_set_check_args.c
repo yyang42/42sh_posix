@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "builtin/cmds/builtin_set.h"
-#include "environment.h"
+#include "shenv/shenv.h"
 #include "twl_lst.h"
 
 static void			add_pos_param(void *data, void *context)

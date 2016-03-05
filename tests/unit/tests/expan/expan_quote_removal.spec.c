@@ -1,7 +1,7 @@
 #include <project.h>
 
 #include "basics.h"
-#include "environment.h"
+#include "shenv/shenv.h"
 #include "expan/expan_quote_removal.h"
 
 static void simple_quote_test(t_test *test)

@@ -14,7 +14,7 @@
 #include "expan/expan_exec.h"
 #include "expan/expan_param.h"
 
-#include "environment.h"
+#include "shenv/shenv.h"
 #include "twl_stdlib.h"
 #include "twl_ctype.h"
 
@@ -22,7 +22,7 @@ bool			expan_exec_param_var(t_expan_token *expan_token)
 {
 	t_expan_param		*expan_param;
 	t_shenv		*env;
-	t_envvar	*var;
+	t_shvar	*var;
 	char				*temp;
 
 	expan_param = expan_token->expan_data;
@@ -41,9 +41,9 @@ bool			expan_exec_param_var(t_expan_token *expan_token)
 	else
 	{
 		var = environment_get(env, expan_param->parameter);
-		if (var && var->envvar_value_is_set == 1 && var->envvar_value)
+		if (var && var->shvar_value_is_set == 1 && var->shvar_value)
 		{
-			expan_token->res = twl_strdup(var->envvar_value);
+			expan_token->res = twl_strdup(var->shvar_value);
 		}
 	}
 	if (!expan_token->res)

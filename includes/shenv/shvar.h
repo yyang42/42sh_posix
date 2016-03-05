@@ -10,18 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shenv/shenv.h"
+#ifndef SHVAR_H
+# define SHVAR_H
 
-void				environment_set_last_exit_status(int status)
+# include "basics.h"
+
+typedef enum				e_shvar_type
 {
-	t_shenv *env;
+	ENVIRONMENT,
+	LOCAL
+}							t_shvar_type;
 
-	env = environment_singleton();
-	env->info.last_exit_status = status;
-}
-
-void				environment_set_last_exit_status_2(t_shenv *env,
-																	int status)
+typedef struct				s_shvar
 {
-	env->info.last_exit_status = status;
-}
+	char					*shvar_key;
+	char					*shvar_value;
+	int						shvar_read_only;
+	t_shvar_type			shvar_type;
+	int						shvar_value_is_set;
+}							t_shvar;
+
+#endif

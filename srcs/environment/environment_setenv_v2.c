@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "environment.h"
+#include "shenv/shenv.h"
 #include <stdio.h>
 
-t_envvar		*environment_setenv_v2(t_shenv *this, char *key, char *value)
+t_shvar		*environment_setenv_v2(t_shenv *this, char *key, char *value)
 {
 	return (environment_setenv_or_setlocal__(this, key, value, ENVIRONMENT));
 }

@@ -1,7 +1,7 @@
 #include <project.h>
 
 #include "builtin/cmds/builtin_env.h"
-#include "environment.h"
+#include "shenv/shenv.h"
 #include <stdlib.h>
 #include <string.h>
 #include "twl_stdio.h"

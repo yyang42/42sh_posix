@@ -2,7 +2,7 @@
 
 #include "twl_arr.h"
 
-#include "environment.h"
+#include "shenv/shenv.h"
 
 extern char	**environ;
 
@@ -11,19 +11,19 @@ static void copied_env_is_equal_to_environ(t_test *test)
 	int					i;
 	t_lst_elem__		*temp;
 	t_shenv		*env;
-	t_envvar	*var;
+	t_shvar	*var;
 	char				*str;
 
 	(void)test;
 	env = environment_new();
 	environment_init(env);
 	i = 0;
-	temp = env->envvars->head;
+	temp = env->shvars->head;
 	while (environ[i] != NULL && temp != NULL)
 	{
-		var = (t_envvar*)temp->data;
-		str = twl_strjoin(var->envvar_key, "=");
-		str = twl_strjoinfree(str, var->envvar_value, 'l');
+		var = (t_shvar*)temp->data;
+		str = twl_strjoin(var->shvar_key, "=");
+		str = twl_strjoinfree(str, var->shvar_value, 'l');
 		mt_assert(twl_strcmp(environ[i], str) == 0);
 		i++;
 		temp = temp->next;

@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "builtin/cmds/builtin_readonly.h"
-#include "environment.h"
+#include "shenv/shenv.h"
 #include "twl_opt.h"
 #include "twl_lst.h"
 
@@ -19,14 +19,14 @@ static void			readonly_something(void *data, void *context)
 {
 	t_shenv		*env;
 	char				*arg;
-	t_envvar	*var;
+	t_shvar	*var;
 
 	arg = data;
 	env = context;
 	if (arg)
 	{
 		var = environment_setenv(env, arg);
-		var->envvar_read_only = READ_ONLY;
+		var->shvar_read_only = READ_ONLY;
 	}
 }
 

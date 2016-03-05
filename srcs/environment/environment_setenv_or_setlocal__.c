@@ -10,13 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "environment.h"
+#include "shenv/shenv.h"
 #include <stdio.h>
 
-t_envvar	*environment_setenv_or_setlocal__(t_shenv *this,
-										char *key, char *value, t_envvar_type envvar_type)
+t_shvar	*environment_setenv_or_setlocal__(t_shenv *this,
+										char *key, char *value, t_shvar_type shvar_type)
 {
-	t_envvar	*var;
+	t_shvar	*var;
 
 	var = NULL;
 	if (twl_strlen(key) > 0)
@@ -27,9 +27,9 @@ t_envvar	*environment_setenv_or_setlocal__(t_shenv *this,
 		}
 		else
 		{
-			var = envvar_new(key, value ? value : "",
-			envvar_type, value ? 1 : 0);
-			twl_lst_push(this->envvars, var);
+			var = shvar_new(key, value ? value : "",
+			shvar_type, value ? 1 : 0);
+			twl_lst_push(this->shvars, var);
 		}
 	}
 	errno = EINVAL;

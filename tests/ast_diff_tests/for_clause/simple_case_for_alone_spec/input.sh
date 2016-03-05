@@ -1,4 +1,4 @@
-for namenvvar
+for namshvar
 do
-	echo $namenvvar
+	echo $namshvar
 done

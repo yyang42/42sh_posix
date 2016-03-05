@@ -10,40 +10,40 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "environment.h"
+#include "shenv/shenv.h"
 
 static bool			find_env_key(void *data, void *context)
 {
-	t_envvar	*var;
+	t_shvar	*var;
 	char				*str;
 
 	var = data;
 	str = context;
-	return (twl_strcmp(var->envvar_key, str) == 0);
+	return (twl_strcmp(var->shvar_key, str) == 0);
 }
 
-t_envvar	*environment_setenv_value(t_shenv *this,
+t_shvar	*environment_setenv_value(t_shenv *this,
 	char *key, char *value, int value_is_set)
 {
-	t_envvar	*var;
+	t_shvar	*var;
 
 	if (key == NULL || *key == '\0')
 	{
 		errno = EINVAL;
 		return (NULL);
 	}
-	var = (t_envvar *)(twl_lst_find(this->envvars, find_env_key,
+	var = (t_shvar *)(twl_lst_find(this->shvars, find_env_key,
 																		key));
 	if (var != NULL)
 	{
-		twl_strdel(&var->envvar_value);
-		var->envvar_value = twl_strdup(value);
-		var->envvar_value_is_set = value_is_set;
+		twl_strdel(&var->shvar_value);
+		var->shvar_value = twl_strdup(value);
+		var->shvar_value_is_set = value_is_set;
 	}
 	else
 	{
-		var = envvar_new(key, value, LOCAL, value_is_set);
-		twl_lst_push(this->envvars, var);
+		var = shvar_new(key, value, LOCAL, value_is_set);
+		twl_lst_push(this->shvars, var);
 	}
 	return (var);
 }

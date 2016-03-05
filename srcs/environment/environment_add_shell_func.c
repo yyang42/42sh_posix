@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "builtin/cmds/builtin_set.h"
-#include "environment.h"
+#include "shenv/shenv.h"
 #include "twl_opt_elem.h"
 
 void				environment_add_shell_func(t_shenv *env,

@@ -15,7 +15,7 @@
 
 # include "basics.h"
 # include "xopt.h"
-# include "environment.h"
+# include "shenv/shenv.h"
 # include "utils.h"
 
 typedef struct		s_prog

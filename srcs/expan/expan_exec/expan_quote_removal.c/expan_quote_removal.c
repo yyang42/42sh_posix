@@ -12,7 +12,7 @@
 
 #include "basics.h"
 #include "expan/expan_quote_removal.h"
-#include "environment.h"
+#include "shenv/shenv.h"
 
 
 static void		expan_quote_removal_init(t_expan_quote_removal *q)
