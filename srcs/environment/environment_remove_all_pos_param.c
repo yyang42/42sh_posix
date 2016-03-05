@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/builtin_set.h"
+#include "builtin/cmds/builtin_set.h"
 #include "environment.h"
 #include "twl_opt_elem.h"
 

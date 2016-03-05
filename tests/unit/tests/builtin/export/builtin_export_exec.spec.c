@@ -1,8 +1,8 @@
 #include <project.h>
 
 #include "environment.h"
-#include "builtin/builtin_set.h"
-#include "builtin/builtin_export.h"
+#include "builtin/cmds/builtin_set.h"
+#include "builtin/cmds/builtin_export.h"
 #include "token/tokenizer.h"
 
 static void     simple_test(t_test *test)

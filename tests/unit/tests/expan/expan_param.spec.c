@@ -6,8 +6,8 @@
 #include "expan/expan_exec.h"
 #include "expan/expan_token_origin.h"
 #include "environment.h"
-#include "builtin/builtin_set.h"
-#include "builtin/builtin_export.h"
+#include "builtin/cmds/builtin_set.h"
+#include "builtin/cmds/builtin_export.h"
 #include "token/tokenizer.h"
 
 static void simple_pos_param(t_test *test)

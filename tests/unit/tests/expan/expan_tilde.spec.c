@@ -2,7 +2,7 @@
 
 #include "basics.h"
 #include "environment.h"
-#include "builtin/builtin_export.h"
+#include "builtin/cmds/builtin_export.h"
 #include "expan/expan_tilde.h"
 
 static void simple_tilde(t_test *test)

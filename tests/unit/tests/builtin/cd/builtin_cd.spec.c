@@ -1,11 +1,11 @@
 #include <project.h>
 
-#include "builtin/builtin_env.h"
+#include "builtin/cmds/builtin_env.h"
 #include "environment.h"
 #include <stdlib.h>
 #include <string.h>
 #include "twl_stdio.h"
-#include "builtin/builtin_cd.h"
+#include "builtin/cmds/builtin_cd.h"
 #include "token/tokenizer.h"
 #include <unistd.h>
 

@@ -21,6 +21,5 @@ t_ast_simple_command			*ast_simple_command_new(void)
 	ast_simple_command->redir_items = twl_lst_new();
 	ast_simple_command->assignment_items = twl_lst_new();
 	ast_simple_command->redir_fds = twl_lst_new();
-	ast_simple_command->builtin_func = ast_simple_command_utils_get_builtin_func_dict();
 	return (ast_simple_command);
 }

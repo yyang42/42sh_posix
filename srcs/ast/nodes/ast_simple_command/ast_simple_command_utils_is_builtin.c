@@ -12,6 +12,7 @@
 
 #include "ast/nodes/ast_simple_command.h"
 #include "builtin/builtin.h"
+#include "data.h"
 
 bool			ast_simple_command_utils_is_builtin(char *cmd_name)
 {
@@ -23,6 +24,6 @@ bool			ast_simple_command_utils_is_builtin(char *cmd_name)
 
 	t_dict	*dict;
 
-	dict = ast_simple_command_utils_get_builtin_func_dict();
+	dict = data_builtins();
 	return twl_dict_get(dict, cmd_name);
 }

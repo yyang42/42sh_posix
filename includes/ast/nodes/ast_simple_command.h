@@ -35,7 +35,6 @@ typedef struct			s_ast_simple_command
 	t_lst				*redir_items;
 	t_lst				*assignment_items;
 	t_lst				*redir_fds;
-	t_dict				*builtin_func;
 }						t_ast_simple_command;
 
 struct s_ast_compound_command;
@@ -55,6 +54,6 @@ bool					ast_simple_command_expan(t_ast_simple_command *cmd);
 bool					ast_simple_command_utils_is_builtin(char *cmd);
 char					*ast_simple_command_utils_get_binary_path(char *cmd, t_shenv *env);
 void					ast_simple_command_execve(char *path, t_lst *tokens, char **env);
-t_dict					*ast_simple_command_utils_get_builtin_func_dict(void);
+
 
 #endif
