@@ -25,7 +25,7 @@ static void			export_something_tokens(void *token_, void *env)
 	t_token			*token;
 
 	token = token_;
-	shenv_setenv_or_setlocal__(env, token->text, NULL, LOCAL);
+	shenv_setenv_or_setlocal__(env, token->text, NULL, false);
 }
 
 void				builtin_export_add(t_shenv *env, t_lst *tokens)

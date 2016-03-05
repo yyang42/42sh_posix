@@ -13,12 +13,12 @@
 #include <fcntl.h>
 #include "prog.h"
 #include "shenv/shenv.h"
+#include "ast/ast.h"
 #include "builtin/cmds/builtin_set.h"
 #include "twl_get_next_line.h"
 
 int					prog_run(t_prog *prog)
 {
-	t_shenv	*env;
 	char			*input;
 	int				exit_code;
 
@@ -34,7 +34,6 @@ int					prog_run(t_prog *prog)
 		input = twl_file_to_str(twl_lst_get(xopt_singleton()->opt->args, 0));
 	}
 
-	env = shenv_singleton();
 	if (input)
 	{
 		if (xopt_singleton()->print_ast)
@@ -43,14 +42,15 @@ int					prog_run(t_prog *prog)
 			prog_print_arexp(prog, input);
 		else
 		{
-			exit_code = prog_run_input(prog, input);
+			exit_code = ast_exec_string(input);
 		}
 	}
 	else
 	{
 		prog_signal_handling();
-		prog_main_loop(prog, env);
+		prog_main_loop(prog);
 	}
 	free(input);
 	return (exit_code);
+	(void)prog;
 }

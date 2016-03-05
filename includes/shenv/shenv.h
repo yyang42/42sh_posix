@@ -14,7 +14,7 @@
 # define SHENV_H
 
 # include "basics.h"
-# include "shenv/shvar.h"
+# include "shenv/shvar_mgr.h"
 
 # include "twl_dict.h"
 # include <errno.h>
@@ -52,11 +52,12 @@ void				shenv_init(t_shenv *this);
 t_shvar				*shenv_setenv(t_shenv *this, char *str);
 t_shvar				*shenv_setenv_key_value(t_shenv *this, char *key, char *value);
 char				*shenv_getenv_value(t_shenv *this, char *key);
-t_shvar				*shenv_setenv_value(t_shenv *t, char *k, char *v, int value_is_set);
+t_shvar				*shenv_setenv_value(t_shenv *t, char *k, char *v);
 
 void				shenv_print(t_shenv *this);
 void				shenv_unsetenv(t_shenv *this, char *str);
 t_shenv				*shenv_singleton(void);
+t_shenv				*shenv_singleton_setter(t_shenv *src_env);
 int					shenv_flag_exist(t_shenv *this, char *flag);
 char				*shenv_concat_flags(t_shenv *env);
 void				shenv_print_flags(t_shenv *env);
@@ -67,7 +68,7 @@ void				shenv_remove_flag(char *flag, t_shenv *env);
 void				shenv_add_pos_param(char *param, t_shenv *env);
 void				shenv_remove_all_pos_params(t_shenv *env);
 char				*shenv_concat_pos_param_char(t_shenv *env, char *sep);
-t_shvar				*shenv_setenv_or_setlocal__(t_shenv *this, char *key, char *value, t_shvar_type type);
+t_shvar				*shenv_setenv_or_setlocal__(t_shenv *this, char *key, char *value, bool exported);
 t_shvar				*shenv_get(t_shenv *this, char *key);
 void				**shenv_get_env_arr(t_shenv *this);
 int					shenv_get_last_exit_status(void);

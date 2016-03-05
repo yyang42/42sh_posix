@@ -17,7 +17,7 @@ int					builtin_cd_utils_free_all(char *dirname, char **args, t_opt *opt)
 	if (dirname)
 		free(dirname);
 	if (args)
-		twl_arr_del(args, free);
+		twl_arr_del(args, NULL);
 	if (opt)
 		twl_opt_del(opt);
 	return (0);

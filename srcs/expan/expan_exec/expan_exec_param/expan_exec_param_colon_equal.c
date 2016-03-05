@@ -18,7 +18,7 @@
 static void		set_env_and_token(t_shenv *env, t_expan_token *expan_tok,
 	t_expan_param *data)
 {
-	shenv_setenv_value(env, data->parameter, data->word, 1);
+	shenv_setenv_value(env, data->parameter, data->word);
 	expan_tok->res = twl_strdup(data->word);
 }
 
@@ -35,7 +35,7 @@ bool			expan_exec_params_colon_equal(t_expan_token *expan_token)
 		shvar = shenv_get(env, data->parameter);
 		if (shvar )
 		{
-			if (shvar->shvar_value != NULL && shvar->shvar_value_is_set == 1)
+			if (shvar->shvar_value)
 				expan_token->res = twl_strdup(shvar->shvar_value);
 			else
 				set_env_and_token(env, expan_token, data);

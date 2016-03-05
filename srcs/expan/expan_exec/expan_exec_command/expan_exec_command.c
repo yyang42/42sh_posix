@@ -12,17 +12,13 @@
 
 #include "expan/expan_exec.h"
 #include "expan/expan_command.h"
-#include "prog.h"
+#include "ast/ast.h"
 #include <stdio.h>
 #include <fcntl.h>
 
 static void		expan_exec_execute(char *command)
 {
-	t_prog			*prog;
-
-	prog = prog_new();
-	prog_run_input(prog, command);
-	prog_del(prog);
+	ast_exec_string(command);
 }
 
 bool			expan_exec_command(t_expan_token *expan_token)

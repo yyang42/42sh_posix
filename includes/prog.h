@@ -26,10 +26,9 @@ typedef struct		s_prog
 t_prog				*prog_new(void);
 void				prog_del(t_prog *prog);
 int					prog_run(t_prog *prog);
-int					prog_run_input(t_prog *prog, char *input);
 int					prog_print_ast(t_prog *prog, char *input);
 int					prog_print_arexp(t_prog *prog, char *input);
-void				prog_main_loop(t_prog *prog, t_shenv *env);
+void				prog_main_loop(t_prog *prog);
 void				prog_signal_handling(void);
 
 #endif

@@ -23,8 +23,7 @@ static void			exit_if_function_max_depth_reached(t_shenv *env,
 	}
 }
 
-void				ast_simple_command_exec_function(t_ast_simple_command *this,
-									t_shenv *env, t_lst *tokens,
+void				ast_simple_command_exec_function(t_shenv *env, t_lst *tokens,
 									struct s_ast_compound_command *compound_cmd)
 {
 	t_lst			*pos_params_original;
@@ -39,5 +38,4 @@ void				ast_simple_command_exec_function(t_ast_simple_command *this,
 	ast_compound_command_exec(compound_cmd);
 	twl_lst_del(tokens_str_lst, NULL);
 	env->pos_params = pos_params_original;
-	(void)this;
 }

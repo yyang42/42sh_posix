@@ -13,7 +13,7 @@
 #include "shenv/shenv.h"
 #include <stdio.h>
 
-t_shvar		*shenv_setenv(t_shenv *this, char *str)
+t_shvar				*shenv_setenv(t_shenv *this, char *str)
 {
 	t_lst			*segs;
 	char			*key;
@@ -33,5 +33,5 @@ t_shvar		*shenv_setenv(t_shenv *this, char *str)
 		value = NULL;
 
 	}
-	return (shenv_setenv_or_setlocal__(this, key, value, ENVIRONMENT));
+	return (shenv_setenv_or_setlocal__(this, key, value, true));
 }

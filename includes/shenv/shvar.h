@@ -15,25 +15,18 @@
 
 # include "basics.h"
 
-# define READ_ONLY 1
-# define NOT_READ_ONLY 0
-
-typedef enum				e_shvar_type
-{
-	ENVIRONMENT,
-	LOCAL
-}							t_shvar_type;
-
 typedef struct				s_shvar
 {
 	char					*shvar_key;
 	char					*shvar_value;
 	int						shvar_read_only;
-	t_shvar_type			shvar_type;
-	int						shvar_value_is_set;
+	bool					shvar_exported;
 }							t_shvar;
 
-t_shvar				*shvar_new(char *key, char *value, t_shvar_type type, bool value_is_set);
+t_shvar				*shvar_new(char *key, char *value, bool exported);
 void				shvar_del(t_shvar *shvar);
+void				shvar_del_void(t_shvar *shvar);
+t_shvar				*shvar_copy(t_shvar *src);
+void				*shvar_copy_void(void *src);
 
 #endif

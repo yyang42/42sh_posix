@@ -29,7 +29,7 @@ bool			expan_exec_params_colon_plus(t_expan_token *expan_token)
 		shvar = shenv_get(env, data->parameter);
 		if (shvar)
 		{
-			if (shvar->shvar_value != NULL && shvar->shvar_value_is_set == 1)
+			if (shvar->shvar_value)
 				expan_token->res = expan_exec_param_word_expan(data->word);
 			else
 				expan_token->res = twl_strdup("");

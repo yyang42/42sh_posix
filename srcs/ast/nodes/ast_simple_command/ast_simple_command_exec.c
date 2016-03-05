@@ -20,62 +20,12 @@ static void			iter_assign_fn(void *assign_, void *env_)
 {
 	t_ast_assignment		*assign;
 	t_shenv			*env;
-	t_shvar_type	type;
+	bool			exported;
 
 	assign = assign_;
 	env = env_;
-	type = (env == shenv_singleton() ? LOCAL : ENVIRONMENT);
-	shenv_setenv_or_setlocal__(env, assign->key, assign->value, type);
-}
-
-static void			execute_builtin(char *cmd_name, t_lst *tokens, t_shenv *env)
-{
-	t_builtin		*builtin;
-
-	builtin = builtin_mgr_find_by_name(data_builtins(), cmd_name);
-	if (builtin)
-	{
-		builtin->builtin_fn(tokens, env);
-	}
-}
-
-static void			execute_simple_command(t_ast_simple_command *cmd,
-	t_shenv *env)
-{
-	char			**env_arr;
-	char			*path;
-	char			*token_joined;
-	char			*first_str;
-
-	if (twl_lst_len(cmd->command_tokens) == 0)
-		return ;
-	token_joined = token_mgr_strjoin(cmd->command_tokens, " ");
-	env_arr = (char **)shenv_get_env_arr(env);
-	if (twl_lst_len(cmd->command_tokens) > 0)
-	{
-		first_str = token_mgr_first(cmd->command_tokens)->text;
-		if (builtin_mgr_find_by_name(data_builtins(), first_str))
-		{
-			execute_builtin(first_str, cmd->command_tokens, env);
-		}
-		else if (shenv_get_shell_func(env, first_str))
-		{
-			ast_simple_command_exec_function(cmd, env, cmd->command_tokens,
-								shenv_get_shell_func(env, first_str));
-		}
-		else
-		{
-			path = ast_simple_command_utils_get_binary_path(first_str, env);
-			ast_simple_command_execve(path, cmd->command_tokens, env_arr);
-			free(path);
-		}
-	}
-	else
-	{
-		error_command_not_found("");
-	}
-	twl_arr_del(env_arr, free);
-	free(token_joined);
+	exported = (env != shenv_singleton());
+	shenv_setenv_or_setlocal__(env, assign->key, assign->value, exported);
 }
 
 static void			ast_simple_command_exec_with_redirs(t_ast_simple_command *cmd,
@@ -84,7 +34,7 @@ static void			ast_simple_command_exec_with_redirs(t_ast_simple_command *cmd,
 	if (ast_redir_mgr_check_files(cmd->redir_items) == false)
 		return ;
 	ast_redir_fd_mgr_init(cmd->redir_fds, cmd->redir_items);
-	execute_simple_command(cmd, env);
+	ast_simple_command_exec_tokens(cmd->command_tokens, env);
 	ast_redir_fd_mgr_close(cmd->redir_fds);
 }
 

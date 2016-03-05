@@ -11,53 +11,38 @@
 /* ************************************************************************** */
 
 #include "builtin/cmds/builtin_env.h"
+#include "ast/ast.h"
 
-static void			get_utility(void *data_, void *context)
+
+static int			exec_remaining_command(t_lst *tokens)
 {
-	t_env_args		*env;
-	char			*data;
+	int				exit_code;
 
-	data = data_;
-	env = context;
-	if (!twl_strchr(data, '=') && env->has_utility == 0)
+	if (token_mgr_first_equ(tokens, "-i"))
 	{
-		env->utility = twl_strdup(data);
-		env->has_utility = 1;
+		twl_lst_pop_front(tokens);
+		exit_code = ast_exec_tokens_with_fork(tokens);
 	}
-}
-
-static void			init_env_args(t_env_args *env, t_lst *tokens)
-{
-	env->utility = NULL;
-	env->has_utility = 0;
-	env->env_arr = NULL;
-	env->tokens = tokens;
-}
-
-int					builtin_env_exec(t_lst *tokens, t_shenv *this)
-{
-	t_shenv		*clone;
-	t_opt				*opt;
-	t_env_args			env;
-	char				**args;
-
-	clone = NULL;
-	init_env_args(&env, tokens);
-	args = token_mgr_to_str_arr(tokens);
-	opt = twl_opt_new(args, "i");
-	if (builtin_utils_check_invalid_opts(opt, "env", ENV_OPT_VALID_OPTS))
-		return (-1);
-	clone = !twl_lst_len(opt->opts) ? shenv_clone(this)
-		: shenv_new();
-	twl_lst_iter(opt->args, builtin_env_utils_add_shvar, clone);
-	twl_lst_iter(opt->args, get_utility, &env);
-	env.env_arr = (char **)shenv_get_env_arr(clone);
-	if (env.has_utility)
-		builtin_env_exec_do(&env, this);
 	else
-		shenv_print(clone);
-	shenv_del(clone);
-	twl_opt_del(opt);
-	free(args);
-	return (0);
+	{
+		exit_code = ast_exec_tokens(tokens);
+	}
+	return (exit_code);
+}
+
+int					builtin_env_exec(t_lst *tokens, t_shenv *env)
+{
+	int				exit_code;
+
+	twl_lst_pop_front(tokens);
+	if (twl_lst_len(tokens) == 0)
+	{
+		shenv_print(env);
+		exit_code = 0;
+	}
+	else
+	{
+		exit_code = exec_remaining_command(tokens);
+	}
+	return (exit_code);
 }

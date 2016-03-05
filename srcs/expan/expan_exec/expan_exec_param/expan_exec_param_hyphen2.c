@@ -28,7 +28,7 @@ bool			expan_exec_params_hyphen2(t_expan_token *expan_token)
 		shvar = shenv_get(env, data->parameter);
 		if (shvar)
 		{
-			if (shvar->shvar_value && shvar->shvar_value_is_set == 1)
+			if (shvar->shvar_value)
 				expan_token->res = twl_strdup(shvar->shvar_value);
 			else
 				expan_token->res = twl_strdup("");

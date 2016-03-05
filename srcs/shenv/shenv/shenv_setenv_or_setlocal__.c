@@ -14,7 +14,7 @@
 #include <stdio.h>
 
 t_shvar	*shenv_setenv_or_setlocal__(t_shenv *this,
-										char *key, char *value, t_shvar_type shvar_type)
+										char *key, char *value, bool exported)
 {
 	t_shvar	*var;
 
@@ -23,12 +23,11 @@ t_shvar	*shenv_setenv_or_setlocal__(t_shenv *this,
 	{
 		if (shenv_getenv_value(this, key))
 		{
-			var = shenv_setenv_value(this, key, value ? value : "", value ? 1 : 0);
+			var = shenv_setenv_value(this, key, value);
 		}
 		else
 		{
-			var = shvar_new(key, value ? value : "",
-			shvar_type, value ? 1 : 0);
+			var = shvar_new(key, value, exported);
 			twl_lst_push(this->shvars, var);
 		}
 	}

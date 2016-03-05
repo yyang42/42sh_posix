@@ -10,25 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <prog.h>
-#include <ast/ast.h>
+#include "ast/ast.h"
 
-int					prog_run_input(t_prog *this, char *input)
+int					ast_exec_string(char *input)
 {
-	t_ast			*ast;
 	int				exit_code;
+	t_lst			*tokens;
 
-	ast = ast_new(input);
-	if (ast->error_msg)
-	{
-		twl_dprintf(2, "%s\n", ast->error_msg);
-		exit_code = 1;
-	}
-	else
-	{
-		exit_code = ast_exec(ast);
-	}
-	ast_del(ast);
+	tokens = tokenizer_tokenize(input);
+	exit_code = ast_exec_tokens(tokens);
+	token_mgr_del_inner(tokens);
 	return (exit_code);
-	(void)this;
 }
