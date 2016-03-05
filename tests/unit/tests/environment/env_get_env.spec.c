@@ -74,11 +74,11 @@ static void	test_set_get_env_value(t_test *test)
 	t_shenv		*env;
 
 	env = shenv_new();
-	shenv_setenv_value(env, "hello", "pouet", 1);
+	shenv_setenv_value(env, "hello", "pouet");
 	mt_assert(twl_strcmp(shenv_getenv_value(env, "hello"), "pouet") == 0);
-	shenv_setenv_value(env, "hello", "", 1);
+	shenv_setenv_value(env, "hello", "");
 	mt_assert(twl_strcmp(shenv_getenv_value(env, "hello"), "") == 0);
-	shenv_setenv_value(env, "hello", "=======POUET==POUET=POUET==", 1);
+	shenv_setenv_value(env, "hello", "=======POUET==POUET=POUET==");
 	mt_assert(twl_strcmp(shenv_getenv_value(env, "hello"), "=======POUET==POUET=POUET==") == 0);
 	mt_assert(shenv_getenv_value(env, "not_found") == NULL);
 	shenv_del(env);
@@ -91,10 +91,10 @@ static void	test_clone(t_test *test)
 	t_shenv		*clone;
 
 	env = shenv_new();
-	shenv_setenv_value(env, "quiche", "lorraine", 1);
+	shenv_setenv_value(env, "quiche", "lorraine");
 	clone = shenv_clone(env);
 	shenv_unsetenv(env, "quiche");
-	shenv_setenv_value(env, "tarte", "aupomme", 1);
+	shenv_setenv_value(env, "tarte", "aupomme");
 	mt_assert(twl_strcmp(shenv_getenv_value(clone, "quiche"), "lorraine") == 0);
 	mt_assert(shenv_getenv_value(clone, "tarte") == NULL);
 	shenv_del(env);

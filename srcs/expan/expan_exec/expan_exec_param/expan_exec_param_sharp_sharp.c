@@ -42,7 +42,7 @@ bool			expan_exec_params_sharp_sharp(t_expan_token *expan_token)
 	if (data->parameter && twl_strcmp(data->parameter, ""))
 	{
 		shvar = shenv_get(env, data->parameter);
-		if (shvar && shvar->shvar_value_is_set)
+		if (shvar && shvar->shvar_value)
 		{
 			if (shvar->shvar_value != NULL && shvar->shvar_value)
 				expan_token->res = ft_treat_sharp(shvar->shvar_value, data->word);

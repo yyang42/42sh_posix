@@ -13,20 +13,6 @@
 #include "shenv/shenv.h"
 #include "twl_opt_elem.h"
 
-static void			*copy_fn(void *data)
-{
-	t_shvar 		*copy;
-	t_shvar			*orig;
-
-	orig = data;
-	copy = twl_malloc_x0(sizeof(t_shvar));
-	copy->shvar_key = twl_strdup(orig->shvar_key);
-	copy->shvar_value = orig->shvar_value ? twl_strdup(orig->shvar_value) : NULL;
-	copy->shvar_read_only = orig->shvar_read_only;
-	copy->shvar_type = orig->shvar_type;
-	return (copy);
-}
-
 static void			*copy_flags_fn(void *data_)
 {
 	t_opt_elem *opt_elem;
@@ -50,12 +36,12 @@ static void			*copy_dict_fn(void *data_)
 		return (NULL);
 }
 
-t_shenv		*shenv_clone(t_shenv *this)
+t_shenv				*shenv_clone(t_shenv *this)
 {
 	t_shenv *clone;
 
 	clone = twl_malloc_x0(sizeof(t_shenv));
-	clone->shvars = twl_lst_copy(this->shvars, copy_fn);
+	clone->shvars = twl_lst_copy(this->shvars, shvar_copy_void);
 	clone->flag_verbose = twl_lst_copy(this->flag_verbose, copy_dict_fn);
 	clone->shell_func = twl_lst_copy(this->shell_func, copy_dict_fn);
 	clone->pos_params = twl_lst_new();

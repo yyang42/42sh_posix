@@ -52,7 +52,7 @@ void				shenv_init(t_shenv *this);
 t_shvar				*shenv_setenv(t_shenv *this, char *str);
 t_shvar				*shenv_setenv_key_value(t_shenv *this, char *key, char *value);
 char				*shenv_getenv_value(t_shenv *this, char *key);
-t_shvar				*shenv_setenv_value(t_shenv *t, char *k, char *v, int value_is_set);
+t_shvar				*shenv_setenv_value(t_shenv *t, char *k, char *v);
 
 void				shenv_print(t_shenv *this);
 void				shenv_unsetenv(t_shenv *this, char *str);

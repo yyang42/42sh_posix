@@ -23,11 +23,11 @@ t_shvar	*shenv_setenv_or_setlocal__(t_shenv *this,
 	{
 		if (shenv_getenv_value(this, key))
 		{
-			var = shenv_setenv_value(this, key, value, (bool)value);
+			var = shenv_setenv_value(this, key, value);
 		}
 		else
 		{
-			var = shvar_new(key, value, shvar_type, (bool)value);
+			var = shvar_new(key, value, shvar_type);
 			twl_lst_push(this->shvars, var);
 		}
 	}

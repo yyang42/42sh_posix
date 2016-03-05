@@ -22,8 +22,7 @@ static bool			find_env_key(void *data, void *context)
 	return (twl_strcmp(var->shvar_key, str) == 0);
 }
 
-t_shvar	*shenv_setenv_value(t_shenv *this,
-	char *key, char *value, int value_is_set)
+t_shvar				*shenv_setenv_value(t_shenv *this, char *key, char *value)
 {
 	t_shvar	*var;
 
@@ -37,11 +36,10 @@ t_shvar	*shenv_setenv_value(t_shenv *this,
 	{
 		twl_strdel(&var->shvar_value);
 		var->shvar_value = twl_strdup(value);
-		var->shvar_value_is_set = value_is_set;
 	}
 	else
 	{
-		var = shvar_new(key, value, LOCAL, value_is_set);
+		var = shvar_new(key, value, LOCAL);
 		twl_lst_push(this->shvars, var);
 	}
 	return (var);

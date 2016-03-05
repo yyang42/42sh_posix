@@ -13,7 +13,7 @@
 #include <errno.h>
 #include "shenv/shvar.h"
 
-t_shvar				*shvar_new(char *key, char *value, t_shvar_type shvar_type, bool value_is_set)
+t_shvar				*shvar_new(char *key, char *value, t_shvar_type shvar_type)
 {
 	t_shvar	*this;
 
@@ -27,6 +27,5 @@ t_shvar				*shvar_new(char *key, char *value, t_shvar_type shvar_type, bool valu
 	this->shvar_key = twl_strdup(key);
 	this->shvar_read_only = NOT_READ_ONLY;
 	this->shvar_type = shvar_type;
-	this->shvar_value_is_set = value_is_set;
 	return (this);
 }

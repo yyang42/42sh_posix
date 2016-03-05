@@ -30,11 +30,12 @@ typedef struct				s_shvar
 	char					*shvar_value;
 	int						shvar_read_only;
 	t_shvar_type			shvar_type;
-	int						shvar_value_is_set;
 }							t_shvar;
 
-t_shvar				*shvar_new(char *key, char *value, t_shvar_type type, bool value_is_set);
+t_shvar				*shvar_new(char *key, char *value, t_shvar_type type);
 void				shvar_del(t_shvar *shvar);
 void				shvar_del_void(t_shvar *shvar);
+t_shvar				*shvar_copy(t_shvar *src);
+void				*shvar_copy_void(void *src);
 
 #endif
