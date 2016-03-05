@@ -54,7 +54,7 @@ static void			execute_simple_command(t_ast_simple_command *cmd,
 	if (twl_lst_len(cmd->command_tokens) > 0)
 	{
 		first_str = token_mgr_first(cmd->command_tokens)->text;
-		if (ast_simple_command_utils_is_builtin(first_str))
+		if (builtin_mgr_find_by_name(data_builtins(), first_str))
 		{
 			execute_builtin(first_str, cmd->command_tokens, env);
 		}

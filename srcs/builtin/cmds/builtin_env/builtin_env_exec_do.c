@@ -47,7 +47,7 @@ static void			env_with_builtin(char *cmd_name, t_lst *tokens, t_shenv *env)
 	}
 }
 
-void				builtin_env_exec_do(t_env_args *env, t_shenv *this)
+void				builtin_env_exec_do(t_env_args *env_args, t_shenv *this)
 {
 	char	**fpaths;
 	int		index;
@@ -55,19 +55,19 @@ void				builtin_env_exec_do(t_env_args *env, t_shenv *this)
 
 	fpaths = environment_get_paths(this);
 	index = 1; // TODO: refactor logic
-	tokens_copy = twl_lst_copy(env->tokens, NULL);
+	tokens_copy = twl_lst_copy(env_args->tokens, NULL);
 	while (index--)
 		twl_lst_pop_front(tokens_copy);
-	if (fpaths && !twl_strchr(env->utility, '/'))
+	if (fpaths && !twl_strchr(env_args->utility, '/'))
 	{
-		if (!ast_simple_command_utils_is_builtin(env->utility))
-			twl_arr_iter(fpaths, exec_with_path, env);
+		if (!builtin_mgr_find_by_name(data_builtins(), env_args->utility))
+			twl_arr_iter(fpaths, exec_with_path, env_args);
 		else
-			env_with_builtin(env->utility, tokens_copy, this);
+			env_with_builtin(env_args->utility, tokens_copy, this);
 	}
 	else
 	{
-		ast_simple_command_execve(env->utility, tokens_copy, env->env_arr);
+		ast_simple_command_execve(env_args->utility, tokens_copy, env_args->env_arr);
 	}
 	twl_arr_del(fpaths, free);
 }
