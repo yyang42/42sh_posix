@@ -43,7 +43,7 @@ static void		fork_and_execute(char *path, t_lst *tokens, char **env)
 	twl_arr_del(args, NULL);
 }
 
-void			ast_simple_command_execution(char *path, t_lst *tokens, char **env)
+void			ast_simple_command_execve(char *path, t_lst *tokens, char **env)
 {
 	if (file_exists(path))
 	{

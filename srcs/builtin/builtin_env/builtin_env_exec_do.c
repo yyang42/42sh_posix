@@ -29,7 +29,7 @@ static void			exec_with_path(void *elem, void *context)
 		tokens_copy = twl_lst_copy(env->tokens, NULL);
 		while (index--)
 			twl_lst_pop_front(tokens_copy);
-		ast_simple_command_execution(path, tokens_copy, env->env_arr);
+		ast_simple_command_execve(path, tokens_copy, env->env_arr);
 	}
 }
 
@@ -66,7 +66,7 @@ void				builtin_env_exec_do(t_env_args *env, t_shenv *this)
 	}
 	else
 	{
-		ast_simple_command_execution(env->utility, tokens_copy, env->env_arr);
+		ast_simple_command_execve(env->utility, tokens_copy, env->env_arr);
 	}
 	twl_arr_del(fpaths, free);
 }

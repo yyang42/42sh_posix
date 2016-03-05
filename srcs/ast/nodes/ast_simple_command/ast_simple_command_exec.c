@@ -39,7 +39,7 @@ static void			execute_builtin(t_ast_simple_command *cmd, char *builtin,
 	}
 }
 
-void				execute_simple_command(t_ast_simple_command *cmd,
+static void			execute_simple_command(t_ast_simple_command *cmd,
 	t_shenv *env)
 {
 	char			**env_arr;
@@ -66,7 +66,7 @@ void				execute_simple_command(t_ast_simple_command *cmd,
 		else
 		{
 			path = ast_simple_command_utils_get_binary_path(first_str, env);
-			ast_simple_command_execution(path, cmd->command_tokens, env_arr);
+			ast_simple_command_execve(path, cmd->command_tokens, env_arr);
 			free(path);
 		}
 	}
