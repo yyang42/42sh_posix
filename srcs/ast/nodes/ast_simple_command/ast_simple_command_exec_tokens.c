@@ -46,7 +46,7 @@ void				ast_simple_command_exec_tokens(t_lst *command_tokens, t_shenv *env)
 		else if (shenv_get_shell_func(env, first_str))
 		{
 			ast_simple_command_exec_function(env, command_tokens,
-								shenv_get_shell_func(env, first_str));
+				shenv_get_shell_func(env, first_str));
 		}
 		else
 		{

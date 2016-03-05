@@ -12,14 +12,7 @@
 
 #include "shenv/shenv.h"
 
-t_shenv			*shenv_singleton(void)
+t_shenv				*shenv_singleton(void)
 {
-	static t_shenv	*env = NULL;
-
-	if (!env)
-	{
-		env = shenv_new();
-		shenv_init(env);
-	}
-	return (env);
+	return (shenv_singleton_setter(NULL));
 }

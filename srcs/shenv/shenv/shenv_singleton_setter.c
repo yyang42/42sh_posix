@@ -10,25 +10,22 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <prog.h>
-#include <ast/ast.h>
+#include "shenv/shenv.h"
 
-int					prog_run_input(t_prog *this, char *input)
+t_shenv				*shenv_singleton_setter(t_shenv *src_env)
 {
-	t_ast			*ast;
-	int				exit_code;
+	static t_shenv	*env = NULL;
 
-	ast = ast_new(input);
-	if (ast->error_msg)
+	if (src_env)
 	{
-		twl_dprintf(2, "%s\n", ast->error_msg);
-		exit_code = 1;
+		if (env)
+			shenv_del(env);
+		env = src_env;
 	}
-	else
+	if (!env)
 	{
-		exit_code = ast_exec(ast);
+		env = shenv_new();
+		shenv_init(env);
 	}
-	ast_del(ast);
-	return (exit_code);
-	(void)this;
+	return (env);
 }

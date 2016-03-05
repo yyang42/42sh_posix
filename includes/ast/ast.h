@@ -54,4 +54,6 @@ int					ast_exec(t_ast *ast);
 
 int					ast_expan(t_ast *ast);
 
+int					ast_exec_string(char *input);
+
 #endif

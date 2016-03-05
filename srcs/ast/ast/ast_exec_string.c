@@ -10,25 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROG_H
-# define PROG_H
+#include "ast/ast.h"
 
-# include "basics.h"
-# include "xopt.h"
-# include "shenv/shenv.h"
-# include "utils.h"
-
-typedef struct		s_prog
+int					ast_exec_string(char *input)
 {
-	void			*test;
-}					t_prog;
+	t_ast			*ast;
+	int				exit_code;
 
-t_prog				*prog_new(void);
-void				prog_del(t_prog *prog);
-int					prog_run(t_prog *prog);
-int					prog_print_ast(t_prog *prog, char *input);
-int					prog_print_arexp(t_prog *prog, char *input);
-void				prog_main_loop(t_prog *prog);
-void				prog_signal_handling(void);
-
-#endif
+	ast = ast_new(input);
+	if (ast->error_msg)
+	{
+		twl_dprintf(2, "%s\n", ast->error_msg);
+		exit_code = 1;
+	}
+	else
+	{
+		exit_code = ast_exec(ast);
+	}
+	ast_del(ast);
+	return (exit_code);
+}

@@ -57,6 +57,7 @@ t_shvar				*shenv_setenv_value(t_shenv *t, char *k, char *v);
 void				shenv_print(t_shenv *this);
 void				shenv_unsetenv(t_shenv *this, char *str);
 t_shenv				*shenv_singleton(void);
+t_shenv				*shenv_singleton_setter(t_shenv *src_env);
 int					shenv_flag_exist(t_shenv *this, char *flag);
 char				*shenv_concat_flags(t_shenv *env);
 void				shenv_print_flags(t_shenv *env);

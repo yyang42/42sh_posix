@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "prog.h"
+#include "ast/ast.h"
 #include "edit/edit.h"
 
 static char			*get_cmd(void)
@@ -29,20 +30,20 @@ static char			*get_cmd(void)
 	return (cmd);
 }
 
-void				prog_main_loop(t_prog *prog, t_shenv *env)
+void				prog_main_loop(t_prog *prog)
 {
-	char			*cmd;
+	char			*input;
 
 	while (1)
 	{
-		cmd = get_cmd();
-		if (twl_strequ(cmd, "exit"))
+		input = get_cmd();
+		if (twl_strequ(input, "exit"))
 		{
-			free(cmd);
+			free(input);
 			exit(0);
 		}
-		prog_run_input(prog, cmd);
-		free(cmd);
+		ast_exec_string(input);;
+		free(input);
 	}
-	(void)env;
+	(void)prog;
 }
