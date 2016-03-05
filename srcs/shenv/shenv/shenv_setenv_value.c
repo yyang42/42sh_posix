@@ -32,8 +32,7 @@ t_shvar	*shenv_setenv_value(t_shenv *this,
 		errno = EINVAL;
 		return (NULL);
 	}
-	var = (t_shvar *)(twl_lst_find(this->shvars, find_env_key,
-																		key));
+	var = (t_shvar *)(twl_lst_find(this->shvars, find_env_key, key));
 	if (var != NULL)
 	{
 		twl_strdel(&var->shvar_value);

@@ -14,7 +14,7 @@
 # define SHENV_H
 
 # include "basics.h"
-# include "shenv/shvar.h"
+# include "shenv/shvar_mgr.h"
 
 # include "twl_dict.h"
 # include <errno.h>

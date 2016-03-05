@@ -15,14 +15,16 @@
 
 static void			*copy_fn(void *data)
 {
-	t_shvar *var;
+	t_shvar 		*copy;
+	t_shvar			*orig;
 
-	var = twl_malloc_x0(sizeof(t_shvar));
-	var->shvar_key = twl_strdup(((t_shvar *)data)->shvar_key);
-	var->shvar_value = twl_strdup(((t_shvar *)data)->shvar_value);
-	var->shvar_read_only = ((t_shvar *)data)->shvar_read_only;
-	var->shvar_type = ((t_shvar *)data)->shvar_type;
-	return (var);
+	orig = data;
+	copy = twl_malloc_x0(sizeof(t_shvar));
+	copy->shvar_key = twl_strdup(orig->shvar_key);
+	copy->shvar_value = orig->shvar_value ? twl_strdup(orig->shvar_value) : NULL;
+	copy->shvar_read_only = orig->shvar_read_only;
+	copy->shvar_type = orig->shvar_type;
+	return (copy);
 }
 
 static void			*copy_flags_fn(void *data_)

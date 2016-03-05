@@ -22,9 +22,8 @@ t_shvar				*shvar_new(char *key, char *value, t_shvar_type shvar_type, bool valu
 		errno = EINVAL;
 		return (NULL);
 	}
-	value = value ? value : "";
 	this = twl_malloc_x0(sizeof(t_shvar));
-	this->shvar_value = twl_strdup(value);
+	this->shvar_value = value ? twl_strdup(value) : NULL;
 	this->shvar_key = twl_strdup(key);
 	this->shvar_read_only = NOT_READ_ONLY;
 	this->shvar_type = shvar_type;

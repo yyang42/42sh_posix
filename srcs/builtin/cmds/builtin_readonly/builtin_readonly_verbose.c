@@ -23,7 +23,7 @@ static void			readonly_something(void *data)
 	if (shvar->shvar_read_only == READ_ONLY)
 	{
 		if (shvar->shvar_value_is_set == true)
-			twl_printf("readonly %s=\"%s\"\n", shvar->shvar_key, shvar->shvar_value);
+			twl_printf("readonly %s=\"%s\"\n", shvar->shvar_key, shvar->shvar_value ? shvar->shvar_value : "");
 		else
 			twl_printf("readonly %s\n", shvar->shvar_key);
 	}

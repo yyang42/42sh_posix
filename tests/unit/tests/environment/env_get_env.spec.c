@@ -23,7 +23,7 @@ static void copied_env_is_equal_to_environ(t_test *test)
 	{
 		var = (t_shvar*)temp->data;
 		str = twl_strjoin(var->shvar_key, "=");
-		str = twl_strjoinfree(str, var->shvar_value, 'l');
+		str = twl_strjoinfree(str, var->shvar_value ? var->shvar_value : "", 'l');
 		mt_assert(twl_strcmp(environ[i], str) == 0);
 		i++;
 		temp = temp->next;

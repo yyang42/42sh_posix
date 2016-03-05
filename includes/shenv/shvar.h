@@ -35,5 +35,6 @@ typedef struct				s_shvar
 
 t_shvar				*shvar_new(char *key, char *value, t_shvar_type type, bool value_is_set);
 void				shvar_del(t_shvar *shvar);
+void				shvar_del_void(t_shvar *shvar);
 
 #endif
