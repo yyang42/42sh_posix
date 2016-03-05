@@ -14,32 +14,32 @@
 
 #include "data.h"
 
-t_dict				*data_builtins(void)
+t_lst				*data_builtins(void)
 {
-	static t_dict *dict;
+	static t_lst *builtins;
 
-	if (dict == NULL)
+	if (builtins == NULL)
 	{
-		dict = twl_dict_new();
-		twl_dict_add(dict, ".", &builtin_dot_exec);
-		twl_dict_add(dict, "alias", &builtin_alias_exec);
-		twl_dict_add(dict, "cd", &builtin_cd_exec);
-		twl_dict_add(dict, "echo", &builtin_echo_exec);
-		twl_dict_add(dict, "env", &builtin_env_exec);
-		twl_dict_add(dict, "eval", &builtin_eval_exec);
-		twl_dict_add(dict, "exit", &builtin_exit_exec);
-		twl_dict_add(dict, "export", &builtin_export_exec);
-		twl_dict_add(dict, "false", &builtin_false_exec);
-		twl_dict_add(dict, "jobs", &builtin_jobs_exec);
-		twl_dict_add(dict, "readonly", &builtin_readonly_exec);
-		twl_dict_add(dict, "set", &builtin_set_exec);
-		twl_dict_add(dict, "setenv", &builtin_setenv_exec);
-		twl_dict_add(dict, "shift", &builtin_shift_exec);
-		twl_dict_add(dict, "times", &builtin_times_exec);
-		twl_dict_add(dict, "true", &builtin_true_exec);
-		twl_dict_add(dict, "umask", &builtin_umask_exec);
-		twl_dict_add(dict, "unset", &builtin_unset_exec);
-		twl_dict_add(dict, "unsetenv", &builtin_unsetenv_exec);
+		builtins = twl_lst_new();
+		twl_lst_push_back(builtins, builtin_new(".", builtin_dot_exec));
+		twl_lst_push_back(builtins, builtin_new("alias", builtin_alias_exec));
+		twl_lst_push_back(builtins, builtin_new("cd", builtin_cd_exec));
+		twl_lst_push_back(builtins, builtin_new("echo", builtin_echo_exec));
+		twl_lst_push_back(builtins, builtin_new("env", builtin_env_exec));
+		twl_lst_push_back(builtins, builtin_new("eval", builtin_eval_exec));
+		twl_lst_push_back(builtins, builtin_new("exit", builtin_exit_exec));
+		twl_lst_push_back(builtins, builtin_new("export", builtin_export_exec));
+		twl_lst_push_back(builtins, builtin_new("false", builtin_false_exec));
+		twl_lst_push_back(builtins, builtin_new("jobs", builtin_jobs_exec));
+		twl_lst_push_back(builtins, builtin_new("readonly", builtin_readonly_exec));
+		twl_lst_push_back(builtins, builtin_new("set", builtin_set_exec));
+		twl_lst_push_back(builtins, builtin_new("setenv", builtin_setenv_exec));
+		twl_lst_push_back(builtins, builtin_new("shift", builtin_shift_exec));
+		twl_lst_push_back(builtins, builtin_new("times", builtin_times_exec));
+		twl_lst_push_back(builtins, builtin_new("true", builtin_true_exec));
+		twl_lst_push_back(builtins, builtin_new("umask", builtin_umask_exec));
+		twl_lst_push_back(builtins, builtin_new("unset", builtin_unset_exec));
+		twl_lst_push_back(builtins, builtin_new("unsetenv", builtin_unsetenv_exec));
 	}
-	return (dict);
+	return (builtins);
 }

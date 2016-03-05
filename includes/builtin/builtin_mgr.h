@@ -10,37 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/cmds/builtin_alias.h"
+#ifndef BUILTIN_MGR_H
+# define BUILTIN_MGR_H
 
-static void		iter_fn(void *elem, void *context)
-{
-	char			*str;
-	char			*tmp;
-	t_shenv	*this;
+# include "basics.h"
+# include "builtin/builtin.h"
 
-	str = elem;
-	this = context;
-	if (twl_strchr(str, '='))
-		builtin_alias_set(str, this);
-	else
-	{
-		tmp = builtin_alias_get(str, this);
-		if (tmp)
-			twl_printf("%s=\'%s\'\n", str, tmp);
-	}
-}
+t_lst				*builtin_mgr_new(void);
+void				builtin_mgr_del(t_lst *builtins);
+void				builtin_mgr_add(t_lst *builtins, t_builtin *builtin);
+void				builtin_mgr_remove(t_lst *builtins, t_builtin *builtin);
+void				builtin_mgr_print(t_lst *builtins);
 
-int					builtin_alias_exec(t_lst *tokens, t_shenv *this)
-{
-	char **tab;
-	char				*str;
+t_builtin			*builtin_mgr_find_by_name(t_lst *builtins, char *name);
 
-	str = token_mgr_strjoin(tokens, " "); // TODO: refactor
-	tab = twl_strsplit(str, ' ');
-	if (twl_arr_len(tab) == 1)
-		builtin_alias_print(this);
-	else if (twl_arr_len(tab) > 1)
-		twl_arr_iter(&tab[1], iter_fn, this);
-	twl_arr_del(tab, free);
-	return (0);
-}
+#endif

@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "ast/nodes/ast_simple_command.h"
-#include "builtin/builtin.h"
+#include "builtin/builtin_mgr.h"
 #include "data.h"
 
 bool			ast_simple_command_utils_is_builtin(char *cmd_name)
@@ -22,8 +22,8 @@ bool			ast_simple_command_utils_is_builtin(char *cmd_name)
 	// , "return", "shift", "set", "unset", "export", "setenv", "times"
 	// , "eval", ".", "readonly", "exit", "jobs", NULL};
 
-	t_dict	*dict;
+	t_lst	*builtins;
 
-	dict = data_builtins();
-	return twl_dict_get(dict, cmd_name);
+	builtins = data_builtins();
+	return builtin_mgr_find_by_name(builtins, cmd_name);
 }

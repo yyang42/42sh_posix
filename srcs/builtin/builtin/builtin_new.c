@@ -10,37 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/cmds/builtin_alias.h"
+#include "builtin/builtin.h"
 
-static void		iter_fn(void *elem, void *context)
+t_builtin			*builtin_new(char *name, t_builtin_fn *builtin_fn)
 {
-	char			*str;
-	char			*tmp;
-	t_shenv	*this;
+	t_builtin		*this;
 
-	str = elem;
-	this = context;
-	if (twl_strchr(str, '='))
-		builtin_alias_set(str, this);
-	else
-	{
-		tmp = builtin_alias_get(str, this);
-		if (tmp)
-			twl_printf("%s=\'%s\'\n", str, tmp);
-	}
-}
-
-int					builtin_alias_exec(t_lst *tokens, t_shenv *this)
-{
-	char **tab;
-	char				*str;
-
-	str = token_mgr_strjoin(tokens, " "); // TODO: refactor
-	tab = twl_strsplit(str, ' ');
-	if (twl_arr_len(tab) == 1)
-		builtin_alias_print(this);
-	else if (twl_arr_len(tab) > 1)
-		twl_arr_iter(&tab[1], iter_fn, this);
-	twl_arr_del(tab, free);
-	return (0);
+	this = twl_malloc_x0(sizeof(t_builtin));
+	this->builtin_name = twl_strdup(name);
+	this->builtin_fn = builtin_fn;
+	return (this);
 }

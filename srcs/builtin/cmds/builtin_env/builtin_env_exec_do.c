@@ -12,6 +12,7 @@
 
 #include "builtin/cmds/builtin_env.h"
 #include "data.h"
+#include "builtin/builtin_mgr.h"
 
 static void			exec_with_path(void *elem, void *context)
 {
@@ -34,14 +35,15 @@ static void			exec_with_path(void *elem, void *context)
 	}
 }
 
-static void			env_with_builtin(char *builtin, t_lst *tokens, t_shenv *env)
+// REMOVE DUPLICATE
+static void			env_with_builtin(char *cmd_name, t_lst *tokens, t_shenv *env)
 {
-	t_builtin_fn    *builtin_fn;
+	t_builtin		*builtin;
 
-	builtin_fn = twl_dict_get(data_builtins(), builtin);
-	if (builtin_fn)
+	builtin = builtin_mgr_find_by_name(data_builtins(), cmd_name);
+	if (builtin)
 	{
-		builtin_fn(tokens, env);
+		builtin->builtin_fn(tokens, env);
 	}
 }
 

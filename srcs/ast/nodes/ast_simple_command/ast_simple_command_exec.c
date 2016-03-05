@@ -13,7 +13,7 @@
 #include "ast/nodes/ast_simple_command.h"
 #include "ast/nodes/ast_assignment.h"
 #include "ast/nodes/ast_redir.h"
-#include "builtin/builtin.h"
+#include "builtin/builtin_mgr.h"
 #include "data.h"
 
 static void			iter_assign_fn(void *assign_, void *env_)
@@ -28,14 +28,14 @@ static void			iter_assign_fn(void *assign_, void *env_)
 	environment_setenv_or_setlocal__(env, assign->key, assign->value, type);
 }
 
-static void			execute_builtin(char *builtin, t_lst *tokens, t_shenv *env)
+static void			execute_builtin(char *cmd_name, t_lst *tokens, t_shenv *env)
 {
-	t_builtin_fn	*builtin_fn;
+	t_builtin		*builtin;
 
-	builtin_fn = twl_dict_get(data_builtins(), builtin);
-	if (builtin_fn)
+	builtin = builtin_mgr_find_by_name(data_builtins(), cmd_name);
+	if (builtin)
 	{
-		builtin_fn(tokens, env);
+		builtin->builtin_fn(tokens, env);
 	}
 }
 
