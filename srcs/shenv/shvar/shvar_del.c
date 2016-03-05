@@ -10,30 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SHVAR_H
-# define SHVAR_H
+#include "shenv/shvar.h"
 
-# include "basics.h"
-
-# define READ_ONLY 1
-# define NOT_READ_ONLY 0
-
-typedef enum				e_shvar_type
+void				shvar_del(t_shvar *shvar)
 {
-	ENVIRONMENT,
-	LOCAL
-}							t_shvar_type;
-
-typedef struct				s_shvar
-{
-	char					*shvar_key;
-	char					*shvar_value;
-	int						shvar_read_only;
-	t_shvar_type			shvar_type;
-	int						shvar_value_is_set;
-}							t_shvar;
-
-t_shvar				*shvar_new(char *key, char *value, t_shvar_type type, bool value_is_set);
-void				shvar_del(t_shvar *shvar);
-
-#endif
+	free(shvar);
+}

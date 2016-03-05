@@ -10,24 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shenv/shenv.h"
+#include "shenv/shvar_mgr.h"
 
-t_shvar	*shvar_new(char *key, char *value,
-	t_shvar_type shvar_type, bool value_is_set)
+void				shvar_mgr_remove(t_lst *shvars, t_shvar *shvar)
 {
-	t_shvar	*this;
+	int				index;
 
-	if (key == NULL || *key == '\0')
+	index = twl_lst_indexof(shvars, shvar);
+	if (index == -1)
 	{
-		errno = EINVAL;
-		return (NULL);
+		assert(!"[ERROR] Object not found!");
 	}
-	value = value ? value : "";
-	this = twl_malloc_x0(sizeof(t_shvar));
-	this->shvar_value = twl_strdup(value);
-	this->shvar_key = twl_strdup(key);
-	this->shvar_read_only = NOT_READ_ONLY;
-	this->shvar_type = shvar_type;
-	this->shvar_value_is_set = value_is_set;
-	return (this);
+	twl_lst_popi(shvars, index);
+	shvar_del(shvar);
 }
