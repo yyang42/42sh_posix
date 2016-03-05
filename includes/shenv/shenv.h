@@ -67,7 +67,7 @@ void				shenv_remove_flag(char *flag, t_shenv *env);
 void				shenv_add_pos_param(char *param, t_shenv *env);
 void				shenv_remove_all_pos_params(t_shenv *env);
 char				*shenv_concat_pos_param_char(t_shenv *env, char *sep);
-t_shvar				*shenv_setenv_or_setlocal__(t_shenv *this, char *key, char *value, t_shvar_type type);
+t_shvar				*shenv_setenv_or_setlocal__(t_shenv *this, char *key, char *value, bool exported);
 t_shvar				*shenv_get(t_shenv *this, char *key);
 void				**shenv_get_env_arr(t_shenv *this);
 int					shenv_get_last_exit_status(void);

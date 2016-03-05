@@ -20,12 +20,12 @@ static void			iter_assign_fn(void *assign_, void *env_)
 {
 	t_ast_assignment		*assign;
 	t_shenv			*env;
-	t_shvar_type	type;
+	bool			exported;
 
 	assign = assign_;
 	env = env_;
-	type = (env == shenv_singleton() ? LOCAL : ENVIRONMENT);
-	shenv_setenv_or_setlocal__(env, assign->key, assign->value, type);
+	exported = (env != shenv_singleton());
+	shenv_setenv_or_setlocal__(env, assign->key, assign->value, exported);
 }
 
 static void			execute_builtin(char *cmd_name, t_lst *tokens, t_shenv *env)

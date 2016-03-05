@@ -39,7 +39,7 @@ t_shvar				*shenv_setenv_value(t_shenv *this, char *key, char *value)
 	}
 	else
 	{
-		var = shvar_new(key, value, LOCAL);
+		var = shvar_new(key, value, false);
 		twl_lst_push(this->shvars, var);
 	}
 	return (var);

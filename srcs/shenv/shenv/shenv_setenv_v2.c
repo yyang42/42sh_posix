@@ -15,5 +15,5 @@
 
 t_shvar		*shenv_setenv_key_value(t_shenv *this, char *key, char *value)
 {
-	return (shenv_setenv_or_setlocal__(this, key, value, ENVIRONMENT));
+	return (shenv_setenv_or_setlocal__(this, key, value, true));
 }

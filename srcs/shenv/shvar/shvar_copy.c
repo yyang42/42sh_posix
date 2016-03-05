@@ -19,7 +19,7 @@ t_shvar				*shvar_copy(t_shvar	*src)
 
 	copy = shvar_new(src->shvar_key,
 		src->shvar_value,
-		src->shvar_type);
+		src->shvar_exported);
 	copy->shvar_read_only = src->shvar_read_only;
 	return (copy);
 }
