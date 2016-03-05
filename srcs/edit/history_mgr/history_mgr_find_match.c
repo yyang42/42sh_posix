@@ -16,7 +16,7 @@
 
 #include "edit/history_mgr.h"
 
-#include "environment.h"
+#include "shenv/shenv.h"
 
 #include "twl_get_next_line.h"
 

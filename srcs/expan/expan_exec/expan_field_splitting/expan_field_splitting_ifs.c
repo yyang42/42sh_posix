@@ -12,7 +12,7 @@
 
 #include "basics.h"
 #include "expan/expan_field_splitting.h"
-#include "environment.h"
+#include "shenv/shenv.h"
 #include "pattern_matching/patmatch.h"
 #include "twl_xstring.h"
 

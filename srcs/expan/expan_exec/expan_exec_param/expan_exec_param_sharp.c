@@ -16,15 +16,15 @@
 
 char				*params_sharp(void)
 {
-	t_environment	*env;
+	t_shenv	*env;
 	char			*ret;
 
-	env = environment_singleton();
+	env = shenv_singleton();
 	ret = twl_itoa(twl_lst_len(env->pos_params));
 	return (ret);
 }
 
-char				*test_params_sharp(t_environment *env)
+char				*test_params_sharp(t_shenv *env)
 {
 	char				*ret;
 

@@ -16,13 +16,13 @@ static void			iter_fn(void *ast_andor_item_, void *prev_, void *ret_)
 {
 	t_ast_andor_item	*ast_andor_item;
 	t_ast_andor_item	*prev;
-	t_environment		*env;
+	t_shenv		*env;
 	int					*ret;
 
 	ast_andor_item = ast_andor_item_;
 	prev = prev_;
 	ret = ret_;
-	env = environment_singleton();
+	env = shenv_singleton();
 	if (*ret && (!prev ||
 	(prev->separator->type == TOKEN_AND_IF && env->info.last_exit_status == 0)
 	|| (prev->separator->type == TOKEN_OR_IF && env->info.last_exit_status > 0))

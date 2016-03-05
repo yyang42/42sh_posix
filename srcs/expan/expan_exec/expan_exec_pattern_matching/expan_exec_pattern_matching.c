@@ -16,12 +16,12 @@
 
 bool		expan_exec_pattern_matching(t_expan_token *token)
 {
-	t_environment	*env;
+	t_shenv	*env;
 	t_patmatch 		*patmatch;
 	t_lst			*res;
 
-	env = environment_singleton();
-	if (!environment_flag_exist(env, "f"))
+	env = shenv_singleton();
+	if (!shenv_flag_exist(env, "f"))
 	{
 		patmatch = patmatch_new();
 		res = patmatch_match(patmatch, token->res);

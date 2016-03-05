@@ -12,7 +12,7 @@
 
 #include "arexp/arexp.h"
 #include "arexp/nodes/arexp_assignment.h"
-#include "environment.h"
+#include "shenv/shenv.h"
 
 #include "twl_xstring.h"
 
@@ -25,7 +25,7 @@ static void			fn_iter(void *token_, void *ret)
 	long long		ll_value;
 
 	token = token_;
-	old_value = environment_getenv_value(environment_singleton(), token[0]->text);
+	old_value = shenv_getenv_value(shenv_singleton(), token[0]->text);
 	if (!old_value)
 	{
 		ll_value = 0;
@@ -73,7 +73,7 @@ static void			fn_iter(void *token_, void *ret)
 	if (arexp_singleton(NULL, false)->error_msg)
 		return ;
 	tmp = twl_lltoa(ll_value);
-	environment_setenv_value(environment_singleton(), token[0]->text, tmp, true);
+	shenv_setenv_value(shenv_singleton(), token[0]->text, tmp, true);
 	free(tmp);
 	*((long long *)ret) = ll_value;
 }

@@ -13,7 +13,7 @@
 #include "ast/nodes/ast_simple_command.h"
 #include "ast/nodes/ast_compound_command.h"
 
-static void			exit_if_function_max_depth_reached(t_environment *env,
+static void			exit_if_function_max_depth_reached(t_shenv *env,
 	t_lst *tokens)
 {
 	if (env->function_depth > DEFAULT_FUNCTION_MAX_RECURSION_DEPTH)
@@ -24,7 +24,7 @@ static void			exit_if_function_max_depth_reached(t_environment *env,
 }
 
 void				ast_simple_command_exec_function(t_ast_simple_command *this,
-									t_environment *env, t_lst *tokens,
+									t_shenv *env, t_lst *tokens,
 									struct s_ast_compound_command *compound_cmd)
 {
 	t_lst			*pos_params_original;

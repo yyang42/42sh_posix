@@ -29,7 +29,7 @@ static char			*get_cmd(void)
 	return (cmd);
 }
 
-void				prog_main_loop(t_prog *prog, t_environment *env)
+void				prog_main_loop(t_prog *prog, t_shenv *env)
 {
 	char			*cmd;
 

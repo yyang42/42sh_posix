@@ -12,13 +12,13 @@
 
 #include <fcntl.h>
 #include "prog.h"
-#include "environment.h"
-#include "builtin/builtin_set.h"
+#include "shenv/shenv.h"
+#include "builtin/cmds/builtin_set.h"
 #include "twl_get_next_line.h"
 
 int					prog_run(t_prog *prog)
 {
-	t_environment	*env;
+	t_shenv	*env;
 	char			*input;
 	int				exit_code;
 
@@ -34,7 +34,7 @@ int					prog_run(t_prog *prog)
 		input = twl_file_to_str(twl_lst_get(xopt_singleton()->opt->args, 0));
 	}
 
-	env = environment_singleton();
+	env = shenv_singleton();
 	if (input)
 	{
 		if (xopt_singleton()->print_ast)

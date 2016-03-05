@@ -14,15 +14,15 @@
 #include "expan/expan_exec.h"
 #include "expan/expan_tilde.h"
 
-#include "environment.h"
+#include "shenv/shenv.h"
 #include "pwd.h"
 
 static char		*expan_exec_tilde_get_home()
 {
-	t_environment *env;
+	t_shenv *env;
 
-	env = environment_singleton();
-	return (environment_getenv_value(env, "HOME"));
+	env = shenv_singleton();
+	return (shenv_getenv_value(env, "HOME"));
 }
 
 void			expan_tilde_do(char **res, char *token, char *suffix)

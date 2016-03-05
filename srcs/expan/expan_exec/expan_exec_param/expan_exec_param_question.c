@@ -16,15 +16,15 @@
 
 char				*params_question(void)
 {
-	t_environment	*env;
+	t_shenv	*env;
 	char			*ret;
 
-	env = environment_singleton();
+	env = shenv_singleton();
 	ret = twl_itoa(env->info.last_exit_status);
 	return (ret);
 }
 
-char				*test_params_question(t_environment *env)
+char				*test_params_question(t_shenv *env)
 {
 	char				*ret;
 

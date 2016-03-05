@@ -1,7 +1,7 @@
 #include <project.h>
 
 #include "arexp/arexp.h"
-#include "environment.h"
+#include "shenv/shenv.h"
 #include <limits.h>
 
 # define mt_test_eval(name, input, assign, expected, debug)	\
@@ -9,8 +9,8 @@ static void test_## name(t_test *test)						\
 {															\
 	t_arexp		*arexp = arexp_new(input);					\
 	arexp_eval(arexp);										\
-	char *actual = environment_getenv_value(				\
-			environment_singleton(), assign);				\
+	char *actual = shenv_getenv_value(				\
+			shenv_singleton(), assign);				\
 	if (debug)												\
 	{														\
 		printf("=== case %s %s\n", input, assign);			\

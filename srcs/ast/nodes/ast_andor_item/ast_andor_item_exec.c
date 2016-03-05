@@ -34,14 +34,14 @@ static void			andor_fn_2(t_ast_pipe_item *pipe_item, pid_t pid)
 			dup2(pipe_item->fds[0], 0);
 		}
 		ast_pipe_item_exec(pipe_item);
-		exit(environment_get_last_exit_status());
+		exit(shenv_get_last_exit_status());
 	}
 	else
 	{
 		wait(&res);
 		handle_signal(res);
     	if (WIFEXITED(res))
-			environment_singleton()->info.last_exit_status = WEXITSTATUS(res);
+			shenv_singleton()->info.last_exit_status = WEXITSTATUS(res);
 		close(pipe_item->fds[1]);
 		if (pipe_item->fds[0] != -1)
 			close(pipe_item->fds[0]);
@@ -86,9 +86,11 @@ static void			iter_fds_fn(void *data, void *next_data, void *context_)
 
 void					ast_andor_item_exec(t_ast_andor_item *ast_andor_item)
 {
-	ast_andor_item_create_files(ast_andor_item);
+	// ast_andor_item_create_files(ast_andor_item);
 	if (twl_lst_len(ast_andor_item->ast_pipe_items) == 1)
+	{
 		ast_pipe_item_exec(twl_lst_get(ast_andor_item->ast_pipe_items, 0));
+	}
 	else
 	{
 		twl_lst_itern(ast_andor_item->ast_pipe_items, iter_fds_fn, NULL);

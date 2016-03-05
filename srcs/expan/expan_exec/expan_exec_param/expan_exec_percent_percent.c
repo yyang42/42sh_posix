@@ -38,18 +38,18 @@ static char		*ft_treat_percent(char *str, char *word)
 bool			expan_exec_params_percent_percent(t_expan_token *expan_token)
 {
 	t_expan_param		*data;
-	t_environment		*env;
-	t_environment_var	*env_var;
+	t_shenv		*env;
+	t_shvar	*shvar;
 
 	data = expan_token->expan_data;
-	env = environment_singleton();
+	env = shenv_singleton();
 	if (data->parameter && twl_strcmp(data->parameter, ""))
 	{
-		env_var = environment_get(env, data->parameter);
-		if (env_var && env_var->value_is_set)
+		shvar = shenv_get(env, data->parameter);
+		if (shvar && shvar->shvar_value_is_set)
 		{
-			if (env_var->value != NULL && twl_strcmp(env_var->value, "") != 0)
-				expan_token->res = ft_treat_percent(env_var->value, data->word);
+			if (shvar->shvar_value != NULL && twl_strcmp(shvar->shvar_value, "") != 0)
+				expan_token->res = ft_treat_percent(shvar->shvar_value, data->word);
 			else
 				expan_token->res = twl_strdup("");
 		}

@@ -34,7 +34,7 @@ static void			ast_subshell_fork_exec(t_ast_subshell *this)
 	{
 		wait(&res);
     	if (WIFEXITED(res))
-			environment_singleton()->info.last_exit_status = WEXITSTATUS(res);
+			shenv_singleton()->info.last_exit_status = WEXITSTATUS(res);
 	}
 }
 

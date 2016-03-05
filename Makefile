@@ -90,8 +90,8 @@ check_unit:
 	make -C tests/unit
 
 check_use_case:
-	sh tests/use_case_diff_tests/use_case_diff_tests.sh
 	sh tests/use_case_diff_bash_tests/use_case_diff_bash_tests.sh
+	sh tests/use_case_diff_tests/use_case_diff_tests.sh
 
 check_exit_code:
 	sh tests/exit_code_diff_tests/exit_code_diff_tests.sh

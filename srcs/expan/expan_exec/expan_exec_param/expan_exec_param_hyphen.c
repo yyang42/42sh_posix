@@ -16,13 +16,13 @@
 
 char				*params_hyphen(void)
 {
-	t_environment	*env;
+	t_shenv	*env;
 
-	env = environment_singleton();
+	env = shenv_singleton();
 	return (twl_itoa(env->info.cur_shell_pid));
 }
 
-char				*test_params_hyphen(t_environment *env)
+char				*test_params_hyphen(t_shenv *env)
 {
 	return (twl_itoa(env->info.cur_shell_pid));
 }

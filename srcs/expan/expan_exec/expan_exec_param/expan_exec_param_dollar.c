@@ -16,15 +16,15 @@
 
 char				*params_dollar(void)
 {
-	t_environment	*env;
+	t_shenv	*env;
 
-	env = environment_singleton();
-	return (environment_concat_flags(env));
+	env = shenv_singleton();
+	return (shenv_concat_flags(env));
 }
 
-char				*test_params_dollar(t_environment *env)
+char				*test_params_dollar(t_shenv *env)
 {
-	return (environment_concat_flags(env));
+	return (shenv_concat_flags(env));
 }
 
 bool				expan_exec_param_dollar(t_expan_token *expan_token)

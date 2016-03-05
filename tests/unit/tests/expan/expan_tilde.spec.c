@@ -1,25 +1,25 @@
 #include <project.h>
 
 #include "basics.h"
-#include "environment.h"
-#include "builtin/builtin_export.h"
+#include "shenv/shenv.h"
+#include "builtin/cmds/builtin_export.h"
 #include "expan/expan_tilde.h"
 
 static void simple_tilde(t_test *test)
 {
-	t_environment	*env;
+	t_shenv	*env;
 	char		 	*res;
 	char			*home;
 	char			*token;
 	char			*suffix;
 
 	(void)test;
-	env = environment_singleton();
+	env = shenv_singleton();
 	res = NULL;
 	token = twl_strdup("~");
 	suffix = twl_strdup("");
 	expan_tilde_do(&res, token, suffix);
-	home = environment_getenv_value(env, "HOME");
+	home = shenv_getenv_value(env, "HOME");
 	mt_assert(twl_strcmp(home,res) == 0);
 	twl_strdel(&res);
 	twl_strdel(&token);
@@ -28,13 +28,13 @@ static void simple_tilde(t_test *test)
 
 // static void tilde_with_known_suffix(t_test *test)
 // {
-// 	t_environment	*env;
+// 	t_shenv	*env;
 // 	char		 	*res;
 // 	char			*token;
 // 	char			*suffix;
 //
 // 	(void)test;
-// 	env = environment_singleton();
+// 	env = shenv_singleton();
 // 	res = NULL;
 // 	token = twl_strdup("~");
 // 	suffix = twl_strdup("root");
@@ -47,13 +47,13 @@ static void simple_tilde(t_test *test)
 
 static void tilde_with_unknown_suffix(t_test *test)
 {
-	//t_environment	*env;
+	//t_shenv	*env;
 	char		 	*res;
 	char			*token;
 	char			*suffix;
 
 	(void)test;
-	//env = environment_singleton();
+	//env = shenv_singleton();
 	res = NULL;
 	token = twl_strdup("~");
 	suffix = twl_strdup("pouet");

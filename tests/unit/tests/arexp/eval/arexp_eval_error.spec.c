@@ -2,7 +2,7 @@
 
 #include "arexp/arexp.h"
 #include <limits.h>
-#include "environment.h"
+#include "shenv/shenv.h"
 
 # define mt_test_eval(name, input, expected, debug)			\
 static void test_## name(t_test *test)						\
@@ -30,7 +30,7 @@ void suite_arexp_eval_error(t_suite *suite)
 {
 	SUITE_ADD_TEST(suite, test_num01);
 	SUITE_ADD_TEST(suite, test_num02);
-	environment_setenv_value(environment_singleton(), "a", "Bonjour", 1);
+	shenv_setenv_value(shenv_singleton(), "a", "Bonjour", 1);
 	SUITE_ADD_TEST(suite, test_num03);
 	SUITE_ADD_TEST(suite, test_num04);
 	SUITE_ADD_TEST(suite, test_num05);

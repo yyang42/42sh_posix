@@ -37,4 +37,6 @@ t_lst				*data_arexp_unary_operators(void);
 t_lst				*data_arexp_parenthesis(void);
 t_lst				*data_arexp_comma(void);
 
+t_dict				*data_builtins(void);
+
 #endif

@@ -14,7 +14,7 @@
 
 #include "arexp/arexp.h"
 #include "prog.h"
-#include "environment.h"
+#include "shenv/shenv.h"
 
 int					prog_print_arexp(t_prog *prog, char *input)
 {

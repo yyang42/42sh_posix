@@ -14,19 +14,19 @@
 #include "expan/expan_exec.h"
 #include "expan/expan_param.h"
 
-#include "environment.h"
+#include "shenv/shenv.h"
 #include "twl_stdlib.h"
 #include "twl_ctype.h"
 
 bool			expan_exec_param_var(t_expan_token *expan_token)
 {
 	t_expan_param		*expan_param;
-	t_environment		*env;
-	t_environment_var	*var;
+	t_shenv		*env;
+	t_shvar	*var;
 	char				*temp;
 
 	expan_param = expan_token->expan_data;
-	env = environment_singleton();
+	env = shenv_singleton();
 	if (!expan_param->parameter)
 	{
 		twl_dprintf(2, "42sh: Bad substitution\n");
@@ -34,16 +34,16 @@ bool			expan_exec_param_var(t_expan_token *expan_token)
 	}
 	if (twl_str_is_num(expan_param->parameter))
 	{
-		temp = environment_get_pos_param_at(env, twl_atoi(expan_param->parameter) - 1);
+		temp = shenv_get_pos_param_at(env, twl_atoi(expan_param->parameter) - 1);
 		if (temp)
 			expan_token->res = twl_strdup(temp);
 	}
 	else
 	{
-		var = environment_get(env, expan_param->parameter);
-		if (var && var->value_is_set == 1 && var->value)
+		var = shenv_get(env, expan_param->parameter);
+		if (var && var->shvar_value_is_set == 1 && var->shvar_value)
 		{
-			expan_token->res = twl_strdup(var->value);
+			expan_token->res = twl_strdup(var->shvar_value);
 		}
 	}
 	if (!expan_token->res)
