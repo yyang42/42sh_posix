@@ -48,11 +48,12 @@ void					ast_simple_command_print_rec(t_ast_simple_command *ast_s_cmd, int depth
 
 bool					ast_simple_command_is_own_type(t_lst *tokens);
 void					ast_simple_command_exec(t_ast_simple_command *cmd);
-void					ast_simple_command_exec_function(t_ast_simple_command *cmd, t_shenv *env, t_lst *tokens, struct s_ast_compound_command *compound_cmd);
 bool					ast_simple_command_expan(t_ast_simple_command *cmd);
 
 char					*ast_simple_command_utils_get_binary_path(char *cmd, t_shenv *env);
 void					ast_simple_command_execve(char *path, t_lst *tokens, char **env);
+void					ast_simple_command_exec_tokens(t_lst *command_tokens, t_shenv *env);
 
+void					ast_simple_command_exec_function(t_shenv *env, t_lst *tokens, struct s_ast_compound_command *compound_cmd);
 
 #endif
