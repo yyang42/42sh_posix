@@ -19,7 +19,7 @@ static bool			find_env_key(void *data, void *context)
 
 	var = data;
 	str = context;
-	return (twl_strcmp(var->key, str) == 0);
+	return (twl_strcmp(var->evar_key, str) == 0);
 }
 
 char				*environment_getenv_value(t_environment *this, char *key)
@@ -33,5 +33,5 @@ char				*environment_getenv_value(t_environment *this, char *key)
 	}
 	var = (t_environment_var *)(twl_lst_find(this->env_vars,
 													find_env_key, key));
-	return (var ? var->value : NULL);
+	return (var ? var->evar_value : NULL);
 }

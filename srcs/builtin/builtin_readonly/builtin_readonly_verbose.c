@@ -22,10 +22,10 @@ static void			readonly_something(void *data)
 	env_var = data;
 	if (env_var->read_only == READ_ONLY)
 	{
-		if (env_var->value_is_set == true)
-			twl_printf("readonly %s=\"%s\"\n", env_var->key, env_var->value);
+		if (env_var->evar_value_is_set == true)
+			twl_printf("readonly %s=\"%s\"\n", env_var->evar_key, env_var->evar_value);
 		else
-			twl_printf("readonly %s\n", env_var->key);
+			twl_printf("readonly %s\n", env_var->evar_key);
 	}
 }
 

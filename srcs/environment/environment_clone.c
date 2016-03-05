@@ -18,8 +18,8 @@ static void			*copy_fn(void *data)
 	t_environment_var *var;
 
 	var = twl_malloc_x0(sizeof(t_environment_var));
-	var->key = twl_strdup(((t_environment_var *)data)->key);
-	var->value = twl_strdup(((t_environment_var *)data)->value);
+	var->evar_key = twl_strdup(((t_environment_var *)data)->evar_key);
+	var->evar_value = twl_strdup(((t_environment_var *)data)->evar_value);
 	var->read_only = ((t_environment_var *)data)->read_only;
 	var->type = ((t_environment_var *)data)->type;
 	return (var);
@@ -27,14 +27,14 @@ static void			*copy_fn(void *data)
 
 static void			*copy_flags_fn(void *data_)
 {
-	t_opt_elem *var;
+	t_opt_elem *opt_elem;
 	t_opt_elem *data;
 
 	data = data_;
-	var = twl_malloc_x0(sizeof(t_opt_elem));
-	var->key = twl_strdup(data->key);
-	var->value = twl_strdup(data->value);
-	return (var);
+	opt_elem = twl_malloc_x0(sizeof(t_opt_elem));
+	opt_elem->key = twl_strdup(data->key);
+	opt_elem->value = twl_strdup(data->value);
+	return (opt_elem);
 }
 
 static void			*copy_dict_fn(void *data_)

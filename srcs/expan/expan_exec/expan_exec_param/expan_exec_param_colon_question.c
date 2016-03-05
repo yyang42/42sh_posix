@@ -38,11 +38,11 @@ bool			expan_exec_params_colon_question(t_expan_token *expan_token)
 	if (data->parameter && twl_strcmp(data->parameter, ""))
 	{
 		env_var = environment_get(env, data->parameter);
-		if (env_var && env_var->value_is_set)
+		if (env_var && env_var->evar_value_is_set)
 		{
-			if (env_var->value != NULL && twl_strcmp(env_var->value, "") != 0)
+			if (env_var->evar_value != NULL && twl_strcmp(env_var->evar_value, "") != 0)
 			{
-				expan_token->res = twl_strdup(env_var->value);
+				expan_token->res = twl_strdup(env_var->evar_value);
 				return (true);
 			}
 			else

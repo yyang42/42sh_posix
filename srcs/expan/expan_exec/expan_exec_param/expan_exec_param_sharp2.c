@@ -42,10 +42,10 @@ bool			expan_exec_params_sharp2(t_expan_token *expan_token)
 	if (data->parameter && twl_strcmp(data->parameter, ""))
 	{
 		env_var = environment_get(env, data->parameter);
-		if (env_var && env_var->value_is_set)
+		if (env_var && env_var->evar_value_is_set)
 		{
-			if (env_var->value != NULL && twl_strcmp(env_var->value, "") != 0)
-				expan_token->res = ft_treat_sharp(env_var->value, data->word);
+			if (env_var->evar_value != NULL && twl_strcmp(env_var->evar_value, "") != 0)
+				expan_token->res = ft_treat_sharp(env_var->evar_value, data->word);
 			else
 				expan_token->res = twl_strdup("");
 		}

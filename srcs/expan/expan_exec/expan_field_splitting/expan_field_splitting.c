@@ -23,13 +23,13 @@ void		expan_field_splitting(char **res)
 
 	env = environment_singleton();
 	ifs = environment_get(env, "IFS");
-	if (ifs && ifs->value_is_set == 1)
+	if (ifs && ifs->evar_value_is_set == 1)
 	{
-		if (!twl_strcmp(ifs->value, " ") || !twl_strcmp(ifs->value, "\t")
-			|| !twl_strcmp(ifs->value, "\n"))
+		if (!twl_strcmp(ifs->evar_value, " ") || !twl_strcmp(ifs->evar_value, "\t")
+			|| !twl_strcmp(ifs->evar_value, "\n"))
 			expan_field_splitting_white_spaces(res);
 		else
-			expan_field_splitting_ifs(res, ifs->value);
+			expan_field_splitting_ifs(res, ifs->evar_value);
 	}
 	else if (!ifs)
 	{

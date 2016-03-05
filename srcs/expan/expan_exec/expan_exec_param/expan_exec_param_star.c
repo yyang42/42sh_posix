@@ -23,12 +23,12 @@ char				*params_star(bool between_quotes)
 
 	env = environment_singleton();
 	ifs = environment_get(env, "IFS");
-	if (ifs == NULL || between_quotes == false || ifs->value_is_set == 0)
+	if (ifs == NULL || between_quotes == false || ifs->evar_value_is_set == 0)
 		sep = twl_strdup(" ");
-	else if (ifs->value_is_set == 1 && *(ifs->value) == 0)
+	else if (ifs->evar_value_is_set == 1 && *(ifs->evar_value) == 0)
 		sep = twl_strdup("");
 	else
-		sep = twl_strdup(ifs->value);
+		sep = twl_strdup(ifs->evar_value);
 	if (twl_lst_len(env->pos_params) > 0)
 		ret = environment_concat_pos_param_char(env, sep);
 	else
@@ -44,12 +44,12 @@ char				*test_params_star(t_environment *env, bool between_quotes)
 	t_environment_var	*ifs;
 
 	ifs = environment_get(env, "IFS");
-	if (ifs == NULL || between_quotes == false || ifs->value_is_set == 0)
+	if (ifs == NULL || between_quotes == false || ifs->evar_value_is_set == 0)
 		sep = twl_strdup(" ");
-	else if (ifs->value_is_set == 1 && *(ifs->value) == 0)
+	else if (ifs->evar_value_is_set == 1 && *(ifs->evar_value) == 0)
 		sep = twl_strdup("");
 	else
-		sep = twl_strdup(ifs->value);
+		sep = twl_strdup(ifs->evar_value);
 	if (twl_lst_len(env->pos_params) > 0)
 		ret = environment_concat_pos_param_char(env, sep);
 	else

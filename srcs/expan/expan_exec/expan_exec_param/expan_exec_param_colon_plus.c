@@ -29,7 +29,7 @@ bool			expan_exec_params_colon_plus(t_expan_token *expan_token)
 		env_var = environment_get(env, data->parameter);
 		if (env_var)
 		{
-			if (env_var->value != NULL && env_var->value_is_set == 1)
+			if (env_var->evar_value != NULL && env_var->evar_value_is_set == 1)
 				expan_token->res = expan_exec_param_word_expan(data->word);
 			else
 				expan_token->res = twl_strdup("");

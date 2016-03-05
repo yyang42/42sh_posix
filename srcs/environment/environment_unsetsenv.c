@@ -20,7 +20,7 @@ static bool			find_env_key(void *data, void *context)
 
 	var = data;
 	str = context;
-	return (twl_strcmp(var->key, str) == 0);
+	return (twl_strcmp(var->evar_key, str) == 0);
 }
 
 static void			clear_environment(void *data)
@@ -28,8 +28,8 @@ static void			clear_environment(void *data)
 	t_environment_var	*var;
 
 	var = data;
-	twl_strdel(&var->key);
-	twl_strdel(&var->value);
+	twl_strdel(&var->evar_key);
+	twl_strdel(&var->evar_value);
 	free(data);
 }
 

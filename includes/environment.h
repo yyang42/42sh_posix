@@ -54,11 +54,11 @@ typedef struct				s_environment
 
 typedef struct				s_environment_var
 {
-	char					*key;
-	char					*value;
+	char					*evar_key;
+	char					*evar_value;
 	int						read_only;
 	t_environment_var_type	type;
-	int						value_is_set;
+	int						evar_value_is_set;
 }							t_environment_var;
 
 t_environment				*environment_new(void);

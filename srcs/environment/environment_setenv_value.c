@@ -19,7 +19,7 @@ static bool			find_env_key(void *data, void *context)
 
 	var = data;
 	str = context;
-	return (twl_strcmp(var->key, str) == 0);
+	return (twl_strcmp(var->evar_key, str) == 0);
 }
 
 t_environment_var	*environment_setenv_value(t_environment *this,
@@ -36,9 +36,9 @@ t_environment_var	*environment_setenv_value(t_environment *this,
 																		key));
 	if (var != NULL)
 	{
-		twl_strdel(&var->value);
-		var->value = twl_strdup(value);
-		var->value_is_set = value_is_set;
+		twl_strdel(&var->evar_value);
+		var->evar_value = twl_strdup(value);
+		var->evar_value_is_set = value_is_set;
 	}
 	else
 	{

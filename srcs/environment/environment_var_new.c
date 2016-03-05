@@ -24,10 +24,10 @@ t_environment_var	*environment_var_new(char *key, char *value,
 	}
 	value = value ? value : "";
 	this = twl_malloc_x0(sizeof(t_environment_var));
-	this->value = twl_strdup(value);
-	this->key = twl_strdup(key);
+	this->evar_value = twl_strdup(value);
+	this->evar_key = twl_strdup(key);
 	this->read_only = NOT_READ_ONLY;
 	this->type = type;
-	this->value_is_set = value_is_set;
+	this->evar_value_is_set = value_is_set;
 	return (this);
 }

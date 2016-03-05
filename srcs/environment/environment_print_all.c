@@ -20,7 +20,7 @@ static bool		cmp_vars(void *item1, void *item2, void *context)
 	var1 = item1;
 	var2 = item2;
 	(void)context;
-	return (twl_strcmp(var1->key, var2->key) <= 0);
+	return (twl_strcmp(var1->evar_key, var2->evar_key) <= 0);
 }
 
 static void		print_env_var(void *data)
@@ -28,7 +28,7 @@ static void		print_env_var(void *data)
 	t_environment_var	*var;
 
 	var = data;
-	twl_printf("%s=%s\n", var->key, var->value);
+	twl_printf("%s=%s\n", var->evar_key, var->evar_value);
 }
 
 

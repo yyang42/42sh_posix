@@ -19,19 +19,19 @@ static bool			find_env_key(void *data, void *context)
 
 	var = data;
 	str = context;
-	return (twl_strcmp(var->key, str) == 0);
+	return (twl_strcmp(var->evar_key, str) == 0);
 }
 
-t_environment_var	*environment_get(t_environment *this, char *key)
+t_environment_var	*environment_get(t_environment *this, char *evar_key)
 {
 	t_environment_var	*var;
 
-	if (key == NULL || *key == '\0')
+	if (evar_key == NULL || *evar_key == '\0')
 	{
 		errno = EINVAL;
 		return (NULL);
 	}
 	var = (t_environment_var *)(twl_lst_find(this->env_vars,
-													find_env_key, key));
+													find_env_key, evar_key));
 	return (var);
 }

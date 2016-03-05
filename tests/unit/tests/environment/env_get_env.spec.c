@@ -22,8 +22,8 @@ static void copied_env_is_equal_to_environ(t_test *test)
 	while (environ[i] != NULL && temp != NULL)
 	{
 		var = (t_environment_var*)temp->data;
-		str = twl_strjoin(var->key, "=");
-		str = twl_strjoinfree(str, var->value, 'l');
+		str = twl_strjoin(var->evar_key, "=");
+		str = twl_strjoinfree(str, var->evar_value, 'l');
 		mt_assert(twl_strcmp(environ[i], str) == 0);
 		i++;
 		temp = temp->next;

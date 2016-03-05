@@ -19,8 +19,8 @@ static void		push_env_to_arr(void *data, void *arr)
 	char				*str;
 
 	var = data;
-	str = twl_strjoin(var->key, "=");
-	str = twl_strjoinfree(str, var->value, 'l');
+	str = twl_strjoin(var->evar_key, "=");
+	str = twl_strjoinfree(str, var->evar_value, 'l');
 	twl_arr_push(arr, str);
 }
 

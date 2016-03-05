@@ -41,9 +41,9 @@ bool			expan_exec_param_var(t_expan_token *expan_token)
 	else
 	{
 		var = environment_get(env, expan_param->parameter);
-		if (var && var->value_is_set == 1 && var->value)
+		if (var && var->evar_value_is_set == 1 && var->evar_value)
 		{
-			expan_token->res = twl_strdup(var->value);
+			expan_token->res = twl_strdup(var->evar_value);
 		}
 	}
 	if (!expan_token->res)
