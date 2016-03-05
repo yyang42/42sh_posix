@@ -57,5 +57,6 @@ int					ast_expan(t_ast *ast);
 
 int					ast_exec_string(char *input);
 int					ast_exec_tokens(t_lst *tokens);
+int					ast_exec_tokens_with_fork(t_lst *tokens);
 
 #endif
