@@ -21,6 +21,6 @@
 # include "twl_opt_elem.h"
 # include "error.h"
 
-int				builtin_times_exec(t_lst *tokens, t_environment *env);
+int				builtin_times_exec(t_lst *tokens, t_shenv *env);
 
 #endif

@@ -12,7 +12,7 @@
 
 #include "builtin/builtin_unset.h"
 
-int				builtin_unsetenv_exec(t_lst *tokens, t_environment *env)
+int				builtin_unsetenv_exec(t_lst *tokens, t_shenv *env)
 {
 	char	*new_str;
 	int		flag;

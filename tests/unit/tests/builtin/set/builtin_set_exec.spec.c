@@ -8,7 +8,7 @@
 
 static void     set_flag(t_test *test)
 {
-    t_environment        *env;
+    t_shenv        *env;
     char                *flags;
 
     (void)test;
@@ -23,7 +23,7 @@ static void     set_flag(t_test *test)
 
 static void test_unset_flag(t_test *test)
 {
-    t_environment        *env;
+    t_shenv        *env;
     char                *flags;
 
     (void)test;
@@ -47,7 +47,7 @@ static void test_unset_flag(t_test *test)
 
 static void test_wrong_flag(t_test *test)
 {
-	t_environment		*env;
+	t_shenv		*env;
 
 	(void)test;
 	env = environment_new();
@@ -59,7 +59,7 @@ static void test_wrong_flag(t_test *test)
 
 static void 	set_verbose(t_test *test)
 {
-	t_environment		*env;
+	t_shenv		*env;
 	char				*flags;
 
 	(void)test;
@@ -76,7 +76,7 @@ static void 	set_verbose(t_test *test)
 
 static void 	test_unset_verbose(t_test *test)
 {
-	t_environment		*env;
+	t_shenv		*env;
 	char				*flags;
 
 	(void)test;
@@ -94,7 +94,7 @@ static void 	test_unset_verbose(t_test *test)
 
 static void 	set_pos_param(t_test *test)
 {
-	t_environment		*env;
+	t_shenv		*env;
 
 	(void)test;
 	env = environment_new();
@@ -108,7 +108,7 @@ static void 	set_pos_param(t_test *test)
 
 static void 	set_hyphen(t_test *test)
 {
-	t_environment		*env;
+	t_shenv		*env;
 	char				*flags;
 
 	(void)test;

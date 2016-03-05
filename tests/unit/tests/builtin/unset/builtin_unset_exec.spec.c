@@ -7,7 +7,7 @@
 
 static void 	unset_var(t_test *test)
 {
-	t_environment		*env;
+	t_shenv		*env;
 	int					i;
 	int					j;
 
@@ -15,16 +15,16 @@ static void 	unset_var(t_test *test)
 	env = environment_new();
 	environment_init(env);
 	builtin_export_exec(tokenizer_tokenize("export HAHA=pouet"), env);
-	i = twl_lst_len(env->env_vars);
+	i = twl_lst_len(env->envvars);
 	builtin_unset_exec(tokenizer_tokenize("unset HAHA"), env);
-	j = twl_lst_len(env->env_vars);
+	j = twl_lst_len(env->envvars);
 	mt_assert((i - j) == 1);
 	environment_del(env);
 }
 
 static void 	unset_func(t_test *test)
 {
-	t_environment		*env;
+	t_shenv		*env;
 	int					i;
 	int					j;
 
@@ -41,7 +41,7 @@ static void 	unset_func(t_test *test)
 
 static void 	unset_var_not_func(t_test *test)
 {
-	t_environment		*env;
+	t_shenv		*env;
 	int					i;
 	int					j;
 	int					k;
@@ -53,10 +53,10 @@ static void 	unset_var_not_func(t_test *test)
 	builtin_export_exec(tokenizer_tokenize("export LOL=pouet"), env);
 	environment_add_shell_func(env,"LOL", (void *)"echo pouet");
 	i = twl_dict_len(env->shell_func);
-	k = twl_lst_len(env->env_vars);
+	k = twl_lst_len(env->envvars);
 	builtin_unset_exec(tokenizer_tokenize("unset LOL"), env);
 	j = twl_dict_len(env->shell_func);
-	l = twl_lst_len(env->env_vars);
+	l = twl_lst_len(env->envvars);
 	mt_assert((i - j) == 0);
 	mt_assert((k - l) == 1);
 	environment_del(env);
@@ -64,7 +64,7 @@ static void 	unset_var_not_func(t_test *test)
 
 static void 	unset_both(t_test *test)
 {
-	t_environment		*env;
+	t_shenv		*env;
 	int					i;
 	int					j;
 	int					k;
@@ -76,11 +76,11 @@ static void 	unset_both(t_test *test)
 	builtin_export_exec(tokenizer_tokenize("export LOL=pouet"), env);
 	environment_add_shell_func(env,"LOL", (void *)"echo pouet");
 	i = twl_dict_len(env->shell_func);
-	k = twl_lst_len(env->env_vars);
+	k = twl_lst_len(env->envvars);
 	builtin_unset_exec(tokenizer_tokenize("unset LOL"), env);
 	builtin_unset_exec(tokenizer_tokenize("unset LOL"), env);
 	j = twl_dict_len(env->shell_func);
-	l = twl_lst_len(env->env_vars);
+	l = twl_lst_len(env->envvars);
 	mt_assert((i - j) == 1);
 	mt_assert((k - l) == 1);
 	environment_del(env);

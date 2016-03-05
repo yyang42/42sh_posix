@@ -51,17 +51,17 @@ bool					ast_simple_command_is_own_type(t_lst *tokens);
 void					ast_simple_command_exec(t_ast_simple_command *cmd);
 struct s_ast_compound_command;
 void					ast_simple_command_exec_function(t_ast_simple_command *cmd,
-								t_environment *env, t_lst *tokens,
+								t_shenv *env, t_lst *tokens,
 								struct s_ast_compound_command *compound_cmd);
 bool					ast_simple_command_expan(t_ast_simple_command *cmd);
 
 bool					is_builtin(char *cmd);
-char					*get_binary_path(char *cmd, t_environment *env);
+char					*get_binary_path(char *cmd, t_shenv *env);
 void 					dup_fds(int fd1, int fd2);
 bool					ast_simple_command_check_files(t_ast_simple_command *c);
 void					ast_simple_command_redirs(t_ast_simple_command *cmd);
 void					execute_simple_command(t_ast_simple_command *cmd,
-	t_environment *env);
+	t_shenv *env);
 void					ast_simple_command_execution(char *path, t_lst *tokens, char **env);
 int						get_duplication_fd(char *str);
 bool					is_valid_duplicate_fd(int fd);

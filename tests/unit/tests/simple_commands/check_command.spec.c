@@ -15,7 +15,7 @@ static void test_get_binary_path(t_test *test)
 {
 	(void)test;
 	char *str;
-	t_environment *env;
+	t_shenv *env;
 
 	env = environment_singleton();
 	str = get_binary_path("pouet", env);

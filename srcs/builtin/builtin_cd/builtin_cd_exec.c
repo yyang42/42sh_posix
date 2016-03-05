@@ -12,7 +12,7 @@
 
 #include "builtin/builtin_cd.h"
 
-static char	*get_dirname_from_arg(t_opt *opt, t_environment *this)
+static char	*get_dirname_from_arg(t_opt *opt, t_shenv *this)
 {
 	static char	buf[MAX_SIZE];
 	char		*dirname;
@@ -33,7 +33,7 @@ static char	*get_dirname_from_arg(t_opt *opt, t_environment *this)
 }
 
 static int	get_dirname(char **dirname, t_opt *opt, t_lst *tokens,
-	t_environment *this)
+	t_shenv *this)
 {
 	char	*tmp;
 
@@ -65,7 +65,7 @@ static int	get_dirname(char **dirname, t_opt *opt, t_lst *tokens,
 	return (0);
 }
 
-int					builtin_cd_exec(t_lst *tokens, t_environment *this)
+int					builtin_cd_exec(t_lst *tokens, t_shenv *this)
 {
 	int					no_symlinks;
 	t_opt				*opt;

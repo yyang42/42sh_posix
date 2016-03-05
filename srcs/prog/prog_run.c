@@ -18,7 +18,7 @@
 
 int					prog_run(t_prog *prog)
 {
-	t_environment	*env;
+	t_shenv	*env;
 	char			*input;
 	int				exit_code;
 

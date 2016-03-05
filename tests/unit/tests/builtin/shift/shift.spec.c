@@ -8,7 +8,7 @@
 
 static void 	test_simple_shift(t_test *test)
 {
-	t_environment		*env;
+	t_shenv		*env;
 
 	(void)test;
 	env = environment_new();
@@ -26,7 +26,7 @@ static void 	test_simple_shift(t_test *test)
 
 // static void 	test_empty_params(t_test *test)
 // {
-// 	t_environment		*env;
+// 	t_shenv		*env;
 //
 // 	(void)test;
 // 	env = environment_new();
@@ -42,7 +42,7 @@ static void 	test_simple_shift(t_test *test)
 
 // static void 	test_shift_too_big(t_test *test)
 // {
-// 	t_environment		*env;
+// 	t_shenv		*env;
 //
 // 	(void)test;
 // 	env = environment_new();

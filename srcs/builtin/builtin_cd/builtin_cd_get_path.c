@@ -42,7 +42,7 @@ static bool	find_matching_path(void *arr_, void *content_)
 	return (false);
 }
 
-char				*builtin_cd_get_path(char *dirname, t_environment *this)
+char				*builtin_cd_get_path(char *dirname, t_shenv *this)
 {
 	char	*cd_path;
 	char	**paths;

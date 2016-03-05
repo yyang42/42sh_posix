@@ -19,14 +19,14 @@
 
 static void			clear_environment(void *data)
 {
-	twl_strdel(&((t_environment_var *)data)->evar_key);
-	twl_strdel(&((t_environment_var *)data)->evar_value);
+	twl_strdel(&((t_envvar *)data)->envvar_key);
+	twl_strdel(&((t_envvar *)data)->envvar_value);
 	free(data);
 }
 
-void				environment_del(t_environment *this)
+void				environment_del(t_shenv *this)
 {
-	twl_lst_del(this->env_vars, clear_environment);
+	twl_lst_del(this->envvars, clear_environment);
 	if (this->flag_verbose)
 		twl_lst_del(this->flag_verbose, NULL);
 	if (this->shell_func)

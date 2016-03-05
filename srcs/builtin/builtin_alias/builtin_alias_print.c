@@ -21,7 +21,7 @@ static void			print_key_value(char *key, void *data, void *context_)
 	(void)context_;
 }
 
-void				builtin_alias_print(t_environment *env)
+void				builtin_alias_print(t_shenv *env)
 {
 	twl_dict_iter(env->alias, print_key_value, NULL);
 }

@@ -15,20 +15,20 @@
 
 static void		push_env_to_arr(void *data, void *arr)
 {
-	t_environment_var	*var;
+	t_envvar	*var;
 	char				*str;
 
 	var = data;
-	str = twl_strjoin(var->evar_key, "=");
-	str = twl_strjoinfree(str, var->evar_value, 'l');
+	str = twl_strjoin(var->envvar_key, "=");
+	str = twl_strjoinfree(str, var->envvar_value, 'l');
 	twl_arr_push(arr, str);
 }
 
-void			**environment_get_env_arr(t_environment *this)
+void			**environment_get_env_arr(t_shenv *this)
 {
 	void **arr;
 
-	arr = twl_arr_new(twl_lst_len(this->env_vars));
-	twl_lst_iter(this->env_vars, push_env_to_arr, arr);
+	arr = twl_arr_new(twl_lst_len(this->envvars));
+	twl_lst_iter(this->envvars, push_env_to_arr, arr);
 	return (arr);
 }

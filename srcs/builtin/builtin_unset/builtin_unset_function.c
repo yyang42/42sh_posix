@@ -16,7 +16,7 @@
 
 static void			unset_something(void *data, void *context, void *ret_)
 {
-	t_environment		*env;
+	t_shenv		*env;
 	char				*arg;
 	int					*ret;
 
@@ -30,7 +30,7 @@ static void			unset_something(void *data, void *context, void *ret_)
 	}
 }
 
-int					builtin_unset_function(t_environment *env, t_opt *opt)
+int					builtin_unset_function(t_shenv *env, t_opt *opt)
 {
 	int	ret;
 

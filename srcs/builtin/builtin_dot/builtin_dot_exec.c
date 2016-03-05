@@ -14,7 +14,7 @@
 #include "ast/ast.h"
 #include "ast/nodes/ast_compound_list.h"
 
-static char			*get_file2(char **av, t_environment *this)
+static char			*get_file2(char **av, t_shenv *this)
 {
 	char			*file;
 	char			buf[DOT_BUFSIZE];
@@ -35,7 +35,7 @@ static char			*get_file2(char **av, t_environment *this)
 	return (file);
 }
 
-static char			*get_file(char *str, t_environment *this)
+static char			*get_file(char *str, t_shenv *this)
 {
 	char			*file;
 	char			**av;
@@ -58,7 +58,7 @@ static char			*get_file(char *str, t_environment *this)
 	return (file);
 }
 
-int					builtin_dot_exec(t_lst *tokens, t_environment *this)
+int					builtin_dot_exec(t_lst *tokens, t_shenv *this)
 {
 	int				ret;
 	char			*file;

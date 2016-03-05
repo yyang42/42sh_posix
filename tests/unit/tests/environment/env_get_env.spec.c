@@ -10,20 +10,20 @@ static void copied_env_is_equal_to_environ(t_test *test)
 {
 	int					i;
 	t_lst_elem__		*temp;
-	t_environment		*env;
-	t_environment_var	*var;
+	t_shenv		*env;
+	t_envvar	*var;
 	char				*str;
 
 	(void)test;
 	env = environment_new();
 	environment_init(env);
 	i = 0;
-	temp = env->env_vars->head;
+	temp = env->envvars->head;
 	while (environ[i] != NULL && temp != NULL)
 	{
-		var = (t_environment_var*)temp->data;
-		str = twl_strjoin(var->evar_key, "=");
-		str = twl_strjoinfree(str, var->evar_value, 'l');
+		var = (t_envvar*)temp->data;
+		str = twl_strjoin(var->envvar_key, "=");
+		str = twl_strjoinfree(str, var->envvar_value, 'l');
 		mt_assert(twl_strcmp(environ[i], str) == 0);
 		i++;
 		temp = temp->next;
@@ -35,7 +35,7 @@ static void copied_env_is_equal_to_environ(t_test *test)
 static void test_set_env(t_test *test)
 {
 	(void)test;
-	t_environment		*env;
+	t_shenv		*env;
 
 	env = environment_new();
 	environment_init(env);
@@ -55,7 +55,7 @@ static void test_set_env(t_test *test)
 static void test_unset_env(t_test *test)
 {
 	(void)test;
-	t_environment		*env;
+	t_shenv		*env;
 
 	env = environment_new();
 	environment_init(env);
@@ -71,7 +71,7 @@ static void test_unset_env(t_test *test)
 static void	test_set_get_env_value(t_test *test)
 {
 	(void)test;
-	t_environment		*env;
+	t_shenv		*env;
 
 	env = environment_new();
 	environment_setenv_value(env, "hello", "pouet", 1);
@@ -87,8 +87,8 @@ static void	test_set_get_env_value(t_test *test)
 static void	test_clone(t_test *test)
 {
 	(void)test;
-	t_environment		*env;
-	t_environment		*clone;
+	t_shenv		*env;
+	t_shenv		*clone;
 
 	env = environment_new();
 	environment_setenv_value(env, "quiche", "lorraine", 1);
@@ -105,7 +105,7 @@ static void test_get_paths(t_test *test)
 {
 	char			*paths;
 	char			*fpaths;
-	t_environment	*env;
+	t_shenv	*env;
 
 	(void)test;
 	env = environment_new();

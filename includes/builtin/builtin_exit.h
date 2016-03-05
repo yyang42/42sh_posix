@@ -16,6 +16,6 @@
 # include "basics.h"
 # include "environment.h"
 
-int					builtin_exit_exec(t_lst *tokens, t_environment *this);
+int					builtin_exit_exec(t_lst *tokens, t_shenv *this);
 
 #endif

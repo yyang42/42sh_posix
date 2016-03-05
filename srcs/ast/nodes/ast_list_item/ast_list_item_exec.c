@@ -16,7 +16,7 @@ static void			iter_fn(void *ast_andor_item_, void *prev_, void *context_)
 {
 	t_ast_andor_item	*ast_andor_item;
 	t_ast_andor_item	*prev;
-	t_environment		*env;
+	t_shenv		*env;
 
 	ast_andor_item = ast_andor_item_;
 	prev = prev_;

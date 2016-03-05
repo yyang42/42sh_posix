@@ -19,7 +19,7 @@ void			dup_fds(int fd1, int fd2)
 		perror("dup2");
 }
 
-char			*get_binary_path(char *cmd, t_environment *env)
+char			*get_binary_path(char *cmd, t_shenv *env)
 {
 	char			**paths;
 	char			*path;

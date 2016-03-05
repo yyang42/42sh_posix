@@ -34,9 +34,9 @@ static void			init_env_args(t_env_args *env, t_lst *tokens)
 	env->tokens = tokens;
 }
 
-int					builtin_env_exec(t_lst *tokens, t_environment *this)
+int					builtin_env_exec(t_lst *tokens, t_shenv *this)
 {
-	t_environment		*clone;
+	t_shenv		*clone;
 	t_opt				*opt;
 	t_env_args			env;
 	char				**args;
@@ -49,7 +49,7 @@ int					builtin_env_exec(t_lst *tokens, t_environment *this)
 		return (-1);
 	clone = !twl_lst_len(opt->opts) ? environment_clone(this)
 		: environment_new();
-	twl_lst_iter(opt->args, builtin_env_utils_add_env_var, clone);
+	twl_lst_iter(opt->args, builtin_env_utils_add_envvar, clone);
 	twl_lst_iter(opt->args, get_utility, &env);
 	env.env_arr = (char **)environment_get_env_arr(clone);
 	if (env.has_utility)

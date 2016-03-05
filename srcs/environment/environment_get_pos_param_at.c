@@ -12,7 +12,7 @@
 
 #include "environment.h"
 
-char		*environment_get_pos_param_at(t_environment *env, size_t index)
+char		*environment_get_pos_param_at(t_shenv *env, size_t index)
 {
 	char		*pos_param;
 

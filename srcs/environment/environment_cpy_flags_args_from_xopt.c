@@ -17,7 +17,7 @@
 
 static void			push_flag(void *data, void *context)
 {
-	t_environment	*env;
+	t_shenv	*env;
 	t_opt_elem		*elem;
 
 	elem = data;
@@ -28,7 +28,7 @@ static void			push_flag(void *data, void *context)
 
 static void			push_args(void *data, void *context)
 {
-	t_environment	*env;
+	t_shenv	*env;
 	char			*arg;
 
 	arg = data;
@@ -37,7 +37,7 @@ static void			push_args(void *data, void *context)
 		environment_add_pos_param(arg, env);
 }
 
-void				environment_cpy_flags_args_from_xopt(t_environment *env)
+void				environment_cpy_flags_args_from_xopt(t_shenv *env)
 {
 	t_xopt	*xopt;
 	t_lst	*opts;

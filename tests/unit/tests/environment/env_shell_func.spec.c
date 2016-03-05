@@ -7,7 +7,7 @@
 
 static void add_shell_func(t_test *test)
 {
-	t_environment		*env;
+	t_shenv		*env;
 
 	(void)test;
 	env = environment_new();
@@ -20,7 +20,7 @@ static void add_shell_func(t_test *test)
 
 static void unset_shell_func(t_test *test)
 {
-	t_environment		*env;
+	t_shenv		*env;
 
 	(void)test;
 	env = environment_new();

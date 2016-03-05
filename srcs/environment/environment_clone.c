@@ -15,13 +15,13 @@
 
 static void			*copy_fn(void *data)
 {
-	t_environment_var *var;
+	t_envvar *var;
 
-	var = twl_malloc_x0(sizeof(t_environment_var));
-	var->evar_key = twl_strdup(((t_environment_var *)data)->evar_key);
-	var->evar_value = twl_strdup(((t_environment_var *)data)->evar_value);
-	var->read_only = ((t_environment_var *)data)->read_only;
-	var->type = ((t_environment_var *)data)->type;
+	var = twl_malloc_x0(sizeof(t_envvar));
+	var->envvar_key = twl_strdup(((t_envvar *)data)->envvar_key);
+	var->envvar_value = twl_strdup(((t_envvar *)data)->envvar_value);
+	var->envvar_read_only = ((t_envvar *)data)->envvar_read_only;
+	var->envvar_type = ((t_envvar *)data)->envvar_type;
 	return (var);
 }
 
@@ -48,12 +48,12 @@ static void			*copy_dict_fn(void *data_)
 		return (NULL);
 }
 
-t_environment		*environment_clone(t_environment *this)
+t_shenv		*environment_clone(t_shenv *this)
 {
-	t_environment *clone;
+	t_shenv *clone;
 
-	clone = twl_malloc_x0(sizeof(t_environment));
-	clone->env_vars = twl_lst_copy(this->env_vars, copy_fn);
+	clone = twl_malloc_x0(sizeof(t_shenv));
+	clone->envvars = twl_lst_copy(this->envvars, copy_fn);
 	clone->flag_verbose = twl_lst_copy(this->flag_verbose, copy_dict_fn);
 	clone->shell_func = twl_lst_copy(this->shell_func, copy_dict_fn);
 	clone->pos_params = twl_lst_new();

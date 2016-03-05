@@ -11,7 +11,7 @@
 
 static void test_cd_without_args(t_test *test)
 {
-	t_environment		*env;
+	t_shenv		*env;
 
 	env = environment_new();
 	environment_init(env);
@@ -23,7 +23,7 @@ static void test_cd_without_args(t_test *test)
 
 static void test_cd_old_pwd(t_test *test)
 {
-	t_environment		*env;
+	t_shenv		*env;
 	char oldpwd[2048];
 	char pwd[2048];
 
@@ -43,7 +43,7 @@ static void test_cd_old_pwd(t_test *test)
 }
 static void test_cd_with_dots(t_test *test)
 {
-	t_environment		*env;
+	t_shenv		*env;
 
 	(void)test;
 	env = environment_new();

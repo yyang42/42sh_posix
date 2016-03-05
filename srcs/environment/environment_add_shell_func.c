@@ -14,7 +14,7 @@
 #include "environment.h"
 #include "twl_opt_elem.h"
 
-void				environment_add_shell_func(t_environment *env,
+void				environment_add_shell_func(t_shenv *env,
 							char *key, struct s_ast_compound_command *data)
 {
 	if (key)

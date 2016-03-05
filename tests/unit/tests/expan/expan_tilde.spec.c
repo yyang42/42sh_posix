@@ -7,7 +7,7 @@
 
 static void simple_tilde(t_test *test)
 {
-	t_environment	*env;
+	t_shenv	*env;
 	char		 	*res;
 	char			*home;
 	char			*token;
@@ -28,7 +28,7 @@ static void simple_tilde(t_test *test)
 
 // static void tilde_with_known_suffix(t_test *test)
 // {
-// 	t_environment	*env;
+// 	t_shenv	*env;
 // 	char		 	*res;
 // 	char			*token;
 // 	char			*suffix;
@@ -47,7 +47,7 @@ static void simple_tilde(t_test *test)
 
 static void tilde_with_unknown_suffix(t_test *test)
 {
-	//t_environment	*env;
+	//t_shenv	*env;
 	char		 	*res;
 	char			*token;
 	char			*suffix;

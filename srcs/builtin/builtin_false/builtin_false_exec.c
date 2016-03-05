@@ -12,7 +12,7 @@
 
 #include "builtin/builtin.h"
 
-bool				builtin_false_exec(t_lst *tokens, t_environment *env)
+bool				builtin_false_exec(t_lst *tokens, t_shenv *env)
 {
 	(void)tokens;
 	environment_set_last_exit_status_2(env, BUILTIN_EXEC_FAILURE);

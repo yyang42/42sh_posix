@@ -15,7 +15,7 @@
 static void			remove_shell_flags(void *data, void *context, void *args_)
 {
 	t_opt_elem		*elem;
-	t_environment	*env;
+	t_shenv	*env;
 	t_lst			*args;
 
 	args = args_;
@@ -30,7 +30,7 @@ static void			remove_shell_flags(void *data, void *context, void *args_)
 static void			add_shell_flags(void *data, void *context, void *args_)
 {
 	t_opt_elem		*elem;
-	t_environment	*env;
+	t_shenv	*env;
 	t_lst			*args;
 
 	args = args_;
@@ -42,7 +42,7 @@ static void			add_shell_flags(void *data, void *context, void *args_)
 		builtin_set_o_negative(env);
 }
 
-int					builtin_set_exec(t_lst *tokens, t_environment *env)
+int					builtin_set_exec(t_lst *tokens, t_shenv *env)
 {
 	t_set_opt		*opt;
 	char			**arr;

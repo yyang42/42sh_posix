@@ -12,7 +12,7 @@
 
 #include "environment.h"
 
-struct s_ast_compound_command	*environment_get_shell_func(t_environment *env,
+struct s_ast_compound_command	*environment_get_shell_func(t_shenv *env,
 														char *key)
 {
 	return (twl_dict_get(env->shell_func, key));

@@ -16,10 +16,10 @@
 
 static void			unset_something(void *data, void *context, void *ret_)
 {
-	t_environment		*env;
+	t_shenv		*env;
 	char				*arg;
 	int					*ret;
-	t_environment_var	*var;
+	t_envvar	*var;
 
 	arg = data;
 	env = context;
@@ -28,7 +28,7 @@ static void			unset_something(void *data, void *context, void *ret_)
 	{
 		if ((var = environment_get(env, arg)))
 		{
-			if (var->read_only != READ_ONLY)
+			if (var->envvar_read_only != READ_ONLY)
 			{
 				environment_unsetenv(env, arg);
 				*ret = BUILTIN_EXEC_SUCCESS;
@@ -43,7 +43,7 @@ static void			unset_something(void *data, void *context, void *ret_)
 	}
 }
 
-int					builtin_unset_variable(t_environment *env, t_opt *opt)
+int					builtin_unset_variable(t_shenv *env, t_opt *opt)
 {
 	int	ret;
 

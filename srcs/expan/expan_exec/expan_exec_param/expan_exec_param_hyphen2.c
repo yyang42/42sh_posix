@@ -18,18 +18,18 @@
 bool			expan_exec_params_hyphen2(t_expan_token *expan_token)
 {
 	t_expan_param		*data;
-	t_environment_var	*env_var;
-	t_environment		*env;
+	t_envvar	*envvar;
+	t_shenv		*env;
 
 	data = expan_token->expan_data;
 	env = environment_singleton();
 	if (data->parameter && twl_strcmp(data->parameter, ""))
 	{
-		env_var = environment_get(env, data->parameter);
-		if (env_var)
+		envvar = environment_get(env, data->parameter);
+		if (envvar)
 		{
-			if (env_var->evar_value && env_var->evar_value_is_set == 1)
-				expan_token->res = twl_strdup(env_var->evar_value);
+			if (envvar->envvar_value && envvar->envvar_value_is_set == 1)
+				expan_token->res = twl_strdup(envvar->envvar_value);
 			else
 				expan_token->res = twl_strdup("");
 		}

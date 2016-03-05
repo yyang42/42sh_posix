@@ -12,7 +12,7 @@
 
 #include "builtin/builtin_alias.h"
 
-char				*builtin_alias_get(char *key, t_environment *this)
+char				*builtin_alias_get(char *key, t_shenv *this)
 {
 	char			*value;
 

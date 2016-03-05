@@ -12,7 +12,7 @@
 
 #include "builtin/builtin_export.h"
 
-int					builtin_export_exec(t_lst *tokens, t_environment *env)
+int					builtin_export_exec(t_lst *tokens, t_shenv *env)
 {
 	t_opt			*opt;
 	char			**arr;

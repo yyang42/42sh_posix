@@ -33,7 +33,7 @@ static void		exec_with_path(void *elem, void *context)
 	}
 }
 
-static void		env_with_builtin(char *builtin, t_lst *tokens, t_environment *env)
+static void		env_with_builtin(char *builtin, t_lst *tokens, t_shenv *env)
 {
 	t_dict	*dict;
 	t_builtin_fn    *builtin_fn;
@@ -46,7 +46,7 @@ static void		env_with_builtin(char *builtin, t_lst *tokens, t_environment *env)
 	}
 }
 
-void				builtin_env_exec_do(t_env_args *env, t_environment *this)
+void				builtin_env_exec_do(t_env_args *env, t_shenv *this)
 {
 	char	**fpaths;
 	int		index;

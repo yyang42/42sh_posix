@@ -17,19 +17,19 @@
 
 static void			export_something(void *data)
 {
-	t_environment_var	*env_var;
+	t_envvar	*envvar;
 
-	env_var = data;
-	if (env_var->read_only == NOT_READ_ONLY)
+	envvar = data;
+	if (envvar->envvar_read_only == NOT_READ_ONLY)
 	{
-		if (env_var->evar_value_is_set == true)
-			twl_printf("export %s=\"%s\"\n", env_var->evar_key, env_var->evar_value);
+		if (envvar->envvar_value_is_set == true)
+			twl_printf("export %s=\"%s\"\n", envvar->envvar_key, envvar->envvar_value);
 		else
-			twl_printf("export %s\n", env_var->evar_key);
+			twl_printf("export %s\n", envvar->envvar_key);
 	}
 }
 
-void				builtin_export_verbose(t_environment *env)
+void				builtin_export_verbose(t_shenv *env)
 {
-	twl_lst_iter0(env->env_vars, export_something);
+	twl_lst_iter0(env->envvars, export_something);
 }

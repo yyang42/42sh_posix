@@ -16,7 +16,7 @@
 
 char				*params_exclamation(void)
 {
-	t_environment	*env;
+	t_shenv	*env;
 	char			*ret;
 
 	env = environment_singleton();
@@ -24,7 +24,7 @@ char				*params_exclamation(void)
 	return (ret);
 }
 
-char				*test_params_exclamation(t_environment *env)
+char				*test_params_exclamation(t_shenv *env)
 {
 	char				*ret;
 

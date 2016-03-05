@@ -20,9 +20,9 @@
 
 # define UNSET_OPT_VALID_OPTS "fv"
 
-int					builtin_unset_exec(t_lst *tokens, t_environment *env);
-int					builtin_unset_variable(t_environment *env, t_opt *opt);
-int					builtin_unset_function(t_environment *env, t_opt *opt);
-int					builtin_unsetenv_exec(t_lst *tokens, t_environment *env);
+int					builtin_unset_exec(t_lst *tokens, t_shenv *env);
+int					builtin_unset_variable(t_shenv *env, t_opt *opt);
+int					builtin_unset_function(t_shenv *env, t_opt *opt);
+int					builtin_unsetenv_exec(t_lst *tokens, t_shenv *env);
 
 #endif

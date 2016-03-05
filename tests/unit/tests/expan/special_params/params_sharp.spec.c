@@ -7,7 +7,7 @@
 
 static void simple_test(t_test *test)
 {
-	t_environment	*env;
+	t_shenv	*env;
 	char			*ret;
 
 	(void)test;

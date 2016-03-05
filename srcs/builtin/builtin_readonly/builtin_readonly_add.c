@@ -17,20 +17,20 @@
 
 static void			readonly_something(void *data, void *context)
 {
-	t_environment		*env;
+	t_shenv		*env;
 	char				*arg;
-	t_environment_var	*var;
+	t_envvar	*var;
 
 	arg = data;
 	env = context;
 	if (arg)
 	{
 		var = environment_setenv(env, arg);
-		var->read_only = READ_ONLY;
+		var->envvar_read_only = READ_ONLY;
 	}
 }
 
-void				builtin_readonly_add(t_environment *env, t_opt *opt)
+void				builtin_readonly_add(t_shenv *env, t_opt *opt)
 {
 	twl_lst_iter(opt->args, readonly_something, env);
 }

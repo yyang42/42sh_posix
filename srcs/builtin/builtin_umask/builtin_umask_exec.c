@@ -87,7 +87,7 @@ static void			builtin_umask_2(t_opt *opt, int *flag)
 		twl_printf("%04lo\n", (unsigned long)umask_arg);
 }
 
-int					builtin_umask_exec(t_lst *tokens, t_environment *this)
+int					builtin_umask_exec(t_lst *tokens, t_shenv *this)
 {
 	t_opt			*opt;
 	char			**arr;

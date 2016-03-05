@@ -17,7 +17,7 @@
 static void			add_pos_param(void *data, void *context)
 {
 	char			*arg;
-	t_environment	*env;
+	t_shenv	*env;
 
 	arg = data;
 	env = context;
@@ -36,7 +36,7 @@ static bool			cmp_flag(void *elem_data_, void *data_)
 	return (twl_strcmp(data, elem_data) == 0);
 }
 
-static void			remove_matching_flag(t_environment *env, char *arg)
+static void			remove_matching_flag(t_shenv *env, char *arg)
 {
 	char *flag;
 
@@ -47,7 +47,7 @@ static void			remove_matching_flag(t_environment *env, char *arg)
 		twl_dprintf(2, "set: %s: invalid option name\n", arg);
 }
 
-static void			add_matching_flag(t_environment *env, char *arg)
+static void			add_matching_flag(t_shenv *env, char *arg)
 {
 	char *flag;
 
@@ -58,7 +58,7 @@ static void			add_matching_flag(t_environment *env, char *arg)
 		twl_dprintf(2, "set: %s: invalid option name\n", arg);
 }
 
-void				builtin_set_check_args(t_set_opt *opt, t_environment *env)
+void				builtin_set_check_args(t_set_opt *opt, t_shenv *env)
 {
 	int	i;
 

@@ -13,7 +13,7 @@
 #include "builtin/builtin_shift.h"
 #include "twl_stdlib.h"
 
-static void			shift_action(t_environment *env, t_opt *opt)
+static void			shift_action(t_shenv *env, t_opt *opt)
 {
 	size_t	shift_nb;
 	char	*shift_str;
@@ -42,7 +42,7 @@ static void			shift_action(t_environment *env, t_opt *opt)
 	}
 }
 
-int					builtin_shift_exec(t_lst *tokens, t_environment *env)
+int					builtin_shift_exec(t_lst *tokens, t_shenv *env)
 {
 	t_opt			*opt;
 	char			**arr;

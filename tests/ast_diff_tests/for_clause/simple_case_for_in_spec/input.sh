@@ -1,4 +1,4 @@
-for namevar in aa bb cc
+for namenvvar in aa bb cc
 do
-	echo $namevar
+	echo $namenvvar
 done

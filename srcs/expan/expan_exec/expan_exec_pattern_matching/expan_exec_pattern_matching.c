@@ -16,7 +16,7 @@
 
 bool		expan_exec_pattern_matching(t_expan_token *token)
 {
-	t_environment	*env;
+	t_shenv	*env;
 	t_patmatch 		*patmatch;
 	t_lst			*res;
 

@@ -16,7 +16,7 @@ static void		iter_fn(void *elem, void *context)
 {
 	char			*str;
 	char			*tmp;
-	t_environment	*this;
+	t_shenv	*this;
 
 	str = elem;
 	this = context;
@@ -30,7 +30,7 @@ static void		iter_fn(void *elem, void *context)
 	}
 }
 
-void				builtin_alias_exec(t_lst *tokens, t_environment *this)
+void				builtin_alias_exec(t_lst *tokens, t_shenv *this)
 {
 	char **tab;
 	char				*str;

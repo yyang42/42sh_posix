@@ -13,7 +13,7 @@
 #include "environment.h"
 #include <stdio.h>
 
-t_environment_var		*environment_setenv(t_environment *this, char *str)
+t_envvar		*environment_setenv(t_shenv *this, char *str)
 {
 	t_lst			*segs;
 	char			*key;

@@ -20,7 +20,7 @@ static void			free_func(void *data)
 	(void)data;
 }
 
-void				environment_remove_shell_func(t_environment *env, char *key)
+void				environment_remove_shell_func(t_shenv *env, char *key)
 {
 	if (twl_dict_key_exist(env->shell_func, key))
 		twl_dict_delone(env->shell_func, key, free_func);

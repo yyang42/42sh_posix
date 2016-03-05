@@ -28,7 +28,7 @@ static void			export_something_tokens(void *token_, void *env)
 	environment_setenv_or_setlocal__(env, token->text, NULL, LOCAL);
 }
 
-void				builtin_export_add(t_environment *env, t_lst *tokens)
+void				builtin_export_add(t_shenv *env, t_lst *tokens)
 {
 	t_lst			*list_of_segs;
 	t_lst			*remaining_tokens;

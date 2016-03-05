@@ -12,7 +12,7 @@
 
 #include "environment.h"
 
-char		**environment_get_paths(t_environment *this)
+char		**environment_get_paths(t_shenv *this)
 {
 	char			*str;
 

@@ -30,19 +30,19 @@ static void		print_error_msg(t_expan_param *data)
 bool			expan_exec_params_colon_question(t_expan_token *expan_token)
 {
 	t_expan_param		*data;
-	t_environment_var	*env_var;
-	t_environment		*env;
+	t_envvar	*envvar;
+	t_shenv		*env;
 
 	data = expan_token->expan_data;
 	env = environment_singleton();
 	if (data->parameter && twl_strcmp(data->parameter, ""))
 	{
-		env_var = environment_get(env, data->parameter);
-		if (env_var && env_var->evar_value_is_set)
+		envvar = environment_get(env, data->parameter);
+		if (envvar && envvar->envvar_value_is_set)
 		{
-			if (env_var->evar_value != NULL && twl_strcmp(env_var->evar_value, "") != 0)
+			if (envvar->envvar_value != NULL && twl_strcmp(envvar->envvar_value, "") != 0)
 			{
-				expan_token->res = twl_strdup(env_var->evar_value);
+				expan_token->res = twl_strdup(envvar->envvar_value);
 				return (true);
 			}
 			else

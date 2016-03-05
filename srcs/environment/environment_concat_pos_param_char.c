@@ -36,7 +36,7 @@ static void			concat_pos_param(void *data, void *context, void *sep_)
 	}
 }
 
-char				*environment_concat_pos_param_char(t_environment *env,
+char				*environment_concat_pos_param_char(t_shenv *env,
 																	char *sep)
 {
 	char	*concat;

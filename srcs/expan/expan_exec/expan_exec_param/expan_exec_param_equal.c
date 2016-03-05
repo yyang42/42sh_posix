@@ -15,7 +15,7 @@
 #include "expan/expan_param.h"
 
 
-static void		set_env_and_token(t_environment *env, t_expan_token *expan_tok,
+static void		set_env_and_token(t_shenv *env, t_expan_token *expan_tok,
 	t_expan_param *data)
 {
 	environment_setenv_value(env, data->parameter, data->word, 1);
@@ -25,18 +25,18 @@ static void		set_env_and_token(t_environment *env, t_expan_token *expan_tok,
 bool			expan_exec_params_equal(t_expan_token *expan_token)
 {
 	t_expan_param		*data;
-	t_environment		*env;
-	t_environment_var	*env_var;
+	t_shenv		*env;
+	t_envvar	*envvar;
 
 	data = expan_token->expan_data;
 	env = environment_singleton();
 	if (data->parameter && twl_strcmp(data->parameter, ""))
 	{
-		env_var = environment_get(env, data->parameter);
-		if (env_var)
+		envvar = environment_get(env, data->parameter);
+		if (envvar)
 		{
-			if (env_var->evar_value != NULL && env_var->evar_value_is_set == 1)
-				expan_token->res = twl_strdup(env_var->evar_value);
+			if (envvar->envvar_value != NULL && envvar->envvar_value_is_set == 1)
+				expan_token->res = twl_strdup(envvar->envvar_value);
 			else
 				expan_token->res = twl_strdup("");
 		}

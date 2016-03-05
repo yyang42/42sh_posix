@@ -29,7 +29,7 @@ static void			concat_flag(void *data, void *concat_ptr_)
 	}
 }
 
-char				*environment_concat_flags(t_environment *env)
+char				*environment_concat_flags(t_shenv *env)
 {
 	char	*concat;
 

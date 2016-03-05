@@ -45,23 +45,23 @@ bool			expan_exec_params_sharp_sharp(t_expan_token *expan_token);
 bool			expan_exec_params_sharp2(t_expan_token *expan_token);
 char			*expan_exec_param_word_expan(char *word);
 
-char			*test_params_zero(t_environment *env);
+char			*test_params_zero(t_shenv *env);
 char			*params_zero();
-char			*test_params_at(t_environment *env);
+char			*test_params_at(t_shenv *env);
 char			*params_at();
-char			*test_params_star(t_environment *env, bool between_quotes);
+char			*test_params_star(t_shenv *env, bool between_quotes);
 char			*params_star(bool between_quotes);
-char			*test_params_sharp(t_environment *env);
+char			*test_params_sharp(t_shenv *env);
 char			*params_sharp();
-char			*test_params_question(t_environment *env);
+char			*test_params_question(t_shenv *env);
 char			*params_question();
-char			*test_params_hyphen(t_environment *env);
+char			*test_params_hyphen(t_shenv *env);
 char			*params_hyphen();
-char			*test_params_dollar(t_environment *env);
+char			*test_params_dollar(t_shenv *env);
 char			*params_dollar();
-char			*test_params_hyphen(t_environment *env);
+char			*test_params_hyphen(t_shenv *env);
 char			*params_hyphen();
-char			*test_params_exclamation(t_environment *env);
+char			*test_params_exclamation(t_shenv *env);
 char			*params_exclamation();
 
 #endif

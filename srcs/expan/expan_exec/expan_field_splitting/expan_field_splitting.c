@@ -18,18 +18,18 @@
 
 void		expan_field_splitting(char **res)
 {
-	t_environment		*env;
-	t_environment_var	*ifs;
+	t_shenv		*env;
+	t_envvar	*ifs;
 
 	env = environment_singleton();
 	ifs = environment_get(env, "IFS");
-	if (ifs && ifs->evar_value_is_set == 1)
+	if (ifs && ifs->envvar_value_is_set == 1)
 	{
-		if (!twl_strcmp(ifs->evar_value, " ") || !twl_strcmp(ifs->evar_value, "\t")
-			|| !twl_strcmp(ifs->evar_value, "\n"))
+		if (!twl_strcmp(ifs->envvar_value, " ") || !twl_strcmp(ifs->envvar_value, "\t")
+			|| !twl_strcmp(ifs->envvar_value, "\n"))
 			expan_field_splitting_white_spaces(res);
 		else
-			expan_field_splitting_ifs(res, ifs->evar_value);
+			expan_field_splitting_ifs(res, ifs->envvar_value);
 	}
 	else if (!ifs)
 	{

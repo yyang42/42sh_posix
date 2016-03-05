@@ -25,7 +25,7 @@ bool				check_flag(void *data, void *context)
 	return (twl_strcmp(flag, elem->key) == 0);
 }
 
-int					environment_flag_exist(t_environment *this, char *flag)
+int					environment_flag_exist(t_shenv *this, char *flag)
 {
 	return (twl_lst_find(this->flags, check_flag, flag) ? 1 : 0);
 }

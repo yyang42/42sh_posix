@@ -12,10 +12,10 @@
 
 #include "environment.h"
 
-t_environment_var	*environment_var_new(char *key, char *value,
-	t_environment_var_type type, bool value_is_set)
+t_envvar	*envvar_new(char *key, char *value,
+	t_envvar_type envvar_type, bool value_is_set)
 {
-	t_environment_var	*this;
+	t_envvar	*this;
 
 	if (key == NULL || *key == '\0')
 	{
@@ -23,11 +23,11 @@ t_environment_var	*environment_var_new(char *key, char *value,
 		return (NULL);
 	}
 	value = value ? value : "";
-	this = twl_malloc_x0(sizeof(t_environment_var));
-	this->evar_value = twl_strdup(value);
-	this->evar_key = twl_strdup(key);
-	this->read_only = NOT_READ_ONLY;
-	this->type = type;
-	this->evar_value_is_set = value_is_set;
+	this = twl_malloc_x0(sizeof(t_envvar));
+	this->envvar_value = twl_strdup(value);
+	this->envvar_key = twl_strdup(key);
+	this->envvar_read_only = NOT_READ_ONLY;
+	this->envvar_type = envvar_type;
+	this->envvar_value_is_set = value_is_set;
 	return (this);
 }

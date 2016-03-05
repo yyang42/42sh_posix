@@ -9,7 +9,7 @@
 static void simple_star(t_test *test)
 {
 	char			*ret;
-	t_environment	*env;
+	t_shenv	*env;
 
 	(void)test;
 	env = environment_new();

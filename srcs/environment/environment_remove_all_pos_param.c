@@ -14,7 +14,7 @@
 #include "environment.h"
 #include "twl_opt_elem.h"
 
-void		environment_remove_all_pos_params(t_environment *env)
+void		environment_remove_all_pos_params(t_shenv *env)
 {
 	if (env && env->pos_params)
 	{

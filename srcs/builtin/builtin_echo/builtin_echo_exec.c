@@ -23,7 +23,7 @@ static void 		iter_fn(void *token_, void *next, void *ctx)
 	(void)ctx;
 }
 
-int					builtin_echo_exec(t_lst *tokens, t_environment *this)
+int					builtin_echo_exec(t_lst *tokens, t_shenv *this)
 {
 	t_lst			*copy;
 	bool			opt_n;

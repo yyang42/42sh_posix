@@ -12,7 +12,7 @@
 
 static void simple_pos_param(t_test *test)
 {
-	t_environment	*env;
+	t_shenv	*env;
 	char			*str;
 
 	(void)test;
@@ -31,7 +31,7 @@ static void simple_pos_param(t_test *test)
 
 static void simple_pos_param_sub(t_test *test)
 {
-	t_environment	*env;
+	t_shenv	*env;
 	char			*str;
 
 	(void)test;
@@ -49,7 +49,7 @@ static void simple_pos_param_sub(t_test *test)
 
 static void simple_param_str(t_test *test)
 {
-	t_environment	*env;
+	t_shenv	*env;
 	char			*str;
 
 	(void)test;
@@ -69,7 +69,7 @@ static void simple_param_str(t_test *test)
 
 static void colon_hyphen_param_str(t_test *test)
 {
-	t_environment	*env;
+	t_shenv	*env;
 	char			*str;
 
 	(void)test;
@@ -89,7 +89,7 @@ static void colon_hyphen_param_str(t_test *test)
 
 static void colon_hyphen_param_str_quoted(t_test *test)
 {
-	t_environment	*env;
+	t_shenv	*env;
 	char			*str;
 
 	(void)test;
@@ -112,7 +112,7 @@ static void colon_hyphen_param_str_quoted(t_test *test)
 
 static void hyphen_param_str(t_test *test)
 {
-	t_environment	*env;
+	t_shenv	*env;
 	char			*str;
 
 	(void)test;
@@ -137,7 +137,7 @@ static void hyphen_param_str(t_test *test)
 
 static void colon_equal_param_str(t_test *test)
 {
-	t_environment	*env;
+	t_shenv	*env;
 	char			*str;
 
 	(void)test;
@@ -156,7 +156,7 @@ static void colon_equal_param_str(t_test *test)
 
 static void equal_param_str(t_test *test)
 {
-	t_environment	*env;
+	t_shenv	*env;
 	char			*str;
 
 	(void)test;
@@ -181,7 +181,7 @@ static void equal_param_str(t_test *test)
 
 static void colon_question_param_str(t_test *test)
 {
-	t_environment	*env;
+	t_shenv	*env;
 	char			*str;
 
 	(void)test;
@@ -201,7 +201,7 @@ static void colon_question_param_str(t_test *test)
 
 static void question_param_str(t_test *test)
 {
-	t_environment	*env;
+	t_shenv	*env;
 	char			*str;
 
 	(void)test;
@@ -227,7 +227,7 @@ static void question_param_str(t_test *test)
 
 static void colon_plus_param_str(t_test *test)
 {
-	t_environment	*env;
+	t_shenv	*env;
 	char			*str;
 
 	(void)test;
@@ -253,7 +253,7 @@ static void colon_plus_param_str(t_test *test)
 
 static void plus_param_str(t_test *test)
 {
-	t_environment	*env;
+	t_shenv	*env;
 	char			*str;
 
 	(void)test;

@@ -17,19 +17,19 @@
 
 static void			readonly_something(void *data)
 {
-	t_environment_var	*env_var;
+	t_envvar	*envvar;
 
-	env_var = data;
-	if (env_var->read_only == READ_ONLY)
+	envvar = data;
+	if (envvar->envvar_read_only == READ_ONLY)
 	{
-		if (env_var->evar_value_is_set == true)
-			twl_printf("readonly %s=\"%s\"\n", env_var->evar_key, env_var->evar_value);
+		if (envvar->envvar_value_is_set == true)
+			twl_printf("readonly %s=\"%s\"\n", envvar->envvar_key, envvar->envvar_value);
 		else
-			twl_printf("readonly %s\n", env_var->evar_key);
+			twl_printf("readonly %s\n", envvar->envvar_key);
 	}
 }
 
-void				builtin_readonly_verbose(t_environment *env)
+void				builtin_readonly_verbose(t_shenv *env)
 {
-	twl_lst_iter0(env->env_vars, readonly_something);
+	twl_lst_iter0(env->envvars, readonly_something);
 }

@@ -16,7 +16,7 @@
 
 char				*params_at(void)
 {
-	t_environment	*env;
+	t_shenv	*env;
 	char			*ret;
 
 	env = environment_singleton();
@@ -27,7 +27,7 @@ char				*params_at(void)
 	return (ret);
 }
 
-char				*test_params_at(t_environment *env)
+char				*test_params_at(t_shenv *env)
 {
 	char			*ret;
 

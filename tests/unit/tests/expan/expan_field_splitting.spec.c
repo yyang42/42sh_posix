@@ -10,7 +10,7 @@
 static void simple_unset_ifs_test(t_test *test)
 {
 	char *str;
-	t_environment	*env;
+	t_shenv	*env;
 
 	env = environment_singleton();
 	builtin_unset_exec(tokenizer_tokenize("unset IFS"), env);
@@ -23,7 +23,7 @@ static void simple_unset_ifs_test(t_test *test)
 static void simple_null_ifs_test(t_test *test)
 {
 	char			*str;
-	t_environment	*env;
+	t_shenv	*env;
 
 	env = environment_singleton();
 	builtin_export_exec(tokenizer_tokenize("export IFS"), env);
@@ -37,7 +37,7 @@ static void simple_null_ifs_test(t_test *test)
 static void simple_ifs_test(t_test *test)
 {
 	char			*str;
-	t_environment	*env;
+	t_shenv	*env;
 
 	env = environment_singleton();
 	builtin_export_exec(tokenizer_tokenize("export IFS=o"), env);

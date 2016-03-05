@@ -14,7 +14,7 @@
 #include "environment.h"
 #include "twl_opt_elem.h"
 
-void				environment_add_pos_param(char *param, t_environment *env)
+void				environment_add_pos_param(char *param, t_shenv *env)
 {
 	if (env && env->pos_params)
 	{

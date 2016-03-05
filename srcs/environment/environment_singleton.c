@@ -12,9 +12,9 @@
 
 #include "environment.h"
 
-t_environment			*environment_singleton(void)
+t_shenv			*environment_singleton(void)
 {
-	static t_environment	*env = NULL;
+	static t_shenv	*env = NULL;
 
 	if (!env)
 	{

@@ -18,8 +18,8 @@
 static void	iter_assign_fn(void *assign_, void *env_)
 {
 	t_ast_assignment		*assign;
-	t_environment			*env;
-	t_environment_var_type	type;
+	t_shenv			*env;
+	t_envvar_type	type;
 
 	assign = assign_;
 	env = env_;
@@ -28,7 +28,7 @@ static void	iter_assign_fn(void *assign_, void *env_)
 }
 
 static void	execute_builtin(t_ast_simple_command *cmd, char *builtin,
-	t_lst *tokens, t_environment *this)
+	t_lst *tokens, t_shenv *this)
 {
 	t_builtin_fn	*builtin_fn;
 
@@ -40,7 +40,7 @@ static void	execute_builtin(t_ast_simple_command *cmd, char *builtin,
 }
 
 void		execute_simple_command(t_ast_simple_command *cmd,
-	t_environment *env)
+	t_shenv *env)
 {
 	char			**env_arr;
 	char			*path;
@@ -78,7 +78,7 @@ void		execute_simple_command(t_ast_simple_command *cmd,
 
 void				ast_simple_command_exec(t_ast_simple_command *cmd)
 {
-	t_environment	*env;
+	t_shenv	*env;
 
 	env = environment_singleton();
 	if (twl_lst_len(cmd->assignment_items) > 0)

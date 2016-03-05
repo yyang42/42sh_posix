@@ -15,7 +15,7 @@
 #include "arexp/nodes/arexp_expression.h"
 #include "environment.h"
 
-static long long	get_environment_variable_lltoa(t_token *token)
+static long long	get_envvariable_lltoa(t_token *token)
 {
 	char			*value;
 	char			*tmp;
@@ -63,7 +63,7 @@ long long		arexp_unary_eval(t_arexp_unary *this)
 	if (this->primary_enum == AREXP_PRIMARY_CONSTANT)
 		ret = this->primary.constant;
 	else if (this->primary_enum == AREXP_PRIMARY_VARIABLE)
-		ret = get_environment_variable_lltoa(this->primary.variable);
+		ret = get_envvariable_lltoa(this->primary.variable);
 	else
 		ret = arexp_expression_eval(this->primary.arexp_expression);
 	if (arexp_singleton(NULL, false)->error_msg)

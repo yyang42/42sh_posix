@@ -12,7 +12,7 @@
 
 #include "builtin/builtin_cd.h"
 
-static void	set_oldpwd(t_environment *env)
+static void	set_oldpwd(t_shenv *env)
 {
 	char			*oldpwd;
 
@@ -23,12 +23,12 @@ static void	set_oldpwd(t_environment *env)
 	}
 }
 
-static void	set_pwd(char *pwd, t_environment *env)
+static void	set_pwd(char *pwd, t_shenv *env)
 {
 	environment_setenv_value(env, "PWD", pwd, 1);
 }
 
-static void	cd_symlink(char *path, t_environment *this)
+static void	cd_symlink(char *path, t_shenv *this)
 {
 	char buf[PATH_MAX];
 
@@ -40,7 +40,7 @@ static void	cd_symlink(char *path, t_environment *this)
 	}
 }
 
-void				builtin_cd_exec_do(char *path, int no_symlinks, t_environment *this)
+void				builtin_cd_exec_do(char *path, int no_symlinks, t_shenv *this)
 {
 	char			*new_path;
 

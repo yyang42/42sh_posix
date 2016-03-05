@@ -14,27 +14,27 @@
 
 static bool		cmp_vars(void *item1, void *item2, void *context)
 {
-	t_environment_var	*var1;
-	t_environment_var	*var2;
+	t_envvar	*var1;
+	t_envvar	*var2;
 
 	var1 = item1;
 	var2 = item2;
 	(void)context;
-	return (twl_strcmp(var1->evar_key, var2->evar_key) <= 0);
+	return (twl_strcmp(var1->envvar_key, var2->envvar_key) <= 0);
 }
 
-static void		print_env_var(void *data)
+static void		print_envvar(void *data)
 {
-	t_environment_var	*var;
+	t_envvar	*var;
 
 	var = data;
-	twl_printf("%s=%s\n", var->evar_key, var->evar_value);
+	twl_printf("%s=%s\n", var->envvar_key, var->envvar_value);
 }
 
 
 
-void			environment_print_all(t_environment *this)
+void			environment_print_all(t_shenv *this)
 {
-	twl_lst_sort(this->env_vars, cmp_vars, NULL);
-	twl_lst_iter0(this->env_vars, print_env_var);
+	twl_lst_sort(this->envvars, cmp_vars, NULL);
+	twl_lst_iter0(this->envvars, print_envvar);
 }

@@ -14,7 +14,7 @@
 #include "environment.h"
 #include "twl_opt_elem.h"
 
-void				environment_add_flag(char *flag, t_environment *env)
+void				environment_add_flag(char *flag, t_shenv *env)
 {
 	if (env && env->flags && !environment_flag_exist(env, flag))
 	{

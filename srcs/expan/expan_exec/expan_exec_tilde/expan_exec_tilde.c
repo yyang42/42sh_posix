@@ -19,7 +19,7 @@
 
 static char		*expan_exec_tilde_get_home()
 {
-	t_environment *env;
+	t_shenv *env;
 
 	env = environment_singleton();
 	return (environment_getenv_value(env, "HOME"));

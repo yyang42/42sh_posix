@@ -13,7 +13,7 @@
 #include "builtin/builtin_jobs.h"
 #include "async/job_mgr.h"
 
-int					builtin_jobs_exec(t_lst *tokens, t_environment *this)
+int					builtin_jobs_exec(t_lst *tokens, t_shenv *this)
 {
 	/* TODO: Not fully implemented yet */
 	job_mgr_env_print();

@@ -21,8 +21,8 @@
 bool			expan_exec_param_var(t_expan_token *expan_token)
 {
 	t_expan_param		*expan_param;
-	t_environment		*env;
-	t_environment_var	*var;
+	t_shenv		*env;
+	t_envvar	*var;
 	char				*temp;
 
 	expan_param = expan_token->expan_data;
@@ -41,9 +41,9 @@ bool			expan_exec_param_var(t_expan_token *expan_token)
 	else
 	{
 		var = environment_get(env, expan_param->parameter);
-		if (var && var->evar_value_is_set == 1 && var->evar_value)
+		if (var && var->envvar_value_is_set == 1 && var->envvar_value)
 		{
-			expan_token->res = twl_strdup(var->evar_value);
+			expan_token->res = twl_strdup(var->envvar_value);
 		}
 	}
 	if (!expan_token->res)

@@ -14,7 +14,7 @@
 #include "ast/ast.h"
 #include "ast/nodes/ast_compound_list.h"
 
-int					builtin_eval_exec(t_lst *tokens, t_environment *env)
+int					builtin_eval_exec(t_lst *tokens, t_shenv *env)
 {
 	t_ast			*ast;
 	int				ret;

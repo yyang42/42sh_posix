@@ -15,7 +15,7 @@
 #include "twl_arr.h"
 #include "xopt.h"
 
-static void			init_env_info(t_environment_info *info)
+static void			init_env_info(t_shenv_info *info)
 {
 	info->last_exit_status = 0;
 	info->cur_shell_pid = getpid();
@@ -27,7 +27,7 @@ static void			init_env_info(t_environment_info *info)
 static void			init_env(void *elem, void *context)
 {
 	char			*environ_elem;
-	t_environment	*this;
+	t_shenv	*this;
 
 	environ_elem = elem;
 	this = context;
@@ -49,7 +49,7 @@ static void			fill_flag_verbose_dict(t_dict *dict)
 	twl_dict_add(dict, "vi", "vi");
 }
 
-void				environment_init(t_environment *this)
+void				environment_init(t_shenv *this)
 {
 	extern char **environ;
 

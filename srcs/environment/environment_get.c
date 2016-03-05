@@ -14,24 +14,24 @@
 
 static bool			find_env_key(void *data, void *context)
 {
-	t_environment_var	*var;
+	t_envvar	*var;
 	char				*str;
 
 	var = data;
 	str = context;
-	return (twl_strcmp(var->evar_key, str) == 0);
+	return (twl_strcmp(var->envvar_key, str) == 0);
 }
 
-t_environment_var	*environment_get(t_environment *this, char *evar_key)
+t_envvar	*environment_get(t_shenv *this, char *envvar_key)
 {
-	t_environment_var	*var;
+	t_envvar	*var;
 
-	if (evar_key == NULL || *evar_key == '\0')
+	if (envvar_key == NULL || *envvar_key == '\0')
 	{
 		errno = EINVAL;
 		return (NULL);
 	}
-	var = (t_environment_var *)(twl_lst_find(this->env_vars,
-													find_env_key, evar_key));
+	var = (t_envvar *)(twl_lst_find(this->envvars,
+													find_env_key, envvar_key));
 	return (var);
 }

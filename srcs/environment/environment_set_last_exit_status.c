@@ -14,13 +14,13 @@
 
 void				environment_set_last_exit_status(int status)
 {
-	t_environment *env;
+	t_shenv *env;
 
 	env = environment_singleton();
 	env->info.last_exit_status = status;
 }
 
-void				environment_set_last_exit_status_2(t_environment *env,
+void				environment_set_last_exit_status_2(t_shenv *env,
 																	int status)
 {
 	env->info.last_exit_status = status;

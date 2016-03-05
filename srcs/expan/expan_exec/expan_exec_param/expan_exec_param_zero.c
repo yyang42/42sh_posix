@@ -16,13 +16,13 @@
 
 char				*params_zero(void)
 {
-	t_environment	*env;
+	t_shenv	*env;
 
 	env = environment_singleton();
 	return (twl_strdup(env->info.name));
 }
 
-char				*test_params_zero(t_environment *env)
+char				*test_params_zero(t_shenv *env)
 {
 	return (twl_strdup(env->info.name));
 }

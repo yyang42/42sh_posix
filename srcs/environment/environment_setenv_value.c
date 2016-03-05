@@ -14,36 +14,36 @@
 
 static bool			find_env_key(void *data, void *context)
 {
-	t_environment_var	*var;
+	t_envvar	*var;
 	char				*str;
 
 	var = data;
 	str = context;
-	return (twl_strcmp(var->evar_key, str) == 0);
+	return (twl_strcmp(var->envvar_key, str) == 0);
 }
 
-t_environment_var	*environment_setenv_value(t_environment *this,
+t_envvar	*environment_setenv_value(t_shenv *this,
 	char *key, char *value, int value_is_set)
 {
-	t_environment_var	*var;
+	t_envvar	*var;
 
 	if (key == NULL || *key == '\0')
 	{
 		errno = EINVAL;
 		return (NULL);
 	}
-	var = (t_environment_var *)(twl_lst_find(this->env_vars, find_env_key,
+	var = (t_envvar *)(twl_lst_find(this->envvars, find_env_key,
 																		key));
 	if (var != NULL)
 	{
-		twl_strdel(&var->evar_value);
-		var->evar_value = twl_strdup(value);
-		var->evar_value_is_set = value_is_set;
+		twl_strdel(&var->envvar_value);
+		var->envvar_value = twl_strdup(value);
+		var->envvar_value_is_set = value_is_set;
 	}
 	else
 	{
-		var = environment_var_new(key, value, LOCAL, value_is_set);
-		twl_lst_push(this->env_vars, var);
+		var = envvar_new(key, value, LOCAL, value_is_set);
+		twl_lst_push(this->envvars, var);
 	}
 	return (var);
 }

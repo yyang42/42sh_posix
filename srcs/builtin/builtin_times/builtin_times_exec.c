@@ -46,7 +46,7 @@ static void			print_timeval(struct timeval *tvp)
 	twl_printf("%ldm%d.%03ds", minutes, seconds, seconds_fraction);
 }
 
-int					builtin_times_exec(t_lst *tokens, t_environment *env)
+int					builtin_times_exec(t_lst *tokens, t_shenv *env)
 {
 	struct rusage self;
 	struct rusage kids;
