@@ -20,7 +20,7 @@ static void	iter_redir_fds_fn(void *redir_fd_)
 	redir_fd = redir_fd_;
 	if (redir_fd->fd_file != -1)
 		close_file(redir_fd->fd_file);
-	dup_fds(redir_fd->fd_save, redir_fd->fd_origin);
+	ast_redir_fd_utils_dup_fds(redir_fd->fd_save, redir_fd->fd_origin);
 }
 
 void				ast_redir_fd_mgr_close(t_lst *redir_fds)

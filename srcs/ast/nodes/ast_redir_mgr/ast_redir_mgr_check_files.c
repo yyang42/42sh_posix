@@ -33,7 +33,7 @@ static void		iter_check_fn(void *data, void *context)
 		fd = append_to_file(redir->param);
 	else
 		return ;
-	if (fd < 0 || !is_valid_duplicate_fd(redir->io_number))
+	if (fd < 0 || !ast_redir_fd_utils_is_valid_duplicate_fd(redir->io_number))
 		*is_good_file = false;
 	else
 		close_file(fd);

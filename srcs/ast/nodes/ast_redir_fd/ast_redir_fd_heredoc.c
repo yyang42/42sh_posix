@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_simple_command.h"
+#include "ast/nodes/ast_redir_fd.h"
 
 int	ast_redir_fd_write_heredoc_to_tmp_file(t_ast_redir *redir)
 {

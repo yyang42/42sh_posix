@@ -13,51 +13,7 @@
 #include "ast/nodes/ast_simple_command.h"
 #include "builtin/builtin.h"
 
-void			dup_fds(int fd1, int fd2)
-{
-	if (dup2(fd1, fd2) == -1)
-		perror("dup2");
-}
-
-char			*get_binary_path(char *cmd, t_shenv *env)
-{
-	char			**paths;
-	char			*path;
-	int				i;
-
-	if (cmd && (cmd[0] == '/' || twl_strncmp(cmd, "./", 2) == 0))
-		return (!file_exists(cmd) ? NULL : cmd);
-	paths = environment_get_paths(env);
-	if (!paths)
-		return (NULL);
-	i = -1;
-	while (paths[++i])
-	{
-		path = twl_joinpath(paths[i], cmd);
-		if (file_exists(path))
-		{
-			twl_arr_del(paths, free);
-			return (path);
-		}
-		free(path);
-	}
-	twl_arr_del(paths, free);
-	return (NULL);
-}
-
-static bool		find_bultin(void *builtin_, void *cmd_)
-{
-	char	*builtin;
-	char	*cmd;
-
-	builtin = builtin_;
-	cmd = cmd_;
-	if (twl_strcmp(builtin, cmd) == 0)
-		return (true);
-	return (false);
-}
-
-t_dict			*get_builtin_func_dict(void)
+t_dict				*ast_simple_command_utils_get_builtin_func_dict(void)
 {
 	t_dict *dict;
 
@@ -82,17 +38,4 @@ t_dict			*get_builtin_func_dict(void)
 	twl_dict_add(dict, "unset", &builtin_unset_exec);
 	twl_dict_add(dict, "unsetenv", &builtin_unsetenv_exec);
 	return (dict);
-}
-
-bool			is_builtin(char *cmd)
-{
-	static const char	*builtins[33] = {"echo", "cd", "env", "unsetenv"
-	, "setenv", "alias", "unalias", "false", "true", "umask", "newgrp", "fc"
-	, "command", "kill", "getopts", "read", "break", "colon", "continue"
-	, "return", "shift", "set", "unset", "export", "setenv", "times"
-	, "eval", ".", "readonly", "exit", "jobs", NULL};
-
-	if (twl_arr_find(builtins, find_bultin, cmd))
-		return (true);
-	return (false);
 }

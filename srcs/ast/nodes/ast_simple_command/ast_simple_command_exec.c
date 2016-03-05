@@ -15,7 +15,7 @@
 #include "ast/nodes/ast_redir.h"
 #include "builtin/builtin.h"
 
-static void	iter_assign_fn(void *assign_, void *env_)
+static void			iter_assign_fn(void *assign_, void *env_)
 {
 	t_ast_assignment		*assign;
 	t_shenv			*env;
@@ -27,7 +27,7 @@ static void	iter_assign_fn(void *assign_, void *env_)
 	environment_setenv_or_setlocal__(env, assign->key, assign->value, type);
 }
 
-static void	execute_builtin(t_ast_simple_command *cmd, char *builtin,
+static void			execute_builtin(t_ast_simple_command *cmd, char *builtin,
 	t_lst *tokens, t_shenv *this)
 {
 	t_builtin_fn	*builtin_fn;
@@ -39,7 +39,7 @@ static void	execute_builtin(t_ast_simple_command *cmd, char *builtin,
 	}
 }
 
-void		execute_simple_command(t_ast_simple_command *cmd,
+void				execute_simple_command(t_ast_simple_command *cmd,
 	t_shenv *env)
 {
 	char			**env_arr;
@@ -54,7 +54,7 @@ void		execute_simple_command(t_ast_simple_command *cmd,
 	if (twl_lst_len(cmd->command_tokens) > 0)
 	{
 		first_str = token_mgr_first(cmd->command_tokens)->text;
-		if (is_builtin(first_str))
+		if (ast_simple_command_utils_is_builtin(first_str))
 		{
 			execute_builtin(cmd, first_str, cmd->command_tokens, env);
 		}
@@ -65,7 +65,7 @@ void		execute_simple_command(t_ast_simple_command *cmd,
 		}
 		else
 		{
-			path = get_binary_path(first_str, env);
+			path = ast_simple_command_utils_get_binary_path(first_str, env);
 			ast_simple_command_execution(path, cmd->command_tokens, env_arr);
 			free(path);
 		}
@@ -78,7 +78,7 @@ void		execute_simple_command(t_ast_simple_command *cmd,
 	free(token_joined);
 }
 
-void		ast_simple_command_exec_with_redirs2(t_ast_simple_command *cmd,
+static void			ast_simple_command_exec_with_redirs(t_ast_simple_command *cmd,
 		t_shenv *env)
 {
 	if (ast_redir_mgr_check_files(cmd->redir_items) == false)
@@ -100,7 +100,7 @@ void				ast_simple_command_exec(t_ast_simple_command *cmd)
 		? environment_clone(environment_singleton())
 		: environment_singleton()) ;
 	twl_lst_iter(cmd->assignment_items, iter_assign_fn, env);
-	ast_simple_command_exec_with_redirs2(cmd, env);
+	ast_simple_command_exec_with_redirs(cmd, env);
 	if (with_new_env)
 		environment_del(env);
 }

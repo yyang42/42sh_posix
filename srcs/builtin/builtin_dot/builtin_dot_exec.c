@@ -30,8 +30,8 @@ static char			*get_file2(char **av, t_shenv *this)
 			return (NULL);
 		close(fd);
 	}
-	else if (get_binary_path(av[1], this))
-		file = twl_strdup(get_binary_path(av[1], this));
+	else if (ast_simple_command_utils_get_binary_path(av[1], this))
+		file = twl_strdup(ast_simple_command_utils_get_binary_path(av[1], this));
 	return (file);
 }
 

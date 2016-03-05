@@ -12,7 +12,7 @@
 
 #include "builtin/builtin_env.h"
 
-static void		exec_with_path(void *elem, void *context)
+static void			exec_with_path(void *elem, void *context)
 {
 	char		*path;
 	t_env_args	*env;
@@ -33,12 +33,12 @@ static void		exec_with_path(void *elem, void *context)
 	}
 }
 
-static void		env_with_builtin(char *builtin, t_lst *tokens, t_shenv *env)
+static void			env_with_builtin(char *builtin, t_lst *tokens, t_shenv *env)
 {
 	t_dict	*dict;
 	t_builtin_fn    *builtin_fn;
 
-	dict = get_builtin_func_dict();
+	dict = ast_simple_command_utils_get_builtin_func_dict();
 	builtin_fn = twl_dict_get(dict, builtin);
 	if (builtin_fn)
 	{
@@ -59,7 +59,7 @@ void				builtin_env_exec_do(t_env_args *env, t_shenv *this)
 		twl_lst_pop_front(tokens_copy);
 	if (fpaths && !twl_strchr(env->utility, '/'))
 	{
-		if (!is_builtin(env->utility))
+		if (!ast_simple_command_utils_is_builtin(env->utility))
 			twl_arr_iter(fpaths, exec_with_path, env);
 		else
 			env_with_builtin(env->utility, tokens_copy, this);

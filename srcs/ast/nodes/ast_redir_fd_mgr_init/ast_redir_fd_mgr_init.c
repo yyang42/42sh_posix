@@ -62,7 +62,7 @@ static void	iter_redir_fn(void *redir_, void *redir_fds)
 			return ;
 	}
 	if (redir_fd->fd_file != -1)
-		dup_fds(redir_fd->fd_file, redir_fd->fd_origin);
+		ast_redir_fd_utils_dup_fds(redir_fd->fd_file, redir_fd->fd_origin);
 	twl_lst_push_front(redir_fds, redir_fd);
 }
 

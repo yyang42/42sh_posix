@@ -10,9 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_simple_command.h"
+#include "ast/nodes/ast_redir_fd.h"
 
-int	ast_redir_fd_duplication_input(t_ast_redir *redir, t_ast_redir_fd *redir_fd)
+int					ast_redir_fd_duplication_input(t_ast_redir *redir,
+													t_ast_redir_fd *redir_fd)
 {
 	int duplicated_fd;
 
@@ -21,14 +22,14 @@ int	ast_redir_fd_duplication_input(t_ast_redir *redir, t_ast_redir_fd *redir_fd)
 		close_file(redir->io_number);
 	else
 	{
-		duplicated_fd = get_duplication_fd(redir->param);
+		duplicated_fd = ast_redir_fd_utils_get_duplication_fd(redir->param);
 		if (duplicated_fd > -1)
 		{
 			redir_fd->fd_save = dup(redir->io_number == -1
 				? STDIN_FILENO : redir->io_number);
 			redir_fd->fd_origin = redir->io_number == -1
 				? STDIN_FILENO : redir->io_number;
-			dup_fds(duplicated_fd, redir_fd->fd_origin);
+			ast_redir_fd_utils_dup_fds(duplicated_fd, redir_fd->fd_origin);
 		}
 	}
 	return (duplicated_fd);

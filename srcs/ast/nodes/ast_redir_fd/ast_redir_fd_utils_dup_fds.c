@@ -10,14 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_simple_command.h"
+#include <stdio.h>
+#include "ast/nodes/ast_redir_fd.h"
 
-void		ast_simple_command_exec_with_redirs(t_ast_simple_command *cmd)
+void				ast_redir_fd_utils_dup_fds(int fd1, int fd2)
 {
-	if (ast_redir_mgr_check_files(cmd->redir_items) == false)
-		return ;
-	ast_redir_fd_mgr_init(cmd->redir_fds, cmd->redir_items);
-	if (twl_lst_len(cmd->command_tokens) > 0)
-		execute_simple_command(cmd, environment_singleton());
-	ast_redir_fd_mgr_close(cmd->redir_fds);
+	if (dup2(fd1, fd2) == -1)
+		perror("dup2");
 }

@@ -10,16 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_redir_fd.h"
+#include "ast/nodes/ast_simple_command.h"
+#include "builtin/builtin.h"
 
-void	ast_redir_fd_redir_output(t_ast_redir *redir, t_ast_redir_fd *redir_fd)
+bool			ast_simple_command_utils_is_builtin(char *cmd_name)
 {
-	redir_fd->fd_save = dup(redir->io_number == -1
-		? STDOUT_FILENO : redir->io_number);
-	redir_fd->fd_origin = redir->io_number == -1
-		? STDOUT_FILENO : redir->io_number;
-	if (!twl_strcmp(">", redir->operator))
-		redir_fd->fd_file = create_file(redir->param);
-	else if (!twl_strcmp(">>", redir->operator))
-		redir_fd->fd_file = append_to_file(redir->param);
+	// static const char	*builtins[33] = {"echo", "cd", "env", "unsetenv"
+	// , "setenv", "alias", "unalias", "false", "true", "umask", "newgrp", "fc"
+	// , "command", "kill", "getopts", "read", "break", "colon", "continue"
+	// , "return", "shift", "set", "unset", "export", "setenv", "times"
+	// , "eval", ".", "readonly", "exit", "jobs", NULL};
+
+	t_dict	*dict;
+
+	dict = ast_simple_command_utils_get_builtin_func_dict();
+	return twl_dict_get(dict, cmd_name);
 }

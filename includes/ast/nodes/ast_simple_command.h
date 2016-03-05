@@ -38,33 +38,23 @@ typedef struct			s_ast_simple_command
 	t_dict				*builtin_func;
 }						t_ast_simple_command;
 
+struct s_ast_compound_command;
+
 t_ast_simple_command	*ast_simple_command_new(void);
 void					ast_simple_command_del(t_ast_simple_command *ast_s_cmd);
 bool					ast_simple_command_check_files(t_ast_simple_command *t);
-t_ast_simple_command	*ast_simple_command_new_from_tokens(t_lst *tokens,
-	struct s_ast *ast);
 t_ast_simple_command	*ast_simple_command_new_from_tokens(t_lst *tokens, struct s_ast *ast);
-void					ast_simple_command_print_rec(t_ast_simple_command
-	*ast_s_cmd, int depth);
+t_ast_simple_command	*ast_simple_command_new_from_tokens(t_lst *tokens, struct s_ast *ast);
+void					ast_simple_command_print_rec(t_ast_simple_command *ast_s_cmd, int depth);
 
 bool					ast_simple_command_is_own_type(t_lst *tokens);
 void					ast_simple_command_exec(t_ast_simple_command *cmd);
-struct s_ast_compound_command;
-void					ast_simple_command_exec_function(t_ast_simple_command *cmd,
-								t_shenv *env, t_lst *tokens,
-								struct s_ast_compound_command *compound_cmd);
+void					ast_simple_command_exec_function(t_ast_simple_command *cmd, t_shenv *env, t_lst *tokens, struct s_ast_compound_command *compound_cmd);
 bool					ast_simple_command_expan(t_ast_simple_command *cmd);
 
-bool					is_builtin(char *cmd);
-char					*get_binary_path(char *cmd, t_shenv *env);
-void 					dup_fds(int fd1, int fd2);
-bool					ast_simple_command_check_files(t_ast_simple_command *c);
-void					ast_simple_command_exec_with_redirs(t_ast_simple_command *cmd);
-void					execute_simple_command(t_ast_simple_command *cmd,
-	t_shenv *env);
+bool					ast_simple_command_utils_is_builtin(char *cmd);
+char					*ast_simple_command_utils_get_binary_path(char *cmd, t_shenv *env);
 void					ast_simple_command_execution(char *path, t_lst *tokens, char **env);
-int						get_duplication_fd(char *str);
-bool					is_valid_duplicate_fd(int fd);
-t_dict					*get_builtin_func_dict(void);
+t_dict					*ast_simple_command_utils_get_builtin_func_dict(void);
 
 #endif

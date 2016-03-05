@@ -10,16 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_redir_fd.h"
+#include "ast/nodes/ast_redir.h"
+#include "ast/nodes/ast_assignment.h"
+#include "ast/nodes/ast_simple_command.h"
 
-void	ast_redir_fd_redir_output(t_ast_redir *redir, t_ast_redir_fd *redir_fd)
+int			ast_redir_fd_utils_get_duplication_fd(char *str)
 {
-	redir_fd->fd_save = dup(redir->io_number == -1
-		? STDOUT_FILENO : redir->io_number);
-	redir_fd->fd_origin = redir->io_number == -1
-		? STDOUT_FILENO : redir->io_number;
-	if (!twl_strcmp(">", redir->operator))
-		redir_fd->fd_file = create_file(redir->param);
-	else if (!twl_strcmp(">>", redir->operator))
-		redir_fd->fd_file = append_to_file(redir->param);
+	int fd;
+
+	if (twl_str_is_pos_num(str))
+	{
+		fd = twl_atoi(str);
+		if (ast_redir_fd_utils_is_valid_duplicate_fd(fd))
+			return (fd);
+		return (-1);
+	}
+	else
+	{
+		twl_dprintf(2, "42sh: %s: ambiguous redirect", str);
+		return (-1);
+	}
 }
