@@ -59,7 +59,7 @@ bool					is_builtin(char *cmd);
 char					*get_binary_path(char *cmd, t_shenv *env);
 void 					dup_fds(int fd1, int fd2);
 bool					ast_simple_command_check_files(t_ast_simple_command *c);
-void					ast_simple_command_redirs(t_ast_simple_command *cmd);
+void					ast_simple_command_exec_with_redirs(t_ast_simple_command *cmd);
 void					execute_simple_command(t_ast_simple_command *cmd,
 	t_shenv *env);
 void					ast_simple_command_execution(char *path, t_lst *tokens, char **env);

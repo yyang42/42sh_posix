@@ -47,6 +47,8 @@ void		execute_simple_command(t_ast_simple_command *cmd,
 	char			*token_joined;
 	char			*first_str;
 
+	if (twl_lst_len(cmd->command_tokens) == 0)
+		return ;
 	token_joined = token_mgr_strjoin(cmd->command_tokens, " ");
 	env_arr = (char **)environment_get_env_arr(env);
 	if (twl_lst_len(cmd->command_tokens) > 0)
@@ -76,26 +78,29 @@ void		execute_simple_command(t_ast_simple_command *cmd,
 	free(token_joined);
 }
 
+void		ast_simple_command_exec_with_redirs2(t_ast_simple_command *cmd,
+		t_shenv *env)
+{
+	if (ast_redir_mgr_check_files(cmd->redir_items) == false)
+		return ;
+	ast_redir_fd_mgr_init(cmd->redir_fds, cmd->redir_items);
+	execute_simple_command(cmd, env);
+	ast_redir_fd_mgr_close(cmd->redir_fds);
+}
+
+
 void				ast_simple_command_exec(t_ast_simple_command *cmd)
 {
-	t_shenv	*env;
+	t_shenv			*env;
+	bool			with_new_env;
 
-	env = environment_singleton();
-	if (twl_lst_len(cmd->assignment_items) > 0)
-	{
-		if (twl_lst_len(cmd->command_tokens) != 0)
-			env = environment_clone(env);
-		twl_lst_iter(cmd->assignment_items, iter_assign_fn, env);
-	}
-	if (twl_lst_len(cmd->redir_items) > 0)
-	{
-		if (twl_lst_len(cmd->command_tokens) == 0)
-			return ;
-		ast_simple_command_redirs(cmd);
-	}
-	else if (twl_lst_len(cmd->command_tokens) > 0)
-		execute_simple_command(cmd, env);
-	if (twl_lst_len(cmd->command_tokens) != 0
-		&& twl_lst_len(cmd->assignment_items) > 0)
+	with_new_env = (twl_lst_len(cmd->assignment_items) > 0
+		&& twl_lst_len(cmd->command_tokens) > 0);
+	env = (with_new_env
+		? environment_clone(environment_singleton())
+		: environment_singleton()) ;
+	twl_lst_iter(cmd->assignment_items, iter_assign_fn, env);
+	ast_simple_command_exec_with_redirs2(cmd, env);
+	if (with_new_env)
 		environment_del(env);
 }

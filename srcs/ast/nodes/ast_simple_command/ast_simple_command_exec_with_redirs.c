@@ -12,11 +12,12 @@
 
 #include "ast/nodes/ast_simple_command.h"
 
-void		ast_simple_command_redirs(t_ast_simple_command *cmd)
+void		ast_simple_command_exec_with_redirs(t_ast_simple_command *cmd)
 {
 	if (ast_redir_mgr_check_files(cmd->redir_items) == false)
 		return ;
 	ast_redir_fd_mgr_init(cmd->redir_fds, cmd->redir_items);
-	execute_simple_command(cmd, environment_clone(environment_singleton()));
+	if (twl_lst_len(cmd->command_tokens) > 0)
+		execute_simple_command(cmd, environment_singleton());
 	ast_redir_fd_mgr_close(cmd->redir_fds);
 }

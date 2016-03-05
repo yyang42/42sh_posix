@@ -48,7 +48,6 @@ void				ast_compound_command_exec(t_ast_compound_command *this)
 {
 	if (this->command_type != COMPOUND_COMMAND_NONE)
 	{
-
 		ast_compound_command_exec_with_redirs(this);
 	}
 }
