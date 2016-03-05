@@ -10,15 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/ast.h"
+#include "twl_xstdlib.h"
 
-int					ast_exec_string(char *input)
+#include "token/token.h"
+
+t_token				*token_copy(t_token *src)
 {
-	int				exit_code;
-	t_lst			*tokens;
+	t_token		*this;
 
-	tokens = tokenizer_tokenize(input);
-	exit_code = ast_exec_tokens(tokens);
-	token_mgr_del_inner(tokens);
-	return (exit_code);
+	this = twl_malloc_x0(sizeof(t_token));
+	this->type = src->type;
+	if (src->text)
+		this->text = twl_strdup(src->text);
+	this->line = src->line;
+	this->col = src->col;
+	if (src->heredoc_text)
+		this->heredoc_text = twl_strdup(src->heredoc_text);
+	return (this);
 }

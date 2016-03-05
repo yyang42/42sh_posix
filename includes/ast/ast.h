@@ -38,6 +38,7 @@ typedef struct		s_ast
 }					t_ast;
 
 t_ast				*ast_new(char *input);
+t_ast				*ast_new_from_tokens(t_lst *src_tokens);
 void				ast_del(t_ast *this);
 
 void				ast_print_tokens(t_ast *ast);
@@ -55,5 +56,6 @@ int					ast_exec(t_ast *ast);
 int					ast_expan(t_ast *ast);
 
 int					ast_exec_string(char *input);
+int					ast_exec_tokens(t_lst *tokens);
 
 #endif

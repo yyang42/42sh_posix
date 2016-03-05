@@ -10,15 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/ast.h"
+#include "twl_xstdlib.h"
 
-int					ast_exec_string(char *input)
+#include "token/token.h"
+
+void				*token_copy_void(void *src)
 {
-	int				exit_code;
-	t_lst			*tokens;
-
-	tokens = tokenizer_tokenize(input);
-	exit_code = ast_exec_tokens(tokens);
-	token_mgr_del_inner(tokens);
-	return (exit_code);
+	return (token_copy(src));
 }

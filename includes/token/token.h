@@ -34,4 +34,7 @@ t_token				*token_arexp(char *text);
 bool				token_is_control_operators_nl(t_token *this);
 bool				token_is_reserved_word(t_token *this);
 
+t_token				*token_copy(t_token *src);
+void				*token_copy_void(void *src);
+
 #endif

@@ -12,13 +12,21 @@
 
 #include "ast/ast.h"
 
-int					ast_exec_string(char *input)
+int					ast_exec_tokens(t_lst *tokens)
 {
+	t_ast			*ast;
 	int				exit_code;
-	t_lst			*tokens;
 
-	tokens = tokenizer_tokenize(input);
-	exit_code = ast_exec_tokens(tokens);
-	token_mgr_del_inner(tokens);
+	ast = ast_new_from_tokens(tokens);
+	if (ast->error_msg)
+	{
+		twl_dprintf(2, "%s\n", ast->error_msg);
+		exit_code = 1;
+	}
+	else
+	{
+		exit_code = ast_exec(ast);
+	}
+	ast_del(ast);
 	return (exit_code);
 }
