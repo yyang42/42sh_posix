@@ -34,10 +34,10 @@ bool			expan_exec_params_question2(t_expan_token *expan_token)
 	t_shenv		*env;
 
 	data = expan_token->expan_data;
-	env = environment_singleton();
+	env = shenv_singleton();
 	if (data->parameter && twl_strcmp(data->parameter, ""))
 	{
-		shvar = environment_get(env, data->parameter);
+		shvar = shenv_get(env, data->parameter);
 		if (shvar)
 		{
 			if (shvar->shvar_value != NULL && shvar->shvar_value_is_set == 1)

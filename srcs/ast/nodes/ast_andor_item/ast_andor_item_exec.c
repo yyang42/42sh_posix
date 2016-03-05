@@ -34,14 +34,14 @@ static void			andor_fn_2(t_ast_pipe_item *pipe_item, pid_t pid)
 			dup2(pipe_item->fds[0], 0);
 		}
 		ast_pipe_item_exec(pipe_item);
-		exit(environment_get_last_exit_status());
+		exit(shenv_get_last_exit_status());
 	}
 	else
 	{
 		wait(&res);
 		handle_signal(res);
     	if (WIFEXITED(res))
-			environment_singleton()->info.last_exit_status = WEXITSTATUS(res);
+			shenv_singleton()->info.last_exit_status = WEXITSTATUS(res);
 		close(pipe_item->fds[1]);
 		if (pipe_item->fds[0] != -1)
 			close(pipe_item->fds[0]);

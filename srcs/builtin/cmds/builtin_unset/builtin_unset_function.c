@@ -25,7 +25,7 @@ static void			unset_something(void *data, void *context, void *ret_)
 	ret = ret_;
 	if (arg)
 	{
-		environment_remove_shell_func(env, arg);
+		shenv_remove_shell_func(env, arg);
 		*ret = BUILTIN_EXEC_SUCCESS;
 	}
 }

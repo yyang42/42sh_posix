@@ -12,7 +12,7 @@ static void simple_unset_ifs_test(t_test *test)
 	char *str;
 	t_shenv	*env;
 
-	env = environment_singleton();
+	env = shenv_singleton();
 	builtin_unset_exec(tokenizer_tokenize("unset IFS"), env);
 	str = twl_strdup(" \t\n lol \t\n poiuet \t \n   ");
 	expan_field_splitting(&str);
@@ -25,7 +25,7 @@ static void simple_null_ifs_test(t_test *test)
 	char			*str;
 	t_shenv	*env;
 
-	env = environment_singleton();
+	env = shenv_singleton();
 	builtin_export_exec(tokenizer_tokenize("export IFS"), env);
 	str = twl_strdup(" \t\n lol \t\n poiuet \t \n   ");
 	expan_field_splitting(&str);
@@ -39,7 +39,7 @@ static void simple_ifs_test(t_test *test)
 	char			*str;
 	t_shenv	*env;
 
-	env = environment_singleton();
+	env = shenv_singleton();
 	builtin_export_exec(tokenizer_tokenize("export IFS=o"), env);
 	str = twl_strdup("oooolopotorototoooo");
 	expan_field_splitting(&str);

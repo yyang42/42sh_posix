@@ -11,8 +11,8 @@ static void simple_test(t_test *test)
 	char			*ret;
 
 	(void)test;
-	env = environment_new();
-	environment_init(env);
+	env = shenv_new();
+	shenv_init(env);
 	builtin_set_exec(tokenizer_tokenize("set lol pouet"), env);
 	ret = test_params_sharp(env);
 	mt_assert(twl_strcmp(ret,"2") == 0);
@@ -20,7 +20,7 @@ static void simple_test(t_test *test)
 	builtin_set_exec(tokenizer_tokenize("set lol"), env);
 	ret = test_params_sharp(env);
 	mt_assert(twl_strcmp(ret,"1") == 0);
-	environment_del(env);
+	shenv_del(env);
 	free(ret);
 }
 

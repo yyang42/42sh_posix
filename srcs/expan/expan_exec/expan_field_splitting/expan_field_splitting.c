@@ -21,8 +21,8 @@ void		expan_field_splitting(char **res)
 	t_shenv		*env;
 	t_shvar	*ifs;
 
-	env = environment_singleton();
-	ifs = environment_get(env, "IFS");
+	env = shenv_singleton();
+	ifs = shenv_get(env, "IFS");
 	if (ifs && ifs->shvar_value_is_set == 1)
 	{
 		if (!twl_strcmp(ifs->shvar_value, " ") || !twl_strcmp(ifs->shvar_value, "\t")

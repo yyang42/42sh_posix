@@ -47,16 +47,16 @@ int					builtin_env_exec(t_lst *tokens, t_shenv *this)
 	opt = twl_opt_new(args, "i");
 	if (builtin_utils_check_invalid_opts(opt, "env", ENV_OPT_VALID_OPTS))
 		return (-1);
-	clone = !twl_lst_len(opt->opts) ? environment_clone(this)
-		: environment_new();
+	clone = !twl_lst_len(opt->opts) ? shenv_clone(this)
+		: shenv_new();
 	twl_lst_iter(opt->args, builtin_env_utils_add_shvar, clone);
 	twl_lst_iter(opt->args, get_utility, &env);
-	env.env_arr = (char **)environment_get_env_arr(clone);
+	env.env_arr = (char **)shenv_get_env_arr(clone);
 	if (env.has_utility)
 		builtin_env_exec_do(&env, this);
 	else
-		environment_print(clone);
-	environment_del(clone);
+		shenv_print(clone);
+	shenv_del(clone);
 	twl_opt_del(opt);
 	free(args);
 	return (0);

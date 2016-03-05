@@ -40,7 +40,7 @@ static int	get_dirname(char **dirname, t_opt *opt, t_lst *tokens,
 	if (twl_lst_len(tokens) >= 2
 		&& twl_strequ(token_mgr_get(tokens, 1)->text, "-"))
 	{
-		tmp = environment_getenv_value(this, "OLDPWD");
+		tmp = shenv_getenv_value(this, "OLDPWD");
 		if (tmp == NULL)
 		{
 			twl_dprintf(2, "cd: OLDPWD not set\n");
@@ -52,7 +52,7 @@ static int	get_dirname(char **dirname, t_opt *opt, t_lst *tokens,
 	}
 	else if (twl_opt_args_len(opt) == 0)
 	{
-		tmp = twl_strdup(environment_getenv_value(this, "HOME"));
+		tmp = twl_strdup(shenv_getenv_value(this, "HOME"));
 		if (tmp == NULL || *tmp == '\0')
 		{
 			twl_dprintf(2, "cd: HOME not set\n");

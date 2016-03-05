@@ -18,7 +18,7 @@ char				*params_zero(void)
 {
 	t_shenv	*env;
 
-	env = environment_singleton();
+	env = shenv_singleton();
 	return (twl_strdup(env->info.name));
 }
 

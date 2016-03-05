@@ -12,14 +12,14 @@ static void 	unset_var(t_test *test)
 	int					j;
 
 	(void)test;
-	env = environment_new();
-	environment_init(env);
+	env = shenv_new();
+	shenv_init(env);
 	builtin_export_exec(tokenizer_tokenize("export HAHA=pouet"), env);
 	i = twl_lst_len(env->shvars);
 	builtin_unset_exec(tokenizer_tokenize("unset HAHA"), env);
 	j = twl_lst_len(env->shvars);
 	mt_assert((i - j) == 1);
-	environment_del(env);
+	shenv_del(env);
 }
 
 static void 	unset_func(t_test *test)
@@ -29,14 +29,14 @@ static void 	unset_func(t_test *test)
 	int					j;
 
 	(void)test;
-	env = environment_new();
-	environment_init(env);
-	environment_add_shell_func(env,"LOL", (void *)"echo pouet");
+	env = shenv_new();
+	shenv_init(env);
+	shenv_add_shell_func(env,"LOL", (void *)"echo pouet");
 	i = twl_dict_len(env->shell_func);
 	builtin_unset_exec(tokenizer_tokenize("unset LOL"), env);
 	j = twl_dict_len(env->shell_func);
 	mt_assert((i - j) == 1);
-	environment_del(env);
+	shenv_del(env);
 }
 
 static void 	unset_var_not_func(t_test *test)
@@ -48,10 +48,10 @@ static void 	unset_var_not_func(t_test *test)
 	int					l;
 
 	(void)test;
-	env = environment_new();
-	environment_init(env);
+	env = shenv_new();
+	shenv_init(env);
 	builtin_export_exec(tokenizer_tokenize("export LOL=pouet"), env);
-	environment_add_shell_func(env,"LOL", (void *)"echo pouet");
+	shenv_add_shell_func(env,"LOL", (void *)"echo pouet");
 	i = twl_dict_len(env->shell_func);
 	k = twl_lst_len(env->shvars);
 	builtin_unset_exec(tokenizer_tokenize("unset LOL"), env);
@@ -59,7 +59,7 @@ static void 	unset_var_not_func(t_test *test)
 	l = twl_lst_len(env->shvars);
 	mt_assert((i - j) == 0);
 	mt_assert((k - l) == 1);
-	environment_del(env);
+	shenv_del(env);
 }
 
 static void 	unset_both(t_test *test)
@@ -71,10 +71,10 @@ static void 	unset_both(t_test *test)
 	int					l;
 
 	(void)test;
-	env = environment_new();
-	environment_init(env);
+	env = shenv_new();
+	shenv_init(env);
 	builtin_export_exec(tokenizer_tokenize("export LOL=pouet"), env);
-	environment_add_shell_func(env,"LOL", (void *)"echo pouet");
+	shenv_add_shell_func(env,"LOL", (void *)"echo pouet");
 	i = twl_dict_len(env->shell_func);
 	k = twl_lst_len(env->shvars);
 	builtin_unset_exec(tokenizer_tokenize("unset LOL"), env);
@@ -83,7 +83,7 @@ static void 	unset_both(t_test *test)
 	l = twl_lst_len(env->shvars);
 	mt_assert((i - j) == 1);
 	mt_assert((k - l) == 1);
-	environment_del(env);
+	shenv_del(env);
 }
 
 void            suite_builtin_unset_exec(t_suite *suite)

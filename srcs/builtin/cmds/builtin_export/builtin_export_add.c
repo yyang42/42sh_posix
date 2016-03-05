@@ -17,7 +17,7 @@
 
 static void			export_something_segs(void *segs, void *env)
 {
-	environment_setenv_v2(env, twl_lst_get(segs, 0), twl_lst_get(segs, 1));
+	shenv_setenv_key_value(env, twl_lst_get(segs, 0), twl_lst_get(segs, 1));
 }
 
 static void			export_something_tokens(void *token_, void *env)
@@ -25,7 +25,7 @@ static void			export_something_tokens(void *token_, void *env)
 	t_token			*token;
 
 	token = token_;
-	environment_setenv_or_setlocal__(env, token->text, NULL, LOCAL);
+	shenv_setenv_or_setlocal__(env, token->text, NULL, LOCAL);
 }
 
 void				builtin_export_add(t_shenv *env, t_lst *tokens)

@@ -12,14 +12,14 @@ static void simple_star(t_test *test)
 	t_shenv	*env;
 
 	(void)test;
-	env = environment_new();
-	environment_init(env);
+	env = shenv_new();
+	shenv_init(env);
 	builtin_export_exec(tokenizer_tokenize("export IFS=["), env);
 	builtin_set_exec(tokenizer_tokenize("set lol pouet"), env);
 	ret = test_params_star(env, false);
 	mt_assert(twl_strcmp(ret,"lol pouet") == 0);
 	free(ret);
-	environment_del(env);
+	shenv_del(env);
 }
 
 

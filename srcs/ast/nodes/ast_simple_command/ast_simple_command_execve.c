@@ -38,7 +38,7 @@ static void		fork_and_execute(char *path, t_lst *tokens, char **env)
 		signal(SIGKILL, SIG_DFL);
 		handle_signal(res);
     	if (WIFEXITED(res))
-			environment_singleton()->info.last_exit_status = WEXITSTATUS(res);
+			shenv_singleton()->info.last_exit_status = WEXITSTATUS(res);
 	}
 	twl_arr_del(args, NULL);
 }

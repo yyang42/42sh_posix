@@ -53,7 +53,7 @@ void				builtin_env_exec_do(t_env_args *env_args, t_shenv *this)
 	int		index;
 	t_lst	*tokens_copy;
 
-	fpaths = environment_get_paths(this);
+	fpaths = shenv_get_paths(this);
 	index = 1; // TODO: refactor logic
 	tokens_copy = twl_lst_copy(env_args->tokens, NULL);
 	while (index--)

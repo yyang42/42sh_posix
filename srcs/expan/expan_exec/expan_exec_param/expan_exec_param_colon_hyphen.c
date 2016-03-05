@@ -23,10 +23,10 @@ bool			expan_exec_params_colon_hyphen(t_expan_token *expan_token)
 	t_shenv		*env;
 
 	data = expan_token->expan_data;
-	env = environment_singleton();
+	env = shenv_singleton();
 	if (data->parameter && twl_strcmp(data->parameter, ""))
 	{
-		shvar = environment_get(env, data->parameter);
+		shvar = shenv_get(env, data->parameter);
 		if (shvar && shvar->shvar_value_is_set)
 		{
 			if (shvar->shvar_value != NULL && twl_strcmp(shvar->shvar_value, "") != 0)

@@ -26,11 +26,11 @@ static void			unset_something(void *data, void *context, void *ret_)
 	ret = ret_;
 	if (arg)
 	{
-		if ((var = environment_get(env, arg)))
+		if ((var = shenv_get(env, arg)))
 		{
 			if (var->shvar_read_only != READ_ONLY)
 			{
-				environment_unsetenv(env, arg);
+				shenv_unsetenv(env, arg);
 				*ret = BUILTIN_EXEC_SUCCESS;
 			}
 			else

@@ -39,7 +39,7 @@ int					builtin_echo_exec(t_lst *tokens, t_shenv *this)
 	twl_lst_itern(copy, iter_fn, NULL);
 	if (!opt_n)
 		twl_putstr("\n");
-	environment_set_last_exit_status_2(this, BUILTIN_EXEC_SUCCESS);
+	shenv_set_last_exit_status_2(this, BUILTIN_EXEC_SUCCESS);
 	twl_lst_del(copy, NULL);
 	return (0);
 }

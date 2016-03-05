@@ -14,5 +14,5 @@
 
 void				job_mgr_env_push(t_job *job)
 {
-	twl_lst_push_back(environment_singleton()->jobs, job);
+	twl_lst_push_back(shenv_singleton()->jobs, job);
 }

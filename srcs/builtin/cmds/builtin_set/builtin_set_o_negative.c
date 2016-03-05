@@ -34,7 +34,7 @@ static void			get_flag_verbose(char *key, void *data, void *context)
 		twl_memset(space, ' ', space_count);
 		space[space_count] = 0;
 	}
-	if (environment_flag_exist(env, key))
+	if (shenv_flag_exist(env, key))
 		twl_printf("%s%s%s\n", flag, space, "on");
 	else
 		twl_printf("%s%s%s\n", flag, space, "off");

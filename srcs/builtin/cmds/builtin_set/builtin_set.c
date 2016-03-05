@@ -22,7 +22,7 @@ static void			remove_shell_flags(void *data, void *context, void *args_)
 	elem = data;
 	env = context;
 	if (twl_strcmp(elem->key, "o") != 0)
-		environment_remove_flag(elem->key, env);
+		shenv_remove_flag(elem->key, env);
 	else if (twl_lst_len(args) <= 0)
 		builtin_set_o_positive(env);
 }
@@ -37,7 +37,7 @@ static void			add_shell_flags(void *data, void *context, void *args_)
 	elem = data;
 	env = context;
 	if (twl_strcmp(elem->key, "o") != 0)
-		environment_add_flag(elem->key, env);
+		shenv_add_flag(elem->key, env);
 	else if (twl_lst_len(args) <= 0)
 		builtin_set_o_negative(env);
 }
@@ -59,8 +59,8 @@ int					builtin_set_exec(t_lst *tokens, t_shenv *env)
 			builtin_set_check_args(opt, env);
 		else if (twl_lst_len(opt->positive_opts) == 0 && opt->negative_opts == 0)
 		{
-			environment_print_all(env);
-			environment_set_last_exit_status_2(env, BUILTIN_EXEC_SUCCESS);
+			shenv_print_all(env);
+			shenv_set_last_exit_status_2(env, BUILTIN_EXEC_SUCCESS);
 		}
 	}
 	builtin_set_opt_del(opt);

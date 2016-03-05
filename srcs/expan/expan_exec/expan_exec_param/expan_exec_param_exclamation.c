@@ -19,7 +19,7 @@ char				*params_exclamation(void)
 	t_shenv	*env;
 	char			*ret;
 
-	env = environment_singleton();
+	env = shenv_singleton();
 	ret = twl_itoa(env->info.most_recent_background_command_pid);
 	return (ret);
 }

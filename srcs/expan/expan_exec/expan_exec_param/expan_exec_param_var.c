@@ -26,7 +26,7 @@ bool			expan_exec_param_var(t_expan_token *expan_token)
 	char				*temp;
 
 	expan_param = expan_token->expan_data;
-	env = environment_singleton();
+	env = shenv_singleton();
 	if (!expan_param->parameter)
 	{
 		twl_dprintf(2, "42sh: Bad substitution\n");
@@ -34,13 +34,13 @@ bool			expan_exec_param_var(t_expan_token *expan_token)
 	}
 	if (twl_str_is_num(expan_param->parameter))
 	{
-		temp = environment_get_pos_param_at(env, twl_atoi(expan_param->parameter) - 1);
+		temp = shenv_get_pos_param_at(env, twl_atoi(expan_param->parameter) - 1);
 		if (temp)
 			expan_token->res = twl_strdup(temp);
 	}
 	else
 	{
-		var = environment_get(env, expan_param->parameter);
+		var = shenv_get(env, expan_param->parameter);
 		if (var && var->shvar_value_is_set == 1 && var->shvar_value)
 		{
 			expan_token->res = twl_strdup(var->shvar_value);

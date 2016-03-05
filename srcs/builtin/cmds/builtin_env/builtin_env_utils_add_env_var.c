@@ -22,5 +22,5 @@ void				builtin_env_utils_add_shvar(void *data_, void *context_)
 	data = data_;
 	context = context_;
 	if (twl_strchr(data, '='))
-		environment_setenv(context, data);
+		shenv_setenv(context, data);
 }

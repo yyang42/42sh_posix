@@ -19,7 +19,7 @@ char				*params_question(void)
 	t_shenv	*env;
 	char			*ret;
 
-	env = environment_singleton();
+	env = shenv_singleton();
 	ret = twl_itoa(env->info.last_exit_status);
 	return (ret);
 }

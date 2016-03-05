@@ -28,7 +28,7 @@ t_lst				*history_mgr_new(void)
 	char			*line;
 	char			*home_path;
 
-	home_path = environment_getenv_value(environment_singleton(), "HOME");
+	home_path = shenv_getenv_value(shenv_singleton(), "HOME");
 	if (!home_path || !twl_isdir(home_path))
 		home_path = ".";
 	history = twl_lst_new();

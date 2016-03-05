@@ -45,43 +45,43 @@ typedef struct				s_shenv
 	t_lst					*jobs;
 }							t_shenv;
 
-t_shenv				*environment_new(void);
-void				environment_del(t_shenv *this);
-t_shenv				*environment_clone(t_shenv *this);
-void				environment_init(t_shenv *this);
-t_shvar				*environment_setenv(t_shenv *this, char *str);
-t_shvar				*environment_setenv_v2(t_shenv *this, char *key, char *value);
-char				*environment_getenv_value(t_shenv *this, char *key);
-t_shvar				*environment_setenv_value(t_shenv *t, char *k, char *v, int value_is_set);
+t_shenv				*shenv_new(void);
+void				shenv_del(t_shenv *this);
+t_shenv				*shenv_clone(t_shenv *this);
+void				shenv_init(t_shenv *this);
+t_shvar				*shenv_setenv(t_shenv *this, char *str);
+t_shvar				*shenv_setenv_key_value(t_shenv *this, char *key, char *value);
+char				*shenv_getenv_value(t_shenv *this, char *key);
+t_shvar				*shenv_setenv_value(t_shenv *t, char *k, char *v, int value_is_set);
 
-void				environment_print(t_shenv *this);
-void				environment_unsetenv(t_shenv *this, char *str);
-t_shenv				*environment_singleton(void);
-int					environment_flag_exist(t_shenv *this, char *flag);
-char				*environment_concat_flags(t_shenv *env);
-void				environment_print_flags(t_shenv *env);
-void				environment_print_all(t_shenv *this);
-char				**environment_get_paths(t_shenv *this);
-void				environment_add_flag(char *flag, t_shenv *env);
-void				environment_remove_flag(char *flag, t_shenv *env);
-void				environment_add_pos_param(char *param, t_shenv *env);
-void				environment_remove_all_pos_params(t_shenv *env);
-char				*environment_concat_pos_param_char(t_shenv *env, char *sep);
-t_shvar				*environment_setenv_or_setlocal__(t_shenv *this, char *key, char *value, t_shvar_type type);
-t_shvar				*environment_get(t_shenv *this, char *key);
-void				**environment_get_env_arr(t_shenv *this);
-int					environment_get_last_exit_status(void);
-void				environment_set_last_exit_status(int status);
-void				environment_set_last_exit_status_2(t_shenv *e, int status);
-char				*environment_get_pos_param_at(t_shenv *env, size_t index);
+void				shenv_print(t_shenv *this);
+void				shenv_unsetenv(t_shenv *this, char *str);
+t_shenv				*shenv_singleton(void);
+int					shenv_flag_exist(t_shenv *this, char *flag);
+char				*shenv_concat_flags(t_shenv *env);
+void				shenv_print_flags(t_shenv *env);
+void				shenv_print_all(t_shenv *this);
+char				**shenv_get_paths(t_shenv *this);
+void				shenv_add_flag(char *flag, t_shenv *env);
+void				shenv_remove_flag(char *flag, t_shenv *env);
+void				shenv_add_pos_param(char *param, t_shenv *env);
+void				shenv_remove_all_pos_params(t_shenv *env);
+char				*shenv_concat_pos_param_char(t_shenv *env, char *sep);
+t_shvar				*shenv_setenv_or_setlocal__(t_shenv *this, char *key, char *value, t_shvar_type type);
+t_shvar				*shenv_get(t_shenv *this, char *key);
+void				**shenv_get_env_arr(t_shenv *this);
+int					shenv_get_last_exit_status(void);
+void				shenv_set_last_exit_status(int status);
+void				shenv_set_last_exit_status_2(t_shenv *e, int status);
+char				*shenv_get_pos_param_at(t_shenv *env, size_t index);
 
 /*
 ** SHELL FUNCTIONS
 */
 struct s_ast_compound_command;
 
-void				environment_remove_shell_func(t_shenv *env, char *key);
-void				environment_add_shell_func(t_shenv *env, char *key, struct s_ast_compound_command *data);
-struct s_ast_compound_command	*environment_get_shell_func(t_shenv *env, char *key);
+void				shenv_remove_shell_func(t_shenv *env, char *key);
+void				shenv_add_shell_func(t_shenv *env, char *key, struct s_ast_compound_command *data);
+struct s_ast_compound_command	*shenv_get_shell_func(t_shenv *env, char *key);
 
 #endif

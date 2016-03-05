@@ -24,8 +24,8 @@ static void			iter_assign_fn(void *assign_, void *env_)
 
 	assign = assign_;
 	env = env_;
-	type = (env == environment_singleton() ? LOCAL : ENVIRONMENT);
-	environment_setenv_or_setlocal__(env, assign->key, assign->value, type);
+	type = (env == shenv_singleton() ? LOCAL : ENVIRONMENT);
+	shenv_setenv_or_setlocal__(env, assign->key, assign->value, type);
 }
 
 static void			execute_builtin(char *cmd_name, t_lst *tokens, t_shenv *env)
@@ -50,7 +50,7 @@ static void			execute_simple_command(t_ast_simple_command *cmd,
 	if (twl_lst_len(cmd->command_tokens) == 0)
 		return ;
 	token_joined = token_mgr_strjoin(cmd->command_tokens, " ");
-	env_arr = (char **)environment_get_env_arr(env);
+	env_arr = (char **)shenv_get_env_arr(env);
 	if (twl_lst_len(cmd->command_tokens) > 0)
 	{
 		first_str = token_mgr_first(cmd->command_tokens)->text;
@@ -58,10 +58,10 @@ static void			execute_simple_command(t_ast_simple_command *cmd,
 		{
 			execute_builtin(first_str, cmd->command_tokens, env);
 		}
-		else if (environment_get_shell_func(env, first_str))
+		else if (shenv_get_shell_func(env, first_str))
 		{
 			ast_simple_command_exec_function(cmd, env, cmd->command_tokens,
-								environment_get_shell_func(env, first_str));
+								shenv_get_shell_func(env, first_str));
 		}
 		else
 		{
@@ -97,10 +97,10 @@ void				ast_simple_command_exec(t_ast_simple_command *cmd)
 	with_new_env = (twl_lst_len(cmd->assignment_items) > 0
 		&& twl_lst_len(cmd->command_tokens) > 0);
 	env = (with_new_env
-		? environment_clone(environment_singleton())
-		: environment_singleton()) ;
+		? shenv_clone(shenv_singleton())
+		: shenv_singleton()) ;
 	twl_lst_iter(cmd->assignment_items, iter_assign_fn, env);
 	ast_simple_command_exec_with_redirs(cmd, env);
 	if (with_new_env)
-		environment_del(env);
+		shenv_del(env);
 }

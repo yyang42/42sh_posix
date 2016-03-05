@@ -22,7 +22,7 @@ static long long	get_shvariable_lltoa(t_token *token)
 	int				sign;
 	long long		ll_value;
 
-	value = environment_getenv_value(environment_singleton(), token->text);
+	value = shenv_getenv_value(shenv_singleton(), token->text);
 	if (!value)
 	{
 		ll_value = 0;

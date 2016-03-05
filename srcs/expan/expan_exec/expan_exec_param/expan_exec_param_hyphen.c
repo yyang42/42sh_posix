@@ -18,7 +18,7 @@ char				*params_hyphen(void)
 {
 	t_shenv	*env;
 
-	env = environment_singleton();
+	env = shenv_singleton();
 	return (twl_itoa(env->info.cur_shell_pid));
 }
 

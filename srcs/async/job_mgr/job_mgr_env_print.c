@@ -51,7 +51,7 @@ void				job_mgr_env_print(void)
 	int				count;
 	t_lst			*jobs;
 
-	jobs = environment_singleton()->jobs;
+	jobs = shenv_singleton()->jobs;
 	len = twl_lst_len(jobs);
 	count = 1;
 	twl_lst_iter2(jobs, iter_fn, &len, &count);

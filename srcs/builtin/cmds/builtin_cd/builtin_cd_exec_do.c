@@ -16,16 +16,16 @@ static void	set_oldpwd(t_shenv *env)
 {
 	char			*oldpwd;
 
-	oldpwd = environment_getenv_value(env, "PWD");
+	oldpwd = shenv_getenv_value(env, "PWD");
 	if (oldpwd != NULL)
 	{
-		environment_setenv_value(env, "OLDPWD", oldpwd, 1);
+		shenv_setenv_value(env, "OLDPWD", oldpwd, 1);
 	}
 }
 
 static void	set_pwd(char *pwd, t_shenv *env)
 {
-	environment_setenv_value(env, "PWD", pwd, 1);
+	shenv_setenv_value(env, "PWD", pwd, 1);
 }
 
 static void	cd_symlink(char *path, t_shenv *this)

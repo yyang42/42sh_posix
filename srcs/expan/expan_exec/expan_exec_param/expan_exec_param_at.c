@@ -19,9 +19,9 @@ char				*params_at(void)
 	t_shenv	*env;
 	char			*ret;
 
-	env = environment_singleton();
+	env = shenv_singleton();
 	if (twl_lst_len(env->pos_params) > 0)
-		ret = environment_concat_pos_param_char(env, " ");
+		ret = shenv_concat_pos_param_char(env, " ");
 	else
 		ret = twl_strdup("");
 	return (ret);
@@ -32,7 +32,7 @@ char				*test_params_at(t_shenv *env)
 	char			*ret;
 
 	if (twl_lst_len(env->pos_params) > 0)
-		ret = environment_concat_pos_param_char(env, " ");
+		ret = shenv_concat_pos_param_char(env, " ");
 	else
 		ret = twl_strdup("");
 	return (ret);

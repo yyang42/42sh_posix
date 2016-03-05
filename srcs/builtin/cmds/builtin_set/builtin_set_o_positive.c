@@ -23,7 +23,7 @@ static void			get_flag_verbose(char *key, void *data, void *context)
 
 	env = context;
 	flag = data;
-	if (environment_flag_exist(env, key))
+	if (shenv_flag_exist(env, key))
 		twl_printf("set -o %s\n", flag);
 	else
 		twl_printf("set +o %s\n", flag);

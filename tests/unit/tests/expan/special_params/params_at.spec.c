@@ -11,8 +11,8 @@ static void simple_test(t_test *test)
 	t_shenv	*env;
 
 	(void)test;
-	env = environment_new();
-	environment_init(env);
+	env = shenv_new();
+	shenv_init(env);
 	ret = test_params_at(env);
 	mt_assert(twl_strcmp(ret,"") == 0);
 	free(ret);
@@ -24,7 +24,7 @@ static void simple_test(t_test *test)
 	ret = test_params_at(env);
 	mt_assert(twl_strcmp(ret,"lol pouet") == 0);
 	free(ret);
-	environment_del(env);
+	shenv_del(env);
 }
 
 void	suite_params_at(t_suite *suite)
