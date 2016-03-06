@@ -31,6 +31,7 @@
 # include "builtin/cmds/builtin_readonly.h"
 # include "builtin/cmds/builtin_shift.h"
 # include "builtin/cmds/builtin_exit.h"
+# include "builtin/cmds/builtin_setenv.h"
 # include "builtin/cmds/builtin_jobs.h"
 
 # include "ast/nodes/ast_simple_command.h"

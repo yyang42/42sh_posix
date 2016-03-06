@@ -27,7 +27,7 @@ t_argparser			*builtin_export_argparser(void)
 	return (argparser);
 }
 
-void				builtin_export_exec(t_lst *tokens, t_shenv *env)
+void				builtin_export_exec(t_lst *tokens, t_shenv *shenv)
 {
 	t_argparser_result *argparser_result;
 
@@ -39,9 +39,9 @@ void				builtin_export_exec(t_lst *tokens, t_shenv *env)
 	else
 	{
 		if (argparser_result_opt_is_set(argparser_result, "p"))
-			builtin_export_verbose(env);
+			builtin_export_verbose(shenv);
 		else
-			builtin_export_add(env, argparser_result->remainders);
+			twl_lst_iter(argparser_result->remainders, builtin_export_exec_export_token_fn__, shenv);
 	}
-	shenv_set_last_exit_status(env, BUILTIN_EXEC_SUCCESS);
+	shenv_set_last_exit_status(shenv, BUILTIN_EXEC_SUCCESS);
 }

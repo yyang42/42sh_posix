@@ -29,4 +29,6 @@ void				shvar_del_void(t_shvar *shvar);
 t_shvar				*shvar_copy(t_shvar *src);
 void				*shvar_copy_void(void *src);
 
+void				shvar_set_value(t_shvar *this, char *value);
+
 #endif

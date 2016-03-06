@@ -15,26 +15,45 @@
 #include "shenv/shvar_mgr.h"
 #include "twl_opt.h"
 #include "twl_lst.h"
+#include "token/token_utils.h"
 
-static void			iter_fn(void *str_token, void *shenv_)
+static void			create_and_export_shvar(t_shenv *shenv, char *key, char *value)
+{
+	t_shvar			*shvar;
+
+	if (!token_utils_is_valid_name(key))
+	{
+		twl_dprintf(2, "export: `%s': not a valid identifier\n", key);
+		shenv_set_last_exit_status(shenv, BUILTIN_EXEC_FAILURE);
+		return ;
+	}
+	shvar = shvar_mgr_find_or_create(shenv->shvars, key);
+	shvar->shvar_exported = true;
+	if (value)
+	{
+		shvar_set_value(shvar, value);
+	}
+}
+
+void				builtin_export_exec_export_token_fn__(void *str_token, void *shenv_)
 {
 	t_lst			*segs;
 	t_shenv			*shenv;
+	char			*key;
+	char			*value;
 
 	shenv = shenv_;
 	if (twl_strchr(str_token, '='))
 	{
 		segs = twl_str_split_once_to_lst(str_token, "=");
-		shenv_setenv_key_value(shenv, twl_lst_get(segs, 0), twl_lst_get(segs, 1));
+		key = twl_strdup(twl_lst_get(segs, 0));
+		value = twl_strdup(twl_lst_get(segs, 1));
 		twl_lst_del(segs, free);
 	}
 	else
 	{
-		shvar_mgr_find_or_create(shenv->shvars, str_token)->shvar_exported = true;
+		key = str_token;
+		value = NULL;
 	}
-}
-
-void				builtin_export_add(t_shenv *shenv, t_lst *remaining_tokens)
-{
-	twl_lst_iter(remaining_tokens, iter_fn, shenv);
+	create_and_export_shvar(shenv, key, value);
 }

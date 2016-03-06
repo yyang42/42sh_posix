@@ -10,18 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_EXPORT_H
-# define BUILTIN_EXPORT_H
+#include "shenv/shvar.h"
 
-# include "basics.h"
-# include "twl_opt.h"
-# include "builtin/builtin.h"
-
-# define EXPORT_OPT_VALID_OPTS "p"
-
-
-void				builtin_export_exec(t_lst *tokens, t_shenv *env);
-void				builtin_export_exec_export_token_fn__(void *str_token, void *shenv_);
-void				builtin_export_verbose(t_shenv *env);
-
-#endif
+void				shvar_set_value(t_shvar *this, char *value)
+{
+	if (this->shvar_value)
+		free(this->shvar_value);
+	this->shvar_value = twl_strdup(value);
+}
