@@ -42,7 +42,7 @@ static void			shift_action(t_shenv *env, t_opt *opt)
 	}
 }
 
-int					builtin_shift_exec(t_lst *tokens, t_shenv *env)
+void				builtin_shift_exec(t_lst *tokens, t_shenv *env)
 {
 	t_opt			*opt;
 	char			**arr;
@@ -64,5 +64,5 @@ int					builtin_shift_exec(t_lst *tokens, t_shenv *env)
 	}
 	twl_arr_del(arr, &free);
 	twl_opt_del(opt);
-	return (0);
+	// return (0);
 }

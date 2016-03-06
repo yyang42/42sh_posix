@@ -25,6 +25,6 @@
 char				*builtin_alias_get(char *key, t_shenv *this);
 void				builtin_alias_set(char *str, t_shenv *this);
 void				builtin_alias_print(t_shenv *this);
-int					builtin_alias_exec(t_lst *tokens, t_shenv *this);
+void				builtin_alias_exec(t_lst *tokens, t_shenv *this);
 
 #endif

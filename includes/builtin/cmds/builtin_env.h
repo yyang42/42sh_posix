@@ -35,7 +35,7 @@ typedef struct		s_env_args
 	bool				has_utility;
 }					t_env_args;
 
-int					builtin_env_exec(t_lst *tokens, t_shenv *this);
+void				builtin_env_exec(t_lst *tokens, t_shenv *this);
 void				builtin_env_exec_do(t_env_args *env, t_shenv	*clone);
 void				builtin_env_utils_add_shvar(void *data_, void *context_);
 

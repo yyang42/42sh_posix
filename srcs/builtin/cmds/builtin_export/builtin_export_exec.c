@@ -12,7 +12,7 @@
 
 #include "builtin/cmds/builtin_export.h"
 
-int					builtin_export_exec(t_lst *tokens, t_shenv *env)
+void				builtin_export_exec(t_lst *tokens, t_shenv *env)
 {
 	t_opt			*opt;
 	char			**arr;
@@ -34,5 +34,5 @@ int					builtin_export_exec(t_lst *tokens, t_shenv *env)
 	free(arr);
 	twl_opt_del(opt);
 	shenv_set_last_exit_status(env, BUILTIN_EXEC_SUCCESS);
-	return (BUILTIN_EXEC_SUCCESS);
+	// return (BUILTIN_EXEC_SUCCESS);
 }

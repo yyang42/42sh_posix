@@ -12,9 +12,9 @@
 
 #include "builtin/builtin.h"
 
-int					builtin_false_exec(t_lst *tokens, t_shenv *env)
+void				builtin_false_exec(t_lst *tokens, t_shenv *env)
 {
-	(void)tokens;
 	shenv_set_last_exit_status(env, BUILTIN_EXEC_FAILURE);
-	return (false);
+	(void)tokens;
+	// return (false);
 }

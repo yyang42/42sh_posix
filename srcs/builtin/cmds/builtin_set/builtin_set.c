@@ -42,7 +42,7 @@ static void			add_shell_flags(void *data, void *context, void *args_)
 		builtin_set_o_negative(env);
 }
 
-int					builtin_set_exec(t_lst *tokens, t_shenv *env)
+void				builtin_set_exec(t_lst *tokens, t_shenv *env)
 {
 	t_set_opt		*opt;
 	char			**arr;
@@ -65,5 +65,5 @@ int					builtin_set_exec(t_lst *tokens, t_shenv *env)
 	}
 	builtin_set_opt_del(opt);
 	twl_arr_del(arr, &free);
-	return (0);
+	// return (0);
 }

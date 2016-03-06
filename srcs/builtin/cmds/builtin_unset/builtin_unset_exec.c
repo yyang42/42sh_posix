@@ -30,7 +30,7 @@ static int			check_flags(t_shenv *env, t_opt *opt)
 	}
 }
 
-int					builtin_unset_exec(t_lst *tokens, t_shenv *env)
+void				builtin_unset_exec(t_lst *tokens, t_shenv *env)
 {
 	t_opt			*opt;
 	char			**arr;
@@ -57,5 +57,5 @@ int					builtin_unset_exec(t_lst *tokens, t_shenv *env)
 	shenv_set_last_exit_status(env, flag);
 	twl_arr_del(arr, &free);
 	twl_opt_del(opt);
-	return (flag);
+	// return (flag);
 }

@@ -65,7 +65,7 @@ static int	get_dirname(char **dirname, t_opt *opt, t_lst *tokens,
 	return (0);
 }
 
-int					builtin_cd_exec(t_lst *tokens, t_shenv *this)
+void				builtin_cd_exec(t_lst *tokens, t_shenv *this)
 {
 	int					no_symlinks;
 	t_opt				*opt;
@@ -78,18 +78,28 @@ int					builtin_cd_exec(t_lst *tokens, t_shenv *this)
 	args = token_mgr_to_str_arr(tokens);
 	opt = twl_opt_new(args, "LP");
 	if (builtin_utils_check_invalid_opts(opt, "cd", "LP"))
-		return (builtin_cd_utils_free_all(dirname, args, opt));
+	{
+		builtin_cd_utils_free_all(dirname, args, opt);
+		return ;
+	}
 	builtin_cd_utils_get_flags(opt, &no_symlinks);
 	if (get_dirname(&dirname, opt, tokens, this) < 0)
-		return (builtin_cd_utils_free_all(dirname, args, opt));
+	{
+		builtin_cd_utils_free_all(dirname, args, opt);
+		return ;
+	}
 	else if (!dirname)
+	{
 		if (!(dirname = get_dirname_from_arg(opt, this)))
-			return (builtin_cd_utils_free_all(dirname, args, opt));
+		{
+			builtin_cd_utils_free_all(dirname, args, opt);
+			return ;
+		}
+	}
 	if (dirname && dirname[0] != '/' && !no_symlinks && (old_dirname = dirname))
 	{
 		dirname = join_pwd_to_path(dirname);
 		free(old_dirname);
 	}
 	builtin_cd_exec_do(dirname, no_symlinks, this);
-	return (builtin_cd_utils_free_all(dirname, args, opt));
 }

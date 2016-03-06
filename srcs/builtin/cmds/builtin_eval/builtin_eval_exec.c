@@ -14,7 +14,7 @@
 #include "ast/ast.h"
 #include "ast/nodes/ast_compound_list.h"
 
-int					builtin_eval_exec(t_lst *tokens, t_shenv *env)
+void				builtin_eval_exec(t_lst *tokens, t_shenv *env)
 {
 	t_ast			*ast;
 	int				ret;
@@ -27,9 +27,10 @@ int					builtin_eval_exec(t_lst *tokens, t_shenv *env)
 	{
 		twl_dprintf(2, "%s\n", ast->error_msg);
 		ast_del(ast);
-		return (1);
+		return ; // (1)
 	}
 	ret = ast_exec(ast);
 	ast_del(ast);
-	return (ret);
+	(void)ret;
+	return ; // ret
 }

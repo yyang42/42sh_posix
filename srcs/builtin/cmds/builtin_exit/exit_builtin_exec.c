@@ -32,7 +32,7 @@ static void			one_argument_case(t_lst *tokens)
 	}
 }
 
-int					builtin_exit_exec(t_lst *tokens, t_shenv *this)
+void				builtin_exit_exec(t_lst *tokens, t_shenv *this)
 {
 	if (twl_lst_len(tokens) == 1)
 	{
@@ -46,8 +46,5 @@ int					builtin_exit_exec(t_lst *tokens, t_shenv *this)
 	{
 		twl_dprintf(2, "exit: too many arguments\n");
 		shenv_set_last_exit_status(this, BUILTIN_EXEC_FAILURE);
-		return (42);
 	}
-	return (0);
-	(void)this;
 }

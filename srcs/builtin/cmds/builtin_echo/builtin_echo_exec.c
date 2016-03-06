@@ -23,7 +23,7 @@ static void 		iter_fn(void *token_, void *next, void *ctx)
 	(void)ctx;
 }
 
-int					builtin_echo_exec(t_lst *tokens, t_shenv *this)
+void				builtin_echo_exec(t_lst *tokens, t_shenv *this)
 {
 	t_lst			*tokens_copy;
 	bool			print_newline;
@@ -43,5 +43,5 @@ int					builtin_echo_exec(t_lst *tokens, t_shenv *this)
 	}
 	shenv_set_last_exit_status(this, BUILTIN_EXEC_SUCCESS);
 	twl_lst_del(tokens_copy, NULL);
-	return (0);
+	return ; // (0)
 }

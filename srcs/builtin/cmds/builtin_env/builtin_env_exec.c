@@ -30,7 +30,7 @@ static int			exec_remaining_command(t_lst *tokens)
 	return (exit_code);
 }
 
-int					builtin_env_exec(t_lst *tokens, t_shenv *env)
+void				builtin_env_exec(t_lst *tokens, t_shenv *env)
 {
 	int				exit_code;
 
@@ -44,5 +44,6 @@ int					builtin_env_exec(t_lst *tokens, t_shenv *env)
 	{
 		exit_code = exec_remaining_command(tokens);
 	}
-	return (exit_code);
+	(void)exit_code;
+	return ; // exit_code
 }

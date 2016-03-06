@@ -12,15 +12,13 @@
 
 #include "builtin/cmds/builtin_unset.h"
 
-int				builtin_unsetenv_exec(t_lst *tokens, t_shenv *env)
+void				builtin_unsetenv_exec(t_lst *tokens, t_shenv *env)
 {
 	char	*new_str;
-	int		flag;
 	char	*str;
 
 	str = token_mgr_strjoin(tokens, " "); // TODO: refactor
 	new_str = twl_strjoin("unset", &str[8]);
-	flag = builtin_unset_exec(tokens, env);
+	builtin_unset_exec(tokens, env);
 	free(new_str);
-	return (flag);
 }

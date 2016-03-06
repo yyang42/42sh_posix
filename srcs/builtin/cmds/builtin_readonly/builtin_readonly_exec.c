@@ -12,7 +12,7 @@
 
 #include "builtin/cmds/builtin_readonly.h"
 
-int					builtin_readonly_exec(t_lst *tokens, t_shenv *env)
+void				builtin_readonly_exec(t_lst *tokens, t_shenv *env)
 {
 	t_opt			*opt;
 	char			**arr;
@@ -32,5 +32,5 @@ int					builtin_readonly_exec(t_lst *tokens, t_shenv *env)
 	twl_arr_del(arr, &free);
 	twl_opt_del(opt);
 	shenv_set_last_exit_status(env, BUILTIN_EXEC_SUCCESS);
-	return (BUILTIN_EXEC_SUCCESS);
+	// return (BUILTIN_EXEC_SUCCESS);
 }

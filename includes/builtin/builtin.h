@@ -38,11 +38,11 @@
 # define BUILTIN_EXEC_SUCCESS 0
 # define BUILTIN_EXEC_FAILURE 1
 
-typedef int (t_builtin_fn)(t_lst *tokens, t_shenv *this);
+typedef void (t_builtin_fn)(t_lst *tokens, t_shenv *this);
 
 int				builtin_utils_check_invalid_opts(t_opt *opt, char *exe_name, char *flags);
-int				builtin_true_exec(t_lst *tokens, t_shenv *env);
-int				builtin_false_exec(t_lst *tokens, t_shenv *env);
+void			builtin_true_exec(t_lst *tokens, t_shenv *env);
+void			builtin_false_exec(t_lst *tokens, t_shenv *env);
 
 typedef struct		s_builtin
 {

@@ -17,6 +17,6 @@
 # include "twl_opt.h"
 # include "shenv/shenv.h"
 
-int					builtin_jobs_exec(t_lst *tokens, t_shenv *this);
+void				builtin_jobs_exec(t_lst *tokens, t_shenv *this);
 
 #endif
