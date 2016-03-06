@@ -12,15 +12,7 @@
 
 #include "shenv/shenv.h"
 
-void				shenv_set_last_exit_status(int status)
-{
-	t_shenv *env;
-
-	env = shenv_singleton();
-	env->info.last_exit_status = status;
-}
-
-void				shenv_set_last_exit_status_2(t_shenv *env,
+void				shenv_set_last_exit_status(t_shenv *env,
 																	int status)
 {
 	env->info.last_exit_status = status;

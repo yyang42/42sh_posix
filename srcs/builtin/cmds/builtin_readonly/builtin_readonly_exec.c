@@ -31,6 +31,6 @@ int					builtin_readonly_exec(t_lst *tokens, t_shenv *env)
 	}
 	twl_arr_del(arr, &free);
 	twl_opt_del(opt);
-	shenv_set_last_exit_status_2(env, BUILTIN_EXEC_SUCCESS);
+	shenv_set_last_exit_status(env, BUILTIN_EXEC_SUCCESS);
 	return (BUILTIN_EXEC_SUCCESS);
 }

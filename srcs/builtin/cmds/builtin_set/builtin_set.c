@@ -60,7 +60,7 @@ int					builtin_set_exec(t_lst *tokens, t_shenv *env)
 		else if (twl_lst_len(opt->positive_opts) == 0 && opt->negative_opts == 0)
 		{
 			shenv_print_all(env);
-			shenv_set_last_exit_status_2(env, BUILTIN_EXEC_SUCCESS);
+			shenv_set_last_exit_status(env, BUILTIN_EXEC_SUCCESS);
 		}
 	}
 	builtin_set_opt_del(opt);

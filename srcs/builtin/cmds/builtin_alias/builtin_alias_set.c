@@ -22,10 +22,10 @@ void				builtin_alias_set(char *str, t_shenv *env)
 		key = twl_strsub(str, 0, twl_strlen(str) - twl_strlen(value));
 	else
 	{
-		shenv_set_last_exit_status_2(env, BUILTIN_EXEC_FAILURE);
+		shenv_set_last_exit_status(env, BUILTIN_EXEC_FAILURE);
 		return ;
 	}
-	shenv_set_last_exit_status_2(env, BUILTIN_EXEC_SUCCESS);
+	shenv_set_last_exit_status(env, BUILTIN_EXEC_SUCCESS);
 	if (twl_dict_key_exist(env->alias, key))
 		twl_dict_set(env->alias, key, twl_strdup(value + 1), free);
 	else

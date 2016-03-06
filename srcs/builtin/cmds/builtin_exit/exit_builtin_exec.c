@@ -14,6 +14,7 @@
 
 #include "builtin/cmds/builtin_exit.h"
 #include "token/token_mgr.h"
+#include "builtin/builtin.h"
 
 static void			one_argument_case(t_lst *tokens)
 {
@@ -44,7 +45,8 @@ int					builtin_exit_exec(t_lst *tokens, t_shenv *this)
 	else if (twl_lst_len(tokens) > 2)
 	{
 		twl_dprintf(2, "exit: too many arguments\n");
-		return (255);
+		shenv_set_last_exit_status(this, BUILTIN_EXEC_FAILURE);
+		return (42);
 	}
 	return (0);
 	(void)this;
