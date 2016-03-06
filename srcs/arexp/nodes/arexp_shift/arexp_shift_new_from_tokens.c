@@ -18,7 +18,7 @@ static bool				is_shift_token(t_token *token)
 {
 	return (token &&
 			(token->type == TOK_AREXP_LSHIFT ||
-			 token->type == TOK_AREXP_RSHIFT));
+					token->type == TOK_AREXP_RSHIFT));
 }
 
 static bool				push_fn(t_lst *tokens, t_arexp_shift *shift,
