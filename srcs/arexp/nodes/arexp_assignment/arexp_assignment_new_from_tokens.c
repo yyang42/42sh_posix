@@ -15,14 +15,12 @@
 #include "arexp/nodes/arexp_assignment.h"
 #include "arexp/arexp.h"
 
-t_arexp_assignment		*arexp_assignment_new_from_tokens(t_lst *tokens)
+static void				pop_assignment(t_arexp_assignment *assignment,
+																t_lst *tokens)
 {
-	t_arexp_assignment	*assignment;
-	t_arexp_condition	*condition;
 	t_token				**assign;
 	t_token				*token;
 
-	assignment = arexp_assignment_new();
 	while (42)
 	{
 		token = token_mgr_first(tokens);
@@ -36,6 +34,15 @@ t_arexp_assignment		*arexp_assignment_new_from_tokens(t_lst *tokens)
 		assign[1] = twl_lst_pop_front(tokens);
 		twl_lst_push_front(assignment->assign, assign);
 	}
+}
+
+t_arexp_assignment		*arexp_assignment_new_from_tokens(t_lst *tokens)
+{
+	t_arexp_assignment	*assignment;
+	t_arexp_condition	*condition;
+
+	assignment = arexp_assignment_new();
+	pop_assignment(assignment, tokens);
 	condition = arexp_condition_new_from_tokens(tokens);
 	if (arexp_has_error(arexp_singleton(NULL, false)))
 	{
