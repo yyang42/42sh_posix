@@ -12,7 +12,7 @@
 
 #include "token/token_type_item_mgr.h"
 
-static bool			find_fn(void *item_, void *text)
+static bool				find_fn(void *item_, void *text)
 {
 	t_token_type_item	*item;
 
@@ -20,7 +20,8 @@ static bool			find_fn(void *item_, void *text)
 	return (twl_strequ(item->text, text));
 }
 
-t_token_type_item		*token_type_item_mgr_get_by_text(t_lst *token_type_items, char *text)
+t_token_type_item		*token_type_item_mgr_get_by_text(t_lst
+												*token_type_items, char *text)
 {
 	return (twl_lst_find(token_type_items, find_fn, text));
 }

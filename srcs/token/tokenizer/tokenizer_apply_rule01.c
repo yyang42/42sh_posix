@@ -12,12 +12,12 @@
 
 #include "token/tokenizer.h"
 
-/*  Rule 1
-	If the end of input is recognized, the current token shall
-	be delimited. If there is no current token, the end-of-input
-	indicator shall be returned as the token.
-
-	end-of-input => -1
+/*
+** Rule 1
+**   If the end of input is recognized, the current token shall
+**   be delimited. If there is no current token, the end-of-input
+**   indicator shall be returned as the token.
+**   end-of-input => -1
 */
 
 t_rule_status		tokenizer_apply_rule01(t_tokenizer *this)

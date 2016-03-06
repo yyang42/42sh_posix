@@ -45,7 +45,8 @@ static t_lst		*build_assign(t_token *token)
 	return (segs);
 }
 
-static void			do_extract(t_lst *tokens, t_lst *assign_tokens, t_lst *remaining_tokens)
+static void			do_extract(t_lst *tokens, t_lst *assign_tokens,
+													t_lst *remaining_tokens)
 {
 	t_token			*token;
 
@@ -53,7 +54,8 @@ static void			do_extract(t_lst *tokens, t_lst *assign_tokens, t_lst *remaining_t
 	{
 		if (is_assignment(token->text))
 		{
-			twl_lst_push_back(assign_tokens, build_assign(twl_lst_pop_front(tokens)));
+			twl_lst_push_back(assign_tokens,
+									build_assign(twl_lst_pop_front(tokens)));
 		}
 		else
 		{
@@ -66,7 +68,8 @@ static void			do_extract(t_lst *tokens, t_lst *assign_tokens, t_lst *remaining_t
 	}
 }
 
-t_lst				*token_mgr_extract_assignment(t_lst *tokens, t_lst *remaining_tokens)
+t_lst				*token_mgr_extract_assignment(t_lst *tokens,
+														t_lst *remaining_tokens)
 {
 	t_lst			*assign_tokens;
 	t_lst			*tokens_copy;

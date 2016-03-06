@@ -12,11 +12,12 @@
 
 #include "token/tokenizer.h"
 
-/*  Rule 6
-	If the current character is not quoted and can be used as the first
-	character of a new operator, the current token (if any) shall be delimited.
-	The current character shall be used as the beginning
-	of the next (operator) token.
+/*
+** Rule 6
+**  If the current character is not quoted and can be used as the first
+**  character of a new operator, the current token (if any) shall be delimited.
+**  The current character shall be used as the beginning
+**  of the next (operator) token.
 */
 
 t_rule_status		tokenizer_apply_rule06(t_tokenizer *t)

@@ -12,14 +12,16 @@
 
 #include "token/tokenizer.h"
 
-t_rule_fn			g_tokenizer_arexp_rule_fns[7] = {
-					tokenizer_arexp_apply_rule01,
-					tokenizer_arexp_apply_rule02,
-					tokenizer_arexp_apply_rule03,
-					tokenizer_arexp_apply_rule04,
-					tokenizer_arexp_apply_rule05,
-					tokenizer_arexp_apply_rule06,
-					NULL};
+t_rule_fn			g_tokenizer_arexp_rule_fns[7] =
+{
+	tokenizer_arexp_apply_rule01,
+	tokenizer_arexp_apply_rule02,
+	tokenizer_arexp_apply_rule03,
+	tokenizer_arexp_apply_rule04,
+	tokenizer_arexp_apply_rule05,
+	tokenizer_arexp_apply_rule06,
+	NULL
+};
 
 t_lst				*tokenizer_arexp_tokenize(char *input)
 {
