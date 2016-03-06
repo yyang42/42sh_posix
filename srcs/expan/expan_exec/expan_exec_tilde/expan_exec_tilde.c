@@ -22,7 +22,7 @@ static char		*expan_exec_tilde_get_home()
 	t_shenv *env;
 
 	env = shenv_singleton();
-	return (shenv_getenv_value(env, "HOME"));
+	return (shenv_shvars_get_value(env, "HOME"));
 }
 
 void			expan_tilde_do(char **res, char *token, char *suffix)

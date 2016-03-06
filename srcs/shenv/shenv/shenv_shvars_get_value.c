@@ -12,26 +12,16 @@
 
 #include "shenv/shenv.h"
 
-static bool			find_env_key(void *data, void *context)
+char				*shenv_shvars_get_value(t_shenv *this, char *key)
 {
-	t_shvar	*var;
-	char				*str;
+	t_shvar			*shvar;
+	char			*value;
 
-	var = data;
-	str = context;
-	return (twl_strcmp(var->shvar_key, str) == 0);
-}
-
-char				*shenv_getenv_value(t_shenv *this, char *key)
-{
-	t_shvar	*var;
-
-	if (key == NULL || *key == '\0')
+	value = NULL;
+	shvar = shenv_shvars_get(this, key);
+	if (shvar)
 	{
-		errno = EINVAL;
-		return (NULL);
+		value = shvar->shvar_value;
 	}
-	var = (t_shvar *)(twl_lst_find(this->shvars,
-													find_env_key, key));
-	return (var ? var->shvar_value : NULL);
+	return (value);
 }

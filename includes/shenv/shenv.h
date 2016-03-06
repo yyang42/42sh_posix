@@ -39,7 +39,7 @@ typedef struct				s_shenv
 	t_lst					*flags;
 	t_dict					*alias;
 	t_dict					*flag_verbose;
-	t_dict					*shell_func;
+	t_dict					*shfuncs;
 	int						function_depth;
 	t_shenv_info			info;
 	t_lst					*jobs;
@@ -50,7 +50,7 @@ void				shenv_del(t_shenv *this);
 t_shenv				*shenv_clone(t_shenv *this);
 void				shenv_init(t_shenv *this);
 t_shvar				*shenv_shvars_set_equal(t_shenv *this, char *str, char *command_name);
-char				*shenv_getenv_value(t_shenv *this, char *key);
+char				*shenv_shvars_get_value(t_shenv *this, char *key);
 t_shvar				*shenv_shvars_set(t_shenv *t, char *k, char *v, char *command_name);
 
 void				shenv_print(t_shenv *this);
@@ -80,6 +80,6 @@ struct s_ast_compound_command;
 
 void				shenv_remove_shell_func(t_shenv *env, char *key);
 void				shenv_add_shell_func(t_shenv *env, char *key, struct s_ast_compound_command *data);
-struct s_ast_compound_command	*shenv_get_shell_func(t_shenv *env, char *key);
+struct s_ast_compound_command	*shenv_shfuncs_get(t_shenv *env, char *key);
 
 #endif

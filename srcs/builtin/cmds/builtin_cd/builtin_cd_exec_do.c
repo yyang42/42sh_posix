@@ -16,7 +16,7 @@ static void	set_oldpwd(t_shenv *env)
 {
 	char			*oldpwd;
 
-	oldpwd = shenv_getenv_value(env, "PWD");
+	oldpwd = shenv_shvars_get_value(env, "PWD");
 	if (oldpwd != NULL)
 	{
 		shenv_shvars_set(env, "OLDPWD", oldpwd, "cd");

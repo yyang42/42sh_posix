@@ -16,7 +16,7 @@ char		**shenv_get_paths(t_shenv *this)
 {
 	char			*str;
 
-	str = shenv_getenv_value(this, "PATH");
+	str = shenv_shvars_get_value(this, "PATH");
 	if (str == NULL || *str == '\0')
 	{
 		errno = EINVAL;

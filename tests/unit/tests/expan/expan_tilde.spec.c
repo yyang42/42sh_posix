@@ -19,7 +19,7 @@ static void simple_tilde(t_test *test)
 	token = twl_strdup("~");
 	suffix = twl_strdup("");
 	expan_tilde_do(&res, token, suffix);
-	home = shenv_getenv_value(env, "HOME");
+	home = shenv_shvars_get_value(env, "HOME");
 	mt_assert(twl_strcmp(home,res) == 0);
 	twl_strdel(&res);
 	twl_strdel(&token);

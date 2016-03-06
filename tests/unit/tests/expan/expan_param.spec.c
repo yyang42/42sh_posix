@@ -145,11 +145,11 @@ static void colon_equal_param_str(t_test *test)
 	builtin_unset_exec(tokenizer_tokenize("unset X"), env);
 	str = twl_strdup("${X:=abc}");
 	expan_init(&str, SIMPLE_COMMAND_TOKEN);
-	mt_assert(twl_strcmp(shenv_getenv_value(env, "X"),"abc") == 0);
+	mt_assert(twl_strcmp(shenv_shvars_get_value(env, "X"),"abc") == 0);
 	twl_strdel(&str);
 	str = twl_strdup("${X:=lol}");
 	expan_init(&str, SIMPLE_COMMAND_TOKEN);
-	mt_assert(twl_strcmp(shenv_getenv_value(env, "X"),"abc") == 0);
+	mt_assert(twl_strcmp(shenv_shvars_get_value(env, "X"),"abc") == 0);
 	twl_strdel(&str);
 	builtin_unset_exec(tokenizer_tokenize("unset X"), env);
 }
@@ -164,17 +164,17 @@ static void equal_param_str(t_test *test)
 	builtin_unset_exec(tokenizer_tokenize("unset X"), env);
 	str = twl_strdup("${X=abc}");
 	expan_init(&str, SIMPLE_COMMAND_TOKEN);
-	mt_assert(twl_strcmp(shenv_getenv_value(env, "X"),"abc") == 0);
+	mt_assert(twl_strcmp(shenv_shvars_get_value(env, "X"),"abc") == 0);
 	twl_strdel(&str);
 	str = twl_strdup("${X=lol}");
 	expan_init(&str, SIMPLE_COMMAND_TOKEN);
-	mt_assert(twl_strcmp(shenv_getenv_value(env, "X"),"abc") == 0);
+	mt_assert(twl_strcmp(shenv_shvars_get_value(env, "X"),"abc") == 0);
 	twl_strdel(&str);
 	builtin_unset_exec(tokenizer_tokenize("unset X"), env);
 	builtin_export_exec(tokenizer_tokenize("export X"), env);
 	str = twl_strdup("${X=abc}");
 	expan_init(&str, SIMPLE_COMMAND_TOKEN);
-	mt_assert(shenv_getenv_value(env, "X") == NULL);
+	mt_assert(shenv_shvars_get_value(env, "X") == NULL);
 	twl_strdel(&str);
 	builtin_unset_exec(tokenizer_tokenize("unset X"), env);
 }

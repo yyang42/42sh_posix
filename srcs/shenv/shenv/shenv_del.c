@@ -23,8 +23,8 @@ void				shenv_del(t_shenv *this)
 	shvar_mgr_del(this->shvars);
 	if (this->flag_verbose)
 		twl_lst_del(this->flag_verbose, NULL);
-	if (this->shell_func)
-		twl_lst_del(this->shell_func, NULL);
+	if (this->shfuncs)
+		twl_lst_del(this->shfuncs, NULL);
 	twl_lst_del(this->flags, twl_opt_elem_del);
 	twl_lst_del(this->pos_params, free);
 	if (this->alias)

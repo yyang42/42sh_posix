@@ -12,8 +12,7 @@
 
 #include "shenv/shenv.h"
 
-struct s_ast_compound_command	*shenv_get_shell_func(t_shenv *env,
-														char *key)
+struct s_ast_compound_command	*shenv_shfuncs_get(t_shenv *env, char *key)
 {
-	return (twl_dict_get(env->shell_func, key));
+	return (twl_dict_get(env->shfuncs, key));
 }

@@ -23,7 +23,7 @@ static long long	get_old_value(t_token *token)
 	char			*tmp;
 	int				sign;
 
-	old_value = shenv_getenv_value(shenv_singleton(), token->text);
+	old_value = shenv_shvars_get_value(shenv_singleton(), token->text);
 	if (!old_value)
 		return (0);
 	sign = (*old_value == '-') ? 0 : 1;

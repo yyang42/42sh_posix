@@ -34,9 +34,9 @@ void				ast_simple_command_exec_tokens(t_lst *tokens, t_shenv *env)
 		{
 			builtin->builtin_fn(tokens, env);
 		}
-		else if (shenv_get_shell_func(env, cmd_name))
+		else if (shenv_shfuncs_get(env, cmd_name))
 		{
-			ast_simple_command_exec_function(env, tokens, shenv_get_shell_func(env, cmd_name));
+			ast_simple_command_exec_function(env, tokens, shenv_shfuncs_get(env, cmd_name));
 		}
 		else
 		{

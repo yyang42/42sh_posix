@@ -32,7 +32,7 @@ t_shenv			*shenv_new(void)
 	*/
 	this->alias = twl_dict_new();
 	this->flag_verbose = twl_dict_new();
-	this->shell_func = twl_dict_new();
+	this->shfuncs = twl_dict_new();
 	this->pos_params = twl_lst_new();
 	this->flags = twl_lst_new();
 	this->info.name = NULL;
