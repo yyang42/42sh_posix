@@ -35,11 +35,9 @@ void				builtin_unset_exec(t_lst *tokens, t_shenv *env)
 	t_opt			*opt;
 	char			**arr;
 	int				flag;
-	char			*str;
 
-	str = token_mgr_strjoin(tokens, " "); // TODO: refactor
 	flag = BUILTIN_EXEC_SUCCESS;
-	arr = twl_strsplit_mul(str, " \n\t");
+	arr = token_mgr_to_str_arr(tokens);
 	opt = twl_opt_new(arr, UNSET_OPT_VALID_OPTS);
 	if (builtin_utils_check_invalid_opts(opt, "unset", UNSET_OPT_VALID_OPTS))
 		flag = BUILTIN_EXEC_FAILURE;
@@ -55,7 +53,6 @@ void				builtin_unset_exec(t_lst *tokens, t_shenv *env)
 			flag = check_flags(env, opt);
 	}
 	shenv_set_last_exit_status(env, flag);
-	twl_arr_del(arr, &free);
+	twl_arr_del(arr, NULL);
 	twl_opt_del(opt);
-	// return (flag);
 }
