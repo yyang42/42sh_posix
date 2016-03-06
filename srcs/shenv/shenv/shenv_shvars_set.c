@@ -10,28 +10,26 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "builtin/builtin.h"
+#include "token/token_utils.h"
+
 #include "shenv/shenv.h"
 
-static bool			find_env_key(void *data, void *context)
+t_shvar				*shenv_shvars_set(t_shenv *shenv, char *key, char *value, char *command_name)
 {
-	t_shvar	*var;
-	char				*str;
+	t_shvar			*shvar;
 
-	var = data;
-	str = context;
-	return (twl_strcmp(var->shvar_key, str) == 0);
-}
-
-t_shvar	*shenv_get(t_shenv *this, char *shvar_key)
-{
-	t_shvar	*var;
-
-	if (shvar_key == NULL || *shvar_key == '\0')
+	if (!token_utils_is_valid_name(key))
 	{
-		errno = EINVAL;
+		twl_dprintf(2, "%s: `%s': not a valid identifier\n", command_name ? command_name : "42sh", key);
+		shenv_set_last_exit_status(shenv, BUILTIN_EXEC_FAILURE);
 		return (NULL);
 	}
-	var = (t_shvar *)(twl_lst_find(this->shvars,
-													find_env_key, shvar_key));
-	return (var);
+	shvar = shvar_mgr_find_or_create(shenv->shvars, key);
+	shvar->shvar_exported = true;
+	if (value)
+	{
+		shvar_set_value(shvar, value);
+	}
+	return (shvar);
 }

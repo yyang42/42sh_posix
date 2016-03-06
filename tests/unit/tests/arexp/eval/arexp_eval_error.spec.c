@@ -30,7 +30,7 @@ void suite_arexp_eval_error(t_suite *suite)
 {
 	SUITE_ADD_TEST(suite, test_num01);
 	SUITE_ADD_TEST(suite, test_num02);
-	shenv_setenv_value(shenv_singleton(), "a", "Bonjour", NULL);
+	shenv_shvars_set(shenv_singleton(), "a", "Bonjour", NULL);
 	SUITE_ADD_TEST(suite, test_num03);
 	SUITE_ADD_TEST(suite, test_num04);
 	SUITE_ADD_TEST(suite, test_num05);

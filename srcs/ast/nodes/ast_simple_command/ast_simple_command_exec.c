@@ -26,7 +26,7 @@ static void			iter_assign_fn(void *assign_, void *env_)
 	assign = assign_;
 	env = env_;
 	exported = (env != shenv_singleton());
-	shvar = shenv_setenv_value(env, assign->key, assign->value, NULL);
+	shvar = shenv_shvars_set(env, assign->key, assign->value, NULL);
 	shvar->shvar_exported = exported;
 }
 

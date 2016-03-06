@@ -14,7 +14,7 @@
 #include <stdio.h>
 
 
-t_shvar				*shenv_setenv(t_shenv *shenv, char *str_token, char *command_name)
+t_shvar				*shenv_shvars_set_equal(t_shenv *shenv, char *str_token, char *command_name)
 {
 	t_lst			*segs;
 	char			*key;
@@ -32,5 +32,5 @@ t_shvar				*shenv_setenv(t_shenv *shenv, char *str_token, char *command_name)
 		key = str_token;
 		value = NULL;
 	}
-	return (shenv_setenv_value(shenv, key, value, command_name));
+	return (shenv_shvars_set(shenv, key, value, command_name));
 }

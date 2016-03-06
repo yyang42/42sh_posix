@@ -26,7 +26,7 @@ bool			expan_exec_params_plus(t_expan_token *expan_token)
 	env = shenv_singleton();
 	if (data->parameter && twl_strcmp(data->parameter, ""))
 	{
-		shvar = shenv_get(env, data->parameter);
+		shvar = shenv_shvars_get(env, data->parameter);
 		if (shvar)
 				expan_token->res = twl_strdup(data->word);
 		else

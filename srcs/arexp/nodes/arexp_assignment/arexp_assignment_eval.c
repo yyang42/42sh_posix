@@ -84,7 +84,7 @@ static void			fn_iter(void *token_, void *ret)
 	if (arexp_singleton(NULL, false)->error_msg)
 		return ;
 	tmp = twl_lltoa(old);
-	shenv_setenv_value(shenv_singleton(), ((t_token **)token)[0]->text, tmp, NULL);
+	shenv_shvars_set(shenv_singleton(), ((t_token **)token)[0]->text, tmp, NULL);
 	free(tmp);
 	*((long long *)ret) = old;
 }

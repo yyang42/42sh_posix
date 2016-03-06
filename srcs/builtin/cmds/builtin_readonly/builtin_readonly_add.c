@@ -25,7 +25,7 @@ static void			readonly_something(void *data, void *context)
 	env = context;
 	if (arg)
 	{
-		var = shenv_setenv(env, arg, "readonly");
+		var = shenv_shvars_set_equal(env, arg, "readonly");
 		if (var)
 		{
 			var->shvar_read_only = true;

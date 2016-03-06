@@ -26,7 +26,7 @@ static void			unset_something(void *data, void *context, void *ret_)
 	ret = ret_;
 	if (arg)
 	{
-		if ((var = shenv_get(env, arg)))
+		if ((var = shenv_shvars_get(env, arg)))
 		{
 			if (var->shvar_read_only == false)
 			{

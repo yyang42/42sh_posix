@@ -20,7 +20,7 @@ static void			iter_wordlist_fn(void *word_token_, void *this_)
 
 	this = this_;
 	word_token = word_token_;
-	shenv_setenv_value(shenv_singleton(), this->name, word_token->text, NULL);
+	shenv_shvars_set(shenv_singleton(), this->name, word_token->text, NULL);
 	ast_compound_list_exec(this->do_group);
 }
 
