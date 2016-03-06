@@ -15,7 +15,6 @@
 
 # include "basics.h"
 
-# include "parser.h"
 # include "ast/ast_defines.h"
 
 # include "ast/nodes/ast_compound_list.h"
