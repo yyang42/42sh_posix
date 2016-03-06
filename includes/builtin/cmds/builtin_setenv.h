@@ -16,7 +16,9 @@
 # include "basics.h"
 # include "twl_opt.h"
 # include "builtin/builtin.h"
+# include "argparser_extension.h"
 
 void				builtin_setenv_exec(t_lst *tokens, t_shenv *env);
+t_argparser			*builtin_setenv_argparser(void);
 
 #endif

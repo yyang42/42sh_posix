@@ -16,5 +16,4 @@ void				builtin_false_exec(t_lst *tokens, t_shenv *env)
 {
 	shenv_set_last_exit_status(env, BUILTIN_EXEC_FAILURE);
 	(void)tokens;
-	// return (false);
 }

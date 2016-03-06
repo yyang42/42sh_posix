@@ -17,13 +17,13 @@
 #include "twl_lst.h"
 #include "token/token_utils.h"
 
-static void			create_and_export_shvar(t_shenv *shenv, char *key, char *value)
+static void			create_and_export_shvar(t_shenv *shenv, char *key, char *value, char *command_name)
 {
 	t_shvar			*shvar;
 
 	if (!token_utils_is_valid_name(key))
 	{
-		twl_dprintf(2, "export: `%s': not a valid identifier\n", key);
+		twl_dprintf(2, "%s: `%s': not a valid identifier\n", command_name, key);
 		shenv_set_last_exit_status(shenv, BUILTIN_EXEC_FAILURE);
 		return ;
 	}
@@ -35,7 +35,7 @@ static void			create_and_export_shvar(t_shenv *shenv, char *key, char *value)
 	}
 }
 
-void				builtin_export_exec_export_token_fn__(void *str_token, void *shenv_)
+void				builtin_export_exec_export_token_fn__(void *str_token, void *shenv_, void *command_name)
 {
 	t_lst			*segs;
 	t_shenv			*shenv;
@@ -55,5 +55,5 @@ void				builtin_export_exec_export_token_fn__(void *str_token, void *shenv_)
 		key = str_token;
 		value = NULL;
 	}
-	create_and_export_shvar(shenv, key, value);
+	create_and_export_shvar(shenv, key, value, command_name);
 }

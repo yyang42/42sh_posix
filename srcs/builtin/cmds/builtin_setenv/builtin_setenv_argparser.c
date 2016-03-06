@@ -10,29 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/cmds/builtin_export.h"
+#include "builtin/cmds/builtin_setenv.h"
 
-void				builtin_export_exec(t_lst *tokens, t_shenv *shenv)
+t_argparser			*builtin_setenv_argparser(void)
 {
-	t_argparser_result *argparser_result;
+	static t_argparser		*argparser;
 
-	argparser_result = argparser_parse_tokens(builtin_export_argparser(), tokens);
-	if (argparser_result->err_msg)
+	if (argparser == NULL)
 	{
-		argparser_result_print_error_with_help(argparser_result);
+		argparser = argparser_new("setenv");
+		argparser_set_usage_extra(argparser, " [name[=value] ...]");
 	}
-	else
-	{
-		if (argparser_result_opt_is_set(argparser_result, "p"))
-		{
-			builtin_export_verbose(shenv);
-		}
-		else
-		{
-			twl_lst_iter2(argparser_result->remainders,
-						builtin_export_exec_export_token_fn__,
-						shenv, argparser_result->command_name);
-		}
-	}
-	shenv_set_last_exit_status(shenv, BUILTIN_EXEC_SUCCESS);
+	return (argparser);
 }
