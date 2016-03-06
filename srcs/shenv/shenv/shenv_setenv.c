@@ -13,25 +13,24 @@
 #include "shenv/shenv.h"
 #include <stdio.h>
 
-t_shvar				*shenv_setenv(t_shenv *this, char *str)
+
+t_shvar				*shenv_setenv(t_shenv *shenv, char *str_token, char *command_name)
 {
 	t_lst			*segs;
 	char			*key;
 	char			*value;
 
-	if (str == NULL || *str == '\0')
-		return (NULL);
-	segs = twl_str_split_once_to_lst(str, "=");
-	if (segs)
+	if (twl_strchr(str_token, '='))
 	{
-		key = twl_lst_get(segs, 0);
-		value = twl_lst_get(segs, 1);
+		segs = twl_str_split_once_to_lst(str_token, "=");
+		key = twl_strdup(twl_lst_get(segs, 0));
+		value = twl_strdup(twl_lst_get(segs, 1));
+		twl_lst_del(segs, free);
 	}
 	else
 	{
-		key = str;
+		key = str_token;
 		value = NULL;
-
 	}
-	return (shenv_setenv_or_setlocal__(this, key, value, true));
+	return (shenv_setenv_value(shenv, key, value, command_name));
 }

@@ -21,11 +21,13 @@ static void			iter_assign_fn(void *assign_, void *env_)
 	t_ast_assignment		*assign;
 	t_shenv			*env;
 	bool			exported;
+	t_shvar			*shvar;
 
 	assign = assign_;
 	env = env_;
 	exported = (env != shenv_singleton());
-	shenv_setenv_or_setlocal__(env, assign->key, assign->value, exported);
+	shvar = shenv_setenv_value(env, assign->key, assign->value, NULL);
+	shvar->shvar_exported = exported;
 }
 
 static void			ast_simple_command_exec_with_redirs(t_ast_simple_command *cmd,
