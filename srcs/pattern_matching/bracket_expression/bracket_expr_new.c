@@ -52,7 +52,7 @@ static void		build_bracket_expr(t_bracket_expr *this)
 	twl_dict_add(this->dict, "[:xdigit:]", bce_fn(twl_isxdigit));
 }
 
-t_bracket_expr		*bracket_expr_new(void)
+t_bracket_expr	*bracket_expr_new(void)
 {
 	t_bracket_expr	*this;
 

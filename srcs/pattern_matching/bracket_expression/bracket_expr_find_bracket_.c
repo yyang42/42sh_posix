@@ -60,7 +60,7 @@ static void			bracket_colon(t_bracket_expr *this, t_brackexpr_find_ *bef)
 }
 
 void				bracket_expr_find_bracket_(t_bracket_expr *this,
-														t_brackexpr_find_*bef)
+														t_brackexpr_find_ *bef)
 {
 	if (bef->expr[bef->ind_e + 1] == '.' || bef->expr[bef->ind_e + 1] == '=')
 		goto_close_bracket(bef);
