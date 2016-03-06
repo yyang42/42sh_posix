@@ -19,7 +19,8 @@
 t_lst				*token_list_mgr_new(void);
 void				token_list_mgr_del(t_lst *token_lists);
 void				token_list_mgr_add(t_lst *token_lists, t_lst *token_list);
-void				token_list_mgr_remove(t_lst *token_lists, t_lst *token_list);
+void				token_list_mgr_remove(t_lst *token_lists,
+															t_lst *token_list);
 void				token_list_mgr_print(t_lst *token_lists);
 
 char				*token_list_mgr_strjoin(t_lst *tokens_list);
