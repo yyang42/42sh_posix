@@ -17,26 +17,32 @@
 
 int					builtin_exit_exec(t_lst *tokens, t_shenv *this)
 {
-	char			*arg_str;
+	char			*exit_code_str;
 	int				exit_code;
-	char			*str;
 
-	str = token_mgr_strjoin(tokens, " "); // TODO: refactor
-	arg_str = str + ((int)twl_strlen("exit") + 1);
-	if (twl_strlen(arg_str) == 0)
+	exit_code = 0;
+	if (twl_lst_len(tokens) == 1)
 	{
-		exit_code = 0;
+		exit(0);
 	}
-	else if (twl_str_is_num(arg_str))
+	else if (twl_lst_len(tokens) == 2)
 	{
-		exit_code = twl_atoi(arg_str);
+		exit_code_str = token_mgr_get(tokens, 1)->text;
+		if (twl_str_is_pos_num(exit_code_str))
+		{
+			exit(twl_atoi(exit_code_str));
+		}
+		else
+		{
+			twl_dprintf(2, "exit: %s: numeric argument required\n", exit_code_str);
+			exit(255);
+		}
 	}
-	else
+	else if (twl_lst_len(tokens) > 2)
 	{
-		twl_dprintf(2, "exit: %s: numeric argument required\n", arg_str);
-		exit_code = 255;
+		twl_dprintf(2, "exit: too many arguments\n");
+		return (255);
 	}
-	exit(exit_code);
 	return (0);
 	(void)this;
 }
