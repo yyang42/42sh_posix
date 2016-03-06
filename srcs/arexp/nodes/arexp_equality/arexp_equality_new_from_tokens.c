@@ -18,7 +18,7 @@ static bool				is_equality_token(t_token *token)
 {
 	return (token &&
 			(token->type == TOK_AREXP_EQUAL ||
-			 token->type == TOK_AREXP_NOT_EQUAL));
+			token->type == TOK_AREXP_NOT_EQUAL));
 }
 
 static bool				push_fn(t_lst *tokens,
