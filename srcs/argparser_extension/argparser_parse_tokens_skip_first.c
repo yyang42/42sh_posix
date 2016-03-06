@@ -10,23 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/cmds/builtin_export.h"
+#include "argparser_extension.h"
+#include "token/token_mgr.h"
 
-void				builtin_export_exec(t_lst *tokens, t_shenv *shenv)
+t_argparser_result	*argparser_parse_tokens_skip_first(t_argparser *this, t_lst *ast_tokens)
 {
-	t_argparser_result *argparser_result;
+	t_argparser_result	*result;
+	t_lst				*tokens_copy;
 
-	argparser_result = argparser_parse_tokens_skip_first(builtin_export_argparser(), tokens);
-	if (argparser_result->err_msg)
-	{
-		argparser_result_print_error_with_help(argparser_result);
-	}
-	else
-	{
-		if (argparser_result_opt_is_set(argparser_result, "p"))
-			builtin_export_verbose(shenv);
-		else
-			twl_lst_iter(argparser_result->remainders, builtin_export_exec_export_token_fn__, shenv);
-	}
-	shenv_set_last_exit_status(shenv, BUILTIN_EXEC_SUCCESS);
+	tokens_copy = twl_lst_copy(ast_tokens, NULL);
+	twl_lst_pop_front(tokens_copy);
+	result = argparser_parse_tokens(this, tokens_copy);
+	twl_lst_del(tokens_copy, NULL);
+	return (result);
 }

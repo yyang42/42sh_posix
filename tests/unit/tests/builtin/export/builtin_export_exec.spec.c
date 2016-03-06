@@ -17,6 +17,8 @@ static void     simple_test(t_test *test)
 	i = twl_lst_len(env->shvars);
 	builtin_export_exec(tokenizer_tokenize("export POPO=PAPA"), env);
 	j = twl_lst_len(env->shvars);
+	printf("i %d\n", i);
+	printf("j %d\n", j);
     mt_assert((j - i) == 1);
 	builtin_export_exec(tokenizer_tokenize("export PIPI=POPO"), env);
 	i = twl_lst_len(env->shvars);
