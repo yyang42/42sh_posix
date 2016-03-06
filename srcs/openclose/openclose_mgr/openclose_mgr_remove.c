@@ -12,7 +12,8 @@
 
 #include "openclose/openclose_mgr.h"
 
-void				openclose_mgr_remove(t_lst *opencloses, t_openclose *openclose)
+void				openclose_mgr_remove(t_lst *opencloses,
+														t_openclose *openclose)
 {
 	int				index;
 

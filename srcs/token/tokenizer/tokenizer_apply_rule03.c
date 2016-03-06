@@ -13,11 +13,12 @@
 #include "token/tokenizer.h"
 #include "token/token_mgr.h"
 
-/*  Rule 3
-	If the previous character was used as part of an operator
-	and the current character cannot be used with the current characters
-	to form an operator, the operator containing the previous character
-	shall be delimited.
+/*
+** Rule 3
+**  If the previous character was used as part of an operator
+**  and the current character cannot be used with the current characters
+**  to form an operator, the operator containing the previous character
+**  shall be delimited.
 */
 
 t_rule_status		tokenizer_apply_rule03(t_tokenizer *t)

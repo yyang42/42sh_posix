@@ -14,7 +14,7 @@
 
 static void			print_token_fn(void *token_, void *segs)
 {
-	t_token	*token;
+	t_token			*token;
 	char			*str;
 
 	token = token_;

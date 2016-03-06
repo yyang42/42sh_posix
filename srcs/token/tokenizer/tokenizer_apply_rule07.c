@@ -12,9 +12,10 @@
 
 #include "token/tokenizer.h"
 
-/*  Rule 7
-	If the current character is an unquoted <newline>,
-	the current token shall be delimited.
+/*
+** Rule 7
+**  If the current character is an unquoted <newline>,
+**  the current token shall be delimited.
 */
 
 t_rule_status		tokenizer_apply_rule07(t_tokenizer *t)

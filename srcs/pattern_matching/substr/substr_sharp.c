@@ -16,7 +16,7 @@ char		*substr_sharp(t_substr *this, char *str, char *pattern)
 {
 	char	*ret;
 
-	this->patss = pattern_substr_new(pattern); 
+	this->patss = pattern_substr_new(pattern);
 	this->match = twl_strnew(twl_strlen(str));
 	this->str = str;
 	this->ind_m = 0;

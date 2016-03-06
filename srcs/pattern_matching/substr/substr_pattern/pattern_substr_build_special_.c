@@ -24,4 +24,3 @@ void			pattern_substr_build_special_(t_pattern_substr *this)
 	pattern_substr_build_push_(this);
 	this->ind_p += 1;
 }
-

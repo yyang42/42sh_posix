@@ -22,7 +22,9 @@ static bool			is_redirect_token_with_io_number(t_lst *tokens)
 		&& twl_str_is_pos_num(token_mgr_get(tokens, 0)->text)
 		&& str_is_redir_operator(token_mgr_get(tokens, 1)->text));
 }
-static void			do_extract(t_lst *tokens, t_lst *tokens_list, t_lst *remaining_tokens)
+
+static void			do_extract(t_lst *tokens, t_lst *tokens_list,
+														t_lst *remaining_tokens)
 {
 	t_token			*token;
 	t_lst			*redir;
