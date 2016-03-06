@@ -16,6 +16,6 @@
 # include "basics.h"
 # include "shenv/shenv.h"
 
-int					builtin_exit_exec(t_lst *tokens, t_shenv *this);
+void				builtin_exit_exec(t_lst *tokens, t_shenv *this);
 
 #endif

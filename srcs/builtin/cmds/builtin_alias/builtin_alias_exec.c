@@ -30,7 +30,7 @@ static void		iter_fn(void *elem, void *context)
 	}
 }
 
-int					builtin_alias_exec(t_lst *tokens, t_shenv *this)
+void				builtin_alias_exec(t_lst *tokens, t_shenv *this)
 {
 	char **tab;
 	char				*str;
@@ -42,5 +42,4 @@ int					builtin_alias_exec(t_lst *tokens, t_shenv *this)
 	else if (twl_arr_len(tab) > 1)
 		twl_arr_iter(&tab[1], iter_fn, this);
 	twl_arr_del(tab, free);
-	return (0);
 }

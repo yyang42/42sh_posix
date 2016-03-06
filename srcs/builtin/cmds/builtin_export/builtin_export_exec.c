@@ -12,27 +12,25 @@
 
 #include "builtin/cmds/builtin_export.h"
 
-int					builtin_export_exec(t_lst *tokens, t_shenv *env)
+void				builtin_export_exec(t_lst *tokens, t_shenv *shenv)
 {
-	t_opt			*opt;
-	char			**arr;
+	t_argparser_result *argparser_result;
 
-	arr = token_mgr_to_str_arr(tokens);
-	opt = twl_opt_new(arr, EXPORT_OPT_VALID_OPTS);
-	if (!builtin_utils_check_invalid_opts(opt, "export", EXPORT_OPT_VALID_OPTS))
+	argparser_result = argparser_parse_tokens(builtin_export_argparser(), tokens);
+	if (argparser_result->err_msg)
 	{
-		if ((twl_opt_exist(opt, "p") && twl_opt_args_len(opt) == 0)
-			|| twl_opt_args_len(opt) == 0)
+		argparser_result_print_error_with_help(argparser_result);
+	}
+	else
+	{
+		if (argparser_result_opt_is_set(argparser_result, "p"))
 		{
-			builtin_export_verbose(env);
+			builtin_export_verbose(shenv);
 		}
 		else
 		{
-			builtin_export_add(env, tokens);
+			builtin_export_exec_export_tokens(argparser_result, shenv);
 		}
 	}
-	free(arr);
-	twl_opt_del(opt);
-	shenv_set_last_exit_status_2(env, BUILTIN_EXEC_SUCCESS);
-	return (BUILTIN_EXEC_SUCCESS);
+	shenv_set_last_exit_status(shenv, BUILTIN_EXEC_SUCCESS);
 }

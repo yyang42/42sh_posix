@@ -13,11 +13,11 @@
 #include "builtin/cmds/builtin_jobs.h"
 #include "async/job_mgr.h"
 
-int					builtin_jobs_exec(t_lst *tokens, t_shenv *this)
+void				builtin_jobs_exec(t_lst *tokens, t_shenv *this)
 {
 	/* TODO: Not fully implemented yet */
 	job_mgr_env_print();
-	return (0);
+	// return (0);
 	(void)this;
 	(void)tokens;
 }

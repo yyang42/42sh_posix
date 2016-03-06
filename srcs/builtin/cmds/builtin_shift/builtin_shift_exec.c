@@ -28,7 +28,7 @@ static void			shift_action(t_shenv *env, t_opt *opt)
 	if (twl_lst_len(env->pos_params) < shift_nb)
 	{
 		twl_printf("shift count must be <= $#");
-		shenv_set_last_exit_status_2(env, BUILTIN_EXEC_FAILURE);
+		shenv_set_last_exit_status(env, BUILTIN_EXEC_FAILURE);
 	}
 	if (twl_lst_len(env->pos_params) < shift_nb)
 		twl_lst_clear(env->pos_params, &free);
@@ -42,7 +42,7 @@ static void			shift_action(t_shenv *env, t_opt *opt)
 	}
 }
 
-int					builtin_shift_exec(t_lst *tokens, t_shenv *env)
+void				builtin_shift_exec(t_lst *tokens, t_shenv *env)
 {
 	t_opt			*opt;
 	char			**arr;
@@ -51,18 +51,18 @@ int					builtin_shift_exec(t_lst *tokens, t_shenv *env)
 	str = token_mgr_strjoin(tokens, " "); // TODO: refactor
 	arr = twl_strsplit_mul(str, " \n\t");
 	opt = twl_opt_new(arr, UMASK_OPT_VALID_OPTS);
-	shenv_set_last_exit_status_2(env, BUILTIN_EXEC_SUCCESS);
+	shenv_set_last_exit_status(env, BUILTIN_EXEC_SUCCESS);
 	if (!builtin_utils_check_invalid_opts(opt, "shift", SHIFT_OPT_VALID_OPTS))
 	{
 		if (twl_lst_len(opt->args) > 1)
 		{
 			twl_printf("shift: too many arguments");
-			shenv_set_last_exit_status_2(env, BUILTIN_EXEC_FAILURE);
+			shenv_set_last_exit_status(env, BUILTIN_EXEC_FAILURE);
 		}
 		else
 			shift_action(env, opt);
 	}
 	twl_arr_del(arr, &free);
 	twl_opt_del(opt);
-	return (0);
+	// return (0);
 }

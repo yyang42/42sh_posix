@@ -23,23 +23,25 @@ static void 		iter_fn(void *token_, void *next, void *ctx)
 	(void)ctx;
 }
 
-int					builtin_echo_exec(t_lst *tokens, t_shenv *this)
+void				builtin_echo_exec(t_lst *tokens, t_shenv *this)
 {
-	t_lst			*copy;
-	bool			opt_n;
+	t_lst			*tokens_copy;
+	bool			print_newline;
 
-	opt_n = false;
-	copy = twl_lst_copy(tokens, NULL);
-	twl_lst_pop_front(copy);
-	if (token_mgr_first_equ(copy, "-n"))
+	print_newline = true;
+	tokens_copy = twl_lst_copy(tokens, NULL);
+	twl_lst_pop_front(tokens_copy);
+	if (token_mgr_first_equ(tokens_copy, "-n"))
 	{
-		opt_n = true;
-		twl_lst_pop_front(copy);
+		print_newline = false;
+		twl_lst_pop_front(tokens_copy);
 	}
-	twl_lst_itern(copy, iter_fn, NULL);
-	if (!opt_n)
+	twl_lst_itern(tokens_copy, iter_fn, NULL);
+	if (print_newline)
+	{
 		twl_putstr("\n");
-	shenv_set_last_exit_status_2(this, BUILTIN_EXEC_SUCCESS);
-	twl_lst_del(copy, NULL);
-	return (0);
+	}
+	shenv_set_last_exit_status(this, BUILTIN_EXEC_SUCCESS);
+	twl_lst_del(tokens_copy, NULL);
+	return ; // (0)
 }

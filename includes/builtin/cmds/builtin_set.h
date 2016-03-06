@@ -31,7 +31,7 @@ typedef struct		s_set_opt
 	char			*cmd;
 }					t_set_opt;
 
-int					builtin_set_exec(t_lst *tokens, t_shenv *env);
+void				builtin_set_exec(t_lst *tokens, t_shenv *env);
 t_set_opt			*builtin_set_opt_new(char **argv, char *valid_opts);
 void				builtin_set_opt_del(t_set_opt *xopt);
 char				**builtin_set_opt_new_parse_arg_opt_and_return_non_opt_args__(

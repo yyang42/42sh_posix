@@ -19,6 +19,6 @@
 
 # define ECHO_OPT_VALID_OPTS "n"
 
-int					builtin_echo_exec(t_lst *tokens, t_shenv *this);
+void				builtin_echo_exec(t_lst *tokens, t_shenv *this);
 
 #endif

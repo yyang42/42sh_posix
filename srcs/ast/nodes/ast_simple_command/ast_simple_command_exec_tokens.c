@@ -16,42 +16,32 @@
 #include "builtin/builtin_mgr.h"
 #include "data.h"
 
-static void			execute_builtin(char *cmd_name, t_lst *tokens, t_shenv *env)
-{
-	t_builtin		*builtin;
-
-	builtin = builtin_mgr_find_by_name(data_builtins(), cmd_name);
-	if (builtin)
-	{
-		builtin->builtin_fn(tokens, env);
-	}
-}
-
-void				ast_simple_command_exec_tokens(t_lst *command_tokens, t_shenv *env)
+void				ast_simple_command_exec_tokens(t_lst *tokens, t_shenv *env)
 {
 	char			**env_arr;
 	char			*path;
-	char			*first_str;
+	char			*cmd_name;
+	t_builtin		*builtin;
 
-	if (twl_lst_len(command_tokens) == 0)
+	if (twl_lst_len(tokens) == 0)
 		return ;
 	env_arr = (char **)shenv_get_env_arr(env);
-	if (twl_lst_len(command_tokens) > 0)
+	if (twl_lst_len(tokens) > 0)
 	{
-		first_str = token_mgr_first(command_tokens)->text;
-		if (builtin_mgr_find_by_name(data_builtins(), first_str))
+		cmd_name = token_mgr_first(tokens)->text;
+		builtin = builtin_mgr_find_by_name(data_builtins(), cmd_name);
+		if (builtin)
 		{
-			execute_builtin(first_str, command_tokens, env);
+			builtin->builtin_fn(tokens, env);
 		}
-		else if (shenv_get_shell_func(env, first_str))
+		else if (shenv_get_shell_func(env, cmd_name))
 		{
-			ast_simple_command_exec_function(env, command_tokens,
-				shenv_get_shell_func(env, first_str));
+			ast_simple_command_exec_function(env, tokens, shenv_get_shell_func(env, cmd_name));
 		}
 		else
 		{
-			path = ast_simple_command_utils_get_binary_path(first_str, env);
-			ast_simple_command_execve(path, command_tokens, env_arr);
+			path = ast_simple_command_utils_get_binary_path(cmd_name, env);
+			ast_simple_command_execve(path, tokens, env_arr);
 			free(path);
 		}
 	}

@@ -87,7 +87,7 @@ static void			builtin_umask_2(t_opt *opt, int *flag)
 		twl_printf("%04lo\n", (unsigned long)umask_arg);
 }
 
-int					builtin_umask_exec(t_lst *tokens, t_shenv *this)
+void				builtin_umask_exec(t_lst *tokens, t_shenv *this)
 {
 	t_opt			*opt;
 	char			**arr;
@@ -105,8 +105,8 @@ int					builtin_umask_exec(t_lst *tokens, t_shenv *this)
 		else
 			flag = modify_umask(opt, (char *)twl_lst_first(opt->args));
 	}
-	shenv_set_last_exit_status_2(this, flag);
+	shenv_set_last_exit_status(this, flag);
 	twl_arr_del(arr, &free);
 	twl_opt_del(opt);
-	return (flag);
+	// return (flag);
 }

@@ -72,8 +72,7 @@ t_shvar				*shenv_setenv_or_setlocal__(t_shenv *this, char *key, char *value, bo
 t_shvar				*shenv_get(t_shenv *this, char *key);
 void				**shenv_get_env_arr(t_shenv *this);
 int					shenv_get_last_exit_status(void);
-void				shenv_set_last_exit_status(int status);
-void				shenv_set_last_exit_status_2(t_shenv *e, int status);
+void				shenv_set_last_exit_status(t_shenv *e, int status);
 char				*shenv_get_pos_param_at(t_shenv *env, size_t index);
 
 /*

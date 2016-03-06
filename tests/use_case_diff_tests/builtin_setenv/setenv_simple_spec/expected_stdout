@@ -1,0 +1,2 @@
+setenv_var=bbb
+export setenv_var="bbb"
