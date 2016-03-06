@@ -19,9 +19,9 @@ static void			push_fn(void *compound_segs, void *matcher)
 		matcher, twl_lst_first(compound_segs), twl_lst_last(compound_segs));
 }
 
-t_openclose_matcher *openclose_matcher_singleton_parser(void)
+t_openclose_matcher	*openclose_matcher_singleton_parser(void)
 {
-	static t_openclose_matcher *matcher = NULL;
+	static t_openclose_matcher	*matcher = NULL;
 
 	if (matcher == NULL)
 	{

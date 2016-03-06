@@ -25,7 +25,6 @@ char				*openclose_matcher_find_matching(
 	return (ret);
 }
 
-
 t_lst				*openclose_matcher_find_matching_stack(
 										t_openclose_matcher *matcher, char *s)
 {

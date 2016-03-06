@@ -51,11 +51,9 @@ int					openclose_matcher_token_find_matching(
 
 	ret = -1;
 	token = token_mgr_first(tokens);
-	if (!token
-		|| !twl_lst_find(matcher->oc_pairs, find_open_start_fn, token->text))
-	{
+	if (!token ||
+			!twl_lst_find(matcher->oc_pairs, find_open_start_fn, token->text))
 		return (ret);
-	}
 	stack = twl_lst_new();
 	tokens_copy = twl_lst_copy(tokens, NULL);
 	while ((token = twl_lst_first(tokens_copy)))
