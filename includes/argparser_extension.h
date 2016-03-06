@@ -17,6 +17,5 @@
 # include "twl_argparser/argparser.h"
 
 t_argparser_result	*argparser_parse_tokens(t_argparser *this, t_lst *ast_tokens);
-t_argparser_result	*argparser_parse_tokens_skip_first(t_argparser *this, t_lst *ast_tokens);
 
 #endif
