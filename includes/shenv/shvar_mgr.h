@@ -22,4 +22,7 @@ void				shvar_mgr_add(t_lst *shvars, t_shvar *shvar);
 void				shvar_mgr_remove(t_lst *shvars, t_shvar *shvar);
 void				shvar_mgr_print(t_lst *shvars);
 
+t_shvar				*shvar_mgr_find_by_key(t_lst *shvars, char *key);
+t_shvar				*shvar_mgr_find_or_create(t_lst *shvars, char *key);
+
 #endif

@@ -20,7 +20,7 @@ static void			export_something(void *data)
 	t_shvar	*shvar;
 
 	shvar = data;
-	if (!shvar->shvar_read_only)
+	if (shvar->shvar_exported)
 	{
 		if (shvar->shvar_value)
 			twl_printf("export %s=\"%s\"\n", shvar->shvar_key, shvar->shvar_value ? shvar->shvar_value : "");

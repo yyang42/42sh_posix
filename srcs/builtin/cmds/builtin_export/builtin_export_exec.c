@@ -27,7 +27,6 @@ t_argparser			*builtin_export_argparser(void)
 	return (argparser);
 }
 
-
 void				builtin_export_exec(t_lst *tokens, t_shenv *env)
 {
 	t_argparser_result *argparser_result;
@@ -42,7 +41,7 @@ void				builtin_export_exec(t_lst *tokens, t_shenv *env)
 		if (argparser_result_opt_is_set(argparser_result, "p"))
 			builtin_export_verbose(env);
 		else
-			builtin_export_add(env, tokens);
+			builtin_export_add(env, argparser_result->remainders);
 	}
 	shenv_set_last_exit_status(env, BUILTIN_EXEC_SUCCESS);
 }

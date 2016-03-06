@@ -12,38 +12,29 @@
 
 #include "builtin/cmds/builtin_export.h"
 #include "shenv/shenv.h"
+#include "shenv/shvar_mgr.h"
 #include "twl_opt.h"
 #include "twl_lst.h"
 
-static void			export_something_segs(void *segs, void *env)
+static void			iter_fn(void *str_token, void *shenv_)
 {
-	shenv_setenv_key_value(env, twl_lst_get(segs, 0), twl_lst_get(segs, 1));
-}
+	t_lst			*segs;
+	t_shenv			*shenv;
 
-static void			export_something_tokens(void *token_, void *env)
-{
-	t_token			*token;
-
-	token = token_;
-	shenv_setenv_or_setlocal__(env, token->text, NULL, false);
-}
-
-void				builtin_export_add(t_shenv *env, t_lst *tokens)
-{
-	t_lst			*list_of_segs;
-	t_lst			*remaining_tokens;
-	t_lst			*tokens_copy;
-
-	tokens_copy = twl_lst_copy(tokens, NULL);
-	remaining_tokens = twl_lst_new();
-	twl_lst_pop_front(tokens_copy);
-	while (token_mgr_first(tokens_copy)
-		&& twl_str_starts_with(token_mgr_first(tokens_copy)->text, "-"))
+	shenv = shenv_;
+	if (twl_strchr(str_token, '='))
 	{
-		twl_lst_pop_front(tokens_copy);
+		segs = twl_str_split_once_to_lst(str_token, "=");
+		shenv_setenv_key_value(shenv, twl_lst_get(segs, 0), twl_lst_get(segs, 1));
+		twl_lst_del(segs, free);
 	}
-	list_of_segs = token_mgr_extract_assignment(tokens_copy, remaining_tokens);
-	twl_lst_iter(list_of_segs, export_something_segs, env);
-	twl_lst_iter(remaining_tokens, export_something_tokens, env);
-	(void)remaining_tokens;
+	else
+	{
+		shvar_mgr_find_or_create(shenv->shvars, str_token)->shvar_exported = true;
+	}
+}
+
+void				builtin_export_add(t_shenv *shenv, t_lst *remaining_tokens)
+{
+	twl_lst_iter(remaining_tokens, iter_fn, shenv);
 }

@@ -10,27 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shenv/shenv.h"
-#include <stdio.h>
+#include "shenv/shvar_mgr.h"
 
-t_shvar	*shenv_setenv_or_setlocal__(t_shenv *this,
-									char *key, char *value, bool exported)
+static bool			find_fn(void *shvar_, void *key)
 {
-	t_shvar	*var;
+	t_shvar	*shvar;
 
-	var = NULL;
-	if (twl_strlen(key) > 0)
-	{
-		if (shenv_getenv_value(this, key))
-		{
-			var = shenv_setenv_value(this, key, value);
-		}
-		else
-		{
-			var = shvar_new(key, value, exported);
-			twl_lst_push(this->shvars, var);
-		}
-	}
-	errno = EINVAL;
-	return (var);
+	shvar = shvar_;
+	return (twl_strequ(shvar->shvar_key, key));
+}
+
+t_shvar				*shvar_mgr_find_by_key(t_lst *shvars, char *key)
+{
+	return (twl_lst_find(shvars, find_fn, key));
 }
