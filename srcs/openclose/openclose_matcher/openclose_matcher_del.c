@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "openclose/openclose_matcher.h"
 
 void				openclose_matcher_del(t_openclose_matcher *this)

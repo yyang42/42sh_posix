@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_norris_loves_the_norminette.c                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: chuck <chuck@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2042/02/30 42:00:00 by chuck             #+#    #+#             */
+/*   Updated: 2042/02/30 41:59:59 by chuck            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "openclose/openclose_matcher.h"
 #include "openclose/openclose_mgr.h"
 
@@ -9,7 +21,8 @@ static bool			find_open_start_fn(void *oc_, void *pos)
 	return (twl_str_starts_with(pos, oc->open));
 }
 
-static void			resolve(t_openclose_matcher *matcher, t_lst *stack, char **s_ptr)
+static void			resolve(t_openclose_matcher *matcher, t_lst *stack,
+																char **s_ptr)
 {
 	char			*pos;
 	t_openclose		*open_pos;
@@ -20,10 +33,9 @@ static void			resolve(t_openclose_matcher *matcher, t_lst *stack, char **s_ptr)
 	open_pos = twl_lst_find(matcher->oc_pairs, find_open_start_fn, pos);
 	if (oc && twl_str_starts_with(pos, oc->close))
 	{
-		// openclose_mgr_print(stack);
 		twl_lst_pop(stack);
 		*s_ptr += twl_strlen(oc->close);
-		return  ;
+		return ;
 	}
 	else if (open_pos)
 	{
@@ -49,7 +61,9 @@ static bool			is_quoted_skip(char **s_ptr)
 }
 
 char				*openclose_matcher_find_matching_base(
-										t_openclose_matcher *matcher, char *s, t_lst *stack)
+										t_openclose_matcher *matcher,
+										char *s,
+										t_lst *stack)
 {
 	while (*s)
 	{

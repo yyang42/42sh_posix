@@ -18,8 +18,10 @@
 
 t_lst				*openclose_mgr_new(void);
 void				openclose_mgr_del(t_lst *opencloses);
-void				openclose_mgr_add(t_lst *opencloses, t_openclose *openclose);
-void				openclose_mgr_remove(t_lst *opencloses, t_openclose *openclose);
+void				openclose_mgr_add(t_lst *opencloses,
+														t_openclose *openclose);
+void				openclose_mgr_remove(t_lst *opencloses,
+														t_openclose *openclose);
 void				openclose_mgr_print(t_lst *opencloses);
 
 #endif
