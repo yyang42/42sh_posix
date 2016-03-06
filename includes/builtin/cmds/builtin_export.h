@@ -16,6 +16,7 @@
 # include "basics.h"
 # include "twl_opt.h"
 # include "builtin/builtin.h"
+# include "argparser_extension.h"
 
 # define EXPORT_OPT_VALID_OPTS "p"
 
@@ -23,5 +24,7 @@
 void				builtin_export_exec(t_lst *tokens, t_shenv *env);
 void				builtin_export_exec_export_token_fn__(void *str_token, void *shenv_);
 void				builtin_export_verbose(t_shenv *env);
+
+t_argparser			*builtin_export_argparser(void);
 
 #endif
