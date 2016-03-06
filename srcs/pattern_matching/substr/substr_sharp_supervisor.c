@@ -73,7 +73,7 @@ static bool	match_question_mark(t_substr *this)
 	return (false);
 }
 
-static bool match_bracket(t_substr *this, char *bracket)
+static bool	match_bracket(t_substr *this, char *bracket)
 {
 	char	*content;
 	char	*possibilities;

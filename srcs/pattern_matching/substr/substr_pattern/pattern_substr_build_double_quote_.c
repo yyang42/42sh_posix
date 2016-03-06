@@ -24,7 +24,7 @@ void			pattern_substr_build_double_quote_(t_pattern_substr *this)
 		}
 		if (this->pattern[this->ind_p] == '\\' &&
 				(this->pattern[this->ind_p + 1] == '"' ||
-				 this->pattern[this->ind_p + 1] == '\\'))
+					this->pattern[this->ind_p + 1] == '\\'))
 			this->ind_p += 1;
 		this->to_push->piece[this->ind_tp] = this->pattern[this->ind_p];
 		this->ind_p += 1;

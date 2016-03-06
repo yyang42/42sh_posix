@@ -14,7 +14,6 @@
 # define PATTERN_H
 
 # include "basics.h"
-#include <stdio.h>
 
 typedef struct		s_pattern_data
 {

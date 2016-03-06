@@ -72,15 +72,7 @@ static void		bracket_normal_char(t_pattern_substr *this,
 static void		bracket_finish_it(t_pattern_substr *this,
 													t_patss_bracket *bracket)
 {
-	if (bracket->flag[0] == 0)
-	{
-		this->to_push->piece[this->ind_tp] = this->pattern[this->ind_p];
-		this->ind_p += 1;
-		this->ind_tp += 1;
-		free(bracket->brack);
-		return ;
-	}
-	else if (bracket->flag[0] != -1)
+	if (bracket->flag[0] != -1)
 	{
 		twl_strcat(this->to_push->piece, bracket->brack);
 		this->ind_tp += bracket->ind_b;
@@ -118,6 +110,14 @@ void			pattern_substr_build_bracket_(t_pattern_substr *this)
 			bracket_close(this, &bracket);
 		else
 			bracket_normal_char(this, &bracket);
+	}
+	if (bracket.flag[0] == 0)
+	{
+		this->to_push->piece[this->ind_tp] = this->pattern[this->ind_p];
+		this->ind_p += 1;
+		this->ind_tp += 1;
+		free(bracket.brack);
+		return ;
 	}
 	bracket_finish_it(this, &bracket);
 }

@@ -14,7 +14,6 @@
 # define PATTERN_SUBSTR_H
 
 # include "basics.h"
-#include <stdio.h>
 
 typedef struct				s_patss_bracket
 {

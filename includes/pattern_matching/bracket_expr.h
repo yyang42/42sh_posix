@@ -46,5 +46,4 @@ void				bracket_expr_find_hyphen_(t_bracket_expr *this,
 void				bracket_expr_find_bracket_(t_bracket_expr *this,
 														t_brackexpr_find_ *bef);
 
-
 #endif

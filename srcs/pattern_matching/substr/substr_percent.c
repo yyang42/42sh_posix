@@ -16,7 +16,7 @@ char			*substr_percent(t_substr *this, char *str, char *pattern)
 {
 	char	*ret;
 
-	this->patss = pattern_substr_new(pattern); 
+	this->patss = pattern_substr_new(pattern);
 	pattern_substr_rev(this->patss);
 	this->match = twl_strnew(twl_strlen(str));
 	this->str = twl_strrev(twl_strdup(str));
