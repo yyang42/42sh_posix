@@ -14,10 +14,11 @@
 
 #include "token/tokenizer.h"
 
-/*  Rule 8
-	If the current character is an unquoted <blank>, any token
-	containing the previous character is delimited and the current
-	character shall be discarded.
+/*
+** Rule 8
+**  If the current character is an unquoted <blank>, any token
+**  containing the previous character is delimited and the current
+**  character shall be discarded.
 */
 
 t_rule_status		tokenizer_apply_rule08(t_tokenizer *t)

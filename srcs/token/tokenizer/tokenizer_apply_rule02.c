@@ -12,11 +12,12 @@
 
 #include "token/tokenizer.h"
 
-/*  Rule 3
-	If the previous character was used as part of an operator and the
-	current character is not quoted and can be used with the current
-	characters to form an operator, it shall be used as part of that (operator)
-	token.
+/*
+** Rule 2
+**  If the previous character was used as part of an operator and the
+**  current character is not quoted and can be used with the current
+**  characters to form an operator, it shall be used as part of that (operator)
+**  token.
 */
 
 t_rule_status		tokenizer_apply_rule02(t_tokenizer *t)

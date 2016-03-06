@@ -14,8 +14,9 @@
 
 bool				tokenizer_arexp_utils_is_start_of_op(t_tokenizer *t, char c)
 {
-	char			charstr[2] = "\0\0";
+	char			charstr[2];
 
 	charstr[0] = c;
+	charstr[1] = 0;
 	return (tokenizer_arexp_utils_can_form_operator(t, charstr));
 }

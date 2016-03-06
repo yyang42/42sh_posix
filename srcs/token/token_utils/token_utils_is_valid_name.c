@@ -14,12 +14,11 @@
 #include "token/token_utils.h"
 
 /*
-	In the shell command language, a word consisting solely of underscores,
-	digits, and alphabetics from the portable character set.
-	The first character of a name is not a digit.
-
-	Note:
-	The Portable Character Set is defined in detail in Portable Character Set.
+** In the shell command language, a word consisting solely of underscores,
+** digits, and alphabetics from the portable character set.
+** The first character of a name is not a digit.
+** Note:
+** The Portable Character Set is defined in detail in Portable Character Set.
 */
 
 bool				token_utils_is_valid_name(char *str)

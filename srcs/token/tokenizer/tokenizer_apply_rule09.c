@@ -12,7 +12,8 @@
 
 #include "token/tokenizer.h"
 
-/*  Rule 9
+/*
+** Rule 9
 */
 
 t_rule_status		tokenizer_apply_rule09(t_tokenizer *t)

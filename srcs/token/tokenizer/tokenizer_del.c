@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "token/tokenizer.h"
 
 void				tokenizer_del(t_tokenizer *this)

@@ -12,7 +12,8 @@
 
 #include "token/token_mgr.h"
 
-void				token_mgr_print_token_text_by_index(t_lst *tokens, int index)
+void				token_mgr_print_token_text_by_index(t_lst *tokens,
+																	int index)
 {
 	t_token			*token;
 

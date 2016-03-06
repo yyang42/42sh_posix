@@ -12,8 +12,9 @@
 
 #include "token/tokenizer.h"
 
-/*  Rule 11
-	The current character is used as the start of a new word.
+/*
+** Rule 11
+**  The current character is used as the start of a new word.
 */
 
 t_rule_status		tokenizer_apply_rule11(t_tokenizer *t)

@@ -12,7 +12,8 @@
 
 #include "token/token_type_item_mgr.h"
 
-void				token_type_item_mgr_remove(t_lst *token_type_items, t_token_type_item *token_type_item)
+void				token_type_item_mgr_remove(t_lst *token_type_items,
+											t_token_type_item *token_type_item)
 {
 	int				index;
 

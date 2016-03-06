@@ -13,7 +13,8 @@
 #include "token/token_mgr.h"
 #include "data_utils.h"
 
-static void		fn_iter2n(void *data_, void *next_, void *assign_, void *is_assign_extracted_)
+static void		fn_iter2n(void *data_, void *next_, void *assign_,
+												void *is_assign_extracted_)
 {
 	t_token		*data;
 	t_token		*next;

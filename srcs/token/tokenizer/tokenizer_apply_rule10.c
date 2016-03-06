@@ -12,10 +12,11 @@
 
 #include "token/tokenizer.h"
 
-/*  Rule 10
-	If the current character is a '#', it and all subsequent characters up to,
-	but excluding, the next <newline> shall be discarded as a comment.
-	The <newline> that ends the line is not considered part of the comment.
+/*
+** Rule 10
+**  If the current character is a '#', it and all subsequent characters up to,
+**  but excluding, the next <newline> shall be discarded as a comment.
+**  The <newline> that ends the line is not considered part of the comment.
 */
 
 t_rule_status		tokenizer_apply_rule10(t_tokenizer *t)
