@@ -10,45 +10,51 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/builtin_read.h"
-#include "twl_get_next_line.h"
+#include "arexp/arexp.h"
+#include "twl_ctype.h"
 
-static void			fn_read(t_lst *input)
+static long long	get_value(t_arexp *this, char c, t_token *token)
 {
-	char			buf[16];
-	int				ret;
-
-	while ((ret = read(0, buf, 15)) >= 0)
+	if (twl_isdigit(c))
+		return (c - '0');
+	else if (twl_islower(c))
+		return (c - 'a' + 10);
+	else if (twl_isupper(c))
+		return (c - 'A' + 36);
+	else if (c == '@')
+		return (62);
+	else if (c == '_')
+		return (63);
+	else
 	{
-		buf[ret] = 0;
-		twl_lst_push_back(input, twl_strdup(buf));
-		if (ret != 15)
-			break ;
+		arexp_set_error_msg(this, "invalid number: ", token);
+		return (0);
 	}
 }
 
-static void			fn_iter(void *data)
+long long			arexp_atoll_base(t_arexp *this, char *input, int base,
+																t_token *token)
 {
-	twl_printf("%s\n", data);
-}
+	long long	ret;
+	long long	tmp;
+	size_t		index;
+	char		c;
 
-int					builtin_read_exec(t_lst *tokens, t_environment *this)
-{
-	t_lst			*copy;
-	t_lst			*input;
-	bool			opt_r;
-
-	opt_r = false;
-	copy = twl_lst_copy(tokens, NULL);
-	input = twl_lst_new();
-	twl_lst_pop_front(copy);
-	if (token_mgr_first_equ(copy, "-r"))
+	index = 0;
+	ret = 0;
+	while ((c = input[index]))
 	{
-		opt_r = true;
-		twl_lst_pop_front(copy);
+		tmp = get_value(this, c, token);
+		if (this->error_msg)
+			return (0);
+		if (tmp >= base)
+		{
+			arexp_set_error_msg(this, "value too great for base: ", token);
+			return (0);
+		}
+		ret *= base;
+		ret += tmp;
+		index += 1;
 	}
-	fn_read(input);
-	twl_lst_iter0(input, fn_iter);
-	(void)this;
-	return (0);
+	return (ret);
 }
