@@ -35,7 +35,7 @@ static void			create_and_export_shvar(t_shenv *shenv, char *key, char *value, ch
 	}
 }
 
-void				builtin_export_exec_export_token_fn__(void *str_token, void *shenv_, void *command_name)
+void				iter_fn(void *str_token, void *shenv_, void *command_name)
 {
 	t_lst			*segs;
 	t_shenv			*shenv;
@@ -56,4 +56,9 @@ void				builtin_export_exec_export_token_fn__(void *str_token, void *shenv_, voi
 		value = NULL;
 	}
 	create_and_export_shvar(shenv, key, value, command_name);
+}
+
+void				builtin_export_exec_export_tokens(t_argparser_result *argparser_result, t_shenv *shenv)
+{
+	twl_lst_iter2(argparser_result->remainders, iter_fn, shenv, argparser_result->command_name);
 }

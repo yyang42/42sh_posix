@@ -21,11 +21,13 @@ void				builtin_setenv_exec(t_lst *tokens, t_shenv *shenv)
 	{
 		argparser_result_print_error_with_help(argparser_result);
 	}
+	else if (twl_lst_len(argparser_result->remainders) == 0)
+	{
+		shenv_print(shenv);
+	}
 	else
 	{
-		twl_lst_iter2(argparser_result->remainders,
-			builtin_export_exec_export_token_fn__,
-			shenv, argparser_result->command_name);
+		builtin_export_exec_export_tokens(argparser_result, shenv);
 	}
 	shenv_set_last_exit_status(shenv, BUILTIN_EXEC_SUCCESS);
 }
