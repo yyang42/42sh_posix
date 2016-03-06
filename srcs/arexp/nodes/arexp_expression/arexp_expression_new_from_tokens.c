@@ -10,31 +10,43 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "token/token_mgr.h"
-#include "data.h"
-#include "arexp/arexp.h"
 #include "arexp/nodes/arexp_expression.h"
+#include "arexp/arexp.h"
+#include "token/token_mgr.h"
 
-t_arexp_expression		*arexp_expression_new_from_tokens(t_lst *tokens)
+static t_arexp_expression	*init_arexp_expression(t_lst *tokens,
+												t_arexp *singleton)
 {
-	t_arexp_expression	*expression;
-	t_arexp_assignment	*assignment;
-	t_token				*token;
+	t_arexp_assignment		*assignment;
+	t_arexp_expression		*expression;
 
-	if (arexp_singleton(NULL, false)->depth > AREXP_MAX_DEPTH)
+	if (singleton->depth > AREXP_MAX_DEPTH)
 	{
-		arexp_singleton(NULL, false)->error_msg = twl_strdup("maximum depth reached");
-		return (0);
+		singleton->error_msg = twl_strdup("maximum depth reached");
+		return (NULL);
 	}
 	expression = arexp_expression_new();
 	assignment = arexp_assignment_new_from_tokens(tokens);
-	if (arexp_has_error(arexp_singleton(NULL, false)))
+	if (singleton->error_msg)
 	{
 		arexp_expression_del(expression);
 		arexp_assignment_del(assignment);
 		return (NULL);
 	}
 	twl_lst_push_back(expression->assignment, assignment);
+	return (expression);
+}
+
+t_arexp_expression			*arexp_expression_new_from_tokens(t_lst *tokens)
+{
+	t_arexp					*singleton;
+	t_arexp_expression		*expression;
+	t_arexp_assignment		*assignment;
+	t_token					*token;
+
+	singleton = arexp_singleton(NULL, false);
+	if (!(expression = init_arexp_expression(tokens, singleton)))
+		return (NULL);
 	while (42)
 	{
 		token = token_mgr_first(tokens);
@@ -43,7 +55,7 @@ t_arexp_expression		*arexp_expression_new_from_tokens(t_lst *tokens)
 		token = twl_lst_pop_front(tokens);
 		token_del(token);
 		assignment = arexp_assignment_new_from_tokens(tokens);
-		if (arexp_has_error(arexp_singleton(NULL, false)))
+		if (singleton->error_msg)
 		{
 			arexp_expression_del(expression);
 			arexp_assignment_del(assignment);

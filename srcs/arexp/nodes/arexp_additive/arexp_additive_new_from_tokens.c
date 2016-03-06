@@ -18,7 +18,7 @@ static bool					is_additive_token(t_token *token)
 {
 	return (token &&
 			(token->type == TOK_AREXP_MINUS ||
-			 token->type == TOK_AREXP_PLUS));
+				token->type == TOK_AREXP_PLUS));
 }
 
 static bool					push_fn(t_lst *tokens,

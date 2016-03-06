@@ -18,8 +18,8 @@ static bool					is_multiplicative_token(t_token *token)
 {
 	return (token &&
 			(token->type == TOK_AREXP_MUL ||
-			 token->type == TOK_AREXP_MOD ||
-			 token->type == TOK_AREXP_DIV));
+				token->type == TOK_AREXP_MOD ||
+				token->type == TOK_AREXP_DIV));
 }
 
 static bool					push_fn(t_lst *tokens,

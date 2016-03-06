@@ -35,12 +35,15 @@ t_arexp					*arexp_singleton(t_arexp *cpy, bool clear);
 
 bool					arexp_has_error(t_arexp *this);
 
-void					arexp_set_error_msg(t_arexp *this, char *msg, t_token *token);
+void					arexp_set_error_msg(t_arexp *this, char *msg,
+																t_token *token);
 
 void					arexp_print_rec(t_arexp *this);
 
 long long				arexp_eval(t_arexp *this);
 
 long long				arexp_atoll(t_arexp *this, t_token *token);
+long long				arexp_atoll_base(t_arexp *this, char *input, int base,
+																t_token *token);
 
 #endif

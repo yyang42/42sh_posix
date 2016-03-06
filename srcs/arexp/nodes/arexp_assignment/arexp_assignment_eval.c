@@ -16,66 +16,77 @@
 
 #include "twl_xstring.h"
 
-static void			fn_iter(void *token_, void *ret)
+static long long	get_old_value(t_token *token)
 {
-	t_token			**token;
+	long long		ll_value;
 	char			*old_value;
 	char			*tmp;
 	int				sign;
-	long long		ll_value;
 
-	token = token_;
-	old_value = shenv_getenv_value(shenv_singleton(), token[0]->text);
+	old_value = shenv_getenv_value(shenv_singleton(), token->text);
 	if (!old_value)
+		return (0);
+	sign = (*old_value == '-') ? 0 : 1;
+	if (!sign || *old_value == '+')
+		old_value += 1;
+	tmp = token->text;
+	token->text = old_value;
+	ll_value = arexp_atoll(arexp_singleton(NULL, false), token);
+	ll_value = sign ? ll_value : -ll_value;
+	token->text = tmp;
+	if (arexp_singleton(NULL, false)->error_msg)
 	{
-		ll_value = 0;
+		twl_strdel(&arexp_singleton(NULL, false)->error_msg);
+		return (0);
 	}
-	else
-	{
-		sign = (*old_value == '-') ? 0 : 1;
-		if (!sign || *old_value == '+')
-			old_value += 1;
-		tmp = token[0]->text;
-		token[0]->text = old_value;
-		ll_value = arexp_atoll(arexp_singleton(NULL, false), token[0]);
-		ll_value = sign ? ll_value : -ll_value;
-		token[0]->text = tmp;
-		if (arexp_singleton(NULL, false)->error_msg)
-		{
-			twl_strdel(&arexp_singleton(NULL, false)->error_msg);
-			ll_value = 0;
-		}
-	}
-	if (token[1]->type == TOK_AREXP_ASSIGN_INC_OR)
-		ll_value |= *((long long *)ret);
-	else if (token[1]->type == TOK_AREXP_ASSIGN_EXC_OR)
-		ll_value ^= *((long long *)ret);
-	else if (token[1]->type == TOK_AREXP_ASSIGN_AND)
-		ll_value &= *((long long *)ret);
-	else if (token[1]->type == TOK_AREXP_ASSIGN_PLUS)
-		ll_value += *((long long *)ret);
-	else if (token[1]->type == TOK_AREXP_ASSIGN_MINUS)
-		ll_value -= *((long long *)ret);
-	else if (token[1]->type == TOK_AREXP_ASSIGN_MUL)
-		ll_value *= *((long long *)ret);
-	else if (token[1]->type == TOK_AREXP_ASSIGN_LSHIFT)
-		ll_value <<= *((long long *)ret);
-	else if (token[1]->type == TOK_AREXP_ASSIGN_RSHIFT)
-		ll_value >>= *((long long *)ret);
-	else if (token[1]->type == TOK_AREXP_ASSIGN)
-		ll_value = *((long long *)ret);
-	else if (*((long long *)ret) && token[1]->type == TOK_AREXP_ASSIGN_DIV)
-		ll_value /= *((long long *)ret);
-	else if (*((long long *)ret) && token[1]->type == TOK_AREXP_ASSIGN_MOD)
-		ll_value %= *((long long *)ret);
+	return (ll_value);
+}
+
+static void			get_new_value(t_token *token, long long ret, long long *old)
+{
+	if (token->type == TOK_AREXP_ASSIGN_INC_OR)
+		*old |= ret;
+	else if (token->type == TOK_AREXP_ASSIGN_EXC_OR)
+		*old ^= ret;
+	else if (token->type == TOK_AREXP_ASSIGN_AND)
+		*old &= ret;
+	else if (token->type == TOK_AREXP_ASSIGN_PLUS)
+		*old += ret;
+	else if (token->type == TOK_AREXP_ASSIGN_MINUS)
+		*old -= ret;
+	else if (token->type == TOK_AREXP_ASSIGN_MUL)
+		*old *= ret;
+	else if (token->type == TOK_AREXP_ASSIGN_LSHIFT)
+		*old <<= ret;
+	else if (token->type == TOK_AREXP_ASSIGN_RSHIFT)
+		*old >>= ret;
+	else if (token->type == TOK_AREXP_ASSIGN)
+		*old = ret;
+	else if (ret && token->type == TOK_AREXP_ASSIGN_DIV)
+		*old /= ret;
+	else if (ret && token->type == TOK_AREXP_ASSIGN_MOD)
+		*old %= ret;
 	else
 		arexp_singleton(NULL, false)->error_msg = twl_strdup("division by 0");
+}
+
+static void			fn_iter(void *token_, void *ret)
+{
+	t_token			**token;
+	char			*tmp;
+	long long		old;
+
 	if (arexp_singleton(NULL, false)->error_msg)
 		return ;
-	tmp = twl_lltoa(ll_value);
-	shenv_setenv_value(shenv_singleton(), token[0]->text, tmp);
+	token = token_;
+	old = get_old_value(((t_token **)token_)[0]);
+	get_new_value(((t_token **)token)[1], *((long long *)ret), &old);
+	if (arexp_singleton(NULL, false)->error_msg)
+		return ;
+	tmp = twl_lltoa(old);
+	shenv_setenv_value(shenv_singleton(), ((t_token **)token)[0]->text, tmp);
 	free(tmp);
-	*((long long *)ret) = ll_value;
+	*((long long *)ret) = old;
 }
 
 long long			arexp_assignment_eval(t_arexp_assignment *this)

@@ -28,7 +28,6 @@ static void		fn_iter(void *data, void *prev, void *ret)
 		*((long long *)ret) += tmp;
 	else
 		*((long long *)ret) -= tmp;
-		
 }
 
 long long		arexp_additive_eval(t_arexp_additive *this)

@@ -18,9 +18,9 @@ static bool				is_relational_token(t_token *token)
 {
 	return (token &&
 			(token->type == TOK_AREXP_LESS ||
-			 token->type == TOK_AREXP_GREAT ||
-			 token->type == TOK_AREXP_LESS_EQ ||
-			 token->type == TOK_AREXP_GREAT_EQ));
+				token->type == TOK_AREXP_GREAT ||
+				token->type == TOK_AREXP_LESS_EQ ||
+				token->type == TOK_AREXP_GREAT_EQ));
 }
 
 static bool				push_fn(t_lst *tokens, t_arexp_relational *relational,

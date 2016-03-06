@@ -17,6 +17,6 @@ void			arexp_exclusive_or_del(t_arexp_exclusive_or *exclusive_or)
 	if (!exclusive_or)
 		return ;
 	if (exclusive_or->and)
-		twl_lst_del(exclusive_or->and , arexp_and_del);
+		twl_lst_del(exclusive_or->and, arexp_and_del);
 	free(exclusive_or);
 }

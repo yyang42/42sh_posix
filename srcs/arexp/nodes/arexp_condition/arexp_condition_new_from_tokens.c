@@ -15,62 +15,87 @@
 #include "arexp/arexp.h"
 #include "token/token_mgr.h"
 
-t_arexp_condition		*arexp_condition_new_from_tokens(t_lst *tokens)
+static t_arexp_condition	*get_condition(t_lst *tokens, t_arexp *singleton)
 {
-	t_arexp_condition	*condition;
-	t_arexp_logical_or	*logical_or;
-	t_arexp_expression	*expression_if;
-	t_arexp_condition	*condition_else;
-	t_token				*token;
+	t_arexp_condition		*condition;
 
-	if (arexp_singleton(NULL, false)->depth > AREXP_MAX_DEPTH)
-	{
-		arexp_singleton(NULL, false)->error_msg = twl_strdup("maximum depth reached");
-		return (0);
-	}
 	condition = arexp_condition_new();
-	logical_or = arexp_logical_or_new_from_tokens(tokens);
-	if (arexp_has_error(arexp_singleton(NULL, false)))
+	condition->logical_or = arexp_logical_or_new_from_tokens(tokens);
+	if (singleton->error_msg)
 	{
 		arexp_condition_del(condition);
-		arexp_logical_or_del(logical_or);
 		return (NULL);
 	}
-	condition->logical_or = logical_or;
+	return (condition);
+}
+
+static t_arexp_condition	*set_expression(t_arexp_condition *condition,
+											t_lst *tokens, t_arexp *singleton)
+{
+	t_token					*token;
+
 	token = token_mgr_first(tokens);
 	if (!token || token->type != TOK_AREXP_QUESTION_MARK)
 		return (condition);
 	token = twl_lst_pop_front(tokens);
 	token_del(token);
-	arexp_singleton(NULL, false)->depth += 1;
-	expression_if = arexp_expression_new_from_tokens(tokens);
-	arexp_singleton(NULL, false)->depth -= 1;
-	if (arexp_has_error(arexp_singleton(NULL, false)))
+	singleton->depth += 1;
+	condition->expression_if = arexp_expression_new_from_tokens(tokens);
+	singleton->depth -= 1;
+	if (singleton->error_msg)
 	{
 		arexp_condition_del(condition);
-		arexp_expression_del(expression_if);
 		return (NULL);
 	}
-	condition->expression_if = expression_if;
+	return (condition);
+}
+
+static t_arexp_condition	*get_condition_new(t_lst *tokens,
+															t_arexp *singleton)
+{
+	t_arexp_condition		*condition_else;
+	t_token					*token;
+
 	token = token_mgr_first(tokens);
 	if (!token || token->type != TOK_AREXP_COLON)
 	{
-		arexp_set_error_msg(arexp_singleton(NULL, false),
+		arexp_set_error_msg(singleton,
 						"expected `:' for conditional expression, got ", token);
-		arexp_condition_del(condition);
 		return (NULL);
 	}
 	token = twl_lst_pop_front(tokens);
 	token_del(token);
-	arexp_singleton(NULL, false)->depth += 1;
+	singleton->depth += 1;
 	condition_else = arexp_condition_new_from_tokens(tokens);
-	arexp_singleton(NULL, false)->depth -= 1;
-	if (arexp_has_error(arexp_singleton(NULL, false)))
+	singleton->depth -= 1;
+	if (arexp_has_error(singleton))
 	{
-		arexp_condition_del(condition);
 		arexp_condition_del(condition_else);
 		return (NULL);
 	}
-	condition->condition_else = condition_else;
+	return (condition_else);
+}
+
+t_arexp_condition			*arexp_condition_new_from_tokens(t_lst *tokens)
+{
+	t_arexp					*singleton;
+	t_arexp_condition		*condition;
+
+	singleton = arexp_singleton(NULL, false);
+	if (singleton->depth > AREXP_MAX_DEPTH)
+	{
+		singleton->error_msg = twl_strdup("maximum depth reached");
+		return (0);
+	}
+	if (!(condition = get_condition(tokens, singleton)))
+		return (NULL);
+	condition = set_expression(condition, tokens, singleton);
+	if (!condition || !condition->expression_if)
+		return (condition);
+	if (!(condition->condition_else = get_condition_new(tokens, singleton)))
+	{
+		arexp_condition_del(condition);
+		return (NULL);
+	}
 	return (condition);
 }

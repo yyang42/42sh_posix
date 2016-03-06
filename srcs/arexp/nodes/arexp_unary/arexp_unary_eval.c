@@ -41,10 +41,10 @@ static long long	get_shvariable_lltoa(t_token *token)
 	return (ll_value);
 }
 
-static void		fn_iter(void *token_, void *ret_)
+static void			fn_iter(void *token_, void *ret_)
 {
-	t_token		*token;
-	long long	*ret;
+	t_token			*token;
+	long long		*ret;
 
 	token = token_;
 	ret = ret_;
@@ -56,7 +56,7 @@ static void		fn_iter(void *token_, void *ret_)
 		*ret = -(*ret);
 }
 
-long long		arexp_unary_eval(t_arexp_unary *this)
+long long			arexp_unary_eval(t_arexp_unary *this)
 {
 	long long	ret;
 

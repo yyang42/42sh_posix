@@ -10,33 +10,51 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AREXP_EQUALITY_H
-# define AREXP_EQUALITY_H
+#include "arexp/arexp.h"
+#include "twl_ctype.h"
 
-# include "basics.h"
-# include "token/token.h"
-# include "arexp/arexp_defines.h"
-# include "arexp/nodes/arexp_relational.h"
-
-typedef struct			s_arexp_equality__
+static long long	get_value(t_arexp *this, char c, t_token *token)
 {
-	t_arexp_relational	*relational;
-	t_token				*equality_sign;
-}						t_arexp_equality__;
+	if (twl_isdigit(c))
+		return (c - '0');
+	else if (twl_islower(c))
+		return (c - 'a' + 10);
+	else if (twl_isupper(c))
+		return (c - 'A' + 36);
+	else if (c == '@')
+		return (62);
+	else if (c == '_')
+		return (63);
+	else
+	{
+		arexp_set_error_msg(this, "invalid number: ", token);
+		return (0);
+	}
+}
 
-typedef struct			s_arexp_equality
+long long			arexp_atoll_base(t_arexp *this, char *input, int base,
+																t_token *token)
 {
-	t_lst				*relational;
-}						t_arexp_equality;
+	long long	ret;
+	long long	tmp;
+	size_t		index;
+	char		c;
 
-t_arexp_equality		*arexp_equality_new(void);
-void					arexp_equality_del(t_arexp_equality *arexp_equality);
-
-t_arexp_equality		*arexp_equality_new_from_tokens(t_lst *tokens);
-
-void					arexp_equality_print_rec(t_arexp_equality *this,
-																	int depth);
-
-long long				arexp_equality_eval(t_arexp_equality *this);
-
-#endif
+	index = 0;
+	ret = 0;
+	while ((c = input[index]))
+	{
+		tmp = get_value(this, c, token);
+		if (this->error_msg)
+			return (0);
+		if (tmp >= base)
+		{
+			arexp_set_error_msg(this, "value too great for base: ", token);
+			return (0);
+		}
+		ret *= base;
+		ret += tmp;
+		index += 1;
+	}
+	return (ret);
+}
