@@ -35,7 +35,8 @@ t_arexp					*arexp_singleton(t_arexp *cpy, bool clear);
 
 bool					arexp_has_error(t_arexp *this);
 
-void					arexp_set_error_msg(t_arexp *this, char *msg, t_token *token);
+void					arexp_set_error_msg(t_arexp *this, char *msg,
+																t_token *token);
 
 void					arexp_print_rec(t_arexp *this);
 
