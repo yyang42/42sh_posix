@@ -48,40 +48,45 @@ static void 	iter_fn_setup_quotes(void *quote_, void *prev_quote_, void *context
 	}
 }
 
-static void		iter_fn_get_word(void *quote_, void *len_, void *nb_open_brace_, void *delimiter_)
+static void		iter_fn_get_word(t_expan_quote	*quote, int *len_ptr, int *nb_open_brace_ptr, char **delimiter_ptr)
 {
-	t_expan_quote	*quote;
-	int				*len;
-	int				*nb_open_brace;
-	char			**delimiter;
 	char			*tmp;
 	char			*matching_delimiter;
 
-	quote = quote_;
-	len = len_;
-	nb_open_brace = nb_open_brace_;
-	delimiter = delimiter_;
-	tmp = *delimiter;
+	tmp = *delimiter_ptr;
 	matching_delimiter = get_matching_delimiter(tmp);
 	if (twl_strcmp(tmp,""))
 	{
 		if (!twl_strcmp(quote->str, tmp) && !quote->is_double_quoted && !quote->is_single_quoted && !quote->is_backslashed)
 		{
-			*nb_open_brace = *nb_open_brace + 1;
-			*len = *len + 1;
+			*nb_open_brace_ptr = *nb_open_brace_ptr + 1;
+			*len_ptr = *len_ptr + 1;
 		}
 		else if (!twl_strcmp(quote->str, matching_delimiter) && !quote->is_double_quoted && !quote->is_single_quoted && !quote->is_backslashed)
 		{
-			*nb_open_brace = *nb_open_brace - 1;
-			if (*nb_open_brace == 0)
-				*delimiter = 0;
+			*nb_open_brace_ptr = *nb_open_brace_ptr - 1;
+			if (*nb_open_brace_ptr == 0)
+				*delimiter_ptr = 0;
 			else
-				*len = *len + 1;
+				*len_ptr = *len_ptr + 1;
 		}
 		else
-			*len = *len + 1;
+			*len_ptr = *len_ptr + 1;
 	}
-	*delimiter = tmp;
+	*delimiter_ptr = tmp;
+}
+
+static void			iter_quote(t_lst *quotes, int *word_len_ptr, int *nb_open_brace_ptr, char **delimiter_ptr)
+{
+	t_expan_quote	*quote;
+	t_lst			*quotes_copy;
+
+	quotes_copy = twl_lst_copy(quotes, NULL);
+	while ((quote = twl_lst_pop_front(quotes_copy)))
+	{
+		iter_fn_get_word(quote, word_len_ptr, nb_open_brace_ptr, delimiter_ptr);
+	}
+	twl_lst_del(quotes_copy, NULL);
 }
 
 int				expan_tokenizer_get_word_len(char **res, char *str, char *delimiter)
@@ -103,7 +108,7 @@ int				expan_tokenizer_get_word_len(char **res, char *str, char *delimiter)
 	}
 	word_len = 0;
 	twl_lst_iterp(quotes, iter_fn_setup_quotes, NULL);
-	twl_lst_iter3(quotes, iter_fn_get_word, &word_len, &nb_open_brace, &delimiter);
+	iter_quote(quotes, &word_len, &nb_open_brace, &delimiter);
 	twl_lst_del(quotes, expan_quote_del);
 	twl_strdel(res);
 	if (word_len > 0)
