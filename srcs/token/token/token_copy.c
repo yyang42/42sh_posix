@@ -22,6 +22,8 @@ t_token				*token_copy(t_token *src)
 	this->type = src->type;
 	if (src->text)
 		this->text = twl_strdup(src->text);
+	if (src->text_unexpanded)
+		this->text_unexpanded = twl_strdup(src->text_unexpanded);
 	this->line = src->line;
 	this->col = src->col;
 	if (src->heredoc_text)

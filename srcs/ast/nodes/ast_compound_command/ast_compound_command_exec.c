@@ -24,20 +24,30 @@ static t_compound_command_exec_fn	*get_exec_fns(void)
 		fns[COMPOUND_COMMAND_BRACE_GROUP] = ast_brace_group_exec_void;
 		fns[COMPOUND_COMMAND_SUBSHELL] = ast_subshell_exec_void;
 		fns[COMPOUND_COMMAND_FOR_CLAUSE] = ast_for_clause_exec_void;
-		// fns[COMPOUND_COMMAND_CASE_CLAUSE] = ast_case_clause_exec_void;
+		fns[COMPOUND_COMMAND_CASE_CLAUSE] = ast_case_clause_exec_void;
 		fns[COMPOUND_COMMAND_IF_CLAUSE] = ast_if_clause_exec_void;
 		fns[COMPOUND_COMMAND_WHILE_CLAUSE] = ast_while_clause_exec_void;
-		// fns[COMPOUND_COMMAND_UNTIL_CLAUSE] = ast_until_clause_exec_void;
+		fns[COMPOUND_COMMAND_UNTIL_CLAUSE] = ast_until_clause_exec_void;
 	}
 	return (fns);
 }
 
 void				ast_compound_command_exec_with_redirs(t_ast_compound_command *this)
 {
+	t_compound_command_exec_fn compond_exec_fn;
+
 	if (ast_redir_mgr_check_files(this->redir_items) == false)
 		return ;
 	ast_redir_fd_mgr_init(this->redir_fds, this->redir_items);
-	get_exec_fns()[this->command_type](this->command);
+	compond_exec_fn = get_exec_fns()[this->command_type];
+	if (compond_exec_fn)
+	{
+		compond_exec_fn(this->command);
+	}
+	else
+	{
+		twl_dprintf(2, "error: compound command not found\n");
+	}
 	ast_redir_fd_mgr_close(this->redir_fds);
 }
 

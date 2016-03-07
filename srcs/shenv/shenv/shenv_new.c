@@ -38,5 +38,6 @@ t_shenv			*shenv_new(void)
 	this->info.name = NULL;
 	this->function_depth = 0;
 	this->jobs = twl_lst_new();
+	this->last_exit_code = 0;
 	return (this);
 }

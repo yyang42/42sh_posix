@@ -46,7 +46,6 @@ typedef struct		s_ast_compound_command
 {
 	t_compound_command_type		command_type;
 	void						*command;
-	t_lst						*command_tokens;
 	t_lst						*redir_items;
 	t_lst						*redir_fds;
 }					t_ast_compound_command;

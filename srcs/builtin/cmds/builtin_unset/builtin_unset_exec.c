@@ -52,7 +52,7 @@ void				builtin_unset_exec(t_lst *tokens, t_shenv *env)
 		else
 			flag = check_flags(env, opt);
 	}
-	shenv_set_last_exit_status(env, flag);
+	env->last_exit_code = flag;
 	twl_arr_del(arr, NULL);
 	twl_opt_del(opt);
 }
