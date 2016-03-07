@@ -25,7 +25,6 @@
 
 typedef struct				s_shenv_info
 {
-	int						last_exit_status;
 	int						cur_shell_pid;
 	int						parent_shell_pid;
 	int						most_recent_background_command_pid;
@@ -43,6 +42,7 @@ typedef struct				s_shenv
 	int						function_depth;
 	t_shenv_info			info;
 	t_lst					*jobs;
+	int						last_exit_code;
 }							t_shenv;
 
 t_shenv				*shenv_new(void);
@@ -69,8 +69,6 @@ void				shenv_remove_all_pos_params(t_shenv *env);
 char				*shenv_concat_pos_param_char(t_shenv *env, char *sep);
 t_shvar				*shenv_shvars_get(t_shenv *this, char *key);
 void				**shenv_get_env_arr(t_shenv *this);
-int					shenv_get_last_exit_status(void);
-void				shenv_set_last_exit_status(t_shenv *e, int status);
 char				*shenv_get_pos_param_at(t_shenv *env, size_t index);
 
 /*

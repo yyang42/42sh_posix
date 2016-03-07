@@ -15,5 +15,5 @@
 int				ast_exec(t_ast *this)
 {
 	ast_compound_list_exec(this->compound_list);
-	return (shenv_get_last_exit_status());
+	return (shenv_singleton()->last_exit_code);
 }

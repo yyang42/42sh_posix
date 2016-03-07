@@ -17,7 +17,6 @@
 
 static void			init_env_info(t_shenv_info *info)
 {
-	info->last_exit_status = 0;
 	info->cur_shell_pid = getpid();
 	info->parent_shell_pid = -1;
 	info->most_recent_background_command_pid = -1;

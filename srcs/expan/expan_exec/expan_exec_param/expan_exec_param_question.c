@@ -20,7 +20,7 @@ char				*params_question(void)
 	char			*ret;
 
 	env = shenv_singleton();
-	ret = twl_itoa(env->info.last_exit_status);
+	ret = twl_itoa(env->last_exit_code);
 	return (ret);
 }
 
@@ -28,7 +28,7 @@ char				*test_params_question(t_shenv *env)
 {
 	char				*ret;
 
-	ret = twl_itoa(env->info.last_exit_status);
+	ret = twl_itoa(env->last_exit_code);
 	return (ret);
 }
 

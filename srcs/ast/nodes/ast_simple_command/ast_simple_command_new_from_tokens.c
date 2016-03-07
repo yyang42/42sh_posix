@@ -30,7 +30,7 @@ static void				push_asign_fn(void *assign_segs_,
 	t_lst			*assign_segs;
 
 	assign_segs = assign_segs_;
-	twl_lst_push(assignment_items, ast_assignment_new_from_tokens(
+	twl_lst_push(assignment_items, ast_assignment_new(
 		twl_lst_get(assign_segs, 0), twl_lst_get(assign_segs, 1), ast));
 }
 

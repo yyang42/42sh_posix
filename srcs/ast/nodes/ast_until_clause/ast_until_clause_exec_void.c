@@ -10,16 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_assignment.h"
+#include "ast/nodes/ast_if_then.h"
+#include "ast/nodes/ast_until_clause.h"
 
-t_ast_assignment	*ast_assignment_new_from_tokens(char *key, char *value,
-	struct s_ast *ast)
+void				ast_until_clause_exec_void(void *this)
 {
-	t_ast_assignment		*ast_assignment;
-
-	ast_assignment = ast_assignment_new();
-	ast_assignment->key = twl_strdup(key);
-	ast_assignment->value = value ? twl_strdup(value) : NULL;
-	return (ast_assignment);
-	(void)ast;
+	ast_until_clause_exec(this);
 }

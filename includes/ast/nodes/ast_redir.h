@@ -28,7 +28,9 @@ typedef struct		s_ast_redir
 	int				io_number;
 	char			*operator;
 	char			*param;
+	char			*param_unexpanded;
 	char			*heredoc_text;
+	char			*heredoc_text_unexpanded;
 }					t_ast_redir;
 
 t_ast_redir			*ast_redir_new(void);

@@ -1,1 +1,1 @@
-echo "" "" "" | cat -e
+echo "a" "" "" "b" | cat -e

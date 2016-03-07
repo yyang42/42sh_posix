@@ -10,9 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shenv/shenv.h"
+#include "ast/nodes/ast_if_then.h"
+#include "ast/nodes/ast_until_clause.h"
 
-int					shenv_get_last_exit_status(void)
+void				ast_until_clause_exec(t_ast_until_clause *this)
 {
-	return (shenv_singleton()->info.last_exit_status);
+	while (true)
+	{
+		ast_compound_list_exec(this->cond_compound);
+		if (shenv_singleton()->last_exit_code == 0)
+			break ;
+		ast_compound_list_exec(this->do_group);
+	}
 }
