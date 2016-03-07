@@ -22,14 +22,14 @@
 typedef struct		s_ast_assignment
 {
 	char			*key;
+	char			*key_unexpanded;
 	char			*value;
+	char			*value_unexpanded;
 }					t_ast_assignment;
 
-t_ast_assignment	*ast_assignment_new(void);
 void				ast_assignment_del(t_ast_assignment *ast_assignment);
 
-t_ast_assignment	*ast_assignment_new_from_tokens(char *key, char *value, struct s_ast *ast);
-void				*ast_assignment_new_from_tokens_void(char *key, char *value, struct s_ast *ast);
+t_ast_assignment	*ast_assignment_new(char *key, char *value, struct s_ast *ast);
 void				ast_assignment_print_rec(t_ast_assignment *ast_assignment, int depth);
 void				ast_assignment_print_rec_list(t_lst *assignment_items, int depth);
 

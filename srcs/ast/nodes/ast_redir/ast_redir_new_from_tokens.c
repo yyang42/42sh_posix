@@ -18,28 +18,32 @@
 
 t_ast_redir	*ast_redir_new_from_tokens(t_lst *tokens, struct s_ast *ast)
 {
-	t_ast_redir		*ast_redir;
+	t_ast_redir		*this;
 	t_token			*last_token;
 
-	ast_redir = ast_redir_new();
+	this = ast_redir_new();
 	if (twl_lst_len(tokens) == 3)
 	{
-		ast_redir->io_number = twl_atoi(token_mgr_get(tokens, 0)->text);
+		this->io_number = twl_atoi(token_mgr_get(tokens, 0)->text);
 	}
 	if (twl_lst_len(tokens) >= 2)
 	{
-		ast_redir->operator = twl_strdup(token_mgr_get(tokens, -2)->text);
-		ast_redir->param = twl_strdup(token_mgr_get(tokens, -1)->text);
+		this->operator = twl_strdup(token_mgr_get(tokens, -2)->text);
+		this->param = twl_strdup(token_mgr_get(tokens, -1)->text);
+		this->param_unexpanded = twl_strdup(this->param);
 	}
 	else
 	{
 		ast_set_error_msg_format_token(ast, token_mgr_first(tokens),
 				"Expect argument after '%s'", token_mgr_first(tokens)->text);
-		ast_redir_del(ast_redir);
+		ast_redir_del(this);
 		return (NULL);
 	}
 	last_token = token_mgr_get(tokens, -1);
 	if (last_token->heredoc_text)
-		ast_redir->heredoc_text = twl_strdup(last_token->heredoc_text);
-	return (ast_redir);
+	{
+		this->heredoc_text = twl_strdup(last_token->heredoc_text);
+		this->heredoc_text_unexpanded = twl_strdup(this->heredoc_text);
+	}
+	return (this);
 }

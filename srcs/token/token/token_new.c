@@ -21,6 +21,7 @@ t_token				*token_new(char *text, int line, int col)
 	this = twl_malloc_x0(sizeof(t_token));
 	this->type = token_type_from_str(text);
 	this->text = twl_strdup(text);
+	this->text_unexpanded = twl_strdup(text);
 	this->line = line;
 	this->col = col;
 	this->heredoc_text = NULL;

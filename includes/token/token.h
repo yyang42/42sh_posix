@@ -20,6 +20,7 @@
 typedef struct		s_token
 {
 	t_token_type	type;
+	char			*text_unexpanded;
 	char			*text;
 	int				line;
 	int				col;
