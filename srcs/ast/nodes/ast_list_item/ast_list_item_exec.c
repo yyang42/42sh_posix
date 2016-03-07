@@ -22,8 +22,8 @@ static void			iter_fn(void *ast_andor_item_, void *prev_, void *context_)
 	prev = prev_;
 	env = shenv_singleton();
 	if (!prev ||
-	(prev->separator->type == TOKEN_AND_IF && env->info.last_exit_code == 0)
-	|| (prev->separator->type == TOKEN_OR_IF && env->info.last_exit_code > 0))
+	(prev->separator->type == TOKEN_AND_IF && env->last_exit_code == 0)
+	|| (prev->separator->type == TOKEN_OR_IF && env->last_exit_code > 0))
 	{
 		ast_andor_item_exec(ast_andor_item);
 	}

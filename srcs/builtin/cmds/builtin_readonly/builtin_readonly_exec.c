@@ -29,5 +29,5 @@ void				builtin_readonly_exec(t_lst *tokens, t_shenv *env)
 	}
 	twl_arr_del(arr, NULL);
 	twl_opt_del(opt);
-	shenv_last_exit_code_set(env, BUILTIN_EXEC_SUCCESS);
+	env->last_exit_code = BUILTIN_EXEC_SUCCESS;
 }

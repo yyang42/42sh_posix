@@ -18,7 +18,7 @@ void				ast_until_clause_exec(t_ast_until_clause *this)
 	while (true)
 	{
 		ast_compound_list_exec(this->cond_compound);
-		if (shenv_last_exit_code_get() == 0)
+		if (shenv_singleton()->last_exit_code == 0)
 			break ;
 		ast_compound_list_exec(this->do_group);
 	}
