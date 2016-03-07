@@ -15,6 +15,11 @@
 
 void				ast_while_clause_exec(t_ast_while_clause *this)
 {
-	twl_printf("ast_while_clause_exec not implented yet\n");
-	(void)this;
+	while (true)
+	{
+		ast_compound_list_exec(this->cond_compound);
+		if (shenv_get_last_exit_status() != 0)
+			break ;
+		ast_compound_list_exec(this->do_group);
+	}
 }
