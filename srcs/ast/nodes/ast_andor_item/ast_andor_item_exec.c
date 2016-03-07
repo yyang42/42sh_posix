@@ -34,14 +34,14 @@ static void			andor_fn_2(t_ast_pipe_item *pipe_item, pid_t pid)
 			dup2(pipe_item->fds[0], 0);
 		}
 		ast_pipe_item_exec(pipe_item);
-		exit(shenv_get_last_exit_status());
+		exit(shenv_last_exit_code_get());
 	}
 	else
 	{
 		wait(&res);
 		handle_signal(res);
     	if (WIFEXITED(res))
-			shenv_singleton()->info.last_exit_status = WEXITSTATUS(res);
+			shenv_singleton()->info.last_exit_code = WEXITSTATUS(res);
 		close(pipe_item->fds[1]);
 		if (pipe_item->fds[0] != -1)
 			close(pipe_item->fds[0]);
@@ -96,4 +96,5 @@ void					ast_andor_item_exec(t_ast_andor_item *ast_andor_item)
 		twl_lst_itern(ast_andor_item->ast_pipe_items, iter_fds_fn, NULL);
 		twl_lst_iter0(ast_andor_item->ast_pipe_items, iter_andor_fn);
 	}
+	// negate
 }

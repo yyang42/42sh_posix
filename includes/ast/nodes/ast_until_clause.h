@@ -39,4 +39,7 @@ void				ast_until_clause_print_rec_void(void *ast_until_clause, int depth);
 
 bool				ast_until_clause_is_own_type(t_lst *tokens);
 
+void				ast_until_clause_exec(t_ast_until_clause *this);
+void				ast_until_clause_exec_void(void *this);
+
 #endif

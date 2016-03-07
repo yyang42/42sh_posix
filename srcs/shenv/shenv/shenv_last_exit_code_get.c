@@ -10,38 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/cmds/builtin_echo.h"
+#include "shenv/shenv.h"
 
-static void 		iter_fn(void *token_, void *next, void *ctx)
+int					shenv_last_exit_code_get(void)
 {
-	t_token			*token;
-
-	token = token_;
-	twl_putstr(token->text);
-	if (next)
-		twl_putstr(" ");
-	(void)ctx;
-}
-
-void				builtin_echo_exec(t_lst *tokens, t_shenv *this)
-{
-	t_lst			*tokens_copy;
-	bool			print_newline;
-
-	print_newline = true;
-	tokens_copy = twl_lst_copy(tokens, NULL);
-	twl_lst_pop_front(tokens_copy);
-	if (token_mgr_first_equ(tokens_copy, "-n"))
-	{
-		print_newline = false;
-		twl_lst_pop_front(tokens_copy);
-	}
-	twl_lst_itern(tokens_copy, iter_fn, NULL);
-	if (print_newline)
-	{
-		twl_putstr("\n");
-	}
-	shenv_last_exit_code_set(this, BUILTIN_EXEC_SUCCESS);
-	twl_lst_del(tokens_copy, NULL);
-	return ; // (0)
+	return (shenv_singleton()->info.last_exit_code);
 }

@@ -12,7 +12,7 @@
 
 #include "shenv/shenv.h"
 
-int					shenv_get_last_exit_status(void)
+void				shenv_last_exit_code_set(t_shenv *env, int exit_code)
 {
-	return (shenv_singleton()->info.last_exit_status);
+	env->info.last_exit_code = exit_code;
 }

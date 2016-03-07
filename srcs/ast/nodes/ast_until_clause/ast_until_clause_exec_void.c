@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shenv/shenv.h"
+#include "ast/nodes/ast_if_then.h"
+#include "ast/nodes/ast_until_clause.h"
 
-void				shenv_set_last_exit_status(t_shenv *env,
-																	int status)
+void				ast_until_clause_exec_void(void *this)
 {
-	env->info.last_exit_status = status;
+	ast_until_clause_exec(this);
 }

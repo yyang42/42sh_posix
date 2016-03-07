@@ -32,5 +32,5 @@ void				builtin_export_exec(t_lst *tokens, t_shenv *shenv)
 			builtin_export_exec_export_tokens(argparser_result, shenv);
 		}
 	}
-	shenv_set_last_exit_status(shenv, BUILTIN_EXEC_SUCCESS);
+	shenv_last_exit_code_set(shenv, BUILTIN_EXEC_SUCCESS);
 }

@@ -19,7 +19,7 @@ char				*builtin_alias_get(char *key, t_shenv *this)
 	value = twl_dict_get(this->alias, key);
 	if (!value)
 	{
-		shenv_set_last_exit_status(this, BUILTIN_EXEC_FAILURE);
+		shenv_last_exit_code_set(this, BUILTIN_EXEC_FAILURE);
 	}
 	return (value);
 }

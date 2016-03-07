@@ -22,7 +22,7 @@ t_shvar				*shenv_shvars_set(t_shenv *shenv, char *key, char *value, char *comma
 	if (!token_utils_is_valid_name(key))
 	{
 		twl_dprintf(2, "%s: `%s': not a valid identifier\n", command_name ? command_name : "42sh", key);
-		shenv_set_last_exit_status(shenv, BUILTIN_EXEC_FAILURE);
+		shenv_last_exit_code_set(shenv, BUILTIN_EXEC_FAILURE);
 		return (NULL);
 	}
 	shvar = shvar_mgr_find_or_create(shenv->shvars, key);

@@ -19,7 +19,7 @@ int					builtin_utils_check_invalid_opts(t_opt *opt, char *exe_name, char *flags
 	invalid = twl_opt_check_invalid_opts(opt);
 	if (invalid && twl_strlen(invalid) > 0)
 	{
-		shenv_set_last_exit_status(shenv_singleton(), BUILTIN_EXEC_FAILURE);
+		shenv_last_exit_code_set(shenv_singleton(), BUILTIN_EXEC_FAILURE);
 		twl_dprintf(2, "%s: illegal option -- %s\nusage: %s [-%s%s\n",
 		exe_name, invalid, exe_name,
 			flags, "] [name=value ...] [utility [argument ...]]");

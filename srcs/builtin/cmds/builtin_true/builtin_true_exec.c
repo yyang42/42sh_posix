@@ -16,6 +16,6 @@ void				builtin_true_exec(t_lst *tokens, t_shenv *env)
 {
 	(void)tokens;
 	(void)env;
-	shenv_set_last_exit_status(env, BUILTIN_EXEC_SUCCESS);
+	shenv_last_exit_code_set(env, BUILTIN_EXEC_SUCCESS);
 	// return (true);
 }

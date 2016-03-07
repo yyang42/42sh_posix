@@ -103,7 +103,7 @@ void				builtin_umask_exec(t_lst *tokens, t_shenv *this)
 		else
 			flag = modify_umask(opt, (char *)twl_lst_first(opt->args));
 	}
-	shenv_set_last_exit_status(this, flag);
+	shenv_last_exit_code_set(this, flag);
 	twl_arr_del(arr, NULL);
 	twl_opt_del(opt);
 }

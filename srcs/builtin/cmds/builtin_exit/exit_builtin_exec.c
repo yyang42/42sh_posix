@@ -45,6 +45,6 @@ void				builtin_exit_exec(t_lst *tokens, t_shenv *this)
 	else if (twl_lst_len(tokens) > 2)
 	{
 		twl_dprintf(2, "exit: too many arguments\n");
-		shenv_set_last_exit_status(this, BUILTIN_EXEC_FAILURE);
+		shenv_last_exit_code_set(this, BUILTIN_EXEC_FAILURE);
 	}
 }
