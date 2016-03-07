@@ -39,4 +39,7 @@ void				ast_case_clause_print_rec_void(void *ast_case_clause, int depth);
 
 bool				ast_case_clause_is_own_type(t_lst *tokens);
 
+void				ast_case_clause_exec(t_ast_case_clause *this);
+void				ast_case_clause_exec_void(void *this);
+
 #endif
