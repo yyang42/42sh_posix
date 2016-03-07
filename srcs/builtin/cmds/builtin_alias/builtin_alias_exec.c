@@ -32,14 +32,12 @@ static void		iter_fn(void *elem, void *context)
 
 void				builtin_alias_exec(t_lst *tokens, t_shenv *this)
 {
-	char **tab;
-	char				*str;
+	char			**tab;
 
-	str = token_mgr_strjoin(tokens, " "); // TODO: refactor
-	tab = twl_strsplit(str, ' ');
+	tab = token_mgr_to_str_arr(tokens);
 	if (twl_arr_len(tab) == 1)
 		builtin_alias_print(this);
 	else if (twl_arr_len(tab) > 1)
 		twl_arr_iter(&tab[1], iter_fn, this);
-	twl_arr_del(tab, free);
+	twl_arr_del(tab, NULL);
 }

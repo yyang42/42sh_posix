@@ -11,9 +11,17 @@
 /* ************************************************************************** */
 
 #include "shenv/shenv.h"
-#include <stdio.h>
 
-t_shvar		*shenv_setenv_key_value(t_shenv *this, char *key, char *value)
+char				*shenv_shvars_get_value(t_shenv *this, char *key)
 {
-	return (shenv_setenv_or_setlocal__(this, key, value, true));
+	t_shvar			*shvar;
+	char			*value;
+
+	value = NULL;
+	shvar = shenv_shvars_get(this, key);
+	if (shvar)
+	{
+		value = shvar->shvar_value;
+	}
+	return (value);
 }

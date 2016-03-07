@@ -11,26 +11,8 @@
 /* ************************************************************************** */
 
 #include "shenv/shenv.h"
-#include <stdio.h>
 
-t_shvar	*shenv_setenv_or_setlocal__(t_shenv *this,
-									char *key, char *value, bool exported)
+t_shvar				*shenv_shvars_get(t_shenv *this, char *shvar_key)
 {
-	t_shvar	*var;
-
-	var = NULL;
-	if (twl_strlen(key) > 0)
-	{
-		if (shenv_getenv_value(this, key))
-		{
-			var = shenv_setenv_value(this, key, value);
-		}
-		else
-		{
-			var = shvar_new(key, value, exported);
-			twl_lst_push(this->shvars, var);
-		}
-	}
-	errno = EINVAL;
-	return (var);
+	return (shvar_mgr_find_by_key(this->shvars, shvar_key));
 }

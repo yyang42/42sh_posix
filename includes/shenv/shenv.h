@@ -39,7 +39,7 @@ typedef struct				s_shenv
 	t_lst					*flags;
 	t_dict					*alias;
 	t_dict					*flag_verbose;
-	t_dict					*shell_func;
+	t_dict					*shfuncs;
 	int						function_depth;
 	t_shenv_info			info;
 	t_lst					*jobs;
@@ -49,10 +49,9 @@ t_shenv				*shenv_new(void);
 void				shenv_del(t_shenv *this);
 t_shenv				*shenv_clone(t_shenv *this);
 void				shenv_init(t_shenv *this);
-t_shvar				*shenv_setenv(t_shenv *this, char *str);
-t_shvar				*shenv_setenv_key_value(t_shenv *this, char *key, char *value);
-char				*shenv_getenv_value(t_shenv *this, char *key);
-t_shvar				*shenv_setenv_value(t_shenv *t, char *k, char *v);
+t_shvar				*shenv_shvars_set_equal(t_shenv *this, char *str, char *command_name);
+char				*shenv_shvars_get_value(t_shenv *this, char *key);
+t_shvar				*shenv_shvars_set(t_shenv *t, char *k, char *v, char *command_name);
 
 void				shenv_print(t_shenv *this);
 void				shenv_unsetenv(t_shenv *this, char *str);
@@ -68,8 +67,7 @@ void				shenv_remove_flag(char *flag, t_shenv *env);
 void				shenv_add_pos_param(char *param, t_shenv *env);
 void				shenv_remove_all_pos_params(t_shenv *env);
 char				*shenv_concat_pos_param_char(t_shenv *env, char *sep);
-t_shvar				*shenv_setenv_or_setlocal__(t_shenv *this, char *key, char *value, bool exported);
-t_shvar				*shenv_get(t_shenv *this, char *key);
+t_shvar				*shenv_shvars_get(t_shenv *this, char *key);
 void				**shenv_get_env_arr(t_shenv *this);
 int					shenv_get_last_exit_status(void);
 void				shenv_set_last_exit_status(t_shenv *e, int status);
@@ -82,6 +80,6 @@ struct s_ast_compound_command;
 
 void				shenv_remove_shell_func(t_shenv *env, char *key);
 void				shenv_add_shell_func(t_shenv *env, char *key, struct s_ast_compound_command *data);
-struct s_ast_compound_command	*shenv_get_shell_func(t_shenv *env, char *key);
+struct s_ast_compound_command	*shenv_shfuncs_get(t_shenv *env, char *key);
 
 #endif

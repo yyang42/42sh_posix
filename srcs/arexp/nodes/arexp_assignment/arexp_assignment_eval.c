@@ -23,7 +23,7 @@ static long long	get_old_value(t_token *token)
 	char			*tmp;
 	int				sign;
 
-	old_value = shenv_getenv_value(shenv_singleton(), token->text);
+	old_value = shenv_shvars_get_value(shenv_singleton(), token->text);
 	if (!old_value)
 		return (0);
 	sign = (*old_value == '-') ? 0 : 1;
@@ -84,7 +84,7 @@ static void			fn_iter(void *token_, void *ret)
 	if (arexp_singleton(NULL, false)->error_msg)
 		return ;
 	tmp = twl_lltoa(old);
-	shenv_setenv_value(shenv_singleton(), ((t_token **)token)[0]->text, tmp);
+	shenv_shvars_set(shenv_singleton(), ((t_token **)token)[0]->text, tmp, NULL);
 	free(tmp);
 	*((long long *)ret) = old;
 }

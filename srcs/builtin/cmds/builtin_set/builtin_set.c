@@ -46,10 +46,8 @@ void				builtin_set_exec(t_lst *tokens, t_shenv *env)
 {
 	t_set_opt		*opt;
 	char			**arr;
-	char			*str;
 
-	str = token_mgr_strjoin(tokens, " "); // TODO: refactor
-	arr = twl_strsplit_mul(str, " \n\t");
+	arr = token_mgr_to_str_arr(tokens);
 	opt = builtin_set_opt_new(arr, SET_OPT_VALID_OPTS);
 	if (!builtin_set_check_invalid_opts(opt, "set", SET_OPT_VALID_OPTS))
 	{
@@ -64,6 +62,5 @@ void				builtin_set_exec(t_lst *tokens, t_shenv *env)
 		}
 	}
 	builtin_set_opt_del(opt);
-	twl_arr_del(arr, &free);
-	// return (0);
+	twl_arr_del(arr, NULL);
 }

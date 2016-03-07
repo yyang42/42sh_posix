@@ -40,7 +40,7 @@ bool			expan_exec_param_var(t_expan_token *expan_token)
 	}
 	else
 	{
-		var = shenv_get(env, expan_param->parameter);
+		var = shenv_shvars_get(env, expan_param->parameter);
 		if (var && var->shvar_value)
 		{
 			expan_token->res = twl_strdup(var->shvar_value);

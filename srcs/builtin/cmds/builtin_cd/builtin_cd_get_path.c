@@ -49,7 +49,7 @@ char				*builtin_cd_get_path(char *dirname, t_shenv *this)
 	char	*to_join;
 	char	*new_path;
 
-	cd_path = shenv_getenv_value(this, "CDPATH");
+	cd_path = shenv_shvars_get_value(this, "CDPATH");
 	if (cd_path != NULL)
 	{
 		paths = twl_strsplit(cd_path, ':');

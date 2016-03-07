@@ -68,10 +68,10 @@ static void     key_already_exists(t_test *test)
 	i = twl_lst_len(env->shvars);
 	builtin_export_exec(tokenizer_tokenize("export HOME=/tmp"), env);
 	j = twl_lst_len(env->shvars);
-	mt_assert(!twl_strcmp(shenv_getenv_value(env, "HOME"), "/tmp"));
+	mt_assert(!twl_strcmp(shenv_shvars_get_value(env, "HOME"), "/tmp"));
 	mt_assert((j - i) == 0);
 	builtin_export_exec(tokenizer_tokenize("export HOME=/"), env);
-	mt_assert(!twl_strcmp(shenv_getenv_value(env, "HOME"), "/"));
+	mt_assert(!twl_strcmp(shenv_shvars_get_value(env, "HOME"), "/"));
 	j = twl_lst_len(env->shvars);
 	mt_assert((j - i) == 0);
 	shenv_del(env);

@@ -9,7 +9,7 @@ static void test_## name(t_test *test)						\
 {															\
 	t_arexp		*arexp = arexp_new(input);					\
 	arexp_eval(arexp);										\
-	char *actual = shenv_getenv_value(				\
+	char *actual = shenv_shvars_get_value(				\
 			shenv_singleton(), assign);				\
 	if (debug)												\
 	{														\

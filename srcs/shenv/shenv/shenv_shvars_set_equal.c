@@ -11,27 +11,26 @@
 /* ************************************************************************** */
 
 #include "shenv/shenv.h"
+#include <stdio.h>
 
-static bool			find_env_key(void *data, void *context)
+
+t_shvar				*shenv_shvars_set_equal(t_shenv *shenv, char *str_token, char *command_name)
 {
-	t_shvar	*var;
-	char				*str;
+	t_lst			*segs;
+	char			*key;
+	char			*value;
 
-	var = data;
-	str = context;
-	return (twl_strcmp(var->shvar_key, str) == 0);
-}
-
-t_shvar	*shenv_get(t_shenv *this, char *shvar_key)
-{
-	t_shvar	*var;
-
-	if (shvar_key == NULL || *shvar_key == '\0')
+	if (twl_strchr(str_token, '='))
 	{
-		errno = EINVAL;
-		return (NULL);
+		segs = twl_str_split_once_to_lst(str_token, "=");
+		key = twl_strdup(twl_lst_get(segs, 0));
+		value = twl_strdup(twl_lst_get(segs, 1));
+		twl_lst_del(segs, free);
 	}
-	var = (t_shvar *)(twl_lst_find(this->shvars,
-													find_env_key, shvar_key));
-	return (var);
+	else
+	{
+		key = str_token;
+		value = NULL;
+	}
+	return (shenv_shvars_set(shenv, key, value, command_name));
 }

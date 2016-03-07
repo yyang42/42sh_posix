@@ -13,18 +13,23 @@
 #include "ast/nodes/ast_if_then.h"
 #include "ast/nodes/ast_for_clause.h"
 
-static void			iter_wordlist_fn(void *word_token_, void *this_)
+static void			iter_wordlist_fn(void *word_token, void *this_)
 {
 	t_ast_for_clause	*this;
-	t_token				*word_token;
 
 	this = this_;
-	word_token = word_token_;
-	shenv_setenv_value(shenv_singleton(), this->name, word_token->text);
+	shenv_shvars_set(shenv_singleton(), this->name, word_token, NULL);
 	ast_compound_list_exec(this->do_group);
 }
 
 void				ast_for_clause_exec(t_ast_for_clause *this)
 {
-	twl_lst_iter(this->wordlist, iter_wordlist_fn, this);
+	t_lst			*wordlist;
+
+	if (twl_lst_len(this->wordlist))
+		wordlist = token_mgr_to_lst(this->wordlist);
+	else
+		wordlist = twl_lst_copy(shenv_singleton()->pos_params, NULL);
+	twl_lst_iter(wordlist, iter_wordlist_fn, this);
+	twl_lst_del(wordlist, NULL);
 }

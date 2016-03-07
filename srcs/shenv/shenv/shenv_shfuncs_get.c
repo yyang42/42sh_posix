@@ -11,27 +11,8 @@
 /* ************************************************************************** */
 
 #include "shenv/shenv.h"
-#include <stdio.h>
 
-t_shvar				*shenv_setenv(t_shenv *this, char *str)
+struct s_ast_compound_command	*shenv_shfuncs_get(t_shenv *env, char *key)
 {
-	t_lst			*segs;
-	char			*key;
-	char			*value;
-
-	if (str == NULL || *str == '\0')
-		return (NULL);
-	segs = twl_str_split_once_to_lst(str, "=");
-	if (segs)
-	{
-		key = twl_lst_get(segs, 0);
-		value = twl_lst_get(segs, 1);
-	}
-	else
-	{
-		key = str;
-		value = NULL;
-
-	}
-	return (shenv_setenv_or_setlocal__(this, key, value, true));
+	return (twl_dict_get(env->shfuncs, key));
 }

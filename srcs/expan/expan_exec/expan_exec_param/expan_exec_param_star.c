@@ -22,7 +22,7 @@ char				*params_star(bool between_quotes)
 	char				*sep;
 
 	env = shenv_singleton();
-	ifs = shenv_get(env, "IFS");
+	ifs = shenv_shvars_get(env, "IFS");
 	if (ifs == NULL || between_quotes == false || !ifs->shvar_value)
 		sep = twl_strdup(" ");
 	else
@@ -41,7 +41,7 @@ char				*test_params_star(t_shenv *env, bool between_quotes)
 	char				*sep;
 	t_shvar	*ifs;
 
-	ifs = shenv_get(env, "IFS");
+	ifs = shenv_shvars_get(env, "IFS");
 	if (ifs == NULL || between_quotes == false || !ifs->shvar_value)
 		sep = twl_strdup(" ");
 	else

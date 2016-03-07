@@ -92,10 +92,8 @@ void				builtin_umask_exec(t_lst *tokens, t_shenv *this)
 	t_opt			*opt;
 	char			**arr;
 	int				flag;
-	char			*str;
 
-	str = token_mgr_strjoin(tokens, " "); // TODO: refactor
-	arr = twl_strsplit_mul(str, " \n\t");
+	arr = token_mgr_to_str_arr(tokens);
 	opt = twl_opt_new(arr, UMASK_OPT_VALID_OPTS);
 	flag = BUILTIN_EXEC_FAILURE;
 	if (!builtin_utils_check_invalid_opts(opt, "umask", UMASK_OPT_VALID_OPTS))
@@ -106,7 +104,6 @@ void				builtin_umask_exec(t_lst *tokens, t_shenv *this)
 			flag = modify_umask(opt, (char *)twl_lst_first(opt->args));
 	}
 	shenv_set_last_exit_status(this, flag);
-	twl_arr_del(arr, &free);
+	twl_arr_del(arr, NULL);
 	twl_opt_del(opt);
-	// return (flag);
 }

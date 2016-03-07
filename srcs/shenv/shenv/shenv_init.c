@@ -31,7 +31,7 @@ static void			init_env(void *elem, void *context)
 
 	environ_elem = elem;
 	this = context;
-	shenv_setenv(this, environ_elem);
+	shenv_shvars_set_equal(this, environ_elem, NULL);
 }
 
 static void			fill_flag_verbose_dict(t_dict *dict)

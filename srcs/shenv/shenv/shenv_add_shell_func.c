@@ -19,6 +19,6 @@ void				shenv_add_shell_func(t_shenv *env,
 {
 	if (key)
 	{
-		twl_dict_set(env->shell_func, key, data, NULL);
+		twl_dict_set(env->shfuncs, key, data, NULL);
 	}
 }
