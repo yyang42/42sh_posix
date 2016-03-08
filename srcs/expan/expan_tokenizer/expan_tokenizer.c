@@ -82,9 +82,9 @@ t_expan_quote *quote, t_expan_quote *next_quote, int *wait)
 	{
 		tokenizer->i = expan_tokenizer_param(tokenizer, tokenizer->expan_tokens, tokenizer->str, tokenizer->i);
 	}
-	else if (type == TILDE && tokenizer->origin != ASSIGNMENT_KEY)
+	else if (type == TILDE && tokenizer->origin != TOKEN_ORIGIN_ASSIGNMENT_KEY)
 	{
-		if (tokenizer->i == 0 || (tokenizer->i > 0 && tokenizer->origin == ASSIGNMENT_VALUE))
+		if (tokenizer->i == 0 || (tokenizer->i > 0 && tokenizer->origin == TOKEN_ORIGIN_ASSIGNMENT_VALUE))
 			tokenizer->i = expan_tokenizer_tilde(tokenizer, tokenizer->expan_tokens, tokenizer->str, tokenizer->i);
 		else
 		{

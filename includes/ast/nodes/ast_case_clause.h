@@ -24,8 +24,8 @@ struct s_ast_compound_list;
 
 typedef struct		s_ast_case_clause
 {
-	t_token						*needle_token;
-	t_lst						*case_list;
+	t_token			*needle_token;
+	t_lst			*case_list;
 }					t_ast_case_clause;
 
 t_ast_case_clause	*ast_case_clause_new(void);
