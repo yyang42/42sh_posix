@@ -49,7 +49,7 @@ t_shenv				*shenv_new(void);
 void				shenv_del(t_shenv *this);
 t_shenv				*shenv_clone(t_shenv *this);
 void				shenv_init(t_shenv *this);
-t_shvar				*shenv_shvars_set_equal(t_shenv *this, char *str, char *command_name);
+t_shvar				*shenv_shvars_set_split_by_equal(t_shenv *this, char *str, char *command_name);
 char				*shenv_shvars_get_value(t_shenv *this, char *key);
 t_shvar				*shenv_shvars_set(t_shenv *t, char *k, char *v, char *command_name);
 

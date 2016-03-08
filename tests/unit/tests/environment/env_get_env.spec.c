@@ -41,13 +41,13 @@ static void test_set_env(t_test *test)
 	shenv_init(env);
 	mt_assert(shenv_shvars_get_value(env, "_key") == NULL);
 	mt_assert(shenv_shvars_get_value(env, "PATH") != NULL);
-	shenv_shvars_set_equal(env, "_key=_value", NULL);
+	shenv_shvars_set_split_by_equal(env, "_key=_value", NULL);
 	mt_assert(twl_strcmp(shenv_shvars_get_value(env, "_key"), "_value") == 0);
-	shenv_shvars_set_equal(env, "_key=_new_value", NULL);
+	shenv_shvars_set_split_by_equal(env, "_key=_new_value", NULL);
 	mt_assert(twl_strcmp(shenv_shvars_get_value(env, "_key"), "_new_value") == 0);
-	shenv_shvars_set_equal(env, "_key=", NULL);
+	shenv_shvars_set_split_by_equal(env, "_key=", NULL);
 	mt_assert(twl_strcmp(shenv_shvars_get_value(env, "_key"), "") == 0);
-	shenv_shvars_set_equal(env, "_key========POUET==POUET=POUET==", NULL);
+	shenv_shvars_set_split_by_equal(env, "_key========POUET==POUET=POUET==", NULL);
 	mt_assert(twl_strcmp(shenv_shvars_get_value(env, "_key"), "=======POUET==POUET=POUET==") == 0);
 	shenv_del(env);
 }
@@ -59,7 +59,7 @@ static void test_unset_env(t_test *test)
 
 	env = shenv_new();
 	shenv_init(env);
-	shenv_shvars_set_equal(env, "test=_value", NULL);
+	shenv_shvars_set_split_by_equal(env, "test=_value", NULL);
 	mt_assert(shenv_shvars_get_value(env, "test") != NULL);
 	shenv_unsetenv(env, "test");
 	mt_assert(shenv_shvars_get_value(env, "test") == NULL);
