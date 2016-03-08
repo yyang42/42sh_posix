@@ -18,8 +18,8 @@ t_shenv				*shenv_singleton_setter(t_shenv *src_env)
 
 	if (src_env)
 	{
-		if (env)
-			shenv_del(env);
+		// if (env)
+		// 	shenv_del(env);
 		env = src_env;
 	}
 	if (!env)

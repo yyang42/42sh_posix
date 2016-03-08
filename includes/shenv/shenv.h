@@ -34,6 +34,7 @@ typedef struct				s_shenv_info
 typedef struct				s_shenv
 {
 	t_lst					*shvars;
+	t_lst					*shvars_assign;
 	t_lst					*pos_params;
 	t_lst					*flags;
 	t_dict					*alias;

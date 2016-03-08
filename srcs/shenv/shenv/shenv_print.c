@@ -14,11 +14,17 @@
 
 static void		print_shvar(void *data)
 {
-	t_shvar	*var;
+	t_shvar			*var;
+	char			*value;
 
 	var = data;
-	if (var->shvar_exported && var->shvar_value)
-		twl_printf("%s=%s\n", var->shvar_key, var->shvar_value ? var->shvar_value : "");
+	value = NULL;
+	if (var->shvar_assign_value)
+		value = var->shvar_assign_value;
+	else if (var->shvar_exported)
+		value = var->shvar_value;
+	if (value)
+		twl_printf("%s=%s\n", var->shvar_key, value);
 }
 
 void			shenv_print(t_shenv *this)

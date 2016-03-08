@@ -19,6 +19,7 @@ typedef struct				s_shvar
 {
 	char					*shvar_key;
 	char					*shvar_value;
+	char					*shvar_assign_value;
 	int						shvar_read_only;
 	bool					shvar_exported;
 }							t_shvar;
@@ -30,5 +31,7 @@ t_shvar				*shvar_copy(t_shvar *src);
 void				*shvar_copy_void(void *src);
 
 void				shvar_set_value(t_shvar *this, char *value);
+
+char				*shvar_get_visible_value(t_shvar *this);
 
 #endif

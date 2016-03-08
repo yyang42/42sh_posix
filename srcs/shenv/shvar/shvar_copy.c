@@ -21,5 +21,7 @@ t_shvar				*shvar_copy(t_shvar	*src)
 		src->shvar_value,
 		src->shvar_exported);
 	copy->shvar_read_only = src->shvar_read_only;
+	if (src->shvar_assign_value)
+		copy->shvar_assign_value = twl_strdup(src->shvar_assign_value);
 	return (copy);
 }

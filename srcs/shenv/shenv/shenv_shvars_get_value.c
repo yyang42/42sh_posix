@@ -21,7 +21,7 @@ char				*shenv_shvars_get_value(t_shenv *this, char *key)
 	shvar = shenv_shvars_get(this, key);
 	if (shvar)
 	{
-		value = shvar->shvar_value;
+		value = shvar_get_visible_value(shvar);
 	}
 	return (value);
 }

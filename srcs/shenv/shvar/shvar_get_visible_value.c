@@ -10,23 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <errno.h>
 #include "shenv/shvar.h"
 
-t_shvar				*shvar_new(char *key, char *value, bool shvar_exported)
+char				*shvar_get_visible_value(t_shvar *this)
 {
-	t_shvar	*this;
-
-	if (key == NULL || *key == '\0')
-	{
-		errno = EINVAL;
-		return (NULL);
-	}
-	this = twl_malloc_x0(sizeof(t_shvar));
-	this->shvar_value = value ? twl_strdup(value) : NULL;
-	this->shvar_assign_value = NULL;
-	this->shvar_key = twl_strdup(key);
-	this->shvar_exported = shvar_exported;
-	this->shvar_read_only = false;
-	return (this);
+	if (this->shvar_assign_value)
+		return (this->shvar_assign_value);
+	return (this->shvar_value);
 }
