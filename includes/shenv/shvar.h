@@ -33,5 +33,6 @@ void				*shvar_copy_void(void *src);
 void				shvar_set_value(t_shvar *this, char *value);
 
 char				*shvar_get_visible_value(t_shvar *this);
+char				*shvar_get_visible_export_value(t_shvar *this);
 
 #endif

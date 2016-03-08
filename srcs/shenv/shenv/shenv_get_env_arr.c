@@ -20,9 +20,11 @@ static void		push_env_to_arr(void *data, void *arr)
 
 	var = data;
 	str = twl_strjoin(var->shvar_key, "=");
-	if (shvar_get_visible_value(var))
-		str = twl_strjoinfree(str, shvar_get_visible_value(var), 'l');
-	twl_arr_push(arr, str);
+	if (shvar_get_visible_export_value(var))
+	{
+		str = twl_strjoinfree(str, shvar_get_visible_export_value(var), 'l');
+		twl_arr_push(arr, str);
+	}
 }
 
 void			**shenv_get_env_arr(t_shenv *this)

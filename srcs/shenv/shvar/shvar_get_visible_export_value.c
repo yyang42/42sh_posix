@@ -10,21 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SHVAR_MGR_H
-# define SHVAR_MGR_H
+#include "shenv/shvar.h"
 
-# include "basics.h"
-# include "shenv/shvar.h"
-
-t_lst				*shvar_mgr_new(void);
-void				shvar_mgr_del(t_lst *shvars);
-void				shvar_mgr_add(t_lst *shvars, t_shvar *shvar);
-void				shvar_mgr_remove(t_lst *shvars, t_shvar *shvar);
-void				shvar_mgr_print(t_lst *shvars);
-
-t_shvar				*shvar_mgr_find_by_key(t_lst *shvars, char *key);
-t_shvar				*shvar_mgr_find_or_create(t_lst *shvars, char *key);
-
-void				shvar_mgr_clear_assign_value(t_lst *shvars);
-
-#endif
+char				*shvar_get_visible_export_value(t_shvar *this)
+{
+	if (this->shvar_assign_value)
+		return (this->shvar_assign_value);
+	if (this->shvar_exported)
+		return (this->shvar_value);
+	return (NULL);
+}

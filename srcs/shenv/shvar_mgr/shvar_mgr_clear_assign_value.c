@@ -10,21 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SHVAR_MGR_H
-# define SHVAR_MGR_H
+#include "shenv/shvar_mgr.h"
 
-# include "basics.h"
-# include "shenv/shvar.h"
+static void			iter_clean_assign(void *data)
+{
+	t_shvar			*shvar;
 
-t_lst				*shvar_mgr_new(void);
-void				shvar_mgr_del(t_lst *shvars);
-void				shvar_mgr_add(t_lst *shvars, t_shvar *shvar);
-void				shvar_mgr_remove(t_lst *shvars, t_shvar *shvar);
-void				shvar_mgr_print(t_lst *shvars);
+	shvar = data;
+	if (shvar->shvar_assign_value)
+		free(shvar->shvar_assign_value);
+	shvar->shvar_assign_value = NULL;
+}
 
-t_shvar				*shvar_mgr_find_by_key(t_lst *shvars, char *key);
-t_shvar				*shvar_mgr_find_or_create(t_lst *shvars, char *key);
-
-void				shvar_mgr_clear_assign_value(t_lst *shvars);
-
-#endif
+void				shvar_mgr_clear_assign_value(t_lst *shvars)
+{
+	twl_lst_iter0(shvars, iter_clean_assign);
+}
