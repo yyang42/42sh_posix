@@ -27,7 +27,7 @@ static void		iter_fn(void *expan_token_, void *should_exec_)
 	{
 		if (expan_token->exec_expan)
 			*should_exec = expan_token->exec_expan(expan_token);
-		if (*should_exec == true && expan_token->origin != PARAMETER_SUBSTITUTION_WORD)
+		if (*should_exec == true && expan_token->origin != TOKEN_ORIGIN_PARAM_SUBSTITUTION)
 		{
 			if (expan_token->type == PARAMETER || expan_token->type == COMMAND_SUBSTITUTION_DOLLAR
 			|| expan_token->type == COMMAND_SUBSTITUTION_BACKQUOTE || expan_token->type == ARITHMETIC)

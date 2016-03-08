@@ -29,7 +29,7 @@ static int		expan_tokenizer_tilde_parse(char *str, int i,
 			is_double_quoted = !is_double_quoted;
 		else if (str[j] == '/' && !is_double_quoted)
 			break;
-		else if (origin == ASSIGNMENT_VALUE && str[j] == ':' && !is_double_quoted)
+		else if (origin == TOKEN_ORIGIN_ASSIGNMENT_VALUE && str[j] == ':' && !is_double_quoted)
 			break;
 		j++;
 	}
