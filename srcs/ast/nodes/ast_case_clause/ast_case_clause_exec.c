@@ -13,6 +13,19 @@
 #include "ast/nodes/ast_if_then.h"
 #include "ast/nodes/ast_case_clause.h"
 
+/*
+	In order from the beginning to the end of the case statement,
+	each pattern that labels a compound-list shall be subjected to
+		- tilde expansion,
+		- parameter expansion,
+		- command substitution,
+		- and arithmetic expansion,
+	and the result of these expansions shall be compared against
+	the expansion of word, according to the rules described in
+	Pattern Matching Notation (which also describes the effect of
+	quoting parts of the pattern).
+*/
+
 void				ast_case_clause_exec(t_ast_case_clause *this)
 {
 	twl_printf("case clause not implemented");
