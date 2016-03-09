@@ -14,36 +14,57 @@
 #include "ast/ast.h"
 
 
-static int			exec_remaining_command(t_lst *tokens)
+static void			exec_remaining_command(t_argparser_result *argparser_result)
 {
-	int				exit_code;
-
-	if (token_mgr_first_equ(tokens, "-i"))
+	if (argparser_result_opt_is_set(argparser_result, "i"))
 	{
-		twl_lst_pop_front(tokens);
-		exit_code = ast_exec_tokens_with_fork(tokens);
+		shenv_singleton()->shvars = twl_lst_new();
+	}
+	t_lst *remainders_copy = twl_lst_copy(argparser_result->remainders, NULL);
+	while (twl_lst_first(remainders_copy) && twl_strchr(twl_lst_first(remainders_copy), '='))
+	{
+		shenv_shvars_set_split_by_equal(shenv_singleton(), twl_lst_pop_front(remainders_copy), "env");
+	}
+	if (twl_lst_len(remainders_copy) == 0)
+	{
+		shenv_print(shenv_singleton());
+		shenv_singleton()->last_exit_code = BUILTIN_EXEC_SUCCESS;
 	}
 	else
 	{
-		exit_code = ast_exec_tokens(tokens);
+		char			*str_cmd = twl_lst_strjoin(argparser_result->remainders, " ");
+		ast_exec_string(str_cmd);
 	}
-	return (exit_code);
 }
 
-void				builtin_env_exec(t_lst *tokens, t_shenv *env)
+static void			exec_remaining_command_in_new_env(t_argparser_result *argparser_result)
 {
-	int				exit_code;
 
-	twl_lst_pop_front(tokens);
-	if (twl_lst_len(tokens) == 0)
+	t_shenv 		*env_copy;
+	t_shenv 		*env_src;
+
+	env_src = shenv_singleton();
+	env_copy = shenv_copy(env_src);
+	shenv_singleton_setter(env_copy);
+	exec_remaining_command(argparser_result);
+	env_src->last_exit_code = env_copy->last_exit_code;
+	shenv_singleton_setter(env_src);
+	shenv_del(env_copy);
+}
+
+void				builtin_env_exec(t_lst *tokens, t_shenv *shenv)
+{
+	t_argparser_result	*argparser_result;
+
+	argparser_result = argparser_parse_tokens(builtin_env_argparser(), tokens);
+	if (argparser_result->err_msg)
 	{
-		shenv_print(env);
-		exit_code = 0;
+		argparser_result_print_error_with_help(argparser_result);
+		shenv->last_exit_code = BUILTIN_EXEC_FAILURE;
 	}
 	else
 	{
-		exit_code = exec_remaining_command(tokens);
+		exec_remaining_command_in_new_env(argparser_result);
 	}
-	(void)exit_code;
-	return ; // exit_code
+	(void)shenv;
 }

@@ -25,7 +25,7 @@ t_lst				*data_control_operators_nl(void)
 	if (operators == NULL)
 	{
 		operators = twl_lst_new();
-		twl_lst_push(operators, "\n");
+		twl_lst_push_back(operators, "\n");
 		twl_lst_extend(operators, data_control_operators());
 	}
 	return (operators);

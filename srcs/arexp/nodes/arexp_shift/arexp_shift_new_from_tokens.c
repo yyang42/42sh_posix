@@ -30,11 +30,11 @@ static bool				push_fn(t_lst *tokens, t_arexp_shift *shift,
 	to_push->additive = additive;
 	if (!is_shift_token(token_mgr_first(tokens)))
 	{
-		twl_lst_push(shift->additive, to_push);
+		twl_lst_push_back(shift->additive, to_push);
 		return (false);
 	}
 	to_push->shift_sign = twl_lst_pop_front(tokens);
-	twl_lst_push(shift->additive, to_push);
+	twl_lst_push_back(shift->additive, to_push);
 	return (true);
 }
 

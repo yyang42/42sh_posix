@@ -14,5 +14,5 @@
 
 void				job_mgr_add(t_lst *jobs, t_job *job)
 {
-	twl_lst_push(jobs, job);
+	twl_lst_push_back(jobs, job);
 }

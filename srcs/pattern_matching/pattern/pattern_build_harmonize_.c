@@ -19,7 +19,7 @@ static void		harmonize_cpy_push(t_pattern_harmonize_ *harm, int *index)
 	cpy = (t_pattern_data *)malloc(sizeof(t_pattern_data));
 	cpy->split = twl_strdup(harm->data->split);
 	cpy->fixed = harm->data->fixed;
-	twl_lst_push(harm->to_push, cpy);
+	twl_lst_push_back(harm->to_push, cpy);
 	*index += 1;
 }
 
@@ -34,7 +34,7 @@ static void		harmonize_sub(t_pattern_harmonize_ *harm, int val)
 	cpy = (t_pattern_data *)malloc(sizeof(t_pattern_data));
 	cpy->split = twl_strsub(harm->data->split, harm->start, len);
 	cpy->fixed = harm->data->fixed;
-	twl_lst_push(harm->to_push, cpy);
+	twl_lst_push_back(harm->to_push, cpy);
 }
 
 static void		skip_slash(t_pattern_harmonize_ *harm, int flag)
@@ -77,7 +77,7 @@ static void		harmonize_loop(t_pattern *this, t_pattern_harmonize_ *harm,
 			if (harm->data->split[harm->index] == '/')
 			{
 				harmonize_sub(harm, 0);
-				twl_lst_push(this->harm_, harm->to_push);
+				twl_lst_push_back(this->harm_, harm->to_push);
 				harm->to_push = twl_lst_new();
 				skip_slash(harm, 1);
 			}
@@ -102,5 +102,5 @@ void			pattern_build_harmonize_(t_pattern *this)
 	if (twl_lst_len(harm.to_push) == 0)
 		twl_lst_del(harm.to_push, &free);
 	else
-		twl_lst_push(this->harm_, harm.to_push);
+		twl_lst_push_back(this->harm_, harm.to_push);
 }

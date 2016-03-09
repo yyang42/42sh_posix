@@ -71,7 +71,7 @@ t_lst				*patmatch_match(t_patmatch *this, char *pattern)
 	twl_lst_iter0(this->match, &erase_building_start);
 	twl_lst_qsort(this->match, &cmp_func);
 	if (twl_lst_len(this->match) == 0)
-		twl_lst_push(this->match, pattern_to_string(this->pattern));
+		twl_lst_push_back(this->match, pattern_to_string(this->pattern));
 	pattern_del(this->pattern);
 	ret = this->match;
 	this->match = NULL;

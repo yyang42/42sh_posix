@@ -14,5 +14,5 @@
 
 void				token_list_mgr_add(t_lst *token_lists, t_lst *token_list)
 {
-	twl_lst_push(token_lists, token_list);
+	twl_lst_push_back(token_lists, token_list);
 }

@@ -150,7 +150,7 @@ void				expan_tokenizer(char *str, t_lst *expan_tokens,
 		{
 			quote = expan_quote_new();
 			quote->str = twl_strndup(&str[tokenizer->i], 1);
-			twl_lst_push(quotes, quote);
+			twl_lst_push_back(quotes, quote);
 			tokenizer->i++;
 		}
 		tokenizer->i = 0;

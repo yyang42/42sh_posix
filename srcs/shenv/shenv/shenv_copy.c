@@ -36,15 +36,21 @@ static void			*copy_dict_fn(void *data_)
 		return (NULL);
 }
 
-t_shenv				*shenv_clone(t_shenv *this)
+t_shenv				*shenv_copy(t_shenv *this)
 {
-	t_shenv *clone;
+	t_shenv *copy;
 
-	clone = twl_malloc_x0(sizeof(t_shenv));
-	clone->shvars = twl_lst_copy(this->shvars, shvar_copy_void);
-	clone->flag_verbose = twl_lst_copy(this->flag_verbose, copy_dict_fn);
-	clone->shfuncs = twl_lst_copy(this->shfuncs, copy_dict_fn);
-	clone->pos_params = twl_lst_new();
-	clone->flags = twl_lst_copy(this->flags, copy_flags_fn);
-	return (clone);
+	copy = twl_malloc_x0(sizeof(t_shenv));
+	copy->shvars = twl_lst_copy(this->shvars, shvar_copy_void);
+	copy->alias = twl_lst_copy(this->alias, copy_dict_fn);
+	copy->flag_verbose = twl_lst_copy(this->flag_verbose, copy_dict_fn);
+	copy->shfuncs = twl_lst_copy(this->shfuncs, NULL);
+	copy->pos_params = twl_lst_copy(this->pos_params, twl_strdup_void);
+	copy->flags = twl_lst_copy(this->flags, copy_flags_fn);
+	copy->function_depth = this->function_depth;
+	copy->info = this->info;
+	if (this->info.name)
+		copy->info.name = twl_strdup(this->info.name);
+	copy->last_exit_code = 0;
+	return (copy);
 }

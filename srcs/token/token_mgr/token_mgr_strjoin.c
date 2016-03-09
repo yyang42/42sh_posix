@@ -17,7 +17,7 @@ static void			print_token_fn(void *token_, void *segs)
 	t_token	*token;
 
 	token = token_;
-	twl_lst_push(segs, token->text);
+	twl_lst_push_back(segs, token->text);
 }
 
 char				*token_mgr_strjoin(t_lst *tokens, char *sep)

@@ -19,7 +19,7 @@ t_lst				*token_mgr_split_by_one_sep(t_lst *tokens, char *sep,
 	t_lst			*result;
 
 	sep_list = twl_lst_new();
-	twl_lst_push(sep_list, twl_strdup(sep));
+	twl_lst_push_back(sep_list, twl_strdup(sep));
 	result = token_mgr_split_ast(tokens, sep_list, keep_delimiter);
 	twl_lst_del(sep_list, free);
 	return (result);

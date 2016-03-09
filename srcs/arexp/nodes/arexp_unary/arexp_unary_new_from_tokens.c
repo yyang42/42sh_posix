@@ -33,7 +33,7 @@ static t_arexp_unary	*arexp_unary_init(t_lst *tokens, t_arexp *singleton)
 		}
 		if (data_utils_arexp_is_unary_operator(token->text))
 		{
-			twl_lst_push(arexp_unary->unary_operator,
+			twl_lst_push_back(arexp_unary->unary_operator,
 													twl_lst_pop_front(tokens));
 			continue ;
 		}

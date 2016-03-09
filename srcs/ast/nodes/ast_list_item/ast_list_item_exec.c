@@ -12,22 +12,22 @@
 
 #include "ast/nodes/ast_list_item.h"
 
-static void			iter_fn(void *ast_andor_item_, void *prev_, void *context_)
+static void			iter_fn(void *ast_andor_item_, void *prev_, void *ctx)
 {
 	t_ast_andor_item	*ast_andor_item;
 	t_ast_andor_item	*prev;
-	t_shenv		*env;
+	int					last_exit_code;
 
 	ast_andor_item = ast_andor_item_;
 	prev = prev_;
-	env = shenv_singleton();
-	if (!prev ||
-	(prev->separator->type == TOKEN_AND_IF && env->last_exit_code == 0)
-	|| (prev->separator->type == TOKEN_OR_IF && env->last_exit_code > 0))
+	last_exit_code = shenv_singleton()->last_exit_code;
+	if (!prev
+		|| (prev->separator->type == TOKEN_AND_IF && last_exit_code == 0)
+		|| (prev->separator->type == TOKEN_OR_IF && last_exit_code > 0))
 	{
 		ast_andor_item_exec(ast_andor_item);
 	}
-	(void)context_;
+	(void)ctx;
 }
 
 void				ast_list_item_exec(t_ast_list_item *ast_list_item)

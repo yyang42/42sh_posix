@@ -30,7 +30,7 @@ static void				push_asign_fn(void *assign_segs_,
 	t_lst			*assign_segs;
 
 	assign_segs = assign_segs_;
-	twl_lst_push(assignment_items, ast_assignment_new(
+	twl_lst_push_back(assignment_items, ast_assignment_new(
 		twl_lst_get(assign_segs, 0), twl_lst_get(assign_segs, 1), ast));
 }
 
@@ -44,7 +44,7 @@ static void				push_redir_fn(void *one_redir_tokens, void *redir_items,
 	ast_redir = ast_redir_new_from_tokens(one_redir_tokens, ast);
 	if (ast_has_error(ast))
 		return ;
-	twl_lst_push(redir_items, ast_redir);
+	twl_lst_push_back(redir_items, ast_redir);
 }
 
 static void				build_tokens(t_ast_simple_command *this,
@@ -84,7 +84,7 @@ t_ast_simple_command	*ast_simple_command_new_from_tokens(t_lst *tokens, struct s
 		&& !token_is_control_operators_nl(token_mgr_first(tokens))
 		)
 	{
-		twl_lst_push(this->command_tokens, twl_lst_pop_front(tokens));
+		twl_lst_push_back(this->command_tokens, twl_lst_pop_front(tokens));
 	}
 	if (twl_lst_len(this->command_tokens) == 0)
 	{

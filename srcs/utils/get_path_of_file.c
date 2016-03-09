@@ -29,7 +29,7 @@ char				*get_path_of_file(char *str)
 		path_lst = twl_str_split_to_lst(str, "/");
 		if (twl_lst_len(path_lst) > 0)
 		{
-			free(twl_lst_pop(path_lst));
+			free(twl_lst_pop_back(path_lst));
 			path = twl_strjoinlst(path_lst, "/");
 			twl_lst_del(path_lst, NULL);
 			return (path);

@@ -21,7 +21,7 @@ static void		add_to_dict(t_dict *dict, t_expan_param_type type, bool (*f)(t_expa
 
 	tmp = twl_itoa(type);
 	twl_dict_add(dict, tmp, f);
-	twl_strdel(&tmp);
+	free(tmp);
 }
 
 void *expan_param_type_to_func_dict(t_expan_param_type type)
@@ -58,6 +58,6 @@ void *expan_param_type_to_func_dict(t_expan_param_type type)
 	}
 	str = twl_itoa(type);
 	ret = twl_dict_get(dict, str);
-	twl_strdel(&str);
+	free(str);
 	return (ret);
 }

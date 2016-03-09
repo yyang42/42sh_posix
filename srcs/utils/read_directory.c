@@ -27,7 +27,7 @@ t_lst				*read_directory(char *path)
 	{
 		if (!twl_strequ(dp->d_name, ".") && !twl_strequ(dp->d_name, ".."))
 		{
-			twl_lst_push(files, twl_strdup(dp->d_name));
+			twl_lst_push_back(files, twl_strdup(dp->d_name));
 		}
 	}
 	closedir(dirp);

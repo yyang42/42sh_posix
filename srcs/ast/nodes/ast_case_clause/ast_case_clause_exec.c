@@ -15,6 +15,7 @@
 #include "ast/nodes/ast_case_item.h"
 #include "expan/expan_mgr.h"
 #include "expan/expan_exec.h"
+#include "pattern_matching/substr.h"
 
 /*
 	In order from the beginning to the end of the case statement,
@@ -29,17 +30,35 @@
 	quoting parts of the pattern).
 */
 
-static bool			is_matching_pattern(t_token *pattern, t_token *needle)
+static bool			match_found(char *needle_text, char *pattern_text)
 {
-	/* TODO: REPLACE DUMMY IMPLEMENTATION */
-	// *should_exec = expan_init(&token->text, token->text_unexpanded, TOKEN_ORIGIN_WORD);
-	twl_printf("pattern->text %s\n", pattern->text);
-	twl_printf("needle->text %s\n", needle->text);
-	expan_init(&pattern->text, pattern->text_unexpanded, TOKEN_ORIGIN_WORD); // HUM
-	expan_init(&needle->text, needle->text_unexpanded, TOKEN_ORIGIN_WORD); // HUM
-	twl_printf("pattern->text %s\n", pattern->text);
-	twl_printf("needle->text %s\n\n", needle->text);
-	return (twl_strequ(pattern->text, needle->text));
+	bool			matched;
+	t_substr		*tmp;
+	char			*actual;
+
+	tmp  = substr_new();
+	actual = substr_sharpsharp(tmp, needle_text, pattern_text);
+	matched = (twl_strlen(actual) == 0);
+	free(actual);
+	substr_del(tmp);
+	return (matched);
+}
+
+static bool			find_needle_in_pattern_fn(void *pattern_, void *needle_)
+{
+	t_token			*pattern;
+	t_token			*needle;
+
+	pattern = pattern_;
+	needle = needle_;
+	expan_init(&pattern->text, pattern->text_unexpanded, TOKEN_ORIGIN_WORD); // TODO why TOKEN_ORIGIN_WORD
+	expan_init(&needle->text, needle->text_unexpanded, TOKEN_ORIGIN_WORD); // TODO why TOKEN_ORIGIN_WORD
+	return (match_found(needle->text, pattern->text));
+}
+
+static bool			is_matching_pattern(t_lst *pattern_tokens, t_token *needle)
+{
+	return ((bool)twl_lst_find(pattern_tokens, find_needle_in_pattern_fn, needle));
 }
 
 void				ast_case_clause_exec(t_ast_case_clause *this)
@@ -51,7 +70,7 @@ void				ast_case_clause_exec(t_ast_case_clause *this)
 	shenv_singleton()->last_exit_code = 0;
 	while ((case_item = twl_lst_pop_front(case_items_iterator)))
 	{
-		if (is_matching_pattern(case_item->pattern_token, this->needle_token))
+		if (is_matching_pattern(case_item->pattern_tokens, this->needle_token))
 		{
 			ast_compound_list_exec(case_item->compound_list);
 			break ;

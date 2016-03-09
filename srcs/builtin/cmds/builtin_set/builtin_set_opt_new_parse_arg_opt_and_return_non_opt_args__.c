@@ -26,7 +26,7 @@ static void			parse_single_arg(char *arg, t_lst *opts)
 	while (*arg)
 	{
 		*opt_key = *arg;
-		twl_lst_push(opts, twl_opt_elem_new(opt_key, NULL));
+		twl_lst_push_back(opts, twl_opt_elem_new(opt_key, NULL));
 		arg++;
 	}
 }
@@ -37,7 +37,7 @@ static void			parse_opt_with_param(char *key, char *value, t_lst *opts)
 
 	twl_bzero(opt_key, 2);
 	*opt_key = *key;
-	twl_lst_push(opts, twl_opt_elem_new(opt_key, value));
+	twl_lst_push_back(opts, twl_opt_elem_new(opt_key, value));
 }
 
 static bool			is_valid_opt_with_param(char *opt_without_hyphen,

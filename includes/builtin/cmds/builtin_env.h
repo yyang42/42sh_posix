@@ -22,6 +22,7 @@
 # include "twl_arr.h"
 # include "twl_opt.h"
 # include "twl_arr2.h"
+# include "argparser_extension.h"
 # include "ast/nodes/ast_simple_command.h"
 
 # define ENV_OPT_VALID_OPTS "i"
@@ -38,5 +39,7 @@ typedef struct		s_env_args
 void				builtin_env_exec(t_lst *tokens, t_shenv *this);
 void				builtin_env_exec_do(t_env_args *env, t_shenv	*clone);
 void				builtin_env_utils_add_shvar(void *data_, void *context_);
+
+t_argparser			*builtin_env_argparser(void);
 
 #endif

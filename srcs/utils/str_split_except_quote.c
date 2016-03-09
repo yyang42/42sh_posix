@@ -59,7 +59,7 @@ static int			handle_quote_string(char **str_ptr, int len)
 static char			*handle_new_seg(t_lst *segs, char *str, int len)
 {
 	if (len)
-		twl_lst_push(segs, twl_strndup(str - len, len));
+		twl_lst_push_back(segs, twl_strndup(str - len, len));
 	while (*str && twl_strchr(STR_SPLIT_EXCEPT_QUOTE_SPLIT_CHARS, *str))
 	{
 		str++;
@@ -94,6 +94,6 @@ t_lst				*str_split_except_quote(char *str)
 		}
 	}
 	if (len)
-		twl_lst_push(segs, twl_strndup(str - len, len));
+		twl_lst_push_back(segs, twl_strndup(str - len, len));
 	return (segs);
 }

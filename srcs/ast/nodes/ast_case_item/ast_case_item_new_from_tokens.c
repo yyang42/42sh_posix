@@ -20,6 +20,20 @@ static void			skip_first_optional_open_parenthesis(t_lst *tokens)
 		twl_lst_pop_front(tokens);
 }
 
+static void			build_pattern_tokens(t_ast_case_item *this, t_lst *tokens)
+{
+	// t_token			*token;
+
+	twl_lst_push_back(this->pattern_tokens, twl_lst_pop_front(tokens));
+	while (true)
+	{
+		if (!token_mgr_first_equ(tokens, "|"))
+			break ;
+		twl_lst_pop_front(tokens);
+		twl_lst_push_back(this->pattern_tokens, twl_lst_pop_front(tokens));
+	}
+}
+
 t_ast_case_item	*ast_case_item_new_from_tokens(t_lst *tokens, struct s_ast *ast)
 {
 	t_ast_case_item		*this;
@@ -31,10 +45,10 @@ t_ast_case_item	*ast_case_item_new_from_tokens(t_lst *tokens, struct s_ast *ast)
 		ast_set_error_msg_syntax_error_unexpected(ast, token_mgr_first(tokens));
 		return (NULL);
 	}
-	this->pattern_token = twl_lst_pop_front(tokens);
+	build_pattern_tokens(this, tokens);
 	if (!token_mgr_first_equ(tokens, ")"))
 	{
-		ast_set_error_msg_syntax_error_missing(ast, this->pattern_token, ")");
+		ast_set_error_msg_syntax_error_missing(ast, token_mgr_first(this->pattern_tokens), ")");
 		return (NULL);
 	}
 	twl_lst_pop_front(tokens);

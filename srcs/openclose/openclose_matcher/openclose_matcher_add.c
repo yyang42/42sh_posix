@@ -15,5 +15,5 @@
 void				openclose_matcher_add(t_openclose_matcher *matcher,
 												char *open, char *close)
 {
-	twl_lst_push(matcher->oc_pairs, openclose_new(open, close));
+	twl_lst_push_back(matcher->oc_pairs, openclose_new(open, close));
 }

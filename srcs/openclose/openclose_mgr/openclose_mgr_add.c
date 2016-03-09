@@ -14,5 +14,5 @@
 
 void				openclose_mgr_add(t_lst *opencloses, t_openclose *openclose)
 {
-	twl_lst_push(opencloses, openclose);
+	twl_lst_push_back(opencloses, openclose);
 }

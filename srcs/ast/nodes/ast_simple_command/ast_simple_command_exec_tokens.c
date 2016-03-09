@@ -35,7 +35,7 @@ void				ast_simple_command_exec_tokens(t_lst *tokens)
 		}
 		else if (shenv_shfuncs_get(shenv_singleton(), cmd_name))
 		{
-			ast_simple_command_exec_function(shenv_singleton(), tokens, shenv_shfuncs_get(shenv_singleton(), cmd_name));
+			ast_simple_command_exec_function(tokens, shenv_shfuncs_get(shenv_singleton(), cmd_name));
 		}
 		else
 		{

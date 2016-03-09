@@ -31,11 +31,11 @@ static bool					push_fn(t_lst *tokens,
 	to_push->multiplicative = multiplicative;
 	if (!is_additive_token(token_mgr_first(tokens)))
 	{
-		twl_lst_push(additive->multiplicative, to_push);
+		twl_lst_push_back(additive->multiplicative, to_push);
 		return (false);
 	}
 	to_push->additive_sign = twl_lst_pop_front(tokens);
-	twl_lst_push(additive->multiplicative, to_push);
+	twl_lst_push_back(additive->multiplicative, to_push);
 	return (true);
 }
 

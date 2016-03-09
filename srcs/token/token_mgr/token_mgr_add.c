@@ -14,5 +14,5 @@
 
 void				token_mgr_add(t_lst *tokens, t_token *token)
 {
-	twl_lst_push(tokens, token);
+	twl_lst_push_back(tokens, token);
 }
