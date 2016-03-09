@@ -60,7 +60,7 @@ t_token			**token_mgr_arexp_extract_assign(t_lst *tokens)
 	}
 	while (1)
 	{
-		pop = twl_lst_pop(tokens);
+		pop = twl_lst_pop_back(tokens);
 		if (pop == assign[1])
 			break ;
 		if (pop != assign[0])

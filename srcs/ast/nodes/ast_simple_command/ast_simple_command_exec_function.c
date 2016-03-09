@@ -32,7 +32,7 @@ void				ast_simple_command_exec_function(t_lst *tokens,
 
 	env = shenv_singleton();
 	tokens_str_lst = token_mgr_to_lst(tokens);
-	twl_lst_pop(tokens_str_lst);
+	twl_lst_pop_front(tokens_str_lst);
 	pos_params_original = env->pos_params;
 	env->pos_params = tokens_str_lst;
 	env->function_depth++;
