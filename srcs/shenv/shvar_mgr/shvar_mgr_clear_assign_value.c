@@ -10,23 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <errno.h>
-#include "shenv/shvar.h"
+#include "shenv/shvar_mgr.h"
 
-t_shvar				*shvar_new(char *key, char *value, bool shvar_exported)
+static void			iter_clean_assign(void *data)
 {
-	t_shvar	*this;
+	t_shvar			*shvar;
 
-	if (key == NULL || *key == '\0')
-	{
-		errno = EINVAL;
-		return (NULL);
-	}
-	this = twl_malloc_x0(sizeof(t_shvar));
-	this->shvar_value = value ? twl_strdup(value) : NULL;
-	this->shvar_assign_value = NULL;
-	this->shvar_key = twl_strdup(key);
-	this->shvar_exported = shvar_exported;
-	this->shvar_read_only = false;
-	return (this);
+	shvar = data;
+	if (shvar->shvar_assign_value)
+		free(shvar->shvar_assign_value);
+	shvar->shvar_assign_value = NULL;
+}
+
+void				shvar_mgr_clear_assign_value(t_lst *shvars)
+{
+	twl_lst_iter0(shvars, iter_clean_assign);
 }

@@ -25,4 +25,6 @@ void				shvar_mgr_print(t_lst *shvars);
 t_shvar				*shvar_mgr_find_by_key(t_lst *shvars, char *key);
 t_shvar				*shvar_mgr_find_or_create(t_lst *shvars, char *key);
 
+void				shvar_mgr_clear_assign_value(t_lst *shvars);
+
 #endif

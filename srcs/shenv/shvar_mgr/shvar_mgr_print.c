@@ -17,7 +17,7 @@ static void			print_shvar_fn(void *shvar_)
 	t_shvar	*shvar;
 
 	shvar = shvar_;
-	twl_printf("<Object #%p>\n", shvar);
+	twl_printf("<%s=%s>\n", shvar->shvar_key, shvar->shvar_value);
 }
 
 void				shvar_mgr_print(t_lst *shvars)
