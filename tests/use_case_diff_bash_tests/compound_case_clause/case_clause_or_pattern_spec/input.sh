@@ -4,8 +4,8 @@ foo () {
 	    aa)
 	        echo aa case matched
 	        ;;
-	    bb)
-	        echo bb case matched
+	    bb |cc| dd | ee)
+	        echo bb/cc/dd/ee case matched
 	        ;;
 	    *)
 	        echo default case matched
@@ -13,6 +13,9 @@ foo () {
 	esac
 }
 
-foo bb
 foo aa
+foo bb
+foo cc
+foo dd
+foo ee
 foo zz

@@ -17,5 +17,6 @@ t_ast_case_item			*ast_case_item_new(void)
 	t_ast_case_item		*this;
 
 	this = twl_malloc_x0(sizeof(t_ast_case_item));
+	this->pattern_tokens = twl_lst_new();
 	return (this);
 }

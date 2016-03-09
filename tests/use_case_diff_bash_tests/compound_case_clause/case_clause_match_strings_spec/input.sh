@@ -15,4 +15,4 @@ foo () {
 
 foo bb
 foo aa
-foo zz
+# foo zz

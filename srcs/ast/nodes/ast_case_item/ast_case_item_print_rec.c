@@ -15,11 +15,14 @@
 
 void				ast_case_item_print_rec(t_ast_case_item *this, int depth)
 {
+	char			*joined_patterns;
+
 	ast_print_indent(depth);
 	twl_printf("ast_case_item\n");
 	depth++;
 	ast_print_indent(depth);
-	twl_printf("ast_case_item_pattern (%s)\n", this->pattern_token->text);
+	joined_patterns = token_mgr_strjoin(this->pattern_tokens, "|");
+	twl_printf("ast_case_item_pattern (%s)\n", joined_patterns);
 	ast_compound_list_print_rec(this->compound_list, depth);
-	(void)this;
+	free(joined_patterns);
 }

@@ -24,7 +24,7 @@
 
 typedef struct		s_ast_case_item
 {
-	t_token					*pattern_token;
+	t_lst					*pattern_tokens;
 	t_ast_compound_list		*compound_list;
 }					t_ast_case_item;
 
