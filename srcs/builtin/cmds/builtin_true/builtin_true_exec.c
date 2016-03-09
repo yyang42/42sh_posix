@@ -15,7 +15,5 @@
 void				builtin_true_exec(t_lst *tokens, t_shenv *env)
 {
 	(void)tokens;
-	(void)env;
 	env->last_exit_code = BUILTIN_EXEC_SUCCESS;
-	// return (true);
 }

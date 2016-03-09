@@ -23,12 +23,14 @@ static void			exit_if_function_max_depth_reached(t_shenv *env,
 	}
 }
 
-void				ast_simple_command_exec_function(t_shenv *env, t_lst *tokens,
+void				ast_simple_command_exec_function(t_lst *tokens,
 									struct s_ast_compound_command *compound_cmd)
 {
 	t_lst			*pos_params_original;
 	t_lst			*tokens_str_lst;
+	t_shenv			*env;
 
+	env = shenv_singleton();
 	tokens_str_lst = token_mgr_to_lst(tokens);
 	twl_lst_pop(tokens_str_lst);
 	pos_params_original = env->pos_params;

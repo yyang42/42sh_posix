@@ -54,6 +54,6 @@ char					*ast_simple_command_utils_get_binary_path(char *cmd, t_shenv *env);
 void					ast_simple_command_execve(char *path, t_lst *tokens, char **env);
 void					ast_simple_command_exec_tokens(t_lst *command_tokens);
 
-void					ast_simple_command_exec_function(t_shenv *env, t_lst *tokens, struct s_ast_compound_command *compound_cmd);
+void					ast_simple_command_exec_function(t_lst *tokens, struct s_ast_compound_command *compound_cmd);
 
 #endif
