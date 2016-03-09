@@ -37,7 +37,7 @@ static void				build_redir_fn(void *redir_tokens, void *redir_items,
 	redir = ast_redir_new_from_tokens(redir_tokens, ast);
 	if (ast_has_error(ast))
 		return ;
-	twl_lst_push(redir_items, redir);
+	twl_lst_push_back(redir_items, redir);
 }
 
 static void				build_redir_tokens(t_lst *redir_items,

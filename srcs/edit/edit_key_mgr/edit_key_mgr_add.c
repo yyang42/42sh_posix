@@ -14,5 +14,5 @@
 
 void				edit_key_mgr_add(t_lst *edit_keys, t_edit_key *edit_key)
 {
-	twl_lst_push(edit_keys, edit_key);
+	twl_lst_push_back(edit_keys, edit_key);
 }

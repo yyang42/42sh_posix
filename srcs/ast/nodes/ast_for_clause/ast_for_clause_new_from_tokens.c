@@ -25,7 +25,7 @@ static void			pop_word_list(t_ast_for_clause *this, t_lst *tokens)
 		if (token_mgr_first_equ(tokens, ";")
 			|| token_mgr_first_equ(tokens, "\n"))
 			break;
-		twl_lst_push(this->wordlist, twl_lst_pop_front(tokens));
+		twl_lst_push_back(this->wordlist, twl_lst_pop_front(tokens));
 	}
 }
 

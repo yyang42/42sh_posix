@@ -18,6 +18,6 @@ void				shenv_add_flag(char *flag, t_shenv *env)
 {
 	if (env && env->flags && !shenv_flag_exist(env, flag))
 	{
-		twl_lst_push(env->flags, twl_opt_elem_new(flag, ""));
+		twl_lst_push_back(env->flags, twl_opt_elem_new(flag, ""));
 	}
 }

@@ -14,5 +14,5 @@
 
 void				builtin_mgr_add(t_lst *builtins, t_builtin *builtin)
 {
-	twl_lst_push(builtins, builtin);
+	twl_lst_push_back(builtins, builtin);
 }

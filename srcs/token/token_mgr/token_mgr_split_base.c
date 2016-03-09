@@ -23,7 +23,7 @@ static void			hande_openclose(t_openclose_matcher *matcher,
 		pos = twl_lst_len(tokens);
 	while (pos > 0)
 	{
-		twl_lst_push(tokens_tmp, twl_lst_shift(tokens));
+		twl_lst_push_back(tokens_tmp, twl_lst_shift(tokens));
 		pos--;
 	}
 }
@@ -36,7 +36,7 @@ static void			do_split_true(t_lst *tokens, t_lst *tokens_list,
 	t_lst					*tokens_tmp;
 
 	tokens_tmp = twl_lst_new();
-	twl_lst_push(tokens_list, tokens_tmp);
+	twl_lst_push_back(tokens_list, tokens_tmp);
 	while ((token = twl_lst_first(tokens)))
 	{
 		if (openclose_matcher_is_open(matcher, token->text))
@@ -45,13 +45,13 @@ static void			do_split_true(t_lst *tokens, t_lst *tokens_list,
 		}
 		else if (twl_lst_find(split_strings, twl_strequ_void, token->text))
 		{
-			twl_lst_push(tokens_tmp, twl_lst_shift(tokens));
+			twl_lst_push_back(tokens_tmp, twl_lst_shift(tokens));
 			tokens_tmp = twl_lst_new();
-			twl_lst_push(tokens_list, tokens_tmp);
+			twl_lst_push_back(tokens_list, tokens_tmp);
 		}
 		else
 		{
-			twl_lst_push(tokens_tmp, twl_lst_shift(tokens));
+			twl_lst_push_back(tokens_tmp, twl_lst_shift(tokens));
 		}
 	}
 }
@@ -64,7 +64,7 @@ static void			do_split_false(t_lst *tokens, t_lst *tokens_list,
 	t_lst					*tokens_tmp;
 
 	tokens_tmp = twl_lst_new();
-	twl_lst_push(tokens_list, tokens_tmp);
+	twl_lst_push_back(tokens_list, tokens_tmp);
 	while ((token = twl_lst_first(tokens)))
 	{
 		if (openclose_matcher_is_open(matcher, token->text))
@@ -75,11 +75,11 @@ static void			do_split_false(t_lst *tokens, t_lst *tokens_list,
 		{
 			twl_lst_shift(tokens);
 			tokens_tmp = twl_lst_new();
-			twl_lst_push(tokens_list, tokens_tmp);
+			twl_lst_push_back(tokens_list, tokens_tmp);
 		}
 		else
 		{
-			twl_lst_push(tokens_tmp, twl_lst_shift(tokens));
+			twl_lst_push_back(tokens_tmp, twl_lst_shift(tokens));
 		}
 	}
 }

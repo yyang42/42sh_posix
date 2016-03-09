@@ -103,7 +103,7 @@ int				expan_tokenizer_get_word_len(char **res, char *str, char *delimiter)
 	{
 		quote = expan_quote_new();
 		quote->str = twl_strndup(&str[word_len], 1);
-		twl_lst_push(quotes, quote);
+		twl_lst_push_back(quotes, quote);
 		word_len++;
 	}
 	word_len = 0;

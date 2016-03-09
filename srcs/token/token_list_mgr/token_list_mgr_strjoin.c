@@ -14,7 +14,7 @@
 
 static void			push_fn(void *tokens, void *segs)
 {
-	twl_lst_push(segs, token_mgr_strjoin(tokens, "_"));
+	twl_lst_push_back(segs, token_mgr_strjoin(tokens, "_"));
 }
 
 char				*token_list_mgr_strjoin(t_lst *tokens_list)

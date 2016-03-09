@@ -14,5 +14,5 @@
 
 void				<MGR_NAME>_add(t_lst *<OBJ_PLURAL_NAME>, t_<OBJ_NAME> *<OBJ_NAME>)
 {
-	twl_lst_push(<OBJ_PLURAL_NAME>, <OBJ_NAME>);
+	twl_lst_push_back(<OBJ_PLURAL_NAME>, <OBJ_NAME>);
 }

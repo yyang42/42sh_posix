@@ -19,7 +19,7 @@ static void			print_token_fn(void *token_, void *segs)
 
 	token = token_;
 	twl_asprintf(&str, "%s(%d:%d)", token->text, token->line, token->col);
-	twl_lst_push(segs, str);
+	twl_lst_push_back(segs, str);
 }
 
 char				*token_mgr_strjoin_with_num(t_lst *tokens)

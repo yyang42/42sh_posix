@@ -32,11 +32,11 @@ static bool				push_fn(t_lst *tokens, t_arexp_relational *relational,
 	to_push->shift = shift;
 	if (!is_relational_token(token_mgr_first(tokens)))
 	{
-		twl_lst_push(relational->shift, to_push);
+		twl_lst_push_back(relational->shift, to_push);
 		return (false);
 	}
 	to_push->relational_sign = twl_lst_pop_front(tokens);
-	twl_lst_push(relational->shift, to_push);
+	twl_lst_push_back(relational->shift, to_push);
 	return (true);
 }
 

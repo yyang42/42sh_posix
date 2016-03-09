@@ -32,11 +32,11 @@ static bool					push_fn(t_lst *tokens,
 	to_push->unary = unary;
 	if (!is_multiplicative_token(token_mgr_first(tokens)))
 	{
-		twl_lst_push(multiplicative->unary, to_push);
+		twl_lst_push_back(multiplicative->unary, to_push);
 		return (false);
 	}
 	to_push->multiplicative_sign = twl_lst_pop_front(tokens);
-	twl_lst_push(multiplicative->unary, to_push);
+	twl_lst_push_back(multiplicative->unary, to_push);
 	return (true);
 }
 

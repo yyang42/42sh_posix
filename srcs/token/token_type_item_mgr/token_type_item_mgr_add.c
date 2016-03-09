@@ -15,5 +15,5 @@
 void				token_type_item_mgr_add(t_lst *token_type_items,
 							char *text, t_token_type type)
 {
-	twl_lst_push(token_type_items, token_type_item_new(text, type));
+	twl_lst_push_back(token_type_items, token_type_item_new(text, type));
 }

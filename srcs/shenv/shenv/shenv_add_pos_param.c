@@ -18,6 +18,6 @@ void				shenv_add_pos_param(char *param, t_shenv *env)
 {
 	if (env && env->pos_params)
 	{
-		twl_lst_push(env->pos_params, twl_strdup(param));
+		twl_lst_push_back(env->pos_params, twl_strdup(param));
 	}
 }

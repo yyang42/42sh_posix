@@ -39,7 +39,7 @@ static void			resolve(t_openclose_matcher *matcher, t_lst *stack,
 	}
 	else if (open_pos)
 	{
-		twl_lst_push(stack, open_pos);
+		twl_lst_push_back(stack, open_pos);
 		*s_ptr += twl_strlen(open_pos->open);
 	}
 	else

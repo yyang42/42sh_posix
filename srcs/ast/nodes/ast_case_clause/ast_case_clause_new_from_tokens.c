@@ -36,7 +36,7 @@ static void			handle_cases(t_ast_case_clause *this, t_token *open,
 		case_item = ast_case_item_new_from_tokens(tokens, ast);
 		if (ast_has_error(ast))
 			return ;
-		twl_lst_push(this->case_list, case_item);
+		twl_lst_push_back(this->case_list, case_item);
 		if (token_mgr_first_equ(tokens, ";;"))
 		{
 			twl_lst_pop_front(tokens);

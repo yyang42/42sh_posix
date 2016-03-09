@@ -14,5 +14,5 @@
 
 void				history_mgr_add(t_lst *history, char *line)
 {
-	twl_lst_push(history, twl_strdup(line));
+	twl_lst_push_back(history, twl_strdup(line));
 }

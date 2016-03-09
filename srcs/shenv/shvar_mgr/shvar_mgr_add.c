@@ -14,5 +14,5 @@
 
 void				shvar_mgr_add(t_lst *shvars, t_shvar *shvar)
 {
-	twl_lst_push(shvars, shvar);
+	twl_lst_push_back(shvars, shvar);
 }

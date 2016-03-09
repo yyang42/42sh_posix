@@ -78,7 +78,7 @@ static int				expan_token_parse_command_backquote(char **res, char *str, int i)
 	{
 		quote = expan_quote_new();
 		quote->str = twl_strndup(&str[word_len], 1);
-		twl_lst_push(quotes, quote);
+		twl_lst_push_back(quotes, quote);
 		word_len++;
 	}
 	word_len = 0;

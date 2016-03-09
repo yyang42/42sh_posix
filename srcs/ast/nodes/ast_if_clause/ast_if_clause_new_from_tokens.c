@@ -31,7 +31,7 @@ t_ast_if_clause		*ast_if_clause_new_from_tokens(t_lst *tokens,
 	{
 		if_then = ast_if_then_new_from_tokens(tokens, ast);
 		if (if_then)
-			twl_lst_push(this->if_then_list, if_then);
+			twl_lst_push_back(this->if_then_list, if_then);
 	}
 	if (ast_has_error(ast))
 	{

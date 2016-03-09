@@ -14,6 +14,6 @@
 
 void				pattern_build_push_(t_pattern *this)
 {
-	twl_lst_push(this->split, this->to_push_);
+	twl_lst_push_back(this->split, this->to_push_);
 	this->to_push_ = NULL;
 }

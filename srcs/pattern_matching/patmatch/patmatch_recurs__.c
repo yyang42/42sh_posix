@@ -21,13 +21,13 @@ static int	is_end_of_recurs(t_patmatch *this, t_matching_ *match)
 	depth = pattern_get_depth(this->pattern);
 	if (match->depth == depth)
 	{
-		twl_lst_push(this->match, twl_strdup(match->building));
+		twl_lst_push_back(this->match, twl_strdup(match->building));
 		return (1);
 	}
 	if (match->depth + 1 == depth && !pattern_get_pattern(this->pattern,
 				match->depth))
 	{
-		twl_lst_push(this->match, twl_strjoin(match->building, "/"));
+		twl_lst_push_back(this->match, twl_strjoin(match->building, "/"));
 		return (1);
 	}
 	return (0);
