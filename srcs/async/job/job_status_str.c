@@ -10,8 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <sys/wait.h>
 #include "async/job.h"
 #include "signal.h"
+
+static char			*handle_signaled(int stat_val)
+{
+	char			*str_status;
+
+	if (WTERMSIG(stat_val) == 5)
+	{
+		str_status = twl_strdup("Running");
+	}
+	else
+	{
+		twl_asprintf(&str_status, "WTERMSIG(%d)", WTERMSIG(stat_val));
+	}
+	return (str_status);
+}
 
 char				*job_status_str(t_job *this)
 {
@@ -29,24 +45,16 @@ char				*job_status_str(t_job *this)
 			twl_asprintf(&str_status, "Done(%d)", WEXITSTATUS(stat_val));
 	}
 	else if (WIFSTOPPED(stat_val))
+	{
 		twl_asprintf(&str_status, "WSTOPSIG(%d)", WSTOPSIG(stat_val));
+	}
 	else if (WIFSIGNALED(stat_val))
 	{
-		if (WTERMSIG(stat_val) == 5)
-		{
-			str_status = twl_strdup("Running");
-		}
-		else
-		{
-			twl_asprintf(&str_status, "WTERMSIG(%d)", WTERMSIG(stat_val));
-		}
+		str_status = handle_signaled(stat_val);
 	}
 	else
+	{
 		str_status = twl_strdup("Unknown");
-	// if (this->status == JOB_RUNNING)
-	// 	str_status = twl_strdup("Running");
-	// else if (this->status == JOB_TERMINATED)
-	// 	str_status = twl_strdup("Terminated");
-	// else
+	}
 	return (str_status);
 }
