@@ -34,9 +34,11 @@ char				*job_status_str(t_job *this)
 	char			*str_status;
 	int				pid;
 	int				stat_val;
+	// char			*temp;
 
 	pid = this->pid;
-	waitpid(pid, &stat_val, WNOHANG);
+	// temp = twl_strdup("Done");
+	waitpid(pid, &stat_val, WNOHANG | WCONTINUED | WUNTRACED);
 	if (WIFEXITED(stat_val))
 	{
 		if (WEXITSTATUS(stat_val) == 0)
@@ -45,16 +47,10 @@ char				*job_status_str(t_job *this)
 			twl_asprintf(&str_status, "Done(%d)", WEXITSTATUS(stat_val));
 	}
 	else if (WIFSTOPPED(stat_val))
-	{
 		twl_asprintf(&str_status, "WSTOPSIG(%d)", WSTOPSIG(stat_val));
-	}
 	else if (WIFSIGNALED(stat_val))
-	{
 		str_status = handle_signaled(stat_val);
-	}
 	else
-	{
 		str_status = twl_strdup("Unknown");
-	}
 	return (str_status);
 }
