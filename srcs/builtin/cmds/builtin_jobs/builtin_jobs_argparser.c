@@ -10,43 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "async/job.h"
-#include "signal.h"
+#include "builtin/cmds/builtin_jobs.h"
 
-char				*job_status_str(t_job *this)
+t_argparser			*builtin_jobs_argparser(void)
 {
-	char			*str_status;
-	int				pid;
-	int				stat_val;
+	static t_argparser		*argparser;
 
-	pid = this->pid;
-	waitpid(pid, &stat_val, WNOHANG);
-	if (WIFEXITED(stat_val))
+	if (argparser == NULL)
 	{
-		if (WEXITSTATUS(stat_val) == 0)
-			twl_asprintf(&str_status, "Done");
-		else
-			twl_asprintf(&str_status, "Done(%d)", WEXITSTATUS(stat_val));
+		argparser = argparser_new("jobs");
+		argparser_set_usage_extra(argparser, " [jobspec ...] or jobs -x command [args]");
+		argparser_add_argument(argparser, argparser_argument_new('l', NULL, "Provide more information about each job listed.", 0));
+		argparser_add_argument(argparser, argparser_argument_new('p', NULL, "Display only the process IDs", 0));
 	}
-	else if (WIFSTOPPED(stat_val))
-		twl_asprintf(&str_status, "WSTOPSIG(%d)", WSTOPSIG(stat_val));
-	else if (WIFSIGNALED(stat_val))
-	{
-		if (WTERMSIG(stat_val) == 5)
-		{
-			str_status = twl_strdup("Running");
-		}
-		else
-		{
-			twl_asprintf(&str_status, "WTERMSIG(%d)", WTERMSIG(stat_val));
-		}
-	}
-	else
-		str_status = twl_strdup("Unknown");
-	// if (this->status == JOB_RUNNING)
-	// 	str_status = twl_strdup("Running");
-	// else if (this->status == JOB_TERMINATED)
-	// 	str_status = twl_strdup("Terminated");
-	// else
-	return (str_status);
+	return (argparser);
 }

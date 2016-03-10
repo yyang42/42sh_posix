@@ -21,7 +21,8 @@ static void		iter_fn(void *ast_list_item_)
 	expan_ret = ast_list_item_expan(ast_list_item);
 	if (expan_ret)
 	{
-		if (ast_list_item->separator && twl_strequ(ast_list_item->separator->text, "&"))
+		if (ast_list_item->separator
+			&& twl_strequ(ast_list_item->separator->text, "&"))
 		{
 			ast_list_item_exec_async(ast_list_item);
 		}
