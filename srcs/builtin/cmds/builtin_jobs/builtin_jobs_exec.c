@@ -25,7 +25,6 @@ static void			builtin_jobs_exec_do(t_argparser_result *argparser_result)
 	else if (argparser_result_opt_is_set(argparser_result, "p"))
 		flags |= BUILTIN_JOBS_FLAG_OPT_P;
 	builtin_jobs_exec_print(shenv_singleton()->jobs, flags);
-	(void)argparser_result;
 }
 
 void				builtin_jobs_exec(t_lst *tokens, t_shenv *shenv)

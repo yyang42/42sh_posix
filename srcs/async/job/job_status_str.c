@@ -11,35 +11,10 @@
 /* ************************************************************************** */
 
 #include <sys/wait.h>
+#include <errno.h>
 #include "async/job.h"
 #include "signal.h"
-#include <sys/wait.h>
- #include <stdio.h>
- #include <errno.h>
-/*
-static char			*handle_signaled(int stat_val)
-{
-	char			*str_status;
 
-	if (WTERMSIG(stat_val) == 5)
-	{
-		str_status = twl_strdup("Running");
-	}
-	else
-	{
-		twl_asprintf(&str_status, "WTERMSIG(%d)", WTERMSIG(stat_val));
-	}
-	return (str_status);
-}
-
-static char			*handle_stopped(int stat_val)
-{
-	char			*str_status;
-
-	twl_asprintf(&str_status, "Stopped(%s)", WSTOPSIG(stat_val));
-	return (str_status);
-}
-*/
 char				*job_status_str(t_job *this)
 {
 	char			*str_status;
@@ -51,7 +26,7 @@ char				*job_status_str(t_job *this)
 	end_pid = waitpid(child_pid, &status, WNOHANG|WUNTRACED);
 	str_status = NULL;
 	if (end_pid == -1) {            /* error calling waitpid       */
-        perror("waitpid error");
+        twl_dprintf(2, "waitpid error");
 		exit(EXIT_FAILURE);
 	}
 	else if (end_pid == 0) {        /* child still running         */
