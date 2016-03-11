@@ -45,15 +45,17 @@ typedef enum		e_job_status
 
 typedef struct		s_job
 {
-	long long int	job_id;
-	int				pid;
+	int				job_id;
+	pid_t			pid;
 	t_job_status	status;
 	char			*cmd_str;
 }					t_job;
 
 t_job				*job_new(int pid, char *cmd_str);
 void				job_del(t_job *job);
+void				job_del_void(void *job);
 
 char				*job_status_str(t_job *this);
+pid_t				job_waitpid(t_job *this);
 
 #endif

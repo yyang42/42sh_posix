@@ -12,16 +12,7 @@
 
 #include "async/job.h"
 
-t_job				*job_new(pid_t pid, char *cmd_str)
+void				job_del_void(void *job)
 {
-	t_job					*this;
-	static long long int	job_id = 1;
-
-	this = twl_malloc_x0(sizeof(t_job));
-	this->job_id = job_id;
-	this->pid = pid;
-	this->cmd_str = twl_strdup(cmd_str);
-	this->status = JOB_RUNNING;
-	job_id++;
-	return (this);
+	job_del(job);
 }

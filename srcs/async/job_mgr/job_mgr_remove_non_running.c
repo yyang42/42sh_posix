@@ -10,18 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "async/job.h"
+#include "async/job_mgr.h"
 
-t_job				*job_new(pid_t pid, char *cmd_str)
+static bool			remove_if_fn(void *job_, void *ctx)
 {
-	t_job					*this;
-	static long long int	job_id = 1;
+	// t_job	*job;
 
-	this = twl_malloc_x0(sizeof(t_job));
-	this->job_id = job_id;
-	this->pid = pid;
-	this->cmd_str = twl_strdup(cmd_str);
-	this->status = JOB_RUNNING;
-	job_id++;
-	return (this);
+	// job = job_;
+	// if (job)
+	(void)ctx;
+	(void)job_;
+	return (true);
+}
+
+void				job_mgr_remove_non_running(t_lst *jobs)
+{
+	twl_lst_remove_if(jobs, remove_if_fn, NULL, job_del_void);
 }

@@ -10,18 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <sys/wait.h>
 #include "async/job.h"
+#include "signal.h"
 
-t_job				*job_new(pid_t pid, char *cmd_str)
+pid_t				job_waitpid(t_job *this)
 {
-	t_job					*this;
-	static long long int	job_id = 1;
+	pid_t			stat_val;
 
-	this = twl_malloc_x0(sizeof(t_job));
-	this->job_id = job_id;
-	this->pid = pid;
-	this->cmd_str = twl_strdup(cmd_str);
-	this->status = JOB_RUNNING;
-	job_id++;
-	return (this);
+	stat_val = 0;
+	waitpid(this->pid, &stat_val, WNOHANG | WCONTINUED | WUNTRACED);
+	return (stat_val);
 }
