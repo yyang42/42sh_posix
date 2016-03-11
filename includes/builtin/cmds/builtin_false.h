@@ -10,46 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/cmds/builtin_unset.h"
-#include "shenv/shenv.h"
-#include "twl_opt.h"
+#ifndef BUILTIN_FALSE_H
+# define BUILTIN_FALSE_H
 
-static void			unset_something(void *data, void *context, void *ret_)
-{
-	t_shenv		*env;
-	char				*arg;
-	int					*ret;
-	t_shvar	*var;
+# include "basics.h"
+# include "shenv/shenv.h"
 
-	arg = data;
-	env = context;
-	ret = ret_;
-	if (arg)
-	{
-		if ((var = shenv_shvars_get(env, arg)))
-		{
-			if (var->shvar_read_only == false)
-			{
-				shenv_unsetenv(env, arg);
-				*ret = EXIT_SUCCESS;
-			}
-			else
-			{
-				twl_dprintf(2, "unset: %s: cannot unset: readonly variable\n",
-																	arg);
-				*ret = BUILTIN_EXEC_FAILURE;
-			}
-		}
-	}
-}
+void				builtin_false_exec(t_lst *tokens, t_shenv *env);
 
-int					builtin_unset_variable(t_shenv *env, t_opt *opt)
-{
-	int	ret;
-
-	ret = BUILTIN_EXEC_FAILURE;
-	(void)opt;
-	(void)env;
-	twl_lst_iter2(opt->args, unset_something, env, &ret);
-	return (ret);
-}
+#endif

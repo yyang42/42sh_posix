@@ -11,6 +11,24 @@
 /* ************************************************************************** */
 
 #include "builtin/builtin.h"
+#include "builtin/cmds/builtin_alias.h"
+#include "builtin/cmds/builtin_cd.h"
+#include "builtin/cmds/builtin_dot.h"
+#include "builtin/cmds/builtin_echo.h"
+#include "builtin/cmds/builtin_env.h"
+#include "builtin/cmds/builtin_eval.h"
+#include "builtin/cmds/builtin_exit.h"
+#include "builtin/cmds/builtin_export.h"
+#include "builtin/cmds/builtin_false.h"
+#include "builtin/cmds/builtin_jobs.h"
+#include "builtin/cmds/builtin_readonly.h"
+#include "builtin/cmds/builtin_set.h"
+#include "builtin/cmds/builtin_setenv.h"
+#include "builtin/cmds/builtin_shift.h"
+#include "builtin/cmds/builtin_times.h"
+#include "builtin/cmds/builtin_true.h"
+#include "builtin/cmds/builtin_umask.h"
+#include "builtin/cmds/builtin_unset.h"
 
 #include "data.h"
 

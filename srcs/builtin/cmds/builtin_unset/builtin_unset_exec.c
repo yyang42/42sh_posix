@@ -36,7 +36,7 @@ void				builtin_unset_exec(t_lst *tokens, t_shenv *env)
 	char			**arr;
 	int				flag;
 
-	flag = BUILTIN_EXEC_SUCCESS;
+	flag = EXIT_SUCCESS;
 	arr = token_mgr_to_str_arr(tokens);
 	opt = twl_opt_new(arr, UNSET_OPT_VALID_OPTS);
 	if (builtin_utils_check_invalid_opts(opt, "unset", UNSET_OPT_VALID_OPTS))

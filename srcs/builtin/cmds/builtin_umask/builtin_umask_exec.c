@@ -69,7 +69,7 @@ static int			modify_umask(t_opt *opt, char *arg)
 	umask(umask_arg);
 	if (twl_opt_exist(opt, "-S"))
 		builtin_umask_print_symbolic(umask_arg);
-	return (BUILTIN_EXEC_SUCCESS);
+	return (EXIT_SUCCESS);
 }
 
 static void			builtin_umask_2(t_opt *opt, int *flag)
@@ -81,7 +81,7 @@ static void			builtin_umask_2(t_opt *opt, int *flag)
 	if (twl_opt_exist(opt, "S"))
 	{
 		builtin_umask_print_symbolic(umask_arg);
-		*flag = BUILTIN_EXEC_SUCCESS;
+		*flag = EXIT_SUCCESS;
 	}
 	else
 		twl_printf("%04lo\n", (unsigned long)umask_arg);

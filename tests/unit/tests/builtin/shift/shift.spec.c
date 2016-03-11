@@ -16,10 +16,10 @@ static void 	test_simple_shift(t_test *test)
 	builtin_set_exec(tokenizer_tokenize("set lol pouet"), env);
 	mt_assert(twl_lst_len(env->pos_params) == 2);
 	builtin_shift_exec(tokenizer_tokenize("shift"), env);
-	mt_assert(env->last_exit_code == BUILTIN_EXEC_SUCCESS);
+	mt_assert(env->last_exit_code == EXIT_SUCCESS);
 	mt_assert(twl_lst_len(env->pos_params) == 1);
 	// builtin_shift_exec(tokenizer_tokenize("shift"), env);
-	// mt_assert(env->last_exit_code == BUILTIN_EXEC_SUCCESS);
+	// mt_assert(env->last_exit_code == EXIT_SUCCESS);
 	// mt_assert(twl_lst_len(env->pos_params) == 0);
 	shenv_del(env);
 }

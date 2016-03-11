@@ -14,7 +14,25 @@
 #include <errno.h>
 #include "async/job.h"
 #include "signal.h"
+/*
+	Running
+		Indicates that the job has not been suspended by a signal and has not exited.
+	Done
+		Indicates that the job completed and returned exit status zero.
+	Done(code)
+		Indicates that the job completed normally and that it exited with the specified non-zero exit status, code, expressed as a decimal number.
+	Stopped
+		Indicates that the job was suspended by the SIGTSTP signal.
+	Stopped (SIGTSTP)
+		Indicates that the job was suspended by the SIGTSTP signal.
+	Stopped (SIGSTOP)
+		Indicates that the job was suspended by the SIGSTOP signal.
+	Stopped (SIGTTIN)
+		Indicates that the job was suspended by the SIGTTIN signal.
+	Stopped (SIGTTOU)
+		Indicates that the job was suspended by the SIGTTOU signal.
 
+*/
 char				*job_status_str(t_job *this)
 {
 	char			*str_status;
@@ -25,14 +43,16 @@ char				*job_status_str(t_job *this)
 	// waitpid(this->pid, &stat_val, WNOHANG | WCONTINUED | WUNTRACED);
 	end_pid = waitpid(child_pid, &status, WNOHANG|WUNTRACED);
 	str_status = NULL;
-	if (end_pid == -1) {            /* error calling waitpid       */
+	if (end_pid == -1)
+	{
         twl_dprintf(2, "waitpid error");
 		exit(EXIT_FAILURE);
 	}
-	else if (end_pid == 0) {        /* child still running         */
+	else if (end_pid == 0) {
 		str_status = twl_strdup("Running");
 	}
-	else if (end_pid == child_pid) {  /* child ended                 */
+	else if (end_pid == child_pid)
+	{
 		if (WIFEXITED(status))
 			twl_asprintf(&str_status, "Done(%d)", WEXITSTATUS(status));
 		else if (WIFSIGNALED(status))
