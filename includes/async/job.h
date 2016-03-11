@@ -51,7 +51,7 @@ typedef struct		s_job
 	char			*cmd_str;
 }					t_job;
 
-t_job				*job_new(int pid, char *cmd_str);
+t_job				*job_new(pid_t pid, char *cmd_str);
 void				job_del(t_job *job);
 void				job_del_void(void *job);
 

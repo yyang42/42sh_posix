@@ -30,7 +30,7 @@ int					ast_exec_tokens_with_fork(t_lst *tokens)
 	}
 	else
 	{
-		wait(&res);
+		waitpid(pid, &res, 0);
 		// if (WIFEXITED(res))
 		// 	return (WEXITSTATUS(res));
 	}

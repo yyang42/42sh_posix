@@ -38,7 +38,7 @@ static void			andor_fn_2(t_ast_pipe_item *pipe_item, pid_t pid)
 	}
 	else
 	{
-		wait(&res);
+		waitpid(pid, &res, 0);
 		handle_signal(res);
     	if (WIFEXITED(res))
 			shenv_singleton()->last_exit_code = WEXITSTATUS(res);
@@ -64,7 +64,9 @@ static void			iter_andor_fn(void *ast_pipe_item_)
 		fork_error();
 	}
 	else
+	{
 		andor_fn_2(ast_pipe_item, child_pid);
+	}
 }
 
 static void			iter_fds_fn(void *data, void *next_data, void *context_)
@@ -73,7 +75,6 @@ static void			iter_fds_fn(void *data, void *next_data, void *context_)
 	t_ast_pipe_item	*pipe_item_next;
 	int				fds[2];
 
-	(void)context_;
 	pipe(fds);
 	pipe_item = data;
 	pipe_item_next = next_data;
@@ -82,6 +83,7 @@ static void			iter_fds_fn(void *data, void *next_data, void *context_)
 		pipe_item_next->fds[0] = fds[0];
 		pipe_item->fds[1] = fds[1];
 	}
+	(void)context_;
 }
 
 void					ast_andor_item_exec(t_ast_andor_item *ast_andor_item)

@@ -16,7 +16,7 @@
 #include <sys/wait.h>
  #include <stdio.h>
  #include <errno.h>
-
+/*
 static char			*handle_signaled(int stat_val)
 {
 	char			*str_status;
@@ -39,56 +39,35 @@ static char			*handle_stopped(int stat_val)
 	twl_asprintf(&str_status, "Stopped(%s)", WSTOPSIG(stat_val));
 	return (str_status);
 }
-
+*/
 char				*job_status_str(t_job *this)
 {
 	char			*str_status;
-	// pid_t			pid;
 	int				status;
-    pid_t childID, endID;
+    pid_t child_pid, end_pid;
 
-	childID = this->pid;
+	child_pid = this->pid;
 	// waitpid(this->pid, &stat_val, WNOHANG | WCONTINUED | WUNTRACED);
-	twl_printf("childID %d\n", childID);
-	endID = waitpid(childID, &status, WNOHANG|WUNTRACED);
-	if (endID == -1) {            /* error calling waitpid       */
+	end_pid = waitpid(child_pid, &status, WNOHANG|WUNTRACED);
+	str_status = NULL;
+	if (end_pid == -1) {            /* error calling waitpid       */
         perror("waitpid error");
-		// twl_dprintf(2, "waitpid error");
 		exit(EXIT_FAILURE);
 	}
-	else if (endID == 0) {        /* child still running         */
-		// time(&when);
-		str_status = twl_strdup("Parent waiting");
-		sleep(1);
+	else if (end_pid == 0) {        /* child still running         */
+		str_status = twl_strdup("Running");
 	}
-	else if (endID == childID) {  /* child ended                 */
+	else if (end_pid == child_pid) {  /* child ended                 */
 		if (WIFEXITED(status))
-			str_status = twl_strdup("Child ended normally.n");
+			twl_asprintf(&str_status, "Done(%d)", WEXITSTATUS(status));
 		else if (WIFSIGNALED(status))
-			str_status = twl_strdup("Child ended because of an uncaught signal.n");
+			str_status = twl_strdup("Child ended because of an uncaught signal");
 		else if (WIFSTOPPED(status))
-			str_status = twl_strdup("Child process has stopped.n");
-		exit(EXIT_SUCCESS);
+			str_status = twl_strdup("Child process has stopped");
+		else if (WEXITSTATUS(status) == 0)
+			twl_asprintf(&str_status, "WEXITSTATUS(stat_val) %d", (WEXITSTATUS(status)));
 	}
-	else
-	{
-		str_status = twl_strdup("unknown");
-	}
-	(void)handle_signaled;
-	(void)handle_stopped;
-	// stat_val = job_waitpid(this);
-	// if (WIFEXITED(stat_val))
-	// {
-	// 	if (WEXITSTATUS(stat_val) == 0)
-	// 		twl_asprintf(&str_status, "Done");
-	// 	else
-	// 		twl_asprintf(&str_status, "Done(%d)", WEXITSTATUS(stat_val));
-	// }
-	// else if (WIFSTOPPED(stat_val))
-	// 	str_status = handle_stopped(stat_val);
-	// else if (WIFSIGNALED(stat_val))
-	// 	str_status = handle_signaled(stat_val);
-	// else
-	// 	str_status = twl_strdup("Unknown");
+	if (!str_status)
+		str_status = twl_strdup("Unknown");
 	return (str_status);
 }

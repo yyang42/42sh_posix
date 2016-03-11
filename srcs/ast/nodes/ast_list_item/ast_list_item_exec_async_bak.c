@@ -10,15 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_subshell.h"
-#include "ast/nodes/ast_compound_list.h"
-
-
-
-static void			ast_subshell_fork_exec(t_ast_subshell *this)
+#include "ast/nodes/ast_list_item.h"
+#include "async/job_mgr.h"
+/*
+static void			ast_list_item_after_fork(t_ast_list_item *this, pid_t pid)
 {
-	int				pid;
-	int				res;
+	char			*cmd_str;
+	t_job			*job;
+
+	cmd_str = token_mgr_strjoin(this->list_item_tokens, " ");
+	job = job_new(pid, cmd_str);
+	job_mgr_env_push(job);
+	free(cmd_str);
+}
+
+void				ast_list_item_exec_async(t_ast_list_item *this)
+{
+	pid_t			pid;
 
 	pid = fork();
 	if (pid == -1)
@@ -27,18 +35,12 @@ static void			ast_subshell_fork_exec(t_ast_subshell *this)
 	}
 	else if (pid == 0)
 	{
-		ast_compound_list_exec(this->ast_compound_list);
+		ast_list_item_exec(this);
 		exit(0);
 	}
 	else
 	{
-		waitpid(pid, &res, 0);
-    	if (WIFEXITED(res))
-			shenv_singleton()->last_exit_code = WEXITSTATUS(res);
+		ast_list_item_after_fork(this, pid);
 	}
 }
-
-void				ast_subshell_exec(t_ast_subshell *this)
-{
-	ast_subshell_fork_exec(this);
-}
+*/
