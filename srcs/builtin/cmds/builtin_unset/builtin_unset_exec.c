@@ -23,7 +23,7 @@ static int			check_flags(t_shenv *env, t_opt *opt)
 	else
 	{
 		ret = builtin_unset_variable(env, opt);
-		if (ret == BUILTIN_EXEC_FAILURE)
+		if (ret == EXIT_FAILURE)
 			return (builtin_unset_function(env, opt));
 		else
 			return (ret);
@@ -40,14 +40,14 @@ void				builtin_unset_exec(t_lst *tokens, t_shenv *env)
 	arr = token_mgr_to_str_arr(tokens);
 	opt = twl_opt_new(arr, UNSET_OPT_VALID_OPTS);
 	if (builtin_utils_check_invalid_opts(opt, "unset", UNSET_OPT_VALID_OPTS))
-		flag = BUILTIN_EXEC_FAILURE;
+		flag = EXIT_FAILURE;
 	else
 	{
 		if (twl_opt_get_param(opt, "f") && twl_opt_get_param(opt, "v"))
 		{
 			twl_dprintf(2, "unset: cannot simultaneously unset \
 													a function and a variable\n");
-			flag = BUILTIN_EXEC_FAILURE;
+			flag = EXIT_FAILURE;
 		}
 		else
 			flag = check_flags(env, opt);

@@ -29,7 +29,7 @@ static void			shift_action(t_shenv *env, t_opt *opt)
 	if (twl_lst_len(env->pos_params) < shift_nb)
 	{
 		twl_printf("shift count must be <= $#");
-		env->last_exit_code = BUILTIN_EXEC_FAILURE;
+		env->last_exit_code = EXIT_FAILURE;
 	}
 	if (twl_lst_len(env->pos_params) < shift_nb)
 		twl_lst_clear(env->pos_params, &free);
@@ -56,7 +56,7 @@ void				builtin_shift_exec(t_lst *tokens, t_shenv *env)
 		if (twl_lst_len(opt->args) > 1)
 		{
 			twl_printf("shift: too many arguments");
-			env->last_exit_code = BUILTIN_EXEC_FAILURE;
+			env->last_exit_code = EXIT_FAILURE;
 		}
 		else
 			shift_action(env, opt);

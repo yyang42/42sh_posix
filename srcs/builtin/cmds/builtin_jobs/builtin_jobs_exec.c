@@ -35,7 +35,7 @@ void				builtin_jobs_exec(t_lst *tokens, t_shenv *shenv)
 	if (argparser_result->err_msg)
 	{
 		argparser_result_print_error_with_help(argparser_result);
-		shenv->last_exit_code = BUILTIN_EXEC_FAILURE;
+		shenv->last_exit_code = EXIT_FAILURE;
 	}
 	else
 	{

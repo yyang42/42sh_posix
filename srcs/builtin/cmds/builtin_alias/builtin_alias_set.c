@@ -22,7 +22,7 @@ void				builtin_alias_set(char *str, t_shenv *env)
 		key = twl_strsub(str, 0, twl_strlen(str) - twl_strlen(value));
 	else
 	{
-		env->last_exit_code = BUILTIN_EXEC_FAILURE;
+		env->last_exit_code = EXIT_FAILURE;
 		return ;
 	}
 	env->last_exit_code = EXIT_SUCCESS;

@@ -19,7 +19,7 @@
 # include "shenv/shenv.h"
 # include "ast/nodes/ast_simple_command.h"
 
-# define BUILTIN_EXEC_FAILURE 1
+# define EXIT_FAILURE 1
 
 typedef void (t_builtin_fn)(t_lst *tokens, t_shenv *this);
 
