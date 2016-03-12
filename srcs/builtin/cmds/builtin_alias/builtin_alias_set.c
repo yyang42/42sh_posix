@@ -19,7 +19,9 @@ void				builtin_alias_set(char *str, t_shenv *env)
 
 	value = twl_strchr(str, '=');
 	if (value)
+	{
 		key = twl_strsub(str, 0, twl_strlen(str) - twl_strlen(value));
+	}
 	else
 	{
 		env->last_exit_code = EXIT_FAILURE;

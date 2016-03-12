@@ -33,6 +33,7 @@ static void			andor_fn_2(t_ast_pipe_item *pipe_item, pid_t pid)
 			close(0);
 			dup2(pipe_item->fds[0], 0);
 		}
+		// twl_printf("shenv_singleton()->last_exit_code %d\n", shenv_singleton()->last_exit_code);
 		ast_pipe_item_exec(pipe_item);
 		exit(shenv_singleton()->last_exit_code);
 	}
@@ -88,7 +89,6 @@ static void			iter_fds_fn(void *data, void *next_data, void *context_)
 
 void					ast_andor_item_exec(t_ast_andor_item *ast_andor_item)
 {
-	// ast_andor_item_create_files(ast_andor_item);
 	if (twl_lst_len(ast_andor_item->ast_pipe_items) == 1)
 	{
 		ast_pipe_item_exec(twl_lst_get(ast_andor_item->ast_pipe_items, 0));
@@ -98,5 +98,4 @@ void					ast_andor_item_exec(t_ast_andor_item *ast_andor_item)
 		twl_lst_itern(ast_andor_item->ast_pipe_items, iter_fds_fn, NULL);
 		twl_lst_iter0(ast_andor_item->ast_pipe_items, iter_andor_fn);
 	}
-	// negate
 }

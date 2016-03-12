@@ -12,12 +12,9 @@
 
 #include "builtin/cmds/builtin_alias.h"
 
-static void			print_key_value(char *key, void *data, void *context_)
+static void			print_key_value(char *key, void *value, void *context_)
 {
-	char *str;
-
-	str = data;
-	twl_printf("%s='%s'\n", key, str);
+	twl_printf("%s='%s'\n", key, value);
 	(void)context_;
 }
 
