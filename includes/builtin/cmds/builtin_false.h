@@ -10,29 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/ast.h"
+#ifndef BUILTIN_FALSE_H
+# define BUILTIN_FALSE_H
 
-int					ast_exec_tokens_with_fork(t_lst *tokens)
-{
-	int				pid;
-	int				res;
+# include "basics.h"
+# include "shenv/shenv.h"
 
-	pid = fork();
-	if (pid == -1)
-	{
-		twl_dprintf(2, "cannot fork: %s", strerror(errno));
-	}
-	else if (pid == 0)
-	{
-		shenv_singleton_setter(shenv_new());
-		ast_exec_tokens(tokens);
-		exit(0);
-	}
-	else
-	{
-		wait(&res);
-		// if (WIFEXITED(res))
-		// 	return (WEXITSTATUS(res));
-	}
-	return (1);
-}
+void				builtin_false_exec(t_lst *tokens, t_shenv *env);
+
+#endif

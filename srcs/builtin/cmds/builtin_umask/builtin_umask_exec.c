@@ -56,20 +56,20 @@ static int			modify_umask(t_opt *opt, char *arg)
 		if (umask_value == -1)
 		{
 			error_octal_out_of_range(arg);
-			return (BUILTIN_EXEC_FAILURE);
+			return (EXIT_FAILURE);
 		}
 	}
 	else
 	{
 		umask_value = symbolic_umask(arg);
 		if (umask_value == -1)
-			return (BUILTIN_EXEC_FAILURE);
+			return (EXIT_FAILURE);
 	}
 	umask_arg = (mode_t)umask_value;
 	umask(umask_arg);
 	if (twl_opt_exist(opt, "-S"))
 		builtin_umask_print_symbolic(umask_arg);
-	return (BUILTIN_EXEC_SUCCESS);
+	return (EXIT_SUCCESS);
 }
 
 static void			builtin_umask_2(t_opt *opt, int *flag)
@@ -81,7 +81,7 @@ static void			builtin_umask_2(t_opt *opt, int *flag)
 	if (twl_opt_exist(opt, "S"))
 	{
 		builtin_umask_print_symbolic(umask_arg);
-		*flag = BUILTIN_EXEC_SUCCESS;
+		*flag = EXIT_SUCCESS;
 	}
 	else
 		twl_printf("%04lo\n", (unsigned long)umask_arg);
@@ -95,7 +95,7 @@ void				builtin_umask_exec(t_lst *tokens, t_shenv *this)
 
 	arr = token_mgr_to_str_arr(tokens);
 	opt = twl_opt_new(arr, UMASK_OPT_VALID_OPTS);
-	flag = BUILTIN_EXEC_FAILURE;
+	flag = EXIT_FAILURE;
 	if (!builtin_utils_check_invalid_opts(opt, "umask", UMASK_OPT_VALID_OPTS))
 	{
 		if (twl_opt_args_len(opt) < 1)

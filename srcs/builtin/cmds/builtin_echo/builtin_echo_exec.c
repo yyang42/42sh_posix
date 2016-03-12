@@ -41,7 +41,7 @@ void				builtin_echo_exec(t_lst *tokens, t_shenv *this)
 	{
 		twl_putstr("\n");
 	}
-	this->last_exit_code = BUILTIN_EXEC_SUCCESS;
+	this->last_exit_code = EXIT_SUCCESS;
 	twl_lst_del(tokens_copy, NULL);
 	return ; // (0)
 }

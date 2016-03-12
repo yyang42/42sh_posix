@@ -12,6 +12,8 @@
 
 #include "builtin/cmds/builtin_readonly.h"
 
+# define EXPORT_OPT_VALID_OPTS "p"
+
 void				builtin_readonly_exec(t_lst *tokens, t_shenv *env)
 {
 	t_opt			*opt;
@@ -29,5 +31,5 @@ void				builtin_readonly_exec(t_lst *tokens, t_shenv *env)
 	}
 	twl_arr_del(arr, NULL);
 	twl_opt_del(opt);
-	env->last_exit_code = BUILTIN_EXEC_SUCCESS;
+	env->last_exit_code = EXIT_SUCCESS;
 }

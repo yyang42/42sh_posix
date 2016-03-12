@@ -10,49 +10,40 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "async/job_mgr.h"
+#include "builtin/cmds/builtin_jobs.h"
 
-/*
-** $ jobs
-** [1]+  Running                 sleep 99999 && echo abc &
-** $ jobs -l
-** [1]+ 29125 Running                 sleep 99999 && echo abc &
-*/
-
-static char			*get_next_char(int len, int count)
+static char			*get_next_char(int len)
 {
-	if (count == len)
-		return ("+");
-	if (count == len - 1)
-		return ("-");
+	char			*sign_str;
+
+	if (len == 0)
+		sign_str = "+";
+	else if (len == 1)
+		sign_str = "-";
 	else
-		return (" ");
+		sign_str = " ";
+	return (sign_str);
 }
 
-static void			iter_fn(void *job_, void *len_ptr, void *count_ptr_)
+void				builtin_jobs_exec_print(t_lst *jobs, int flags)
 {
+	t_lst			*jobs_copy;
 	t_job			*job;
-	int				len;
-	int				*count_ptr;
 
-	job = job_;
-	len = *(int *)len_ptr;
-	count_ptr = count_ptr_;
-	twl_printf("[%lld]%s ", job->job_id, get_next_char(len, *count_ptr));
-	if (false) // job->pid
-		twl_printf("%d", job->pid);
-	twl_printf(" %-23s %s\n", job_status_str(job), job->cmd_str);
-	(*count_ptr)++;
-}
-
-void				job_mgr_env_print(void)
-{
-	int				len;
-	int				count;
-	t_lst			*jobs;
-
-	jobs = shenv_singleton()->jobs;
-	len = twl_lst_len(jobs);
-	count = 1;
-	twl_lst_iter2(jobs, iter_fn, &len, &count);
+	jobs_copy = twl_lst_copy(jobs, NULL);
+	while ((job = twl_lst_pop_front(jobs_copy)))
+	{
+		if (flags & BUILTIN_JOBS_FLAG_OPT_P)
+		{
+			twl_printf("%d\n", job->pid);
+		}
+		else
+		{
+			twl_printf("[%lld]%s ", job->job_id, get_next_char(twl_lst_len(jobs_copy)));
+			if (flags & BUILTIN_JOBS_FLAG_OPT_L)
+				twl_printf("%d", job->pid);
+			twl_printf(" %-23s %s\n", job_status_str(job), job->cmd_str);
+		}
+	}
+	twl_lst_del(jobs_copy, NULL);
 }

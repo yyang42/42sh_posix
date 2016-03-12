@@ -19,13 +19,15 @@ void				builtin_alias_set(char *str, t_shenv *env)
 
 	value = twl_strchr(str, '=');
 	if (value)
+	{
 		key = twl_strsub(str, 0, twl_strlen(str) - twl_strlen(value));
+	}
 	else
 	{
-		env->last_exit_code = BUILTIN_EXEC_FAILURE;
+		env->last_exit_code = EXIT_FAILURE;
 		return ;
 	}
-	env->last_exit_code = BUILTIN_EXEC_SUCCESS;
+	env->last_exit_code = EXIT_SUCCESS;
 	if (twl_dict_key_exist(env->alias, key))
 		twl_dict_set(env->alias, key, twl_strdup(value + 1), free);
 	else

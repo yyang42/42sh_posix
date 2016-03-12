@@ -12,7 +12,7 @@
 
 #include "async/job.h"
 
-t_job				*job_new(int pid, char *cmd_str)
+t_job				*job_new(pid_t pid, char *cmd_str)
 {
 	t_job					*this;
 	static long long int	job_id = 1;

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "builtin/cmds/builtin_setenv.h"
+#include "builtin/cmds/builtin_export.h"
 
 void				builtin_setenv_exec(t_lst *tokens, t_shenv *shenv)
 {
@@ -29,5 +30,5 @@ void				builtin_setenv_exec(t_lst *tokens, t_shenv *shenv)
 	{
 		builtin_export_exec_export_tokens(argparser_result, shenv);
 	}
-	shenv->last_exit_code = BUILTIN_EXEC_SUCCESS;
+	shenv->last_exit_code = EXIT_SUCCESS;
 }

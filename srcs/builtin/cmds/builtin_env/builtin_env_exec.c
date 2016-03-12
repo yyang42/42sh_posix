@@ -28,7 +28,7 @@ static void			exec_remaining_command(t_argparser_result *argparser_result)
 	if (twl_lst_len(remainders_copy) == 0)
 	{
 		shenv_print(shenv_singleton());
-		shenv_singleton()->last_exit_code = BUILTIN_EXEC_SUCCESS;
+		shenv_singleton()->last_exit_code = EXIT_SUCCESS;
 	}
 	else
 	{
@@ -60,11 +60,10 @@ void				builtin_env_exec(t_lst *tokens, t_shenv *shenv)
 	if (argparser_result->err_msg)
 	{
 		argparser_result_print_error_with_help(argparser_result);
-		shenv->last_exit_code = BUILTIN_EXEC_FAILURE;
+		shenv->last_exit_code = EXIT_FAILURE;
 	}
 	else
 	{
 		exec_remaining_command_in_new_env(argparser_result);
 	}
-	(void)shenv;
 }

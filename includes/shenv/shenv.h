@@ -43,6 +43,8 @@ typedef struct				s_shenv
 	t_shenv_info			info;
 	t_lst					*jobs;
 	int						last_exit_code;
+	bool					async_should_exec_async;
+	pid_t					async_child_pid;
 }							t_shenv;
 
 t_shenv				*shenv_new(void);

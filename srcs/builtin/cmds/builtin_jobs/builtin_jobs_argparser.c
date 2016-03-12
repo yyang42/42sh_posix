@@ -10,19 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/cmds/builtin_env.h"
-#include "twl_stdio.h"
-#include <stdio.h>
+#include "builtin/cmds/builtin_jobs.h"
 
-void				builtin_env_utils_add_shvar(void *data_, void *context_)
+t_argparser			*builtin_jobs_argparser(void)
 {
-	t_shenv	*context;
-	char			*data;
+	static t_argparser		*argparser;
 
-	data = data_;
-	context = context_;
-	if (twl_strchr(data, '='))
+	if (argparser == NULL)
 	{
-		shenv_shvars_set_split_by_equal(context, data, "env");
+		argparser = argparser_new("jobs");
+		argparser_set_usage_extra(argparser, " [jobspec ...] or jobs -x command [args]");
+		argparser_add_argument(argparser, argparser_argument_new('l', NULL, "Provide more information about each job listed.", 0));
+		argparser_add_argument(argparser, argparser_argument_new('p', NULL, "Display only the process IDs", 0));
 	}
+	return (argparser);
 }

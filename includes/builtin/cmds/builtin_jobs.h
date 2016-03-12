@@ -16,7 +16,16 @@
 # include "basics.h"
 # include "twl_opt.h"
 # include "shenv/shenv.h"
+# include "argparser_extension.h"
+# include "async/job_mgr.h"
+
+# define BUILTIN_JOBS_FLAG_OPT_L 0x01
+# define BUILTIN_JOBS_FLAG_OPT_P 0x02
 
 void				builtin_jobs_exec(t_lst *tokens, t_shenv *this);
+void				builtin_jobs_exec_print(t_lst *jobs, int flags);
+
+t_argparser			*builtin_jobs_argparser(void);
+
 
 #endif

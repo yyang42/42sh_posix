@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "builtin/cmds/builtin_shift.h"
+#include "builtin/cmds/builtin_umask.h"
 #include "twl_stdlib.h"
 
 static void			shift_action(t_shenv *env, t_opt *opt)
@@ -28,7 +29,7 @@ static void			shift_action(t_shenv *env, t_opt *opt)
 	if (twl_lst_len(env->pos_params) < shift_nb)
 	{
 		twl_printf("shift count must be <= $#");
-		env->last_exit_code = BUILTIN_EXEC_FAILURE;
+		env->last_exit_code = EXIT_FAILURE;
 	}
 	if (twl_lst_len(env->pos_params) < shift_nb)
 		twl_lst_clear(env->pos_params, &free);
@@ -49,13 +50,13 @@ void				builtin_shift_exec(t_lst *tokens, t_shenv *env)
 
 	arr = token_mgr_to_str_arr(tokens);
 	opt = twl_opt_new(arr, UMASK_OPT_VALID_OPTS);
-	env->last_exit_code = BUILTIN_EXEC_SUCCESS;
+	env->last_exit_code = EXIT_SUCCESS;
 	if (!builtin_utils_check_invalid_opts(opt, "shift", SHIFT_OPT_VALID_OPTS))
 	{
 		if (twl_lst_len(opt->args) > 1)
 		{
 			twl_printf("shift: too many arguments");
-			env->last_exit_code = BUILTIN_EXEC_FAILURE;
+			env->last_exit_code = EXIT_FAILURE;
 		}
 		else
 			shift_action(env, opt);

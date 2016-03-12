@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "twl_ctype.h"
 #include "expan/expan_tokenizer.h"
 #include "expan/expan_param.h"
 #include "expan/expan_utils.h"

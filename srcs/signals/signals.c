@@ -12,13 +12,13 @@
 
 #include "signals.h"
 
-void			handle_signal(int signal)
+void			handle_signal(int sig)
 {
 	int			sigo;
 
-	if (WIFSIGNALED(signal) && !WIFEXITED(signal))
+	if (WIFSIGNALED(sig) && !WIFEXITED(sig))
 	{
-		sigo = WTERMSIG(signal);
+		sigo = WTERMSIG(sig);
 		if (sigo == SIGINT)
 			;
 		else if (sigo == SIGSEGV)

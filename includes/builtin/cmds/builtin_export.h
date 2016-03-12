@@ -18,8 +18,6 @@
 # include "argparser_extension.h"
 # include "builtin/builtin.h"
 
-# define EXPORT_OPT_VALID_OPTS "p"
-
 
 void				builtin_export_exec(t_lst *tokens, t_shenv *env);
 void				builtin_export_exec_export_tokens(t_argparser_result *argparser_result, t_shenv *shenv);

@@ -32,7 +32,7 @@ static void			ast_subshell_fork_exec(t_ast_subshell *this)
 	}
 	else
 	{
-		wait(&res);
+		waitpid(pid, &res, 0);
     	if (WIFEXITED(res))
 			shenv_singleton()->last_exit_code = WEXITSTATUS(res);
 	}

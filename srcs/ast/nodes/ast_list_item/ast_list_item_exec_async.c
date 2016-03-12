@@ -13,7 +13,7 @@
 #include "ast/nodes/ast_list_item.h"
 #include "async/job_mgr.h"
 
-static void			ast_list_item_after_fork(t_ast_list_item *this, int pid)
+static void			ast_list_item_after_fork(t_ast_list_item *this, pid_t pid)
 {
 	char			*cmd_str;
 	t_job			*job;
@@ -26,7 +26,7 @@ static void			ast_list_item_after_fork(t_ast_list_item *this, int pid)
 
 void				ast_list_item_exec_async(t_ast_list_item *this)
 {
-	int				pid;
+	pid_t			pid;
 
 	pid = fork();
 	if (pid == -1)
