@@ -4,4 +4,4 @@ sleep 0.15 && exit 84 &> /dev/null &
 sleep 0.07
 
 jobs -l > /tmp/builtin_jobs_result
-cat /tmp/builtin_jobs_result | sed 's/>\&\/dev/\&> \/dev/g' | sed -E 's/^\[[0-9]\]+(\+|-| ) +[0-9]+ //g'  | sed -E 's/ &$//g'
+cat /tmp/builtin_jobs_result  | sed 's/> \//>\//g' | sed 's/\>\&/\&\>/g' | sed -E 's/^\[[0-9]\]+(\+|-| ) +[0-9]+ //g'  | sed -E 's/ &$//g'
