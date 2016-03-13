@@ -14,8 +14,26 @@
 
 static int			conv_to_signal_num(char *sig)
 {
+	// twl_printf("sig %s\n", sig);
 	(void)sig;
 	return (-1);
+}
+
+static int			get_signal_num(t_lst *tokens, t_shenv *env)
+{
+	t_token			*first_arg_token;
+	char			*signame;
+	int				signum;
+
+	first_arg_token = twl_lst_pop_front(tokens);
+	signame = first_arg_token->text + 1;
+	signum = conv_to_signal_num(signame);
+	if (signum == -1)
+	{
+		shenv_print_error_printf(env, first_arg_token->line,
+			"kill", "%s: invalid signal specification", signame);
+	}
+	return (signum);
 }
 
 static void			print_usage(void)
@@ -28,30 +46,21 @@ static void			print_usage(void)
 
 void				builtin_kill_exec(t_lst *tokens, t_shenv *env)
 {
-	t_lst			*token_copy;
-	t_token			*cmd_name_token;
-	t_token			*first_arg_token;
-	char			*signame;
+	t_lst			*tokens_copy;
 	int				signum;
 
-	token_copy = twl_lst_copy(tokens, NULL);
-	cmd_name_token = twl_lst_pop_front(token_copy);
-	if (twl_lst_len(token_copy) == 0)
+	tokens_copy = twl_lst_copy(tokens, NULL);
+	twl_lst_pop_front(tokens_copy);
+	if (twl_lst_len(tokens_copy) == 0)
 	{
 		print_usage();
 	}
 	else
 	{
-		if (twl_str_starts_with(token_mgr_first(token_copy)->text, "-"))
+		if (twl_str_starts_with(token_mgr_first(tokens_copy)->text, "-"))
 		{
-			first_arg_token = twl_lst_pop_front(token_copy);
-			signame = first_arg_token->text + 1;
-			signum = conv_to_signal_num(signame);
-			if (signum == -1)
-			{
-				shenv_print_error_printf(env, token_mgr_first(tokens)->line,
-					"kill", "%s: invalid signal specification", signame);
-			}
+			signum = get_signal_num(tokens_copy, env);
+			(void)signum;
 		}
 	}
 }
