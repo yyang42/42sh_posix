@@ -10,14 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_KILL_H
-# define BUILTIN_KILL_H
+#ifndef SHSIGNAL_H
+# define SHSIGNAL_H
 
 # include "basics.h"
-# include "shenv/shenv.h"
-# include "shsignal/shsignal.h"
 
-void				builtin_kill_exec(t_lst *tokens, t_shenv *env);
-void				builtin_kill_print_signals(void);
+typedef struct		s_shsignal
+{
+	int				signum;
+	char			*signame;
+}					t_shsignal;
+
+t_shsignal			*shsignal_new(int signum, char *signame);
+void				shsignal_del(t_shsignal *shsignal);
 
 #endif

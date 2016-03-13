@@ -10,14 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_KILL_H
-# define BUILTIN_KILL_H
+#include "shsignal/shsignal.h"
 
-# include "basics.h"
-# include "shenv/shenv.h"
-# include "shsignal/shsignal.h"
+t_shsignal			*shsignal_new(int signum, char *signame)
+{
+	t_shsignal		*this;
 
-void				builtin_kill_exec(t_lst *tokens, t_shenv *env);
-void				builtin_kill_print_signals(void);
-
-#endif
+	this = twl_malloc_x0(sizeof(t_shsignal));
+	this->signum = signum;
+	this->signame = twl_strdup(signame);
+	return (this);
+}

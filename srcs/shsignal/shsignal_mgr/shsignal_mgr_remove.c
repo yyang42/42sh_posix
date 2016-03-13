@@ -10,14 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_KILL_H
-# define BUILTIN_KILL_H
+#include "shsignal/shsignal_mgr.h"
 
-# include "basics.h"
-# include "shenv/shenv.h"
-# include "shsignal/shsignal.h"
+void				shsignal_mgr_remove(t_lst *shsignals, t_shsignal *shsignal)
+{
+	int				index;
 
-void				builtin_kill_exec(t_lst *tokens, t_shenv *env);
-void				builtin_kill_print_signals(void);
-
-#endif
+	index = twl_lst_indexof(shsignals, shsignal);
+	if (index == -1)
+	{
+		assert(!"[ERROR] Object not found!");
+	}
+	twl_lst_popi(shsignals, index);
+	shsignal_del(shsignal);
+}

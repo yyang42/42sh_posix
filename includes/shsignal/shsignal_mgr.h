@@ -10,14 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_KILL_H
-# define BUILTIN_KILL_H
+#ifndef SHSIGNAL_MGR_H
+# define SHSIGNAL_MGR_H
 
 # include "basics.h"
-# include "shenv/shenv.h"
 # include "shsignal/shsignal.h"
 
-void				builtin_kill_exec(t_lst *tokens, t_shenv *env);
-void				builtin_kill_print_signals(void);
+t_lst				*shsignal_mgr_new(void);
+void				shsignal_mgr_del(t_lst *shsignals);
+void				shsignal_mgr_add(t_lst *shsignals, t_shsignal *shsignal);
+void				shsignal_mgr_remove(t_lst *shsignals, t_shsignal *shsignal);
+void				shsignal_mgr_print(t_lst *shsignals);
 
 #endif

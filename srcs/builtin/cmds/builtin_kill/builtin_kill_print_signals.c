@@ -10,14 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_KILL_H
-# define BUILTIN_KILL_H
+#include "builtin/builtin.h"
+#include "data.h"
+#include "builtin/cmds/builtin_kill.h"
 
-# include "basics.h"
-# include "shenv/shenv.h"
-# include "shsignal/shsignal.h"
+static void			iter_fn(void *shsignal_, void *next, void *ctx)
+{
+	t_shsignal		*shsignal;
 
-void				builtin_kill_exec(t_lst *tokens, t_shenv *env);
-void				builtin_kill_print_signals(void);
+	shsignal = shsignal_;
+	twl_printf("%s", shsignal->signame);
+	if (next)
+		twl_printf(" ");
+	(void)ctx;
+}
 
-#endif
+void				builtin_kill_print_signals(void)
+{
+	twl_lst_itern(data_signals(), iter_fn, NULL);
+	twl_printf("\n");
+}

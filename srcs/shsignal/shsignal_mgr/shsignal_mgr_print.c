@@ -10,14 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_KILL_H
-# define BUILTIN_KILL_H
+#include "shsignal/shsignal_mgr.h"
 
-# include "basics.h"
-# include "shenv/shenv.h"
-# include "shsignal/shsignal.h"
+static void			print_shsignal_fn(void *shsignal_)
+{
+	t_shsignal	*shsignal;
 
-void				builtin_kill_exec(t_lst *tokens, t_shenv *env);
-void				builtin_kill_print_signals(void);
+	shsignal = shsignal_;
+	twl_printf("<Object #%p>\n", shsignal);
+}
 
-#endif
+void				shsignal_mgr_print(t_lst *shsignals)
+{
+	twl_printf("%s>>>>>>>>>> shsignal list%s\n", C_CYAN, C_CLEAR);
+	twl_lst_iter0(shsignals, print_shsignal_fn);
+	twl_printf("%s-------------------------------------%s\n", C_CYAN, C_CLEAR);
+}

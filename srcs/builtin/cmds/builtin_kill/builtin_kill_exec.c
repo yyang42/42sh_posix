@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "builtin/builtin.h"
+#include "builtin/cmds/builtin_kill.h"
 
 static int			conv_to_signal_num(char *sig)
 {
@@ -19,18 +20,14 @@ static int			conv_to_signal_num(char *sig)
 	return (-1);
 }
 
-static int			get_signal_num(t_lst *tokens, t_shenv *env)
+static int			get_signal_num(t_token *token, char *signame, t_shenv *env)
 {
-	t_token			*first_arg_token;
-	char			*signame;
 	int				signum;
 
-	first_arg_token = twl_lst_pop_front(tokens);
-	signame = first_arg_token->text + 1;
 	signum = conv_to_signal_num(signame);
 	if (signum == -1)
 	{
-		shenv_print_error_printf(env, first_arg_token->line,
+		shenv_print_error_printf(env, token->line,
 			"kill", "%s: invalid signal specification", signame);
 	}
 	return (signum);
@@ -47,20 +44,46 @@ static void			print_usage(void)
 void				builtin_kill_exec(t_lst *tokens, t_shenv *env)
 {
 	t_lst			*tokens_copy;
-	int				signum;
+	char			*signame;
 
 	tokens_copy = twl_lst_copy(tokens, NULL);
 	twl_lst_pop_front(tokens_copy);
+	signame = NULL;
 	if (twl_lst_len(tokens_copy) == 0)
 	{
 		print_usage();
 	}
 	else
 	{
-		if (twl_str_starts_with(token_mgr_first(tokens_copy)->text, "-"))
+		twl_printf("not finished\n");
+		if (token_mgr_first_equ(tokens_copy, "-l"))
 		{
-			signum = get_signal_num(tokens_copy, env);
-			(void)signum;
+			builtin_kill_print_signals();
+			return ;
+		}
+		if (token_mgr_first_equ(tokens_copy, "-s"))
+		{
+			twl_lst_pop_front(tokens_copy);
+			if (twl_lst_len(tokens_copy) == 0)
+			{
+				shenv_print_error_printf(env, token_mgr_first(tokens)->line,
+					"kill", "-s: option requires an argument");
+				return ;
+			}
+			else
+			{
+				signame = token_mgr_first(tokens_copy)->text;
+				twl_lst_pop_front(tokens_copy);
+			}
+		}
+		else if (twl_str_starts_with(token_mgr_first(tokens_copy)->text, "-"))
+		{
+			signame = token_mgr_first(tokens_copy)->text + 1;
+			twl_lst_pop_front(tokens_copy);
+		}
+		if (signame)
+		{
+			get_signal_num(token_mgr_first(tokens), signame, env);
 		}
 	}
 }
