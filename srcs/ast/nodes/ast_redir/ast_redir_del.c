@@ -16,8 +16,6 @@ void				ast_redir_del(t_ast_redir *this)
 {
 	if (this->operator)
 		free(this->operator);
-	if (this->param)
-		free(this->param);
 	if (this->heredoc_text)
 		free(this->heredoc_text);
 	free(this);

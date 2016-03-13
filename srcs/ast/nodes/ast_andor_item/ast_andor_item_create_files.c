@@ -24,7 +24,7 @@ static void			iter_redir_rec_fn(void *ast_redir_, void *nothing_)
 	{
 		if (!twl_strcmp(ast_redir->operator, ">>"))
 		{
-			fd = open(ast_redir->param, O_RDONLY);
+			fd = open(ast_redir->param->text, O_RDONLY);
 			if (fd < 0)
 				create_file(ast_redir->param);
 			else

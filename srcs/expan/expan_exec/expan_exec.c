@@ -40,6 +40,5 @@ static void		iter_fn(void *expan_token_, void *should_exec_)
 
 void			expan_exec(t_lst *expan_tokens, bool *should_exec)
 {
-	(void)expan_tokens;
 	twl_lst_iter(expan_tokens, iter_fn, should_exec);
 }

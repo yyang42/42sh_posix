@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "shenv/shenv.h"
-#include <stdio.h>
 
 static bool			find_env_key(void *data, void *context)
 {

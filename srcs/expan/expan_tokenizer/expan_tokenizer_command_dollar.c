@@ -30,7 +30,7 @@ int				expan_tokenizer_command_dollar(t_expan_tokenizer *tokenizer,
 	t_expan_token	*expan_token;
 	t_expan_command	*expan_command;
 
-	expan_token = expan_token_new(COMMAND_SUBSTITUTION_DOLLAR);
+	expan_token = expan_token_new(COMMAND_SUBSTITUTION_DOLLAR, tokenizer->token);
 	expan_command = expan_command_new();
 	expan_token->origin = tokenizer->origin;
 	i += 2;

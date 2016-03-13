@@ -30,6 +30,8 @@ t_shenv			*shenv_new(void)
 	this->pos_params = xopt_get_args(xopt);
 	this->flags = xopt_get_opts(xopt);
 	*/
+	this->shenv_name = twl_strdup(SHENV_DEFAULT_NAME);
+	this->shenv_cur_cmd = twl_strdup(SHENV_DEFAULT_NAME);
 	this->alias = twl_dict_new();
 	this->flag_verbose = twl_dict_new();
 	this->shfuncs = twl_dict_new();

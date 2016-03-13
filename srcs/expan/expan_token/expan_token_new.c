@@ -12,11 +12,12 @@
 
 #include "expan/expan_token.h"
 
-t_expan_token *expan_token_new(t_expan_type type)
+t_expan_token *expan_token_new(t_expan_type type, t_token *src_token)
 {
 	t_expan_token *token;
 
 	token = twl_malloc_x0(sizeof(t_expan_token));
+	token->src_token = src_token;
 	token->type = type;
 	token->res = NULL;
 	token->exec_expan = NULL;

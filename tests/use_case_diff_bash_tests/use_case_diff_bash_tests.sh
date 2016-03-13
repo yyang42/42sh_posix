@@ -37,14 +37,16 @@ diff_test ()
     testcase_tmp_stdout="$testcase_tmp/actual_stdout"
     testcase_tmp_stderr="$testcase_tmp/actual_stderr"
     testcase_tmp_expected_stdout="$testcase_tmp/expected_stdout"
+    testcase_tmp_expected_stderr="$testcase_tmp/expected_stderr"
 
     mkdir -p $testcase_tmp
     rm -f $testcase_tmp/*
     $RENDU_PATH/42sh $testcase_path/input.sh > $testcase_tmp_stdout 2> $testcase_tmp_stderr
-    bash --posix $testcase_path/input.sh > $testcase_tmp_expected_stdout 2> /dev/null
+    bash --posix $testcase_path/input.sh > $testcase_tmp_expected_stdout 2> $testcase_tmp_expected_stderr
     diff $testcase_tmp_expected_stdout $testcase_tmp_stdout
     stdout_res="$?"
-    diff $testcase_path/expected_stderr $testcase_tmp_stderr
+    # diff $testcase_path/expected_stderr $testcase_tmp_stderr
+    diff $testcase_tmp_expected_stderr $testcase_tmp_stderr
     stdout_err="$?"
 
     print_result "$stdout_res" stdout

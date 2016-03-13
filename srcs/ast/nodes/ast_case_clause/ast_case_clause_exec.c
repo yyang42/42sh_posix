@@ -51,8 +51,8 @@ static bool			find_needle_in_pattern_fn(void *pattern_, void *needle_)
 
 	pattern = pattern_;
 	needle = needle_;
-	expan_init(&pattern->text, pattern->text_unexpanded, TOKEN_ORIGIN_WORD); // TODO why TOKEN_ORIGIN_WORD
-	expan_init(&needle->text, needle->text_unexpanded, TOKEN_ORIGIN_WORD); // TODO why TOKEN_ORIGIN_WORD
+	expan_init(pattern, &pattern->text, pattern->text_unexpanded, TOKEN_ORIGIN_WORD); // TODO why TOKEN_ORIGIN_WORD
+	expan_init(needle, &needle->text, needle->text_unexpanded, TOKEN_ORIGIN_WORD); // TODO why TOKEN_ORIGIN_WORD
 	return (match_found(needle->text, pattern->text));
 }
 

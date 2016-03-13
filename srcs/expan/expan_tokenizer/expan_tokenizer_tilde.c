@@ -42,7 +42,7 @@ int				expan_tokenizer_tilde(t_expan_tokenizer *tokenizer,
 	t_expan_tilde	*expan_tilde;
 	int j;
 
-	expan_token = expan_token_new(TILDE);
+	expan_token = expan_token_new(TILDE, tokenizer->token);
 	expan_tilde = expan_tilde_new();
 	expan_tilde->token = twl_strndup(&str[i], 1);
 	expan_token->origin = tokenizer->origin;

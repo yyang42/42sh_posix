@@ -21,6 +21,7 @@
 
 typedef struct			s_expan_tokenizer
 {
+	t_token			*token;
 	int				i;
 	int				last;
 	bool			is_between_dq;
@@ -31,11 +32,11 @@ typedef struct			s_expan_tokenizer
 	t_token_origin	origin;
 }						t_expan_tokenizer;
 
-t_expan_tokenizer				*expan_tokenizer_new(void);
+t_expan_tokenizer				*expan_tokenizer_new(t_token *token);
 void							expan_tokenizer_del(t_expan_tokenizer *tokenizer);
 void							expan_token_mgr_add(t_lst *tokens, t_expan_token *token);
 void							expan_tokenizer(char *str, t_lst *expan_tokens,
-	t_token_origin origin);
+	t_token_origin origin, t_token *token);
 void							expan_tokenizer_none(t_expan_tokenizer *tokenizer, t_lst *expan_tokens,
 	char *str, int len);
 int								expan_tokenizer_param(t_expan_tokenizer *tokenizer,

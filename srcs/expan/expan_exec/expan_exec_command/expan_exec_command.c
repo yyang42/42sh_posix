@@ -13,7 +13,6 @@
 #include "expan/expan_exec.h"
 #include "expan/expan_command.h"
 #include "ast/ast.h"
-#include <stdio.h>
 #include <fcntl.h>
 
 static void		expan_exec_execute(char *command)

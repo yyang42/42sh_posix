@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "pattern_matching/bracket_expr.h"
-#include <stdio.h>
 
 static void			loop_fill(t_brackexpr_find_ *bef, char beg, char end)
 {

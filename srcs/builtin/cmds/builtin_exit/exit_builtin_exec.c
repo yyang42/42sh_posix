@@ -27,7 +27,10 @@ static void			one_argument_case(t_lst *tokens)
 	}
 	else
 	{
-		twl_dprintf(2, "exit: %s: numeric argument required\n", exit_code_str);
+		shenv_print_error_printf(shenv_singleton(),
+			token_mgr_first(tokens)->line,
+			token_mgr_first(tokens)->text,
+			"%s: numeric argument required", exit_code_str);
 		exit(255);
 	}
 }
@@ -44,7 +47,8 @@ void				builtin_exit_exec(t_lst *tokens, t_shenv *this)
 	}
 	else if (twl_lst_len(tokens) > 2)
 	{
-		twl_dprintf(2, "exit: too many arguments\n");
+		shenv_print_error(shenv_singleton(), token_mgr_first(tokens)->line,
+			token_mgr_first(tokens)->text, "too many arguments");
 		this->last_exit_code = EXIT_FAILURE;
 	}
 }

@@ -20,8 +20,12 @@
 # include <errno.h>
 # include "twl_arr.h"
 # include "twl_arr2.h"
+# include "token/token.h"
 
 # define DEFAULT_FUNCTION_MAX_RECURSION_DEPTH 1000
+# define SHENV_DEFAULT_NAME "42sh"
+# define SHENV_ERROR_COMMAND_NOT_FOUND "command not found"
+# define SHENV_ERROR_FILE_NOT_FOUND "No such file or directory"
 
 typedef struct				s_shenv_info
 {
@@ -33,6 +37,9 @@ typedef struct				s_shenv_info
 
 typedef struct				s_shenv
 {
+	char					*shenv_name;
+	char					*shenv_cur_cmd;
+	t_token					*shenv_cur_token;
 	t_lst					*shvars;
 	t_lst					*pos_params;
 	t_lst					*flags;
@@ -72,6 +79,16 @@ char				*shenv_concat_pos_param_char(t_shenv *env, char *sep);
 t_shvar				*shenv_shvars_get(t_shenv *this, char *key);
 void				**shenv_get_env_arr(t_shenv *this);
 char				*shenv_get_pos_param_at(t_shenv *env, size_t index);
+
+void				shenv_set_name(t_shenv *env, char *name);
+void				shenv_set_cur_cmd(t_shenv *env, char *cur_cmd);
+void				shenv_set_cur_token(t_shenv *env, t_token *token);
+int					shenv_get_cur_line(void);
+void				shenv_print_error(t_shenv *this, int line,
+													char *cmd_name, char *msg);
+int					shenv_print_error_printf(t_shenv *this, int line,
+											char *cmd_name, char *fmt, ...);
+int					shenv_print_error_printf_cur(char *fmt, ...);
 
 /*
 ** SHELL FUNCTIONS

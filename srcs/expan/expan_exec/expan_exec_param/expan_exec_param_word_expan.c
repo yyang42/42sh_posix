@@ -14,14 +14,14 @@
 #include "expan/expan_exec.h"
 #include "expan/expan_mgr.h"
 
-char			*expan_exec_param_word_expan(char *word)
+char			*expan_exec_param_word_expan(t_expan_token *expan_token, char *word)
 {
 	char *tmp;
 
 	if (word)
 	{
 		tmp = twl_strdup(word);
-		expan_init(&tmp, tmp, TOKEN_ORIGIN_PARAM_SUBSTITUTION);
+		expan_init(expan_token->src_token, &tmp, tmp, TOKEN_ORIGIN_PARAM_SUBSTITUTION);
 	}
 	else
 		tmp = twl_strdup("");

@@ -10,11 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "ast/nodes/ast_assignment.h"
 #include "data.h"
-#include "token/token_utils.h"
-#include "token/token_mgr.h"
 #include "openclose/openclose_matcher.h"
+#include "token/token_mgr.h"
+#include "token/token_utils.h"
+#include "utils.h"
 
 static bool			is_assignment_from_lst(t_lst *segs, char *str)
 {
@@ -37,15 +38,18 @@ static bool			is_assignment(char *str)
 	return (is_assign);
 }
 
-static t_lst		*build_assign(t_token *token)
+static t_ast_assignment		*build_assign(t_token *token)
 {
 	t_lst			*segs;
+	t_ast_assignment *assign;
 
 	segs = twl_str_split_once_to_lst(token->text, "=");
-	return (segs);
+	assign = ast_assignment_new(token, twl_lst_get(segs, 0), twl_lst_get(segs, 1));
+	twl_lst_del(segs, free);
+	return (assign);
 }
 
-static void			do_extract(t_lst *tokens, t_lst *assign_tokens,
+static void			do_extract(t_lst *tokens, t_lst *assign_list,
 													t_lst *remaining_tokens)
 {
 	t_token			*token;
@@ -54,7 +58,7 @@ static void			do_extract(t_lst *tokens, t_lst *assign_tokens,
 	{
 		if (is_assignment(token->text))
 		{
-			twl_lst_push_back(assign_tokens,
+			twl_lst_push_back(assign_list,
 									build_assign(twl_lst_pop_front(tokens)));
 		}
 		else
@@ -71,12 +75,12 @@ static void			do_extract(t_lst *tokens, t_lst *assign_tokens,
 t_lst				*token_mgr_extract_assignment(t_lst *tokens,
 														t_lst *remaining_tokens)
 {
-	t_lst			*assign_tokens;
+	t_lst			*assign_list;
 	t_lst			*tokens_copy;
 
 	tokens_copy = twl_lst_copy(tokens, NULL);
-	assign_tokens = twl_lst_new();
-	do_extract(tokens_copy, assign_tokens, remaining_tokens);
+	assign_list = twl_lst_new();
+	do_extract(tokens_copy, assign_list, remaining_tokens);
 	twl_lst_del(tokens_copy, NULL);
-	return (assign_tokens);
+	return (assign_list);
 }

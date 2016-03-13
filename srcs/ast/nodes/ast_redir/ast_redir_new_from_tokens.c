@@ -21,7 +21,7 @@ t_ast_redir	*ast_redir_new_from_tokens(t_lst *tokens, struct s_ast *ast)
 	t_ast_redir		*this;
 	t_token			*last_token;
 
-	this = ast_redir_new();
+	this = ast_redir_new(tokens);
 	if (twl_lst_len(tokens) == 3)
 	{
 		this->io_number = twl_atoi(token_mgr_get(tokens, 0)->text);
@@ -29,8 +29,8 @@ t_ast_redir	*ast_redir_new_from_tokens(t_lst *tokens, struct s_ast *ast)
 	if (twl_lst_len(tokens) >= 2)
 	{
 		this->operator = twl_strdup(token_mgr_get(tokens, -2)->text);
-		this->param = twl_strdup(token_mgr_get(tokens, -1)->text);
-		this->param_unexpanded = twl_strdup(this->param);
+		this->param = token_mgr_get(tokens, -1);
+		// this->param_unexpanded = twl_strdup(this->param);
 	}
 	else
 	{

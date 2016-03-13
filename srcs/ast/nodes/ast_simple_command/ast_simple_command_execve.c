@@ -56,6 +56,7 @@ void			ast_simple_command_execve(char *path, t_lst *tokens, char **env)
 	}
 	else
 	{
-		error_command_not_found(token_mgr_first(tokens)->text);
+		shenv_print_error(shenv_singleton(), token_mgr_first(tokens)->line,
+			token_mgr_first(tokens)->text, SHENV_ERROR_COMMAND_NOT_FOUND);
 	}
 }

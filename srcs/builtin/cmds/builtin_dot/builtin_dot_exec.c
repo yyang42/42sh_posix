@@ -35,7 +35,7 @@ static char			*get_file2(char **av, t_shenv *this)
 	return (file);
 }
 
-static char			*get_file(char *str, t_shenv *this)
+static char			*get_file(char *str, t_lst *tokens, t_shenv *this)
 {
 	char			*file;
 	char			**av;
@@ -50,7 +50,10 @@ static char			*get_file(char *str, t_shenv *this)
 	file = get_file2(av, this);
 	if (!file || file[0] == '\0')
 	{
-		error_file_not_found(av[1]);
+		shenv_print_error_printf(shenv_singleton(),
+			token_mgr_first(tokens)->line,
+			str, SHENV_ERROR_FILE_NOT_FOUND);
+		shenv_singleton()->last_exit_code = EXIT_FAILURE;
 		twl_arr_del(av, free);
 		return (NULL);
 	}
@@ -66,7 +69,7 @@ void				builtin_dot_exec(t_lst *tokens, t_shenv *this)
 	char			*str;
 
 	str = token_mgr_strjoin(tokens, " "); // TODO: refactor
-	if (!(file = get_file(str, this)))
+	if (!(file = get_file(str, tokens, this)))
 		return ; // (0)
 	ast = ast_new(twl_file_to_str(file));
 	if (ast->error_msg)

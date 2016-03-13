@@ -103,7 +103,7 @@ int				expan_tokenizer_command_backquote(t_expan_tokenizer *tokenizer,
 	t_expan_token	*expan_token;
 	t_expan_command	*expan_command;
 
-	expan_token = expan_token_new(COMMAND_SUBSTITUTION_BACKQUOTE);
+	expan_token = expan_token_new(COMMAND_SUBSTITUTION_BACKQUOTE, tokenizer->token);
 	expan_command = expan_command_new();
 	expan_token->origin = tokenizer->origin;
 	i++;

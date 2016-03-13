@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "ast/nodes/ast_redir_fd.h"
 
 void				ast_redir_fd_utils_dup_fds(int fd1, int fd2)

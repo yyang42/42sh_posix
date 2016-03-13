@@ -13,7 +13,7 @@
 #include "basics.h"
 #include "expan/expan_tokenizer.h"
 
-t_expan_tokenizer			*expan_tokenizer_new(void)
+t_expan_tokenizer			*expan_tokenizer_new(t_token *token)
 {
 	t_expan_tokenizer	*tokenizer;
 
@@ -23,5 +23,6 @@ t_expan_tokenizer			*expan_tokenizer_new(void)
 	tokenizer->type = NONE;
 	tokenizer->is_between_dq = false;
 	tokenizer->is_between_sq = false;
+	tokenizer->token = token;
 	return (tokenizer);
 }

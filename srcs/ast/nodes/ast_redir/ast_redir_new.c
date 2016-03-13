@@ -12,11 +12,12 @@
 
 #include "ast/nodes/ast_redir.h"
 
-t_ast_redir			*ast_redir_new(void)
+t_ast_redir			*ast_redir_new(t_lst *tokens)
 {
 	t_ast_redir		*ast_redir;
 
 	ast_redir = twl_malloc_x0(sizeof(t_ast_redir));
 	ast_redir->io_number = IO_NUMBER_NOT_DEFINED;
+	ast_redir->redir_tokens = twl_lst_copy(tokens, NULL);
 	return (ast_redir);
 }

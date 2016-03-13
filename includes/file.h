@@ -20,14 +20,16 @@
 # include <fcntl.h>
 # include <string.h>
 # include <stdio.h>
+# include "token/token.h"
 
 int			file_exists (char *fn);
 int			file_isdir (char *fn);
 int			file_isexecutable(char *fn);
-int			append_to_file(char *str);
-int 		read_file(char *str);
-int			create_file(char *str);
+int			append_to_file(t_token *token);
+int 		read_file(t_token *token);
+int			create_file(t_token *token);
 void		close_file(int fd);
-int			read_write_file(char *str);
+int			read_write_file(t_token *token);
+int			file_open_and_hand_error(t_token *token, int flags, int mod);
 
 #endif

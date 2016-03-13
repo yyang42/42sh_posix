@@ -11,43 +11,24 @@
 /* ************************************************************************** */
 
 #include "file.h"
+#include "shenv/shenv.h"
 
-int		append_to_file(char *str)
+int		append_to_file(t_token *token)
 {
-	int fd;
-
-	fd = open(str, O_CREAT | O_RDWR | O_APPEND, 0666);
-	if (fd == -1)
-		perror(str);
-	return (fd);
+	return (file_open_and_hand_error(token, O_CREAT | O_RDWR | O_APPEND, 0666));
 }
 
-int 	read_file(char *str)
+int 	read_file(t_token *token)
 {
-	int fd;
-
-	fd = open(str, O_RDONLY, 0666);
-	if (fd == -1)
-		perror(str);
-	return (fd);
+	return (file_open_and_hand_error(token, O_RDONLY, 0666));
 }
 
-int		create_file(char *str)
+int		create_file(t_token *token)
 {
-	int fd;
-
-	fd = open(str, O_CREAT | O_RDWR | O_TRUNC, 0666);
-	if (fd == -1)
-		perror(str);
-	return (fd);
+	return (file_open_and_hand_error(token, O_CREAT | O_RDWR | O_TRUNC, 0666));
 }
 
-int		read_write_file(char *str)
+int		read_write_file(t_token *token)
 {
-	int fd;
-
-	fd = open(str, O_CREAT | O_RDWR, 0666);
-	if (fd == -1)
-		perror(str);
-	return (fd);
+	return (file_open_and_hand_error(token, O_CREAT | O_RDWR, 0666));
 }

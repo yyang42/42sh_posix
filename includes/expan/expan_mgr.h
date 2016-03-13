@@ -19,6 +19,6 @@ void				expan_token_mgr_del(t_lst *tokens);
 t_lst				*expan_token_mgr_new(void);
 void				expan_token_mgr_add(t_lst *tokens, t_expan_token *token);
 void				expan_token_mgr_print(t_lst *tokens);
-bool				expan_init(char **ptr, char *unexpanded, t_token_origin origin);
+bool				expan_init(t_token *src_token, char **ptr, char *unexpanded, t_token_origin origin);
 char				*expan_tokenizer_concat(t_lst *lst);
 #endif
