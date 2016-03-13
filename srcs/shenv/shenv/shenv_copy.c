@@ -41,6 +41,7 @@ t_shenv				*shenv_copy(t_shenv *this)
 	t_shenv *copy;
 
 	copy = twl_malloc_x0(sizeof(t_shenv));
+	copy->shenv_name = twl_strdup(SHENV_DEFAULT_NAME);
 	copy->shvars = twl_lst_copy(this->shvars, shvar_copy_void);
 	copy->alias = twl_lst_copy(this->alias, copy_dict_fn);
 	copy->flag_verbose = twl_lst_copy(this->flag_verbose, copy_dict_fn);

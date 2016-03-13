@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include "shenv/shenv.h"
-#include <stdio.h>
-
 
 t_shvar				*shenv_shvars_set_split_by_equal(t_shenv *shenv, char *str_token, char *command_name)
 {

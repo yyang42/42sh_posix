@@ -10,10 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_redir_fd.h"
+#include "shenv/shenv.h"
 
-void				ast_redir_fd_utils_dup_fds(int fd1, int fd2)
+void				shenv_print_error(t_shenv *this, int line,
+													char *cmd_name, char *msg)
 {
-	if (dup2(fd1, fd2) == -1)
-		perror("dup2");
+	twl_dprintf(2, "%s: line %d: %s: %s\n",
+		this->shenv_name, line, cmd_name, msg);
 }

@@ -12,11 +12,6 @@
 
 #include "error.h"
 
-void 	error_file_not_found(char *file)
-{
-	twl_dprintf(2, "42sh: no such file or directory: %s\n", file);
-}
-
 void 	error_permission_denied(char *file)
 {
 	twl_dprintf(2, "42sh: permission denied: %s\n", file);

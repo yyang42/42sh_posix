@@ -31,9 +31,9 @@ int					prog_run(t_prog *prog)
 	else if (twl_lst_len(xopt_singleton()->opt->args) > 0)
 	{
 		// TODO: READ LIMITÉ A 2 MILLION, REMPLACER PAR AUTRE CHOSE
-		input = twl_file_to_str(twl_lst_get(xopt_singleton()->opt->args, 0));
+		shenv_set_name(shenv_singleton(), twl_lst_get(xopt_singleton()->opt->args, 0));
+		input = twl_file_to_str(shenv_singleton()->shenv_name);
 	}
-
 	if (input)
 	{
 		if (xopt_singleton()->print_ast)

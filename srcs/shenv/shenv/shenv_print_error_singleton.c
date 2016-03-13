@@ -10,10 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_redir_fd.h"
+#include "shenv/shenv.h"
+#include "twl_printf.h"
 
-void				ast_redir_fd_utils_dup_fds(int fd1, int fd2)
+int					shenv_print_error_printf(t_shenv *this, int line,
+											char *cmd_name, char *fmt, ...)
 {
-	if (dup2(fd1, fd2) == -1)
-		perror("dup2");
+	t_pf	*pf;
+	size_t	len;
+
+	pf = pf_create((char *)fmt);
+	va_start(pf->arglist, (char *)fmt);
+	pf_prepare_xprintf__(pf);
+	twl_dprintf(STDERR_FILENO, "%s: line %d: %s: ",
+		this->shenv_name, line, cmd_name);
+	pf_print_fd(pf, STDERR_FILENO);
+	twl_dprintf(STDERR_FILENO, "\n");
+	va_end(pf->arglist);
+	len = pf->output_len;
+	pf_free(pf);
+	return (len);
 }

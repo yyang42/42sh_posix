@@ -10,10 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_redir_fd.h"
+#include "twl_xstdlib.h"
 
-void				ast_redir_fd_utils_dup_fds(int fd1, int fd2)
+#include "shenv/shenv.h"
+#include "xopt.h"
+
+void				shenv_set_name(t_shenv *env, char *name)
 {
-	if (dup2(fd1, fd2) == -1)
-		perror("dup2");
+	if (env->shenv_name)
+		free(env->shenv_name);
+	env->shenv_name = twl_strdup(name);
 }
