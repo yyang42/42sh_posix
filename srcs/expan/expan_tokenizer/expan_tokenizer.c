@@ -132,13 +132,13 @@ static void 		iter_fn_parse(void *quote_,
 }
 
 void				expan_tokenizer(char *str, t_lst *expan_tokens,
-	t_token_origin origin)
+	t_token_origin origin, t_token *token)
 {
 	t_expan_tokenizer	*tokenizer;
 	t_lst				*quotes;
 	t_expan_quote		*quote;
 
-	tokenizer = expan_tokenizer_new();
+	tokenizer = expan_tokenizer_new(token);
 	tokenizer->i = 0;
 	tokenizer->str = str;
 	quotes = twl_lst_new();

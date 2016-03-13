@@ -15,11 +15,11 @@
 #include "expan/expan_param.h"
 
 
-static void		print_error_msg(t_expan_param *data)
+static void		print_error_msg(t_expan_token *expan_token, t_expan_param *data)
 {
 	char	*word_expan;
 
-	word_expan = expan_exec_param_word_expan(data->word);
+	word_expan = expan_exec_param_word_expan(expan_token, data->word);
 	if (twl_strcmp(word_expan, ""))
 		twl_dprintf(2, "42sh: %s: %s\n", data->parameter, word_expan);
 	else
@@ -48,13 +48,13 @@ bool			expan_exec_params_question2(t_expan_token *expan_token)
 		}
 		else
 		{
-			print_error_msg(data);
+			print_error_msg(expan_token, data);
 			return (false);
 		}
 	}
 	else
 	{
-		print_error_msg(data);
+		print_error_msg(expan_token, data);
 		return (false);
 	}
 	expan_token->res = twl_strdup("");

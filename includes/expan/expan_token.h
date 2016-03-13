@@ -20,6 +20,7 @@
 
 typedef struct	s_expan_token
 {
+	t_token			*src_token;
 	t_expan_type	type;
 	char			*res;
 	bool			(*exec_expan)(struct s_expan_token *);
@@ -29,7 +30,7 @@ typedef struct	s_expan_token
 	t_token_origin	origin;
 }				t_expan_token;
 
-t_expan_token					*expan_token_new(t_expan_type type);
+t_expan_token					*expan_token_new(t_expan_type type, t_token *src_token);
 void							expan_token_del(t_expan_token *token);
 void							expan_token_print(t_expan_token *token);
 #endif

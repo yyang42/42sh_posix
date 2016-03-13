@@ -19,7 +19,7 @@ void			expan_tokenizer_none(t_expan_tokenizer *tokenizer, t_lst *expan_tokens, c
 
 	if (len > 0)
 	{
-		expan_token = expan_token_new(NONE);
+		expan_token = expan_token_new(NONE, tokenizer->token);
 		expan_token->origin = tokenizer->origin;
 		expan_token->res = twl_strndup(str, len);
 		expan_token_mgr_add(expan_tokens, expan_token);

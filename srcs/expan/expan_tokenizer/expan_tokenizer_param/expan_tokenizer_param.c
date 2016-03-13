@@ -19,7 +19,7 @@ int				expan_tokenizer_param(t_expan_tokenizer *tokenizer,
 	t_expan_token	*expan_token;
 
 	i++;
-	expan_token = expan_token_new(PARAMETER);
+	expan_token = expan_token_new(PARAMETER, tokenizer->token);
 	expan_token->origin = tokenizer->origin;
 	expan_token->free_expan = expan_param_del;
 	if (str[i] == '{')

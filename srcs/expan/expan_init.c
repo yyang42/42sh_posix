@@ -15,7 +15,7 @@
 #include "expan/expan_tokenizer.h"
 #include "expan/expan_exec.h"
 
-bool	expan_init(char **ptr, char *unexpanded, t_token_origin origin)
+bool	expan_init(t_token *token, char **ptr, char *unexpanded, t_token_origin origin)
 {
 	t_lst					*expan_tokens;
 	char					*concat;
@@ -23,7 +23,7 @@ bool	expan_init(char **ptr, char *unexpanded, t_token_origin origin)
 
 	should_exec = true;
 	expan_tokens = expan_token_mgr_new();
-	expan_tokenizer(unexpanded, expan_tokens, origin);
+	expan_tokenizer(unexpanded, expan_tokens, origin, token);
 	expan_exec(expan_tokens, &should_exec);
 	concat = expan_tokenizer_concat(expan_tokens);
 	if (concat)

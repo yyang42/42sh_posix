@@ -43,7 +43,7 @@ bool			expan_exec_params_percent(t_expan_token *expan_token);
 bool			expan_exec_params_percent_percent(t_expan_token *expan_token);
 bool			expan_exec_params_sharp_sharp(t_expan_token *expan_token);
 bool			expan_exec_params_sharp2(t_expan_token *expan_token);
-char			*expan_exec_param_word_expan(char *word);
+char			*expan_exec_param_word_expan(t_expan_token *expan_token, char *word);
 
 char			*test_params_zero(t_shenv *env);
 char			*params_zero();
