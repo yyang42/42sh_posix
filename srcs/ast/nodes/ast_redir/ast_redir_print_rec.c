@@ -20,7 +20,7 @@ void				ast_redir_print_rec(t_ast_redir *ast_redir, int depth)
 	{
 		twl_printf("%d", ast_redir->io_number);
 	}
-	twl_printf("%s %s", ast_redir->operator, ast_redir->param);
+	twl_printf("%s %s", ast_redir->operator, ast_redir->param->text);
 	if (ast_redir->heredoc_text)
 	{
 		twl_printf_escape_nl(", heredoc=%.20s", ast_redir->heredoc_text);

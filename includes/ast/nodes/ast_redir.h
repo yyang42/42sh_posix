@@ -28,7 +28,7 @@ typedef struct		s_ast_redir
 	t_lst			*redir_tokens;
 	int				io_number;
 	char			*operator;
-	char			*param;
+	t_token			*param;
 	char			*param_unexpanded;
 	char			*heredoc_text;
 	char			*heredoc_text_unexpanded;
@@ -46,7 +46,7 @@ void				ast_redir_print_rec_list(t_lst *redir_items, int depth);
 bool				ast_redir_is_own_type(t_lst *tokens);
 
 void 				ast_redir_fd_utils_dup_fds(int fd1, int fd2);
-int					ast_redir_fd_utils_get_duplication_fd(char *str);
+int					ast_redir_fd_utils_get_duplication_fd(t_token *token);
 bool				ast_redir_fd_utils_is_valid_duplicate_fd(int fd);
 
 #endif

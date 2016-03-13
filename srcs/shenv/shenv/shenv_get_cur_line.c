@@ -10,26 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FILE_H
-# define FILE_H
+#include "twl_xstdlib.h"
 
-# include <sys/types.h>
-# include <sys/stat.h>
-# include <unistd.h>
-# include "basics.h"
-# include <fcntl.h>
-# include <string.h>
-# include <stdio.h>
-# include "token/token.h"
+#include "shenv/shenv.h"
+#include "xopt.h"
 
-int			file_exists (char *fn);
-int			file_isdir (char *fn);
-int			file_isexecutable(char *fn);
-int			append_to_file(t_token *token);
-int 		read_file(t_token *token);
-int			create_file(t_token *token);
-void		close_file(int fd);
-int			read_write_file(t_token *token);
-int			file_open_and_hand_error(t_token *token, int flags, int mod);
-
-#endif
+int					shenv_get_cur_line()
+{
+	if (!shenv_singleton()->shenv_cur_token)
+		return (-1);
+	return (shenv_singleton()->shenv_cur_token->line);
+}

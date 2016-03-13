@@ -31,6 +31,8 @@ void				ast_simple_command_exec_tokens(t_lst *tokens)
 		builtin = builtin_mgr_find_by_name(data_builtins(), cmd_name);
 		if (builtin)
 		{
+			shenv_set_cur_cmd(shenv_singleton(), cmd_name);
+			shenv_set_cur_token(shenv_singleton(), token_mgr_first(tokens));
 			builtin->builtin_fn(tokens, shenv_singleton());
 		}
 		else if (shenv_shfuncs_get(shenv_singleton(), cmd_name))

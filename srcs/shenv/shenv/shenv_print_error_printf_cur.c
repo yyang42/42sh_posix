@@ -10,26 +10,25 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FILE_H
-# define FILE_H
+#include "shenv/shenv.h"
+#include "twl_printf.h"
 
-# include <sys/types.h>
-# include <sys/stat.h>
-# include <unistd.h>
-# include "basics.h"
-# include <fcntl.h>
-# include <string.h>
-# include <stdio.h>
-# include "token/token.h"
+int					shenv_print_error_printf_cur(char *fmt, ...)
+{
+	t_pf	*pf;
+	size_t	len;
 
-int			file_exists (char *fn);
-int			file_isdir (char *fn);
-int			file_isexecutable(char *fn);
-int			append_to_file(t_token *token);
-int 		read_file(t_token *token);
-int			create_file(t_token *token);
-void		close_file(int fd);
-int			read_write_file(t_token *token);
-int			file_open_and_hand_error(t_token *token, int flags, int mod);
-
-#endif
+	pf = pf_create((char *)fmt);
+	va_start(pf->arglist, (char *)fmt);
+	pf_prepare_xprintf__(pf);
+	twl_dprintf(STDERR_FILENO, "%s: line %d: %s: ",
+		shenv_singleton()->shenv_name,
+		shenv_get_cur_line(shenv_singleton()),
+		shenv_singleton()->shenv_cur_cmd);
+	pf_print_fd(pf, STDERR_FILENO);
+	twl_dprintf(STDERR_FILENO, "\n");
+	va_end(pf->arglist);
+	len = pf->output_len;
+	pf_free(pf);
+	return (len);
+}

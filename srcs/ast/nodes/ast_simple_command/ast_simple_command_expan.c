@@ -45,7 +45,7 @@ static void 	iter_redir_fn(void *redir_, void *should_exec_)
 
 	should_exec = should_exec_;
 	redir = redir_;
-	*should_exec = expan_init(token_mgr_first(redir->redir_tokens), &redir->param, redir->param_unexpanded, TOKEN_ORIGIN_REDIR_PARAM);
+	*should_exec = expan_init(token_mgr_first(redir->redir_tokens), &redir->param->text, redir->param->text_unexpanded, TOKEN_ORIGIN_REDIR_PARAM);
 	*should_exec = expan_init(token_mgr_first(redir->redir_tokens), &redir->heredoc_text, redir->heredoc_text_unexpanded, TOKEN_ORIGIN_REDIR_HEREDOC);
 }
 

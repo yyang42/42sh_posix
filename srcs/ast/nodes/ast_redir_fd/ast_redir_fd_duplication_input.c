@@ -18,7 +18,7 @@ int					ast_redir_fd_duplication_input(t_ast_redir *redir,
 	int duplicated_fd;
 
 	duplicated_fd = -1;
-	if (!twl_strcmp("-", redir->param))
+	if (!twl_strcmp("-", redir->param->text))
 		close_file(redir->io_number);
 	else
 	{

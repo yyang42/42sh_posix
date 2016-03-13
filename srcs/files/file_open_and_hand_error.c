@@ -10,26 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FILE_H
-# define FILE_H
+#include "file.h"
+#include "shenv/shenv.h"
 
-# include <sys/types.h>
-# include <sys/stat.h>
-# include <unistd.h>
-# include "basics.h"
-# include <fcntl.h>
-# include <string.h>
-# include <stdio.h>
-# include "token/token.h"
-
-int			file_exists (char *fn);
-int			file_isdir (char *fn);
-int			file_isexecutable(char *fn);
-int			append_to_file(t_token *token);
-int 		read_file(t_token *token);
-int			create_file(t_token *token);
-void		close_file(int fd);
-int			read_write_file(t_token *token);
-int			file_open_and_hand_error(t_token *token, int flags, int mod);
-
-#endif
+int		file_open_and_hand_error(t_token *token, int flags, int mod)
+{
+	int fd;
+	fd = open(token->text, flags, mod);
+	if (fd == -1)
+	{
+		shenv_print_error_printf(shenv_singleton(),
+			token->line,
+			token->text, SHENV_ERROR_FILE_NOT_FOUND);
+	}
+	return (fd);
+}

@@ -14,20 +14,20 @@
 #include "ast/nodes/ast_assignment.h"
 #include "ast/nodes/ast_simple_command.h"
 
-int			ast_redir_fd_utils_get_duplication_fd(char *str)
+int			ast_redir_fd_utils_get_duplication_fd(t_token *token)
 {
 	int fd;
 
-	if (twl_str_is_pos_num(str))
+	if (twl_str_is_pos_num(token->text))
 	{
-		fd = twl_atoi(str);
+		fd = twl_atoi(token->text);
 		if (ast_redir_fd_utils_is_valid_duplicate_fd(fd))
 			return (fd);
 		return (-1);
 	}
 	else
 	{
-		twl_dprintf(2, "42sh: %s: ambiguous redirect", str);
+		twl_dprintf(2, "42sh: %s: ambiguous redirect", token->text);
 		return (-1);
 	}
 }
