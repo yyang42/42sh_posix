@@ -5,5 +5,4 @@ rm foobar
 echo "foo=tata bar=toto" > ~/foobar
 PATH=~ . foobar
 echo $foo $bar
-. bad_file
 rm ~/foobar

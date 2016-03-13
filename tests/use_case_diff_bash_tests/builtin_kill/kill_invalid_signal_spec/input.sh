@@ -1,1 +1,2 @@
 kill -ABCD
+kill -XYZ
