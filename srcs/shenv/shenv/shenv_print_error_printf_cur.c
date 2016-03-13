@@ -23,7 +23,7 @@ int					shenv_print_error_printf_cur(char *fmt, ...)
 	pf_prepare_xprintf__(pf);
 	twl_dprintf(STDERR_FILENO, "%s: line %d: %s: ",
 		shenv_singleton()->shenv_name,
-		shenv_get_cur_line(shenv_singleton()),
+		shenv_get_cur_line(),
 		shenv_singleton()->shenv_cur_cmd);
 	pf_print_fd(pf, STDERR_FILENO);
 	twl_dprintf(STDERR_FILENO, "\n");

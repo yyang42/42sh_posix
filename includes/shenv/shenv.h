@@ -83,7 +83,7 @@ char				*shenv_get_pos_param_at(t_shenv *env, size_t index);
 void				shenv_set_name(t_shenv *env, char *name);
 void				shenv_set_cur_cmd(t_shenv *env, char *cur_cmd);
 void				shenv_set_cur_token(t_shenv *env, t_token *token);
-int					shenv_get_cur_line(t_shenv *env);
+int					shenv_get_cur_line(void);
 void				shenv_print_error(t_shenv *this, int line,
 													char *cmd_name, char *msg);
 int					shenv_print_error_printf(t_shenv *this, int line,
