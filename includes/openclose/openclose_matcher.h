@@ -37,6 +37,7 @@ void				openclose_matcher_add(t_openclose_matcher *matcher,
 char				*openclose_matcher_find_matching(t_openclose_matcher *this,
 																char *s);
 void				openclose_matcher_print(t_openclose_matcher *matcher);
+void				openclose_matcher_debug_print(t_openclose_matcher *matcher);
 
 void				openclose_matcher_set_skip_quoted(
 							t_openclose_matcher *matcher, bool skip_quoted);
