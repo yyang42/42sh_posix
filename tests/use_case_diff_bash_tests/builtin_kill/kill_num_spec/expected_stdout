@@ -1,2 +1,2 @@
-/Users/yyang/repos/42sh_posix/tests/use_case_diff_bash_tests//builtin_kill/kill_num_spec/input.sh: line 5: <PID> Terminated: 31          sleep 0.2 &
+<CMD_PATH>: line 5: <PID> Terminated: 31          sleep 0.2 &
 exit_code: 0
