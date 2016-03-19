@@ -12,21 +12,26 @@
 
 #include "builtin/builtin.h"
 #include "builtin/cmds/builtin_kill.h"
+#include "shsignal/shsignal_mgr.h"
+#include "data.h"
 
 static int			get_signal_num(char *sigstr)
 {
 	int				signum;
+	t_shsignal		*shsignal;
 
-	// twl_printf("sigstr %s\n", sigstr);
 	if (twl_str_is_pos_num(sigstr) && (twl_atoi(sigstr) < 32))
 	{
 		signum = twl_atoi(sigstr);
+	}
+	else if ((shsignal = shsignal_mgr_find_by_signame(data_signals(), sigstr)))
+	{
+		signum = shsignal->signum;
 	}
 	else
 	{
 		signum = -1;
 	}
-	// twl_printf("sigstr %s\n", sigstr);
 	return (signum);
 }
 

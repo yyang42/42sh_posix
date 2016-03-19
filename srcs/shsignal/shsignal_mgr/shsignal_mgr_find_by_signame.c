@@ -12,8 +12,15 @@
 
 #include "shsignal/shsignal_mgr.h"
 
-// int					shsignal_mgr_sigstr_to_sig(t_lst *shsignals)
-// {
-// 	t_shsignal 		*shsignal;
-// 	twl_lst_push_back(shsignals, shsignal);
-// }
+static bool			find_by_signame_fn(void *shsignal_, void *signame)
+{
+	t_shsignal		*shsignal;
+
+	shsignal = shsignal_;
+	return (twl_strequ(shsignal->signame, signame));
+}
+
+t_shsignal 			*shsignal_mgr_find_by_signame(t_lst *shsignals, char *signame)
+{
+	return (twl_lst_find(shsignals, find_by_signame_fn, signame));
+}

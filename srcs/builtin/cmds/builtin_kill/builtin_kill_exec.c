@@ -113,11 +113,19 @@ void				builtin_kill_exec(t_lst *tokens, t_shenv *env)
 		{
 			sigstr = get_sigstr_from_minus_s_opt(tokens_copy, env);
 		}
-		else if (twl_str_starts_with(token_mgr_first(tokens_copy)->text, "-"))
+		else if (!twl_strequ(token_mgr_first(tokens_copy)->text, "--")
+			&& twl_str_starts_with(token_mgr_first(tokens_copy)->text, "-"))
 		{
 			sigstr = token_mgr_first(tokens_copy)->text + 1;
 			twl_lst_pop_front(tokens_copy);
 		}
+		else
+		{
+			sigstr = "TERM";
+		}
+		if (token_mgr_first(tokens_copy)
+			&& twl_strequ(token_mgr_first(tokens_copy)->text, "--"))
+			twl_lst_pop_front(tokens_copy);
 		if (sigstr)
 		{
 			builtin_kill_exec_sigstr(sigstr, tokens_copy, twl_lst_first(tokens), env);

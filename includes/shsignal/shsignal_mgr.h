@@ -22,4 +22,6 @@ void				shsignal_mgr_add(t_lst *shsignals, t_shsignal *shsignal);
 void				shsignal_mgr_remove(t_lst *shsignals, t_shsignal *shsignal);
 void				shsignal_mgr_print(t_lst *shsignals);
 
+t_shsignal 			*shsignal_mgr_find_by_signame(t_lst *shsignals, char *signame);
+
 #endif
