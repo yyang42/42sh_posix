@@ -28,7 +28,7 @@ static int			get_signal_num(t_token *token, char *signame, t_shenv *env)
 	if (signum == -1)
 	{
 		shenv_print_error_printf(env, token->line,
-			"kill", "%s: invalid signal specification", signame);
+			"kill: %s: invalid signal specification", signame);
 		env->last_exit_code = EXIT_FAILURE;
 	}
 	return (signum);
@@ -69,7 +69,7 @@ void				builtin_kill_exec(t_lst *tokens, t_shenv *env)
 			if (twl_lst_len(tokens_copy) == 0)
 			{
 				shenv_print_error_printf(env, token_mgr_first(tokens)->line,
-					"kill", "-s: option requires an argument");
+					"kill: -s: option requires an argument");
 				env->last_exit_code = EXIT_FAILURE;
 				return ;
 			}

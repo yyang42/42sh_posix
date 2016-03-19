@@ -28,7 +28,7 @@ static void		print_error_msg(t_expan_token *expan_token, t_expan_param *data)
 	{
 		shenv_print_error_printf(shenv_singleton(),
 			expan_token->src_token->line,
-			"posix", "parameter null or not set");
+			"posix: parameter null or not set");
 	}
 }
 

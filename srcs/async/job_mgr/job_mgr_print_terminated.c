@@ -30,8 +30,8 @@ static bool			remove_print_fn(void *job_, void *ctx)
 		if (should_be_removed(job))
 		{
 			str_status = job_status_str_long(job, true);
-			shenv_print_error_msg(shenv_singleton(),
-				shenv_get_cur_line(), str_status);
+			shenv_print_error_printf(shenv_singleton(),
+				shenv_get_cur_line(), "%s", str_status);
 			free(str_status);
 			return (true);
 		}
