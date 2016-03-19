@@ -44,7 +44,21 @@ static void			iter_pids_fn(void *token_, void *signum_ptr)
 
 	signum = *(int *)signum_ptr;
 	token = token_;
+	if (!twl_str_is_num(token->text))
+	{
+		shenv_print_error_printf(shenv_singleton(), token->line,
+			"kill: %s: arguments must be process or job IDs", token->text);
+		shenv_singleton()->last_exit_code = EXIT_FAILURE;
+		return ;
+	}
 	pid = twl_atoi(token->text);
+	if (kill(pid, 0) == -1)
+	{
+		shenv_print_error_printf(shenv_singleton(), token->line,
+			"kill: (%s) - No such process", token->text);
+		shenv_singleton()->last_exit_code = EXIT_FAILURE;
+		return ;
+	}
 	kill(pid, signum);
 }
 
