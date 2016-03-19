@@ -40,7 +40,7 @@ void				builtin_jobs_exec_print(t_lst *jobs, int flags)
 		}
 		else
 		{
-			twl_printf("[%lld]%s  ", job->job_id, get_next_char(twl_lst_len(jobs_copy)));
+			twl_printf("[%lld]%s ", job->job_id, get_next_char(twl_lst_len(jobs_copy)));
 			full_status = job_status_str_long(job, flags & BUILTIN_JOBS_FLAG_OPT_L);
 			twl_printf("%s\n", full_status);
 			free(full_status);

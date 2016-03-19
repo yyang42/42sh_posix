@@ -37,7 +37,6 @@ char				*job_status_str(t_job *this)
 {
 	char			*str_status;
 
-	job_waitpid_update(this);
 	str_status = NULL;
 	if (this->end_pid == 0) {
 		str_status = twl_strdup("Running");

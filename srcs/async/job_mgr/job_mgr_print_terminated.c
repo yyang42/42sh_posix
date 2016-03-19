@@ -11,10 +11,11 @@
 /* ************************************************************************** */
 
 #include "async/job_mgr.h"
+#include "token/token_mgr.h"
 
 static bool			should_be_removed(t_job *job)
 {
-	return (WIFEXITED(job->status) || WIFSIGNALED(job->status));
+	return (WIFSIGNALED(job->status));
 }
 
 static bool			remove_print_fn(void *job_, void *ctx)
@@ -23,30 +24,23 @@ static bool			remove_print_fn(void *job_, void *ctx)
 	char	*str_status;
 
 	job = job_;
-	COUCOU
+	job_waitpid_update(job);
 	if (job->end_pid == job->pid)
 	{
-		COUCOU
 		if (should_be_removed(job))
 		{
-			COUCOU
 			str_status = job_status_str_long(job, true);
-			twl_printf("%s\n", str_status);
+			shenv_print_error_msg(shenv_singleton(),
+				shenv_get_cur_line(), str_status);
 			free(str_status);
-			COUCOU
 			return (true);
 		}
 	}
-			COUCOU
 	return (false);
 	(void)ctx;
 }
 
 void				job_mgr_print_terminated(t_lst *jobs)
 {
-	COUCOU
 	twl_lst_remove_if(jobs, remove_print_fn, NULL, job_del_void);
-	(void)remove_print_fn;
-	(void)jobs;
-	COUCOU
 }

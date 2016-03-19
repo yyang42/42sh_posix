@@ -39,6 +39,7 @@
 
 typedef struct		s_job
 {
+	t_lst			*tokens;
 	int				job_id;
 	pid_t			pid;
 	int				status;
@@ -46,7 +47,7 @@ typedef struct		s_job
 	int				end_pid;
 }					t_job;
 
-t_job				*job_new(pid_t pid, char *cmd_str);
+t_job				*job_new(pid_t pid, char *cmd_str, t_lst *tokens);
 void				job_del(t_job *job);
 void				job_del_void(void *job);
 

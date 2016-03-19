@@ -12,7 +12,7 @@
 
 #include "async/job.h"
 
-t_job				*job_new(pid_t pid, char *cmd_str)
+t_job				*job_new(pid_t pid, char *cmd_str, t_lst *tokens)
 {
 	t_job					*this;
 	static long long int	job_id = 1;
@@ -21,6 +21,7 @@ t_job				*job_new(pid_t pid, char *cmd_str)
 	this->job_id = job_id;
 	this->pid = pid;
 	this->cmd_str = twl_strdup(cmd_str);
+	this->tokens = twl_lst_copy(tokens, NULL);
 	job_id++;
 	return (this);
 }

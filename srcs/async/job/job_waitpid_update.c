@@ -19,7 +19,7 @@ void				job_waitpid_update(t_job *this)
 	this->end_pid = waitpid(this->pid, &this->status, WNOHANG | WCONTINUED | WUNTRACED);
 	if (this->end_pid == -1)
 	{
-        twl_dprintf(2, "waitpid error");
-		exit(EXIT_FAILURE);
+        twl_dprintf(2, "waitpid error: %d\n", this->pid);
+		// exit(EXIT_FAILURE);
 	}
 }
