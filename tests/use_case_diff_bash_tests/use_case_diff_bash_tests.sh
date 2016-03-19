@@ -42,7 +42,9 @@ diff_test ()
     mkdir -p $testcase_tmp
     rm -f $testcase_tmp/*
     $RENDU_PATH/42sh $testcase_path/input.sh > $testcase_tmp_stdout 2> $testcase_tmp_stderr
-    bash --posix $testcase_path/input.sh > $testcase_tmp_bash_stdout 2> $testcase_tmp_bash_stderr
+    if [ ! -f $testcase_path/expected_stdout ] || [ ! -f $testcase_path/expected_stderr ]; then
+        bash --posix $testcase_path/input.sh > $testcase_tmp_bash_stdout 2> $testcase_tmp_bash_stderr
+    fi
     if [ -f $testcase_path/expected_stdout ]; then
         expected_stdout_file=$testcase_path/expected_stdout
     else
@@ -55,7 +57,7 @@ diff_test ()
     fi
     diff $expected_stdout_file $testcase_tmp_stdout
     stdout_res="$?"
-    diff $testcase_tmp_bash_stderr $testcase_tmp_stderr
+    diff $expected_stderr_file $testcase_tmp_stderr
     stdout_err="$?"
 
     print_result "$stdout_res" stdout
