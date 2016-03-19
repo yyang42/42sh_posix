@@ -10,41 +10,43 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/cmds/builtin_jobs.h"
+#include "async/job_mgr.h"
 
-static char			*get_next_char(int len)
+static bool			should_be_removed(t_job *job)
 {
-	char			*sign_str;
-
-	if (len == 0)
-		sign_str = "+";
-	else if (len == 1)
-		sign_str = "-";
-	else
-		sign_str = " ";
-	return (sign_str);
+	return (WIFEXITED(job->status) || WIFSIGNALED(job->status));
 }
 
-void				builtin_jobs_exec_print(t_lst *jobs, int flags)
+static bool			remove_print_fn(void *job_, void *ctx)
 {
-	t_lst			*jobs_copy;
-	t_job			*job;
-	char			*full_status;
+	t_job	*job;
+	char	*str_status;
 
-	jobs_copy = twl_lst_copy(jobs, NULL);
-	while ((job = twl_lst_pop_front(jobs_copy)))
+	job = job_;
+	COUCOU
+	if (job->end_pid == job->pid)
 	{
-		if (flags & BUILTIN_JOBS_FLAG_OPT_P)
+		COUCOU
+		if (should_be_removed(job))
 		{
-			twl_printf("%d\n", job->pid);
-		}
-		else
-		{
-			twl_printf("[%lld]%s  ", job->job_id, get_next_char(twl_lst_len(jobs_copy)));
-			full_status = job_status_str_long(job, flags & BUILTIN_JOBS_FLAG_OPT_L);
-			twl_printf("%s\n", full_status);
-			free(full_status);
+			COUCOU
+			str_status = job_status_str_long(job, true);
+			twl_printf("%s\n", str_status);
+			free(str_status);
+			COUCOU
+			return (true);
 		}
 	}
-	twl_lst_del(jobs_copy, NULL);
+			COUCOU
+	return (false);
+	(void)ctx;
+}
+
+void				job_mgr_print_terminated(t_lst *jobs)
+{
+	COUCOU
+	twl_lst_remove_if(jobs, remove_print_fn, NULL, job_del_void);
+	(void)remove_print_fn;
+	(void)jobs;
+	COUCOU
 }

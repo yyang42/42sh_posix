@@ -21,7 +21,6 @@ t_job				*job_new(pid_t pid, char *cmd_str)
 	this->job_id = job_id;
 	this->pid = pid;
 	this->cmd_str = twl_strdup(cmd_str);
-	this->status = JOB_RUNNING;
 	job_id++;
 	return (this);
 }

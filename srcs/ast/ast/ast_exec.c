@@ -10,10 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ast/ast.h>
+#include "ast/ast.h"
+#include "async/job_mgr.h"
 
 int				ast_exec(t_ast *this)
 {
+	job_mgr_print_terminated(shenv_singleton()->jobs);
 	ast_compound_list_exec(this->compound_list);
 	return (shenv_singleton()->last_exit_code);
 }

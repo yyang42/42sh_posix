@@ -55,7 +55,6 @@ void				builtin_kill_exec(t_lst *tokens, t_shenv *env)
 	}
 	else
 	{
-		twl_printf("not finished\n");
 		if (token_mgr_first_equ(tokens_copy, "-l"))
 		{
 			builtin_kill_print_signals();

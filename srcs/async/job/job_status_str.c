@@ -36,31 +36,20 @@
 char				*job_status_str(t_job *this)
 {
 	char			*str_status;
-	int				status;
-    pid_t child_pid, end_pid;
 
-	child_pid = this->pid;
-	// waitpid(this->pid, &stat_val, WNOHANG | WCONTINUED | WUNTRACED);
-	end_pid = waitpid(child_pid, &status, WNOHANG|WUNTRACED);
+	job_waitpid_update(this);
 	str_status = NULL;
-	if (end_pid == -1)
-	{
-        twl_dprintf(2, "waitpid error");
-		exit(EXIT_FAILURE);
-	}
-	else if (end_pid == 0) {
+	if (this->end_pid == 0) {
 		str_status = twl_strdup("Running");
 	}
-	else if (end_pid == child_pid)
+	else if (this->end_pid == this->pid)
 	{
-		if (WIFEXITED(status))
-			twl_asprintf(&str_status, "Done(%d)", WEXITSTATUS(status));
-		else if (WIFSIGNALED(status))
-			str_status = twl_strdup("Child ended because of an uncaught signal");
-		else if (WIFSTOPPED(status))
-			str_status = twl_strdup("Child process has stopped");
-		else if (WEXITSTATUS(status) == 0)
-			twl_asprintf(&str_status, "WEXITSTATUS(stat_val) %d", (WEXITSTATUS(status)));
+		if (WIFEXITED(this->status))
+			twl_asprintf(&str_status, "Done(%d)", WEXITSTATUS(this->status));
+		else if (WIFSIGNALED(this->status))
+			twl_asprintf(&str_status, "Terminated: %d", WTERMSIG(this->status));
+		else if (WIFSTOPPED(this->status))
+			twl_asprintf(&str_status, "Stopped(%d)", WSTOPSIG(this->status));
 	}
 	if (!str_status)
 		str_status = twl_strdup("Unknown");
