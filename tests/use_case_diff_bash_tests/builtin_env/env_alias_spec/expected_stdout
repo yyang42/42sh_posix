@@ -2,3 +2,4 @@
 aa='bb'
 >> 2
 >> 3
+exit_code: 0

@@ -42,8 +42,10 @@ diff_test ()
     mkdir -p $testcase_tmp
     rm -f $testcase_tmp/*
     $RENDU_PATH/42sh $testcase_path/input.sh > $testcase_tmp_stdout 2> $testcase_tmp_stderr
+    echo "exit_code: $?" >> $testcase_tmp_stdout
     if [ ! -f $testcase_path/expected_stdout ] || [ ! -f $testcase_path/expected_stderr ]; then
         bash --posix $testcase_path/input.sh > $testcase_tmp_bash_stdout 2> $testcase_tmp_bash_stderr
+        echo "exit_code: $?" >> $testcase_tmp_bash_stdout
     fi
     if [ -f $testcase_path/expected_stdout ]; then
         expected_stdout_file=$testcase_path/expected_stdout

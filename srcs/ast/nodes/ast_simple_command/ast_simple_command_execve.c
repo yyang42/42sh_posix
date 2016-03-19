@@ -58,5 +58,6 @@ void			ast_simple_command_execve(char *path, t_lst *tokens, char **env)
 	{
 		shenv_print_error(shenv_singleton(), token_mgr_first(tokens)->line,
 			token_mgr_first(tokens)->text, SHENV_ERROR_COMMAND_NOT_FOUND);
+		shenv_singleton()->last_exit_code = EXIT_COMMAND_NOT_FOUND;
 	}
 }

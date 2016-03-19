@@ -26,6 +26,7 @@
 # define SHENV_DEFAULT_NAME "42sh"
 # define SHENV_ERROR_COMMAND_NOT_FOUND "command not found"
 # define SHENV_ERROR_FILE_NOT_FOUND "No such file or directory"
+# define EXIT_COMMAND_NOT_FOUND 127
 
 typedef struct				s_shenv_info
 {
