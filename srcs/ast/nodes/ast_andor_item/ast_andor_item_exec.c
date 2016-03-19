@@ -14,7 +14,7 @@
 
 static int			fork_error(void)
 {
-	perror("fork()");
+	perror("fork");
 	return (1);
 }
 
