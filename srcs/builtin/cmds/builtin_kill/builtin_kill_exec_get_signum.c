@@ -10,16 +10,30 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_KILL_H
-# define BUILTIN_KILL_H
+#include "builtin/builtin.h"
+#include "builtin/cmds/builtin_kill.h"
 
-# include "basics.h"
-# include "shenv/shenv.h"
-# include "shsignal/shsignal.h"
+static int			get_signal_num(char *sigstr)
+{
+	int				signum;
 
-void				builtin_kill_exec(t_lst *tokens, t_shenv *env);
-void				builtin_kill_print_signals(void);
-void				builtin_kill_print_usage(void);
-int					builtin_kill_exec_get_signum(char *sigstr);
+	// twl_printf("sigstr %s\n", sigstr);
+	if (twl_str_is_pos_num(sigstr) && (twl_atoi(sigstr) < 32))
+	{
+		signum = twl_atoi(sigstr);
+	}
+	else
+	{
+		signum = -1;
+	}
+	// twl_printf("sigstr %s\n", sigstr);
+	return (signum);
+}
 
-#endif
+int					builtin_kill_exec_get_signum(char *sigstr)
+{
+	int				signum;
+
+	signum = get_signal_num(sigstr);
+	return (signum);
+}

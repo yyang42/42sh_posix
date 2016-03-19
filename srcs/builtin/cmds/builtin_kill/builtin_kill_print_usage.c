@@ -10,16 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_KILL_H
-# define BUILTIN_KILL_H
+#include "builtin/builtin.h"
+#include "data.h"
+#include "builtin/cmds/builtin_kill.h"
 
-# include "basics.h"
-# include "shenv/shenv.h"
-# include "shsignal/shsignal.h"
-
-void				builtin_kill_exec(t_lst *tokens, t_shenv *env);
-void				builtin_kill_print_signals(void);
-void				builtin_kill_print_usage(void);
-int					builtin_kill_exec_get_signum(char *sigstr);
-
-#endif
+void				builtin_kill_print_usage(void)
+{
+	twl_dprintf(2,
+		"kill: usage: kill [-s sigspec | -n signum | -sigspec] "
+		"pid | jobspec ... or kill -l [sigspec]\n"
+	);
+}
