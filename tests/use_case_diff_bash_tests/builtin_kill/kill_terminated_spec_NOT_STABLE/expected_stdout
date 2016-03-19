@@ -1,0 +1,5 @@
+CMD_PATH: line X: X Terminated: X          sleep X.X$
+[X]+  Running                 sleep X.X$
+[X]+ X Running                 sleep X.X$
+[X]-  Running                 sleep X.X$
+exit_code: 0

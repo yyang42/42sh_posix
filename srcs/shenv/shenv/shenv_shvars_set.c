@@ -23,7 +23,7 @@ t_shvar				*shenv_shvars_set(t_shenv *shenv, char *key, char *value, char *comma
 	{
 		shenv_print_error_printf(shenv_singleton(),
 			shenv_get_cur_line(),
-			command_name, "`%s': %s", key, "not a valid identifier");
+			"%s: `%s': %s", command_name, key, "not a valid identifier");
 		shenv->last_exit_code = EXIT_FAILURE;
 		return (NULL);
 	}

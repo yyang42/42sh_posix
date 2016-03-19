@@ -15,11 +15,16 @@
 
 void				ast_while_clause_exec(t_ast_while_clause *this)
 {
+	int				saved_exit_code;
+
+	saved_exit_code = 0;
 	while (true)
 	{
 		ast_compound_list_exec(this->cond_compound);
 		if (shenv_singleton()->last_exit_code != 0)
 			break ;
 		ast_compound_list_exec(this->do_group);
+		saved_exit_code = shenv_singleton()->last_exit_code;
 	}
+	shenv_singleton()->last_exit_code = saved_exit_code;
 }

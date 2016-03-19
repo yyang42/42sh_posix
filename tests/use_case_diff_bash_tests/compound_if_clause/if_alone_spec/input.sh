@@ -2,6 +2,6 @@ if true ; then
 	echo aaa
 fi
 
-if false ; then
+if (exit 42) ; then
 	echo bbb
 fi

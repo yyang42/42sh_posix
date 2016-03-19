@@ -29,6 +29,7 @@ void				builtin_jobs_exec_print(t_lst *jobs, int flags)
 {
 	t_lst			*jobs_copy;
 	t_job			*job;
+	char			*full_status;
 
 	jobs_copy = twl_lst_copy(jobs, NULL);
 	while ((job = twl_lst_pop_front(jobs_copy)))
@@ -40,9 +41,11 @@ void				builtin_jobs_exec_print(t_lst *jobs, int flags)
 		else
 		{
 			twl_printf("[%lld]%s ", job->job_id, get_next_char(twl_lst_len(jobs_copy)));
-			if (flags & BUILTIN_JOBS_FLAG_OPT_L)
-				twl_printf("%d", job->pid);
-			twl_printf(" %-23s %s\n", job_status_str(job), job->cmd_str);
+			if (!flags & BUILTIN_JOBS_FLAG_OPT_L)
+				twl_printf(" ");
+			full_status = job_status_str_long(job, flags & BUILTIN_JOBS_FLAG_OPT_L);
+			twl_printf("%s\n", full_status);
+			free(full_status);
 		}
 	}
 	twl_lst_del(jobs_copy, NULL);

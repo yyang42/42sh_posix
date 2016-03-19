@@ -11,56 +11,116 @@
 /* ************************************************************************** */
 
 #include "builtin/builtin.h"
+#include "builtin/cmds/builtin_kill.h"
 
-static int			conv_to_signal_num(char *sig)
+static char			*get_sigstr_from_minus_s_opt(t_lst *tokens, t_shenv *env)
 {
-	// twl_printf("sig %s\n", sig);
-	(void)sig;
-	return (-1);
+	char			*sigstr;
+	t_token			*first;
+
+	sigstr = NULL;
+	first = twl_lst_pop_front(tokens);
+	if (twl_lst_len(tokens) == 0)
+	{
+		shenv_print_error_printf(env, first->line,
+			"kill: -s: option requires an argument");
+		env->last_exit_code = EXIT_FAILURE;
+		return (NULL);
+	}
+	else
+	{
+		sigstr = token_mgr_first(tokens)->text;
+		twl_lst_pop_front(tokens);
+	}
+	return (sigstr);
 }
 
-static int			get_signal_num(t_lst *tokens, t_shenv *env)
+
+static void			iter_pids_fn(void *token_, void *signum_ptr)
 {
-	t_token			*first_arg_token;
-	char			*signame;
+	int				signum;
+	t_token			*token;
+	int				pid;
+
+	signum = *(int *)signum_ptr;
+	token = token_;
+	if (!twl_str_is_num(token->text))
+	{
+		shenv_print_error_printf(shenv_singleton(), token->line,
+			"kill: %s: arguments must be process or job IDs", token->text);
+		shenv_singleton()->last_exit_code = EXIT_FAILURE;
+		return ;
+	}
+	pid = twl_atoi(token->text);
+	if (kill(pid, 0) == -1)
+	{
+		shenv_print_error_printf(shenv_singleton(), token->line,
+			"kill: (%s) - No such process", token->text);
+		shenv_singleton()->last_exit_code = EXIT_FAILURE;
+		return ;
+	}
+	kill(pid, signum);
+}
+
+static void			builtin_kill_exec_sigstr(char *sigstr, t_lst *tokens_copy,
+	t_token *first_token, t_shenv *env)
+{
 	int				signum;
 
-	first_arg_token = twl_lst_pop_front(tokens);
-	signame = first_arg_token->text + 1;
-	signum = conv_to_signal_num(signame);
+	signum = builtin_kill_exec_get_signum(sigstr);
 	if (signum == -1)
 	{
-		shenv_print_error_printf(env, first_arg_token->line,
-			"kill", "%s: invalid signal specification", signame);
+		shenv_print_error_printf(env, first_token->line,
+			"kill: %s: invalid signal specification", sigstr);
+		env->last_exit_code = EXIT_FAILURE;
 	}
-	return (signum);
-}
-
-static void			print_usage(void)
-{
-	twl_dprintf(2,
-		"kill: usage: kill [-s sigspec | -n signum | -sigspec] "
-		"pid | jobspec ... or kill -l [sigspec]\n"
-	);
+	else
+	{
+		if (twl_lst_len(tokens_copy) == 0)
+		{
+			builtin_kill_print_usage();
+			env->last_exit_code = EXIT_FAILURE;
+		}
+		else
+		{
+			twl_lst_iter(tokens_copy, iter_pids_fn, &signum);
+		}
+	}
 }
 
 void				builtin_kill_exec(t_lst *tokens, t_shenv *env)
 {
 	t_lst			*tokens_copy;
-	int				signum;
+	char			*sigstr;
 
 	tokens_copy = twl_lst_copy(tokens, NULL);
 	twl_lst_pop_front(tokens_copy);
+	sigstr = NULL;
+	env->last_exit_code = EXIT_SUCCESS;
 	if (twl_lst_len(tokens_copy) == 0)
 	{
-		print_usage();
+		builtin_kill_print_usage();
+		env->last_exit_code = EXIT_FAILURE;
 	}
 	else
 	{
-		if (twl_str_starts_with(token_mgr_first(tokens_copy)->text, "-"))
+		if (token_mgr_first_equ(tokens_copy, "-l"))
 		{
-			signum = get_signal_num(tokens_copy, env);
-			(void)signum;
+			builtin_kill_print_signals();
+			return ;
+		}
+		if (token_mgr_first_equ(tokens_copy, "-s"))
+		{
+			sigstr = get_sigstr_from_minus_s_opt(tokens_copy, env);
+		}
+		else if (twl_str_starts_with(token_mgr_first(tokens_copy)->text, "-"))
+		{
+			sigstr = token_mgr_first(tokens_copy)->text + 1;
+			twl_lst_pop_front(tokens_copy);
+		}
+		if (sigstr)
+		{
+			builtin_kill_exec_sigstr(sigstr, tokens_copy, twl_lst_first(tokens), env);
 		}
 	}
 }

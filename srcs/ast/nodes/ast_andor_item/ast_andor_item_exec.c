@@ -14,7 +14,7 @@
 
 static int			fork_error(void)
 {
-	perror("fork()");
+	perror("fork");
 	return (1);
 }
 
@@ -55,7 +55,7 @@ static void			iter_andor_fn(void *ast_pipe_item_)
 	pid_t			child_pid;
 
 	ast_pipe_item = ast_pipe_item_;
-	child_pid = fork();
+	child_pid = shenv_fork();
 	if (child_pid == -1)
 	{
 		if (ast_pipe_item->fds[0] != -1)

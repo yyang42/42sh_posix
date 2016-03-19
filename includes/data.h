@@ -38,5 +38,6 @@ t_lst				*data_arexp_parenthesis(void);
 t_lst				*data_arexp_comma(void);
 
 t_dict				*data_builtins(void);
+t_lst				*data_signals(void);
 
 #endif
