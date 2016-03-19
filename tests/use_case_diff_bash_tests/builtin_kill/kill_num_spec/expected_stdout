@@ -1,0 +1,5 @@
+/Users/yyang/repos/Xsh_posix/tests/use_case_diff_bash_tests//builtin_kill/kill_num_spec/input.sh: line X: X Terminated: X          sleep X.X &
+[X]-  Running                 sleep X.X &
+[X]+  Running                 sleep X.X &
+[X]+ X Running                 sleep X.X &
+exit_code: 0
