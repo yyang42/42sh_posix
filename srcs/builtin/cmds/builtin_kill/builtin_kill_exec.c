@@ -12,6 +12,7 @@
 
 #include "builtin/builtin.h"
 #include "builtin/cmds/builtin_kill.h"
+#include "job_control/job.h"
 
 static char			*get_sigstr_from_minus_s_opt(t_lst *tokens, t_shenv *env)
 {
@@ -67,7 +68,7 @@ static void			builtin_kill_exec_sigstr(char *sigstr, t_lst *tokens_copy,
 {
 	int				signum;
 
-	signum = builtin_kill_exec_get_signum(sigstr);
+	signum = job_utils_get_signum(sigstr);
 	if (signum == -1)
 	{
 		shenv_print_error_printf(env, first_token->line,

@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "async/job.h"
+#include "job_control/job_mgr.h"
 
-void				job_del(t_job *job)
+void				job_mgr_del(t_lst *jobs)
 {
-	free(job);
+	twl_lst_del(jobs, job_del);
 }

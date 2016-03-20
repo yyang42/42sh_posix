@@ -10,12 +10,39 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "async/job_mgr.h"
+#include "builtin/builtin.h"
+#include "builtin/cmds/builtin_kill.h"
+#include "shsignal/shsignal_mgr.h"
+#include "data.h"
 
-t_lst				*job_mgr_new(void)
+static int			get_signal_num(char *sigstr)
 {
-	t_lst			*jobs;
+	int				signum;
+	t_shsignal		*shsignal;
 
-	jobs = twl_lst_new();
-	return (jobs);
+	if (twl_str_starts_with(sigstr, "SIG"))
+	{
+		sigstr += 3;
+	}
+	if (twl_str_is_pos_num(sigstr) && (twl_atoi(sigstr) < 32))
+	{
+		signum = twl_atoi(sigstr);
+	}
+	else if ((shsignal = shsignal_mgr_find_by_signame(data_signals(), sigstr)))
+	{
+		signum = shsignal->signum;
+	}
+	else
+	{
+		signum = -1;
+	}
+	return (signum);
+}
+
+int					job_utils_get_signum(char *sigstr)
+{
+	int				signum;
+
+	signum = get_signal_num(sigstr);
+	return (signum);
 }

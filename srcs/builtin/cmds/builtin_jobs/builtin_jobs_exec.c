@@ -13,7 +13,7 @@
 #include "builtin/cmds/builtin_jobs.h"
 #include "shenv/shenv.h"
 #include "builtin/builtin.h"
-#include "async/job_mgr.h"
+#include "job_control/job_mgr.h"
 
 static void			builtin_jobs_exec_do(t_argparser_result *argparser_result)
 {

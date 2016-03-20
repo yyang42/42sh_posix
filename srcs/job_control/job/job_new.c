@@ -10,17 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sys/wait.h>
-#include <errno.h>
-#include "async/job.h"
-#include "signal.h"
+#include "job_control/job.h"
 
-void				job_waitpid_update(t_job *this)
+t_job				*job_new(pid_t pid, char *cmd_str, t_lst *tokens)
 {
-	this->end_pid = waitpid(this->pid, &this->status, WNOHANG | WUNTRACED);
-	if (this->end_pid == -1 && errno != ECHILD)
-	{
-        twl_dprintf(2, "waitpid error: %d\n", this->pid);
-		// exit(EXIT_FAILURE);
-	}
+	t_job					*this;
+	static long long int	job_id = 1;
+
+	this = twl_malloc_x0(sizeof(t_job));
+	this->job_id = job_id;
+	this->pid = pid;
+	this->cmd_str = twl_strdup(cmd_str);
+	this->tokens = twl_lst_copy(tokens, NULL);
+	this->stopped_signal = 0;
+	this->job_status = JOB_RUNNING;
+	job_id++;
+	return (this);
 }

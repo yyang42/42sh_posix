@@ -66,4 +66,6 @@ char				*job_status_str(t_job *this);
 void				job_waitpid_update(t_job *this);
 char				*job_status_str_long(t_job *this, bool incl_pid);
 
+int					job_utils_get_signum(char *sigstr);
+
 #endif

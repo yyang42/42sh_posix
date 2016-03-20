@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "ast/nodes/ast_list_item.h"
-#include "async/job_mgr.h"
+#include "job_control/job_mgr.h"
 #include <signal.h>
 
 static void			ast_list_item_after_fork(t_ast_list_item *this, pid_t pid)

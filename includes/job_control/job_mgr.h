@@ -10,20 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "async/job.h"
+#ifndef ASYNC_JOB_MGR_H
+# define ASYNC_JOB_MGR_H
 
-t_job				*job_new(pid_t pid, char *cmd_str, t_lst *tokens)
-{
-	t_job					*this;
-	static long long int	job_id = 1;
+# include "basics.h"
+# include "job_control/job.h"
+# include "shenv/shenv.h"
 
-	this = twl_malloc_x0(sizeof(t_job));
-	this->job_id = job_id;
-	this->pid = pid;
-	this->cmd_str = twl_strdup(cmd_str);
-	this->tokens = twl_lst_copy(tokens, NULL);
-	this->stopped_signal = 0;
-	this->job_status = JOB_RUNNING;
-	job_id++;
-	return (this);
-}
+t_lst				*job_mgr_new(void);
+void				job_mgr_del(t_lst *jobs);
+void				job_mgr_add(t_lst *jobs, t_job *job);
+void				job_mgr_remove(t_lst *jobs, t_job *job);
+void				job_mgr_print(t_lst *jobs);
+
+void				job_mgr_env_push(t_job *job);
+void				job_mgr_print_terminated(t_lst *jobs);
+
+#endif

@@ -10,19 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "async/job_mgr.h"
+#include "job_control/job_mgr.h"
 
-static void			print_job_fn(void *job_)
+t_lst				*job_mgr_new(void)
 {
-	t_job	*job;
+	t_lst			*jobs;
 
-	job = job_;
-	twl_printf("<Object #%p>\n", job);
-}
-
-void				job_mgr_print(t_lst *jobs)
-{
-	twl_printf("%s>>>>>>>>>> job list%s\n", C_CYAN, C_CLEAR);
-	twl_lst_iter0(jobs, print_job_fn);
-	twl_printf("%s-------------------------------------%s\n", C_CYAN, C_CLEAR);
+	jobs = twl_lst_new();
+	return (jobs);
 }

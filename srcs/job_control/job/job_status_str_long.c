@@ -12,7 +12,7 @@
 
 #include <sys/wait.h>
 #include <errno.h>
-#include "async/job.h"
+#include "job_control/job.h"
 #include "signal.h"
 
 char				*job_status_str_long(t_job *this, bool incl_pid)

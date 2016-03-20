@@ -10,20 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ASYNC_JOB_MGR_H
-# define ASYNC_JOB_MGR_H
+#include "job_control/job.h"
 
-# include "basics.h"
-# include "async/job.h"
-# include "shenv/shenv.h"
-
-t_lst				*job_mgr_new(void);
-void				job_mgr_del(t_lst *jobs);
-void				job_mgr_add(t_lst *jobs, t_job *job);
-void				job_mgr_remove(t_lst *jobs, t_job *job);
-void				job_mgr_print(t_lst *jobs);
-
-void				job_mgr_env_push(t_job *job);
-void				job_mgr_print_terminated(t_lst *jobs);
-
-#endif
+void				job_del(t_job *job)
+{
+	free(job);
+}

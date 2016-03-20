@@ -10,20 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "async/job_mgr.h"
+#include "job_control/job_mgr.h"
 
-static bool			remove_if_fn(void *job_, void *ctx)
+void				job_mgr_add(t_lst *jobs, t_job *job)
 {
-	// t_job	*job;
-
-	// job = job_;
-	// if (job)
-	(void)ctx;
-	(void)job_;
-	return (true);
-}
-
-void				job_mgr_remove_non_running(t_lst *jobs)
-{
-	twl_lst_remove_if(jobs, remove_if_fn, NULL, job_del_void);
+	twl_lst_push_back(jobs, job);
 }

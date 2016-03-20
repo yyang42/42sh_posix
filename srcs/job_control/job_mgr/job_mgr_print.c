@@ -10,39 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/builtin.h"
-#include "builtin/cmds/builtin_kill.h"
-#include "shsignal/shsignal_mgr.h"
-#include "data.h"
+#include "job_control/job_mgr.h"
 
-static int			get_signal_num(char *sigstr)
+static void			print_job_fn(void *job_)
 {
-	int				signum;
-	t_shsignal		*shsignal;
+	t_job	*job;
 
-	if (twl_str_starts_with(sigstr, "SIG"))
-	{
-		sigstr += 3;
-	}
-	if (twl_str_is_pos_num(sigstr) && (twl_atoi(sigstr) < 32))
-	{
-		signum = twl_atoi(sigstr);
-	}
-	else if ((shsignal = shsignal_mgr_find_by_signame(data_signals(), sigstr)))
-	{
-		signum = shsignal->signum;
-	}
-	else
-	{
-		signum = -1;
-	}
-	return (signum);
+	job = job_;
+	twl_printf("<Object #%p>\n", job);
 }
 
-int					builtin_kill_exec_get_signum(char *sigstr)
+void				job_mgr_print(t_lst *jobs)
 {
-	int				signum;
-
-	signum = get_signal_num(sigstr);
-	return (signum);
+	twl_printf("%s>>>>>>>>>> job list%s\n", C_CYAN, C_CLEAR);
+	twl_lst_iter0(jobs, print_job_fn);
+	twl_printf("%s-------------------------------------%s\n", C_CYAN, C_CLEAR);
 }

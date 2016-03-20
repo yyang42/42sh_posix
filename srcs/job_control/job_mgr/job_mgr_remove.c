@@ -10,9 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "async/job_mgr.h"
+#include "job_control/job_mgr.h"
 
-void				job_mgr_add(t_lst *jobs, t_job *job)
+void				job_mgr_remove(t_lst *jobs, t_job *job)
 {
-	twl_lst_push_back(jobs, job);
+	int				index;
+
+	index = twl_lst_indexof(jobs, job);
+	if (index == -1)
+	{
+		assert(!"[ERROR] Object not found!");
+	}
+	twl_lst_popi(jobs, index);
+	job_del(job);
 }

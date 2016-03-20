@@ -10,9 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "async/job_mgr.h"
+#include "job_control/job_mgr.h"
 
-void				job_mgr_env_push(t_job *job)
+static bool			remove_if_fn(void *job_, void *ctx)
 {
-	twl_lst_push_back(shenv_singleton()->jobs, job);
+	// t_job	*job;
+
+	// job = job_;
+	// if (job)
+	(void)ctx;
+	(void)job_;
+	return (true);
+}
+
+void				job_mgr_remove_non_running(t_lst *jobs)
+{
+	twl_lst_remove_if(jobs, remove_if_fn, NULL, job_del_void);
 }

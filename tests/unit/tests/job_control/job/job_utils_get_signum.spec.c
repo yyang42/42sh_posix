@@ -1,13 +1,13 @@
 #include <project.h>
 
 #include "shenv/shenv.h"
-#include "builtin/cmds/builtin_kill.h"
+#include "job_control/job.h"
 
 # define test_get_signum(test_name, input, expected, debug) \
 	static void test_## test_name(t_test *test) \
 	{ \
 		int			result; \
-		result = builtin_kill_exec_get_signum(input); \
+		result = job_utils_get_signum(input); \
 		if (debug) \
 		{ \
 			printf("input    : %s\n", input); \
@@ -31,7 +31,7 @@ test_get_signum(SIGHUP, "SIGHUP", 1, false);
 test_get_signum(dashdash, "--", -1, false);
 test_get_signum(dash, "-", -1, false);
 
-void            suite_builtin_kill_exec_get_signum(t_suite *suite)
+void            suite_job_utils_get_signum(t_suite *suite)
 {
 	SUITE_ADD_TEST(suite, test_num1);
 	SUITE_ADD_TEST(suite, test_num2);

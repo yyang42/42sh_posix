@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "async/job_mgr.h"
+#include "job_control/job_mgr.h"
 #include "token/token_mgr.h"
 
 static bool			remove_print_fn(void *job_, void *ctx)
