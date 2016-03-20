@@ -22,6 +22,11 @@
 # include "twl_arr2.h"
 # include "token/token.h"
 
+#include <sys/types.h>
+#include <termios.h>
+#include <unistd.h>
+#include <signal.h>
+
 # define DEFAULT_FUNCTION_MAX_RECURSION_DEPTH 1000
 # define SHENV_DEFAULT_NAME "42sh"
 # define SHENV_ERROR_COMMAND_NOT_FOUND "command not found"
@@ -52,8 +57,14 @@ typedef struct				s_shenv
 	t_lst					*jobs;
 	int						last_exit_code;
 	bool					async_should_exec_async;
-	bool					interactive_shell;
+	bool					is_interactive_shell;
 	pid_t					async_child_pid;
+
+	pid_t					jc_pgid;
+	struct termios			jc_tmodes;
+	int						jc_terminal;
+	int						jc_is_interactive;
+
 }							t_shenv;
 
 t_shenv				*shenv_new(void);
@@ -88,7 +99,12 @@ void				shenv_set_cur_token(t_shenv *env, t_token *token);
 int					shenv_get_cur_line(void);
 int					shenv_print_error_printf(t_shenv *this, int line,
 											char *fmt, ...);
-int					shenv_fork(void);
+int					shenv_utils_fork(void);
+
+/*
+** JOB CONTROL
+*/
+void				shenv_init_job_control(t_shenv *env);
 
 /*
 ** SHELL FUNCTIONS

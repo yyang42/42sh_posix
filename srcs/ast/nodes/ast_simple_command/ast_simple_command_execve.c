@@ -20,7 +20,7 @@ static void		fork_and_execute(char *path, t_lst *tokens, char **env)
 	char			**args;
 
 	args = token_mgr_to_str_arr(tokens);
-	pid = shenv_fork();
+	pid = shenv_utils_fork();
 	if (pid == -1)
 		twl_dprintf(2, "cannot fork: %s", strerror(errno));
 	else if (pid == 0)

@@ -28,9 +28,9 @@ mt_test_tokenizer_err(err06, "echo $(\")",      "42sh: line: 1: tokenizer: looki
 mt_test_tokenizer_err(err07, "a $(",            "42sh: line: 1: tokenizer: looking for matching `)'", true);
 mt_test_tokenizer_err(err08, "a $((1 2) b&",    "42sh: line: 1: tokenizer: looking for matching `))'", true);
 mt_test_tokenizer_err(err09, "a ${1 2 3",       "42sh: line: 1: tokenizer: looking for matching `}'", true);
+
 void    suite_tokenizer_rule04_err(t_suite *suite)
 {
-    shenv_singleton_setter(shenv_new()); // clean env
     SUITE_ADD_TEST(suite, test_err01);
     SUITE_ADD_TEST(suite, test_err03);
     SUITE_ADD_TEST(suite, test_err04);

@@ -16,7 +16,7 @@
 
 #include "shenv/shenv.h"
 
-int					shenv_fork(void)
+int					shenv_utils_fork(void)
 {
 	int				pid;
 	pid = fork();
