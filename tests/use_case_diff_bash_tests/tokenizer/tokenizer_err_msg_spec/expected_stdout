@@ -1,0 +1,2 @@
+/tmp/42sh_test.sh: line: 1: tokenizer: looking for matching `''
+exit_code: 0
