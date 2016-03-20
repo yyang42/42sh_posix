@@ -12,9 +12,12 @@
 
 #include "expan/expan_tokenizer.h"
 
-void				expan_tokenizer_addone(t_expan_tokenizer *this)
+void				expan_push_bquote(t_expan_tokenizer *this)
 {
-	this->to_push[this->to_push_index] = this->input[this->input_index];
-	this->index_input += 1;
-	this->index_to_push += 1;
+	expan_tokenizer_addone(this);
+	while (this->input[this->input_index] &&
+			this->input[this->input_index] != '`')
+	{
+		expan_tokenizer_addone(this);
+	}
 }

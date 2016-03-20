@@ -10,14 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "expan/expansion.h"
+#include "expan/expan_tokenizer.h"
 
-bool				expansion(t_token *to_expand)
+/*
+** Check for tilde expansion.
+*/
+
+t_rule_expan_status	expan_tokenizer_apply_rule02(t_expan_tokenizer *this)
 {
-	t_lst			*expand;
-
-	expand = expan_tokenizer_tokenize(to_expand->text_unexpanded);
-	return (false);
-	(void)expand;
-	(void)to_expand;
+	if (this->input_index == 0 && this->input[this->input_index] == '~')
+	{
+		expan_push_tilde(this);
+		expan_tokenizer_delimit(this, EXPAN_TILDE);
+		return (EXPAN_STATUS_APPLIED);
+	}
+	return (EXPAN_STATUS_NOT_APPLIED);
 }

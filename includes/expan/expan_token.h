@@ -22,7 +22,7 @@ typedef struct			s_expan_token
 	char				*text;
 }						t_expan_token;
 
-t_expan_token			*expan_token_new(char *text);
+t_expan_token			*expan_token_new(t_expan_token_type type, char *text);
 void					expan_token_del(t_expan_token *this);
 
 #endif

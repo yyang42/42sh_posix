@@ -16,7 +16,7 @@
 # include "basics.h"
 # include "token/token.h"
 # include "expan/expan_tokenizer.h"
-# include "expan/expan_execute.h"
+//# include "expan/expan_execute.h"
 
 bool				expansion(t_token *to_expand);
 

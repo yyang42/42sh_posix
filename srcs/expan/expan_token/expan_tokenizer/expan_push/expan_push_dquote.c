@@ -12,33 +12,16 @@
 
 #include "expan/expan_tokenizer.h"
 
-/*
-** Check for double quote pattern.
-*/
-
-void				expan_tokenizer_push_until_dquote(this)
+void				expan_push_dquote(t_expan_tokenizer *this)
 {
-	expan_tokenizer_addone(this);
-	while (this->input[this->input_index] != '"')
+	while (this->input[this->input_index] &&
+			this->input[this->input_index] == '"')
 	{
-	}
-}
-
-t_rule_expan_status	expan_tokenizer_apply_rule04(t_expan_tokenizer *this)
-{
-	if (this->input[this->input_index] == '"')
-	{
-		expan_tokenizer_push_until_dquote(this);
-		while (this->input[this->input_index] &&
-				this->input[this->input_index] != '"')
-		{
-			expan_tokenizer_addone(this)
-		}
-		if (!this->input[this->input_index])
-			expan_tokenizer_delimit(this, TOKEN_NONE);
+		if (this->input[this->input_index] == '$')
+			expan_push_dollar(this);
+		else if (this->input[this->input_index] == '`')
+			expan_push_bquote(this);
 		else
-			expan_tokenizer_delimit(this, TOKEN_DQUOTE);
-		return (EXPAN_TOKEN_APPLIED);
+			expan_tokenizer_addone(this);
 	}
-	return (EXPAN_TOKEN_NOT_APPLIED);
 }

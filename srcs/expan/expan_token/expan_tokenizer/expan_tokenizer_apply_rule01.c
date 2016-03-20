@@ -10,14 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "expan/expansion.h"
+#include "expan/expan_tokenizer.h"
 
-bool				expansion(t_token *to_expand)
+/*
+** Check the end of input.
+*/
+
+t_rule_expan_status	expan_tokenizer_apply_rule01(t_expan_tokenizer *this)
 {
-	t_lst			*expand;
-
-	expand = expan_tokenizer_tokenize(to_expand->text_unexpanded);
-	return (false);
-	(void)expand;
-	(void)to_expand;
+	if (this->input[this->input_index] == 0)
+	{
+		if (this->to_push_index > 0)
+		{
+			expan_tokenizer_delimit(this, EXPAN_NONE);
+		}
+		return (EXPAN_STATUS_END_OF_INPUT);
+	}
+	return (EXPAN_STATUS_NOT_APPLIED);
 }

@@ -20,17 +20,9 @@ t_rule_expan_status	expan_tokenizer_apply_rule03(t_expan_tokenizer *this)
 {
 	if (this->input[this->input_index] == '\'')
 	{
-		expan_tokenizer_addone(this);
-		while (this->input[this->input_index] &&
-				this->input[this->input_index] != '\'')
-		{
-			expan_tokenizer_addone(this);
-		}
-		if (!this->input[this->input_index])
-			expan_tokenizer_delimit(this, TOKEN_NONE);
-		else
-			expan_tokenizer_delimit(this, TOKEN_SQUOTE);
-		return (EXPAN_TOKEN_APPLIED);
+		expan_push_squote(this);
+		expan_tokenizer_delimit(this, EXPAN_SQUOTE);
+		return (EXPAN_STATUS_APPLIED);
 	}
-	return (EXPAN_TOKEN_NOT_APPLIED);
+	return (EXPAN_STATUS_NOT_APPLIED);
 }
