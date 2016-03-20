@@ -13,20 +13,31 @@
 #include "expan/expan_tokenizer.h"
 
 /*
-** Check for tilde expansion.
+** Check for double quote pattern.
 */
 
-t_rule_expan_status	expan_tokenizer_apply_rule02(t_expan_tokenizer *this)
+static void			expan_tokenizer_push_until_dquote(t_expan_tokenizer *this)
 {
-	if (this->input_index == 0 && this->input[this->input_index] == '~')
+	expan_tokenizer_addone(this);
+	while (this->input[this->input_index] != '"')
 	{
+	}
+}
+
+t_rule_expan_status	expan_tokenizer_apply_rule04(t_expan_tokenizer *this)
+{
+	if (this->input[this->input_index] == '"')
+	{
+		expan_tokenizer_push_until_dquote(this);
 		while (this->input[this->input_index] &&
-				this->input[this->input_index] != ':' &&
-				this->input[this->input_index] != '/')
+				this->input[this->input_index] != '"')
 		{
 			expan_tokenizer_addone(this);
 		}
-		expan_tokenizer_delimit(this, EXPAN_TILDE);
+		if (!this->input[this->input_index])
+			expan_tokenizer_delimit(this, EXPAN_NONE);
+		else
+			expan_tokenizer_delimit(this, EXPAN_DQUOTE);
 		return (EXPAN_STATUS_APPLIED);
 	}
 	return (EXPAN_STATUS_NOT_APPLIED);

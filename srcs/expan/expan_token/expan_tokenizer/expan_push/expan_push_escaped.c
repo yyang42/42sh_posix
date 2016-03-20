@@ -10,14 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "expan/expansion.h"
+#include "expan/expan_tokenizer.h"
 
-bool				expansion(t_token *to_expand)
+void				expan_push_escaped(t_expan_tokenizer *this)
 {
-	t_lst			*expand;
-
-	expand = expan_tokenizer_tokenize(to_expand->text_unexpanded);
-	return (false);
-	(void)expand;
-	(void)to_expand;
+	expan_tokenizer_addone(this);
+	if (this->input[this->input_index])
+		expan_tokenizer_addone(this);
 }

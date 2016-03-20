@@ -12,19 +12,16 @@
 
 #include "expan/expan_tokenizer.h"
 
-/*
-** Check the end of input.
-*/
-
-t_rule_expan_status	expan_tokenizer_apply_rule01(t_expan_tokenizer *this)
+bool				expan_tokenizer_is_special_parameter(t_expan_tokenizer *this)
 {
-	if (this->input[this->index] == 0)
-	{
-		if (this->to_push_index > 0)
-		{
-			expan_tokenizer_delimit(this, EXPAN_NONE);
-		}
-		return (EXPAN_STATUS_END_OF_INPUT);
-	}
-	return (EXPAN_STATUS_NOT_APPLIED);
+	const char		c = this->input[this->input_index];
+
+	return (c == '@' ||
+			c == '*' ||
+			c == '#' ||
+			c == '?' ||
+			c == '-' ||
+			c == '$' ||
+			c == '!' ||
+			c == '0');
 }

@@ -10,14 +10,25 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "expan/expansion.h"
+#include "expan/expan_tokenizer.h"
 
-bool				expansion(t_token *to_expand)
+void				expan_push_tilde(t_expan_tokenizer *this)
 {
-	t_lst			*expand;
-
-	expand = expan_tokenizer_tokenize(to_expand->text_unexpanded);
-	return (false);
-	(void)expand;
-	(void)to_expand;
+	while (this->input[this->input_index] &&
+			this->input[this->input_index] != ':' &&
+			this->input[this->input_index] != '/')
+	{
+		if (this->input[this->input_index] == '\\')
+			expan_push_escaped(this);
+		else if (this->input[this->input_index] == '$')
+			expan_push_dollar(this);
+		else if (this->input[this->input_index] == '`')
+			expan_push_bquote(this);
+		else if (this->input[this->input_index] == '"')
+			expan_push_dquote(this);
+		else if (this->input[this->input_index] == '\'')
+			expan_push_dquote(this);
+		else
+			expan_tokenizer_addone(this);
+	}
 }
