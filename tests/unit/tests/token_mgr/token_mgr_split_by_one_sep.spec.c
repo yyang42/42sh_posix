@@ -9,7 +9,7 @@
 		t_lst			*tokens_list; \
 		t_lst			*tokens; \
 		char			*joined_str; \
-		tokens = tokenizer_tokenize(input); \
+		tokens = tokenizer_utils_tokenize(input); \
 		tokens_list = token_mgr_split_by_one_sep(tokens, sep, keep_delimiter); \
 		joined_str = token_list_mgr_strjoin(tokens_list); \
 		if (debug) \

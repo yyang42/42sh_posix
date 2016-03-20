@@ -7,21 +7,33 @@
     static void test_## test_name(t_test *test) \
     { \
         t_lst           *tokens; \
-        char            *joined; \
-        tokens = tokenizer_tokenize(input); \
+        t_tokenizer     *t; \
+        t = tokenizer_new(input); \
+        tokens = tokenizer_tokenize(t); \
         if (debug) \
         { \
             token_mgr_print(tokens); \
+            twl_printf("err_msg  : %s\n", t->err_msg); \
+            twl_printf("expected : %s\n", expected); \
         } \
-        joined = token_mgr_strjoin(tokens, "_"); \
-        mt_assert(strcmp(joined, expected) == 0); \
-        free(joined); \
+        mt_assert(t->err_msg && strcmp(t->err_msg, expected) == 0); \
         token_mgr_del_inner(tokens); \
     }
 
-mt_test_tokenizer_err(err01, "'", "", true);
-
+mt_test_tokenizer_err(err01, "'",               "tokenizer: looking for matching `''", false);
+mt_test_tokenizer_err(err03, "abc'",            "tokenizer: looking for matching `''", false);
+mt_test_tokenizer_err(err04, "'a",              "tokenizer: looking for matching `''", false);
+mt_test_tokenizer_err(err06, "echo $(\")",      "tokenizer: looking for matching `)'", false);
+mt_test_tokenizer_err(err07, "a $(",            "tokenizer: looking for matching `)'", false);
+mt_test_tokenizer_err(err08, "a $((1 2) b&",    "tokenizer: looking for matching `))'", false);
+mt_test_tokenizer_err(err09, "a ${1 2 3",       "tokenizer: looking for matching `}'", false);
 void    suite_tokenizer_rule04_err(t_suite *suite)
 {
     SUITE_ADD_TEST(suite, test_err01);
+    SUITE_ADD_TEST(suite, test_err03);
+    SUITE_ADD_TEST(suite, test_err04);
+    SUITE_ADD_TEST(suite, test_err06);
+    SUITE_ADD_TEST(suite, test_err07);
+    SUITE_ADD_TEST(suite, test_err08);
+    SUITE_ADD_TEST(suite, test_err09);
 }

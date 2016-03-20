@@ -17,7 +17,7 @@ static void simple_pos_param(t_test *test)
 
 	(void)test;
 	env = shenv_singleton();
-	builtin_set_exec(tokenizer_tokenize("set lol pouet"), env);
+	builtin_set_exec(tokenizer_utils_tokenize("set lol pouet"), env);
 	str = twl_strdup("$1");
 	expan_init(token_new("aa", 0, 0), &str, str, TOKEN_ORIGIN_WORD);
 	mt_assert(twl_strcmp(str,"lol") == 0);
@@ -36,7 +36,7 @@ static void simple_pos_param_sub(t_test *test)
 
 	(void)test;
 	env = shenv_singleton();
-	builtin_export_exec(tokenizer_tokenize("set lol pouet"), env);
+	builtin_export_exec(tokenizer_utils_tokenize("set lol pouet"), env);
 	str = twl_strdup("$1");
 	expan_init(token_new("aa", 0, 0), &str, str, TOKEN_ORIGIN_WORD);
 	mt_assert(twl_strcmp(str,"lol") == 0);
@@ -54,8 +54,8 @@ static void simple_param_str(t_test *test)
 
 	(void)test;
 	env = shenv_singleton();
-	builtin_unset_exec(tokenizer_tokenize("unset LOL"), env);
-	builtin_export_exec(tokenizer_tokenize("export LOL=POUET"), env);
+	builtin_unset_exec(tokenizer_utils_tokenize("unset LOL"), env);
+	builtin_export_exec(tokenizer_utils_tokenize("export LOL=POUET"), env);
 	str = twl_strdup("$LOL");
 	expan_init(token_new("aa", 0, 0), &str, str, TOKEN_ORIGIN_WORD);
 	mt_assert(twl_strcmp(str,"POUET") == 0);
@@ -64,7 +64,7 @@ static void simple_param_str(t_test *test)
 	expan_init(token_new("aa", 0, 0), &str, str, TOKEN_ORIGIN_WORD);
 	mt_assert(twl_strcmp(str,"POUET") == 0);
 	twl_strdel(&str);
-	builtin_unset_exec(tokenizer_tokenize("unset LOL"), env);
+	builtin_unset_exec(tokenizer_utils_tokenize("unset LOL"), env);
 }
 
 static void colon_hyphen_param_str(t_test *test)
@@ -74,17 +74,17 @@ static void colon_hyphen_param_str(t_test *test)
 
 	(void)test;
 	env = shenv_singleton();
-	builtin_unset_exec(tokenizer_tokenize("unset HAHA"), env);
+	builtin_unset_exec(tokenizer_utils_tokenize("unset HAHA"), env);
 	str = twl_strdup("${HAHA:-ls}");
 	expan_init(token_new("aa", 0, 0), &str, str, TOKEN_ORIGIN_WORD);
 	mt_assert(twl_strcmp(str,"ls") == 0);
 	twl_strdel(&str);
-	builtin_export_exec(tokenizer_tokenize("export HAHA=HOHO"), env);
+	builtin_export_exec(tokenizer_utils_tokenize("export HAHA=HOHO"), env);
 	str = twl_strdup("${HAHA:-ls}");
 	expan_init(token_new("aa", 0, 0), &str, str, TOKEN_ORIGIN_WORD);
 	mt_assert(twl_strcmp(str,"HOHO") == 0);
 	twl_strdel(&str);
-	builtin_unset_exec(tokenizer_tokenize("unset HAHA"), env);
+	builtin_unset_exec(tokenizer_utils_tokenize("unset HAHA"), env);
 }
 
 static void colon_hyphen_param_str_quoted(t_test *test)
@@ -94,7 +94,7 @@ static void colon_hyphen_param_str_quoted(t_test *test)
 
 	(void)test;
 	env = shenv_singleton();
-	builtin_unset_exec(tokenizer_tokenize("unset HAHA"), env);
+	builtin_unset_exec(tokenizer_utils_tokenize("unset HAHA"), env);
 	str = twl_strdup("${HAHA:-l\"}\"s}");
 	expan_init(token_new("aa", 0, 0), &str, str, TOKEN_ORIGIN_WORD);
 	mt_assert(twl_strcmp(str,"l}s") == 0);
@@ -107,7 +107,7 @@ static void colon_hyphen_param_str_quoted(t_test *test)
 	expan_init(token_new("aa", 0, 0), &str, str, TOKEN_ORIGIN_WORD);
 	mt_assert(twl_strcmp(str,"l}s") == 0);
 	twl_strdel(&str);
-	builtin_unset_exec(tokenizer_tokenize("unset HAHA"), env);
+	builtin_unset_exec(tokenizer_utils_tokenize("unset HAHA"), env);
 }
 
 static void hyphen_param_str(t_test *test)
@@ -117,18 +117,18 @@ static void hyphen_param_str(t_test *test)
 
 	(void)test;
 	env = shenv_singleton();
-	builtin_unset_exec(tokenizer_tokenize("unset HAHA"), env);
-	builtin_export_exec(tokenizer_tokenize("export HAHA=HOHO"), env);
+	builtin_unset_exec(tokenizer_utils_tokenize("unset HAHA"), env);
+	builtin_export_exec(tokenizer_utils_tokenize("export HAHA=HOHO"), env);
 	str = twl_strdup("${HAHA-ls}");
 	expan_init(token_new("aa", 0, 0), &str, str, TOKEN_ORIGIN_WORD);
 	mt_assert(twl_strcmp(str,"HOHO") == 0);
 	twl_strdel(&str);
-	builtin_unset_exec(tokenizer_tokenize("unset HAHA"), env);
+	builtin_unset_exec(tokenizer_utils_tokenize("unset HAHA"), env);
 	str = twl_strdup("${HAHA-HOHO}");
 	expan_init(token_new("aa", 0, 0), &str, str, TOKEN_ORIGIN_WORD);
 	mt_assert(twl_strcmp(str,"HOHO") == 0);
 	twl_strdel(&str);
-	builtin_export_exec(tokenizer_tokenize("export HAHA"), env);
+	builtin_export_exec(tokenizer_utils_tokenize("export HAHA"), env);
 	str = twl_strdup("${HAHA-HOHO}");
 	expan_init(token_new("aa", 0, 0), &str, str, TOKEN_ORIGIN_WORD);
 	mt_assert(twl_strcmp(str,"") == 0);
@@ -142,7 +142,7 @@ static void colon_equal_param_str(t_test *test)
 
 	(void)test;
 	env = shenv_singleton();
-	builtin_unset_exec(tokenizer_tokenize("unset X"), env);
+	builtin_unset_exec(tokenizer_utils_tokenize("unset X"), env);
 	str = twl_strdup("${X:=abc}");
 	expan_init(token_new("aa", 0, 0), &str, str, TOKEN_ORIGIN_WORD);
 	mt_assert(twl_strcmp(shenv_shvars_get_value(env, "X"),"abc") == 0);
@@ -151,7 +151,7 @@ static void colon_equal_param_str(t_test *test)
 	expan_init(token_new("aa", 0, 0), &str, str, TOKEN_ORIGIN_WORD);
 	mt_assert(twl_strcmp(shenv_shvars_get_value(env, "X"),"abc") == 0);
 	twl_strdel(&str);
-	builtin_unset_exec(tokenizer_tokenize("unset X"), env);
+	builtin_unset_exec(tokenizer_utils_tokenize("unset X"), env);
 }
 
 static void equal_param_str(t_test *test)
@@ -161,7 +161,7 @@ static void equal_param_str(t_test *test)
 
 	(void)test;
 	env = shenv_singleton();
-	builtin_unset_exec(tokenizer_tokenize("unset X"), env);
+	builtin_unset_exec(tokenizer_utils_tokenize("unset X"), env);
 	str = twl_strdup("${X=abc}");
 	expan_init(token_new("aa", 0, 0), &str, str, TOKEN_ORIGIN_WORD);
 	mt_assert(twl_strcmp(shenv_shvars_get_value(env, "X"),"abc") == 0);
@@ -170,13 +170,13 @@ static void equal_param_str(t_test *test)
 	expan_init(token_new("aa", 0, 0), &str, str, TOKEN_ORIGIN_WORD);
 	mt_assert(twl_strcmp(shenv_shvars_get_value(env, "X"),"abc") == 0);
 	twl_strdel(&str);
-	builtin_unset_exec(tokenizer_tokenize("unset X"), env);
-	builtin_export_exec(tokenizer_tokenize("export X"), env);
+	builtin_unset_exec(tokenizer_utils_tokenize("unset X"), env);
+	builtin_export_exec(tokenizer_utils_tokenize("export X"), env);
 	str = twl_strdup("${X=abc}");
 	expan_init(token_new("aa", 0, 0), &str, str, TOKEN_ORIGIN_WORD);
 	mt_assert(shenv_shvars_get_value(env, "X") == NULL);
 	twl_strdel(&str);
-	builtin_unset_exec(tokenizer_tokenize("unset X"), env);
+	builtin_unset_exec(tokenizer_utils_tokenize("unset X"), env);
 }
 
 static void colon_question_param_str(t_test *test)
@@ -186,17 +186,17 @@ static void colon_question_param_str(t_test *test)
 
 	(void)test;
 	env = shenv_singleton();
-	builtin_unset_exec(tokenizer_tokenize("unset X"), env);
+	builtin_unset_exec(tokenizer_utils_tokenize("unset X"), env);
 	str = twl_strdup("${X:?abc}");
 	expan_init(token_new("aa", 0, 0), &str, str, TOKEN_ORIGIN_WORD);
 	mt_assert(twl_strcmp(str,"") == 0);
 	twl_strdel(&str);
-	builtin_export_exec(tokenizer_tokenize("export X=lol"), env);
+	builtin_export_exec(tokenizer_utils_tokenize("export X=lol"), env);
 	str = twl_strdup("${X:?lol}");
 	expan_init(token_new("aa", 0, 0), &str, str, TOKEN_ORIGIN_WORD);
 	mt_assert(twl_strcmp(str,"lol") == 0);
 	twl_strdel(&str);
-	builtin_unset_exec(tokenizer_tokenize("unset X"), env);
+	builtin_unset_exec(tokenizer_utils_tokenize("unset X"), env);
 }
 
 static void question_param_str(t_test *test)
@@ -206,23 +206,23 @@ static void question_param_str(t_test *test)
 
 	(void)test;
 	env = shenv_singleton();
-	builtin_unset_exec(tokenizer_tokenize("unset X"), env);
+	builtin_unset_exec(tokenizer_utils_tokenize("unset X"), env);
 	str = twl_strdup("${X?abc}");
 	expan_init(token_new("aa", 0, 0), &str, str, TOKEN_ORIGIN_WORD);
 	mt_assert(twl_strcmp(str,"") == 0);
 	twl_strdel(&str);
-	builtin_export_exec(tokenizer_tokenize("export X=lol"), env);
+	builtin_export_exec(tokenizer_utils_tokenize("export X=lol"), env);
 	str = twl_strdup("${X?lol}");
 	expan_init(token_new("aa", 0, 0), &str, str, TOKEN_ORIGIN_WORD);
 	mt_assert(twl_strcmp(str,"lol") == 0);
 	twl_strdel(&str);
-	builtin_unset_exec(tokenizer_tokenize("unset X"), env);
-	builtin_export_exec(tokenizer_tokenize("export X"), env);
+	builtin_unset_exec(tokenizer_utils_tokenize("unset X"), env);
+	builtin_export_exec(tokenizer_utils_tokenize("export X"), env);
 	str = twl_strdup("${X?lol}");
 	expan_init(token_new("aa", 0, 0), &str, str, TOKEN_ORIGIN_WORD);
 	mt_assert(twl_strcmp(str,"") == 0);
 	twl_strdel(&str);
-	builtin_unset_exec(tokenizer_tokenize("unset X"), env);
+	builtin_unset_exec(tokenizer_utils_tokenize("unset X"), env);
 }
 
 static void colon_plus_param_str(t_test *test)
@@ -232,23 +232,23 @@ static void colon_plus_param_str(t_test *test)
 
 	(void)test;
 	env = shenv_singleton();
-	builtin_unset_exec(tokenizer_tokenize("unset X"), env);
+	builtin_unset_exec(tokenizer_utils_tokenize("unset X"), env);
 	str = twl_strdup("${X:+abc}");
 	expan_init(token_new("aa", 0, 0), &str, str, TOKEN_ORIGIN_WORD);
 	mt_assert(twl_strcmp(str,"") == 0);
 	twl_strdel(&str);
-	builtin_export_exec(tokenizer_tokenize("export X=lol"), env);
+	builtin_export_exec(tokenizer_utils_tokenize("export X=lol"), env);
 	str = twl_strdup("${X:+lol}");
 	expan_init(token_new("aa", 0, 0), &str, str, TOKEN_ORIGIN_WORD);
 	mt_assert(twl_strcmp(str,"lol") == 0);
 	twl_strdel(&str);
-	builtin_unset_exec(tokenizer_tokenize("unset X"), env);
-	builtin_export_exec(tokenizer_tokenize("export X"), env);
+	builtin_unset_exec(tokenizer_utils_tokenize("unset X"), env);
+	builtin_export_exec(tokenizer_utils_tokenize("export X"), env);
 	str = twl_strdup("${X:+lol}");
 	expan_init(token_new("aa", 0, 0), &str, str, TOKEN_ORIGIN_WORD);
 	mt_assert(twl_strcmp(str,"") == 0);
 	twl_strdel(&str);
-	builtin_unset_exec(tokenizer_tokenize("unset X"), env);
+	builtin_unset_exec(tokenizer_utils_tokenize("unset X"), env);
 }
 
 static void plus_param_str(t_test *test)
@@ -258,23 +258,23 @@ static void plus_param_str(t_test *test)
 
 	(void)test;
 	env = shenv_singleton();
-	builtin_unset_exec(tokenizer_tokenize("unset X"), env);
+	builtin_unset_exec(tokenizer_utils_tokenize("unset X"), env);
 	str = twl_strdup("${X+abc}");
 	expan_init(token_new("aa", 0, 0), &str, str, TOKEN_ORIGIN_WORD);
 	mt_assert(twl_strcmp(str,"") == 0);
 	twl_strdel(&str);
-	builtin_export_exec(tokenizer_tokenize("export X=lol"), env);
+	builtin_export_exec(tokenizer_utils_tokenize("export X=lol"), env);
 	str = twl_strdup("${X+lol}");
 	expan_init(token_new("aa", 0, 0), &str, str, TOKEN_ORIGIN_WORD);
 	mt_assert(twl_strcmp(str,"lol") == 0);
 	twl_strdel(&str);
-	builtin_unset_exec(tokenizer_tokenize("unset X"), env);
-	builtin_export_exec(tokenizer_tokenize("export X"), env);
+	builtin_unset_exec(tokenizer_utils_tokenize("unset X"), env);
+	builtin_export_exec(tokenizer_utils_tokenize("export X"), env);
 	str = twl_strdup("${X+lol}");
 	expan_init(token_new("aa", 0, 0), &str, str, TOKEN_ORIGIN_WORD);
 	mt_assert(twl_strcmp(str,"lol") == 0);
 	twl_strdel(&str);
-	builtin_unset_exec(tokenizer_tokenize("unset X"), env);
+	builtin_unset_exec(tokenizer_utils_tokenize("unset X"), env);
 }
 
 void	suite_expan_param(t_suite *suite)

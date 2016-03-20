@@ -22,9 +22,9 @@
 		openclose_matcher_del(matcher); \
 	}
 
-mt_test_openclose_err(num1, "$(123", 		"error: looking for matching `)'", false);
-mt_test_openclose_err(num2, "", 		    "error: nothing to match", false);
-mt_test_openclose_err(num3, "'", 		    "error: looking for matching `''", false);
+mt_test_openclose_err(num1, "$(123", 		"tokenizer: looking for matching `)'", false);
+mt_test_openclose_err(num2, "", 		    "tokenizer: nothing to match", false);
+mt_test_openclose_err(num3, "'", 		    "tokenizer: looking for matching `''", false);
 
 void	suite_openclose_matcher_find_matching_err(t_suite *suite)
 {

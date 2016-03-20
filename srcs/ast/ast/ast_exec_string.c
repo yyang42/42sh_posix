@@ -17,7 +17,7 @@ int					ast_exec_string(char *input)
 	int				exit_code;
 	t_lst			*tokens;
 
-	tokens = tokenizer_tokenize(input);
+	tokens = tokenizer_utils_tokenize(input);
 	exit_code = ast_exec_tokens(tokens);
 	token_mgr_del_inner(tokens);
 	return (exit_code);

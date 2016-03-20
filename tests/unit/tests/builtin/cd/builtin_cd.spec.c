@@ -16,7 +16,7 @@ static void test_cd_without_args(t_test *test)
 	env = shenv_new();
 	shenv_init(env);
 
-	builtin_cd_exec(tokenizer_tokenize("cd"), env);
+	builtin_cd_exec(tokenizer_utils_tokenize("cd"), env);
 	mt_assert(twl_strcmp(shenv_shvars_get_value(env, "HOME"), shenv_shvars_get_value(env, "PWD")) == 0);
 	shenv_del(env);
 }
@@ -30,13 +30,13 @@ static void test_cd_old_pwd(t_test *test)
 	(void)test;
 	env = shenv_new();
 	shenv_init(env);
-	builtin_cd_exec(tokenizer_tokenize("cd"), env);
+	builtin_cd_exec(tokenizer_utils_tokenize("cd"), env);
 	getcwd(oldpwd, 2048);
-	builtin_cd_exec(tokenizer_tokenize("cd /bin"), env);
+	builtin_cd_exec(tokenizer_utils_tokenize("cd /bin"), env);
 	getcwd(pwd, 2048);
 	mt_assert(twl_strcmp(oldpwd, shenv_shvars_get_value(env, "OLDPWD")) == 0);
 	mt_assert(twl_strcmp(pwd, shenv_shvars_get_value(env, "PWD")) == 0);
-	builtin_cd_exec(tokenizer_tokenize("cd -"), env);
+	builtin_cd_exec(tokenizer_utils_tokenize("cd -"), env);
 	mt_assert(twl_strcmp(oldpwd, shenv_shvars_get_value(env, "PWD")) == 0);
 	mt_assert(twl_strcmp(pwd, shenv_shvars_get_value(env, "OLDPWD")) == 0);
 	shenv_del(env);
@@ -48,8 +48,8 @@ static void test_cd_with_dots(t_test *test)
 	(void)test;
 	env = shenv_new();
 	shenv_init(env);
-	builtin_cd_exec(tokenizer_tokenize("cd /bin"), env);
-	builtin_cd_exec(tokenizer_tokenize("cd ././../../../../../../../../../../"), env);
+	builtin_cd_exec(tokenizer_utils_tokenize("cd /bin"), env);
+	builtin_cd_exec(tokenizer_utils_tokenize("cd ././../../../../../../../../../../"), env);
 	mt_assert(twl_strcmp(shenv_shvars_get_value(env, "PWD"), "/") == 0);
 	shenv_del(env);
 }

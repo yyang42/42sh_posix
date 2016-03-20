@@ -15,7 +15,7 @@
 		openclose_matcher_add(matcher, "(", ")"); \
 		openclose_matcher_add(matcher, "if", "fi"); \
 		openclose_matcher_add(matcher, "while", "done"); \
-		tokens = tokenizer_tokenize(input); \
+		tokens = tokenizer_utils_tokenize(input); \
 		pos = openclose_matcher_token_find_matching(matcher, tokens); \
 		if (pos > 0) \
 			slice = twl_lst_slice(tokens, pos, twl_lst_len(tokens)); \

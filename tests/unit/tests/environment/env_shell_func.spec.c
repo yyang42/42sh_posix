@@ -27,7 +27,7 @@ static void unset_shell_func(t_test *test)
 	shenv_init(env);
 	shenv_add_shell_func(env, "lol", (void *)"echo pouet");
 	mt_assert(twl_dict_len(env->shfuncs) == 1);
-	builtin_unset_exec(tokenizer_tokenize("unset -f lol"), env);
+	builtin_unset_exec(tokenizer_utils_tokenize("unset -f lol"), env);
 	mt_assert(twl_dict_len(env->shfuncs) == 0);
 	shenv_del(env);
 }

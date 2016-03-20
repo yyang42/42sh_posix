@@ -10,36 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "openclose/openclose_matcher.h"
-#include "openclose/openclose_mgr.h"
+#include "token/tokenizer.h"
 
-char				*openclose_matcher_find_matching(
-										t_openclose_matcher *matcher, char *s)
+t_lst				*tokenizer_utils_tokenize(char *input)
 {
-	t_lst			*stack;
-	char			*ret;
-	t_openclose		*oc;
+	t_tokenizer		*t;
+	t_lst			*tokens;
 
-	stack = twl_lst_new();
-	if (twl_strlen(s) == 0)
-		twl_asprintf(&matcher->err_msg, "tokenizer: nothing to match");
-	ret = openclose_matcher_find_matching_base(matcher, s, stack);
-	if (twl_lst_len(stack) > 0)
-	{
-		oc = twl_lst_first(stack);
-		twl_asprintf(&matcher->err_msg, "tokenizer: looking for matching `%s'",
-			oc->close);
-	}
-	twl_lst_del(stack, NULL);
-	return (ret);
-}
-
-t_lst				*openclose_matcher_find_matching_stack(
-										t_openclose_matcher *matcher, char *s)
-{
-	t_lst			*stack;
-
-	stack = twl_lst_new();
-	openclose_matcher_find_matching_base(matcher, s, stack);
-	return (stack);
+	t = tokenizer_new(input);
+	tokens = tokenizer_tokenize(t);
+	tokenizer_del(t);
+	return (tokens);
 }

@@ -35,22 +35,25 @@
 
 static bool			is_start_candidate(char c)
 {
-	return (twl_strchr("$`\"", c));
+	return (twl_strchr("$`\"\'", c));
 }
 
-static char			*match(char *input)
+static char			*match_fn(t_tokenizer *t, char *input)
 {
 	t_openclose_matcher		*matcher;
 	char					*match;
 
-	matcher = openclose_matcher_new(0);
+	matcher = openclose_matcher_new(OC_MATCHER_JUMP_SINGLE_QUOTE);
 	openclose_matcher_add(matcher, "$((", "))");
 	openclose_matcher_add(matcher, "$(", ")");
 	openclose_matcher_add(matcher, "${", "}");
 	openclose_matcher_add(matcher, "`", "`");
 	openclose_matcher_add(matcher, "\"", "\"");
+	openclose_matcher_add(matcher, "\'", "\'");
 	openclose_matcher_set_skip_quoted(matcher, true);
 	match = openclose_matcher_find_matching(matcher, input);
+	if (matcher->err_msg)
+		t->err_msg = twl_strdup(matcher->err_msg);
 	openclose_matcher_del(matcher);
 	return (match);
 }
@@ -62,7 +65,9 @@ t_rule_status		tokenizer_apply_rule05(t_tokenizer *t)
 	if (!t->cur_is_quoted
 		&& is_start_candidate(*t->curpos))
 	{
-		found = match(t->curpos);
+		found = match_fn(t, t->curpos);
+		if (t->err_msg)
+			return (RULE_STATUS_NOT_APPLIED);
 		if (!found)
 			found = t->curpos + twl_strlen(t->curpos);
 		tokenizer_append_to_curtoken(t, found - t->curpos);

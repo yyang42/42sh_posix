@@ -12,7 +12,7 @@
 
 #include "openclose/openclose_mgr.h"
 
-void				openclose_mgr_add(t_lst *opencloses, t_openclose *openclose)
+t_openclose			*openclose_mgr_first(t_lst *opencloses)
 {
-	twl_lst_push_back(opencloses, openclose);
+	return (twl_lst_first(opencloses));
 }
