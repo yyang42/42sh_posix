@@ -17,12 +17,12 @@ static void			print_openclose_fn(void *openclose_)
 	t_openclose	*openclose;
 
 	openclose = openclose_;
-	twl_printf("%s - %s\n", openclose->open, openclose->close);
+	twl_lprintf("%s - %s\n", openclose->open, openclose->close);
 }
 
 void				openclose_mgr_print(t_lst *opencloses)
 {
-	twl_printf("%s>>>>>>>>>> openclose list%s\n", C_CYAN, C_CLEAR);
+	twl_lprintf("%s>>>>>>>>>> openclose list%s\n", C_CYAN, C_CLEAR);
 	twl_lst_iter0(opencloses, print_openclose_fn);
-	twl_printf("%s-------------------------------------%s\n", C_CYAN, C_CLEAR);
+	twl_lprintf("%s-------------------------------------%s\n", C_CYAN, C_CLEAR);
 }

@@ -31,6 +31,7 @@ static void			resolve(t_openclose_matcher *matcher, t_lst *stack,
 	pos = *s_ptr;
 	oc = twl_lst_last(stack);
 	open_pos = twl_lst_find(matcher->oc_pairs, find_open_start_fn, pos);
+
 	if (oc && twl_str_starts_with(pos, oc->close))
 	{
 		twl_lst_pop_back(stack);

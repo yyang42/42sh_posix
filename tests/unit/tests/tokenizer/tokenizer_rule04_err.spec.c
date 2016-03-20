@@ -2,6 +2,7 @@
 
 #include "token/tokenizer.h"
 #include "token/token_mgr.h"
+#include "shenv/shenv.h"
 
 # define mt_test_tokenizer_err(test_name, input, expected, debug) \
     static void test_## test_name(t_test *test) \
@@ -20,15 +21,16 @@
         token_mgr_del_inner(tokens); \
     }
 
-mt_test_tokenizer_err(err01, "'",               "tokenizer: looking for matching `''", false);
-mt_test_tokenizer_err(err03, "abc'",            "tokenizer: looking for matching `''", false);
-mt_test_tokenizer_err(err04, "'a",              "tokenizer: looking for matching `''", false);
-mt_test_tokenizer_err(err06, "echo $(\")",      "tokenizer: looking for matching `)'", false);
-mt_test_tokenizer_err(err07, "a $(",            "tokenizer: looking for matching `)'", false);
-mt_test_tokenizer_err(err08, "a $((1 2) b&",    "tokenizer: looking for matching `))'", false);
-mt_test_tokenizer_err(err09, "a ${1 2 3",       "tokenizer: looking for matching `}'", false);
+mt_test_tokenizer_err(err01, "'",               "42sh: line: 1: tokenizer: looking for matching `''", true);
+mt_test_tokenizer_err(err03, "abc'",            "42sh: line: 1: tokenizer: looking for matching `''", true);
+mt_test_tokenizer_err(err04, "'a",              "42sh: line: 1: tokenizer: looking for matching `''", true);
+mt_test_tokenizer_err(err06, "echo $(\")",      "42sh: line: 1: tokenizer: looking for matching `)'", true);
+mt_test_tokenizer_err(err07, "a $(",            "42sh: line: 1: tokenizer: looking for matching `)'", true);
+mt_test_tokenizer_err(err08, "a $((1 2) b&",    "42sh: line: 1: tokenizer: looking for matching `))'", true);
+mt_test_tokenizer_err(err09, "a ${1 2 3",       "42sh: line: 1: tokenizer: looking for matching `}'", true);
 void    suite_tokenizer_rule04_err(t_suite *suite)
 {
+    shenv_singleton_setter(shenv_new()); // clean env
     SUITE_ADD_TEST(suite, test_err01);
     SUITE_ADD_TEST(suite, test_err03);
     SUITE_ADD_TEST(suite, test_err04);
