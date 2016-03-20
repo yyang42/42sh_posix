@@ -41,6 +41,10 @@ static void			resolve(t_openclose_matcher *matcher, t_lst *stack,
 	{
 		twl_lst_push_back(stack, open_pos);
 		*s_ptr += twl_strlen(open_pos->open);
+		if (*open_pos->open == '\'' && (matcher->flags & OC_MATCHER_JUMP_SINGLE_QUOTE))
+		{
+			*s_ptr = twl_strchr(*s_ptr, '\'');
+		}
 	}
 	else
 	{

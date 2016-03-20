@@ -18,9 +18,18 @@ char				*openclose_matcher_find_matching(
 {
 	t_lst			*stack;
 	char			*ret;
+	t_openclose		*oc;
 
 	stack = twl_lst_new();
+	if (twl_strlen(s) == 0)
+		twl_asprintf(&matcher->err_msg, "error: nothing to match");
 	ret = openclose_matcher_find_matching_base(matcher, s, stack);
+	if (twl_lst_len(stack) > 0)
+	{
+		oc = twl_lst_first(stack);
+		twl_asprintf(&matcher->err_msg, "error: looking for matching `%s'",
+			oc->close);
+	}
 	twl_lst_del(stack, NULL);
 	return (ret);
 }

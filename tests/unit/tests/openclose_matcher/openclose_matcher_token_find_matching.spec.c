@@ -11,7 +11,7 @@
 		int						pos; \
 		t_lst					*tokens; \
 		t_lst					*slice; \
-		matcher = openclose_matcher_new(); \
+		matcher = openclose_matcher_new(0); \
 		openclose_matcher_add(matcher, "(", ")"); \
 		openclose_matcher_add(matcher, "if", "fi"); \
 		openclose_matcher_add(matcher, "while", "done"); \

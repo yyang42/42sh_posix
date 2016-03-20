@@ -30,7 +30,7 @@
 
 static bool			is_start_of_quote(char c)
 {
-	return (twl_strchr("'\"", c));
+	return (twl_strchr("'", c));
 }
 
 static char			*match(char *input)
@@ -38,11 +38,11 @@ static char			*match(char *input)
 	t_openclose_matcher		*matcher;
 	char					*match;
 
-	matcher = openclose_matcher_new();
+	matcher = openclose_matcher_new(0);
 	if (*input == '\'')
 		openclose_matcher_add(matcher, "'", "'");
-	else
-		openclose_matcher_add(matcher, "\"", "\"");
+	// else
+	// 	openclose_matcher_add(matcher, "\"", "\"");
 	openclose_matcher_set_skip_quoted(matcher, true);
 	match = openclose_matcher_find_matching(matcher, input);
 	openclose_matcher_del(matcher);

@@ -6,7 +6,7 @@
 mt_test_tokenizer(num1, "a 1\\ 2 b",                "a_1\\ 2_b", false);
 mt_test_tokenizer(num2, "a '1 2' b",                "a_'1 2'_b", false);
 mt_test_tokenizer(num3, "a '1$(a b c) 2' b",        "a_'1$(a b c) 2'_b", false);
-mt_test_tokenizer(num4, "a \"1$(a b c) 2\" b",      "a_\"1$(a b c) 2\"_b", false);
+mt_test_tokenizer(num4, "a \"1$(a b c) 2\" b",      "a_\"1$(a b c) 2\"_b", true);
 mt_test_tokenizer(num5, "\\ ",                      "\\ ", false);
 mt_test_tokenizer(num6, "a '1 \\\"2' b",            "a_'1 \\\"2'_b", false);
 mt_test_tokenizer(num7, "a&'1 2'&3",                "a_&_'1 2'_&_3", false);
@@ -19,6 +19,10 @@ mt_test_tokenizer(num13, "1 $( ` $( ' ' ) ` ) 2",   "1_$( ` $( ' ' ) ` )_2", fal
 mt_test_tokenizer(num14, "$(`$(`$($(`a b`))`)`)cd ef",   "$(`$(`$($(`a b`))`)`)cd_ef", false);
 mt_test_tokenizer(num15, "a $(($($($(())))))1 b",        "a_$(($($($(())))))1_b", false);
 mt_test_tokenizer(num16, "\"a'b\" c",               "\"a'b\"_c", false);
+mt_test_tokenizer(num17, "echo \"$( echo \" abc \" )\"", "echo_\"$( echo \" abc \" )\"", true);
+mt_test_tokenizer(num18, "echo $(\")", "echo_$(\")", true);
+mt_test_tokenizer(num19, "echo '$('", "echo_'$('", true);
+mt_test_tokenizer(num20, "echo $(echo '$(')", "echo_$(echo '$(')", true);
 
 void    suite_tokenizer_rule04(t_suite *suite)
 {
@@ -38,4 +42,8 @@ void    suite_tokenizer_rule04(t_suite *suite)
     SUITE_ADD_TEST(suite, test_num14);
     SUITE_ADD_TEST(suite, test_num15);
     SUITE_ADD_TEST(suite, test_num16);
+    SUITE_ADD_TEST(suite, test_num17);
+    SUITE_ADD_TEST(suite, test_num18);
+    SUITE_ADD_TEST(suite, test_num19);
+    SUITE_ADD_TEST(suite, test_num20);
 }

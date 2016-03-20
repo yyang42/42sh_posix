@@ -15,5 +15,6 @@
 void				openclose_matcher_del(t_openclose_matcher *this)
 {
 	twl_lst_del(this->oc_pairs, openclose_del);
+	free(this->err_msg);
 	free(this);
 }
