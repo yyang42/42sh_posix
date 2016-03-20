@@ -52,6 +52,7 @@ typedef struct				s_shenv
 	t_lst					*jobs;
 	int						last_exit_code;
 	bool					async_should_exec_async;
+	bool					interactive_shell;
 	pid_t					async_child_pid;
 }							t_shenv;
 

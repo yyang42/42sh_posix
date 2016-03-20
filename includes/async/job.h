@@ -37,14 +37,25 @@
 
 */
 
+typedef enum s_job_status
+{
+	JOB_RUNNING,
+	JOB_DONE,
+	JOB_STOPPED,
+	JOB_CONTINUED,
+	JOB_TERMINATED,
+} t_job_status;
+
 typedef struct		s_job
 {
 	t_lst			*tokens;
 	int				job_id;
 	pid_t			pid;
 	int				status;
+	int				job_status;
 	char			*cmd_str;
 	int				end_pid;
+	int				stopped_signal;
 }					t_job;
 
 t_job				*job_new(pid_t pid, char *cmd_str, t_lst *tokens);

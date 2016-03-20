@@ -21,6 +21,8 @@ static void			ast_list_item_after_fork(t_ast_list_item *this, pid_t pid)
 	cmd_str = token_mgr_strjoin(this->list_item_tokens, " ");
 	job = job_new(pid, cmd_str, this->list_item_tokens);
 	job_mgr_env_push(job);
+	if (shenv_singleton()->interactive_shell)
+		twl_printf("[%d] %d\n", job->job_id, job->pid);
 	free(cmd_str);
 }
 

@@ -13,11 +13,6 @@
 #include "async/job_mgr.h"
 #include "token/token_mgr.h"
 
-static bool			should_be_removed(t_job *job)
-{
-	return (WIFSIGNALED(job->status));
-}
-
 static bool			remove_print_fn(void *job_, void *ctx)
 {
 	t_job	*job;
@@ -25,9 +20,27 @@ static bool			remove_print_fn(void *job_, void *ctx)
 
 	job = job_;
 	job_waitpid_update(job);
-	if (job->end_pid == job->pid)
+	if (job->end_pid == 0)
 	{
-		if (should_be_removed(job))
+		if (job->job_status != JOB_STOPPED)
+			job->job_status = JOB_RUNNING;
+	}
+	else if (job->end_pid == job->pid)
+	{
+		if (WIFSTOPPED(job->status))
+		{
+			job->stopped_signal = WSTOPSIG(job->status);
+			job->job_status = JOB_STOPPED;
+		}
+		else if (WIFCONTINUED(job->status))
+			job->job_status = JOB_RUNNING;
+		else if (WIFEXITED(job->status))
+			job->job_status = JOB_DONE;
+		else if (WIFSIGNALED(job->status))
+			job->job_status = JOB_TERMINATED;
+		else
+			job->job_status = -1;
+		if (job->job_status == JOB_TERMINATED)
 		{
 			str_status = job_status_str_long(job, true);
 			shenv_print_error_printf(shenv_singleton(),

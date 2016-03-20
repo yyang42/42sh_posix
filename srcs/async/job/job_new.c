@@ -22,6 +22,8 @@ t_job				*job_new(pid_t pid, char *cmd_str, t_lst *tokens)
 	this->pid = pid;
 	this->cmd_str = twl_strdup(cmd_str);
 	this->tokens = twl_lst_copy(tokens, NULL);
+	this->stopped_signal = 0;
+	this->job_status = JOB_RUNNING;
 	job_id++;
 	return (this);
 }

@@ -44,5 +44,6 @@ t_shenv			*shenv_new(void)
 	this->async_should_exec_async = false;
 	this->async_child_pid = 0;
 	this->shenv_cur_token = NULL;
+	this->interactive_shell = false;
 	return (this);
 }
