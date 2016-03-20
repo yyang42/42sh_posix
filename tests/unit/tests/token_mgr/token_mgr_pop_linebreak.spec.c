@@ -8,7 +8,7 @@
 	{ \
 		t_lst			*tokens; \
 		char			*joined_str; \
-		tokens = tokenizer_tokenize(input); \
+		tokens = tokenizer_utils_tokenize(input); \
 		token_mgr_pop_linebreak(tokens); \
 		joined_str = token_mgr_strjoin(tokens, "_"); \
 		if (debug) \

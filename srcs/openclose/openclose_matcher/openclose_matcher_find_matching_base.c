@@ -31,6 +31,7 @@ static void			resolve(t_openclose_matcher *matcher, t_lst *stack,
 	pos = *s_ptr;
 	oc = twl_lst_last(stack);
 	open_pos = twl_lst_find(matcher->oc_pairs, find_open_start_fn, pos);
+
 	if (oc && twl_str_starts_with(pos, oc->close))
 	{
 		twl_lst_pop_back(stack);
@@ -41,6 +42,14 @@ static void			resolve(t_openclose_matcher *matcher, t_lst *stack,
 	{
 		twl_lst_push_back(stack, open_pos);
 		*s_ptr += twl_strlen(open_pos->open);
+		if ((matcher->flags & OC_MATCHER_JUMP_SINGLE_QUOTE))
+		{
+			if (**s_ptr && *open_pos->open == '\''
+				&& twl_strchr(*s_ptr, '\''))
+			{
+				*s_ptr = twl_strchr(*s_ptr, '\'');
+			}
+		}
 	}
 	else
 	{
@@ -71,6 +80,15 @@ char				*openclose_matcher_find_matching_base(
 		{
 			if (is_quoted_skip(&s))
 				continue ;
+		}
+		if (matcher->flags & OC_MATCHER_JUMP_SINGLE_QUOTE)
+		{
+			if (*s == '\'' && twl_lst_len(stack)
+				&& twl_strequ(openclose_mgr_first(stack)->open, "\""))
+			{
+				s++;
+				continue;
+			}
 		}
 		resolve(matcher, stack, &s);
 		if (twl_lst_len(stack) == 0)

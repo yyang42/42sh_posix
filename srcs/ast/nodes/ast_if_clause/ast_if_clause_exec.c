@@ -18,8 +18,10 @@ void				ast_if_clause_exec(t_ast_if_clause *this)
 	t_lst			*if_then_list;
 	t_ast_if_then	*if_then;
 	int				already_exec;
+	int				saved_exit_code;
 
 	already_exec = false;
+	saved_exit_code = 0;
 	if_then_list = twl_lst_copy(this->if_then_list, NULL);
 	while ((if_then = twl_lst_pop_front(if_then_list)))
 	{
@@ -27,10 +29,12 @@ void				ast_if_clause_exec(t_ast_if_clause *this)
 		if (shenv_singleton()->last_exit_code == 0)
 		{
 			ast_compound_list_exec(if_then->then_compound);
+			saved_exit_code = shenv_singleton()->last_exit_code;
 			already_exec = true;
 			break ;
 		}
 	}
+	shenv_singleton()->last_exit_code = saved_exit_code;
 	if (!already_exec && this->else_body)
 		ast_compound_list_exec(this->else_body);
 	twl_lst_del(if_then_list, NULL);

@@ -13,7 +13,7 @@
 		char			*joined_str; \
 		char			*remaining_str; \
 		remaining_tokens = twl_lst_new(); \
-		tokens = tokenizer_tokenize(input); \
+		tokens = tokenizer_utils_tokenize(input); \
 		list_of_assigns = token_mgr_extract_assignment(tokens, remaining_tokens); \
 		joined_str = token_mgr_extract_assignment_join(list_of_assigns); \
 		remaining_str = token_mgr_strjoin(remaining_tokens, "_"); \

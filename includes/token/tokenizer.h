@@ -36,9 +36,11 @@ typedef struct		s_tokenizer
 	int				cur_line;
 	int				cur_col;
 	char			*heredoc_pos;
+	char			*err_msg;
 }					t_tokenizer;
 
-t_lst				*tokenizer_tokenize(char *input);
+t_lst				*tokenizer_tokenize(t_tokenizer *this);
+t_lst				*tokenizer_utils_tokenize(char *input);
 
 t_tokenizer			*tokenizer_new(char *input);
 void				tokenizer_del(t_tokenizer *this);

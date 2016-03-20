@@ -18,6 +18,7 @@ void				builtin_setenv_exec(t_lst *tokens, t_shenv *shenv)
 	t_argparser_result *argparser_result;
 
 	argparser_result = argparser_parse_tokens(builtin_setenv_argparser(), tokens);
+	shenv->last_exit_code = EXIT_SUCCESS;
 	if (argparser_result->err_msg)
 	{
 		argparser_result_print_error_with_help(argparser_result);
@@ -30,5 +31,4 @@ void				builtin_setenv_exec(t_lst *tokens, t_shenv *shenv)
 	{
 		builtin_export_exec_export_tokens(argparser_result, shenv);
 	}
-	shenv->last_exit_code = EXIT_SUCCESS;
 }

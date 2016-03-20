@@ -20,7 +20,7 @@ char			*ast_simple_command_utils_get_binary_path(char *cmd, t_shenv *env)
 	int				i;
 
 	if (cmd && (cmd[0] == '/' || twl_strncmp(cmd, "./", 2) == 0))
-		return (!file_exists(cmd) ? NULL : cmd);
+		return (!file_exists(cmd) ? NULL : twl_strdup(cmd));
 	paths = shenv_get_paths(env);
 	if (!paths)
 		return (NULL);

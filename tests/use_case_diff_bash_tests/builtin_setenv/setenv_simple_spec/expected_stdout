@@ -1,0 +1,3 @@
+setenv_var=bbb
+export setenv_var="bbb"
+exit_code: 0

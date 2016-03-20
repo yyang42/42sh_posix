@@ -20,7 +20,7 @@ static void			ast_subshell_fork_exec(t_ast_subshell *this)
 	int				pid;
 	int				res;
 
-	pid = fork();
+	pid = shenv_fork();
 	if (pid == -1)
 	{
 		twl_dprintf(2, "cannot fork: %s", strerror(errno));

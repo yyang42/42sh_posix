@@ -21,7 +21,7 @@ int		file_open_and_hand_error(t_token *token, int flags, int mod)
 	{
 		shenv_print_error_printf(shenv_singleton(),
 			token->line,
-			token->text, SHENV_ERROR_FILE_NOT_FOUND);
+			"%s: %s", token->text, SHENV_ERROR_FILE_NOT_FOUND);
 	}
 	return (fd);
 }

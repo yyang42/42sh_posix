@@ -44,7 +44,6 @@ t_shenv				*shenv_copy(t_shenv *this)
 	copy->shenv_name = twl_strdup(this->shenv_name);
 	copy->shenv_cur_cmd = twl_strdup(this->shenv_cur_cmd);
 	copy->shvars = twl_lst_copy(this->shvars, shvar_copy_void);
-	copy->alias = twl_lst_copy(this->alias, copy_dict_fn);
 	copy->flag_verbose = twl_lst_copy(this->flag_verbose, copy_dict_fn);
 	copy->shfuncs = twl_lst_copy(this->shfuncs, NULL);
 	copy->pos_params = twl_lst_copy(this->pos_params, twl_strdup_void);
@@ -54,5 +53,7 @@ t_shenv				*shenv_copy(t_shenv *this)
 	if (this->info.name)
 		copy->info.name = twl_strdup(this->info.name);
 	copy->last_exit_code = 0;
+	copy->jobs = twl_lst_new();
+	copy->alias = twl_lst_new();
 	return (copy);
 }

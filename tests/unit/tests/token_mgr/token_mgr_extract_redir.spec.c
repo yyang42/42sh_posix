@@ -11,7 +11,7 @@
 		t_lst			*remaining_tokens; \
 		char			*joined_str; \
 		char			*remaining_str; \
-		tokens = tokenizer_tokenize(input); \
+		tokens = tokenizer_utils_tokenize(input); \
 		remaining_tokens = twl_lst_new(); \
 		tokens_list = token_mgr_extract_redir(tokens, remaining_tokens); \
 		joined_str = token_list_mgr_strjoin(tokens_list); \

@@ -52,7 +52,7 @@ static char			*get_file(char *str, t_lst *tokens, t_shenv *this)
 	{
 		shenv_print_error_printf(shenv_singleton(),
 			token_mgr_first(tokens)->line,
-			str, SHENV_ERROR_FILE_NOT_FOUND);
+			"%s : %s", str, SHENV_ERROR_FILE_NOT_FOUND);
 		shenv_singleton()->last_exit_code = EXIT_FAILURE;
 		twl_arr_del(av, free);
 		return (NULL);

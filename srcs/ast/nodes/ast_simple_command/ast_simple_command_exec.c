@@ -15,6 +15,8 @@
 #include "ast/nodes/ast_redir.h"
 #include "builtin/builtin_mgr.h"
 #include "data.h"
+#include "async/job_mgr.h"
+
 
 static void			iter_assign_fn(void *assign_, void *cmd_)
 {
@@ -54,6 +56,9 @@ static void			ast_simple_command_exec_with_redirs(t_ast_simple_command *cmd)
 
 void				ast_simple_command_exec(t_ast_simple_command *cmd)
 {
+	// token_mgr_print(cmd->command_tokens);
+	shenv_set_cur_token(shenv_singleton(), token_mgr_first(cmd->command_tokens));
+	job_mgr_print_terminated(shenv_singleton()->jobs);
 	twl_lst_iter(cmd->assignment_items, iter_assign_fn, cmd);
 	ast_simple_command_exec_with_redirs(cmd);
 	shvar_mgr_clear_assign_value(shenv_singleton()->shvars);

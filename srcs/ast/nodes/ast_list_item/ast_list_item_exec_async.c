@@ -19,23 +19,28 @@ static void			ast_list_item_after_fork(t_ast_list_item *this, pid_t pid)
 	t_job			*job;
 
 	cmd_str = token_mgr_strjoin(this->list_item_tokens, " ");
-	job = job_new(pid, cmd_str);
+	job = job_new(pid, cmd_str, this->list_item_tokens);
 	job_mgr_env_push(job);
 	free(cmd_str);
+}
+
+static void			ast_list_item_exec_child(t_ast_list_item *this)
+{
+	ast_list_item_exec(this);
 }
 
 void				ast_list_item_exec_async(t_ast_list_item *this)
 {
 	pid_t			pid;
 
-	pid = fork();
+	pid = shenv_fork();
 	if (pid == -1)
 	{
 		twl_dprintf(2, "cannot fork: %s", strerror(errno));
 	}
 	else if (pid == 0)
 	{
-		ast_list_item_exec(this);
+		ast_list_item_exec_child(this);
 		exit(0);
 	}
 	else

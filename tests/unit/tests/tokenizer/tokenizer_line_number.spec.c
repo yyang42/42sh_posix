@@ -8,7 +8,7 @@
 	{ \
 		t_lst			*tokens; \
 		char			*actual; \
-		tokens = tokenizer_tokenize(input); \
+		tokens = tokenizer_utils_tokenize(input); \
 		actual = token_mgr_strjoin_with_num(tokens); \
 		if (debug) \
 		{ \
