@@ -34,10 +34,7 @@ t_lst				*history_mgr_new(void)
 	history = twl_lst_new();
 	filename = twl_joinpath(home_path, HISTORY_FILENAME);
 	fd = open(filename, O_CREAT | O_RDONLY, 0644);
-	/*
-	** TODO : FD Error handling
-	*/
-	while (twl_get_next_line(fd, &line))
+	while (twl_get_next_line(fd, &line) > 0)
 	{
 		history_mgr_add(history, line);
 		free(line);

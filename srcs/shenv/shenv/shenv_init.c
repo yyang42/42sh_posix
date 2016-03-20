@@ -26,7 +26,7 @@ static void			init_env_info(t_shenv_info *info)
 static void			init_env(void *elem, void *context)
 {
 	char			*environ_elem;
-	t_shenv	*this;
+	t_shenv			*this;
 
 	environ_elem = elem;
 	this = context;
@@ -50,7 +50,7 @@ static void			fill_flag_verbose_dict(t_dict *dict)
 
 void				shenv_init(t_shenv *this)
 {
-	extern char **environ;
+	extern char		**environ;
 
 	twl_arr_iter(environ, init_env, this);
 	fill_flag_verbose_dict(this->flag_verbose);
