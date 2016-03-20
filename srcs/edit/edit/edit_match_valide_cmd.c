@@ -80,7 +80,7 @@ char				*edit_match_valide_cmd(char *cmd)
 
 	cpy = cmd;
 	res = NULL;
-	matcher = openclose_matcher_new();
+	matcher = openclose_matcher_new(0);
 	create_openclose_condition(matcher);
 	while (cpy)
 	{

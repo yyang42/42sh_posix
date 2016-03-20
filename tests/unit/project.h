@@ -31,7 +31,7 @@ void	reset_sandbox(void);
 	{ \
 		t_lst			*tokens; \
 		char			*joined; \
-		tokens = tokenizer_tokenize(input); \
+		tokens = tokenizer_utils_tokenize(input); \
 		if (debug) \
 		{ \
 			token_mgr_print(tokens); \

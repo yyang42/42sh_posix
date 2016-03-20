@@ -10,11 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "openclose/openclose_matcher.h"
+#include "token/tokenizer.h"
 
-void				openclose_matcher_del(t_openclose_matcher *this)
+t_lst				*tokenizer_utils_tokenize(char *input)
 {
-	twl_lst_del(this->oc_pairs, openclose_del);
-	free(this->err_msg);
-	free(this);
+	t_tokenizer		*t;
+	t_lst			*tokens;
+
+	t = tokenizer_new(input);
+	tokens = tokenizer_tokenize(t);
+	tokenizer_del(t);
+	return (tokens);
 }

@@ -17,7 +17,7 @@ t_ast				*ast_new(char *input)
 	t_ast			*ast;
 	t_lst			*tokens;
 
-	tokens = tokenizer_tokenize(input);
+	tokens = tokenizer_utils_tokenize(input);
 	ast = ast_new_from_tokens(tokens);
 	token_mgr_del_inner(tokens);
 	return (ast);

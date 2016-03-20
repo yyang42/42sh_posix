@@ -10,7 +10,7 @@
 		t_lst			*split_strings; \
 		t_lst			*tokens; \
 		char			*joined_str; \
-		tokens = tokenizer_tokenize(input); \
+		tokens = tokenizer_utils_tokenize(input); \
 		split_strings = twl_str_split_to_lst(split_strings_str, "_"); \
 		tokens_list = token_mgr_split_ast(tokens, split_strings, keep_delimiter); \
 		joined_str = token_list_mgr_strjoin(tokens_list); \
