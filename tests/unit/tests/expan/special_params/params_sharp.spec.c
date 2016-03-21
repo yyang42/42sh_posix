@@ -10,7 +10,7 @@ static void simple_test(t_test *test)
 	t_shenv	*env;
 	char			*ret;
 
-	(void)test;
+
 	env = shenv_new();
 	shenv_init(env);
 	builtin_set_exec(tokenizer_utils_tokenize("set lol pouet"), env);

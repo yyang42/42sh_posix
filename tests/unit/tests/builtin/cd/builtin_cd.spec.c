@@ -27,7 +27,7 @@ static void test_cd_old_pwd(t_test *test)
 	char oldpwd[2048];
 	char pwd[2048];
 
-	(void)test;
+
 	env = shenv_new();
 	shenv_init(env);
 	builtin_cd_exec(tokenizer_utils_tokenize("cd"), env);
@@ -45,7 +45,7 @@ static void test_cd_with_dots(t_test *test)
 {
 	t_shenv		*env;
 
-	(void)test;
+
 	env = shenv_new();
 	shenv_init(env);
 	builtin_cd_exec(tokenizer_utils_tokenize("cd /bin"), env);

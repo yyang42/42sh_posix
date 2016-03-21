@@ -9,7 +9,7 @@ static void add_shell_func(t_test *test)
 {
 	t_shenv		*env;
 
-	(void)test;
+
 	env = shenv_new();
 	shenv_init(env);
 	shenv_add_shell_func(env, "lol", (void *)"echo pouet");
@@ -22,7 +22,7 @@ static void unset_shell_func(t_test *test)
 {
 	t_shenv		*env;
 
-	(void)test;
+
 	env = shenv_new();
 	shenv_init(env);
 	shenv_add_shell_func(env, "lol", (void *)"echo pouet");

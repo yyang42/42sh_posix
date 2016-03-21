@@ -17,7 +17,7 @@
 # include "twl_opt.h"
 # include "shenv/shenv.h"
 # include "argparser_extension.h"
-# include "async/job_mgr.h"
+# include "job_control/job_mgr.h"
 
 # define BUILTIN_JOBS_FLAG_OPT_L 0x01
 # define BUILTIN_JOBS_FLAG_OPT_P 0x02

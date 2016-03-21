@@ -11,7 +11,7 @@ static void 	test_simple_shift(t_test *test)
 {
 	t_shenv		*env;
 
-	(void)test;
+
 	env = shenv_new();
 	shenv_init(env);
 	builtin_set_exec(tokenizer_utils_tokenize("set lol pouet"), env);
@@ -29,7 +29,7 @@ static void 	test_simple_shift(t_test *test)
 // {
 // 	t_shenv		*env;
 //
-// 	(void)test;
+//
 // 	env = shenv_new();
 // 	shenv_init(env);
 // 	builtin_shift_exec(tokenizer_utils_tokenize("shift"), env);
@@ -45,7 +45,7 @@ static void 	test_simple_shift(t_test *test)
 // {
 // 	t_shenv		*env;
 //
-// 	(void)test;
+//
 // 	env = shenv_new();
 // 	shenv_init(env);
 // 	set("set lol pouet gnuk hihi", env);

@@ -15,7 +15,7 @@ static void simple_pos_param(t_test *test)
 	t_shenv	*env;
 	char			*str;
 
-	(void)test;
+
 	env = shenv_singleton();
 	builtin_set_exec(tokenizer_utils_tokenize("set lol pouet"), env);
 	str = twl_strdup("$1");
@@ -34,7 +34,7 @@ static void simple_pos_param_sub(t_test *test)
 	t_shenv	*env;
 	char			*str;
 
-	(void)test;
+
 	env = shenv_singleton();
 	builtin_export_exec(tokenizer_utils_tokenize("set lol pouet"), env);
 	str = twl_strdup("$1");
@@ -52,7 +52,7 @@ static void simple_param_str(t_test *test)
 	t_shenv	*env;
 	char			*str;
 
-	(void)test;
+
 	env = shenv_singleton();
 	builtin_unset_exec(tokenizer_utils_tokenize("unset LOL"), env);
 	builtin_export_exec(tokenizer_utils_tokenize("export LOL=POUET"), env);
@@ -72,7 +72,7 @@ static void colon_hyphen_param_str(t_test *test)
 	t_shenv	*env;
 	char			*str;
 
-	(void)test;
+
 	env = shenv_singleton();
 	builtin_unset_exec(tokenizer_utils_tokenize("unset HAHA"), env);
 	str = twl_strdup("${HAHA:-ls}");
@@ -92,7 +92,7 @@ static void colon_hyphen_param_str_quoted(t_test *test)
 	t_shenv	*env;
 	char			*str;
 
-	(void)test;
+
 	env = shenv_singleton();
 	builtin_unset_exec(tokenizer_utils_tokenize("unset HAHA"), env);
 	str = twl_strdup("${HAHA:-l\"}\"s}");
@@ -115,7 +115,7 @@ static void hyphen_param_str(t_test *test)
 	t_shenv	*env;
 	char			*str;
 
-	(void)test;
+
 	env = shenv_singleton();
 	builtin_unset_exec(tokenizer_utils_tokenize("unset HAHA"), env);
 	builtin_export_exec(tokenizer_utils_tokenize("export HAHA=HOHO"), env);
@@ -140,7 +140,7 @@ static void colon_equal_param_str(t_test *test)
 	t_shenv	*env;
 	char			*str;
 
-	(void)test;
+
 	env = shenv_singleton();
 	builtin_unset_exec(tokenizer_utils_tokenize("unset X"), env);
 	str = twl_strdup("${X:=abc}");
@@ -159,7 +159,7 @@ static void equal_param_str(t_test *test)
 	t_shenv	*env;
 	char			*str;
 
-	(void)test;
+
 	env = shenv_singleton();
 	builtin_unset_exec(tokenizer_utils_tokenize("unset X"), env);
 	str = twl_strdup("${X=abc}");
@@ -184,7 +184,7 @@ static void colon_question_param_str(t_test *test)
 	t_shenv	*env;
 	char			*str;
 
-	(void)test;
+
 	env = shenv_singleton();
 	builtin_unset_exec(tokenizer_utils_tokenize("unset X"), env);
 	str = twl_strdup("${X:?abc}");
@@ -204,7 +204,7 @@ static void question_param_str(t_test *test)
 	t_shenv	*env;
 	char			*str;
 
-	(void)test;
+
 	env = shenv_singleton();
 	builtin_unset_exec(tokenizer_utils_tokenize("unset X"), env);
 	str = twl_strdup("${X?abc}");
@@ -230,7 +230,7 @@ static void colon_plus_param_str(t_test *test)
 	t_shenv	*env;
 	char			*str;
 
-	(void)test;
+
 	env = shenv_singleton();
 	builtin_unset_exec(tokenizer_utils_tokenize("unset X"), env);
 	str = twl_strdup("${X:+abc}");
@@ -256,7 +256,7 @@ static void plus_param_str(t_test *test)
 	t_shenv	*env;
 	char			*str;
 
-	(void)test;
+
 	env = shenv_singleton();
 	builtin_unset_exec(tokenizer_utils_tokenize("unset X"), env);
 	str = twl_strdup("${X+abc}");

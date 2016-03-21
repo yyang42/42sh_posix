@@ -4,7 +4,7 @@
 
 static void	test_copy_shvars(t_test *test)
 {
-	(void)test;
+
 	t_shenv		*src;
 	t_shenv		*clone;
 	t_shvar		*shvar;

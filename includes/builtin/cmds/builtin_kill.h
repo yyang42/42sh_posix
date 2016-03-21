@@ -20,6 +20,5 @@
 void				builtin_kill_exec(t_lst *tokens, t_shenv *env);
 void				builtin_kill_print_signals(void);
 void				builtin_kill_print_usage(void);
-int					builtin_kill_exec_get_signum(char *sigstr);
 
 #endif

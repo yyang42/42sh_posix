@@ -10,7 +10,7 @@ static void simple_test(t_test *test)
 	char			*ret;
 	t_shenv	*env;
 
-	(void)test;
+
 	env = shenv_new();
 	shenv_init(env);
 	ret = test_params_at(env);

@@ -15,7 +15,7 @@
 #include "ast/nodes/ast_redir.h"
 #include "builtin/builtin_mgr.h"
 #include "data.h"
-#include "async/job_mgr.h"
+#include "job_control/job_mgr.h"
 
 
 static void			iter_assign_fn(void *assign_, void *cmd_)

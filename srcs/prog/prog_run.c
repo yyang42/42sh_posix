@@ -48,6 +48,7 @@ int					prog_run(t_prog *prog)
 	else
 	{
 		prog_signal_handling();
+		shenv_singleton()->is_interactive_shell = true;
 		prog_main_loop(prog);
 	}
 	free(input);

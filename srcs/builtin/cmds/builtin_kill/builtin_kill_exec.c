@@ -12,6 +12,7 @@
 
 #include "builtin/builtin.h"
 #include "builtin/cmds/builtin_kill.h"
+#include "job_control/job.h"
 
 static char			*get_sigstr_from_minus_s_opt(t_lst *tokens, t_shenv *env)
 {
@@ -67,7 +68,7 @@ static void			builtin_kill_exec_sigstr(char *sigstr, t_lst *tokens_copy,
 {
 	int				signum;
 
-	signum = builtin_kill_exec_get_signum(sigstr);
+	signum = job_utils_get_signum(sigstr);
 	if (signum == -1)
 	{
 		shenv_print_error_printf(env, first_token->line,
@@ -113,11 +114,19 @@ void				builtin_kill_exec(t_lst *tokens, t_shenv *env)
 		{
 			sigstr = get_sigstr_from_minus_s_opt(tokens_copy, env);
 		}
-		else if (twl_str_starts_with(token_mgr_first(tokens_copy)->text, "-"))
+		else if (!twl_strequ(token_mgr_first(tokens_copy)->text, "--")
+			&& twl_str_starts_with(token_mgr_first(tokens_copy)->text, "-"))
 		{
 			sigstr = token_mgr_first(tokens_copy)->text + 1;
 			twl_lst_pop_front(tokens_copy);
 		}
+		else
+		{
+			sigstr = "TERM";
+		}
+		if (token_mgr_first(tokens_copy)
+			&& twl_strequ(token_mgr_first(tokens_copy)->text, "--"))
+			twl_lst_pop_front(tokens_copy);
 		if (sigstr)
 		{
 			builtin_kill_exec_sigstr(sigstr, tokens_copy, twl_lst_first(tokens), env);
