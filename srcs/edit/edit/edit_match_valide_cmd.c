@@ -98,7 +98,7 @@ static char			*get_heredoc_sep(char* cmd)
 	if (heredoc_pos == NULL)
 		return NULL;
 	sep = get_next_word_after_heredoc(heredoc_pos);
-	return (twl_strdup(sep));
+	return (sep);
 
 }
 
@@ -112,13 +112,16 @@ static void			match_heredoc(char *cmd, t_openclose_matcher *matcher)
 		if (sep == NULL)
 			return ;
 		openclose_matcher_add(matcher, sep, sep);
-		free(sep);
 		while (!twl_str_starts_with(cmd, sep))
 		{
 			cmd++;
 			if (!*cmd)
+			{
+				free(sep);
 				return ;
+			}
 		}
+		free(sep);
 	}
 }
 
@@ -166,7 +169,7 @@ static char			*get_part_between_sep(char *cmd,char *sep)
 		cmd++;
 		i++;
 	}
-	return twl_strdup(twl_strtrim(buff));
+	return twl_strtrim(buff);
 }
 
 static char			*clean_heredoc(char *cmd)
@@ -181,6 +184,8 @@ static char			*clean_heredoc(char *cmd)
 		return (cmd);
 	first_part = get_part_before_heredoc(cmd);
 	middle_part = get_part_between_sep(cmd, sep);
+	free(cmd);
+	free(sep);
 	new_cmd = twl_strjoinfree(first_part, " ", 'l');
 	new_cmd = twl_strjoinfree(new_cmd, middle_part, 'b');
 	return (new_cmd);
@@ -213,15 +218,16 @@ char				*edit_match_valide_cmd(char *cmd)
 		stack = openclose_matcher_find_matching_stack(matcher, cpy);
 		if (twl_lst_len(stack) > 0)
 		{
+			twl_lst_del(stack, NULL);
 			new_cmd = new_loop();
 			cmd = twl_strjoinfree(cmd, new_cmd, 'b');
 		}
 		else
 		{
+			twl_lst_del(stack, NULL);
 			break;
 		}
 	}
-	twl_lst_del(stack, NULL);
 	cmd = clean_heredoc(cmd);
 	openclose_matcher_del(matcher);
 	return (cmd);
