@@ -5,7 +5,7 @@
 
 static void test_is_builtin(t_test *test)
 {
-	(void)test;
+
 	mt_assert((bool)builtin_mgr_find_by_name(data_builtins(), "hello") == false);
 	mt_assert((bool)builtin_mgr_find_by_name(data_builtins(), "cd") == true);
 	mt_assert((bool)builtin_mgr_find_by_name(data_builtins(), "ls") == false);
@@ -15,7 +15,6 @@ static void test_is_builtin(t_test *test)
 
 static void test_get_binary_path(t_test *test)
 {
-	(void)test;
 	char *str;
 	t_shenv *env;
 
@@ -25,7 +24,6 @@ static void test_get_binary_path(t_test *test)
 	str = ast_simple_command_utils_get_binary_path("ls", env);
 	mt_assert(str != NULL);
 	twl_strdel(&str);
-	shenv_del(env);
 }
 
 void	suite_check_command(t_suite *suite)

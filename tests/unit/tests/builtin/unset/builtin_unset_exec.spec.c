@@ -11,7 +11,7 @@ static void 	unset_var(t_test *test)
 	int					i;
 	int					j;
 
-	(void)test;
+
 	env = shenv_new();
 	shenv_init(env);
 	builtin_export_exec(tokenizer_utils_tokenize("export HAHA=pouet"), env);
@@ -28,7 +28,7 @@ static void 	unset_func(t_test *test)
 	int					i;
 	int					j;
 
-	(void)test;
+
 	env = shenv_new();
 	shenv_init(env);
 	shenv_add_shell_func(env,"LOL", (void *)"echo pouet");
@@ -47,7 +47,7 @@ static void 	unset_var_not_func(t_test *test)
 	int					k;
 	int					l;
 
-	(void)test;
+
 	env = shenv_new();
 	shenv_init(env);
 	builtin_export_exec(tokenizer_utils_tokenize("export LOL=pouet"), env);
@@ -70,7 +70,7 @@ static void 	unset_both(t_test *test)
 	int					k;
 	int					l;
 
-	(void)test;
+
 	env = shenv_new();
 	shenv_init(env);
 	builtin_export_exec(tokenizer_utils_tokenize("export LOL=pouet"), env);

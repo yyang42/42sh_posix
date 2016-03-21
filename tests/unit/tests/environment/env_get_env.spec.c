@@ -14,7 +14,7 @@ static void copied_env_is_equal_to_environ(t_test *test)
 	t_shvar	*var;
 	char				*str;
 
-	(void)test;
+
 	env = shenv_new();
 	shenv_init(env);
 	i = 0;
@@ -34,7 +34,7 @@ static void copied_env_is_equal_to_environ(t_test *test)
 
 static void test_set_env(t_test *test)
 {
-	(void)test;
+
 	t_shenv		*env;
 
 	env = shenv_new();
@@ -54,7 +54,7 @@ static void test_set_env(t_test *test)
 
 static void test_unset_env(t_test *test)
 {
-	(void)test;
+
 	t_shenv		*env;
 
 	env = shenv_new();
@@ -70,7 +70,7 @@ static void test_unset_env(t_test *test)
 
 static void	test_set_get_env_value(t_test *test)
 {
-	(void)test;
+
 	t_shenv		*env;
 
 	env = shenv_new();
@@ -86,7 +86,7 @@ static void	test_set_get_env_value(t_test *test)
 
 static void	test_copy(t_test *test)
 {
-	(void)test;
+
 	t_shenv		*env;
 	t_shenv		*clone;
 
@@ -106,7 +106,7 @@ static void test_get_paths(t_test *test)
 	char			*fpaths;
 	t_shenv	*env;
 
-	(void)test;
+
 	env = shenv_new();
 	shenv_init(env);
 	fpaths = getenv("PATH");

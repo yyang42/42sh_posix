@@ -11,7 +11,7 @@ static void simple_star(t_test *test)
 	char			*ret;
 	t_shenv	*env;
 
-	(void)test;
+
 	env = shenv_new();
 	shenv_init(env);
 	builtin_export_exec(tokenizer_utils_tokenize("export IFS=["), env);

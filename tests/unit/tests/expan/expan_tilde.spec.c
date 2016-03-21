@@ -13,7 +13,7 @@ static void simple_tilde(t_test *test)
 	char			*token;
 	char			*suffix;
 
-	(void)test;
+
 	env = shenv_singleton();
 	res = NULL;
 	token = twl_strdup("~");
@@ -33,7 +33,7 @@ static void simple_tilde(t_test *test)
 // 	char			*token;
 // 	char			*suffix;
 //
-// 	(void)test;
+//
 // 	env = shenv_singleton();
 // 	res = NULL;
 // 	token = twl_strdup("~");
@@ -52,7 +52,7 @@ static void tilde_with_unknown_suffix(t_test *test)
 	char			*token;
 	char			*suffix;
 
-	(void)test;
+
 	//env = shenv_singleton();
 	res = NULL;
 	token = twl_strdup("~");

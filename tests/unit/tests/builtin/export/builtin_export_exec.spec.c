@@ -11,7 +11,7 @@ static void     simple_test(t_test *test)
 	int					i;
 	int					j;
 
-    (void)test;
+
     env = shenv_new();
 	shenv_init(env);
 	i = twl_lst_len(env->shvars);
@@ -30,7 +30,7 @@ static void     value_is_empty(t_test *test)
 	int					i;
 	int					j;
 
-    (void)test;
+
     env = shenv_new();
 	shenv_init(env);
 	i = twl_lst_len(env->shvars);
@@ -46,7 +46,7 @@ static void     value_is_empty(t_test *test)
 // 	int					i;
 // 	int					j;
 
-//     (void)test;
+//
 //     env = shenv_new();
 // 	shenv_init(env);
 // 	i = twl_lst_len(env->shvars);
@@ -62,7 +62,7 @@ static void     key_already_exists(t_test *test)
 	int					i;
 	int					j;
 
-    (void)test;
+
     env = shenv_new();
 	shenv_init(env);
 	i = twl_lst_len(env->shvars);

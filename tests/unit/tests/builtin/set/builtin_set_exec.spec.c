@@ -11,7 +11,7 @@ static void     set_flag(t_test *test)
     t_shenv        *env;
     char                *flags;
 
-    (void)test;
+
     env = shenv_new();
 	shenv_init(env);
     builtin_set_exec(tokenizer_utils_tokenize("set -x -a -b"), env);
@@ -26,7 +26,7 @@ static void test_unset_flag(t_test *test)
     t_shenv        *env;
     char                *flags;
 
-    (void)test;
+
 	env = shenv_new();
 	shenv_init(env);
     builtin_set_exec(tokenizer_utils_tokenize("set -x -a -b"), env);
@@ -49,7 +49,7 @@ static void test_wrong_flag(t_test *test)
 {
 	t_shenv		*env;
 
-	(void)test;
+
 	env = shenv_new();
 	shenv_init(env);
 	builtin_set_exec(tokenizer_utils_tokenize("set -a -b"), env);
@@ -62,7 +62,7 @@ static void 	set_verbose(t_test *test)
 	t_shenv		*env;
 	char				*flags;
 
-	(void)test;
+
 	env = shenv_new();
 	shenv_init(env);
 	builtin_set_exec(tokenizer_utils_tokenize("set -o errexit"), env);
@@ -79,7 +79,7 @@ static void 	test_unset_verbose(t_test *test)
 	t_shenv		*env;
 	char				*flags;
 
-	(void)test;
+
 	env = shenv_new();
 	shenv_init(env);
 	builtin_set_exec(tokenizer_utils_tokenize("set -o errexit"), env);
@@ -96,7 +96,7 @@ static void 	set_pos_param(t_test *test)
 {
 	t_shenv		*env;
 
-	(void)test;
+
 	env = shenv_new();
 	shenv_init(env);
 	builtin_set_exec(tokenizer_utils_tokenize("set pouet lol"), env);
@@ -111,7 +111,7 @@ static void 	set_hyphen(t_test *test)
 	t_shenv		*env;
 	char				*flags;
 
-	(void)test;
+
 	env = shenv_new();
 	shenv_init(env);
 	builtin_set_exec(tokenizer_utils_tokenize("set --"), env);
