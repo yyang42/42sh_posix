@@ -13,6 +13,7 @@
 #include "builtin/builtin.h"
 #include "builtin/cmds/builtin_kill.h"
 #include "job_control/job.h"
+#include "job_control/job_mgr.h"
 
 static char			*get_sigstr_from_minus_s_opt(t_lst *tokens, t_shenv *env)
 {
@@ -42,17 +43,25 @@ static void			iter_pids_fn(void *token_, void *signum_ptr)
 	int				signum;
 	t_token			*token;
 	int				pid;
+	t_job			*job;
 
 	signum = *(int *)signum_ptr;
 	token = token_;
-	if (!twl_str_is_num(token->text))
+	if (twl_str_is_num(token->text))
+	{
+		pid = twl_atoi(token->text);
+	}
+	else if ((job = job_mgr_find_by_job_id(shenv_singleton()->jobs, token->text)))
+	{
+		pid = job->pid;
+	}
+	else
 	{
 		shenv_print_error_printf(shenv_singleton(), token->line,
 			"kill: %s: arguments must be process or job IDs", token->text);
 		shenv_singleton()->last_exit_code = EXIT_FAILURE;
 		return ;
 	}
-	pid = twl_atoi(token->text);
 	if (kill(pid, 0) == -1)
 	{
 		shenv_print_error_printf(shenv_singleton(), token->line,
