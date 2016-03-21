@@ -62,7 +62,7 @@ static bool			fn_loop(t_tokenizer *t)
 	return (true);
 }
 
-t_lst				*tokenizer_tokenize(t_tokenizer		*this)
+t_lst				*tokenizer_tokenize(t_tokenizer *this)
 {
 	t_lst			*tokens;
 

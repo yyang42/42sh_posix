@@ -10,19 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXPAN_TOKEN_H
-# define EXPAN_TOKEN_H
+#include "expan/expan_tokenizer.h"
 
-# include "basics.h"
-# include "expan/expan_token_type.h"
-
-typedef struct			s_expan_token
+void				expan_tokenizer_addone(t_expan_tokenizer *this)
 {
-	t_expan_token_type	type;
-	char				*text;
-}						t_expan_token;
-
-t_expan_token			*expan_token_new(t_expan_token_type type, char *text);
-void					expan_token_del(t_expan_token *this);
-
-#endif
+	this->to_push[this->to_push_index] = this->input[this->input_index];
+	this->input_index += 1;
+	this->to_push_index += 1;
+}

@@ -25,6 +25,12 @@ void				shenv_del(t_shenv *this)
 		twl_lst_del(this->flag_verbose, NULL);
 	if (this->shfuncs)
 		twl_lst_del(this->shfuncs, NULL);
+	if (this->shenv_name)
+		free(this->shenv_name);
+	if (this->shenv_cur_cmd)
+		free(this->shenv_cur_cmd);
+	if (this->jobs)
+		twl_lst_del(this->jobs, free); // TODO: <- obvious
 	twl_lst_del(this->flags, twl_opt_elem_del);
 	twl_lst_del(this->pos_params, free);
 	if (this->alias)

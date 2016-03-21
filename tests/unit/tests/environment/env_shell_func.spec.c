@@ -21,14 +21,17 @@ static void add_shell_func(t_test *test)
 static void unset_shell_func(t_test *test)
 {
 	t_shenv		*env;
+	t_lst		*tmp;
 
 	(void)test;
 	env = shenv_new();
 	shenv_init(env);
 	shenv_add_shell_func(env, "lol", (void *)"echo pouet");
 	mt_assert(twl_dict_len(env->shfuncs) == 1);
-	builtin_unset_exec(tokenizer_utils_tokenize("unset -f lol"), env);
+	tmp = tokenizer_utils_tokenize("unset -f lol");
+	builtin_unset_exec(tmp, env);
 	mt_assert(twl_dict_len(env->shfuncs) == 0);
+	twl_lst_del(tmp, token_del);
 	shenv_del(env);
 }
 

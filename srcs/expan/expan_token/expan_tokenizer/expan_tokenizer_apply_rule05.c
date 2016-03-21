@@ -10,19 +10,31 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXPAN_TOKEN_H
-# define EXPAN_TOKEN_H
+#include "expan/expan_tokenizer.h"
 
-# include "basics.h"
-# include "expan/expan_token_type.h"
+/*
+** Check for double backquote command substitution.
+*/
 
-typedef struct			s_expan_token
+t_rule_expan_status	expan_tokenizer_apply_rule05(t_expan_tokenizer *this)
 {
-	t_expan_token_type	type;
-	char				*text;
-}						t_expan_token;
-
-t_expan_token			*expan_token_new(t_expan_token_type type, char *text);
-void					expan_token_del(t_expan_token *this);
-
-#endif
+	if (this->input[this->input_index] == '`')
+	{
+		while (this->input[this->input_index] &&
+				this->input[this->input_index] != '`')
+		{
+			expan_tokenizer_addone(this);
+			if (this->input[this->input_index] &&
+					this->to_push[this->to_push_index - 1] == '\\')
+			{
+				expan_tokenizer_addone(this);
+			}
+		}
+		if (!this->input[this->input_index])
+			expan_tokenizer_delimit(this, EXPAN_NONE);
+		else
+			expan_tokenizer_delimit(this, EXPAN_DQUOTE);
+		return (EXPAN_STATUS_APPLIED);
+	}
+	return (EXPAN_STATUS_NOT_APPLIED);
+}

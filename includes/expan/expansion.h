@@ -10,19 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXPAN_TOKEN_H
-# define EXPAN_TOKEN_H
+#ifndef EXPANSION_H
+# define EXPANSION_H
 
 # include "basics.h"
-# include "expan/expan_token_type.h"
+# include "token/token.h"
+# include "expan/expan_tokenizer.h"
+//# include "expan/expan_execute.h"
 
-typedef struct			s_expan_token
-{
-	t_expan_token_type	type;
-	char				*text;
-}						t_expan_token;
-
-t_expan_token			*expan_token_new(t_expan_token_type type, char *text);
-void					expan_token_del(t_expan_token *this);
+bool				expansion(t_token *to_expand);
 
 #endif
