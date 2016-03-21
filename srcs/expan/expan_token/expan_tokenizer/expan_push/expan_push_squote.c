@@ -20,4 +20,6 @@ void				expan_push_squote(t_expan_tokenizer *this)
 	{
 		expan_tokenizer_addone(this);
 	}
+	if (this->input[this->input_index])
+		expan_tokenizer_addone(this);
 }
