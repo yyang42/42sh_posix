@@ -12,36 +12,26 @@
 
 #include "expan/expan_tokenizer.h"
 
-t_expan_tokenizer_fn	g_expan_tokenizer_rule_fns[8] =
-{
-	expan_tokenizer_apply_rule01,
-	expan_tokenizer_apply_rule02,
-	expan_tokenizer_apply_rule03,
-	expan_tokenizer_apply_rule04,
-	expan_tokenizer_apply_rule05,
-	expan_tokenizer_apply_rule06,
-	expan_tokenizer_apply_rule07,
-	NULL
-};
+/*
+** Check for dollar character.
+*/
 
-t_lst					*expan_tokenizer_tokenize(char *input)
+t_rule_expan_status	expan_tokenizer_apply_rule06(t_expan_tokenizer *this)
 {
-	t_expan_tokenizer	*this;
-	t_rule_expan_status	type;
-	t_lst				*ret;
-	size_t				index;
+	t_expan_token_type	type;
 
-	this = expan_tokenizer_new(input);
-	index = 0;
-	while (g_expan_tokenizer_rule_fns[index])
+	if (this->input[this->input_index] == '$')
 	{
-		type = g_expan_tokenizer_rule_fns[index](this);
-		if (type == EXPAN_STATUS_END_OF_INPUT)
-			break ;
-		index = (type == EXPAN_STATUS_APPLIED) ? 0 : index + 1;
+		if (this->to_push_index != 0)
+			expan_tokenizer_delimit(this, EXPAN_NONE);
+		if (this->input[this->input_index + 1] == '(')
+			type = (this->input[this->input_index + 2] == '(') ?
+				EXPAN_ARITHMETIC : EXPAN_CMDSBT_DOLLAR;
+		else
+			type = EXPAN_PARAMETER;
+		expan_push_dollar(this);
+		expan_tokenizer_delimit(this, type);
+		return (EXPAN_STATUS_APPLIED);
 	}
-	ret = this->tokens;
-	this->tokens = NULL;
-	expan_tokenizer_del(this);
-	return (ret);
+	return (EXPAN_STATUS_NOT_APPLIED);
 }

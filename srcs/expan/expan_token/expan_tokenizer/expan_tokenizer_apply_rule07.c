@@ -12,36 +12,15 @@
 
 #include "expan/expan_tokenizer.h"
 
-t_expan_tokenizer_fn	g_expan_tokenizer_rule_fns[8] =
-{
-	expan_tokenizer_apply_rule01,
-	expan_tokenizer_apply_rule02,
-	expan_tokenizer_apply_rule03,
-	expan_tokenizer_apply_rule04,
-	expan_tokenizer_apply_rule05,
-	expan_tokenizer_apply_rule06,
-	expan_tokenizer_apply_rule07,
-	NULL
-};
+/*
+** All characters and escape escaped character.
+*/
 
-t_lst					*expan_tokenizer_tokenize(char *input)
+t_rule_expan_status	expan_tokenizer_apply_rule07(t_expan_tokenizer *this)
 {
-	t_expan_tokenizer	*this;
-	t_rule_expan_status	type;
-	t_lst				*ret;
-	size_t				index;
-
-	this = expan_tokenizer_new(input);
-	index = 0;
-	while (g_expan_tokenizer_rule_fns[index])
-	{
-		type = g_expan_tokenizer_rule_fns[index](this);
-		if (type == EXPAN_STATUS_END_OF_INPUT)
-			break ;
-		index = (type == EXPAN_STATUS_APPLIED) ? 0 : index + 1;
-	}
-	ret = this->tokens;
-	this->tokens = NULL;
-	expan_tokenizer_del(this);
-	return (ret);
+	if (this->input[this->input_index] == '\\' &&
+			this->input[this->input_index + 1])
+		expan_tokenizer_addone(this);
+	expan_tokenizer_addone(this);
+	return (EXPAN_STATUS_APPLIED);
 }

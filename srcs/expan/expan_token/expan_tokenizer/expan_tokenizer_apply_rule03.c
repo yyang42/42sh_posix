@@ -20,6 +20,8 @@ t_rule_expan_status	expan_tokenizer_apply_rule03(t_expan_tokenizer *this)
 {
 	if (this->input[this->input_index] == '\'')
 	{
+		if (this->to_push_index != 0)
+			expan_tokenizer_delimit(this, EXPAN_NONE);
 		expan_push_squote(this);
 		expan_tokenizer_delimit(this, EXPAN_SQUOTE);
 		return (EXPAN_STATUS_APPLIED);

@@ -13,31 +13,17 @@
 #include "expan/expan_tokenizer.h"
 
 /*
-** Check for double quote pattern.
+** Check for backquote command substitution.
 */
-
-static void			expan_tokenizer_push_until_dquote(t_expan_tokenizer *this)
-{
-	expan_tokenizer_addone(this);
-	while (this->input[this->input_index] != '"')
-	{
-	}
-}
 
 t_rule_expan_status	expan_tokenizer_apply_rule04(t_expan_tokenizer *this)
 {
-	if (this->input[this->input_index] == '"')
+	if (this->input[this->input_index] == '`')
 	{
-		expan_tokenizer_push_until_dquote(this);
-		while (this->input[this->input_index] &&
-				this->input[this->input_index] != '"')
-		{
-			expan_tokenizer_addone(this);
-		}
-		if (!this->input[this->input_index])
+		if (this->to_push_index != 0)
 			expan_tokenizer_delimit(this, EXPAN_NONE);
-		else
-			expan_tokenizer_delimit(this, EXPAN_DQUOTE);
+		expan_push_bquote(this);
+		expan_tokenizer_delimit(this, EXPAN_CMDSBT_BQUOTE);
 		return (EXPAN_STATUS_APPLIED);
 	}
 	return (EXPAN_STATUS_NOT_APPLIED);

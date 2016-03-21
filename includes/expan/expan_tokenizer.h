@@ -44,6 +44,8 @@ t_rule_expan_status			expan_tokenizer_apply_rule02(t_expan_tokenizer *this);
 t_rule_expan_status			expan_tokenizer_apply_rule03(t_expan_tokenizer *this);
 t_rule_expan_status			expan_tokenizer_apply_rule04(t_expan_tokenizer *this);
 t_rule_expan_status			expan_tokenizer_apply_rule05(t_expan_tokenizer *this);
+t_rule_expan_status			expan_tokenizer_apply_rule06(t_expan_tokenizer *this);
+t_rule_expan_status			expan_tokenizer_apply_rule07(t_expan_tokenizer *this);
 
 void						expan_tokenizer_delimit(t_expan_tokenizer *this,
 													t_expan_token_type type);
