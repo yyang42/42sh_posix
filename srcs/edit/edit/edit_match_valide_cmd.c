@@ -41,17 +41,18 @@ static void			print_fn(void *data, int i, void *_edit_min)
 	terminal_clear_letter();
 }
 
-static void			print_line(t_edit *edit_min)
+static void			print_line(t_edit *edit_min, char *token)
 {
 	terminal_carriage_return();
 	terminal_delete_line();
-	twl_putstr("Close > ");
+	twl_putstr(token);
+	twl_putstr(" - close > ");
 	twl_lst_iteri(edit_min->letters, print_fn, edit_min);
 	if (edit_min->return_cmd)
 		twl_putstr("\n");
 }
 
-static char			*new_loop(void)
+static char			*new_loop(t_openclose *token)
 {
 	t_edit			*edit_min;
 	char			*cmd;
@@ -59,12 +60,12 @@ static char			*new_loop(void)
 
 	edit_min = edit_new_min();
 	cmd = NULL;
-	print_line(edit_min);
+	print_line(edit_min, token->open);
 	while (!cmd)
 	{
 		key = twl_getch();
 		cmd = edit_handle_one_input(edit_min, key);
-		print_line(edit_min);
+		print_line(edit_min, token->open);
 	}
 	edit_del(edit_min);
 	return (cmd);
@@ -102,16 +103,48 @@ static char			*get_heredoc_sep(char* cmd)
 
 }
 
+static char			*get_open_sep(char* cmd)
+{
+	char			*heredoc_pos;
+	char			buff[1000];
+	int				i;
+
+	i = 2;
+	heredoc_pos = twl_strstr(cmd, "<<");
+	if (heredoc_pos == NULL)
+		return NULL;
+	twl_bzero(buff, 1000);
+	twl_strncat(buff, heredoc_pos, 2);
+	heredoc_pos += 2;
+	while (twl_isspace(*heredoc_pos))
+	{
+		buff[i] = *heredoc_pos;
+		i++;
+		heredoc_pos++;
+	}
+	while (!twl_isspace(*heredoc_pos))
+	{
+		buff[i] = *heredoc_pos;
+		i++;
+		heredoc_pos++;
+	}
+	return (twl_strdup(buff));
+
+}
+
 static void			match_heredoc(char *cmd, t_openclose_matcher *matcher)
 {
 	char 			*sep;
+	char			*open;
 
 	while (true)
 	{
 		sep = get_heredoc_sep(cmd);
 		if (sep == NULL)
 			return ;
-		openclose_matcher_add(matcher, sep, sep);
+		open = get_open_sep(cmd);
+		openclose_matcher_add(matcher, open, sep);
+		free(open);
 		while (!twl_str_starts_with(cmd, sep))
 		{
 			cmd++;
@@ -218,9 +251,9 @@ char				*edit_match_valide_cmd(char *cmd)
 		stack = openclose_matcher_find_matching_stack(matcher, cpy);
 		if (twl_lst_len(stack) > 0)
 		{
-			twl_lst_del(stack, NULL);
-			new_cmd = new_loop();
+			new_cmd = new_loop(twl_lst_last(stack));
 			cmd = twl_strjoinfree(cmd, new_cmd, 'b');
+			twl_lst_del(stack, NULL);
 		}
 		else
 		{
