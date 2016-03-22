@@ -37,6 +37,14 @@ static char			*get_sigstr_from_minus_s_opt(t_lst *tokens, t_shenv *env)
 	return (sigstr);
 }
 
+static t_job		*get_job_by_id(char *job_id_str)
+{
+	if (*job_id_str != '%')
+		return (NULL);
+	job_id_str++;
+	return (job_mgr_find_by_job_id(shenv_singleton()->jobs, job_id_str));
+}
+
 
 static void			iter_pids_fn(void *token_, void *signum_ptr)
 {
@@ -51,7 +59,7 @@ static void			iter_pids_fn(void *token_, void *signum_ptr)
 	{
 		pid = twl_atoi(token->text);
 	}
-	else if ((job = job_mgr_find_by_job_id(shenv_singleton()->jobs, token->text)))
+	else if ((job = get_job_by_id(token->text)))
 	{
 		pid = job->pid;
 	}

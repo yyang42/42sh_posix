@@ -20,6 +20,7 @@
 #include "builtin/cmds/builtin_exit.h"
 #include "builtin/cmds/builtin_export.h"
 #include "builtin/cmds/builtin_false.h"
+#include "builtin/cmds/builtin_fg.h"
 #include "builtin/cmds/builtin_jobs.h"
 #include "builtin/cmds/builtin_readonly.h"
 #include "builtin/cmds/builtin_set.h"
@@ -49,7 +50,9 @@ t_lst				*data_builtins(void)
 		twl_lst_push_back(builtins, builtin_new("exit", builtin_exit_exec));
 		twl_lst_push_back(builtins, builtin_new("export", builtin_export_exec));
 		twl_lst_push_back(builtins, builtin_new("false", builtin_false_exec));
+		twl_lst_push_back(builtins, builtin_new("fg", builtin_fg_exec));
 		twl_lst_push_back(builtins, builtin_new("jobs", builtin_jobs_exec));
+		twl_lst_push_back(builtins, builtin_new("kill", builtin_kill_exec));
 		twl_lst_push_back(builtins, builtin_new("readonly", builtin_readonly_exec));
 		twl_lst_push_back(builtins, builtin_new("set", builtin_set_exec));
 		twl_lst_push_back(builtins, builtin_new("setenv", builtin_setenv_exec));
@@ -59,7 +62,6 @@ t_lst				*data_builtins(void)
 		twl_lst_push_back(builtins, builtin_new("umask", builtin_umask_exec));
 		twl_lst_push_back(builtins, builtin_new("unset", builtin_unset_exec));
 		twl_lst_push_back(builtins, builtin_new("unsetenv", builtin_unsetenv_exec));
-		twl_lst_push_back(builtins, builtin_new("kill", builtin_kill_exec));
 	}
 	return (builtins);
 }

@@ -10,33 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "job_control/job_mgr.h"
-#include "twl_stdlib.h"
+#include "builtin/cmds/builtin_fg.h"
 
-static bool			find_by_id_fn(void *job_, void *job_id_ptr)
+void				builtin_fg_put_job_in_fg(t_job *job)
 {
-	int				job_id;
-	t_job			*job;
-
-	job = job_;
-	job_id = *(int *)job_id_ptr;
-	return (job->job_id == job_id);
-}
-
-t_job 				*job_mgr_find_by_job_id(t_lst *jobs, char *job_str_id)
-{
-	int				job_id;
-
-	if (twl_strequ(job_str_id, "+"))
-		job_id = -1;
-	else if (twl_strequ(job_str_id, "-"))
-		job_id = -2;
-	else if (twl_str_is_pos_num(job_str_id))
-		job_id = twl_atoi(job_str_id);
-	else
-		return (NULL);
-	if (job_id < 0)
-		return (twl_lst_get(jobs, job_id));
-	else
-		return (twl_lst_find(jobs, find_by_id_fn, &job_id));
+	twl_dprintf(1, "fg: job %s\n", job->cmd_str);
 }

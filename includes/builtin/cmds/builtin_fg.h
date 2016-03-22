@@ -10,33 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "job_control/job_mgr.h"
-#include "twl_stdlib.h"
+#ifndef BUILTIN_FG_H
+# define BUILTIN_FG_H
 
-static bool			find_by_id_fn(void *job_, void *job_id_ptr)
-{
-	int				job_id;
-	t_job			*job;
+# include "basics.h"
+# include "shenv/shenv.h"
+# include "job_control/job_mgr.h"
+# include "token/token_mgr.h"
 
-	job = job_;
-	job_id = *(int *)job_id_ptr;
-	return (job->job_id == job_id);
-}
+void				builtin_fg_exec(t_lst *tokens, t_shenv *shenv);
+void				builtin_fg_put_job_in_fg(t_job *job);
+void				builtin_fg_invalid_opt_print_usage(char *opt, t_token *token);
 
-t_job 				*job_mgr_find_by_job_id(t_lst *jobs, char *job_str_id)
-{
-	int				job_id;
-
-	if (twl_strequ(job_str_id, "+"))
-		job_id = -1;
-	else if (twl_strequ(job_str_id, "-"))
-		job_id = -2;
-	else if (twl_str_is_pos_num(job_str_id))
-		job_id = twl_atoi(job_str_id);
-	else
-		return (NULL);
-	if (job_id < 0)
-		return (twl_lst_get(jobs, job_id));
-	else
-		return (twl_lst_find(jobs, find_by_id_fn, &job_id));
-}
+#endif
