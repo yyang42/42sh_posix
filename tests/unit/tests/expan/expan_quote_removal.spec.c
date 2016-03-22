@@ -106,7 +106,7 @@ static void hard_core_test(t_test *test)
 
 void	suite_expan_quote_removal(t_suite *suite)
 {
-	(void)suite;
+
 	SUITE_ADD_TEST(suite, simple_quote_test);
 	SUITE_ADD_TEST(suite, double_quote_test);
 	SUITE_ADD_TEST(suite, backslash_test);

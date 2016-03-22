@@ -7,7 +7,6 @@ static void	test_copy_shvars(t_test *test)
 
 	t_shenv		*src;
 	t_shenv		*clone;
-	t_shvar		*shvar;
 
 	src = shenv_new();
 	shenv_shvars_set(src, "mykey", "myvar", NULL);

@@ -24,6 +24,7 @@ t_shenv				*shenv_singleton_setter(t_shenv *src_env)
 	{
 		env = shenv_new();
 		shenv_init(env);
+		shenv_increase_shlvl(env);
 	}
 	return (env);
 }

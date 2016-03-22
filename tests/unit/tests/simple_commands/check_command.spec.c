@@ -28,7 +28,7 @@ static void test_get_binary_path(t_test *test)
 
 void	suite_check_command(t_suite *suite)
 {
-	(void)suite;
+
 	SUITE_ADD_TEST(suite, test_is_builtin);
 	SUITE_ADD_TEST(suite, test_get_binary_path);
 }

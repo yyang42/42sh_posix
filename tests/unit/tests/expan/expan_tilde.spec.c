@@ -66,7 +66,7 @@ static void tilde_with_unknown_suffix(t_test *test)
 
 void	suite_expan_tilde(t_suite *suite)
 {
-	(void)suite;
+
 	SUITE_ADD_TEST(suite, simple_tilde);
 	// SUITE_ADD_TEST(suite, tilde_with_known_suffix);
 	SUITE_ADD_TEST(suite, tilde_with_unknown_suffix);

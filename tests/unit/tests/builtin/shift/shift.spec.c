@@ -59,7 +59,7 @@ static void 	test_simple_shift(t_test *test)
 
 void            suite_shift(t_suite *suite)
 {
-	(void)suite;
+
 	SUITE_ADD_TEST(suite, test_simple_shift);
 	// SUITE_ADD_TEST(suite, test_empty_params);
 	// SUITE_ADD_TEST(suite, test_shift_too_big);

@@ -26,6 +26,6 @@ static void simple_star(t_test *test)
 
 void	suite_params_star(t_suite *suite)
 {
-	(void)suite;
+
 	SUITE_ADD_TEST(suite, simple_star);
 }

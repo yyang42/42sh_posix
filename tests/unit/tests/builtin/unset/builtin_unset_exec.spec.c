@@ -88,7 +88,7 @@ static void 	unset_both(t_test *test)
 
 void            suite_builtin_unset_exec(t_suite *suite)
 {
-	(void)suite;
+
 	SUITE_ADD_TEST(suite, unset_var);
 	SUITE_ADD_TEST(suite, unset_func);
 	SUITE_ADD_TEST(suite, unset_var_not_func);
