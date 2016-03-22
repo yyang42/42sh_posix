@@ -55,4 +55,5 @@ void				shenv_init(t_shenv *this)
 	twl_arr_iter(environ, init_env, this);
 	fill_flag_verbose_dict(this->flag_verbose);
 	init_env_info(&this->info);
+	shenv_increase_shlvl(this);
 }
