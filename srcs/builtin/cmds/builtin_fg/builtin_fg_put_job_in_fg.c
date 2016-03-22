@@ -12,7 +12,35 @@
 
 #include "builtin/cmds/builtin_fg.h"
 
-void				builtin_fg_put_job_in_fg(t_job *job)
+void                builtin_fg_put_job_in_fg(t_job *job)
 {
-	twl_dprintf(1, "fg: job %s\n", job->cmd_str);
+    t_shenv         *env;
+    bool            cont;
+
+    cont = true;
+
+    twl_dprintf(2, "!!! NOT FULLY IMPLEMENTED !!!\n");
+    env = shenv_singleton();
+    /* Put the job into the foreground.  */
+    tcsetpgrp (env->jc_terminal, job->pid);
+    /* Send the job a continue signal, if necessary.  */
+    if (cont)
+    {
+        tcsetattr (env->jc_terminal, TCSADRAIN, &job->tmodes);
+        if (kill (job->pid, SIGCONT) < 0)
+            twl_dprintf (2, "kill (SIGCONT)");
+    }
+    /* Wait for it to report.  */
+    // wait_for_job (j);
+    int status;
+    pid_t pid = waitpid (job->pid, &status, WUNTRACED);
+    (void)pid;
+    (void)status;
+
+    /* Put the shell back in the foreground.  */
+    tcsetpgrp (env->jc_terminal, env->jc_pgid);
+
+    /* Restore the shell’s terminal modes.  */
+    tcgetattr (env->jc_terminal, &job->tmodes);
+    tcsetattr (env->jc_terminal, TCSADRAIN, &env->jc_tmodes);
 }

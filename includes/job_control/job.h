@@ -14,6 +14,8 @@
 # define ASYNC_JOB_H
 
 # include "basics.h"
+# include <termios.h>
+
 /*
 
 	One of the following strings (in the POSIX locale):
@@ -56,6 +58,7 @@ typedef struct		s_job
 	char			*cmd_str;
 	int				end_pid;
 	int				stopped_signal;
+  	struct termios	tmodes;      /* saved terminal modes */
 }					t_job;
 
 t_job				*job_new(pid_t pid, char *cmd_str, t_lst *tokens);
