@@ -100,6 +100,7 @@ int					shenv_get_cur_line(void);
 int					shenv_print_error_printf(t_shenv *this, int line,
 											char *fmt, ...);
 int					shenv_utils_fork(void);
+void				shenv_increase_shlvl(t_shenv *this);
 
 /*
 ** JOB CONTROL

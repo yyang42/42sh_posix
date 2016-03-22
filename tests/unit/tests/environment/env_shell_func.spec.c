@@ -35,7 +35,7 @@ static void unset_shell_func(t_test *test)
 
 void	suite_env_shell_func(t_suite *suite)
 {
-	(void)suite;
+
 	SUITE_ADD_TEST(suite, add_shell_func);
 	SUITE_ADD_TEST(suite, unset_shell_func);
 }

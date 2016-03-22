@@ -10,21 +10,29 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "shenv/shenv.h"
+#include "twl_arr.h"
+#include "xopt.h"
+#include "twl_stdlib.h"
 
-t_shenv				*shenv_singleton_setter(t_shenv *src_env)
+void				shenv_increase_shlvl(t_shenv *this)
 {
-	static t_shenv	*env = NULL;
+	t_shvar			*shvar;
+	char			*shlvl;
 
-	if (src_env)
+	shvar = shenv_shvars_get(this, "SHLVL");
+	if (shvar)
 	{
-		env = src_env;
+		if (twl_str_is_pos_num(shvar->shvar_value))
+		{
+			shlvl = twl_itoa(twl_atoi(shvar->shvar_value) + 1);
+			shenv_shvars_set(this, shvar->shvar_key, shlvl, this->shenv_name);
+			free(shlvl);
+		}
 	}
-	if (!env)
+	else
 	{
-		env = shenv_new();
-		shenv_init(env);
-		shenv_increase_shlvl(env);
+		shenv_shvars_set(this, "SHLVL", "1", this->shenv_name);
 	}
-	return (env);
 }

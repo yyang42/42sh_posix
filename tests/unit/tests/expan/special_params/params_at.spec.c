@@ -29,6 +29,6 @@ static void simple_test(t_test *test)
 
 void	suite_params_at(t_suite *suite)
 {
-	(void)suite;
+
 	SUITE_ADD_TEST(suite, simple_test);
 }

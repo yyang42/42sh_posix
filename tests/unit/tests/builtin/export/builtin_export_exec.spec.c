@@ -79,7 +79,7 @@ static void     key_already_exists(t_test *test)
 
 void            suite_builtin_export_exec(t_suite *suite)
 {
-	(void)suite;
+
 	SUITE_ADD_TEST(suite, simple_test);
 	SUITE_ADD_TEST(suite, value_is_empty);
 	// SUITE_ADD_TEST(suite, value_is_null);

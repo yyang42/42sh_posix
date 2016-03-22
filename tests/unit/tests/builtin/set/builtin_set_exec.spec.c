@@ -127,7 +127,7 @@ static void 	set_hyphen(t_test *test)
 
 void            suite_builtin_set_exec(t_suite *suite)
 {
-	(void)suite;
+
 	SUITE_ADD_TEST(suite, set_flag);
 	SUITE_ADD_TEST(suite, test_unset_flag);
 	SUITE_ADD_TEST(suite, test_wrong_flag);
