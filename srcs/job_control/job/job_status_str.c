@@ -38,37 +38,20 @@ char				*job_status_str(t_job *job)
 	char			*str_status;
 
 	str_status = NULL;
-	// twl_lprintf("job->pid %d\n", job->pid);
-	// twl_lprintf("job->end_pid %d\n", job->end_pid);
 	if (job->job_status == JOB_RUNNING)
 		str_status = twl_strdup("Running");
 	else if (job->job_status == JOB_DONE)
-		twl_asprintf(&str_status, "Done(%d)", WEXITSTATUS(job->status));
+	{
+		if (WEXITSTATUS(job->status) == 0)
+			str_status = twl_strdup("Done");
+		else
+			twl_asprintf(&str_status, "Done(%d)", WEXITSTATUS(job->status));
+	}
 	else if (job->job_status == JOB_TERMINATED)
 		twl_asprintf(&str_status, "Terminated: %d", WTERMSIG(job->status));
 	else if (job->job_status == JOB_STOPPED)
 		twl_asprintf(&str_status, "Stopped(%d)", job->stopped_signal);
 	else
 		str_status = twl_strdup("Unknown");
-
-	// if (job->end_pid == 0) {
-	// 	if (job->stopped_signal)
-	// 		twl_asprintf(&str_status, "Stopped(%d)", job->stopped_signal);
-	// 	else
-	// 		str_status = twl_strdup("Running");
-	// }
-	// else if (job->end_pid == job->pid)
-	// {
-	// 	if (WIFEXITED(job->status))
-	// 		twl_asprintf(&str_status, "Done(%d)", WEXITSTATUS(job->status));
-	// 	else if (WIFSIGNALED(job->status))
-	// 		twl_asprintf(&str_status, "Terminated: %d", WTERMSIG(job->status));
-	// 	else if (WIFSTOPPED(job->status))
-	// 		twl_asprintf(&str_status, "Stopped(%d)", WSTOPSIG(job->status));
-	// 	else if (WIFCONTINUED(job->status))
-	// 		twl_asprintf(&str_status, "Continued(%d)", WSTOPSIG(job->status));
-	// }
-	// if (!str_status)
-	// 	str_status = twl_strdup("Unknown");
 	return (str_status);
 }

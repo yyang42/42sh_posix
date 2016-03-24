@@ -13,10 +13,37 @@
 #include "job_control/job_mgr.h"
 #include "token/token_mgr.h"
 
+static bool			handle_with_status(t_job *job)
+{
+	char	*str_status;
+
+	if (WIFSTOPPED(job->status))
+	{
+		job->stopped_signal = WSTOPSIG(job->status);
+		job->job_status = JOB_STOPPED;
+	}
+	else if (WIFCONTINUED(job->status))
+		job->job_status = JOB_RUNNING;
+	else if (WIFEXITED(job->status))
+		job->job_status = JOB_DONE;
+	else if (WIFSIGNALED(job->status))
+		job->job_status = JOB_TERMINATED;
+	else
+		job->job_status = -1;
+	if (job->job_status == JOB_TERMINATED)
+	{
+		str_status = job_status_str_long(job, true);
+		shenv_print_error_printf(shenv_singleton(),
+			shenv_get_cur_line(), "%s", str_status);
+		free(str_status);
+		return (true);
+	}
+	return (false);
+}
+
 static bool			remove_print_fn(void *job_, void *ctx)
 {
 	t_job	*job;
-	char	*str_status;
 
 	job = job_;
 	job_waitpid_update(job);
@@ -27,27 +54,7 @@ static bool			remove_print_fn(void *job_, void *ctx)
 	}
 	else if (job->end_pid == job->pid)
 	{
-		if (WIFSTOPPED(job->status))
-		{
-			job->stopped_signal = WSTOPSIG(job->status);
-			job->job_status = JOB_STOPPED;
-		}
-		else if (WIFCONTINUED(job->status))
-			job->job_status = JOB_RUNNING;
-		else if (WIFEXITED(job->status))
-			job->job_status = JOB_DONE;
-		else if (WIFSIGNALED(job->status))
-			job->job_status = JOB_TERMINATED;
-		else
-			job->job_status = -1;
-		if (job->job_status == JOB_TERMINATED)
-		{
-			str_status = job_status_str_long(job, true);
-			shenv_print_error_printf(shenv_singleton(),
-				shenv_get_cur_line(), "%s", str_status);
-			free(str_status);
-			return (true);
-		}
+		return (handle_with_status(job));
 	}
 	return (false);
 	(void)ctx;

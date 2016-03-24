@@ -32,6 +32,9 @@ t_edit				*edit_new(void)
 	this->copast = NULL;
 	this->state = NORMAL;
 	cursor_reset_pos();
+
+	disable_all_sigs();
 	signal_handle_ctrl_c();
+	signal_handle_sigwinch();
 	return (this);
 }

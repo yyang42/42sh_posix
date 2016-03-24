@@ -13,7 +13,7 @@
 #include "builtin/cmds/builtin_fg.h"
 #include <sys/wait.h>
 
-void                builtin_fg_put_job_in_fg(t_job *job)
+static void         put_in_fg(t_job *job)
 {
     t_shenv         *env;
     bool            cont;
@@ -25,6 +25,7 @@ void                builtin_fg_put_job_in_fg(t_job *job)
     /* Put the job into the foreground.  */
     tcsetpgrp (env->jc_terminal, job->pid);
     /* Send the job a continue signal, if necessary.  */
+
     if (cont)
     {
         tcsetattr (env->jc_terminal, TCSADRAIN, &job->tmodes);
@@ -44,4 +45,10 @@ void                builtin_fg_put_job_in_fg(t_job *job)
     /* Restore the shell’s terminal modes.  */
     tcgetattr (env->jc_terminal, &job->tmodes);
     tcsetattr (env->jc_terminal, TCSADRAIN, &env->jc_tmodes);
+}
+
+void                builtin_fg_put_job_in_fg(t_job *job)
+{
+    job_mgr_remove(shenv_singleton()->jobs, job);
+    put_in_fg(job);
 }

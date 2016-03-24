@@ -47,6 +47,8 @@ void				builtin_jobs_exec_print(t_lst *jobs, int flags)
 			twl_printf("%s\n", full_status);
 			free(full_status);
 		}
+		if (job->job_status == JOB_DONE)
+			job_mgr_remove(jobs, job);
 	}
 	twl_lst_del(jobs_copy, NULL);
 }

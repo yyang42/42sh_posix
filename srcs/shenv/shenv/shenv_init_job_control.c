@@ -18,7 +18,6 @@ void				shenv_init_job_control(t_shenv *this)
   this->jc_terminal = STDIN_FILENO;
   // this->jc_is_interactive = isatty(this->jc_terminal);
   // twl_printf("this->jc_is_interactive %d\n", this->jc_is_interactive);
-
   if (this->is_interactive_shell)
     {
       /* Loop until we are in the foreground.  */
@@ -40,7 +39,6 @@ void				shenv_init_job_control(t_shenv *this)
           twl_dprintf(2, "error: Couldn't put the shell in its own process group");
           exit (1);
         }
-
       /* Grab control of the terminal.  */
       tcsetpgrp (this->jc_terminal, this->jc_pgid);
 

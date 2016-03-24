@@ -29,6 +29,5 @@ int					prog_run(t_prog *prog);
 int					prog_print_ast(t_prog *prog, char *input);
 int					prog_print_arexp(t_prog *prog, char *input);
 void				prog_main_loop(t_prog *prog);
-void				prog_signal_handling(void);
 
 #endif

@@ -20,7 +20,7 @@
 t_lst				*job_mgr_new(void);
 void				job_mgr_del(t_lst *jobs);
 void				job_mgr_add(t_lst *jobs, t_job *job);
-void				job_mgr_remove(t_lst *jobs, t_job *job);
+int					job_mgr_remove(t_lst *jobs, t_job *job);
 void				job_mgr_print(t_lst *jobs);
 
 void				job_mgr_env_push(t_job *job);
