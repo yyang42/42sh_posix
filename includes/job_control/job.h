@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ASYNC_JOB_H
-# define ASYNC_JOB_H
+#ifndef JOB_CONTROL_JOB_H
+# define JOB_CONTROL_JOB_H
 
 # include "basics.h"
 # include <termios.h>
@@ -52,6 +52,7 @@ typedef struct		s_job
 {
 	t_lst			*tokens;
 	int				job_id;
+	char			sign;
 	pid_t			pid;
 	int				status;
 	int				job_status;
@@ -70,5 +71,7 @@ void				job_waitpid_update(t_job *this);
 char				*job_status_str_long(t_job *this, bool incl_pid);
 
 int					job_utils_get_signum(char *sigstr);
+bool				job_has_terminated(t_job *this);
+void				job_print(t_job *this, int flags);
 
 #endif

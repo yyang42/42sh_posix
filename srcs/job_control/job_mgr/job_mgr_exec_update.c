@@ -60,7 +60,7 @@ static bool			remove_print_fn(void *job_, void *ctx)
 	(void)ctx;
 }
 
-void				job_mgr_print_terminated(t_lst *jobs)
+void				job_mgr_exec_update(t_lst *jobs)
 {
 	twl_lst_remove_if(jobs, remove_print_fn, NULL, job_del_void);
 }

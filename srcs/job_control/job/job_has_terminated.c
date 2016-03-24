@@ -10,23 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef JOB_CONTROL_JOB_MGR_H
-# define JOB_CONTROL_JOB_MGR_H
+#include <sys/wait.h>
+#include <errno.h>
+#include "job_control/job.h"
+#include "signal.h"
 
-# include "basics.h"
-# include "job_control/job.h"
-# include "shenv/shenv.h"
-
-t_lst				*job_mgr_new(void);
-void				job_mgr_del(t_lst *jobs);
-void				job_mgr_add(t_lst *jobs, t_job *job);
-int					job_mgr_remove(t_lst *jobs, t_job *job);
-void				job_mgr_print(t_lst *jobs);
-
-void				job_mgr_env_push(t_job *job);
-void				job_mgr_exec_update(t_lst *jobs);
-
-t_job 				*job_mgr_find_by_job_id(t_lst *jobs, char *job_str_id);
-void				job_mgr_update_sign(t_lst *jobs);
-
-#endif
+bool				job_has_terminated(t_job *this)
+{
+	return (this->job_status == JOB_DONE);
+}

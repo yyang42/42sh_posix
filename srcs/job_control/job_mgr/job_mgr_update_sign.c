@@ -10,23 +10,34 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef JOB_CONTROL_JOB_MGR_H
-# define JOB_CONTROL_JOB_MGR_H
+#include "job_control/job_mgr.h"
 
-# include "basics.h"
-# include "job_control/job.h"
-# include "shenv/shenv.h"
+static char			get_next_char(int len)
+{
+	char			sign_char;
 
-t_lst				*job_mgr_new(void);
-void				job_mgr_del(t_lst *jobs);
-void				job_mgr_add(t_lst *jobs, t_job *job);
-int					job_mgr_remove(t_lst *jobs, t_job *job);
-void				job_mgr_print(t_lst *jobs);
+	if (len == 0)
+		sign_char = '+';
+	else if (len == 1)
+		sign_char = '-';
+	else
+		sign_char = ' ';
+	return (sign_char);
+}
 
-void				job_mgr_env_push(t_job *job);
-void				job_mgr_exec_update(t_lst *jobs);
+static void			iter_fn(void *job_, int index, void *len_ptr)
+{
+	t_job	*job;
+	int		len;
 
-t_job 				*job_mgr_find_by_job_id(t_lst *jobs, char *job_str_id);
-void				job_mgr_update_sign(t_lst *jobs);
+	job = job_;
+	len = *(int *)len_ptr;
+	job->sign = get_next_char(len - (index + 1));
+}
 
-#endif
+void				job_mgr_update_sign(t_lst *jobs)
+{
+	int				len;
+	len = twl_lst_len(jobs);
+	twl_lst_iteri(jobs, iter_fn, &len);
+}

@@ -19,7 +19,7 @@
 # include "token/token_mgr.h"
 
 void				builtin_fg_exec(t_lst *tokens, t_shenv *shenv);
-void				builtin_fg_put_job_in_fg(t_job *job);
+void				builtin_fg_put_job_in_fg(t_job *job, t_token *cmd_token);
 void				builtin_fg_invalid_opt_print_usage(char *opt, t_token *token);
 
 #endif

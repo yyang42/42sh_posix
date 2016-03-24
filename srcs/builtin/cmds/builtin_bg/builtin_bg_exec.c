@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/cmds/builtin_fg.h"
+#include "builtin/cmds/builtin_bg.h"
 
 static void			exec_job_str_id(char *job_str_id, t_token *cmd_token)
 {
@@ -20,16 +20,16 @@ static void			exec_job_str_id(char *job_str_id, t_token *cmd_token)
 	if (!job)
 	{
 		shenv_print_error_printf(shenv_singleton(), cmd_token->line,
-			"fg: %s: no such job", job_str_id);
+			"bg: %s: no such job", job_str_id);
 		shenv_singleton()->last_exit_code = EXIT_FAILURE;
 	}
 	else
 	{
-		builtin_fg_put_job_in_fg(job, cmd_token);
+		builtin_bg_put_job_in_bg(job);
 	}
 }
 
-void				builtin_fg_exec(t_lst *tokens, t_shenv *shenv)
+void				builtin_bg_exec(t_lst *tokens, t_shenv *shenv)
 {
 	t_token			*first_token;
 	char			*job_str_id;
@@ -47,7 +47,7 @@ void				builtin_fg_exec(t_lst *tokens, t_shenv *shenv)
 		job_str_id = first_token->text;
 		if (*job_str_id == '-' && twl_strlen(job_str_id) > 1)
 		{
-			builtin_fg_invalid_opt_print_usage(job_str_id + 1, token_mgr_first(tokens));
+			builtin_bg_invalid_opt_print_usage(job_str_id + 1, token_mgr_first(tokens));
 			shenv_singleton()->last_exit_code = EXIT_FAILURE;
 			return ;
 		}

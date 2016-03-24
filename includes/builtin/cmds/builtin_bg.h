@@ -10,23 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef JOB_CONTROL_JOB_MGR_H
-# define JOB_CONTROL_JOB_MGR_H
+#ifndef BUILTIN_BG_H
+# define BUILTIN_BG_H
 
 # include "basics.h"
-# include "job_control/job.h"
 # include "shenv/shenv.h"
+# include "job_control/job_mgr.h"
+# include "token/token_mgr.h"
 
-t_lst				*job_mgr_new(void);
-void				job_mgr_del(t_lst *jobs);
-void				job_mgr_add(t_lst *jobs, t_job *job);
-int					job_mgr_remove(t_lst *jobs, t_job *job);
-void				job_mgr_print(t_lst *jobs);
-
-void				job_mgr_env_push(t_job *job);
-void				job_mgr_exec_update(t_lst *jobs);
-
-t_job 				*job_mgr_find_by_job_id(t_lst *jobs, char *job_str_id);
-void				job_mgr_update_sign(t_lst *jobs);
+void				builtin_bg_exec(t_lst *tokens, t_shenv *shenv);
+void				builtin_bg_put_job_in_bg(t_job *job);
+void				builtin_bg_invalid_opt_print_usage(char *opt, t_token *token);
 
 #endif

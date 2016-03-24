@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/cmds/builtin_fg.h"
+#include "builtin/cmds/builtin_bg.h"
 #include <sys/wait.h>
 
-static void         put_in_fg(t_job *job)
+static void         put_in_bg(t_job *job)
 {
     t_shenv         *env;
     bool            cont;
@@ -47,16 +47,8 @@ static void         put_in_fg(t_job *job)
     tcsetattr (env->jc_terminal, TCSADRAIN, &env->jc_tmodes);
 }
 
-void                builtin_fg_put_job_in_fg(t_job *job, t_token *cmd_token)
+void                builtin_bg_put_job_in_bg(t_job *job)
 {
-    if (job_has_terminated(job))
-    {
-        shenv_print_error_printf(shenv_singleton(), cmd_token->line,
-            "bg: job has terminated");
-    }
-    else
-    {
-        put_in_fg(job);
-    }
     job_mgr_remove(shenv_singleton()->jobs, job);
+    put_in_bg(job);
 }
