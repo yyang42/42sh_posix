@@ -20,7 +20,6 @@ static void         put_in_fg(t_job *job)
 
     cont = true;
 
-    twl_dprintf(2, "!!! NOT FULLY IMPLEMENTED !!!\n");
     env = shenv_singleton();
     /* Put the job into the foreground.  */
     tcsetpgrp (env->jc_terminal, job->pid);
@@ -52,7 +51,7 @@ void                builtin_fg_put_job_in_fg(t_job *job, t_token *cmd_token)
     if (job_has_terminated(job))
     {
         shenv_print_error_printf(shenv_singleton(), cmd_token->line,
-            "bg: job has terminated");
+            "fg: job has terminated");
     }
     else
     {
