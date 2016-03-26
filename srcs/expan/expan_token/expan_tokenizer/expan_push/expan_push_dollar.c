@@ -76,6 +76,8 @@ static void			expan_push_dollar_brace(t_expan_tokenizer *this)
 		else
 			expan_tokenizer_addone(this);
 	}
+	if (this->input[this->input_index])
+		expan_tokenizer_addone(this);
 }
 
 void				expan_push_dollar(t_expan_tokenizer *this)

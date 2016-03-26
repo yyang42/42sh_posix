@@ -14,14 +14,20 @@
 
 void				expan_push_dquote(t_expan_tokenizer *this)
 {
+
+	expan_tokenizer_addone(this);
 	while (this->input[this->input_index] &&
-			this->input[this->input_index] == '"')
+			this->input[this->input_index] != '"')
 	{
 		if (this->input[this->input_index] == '$')
 			expan_push_dollar(this);
 		else if (this->input[this->input_index] == '`')
 			expan_push_bquote(this);
+		else if (this->input[this->input_index] == '\\')
+			expan_push_escaped(this);
 		else
 			expan_tokenizer_addone(this);
 	}
+	if (this->input[this->input_index])
+		expan_tokenizer_addone(this);
 }

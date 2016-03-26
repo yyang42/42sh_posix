@@ -27,7 +27,7 @@ void				expan_push_tilde(t_expan_tokenizer *this)
 		else if (this->input[this->input_index] == '"')
 			expan_push_dquote(this);
 		else if (this->input[this->input_index] == '\'')
-			expan_push_dquote(this);
+			expan_push_squote(this);
 		else
 			expan_tokenizer_addone(this);
 	}
