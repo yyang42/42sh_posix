@@ -51,4 +51,7 @@ int					job_utils_get_signum(char *sigstr);
 bool				job_has_terminated(t_job *this);
 void				job_print(t_job *this, int flags);
 
+void				job_utils_sigs_ignore_on_interactive(void);
+void				job_utils_sigs_dfl_on_interactive(void);
+
 #endif

@@ -10,17 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shenv/shenv.h"
-#include "logger.h"
-#include "utils.h"
 #include "data.h"
+#include "job_control/job.h"
+#include "logger.h"
+#include "shenv/shenv.h"
 #include "shsignal/shsignal_mgr.h"
-
-static void     intercept_logger_handler(int sig)
-{
-  LOGGER("INTERACTIVE: Ignore signal %s(%d)", shsignal_mgr_get_signame(data_signals(), sig), sig);
-  (void)sig;
-}
+#include "utils.h"
 
 void				shenv_init_job_control(t_shenv *this)
 {
@@ -35,14 +30,7 @@ void				shenv_init_job_control(t_shenv *this)
       while (tcgetpgrp (this->jc_terminal) != (this->jc_pgid = getpgrp ()))
         kill (- this->jc_pgid, SIGTTIN);
 
-      /* Ignore interactive and job-control signals.  */
-      //// disable_all_signals();
-      signal (SIGINT, intercept_logger_handler);
-      signal (SIGQUIT, intercept_logger_handler);
-      signal (SIGTSTP, intercept_logger_handler);
-      signal (SIGTTIN, intercept_logger_handler);
-      signal (SIGTTOU, intercept_logger_handler);
-      signal (SIGCHLD, intercept_logger_handler);
+      job_utils_sigs_ignore_on_interactive();
 
       /* Put ourselves in our own process group.  */
       this->jc_pgid = getpid ();

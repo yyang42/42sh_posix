@@ -32,11 +32,11 @@ static void		fork_and_execute(char *path, t_lst *tokens, char **env)
 	}
 	else
 	{
-		signal(SIGINT, SIG_IGN);
-		signal(SIGKILL, SIG_IGN);
+		// signal(SIGINT, SIG_IGN);
+		// signal(SIGKILL, SIG_IGN);
 		waitpid(pid, &res, 0);
-		signal(SIGINT, SIG_DFL);
-		signal(SIGKILL, SIG_DFL);
+		// signal(SIGINT, SIG_DFL);
+		// signal(SIGKILL, SIG_DFL);
 		handle_signal(res);
     	if (WIFEXITED(res))
     	{

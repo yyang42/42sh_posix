@@ -11,14 +11,18 @@
 /* ************************************************************************** */
 
 #include "builtin/cmds/builtin_fg.h"
+#include "shsignal/shsignal_mgr.h"
+#include "data.h"
 #include <sys/wait.h>
 
-static void         put_in_fg(t_job *job)
+char * strerror(int errnum);
+
+static void         put_in_fg(t_job *job, t_token *cmd_token)
 {
     t_shenv         *env;
-    bool            cont;
+    // bool            cont;
 
-    cont = true;
+    // cont = true;
 
     env = shenv_singleton();
     /* Put the job into the foreground.  */
@@ -28,20 +32,19 @@ static void         put_in_fg(t_job *job)
     twl_printf("%s\n", job->cmd_str);
     LOGGER("fg: continue pid=%d", job->pid);
 
-    if (cont)
+    // if (cont)
+    // {
+
+    //     // tcsetattr (env->jc_terminal, TCSADRAIN, &job->tmodes);
+    //     if (kill (job->pid, SIGCONT) < 0)
+    //         twl_dprintf (2, "kill (SIGCONT)");
+    // }
+    pid_t pid = waitpid (job->pid, NULL, WUNTRACED);
+    if (pid == -1 && errno != ECHILD)
     {
-
-        // tcsetattr (env->jc_terminal, TCSADRAIN, &job->tmodes);
-        // if (kill (job->pid, SIGCONT) < 0)
-        //     twl_dprintf (2, "kill (SIGCONT)");
+        shenv_print_error_printf(shenv_singleton(), cmd_token->line,
+            "fg: %s", strerror(errno));
     }
-    /* Wait for it to report.  */
-    // wait_for_job (j);
-    int status;
-    pid_t pid = waitpid (job->pid, &status, WUNTRACED);
-    (void)pid;
-    (void)status;
-
     /* Put the shell back in the foreground.  */
     tcsetpgrp (env->jc_terminal, env->jc_pgid);
 
@@ -59,7 +62,7 @@ void                builtin_fg_put_job_in_fg(t_job *job, t_token *cmd_token)
     }
     else
     {
-        put_in_fg(job);
+        put_in_fg(job, cmd_token);
     }
     job_mgr_remove(shenv_singleton()->jobs, job);
 }
