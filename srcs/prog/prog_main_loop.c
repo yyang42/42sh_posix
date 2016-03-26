@@ -37,11 +37,6 @@ void				prog_main_loop(t_prog *prog)
 	while (1)
 	{
 		input = get_cmd();
-		if (twl_strequ(input, "exit"))
-		{
-			free(input);
-			exit(0);
-		}
 		ast_exec_string(input);;
 		free(input);
 	}

@@ -14,10 +14,11 @@
 
 #include "edit/terminal.h"
 #include "utils.h"
+#include "logger.h"
 
 static void			sig_handler_prompt(int signum)
 {
-	twl_lprintf("CTRL+C\n");
+	LOGGER("SIGINT: CTRL+C");
 	terminal_send_veol();
 	(void)signum;
 }
