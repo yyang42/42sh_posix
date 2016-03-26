@@ -14,7 +14,6 @@
 #include <errno.h>
 #include "job_control/job.h"
 #include "builtin/cmds/builtin_jobs.h"
-#include "signal.h"
 
 void				job_print(t_job *this, int flags)
 {

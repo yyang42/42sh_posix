@@ -10,7 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "signals.h"
+#include "shsignal/shsignal.h"
+#include <sys/wait.h>
+#include <sys/types.h>
 
 void			handle_signal(int sig)
 {

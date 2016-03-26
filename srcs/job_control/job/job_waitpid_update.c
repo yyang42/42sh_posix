@@ -13,7 +13,6 @@
 #include <sys/wait.h>
 #include <errno.h>
 #include "job_control/job.h"
-#include "signal.h"
 
 void				job_waitpid_update(t_job *this)
 {

@@ -13,7 +13,6 @@
 #include <sys/wait.h>
 #include <errno.h>
 #include "job_control/job.h"
-#include "signal.h"
 /*
 	Running
 		Indicates that the job has not been suspended by a signal and has not exited.

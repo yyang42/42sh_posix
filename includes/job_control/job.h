@@ -16,29 +16,6 @@
 # include "basics.h"
 # include <termios.h>
 
-/*
-
-	One of the following strings (in the POSIX locale):
-	Running
-	Indicates that the job has not been suspended by a signal and has not exited.
-	Done
-	Indicates that the job completed and returned exit status zero.
-	Done(code)
-	Indicates that the job completed normally and that it exited with the specified non-zero exit status, code, expressed as a decimal number.
-	Stopped
-	Indicates that the job was suspended by the SIGTSTP signal.
-	Stopped (SIGTSTP)
-	Indicates that the job was suspended by the SIGTSTP signal.
-	Stopped (SIGSTOP)
-	Indicates that the job was suspended by the SIGSTOP signal.
-	Stopped (SIGTTIN)
-	Indicates that the job was suspended by the SIGTTIN signal.
-	Stopped (SIGTTOU)
-	Indicates that the job was suspended by the SIGTTOU signal.
-	The implementation may substitute the string Suspended in place of Stopped. If the job was terminated by a signal, the format of <state> is unspecified, but it shall be visibly distinct from all of the other <state> formats shown here and shall indicate the name or description of the signal causing the termination.
-
-*/
-
 typedef enum s_job_status
 {
 	JOB_RUNNING,
