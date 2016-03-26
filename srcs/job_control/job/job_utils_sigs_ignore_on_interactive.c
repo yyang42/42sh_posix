@@ -23,10 +23,11 @@ static void     intercept_logger_handler(int sig)
 
 void				job_utils_sigs_ignore_on_interactive(void)
 {
-	signal(SIGINT, intercept_logger_handler);
-	signal(SIGQUIT, intercept_logger_handler);
-	signal(SIGTSTP, intercept_logger_handler);
-	signal(SIGTTIN, intercept_logger_handler);
-	signal(SIGTTOU, intercept_logger_handler);
+	(void)intercept_logger_handler;
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGTSTP, SIG_IGN);
+	signal(SIGTTIN, SIG_IGN);
+	signal(SIGTTOU, SIG_IGN);
 	signal(SIGCHLD, SIG_IGN);
 }

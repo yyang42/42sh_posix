@@ -12,26 +12,47 @@
 
 #include "ast/nodes/ast_simple_command.h"
 #include "shsignal/shsignal.h"
+#include "logger.h"
 #include <sys/wait.h>
 
-static void		fork_and_execute(char *path, t_lst *tokens, char **env)
+static void			execve_wrapper(char *path, char **args, char **env)
 {
-	int				pid;
+	char			*cmd;
+
+	cmd = twl_strjoinarr((const char **)args, " ");
+	LOGGER("execve: %s", cmd);
+	execve(path, args, env);
+	free(cmd);
+}
+
+static void			fork_and_execute(char *path, t_lst *tokens, char **env)
+{
+	pid_t			pid;
 	int				res;
 	char			**args;
 
 	args = token_mgr_to_str_arr(tokens);
 	pid = shenv_utils_fork();
 	if (pid == -1)
+	{
 		twl_dprintf(2, "cannot fork: %s", strerror(errno));
+	}
 	else if (pid == 0)
 	{
-		execve(path, args, env);
+		// pid = getpid ();
+		// LOGGER("pid %d\n", pid);
+		// LOGGER("pgid %d\n", pgid);
+		// if (pgid == 0) pgid = pid;
+		// setpgid(0, 0);
+		execve_wrapper(path, args, env);
 		perror(path);
 		exit(0);
 	}
 	else
 	{
+		LOGGER("pid %d", pid);
+		LOGGER("getpid () %d", getpid ());
+   		setpgid(pid, getpid());
 		// signal(SIGINT, SIG_IGN);
 		// signal(SIGKILL, SIG_IGN);
 		waitpid(pid, &res, 0);

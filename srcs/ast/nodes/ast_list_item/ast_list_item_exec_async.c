@@ -30,17 +30,21 @@ static void			ast_list_item_after_fork(t_ast_list_item *this, pid_t pid)
 	free(cmd_str);
 }
 
-static void			ast_list_item_exec_child(t_ast_list_item *this)
+static void			ast_list_item_exec_child(t_ast_list_item *this, pid_t pgid)
 {
+	pid_t			pid;
+
 	if (shenv_singleton()->is_interactive_shell)
 	{
 		/* Put the process into the process group and give the process group
 		 the terminal, if appropriate.
 		 This has to be done both by the shell and in the individual
 		 child processes because of potential race conditions.  */
-		// pid = getpid ();
-		// if (pgid == 0) pgid = pid;
-		// setpgid (pid, pgid);
+		pid = getpid ();
+		// LOGGER("pid %d\n", pid);
+		// LOGGER("pgid %d\n", pgid);
+		if (pgid == 0) pgid = pid;
+		setpgid (pid, pgid);
 		// if (foreground)
 		//   tcsetpgrp (shell_terminal, pgid);
 
@@ -61,7 +65,7 @@ void				ast_list_item_exec_async(t_ast_list_item *this)
 	}
 	else if (pid == 0)
 	{
-		ast_list_item_exec_child(this);
+		ast_list_item_exec_child(this, pid);
 		exit(0);
 	}
 	else

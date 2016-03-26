@@ -14,9 +14,11 @@
 #include "builtin/cmds/builtin_kill.h"
 #include "shsignal/shsignal_mgr.h"
 #include "data.h"
+#include "logger.h"
 
 void				job_utils_sigs_dfl_on_interactive(void)
 {
+	LOGGER("job_utils_sigs_dfl_on_interactive called");
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 	signal(SIGTSTP, SIG_DFL);
