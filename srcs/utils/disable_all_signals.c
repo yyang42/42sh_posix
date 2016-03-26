@@ -10,17 +10,35 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sys/wait.h>
-#include <errno.h>
-#include "job_control/job.h"
+#include <signal.h>
+#include "logger.h"
+#include "data.h"
+#include "shsignal/shsignal_mgr.h"
 
-void				job_waitpid_update(t_job *this)
+static void			intercept_logger_handler(int sig)
 {
-	(void)this;
-	// this->end_pid = waitpid(this->pid, &this->status, WNOHANG | WUNTRACED);
-	// if (this->end_pid == -1 && errno != ECHILD)
-	// {
- //        twl_dprintf(2, "waitpid error: %d\n", this->pid);
-	// 	// exit(EXIT_FAILURE);
-	// }
+	/*
+	** Usage later for kill child
+	*/
+
+	// kill(g_child_pid, sig);
+	// signal(sig, SIG_DFL);
+	  /* own stuff .. */
+	LOGGER("SIGNAL: %s(%d)", shsignal_mgr_get_signame(data_signals(), sig), sig);
+	// signal(sig, SIG_DFL);
+	// raise(sig);
+	// signal(sig, intercept_logger_handler);
+	(void)sig;
+}
+
+void				disable_all_signals(void)
+{
+	int i;
+
+	i = 1;
+	while (i <= 31)
+	{
+		signal(i, intercept_logger_handler);
+		i++;
+	}
 }

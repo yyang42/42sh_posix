@@ -12,6 +12,7 @@
 
 #include "job_control/job_mgr.h"
 #include "token/token_mgr.h"
+#include "logger.h"
 
 static bool			handle_with_status(t_job *job)
 {
@@ -46,15 +47,25 @@ static bool			remove_print_fn(void *job_, void *ctx)
 	t_job	*job;
 
 	job = job_;
-	job_waitpid_update(job);
-	if (job->end_pid == 0)
+	errno = 0;
+	job->end_pid = waitpid(job->pid, &job->status, WNOHANG | WUNTRACED);
+
+	LOGGER("[DEBUG] pid: %d endpid: %d", job->pid, job->end_pid);
+	LOGGER("[DEBUG] errno: %d ECHILD: %d", errno, ECHILD);
+
+	if (job->end_pid == job->pid)
+	{
+		return (handle_with_status(job));
+	}
+	else if (job->end_pid == 0 || errno == ECHILD)
 	{
 		if (job->job_status != JOB_STOPPED)
 			job->job_status = JOB_RUNNING;
 	}
-	else if (job->end_pid == job->pid)
+	else
 	{
-		return (handle_with_status(job));
+        twl_dprintf(2, "waitpid error: %d\n", job->pid);
+		// exit(EXIT_FAILURE);
 	}
 	return (false);
 	(void)ctx;
@@ -62,5 +73,6 @@ static bool			remove_print_fn(void *job_, void *ctx)
 
 void				job_mgr_exec_update(t_lst *jobs)
 {
+	LOGGER("update jobs");
 	twl_lst_remove_if(jobs, remove_print_fn, NULL, job_del_void);
 }

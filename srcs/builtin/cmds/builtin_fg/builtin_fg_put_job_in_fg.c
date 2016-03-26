@@ -25,11 +25,15 @@ static void         put_in_fg(t_job *job)
     tcsetpgrp (env->jc_terminal, job->pid);
     /* Send the job a continue signal, if necessary.  */
 
+    twl_printf("%s\n", job->cmd_str);
+    LOGGER("fg: continue pid=%d", job->pid);
+
     if (cont)
     {
-        tcsetattr (env->jc_terminal, TCSADRAIN, &job->tmodes);
-        if (kill (job->pid, SIGCONT) < 0)
-            twl_dprintf (2, "kill (SIGCONT)");
+
+        // tcsetattr (env->jc_terminal, TCSADRAIN, &job->tmodes);
+        // if (kill (job->pid, SIGCONT) < 0)
+        //     twl_dprintf (2, "kill (SIGCONT)");
     }
     /* Wait for it to report.  */
     // wait_for_job (j);

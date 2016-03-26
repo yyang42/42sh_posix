@@ -14,6 +14,9 @@
 #include "builtin/cmds/builtin_kill.h"
 #include "job_control/job.h"
 #include "job_control/job_mgr.h"
+#include "logger.h"
+#include "data.h"
+#include "shsignal/shsignal_mgr.h"
 
 static char			*get_sigstr_from_minus_s_opt(t_lst *tokens, t_shenv *env)
 {
@@ -77,6 +80,8 @@ static void			iter_pids_fn(void *token_, void *signum_ptr)
 		shenv_singleton()->last_exit_code = EXIT_FAILURE;
 		return ;
 	}
+	LOGGER("kill: %s(%d), pid=%d",
+		shsignal_mgr_get_signame(data_signals(), signum), signum, pid);
 	kill(pid, signum);
 }
 

@@ -27,5 +27,6 @@ t_lst				*read_directory(char *path);
 
 void				signal_handle_ctrl_c(void);
 void				signal_handle_sigwinch(void);
+void				disable_all_signals(void);
 
 #endif
