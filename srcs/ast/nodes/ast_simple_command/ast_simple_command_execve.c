@@ -12,6 +12,7 @@
 
 #include "ast/nodes/ast_simple_command.h"
 #include "shsignal/shsignal.h"
+#include <sys/wait.h>
 
 static void		fork_and_execute(char *path, t_lst *tokens, char **env)
 {
