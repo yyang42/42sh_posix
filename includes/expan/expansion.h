@@ -18,6 +18,16 @@
 # include "expan/expan_tokenizer.h"
 //# include "expan/expan_execute.h"
 
-bool				expansion(t_token *to_expand);
+typedef struct		s_expansion
+{
+	t_lst			*split;
+	char			*error;
+}					t_expansion;
+
+t_expansion			*expansion_new(void);
+void				expansion_del(t_expansion *this);
+
+t_expansion			*expansion_new_from_token(t_token *to_expand);
+//void				expansion_tilde(t_expansion *this);
 
 #endif

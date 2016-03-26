@@ -12,12 +12,10 @@
 
 #include "expan/expansion.h"
 
-bool				expansion(t_token *to_expand)
+t_expansion			*expansion_new(void)
 {
-	t_lst			*expand;
+	t_expansion		*this;
 
-	expand = expan_tokenizer_tokenize(to_expand->text_unexpanded);
-	return (false);
-	(void)expand;
-	(void)to_expand;
+	this = twl_malloc_x0(sizeof(t_expansion));
+	return (this);
 }

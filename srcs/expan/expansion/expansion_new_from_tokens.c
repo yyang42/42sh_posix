@@ -10,33 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TOKEN_H
-# define TOKEN_H
+#include "expan/expansion.h"
 
-# include "basics.h"
-
-# include "token/token_type.h"
-
-typedef struct		s_token
+t_expansion			*expansion_new_from_token(t_token *to_expand)
 {
-	t_token_type	type;
-	char			*text_unexpanded;
-	char			*text;
-	t_lst			*text_expanded;
-	int				line;
-	int				col;
-	char			*heredoc_text;
-}					t_token;
+	t_expansion		*new;
 
-t_token				*token_new(char *text, int line, int col);
-void				token_del(t_token *this);
-
-t_token				*token_arexp(char *text);
-
-bool				token_is_control_operators_nl(t_token *this);
-bool				token_is_reserved_word(t_token *this);
-
-t_token				*token_copy(t_token *src);
-void				*token_copy_void(void *src);
-
-#endif
+	new = expansion_new();
+	new->split = expan_tokenizer_tokenize(to_expand->text_unexpanded);
+	return (new);
+}
