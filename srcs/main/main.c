@@ -13,6 +13,7 @@
 #include "twl_debug.h"
 
 #include "prog.h"
+#include "logger.h"
 
 #ifndef __MOULITEST__
 

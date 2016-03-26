@@ -10,31 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <signal.h>
-#include "logger.h"
-#include "data.h"
 #include "shsignal/shsignal_mgr.h"
 
-static void			do_nothing(int sig)
+char	 			*shsignal_mgr_get_signame(t_lst *shsignals, int signum)
 {
-	/*
-	** Usage later for kill child
-	*/
+	t_shsignal		*sig;
 
-	// kill(g_child_pid, sig);
-	// signal(sig, SIG_DFL);
-	LOGGER("SIGNAL: %s(%d)", shsignal_mgr_get_signame(data_signals(), sig), sig);
-	(void)sig;
-}
-
-void				disable_all_sigs(void)
-{
-	int i;
-
-	i = 1;
-	while (i <= 31)
-	{
-		signal(i, do_nothing);
-		i++;
-	}
+	sig = shsignal_mgr_find_by_signum(shsignals, signum);
+	if (sig)
+		return (sig->signame);
+	return ("UNKNOWN");
 }

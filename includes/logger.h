@@ -10,31 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <signal.h>
-#include "logger.h"
-#include "data.h"
-#include "shsignal/shsignal_mgr.h"
+#ifndef LOGGER_H
+# define LOGGER_H
 
-static void			do_nothing(int sig)
-{
-	/*
-	** Usage later for kill child
-	*/
+# define LOGGER(...) logger_printf(__FILE__, __LINE__, __VA_ARGS__);
 
-	// kill(g_child_pid, sig);
-	// signal(sig, SIG_DFL);
-	LOGGER("SIGNAL: %s(%d)", shsignal_mgr_get_signame(data_signals(), sig), sig);
-	(void)sig;
-}
+void				logger_printf(const char *fn, int line, const char *fmt, ...);
 
-void				disable_all_sigs(void)
-{
-	int i;
-
-	i = 1;
-	while (i <= 31)
-	{
-		signal(i, do_nothing);
-		i++;
-	}
-}
+#endif

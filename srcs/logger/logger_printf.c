@@ -10,31 +10,34 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <signal.h>
-#include "logger.h"
-#include "data.h"
-#include "shsignal/shsignal_mgr.h"
+#include <fcntl.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <time.h>
 
-static void			do_nothing(int sig)
+#include "twl_printf.h"
+#include "twl_stdio.h"
+
+void				logger_printf(const char *fn, int line, const char *fmt, ...)
 {
-	/*
-	** Usage later for kill child
-	*/
+	t_pf			*pf;
+	int				fd;
+    time_t			timer;
+    char			buffer[26];
+    struct tm		*tm_info;
 
-	// kill(g_child_pid, sig);
-	// signal(sig, SIG_DFL);
-	LOGGER("SIGNAL: %s(%d)", shsignal_mgr_get_signame(data_signals(), sig), sig);
-	(void)sig;
+    time(&timer);
+    tm_info = localtime(&timer);
+    strftime(buffer, 26, "%Y:%m:%d %H:%M:%S", tm_info);
+	fd = open(".debug.out", O_CREAT | O_WRONLY | O_APPEND, 0644);
+	pf = pf_create((char *)fmt);
+	twl_dprintf(fd, "%s [%s:%d] ", buffer, fn, line);
+	va_start(pf->arglist, (char *)fmt);
+	pf_prepare_xprintf__(pf);
+	pf_print_fd(pf, fd);
+	twl_dprintf(fd, "\n");
+	va_end(pf->arglist);
+	pf_free(pf);
+	close(fd);
 }
 
-void				disable_all_sigs(void)
-{
-	int i;
-
-	i = 1;
-	while (i <= 31)
-	{
-		signal(i, do_nothing);
-		i++;
-	}
-}

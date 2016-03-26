@@ -10,31 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <signal.h>
-#include "logger.h"
-#include "data.h"
 #include "shsignal/shsignal_mgr.h"
 
-static void			do_nothing(int sig)
+static bool			find_by_signame_fn(void *shsignal_, void *signum_ptr)
 {
-	/*
-	** Usage later for kill child
-	*/
+	t_shsignal		*shsignal;
 
-	// kill(g_child_pid, sig);
-	// signal(sig, SIG_DFL);
-	LOGGER("SIGNAL: %s(%d)", shsignal_mgr_get_signame(data_signals(), sig), sig);
-	(void)sig;
+	shsignal = shsignal_;
+	return (shsignal->signum == *(int *)signum_ptr);
 }
 
-void				disable_all_sigs(void)
+t_shsignal 			*shsignal_mgr_find_by_signum(t_lst *shsignals, int signum)
 {
-	int i;
-
-	i = 1;
-	while (i <= 31)
-	{
-		signal(i, do_nothing);
-		i++;
-	}
+	return (twl_lst_find(shsignals, find_by_signame_fn, &signum));
 }
