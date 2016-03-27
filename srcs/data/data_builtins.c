@@ -23,6 +23,7 @@
 #include "builtin/cmds/builtin_false.h"
 #include "builtin/cmds/builtin_fg.h"
 #include "builtin/cmds/builtin_jobs.h"
+#include "builtin/cmds/builtin_kill.h"
 #include "builtin/cmds/builtin_readonly.h"
 #include "builtin/cmds/builtin_set.h"
 #include "builtin/cmds/builtin_setenv.h"
@@ -31,7 +32,7 @@
 #include "builtin/cmds/builtin_true.h"
 #include "builtin/cmds/builtin_umask.h"
 #include "builtin/cmds/builtin_unset.h"
-#include "builtin/cmds/builtin_kill.h"
+#include "builtin/cmds/builtin_wait.h"
 
 #include "data.h"
 
@@ -64,6 +65,7 @@ t_lst				*data_builtins(void)
 		twl_lst_push_back(builtins, builtin_new("umask", builtin_umask_exec));
 		twl_lst_push_back(builtins, builtin_new("unset", builtin_unset_exec));
 		twl_lst_push_back(builtins, builtin_new("unsetenv", builtin_unsetenv_exec));
+		twl_lst_push_back(builtins, builtin_new("wait", builtin_wait_exec));
 	}
 	return (builtins);
 }

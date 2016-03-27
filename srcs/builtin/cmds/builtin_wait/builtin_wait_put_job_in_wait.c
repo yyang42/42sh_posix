@@ -1,0 +1,40 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_norris_loves_the_norminette.c                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: chuck <chuck@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2042/02/30 42:00:00 by chuck             #+#    #+#             */
+/*   Updated: 2042/02/30 41:59:59 by chuck            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "builtin/cmds/builtin_wait.h"
+#include <sys/wait.h>
+
+static void         put_in_wait(t_job *job)
+{
+    pid_t           pid;
+
+    pid = - job->pid;
+    /* Send the job a continue signal, if necessary.  */
+    if (job->job_status == JOB_STOPPED)
+    {
+        LOGGER("wait: continue pid=%d", pid);
+        if (kill (pid, SIGCONT) < 0)
+        {
+            twl_dprintf (2, "kill (SIGCONT)");
+        }
+    }
+    else
+    {
+        LOGGER("wait: pid=%d: trying to continue a non stopped job", job->pid);
+    }
+}
+
+void                builtin_wait_put_job_in_wait(t_job *job)
+{
+    put_in_wait(job);
+    job->job_status = JOB_RUNNING;
+}
