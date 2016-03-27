@@ -16,6 +16,7 @@
 static void         put_in_bg(t_job *job)
 {
     pid_t           pid;
+    int             errno_saved;
 
     pid = - job->pid;
     /* Send the job a continue signal, if necessary.  */
@@ -24,17 +25,22 @@ static void         put_in_bg(t_job *job)
         LOGGER("bg: continue pid=%d", pid);
         if (kill (pid, SIGCONT) < 0)
         {
-            twl_dprintf (2, "kill (SIGCONT)");
+            errno_saved = errno;
+            shenv_print_error_printf(shenv_singleton(), shenv_get_cur_line(),
+                "wait: error: %s", strerror(errno_saved));
+            shenv_singleton()->last_exit_code = EXIT_FAILURE;
         }
     }
     else if (job->job_status == JOB_RUNNING)
     {
         shenv_print_error_printf(shenv_singleton(), shenv_get_cur_line(),
             "bg: job %d already in background", job->job_id);
+        shenv_singleton()->last_exit_code = EXIT_FAILURE;
     }
     else
     {
         LOGGER("ERROR: bg: bad job status");
+        shenv_singleton()->last_exit_code = EXIT_FAILURE;
     }
 }
 

@@ -22,6 +22,7 @@ void				builtin_bg_exec(t_lst *tokens, t_shenv *shenv)
 	if (argparser_result->err_msg)
 	{
 		argparser_result_print_error_with_help(argparser_result);
+		// shenv_singleton()->last_exit_code = EXIT_FAILURE;
 	}
 	else
 	{
