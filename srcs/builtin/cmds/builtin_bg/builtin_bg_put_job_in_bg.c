@@ -15,21 +15,26 @@
 
 static void         put_in_bg(t_job *job)
 {
+    pid_t           pid;
+
+    pid = - job->pid;
     /* Send the job a continue signal, if necessary.  */
-    if (true)
+    if (job->job_status == JOB_STOPPED)
     {
-        COUCOU
-        if (kill (job->pid, SIGCONT) < 0)
+        LOGGER("bg: continue pid=%d", pid);
+        if (kill (pid, SIGCONT) < 0)
         {
-        COUCOU
-            twl_dprintf(2, "kill (SIGCONT)");
+            twl_dprintf (2, "kill (SIGCONT)");
         }
-        COUCOU
+    }
+    else
+    {
+        LOGGER("bg: pid=%d: trying to continue a non stopped job", job->pid);
     }
 }
 
 void                builtin_bg_put_job_in_bg(t_job *job)
 {
-    job->job_status = JOB_RUNNING;
     put_in_bg(job);
+    job->job_status = JOB_RUNNING;
 }
