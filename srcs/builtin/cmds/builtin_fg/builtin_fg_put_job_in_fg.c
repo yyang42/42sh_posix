@@ -20,9 +20,6 @@ char * strerror(int errnum);
 static void         put_in_fg(t_job *job, t_token *cmd_token)
 {
     t_shenv         *env;
-    bool            cont;
-
-    cont = true;
 
     env = shenv_singleton();
     /* Put the job into the foreground.  */

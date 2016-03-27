@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <sys/wait.h>
 #include "job_control/job_mgr.h"
 #include "token/token_mgr.h"
 #include "logger.h"
