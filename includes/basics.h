@@ -23,5 +23,8 @@
 # include "twl_xstdlib.h"
 # include "twl_xstring.h"
 # include "twl_color.h"
+# include "logger.h"
+
+char * strerror(int errnum);
 
 #endif

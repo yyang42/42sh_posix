@@ -22,5 +22,9 @@ static bool			find_by_signame_fn(void *shsignal_, void *signame)
 
 t_shsignal 			*shsignal_mgr_find_by_signame(t_lst *shsignals, char *signame)
 {
+	if (twl_str_starts_with(signame, "SIG"))
+	{
+		signame += 3;
+	}
 	return (twl_lst_find(shsignals, find_by_signame_fn, signame));
 }

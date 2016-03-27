@@ -16,9 +16,12 @@
 # include "basics.h"
 # include "shenv/shenv.h"
 # include "shsignal/shsignal.h"
+# include "job_control/job.h"
+# include "job_control/job_mgr.h"
 
 void				builtin_kill_exec(t_lst *tokens, t_shenv *env);
 void				builtin_kill_print_signals(void);
 void				builtin_kill_print_usage(void);
+void				builtin_kill_update_job(t_job *job, int signum);
 
 #endif

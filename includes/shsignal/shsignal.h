@@ -13,7 +13,8 @@
 #ifndef SHSIGNAL_H
 # define SHSIGNAL_H
 
-# include "basics.h"
+#include "basics.h"
+#include <signal.h>
 
 typedef struct		s_shsignal
 {
@@ -23,5 +24,7 @@ typedef struct		s_shsignal
 
 t_shsignal			*shsignal_new(int signum, char *signame);
 void				shsignal_del(t_shsignal *shsignal);
+
+void				handle_signal(int signal);
 
 #endif

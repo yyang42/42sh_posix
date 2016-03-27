@@ -13,14 +13,14 @@
 #include <sys/wait.h>
 #include <errno.h>
 #include "job_control/job.h"
-#include "signal.h"
 
 void				job_waitpid_update(t_job *this)
 {
-	this->end_pid = waitpid(this->pid, &this->status, WNOHANG | WUNTRACED);
-	if (this->end_pid == -1 && errno != ECHILD)
-	{
-        twl_dprintf(2, "waitpid error: %d\n", this->pid);
-		// exit(EXIT_FAILURE);
-	}
+	(void)this;
+	// this->end_pid = waitpid(this->pid, &this->status, WNOHANG | WUNTRACED);
+	// if (this->end_pid == -1 && errno != ECHILD)
+	// {
+ //        twl_dprintf(2, "waitpid error: %d\n", this->pid);
+	// 	// exit(EXIT_FAILURE);
+	// }
 }

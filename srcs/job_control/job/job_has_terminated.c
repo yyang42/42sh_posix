@@ -10,27 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <signal.h>
+#include <sys/wait.h>
+#include <errno.h>
+#include "job_control/job.h"
 
-static void			do_nothing(int sig)
+bool				job_has_terminated(t_job *job)
 {
-	/*
-	** Usage later for kill child
-	*/
-
-	// kill(g_child_pid, sig);
-	// signal(sig, SIG_DFL);
-	(void)sig;
-}
-
-void				disable_all_sigs(void)
-{
-	int i;
-
-	i = 1;
-	while (i <= 31)
-	{
-		signal(i, do_nothing);
-		i++;
-	}
+	return (job->job_status == JOB_DONE || job->job_status == JOB_TERMINATED);
 }

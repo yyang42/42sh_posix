@@ -18,6 +18,6 @@
 int					shenv_get_cur_line()
 {
 	if (!shenv_singleton()->shenv_cur_token)
-		return (-1);
+		return (1);
 	return (shenv_singleton()->shenv_cur_token->line);
 }

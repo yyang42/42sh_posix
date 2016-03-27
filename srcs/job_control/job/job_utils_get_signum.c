@@ -20,10 +20,6 @@ static int			get_signal_num(char *sigstr)
 	int				signum;
 	t_shsignal		*shsignal;
 
-	if (twl_str_starts_with(sigstr, "SIG"))
-	{
-		sigstr += 3;
-	}
 	if (twl_str_is_pos_num(sigstr) && (twl_atoi(sigstr) < 32))
 	{
 		signum = twl_atoi(sigstr);

@@ -10,11 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "prog.h"
+#include "builtin/builtin.h"
+#include "builtin/cmds/builtin_kill.h"
+#include "shsignal/shsignal_mgr.h"
+#include "data.h"
 
-void				prog_signal_handling(void)
+static void     intercept_logger_handler(int sig)
 {
-	disable_all_sigs();
-	signal_handle_ctrl_c();
-	signal_handle_sigwinch();
+  LOGGER("INTERACTIVE: Ignore signal %s(%d)", shsignal_mgr_get_signame(data_signals(), sig), sig);
+  (void)sig;
+}
+
+void				job_utils_sigs_ignore_on_interactive(void)
+{
+	(void)intercept_logger_handler;
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGTSTP, SIG_IGN);
+	signal(SIGTTIN, SIG_IGN);
+	signal(SIGTTOU, SIG_IGN);
+	// signal(SIGCHLD, SIG_IGN);
 }

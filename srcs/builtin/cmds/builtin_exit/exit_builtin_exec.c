@@ -16,6 +16,12 @@
 #include "token/token_mgr.h"
 #include "builtin/builtin.h"
 
+static void			exec_exit(int status)
+{
+	LOGGER("exit(%d)", status);
+	exit(status);
+}
+
 static void			one_argument_case(t_lst *tokens)
 {
 	char			*exit_code_str;
@@ -23,7 +29,7 @@ static void			one_argument_case(t_lst *tokens)
 	exit_code_str = token_mgr_get(tokens, 1)->text;
 	if (twl_str_is_pos_num(exit_code_str))
 	{
-		exit(twl_atoi(exit_code_str));
+		exec_exit(twl_atoi(exit_code_str));
 	}
 	else
 	{
@@ -31,7 +37,7 @@ static void			one_argument_case(t_lst *tokens)
 			token_mgr_first(tokens)->line,
 			"%s: %s: numeric argument required",
 			token_mgr_first(tokens)->text, exit_code_str);
-		exit(255);
+		exec_exit(255);
 	}
 }
 
@@ -39,7 +45,7 @@ void				builtin_exit_exec(t_lst *tokens, t_shenv *this)
 {
 	if (twl_lst_len(tokens) == 1)
 	{
-		exit(0);
+		exec_exit(0);
 	}
 	else if (twl_lst_len(tokens) == 2)
 	{

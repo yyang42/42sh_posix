@@ -10,14 +10,26 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SIGNALS_H
-# define SIGNALS_H
+#include <sys/wait.h>
+#include <errno.h>
+#include "job_control/job.h"
+#include "builtin/cmds/builtin_jobs.h"
 
-# include "basics.h"
-# include <signal.h>
-# include <sys/wait.h>
-# include <sys/types.h>
+void				job_print(t_job *this, int flags)
+{
+	char			*full_status;
 
-void			handle_signal(int signal);
-
-#endif
+	if (flags & BUILTIN_JOBS_FLAG_OPT_P)
+	{
+		twl_printf("%d\n", this->pid);
+	}
+	else
+	{
+		twl_printf("[%lld]%c ", this->job_id, this->sign);
+		if (!flags & BUILTIN_JOBS_FLAG_OPT_L)
+			twl_printf(" ");
+		full_status = job_status_str_long(this, flags & BUILTIN_JOBS_FLAG_OPT_L);
+		twl_printf("%s\n", full_status);
+		free(full_status);
+	}
+}

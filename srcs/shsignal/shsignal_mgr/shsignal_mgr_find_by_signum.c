@@ -10,28 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "signals.h"
+#include "shsignal/shsignal_mgr.h"
 
-void			handle_signal(int sig)
+static bool			find_by_signame_fn(void *shsignal_, void *signum_ptr)
 {
-	int			sigo;
+	t_shsignal		*shsignal;
 
-	if (WIFSIGNALED(sig) && !WIFEXITED(sig))
-	{
-		sigo = WTERMSIG(sig);
-		if (sigo == SIGINT)
-			;
-		else if (sigo == SIGSEGV)
-			twl_dprintf(2, "42sh: Segmentation fault: %d\n", sigo);
-		else if (sigo == SIGKILL)
-			twl_dprintf(2, "42sh: Killed: %d\n", sigo);
-		else if (sigo == SIGABRT)
-			twl_dprintf(2, "42sh: Abort: %d\n", sigo);
-		else if (sigo == SIGTERM)
-			twl_dprintf(2, "42sh: Terminated: %d\n", sigo);
-		else if (sigo == SIGBUS)
-			twl_dprintf(2, "42sh: Bus error: %d\n", sigo);
-		else
-			twl_dprintf(2, "42sh: Unkown signal: %d\n", sigo);
-	}
+	shsignal = shsignal_;
+	return (shsignal->signum == *(int *)signum_ptr);
+}
+
+t_shsignal 			*shsignal_mgr_find_by_signum(t_lst *shsignals, int signum)
+{
+	return (twl_lst_find(shsignals, find_by_signame_fn, &signum));
 }

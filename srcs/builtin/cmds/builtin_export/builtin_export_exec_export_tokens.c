@@ -17,7 +17,7 @@
 #include "twl_lst.h"
 #include "token/token_utils.h"
 
-void				iter_fn(void *str_token, void *shenv, void *command_name)
+static void			iter_fn(void *str_token, void *shenv, void *command_name)
 {
 	shenv_shvars_set_split_by_equal(shenv, str_token, command_name);
 }

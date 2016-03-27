@@ -10,8 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-void				increment_len(int *len_ptr, int len)
+#include "builtin/builtin.h"
+#include "builtin/cmds/builtin_kill.h"
+#include "shsignal/shsignal_mgr.h"
+#include "data.h"
+#include "logger.h"
+
+void				job_utils_sigs_dfl_on_interactive(void)
 {
-	if (len_ptr)
-		*len_ptr += len;
+	LOGGER("job_utils_sigs_dfl_on_interactive called");
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
+	signal(SIGTSTP, SIG_DFL);
+	signal(SIGTTIN, SIG_DFL);
+	signal(SIGTTOU, SIG_DFL);
+	signal(SIGCHLD, SIG_DFL);
 }

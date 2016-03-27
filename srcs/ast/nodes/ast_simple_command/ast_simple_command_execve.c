@@ -11,36 +11,56 @@
 /* ************************************************************************** */
 
 #include "ast/nodes/ast_simple_command.h"
-#include "signals.h"
+#include "shsignal/shsignal.h"
+#include "logger.h"
+#include <sys/wait.h>
 
-static void		fork_and_execute(char *path, t_lst *tokens, char **env)
+static void			execve_wrapper(char *path, char **args, char **env)
 {
-	int				pid;
+	char			*cmd;
+
+	cmd = twl_strjoinarr((const char **)args, " ");
+	LOGGER("execve: %s (pid=%d)", cmd, getpid());
+	execve(path, args, env);
+	free(cmd);
+}
+
+static void			fork_and_execute(char *path, t_lst *tokens, char **env)
+{
+	pid_t			pid;
 	int				res;
+	pid_t			waitpid_ret;
 	char			**args;
 
 	args = token_mgr_to_str_arr(tokens);
 	pid = shenv_utils_fork();
+
 	if (pid == -1)
+	{
 		twl_dprintf(2, "cannot fork: %s", strerror(errno));
+	}
 	else if (pid == 0)
 	{
-		execve(path, args, env);
+		execve_wrapper(path, args, env);
 		perror(path);
 		exit(0);
 	}
 	else
 	{
-		signal(SIGINT, SIG_IGN);
-		signal(SIGKILL, SIG_IGN);
-		waitpid(pid, &res, 0);
-		signal(SIGINT, SIG_DFL);
-		signal(SIGKILL, SIG_DFL);
-		handle_signal(res);
-    	if (WIFEXITED(res))
-    	{
-			shenv_singleton()->last_exit_code = WEXITSTATUS(res);
-    	}
+     	waitpid_ret = waitpid(pid, &res, 0);
+     	if (waitpid_ret == -1)
+     	{
+     		perror("waitpid");
+     	}
+     	else if (waitpid_ret == pid)
+     	{
+			handle_signal(res);
+	    	if (WIFEXITED(res))
+	    	{
+				shenv_singleton()->last_exit_code = WEXITSTATUS(res);
+				LOGGER("exit status: %d", shenv_singleton()->last_exit_code);
+	    	}
+     	}
 	}
 	twl_arr_del(args, NULL);
 }

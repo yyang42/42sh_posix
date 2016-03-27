@@ -39,6 +39,7 @@ static void			andor_fn_2(t_ast_pipe_item *pipe_item, pid_t pid)
 	}
 	else
 	{
+		LOGGER("[DEBUG] waitpid pid: %d", pid);
 		waitpid(pid, &res, 0);
 		handle_signal(res);
     	if (WIFEXITED(res))

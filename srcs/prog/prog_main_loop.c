@@ -13,6 +13,7 @@
 #include "prog.h"
 #include "ast/ast.h"
 #include "edit/edit.h"
+#include "job_control/job_mgr.h"
 
 static char			*get_cmd(void)
 {
@@ -29,20 +30,19 @@ static char			*get_cmd(void)
 	edit_del(edit);
 	return (cmd);
 }
-
+#include "job_control/job_mgr.h"
 void				prog_main_loop(t_prog *prog)
 {
 	char			*input;
 
 	while (1)
 	{
+		// job_mgr_exec_update(shenv_singleton()->jobs);
+
 		input = get_cmd();
-		if (twl_strequ(input, "exit"))
-		{
-			free(input);
-			exit(0);
-		}
+
 		ast_exec_string(input);;
+
 		free(input);
 	}
 	(void)prog;

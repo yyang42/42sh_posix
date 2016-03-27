@@ -45,6 +45,5 @@ t_shenv			*shenv_new(void)
 	this->async_child_pid = 0;
 	this->shenv_cur_token = NULL;
 	this->is_interactive_shell = false;
-	shenv_init_job_control(this);
 	return (this);
 }

@@ -18,6 +18,7 @@
 
 static void			sig_handler(int signum)
 {
+	LOGGER("SIGWINCH");
 	cursor_reset_screen_width();
 	(void)signum;
 }
