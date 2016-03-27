@@ -10,19 +10,41 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/cmds/builtin_export.h"
-#include "shenv/shenv.h"
-#include "shenv/shvar_mgr.h"
-#include "twl_opt.h"
-#include "twl_lst.h"
-#include "token/token_utils.h"
+#include "builtin/cmds/builtin_bg.h"
 
-static void			iter_fn(void *str_token, void *shenv, void *command_name)
+static void			exec_job_str_id(char *job_str_id)
 {
-	shenv_shvars_set_split_by_equal(shenv, str_token, command_name);
+	t_job			*job;
+
+	job = job_mgr_find_by_job_id(shenv_singleton()->jobs, job_str_id);
+	if (!job)
+	{
+		shenv_print_error_printf(shenv_singleton(), shenv_get_cur_line(),
+			"bg: %s: no such job", job_str_id);
+		shenv_singleton()->last_exit_code = EXIT_FAILURE;
+	}
+	else
+	{
+		builtin_bg_put_job_in_bg(job);
+	}
 }
 
-void				builtin_export_exec_export_tokens(t_argparser_result *argparser_result, t_shenv *shenv)
+static void			iter_fn(void *str_token)
 {
-	twl_lst_iter2(argparser_result->remainders, iter_fn, shenv, argparser_result->command_name);
+	char			*job_str_id;
+
+	job_str_id = str_token;
+	if (*job_str_id == '%')
+		job_str_id++;
+	exec_job_str_id(job_str_id);
+}
+
+void				builtin_bg_exec_segs(t_argparser_result *argparser_result)
+{
+	t_lst			*segs;
+
+	segs = twl_lst_copy(argparser_result->remainders, NULL);
+	if (twl_lst_len(segs) == 0)
+		twl_lst_push_back(segs, "+");
+	twl_lst_iter0(segs, iter_fn);
 }

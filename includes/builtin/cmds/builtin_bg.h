@@ -17,9 +17,12 @@
 # include "shenv/shenv.h"
 # include "job_control/job_mgr.h"
 # include "token/token_mgr.h"
+# include "argparser_extension.h"
 
 void				builtin_bg_exec(t_lst *tokens, t_shenv *shenv);
+void				builtin_bg_exec_segs(t_argparser_result *argparser_result);
 void				builtin_bg_put_job_in_bg(t_job *job);
-void				builtin_bg_invalid_opt_print_usage(char *opt, t_token *token);
+
+t_argparser			*builtin_bg_argparser(void);
 
 #endif

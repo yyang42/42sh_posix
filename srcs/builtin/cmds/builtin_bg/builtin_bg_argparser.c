@@ -12,9 +12,14 @@
 
 #include "builtin/cmds/builtin_bg.h"
 
-void				builtin_bg_invalid_opt_print_usage(char *opt, t_token *token)
+t_argparser			*builtin_bg_argparser(void)
 {
-	shenv_print_error_printf(shenv_singleton(), token->line,
-		"bg: -%c: invalid option", *opt);
-	twl_dprintf(2, "bg: usage: bg [job_spec]");
+	static t_argparser		*argparser;
+
+	if (argparser == NULL)
+	{
+		argparser = argparser_new("bg");
+		argparser_set_usage_extra(argparser, " [job_id...]");
+	}
+	return (argparser);
 }
