@@ -10,26 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef JOB_CONTROL_JOB_MGR_H
-# define JOB_CONTROL_JOB_MGR_H
+#include "job_control/job_mgr.h"
+#include "twl_stdlib.h"
 
-# include "basics.h"
-# include "job_control/job.h"
-# include "shenv/shenv.h"
+t_job 				*job_mgr_find_by_pid_perc_job_id(t_lst *jobs, char *str)
+{
+	t_job			*job;
 
-t_lst				*job_mgr_new(void);
-void				job_mgr_del(t_lst *jobs);
-void				job_mgr_add(t_lst *jobs, t_job *job);
-int					job_mgr_remove(t_lst *jobs, t_job *job);
-void				job_mgr_print(t_lst *jobs);
-
-void				job_mgr_env_push(t_job *job);
-void				job_mgr_exec_update(t_lst *jobs);
-
-t_job 				*job_mgr_find_by_job_id(t_lst *jobs, char *job_str_id);
-t_job 				*job_mgr_find_by_pid(t_lst *jobs, int pid);
-t_job 				*job_mgr_find_by_str_pid(t_lst *jobs, char *str_pid);
-t_job 				*job_mgr_find_by_pid_perc_job_id(t_lst *jobs, char *str);
-void				job_mgr_update_sign(t_lst *jobs);
-
-#endif
+	if (*str == '%')
+	{
+		job = job_mgr_find_by_job_id(jobs, str + 1);
+	}
+	else
+	{
+		job = job_mgr_find_by_str_pid(jobs, str);
+	}
+	return (job);
+}

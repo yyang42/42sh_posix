@@ -16,16 +16,30 @@
 static void         put_in_wait(t_job *job)
 {
     pid_t           pid;
+    pid_t           waitpid_ret;
+    int             errno_saved;
 
     pid = - job->pid;
-    /* Send the job a continue signal, if necessary.  */
-    if (job->job_status == JOB_STOPPED)
+    if (job->job_status == JOB_RUNNING)
     {
-        LOGGER("wait: continue pid=%d", pid);
-        if (kill (pid, SIGCONT) < 0)
+        LOGGER("wait for job %d to complete", pid);
+        waitpid_ret = waitpid(job->pid, &job->status, 0);
+        if (waitpid_ret < 0)
         {
-            twl_dprintf (2, "kill (SIGCONT)");
+            errno_saved = errno;
+            shenv_print_error_printf(shenv_singleton(), shenv_get_cur_line(),
+                "wait: error: %s", strerror(errno_saved));
         }
+        else if (waitpid_ret > 0)
+        {
+            if (WIFEXITED(job->status))
+                job->job_status = JOB_DONE;
+        }
+    }
+    else if (job->job_status == JOB_STOPPED)
+    {
+        shenv_print_error_printf(shenv_singleton(), shenv_get_cur_line(),
+            "wait: warning: job %d is stopped", job->job_id);
     }
     else
     {
@@ -36,5 +50,4 @@ static void         put_in_wait(t_job *job)
 void                builtin_wait_put_job_in_wait(t_job *job)
 {
     put_in_wait(job);
-    job->job_status = JOB_RUNNING;
 }

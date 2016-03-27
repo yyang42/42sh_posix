@@ -17,9 +17,13 @@
 # include "shenv/shenv.h"
 # include "job_control/job_mgr.h"
 # include "token/token_mgr.h"
+# include "argparser_extension.h"
 
 void				builtin_wait_exec(t_lst *tokens, t_shenv *shenv);
+void				builtin_wait_exec_segs(t_argparser_result *argparser_result);
 void				builtin_wait_put_job_in_wait(t_job *job);
-void				builtin_wait_invalid_opt_print_usage(char *opt, t_token *token);
+void				builtin_wait_exec_wait_all(void);
+
+t_argparser			*builtin_wait_argparser(void);
 
 #endif

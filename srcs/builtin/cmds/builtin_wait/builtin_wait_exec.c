@@ -11,51 +11,35 @@
 /* ************************************************************************** */
 
 #include "builtin/cmds/builtin_wait.h"
+#include <stdio.h>
+#include <setjmp.h>
 
-static void			exec_job_str_id(char *job_str_id, t_token *cmd_token)
+static jmp_buf jump_buf;
+
+static void			sigint_handler(int sig)
 {
-	t_job			*job;
-
-	job = job_mgr_find_by_job_id(shenv_singleton()->jobs, job_str_id);
-	if (!job)
-	{
-		shenv_print_error_printf(shenv_singleton(), cmd_token->line,
-			"wait: %s: no such job", job_str_id);
-		shenv_singleton()->last_exit_code = EXIT_FAILURE;
-	}
-	else
-	{
-		builtin_wait_put_job_in_wait(job);
-	}
+	LOGGER("sigint_handler: %d", sig);
+    longjmp(jump_buf, 1);
 }
 
 void				builtin_wait_exec(t_lst *tokens, t_shenv *shenv)
 {
-	t_token			*first_token;
-	char			*job_str_id;
-	t_lst			*tokens_copy;
+	t_argparser_result *argparser_result;
 
-	twl_dprintf(STDOUT_FILENO, "!!! wait command NOT IMPLEMENTED !!!\n");
-	tokens_copy = twl_lst_copy(tokens, NULL);
-	twl_lst_pop_front(tokens_copy);
-	if (twl_lst_len(tokens_copy) == 0)
+	argparser_result = argparser_parse_tokens(builtin_wait_argparser(), tokens);
+	shenv->last_exit_code = EXIT_SUCCESS;
+	shenv->shenv_cur_token = token_mgr_first(tokens);
+	if (argparser_result->err_msg)
 	{
-		job_str_id = "+";
+		argparser_result_print_error_with_help(argparser_result);
 	}
 	else
 	{
-		first_token = token_mgr_first(tokens_copy);
-		job_str_id = first_token->text;
-		if (*job_str_id == '-' && twl_strlen(job_str_id) > 1)
-		{
-			builtin_wait_invalid_opt_print_usage(job_str_id + 1, token_mgr_first(tokens));
-			shenv_singleton()->last_exit_code = EXIT_FAILURE;
-			return ;
-		}
-		if (*job_str_id == '%')
-			job_str_id++;
+        signal(SIGINT, sigint_handler);
+	    if (setjmp(jump_buf) == 0)
+	    {
+			builtin_wait_exec_segs(argparser_result);
+	    }
+	    signal(SIGINT, SIG_IGN);
 	}
-	exec_job_str_id(job_str_id, token_mgr_first(tokens));
-	twl_lst_del(tokens_copy, NULL);
-	(void)shenv;
 }

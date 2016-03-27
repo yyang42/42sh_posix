@@ -10,26 +10,26 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef JOB_CONTROL_JOB_MGR_H
-# define JOB_CONTROL_JOB_MGR_H
+#include "builtin/cmds/builtin_wait.h"
 
-# include "basics.h"
-# include "job_control/job.h"
-# include "shenv/shenv.h"
+static bool			find_running_fn(void *job_, void *ctx)
+{
+	t_job			*job;
 
-t_lst				*job_mgr_new(void);
-void				job_mgr_del(t_lst *jobs);
-void				job_mgr_add(t_lst *jobs, t_job *job);
-int					job_mgr_remove(t_lst *jobs, t_job *job);
-void				job_mgr_print(t_lst *jobs);
+	job = job_;
+	return (job->job_status == JOB_RUNNING);
+	(void)ctx;
+}
 
-void				job_mgr_env_push(t_job *job);
-void				job_mgr_exec_update(t_lst *jobs);
+void				builtin_wait_exec_wait_all(void)
+{
+	t_lst			*jobs;
 
-t_job 				*job_mgr_find_by_job_id(t_lst *jobs, char *job_str_id);
-t_job 				*job_mgr_find_by_pid(t_lst *jobs, int pid);
-t_job 				*job_mgr_find_by_str_pid(t_lst *jobs, char *str_pid);
-t_job 				*job_mgr_find_by_pid_perc_job_id(t_lst *jobs, char *str);
-void				job_mgr_update_sign(t_lst *jobs);
-
-#endif
+	jobs = twl_lst_findall(shenv_singleton()->jobs, find_running_fn, NULL);
+	while (twl_lst_len(jobs))
+	{
+		builtin_wait_put_job_in_wait(twl_lst_first(jobs));
+		twl_lst_pop_front(jobs);
+	}
+	twl_lst_del(jobs, NULL);
+}

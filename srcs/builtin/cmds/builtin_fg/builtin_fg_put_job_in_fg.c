@@ -15,8 +15,6 @@
 #include "data.h"
 #include <sys/wait.h>
 
-char * strerror(int errnum);
-
 static void         put_in_fg(t_job *job, t_token *cmd_token)
 {
     t_shenv         *env;

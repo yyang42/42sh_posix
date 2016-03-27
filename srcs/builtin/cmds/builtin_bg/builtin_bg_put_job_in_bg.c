@@ -27,9 +27,14 @@ static void         put_in_bg(t_job *job)
             twl_dprintf (2, "kill (SIGCONT)");
         }
     }
+    else if (job->job_status == JOB_RUNNING)
+    {
+        shenv_print_error_printf(shenv_singleton(), shenv_get_cur_line(),
+            "bg: job %d already in background", job->job_id);
+    }
     else
     {
-        LOGGER("bg: pid=%d: trying to continue a non stopped job", job->pid);
+        LOGGER("ERROR: bg: bad job status");
     }
 }
 
