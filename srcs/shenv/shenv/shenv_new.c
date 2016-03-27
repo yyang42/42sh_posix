@@ -45,6 +45,6 @@ t_shenv			*shenv_new(void)
 	this->async_child_pid = 0;
 	this->shenv_cur_token = NULL;
 	this->is_interactive_shell = false;
-	this->jc_is_a_job = false;
+	this->jc_job_pgid = false;
 	return (this);
 }

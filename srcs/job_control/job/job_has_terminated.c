@@ -14,7 +14,7 @@
 #include <errno.h>
 #include "job_control/job.h"
 
-bool				job_has_terminated(t_job *this)
+bool				job_has_terminated(t_job *job)
 {
-	return (this->job_status == JOB_DONE);
+	return (job->job_status == JOB_DONE || job->job_status == JOB_TERMINATED);
 }

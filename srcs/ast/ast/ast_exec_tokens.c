@@ -27,6 +27,7 @@ int					ast_exec_tokens(t_lst *tokens)
 	{
 		exit_code = ast_exec(ast);
 	}
+
 	ast_del(ast);
 	return (exit_code);
 }

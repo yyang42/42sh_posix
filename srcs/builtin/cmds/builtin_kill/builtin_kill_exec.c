@@ -15,6 +15,7 @@
 #include "logger.h"
 #include "data.h"
 #include "shsignal/shsignal_mgr.h"
+#include "job_control/job_mgr.h"
 
 static char			*get_sigstr_from_minus_s_opt(t_lst *tokens, t_shenv *env)
 {
@@ -56,14 +57,21 @@ static void			iter_pids_fn(void *token_, void *signum_ptr)
 
 	signum = *(int *)signum_ptr;
 	token = token_;
-	if (twl_str_is_num(token->text))
+	if ((job = get_job_by_id(token->text)))
+	{
+		pid = -1 * job->pid;
+		builtin_kill_update_job(job, signum);
+	}
+	else if (twl_str_is_num(token->text))
 	{
 		pid = twl_atoi(token->text);
-	}
-	else if ((job = get_job_by_id(token->text)))
-	{
-		pid = job->pid;
-		builtin_kill_update_job(job, signum);
+		if (kill(pid, 0) == -1)
+		{
+			shenv_print_error_printf(shenv_singleton(), token->line,
+				"kill: (%s) - No such process", token->text);
+			shenv_singleton()->last_exit_code = EXIT_FAILURE;
+			return ;
+		}
 	}
 	else
 	{
@@ -72,16 +80,11 @@ static void			iter_pids_fn(void *token_, void *signum_ptr)
 		shenv_singleton()->last_exit_code = EXIT_FAILURE;
 		return ;
 	}
-	if (kill(pid, 0) == -1)
-	{
-		shenv_print_error_printf(shenv_singleton(), token->line,
-			"kill: (%s) - No such process", token->text);
-		shenv_singleton()->last_exit_code = EXIT_FAILURE;
-		return ;
-	}
+	if (job_mgr_find_by_pid(shenv_singleton()->jobs, pid))
+		pid = - pid;
 	LOGGER("kill: %s(%d), pid=%d",
 		shsignal_mgr_get_signame(data_signals(), signum), signum, pid);
-	if (kill(-1 * pid, signum) == -1)
+	if (kill(pid, signum) == -1)
 		perror("kill");
 }
 

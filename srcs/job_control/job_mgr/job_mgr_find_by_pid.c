@@ -10,24 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/builtin.h"
-#include "builtin/cmds/builtin_kill.h"
-#include "shsignal/shsignal_mgr.h"
-#include "data.h"
+#include "job_control/job_mgr.h"
+#include "twl_stdlib.h"
 
-static void     intercept_logger_handler(int sig)
+static bool			find_by_pid_fn(void *job_, void *pid_ptr)
 {
-  LOGGER("INTERACTIVE: Ignore signal %s(%d)", shsignal_mgr_get_signame(data_signals(), sig), sig);
-  (void)sig;
+	int				pid;
+	t_job			*job;
+
+	job = job_;
+	pid = *(int *)pid_ptr;
+	return (job->pid == pid);
 }
 
-void				job_utils_sigs_ignore_on_interactive(void)
+t_job 				*job_mgr_find_by_pid(t_lst *jobs, int pid)
 {
-	(void)intercept_logger_handler;
-	signal(SIGINT, SIG_IGN);
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGTSTP, SIG_IGN);
-	signal(SIGTTIN, SIG_IGN);
-	signal(SIGTTOU, SIG_IGN);
-	// signal(SIGCHLD, SIG_IGN);
+	return (twl_lst_find(jobs, find_by_pid_fn, &pid));
 }

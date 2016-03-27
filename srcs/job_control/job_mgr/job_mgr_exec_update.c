@@ -34,16 +34,15 @@ static bool			handle_with_status(t_job *job)
 	else
 		job->job_status = -1;
 	str_status = job_status_str_long(job, true);
-	if (job->job_status == JOB_TERMINATED)
+	if (job_has_terminated(job))
 	{
-
 		shenv_print_error_printf(shenv_singleton(),
 			shenv_get_cur_line(), "%s", str_status);
 		ret = true;
 	}
 	LOGGER("job %d status: %s ", job->job_id, str_status);
 	free(str_status);
-	return (false);
+	return (ret);
 }
 
 static bool			remove_print_fn(void *job_, void *ctx)
@@ -59,7 +58,7 @@ static bool			remove_print_fn(void *job_, void *ctx)
 	LOGGER("[DEBUG] errno: %d ECHILD: %d", errno_ret, ECHILD);
 	if (job->end_pid == job->pid)
 	{
-		return (handle_with_status(job));
+		handle_with_status(job);
 	}
 	else if (job->end_pid == 0 || errno_ret == ECHILD)
 	{

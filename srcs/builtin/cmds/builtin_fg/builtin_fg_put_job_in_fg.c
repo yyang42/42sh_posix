@@ -20,9 +20,9 @@ char * strerror(int errnum);
 static void         put_in_fg(t_job *job, t_token *cmd_token)
 {
     t_shenv         *env;
-    // bool            cont;
+    bool            cont;
 
-    // cont = true;
+    cont = true;
 
     env = shenv_singleton();
     /* Put the job into the foreground.  */
@@ -32,13 +32,13 @@ static void         put_in_fg(t_job *job, t_token *cmd_token)
     twl_printf("%s\n", job->cmd_str);
     LOGGER("fg: continue pid=%d", job->pid);
 
-    // if (cont)
-    // {
+    if (job->job_status == JOB_STOPPED)
+    {
 
-    //     // tcsetattr (env->jc_terminal, TCSADRAIN, &job->tmodes);
-    //     if (kill (job->pid, SIGCONT) < 0)
-    //         twl_dprintf (2, "kill (SIGCONT)");
-    // }
+        // tcsetattr (env->jc_terminal, TCSADRAIN, &job->tmodes);
+        if (kill (-job->pid, SIGCONT) < 0)
+            twl_dprintf (2, "kill (SIGCONT)");
+    }
     pid_t pid = waitpid (job->pid, NULL, WUNTRACED);
     if (pid == -1 && errno != ECHILD)
     {
