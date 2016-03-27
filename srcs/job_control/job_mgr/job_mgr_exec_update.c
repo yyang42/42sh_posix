@@ -42,9 +42,9 @@ static void			handle_with_status(t_job *job)
 	else
 		job->job_status = -1;
 	str_status = job_status_str_long(job, true);
-	print_terminated_job(job, str_status);
 	LOGGER("job %d status: %s ", job->job_id, str_status);
 	free(str_status);
+	(void)print_terminated_job;
 }
 
 static void			iter_job_fn(void *job_)

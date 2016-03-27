@@ -17,32 +17,24 @@
 #include "shsignal/shsignal_mgr.h"
 #include "utils.h"
 
-void				shenv_init_job_control(t_shenv *this)
+void                shenv_init_job_control(t_shenv *this)
 {
-  /* See if we are running interactively.  */
-  this->jc_terminal = STDIN_FILENO;
-  // this->jc_is_interactive = isatty(this->jc_terminal);
-  // twl_printf("this->jc_is_interactive %d\n", this->jc_is_interactive);
-  if (this->is_interactive_shell)
+    this->jc_terminal = STDIN_FILENO;
+    if (this->is_interactive_shell)
     {
-      LOGGER("Init job control");
-      /* Loop until we are in the foreground.  */
-      while (tcgetpgrp (this->jc_terminal) != (this->jc_pgid = getpgrp ()))
-        kill (- this->jc_pgid, SIGTTIN);
-
-      job_utils_sigs_ignore_on_interactive();
-
-      /* Put ourselves in our own process group.  */
-      this->jc_pgid = getpid ();
-      if (setpgid (this->jc_pgid, this->jc_pgid) < 0)
+        LOGGER("Init job control");
+        while (tcgetpgrp (this->jc_terminal) != (this->jc_pgid = getpgrp ()))
         {
-          twl_dprintf(2, "error: Couldn't put the shell in its own process group");
-          exit (1);
+            kill (- this->jc_pgid, SIGTTIN);
         }
-      /* Grab control of the terminal.  */
-      tcsetpgrp (this->jc_terminal, this->jc_pgid);
-
-      /* Save default terminal attributes for shell.  */
-      tcgetattr (this->jc_terminal, &this->jc_tmodes);
+        job_utils_sigs_ignore_on_interactive();
+        this->jc_pgid = getpid ();
+        if (setpgid (this->jc_pgid, this->jc_pgid) < 0)
+        {
+            twl_dprintf(2, "error: Couldn't put the shell in its own process group");
+            exit (1);
+        }
+        tcsetpgrp (this->jc_terminal, this->jc_pgid);
+        tcgetattr (this->jc_terminal, &this->jc_tmodes);
     }
 }

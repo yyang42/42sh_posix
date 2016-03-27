@@ -19,7 +19,6 @@ static void         put_in_bg(t_job *job)
     int             errno_saved;
 
     pid = - job->pid;
-    /* Send the job a continue signal, if necessary.  */
     if (job->job_status == JOB_STOPPED)
     {
         LOGGER("bg: continue pid=%d", pid);

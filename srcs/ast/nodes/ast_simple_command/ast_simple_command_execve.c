@@ -41,27 +41,13 @@ static void			fork_and_execute(char *path, t_lst *tokens, char **env)
 	}
 	else if (pid == 0)
 	{
-
-		// setpgid(0, getpid());
-
-		LOGGER("exec child jc_job_pgid %d", shenv_singleton()->jc_job_pgid);
-		LOGGER("exec child getpid()    %d", getpid());
-		LOGGER("exec child pid         %d", pid);
-		setpgid(getpid(), shenv_singleton()->jc_job_pgid);
 		execve_wrapper(path, args, env);
 		perror(path);
 		exit(0);
 	}
 	else
 	{
-
-		LOGGER("exec jc_job_pgid %d", shenv_singleton()->jc_job_pgid);
-		LOGGER("exec getpid()    %d", getpid());
-		LOGGER("exec pid         %d", pid);
-		setpgid(pid, shenv_singleton()->jc_job_pgid);
-		LOGGER("BEFORE WAITPID");
      	waitpid_ret = waitpid(pid, &res, 0);
-		LOGGER("AFTER WAITPID");
      	if (waitpid_ret == -1)
      	{
      		perror("waitpid");
