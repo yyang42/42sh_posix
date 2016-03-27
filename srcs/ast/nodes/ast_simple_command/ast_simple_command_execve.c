@@ -20,7 +20,7 @@ static void			execve_wrapper(char *path, char **args, char **env)
 	char			*cmd;
 
 	cmd = twl_strjoinarr((const char **)args, " ");
-	LOGGER("execve: %s", cmd);
+	LOGGER("execve: %s (pid=%d)", cmd, getpid());
 	execve(path, args, env);
 	free(cmd);
 }
@@ -32,6 +32,12 @@ static void			fork_and_execute(char *path, t_lst *tokens, char **env)
 	char			**args;
 
 	args = token_mgr_to_str_arr(tokens);
+	if (shenv_singleton()->jc_is_a_job)
+	{
+		execve_wrapper(path, args, env);
+		return ;
+	}
+	return ;
 	pid = shenv_utils_fork();
 	if (pid == -1)
 	{
@@ -52,10 +58,11 @@ static void			fork_and_execute(char *path, t_lst *tokens, char **env)
 	{
 		LOGGER("pid %d", pid);
 		LOGGER("getpid () %d", getpid ());
-   		setpgid(pid, getpid());
+   		// setpgid(pid, getpid());
 		// signal(SIGINT, SIG_IGN);
 		// signal(SIGKILL, SIG_IGN);
-		waitpid(pid, &res, 0);
+		pid_t ret = waitpid(pid, &res, 0);
+		LOGGER("exeve waitpid ret %d", ret);
 		// signal(SIGINT, SIG_DFL);
 		// signal(SIGKILL, SIG_DFL);
 		handle_signal(res);

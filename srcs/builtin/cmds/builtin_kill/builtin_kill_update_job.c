@@ -10,38 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sys/wait.h>
-#include <errno.h>
-#include "job_control/job.h"
-#include "shsignal/shsignal_mgr.h"
+#include "builtin/builtin.h"
 #include "data.h"
+#include "builtin/cmds/builtin_kill.h"
 
-char				*job_status_str(t_job *job)
+void				builtin_kill_update_job(t_job *job, int signum)
 {
-	char			*str_status;
-
-	str_status = NULL;
-	if (job->job_status == JOB_RUNNING)
-		str_status = twl_strdup("Running");
-	else if (job->job_status == JOB_DONE)
+	if (signum == SIGCONT)
 	{
-		if (WEXITSTATUS(job->status) == 0)
-			str_status = twl_strdup("Done");
-		else
-			twl_asprintf(&str_status, "Done(%d)", WEXITSTATUS(job->status));
+		job->job_status = JOB_RUNNING;
 	}
-	else if (job->job_status == JOB_TERMINATED)
+	else if (signum == SIGKILL)
 	{
-		twl_asprintf(&str_status, "Terminated: %d", WTERMSIG(job->status));
+		job->job_status = JOB_TERMINATED;
 	}
-	else if (job->job_status == JOB_STOPPED)
-	{
-		twl_asprintf(&str_status, "Stopped(SIG%s)",
-			shsignal_mgr_get_signame(data_signals(), job->stopped_signal));
-	}
-	else
-	{
-		str_status = twl_strdup("Unknown");
-	}
-	return (str_status);
 }

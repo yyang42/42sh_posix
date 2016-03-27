@@ -17,7 +17,9 @@
 static bool			handle_with_status(t_job *job)
 {
 	char	*str_status;
+	int		ret;
 
+	ret = false;
 	if (WIFSTOPPED(job->status))
 	{
 		job->stopped_signal = WSTOPSIG(job->status);
@@ -31,33 +33,35 @@ static bool			handle_with_status(t_job *job)
 		job->job_status = JOB_TERMINATED;
 	else
 		job->job_status = -1;
+	str_status = job_status_str_long(job, true);
 	if (job->job_status == JOB_TERMINATED)
 	{
-		str_status = job_status_str_long(job, true);
+
 		shenv_print_error_printf(shenv_singleton(),
 			shenv_get_cur_line(), "%s", str_status);
-		free(str_status);
-		return (true);
+		ret = true;
 	}
+	LOGGER("job %d status: %s ", job->job_id, str_status);
+	free(str_status);
 	return (false);
 }
 
 static bool			remove_print_fn(void *job_, void *ctx)
 {
 	t_job	*job;
+	int		errno_ret;
 
 	job = job_;
 	errno = 0;
 	job->end_pid = waitpid(job->pid, &job->status, WNOHANG | WUNTRACED);
-
+	errno_ret = errno;
 	LOGGER("[DEBUG] pid: %d endpid: %d", job->pid, job->end_pid);
-	LOGGER("[DEBUG] errno: %d ECHILD: %d", errno, ECHILD);
-
+	LOGGER("[DEBUG] errno: %d ECHILD: %d", errno_ret, ECHILD);
 	if (job->end_pid == job->pid)
 	{
 		return (handle_with_status(job));
 	}
-	else if (job->end_pid == 0 || errno == ECHILD)
+	else if (job->end_pid == 0 || errno_ret == ECHILD)
 	{
 		if (job->job_status != JOB_STOPPED)
 			job->job_status = JOB_RUNNING;

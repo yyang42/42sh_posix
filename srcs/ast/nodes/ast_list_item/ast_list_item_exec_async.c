@@ -34,6 +34,7 @@ static void			ast_list_item_exec_child(t_ast_list_item *this, pid_t pgid)
 {
 	pid_t			pid;
 
+	shenv_singleton()->jc_is_a_job = true;
 	if (shenv_singleton()->is_interactive_shell)
 	{
 		/* Put the process into the process group and give the process group
@@ -41,9 +42,9 @@ static void			ast_list_item_exec_child(t_ast_list_item *this, pid_t pgid)
 		 This has to be done both by the shell and in the individual
 		 child processes because of potential race conditions.  */
 		pid = getpid ();
-		// LOGGER("pid %d\n", pid);
-		// LOGGER("pgid %d\n", pgid);
 		if (pgid == 0) pgid = pid;
+		LOGGER("pid  %d", pid);
+		LOGGER("pgid %d", pgid);
 		setpgid (pid, pgid);
 		// if (foreground)
 		//   tcsetpgrp (shell_terminal, pgid);
@@ -70,6 +71,7 @@ void				ast_list_item_exec_async(t_ast_list_item *this)
 	}
 	else
 	{
+		LOGGER("waitpid ret %d", pid, waitpid(pid, 0, 0));
 		ast_list_item_after_fork(this, pid);
 	}
 }

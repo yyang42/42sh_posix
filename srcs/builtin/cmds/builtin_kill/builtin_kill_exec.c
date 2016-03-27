@@ -12,8 +12,6 @@
 
 #include "builtin/builtin.h"
 #include "builtin/cmds/builtin_kill.h"
-#include "job_control/job.h"
-#include "job_control/job_mgr.h"
 #include "logger.h"
 #include "data.h"
 #include "shsignal/shsignal_mgr.h"
@@ -65,6 +63,7 @@ static void			iter_pids_fn(void *token_, void *signum_ptr)
 	else if ((job = get_job_by_id(token->text)))
 	{
 		pid = job->pid;
+		builtin_kill_update_job(job, signum);
 	}
 	else
 	{

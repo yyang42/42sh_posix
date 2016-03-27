@@ -64,6 +64,7 @@ typedef struct				s_shenv
 	struct termios			jc_tmodes;
 	int						jc_terminal;
 	int						jc_is_interactive;
+	bool					jc_is_a_job;
 
 }							t_shenv;
 
