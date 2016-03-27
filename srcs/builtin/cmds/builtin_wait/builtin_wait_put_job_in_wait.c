@@ -29,6 +29,7 @@ static void         put_in_wait(t_job *job)
             errno_saved = errno;
             shenv_print_error_printf(shenv_singleton(), shenv_get_cur_line(),
                 "wait: error: %s", strerror(errno_saved));
+            shenv_singleton()->last_exit_code = EXIT_FAILURE;
         }
         else if (waitpid_ret > 0)
         {
@@ -40,6 +41,7 @@ static void         put_in_wait(t_job *job)
     {
         shenv_print_error_printf(shenv_singleton(), shenv_get_cur_line(),
             "wait: warning: job %d is stopped", job->job_id);
+        shenv_singleton()->last_exit_code = WAIT_ERROR_ALREADY_STOPPED;
     }
     else
     {

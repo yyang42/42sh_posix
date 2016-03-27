@@ -18,12 +18,11 @@ static void			exec_job_str_id(t_job *job, char *str_token)
 	{
 		shenv_print_error_printf(shenv_singleton(), shenv_get_cur_line(),
 			"wait: %s: no such job", str_token);
-		shenv_singleton()->last_exit_code = EXIT_FAILURE;
+		shenv_singleton()->last_exit_code = 127;
 	}
 	else
 	{
 		builtin_wait_put_job_in_wait(job);
-		// job_mgr_remove(shenv_singleton()->jobs, job);
 	}
 }
 
