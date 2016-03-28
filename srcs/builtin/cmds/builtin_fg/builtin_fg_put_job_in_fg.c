@@ -13,7 +13,16 @@
 #include "builtin/cmds/builtin_fg.h"
 #include "shsignal/shsignal_mgr.h"
 #include "data.h"
+#include <setjmp.h>
 #include <sys/wait.h>
+
+static jmp_buf jump_buf;
+
+static void         sigtstp_handler(int sig)
+{
+    LOGGER("sigtstp_handler: %d", sig);
+    longjmp(jump_buf, 1);
+}
 
 static void         put_in_fg(t_job *job, t_token *cmd_token)
 {
@@ -57,7 +66,20 @@ void                builtin_fg_put_job_in_fg(t_job *job, t_token *cmd_token)
     }
     else
     {
-        put_in_fg(job, cmd_token);
+        signal(SIGTSTP, sigtstp_handler);
+        if (setjmp(jump_buf) == 0)
+        {
+            put_in_fg(job, cmd_token);
+        }
+        else
+        {
+            if (kill(-job->pid, SIGSTOP) == -1)
+            {
+                shenv_print_error_printf(shenv_singleton(), cmd_token->line,
+                    "fg: kill: %s", strerror(errno));
+            }
+        }
+        signal(SIGTSTP, SIG_IGN);
     }
     job_mgr_remove(shenv_singleton()->jobs, job);
 }

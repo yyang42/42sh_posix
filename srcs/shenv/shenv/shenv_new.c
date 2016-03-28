@@ -41,8 +41,6 @@ t_shenv			*shenv_new(void)
 	this->function_depth = 0;
 	this->jobs = twl_lst_new();
 	this->last_exit_code = 0;
-	this->async_should_exec_async = false;
-	this->async_child_pid = 0;
 	this->shenv_cur_token = NULL;
 	this->is_interactive_shell = false;
 	return (this);

@@ -10,27 +10,22 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/builtin.h"
-#include "builtin/cmds/builtin_kill.h"
-#include "shsignal/shsignal_mgr.h"
-#include "data.h"
+#include "ast/nodes/ast_list_item.h"
+#include "job_control/job_mgr.h"
+#include "job_control/job.h"
+#include "logger.h"
+#include <signal.h>
 
-static void     intercept_logger_handler(int sig)
+void				ast_list_item_exec_async_parent_create_job(t_lst *tokens, pid_t pid)
 {
-  LOGGER("INTERACTIVE: Ignore signal %s(%d)", shsignal_mgr_get_signame(data_signals(), sig), sig);
-  LOGGER("INTERACTIVE: pid (%d)", getpid());
-  (void)sig;
-}
+	char			*cmd_str;
+	t_job			*job;
 
-void				job_utils_sigs_ignore_on_interactive(void)
-{
-	if (!shenv_singleton()->is_interactive_shell)
-		return ;
-	(void)intercept_logger_handler;
-	signal(SIGINT, SIG_IGN);
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGTSTP, intercept_logger_handler);
-	signal(SIGTTIN, SIG_IGN);
-	signal(SIGTTOU, SIG_IGN);
-	// signal(SIGCHLD, SIG_IGN);
+	cmd_str = token_mgr_strjoin(tokens, " ");
+	LOGGER("async exec: %s", cmd_str);
+	job = job_new(pid, cmd_str, tokens);
+	job_mgr_env_push(job);
+	if (shenv_singleton()->is_interactive_shell)
+		twl_dprintf(2, "[%d] %d\n", job->job_id, job->pid);
+	free(cmd_str);
 }

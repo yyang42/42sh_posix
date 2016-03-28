@@ -10,27 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/builtin.h"
-#include "builtin/cmds/builtin_kill.h"
-#include "shsignal/shsignal_mgr.h"
-#include "data.h"
+#include "ast/nodes/ast_simple_command.h"
+#include "shsignal/shsignal.h"
+#include "logger.h"
+#include <sys/wait.h>
+#include "job_control/job.h"
 
-static void     intercept_logger_handler(int sig)
+void				ast_simple_command_execve_child(
+	char *path, char **args, char **env)
 {
-  LOGGER("INTERACTIVE: Ignore signal %s(%d)", shsignal_mgr_get_signame(data_signals(), sig), sig);
-  LOGGER("INTERACTIVE: pid (%d)", getpid());
-  (void)sig;
-}
+	char			*cmd;
 
-void				job_utils_sigs_ignore_on_interactive(void)
-{
-	if (!shenv_singleton()->is_interactive_shell)
-		return ;
-	(void)intercept_logger_handler;
-	signal(SIGINT, SIG_IGN);
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGTSTP, intercept_logger_handler);
-	signal(SIGTTIN, SIG_IGN);
-	signal(SIGTTOU, SIG_IGN);
-	// signal(SIGCHLD, SIG_IGN);
+	job_utils_sigs_dfl_on_interactive();
+	cmd = twl_strjoinarr((const char **)args, " ");
+	LOGGER("execve: %s (pid=%d)", cmd, getpid());
+	execve(path, args, env);
+	free(cmd);
 }
