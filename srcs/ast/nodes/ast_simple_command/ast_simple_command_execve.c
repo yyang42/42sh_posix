@@ -15,12 +15,12 @@
 #include "logger.h"
 #include <sys/wait.h>
 
-static void			fork_and_execute(char *path, t_lst *tokens, char **env)
+static void			fork_and_execute(t_ast_simple_command *cmd, char *path, char **env)
 {
 	pid_t			pid;
 	char			**args;
 
-	args = token_mgr_to_str_arr(tokens);
+	args = token_mgr_to_str_arr(cmd->command_tokens);
 	pid = shenv_utils_fork();
 
 	if (pid == -1)
@@ -35,25 +35,25 @@ static void			fork_and_execute(char *path, t_lst *tokens, char **env)
 	}
 	else
 	{
-		ast_simple_command_execve_parent(tokens, pid);
+		ast_simple_command_execve_parent(cmd, pid);
 	}
 	twl_arr_del(args, NULL);
 }
 
-void			ast_simple_command_execve(char *path, t_lst *tokens, char **env)
+void			ast_simple_command_execve(t_ast_simple_command *cmd, char *path, char **env)
 {
 	if (file_exists(path))
 	{
 		if (file_isexecutable(path))
-			fork_and_execute(path, tokens, env);
+			fork_and_execute(cmd, path, env);
 		else
 			error_permission_denied(path);
 	}
 	else
 	{
 		shenv_print_error_printf(shenv_singleton(),
-			token_mgr_first(tokens)->line,
-			"%s: %s", token_mgr_first(tokens)->text,
+			token_mgr_first(cmd->command_tokens)->line,
+			"%s: %s", token_mgr_first(cmd->command_tokens)->text,
 			SHENV_ERROR_COMMAND_NOT_FOUND);
 		shenv_singleton()->last_exit_code = EXIT_COMMAND_NOT_FOUND;
 	}

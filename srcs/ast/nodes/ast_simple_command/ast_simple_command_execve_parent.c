@@ -46,7 +46,7 @@ void				ast_simple_command_execve_parent_wait(pid_t pid)
  	}
 }
 
-void				ast_simple_command_execve_parent(t_lst *tokens, pid_t pid)
+void				ast_simple_command_execve_parent(t_ast_simple_command *cmd, pid_t pid)
 {
 	signal(SIGTSTP, sigtstp_handler);
 	setpgid(pid, pid);
@@ -58,7 +58,7 @@ void				ast_simple_command_execve_parent(t_lst *tokens, pid_t pid)
     {
 		if (kill(-pid, SIGTSTP) == -1)
 			perror("kill");
-    	ast_list_item_exec_async_parent_create_job(tokens, pid);
+    	ast_list_item_exec_async_parent_create_job(cmd->full_command_tokens, pid);
     }
 	signal(SIGTSTP, SIG_IGN);
 }

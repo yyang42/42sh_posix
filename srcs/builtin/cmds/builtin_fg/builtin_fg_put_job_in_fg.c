@@ -16,12 +16,26 @@
 #include <setjmp.h>
 #include <sys/wait.h>
 
-static jmp_buf jump_buf;
-
-static void         sigtstp_handler(int sig)
+static void         fg_waitpid(t_job *job, t_token *cmd_token)
 {
-    LOGGER("sigtstp_handler: %d", sig);
-    longjmp(jump_buf, 1);
+    pid_t pid = waitpid (job->pid, &job->status, WUNTRACED);
+    if (pid == -1 && errno != ECHILD)
+    {
+        shenv_print_error_printf(shenv_singleton(), cmd_token->line,
+            "fg: %s", strerror(errno));
+    }
+    else if (pid > 0)
+    {
+        if (WIFSTOPPED(job->status))
+        {
+            job->stopped_signal = WSTOPSIG(job->status);
+            job->job_status = JOB_STOPPED;
+        }
+        else
+        {
+            job_mgr_remove(shenv_singleton()->jobs, job);
+        }
+    }
 }
 
 static void         put_in_fg(t_job *job, t_token *cmd_token)
@@ -35,7 +49,6 @@ static void         put_in_fg(t_job *job, t_token *cmd_token)
 
     twl_printf("%s\n", job->cmd_str);
     LOGGER("fg: continue pid=%d", job->pid);
-
     if (job->job_status == JOB_STOPPED)
     {
 
@@ -43,12 +56,7 @@ static void         put_in_fg(t_job *job, t_token *cmd_token)
         if (kill (-job->pid, SIGCONT) < 0)
             twl_dprintf (2, "kill (SIGCONT)");
     }
-    pid_t pid = waitpid (job->pid, NULL, WUNTRACED);
-    if (pid == -1 && errno != ECHILD)
-    {
-        shenv_print_error_printf(shenv_singleton(), cmd_token->line,
-            "fg: %s", strerror(errno));
-    }
+    fg_waitpid(job, cmd_token);
     /* Put the shell back in the foreground.  */
     tcsetpgrp (env->jc_terminal, env->jc_pgid);
 
@@ -63,23 +71,7 @@ void                builtin_fg_put_job_in_fg(t_job *job, t_token *cmd_token)
     {
         shenv_print_error_printf(shenv_singleton(), cmd_token->line,
             "fg: job has terminated");
+        return ;
     }
-    else
-    {
-        signal(SIGTSTP, sigtstp_handler);
-        if (setjmp(jump_buf) == 0)
-        {
-            put_in_fg(job, cmd_token);
-        }
-        else
-        {
-            if (kill(-job->pid, SIGSTOP) == -1)
-            {
-                shenv_print_error_printf(shenv_singleton(), cmd_token->line,
-                    "fg: kill: %s", strerror(errno));
-            }
-        }
-        signal(SIGTSTP, SIG_IGN);
-    }
-    job_mgr_remove(shenv_singleton()->jobs, job);
+    put_in_fg(job, cmd_token);
 }

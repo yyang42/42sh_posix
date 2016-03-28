@@ -29,7 +29,7 @@ void				job_utils_sigs_ignore_on_interactive(void)
 	(void)intercept_logger_handler;
 	signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);
-	signal(SIGTSTP, intercept_logger_handler);
+	signal(SIGTSTP, SIG_IGN);
 	signal(SIGTTIN, SIG_IGN);
 	signal(SIGTTOU, SIG_IGN);
 	// signal(SIGCHLD, SIG_IGN);
