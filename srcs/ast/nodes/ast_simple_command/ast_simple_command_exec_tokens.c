@@ -16,34 +16,34 @@
 #include "builtin/builtin_mgr.h"
 #include "data.h"
 
-void				ast_simple_command_exec_tokens(t_lst *tokens)
+void				ast_simple_command_exec_tokens(t_ast_simple_command *cmd)
 {
 	char			**env_arr;
 	char			*path;
 	char			*cmd_name;
 	t_builtin		*builtin;
 
-	if (twl_lst_len(tokens) == 0)
+	if (twl_lst_len(cmd->command_tokens) == 0)
 		return ;
-	if (twl_lst_len(tokens) > 0)
+	if (twl_lst_len(cmd->command_tokens) > 0)
 	{
-		cmd_name = token_mgr_first(tokens)->text;
+		cmd_name = token_mgr_first(cmd->command_tokens)->text;
 		builtin = builtin_mgr_find_by_name(data_builtins(), cmd_name);
 		if (builtin)
 		{
 			shenv_set_cur_cmd(shenv_singleton(), cmd_name);
-			shenv_set_cur_token(shenv_singleton(), token_mgr_first(tokens));
-			builtin->builtin_fn(tokens, shenv_singleton());
+			shenv_set_cur_token(shenv_singleton(), token_mgr_first(cmd->command_tokens));
+			builtin->builtin_fn(cmd->command_tokens, shenv_singleton());
 		}
 		else if (shenv_shfuncs_get(shenv_singleton(), cmd_name))
 		{
-			ast_simple_command_exec_function(tokens, shenv_shfuncs_get(shenv_singleton(), cmd_name));
+			ast_simple_command_exec_function(cmd->command_tokens, shenv_shfuncs_get(shenv_singleton(), cmd_name));
 		}
 		else
 		{
 			env_arr = (char **)shenv_get_env_arr(shenv_singleton());
 			path = ast_simple_command_utils_get_binary_path(cmd_name, shenv_singleton());
-			ast_simple_command_execve(path, tokens, env_arr);
+			ast_simple_command_execve(cmd, path, env_arr);
 			free(path);
 			twl_arr_del(env_arr, free);
 		}

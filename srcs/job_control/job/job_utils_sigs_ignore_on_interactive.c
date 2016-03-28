@@ -18,11 +18,14 @@
 static void     intercept_logger_handler(int sig)
 {
   LOGGER("INTERACTIVE: Ignore signal %s(%d)", shsignal_mgr_get_signame(data_signals(), sig), sig);
+  LOGGER("INTERACTIVE: pid (%d)", getpid());
   (void)sig;
 }
 
 void				job_utils_sigs_ignore_on_interactive(void)
 {
+	if (!shenv_singleton()->is_interactive_shell)
+		return ;
 	(void)intercept_logger_handler;
 	signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);

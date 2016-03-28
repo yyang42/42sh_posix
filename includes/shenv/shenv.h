@@ -41,6 +41,8 @@ typedef struct				s_shenv_info
 	char					*name;
 }							t_shenv_info;
 
+struct s_job;
+
 typedef struct				s_shenv
 {
 	char					*shenv_name;
@@ -56,14 +58,13 @@ typedef struct				s_shenv
 	t_shenv_info			info;
 	t_lst					*jobs;
 	int						last_exit_code;
-	bool					async_should_exec_async;
 	bool					is_interactive_shell;
-	pid_t					async_child_pid;
 
 	pid_t					jc_pgid;
 	struct termios			jc_tmodes;
 	int						jc_terminal;
 	int						jc_is_interactive;
+	struct s_job			*jc_foreground_job;
 }							t_shenv;
 
 t_shenv				*shenv_new(void);

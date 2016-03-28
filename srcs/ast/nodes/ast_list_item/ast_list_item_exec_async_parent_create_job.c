@@ -16,29 +16,16 @@
 #include "logger.h"
 #include <signal.h>
 
-static void			ast_list_item_exec_child(t_ast_list_item *this)
+void				ast_list_item_exec_async_parent_create_job(t_lst *tokens, pid_t pid)
 {
-	job_utils_sigs_dfl_on_interactive();
-	ast_list_item_exec(this);
-}
+	char			*cmd_str;
+	t_job			*job;
 
-void				ast_list_item_exec_async(t_ast_list_item *this)
-{
-	pid_t			pgid;
-
-	pgid = shenv_utils_fork();
-	if (pgid == -1)
-	{
-		twl_dprintf(2, "cannot fork: %s", strerror(errno));
-	}
-	else if (pgid == 0)
-	{
-		ast_list_item_exec_child(this);
-		exit(0);
-	}
-	else
-	{
-		setpgid (pgid, pgid);
-		ast_list_item_exec_async_parent_create_job(this->list_item_tokens, pgid);
-	}
+	cmd_str = token_mgr_strjoin(tokens, " ");
+	LOGGER("async exec: %s", cmd_str);
+	job = job_new(pid, cmd_str, tokens);
+	job_mgr_env_push(job);
+	if (shenv_singleton()->is_interactive_shell)
+		twl_dprintf(2, "[%d] %d\n", job->job_id, job->pid);
+	free(cmd_str);
 }
