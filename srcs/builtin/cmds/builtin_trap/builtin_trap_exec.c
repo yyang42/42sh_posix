@@ -11,37 +11,61 @@
 /* ************************************************************************** */
 
 #include "builtin/cmds/builtin_trap.h"
+#include "data.h"
+#include "shsignal/shsignal_mgr.h"
 
-void				builtin_trap_exec(t_lst *tokens, t_shenv *shenv)
+static void			iter_trap_fn(void *sigstr, void *action)
 {
-	t_argparser_result *argparser_result;
-	t_lst				*token_copy;
+	t_shsignal		*shsignal;
 
-	token_copy = twl_lst_copy(tokens, NULL);
-	twl_lst_pop_front(token_copy);
-
-	twl_printf("!!! NOT IMPL YET !!!\n");
-	trap_mgr_add(shenv->traps, trap_new(token_copy, 42));
-	builtin_trap_print(shenv);
-
-	twl_lst_del(token_copy, NULL);
-	return ;
-	argparser_result = argparser_parse_tokens(builtin_trap_argparser(), tokens);
-	shenv->last_exit_code = EXIT_SUCCESS;
-	if (argparser_result->err_msg)
+	shsignal = shsignal_mgr_find_by_signame(data_signals(), sigstr);
+	if (!shsignal && twl_str_is_pos_num(sigstr))
 	{
-		argparser_result_print_error_with_help(argparser_result);
+		shsignal = shsignal_mgr_find_by_signum(data_signals(), twl_atoi(sigstr));
+	}
+	if (shsignal)
+	{
+		trap_mgr_add(shenv_singleton()->traps, trap_new(action, shsignal->signum));
 	}
 	else
 	{
-		if (argparser_result_opt_is_set(argparser_result, "p")
-			|| twl_lst_len(argparser_result->remainders) == 0)
+		shenv_print_error_printf(shenv_singleton(), shenv_get_cur_line(),
+			"trap: %s: invalid signal specification", sigstr);
+	}
+}
+
+static void			builtin_trap_exec_trap(t_lst *args)
+{
+	t_lst			*args_copy;
+	char			*action;
+
+	args_copy = twl_lst_copy(args, NULL);
+	action = twl_lst_pop_front(args_copy);
+	twl_lst_iter(args_copy, iter_trap_fn, action);
+	twl_lst_del(args_copy, NULL);
+}
+
+void				builtin_trap_exec(t_lst *tokens, t_shenv *env)
+{
+	t_argparser_result *argparser_result;
+
+	argparser_result = argparser_parse_tokens(builtin_trap_argparser(), tokens);
+	env->shenv_cur_token = token_mgr_first(tokens);
+	env->last_exit_code = EXIT_SUCCESS;
+	if (argparser_result->err_msg)
+	{
+		argparser_result_print_error_with_help(argparser_result);
+		env->last_exit_code = 2;
+	}
+	else
+	{
+		if (twl_lst_len(argparser_result->remainders) >= 2)
 		{
-			builtin_trap_print(shenv);
+			builtin_trap_exec_trap(argparser_result->remainders);
 		}
 		else
 		{
-
+			builtin_trap_print(env);
 		}
 	}
 }

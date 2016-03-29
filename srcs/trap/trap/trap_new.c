@@ -12,12 +12,12 @@
 
 #include "trap/trap.h"
 
-t_trap				*trap_new(t_lst *action_tokens, int condition_sig)
+t_trap				*trap_new(char *trap_action, int trap_cond)
 {
 	t_trap			*trap;
 
 	trap = twl_malloc_x0(sizeof(t_trap));
-	trap->action_tokens = twl_lst_copy(action_tokens, NULL);
-	trap->condition_sig = condition_sig;
+	trap->trap_action = twl_strdup(trap_action);
+	trap->trap_cond = trap_cond;
 	return (trap);
 }

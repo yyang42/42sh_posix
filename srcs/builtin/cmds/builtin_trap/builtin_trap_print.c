@@ -18,12 +18,9 @@
 static void			print_trap_fn(void *trap_)
 {
 	t_trap			*trap;
-	char			*joined;
 
 	trap = trap_;
-	joined = token_mgr_strjoin(trap->action_tokens, TRAP_ACTION_SEPARATOR);
-	twl_printf("trap -- \"%s\" SIGNAL\n", joined);
-	free(joined);
+	twl_printf("trap -- '%s' %s\n", trap->trap_action, builtin_trap_get_signame(trap->trap_cond));
 }
 
 void				builtin_trap_print(t_shenv *env)
