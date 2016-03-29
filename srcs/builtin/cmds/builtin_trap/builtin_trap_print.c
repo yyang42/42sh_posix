@@ -15,12 +15,18 @@
 #include "twl_opt.h"
 #include "twl_lst.h"
 
-static void			trap_something(void *data)
+static void			print_trap_fn(void *trap_)
 {
-	(void)data;
+	t_trap			*trap;
+	char			*joined;
+
+	trap = trap_;
+	joined = token_mgr_strjoin(trap->action_tokens, TRAP_ACTION_SEPARATOR);
+	twl_printf("trap -- \"%s\" SIGNAL\n", joined);
+	free(joined);
 }
 
 void				builtin_trap_print(t_shenv *env)
 {
-	twl_lst_iter0(env->shvars, trap_something);
+	twl_lst_iter0(env->traps, print_trap_fn);
 }

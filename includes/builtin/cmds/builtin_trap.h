@@ -17,6 +17,7 @@
 # include "twl_opt.h"
 # include "argparser_extension.h"
 # include "builtin/builtin.h"
+# include "trap/trap_mgr.h"
 
 
 void				builtin_trap_exec(t_lst *tokens, t_shenv *env);

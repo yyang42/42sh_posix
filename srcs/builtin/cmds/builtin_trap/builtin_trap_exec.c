@@ -15,7 +15,17 @@
 void				builtin_trap_exec(t_lst *tokens, t_shenv *shenv)
 {
 	t_argparser_result *argparser_result;
+	t_lst				*token_copy;
 
+	token_copy = twl_lst_copy(tokens, NULL);
+	twl_lst_pop_front(token_copy);
+
+	twl_printf("!!! NOT IMPL YET !!!\n");
+	trap_mgr_add(shenv->traps, trap_new(token_copy, 42));
+	builtin_trap_print(shenv);
+
+	twl_lst_del(token_copy, NULL);
+	return ;
 	argparser_result = argparser_parse_tokens(builtin_trap_argparser(), tokens);
 	shenv->last_exit_code = EXIT_SUCCESS;
 	if (argparser_result->err_msg)

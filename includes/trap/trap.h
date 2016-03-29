@@ -15,13 +15,15 @@
 
 # include "basics.h"
 
+# define TRAP_ACTION_SEPARATOR " "
+
 typedef struct		s_trap
 {
 	t_lst			*action_tokens;
 	int				condition_sig;
 }					t_trap;
 
-t_trap				*trap_new(void);
+t_trap				*trap_new(t_lst *action_tokens, int condition_sig);
 void				trap_del(t_trap *trap);
 
 #endif
