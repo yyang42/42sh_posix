@@ -30,9 +30,6 @@ int					ast_exec_string(char *input)
 	{
 		exit_code = ast_exec_tokens(tokens);
 	}
-
-
-
 	tokenizer_del(tokenizer);
 	token_mgr_del_inner(tokens);
 	return (exit_code);
