@@ -24,7 +24,7 @@ static void			intercept_logger_handler(int sig)
 	// kill(g_child_pid, sig);
 	// signal(sig, SIG_DFL);
 	  /* own stuff .. */
-	LOGGER("SIGNAL: %s(%d)", shsignal_mgr_get_signame(data_signals(), sig), sig);
+	LOGGER_DEBUG("SIGNAL: %s(%d)", shsignal_mgr_get_signame(data_signals(), sig), sig);
 	// signal(sig, SIG_DFL);
 	// raise(sig);
 	// signal(sig, intercept_logger_handler);

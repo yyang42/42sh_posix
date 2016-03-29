@@ -56,7 +56,6 @@ static void			ast_simple_command_exec_with_redirs(t_ast_simple_command *cmd)
 
 void				ast_simple_command_exec(t_ast_simple_command *cmd)
 {
-	// token_mgr_print(cmd->command_tokens);
 	shenv_set_cur_token(shenv_singleton(), token_mgr_first(cmd->command_tokens));
 	job_mgr_exec_update(shenv_singleton()->jobs);
 	twl_lst_iter(cmd->assignment_items, iter_assign_fn, cmd);

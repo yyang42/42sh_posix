@@ -21,7 +21,7 @@ static void         put_in_bg(t_job *job)
     pid = - job->pid;
     if (job->job_status == JOB_STOPPED)
     {
-        LOGGER("bg: continue pid=%d", pid);
+        LOGGER_INFO("bg: continue pid=%d", pid);
         if (kill (pid, SIGCONT) < 0)
         {
             errno_saved = errno;
@@ -38,7 +38,7 @@ static void         put_in_bg(t_job *job)
     }
     else
     {
-        LOGGER("ERROR: bg: bad job status");
+        LOGGER_ERROR("bg: bad job status");
         shenv_singleton()->last_exit_code = EXIT_FAILURE;
     }
 }

@@ -23,7 +23,7 @@ void				ast_simple_command_execve_child(
 
 	job_utils_sigs_dfl_on_interactive();
 	cmd = twl_strjoinarr((const char **)args, " ");
-	LOGGER("execve: %s (pid=%d)", cmd, getpid());
+	LOGGER_INFO("execve: %s (pid=%d)", cmd, getpid());
 	execve(path, args, env);
 	free(cmd);
 }

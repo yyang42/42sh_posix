@@ -18,7 +18,7 @@
 
 static void			sig_handler_prompt(int signum)
 {
-	LOGGER("SIGINT: CTRL+C");
+	LOGGER_INFO("SIGINT: CTRL+C");
 	terminal_send_veol();
 	(void)signum;
 }

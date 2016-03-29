@@ -37,7 +37,7 @@ char				*edit_loop(t_edit *this)
 	while (!this->return_cmd)
 	{
 		key = twl_getch();
-		LOGGER("KEYPRESS: %d", key);
+		LOGGER_INFO("KEYPRESS: %d", key);
 		cmd = edit_handle_one_input(this, key);
 		edit_print_letters(this);
 		edit_clear_line(this);

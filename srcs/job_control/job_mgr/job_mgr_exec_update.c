@@ -42,7 +42,7 @@ static void			handle_with_status(t_job *job)
 	else
 		job->job_status = -1;
 	str_status = job_status_str_long(job, true);
-	LOGGER("job %d status: %s ", job->job_id, str_status);
+	LOGGER_INFO("job %d status: %s ", job->job_id, str_status);
 	free(str_status);
 	(void)print_terminated_job;
 }
@@ -56,7 +56,7 @@ static void			iter_job_fn(void *job_)
 	errno = 0;
 	job->end_pid = waitpid(job->pid, &job->status, WNOHANG | WUNTRACED);
 	errno_ret = errno;
-	LOGGER("job waitpid (pid=%d, endpid=%d, errno_ret=%d, ECHILD=%d",
+	LOGGER_INFO("job waitpid (pid=%d, endpid=%d, errno_ret=%d, ECHILD=%d",
 		job->pid, job->end_pid, errno_ret, ECHILD);
 	if (job->end_pid == job->pid)
 	{
@@ -75,6 +75,6 @@ static void			iter_job_fn(void *job_)
 
 void				job_mgr_exec_update(t_lst *jobs)
 {
-	LOGGER("update jobs");
+	LOGGER_INFO("update jobs");
 	twl_lst_iter0(jobs, iter_job_fn);
 }

@@ -22,7 +22,7 @@ void                shenv_init_job_control(t_shenv *this)
     this->jc_terminal = STDIN_FILENO;
     if (this->is_interactive_shell)
     {
-        LOGGER("Init job control");
+        LOGGER_INFO("Init job control");
         while (tcgetpgrp (this->jc_terminal) != (this->jc_pgid = getpgrp ()))
         {
             kill (- this->jc_pgid, SIGTTIN);
