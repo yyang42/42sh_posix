@@ -10,22 +10,27 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/cmds/builtin_trap.h"
-#include "shenv/shenv.h"
-#include "twl_opt.h"
 #include "twl_lst.h"
 #include "data.h"
-#include "shsignal/shsignal_mgr.h"
+#include "shsignal/shsignal.h"
 
-char				*builtin_trap_get_signame(int signum)
+static void			push_standard_signals_fn(void *shsignal_, void *data)
 {
-	char			*signame;
+	t_shsignal		*shsignal;
 
-	signame = shsignal_mgr_get_signame(data_signals_with_exit(), signum);
-	if (!signame)
+	shsignal = shsignal_;
+ 	twl_lst_push_back(data, shsignal_new(shsignal->signum, shsignal->signame));
+}
+
+t_lst				*data_signals_with_exit(void)
+{
+	static t_lst	*data = NULL;
+
+	if (data == NULL)
 	{
-		LOGGER_ERROR("trap: unknown signal");
-		signame = "UNKNOWN";
+		data = twl_lst_new();
+ 		twl_lst_push_back(data, shsignal_new(0, "EXIT"));
+ 		twl_lst_iter(data_signals(), push_standard_signals_fn, data);
 	}
-	return (signame);
+	return (data);
 }

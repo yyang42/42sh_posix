@@ -18,10 +18,10 @@ static void			iter_trap_fn(void *sigstr, void *action)
 {
 	t_shsignal		*shsignal;
 
-	shsignal = shsignal_mgr_find_by_signame(data_signals(), sigstr);
+	shsignal = shsignal_mgr_find_by_signame(data_signals_with_exit(), sigstr);
 	if (!shsignal && twl_str_is_pos_num(sigstr))
 	{
-		shsignal = shsignal_mgr_find_by_signum(data_signals(), twl_atoi(sigstr));
+		shsignal = shsignal_mgr_find_by_signum(data_signals_with_exit(), twl_atoi(sigstr));
 	}
 	if (shsignal)
 	{
