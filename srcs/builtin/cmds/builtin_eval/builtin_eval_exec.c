@@ -17,20 +17,19 @@
 void				builtin_eval_exec(t_lst *tokens, t_shenv *env)
 {
 	t_ast			*ast;
-	int				ret;
-	char				*str;
+	t_lst			*tokens_copy;
+	char			*str;
 
-	str = token_mgr_strjoin(tokens, " "); // TODO: refactor
-	(void)env;
-	ast = ast_new(&str[5]);
+	tokens_copy = twl_lst_copy(tokens, NULL);
+	twl_lst_pop_front(tokens_copy);
+	str = token_mgr_strjoin(tokens_copy, " ");
+	ast = ast_new(str);
 	if (ast->error_msg)
 	{
 		twl_dprintf(2, "%s\n", ast->error_msg);
 		ast_del(ast);
-		return ; // (1)
 	}
-	ret = ast_exec(ast);
+	shenv_singleton()->last_exit_code = ast_exec(ast);
 	ast_del(ast);
-	(void)ret;
-	return ; // ret
+	(void)env;
 }
