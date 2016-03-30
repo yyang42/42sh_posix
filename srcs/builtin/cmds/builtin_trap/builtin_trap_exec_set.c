@@ -18,19 +18,11 @@ static void			iter_trap_fn(void *sigstr, void *action)
 {
 	t_shsignal		*shsignal;
 
-	shsignal = shsignal_mgr_find_by_signame(data_signals_with_exit(), sigstr);
-	if (!shsignal && twl_str_is_pos_num(sigstr))
-	{
-		shsignal = shsignal_mgr_find_by_signum(data_signals_with_exit(), twl_atoi(sigstr));
-	}
+	shsignal = shsignal_mgr_find_by_signame_or_signum(data_signals_with_exit(), sigstr);
 	if (shsignal)
-	{
 		trap_mgr_add(shenv_singleton()->traps, action, shsignal->signum);
-	}
 	else
-	{
 		builtin_trap_print_invalid_sig_error(sigstr);
-	}
 }
 
 void				builtin_trap_exec_set(t_lst *args)
