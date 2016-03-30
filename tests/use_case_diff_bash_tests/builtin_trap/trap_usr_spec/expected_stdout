@@ -1,3 +1,0 @@
-trap -- 'echo abc' HUP
-trap -- 'echo abc' ILL
-exit_code: 0
