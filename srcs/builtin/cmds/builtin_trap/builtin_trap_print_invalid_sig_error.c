@@ -11,35 +11,10 @@
 /* ************************************************************************** */
 
 #include "builtin/cmds/builtin_trap.h"
-#include "data.h"
-#include "shsignal/shsignal_mgr.h"
 
-static void			unset_fn(void *sigstr)
+void				builtin_trap_print_invalid_sig_error(char *sigstr)
 {
-	t_shsignal		*shsignal;
-	t_trap			*trap;
-
-	shsignal = shsignal_mgr_find_by_signame_or_signum(data_signals_with_exit(), sigstr);
-	if (shsignal)
-	{
-		trap = trap_mgr_find_by_signum(shenv_singleton()->traps, shsignal->signum);
-		if (trap)
-		{
-			LOGGER_INFO("unset trap -- '%s' %s", trap->trap_action, builtin_trap_get_signame(trap->trap_signum));
-			trap_mgr_remove(shenv_singleton()->traps, trap);
-		}
-		else
-		{
-			LOGGER_INFO("unable to unset trap: %s", sigstr);
-		}
-	}
-	else
-	{
-		builtin_trap_print_invalid_sig_error(sigstr);
-	}
-}
-
-void				builtin_trap_exec_unset(t_lst *args)
-{
-	twl_lst_iter0(args, unset_fn);
+	shenv_print_error_printf(shenv_singleton(), shenv_get_cur_line(),
+		"trap: %s: invalid signal specification", sigstr);
+	shenv_singleton()->last_exit_code = EXIT_FAILURE;
 }

@@ -14,24 +14,18 @@
 #include "data.h"
 #include "shsignal/shsignal_mgr.h"
 
-static void			unset_fn(void *sigstr)
+static void			iter_trap_fn(void *sigstr, void *action)
 {
 	t_shsignal		*shsignal;
-	t_trap			*trap;
 
-	shsignal = shsignal_mgr_find_by_signame_or_signum(data_signals_with_exit(), sigstr);
+	shsignal = shsignal_mgr_find_by_signame(data_signals_with_exit(), sigstr);
+	if (!shsignal && twl_str_is_pos_num(sigstr))
+	{
+		shsignal = shsignal_mgr_find_by_signum(data_signals_with_exit(), twl_atoi(sigstr));
+	}
 	if (shsignal)
 	{
-		trap = trap_mgr_find_by_signum(shenv_singleton()->traps, shsignal->signum);
-		if (trap)
-		{
-			LOGGER_INFO("unset trap -- '%s' %s", trap->trap_action, builtin_trap_get_signame(trap->trap_signum));
-			trap_mgr_remove(shenv_singleton()->traps, trap);
-		}
-		else
-		{
-			LOGGER_INFO("unable to unset trap: %s", sigstr);
-		}
+		trap_mgr_add(shenv_singleton()->traps, action, shsignal->signum);
 	}
 	else
 	{
@@ -39,7 +33,13 @@ static void			unset_fn(void *sigstr)
 	}
 }
 
-void				builtin_trap_exec_unset(t_lst *args)
+void				builtin_trap_exec_set(t_lst *args)
 {
-	twl_lst_iter0(args, unset_fn);
+	t_lst			*args_copy;
+	char			*action;
+
+	args_copy = twl_lst_copy(args, NULL);
+	action = twl_lst_pop_front(args_copy);
+	twl_lst_iter(args_copy, iter_trap_fn, action);
+	twl_lst_del(args_copy, NULL);
 }

@@ -29,9 +29,7 @@ static void			iter_trap_fn(void *sigstr, void *action)
 	}
 	else
 	{
-		shenv_print_error_printf(shenv_singleton(), shenv_get_cur_line(),
-			"trap: %s: invalid signal specification", sigstr);
-		shenv_singleton()->last_exit_code = EXIT_FAILURE;
+		builtin_trap_print_invalid_sig_error(sigstr);
 	}
 }
 
