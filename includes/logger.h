@@ -13,16 +13,15 @@
 #ifndef LOGGER_H
 # define LOGGER_H
 
-# define LOGGER(lvl, ...) logger_printf(lvl,__FILE__,__LINE__,__VA_ARGS__);
-# define LOGGER_INFO(...) LOGGER(LOGGER_LEVEL_INFO, __VA_ARGS__);
-# define LOGGER_DEBUG(...) LOGGER(LOGGER_LEVEL_DEBUG, __VA_ARGS__);
-# define LOGGER_ERROR(...) LOGGER(LOGGER_LEVEL_DEBUG, __VA_ARGS__);
+# define _LOGGER(lvl, ...) logger_printf(lvl,__FILE__,__LINE__,__VA_ARGS__);
+# define LOGGER_INFO(...) _LOGGER(LOGGER_LEVEL_INFO, __VA_ARGS__);
+# define LOGGER_DEBUG(...) _LOGGER(LOGGER_LEVEL_DEBUG, __VA_ARGS__);
+# define LOGGER_ERROR(...) _LOGGER(LOGGER_LEVEL_ERROR, __VA_ARGS__);
 
 typedef enum		e_logger_level
 {
 	LOGGER_LEVEL_DEBUG,
 	LOGGER_LEVEL_INFO,
-	LOGGER_LEVEL_WARN,
 	LOGGER_LEVEL_ERROR,
 }					t_logger_level;
 

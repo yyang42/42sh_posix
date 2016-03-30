@@ -26,8 +26,6 @@ static char			*get_level_color(t_logger_level level)
 		return (C_CYAN"DEBUG");
 	else if (level == LOGGER_LEVEL_INFO)
 		return (C_GREEN"INFO");
-	else if (level == LOGGER_LEVEL_WARN)
-		return (C_YELLOW"WARN");
 	else if (level == LOGGER_LEVEL_ERROR)
 		return (C_RED"ERROR");
 	return ("UNKWON");
