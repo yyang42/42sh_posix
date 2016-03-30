@@ -1,3 +1,3 @@
-trap "echo abc" 30
+trap "echo abc" HUP
 trap
-kill -30 `bash -c 'echo $PPID'`
+kill -HUP `bash -c 'echo $PPID'`

@@ -1,3 +1,3 @@
-trap "foo () { echo foo_called; } ; foo" 30
+trap "foo () { echo foo_called; } ; foo" HUP
 trap
-kill -30 `bash -c 'echo $PPID'`
+kill -HUP `bash -c 'echo $PPID'`

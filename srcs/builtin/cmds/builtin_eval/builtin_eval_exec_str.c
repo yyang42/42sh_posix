@@ -18,6 +18,8 @@ void				builtin_eval_exec_str(char *str)
 {
 	t_ast			*ast;
 
+	if (twl_strlen(str) == 0)
+		return ;
 	ast = ast_new(str);
 	if (ast->error_msg)
 	{
