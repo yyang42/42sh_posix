@@ -14,6 +14,7 @@
 # define TRAP_H
 
 # include "basics.h"
+# include <signal.h>
 
 # define TRAP_ACTION_SEPARATOR " "
 # define TRAP_SIGEXIT 0
@@ -21,10 +22,14 @@
 typedef struct		s_trap
 {
 	char			*trap_action;
-	int				trap_cond;
+	int				trap_signum;
+	sig_t			trap_prev;
 }					t_trap;
 
-t_trap				*trap_new(char *trap_action, int trap_cond);
+t_trap				*trap_new(char *trap_action, int trap_signum);
 void				trap_del(t_trap *trap);
+
+void				trap_set_action(t_trap *trap, char *trap_action);
+void				trap_signal_handler(int signum);
 
 #endif

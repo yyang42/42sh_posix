@@ -10,21 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "trap/trap_mgr.h"
+#include "builtin/cmds/builtin_eval.h"
+#include "ast/ast.h"
+#include "ast/nodes/ast_compound_list.h"
 
-t_trap				*trap_mgr_add(t_lst *traps, char *trap_action, int trap_signum)
+void				builtin_eval_exec_str(char *str)
 {
-	t_trap			*trap;
+	t_ast			*ast;
 
-	trap = trap_mgr_find_by_signum(traps, trap_signum);
-	if (!trap)
+	ast = ast_new(str);
+	if (ast->error_msg)
 	{
-		trap = trap_new(trap_action, trap_signum);
-		twl_lst_push_back(traps, trap);
+		twl_dprintf(2, "%s\n", ast->error_msg);
+		shenv_singleton()->last_exit_code = EXIT_FAILURE;
 	}
 	else
 	{
-		trap_set_action(trap, trap_action);
+		shenv_singleton()->last_exit_code = ast_exec(ast);
 	}
-	return (trap);
+	ast_del(ast);
 }

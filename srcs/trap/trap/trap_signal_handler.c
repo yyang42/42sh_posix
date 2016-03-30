@@ -11,20 +11,34 @@
 /* ************************************************************************** */
 
 #include "trap/trap_mgr.h"
+#include "logger.h"
+#include "shenv/shenv.h"
+#include "data.h"
+#include "shsignal/shsignal_mgr.h"
+#include "builtin/cmds/builtin_eval.h"
 
-t_trap				*trap_mgr_add(t_lst *traps, char *trap_action, int trap_signum)
+static void			trap_signal_handler_exec(t_trap *trap)
+{
+	int				saved_exit_status;
+
+	saved_exit_status = shenv_singleton()->last_exit_code;
+	builtin_eval_exec_str(trap->trap_action);
+	shenv_singleton()->last_exit_code = saved_exit_status;
+}
+
+void				trap_signal_handler(int signum)
 {
 	t_trap			*trap;
 
-	trap = trap_mgr_find_by_signum(traps, trap_signum);
-	if (!trap)
+	LOGGER_INFO("trap_signal_handler called with: %s",
+		shsignal_mgr_get_signame(data_signals(), signum));
+	trap = trap_mgr_find_by_signum(shenv_singleton()->traps, signum);
+	if (trap)
 	{
-		trap = trap_new(trap_action, trap_signum);
-		twl_lst_push_back(traps, trap);
+		trap_signal_handler_exec(trap);
 	}
 	else
 	{
-		trap_set_action(trap, trap_action);
+		LOGGER_ERROR("Trap not found for signum: %d", signum);
 	}
-	return (trap);
 }

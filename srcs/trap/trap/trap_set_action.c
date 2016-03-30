@@ -10,21 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "trap/trap_mgr.h"
+#include "trap/trap.h"
+#include "data.h"
+#include "shsignal/shsignal_mgr.h"
 
-t_trap				*trap_mgr_add(t_lst *traps, char *trap_action, int trap_signum)
+void				trap_set_action(t_trap *trap, char *trap_action)
 {
-	t_trap			*trap;
-
-	trap = trap_mgr_find_by_signum(traps, trap_signum);
-	if (!trap)
-	{
-		trap = trap_new(trap_action, trap_signum);
-		twl_lst_push_back(traps, trap);
-	}
-	else
-	{
-		trap_set_action(trap, trap_action);
-	}
-	return (trap);
+	free(trap->trap_action);
+	trap->trap_action = twl_strdup(trap_action);
+	LOGGER_INFO("set signal %s(%d) to : %s",
+		shsignal_mgr_get_signame(data_signals(), trap->trap_signum),
+		trap->trap_signum,
+		trap->trap_action);
+	signal(trap->trap_signum, trap_signal_handler);
 }

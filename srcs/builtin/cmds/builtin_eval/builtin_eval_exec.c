@@ -16,20 +16,14 @@
 
 void				builtin_eval_exec(t_lst *tokens, t_shenv *env)
 {
-	t_ast			*ast;
 	t_lst			*tokens_copy;
 	char			*str;
 
 	tokens_copy = twl_lst_copy(tokens, NULL);
 	twl_lst_pop_front(tokens_copy);
 	str = token_mgr_strjoin(tokens_copy, " ");
-	ast = ast_new(str);
-	if (ast->error_msg)
-	{
-		twl_dprintf(2, "%s\n", ast->error_msg);
-		ast_del(ast);
-	}
-	shenv_singleton()->last_exit_code = ast_exec(ast);
-	ast_del(ast);
+	builtin_eval_exec_str(str);
+	free(str);
+	twl_lst_del(tokens_copy, NULL);
 	(void)env;
 }

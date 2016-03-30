@@ -16,5 +16,6 @@
 # include "builtin/builtin.h"
 
 void				builtin_eval_exec(t_lst *tokens, t_shenv *env);
+void				builtin_eval_exec_str(char *str);
 
 #endif

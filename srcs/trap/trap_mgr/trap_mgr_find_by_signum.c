@@ -12,19 +12,17 @@
 
 #include "trap/trap_mgr.h"
 
-t_trap				*trap_mgr_add(t_lst *traps, char *trap_action, int trap_signum)
+static bool			find_by_signum_fn(void *trap_, void *signum_ptr)
 {
 	t_trap			*trap;
+	int				signum;
 
-	trap = trap_mgr_find_by_signum(traps, trap_signum);
-	if (!trap)
-	{
-		trap = trap_new(trap_action, trap_signum);
-		twl_lst_push_back(traps, trap);
-	}
-	else
-	{
-		trap_set_action(trap, trap_action);
-	}
-	return (trap);
+	trap = trap_;
+	signum = *(int *)signum_ptr;
+	return (trap->trap_signum == signum);
+}
+
+t_trap				*trap_mgr_find_by_signum(t_lst *traps, int signum)
+{
+	return (twl_lst_find(traps, find_by_signum_fn, &signum));
 }

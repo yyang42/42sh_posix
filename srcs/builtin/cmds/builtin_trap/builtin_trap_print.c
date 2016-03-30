@@ -20,7 +20,7 @@ static void			print_trap_fn(void *trap_)
 	t_trap			*trap;
 
 	trap = trap_;
-	twl_printf("trap -- '%s' %s\n", trap->trap_action, builtin_trap_get_signame(trap->trap_cond));
+	twl_printf("trap -- '%s' %s\n", trap->trap_action, builtin_trap_get_signame(trap->trap_signum));
 }
 
 void				builtin_trap_print(t_shenv *env)

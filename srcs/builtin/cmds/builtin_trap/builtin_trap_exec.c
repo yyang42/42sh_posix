@@ -25,7 +25,7 @@ static void			iter_trap_fn(void *sigstr, void *action)
 	}
 	if (shsignal)
 	{
-		trap_mgr_add(shenv_singleton()->traps, trap_new(action, shsignal->signum));
+		trap_mgr_add(shenv_singleton()->traps, action, shsignal->signum);
 	}
 	else
 	{
