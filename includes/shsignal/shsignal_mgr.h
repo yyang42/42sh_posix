@@ -24,6 +24,7 @@ void				shsignal_mgr_print(t_lst *shsignals);
 
 t_shsignal 			*shsignal_mgr_find_by_signame(t_lst *shsignals, char *signame);
 t_shsignal 			*shsignal_mgr_find_by_signum(t_lst *shsignals, int signum);
+t_shsignal			*shsignal_mgr_find_by_signame_or_signum(t_lst *shsignals, char *sigstr);
 char	 			*shsignal_mgr_get_signame(t_lst *shsignals, int signum);
 
 #endif

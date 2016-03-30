@@ -82,7 +82,7 @@ static void			iter_pids_fn(void *token_, void *signum_ptr)
 	}
 	if (job_mgr_find_by_pid(shenv_singleton()->jobs, pid))
 		pid = - pid;
-	LOGGER("kill: %s(%d), pid=%d",
+	LOGGER_INFO("kill: %s(%d), pid=%d",
 		shsignal_mgr_get_signame(data_signals(), signum), signum, pid);
 	if (kill(pid, signum) == -1)
 		perror("kill");

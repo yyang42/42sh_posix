@@ -20,7 +20,7 @@ void				job_utils_sigs_dfl_on_interactive(void)
 {
 	if (!shenv_singleton()->is_interactive_shell)
 		return ;
-	LOGGER("job_utils_sigs_dfl_on_interactive called");
+	LOGGER_INFO("job_utils_sigs_dfl_on_interactive called");
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 	signal(SIGTSTP, SIG_DFL);

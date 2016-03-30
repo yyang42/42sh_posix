@@ -57,6 +57,7 @@ typedef struct				s_shenv
 	int						function_depth;
 	t_shenv_info			info;
 	t_lst					*jobs;
+	t_lst					*traps;
 	int						last_exit_code;
 	bool					is_interactive_shell;
 

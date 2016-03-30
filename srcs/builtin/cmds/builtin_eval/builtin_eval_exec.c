@@ -16,21 +16,14 @@
 
 void				builtin_eval_exec(t_lst *tokens, t_shenv *env)
 {
-	t_ast			*ast;
-	int				ret;
-	char				*str;
+	t_lst			*tokens_copy;
+	char			*str;
 
-	str = token_mgr_strjoin(tokens, " "); // TODO: refactor
+	tokens_copy = twl_lst_copy(tokens, NULL);
+	twl_lst_pop_front(tokens_copy);
+	str = token_mgr_strjoin(tokens_copy, " ");
+	builtin_eval_exec_str(str);
+	free(str);
+	twl_lst_del(tokens_copy, NULL);
 	(void)env;
-	ast = ast_new(&str[5]);
-	if (ast->error_msg)
-	{
-		twl_dprintf(2, "%s\n", ast->error_msg);
-		ast_del(ast);
-		return ; // (1)
-	}
-	ret = ast_exec(ast);
-	ast_del(ast);
-	(void)ret;
-	return ; // ret
 }

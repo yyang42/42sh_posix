@@ -1,0 +1,5 @@
+CMD_PATH: line 1: trap: 32: invalid signal specification
+CMD_PATH: line 1: trap: 42: invalid signal specification
+CMD_PATH: line 1: trap: -n: invalid signal specification
+CMD_PATH: line 1: trap: --: invalid signal specification
+exit_code: 0

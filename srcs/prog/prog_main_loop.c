@@ -37,12 +37,8 @@ void				prog_main_loop(t_prog *prog)
 
 	while (1)
 	{
-		// job_mgr_exec_update(shenv_singleton()->jobs);
-
 		input = get_cmd();
-
 		ast_exec_string(input);;
-
 		free(input);
 	}
 	(void)prog;

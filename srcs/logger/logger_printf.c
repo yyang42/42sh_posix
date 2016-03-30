@@ -16,22 +16,35 @@
 #include <time.h>
 
 #include "twl_printf.h"
+#include "logger.h"
 #include "twl_stdio.h"
+#include "twl_color.h"
 
-void				logger_printf(const char *fn, int line, const char *fmt, ...)
+static char			*get_level_color(t_logger_level level)
+{
+	if (level == LOGGER_LEVEL_DEBUG)
+		return (C_CYAN"DEBUG");
+	else if (level == LOGGER_LEVEL_INFO)
+		return (C_GREEN"INFO");
+	else if (level == LOGGER_LEVEL_ERROR)
+		return (C_RED"ERROR");
+	return ("UNKWON");
+}
+
+void				logger_printf(t_logger_level level, const char *fn, int line, const char *fmt, ...)
 {
 	t_pf			*pf;
 	int				fd;
     time_t			timer;
-    char			buffer[26];
+    char			time_buffer[26];
     struct tm		*tm_info;
 
     time(&timer);
     tm_info = localtime(&timer);
-    strftime(buffer, 26, "%Y:%m:%d %H:%M:%S", tm_info);
+    strftime(time_buffer, 26, "%Y:%m:%d %H:%M:%S", tm_info);
 	fd = open(".debug.out", O_CREAT | O_WRONLY | O_APPEND, 0644);
 	pf = pf_create((char *)fmt);
-	twl_dprintf(fd, "%s [%s:%d] ", buffer, fn, line);
+	twl_dprintf(fd, "%s %s%s [%s:%d] ", time_buffer, get_level_color(level), C_CLEAR, fn, line);
 	va_start(pf->arglist, (char *)fmt);
 	pf_prepare_xprintf__(pf);
 	pf_print_fd(pf, fd);

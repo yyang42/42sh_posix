@@ -22,7 +22,7 @@ void				ast_list_item_exec_async_parent_create_job(t_lst *tokens, pid_t pid)
 	t_job			*job;
 
 	cmd_str = token_mgr_strjoin(tokens, " ");
-	LOGGER("async exec: %s", cmd_str);
+	LOGGER_INFO("async exec: %s", cmd_str);
 	job = job_new(pid, cmd_str, tokens);
 	job_mgr_env_push(job);
 	if (shenv_singleton()->is_interactive_shell)

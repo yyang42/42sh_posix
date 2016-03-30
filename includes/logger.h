@@ -13,8 +13,18 @@
 #ifndef LOGGER_H
 # define LOGGER_H
 
-# define LOGGER(...) logger_printf(__FILE__, __LINE__, __VA_ARGS__);
+# define _LOGGER(lvl, ...) logger_printf(lvl,__FILE__,__LINE__,__VA_ARGS__);
+# define LOGGER_INFO(...) _LOGGER(LOGGER_LEVEL_INFO, __VA_ARGS__);
+# define LOGGER_DEBUG(...) _LOGGER(LOGGER_LEVEL_DEBUG, __VA_ARGS__);
+# define LOGGER_ERROR(...) _LOGGER(LOGGER_LEVEL_ERROR, __VA_ARGS__);
 
-void				logger_printf(const char *fn, int line, const char *fmt, ...);
+typedef enum		e_logger_level
+{
+	LOGGER_LEVEL_DEBUG,
+	LOGGER_LEVEL_INFO,
+	LOGGER_LEVEL_ERROR,
+}					t_logger_level;
+
+void				logger_printf(t_logger_level level, const char *fn, int line, const char *fmt, ...);
 
 #endif

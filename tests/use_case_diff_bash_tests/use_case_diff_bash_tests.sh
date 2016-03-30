@@ -83,8 +83,15 @@ then
 
 else
 
-    diff_test first_tests echo_abc_123
-
+    for CASE_PATH in $TESTS_ROOT_PATH/*_trap; do
+        if [ -d "${CASE_PATH}" ]; then
+            for TEST_PATH in $CASE_PATH/*_spec; do
+                if [ -d "${TEST_PATH}" ]; then
+                    diff_test `basename $CASE_PATH` `basename $TEST_PATH`
+                fi
+            done
+        fi
+    done
 fi
 echo $C_CYAN"======  END TESTS  ======"$C_CLEAR
 

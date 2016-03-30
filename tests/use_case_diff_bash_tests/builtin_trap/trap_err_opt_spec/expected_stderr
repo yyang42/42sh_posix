@@ -1,0 +1,3 @@
+trap: illegal option: x
+usage: trap [-p] trap n [condition...] or trap [action condition...]
+  -p                            Print all traps

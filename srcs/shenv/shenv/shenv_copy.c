@@ -54,6 +54,7 @@ t_shenv				*shenv_copy(t_shenv *this)
 		copy->info.name = twl_strdup(this->info.name);
 	copy->last_exit_code = 0;
 	copy->jobs = twl_lst_new();
+	copy->traps = twl_lst_new();
 	copy->alias = twl_lst_new();
 	return (copy);
 }

@@ -92,6 +92,9 @@ check_unit:
 check_use_case:
 	sh tests/use_case_diff_bash_tests/use_case_diff_bash_tests.sh
 
+check_ongoing:
+	LAST_ONLY=1 sh tests/use_case_diff_bash_tests/use_case_diff_bash_tests.sh
+
 check_exit_code:
 	sh tests/exit_code_diff_tests/exit_code_diff_tests.sh
 

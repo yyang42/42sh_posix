@@ -21,7 +21,7 @@ static jmp_buf jump_buf;
 
 static void         sigtstp_handler(int sig)
 {
-    LOGGER("sigtstp_handler: %d", sig);
+    LOGGER_INFO("SIGTSTP handler: %d", sig);
     longjmp(jump_buf, 1);
 }
 
@@ -41,7 +41,7 @@ void				ast_simple_command_execve_parent_wait(pid_t pid)
     	if (WIFEXITED(res))
     	{
 			shenv_singleton()->last_exit_code = WEXITSTATUS(res);
-			LOGGER("exit status: %d", shenv_singleton()->last_exit_code);
+			LOGGER_INFO("exit status: %d", shenv_singleton()->last_exit_code);
     	}
  	}
 }

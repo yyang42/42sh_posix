@@ -17,8 +17,8 @@
 
 static void     intercept_logger_handler(int sig)
 {
-  LOGGER("INTERACTIVE: Ignore signal %s(%d)", shsignal_mgr_get_signame(data_signals(), sig), sig);
-  LOGGER("INTERACTIVE: pid (%d)", getpid());
+  LOGGER_DEBUG("INTERACTIVE: Ignore signal %s(%d)", shsignal_mgr_get_signame(data_signals(), sig), sig);
+  LOGGER_DEBUG("INTERACTIVE: pid (%d)", getpid());
   (void)sig;
 }
 
