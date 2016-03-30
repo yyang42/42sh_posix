@@ -1,2 +1,2 @@
-trap "echo abc" 30 31
+trap "echo abc" HUP ILL
 trap

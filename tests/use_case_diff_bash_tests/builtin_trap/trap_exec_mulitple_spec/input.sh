@@ -6,9 +6,9 @@ trap "echo sig31" 31
 trap
 
 PID=`bash -c 'echo $PPID'`
-kill -HUP $PID
-kill -1 $PID
-kill -2 $PID
-kill -3 $PID
-kill -30 $PID
-kill -31 $PID
+kHUP -HUP $PID
+kHUP -1 $PID
+kHUP -2 $PID
+kHUP -3 $PID
+kHUP -30 $PID
+kHUP -31 $PID
