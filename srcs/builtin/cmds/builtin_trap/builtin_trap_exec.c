@@ -46,9 +46,15 @@ static void			builtin_trap_exec_trap(t_lst *args)
 	twl_lst_del(args_copy, NULL);
 }
 
+static bool			is_unset(t_lst *tokens)
+{
+	return ((twl_lst_len(tokens) >= 2)
+		&& twl_strequ(token_mgr_get(tokens, 1)->text, "-"));
+}
+
 void				builtin_trap_exec(t_lst *tokens, t_shenv *env)
 {
-	t_argparser_result *argparser_result;
+	t_argparser_result	*argparser_result;
 
 	argparser_result = argparser_parse_tokens(builtin_trap_argparser(), tokens);
 	env->shenv_cur_token = token_mgr_first(tokens);
@@ -60,7 +66,11 @@ void				builtin_trap_exec(t_lst *tokens, t_shenv *env)
 	}
 	else
 	{
-		if (twl_lst_len(argparser_result->remainders) >= 2)
+		if (is_unset(tokens))
+		{
+			builtin_trap_exec_unset(argparser_result->remainders);
+		}
+		else if (twl_lst_len(argparser_result->remainders) >= 2)
 		{
 			builtin_trap_exec_trap(argparser_result->remainders);
 		}

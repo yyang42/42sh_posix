@@ -10,21 +10,38 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SHSIGNAL_MGR_H
-# define SHSIGNAL_MGR_H
+#include "builtin/cmds/builtin_trap.h"
+#include "data.h"
+#include "shsignal/shsignal_mgr.h"
 
-# include "basics.h"
-# include "shsignal/shsignal.h"
+static void			unset_fn(void *sigstr)
+{
+	t_shsignal		*shsignal;
+	t_trap			*trap;
 
-t_lst				*shsignal_mgr_new(void);
-void				shsignal_mgr_del(t_lst *shsignals);
-void				shsignal_mgr_add(t_lst *shsignals, t_shsignal *shsignal);
-void				shsignal_mgr_remove(t_lst *shsignals, t_shsignal *shsignal);
-void				shsignal_mgr_print(t_lst *shsignals);
+	shsignal = shsignal_mgr_find_by_signame_or_signum(data_signals_with_exit(), sigstr);
+	if (shsignal)
+	{
+		trap = trap_mgr_find_by_signum(shenv_singleton()->traps, shsignal->signum);
+		if (trap)
+		{
+			LOGGER_INFO("unset trap -- '%s' %s", trap->trap_action, builtin_trap_get_signame(trap->trap_signum));
+			trap_mgr_remove(shenv_singleton()->traps, trap);
+		}
+		else
+		{
+			LOGGER_INFO("unable to unset trap: %s", sigstr);
+		}
+	}
+	else
+	{
+		shenv_print_error_printf(shenv_singleton(), shenv_get_cur_line(),
+			"trap: %s: invalid signal specification", sigstr);
+		shenv_singleton()->last_exit_code = EXIT_FAILURE;
+	}
+}
 
-t_shsignal 			*shsignal_mgr_find_by_signame(t_lst *shsignals, char *signame);
-t_shsignal 			*shsignal_mgr_find_by_signum(t_lst *shsignals, int signum);
-t_shsignal			*shsignal_mgr_find_by_signame_or_signum(t_lst *shsignals, char *sigstr);
-char	 			*shsignal_mgr_get_signame(t_lst *shsignals, int signum);
-
-#endif
+void				builtin_trap_exec_unset(t_lst *args)
+{
+	twl_lst_iter0(args, unset_fn);
+}

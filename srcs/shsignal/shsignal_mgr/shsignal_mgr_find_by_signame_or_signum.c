@@ -10,21 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SHSIGNAL_MGR_H
-# define SHSIGNAL_MGR_H
+#include "shsignal/shsignal_mgr.h"
+#include "data.h"
+#include "twl_stdlib.h"
 
-# include "basics.h"
-# include "shsignal/shsignal.h"
+t_shsignal			*shsignal_mgr_find_by_signame_or_signum(t_lst *shsignals, char *sigstr)
+{
+	t_shsignal		*shsignal;
 
-t_lst				*shsignal_mgr_new(void);
-void				shsignal_mgr_del(t_lst *shsignals);
-void				shsignal_mgr_add(t_lst *shsignals, t_shsignal *shsignal);
-void				shsignal_mgr_remove(t_lst *shsignals, t_shsignal *shsignal);
-void				shsignal_mgr_print(t_lst *shsignals);
-
-t_shsignal 			*shsignal_mgr_find_by_signame(t_lst *shsignals, char *signame);
-t_shsignal 			*shsignal_mgr_find_by_signum(t_lst *shsignals, int signum);
-t_shsignal			*shsignal_mgr_find_by_signame_or_signum(t_lst *shsignals, char *sigstr);
-char	 			*shsignal_mgr_get_signame(t_lst *shsignals, int signum);
-
-#endif
+	shsignal = shsignal_mgr_find_by_signame(shsignals, sigstr);
+	if (!shsignal && twl_str_is_pos_num(sigstr))
+	{
+		shsignal = shsignal_mgr_find_by_signum(shsignals, twl_atoi(sigstr));
+	}
+	return (shsignal);
+}

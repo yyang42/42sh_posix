@@ -26,5 +26,6 @@ void				builtin_trap_print(t_shenv *env);
 t_argparser			*builtin_trap_argparser(void);
 
 char				*builtin_trap_get_signame(int signum);
+void				builtin_trap_exec_unset(t_lst *args);
 
 #endif
