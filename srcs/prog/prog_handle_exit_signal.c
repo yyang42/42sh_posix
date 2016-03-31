@@ -10,25 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROG_H
-# define PROG_H
+#include "prog.h"
+#include "trap/trap_mgr.h"
+#include "shenv/shenv.h"
 
-# include "basics.h"
-# include "xopt.h"
-# include "shenv/shenv.h"
-# include "utils.h"
-
-typedef struct		s_prog
+void				prog_handle_exit_signal(t_prog *prog)
 {
-	void			*test;
-}					t_prog;
+	t_trap			*trap;
 
-t_prog				*prog_new(void);
-void				prog_del(t_prog *prog);
-int					prog_run(t_prog *prog);
-int					prog_print_ast(t_prog *prog, char *input);
-int					prog_print_arexp(t_prog *prog, char *input);
-void				prog_main_loop(t_prog *prog);
-void				prog_handle_exit_signal(t_prog *prog);
-
-#endif
+	trap = trap_mgr_find_by_signum(shenv_singleton()->traps, TRAP_SIGEXIT);
+	if (trap)
+	{
+		trap_signal_handler(TRAP_SIGEXIT);
+	}
+	(void)prog;
+}

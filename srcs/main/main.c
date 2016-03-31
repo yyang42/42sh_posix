@@ -27,6 +27,7 @@ int					main(int ac, char **av)
 	prog = prog_new();
 	xopt_init(xopt_singleton(), av);
 	ret = prog_run(prog);
+	prog_handle_exit_signal(prog);
 	xopt_del(xopt_singleton());
 	prog_del(prog);
 	twl_debug_main_end();
