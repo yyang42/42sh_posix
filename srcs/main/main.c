@@ -22,7 +22,7 @@ int					main(int ac, char **av)
 	t_prog			*prog;
 	int				ret;
 
-	disable_all_signals();
+	// disable_all_signals();
 	twl_debug_main_start();
 	prog = prog_new();
 	xopt_init(xopt_singleton(), av);

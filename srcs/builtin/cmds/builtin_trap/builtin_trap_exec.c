@@ -14,36 +14,6 @@
 #include "data.h"
 #include "shsignal/shsignal_mgr.h"
 
-static void			iter_trap_fn(void *sigstr, void *action)
-{
-	t_shsignal		*shsignal;
-
-	shsignal = shsignal_mgr_find_by_signame(data_signals_with_exit(), sigstr);
-	if (!shsignal && twl_str_is_pos_num(sigstr))
-	{
-		shsignal = shsignal_mgr_find_by_signum(data_signals_with_exit(), twl_atoi(sigstr));
-	}
-	if (shsignal)
-	{
-		trap_mgr_add(shenv_singleton()->traps, action, shsignal->signum);
-	}
-	else
-	{
-		builtin_trap_print_invalid_sig_error(sigstr);
-	}
-}
-
-static void			builtin_trap_exec_trap(t_lst *args)
-{
-	t_lst			*args_copy;
-	char			*action;
-
-	args_copy = twl_lst_copy(args, NULL);
-	action = twl_lst_pop_front(args_copy);
-	twl_lst_iter(args_copy, iter_trap_fn, action);
-	twl_lst_del(args_copy, NULL);
-}
-
 static bool			is_unset_following_conditions(char *first_token, t_lst *remainders)
 {
 	if (twl_lst_len(remainders) >= 2 && twl_strequ(first_token, "-"))
@@ -91,7 +61,7 @@ void				builtin_trap_exec(t_lst *tokens, t_shenv *env)
 		}
 		else if (twl_lst_len(remainders) >= 2)
 		{
-			builtin_trap_exec_trap(remainders);
+			builtin_trap_exec_set(remainders);
 		}
 		else
 		{

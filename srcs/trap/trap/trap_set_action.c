@@ -22,5 +22,8 @@ void				trap_set_action(t_trap *trap, char *trap_action)
 		shsignal_mgr_get_signame(data_signals(), trap->trap_signum),
 		trap->trap_signum,
 		trap->trap_action);
-	signal(trap->trap_signum, trap_signal_handler);
+	if (*trap_action == '\0')
+		signal(trap->trap_signum, SIG_IGN);
+	else
+		signal(trap->trap_signum, trap_signal_handler);
 }
