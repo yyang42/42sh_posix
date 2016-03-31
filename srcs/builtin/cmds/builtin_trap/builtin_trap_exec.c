@@ -44,37 +44,58 @@ static void			builtin_trap_exec_trap(t_lst *args)
 	twl_lst_del(args_copy, NULL);
 }
 
-static bool			is_unset(t_lst *tokens)
+static bool			is_unset_following_conditions(char *first_token, t_lst *remainders)
 {
-	return ((twl_lst_len(tokens) >= 2)
-		&& twl_strequ(token_mgr_get(tokens, 1)->text, "-"));
+	if (twl_lst_len(remainders) >= 2 && twl_strequ(first_token, "-"))
+	{
+		twl_lst_pop_front(remainders);
+		return (true);
+	}
+	else if (twl_str_is_pos_num(first_token))
+	{
+		return (true);
+	}
+	return (false);
+}
+
+static bool			is_invalid_should_print_usage(t_lst *remainders)
+{
+	if (twl_lst_len(remainders) == 1
+		&& twl_strequ(twl_lst_first(remainders), "-"))
+		return true;
+	return (false);
 }
 
 void				builtin_trap_exec(t_lst *tokens, t_shenv *env)
 {
 	t_argparser_result	*argparser_result;
+	t_lst				*remainders;
 
 	argparser_result = argparser_parse_tokens(builtin_trap_argparser(), tokens);
 	env->shenv_cur_token = token_mgr_first(tokens);
+	remainders = twl_lst_copy(argparser_result->remainders, NULL);
 	env->last_exit_code = EXIT_SUCCESS;
-	if (argparser_result->err_msg)
+	if (argparser_result->err_msg || is_invalid_should_print_usage(argparser_result->remainders))
 	{
-		argparser_result_print_error_with_help(argparser_result);
-		env->last_exit_code = 2;
+		argparser_result_print_usage_exit_status(argparser_result, 2);
 	}
 	else
 	{
-		if (is_unset(tokens))
+		if (twl_lst_len(remainders) == 0)
 		{
-			builtin_trap_exec_unset(argparser_result->remainders);
+			builtin_trap_print(env);
 		}
-		else if (twl_lst_len(argparser_result->remainders) >= 2)
+		else if (is_unset_following_conditions(twl_lst_first(remainders), remainders))
 		{
-			builtin_trap_exec_trap(argparser_result->remainders);
+			builtin_trap_exec_unset(remainders);
+		}
+		else if (twl_lst_len(remainders) >= 2)
+		{
+			builtin_trap_exec_trap(remainders);
 		}
 		else
 		{
-			builtin_trap_print(env);
+			LOGGER_ERROR("Should run")
 		}
 	}
 }

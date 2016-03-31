@@ -10,30 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <signal.h>
-#include "logger.h"
-#include "data.h"
-#include "shsignal/shsignal_mgr.h"
+#include "argparser_extension.h"
+#include "token/token_mgr.h"
 #include "shenv/shenv.h"
 
-static void			intercept_logger_handler(int sig)
+void				argparser_result_print_usage_exit_status(t_argparser_result *argparser_result, int exit_status)
 {
-	LOGGER_DEBUG("SIGNAL: %s(%d)", shsignal_mgr_get_signame(data_signals(), sig), sig);
-	if (sig == SIGCHLD)
-		return ;
-    shenv_print_error_printf(shenv_singleton(), shenv_get_cur_line(),
-    	"%d Terminated: %d", getpid(), sig);
-    exit(143);
-}
-
-void				disable_all_signals(void)
-{
-	int i;
-
-	i = 1;
-	while (i <= 31)
-	{
-		signal(i, intercept_logger_handler);
-		i++;
-	}
+	argparser_result_print_error_with_help(argparser_result);
+	shenv_singleton()->last_exit_code = exit_status;
 }

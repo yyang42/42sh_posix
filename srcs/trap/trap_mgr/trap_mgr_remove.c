@@ -19,8 +19,10 @@ void				trap_mgr_remove(t_lst *traps, t_trap *trap)
 	index = twl_lst_indexof(traps, trap);
 	if (index == -1)
 	{
-		assert(!"[ERROR] Object not found!");
+		LOGGER_ERROR("Object not found!");
+		return ;
 	}
+	signal(trap->trap_signum, SIG_DFL);
 	twl_lst_popi(traps, index);
 	trap_del(trap);
 }
