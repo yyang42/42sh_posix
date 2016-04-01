@@ -18,20 +18,15 @@ static void			builtin_exec_execve_wrapper(char *path, char **argv, char **envp)
 {
 	if (!path)
 	{
-		shenv_print_error_printf(shenv_singleton(), shenv_get_cur_line(),
-			"exec: %s: not found", argv[0]);
-		shenv_singleton()->last_exit_code = 127;
-		return ;
+		shenv_singl_error(127, "exec: %s: not found", argv[0]);
 	}
-	if (!file_isdir(path) && file_exists(path) && file_isexecutable(path))
+	else if (file_isdir(path) || !file_exists(path) || !file_isexecutable(path))
 	{
-		execve(path, argv, envp);
+		shenv_singl_error(126, "exec: %s: cannot execute", argv[0]);
 	}
 	else
 	{
-		shenv_print_error_printf(shenv_singleton(), shenv_get_cur_line(),
-			"exec: %s: cannot execute", path);
-		shenv_singleton()->last_exit_code = 126;
+		execve(path, argv, envp);
 	}
 }
 

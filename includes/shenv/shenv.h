@@ -100,8 +100,10 @@ void				shenv_set_cur_token(t_shenv *env, t_token *token);
 int					shenv_get_cur_line(void);
 int					shenv_print_error_printf(t_shenv *this, int line,
 											char *fmt, ...);
+void				shenv_singl_error(int exit_code, char *fmt, ...);
 void				shenv_increase_shlvl(t_shenv *this);
 pid_t				shenv_utils_fork(void);
+
 
 /*
 ** JOB CONTROL
