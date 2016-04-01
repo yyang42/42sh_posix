@@ -1,6 +1,0 @@
-trap -- '' HUP
-trap -- '' INT
-trap -- '' USR1
-trap -- 'echo USR2msg' USR2
-trap -- 'echo USR2msgOverriden' USR2
-exit_code: 0
