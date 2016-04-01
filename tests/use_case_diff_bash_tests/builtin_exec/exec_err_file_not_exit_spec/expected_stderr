@@ -1,0 +1,1 @@
+42sh: line 1: exec: /tmp/test_builtin_exec_not_exist: not found
