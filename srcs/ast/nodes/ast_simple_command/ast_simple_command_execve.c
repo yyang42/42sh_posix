@@ -22,7 +22,6 @@ static void			fork_and_execute(t_ast_simple_command *cmd, char *path, char **env
 
 	args = token_mgr_to_str_arr(cmd->command_tokens);
 	pid = shenv_utils_fork();
-
 	if (pid == -1)
 	{
 		twl_dprintf(2, "cannot fork: %s", strerror(errno));
