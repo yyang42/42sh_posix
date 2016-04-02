@@ -45,13 +45,11 @@ static void			builtin_exec_execve_prep(t_lst *remainders)
 	twl_arr_del(argv, NULL);
 }
 
-void				builtin_exec_exec_do(t_lst *tokens, t_shenv *env)
+void				builtin_exec_exec_do(t_lst *tokens)
 {
 	t_argparser_result	*argparser_result;
 
 	argparser_result = argparser_parse_tokens(builtin_exec_argparser(), tokens);
-	env->shenv_cur_token = token_mgr_first(tokens);
-	env->last_exit_code = EXIT_SUCCESS;
 	if (argparser_result->err_msg)
 	{
 		argparser_result_print_usage_exit_status(argparser_result, 2);
@@ -68,10 +66,10 @@ void				builtin_exec_exec(t_lst *tokens, t_shenv *env)
 	t_lst			*redir_tokens_groups;
 	t_lst			*remaining_of_redir_tokens;
 
+	env->shenv_cur_token = token_mgr_first(tokens);
+	env->last_exit_code = EXIT_SUCCESS;
 	remaining_of_redir_tokens = twl_lst_new();
 	redir_tokens_groups = token_mgr_extract_redir(tokens, remaining_of_redir_tokens);
-	// token_mgr_print(tokens);
-	// token_mgr_print(remaining_of_redir_tokens);
 	builtin_exec_redir_handler(redir_tokens_groups);
-	builtin_exec_exec_do(remaining_of_redir_tokens, env);
+	builtin_exec_exec_do(remaining_of_redir_tokens);
 }

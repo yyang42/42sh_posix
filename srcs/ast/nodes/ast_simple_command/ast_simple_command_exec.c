@@ -41,7 +41,10 @@ static void			ast_simple_command_exec_with_redirs(t_ast_simple_command *cmd)
 {
 	if (ast_redir_mgr_check_files(cmd->redir_items) == false)
 		return ;
+	shenv_singleton()->last_exit_code = 0;
 	ast_redir_fd_mgr_init(cmd->redir_fds, cmd->redir_items);
+	if (shenv_singleton()->last_exit_code != 0)
+		return ;
 	ast_simple_command_exec_tokens(cmd);
 	ast_redir_fd_mgr_close(cmd->redir_fds);
 }

@@ -11,9 +11,13 @@
 /* ************************************************************************** */
 
 #include "ast/nodes/ast_redir_fd.h"
+#include <errno.h>
+#include "shenv/shenv.h"
 
 void				ast_redir_fd_utils_dup_fds(int fd1, int fd2)
 {
 	if (dup2(fd1, fd2) == -1)
-		perror("dup2");
+	{
+		shenv_singl_error(1, "%d: %s", fd1, strerror(errno));
+	}
 }

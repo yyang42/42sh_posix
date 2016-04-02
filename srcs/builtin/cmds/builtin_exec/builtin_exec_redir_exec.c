@@ -22,16 +22,19 @@ static void			open_fd(int io_number, char *path, int flags, int mode)
 	tmp_fd = open(path, flags, mode);
 	if (tmp_fd == -1)
 	{
-		shenv_singl_error(1, "exec: %s", strerror(errno));
+		shenv_singl_error(EXIT_FAILURE, "exec: %s", strerror(errno));
 		return ;
 	}
 	if (dup2(tmp_fd, io_number) == -1)
 	{
-		shenv_singl_error(1, "exec: %s: %d", strerror(errno), io_number);
+		shenv_singl_error(EXIT_FAILURE, "%d: %s", io_number, strerror(errno));
 		LOGGER_ERROR("exec: dup2(%d, %d)", tmp_fd, io_number, strerror(errno));
 	}
 	if (close(tmp_fd) == -1)
+	{
 		LOGGER_ERROR("exec: close tmp_fd(%d): ", strerror(errno));
+		shenv_singl_error(EXIT_FAILURE, "exec: %s", strerror(errno));
+	}
 }
 
 void				builtin_exec_redir_exec(int io_number, char *operator, char *param)
