@@ -83,7 +83,7 @@ then
 
 else
 
-    for CASE_PATH in $TESTS_ROOT_PATH/*_exec; do
+    for CASE_PATH in $TESTS_ROOT_PATH/*_colon; do
         if [ -d "${CASE_PATH}" ]; then
             for TEST_PATH in $CASE_PATH/*_spec; do
                 if [ -d "${TEST_PATH}" ]; then

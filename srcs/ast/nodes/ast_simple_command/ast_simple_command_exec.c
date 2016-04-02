@@ -27,13 +27,14 @@ static void			iter_assign_fn(void *assign_, void *cmd_)
 	assign = assign_;
 	cmd = cmd_;
 	shvar = shvar_mgr_find_or_create(shenv_singleton()->shvars, assign->key);
-	if (twl_lst_len(cmd->command_tokens) > 0)
+	if (twl_lst_len(cmd->command_tokens) == 0
+		|| token_mgr_first_equ(cmd->command_tokens, ":"))
 	{
-		shvar->shvar_assign_value = twl_strdup(assign->value);
+		shvar_set_value(shvar, assign->value);
 	}
 	else
 	{
-		shvar_set_value(shvar, assign->value);
+		shvar->shvar_assign_value = twl_strdup(assign->value);
 	}
 }
 
