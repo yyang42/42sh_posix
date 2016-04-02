@@ -5,7 +5,7 @@ do
 	counter=`echo $counter + 1 | bc`
 	if [ $counter -gt 5 ]
 	then
-		break  # Skip entire rest of loop.
+		break
 	fi
 	echo "end" $counter
 done

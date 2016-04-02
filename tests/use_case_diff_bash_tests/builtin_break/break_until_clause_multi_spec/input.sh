@@ -1,5 +1,3 @@
-# Same loop, but substituting 'break' for 'continue'.
-
 test_fn () {
 	counter=0
 	break_nbr=$1
@@ -16,13 +14,13 @@ test_fn () {
 			counter=`echo $counter + 1 | bc`
 			if [ $counter -gt 3 ]
 			then
-				break $break_nbr # Skip entire rest of loop.
+				break $break_nbr
 			fi
 			echo "inner end" $marker $counter
 		done
 		if [ $counter -gt 5 ]
 		then
-			break  # Skip entire rest of loop.
+			break
 		fi
 		echo "outer end" $marker $counter
 	done
