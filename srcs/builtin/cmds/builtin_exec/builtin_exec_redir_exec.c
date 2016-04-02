@@ -67,19 +67,15 @@ void				builtin_exec_redir_exec(int io_number, char *operator, char *param)
 		}
 	}
 	else if (twl_strequ(operator, ">"))
-	{
 		open_fd(io_number, param, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	}
 	else if (twl_strequ(operator, "<"))
-	{
 		open_fd(io_number, param, O_RDONLY, 0644);
-	}
+	else if (twl_strequ(operator, "<>"))
+		open_fd(io_number, param, O_CREAT | O_RDWR, 0644);
+	else if (twl_strequ(operator, ">>"))
+		open_fd(io_number, param, O_CREAT | O_WRONLY | O_APPEND, 0644);
 	else if (twl_strequ(operator, "<&") || twl_strequ(operator, ">&"))
-	{
 		copy_fd(io_number, param);
-	}
 	else
-	{
 		shenv_singl_error(EXIT_FAILURE, "exec: invalid redir operator", operator);
-	}
 }
