@@ -1,0 +1,6 @@
+trap -- 'echo AAA' HUP
+trap -- 'echo BBB' INT
+trap -- 'echo CCC' QUIT
+BBB
+trap -- 'echo AAA' HUP
+exit_code: 0

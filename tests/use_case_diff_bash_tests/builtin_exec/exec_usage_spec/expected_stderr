@@ -1,0 +1,2 @@
+exec: illegal option: h
+usage: exec exec [command [argument...]]

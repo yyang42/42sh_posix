@@ -1,5 +1,6 @@
 dependencies:
   pre:
+    - bash --version
     - sudo apt-get update -qq
   override:
     - sudo apt-get install -qq valgrind

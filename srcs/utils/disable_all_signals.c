@@ -14,21 +14,16 @@
 #include "logger.h"
 #include "data.h"
 #include "shsignal/shsignal_mgr.h"
+#include "shenv/shenv.h"
 
 static void			intercept_logger_handler(int sig)
 {
-	/*
-	** Usage later for kill child
-	*/
-
-	// kill(g_child_pid, sig);
-	// signal(sig, SIG_DFL);
-	  /* own stuff .. */
 	LOGGER_DEBUG("SIGNAL: %s(%d)", shsignal_mgr_get_signame(data_signals(), sig), sig);
-	// signal(sig, SIG_DFL);
-	// raise(sig);
-	// signal(sig, intercept_logger_handler);
-	(void)sig;
+	if (sig == SIGCHLD)
+		return ;
+    shenv_print_error_printf(shenv_singleton(), shenv_get_cur_line(),
+    	"%d Terminated: %d", getpid(), sig);
+    exit(143);
 }
 
 void				disable_all_signals(void)

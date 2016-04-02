@@ -4,9 +4,7 @@ trap "echo BBB" INT
 trap "echo CCC" QUIT
 trap
 kill -INT $PID
-trap - INT
-trap
-trap - QUIT
+trap - INT QUIT
 trap
 trap - HUP
 trap

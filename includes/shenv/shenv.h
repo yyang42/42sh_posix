@@ -64,7 +64,6 @@ typedef struct				s_shenv
 	pid_t					jc_pgid;
 	struct termios			jc_tmodes;
 	int						jc_terminal;
-	int						jc_is_interactive;
 	struct s_job			*jc_foreground_job;
 }							t_shenv;
 
@@ -100,8 +99,10 @@ void				shenv_set_cur_token(t_shenv *env, t_token *token);
 int					shenv_get_cur_line(void);
 int					shenv_print_error_printf(t_shenv *this, int line,
 											char *fmt, ...);
+void				shenv_singl_error(int exit_code, char *fmt, ...);
 void				shenv_increase_shlvl(t_shenv *this);
 pid_t				shenv_utils_fork(void);
+
 
 /*
 ** JOB CONTROL

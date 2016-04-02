@@ -30,8 +30,8 @@ void				trap_signal_handler(int signum)
 {
 	t_trap			*trap;
 
-	LOGGER_INFO("trap_signal_handler called with: %s",
-		shsignal_mgr_get_signame(data_signals(), signum));
+	LOGGER_INFO("trap_signal_handler called with: %s(%d)",
+		shsignal_mgr_get_signame(data_signals(), signum), signum);
 	trap = trap_mgr_find_by_signum(shenv_singleton()->traps, signum);
 	if (trap)
 	{

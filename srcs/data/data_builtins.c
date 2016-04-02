@@ -18,6 +18,7 @@
 #include "builtin/cmds/builtin_echo.h"
 #include "builtin/cmds/builtin_env.h"
 #include "builtin/cmds/builtin_eval.h"
+#include "builtin/cmds/builtin_exec.h"
 #include "builtin/cmds/builtin_exit.h"
 #include "builtin/cmds/builtin_export.h"
 #include "builtin/cmds/builtin_false.h"
@@ -51,6 +52,7 @@ t_lst				*data_builtins(void)
 		twl_lst_push_back(builtins, builtin_new("echo", builtin_echo_exec));
 		twl_lst_push_back(builtins, builtin_new("env", builtin_env_exec));
 		twl_lst_push_back(builtins, builtin_new("eval", builtin_eval_exec));
+		twl_lst_push_back(builtins, builtin_new("exec", builtin_exec_exec));
 		twl_lst_push_back(builtins, builtin_new("exit", builtin_exit_exec));
 		twl_lst_push_back(builtins, builtin_new("export", builtin_export_exec));
 		twl_lst_push_back(builtins, builtin_new("false", builtin_false_exec));

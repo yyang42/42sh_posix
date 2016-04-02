@@ -17,5 +17,6 @@
 # include "twl_argparser/argparser.h"
 
 t_argparser_result	*argparser_parse_tokens(t_argparser *this, t_lst *ast_tokens);
+void				argparser_result_print_usage_exit_status(t_argparser_result *argparser_result, int exit_status);
 
 #endif
