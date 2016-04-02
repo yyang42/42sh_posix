@@ -67,7 +67,7 @@ void				ast_case_clause_exec(t_ast_case_clause *this)
 	t_lst			*case_items_iterator;
 
 	case_items_iterator = twl_lst_copy(this->case_list, NULL);
-	shenv_singleton()->last_exit_code = 0;
+	shenv_singleton()->last_exit_code = EXIT_SUCCESS;
 	while ((case_item = twl_lst_pop_front(case_items_iterator)))
 	{
 		if (is_matching_pattern(case_item->pattern_tokens, this->needle_token))

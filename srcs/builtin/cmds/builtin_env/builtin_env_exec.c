@@ -28,7 +28,6 @@ static void			exec_remaining_command(t_argparser_result *argparser_result)
 	if (twl_lst_len(remainders_copy) == 0)
 	{
 		shenv_print(shenv_singleton());
-		shenv_singleton()->last_exit_code = EXIT_SUCCESS;
 	}
 	else
 	{

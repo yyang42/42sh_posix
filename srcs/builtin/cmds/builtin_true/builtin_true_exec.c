@@ -15,5 +15,5 @@
 void				builtin_true_exec(t_lst *tokens, t_shenv *env)
 {
 	(void)tokens;
-	env->last_exit_code = EXIT_SUCCESS;
+	(void)env;
 }

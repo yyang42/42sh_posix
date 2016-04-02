@@ -58,7 +58,6 @@ void				builtin_set_exec(t_lst *tokens, t_shenv *env)
 		else if (twl_lst_len(opt->positive_opts) == 0 && opt->negative_opts == 0)
 		{
 			shenv_print_all(env);
-			env->last_exit_code = EXIT_SUCCESS;
 		}
 	}
 	builtin_set_opt_del(opt);

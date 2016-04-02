@@ -41,7 +41,7 @@ t_shenv			*shenv_new(void)
 	this->function_depth = 0;
 	this->jobs = twl_lst_new();
 	this->traps = twl_lst_new();
-	this->last_exit_code = 0;
+	this->last_exit_code = EXIT_SUCCESS;
 	this->shenv_cur_token = NULL;
 	this->is_interactive_shell = false;
 	return (this);

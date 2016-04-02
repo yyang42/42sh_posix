@@ -42,7 +42,6 @@ static void			ast_simple_command_exec_with_redirs(t_ast_simple_command *cmd)
 {
 	if (ast_redir_mgr_check_files(cmd->redir_items) == false)
 		return ;
-	shenv_singleton()->last_exit_code = 0;
 	ast_redir_fd_mgr_init(cmd->redir_fds, cmd->redir_items);
 	if (shenv_singleton()->last_exit_code != 0)
 		return ;
@@ -60,6 +59,7 @@ static void			ast_simple_command_exec_with_redirs(t_ast_simple_command *cmd)
 
 void				ast_simple_command_exec(t_ast_simple_command *cmd)
 {
+	shenv_singleton()->last_exit_code = EXIT_SUCCESS;
 	shenv_set_cur_token(shenv_singleton(), token_mgr_first(cmd->command_tokens));
 	job_mgr_exec_update(shenv_singleton()->jobs);
 	twl_lst_iter(cmd->assignment_items, iter_assign_fn, cmd);

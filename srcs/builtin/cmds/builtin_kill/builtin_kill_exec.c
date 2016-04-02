@@ -122,7 +122,6 @@ void				builtin_kill_exec(t_lst *tokens, t_shenv *env)
 	tokens_copy = twl_lst_copy(tokens, NULL);
 	twl_lst_pop_front(tokens_copy);
 	sigstr = NULL;
-	env->last_exit_code = EXIT_SUCCESS;
 	if (twl_lst_len(tokens_copy) == 0)
 	{
 		builtin_kill_print_usage();

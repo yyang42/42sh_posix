@@ -17,7 +17,6 @@ void				builtin_bg_exec(t_lst *tokens, t_shenv *shenv)
 	t_argparser_result *argparser_result;
 
 	argparser_result = argparser_parse_tokens(builtin_bg_argparser(), tokens);
-	shenv->last_exit_code = EXIT_SUCCESS;
 	shenv->shenv_cur_token = token_mgr_first(tokens);
 	if (argparser_result->err_msg)
 	{
