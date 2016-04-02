@@ -72,6 +72,6 @@ void				builtin_exec_exec(t_lst *tokens, t_shenv *env)
 	redir_tokens_groups = token_mgr_extract_redir(tokens, remaining_of_redir_tokens);
 	// token_mgr_print(tokens);
 	// token_mgr_print(remaining_of_redir_tokens);
-	builtin_exec_handle_redirs(redir_tokens_groups);
+	builtin_exec_redir_handler(redir_tokens_groups);
 	builtin_exec_exec_do(remaining_of_redir_tokens, env);
 }

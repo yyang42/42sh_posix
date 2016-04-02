@@ -34,46 +34,24 @@ static void			open_fd(int io_number, char *path, int flags, int mode)
 		LOGGER_ERROR("exec: close tmp_fd(%d): ", strerror(errno));
 }
 
-static void			iter_redir_fn(void *tokens)
+void				builtin_exec_redir_exec(int io_number, char *operator, char *param)
 {
-	// t_ast_redir		*ast_redir;
-	int				io_number;
-	char			*operator;
-	char			*param;
-
-	// ast_redir = ast_redir_new_from_tokens(one_redir_tokens, ast);
-	// token_mgr_print(tokens);
-	if (twl_lst_len(tokens) == 3)
+	if (twl_strequ(operator, "<&") && twl_strequ(param, "-"))
 	{
-		io_number = twl_atoi(token_mgr_get(tokens, 0)->text);
-		operator = token_mgr_get(tokens, 1)->text;
-		param = token_mgr_get(tokens, 2)->text;
-		if (twl_strequ(operator, "<&") && twl_strequ(param, "-"))
-		{
-			LOGGER_INFO("exec: close fd: %d", io_number);
+		LOGGER_INFO("exec: close fd: %d", io_number);
 
-			if (close(io_number) == -1)
-			{
-				LOGGER_INFO("exec: close error: %s", strerror(errno));
-			}
-		}
-		else if (twl_strequ(operator, ">"))
+		if (close(io_number) == -1)
 		{
-			open_fd(io_number, param, O_CREAT | O_WRONLY, 0644);
+			LOGGER_INFO("exec: close error: %s", strerror(errno));
 		}
-		else
-		{
-			LOGGER_ERROR("exec: redir case not handled: %d %s %s", io_number, operator, param);
-		}
-		(void)operator;
+	}
+	else if (twl_strequ(operator, ">"))
+	{
+		open_fd(io_number, param, O_CREAT | O_WRONLY, 0644);
 	}
 	else
 	{
-		LOGGER_ERROR("exec: redirs len other than 3 not handled")
+		// TODO
+		LOGGER_DEBUG("exec: redir case not handled: %d %s %s", io_number, operator, param);
 	}
-}
-
-void				builtin_exec_handle_redirs(t_lst *redir_tokens_groups)
-{
-	twl_lst_iter0(redir_tokens_groups, iter_redir_fn);
 }
