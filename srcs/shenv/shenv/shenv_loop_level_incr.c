@@ -10,31 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_if_then.h"
-#include "ast/nodes/ast_for_clause.h"
+#include "shenv/shenv.h"
 
-static void			iter_wordlist_fn(void *word_token, void *this_)
+void				shenv_loop_level_incr(t_shenv *this)
 {
-	t_ast_for_clause	*this;
-
-	this = this_;
-	if (shenv_singleton()->shenv_break_counter > 0)
-		return ;
-	shenv_shvars_set(shenv_singleton(), this->name, word_token, NULL);
-	ast_compound_list_exec(this->do_group);
-}
-
-void				ast_for_clause_exec(t_ast_for_clause *this)
-{
-	t_lst			*wordlist;
-
-	shenv_loop_level_incr(shenv_singleton());
-	if (twl_lst_len(this->wordlist))
-		wordlist = token_mgr_to_lst(this->wordlist);
-	else
-		wordlist = twl_lst_copy(shenv_singleton()->pos_params, NULL);
-	twl_lst_iter(wordlist, iter_wordlist_fn, this);
-	twl_lst_del(wordlist, NULL);
-	shenv_loop_level_decr(shenv_singleton());
-	shenv_break_counter_decr(shenv_singleton());
+	this->shenv_loop_level++;
 }

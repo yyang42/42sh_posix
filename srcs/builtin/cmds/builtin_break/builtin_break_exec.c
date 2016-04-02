@@ -10,31 +10,36 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_if_then.h"
-#include "ast/nodes/ast_for_clause.h"
+#include "builtin/cmds/builtin_break.h"
 
-static void			iter_wordlist_fn(void *word_token, void *this_)
+static void			builtin_break_exec_one_arg(char *str_counter)
 {
-	t_ast_for_clause	*this;
+	int				break_counter;
 
-	this = this_;
-	if (shenv_singleton()->shenv_break_counter > 0)
-		return ;
-	shenv_shvars_set(shenv_singleton(), this->name, word_token, NULL);
-	ast_compound_list_exec(this->do_group);
+	if (twl_str_is_pos_num(str_counter))
+	{
+		break_counter = twl_atoi(str_counter);
+		shenv_singleton()->shenv_break_counter = break_counter;
+	}
+	else
+	{
+		LOGGER_DEBUG("is not a number");
+	}
 }
 
-void				ast_for_clause_exec(t_ast_for_clause *this)
+void				builtin_break_exec(t_lst *tokens, t_shenv *env)
 {
-	t_lst			*wordlist;
-
-	shenv_loop_level_incr(shenv_singleton());
-	if (twl_lst_len(this->wordlist))
-		wordlist = token_mgr_to_lst(this->wordlist);
+	env->shenv_cur_token = token_mgr_first(tokens);
+	if (twl_lst_len(tokens) == 1)
+	{
+		builtin_break_exec_one_arg("1");
+	}
+	else if (twl_lst_len(tokens) == 2)
+	{
+		builtin_break_exec_one_arg(token_mgr_get(tokens, 1)->text);
+	}
 	else
-		wordlist = twl_lst_copy(shenv_singleton()->pos_params, NULL);
-	twl_lst_iter(wordlist, iter_wordlist_fn, this);
-	twl_lst_del(wordlist, NULL);
-	shenv_loop_level_decr(shenv_singleton());
-	shenv_break_counter_decr(shenv_singleton());
+	{
+		LOGGER_DEBUG("too many args");
+	}
 }

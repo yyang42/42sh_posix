@@ -13,6 +13,7 @@
 #include "builtin/builtin.h"
 #include "builtin/cmds/builtin_alias.h"
 #include "builtin/cmds/builtin_bg.h"
+#include "builtin/cmds/builtin_break.h"
 #include "builtin/cmds/builtin_cd.h"
 #include "builtin/cmds/builtin_colon.h"
 #include "builtin/cmds/builtin_dot.h"
@@ -50,6 +51,7 @@ t_lst				*data_builtins(void)
 		twl_lst_push_back(builtins, builtin_new(":", builtin_colon_exec));
 		twl_lst_push_back(builtins, builtin_new("alias", builtin_alias_exec));
 		twl_lst_push_back(builtins, builtin_new("bg", builtin_bg_exec));
+		twl_lst_push_back(builtins, builtin_new("break", builtin_break_exec));
 		twl_lst_push_back(builtins, builtin_new("cd", builtin_cd_exec));
 		twl_lst_push_back(builtins, builtin_new("echo", builtin_echo_exec));
 		twl_lst_push_back(builtins, builtin_new("env", builtin_env_exec));

@@ -44,5 +44,7 @@ t_shenv			*shenv_new(void)
 	this->last_exit_code = EXIT_SUCCESS;
 	this->shenv_cur_token = NULL;
 	this->is_interactive_shell = false;
+	this->shenv_break_counter = 0;
+	this->shenv_loop_level = 0;
 	return (this);
 }

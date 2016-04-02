@@ -10,31 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_if_then.h"
-#include "ast/nodes/ast_for_clause.h"
+#ifndef BUILTIN_BREAK_H
+# define BUILTIN_BREAK_H
 
-static void			iter_wordlist_fn(void *word_token, void *this_)
-{
-	t_ast_for_clause	*this;
+# include "basics.h"
+# include "builtin/builtin.h"
 
-	this = this_;
-	if (shenv_singleton()->shenv_break_counter > 0)
-		return ;
-	shenv_shvars_set(shenv_singleton(), this->name, word_token, NULL);
-	ast_compound_list_exec(this->do_group);
-}
+void				builtin_break_exec(t_lst *tokens, t_shenv *env);
 
-void				ast_for_clause_exec(t_ast_for_clause *this)
-{
-	t_lst			*wordlist;
-
-	shenv_loop_level_incr(shenv_singleton());
-	if (twl_lst_len(this->wordlist))
-		wordlist = token_mgr_to_lst(this->wordlist);
-	else
-		wordlist = twl_lst_copy(shenv_singleton()->pos_params, NULL);
-	twl_lst_iter(wordlist, iter_wordlist_fn, this);
-	twl_lst_del(wordlist, NULL);
-	shenv_loop_level_decr(shenv_singleton());
-	shenv_break_counter_decr(shenv_singleton());
-}
+#endif
