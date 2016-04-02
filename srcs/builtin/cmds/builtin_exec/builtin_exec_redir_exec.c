@@ -45,7 +45,6 @@ static void			copy_fd(int target_fd, char *param)
 	if (!twl_str_is_pos_num(param))
 	{
 		shenv_singl_error(EXIT_FAILURE, "exec: %s: Bad file descriptor", param);
-		builtin_exec_exit(shenv_singleton()->last_exit_code);
 		return ;
 	}
 	source_fd = twl_atoi(param);
@@ -53,7 +52,6 @@ static void			copy_fd(int target_fd, char *param)
 	if (dup2(source_fd, target_fd) == -1)
 	{
 		shenv_singl_error(EXIT_FAILURE, "%d or %d: %s", source_fd, target_fd, strerror(errno));
-		builtin_exec_exit(shenv_singleton()->last_exit_code);
 	}
 }
 
