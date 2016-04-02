@@ -19,7 +19,7 @@ void				ast_until_clause_exec(t_ast_until_clause *this)
 
 	shenv_loop_level_incr(shenv_singleton());
 	saved_exit_code = 0;
-	while (shenv_singleton()->shenv_break_counter == 0)
+	while (shenv_loop_should_exec(shenv_singleton()))
 	{
 		ast_compound_list_exec(this->cond_compound);
 		if (shenv_singleton()->last_exit_code == 0)

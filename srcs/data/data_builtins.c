@@ -16,6 +16,7 @@
 #include "builtin/cmds/builtin_break.h"
 #include "builtin/cmds/builtin_cd.h"
 #include "builtin/cmds/builtin_colon.h"
+#include "builtin/cmds/builtin_continue.h"
 #include "builtin/cmds/builtin_dot.h"
 #include "builtin/cmds/builtin_echo.h"
 #include "builtin/cmds/builtin_env.h"
@@ -53,6 +54,7 @@ t_lst				*data_builtins(void)
 		twl_lst_push_back(builtins, builtin_new("bg", builtin_bg_exec));
 		twl_lst_push_back(builtins, builtin_new("break", builtin_break_exec));
 		twl_lst_push_back(builtins, builtin_new("cd", builtin_cd_exec));
+		twl_lst_push_back(builtins, builtin_new("continue", builtin_continue_exec));
 		twl_lst_push_back(builtins, builtin_new("echo", builtin_echo_exec));
 		twl_lst_push_back(builtins, builtin_new("env", builtin_env_exec));
 		twl_lst_push_back(builtins, builtin_new("eval", builtin_eval_exec));

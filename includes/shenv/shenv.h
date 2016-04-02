@@ -67,6 +67,7 @@ typedef struct				s_shenv
 	struct s_job			*jc_foreground_job;
 
 	int						shenv_break_counter;
+	int						shenv_continue_counter;
 	int						shenv_loop_level;
 }							t_shenv;
 
@@ -114,6 +115,9 @@ pid_t				shenv_utils_fork(void);
 void				shenv_loop_level_incr(t_shenv *this);
 void				shenv_loop_level_decr(t_shenv *this);
 void				shenv_break_counter_decr(t_shenv *this);
+void				shenv_continue_counter_decr(t_shenv *this);
+void				shenv_continue_counter_decr_if_one(t_shenv *this);
+bool				shenv_loop_should_exec(t_shenv *this);
 
 /*
 ** JOB CONTROL

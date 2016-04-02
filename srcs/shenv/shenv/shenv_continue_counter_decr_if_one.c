@@ -10,24 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_if_then.h"
-#include "ast/nodes/ast_while_clause.h"
+#include "shenv/shenv.h"
 
-void				ast_while_clause_exec(t_ast_while_clause *this)
+void				shenv_continue_counter_decr_if_one(t_shenv *this)
 {
-	int				saved_exit_code;
-
-	shenv_loop_level_incr(shenv_singleton());
-	saved_exit_code = 0;
-	while (shenv_loop_should_exec(shenv_singleton()))
-	{
-		ast_compound_list_exec(this->cond_compound);
-		if (shenv_singleton()->last_exit_code != 0)
-			break ;
-		ast_compound_list_exec(this->do_group);
-		saved_exit_code = shenv_singleton()->last_exit_code;
-	}
-	shenv_singleton()->last_exit_code = saved_exit_code;
-	shenv_loop_level_decr(shenv_singleton());
-	shenv_break_counter_decr(shenv_singleton());
+	if (this->shenv_continue_counter == 1)
+		this->shenv_continue_counter--;
 }

@@ -18,10 +18,11 @@ static void			iter_wordlist_fn(void *word_token, void *this_)
 	t_ast_for_clause	*this;
 
 	this = this_;
-	if (shenv_singleton()->shenv_break_counter != 0)
+	if (!shenv_loop_should_exec(shenv_singleton()))
 		return ;
 	shenv_shvars_set(shenv_singleton(), this->name, word_token, NULL);
 	ast_compound_list_exec(this->do_group);
+	shenv_continue_counter_decr(shenv_singleton());
 }
 
 void				ast_for_clause_exec(t_ast_for_clause *this)
@@ -37,4 +38,5 @@ void				ast_for_clause_exec(t_ast_for_clause *this)
 	twl_lst_del(wordlist, NULL);
 	shenv_loop_level_decr(shenv_singleton());
 	shenv_break_counter_decr(shenv_singleton());
+	shenv_continue_counter_decr(shenv_singleton());
 }

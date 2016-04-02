@@ -45,6 +45,7 @@ t_shenv			*shenv_new(void)
 	this->shenv_cur_token = NULL;
 	this->is_interactive_shell = false;
 	this->shenv_break_counter = 0;
+	this->shenv_continue_counter = 0;
 	this->shenv_loop_level = 0;
 	return (this);
 }

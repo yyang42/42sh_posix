@@ -57,6 +57,7 @@ t_shenv				*shenv_copy(t_shenv *this)
 	copy->traps = twl_lst_new();
 	copy->alias = twl_lst_new();
 	copy->shenv_break_counter = this->shenv_break_counter;
+	copy->shenv_continue_counter = this->shenv_continue_counter;
 	copy->shenv_loop_level = this->shenv_loop_level;
 	return (copy);
 }
