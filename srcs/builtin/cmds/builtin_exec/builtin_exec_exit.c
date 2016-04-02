@@ -10,20 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_EXEC_H
-# define BUILTIN_EXEC_H
+#include "builtin/cmds/builtin_exec.h"
+#include "logger.h"
 
-# include "basics.h"
-# include "twl_opt.h"
-# include "argparser_extension.h"
-# include "builtin/builtin.h"
-
-void				builtin_exec_exec(t_lst *tokens, t_shenv *env);
-void				builtin_exec_redir_handler(t_lst *redir_tokens_groups);
-void				builtin_exec_redir_exec(int io_number, char *operator, char *param);
-void				builtin_exec_exit(int exit_code);
-
-t_argparser			*builtin_exec_argparser(void);
-
-
-#endif
+void				builtin_exec_exit(int exit_code)
+{
+	if (shenv_singleton()->is_interactive_shell)
+	{
+		shenv_singleton()->last_exit_code = exit_code;
+	}
+	else
+	{
+		exit(exit_code);
+	}
+}

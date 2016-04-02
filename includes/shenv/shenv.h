@@ -64,7 +64,6 @@ typedef struct				s_shenv
 	pid_t					jc_pgid;
 	struct termios			jc_tmodes;
 	int						jc_terminal;
-	int						jc_is_interactive;
 	struct s_job			*jc_foreground_job;
 }							t_shenv;
 

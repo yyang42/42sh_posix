@@ -25,6 +25,8 @@ static void			iter_redir_fn(void *tokens)
 		operator = token_mgr_get(tokens, 1)->text;
 		param = token_mgr_get(tokens, 2)->text;
 		builtin_exec_redir_exec(io_number, operator, param);
+		if (shenv_singleton()->last_exit_code != EXIT_SUCCESS)
+			builtin_exec_exit(shenv_singleton()->last_exit_code);
 	}
 	else
 	{
