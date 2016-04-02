@@ -29,6 +29,7 @@
 #include "builtin/cmds/builtin_jobs.h"
 #include "builtin/cmds/builtin_kill.h"
 #include "builtin/cmds/builtin_readonly.h"
+#include "builtin/cmds/builtin_return.h"
 #include "builtin/cmds/builtin_set.h"
 #include "builtin/cmds/builtin_setenv.h"
 #include "builtin/cmds/builtin_shift.h"
@@ -66,6 +67,7 @@ t_lst				*data_builtins(void)
 		twl_lst_push_back(builtins, builtin_new("jobs", builtin_jobs_exec));
 		twl_lst_push_back(builtins, builtin_new("kill", builtin_kill_exec));
 		twl_lst_push_back(builtins, builtin_new("readonly", builtin_readonly_exec));
+		twl_lst_push_back(builtins, builtin_new("return", builtin_return_exec));
 		twl_lst_push_back(builtins, builtin_new("set", builtin_set_exec));
 		twl_lst_push_back(builtins, builtin_new("setenv", builtin_setenv_exec));
 		twl_lst_push_back(builtins, builtin_new("shift", builtin_shift_exec));

@@ -69,6 +69,8 @@ typedef struct				s_shenv
 	int						shenv_break_counter;
 	int						shenv_continue_counter;
 	int						shenv_loop_level;
+	bool					shenv_return_triggered;
+	bool					shenv_is_function_or_script;
 }							t_shenv;
 
 t_shenv				*shenv_new(void);

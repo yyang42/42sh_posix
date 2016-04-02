@@ -17,6 +17,7 @@ test_fn () {
 				break $break_nbr
 			fi
 			echo "inner end" $marker $counter
+			echo abc | grep abc && echo aaa ; echo ccc
 		done
 		if [ $counter -gt 5 ]
 		then

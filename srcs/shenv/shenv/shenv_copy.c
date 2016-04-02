@@ -59,5 +59,7 @@ t_shenv				*shenv_copy(t_shenv *this)
 	copy->shenv_break_counter = this->shenv_break_counter;
 	copy->shenv_continue_counter = this->shenv_continue_counter;
 	copy->shenv_loop_level = this->shenv_loop_level;
+	copy->shenv_return_triggered = copy->shenv_return_triggered;
+	copy->shenv_is_function_or_script = this->shenv_is_function_or_script;
 	return (copy);
 }

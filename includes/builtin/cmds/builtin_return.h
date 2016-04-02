@@ -10,12 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shenv/shenv.h"
+#ifndef BUILTIN_RETURN_H
+# define BUILTIN_RETURN_H
 
-bool				shenv_loop_should_exec(t_shenv *this)
-{
-	if (shenv_singleton()->shenv_return_triggered)
-		return (false);
-	return (this->shenv_break_counter == 0
-		&& this->shenv_continue_counter == 0);
-}
+# include "basics.h"
+# include "builtin/builtin.h"
+
+void				builtin_return_exec(t_lst *tokens, t_shenv *env);
+
+#endif

@@ -61,7 +61,7 @@ static char			*get_file(char *str, t_lst *tokens, t_shenv *this)
 	return (file);
 }
 
-void				builtin_dot_exec(t_lst *tokens, t_shenv *this)
+void				builtin_dot_exec(t_lst *tokens, t_shenv *env)
 {
 	int				ret;
 	char			*file;
@@ -69,7 +69,7 @@ void				builtin_dot_exec(t_lst *tokens, t_shenv *this)
 	char			*str;
 
 	str = token_mgr_strjoin(tokens, " "); // TODO: refactor
-	if (!(file = get_file(str, tokens, this)))
+	if (!(file = get_file(str, tokens, env)))
 		return ; // (0)
 	ast = ast_new(twl_file_to_str(file));
 	if (ast->error_msg)
@@ -78,7 +78,9 @@ void				builtin_dot_exec(t_lst *tokens, t_shenv *this)
 		ast_del(ast);
 		return ; // (1)
 	}
+	env->shenv_is_function_or_script = true;
 	ret = ast_exec(ast);
+	env->shenv_is_function_or_script = false;
 	free(file);
 	ast_del(ast);
 	(void)ret;
