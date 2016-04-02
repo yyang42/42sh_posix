@@ -59,7 +59,7 @@ static void			ast_simple_command_exec_with_redirs(t_ast_simple_command *cmd)
 
 void				ast_simple_command_exec(t_ast_simple_command *cmd)
 {
-	if (shenv_singleton()->shenv_break_counter > 0)
+	if (shenv_singleton()->shenv_break_counter != 0)
 		return ;
 	shenv_singleton()->last_exit_code = EXIT_SUCCESS;
 	shenv_set_cur_token(shenv_singleton(), token_mgr_first(cmd->command_tokens));

@@ -18,7 +18,7 @@ static void			iter_wordlist_fn(void *word_token, void *this_)
 	t_ast_for_clause	*this;
 
 	this = this_;
-	if (shenv_singleton()->shenv_break_counter > 0)
+	if (shenv_singleton()->shenv_break_counter != 0)
 		return ;
 	shenv_shvars_set(shenv_singleton(), this->name, word_token, NULL);
 	ast_compound_list_exec(this->do_group);

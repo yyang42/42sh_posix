@@ -16,14 +16,24 @@ static void			builtin_break_exec_one_arg(char *str_counter)
 {
 	int				break_counter;
 
-	if (twl_str_is_pos_num(str_counter))
+	if (twl_str_is_num(str_counter))
 	{
 		break_counter = twl_atoi(str_counter);
-		shenv_singleton()->shenv_break_counter = break_counter;
+		if (break_counter > 0)
+		{
+			shenv_singleton()->shenv_break_counter = break_counter;
+		}
+		else
+		{
+			shenv_singleton()->shenv_break_counter = -1;
+			shenv_singl_error(EXIT_FAILURE, "break: %s: loop count out of range", str_counter);
+		}
 	}
 	else
 	{
-		LOGGER_DEBUG("is not a number");
+		shenv_singleton()->shenv_break_counter = -1;
+		shenv_singl_error(128, "break: %s: numeric argument required", str_counter);
+		exit(shenv_singleton()->last_exit_code);
 	}
 }
 
