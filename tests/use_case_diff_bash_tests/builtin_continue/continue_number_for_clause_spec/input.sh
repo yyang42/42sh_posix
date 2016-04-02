@@ -11,7 +11,7 @@ foo () {
 
 			if [ $innerloop -eq 3 ]
 			then
-				break  $break_nbr # Try   break 2   to see what happens.
+				continue  $break_nbr # Try   break 2   to see what happens.
 				     # ("Breaks" out of both inner and outer loops.)
 			fi
 		done

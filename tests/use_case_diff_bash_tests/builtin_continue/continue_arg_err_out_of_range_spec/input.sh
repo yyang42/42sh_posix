@@ -4,6 +4,6 @@ do
     if [ $item = bbb ]
     then
         echo "condition true"
-        break -1
+        continue -1
     fi
 done

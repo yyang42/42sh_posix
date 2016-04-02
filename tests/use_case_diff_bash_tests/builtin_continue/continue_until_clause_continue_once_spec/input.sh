@@ -7,5 +7,9 @@ do
 	then
 		break
 	fi
+	if [ $counter -gt 3 ]
+	then
+		continue
+	fi
 	echo "end" $counter
 done

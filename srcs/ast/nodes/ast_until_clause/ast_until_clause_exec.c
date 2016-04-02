@@ -25,9 +25,11 @@ void				ast_until_clause_exec(t_ast_until_clause *this)
 		if (shenv_singleton()->last_exit_code == 0)
 			break ;
 		ast_compound_list_exec(this->do_group);
+		shenv_continue_counter_decr_if_one(shenv_singleton());
 		saved_exit_code = shenv_singleton()->last_exit_code;
 	}
 	shenv_singleton()->last_exit_code = saved_exit_code;
 	shenv_loop_level_decr(shenv_singleton());
 	shenv_break_counter_decr(shenv_singleton());
+	shenv_continue_counter_decr(shenv_singleton());
 }
