@@ -37,12 +37,9 @@ void				ast_simple_command_execve_parent_wait(pid_t pid)
  	}
  	else if (waitpid_ret == pid)
  	{
-        LOGGER_DEBUG("waitpid 1");
         handle_signal(res);
-        LOGGER_DEBUG("waitpid 2");
         if (WIFEXITED(res))
         {
-            LOGGER_DEBUG("waitpid 3");
 			shenv_singleton()->last_exit_code = WEXITSTATUS(res);
 			LOGGER_INFO("exit status: %d", shenv_singleton()->last_exit_code);
     	}

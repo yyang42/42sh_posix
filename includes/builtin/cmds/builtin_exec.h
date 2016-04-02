@@ -19,7 +19,9 @@
 # include "builtin/builtin.h"
 
 void				builtin_exec_exec(t_lst *tokens, t_shenv *env);
+void				builtin_exec_handle_redirs(t_lst *redir_tokens_groups);
 
 t_argparser			*builtin_exec_argparser(void);
+
 
 #endif
