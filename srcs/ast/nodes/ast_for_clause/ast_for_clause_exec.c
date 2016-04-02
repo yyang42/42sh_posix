@@ -22,7 +22,7 @@ static void			iter_wordlist_fn(void *word_token, void *this_)
 		return ;
 	shenv_shvars_set(shenv_singleton(), this->name, word_token, NULL);
 	ast_compound_list_exec(this->do_group);
-	shenv_continue_counter_decr(shenv_singleton());
+	shenv_continue_counter_decr_if_one(shenv_singleton());
 }
 
 void				ast_for_clause_exec(t_ast_for_clause *this)

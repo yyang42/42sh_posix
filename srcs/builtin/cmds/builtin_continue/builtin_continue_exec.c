@@ -21,6 +21,8 @@ static void			builtin_continue_exec_one_arg(char *str_counter)
 		continue_counter = twl_atoi(str_counter);
 		if (continue_counter > 0)
 		{
+			// if (continue_counter > shenv_singleton()->shenv_loop_level)
+				// continue_counter = shenv_singleton()->shenv_loop_level;
 			shenv_singleton()->shenv_continue_counter = continue_counter;
 			LOGGER_INFO("continue: %d", continue_counter);
 		}

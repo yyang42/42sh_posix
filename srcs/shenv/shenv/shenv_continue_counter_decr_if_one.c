@@ -16,4 +16,6 @@ void				shenv_continue_counter_decr_if_one(t_shenv *this)
 {
 	if (this->shenv_continue_counter == 1)
 		this->shenv_continue_counter--;
+	if (this->shenv_loop_level == 1)
+		this->shenv_continue_counter = 0;
 }
