@@ -50,11 +50,10 @@ void				builtin_exec_redir_exec(int io_number, char *operator, char *param)
 	}
 	else if (twl_strequ(operator, ">"))
 	{
-		open_fd(io_number, param, O_CREAT | O_WRONLY, 0644);
+		open_fd(io_number, param, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	}
 	else
 	{
-		// TODO
-		LOGGER_DEBUG("exec: redir case not handled: %d %s %s", io_number, operator, param);
+		shenv_singl_error(EXIT_FAILURE, "exec: invalid redir operator", operator);
 	}
 }
