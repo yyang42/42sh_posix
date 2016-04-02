@@ -20,9 +20,7 @@ t_argparser			*builtin_exec_argparser(void)
 	{
 		argparser = argparser_new("exec");
 		argparser_set_usage_extra(argparser,
-			" exec n [condition...] or exec [action condition...]");
-		argparser_add_argument(argparser,
-			argparser_argument_new('p', NULL, "Print all execs", 0));
+			" exec [command [argument...]]");
 	}
 	return (argparser);
 }
