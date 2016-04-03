@@ -36,6 +36,10 @@ static void			iter_assign_fn(void *assign_, void *cmd_)
 	{
 		shvar->shvar_assign_value = twl_strdup(assign->value);
 	}
+	if (shenv_flag_exist(shenv_singleton(), "a"))
+	{
+		shvar->shvar_exported = true;
+	}
 }
 
 static void			ast_simple_command_exec_with_redirs(t_ast_simple_command *cmd)
@@ -67,5 +71,4 @@ void				ast_simple_command_exec(t_ast_simple_command *cmd)
 	twl_lst_iter(cmd->assignment_items, iter_assign_fn, cmd);
 	ast_simple_command_exec_with_redirs(cmd);
 	shvar_mgr_clear_assign_value(shenv_singleton()->shvars);
-	LOGGER_DEBUG("exit status: %d", shenv_singleton()->last_exit_code);
 }
