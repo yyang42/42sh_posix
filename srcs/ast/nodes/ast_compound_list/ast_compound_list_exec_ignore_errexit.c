@@ -10,26 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_if_then.h"
-#include "ast/nodes/ast_until_clause.h"
+#include "ast/nodes/ast_compound_list.h"
 
-void				ast_until_clause_exec(t_ast_until_clause *this)
+void				ast_compound_list_exec_ignore_errexit(t_ast_compound_list *ast_compound_list)
 {
-	int				saved_exit_code;
-
-	shenv_loop_level_incr(shenv_singleton());
-	saved_exit_code = 0;
-	while (shenv_loop_should_exec(shenv_singleton()))
-	{
-		ast_compound_list_exec_ignore_errexit(this->cond_compound);
-		if (shenv_singleton()->last_exit_code == 0)
-			break ;
-		ast_compound_list_exec(this->do_group);
-		shenv_continue_counter_decr_if_one(shenv_singleton());
-		saved_exit_code = shenv_singleton()->last_exit_code;
-	}
-	shenv_singleton()->last_exit_code = saved_exit_code;
-	shenv_loop_level_decr(shenv_singleton());
-	shenv_break_counter_decr(shenv_singleton());
-	shenv_continue_counter_decr(shenv_singleton());
+	shenv_singleton()->shenv_ignore_errexit = true;
+	ast_compound_list_exec(ast_compound_list);
+	shenv_singleton()->shenv_ignore_errexit = false;
 }

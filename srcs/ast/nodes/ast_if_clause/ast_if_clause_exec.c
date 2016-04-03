@@ -25,7 +25,7 @@ void				ast_if_clause_exec(t_ast_if_clause *this)
 	if_then_list = twl_lst_copy(this->if_then_list, NULL);
 	while ((if_then = twl_lst_pop_front(if_then_list)))
 	{
-		ast_compound_list_exec(if_then->cond_compound);
+		ast_compound_list_exec_ignore_errexit(if_then->cond_compound);
 		if (shenv_singleton()->last_exit_code == 0)
 		{
 			ast_compound_list_exec(if_then->then_compound);
