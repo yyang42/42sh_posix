@@ -38,15 +38,18 @@ static void			exec_remaining_command(t_argparser_result *argparser_result)
 
 static void			exec_remaining_command_in_new_env(t_argparser_result *argparser_result)
 {
+
 	t_shenv 		*env_copy;
 	t_shenv 		*env_src;
 
 	env_src = shenv_singleton();
 	env_copy = shenv_copy(env_src);
+	env_copy->jobs = env_src->jobs;
 	shenv_singleton_setter(env_copy);
 	exec_remaining_command(argparser_result);
 	env_src->last_exit_code = env_copy->last_exit_code;
 	shenv_singleton_setter(env_src);
+	env_copy->jobs = NULL;
 	shenv_del(env_copy);
 }
 
