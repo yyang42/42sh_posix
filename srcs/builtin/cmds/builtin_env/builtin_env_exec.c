@@ -38,7 +38,6 @@ static void			exec_remaining_command(t_argparser_result *argparser_result)
 
 static void			exec_remaining_command_in_new_env(t_argparser_result *argparser_result)
 {
-
 	t_shenv 		*env_copy;
 	t_shenv 		*env_src;
 

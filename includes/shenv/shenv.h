@@ -72,6 +72,7 @@ typedef struct				s_shenv
 	bool					shenv_return_triggered;
 	bool					shenv_is_function_or_script;
 	bool					shenv_ignore_errexit;
+	bool					shenv_is_inside_job_control;
 }							t_shenv;
 
 t_shenv				*shenv_new(void);

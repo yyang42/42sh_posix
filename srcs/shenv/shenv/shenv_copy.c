@@ -62,5 +62,6 @@ t_shenv				*shenv_copy(t_shenv *this)
 	copy->shenv_return_triggered = copy->shenv_return_triggered;
 	copy->shenv_is_function_or_script = this->shenv_is_function_or_script;
 	copy->shenv_ignore_errexit = this->shenv_ignore_errexit;
+	copy->shenv_is_inside_job_control = this->shenv_is_inside_job_control;
 	return (copy);
 }
