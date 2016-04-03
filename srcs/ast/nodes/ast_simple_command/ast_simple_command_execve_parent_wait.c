@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "ast/nodes/ast_simple_command.h"
+#include <sys/wait.h>
 
 void				ast_simple_command_execve_parent_wait(pid_t pid)
 {
