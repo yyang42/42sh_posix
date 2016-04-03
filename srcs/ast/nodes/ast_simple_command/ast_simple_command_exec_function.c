@@ -31,6 +31,7 @@ void				ast_simple_command_exec_function(t_lst *tokens,
 	t_shenv			*env;
 
 	env = shenv_singleton();
+	env->shenv_is_function_or_script = true;
 	tokens_str_lst = token_mgr_to_lst(tokens);
 	twl_lst_pop_front(tokens_str_lst);
 	pos_params_original = env->pos_params;
@@ -40,4 +41,6 @@ void				ast_simple_command_exec_function(t_lst *tokens,
 	ast_compound_command_exec(compound_cmd);
 	twl_lst_del(tokens_str_lst, NULL);
 	env->pos_params = pos_params_original;
+	env->shenv_return_triggered = false;
+	env->shenv_is_function_or_script = false;
 }

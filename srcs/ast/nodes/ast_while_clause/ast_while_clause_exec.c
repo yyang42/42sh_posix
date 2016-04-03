@@ -17,14 +17,19 @@ void				ast_while_clause_exec(t_ast_while_clause *this)
 {
 	int				saved_exit_code;
 
+	shenv_loop_level_incr(shenv_singleton());
 	saved_exit_code = 0;
-	while (true)
+	while (shenv_loop_should_exec(shenv_singleton()))
 	{
 		ast_compound_list_exec(this->cond_compound);
 		if (shenv_singleton()->last_exit_code != 0)
 			break ;
 		ast_compound_list_exec(this->do_group);
+		shenv_continue_counter_decr_if_one(shenv_singleton());
 		saved_exit_code = shenv_singleton()->last_exit_code;
 	}
 	shenv_singleton()->last_exit_code = saved_exit_code;
+	shenv_loop_level_decr(shenv_singleton());
+	shenv_break_counter_decr(shenv_singleton());
+	shenv_continue_counter_decr(shenv_singleton());
 }

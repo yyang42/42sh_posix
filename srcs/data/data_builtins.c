@@ -13,7 +13,10 @@
 #include "builtin/builtin.h"
 #include "builtin/cmds/builtin_alias.h"
 #include "builtin/cmds/builtin_bg.h"
+#include "builtin/cmds/builtin_break.h"
 #include "builtin/cmds/builtin_cd.h"
+#include "builtin/cmds/builtin_colon.h"
+#include "builtin/cmds/builtin_continue.h"
 #include "builtin/cmds/builtin_dot.h"
 #include "builtin/cmds/builtin_echo.h"
 #include "builtin/cmds/builtin_env.h"
@@ -26,6 +29,7 @@
 #include "builtin/cmds/builtin_jobs.h"
 #include "builtin/cmds/builtin_kill.h"
 #include "builtin/cmds/builtin_readonly.h"
+#include "builtin/cmds/builtin_return.h"
 #include "builtin/cmds/builtin_set.h"
 #include "builtin/cmds/builtin_setenv.h"
 #include "builtin/cmds/builtin_shift.h"
@@ -46,9 +50,12 @@ t_lst				*data_builtins(void)
 	{
 		builtins = twl_lst_new();
 		twl_lst_push_back(builtins, builtin_new(".", builtin_dot_exec));
+		twl_lst_push_back(builtins, builtin_new(":", builtin_colon_exec));
 		twl_lst_push_back(builtins, builtin_new("alias", builtin_alias_exec));
 		twl_lst_push_back(builtins, builtin_new("bg", builtin_bg_exec));
+		twl_lst_push_back(builtins, builtin_new("break", builtin_break_exec));
 		twl_lst_push_back(builtins, builtin_new("cd", builtin_cd_exec));
+		twl_lst_push_back(builtins, builtin_new("continue", builtin_continue_exec));
 		twl_lst_push_back(builtins, builtin_new("echo", builtin_echo_exec));
 		twl_lst_push_back(builtins, builtin_new("env", builtin_env_exec));
 		twl_lst_push_back(builtins, builtin_new("eval", builtin_eval_exec));
@@ -60,6 +67,7 @@ t_lst				*data_builtins(void)
 		twl_lst_push_back(builtins, builtin_new("jobs", builtin_jobs_exec));
 		twl_lst_push_back(builtins, builtin_new("kill", builtin_kill_exec));
 		twl_lst_push_back(builtins, builtin_new("readonly", builtin_readonly_exec));
+		twl_lst_push_back(builtins, builtin_new("return", builtin_return_exec));
 		twl_lst_push_back(builtins, builtin_new("set", builtin_set_exec));
 		twl_lst_push_back(builtins, builtin_new("setenv", builtin_setenv_exec));
 		twl_lst_push_back(builtins, builtin_new("shift", builtin_shift_exec));

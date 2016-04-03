@@ -67,7 +67,6 @@ void				builtin_exec_exec(t_lst *tokens, t_shenv *env)
 	t_lst			*remaining_of_redir_tokens;
 
 	env->shenv_cur_token = token_mgr_first(tokens);
-	env->last_exit_code = EXIT_SUCCESS;
 	remaining_of_redir_tokens = twl_lst_new();
 	redir_tokens_groups = token_mgr_extract_redir(tokens, remaining_of_redir_tokens);
 	builtin_exec_redir_handler(redir_tokens_groups);

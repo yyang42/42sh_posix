@@ -41,5 +41,4 @@ void				builtin_jobs_exec(t_lst *tokens, t_shenv *shenv)
 	{
 		builtin_jobs_exec_do(argparser_result);
 	}
-	shenv->last_exit_code = EXIT_SUCCESS;
 }

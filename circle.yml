@@ -3,8 +3,7 @@ dependencies:
     - bash --version
     - sudo apt-get update -qq
   override:
-    - sudo apt-get install -qq valgrind
-    - sudo apt-get install libncurses5-dev libncursesw5-dev
+    - sudo apt-get install -qq valgrind libncurses5-dev libncursesw5-dev bc
 
 test:
   override:

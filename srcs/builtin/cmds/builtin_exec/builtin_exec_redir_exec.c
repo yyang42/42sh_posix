@@ -28,7 +28,7 @@ static void			open_fd(int io_number, char *path, int flags, int mode)
 	if (dup2(tmp_fd, io_number) == -1)
 	{
 		shenv_singl_error(EXIT_FAILURE, "%d: %s", io_number, strerror(errno));
-		LOGGER_ERROR("exec: dup2(%d, %d)", tmp_fd, io_number);
+		LOGGER_INFO("exec: dup2(%d, %d)", tmp_fd, io_number);
 	}
 	if (close(tmp_fd) == -1)
 	{

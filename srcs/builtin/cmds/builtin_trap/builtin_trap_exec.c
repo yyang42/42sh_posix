@@ -44,7 +44,6 @@ void				builtin_trap_exec(t_lst *tokens, t_shenv *env)
 	argparser_result = argparser_parse_tokens(builtin_trap_argparser(), tokens);
 	env->shenv_cur_token = token_mgr_first(tokens);
 	remainders = twl_lst_copy(argparser_result->remainders, NULL);
-	env->last_exit_code = EXIT_SUCCESS;
 	if (argparser_result->err_msg || is_invalid_should_print_usage(argparser_result->remainders))
 	{
 		argparser_result_print_usage_exit_status(argparser_result, 2);

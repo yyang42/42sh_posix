@@ -52,9 +52,14 @@ t_shenv				*shenv_copy(t_shenv *this)
 	copy->info = this->info;
 	if (this->info.name)
 		copy->info.name = twl_strdup(this->info.name);
-	copy->last_exit_code = 0;
+	copy->last_exit_code = EXIT_SUCCESS;
 	copy->jobs = twl_lst_new();
 	copy->traps = twl_lst_new();
 	copy->alias = twl_lst_new();
+	copy->shenv_break_counter = this->shenv_break_counter;
+	copy->shenv_continue_counter = this->shenv_continue_counter;
+	copy->shenv_loop_level = this->shenv_loop_level;
+	copy->shenv_return_triggered = copy->shenv_return_triggered;
+	copy->shenv_is_function_or_script = this->shenv_is_function_or_script;
 	return (copy);
 }
