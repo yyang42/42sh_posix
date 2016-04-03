@@ -15,9 +15,19 @@
 void				ast_command_exec(t_ast_command *this)
 {
 	if (this->command_type == COMMAND_SIMPLE_COMMAND)
+	{
 		ast_simple_command_exec(this->command);
+	}
 	else if (this->command_type == COMMAND_COMPOUND_COMMAND)
+	{
 		ast_compound_command_exec(this->command);
+	}
 	else if (this->command_type == COMMAND_FUNCTION_DEF)
+	{
 		ast_function_def_exec(this->command);
+	}
+	else
+	{
+		LOGGER_ERROR("wrong command type");
+	}
 }

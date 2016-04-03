@@ -28,13 +28,15 @@ static void			ast_subshell_fork_exec(t_ast_subshell *this)
 	else if (pid == 0)
 	{
 		ast_compound_list_exec(this->ast_compound_list);
-		exit(0);
+		exit(shenv_singleton()->last_exit_code);
 	}
 	else
 	{
 		waitpid(pid, &res, 0);
     	if (WIFEXITED(res))
+    	{
 			shenv_singleton()->last_exit_code = WEXITSTATUS(res);
+    	}
 	}
 }
 
