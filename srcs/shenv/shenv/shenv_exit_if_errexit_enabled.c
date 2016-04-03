@@ -10,31 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ast/nodes/ast_compound_list.h>
+#include "shenv/shenv.h"
 
-static void		iter_fn(void *ast_list_item_)
+void				shenv_exit_if_errexit_enabled(t_shenv *env)
 {
-	int					expan_ret;
-	t_ast_list_item 	*ast_list_item;
-
-	ast_list_item = ast_list_item_;
-	shenv_exit_if_errexit_enabled(shenv_singleton());
-	expan_ret = ast_list_item_expan(ast_list_item);
-	if (expan_ret)
+	if (shenv_flag_exist(env, "e") && env->last_exit_code != 0)
 	{
-		if (ast_list_item->separator
-			&& twl_strequ(ast_list_item->separator->text, "&"))
-		{
-			ast_list_item_exec_async(ast_list_item);
-		}
-		else
-		{
-			ast_list_item_exec(ast_list_item);
-		}
+		exit(env->last_exit_code);
 	}
-}
-
-void				ast_compound_list_exec(t_ast_compound_list *ast_compound_list)
-{
-	twl_lst_iter0(ast_compound_list->ast_list_items, &iter_fn);
 }

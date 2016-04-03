@@ -111,6 +111,11 @@ pid_t				shenv_utils_fork(void);
 
 
 /*
+** exit
+*/
+void				shenv_exit_if_errexit_enabled(t_shenv *env);
+
+/*
 ** loops
 */
 
