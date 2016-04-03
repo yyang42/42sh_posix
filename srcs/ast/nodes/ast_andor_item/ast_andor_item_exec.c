@@ -98,4 +98,8 @@ void					ast_andor_item_exec(t_ast_andor_item *ast_andor_item)
 		twl_lst_itern(ast_andor_item->ast_pipe_items, iter_fds_fn, NULL);
 		twl_lst_iter0(ast_andor_item->ast_pipe_items, iter_andor_fn);
 	}
+	if (ast_andor_item->negate)
+	{
+		shenv_singleton()->last_exit_code = !shenv_singleton()->last_exit_code;
+	}
 }

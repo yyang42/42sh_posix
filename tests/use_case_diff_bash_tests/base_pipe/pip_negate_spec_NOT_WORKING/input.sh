@@ -1,2 +1,0 @@
-! echo abc
-echo $?
