@@ -1,1 +1,0 @@
-/Users/yyang/repos/github/42sh_posix/tests/use_case_diff_bash_tests//builtin_dot/dot_err_ast_spec/input.sh: line 2: ast: SyntaxError 1:2 : Syntax error near ')' : Empty simple command

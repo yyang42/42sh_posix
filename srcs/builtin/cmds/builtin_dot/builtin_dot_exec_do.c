@@ -53,8 +53,7 @@ void				builtin_dot_exec_do(char *raw_path)
 	ast = ast_new(twl_file_to_str(resolved_path));
 	if (ast->error_msg)
 	{
-		shenv_singl_error(EXIT_FAILURE,
-			"ast: %s", ast->error_msg);
+		shenv_singl_error(EXIT_FAILURE, "ast: %s", ast->error_msg);
 	}
 	else
 	{
