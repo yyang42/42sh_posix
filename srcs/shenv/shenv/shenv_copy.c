@@ -61,5 +61,6 @@ t_shenv				*shenv_copy(t_shenv *this)
 	copy->shenv_loop_level = this->shenv_loop_level;
 	copy->shenv_return_triggered = copy->shenv_return_triggered;
 	copy->shenv_is_function_or_script = this->shenv_is_function_or_script;
+	copy->shenv_ignore_errexit = this->shenv_ignore_errexit;
 	return (copy);
 }

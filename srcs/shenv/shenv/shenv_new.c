@@ -49,5 +49,6 @@ t_shenv			*shenv_new(void)
 	this->shenv_loop_level = 0;
 	this->shenv_return_triggered = 0;
 	this->shenv_is_function_or_script = 0;
+	this->shenv_ignore_errexit = false;
 	return (this);
 }

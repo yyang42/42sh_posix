@@ -18,7 +18,6 @@ static void		iter_fn(void *ast_list_item_)
 	t_ast_list_item 	*ast_list_item;
 
 	ast_list_item = ast_list_item_;
-	shenv_exit_if_errexit_enabled(shenv_singleton());
 	expan_ret = ast_list_item_expan(ast_list_item);
 	if (expan_ret)
 	{
