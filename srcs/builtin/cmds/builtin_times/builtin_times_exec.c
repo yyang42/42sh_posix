@@ -63,5 +63,4 @@ void				builtin_times_exec(t_lst *tokens, t_shenv *env)
 	twl_putchar(' ');
 	print_timeval(&kids.ru_stime);
 	twl_putchar('\n');
-	// return (0);
 }
