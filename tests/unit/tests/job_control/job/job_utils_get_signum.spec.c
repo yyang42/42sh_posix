@@ -26,7 +26,7 @@ test_get_signum(num5,           "42",       -1,     false);
 test_get_signum(num6,           "KILL",     9,      false);
 test_get_signum(num7,           "USR1",     30,     false);
 test_get_signum(num8,           "HUP",      1,      false);
-test_get_signum(num9,           "SIG4",     -1,     true);
+test_get_signum(num9,           "SIG4",     -1,     false);
 test_get_signum(SIGKILL,        "SIGKILL",  9,      false);
 test_get_signum(SIGHUP,         "SIGHUP",   1,      false);
 test_get_signum(dashdash,       "--",       -1,     false);

@@ -40,7 +40,6 @@ static char			*get_file(char *raw_path, t_shenv *this)
 
 void				builtin_dot_exec_do(char *raw_path)
 {
-	int				ret;
 	char			*resolved_path;
 	t_ast			*ast;
 
@@ -60,7 +59,7 @@ void				builtin_dot_exec_do(char *raw_path)
 	else
 	{
 		shenv_singleton()->shenv_is_function_or_script = true;
-		ret = ast_exec(ast);
+		ast_exec(ast);
 		shenv_singleton()->shenv_is_function_or_script = false;
 	}
 	ast_del(ast);
