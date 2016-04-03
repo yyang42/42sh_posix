@@ -68,31 +68,17 @@ diff_test ()
 }
 
 echo $C_CYAN"====== START AST DIFF TESTS ======"$C_CLEAR
-if ! `env | grep -q ^LAST_ONLY=`
-then
 
-    for CASE_PATH in $TESTS_ROOT_PATH/*; do
-        if [ -d "${CASE_PATH}" ]; then
-            for TEST_PATH in $CASE_PATH/*_spec; do
-                if [ -d "${TEST_PATH}" ]; then
-                    diff_test `basename $CASE_PATH` `basename $TEST_PATH`
-                fi
-            done
-        fi
-    done
+for CASE_PATH in $TESTS_ROOT_PATH/${PATTERN:-*}; do
+    if [ -d "${CASE_PATH}" ]; then
+        for TEST_PATH in $CASE_PATH/*_spec; do
+            if [ -d "${TEST_PATH}" ]; then
+                diff_test `basename $CASE_PATH` `basename $TEST_PATH`
+            fi
+        done
+    fi
+done
 
-else
-
-    for CASE_PATH in $TESTS_ROOT_PATH/*_return; do
-        if [ -d "${CASE_PATH}" ]; then
-            for TEST_PATH in $CASE_PATH/*_spec; do
-                if [ -d "${TEST_PATH}" ]; then
-                    diff_test `basename $CASE_PATH` `basename $TEST_PATH`
-                fi
-            done
-        fi
-    done
-fi
 echo $C_CYAN"======  END TESTS  ======"$C_CLEAR
 
 exit $exit_status

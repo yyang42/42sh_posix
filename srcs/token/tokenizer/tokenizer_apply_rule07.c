@@ -27,7 +27,14 @@ t_rule_status		tokenizer_apply_rule07(t_tokenizer *t)
 		t->curpos++;
 		tokenizer_delimit(t);
 		if (t->heredoc_pos > t->curpos)
-			t->curpos = t->heredoc_pos;
+		{
+			while (t->heredoc_pos > t->curpos)
+			{
+				if (*t->curpos == '\n')
+					t->cur_line++;
+				t->curpos++;
+			}
+		}
 		return (RULE_STATUS_APPLIED);
 	}
 	return (RULE_STATUS_NOT_APPLIED);

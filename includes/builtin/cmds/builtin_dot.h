@@ -14,10 +14,12 @@
 # define BUILTIN_DOT_H
 
 # include "basics.h"
-# include "twl_opt.h"
 # include "builtin/builtin.h"
+# include "argparser_extension.h"
 # define DOT_BUFSIZE 4096
 
 void				builtin_dot_exec(t_lst *tokens, t_shenv *this);
+void				builtin_dot_exec_do(char *file_path);
+t_argparser			*builtin_dot_argparser(void);
 
 #endif
