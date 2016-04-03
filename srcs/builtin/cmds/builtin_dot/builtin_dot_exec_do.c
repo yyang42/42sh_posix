@@ -47,7 +47,8 @@ void				builtin_dot_exec_do(char *raw_path)
 	if (!resolved_path)
 	{
 		shenv_singl_error(EXIT_FAILURE, "%s: No such file or directory", raw_path);
-		exit(EXIT_FAILURE);
+		if (!shenv_singleton()->is_interactive_shell)
+			exit(EXIT_FAILURE);
 		return ;
 	}
 	ast = ast_new(twl_file_to_str(resolved_path));
