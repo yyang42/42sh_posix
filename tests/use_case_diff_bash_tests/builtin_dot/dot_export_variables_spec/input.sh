@@ -6,3 +6,5 @@ EOF
 . /tmp/test_builtin_dot_script.sh
 echo $myvar_foo
 echo $myvar_bar
+env | grep myvar_foo
+env | grep myvar_bar
