@@ -22,6 +22,7 @@ void				ast_simple_command_execve_parent_wait(pid_t pid)
  	if (waitpid_ret == -1)
  	{
  		perror("waitpid");
+		LOGGER_ERROR("waitpid error: pid: %d", pid);
  	}
  	else if (waitpid_ret == pid)
  	{

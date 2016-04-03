@@ -27,7 +27,7 @@ void                shenv_init_job_control(t_shenv *this)
         {
             kill (- this->jc_pgid, SIGTTIN);
         }
-        job_utils_sigs_ignore_on_interactive();
+        job_utils_sigs_init_on_interactive();
         this->jc_pgid = getpid ();
         if (setpgid (this->jc_pgid, this->jc_pgid) < 0)
         {

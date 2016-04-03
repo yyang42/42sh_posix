@@ -26,5 +26,5 @@ void				job_utils_sigs_dfl_on_interactive(void)
 	signal(SIGTSTP, SIG_DFL);
 	signal(SIGTTIN, SIG_DFL);
 	signal(SIGTTOU, SIG_DFL);
-	signal(SIGCHLD, SIG_DFL);
+	// signal(SIGCHLD, SIG_DFL);
 }

@@ -31,7 +31,7 @@ static void         ast_simple_command_execve_parent_wait_catch_stop(t_ast_simpl
 
     saved_sig_handler = signal(SIGTSTP, sigtstp_handler);
     setpgid(pid, pid);
-    LOGGER_DEBUG("ast_simple_command_execve_parent_wait_catch_stop: %d", shenv_singleton()->shenv_is_inside_job_control);
+    LOGGER_INFO("set SIGTSTP handler");
     if (setjmp(jump_buf) == 0)
     {
         ast_simple_command_execve_parent_wait(pid);
@@ -49,12 +49,10 @@ void				ast_simple_command_execve_parent(t_ast_simple_command *cmd, pid_t pid)
 {
     if (shenv_singleton()->shenv_is_inside_job_control)
     {
-        LOGGER_DEBUG("job1: %d", shenv_singleton()->shenv_is_inside_job_control);
         ast_simple_command_execve_parent_wait(pid);
     }
     else
     {
-        LOGGER_DEBUG("job2: %d", shenv_singleton()->shenv_is_inside_job_control);
         ast_simple_command_execve_parent_wait_catch_stop(cmd, pid);
     }
 }

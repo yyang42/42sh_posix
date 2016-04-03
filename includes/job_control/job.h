@@ -44,14 +44,15 @@ void				job_del(t_job *job);
 void				job_del_void(void *job);
 
 char				*job_status_str(t_job *this);
-void				job_waitpid_update(t_job *this);
 char				*job_status_str_long(t_job *this, bool incl_pid);
 
 int					job_utils_get_signum(char *sigstr);
 bool				job_has_terminated(t_job *this);
 void				job_print(t_job *this, int flags);
 
-void				job_utils_sigs_ignore_on_interactive(void);
+void				job_utils_sigs_init_on_interactive(void);
 void				job_utils_sigs_dfl_on_interactive(void);
+
+bool				job_exec_update_status(t_job *job);
 
 #endif

@@ -18,7 +18,6 @@
 
 static void			intercept_logger_handler(int sig)
 {
-	LOGGER_DEBUG("SIGNAL: %s(%d)", shsignal_mgr_get_signame(data_signals(), sig), sig);
 	if (sig == SIGCHLD)
 		return ;
     shenv_print_error_printf(shenv_singleton(), shenv_get_cur_line(),

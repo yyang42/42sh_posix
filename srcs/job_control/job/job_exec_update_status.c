@@ -10,27 +10,35 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/builtin.h"
-#include "builtin/cmds/builtin_kill.h"
-#include "shsignal/shsignal_mgr.h"
-#include "data.h"
+#include "job_control/job.h"
+#include "shenv/shenv.h"
 
-static void     intercept_logger_handler(int sig)
+bool				job_exec_update_status(t_job *job)
 {
-  LOGGER_DEBUG("INTERACTIVE: Ignore signal %s(%d)", shsignal_mgr_get_signame(data_signals(), sig), sig);
-  LOGGER_DEBUG("INTERACTIVE: pid (%d)", getpid());
-  (void)sig;
-}
+	char	*str_status;
 
-void				job_utils_sigs_ignore_on_interactive(void)
-{
+	if (WIFSTOPPED(job->status))
+	{
+		job->stopped_signal = WSTOPSIG(job->status);
+		job->job_status = JOB_STOPPED;
+	}
+	else if (WIFCONTINUED(job->status))
+		job->job_status = JOB_RUNNING;
+	else if (WIFEXITED(job->status))
+		job->job_status = JOB_DONE;
+	else if (WIFSIGNALED(job->status))
+		job->job_status = JOB_TERMINATED;
+	else
+		job->job_status = -1;
+	str_status = job_status_str_long(job, true);
+	LOGGER_INFO("job %d status: %s ", job->job_id, str_status);
+	free(str_status);
 	if (!shenv_singleton()->is_interactive_shell)
-		return ;
-	(void)intercept_logger_handler;
-	signal(SIGINT, SIG_IGN);
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGTSTP, SIG_IGN);
-	signal(SIGTTIN, SIG_IGN);
-	signal(SIGTTOU, SIG_IGN);
-	// signal(SIGCHLD, SIG_IGN);
+		return (false);
+	if (shenv_flag_exist(shenv_singleton(), "b"))
+	{
+		job_print(job, 0);
+		return (job_has_terminated(job));
+	}
+	return (false);
 }

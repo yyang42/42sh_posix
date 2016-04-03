@@ -23,6 +23,7 @@ static void			ast_list_item_exec_child(t_ast_list_item *this)
 	ast_list_item_exec(this);
 }
 
+
 void				ast_list_item_exec_async(t_ast_list_item *this)
 {
 	pid_t			pgid;
@@ -35,7 +36,7 @@ void				ast_list_item_exec_async(t_ast_list_item *this)
 	else if (pgid == 0)
 	{
 		ast_list_item_exec_child(this);
-		exit(0);
+		exit(shenv_singleton()->last_exit_code);
 	}
 	else
 	{
