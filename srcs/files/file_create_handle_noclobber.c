@@ -10,34 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TOKEN_H
-# define TOKEN_H
+#include "file.h"
+#include "shenv/shenv.h"
 
-# include "basics.h"
-
-# include "token/token_type.h"
-
-typedef struct		s_token
+int					file_create_handle_noclobber(t_token *param_token)
 {
-	t_token_type	type;
-	char			*text_unexpanded;
-	char			*text;
-	int				line;
-	int				col;
-	char			*heredoc_text;
-}					t_token;
+	int				fd;
 
-t_token				*token_new(char *text, int line, int col);
-void				token_del(t_token *this);
-
-void				token_set_text(t_token *token, char *text);
-
-t_token				*token_arexp(char *text);
-
-bool				token_is_control_operators_nl(t_token *this);
-bool				token_is_reserved_word(t_token *this);
-
-t_token				*token_copy(t_token *src);
-void				*token_copy_void(void *src);
-
-#endif
+	if (shenv_flag_exist(shenv_singleton(), "C") && file_exists(param_token->text))
+	{
+		shenv_singl_error(EXIT_FAILURE, "%s: cannot overwrite existing file", param_token->text);
+		fd = -1;
+	}
+	else
+	{
+		fd = create_file(param_token);
+	}
+	return (fd);
+}

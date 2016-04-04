@@ -10,34 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TOKEN_H
-# define TOKEN_H
+#include "twl_xstdlib.h"
 
-# include "basics.h"
+#include "token/token.h"
 
-# include "token/token_type.h"
-
-typedef struct		s_token
+void				token_set_text(t_token *token, char *text)
 {
-	t_token_type	type;
-	char			*text_unexpanded;
-	char			*text;
-	int				line;
-	int				col;
-	char			*heredoc_text;
-}					t_token;
-
-t_token				*token_new(char *text, int line, int col);
-void				token_del(t_token *this);
-
-void				token_set_text(t_token *token, char *text);
-
-t_token				*token_arexp(char *text);
-
-bool				token_is_control_operators_nl(t_token *this);
-bool				token_is_reserved_word(t_token *this);
-
-t_token				*token_copy(t_token *src);
-void				*token_copy_void(void *src);
-
-#endif
+	free(token->text);
+	token->text = twl_strdup(text);
+}

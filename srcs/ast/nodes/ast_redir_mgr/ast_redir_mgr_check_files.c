@@ -26,8 +26,9 @@ static void		iter_check_fn(void *data, void *context)
 		return ;
 	if (!twl_strcmp(redir->operator, "<"))
 		fd = read_file(redir->param);
-	else if (!twl_strcmp(redir->operator, ">")
-		|| !twl_strcmp(">|", redir->operator))
+	else if (!twl_strcmp(redir->operator, ">"))
+		fd = file_create_handle_noclobber(redir->param);
+	else if (!twl_strcmp(">|", redir->operator))
 		fd = create_file(redir->param);
 	else if (!twl_strcmp(redir->operator, ">>"))
 		fd = append_to_file(redir->param);
