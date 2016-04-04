@@ -10,17 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_SHIFT_H
-# define BUILTIN_SHIFT_H
+#include "builtin/cmds/builtin_shift.h"
 
-# include <sys/stat.h>
-# include <sys/types.h>
-# include "basics.h"
-# include "builtin/builtin.h"
-# include "error.h"
-# include "argparser_extension.h"
+t_argparser			*builtin_shift_argparser(void)
+{
+	static t_argparser		*argparser;
 
-void				builtin_shift_exec(t_lst *tokens, t_shenv *env);
-t_argparser			*builtin_shift_argparser(void);
-
-#endif
+	if (argparser == NULL)
+	{
+		argparser = argparser_new("shift");
+		argparser_set_usage_extra(argparser,
+			" nbr");
+	}
+	return (argparser);
+}

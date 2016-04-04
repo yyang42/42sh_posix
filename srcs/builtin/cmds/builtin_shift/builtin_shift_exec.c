@@ -14,25 +14,38 @@
 #include "builtin/cmds/builtin_umask.h"
 #include "twl_stdlib.h"
 
-static void			shift_action(t_shenv *env, t_opt *opt)
+static int				get_shift_nb(char *shift_str)
 {
-	size_t	shift_nb;
-	char	*shift_str;
+	int		shift_nb;
 
-	if (twl_lst_len(opt->args) > 0)
+	if (twl_str_is_pos_num(shift_str))
 	{
-		shift_str = (char*)twl_lst_first(opt->args);
 		shift_nb = twl_atoi(shift_str);
 	}
 	else
-		shift_nb = 1;
-	if (twl_lst_len(env->pos_params) < shift_nb)
 	{
-		twl_printf("shift count must be <= $#");
-		env->last_exit_code = EXIT_FAILURE;
+		shenv_singl_error(EXIT_FAILURE, "shift: %s: numeric argument required", shift_str);
+		shift_nb = -1;
 	}
-	if (twl_lst_len(env->pos_params) < shift_nb)
+	return (shift_nb);
+}
+
+static void			shift_action(t_shenv *env, char *shift_str)
+{
+	int				shift_nb;
+
+	shift_nb = get_shift_nb(shift_str);
+	if (shift_nb < 0)
+		return;
+	if ((int)twl_lst_len(env->pos_params) < shift_nb)
+	{
+		env->last_exit_code = EXIT_FAILURE;
+		return ;
+	}
+	if ((int)twl_lst_len(env->pos_params) < shift_nb)
+	{
 		twl_lst_clear(env->pos_params, &free);
+	}
 	else
 	{
 		while (shift_nb > 0)
@@ -45,21 +58,26 @@ static void			shift_action(t_shenv *env, t_opt *opt)
 
 void				builtin_shift_exec(t_lst *tokens, t_shenv *env)
 {
-	t_opt			*opt;
-	char			**arr;
+	t_argparser_result	*argparser_result;
 
-	arr = token_mgr_to_str_arr(tokens);
-	opt = twl_opt_new(arr, UMASK_OPT_VALID_OPTS);
-	if (!builtin_utils_check_invalid_opts(opt, "shift", SHIFT_OPT_VALID_OPTS))
+	argparser_result = argparser_parse_tokens(builtin_shift_argparser(), tokens);
+	if (argparser_result->err_msg)
 	{
-		if (twl_lst_len(opt->args) > 1)
+		argparser_result_print_usage_exit_status(argparser_result, 2);
+	}
+	else
+	{
+		if (twl_lst_len(argparser_result->remainders) > 1)
 		{
-			twl_printf("shift: too many arguments");
-			env->last_exit_code = EXIT_FAILURE;
+			shenv_singl_error(EXIT_FAILURE, "shift: too many arguments");
+		}
+		else if (twl_lst_len(argparser_result->remainders) == 0)
+		{
+			shift_action(env, "1");
 		}
 		else
-			shift_action(env, opt);
+		{
+			shift_action(env, twl_lst_first(argparser_result->remainders));
+		}
 	}
-	twl_arr_del(arr, NULL);
-	twl_opt_del(opt);
 }
