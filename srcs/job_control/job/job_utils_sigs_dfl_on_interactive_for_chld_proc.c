@@ -16,15 +16,15 @@
 #include "data.h"
 #include "logger.h"
 
-void				job_utils_sigs_dfl_on_interactive(void)
+void				job_utils_sigs_dfl_on_interactive_for_chld_proc(void)
 {
 	if (!shenv_singleton()->is_interactive_shell)
 		return ;
-	LOGGER_INFO("job_utils_sigs_dfl_on_interactive called");
+	LOGGER_INFO("job_utils_sigs_dfl_on_interactive_for_chld_proc called");
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 	signal(SIGTSTP, SIG_DFL);
 	signal(SIGTTIN, SIG_DFL);
 	signal(SIGTTOU, SIG_DFL);
-	// signal(SIGCHLD, SIG_DFL);
+	signal(SIGCHLD, SIG_DFL);
 }

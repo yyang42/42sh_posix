@@ -51,7 +51,7 @@ bool				job_has_terminated(t_job *this);
 void				job_print(t_job *this, int flags);
 
 void				job_utils_sigs_init_on_interactive(void);
-void				job_utils_sigs_dfl_on_interactive(void);
+void				job_utils_sigs_dfl_on_interactive_for_chld_proc(void);
 
 bool				job_exec_update_status(t_job *job);
 
