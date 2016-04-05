@@ -14,13 +14,12 @@
 # define BUILTIN_READONLY_H
 
 # include "basics.h"
-# include "twl_opt.h"
+# include "argparser_extension.h"
 # include "builtin/builtin.h"
-
-# define READONLY_OPT_VALID_OPTS "p"
 
 void				builtin_readonly_exec(t_lst *tokens, t_shenv *env);
 void				builtin_readonly_verbose(t_shenv *env);
-void				builtin_readonly_add(t_shenv *env, t_opt *opt);
+void				builtin_readonly_add(t_shenv *env, t_lst *opt);
+t_argparser			*builtin_readonly_argparser(void);
 
 #endif

@@ -10,25 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shenv/shenv.h"
+#include "builtin/cmds/builtin_readonly.h"
 
-t_shvar				*shenv_shvars_set_split_by_equal(t_shenv *shenv, char *str_token, char *command_name)
+t_argparser			*builtin_readonly_argparser(void)
 {
-	t_lst			*segs;
-	char			*key;
-	char			*value;
+	static t_argparser		*argparser;
 
-	segs = shvar_utils_split_by_equal(str_token);
-	if (segs)
+	if (argparser == NULL)
 	{
-		key = twl_strdup(twl_lst_get(segs, 0));
-		value = twl_strdup(twl_lst_get(segs, 1));
-		twl_lst_del(segs, free);
+		argparser = argparser_new("readonly");
+		argparser_set_usage_extra(argparser,
+			" readonly: usage: readonly [name[=value] ...]");
+		argparser_add_argument(argparser,
+			argparser_argument_new('p', NULL, "Print all readonly variables", 0));
 	}
-	else
-	{
-		key = str_token;
-		value = NULL;
-	}
-	return (shenv_shvars_set(shenv, key, value, command_name));
+	return (argparser);
 }

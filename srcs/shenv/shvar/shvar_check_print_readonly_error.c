@@ -10,25 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "shenv/shvar.h"
 #include "shenv/shenv.h"
 
-t_shvar				*shenv_shvars_set_split_by_equal(t_shenv *shenv, char *str_token, char *command_name)
+void				shvar_check_print_readonly_error(t_shvar *this)
 {
-	t_lst			*segs;
-	char			*key;
-	char			*value;
-
-	segs = shvar_utils_split_by_equal(str_token);
-	if (segs)
+	if (this->shvar_read_only)
 	{
-		key = twl_strdup(twl_lst_get(segs, 0));
-		value = twl_strdup(twl_lst_get(segs, 1));
-		twl_lst_del(segs, free);
+		shenv_singl_error(EXIT_FAILURE, "%s: readonly variable", this->shvar_key);
+		if (!shenv_singleton()->is_interactive_shell)
+		{
+			exit(EXIT_FAILURE);
+		}
 	}
-	else
-	{
-		key = str_token;
-		value = NULL;
-	}
-	return (shenv_shvars_set(shenv, key, value, command_name));
 }
