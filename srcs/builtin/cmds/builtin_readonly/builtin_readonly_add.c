@@ -17,18 +17,18 @@
 
 static void			readonly_something(void *data, void *context)
 {
-	t_shenv		*env;
-	char				*arg;
-	t_shvar	*var;
+	t_shenv			*env;
+	char			*arg;
+	t_shvar			*shvar;
 
 	arg = data;
 	env = context;
 	if (arg)
 	{
-		var = shenv_shvars_set_split_by_equal(env, arg, "readonly");
-		if (var)
+		shvar = shenv_shvars_set_split_by_equal(env, arg, "readonly");
+		if (shvar)
 		{
-			var->shvar_read_only = true;
+			shvar->shvar_read_only = true;
 		}
 	}
 }

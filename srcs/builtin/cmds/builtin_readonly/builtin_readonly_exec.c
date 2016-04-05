@@ -24,10 +24,15 @@ void				builtin_readonly_exec(t_lst *tokens, t_shenv *env)
 	if (!builtin_utils_check_invalid_opts(opt, "readonly", EXPORT_OPT_VALID_OPTS))
 	{
 		if ((twl_opt_exist(opt, "p") && twl_opt_args_len(opt) == 0)
-		|| twl_opt_args_len(opt) == 0)
+			|| twl_opt_args_len(opt) == 0)
+		{
+
 			builtin_readonly_verbose(env);
+		}
 		else
+		{
 			builtin_readonly_add(env, opt);
+		}
 	}
 	twl_arr_del(arr, NULL);
 	twl_opt_del(opt);

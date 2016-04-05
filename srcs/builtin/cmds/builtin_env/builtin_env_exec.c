@@ -16,6 +16,8 @@
 
 static void			exec_remaining_command(t_argparser_result *argparser_result)
 {
+	t_shvar			*shvar;
+
 	if (argparser_result_opt_is_set(argparser_result, "i"))
 	{
 		shenv_singleton()->shvars = twl_lst_new();
@@ -23,7 +25,8 @@ static void			exec_remaining_command(t_argparser_result *argparser_result)
 	t_lst *remainders_copy = twl_lst_copy(argparser_result->remainders, NULL);
 	while (twl_lst_first(remainders_copy) && twl_strchr(twl_lst_first(remainders_copy), '='))
 	{
-		shenv_shvars_set_split_by_equal(shenv_singleton(), twl_lst_pop_front(remainders_copy), "env");
+		shvar = shenv_shvars_set_split_by_equal(shenv_singleton(), twl_lst_pop_front(remainders_copy), "env");
+		shvar->shvar_exported = true;
 	}
 	if (twl_lst_len(remainders_copy) == 0)
 	{
