@@ -35,8 +35,7 @@ static void			unset_something(void *data, void *context, void *ret_)
 			}
 			else
 			{
-				twl_dprintf(2, "unset: %s: cannot unset: readonly variable\n",
-																	arg);
+				shenv_singl_error(EXIT_FAILURE, "unset: %s: cannot unset: readonly variable", arg);
 				*ret = EXIT_FAILURE;
 			}
 		}
