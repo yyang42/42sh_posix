@@ -95,7 +95,7 @@ static int	parse_symbolic_mode_2(t_parse_mask *pm)
 	}
 	else
 	{
-		twl_dprintf(2, "%c: invalid symbolic mode character", *pm->s);
+		shenv_singl_error(139, "umask: `%c': invalid symbolic mode character", *pm->s);
 		return (false);
 	}
 	return (2);
@@ -117,7 +117,7 @@ int					builtin_umask_parse_symbolic_mode(char *mode, int initial_bits)
 		pm.op = *pm.s++;
 		if (pm.op != '+' && pm.op != '-' && pm.op != '=')
 		{
-			twl_dprintf(2, "%c: invalid symbolic mode operator", pm.op);
+			shenv_singl_error(139, "umask: `%c': invalid symbolic mode operator", pm.op);
 			return (-1);
 		}
 		rwx_loop(&pm);

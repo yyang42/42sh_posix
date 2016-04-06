@@ -72,7 +72,7 @@ static int			modify_umask(t_argparser_result *argparser_result, char *arg)
 	return (EXIT_SUCCESS);
 }
 
-static void			builtin_umask_2(t_argparser_result *argparser_result, int *flag)
+static void			builtin_umask_2(t_argparser_result *argparser_result)
 {
 	int				umask_arg;
 
@@ -81,10 +81,11 @@ static void			builtin_umask_2(t_argparser_result *argparser_result, int *flag)
 	if (argparser_result_opt_is_set(argparser_result, "S"))
 	{
 		builtin_umask_print_symbolic(umask_arg);
-		*flag = EXIT_SUCCESS;
 	}
 	else
+	{
 		twl_printf("%04lo\n", (unsigned long)umask_arg);
+	}
 }
 
 void				builtin_umask_exec(t_lst *tokens, t_shenv *env)
@@ -93,7 +94,7 @@ void				builtin_umask_exec(t_lst *tokens, t_shenv *env)
 	int				flag;
 
 	argparser_result = argparser_parse_tokens(builtin_umask_argparser(), tokens);
-	flag = EXIT_FAILURE;
+	flag = EXIT_SUCCESS;
 	if (argparser_result->err_msg)
 	{
 		argparser_result_print_usage_exit_status(argparser_result, 2);
@@ -103,7 +104,7 @@ void				builtin_umask_exec(t_lst *tokens, t_shenv *env)
 	{
 		if (twl_lst_len(argparser_result->remainders) == 0)
 		{
-			builtin_umask_2(argparser_result, &flag);
+			builtin_umask_2(argparser_result);
 		}
 		else
 		{

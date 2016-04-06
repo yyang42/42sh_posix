@@ -1,0 +1,2 @@
+umask +Y
+umask %w
