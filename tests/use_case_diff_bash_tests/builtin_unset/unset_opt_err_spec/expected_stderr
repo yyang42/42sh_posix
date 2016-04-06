@@ -1,0 +1,4 @@
+unset: illegal option: x
+usage: unset [-vf] unset [-f] [-v] [name ...]
+  -v                            Unset variable
+  -f                            Unset function

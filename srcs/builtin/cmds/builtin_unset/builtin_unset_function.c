@@ -33,11 +33,11 @@ static void			unset_something(void *data, void *context, void *ret_)
 	}
 }
 
-int					builtin_unset_function(t_shenv *env, t_opt *opt)
+int					builtin_unset_function(t_shenv *env, t_lst *remainders)
 {
 	int	ret;
 
 	ret = EXIT_FAILURE;
-	twl_lst_iter2(opt->args, unset_something, env, &ret);
+	twl_lst_iter2(remainders, unset_something, env, &ret);
 	return (ret);
 }

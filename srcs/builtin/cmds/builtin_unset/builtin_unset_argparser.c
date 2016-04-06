@@ -11,42 +11,20 @@
 /* ************************************************************************** */
 
 #include "builtin/cmds/builtin_unset.h"
-#include "shenv/shenv.h"
-#include "twl_opt.h"
 
-static void			unset_something(void *data, void *context, void *ret_)
+t_argparser			*builtin_unset_argparser(void)
 {
-	t_shenv		*env;
-	char				*arg;
-	int					*ret;
-	t_shvar	*var;
+	static t_argparser		*argparser;
 
-	arg = data;
-	env = context;
-	ret = ret_;
-	if (arg)
+	if (argparser == NULL)
 	{
-		if ((var = shenv_shvars_get(env, arg)))
-		{
-			if (var->shvar_read_only == false)
-			{
-				shenv_unsetenv(env, arg);
-				*ret = EXIT_SUCCESS;
-			}
-			else
-			{
-				shenv_singl_error(EXIT_FAILURE, "unset: %s: cannot unset: readonly variable", arg);
-				*ret = EXIT_FAILURE;
-			}
-		}
+		argparser = argparser_new("unset");
+		argparser_set_usage_extra(argparser,
+			" unset [-f] [-v] [name ...]");
+		argparser_add_argument(argparser,
+			argparser_argument_new('v', NULL, "Unset variable", 0));
+		argparser_add_argument(argparser,
+			argparser_argument_new('f', NULL, "Unset function", 0));
 	}
-}
-
-int					builtin_unset_variable(t_shenv *env, t_lst *remainders)
-{
-	int	ret;
-
-	ret = EXIT_FAILURE;
-	twl_lst_iter2(remainders, unset_something, env, &ret);
-	return (ret);
+	return (argparser);
 }

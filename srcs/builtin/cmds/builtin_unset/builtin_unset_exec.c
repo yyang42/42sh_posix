@@ -12,19 +12,23 @@
 
 #include "builtin/cmds/builtin_unset.h"
 
-static int			check_flags(t_shenv *env, t_opt *opt)
+static int			check_flags(t_shenv *env, t_argparser_result *argparser_result)
 {
 	int	ret;
 
-	if (twl_opt_exist(opt, "f"))
-		return (builtin_unset_function(env, opt));
-	else if (twl_opt_exist(opt, "v"))
-		return (builtin_unset_variable(env, opt));
+	if (argparser_result_opt_is_set(argparser_result, "f"))
+	{
+		return (builtin_unset_function(env, argparser_result->remainders));
+	}
+	else if (argparser_result_opt_is_set(argparser_result, "v"))
+	{
+		return (builtin_unset_variable(env, argparser_result->remainders));
+	}
 	else
 	{
-		ret = builtin_unset_variable(env, opt);
+		ret = builtin_unset_variable(env, argparser_result->remainders);
 		if (ret == EXIT_FAILURE)
-			return (builtin_unset_function(env, opt));
+			return (builtin_unset_function(env, argparser_result->remainders));
 		else
 			return (ret);
 	}
@@ -32,27 +36,24 @@ static int			check_flags(t_shenv *env, t_opt *opt)
 
 void				builtin_unset_exec(t_lst *tokens, t_shenv *env)
 {
-	t_opt			*opt;
-	char			**arr;
-	int				flag;
+	t_argparser_result *argparser_result;
 
-	flag = EXIT_SUCCESS;
-	arr = token_mgr_to_str_arr(tokens);
-	opt = twl_opt_new(arr, UNSET_OPT_VALID_OPTS);
-	if (builtin_utils_check_invalid_opts(opt, "unset", UNSET_OPT_VALID_OPTS))
-		flag = EXIT_FAILURE;
+	argparser_result = argparser_parse_tokens(builtin_unset_argparser(), tokens);
+	if (argparser_result->err_msg)
+	{
+		argparser_result_print_usage_exit_status(argparser_result, 2);
+	}
 	else
 	{
-		if (twl_opt_get_param(opt, "f") && twl_opt_get_param(opt, "v"))
+		if (argparser_result_opt_is_set(argparser_result, "v")
+			&& argparser_result_opt_is_set(argparser_result, "f"))
 		{
-			twl_dprintf(2, "unset: cannot simultaneously unset \
-													a function and a variable\n");
-			flag = EXIT_FAILURE;
+			shenv_singl_error(1, "unset: cannot simultaneously unset"
+				" a function and a variable");
 		}
 		else
-			flag = check_flags(env, opt);
+		{
+			env->last_exit_code = check_flags(env, argparser_result);
+		}
 	}
-	env->last_exit_code = flag;
-	twl_arr_del(arr, NULL);
-	twl_opt_del(opt);
 }
