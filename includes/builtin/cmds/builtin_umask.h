@@ -18,7 +18,7 @@
 # include "basics.h"
 # include "builtin/builtin.h"
 # include "twl_arr.h"
-# include "twl_opt.h"
+# include "argparser_extension.h"
 # include "twl_opt_elem.h"
 # include "error.h"
 # include "twl_ctype.h"
@@ -49,5 +49,6 @@ typedef struct	s_parse_mask
 void			builtin_umask_exec(t_lst *tokens, t_shenv *this);
 void			builtin_umask_print_symbolic(mode_t um);
 int				builtin_umask_parse_symbolic_mode(char *mode, int initial_bits);
+t_argparser		*builtin_umask_argparser(void);
 
 #endif

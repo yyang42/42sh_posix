@@ -10,22 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_redir_fd.h"
-#include "shenv/shenv.h"
+#include "builtin/cmds/builtin_umask.h"
 
-void	ast_redir_fd_redir_output(t_ast_redir *redir, t_ast_redir_fd *redir_fd)
+t_argparser			*builtin_umask_argparser(void)
 {
-	redir_fd->fd_save = dup(redir->io_number == -1
-		? STDOUT_FILENO : redir->io_number);
-	redir_fd->fd_origin = redir->io_number == -1
-		? STDOUT_FILENO : redir->io_number;
-	if (twl_strequ(">", redir->operator) || twl_strequ(">|", redir->operator))
+	static t_argparser		*argparser;
+
+	if (argparser == NULL)
 	{
-		redir_fd->fd_file = create_file(redir->param);
-		LOGGER_DEBUG("create redir_fd->fd_file: %d", redir_fd->fd_file);
+		argparser = argparser_new("umask");
+		argparser_set_usage_extra(argparser, " [mode]");
+		argparser_add_argument(argparser,
+			argparser_argument_new('S', NULL, "Produce symbolic output.", 0));
 	}
-	else if (twl_strequ(">>", redir->operator))
-	{
-		redir_fd->fd_file = append_to_file(redir->param);
-	}
+	return (argparser);
 }

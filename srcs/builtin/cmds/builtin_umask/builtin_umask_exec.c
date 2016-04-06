@@ -45,7 +45,7 @@ static int			symbolic_umask(char *arg)
 	return (um);
 }
 
-static int			modify_umask(t_opt *opt, char *arg)
+static int			modify_umask(t_argparser_result *argparser_result, char *arg)
 {
 	int		umask_value;
 	mode_t	umask_arg;
@@ -67,18 +67,18 @@ static int			modify_umask(t_opt *opt, char *arg)
 	}
 	umask_arg = (mode_t)umask_value;
 	umask(umask_arg);
-	if (twl_opt_exist(opt, "-S"))
+	if (argparser_result_opt_is_set(argparser_result, "S"))
 		builtin_umask_print_symbolic(umask_arg);
 	return (EXIT_SUCCESS);
 }
 
-static void			builtin_umask_2(t_opt *opt, int *flag)
+static void			builtin_umask_2(t_argparser_result *argparser_result, int *flag)
 {
 	int				umask_arg;
 
 	umask_arg = umask(022);
 	umask(umask_arg);
-	if (twl_opt_exist(opt, "S"))
+	if (argparser_result_opt_is_set(argparser_result, "S"))
 	{
 		builtin_umask_print_symbolic(umask_arg);
 		*flag = EXIT_SUCCESS;
@@ -87,23 +87,28 @@ static void			builtin_umask_2(t_opt *opt, int *flag)
 		twl_printf("%04lo\n", (unsigned long)umask_arg);
 }
 
-void				builtin_umask_exec(t_lst *tokens, t_shenv *this)
+void				builtin_umask_exec(t_lst *tokens, t_shenv *env)
 {
-	t_opt			*opt;
-	char			**arr;
+	t_argparser_result *argparser_result;
 	int				flag;
 
-	arr = token_mgr_to_str_arr(tokens);
-	opt = twl_opt_new(arr, UMASK_OPT_VALID_OPTS);
+	argparser_result = argparser_parse_tokens(builtin_umask_argparser(), tokens);
 	flag = EXIT_FAILURE;
-	if (!builtin_utils_check_invalid_opts(opt, "umask", UMASK_OPT_VALID_OPTS))
+	if (argparser_result->err_msg)
 	{
-		if (twl_opt_args_len(opt) < 1)
-			builtin_umask_2(opt, &flag);
-		else
-			flag = modify_umask(opt, (char *)twl_lst_first(opt->args));
+		argparser_result_print_usage_exit_status(argparser_result, 2);
+		return ;
 	}
-	this->last_exit_code = flag;
-	twl_arr_del(arr, NULL);
-	twl_opt_del(opt);
+	else
+	{
+		if (twl_lst_len(argparser_result->remainders) == 0)
+		{
+			builtin_umask_2(argparser_result, &flag);
+		}
+		else
+		{
+			flag = modify_umask(argparser_result, (char *)twl_lst_first(argparser_result->remainders));
+		}
+	}
+	env->last_exit_code = flag;
 }

@@ -34,6 +34,7 @@ static void		iter_check_fn(void *data, void *context)
 		fd = append_to_file(redir->param);
 	else
 		return ;
+	LOGGER_DEBUG("fd: %d", fd);
 	if (fd < 0 || !ast_redir_fd_utils_is_valid_duplicate_fd(redir->io_number))
 		*is_good_file = false;
 	else
@@ -46,5 +47,6 @@ bool				ast_redir_mgr_check_files(t_lst *redirs)
 
 	is_good_file = true;
 	twl_lst_iter(redirs, iter_check_fn, &is_good_file);
+	LOGGER_DEBUG("is_good_file: %d", is_good_file);
 	return (is_good_file);
 }
