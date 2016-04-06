@@ -46,8 +46,6 @@ static void			iter_assign_fn(void *assign_, void *cmd_)
 
 static void			ast_simple_command_exec_with_redirs(t_ast_simple_command *cmd)
 {
-	if (ast_redir_mgr_check_files(cmd->redir_items) == false)
-		return ;
 	ast_redir_fd_mgr_init(cmd->redir_fds, cmd->redir_items);
 	if (shenv_singleton()->last_exit_code != 0)
 		return ;

@@ -47,6 +47,8 @@ static void	iter_redir_fn(void *redir_, void *redir_fds)
 	t_ast_redir				*redir;
 	t_ast_redir_fd			*redir_fd;
 
+	if (shenv_singleton()->last_exit_code > 0)
+		return ;
 	redir = redir_;
 	redir_fd = ast_redir_fd_new();
 	redir_fd->fd_file = -1;
@@ -69,6 +71,4 @@ static void	iter_redir_fn(void *redir_, void *redir_fds)
 void				ast_redir_fd_mgr_init(t_lst *redir_fds, t_lst *redir_items)
 {
 	twl_lst_iter(redir_items, iter_redir_fn, redir_fds);
-	(void)redir_fds;
-	(void)redir_items;
 }

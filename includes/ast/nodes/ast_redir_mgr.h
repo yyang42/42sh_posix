@@ -17,6 +17,4 @@
 
 # include "ast/nodes/ast_redir.h"
 
-bool				ast_redir_mgr_check_files(t_lst *redirs);
-
 #endif
