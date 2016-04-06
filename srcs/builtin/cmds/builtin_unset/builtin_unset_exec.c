@@ -48,12 +48,12 @@ void				builtin_unset_exec(t_lst *tokens, t_shenv *env)
 		if (argparser_result_opt_is_set(argparser_result, "v")
 			&& argparser_result_opt_is_set(argparser_result, "f"))
 		{
-			shenv_singl_error(1, "unset: cannot simultaneously unset"
+			shenv_singl_error(EXIT_FAILURE, "unset: cannot simultaneously unset"
 				" a function and a variable");
 		}
 		else
 		{
-			env->last_exit_code = check_flags(env, argparser_result);
+			check_flags(env, argparser_result);
 		}
 	}
 }
