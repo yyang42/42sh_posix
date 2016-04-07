@@ -22,12 +22,10 @@ void	ast_redir_fd_redir_output(t_ast_redir *redir, t_ast_redir_fd *redir_fd)
 	if (twl_strequ(">", redir->operator))
 	{
 		redir_fd->fd_file = file_create_handle_noclobber(redir->param);
-		LOGGER_DEBUG("create >: %d : %s", redir_fd->fd_file, redir->param->text);
 	}
 	else if (twl_strequ(">|", redir->operator))
 	{
 		redir_fd->fd_file = create_file(redir->param);
-		LOGGER_DEBUG("create >|: %d", redir_fd->fd_file);
 	}
 	else if (twl_strequ(">>", redir->operator))
 	{

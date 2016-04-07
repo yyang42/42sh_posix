@@ -27,7 +27,6 @@ int		create_file(t_token *token)
 {
 	int fd;
 	fd = file_open_and_hand_error(token, O_CREAT | O_RDWR | O_TRUNC, 0666);
-	LOGGER_DEBUG("create fd: %d", fd);
 	return (fd);
 }
 
