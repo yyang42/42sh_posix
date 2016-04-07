@@ -14,11 +14,5 @@
 
 void				builtin_unsetenv_exec(t_lst *tokens, t_shenv *env)
 {
-	char	*new_str;
-	char	*str;
-
-	str = token_mgr_strjoin(tokens, " "); // TODO: refactor
-	new_str = twl_strjoin("unset", &str[8]);
 	builtin_unset_exec(tokens, env);
-	free(new_str);
 }

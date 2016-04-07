@@ -10,19 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_UNSET_H
-# define BUILTIN_UNSET_H
+#include "builtin/cmds/builtin_setenv.h"
 
-# include "basics.h"
-# include "shenv/shenv.h"
-# include "builtin/builtin.h"
-# include "argparser_extension.h"
+t_argparser			*builtin_unsetenv_argparser(void)
+{
+	static t_argparser		*argparser;
 
-void				builtin_unset_exec(t_lst *tokens, t_shenv *env);
-int					builtin_unset_variable(t_shenv *env, t_lst *remainders);
-int					builtin_unset_function(t_shenv *env, t_lst *remainders);
-void				builtin_unsetenv_exec(t_lst *tokens, t_shenv *env);
-t_argparser			*builtin_unset_argparser(void);
-t_argparser			*builtin_unsetenv_argparser(void);
-
-#endif
+	if (argparser == NULL)
+	{
+		argparser = argparser_new("unsetenv");
+		argparser_set_usage_extra(argparser,
+			" [name ...]");
+		argparser_add_argument(argparser,
+			argparser_argument_new('v', NULL, "Unset variable", 0));
+		argparser_add_argument(argparser,
+			argparser_argument_new('f', NULL, "Unset function", 0));
+	}
+	return (argparser);
+}

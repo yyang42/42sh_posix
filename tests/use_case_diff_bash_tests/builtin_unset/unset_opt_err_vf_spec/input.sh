@@ -1,2 +1,1 @@
-readonly AAA
-unset AAA
+unset -v -f bla
