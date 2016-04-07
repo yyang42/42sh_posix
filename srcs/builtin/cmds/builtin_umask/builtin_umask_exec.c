@@ -55,7 +55,7 @@ static int			modify_umask(t_argparser_result *argparser_result, char *arg)
 		umask_value = read_octal(arg);
 		if (umask_value == -1)
 		{
-			error_octal_out_of_range(arg);
+			shenv_singl_error(EXIT_FAILURE, "umask: %s: octal number out of range", arg);
 			return (EXIT_FAILURE);
 		}
 	}

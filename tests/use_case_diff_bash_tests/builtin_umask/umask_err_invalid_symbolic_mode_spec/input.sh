@@ -1,0 +1,9 @@
+umask 777
+umask g+rw
+umask u=g
+umask z
+umask a
+umask x
+umask m
+umask @
+umask w
