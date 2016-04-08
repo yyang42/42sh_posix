@@ -10,40 +10,51 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "twl_stdlib.h"
-#include "twl_xunistd.h"
+#include "twl_ctype.h"
 
-#include "logger.h"
 #include "edit/edit.h"
-#include "edit/terminal.h"
 
-#define DISABLE_FLAG(flag_storage, flag) (flag_storage &= ~(flag))
-#define ENABLE_FLAG(flag_storage, flag) (flag_storage |= flag)
-
-
-char				*edit_loop(t_edit *this)
+static bool			str_is_print(char *str)
 {
-	int				key;
-	char			*cmd;
-	char			*final_cmd;
+	while (*str)
+	{
+		if (!twl_isprint(*str))
+			return (false);
+		str++;
+	}
+	return (true);
+}
 
-	cmd = NULL;
-	if (terminal_enable() == -1)
+int					edit_advance_getch(t_edit *this)
+{
+	char			buffer[4];
+	char			*str;
+	int				ret;
+	int				ret2;
+	int				ret_val;
+
+	ret_val = 0;
+	str = twl_strdup("");
+	twl_bzero(buffer, 4);
+	ret = read(0, buffer, 3);
+	LOGGER("ret: %d", ret);
+	ret2 = read(0, buffer, 3);
+	LOGGER("ret2: %d", ret2);
+	if (str_is_print(buffer))
 	{
-		twl_xprintf("TERMINAL ERROR");
+		str = twl_strjoinfree(str, buffer, 'l');
 	}
-	// TODO Error handling
-	edit_print_letters(this);
-	while (!this->return_cmd)
+	else
 	{
-		key = edit_getch_next_line(this);
-		LOGGER_INFO("KEYPRESS: %d", key);
-		cmd = edit_handle_one_input(this, key);
-		edit_print_letters(this);
-		edit_clear_line(this);
-		edit_debug_print(this);
+		ret_val = buffer[0];
+		ret_val += buffer[1] << 8;
+		ret_val += buffer[2] << 16;
 	}
-	final_cmd = edit_match_valide_cmd(cmd);
-	terminal_disable();
-	return twl_strtrim_free(final_cmd);
+	if (twl_strlen(str) > 0)
+	{
+		edit_handle_string(this, str);
+		ret_val = 0;
+	}
+	free(str);
+	return (ret_val);
 }
