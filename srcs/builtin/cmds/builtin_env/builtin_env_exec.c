@@ -13,17 +13,30 @@
 #include "builtin/cmds/builtin_env.h"
 #include "ast/ast.h"
 
+static void			exec_remainders(t_lst *remainders)
+{
+	char *str_cmd;
+
+	str_cmd = twl_lst_strjoin(remainders, " ");
+	ast_exec_string(str_cmd);
+	free(str_cmd);
+}
 
 static void			exec_remaining_command(t_argparser_result *argparser_result)
 {
+	t_shvar			*shvar;
+	t_lst *remainders_copy;
+
+
 	if (argparser_result_opt_is_set(argparser_result, "i"))
 	{
 		shenv_singleton()->shvars = twl_lst_new();
 	}
-	t_lst *remainders_copy = twl_lst_copy(argparser_result->remainders, NULL);
+	remainders_copy = twl_lst_copy(argparser_result->remainders, NULL);
 	while (twl_lst_first(remainders_copy) && twl_strchr(twl_lst_first(remainders_copy), '='))
 	{
-		shenv_shvars_set_split_by_equal(shenv_singleton(), twl_lst_pop_front(remainders_copy), "env");
+		shvar = shenv_shvars_set_split_by_equal(shenv_singleton(), twl_lst_pop_front(remainders_copy), "env");
+		shvar->shvar_exported = true;
 	}
 	if (twl_lst_len(remainders_copy) == 0)
 	{
@@ -31,8 +44,7 @@ static void			exec_remaining_command(t_argparser_result *argparser_result)
 	}
 	else
 	{
-		char			*str_cmd = twl_lst_strjoin(argparser_result->remainders, " ");
-		ast_exec_string(str_cmd);
+		exec_remainders(remainders_copy);
 	}
 }
 
@@ -44,10 +56,14 @@ static void			exec_remaining_command_in_new_env(t_argparser_result *argparser_re
 
 	env_src = shenv_singleton();
 	env_copy = shenv_copy(env_src);
+	free(env_copy->shenv_name);
+	env_copy->shenv_name = twl_strdup(SHENV_DEFAULT_NAME);
+	env_copy->jobs = env_src->jobs;
 	shenv_singleton_setter(env_copy);
 	exec_remaining_command(argparser_result);
 	env_src->last_exit_code = env_copy->last_exit_code;
 	shenv_singleton_setter(env_src);
+	env_copy->jobs = NULL;
 	shenv_del(env_copy);
 }
 

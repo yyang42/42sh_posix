@@ -1,0 +1,3 @@
+umask: illegal option: z
+usage: umask [-S] [mode]
+  -S                            Produce symbolic output.

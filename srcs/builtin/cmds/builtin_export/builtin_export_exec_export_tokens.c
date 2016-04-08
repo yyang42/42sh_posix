@@ -19,7 +19,11 @@
 
 static void			iter_fn(void *str_token, void *shenv, void *command_name)
 {
-	shenv_shvars_set_split_by_equal(shenv, str_token, command_name);
+	t_shvar			*shvar;
+
+	shvar = shenv_shvars_set_split_by_equal(shenv, str_token, command_name);
+	if (shvar)
+		shvar->shvar_exported = true;
 }
 
 void				builtin_export_exec_export_tokens(t_argparser_result *argparser_result, t_shenv *shenv)

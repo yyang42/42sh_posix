@@ -33,6 +33,10 @@ void				shenv_increase_shlvl(t_shenv *this)
 	}
 	else
 	{
-		shenv_shvars_set(this, "SHLVL", "1", this->shenv_name);
+		shvar = shenv_shvars_set(this, "SHLVL", "1", this->shenv_name);
+	}
+	if (shvar)
+	{
+		shvar->shvar_exported = true;
 	}
 }

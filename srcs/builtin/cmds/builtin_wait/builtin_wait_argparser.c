@@ -19,7 +19,7 @@ t_argparser			*builtin_wait_argparser(void)
 	if (argparser == NULL)
 	{
 		argparser = argparser_new("wait");
-		argparser_set_usage_extra(argparser, " [pid...]");
+		argparser_set_usage(argparser, " [pid...]");
 	}
 	return (argparser);
 }

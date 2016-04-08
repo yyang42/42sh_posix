@@ -1,0 +1,3 @@
+readonly: illegal option: z
+usage: readonly [-p] name[=word]...
+  -p                            Print all readonly variables

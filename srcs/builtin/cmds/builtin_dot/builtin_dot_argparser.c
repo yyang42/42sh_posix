@@ -19,7 +19,7 @@ t_argparser			*builtin_dot_argparser(void)
 	if (argparser == NULL)
 	{
 		argparser = argparser_new(".");
-		argparser_set_usage_extra(argparser,
+		argparser_set_usage(argparser,
 			" . filename [arguments]");
 	}
 	return (argparser);

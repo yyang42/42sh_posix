@@ -1,0 +1,4 @@
+unsetenv: illegal option: x
+usage: unsetenv [-vf] [name ...]
+  -v                            Unset variable
+  -f                            Unset function

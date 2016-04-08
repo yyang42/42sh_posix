@@ -13,15 +13,15 @@
 #include "file.h"
 #include "shenv/shenv.h"
 
-int		file_open_and_hand_error(t_token *token, int flags, int mod)
+int					file_open_and_hand_error(t_token *token, int flags, int mod)
 {
 	int fd;
+
 	fd = open(token->text, flags, mod);
 	if (fd == -1)
 	{
-		shenv_print_error_printf(shenv_singleton(),
-			token->line,
-			"%s: %s", token->text, SHENV_ERROR_FILE_NOT_FOUND);
+		shenv_singl_error(EXIT_FAILURE,
+			"%s: %s", token->text,  strerror(errno));
 	}
 	return (fd);
 }

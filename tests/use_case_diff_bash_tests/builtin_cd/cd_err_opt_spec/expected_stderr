@@ -1,0 +1,4 @@
+cd: illegal option: h
+usage: cd [-L|-P] [dir]
+  -L                            Handle the operand dot-dot logically
+  -P                            Handle the operand dot-dot physically

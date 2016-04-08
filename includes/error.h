@@ -18,6 +18,5 @@
 void	error_permission_denied(char *file);
 void	error_not_directory(char *file);
 void	error_command_not_found(char *file);
-void	error_octal_out_of_range(char *fd);
 
 #endif

@@ -18,9 +18,11 @@
 
 static void			ast_list_item_exec_child(t_ast_list_item *this)
 {
-	job_utils_sigs_dfl_on_interactive();
+	job_utils_sigs_dfl_on_interactive_for_chld_proc();
+	shenv_singleton()->shenv_is_inside_job_control = true;
 	ast_list_item_exec(this);
 }
+
 
 void				ast_list_item_exec_async(t_ast_list_item *this)
 {
@@ -34,7 +36,7 @@ void				ast_list_item_exec_async(t_ast_list_item *this)
 	else if (pgid == 0)
 	{
 		ast_list_item_exec_child(this);
-		exit(0);
+		exit(shenv_singleton()->last_exit_code);
 	}
 	else
 	{

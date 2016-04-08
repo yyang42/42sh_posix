@@ -25,18 +25,19 @@ static void			unset_something(void *data, void *context, void *ret_)
 	ret = ret_;
 	if (arg)
 	{
-		shenv_remove_shell_func(env, arg);
-		*ret = EXIT_SUCCESS;
+		if (twl_dict_key_exist(env->shfuncs, arg))
+		{
+			shenv_remove_shell_func(env, arg);
+			*ret = EXIT_SUCCESS;
+		}
 	}
 }
 
-int					builtin_unset_function(t_shenv *env, t_opt *opt)
+int					builtin_unset_function(t_shenv *env, t_lst *remainders)
 {
 	int	ret;
 
 	ret = EXIT_FAILURE;
-	(void)opt;
-	(void)env;
-	twl_lst_iter2(opt->args, unset_something, env, &ret);
+	twl_lst_iter2(remainders, unset_something, env, &ret);
 	return (ret);
 }

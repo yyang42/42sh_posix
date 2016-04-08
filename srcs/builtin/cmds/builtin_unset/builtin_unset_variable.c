@@ -35,21 +35,18 @@ static void			unset_something(void *data, void *context, void *ret_)
 			}
 			else
 			{
-				twl_dprintf(2, "unset: %s: cannot unset: readonly variable\n",
-																	arg);
+				shenv_singl_error(EXIT_FAILURE, "unset: %s: cannot unset: readonly variable", arg);
 				*ret = EXIT_FAILURE;
 			}
 		}
 	}
 }
 
-int					builtin_unset_variable(t_shenv *env, t_opt *opt)
+int					builtin_unset_variable(t_shenv *env, t_lst *remainders)
 {
 	int	ret;
 
 	ret = EXIT_FAILURE;
-	(void)opt;
-	(void)env;
-	twl_lst_iter2(opt->args, unset_something, env, &ret);
+	twl_lst_iter2(remainders, unset_something, env, &ret);
 	return (ret);
 }

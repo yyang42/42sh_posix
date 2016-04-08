@@ -58,5 +58,6 @@ void					ast_simple_command_exec_function(t_lst *tokens, struct s_ast_compound_c
 void					ast_simple_command_execve_child(char *path, char **args,
 																	char **env);
 void					ast_simple_command_execve_parent(t_ast_simple_command *cmd, pid_t pid);
+void					ast_simple_command_execve_parent_wait(pid_t pid);
 
 #endif

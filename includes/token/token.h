@@ -30,6 +30,8 @@ typedef struct		s_token
 t_token				*token_new(char *text, int line, int col);
 void				token_del(t_token *this);
 
+void				token_set_text(t_token *token, char *text);
+
 t_token				*token_arexp(char *text);
 
 bool				token_is_control_operators_nl(t_token *this);

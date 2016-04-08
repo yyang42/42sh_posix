@@ -12,7 +12,7 @@
 
 #include "ast/nodes/ast_list_item.h"
 
-static void			iter_fn(void *ast_andor_item_, void *prev_, void *ctx)
+static void			iter_fn(void *ast_andor_item_, void *prev_, void *last_item)
 {
 	t_ast_andor_item	*ast_andor_item;
 	t_ast_andor_item	*prev;
@@ -26,11 +26,15 @@ static void			iter_fn(void *ast_andor_item_, void *prev_, void *ctx)
 		|| (prev->separator->type == TOKEN_OR_IF && last_exit_code > 0))
 	{
 		ast_andor_item_exec(ast_andor_item);
+		if (ast_andor_item == last_item)
+			shenv_exit_if_errexit_enabled(shenv_singleton());
 	}
-	(void)ctx;
 }
 
 void				ast_list_item_exec(t_ast_list_item *ast_list_item)
 {
-	twl_lst_iterp(ast_list_item->ast_andor_items, &iter_fn, NULL);
+	t_ast_andor_item	*last_item;
+
+	last_item = twl_lst_last(ast_list_item->ast_andor_items);
+	twl_lst_iterp(ast_list_item->ast_andor_items, &iter_fn, last_item);
 }

@@ -50,6 +50,7 @@ void				builtin_break_exec(t_lst *tokens, t_shenv *env)
 	}
 	else
 	{
-		LOGGER_DEBUG("too many args");
+		shenv_singleton()->shenv_break_counter = -1;
+		shenv_singl_error(EXIT_FAILURE, "break: too many arguments");
 	}
 }

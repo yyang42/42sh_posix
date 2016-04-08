@@ -49,17 +49,14 @@ static void	rwx_loop(t_parse_mask *pm)
 		if (pm->c == 'r')
 		{
 			pm->perm |= S_IRUGO;
-			break ;
 		}
 		else if (pm->c == 'w')
 		{
 			pm->perm |= S_IWUGO;
-			break ;
 		}
 		else if (pm->c == 'x')
 		{
 			pm->perm |= S_IXUGO;
-			break ;
 		}
 	}
 }
@@ -67,19 +64,25 @@ static void	rwx_loop(t_parse_mask *pm)
 static void	parse_symbolic_mode_3(t_parse_mask *pm)
 {
 	if (pm->who)
+	{
 		pm->perm &= pm->who;
+	}
 	if (pm->op == '+')
+	{
 		pm->bits |= pm->perm;
+	}
 	else if (pm->op == '-')
+	{
 		pm->bits &= ~pm->perm;
+	}
 	else if (pm->op == '=')
 	{
 		if (pm->who == 0)
 		{
 			pm->who = S_IRWXU | S_IRWXG | S_IRWXO;
-			pm->bits &= ~pm->who;
-			pm->bits |= pm->perm;
 		}
+		pm->bits &= ~pm->who;
+		pm->bits |= pm->perm;
 	}
 }
 
@@ -95,7 +98,7 @@ static int	parse_symbolic_mode_2(t_parse_mask *pm)
 	}
 	else
 	{
-		twl_dprintf(2, "%c: invalid symbolic mode character", *pm->s);
+		shenv_singl_error(139, "umask: `%c': invalid symbolic mode character", *pm->s);
 		return (false);
 	}
 	return (2);
@@ -107,17 +110,17 @@ int					builtin_umask_parse_symbolic_mode(char *mode, int initial_bits)
 	int				flag;
 
 	pm.s = mode;
+	pm.bits = initial_bits;
 	while (true)
 	{
-		pm.bits = initial_bits;
 		pm.who = 0;
 		pm.op = 0;
 		pm.perm = 0;
 		agou_loop(&pm);
 		pm.op = *pm.s++;
-		if (pm.op != '+' && pm.op != '-' && pm.op != '=')
+		if (!pm.op || !twl_strchr("+-=", pm.op))
 		{
-			twl_dprintf(2, "%c: invalid symbolic mode operator", pm.op);
+			shenv_singl_error(139, "umask: `%c': invalid symbolic mode operator", pm.op);
 			return (-1);
 		}
 		rwx_loop(&pm);

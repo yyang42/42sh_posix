@@ -36,8 +36,6 @@ void				ast_compound_command_exec_with_redirs(t_ast_compound_command *this)
 {
 	t_compound_command_exec_fn compond_exec_fn;
 
-	if (ast_redir_mgr_check_files(this->redir_items) == false)
-		return ;
 	ast_redir_fd_mgr_init(this->redir_fds, this->redir_items);
 	compond_exec_fn = get_exec_fns()[this->command_type];
 	if (compond_exec_fn)

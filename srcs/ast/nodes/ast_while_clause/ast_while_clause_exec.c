@@ -21,7 +21,7 @@ void				ast_while_clause_exec(t_ast_while_clause *this)
 	saved_exit_code = 0;
 	while (shenv_loop_should_exec(shenv_singleton()))
 	{
-		ast_compound_list_exec(this->cond_compound);
+		ast_compound_list_exec_ignore_errexit(this->cond_compound);
 		if (shenv_singleton()->last_exit_code != 0)
 			break ;
 		ast_compound_list_exec(this->do_group);

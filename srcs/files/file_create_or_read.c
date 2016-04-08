@@ -25,7 +25,9 @@ int 	read_file(t_token *token)
 
 int		create_file(t_token *token)
 {
-	return (file_open_and_hand_error(token, O_CREAT | O_RDWR | O_TRUNC, 0666));
+	int fd;
+	fd = file_open_and_hand_error(token, O_CREAT | O_RDWR | O_TRUNC, 0666);
+	return (fd);
 }
 
 int		read_write_file(t_token *token)

@@ -15,25 +15,18 @@
 #include "twl_opt.h"
 #include "twl_lst.h"
 
-static void			readonly_something(void *data, void *context)
+static void			readonly_something(void *str_arg, void *env)
 {
-	t_shenv		*env;
-	char				*arg;
-	t_shvar	*var;
+	t_shvar			*shvar;
 
-	arg = data;
-	env = context;
-	if (arg)
+	shvar = shenv_shvars_set_split_by_equal(env, str_arg, "readonly");
+	if (shvar)
 	{
-		var = shenv_shvars_set_split_by_equal(env, arg, "readonly");
-		if (var)
-		{
-			var->shvar_read_only = true;
-		}
+		shvar->shvar_read_only = true;
 	}
 }
 
-void				builtin_readonly_add(t_shenv *env, t_opt *opt)
+void				builtin_readonly_add(t_shenv *env, t_lst *remainders)
 {
-	twl_lst_iter(opt->args, readonly_something, env);
+	twl_lst_iter(remainders, readonly_something, env);
 }

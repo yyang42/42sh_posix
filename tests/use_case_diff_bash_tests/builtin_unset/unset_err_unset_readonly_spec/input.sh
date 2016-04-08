@@ -1,0 +1,2 @@
+readonly AAA
+unset AAA

@@ -19,7 +19,7 @@ t_argparser			*builtin_setenv_argparser(void)
 	if (argparser == NULL)
 	{
 		argparser = argparser_new("setenv");
-		argparser_set_usage_extra(argparser, " [name[=value] ...]");
+		argparser_set_usage(argparser, " [name[=value] ...]");
 	}
 	return (argparser);
 }

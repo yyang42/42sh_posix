@@ -25,40 +25,34 @@ static void         sigtstp_handler(int sig)
     longjmp(jump_buf, 1);
 }
 
-void				ast_simple_command_execve_parent_wait(pid_t pid)
+static void         ast_simple_command_execve_parent_wait_catch_stop(t_ast_simple_command *cmd, pid_t pid)
 {
-	int				res;
-	pid_t			waitpid_ret;
+    sig_t           saved_sig_handler;
 
- 	waitpid_ret = waitpid(pid, &res, 0);
- 	if (waitpid_ret == -1)
- 	{
- 		perror("waitpid");
- 	}
- 	else if (waitpid_ret == pid)
- 	{
-        handle_signal(res);
-        if (WIFEXITED(res))
-        {
-			shenv_singleton()->last_exit_code = WEXITSTATUS(res);
-			LOGGER_INFO("exit status: %d", shenv_singleton()->last_exit_code);
-    	}
- 	}
+    saved_sig_handler = signal(SIGTSTP, sigtstp_handler);
+    setpgid(pid, pid);
+    LOGGER_INFO("set SIGTSTP handler");
+    if (setjmp(jump_buf) == 0)
+    {
+        ast_simple_command_execve_parent_wait(pid);
+    }
+    else
+    {
+        if (kill(-pid, SIGTSTP) == -1)
+            shenv_singl_error(EXIT_FAILURE, "kill: %s", strerror(errno));
+        ast_list_item_exec_async_parent_create_job(cmd->full_command_tokens, pid);
+    }
+   signal(SIGTSTP, saved_sig_handler);
 }
 
 void				ast_simple_command_execve_parent(t_ast_simple_command *cmd, pid_t pid)
 {
-	signal(SIGTSTP, sigtstp_handler);
-	setpgid(pid, pid);
-    if (setjmp(jump_buf) == 0)
+    if (shenv_singleton()->shenv_is_inside_job_control)
     {
-		ast_simple_command_execve_parent_wait(pid);
+        ast_simple_command_execve_parent_wait(pid);
     }
     else
     {
-		if (kill(-pid, SIGTSTP) == -1)
-			perror("kill");
-    	ast_list_item_exec_async_parent_create_job(cmd->full_command_tokens, pid);
+        ast_simple_command_execve_parent_wait_catch_stop(cmd, pid);
     }
-	signal(SIGTSTP, SIG_IGN);
 }

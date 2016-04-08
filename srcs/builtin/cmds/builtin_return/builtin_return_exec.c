@@ -30,7 +30,7 @@ static void			builtin_return_exec_one_arg(char *str_counter)
 	}
 	else
 	{
-		shenv_singl_error(128, "return: %s: numeric argument required", str_counter);
+		shenv_singl_error(255, "return: %s: numeric argument required", str_counter);
 	}
 }
 
@@ -54,6 +54,6 @@ void				builtin_return_exec(t_lst *tokens, t_shenv *env)
 	}
 	else
 	{
-		LOGGER_DEBUG("too many args");
+		shenv_singl_error(EXIT_FAILURE, "return: too many arguments");
 	}
 }

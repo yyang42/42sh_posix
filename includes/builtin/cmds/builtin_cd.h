@@ -24,8 +24,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include "builtin/builtin.h"
-# include "twl_opt.h"
-# include "twl_opt_elem.h"
+# include "argparser_extension.h"
 
 # define MAX_SIZE 4096
 
@@ -38,5 +37,6 @@ char				*set_canonical_form(char *path);
 
 void				builtin_cd_utils_get_flags(t_opt *opt, int *no_symlinks);
 int					builtin_cd_utils_free_all(char *dirname, char **args, t_opt *opt);
+t_argparser			*builtin_cd_argparser(void);
 
 #endif

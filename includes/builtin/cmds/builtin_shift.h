@@ -17,11 +17,10 @@
 # include <sys/types.h>
 # include "basics.h"
 # include "builtin/builtin.h"
-# include "twl_opt.h"
-# include "twl_opt_elem.h"
 # include "error.h"
-# define SHIFT_OPT_VALID_OPTS ""
+# include "argparser_extension.h"
 
-void			builtin_shift_exec(t_lst *tokens, t_shenv *env);
+void				builtin_shift_exec(t_lst *tokens, t_shenv *env);
+t_argparser			*builtin_shift_argparser(void);
 
 #endif

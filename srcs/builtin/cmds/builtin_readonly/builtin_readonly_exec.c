@@ -12,23 +12,27 @@
 
 #include "builtin/cmds/builtin_readonly.h"
 
-# define EXPORT_OPT_VALID_OPTS "p"
-
 void				builtin_readonly_exec(t_lst *tokens, t_shenv *env)
 {
-	t_opt			*opt;
-	char			**arr;
+	t_argparser_result	*argparser_result;
+	t_lst				*remainders;
 
-	arr = token_mgr_to_str_arr(tokens);
-	opt = twl_opt_new(arr, EXPORT_OPT_VALID_OPTS);
-	if (!builtin_utils_check_invalid_opts(opt, "readonly", EXPORT_OPT_VALID_OPTS))
+	env->shenv_cur_token = token_mgr_first(tokens);
+	argparser_result = argparser_parse_tokens(builtin_readonly_argparser(), tokens);
+	remainders = argparser_result->remainders;
+	if (argparser_result->err_msg)
 	{
-		if ((twl_opt_exist(opt, "p") && twl_opt_args_len(opt) == 0)
-		|| twl_opt_args_len(opt) == 0)
-			builtin_readonly_verbose(env);
-		else
-			builtin_readonly_add(env, opt);
+		argparser_result_print_usage_exit_status(argparser_result, 2);
 	}
-	twl_arr_del(arr, NULL);
-	twl_opt_del(opt);
+	else
+	{
+		if (twl_lst_len(remainders) > 0)
+		{
+			builtin_readonly_add(env, remainders);
+		}
+		else
+		{
+			builtin_readonly_verbose(env);
+		}
+	}
 }

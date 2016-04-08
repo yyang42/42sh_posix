@@ -14,15 +14,15 @@
 # define BUILTIN_UNSET_H
 
 # include "basics.h"
-# include "twl_opt.h"
 # include "shenv/shenv.h"
 # include "builtin/builtin.h"
-
-# define UNSET_OPT_VALID_OPTS "fv"
+# include "argparser_extension.h"
 
 void				builtin_unset_exec(t_lst *tokens, t_shenv *env);
-int					builtin_unset_variable(t_shenv *env, t_opt *opt);
-int					builtin_unset_function(t_shenv *env, t_opt *opt);
+int					builtin_unset_variable(t_shenv *env, t_lst *remainders);
+int					builtin_unset_function(t_shenv *env, t_lst *remainders);
 void				builtin_unsetenv_exec(t_lst *tokens, t_shenv *env);
+t_argparser			*builtin_unset_argparser(void);
+t_argparser			*builtin_unsetenv_argparser(void);
 
 #endif

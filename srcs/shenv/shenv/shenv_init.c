@@ -26,11 +26,13 @@ static void			init_env_info(t_shenv_info *info)
 static void			init_env(void *elem, void *context)
 {
 	char			*environ_elem;
-	t_shenv	*this;
+	t_shenv			*this;
+	t_shvar			*shvar;
 
 	environ_elem = elem;
 	this = context;
-	shenv_shvars_set_split_by_equal(this, environ_elem, NULL);
+	shvar = shenv_shvars_set_split_by_equal(this, environ_elem, NULL);
+	shvar->shvar_exported = true;
 }
 
 static void			fill_flag_verbose_dict(t_dict *dict)

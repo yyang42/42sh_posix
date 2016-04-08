@@ -19,7 +19,7 @@ t_argparser			*builtin_bg_argparser(void)
 	if (argparser == NULL)
 	{
 		argparser = argparser_new("bg");
-		argparser_set_usage_extra(argparser, " [job_id...]");
+		argparser_set_usage(argparser, " [job_id...]");
 	}
 	return (argparser);
 }

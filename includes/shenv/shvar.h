@@ -35,4 +35,7 @@ void				shvar_set_value(t_shvar *this, char *value);
 char				*shvar_get_visible_value(t_shvar *this);
 char				*shvar_get_visible_export_value(t_shvar *this);
 
+t_lst				*shvar_utils_split_by_equal(char *str);
+void				shvar_check_print_readonly_error(t_shvar *this);
+
 #endif

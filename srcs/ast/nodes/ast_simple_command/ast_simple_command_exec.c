@@ -21,12 +21,14 @@
 static void			iter_assign_fn(void *assign_, void *cmd_)
 {
 	t_ast_assignment		*assign;
-	t_ast_simple_command *cmd;
-	t_shvar			*shvar;
+	t_ast_simple_command 	*cmd;
+	t_shvar					*shvar;
 
 	assign = assign_;
 	cmd = cmd_;
+	shenv_singleton()->shenv_cur_token = assign->token;
 	shvar = shvar_mgr_find_or_create(shenv_singleton()->shvars, assign->key);
+	shvar_check_print_readonly_error(shvar);
 	if (twl_lst_len(cmd->command_tokens) == 0
 		|| token_mgr_first_equ(cmd->command_tokens, ":"))
 	{
@@ -36,12 +38,14 @@ static void			iter_assign_fn(void *assign_, void *cmd_)
 	{
 		shvar->shvar_assign_value = twl_strdup(assign->value);
 	}
+	if (shenv_flag_exist(shenv_singleton(), "a"))
+	{
+		shvar->shvar_exported = true;
+	}
 }
 
 static void			ast_simple_command_exec_with_redirs(t_ast_simple_command *cmd)
 {
-	if (ast_redir_mgr_check_files(cmd->redir_items) == false)
-		return ;
 	ast_redir_fd_mgr_init(cmd->redir_fds, cmd->redir_items);
 	if (shenv_singleton()->last_exit_code != 0)
 		return ;

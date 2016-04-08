@@ -12,7 +12,7 @@
 
 #include "builtin/cmds/builtin_cd.h"
 
-static char	*get_dirname_from_arg(t_opt *opt, t_shenv *this)
+static char	*get_dirname_from_arg(t_lst *remainders, t_shenv *this)
 {
 	static char	buf[MAX_SIZE];
 	char		*dirname;
@@ -20,7 +20,7 @@ static char	*get_dirname_from_arg(t_opt *opt, t_shenv *this)
 
 	dirname = NULL;
 	twl_bzero(buf, MAX_SIZE);
-	dirname = twl_strdup(twl_opt_args_get(opt, 0));
+	dirname = twl_strdup(twl_lst_get(remainders, 0));
 	if (!dirname || *dirname == '\0')
 		return (NULL);
 	if (dirname[0] != '/' && twl_strncmp(dirname, "..", 2) != 0)
@@ -32,67 +32,56 @@ static char	*get_dirname_from_arg(t_opt *opt, t_shenv *this)
 	return (dirname);
 }
 
-static int	get_dirname(char **dirname, t_opt *opt, t_lst *tokens,
-	t_shenv *this)
+static int	get_dirname(char **dirname, t_lst *remainders, t_shenv *this)
 {
 	char	*tmp;
 
-	if (twl_lst_len(tokens) >= 2
-		&& twl_strequ(token_mgr_get(tokens, 1)->text, "-"))
+	if (twl_lst_len(remainders) >= 1 && twl_strequ(twl_lst_first(remainders), "-"))
 	{
 		tmp = shenv_shvars_get_value(this, "OLDPWD");
 		if (tmp == NULL)
 		{
-			twl_dprintf(2, "cd: OLDPWD not set\n");
+			shenv_singl_error(EXIT_FAILURE, "cd: OLDPWD not set");
 			return (-1);
 		}
 		*dirname = twl_strdup(tmp);
 		twl_printf("%s\n", *dirname);
 		return (1);
 	}
-	else if (twl_opt_args_len(opt) == 0)
+	else if (twl_lst_len(remainders) == 0)
 	{
-		tmp = twl_strdup(shenv_shvars_get_value(this, "HOME"));
+		tmp = shenv_shvars_get_value(this, "HOME");
 		if (tmp == NULL || *tmp == '\0')
 		{
-			twl_dprintf(2, "cd: HOME not set\n");
+			shenv_singl_error(EXIT_FAILURE, "cd: HOME not set");
 			return (-1);
 		}
 		*dirname = twl_strdup(tmp);
-		twl_strdel(&tmp);
 		return (1);
 	}
 	return (0);
 }
 
-void				builtin_cd_exec(t_lst *tokens, t_shenv *this)
+void				builtin_cd_exec_old(t_argparser_result	*argparser_result, t_shenv *this)
 {
 	int					no_symlinks;
-	t_opt				*opt;
-	char				**args;
 	char				*dirname;
 	char				*old_dirname;
 
 	dirname = NULL;
 	no_symlinks = 0;
-	args = token_mgr_to_str_arr(tokens);
-	opt = twl_opt_new(args, "LP");
-	if (builtin_utils_check_invalid_opts(opt, "cd", "LP"))
+	if (argparser_result_opt_is_set(argparser_result, "P"))
+		no_symlinks = 1;
+	if (argparser_result_opt_is_set(argparser_result, "L"))
+		no_symlinks = 0;
+	if (get_dirname(&dirname, argparser_result->remainders, this) < 0)
 	{
-		builtin_cd_utils_free_all(dirname, args, opt);
-		return ;
-	}
-	builtin_cd_utils_get_flags(opt, &no_symlinks);
-	if (get_dirname(&dirname, opt, tokens, this) < 0)
-	{
-		builtin_cd_utils_free_all(dirname, args, opt);
 		return ;
 	}
 	else if (!dirname)
 	{
-		if (!(dirname = get_dirname_from_arg(opt, this)))
+		if (!(dirname = get_dirname_from_arg(argparser_result->remainders, this)))
 		{
-			builtin_cd_utils_free_all(dirname, args, opt);
 			return ;
 		}
 	}
@@ -102,4 +91,20 @@ void				builtin_cd_exec(t_lst *tokens, t_shenv *this)
 		free(old_dirname);
 	}
 	builtin_cd_exec_do(dirname, no_symlinks, this);
+}
+
+void				builtin_cd_exec(t_lst *tokens, t_shenv *env)
+{
+	t_argparser_result	*argparser_result;
+
+	argparser_result = argparser_parse_tokens(builtin_cd_argparser(), tokens);
+	if (argparser_result->err_msg)
+	{
+		argparser_result_print_error_with_help(argparser_result);
+		env->last_exit_code = EXIT_FAILURE;
+	}
+	else
+	{
+		builtin_cd_exec_old(argparser_result, env);
+	}
 }

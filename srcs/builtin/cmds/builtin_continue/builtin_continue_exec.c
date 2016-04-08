@@ -51,6 +51,7 @@ void				builtin_continue_exec(t_lst *tokens, t_shenv *env)
 	}
 	else
 	{
-		LOGGER_DEBUG("too many args");
+		shenv_singleton()->shenv_continue_counter = -1;
+		shenv_singl_error(EXIT_FAILURE, "continue: too many arguments");
 	}
 }

@@ -47,7 +47,6 @@ static void         put_in_fg(t_job *job, t_token *cmd_token)
     tcsetpgrp (env->jc_terminal, job->pid);
     /* Send the job a continue signal, if necessary.  */
 
-    twl_printf("%s\n", job->cmd_str);
     LOGGER_INFO("fg: continue pid=%d", job->pid);
     if (job->job_status == JOB_STOPPED)
     {

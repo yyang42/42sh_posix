@@ -19,7 +19,7 @@ t_argparser			*builtin_env_argparser(void)
 	if (argparser == NULL)
 	{
 		argparser = argparser_new("env");
-		argparser_set_usage_extra(argparser,
+		argparser_set_usage(argparser,
 			" [name=value ...] [utility [argument ...]]");
 		argparser_add_argument(argparser, argparser_argument_new('i', NULL,
 			"Execute the utility with only those environment variables "

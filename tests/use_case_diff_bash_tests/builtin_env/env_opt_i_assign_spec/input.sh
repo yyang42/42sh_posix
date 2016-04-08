@@ -1,1 +1,2 @@
-env -i aa=bb
+env -i aa=bb cc=dd
+env -i aaa=bbb

@@ -51,13 +51,15 @@ void				builtin_cd_exec_do(char *path, int no_symlinks, t_shenv *this)
 		cd_symlink(path, this);
 	else
 	{
-		if (chdir(new_path) == 0)
+		if (chdir(new_path) == -1)
+		{
+			shenv_singl_error(EXIT_FAILURE, "cd: %s", strerror(errno));
+		}
+		else
 		{
 			set_oldpwd(this);
 			set_pwd(new_path, this);
 		}
-		else
-			perror("cd");
 	}
 	if (!no_symlinks)
 		free(new_path);

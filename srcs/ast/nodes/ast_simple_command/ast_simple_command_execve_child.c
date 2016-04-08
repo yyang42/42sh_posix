@@ -21,7 +21,7 @@ void				ast_simple_command_execve_child(
 {
 	char			*cmd;
 
-	job_utils_sigs_dfl_on_interactive();
+	job_utils_sigs_dfl_on_interactive_for_chld_proc();
 	cmd = twl_strjoinarr((const char **)args, " ");
 	LOGGER_INFO("execve: %s (pid=%d)", cmd, getpid());
 	execve(path, args, env);

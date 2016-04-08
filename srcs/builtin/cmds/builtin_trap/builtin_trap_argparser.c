@@ -19,8 +19,8 @@ t_argparser			*builtin_trap_argparser(void)
 	if (argparser == NULL)
 	{
 		argparser = argparser_new("trap");
-		argparser_set_usage_extra(argparser,
-			" trap n [condition...] or trap [action condition...]");
+		argparser_set_usage(argparser,
+			"[-p] trap n [condition...] or trap [action condition...]");
 		argparser_add_argument(argparser,
 			argparser_argument_new('p', NULL, "Print all traps", 0));
 	}

@@ -71,6 +71,8 @@ typedef struct				s_shenv
 	int						shenv_loop_level;
 	bool					shenv_return_triggered;
 	bool					shenv_is_function_or_script;
+	bool					shenv_ignore_errexit;
+	bool					shenv_is_inside_job_control;
 }							t_shenv;
 
 t_shenv				*shenv_new(void);
@@ -109,6 +111,11 @@ void				shenv_singl_error(int exit_code, char *fmt, ...);
 void				shenv_increase_shlvl(t_shenv *this);
 pid_t				shenv_utils_fork(void);
 
+
+/*
+** exit
+*/
+void				shenv_exit_if_errexit_enabled(t_shenv *env);
 
 /*
 ** loops
