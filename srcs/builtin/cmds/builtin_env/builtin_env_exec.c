@@ -20,6 +20,7 @@ static void			exec_remainders(t_lst *remainders)
 	str_cmd = twl_lst_strjoin(remainders, " ");
 	LOGGER_DEBUG("str_cmd: %s", str_cmd);
 	ast_exec_string(str_cmd);
+	LOGGER_DEBUG("env_src->last_exit_code: %d", shenv_singleton()->last_exit_code);
 	free(str_cmd);
 }
 
@@ -57,6 +58,8 @@ static void			exec_remaining_command_in_new_env(t_argparser_result *argparser_re
 
 	env_src = shenv_singleton();
 	env_copy = shenv_copy(env_src);
+	free(env_copy->shenv_name);
+	env_copy->shenv_name = twl_strdup(SHENV_DEFAULT_NAME);
 	env_copy->jobs = env_src->jobs;
 	shenv_singleton_setter(env_copy);
 	exec_remaining_command(argparser_result);

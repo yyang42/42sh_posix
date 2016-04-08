@@ -29,6 +29,7 @@ static void		iter_fn(void *ast_list_item_)
 		else
 		{
 			ast_list_item_exec(ast_list_item);
+				LOGGER_DEBUG("env_src->last_exit_code: %d", shenv_singleton()->last_exit_code);
 		}
 	}
 }
