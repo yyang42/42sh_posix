@@ -10,40 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "twl_stdlib.h"
-#include "twl_xunistd.h"
+#include "openclose/openclose_matcher.h"
 
-#include "logger.h"
-#include "edit/edit.h"
-#include "edit/terminal.h"
-
-#define DISABLE_FLAG(flag_storage, flag) (flag_storage &= ~(flag))
-#define ENABLE_FLAG(flag_storage, flag) (flag_storage |= flag)
-
-
-char				*edit_loop(t_edit *this)
+static void			print_openclose_fn(void *openclose_)
 {
-	int				key;
-	char			*cmd;
-	char			*final_cmd;
+	t_openclose	*openclose;
 
-	cmd = NULL;
-	if (terminal_enable() == -1)
-	{
-		twl_xprintf("TERMINAL ERROR");
-	}
-	// TODO Error handling
-	edit_print_letters(this);
-	while (!this->return_cmd)
-	{
-		key = twl_getch();
-		LOGGER_INFO("KEYPRESS: %d", key);
-		cmd = edit_handle_one_input(this, key);
-		edit_print_letters(this);
-		edit_clear_line(this);
-		edit_debug_print(this);
-	}
-	final_cmd = edit_match_valide_cmd(cmd);
-	terminal_disable();
-	return twl_strtrim_free(final_cmd);
+	openclose = openclose_;
+	twl_lprintf("%s - %s\n", openclose->open, openclose->close);
+}
+
+void				openclose_matcher_debug_print(t_openclose_matcher *matcher)
+{
+	twl_lprintf("%s>>>>>>>>>> openclose list%s\n", C_CYAN, C_CLEAR);
+	twl_lst_iter0(matcher->oc_pairs, print_openclose_fn);
+	twl_lprintf("%s-------------------------------------%s\n", C_CYAN, C_CLEAR);
 }
