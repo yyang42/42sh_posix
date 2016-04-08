@@ -19,7 +19,7 @@ t_argparser			*builtin_export_argparser(void)
 	if (argparser == NULL)
 	{
 		argparser = argparser_new("export");
-		argparser_set_usage_extra(argparser, " [name[=value] ...]");
+		argparser_set_usage(argparser, " [name[=value] ...]");
 		argparser_add_argument(argparser, argparser_argument_new('p', NULL, "Print all exported variables", 0));
 	}
 	return (argparser);

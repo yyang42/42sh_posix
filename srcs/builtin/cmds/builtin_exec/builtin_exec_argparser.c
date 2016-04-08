@@ -19,8 +19,8 @@ t_argparser			*builtin_exec_argparser(void)
 	if (argparser == NULL)
 	{
 		argparser = argparser_new("exec");
-		argparser_set_usage_extra(argparser,
-			" exec [command [argument...]]");
+		argparser_set_usage(argparser,
+			"[command [argument...]]");
 	}
 	return (argparser);
 }

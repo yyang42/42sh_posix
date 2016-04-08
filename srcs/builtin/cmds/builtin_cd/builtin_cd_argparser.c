@@ -19,8 +19,8 @@ t_argparser			*builtin_cd_argparser(void)
 	if (argparser == NULL)
 	{
 		argparser = argparser_new("cd");
-		argparser_set_usage_extra(argparser,
-			" [directory]");
+		argparser_set_usage(argparser,
+			"[-L|-P] [dir]");
 		argparser_add_argument(argparser, argparser_argument_new(
 			'L', NULL, "Handle the operand dot-dot logically", 0));
 		argparser_add_argument(argparser, argparser_argument_new(

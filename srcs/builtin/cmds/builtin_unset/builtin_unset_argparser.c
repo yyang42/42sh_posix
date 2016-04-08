@@ -19,8 +19,8 @@ t_argparser			*builtin_unset_argparser(void)
 	if (argparser == NULL)
 	{
 		argparser = argparser_new("unset");
-		argparser_set_usage_extra(argparser,
-			" [name ...]");
+		argparser_set_usage(argparser,
+			"[-vf] [name ...]");
 		argparser_add_argument(argparser,
 			argparser_argument_new('v', NULL, "Unset variable", 0));
 		argparser_add_argument(argparser,

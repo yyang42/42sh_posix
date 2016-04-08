@@ -19,7 +19,7 @@ t_argparser			*builtin_jobs_argparser(void)
 	if (argparser == NULL)
 	{
 		argparser = argparser_new("jobs");
-		argparser_set_usage_extra(argparser, " [jobspec ...] or jobs -x command [args]");
+		argparser_set_usage(argparser, " [jobspec ...] or jobs -x command [args]");
 		argparser_add_argument(argparser, argparser_argument_new('l', NULL, "Provide more information about each job listed.", 0));
 		argparser_add_argument(argparser, argparser_argument_new('p', NULL, "Display only the process IDs", 0));
 	}

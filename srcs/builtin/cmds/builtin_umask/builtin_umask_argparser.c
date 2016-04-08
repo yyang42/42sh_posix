@@ -19,7 +19,7 @@ t_argparser			*builtin_umask_argparser(void)
 	if (argparser == NULL)
 	{
 		argparser = argparser_new("umask");
-		argparser_set_usage_extra(argparser, " [mode]");
+		argparser_set_usage(argparser, "[-S] [mode]");
 		argparser_add_argument(argparser,
 			argparser_argument_new('S', NULL, "Produce symbolic output.", 0));
 	}

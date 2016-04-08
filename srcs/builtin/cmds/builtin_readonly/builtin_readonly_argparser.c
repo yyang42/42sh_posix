@@ -19,8 +19,8 @@ t_argparser			*builtin_readonly_argparser(void)
 	if (argparser == NULL)
 	{
 		argparser = argparser_new("readonly");
-		argparser_set_usage_extra(argparser,
-			" readonly: usage: readonly [name[=value] ...]");
+		argparser_set_usage(argparser,
+			"[-p] name[=word]...");
 		argparser_add_argument(argparser,
 			argparser_argument_new('p', NULL, "Print all readonly variables", 0));
 	}

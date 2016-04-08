@@ -19,8 +19,7 @@ t_argparser			*builtin_shift_argparser(void)
 	if (argparser == NULL)
 	{
 		argparser = argparser_new("shift");
-		argparser_set_usage_extra(argparser,
-			" nbr");
+		argparser_set_usage(argparser, "nbr");
 	}
 	return (argparser);
 }
