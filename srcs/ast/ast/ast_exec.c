@@ -15,6 +15,5 @@
 int				ast_exec(t_ast *this)
 {
 	ast_compound_list_exec(this->compound_list);
-	LOGGER_DEBUG("env_src->last_exit_code: %d", shenv_singleton()->last_exit_code);
 	return (shenv_singleton()->last_exit_code);
 }

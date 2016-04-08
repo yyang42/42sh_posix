@@ -18,9 +18,7 @@ static void			exec_remainders(t_lst *remainders)
 	char *str_cmd;
 
 	str_cmd = twl_lst_strjoin(remainders, " ");
-	LOGGER_DEBUG("str_cmd: %s", str_cmd);
 	ast_exec_string(str_cmd);
-	LOGGER_DEBUG("env_src->last_exit_code: %d", shenv_singleton()->last_exit_code);
 	free(str_cmd);
 }
 
