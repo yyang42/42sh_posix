@@ -10,33 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_CD_H
-# define BUILTIN_CD_H
+#include "builtin/cmds/builtin_cd.h"
 
-# include <unistd.h>
-# include <sys/types.h>
-# include <string.h>
-# include <sys/param.h>
-# include <sys/stat.h>
-# include <errno.h>
-# include <fcntl.h>
-# include <string.h>
-# include <stdlib.h>
-# include <stdio.h>
-# include "builtin/builtin.h"
-# include "argparser_extension.h"
+t_argparser			*builtin_cd_argparser(void)
+{
+	static t_argparser		*argparser;
 
-# define MAX_SIZE 4096
-
-void				builtin_cd_exec_do(char *path, int no_symlinks, t_shenv *this);
-void				builtin_cd_exec(t_lst *tokens, t_shenv *this);
-char				*join_paths(char *path, char *dirname);
-char				*builtin_cd_get_path(char *dirname, t_shenv *this);
-char				*join_pwd_to_path(char *dirname);
-char				*set_canonical_form(char *path);
-
-void				builtin_cd_utils_get_flags(t_opt *opt, int *no_symlinks);
-int					builtin_cd_utils_free_all(char *dirname, char **args, t_opt *opt);
-t_argparser			*builtin_cd_argparser(void);
-
-#endif
+	if (argparser == NULL)
+	{
+		argparser = argparser_new("cd");
+		argparser_set_usage_extra(argparser,
+			" [name=value ...] [utility [argument ...]]");
+		argparser_add_argument(argparser, argparser_argument_new(
+			'L', NULL, "Handle the operand dot-dot logically", 0));
+		argparser_add_argument(argparser, argparser_argument_new(
+			'P', NULL, "Handle the operand dot-dot physically", 0));
+	}
+	return (argparser);
+}
