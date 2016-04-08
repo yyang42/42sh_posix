@@ -47,10 +47,14 @@ void				builtin_cd_exec_do(char *path, int no_symlinks, t_shenv *this)
 	new_path = NULL;
 	if (!no_symlinks)
 		new_path = set_canonical_form(path);
+	LOGGER_DEBUG("new_path: %s", new_path);
 	if (no_symlinks)
+	{
 		cd_symlink(path, this);
+	}
 	else
 	{
+		LOGGER_DEBUG("new_path: %s", new_path);
 		if (chdir(new_path) == -1)
 		{
 			shenv_singl_error(EXIT_FAILURE, "cd: %s", strerror(errno));
