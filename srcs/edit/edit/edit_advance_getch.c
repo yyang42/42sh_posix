@@ -37,9 +37,7 @@ int					edit_advance_getch(t_edit *this)
 	str = twl_strdup("");
 	twl_bzero(buffer, 4);
 	ret = read(0, buffer, 3);
-	LOGGER("ret: %d", ret);
 	ret2 = read(0, buffer, 3);
-	LOGGER("ret2: %d", ret2);
 	if (str_is_print(buffer))
 	{
 		str = twl_strjoinfree(str, buffer, 'l');
