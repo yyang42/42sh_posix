@@ -62,18 +62,47 @@ static int	get_dirname(char **dirname, t_lst *remainders, t_shenv *this)
 	return (0);
 }
 
-void				builtin_cd_exec_old(t_argparser_result	*argparser_result, t_shenv *this)
+static bool			should_follow_symlinks(t_lst *tokens)
 {
-	int					no_symlinks;
+	t_lst			*tokens_copy;
+	bool			follow_symlinks;
+	t_token			*token;
+	char			*arg;
+
+	follow_symlinks = true;
+	tokens_copy = twl_lst_copy(tokens, NULL);
+	twl_lst_pop_front(tokens_copy);
+	while ((token = twl_lst_pop_front(tokens_copy)))
+	{
+		if (*token->text != '-' || twl_strequ(token->text, "--"))
+		{
+			break ;
+		}
+		else
+		{
+			arg = token->text;
+			arg++;
+			while (*arg)
+			{
+				if (*arg == 'P')
+					follow_symlinks = false;
+				else if (*arg == 'L')
+					follow_symlinks = true;
+				arg++;
+			}
+		}
+	}
+	twl_lst_del(tokens_copy, NULL);
+	return (follow_symlinks);
+}
+
+static void			builtin_cd_exec_exec(t_argparser_result	*argparser_result, int follow_symlinks, t_shenv *this)
+{
 	char				*dirname;
 	char				*old_dirname;
+	char				*original_path;
 
 	dirname = NULL;
-	no_symlinks = 0;
-	if (argparser_result_opt_is_set(argparser_result, "P"))
-		no_symlinks = 1;
-	if (argparser_result_opt_is_set(argparser_result, "L"))
-		no_symlinks = 0;
 	if (get_dirname(&dirname, argparser_result->remainders, this) < 0)
 	{
 		return ;
@@ -85,12 +114,16 @@ void				builtin_cd_exec_old(t_argparser_result	*argparser_result, t_shenv *this)
 			return ;
 		}
 	}
-	if (dirname && dirname[0] != '/' && !no_symlinks && (old_dirname = dirname))
+	if (twl_lst_len(argparser_result->remainders) > 0)
+		original_path = twl_lst_first(argparser_result->remainders);
+	else
+		original_path = dirname;
+	if (dirname && dirname[0] != '/' && follow_symlinks && (old_dirname = dirname))
 	{
 		dirname = join_pwd_to_path(dirname);
 		free(old_dirname);
 	}
-	builtin_cd_exec_do(dirname, no_symlinks, this);
+	builtin_cd_exec_do(dirname, original_path, follow_symlinks, this);
 }
 
 void				builtin_cd_exec(t_lst *tokens, t_shenv *env)
@@ -105,6 +138,6 @@ void				builtin_cd_exec(t_lst *tokens, t_shenv *env)
 	}
 	else
 	{
-		builtin_cd_exec_old(argparser_result, env);
+		builtin_cd_exec_exec(argparser_result, should_follow_symlinks(tokens), env);
 	}
 }
