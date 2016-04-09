@@ -1,13 +1,9 @@
 dependencies:
   pre:
-    - sudo rm -rf /var/cache/apt/archives && sudo ln -s ~/.apt-cache /var/cache/apt/archives && mkdir -p ~/.apt-cache/partial
-    - ls ~/.apt-cache
     - bash --version
     - sudo apt-get update -qq
   override:
     - sudo apt-get install -qq valgrind libncurses5-dev libncursesw5-dev bc
-  cache_directories:
-    - "~/.apt-cache"
 
 test:
   override:
