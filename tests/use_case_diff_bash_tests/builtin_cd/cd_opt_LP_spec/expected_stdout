@@ -1,0 +1,17 @@
+
+cd /tmp/test_cd_builtin/mydir_sym
+/tmp/test_cd_builtin/mydir_sym
+
+cd -P /tmp/test_cd_builtin/mydir_sym
+
+cd -L /tmp/test_cd_builtin/mydir_sym
+/tmp/test_cd_builtin/mydir_sym
+
+cd -- /tmp/test_cd_builtin/mydir_sym
+/tmp/test_cd_builtin/mydir_sym
+
+cd -P -- /tmp/test_cd_builtin/mydir_sym
+
+cd -L -- /tmp/test_cd_builtin/mydir_sym
+/tmp/test_cd_builtin/mydir_sym
+exit_code: 0
