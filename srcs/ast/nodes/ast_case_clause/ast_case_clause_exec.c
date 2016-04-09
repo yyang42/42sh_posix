@@ -111,4 +111,6 @@ void				ast_case_clause_exec(t_ast_case_clause *this)
 		}
 	}
 	twl_lst_del(case_items_iterator, NULL);
+	token_del(this->needle_expanded);
+	this->needle_expanded = NULL;
 }

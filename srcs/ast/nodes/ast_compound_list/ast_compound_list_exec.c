@@ -18,7 +18,6 @@ static void		iter_fn(void *ast_list_item_)
 	t_ast_list_item 	*ast_list_item;
 
 	ast_list_item = ast_list_item_;
-	expan_ret = ast_list_item_expan(ast_list_item);
 	if (expan_ret)
 	{
 		if (ast_list_item->separator
