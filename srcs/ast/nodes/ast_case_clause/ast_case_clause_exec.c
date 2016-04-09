@@ -13,21 +13,21 @@
 #include "ast/nodes/ast_if_then.h"
 #include "ast/nodes/ast_case_clause.h"
 #include "ast/nodes/ast_case_item.h"
-#include "expan/expan_mgr.h"
-#include "expan/expan_exec.h"
 #include "pattern_matching/substr.h"
+#include "expan/expansion.h"
+#include "token/token.h"
 
 /*
-	In order from the beginning to the end of the case statement,
-	each pattern that labels a compound-list shall be subjected to
-		- tilde expansion,
-		- parameter expansion,
-		- command substitution,
-		- and arithmetic expansion,
-	and the result of these expansions shall be compared against
-	the expansion of word, according to the rules described in
-	Pattern Matching Notation (which also describes the effect of
-	quoting parts of the pattern).
+** In order from the beginning to the end of the case statement,
+** each pattern that labels a compound-list shall be subjected to
+**  - tilde expansion,
+**  - parameter expansion,
+**  - command substitution,
+**  - and arithmetic expansion,
+** and the result of these expansions shall be compared against
+** the expansion of word, according to the rules described in
+** Pattern Matching Notation (which also describes the effect of
+** quoting parts of the pattern).
 */
 
 static bool			match_found(char *needle_text, char *pattern_text)
@@ -44,21 +44,51 @@ static bool			match_found(char *needle_text, char *pattern_text)
 	return (matched);
 }
 
-static bool			find_needle_in_pattern_fn(void *pattern_, void *needle_)
+static t_token		*expand_pattern(t_token *pattern)
 {
-	t_token			*pattern;
-	t_token			*needle;
+	t_expansion	*expansion;
+	char		*text;
+	t_token		*ret;
 
-	pattern = pattern_;
+	expansion = expansion_new_from_token(pattern);
+	text = expansion_get_string_pattern_case(expansion);
+	if (expansion->error)
+	{
+		twl_dprintf(2, "%s\n", expansion->error);
+		expansion_del(expansion);
+		shenv_singleton()->shenv_shall_quit_curr_ast = true;
+		shenv_singleton()->last_exit_code = 1;
+		return (NULL);
+	}
+	ret = token_copy(pattern);
+	token_set_text(ret, text);
+	free(text);
+	expansion_del(expansion);
+	return (ret);
+}
+
+static bool			find_needle_in_pattern_fn(void *pattern, void *needle_)
+{
+	t_token			*needle;
+	t_token			*pattern_expanded;
+	bool			ret;
+
+	if (shenv_singleton()->last_exit_code != 0)
+		return (false);
 	needle = needle_;
-	expan_init(pattern, &pattern->text, pattern->text_unexpanded, TOKEN_ORIGIN_WORD); // TODO why TOKEN_ORIGIN_WORD
-	expan_init(needle, &needle->text, needle->text_unexpanded, TOKEN_ORIGIN_WORD); // TODO why TOKEN_ORIGIN_WORD
-	return (match_found(needle->text, pattern->text));
+	pattern_expanded = expand_pattern(pattern);
+	if (shenv_singleton()->shenv_shall_quit_curr_ast)
+		return (false);
+	ret = match_found(needle->text, pattern_expanded->text);
+	token_del(pattern_expanded);
+	return (ret);
 }
 
 static bool			is_matching_pattern(t_lst *pattern_tokens, t_token *needle)
 {
-	return ((bool)twl_lst_find(pattern_tokens, find_needle_in_pattern_fn, needle));
+	return ((bool)twl_lst_find(pattern_tokens,
+								find_needle_in_pattern_fn,
+								needle));
 }
 
 void				ast_case_clause_exec(t_ast_case_clause *this)
@@ -66,11 +96,15 @@ void				ast_case_clause_exec(t_ast_case_clause *this)
 	t_ast_case_item *case_item;
 	t_lst			*case_items_iterator;
 
+	ast_case_clause_expan_needle(this);
+	if (shenv_singleton()->shenv_shall_quit_curr_ast)
+		return ;
 	case_items_iterator = twl_lst_copy(this->case_list, NULL);
 	shenv_singleton()->last_exit_code = EXIT_SUCCESS;
 	while ((case_item = twl_lst_pop_front(case_items_iterator)))
 	{
-		if (is_matching_pattern(case_item->pattern_tokens, this->needle_token))
+		if (is_matching_pattern(case_item->pattern_tokens,
+								this->needle_expanded))
 		{
 			ast_compound_list_exec(case_item->compound_list);
 			break ;

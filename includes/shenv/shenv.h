@@ -70,6 +70,7 @@ typedef struct				s_shenv
 	int						shenv_continue_counter;
 	int						shenv_loop_level;
 	bool					shenv_return_triggered;
+	bool					shenv_shall_quit_curr_ast;
 	bool					shenv_is_function_or_script;
 	bool					shenv_ignore_errexit;
 	bool					shenv_is_inside_job_control;
