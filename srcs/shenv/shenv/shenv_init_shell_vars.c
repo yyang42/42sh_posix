@@ -13,11 +13,18 @@
 
 #include "shenv/shenv.h"
 
-void				shenv_init_shell_vars(t_shenv *this)
+static void			set_ppid(t_shenv *this)
 {
 	char			*pid;
+	t_shvar			*var;
 
 	pid = twl_itoa(getpid());
-	shenv_shvars_set(this, "PPID", pid, SHENV_DEFAULT_NAME);
+	var = shenv_shvars_set(this, "PPID", pid, SHENV_DEFAULT_NAME);
+	var->shvar_read_only = true;
 	free(pid);
+}
+
+void				shenv_init_shell_vars(t_shenv *this)
+{
+	set_ppid(this);
 }
