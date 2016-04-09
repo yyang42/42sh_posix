@@ -32,15 +32,24 @@ static void			ast_subshell_fork_exec(t_ast_subshell *this)
 	}
 	else
 	{
+		LOGGER_DEBUG("subshell before wait");
 		waitpid(pid, &res, 0);
+		LOGGER_DEBUG("subshell after wait");
     	if (WIFEXITED(res))
     	{
 			shenv_singleton()->last_exit_code = WEXITSTATUS(res);
+			LOGGER_DEBUG("subshell exit code %d", shenv_singleton()->last_exit_code);
     	}
+		else if (WIFSIGNALED(res))
+		{
+			shenv_singl_error(143, "%d Terminated: %d", pid, WTERMSIG(res));
+			// LOGGER_DEBUG("subshell signaled %d", WTERMSIG(res));/
+		}
 	}
 }
 
 void				ast_subshell_exec(t_ast_subshell *this)
 {
+	shenv_set_cur_token(shenv_singleton(), token_mgr_first(this->tokens));
 	ast_subshell_fork_exec(this);
 }
