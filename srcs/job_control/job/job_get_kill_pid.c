@@ -10,39 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_list_item.h"
-#include "job_control/job_mgr.h"
+#include <sys/wait.h>
+#include <errno.h>
 #include "job_control/job.h"
-#include "logger.h"
-#include <signal.h>
 
-static void			ast_list_item_exec_child(t_ast_list_item *this)
+pid_t				job_get_kill_pid(t_job *job)
 {
-	job_utils_sigs_dfl_on_interactive_for_chld_proc();
-	shenv_singleton()->shenv_is_inside_job_control = true;
-	ast_list_item_exec(this);
-}
-
-
-void				ast_list_item_exec_async(t_ast_list_item *this)
-{
-	pid_t			pgid;
-	t_job			*job;
-
-	pgid = shenv_utils_fork();
-	if (pgid == -1)
-	{
-		twl_dprintf(2, "cannot fork: %s", strerror(errno));
-	}
-	else if (pgid == 0)
-	{
-		ast_list_item_exec_child(this);
-		exit(shenv_singleton()->last_exit_code);
-	}
+	if (job->is_group_id)
+		return (-job->pid);
 	else
-	{
-		setpgid (pgid, pgid);
-		job = ast_list_item_exec_async_parent_create_job(this->list_item_tokens, pgid);
-		job->is_group_id = true;
-	}
+		return (job->pid);
 }

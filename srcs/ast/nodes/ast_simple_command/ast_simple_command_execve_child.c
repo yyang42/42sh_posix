@@ -16,8 +16,7 @@
 #include <sys/wait.h>
 #include "job_control/job.h"
 
-void				ast_simple_command_execve_child(
-	char *path, char **args, char **env)
+void				ast_simple_command_execve_child(char *path, char **args, char **env)
 {
 	char			*cmd;
 

@@ -66,6 +66,7 @@ typedef struct				s_shenv
 	struct termios			jc_tmodes;
 	int						jc_terminal;
 	struct s_job			*jc_foreground_job;
+	pid_t					jc_foreground_job_pid;
 
 	int						shenv_break_counter;
 	int						shenv_continue_counter;

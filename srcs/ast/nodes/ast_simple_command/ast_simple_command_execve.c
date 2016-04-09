@@ -13,8 +13,23 @@
 #include "ast/nodes/ast_simple_command.h"
 #include "shsignal/shsignal.h"
 #include "logger.h"
+#include "trap/trap_mgr.h"
 #include <sys/wait.h>
 
+static void			set_default_signal_if_not_ignored(void)
+{
+	int				i;
+	sig_t			saved;
+
+	i = 0;
+	while (i < 32)
+	{
+		saved = signal(i, SIG_DFL);
+		if (saved == SIG_IGN)
+			signal(i, SIG_IGN);
+		i++;
+	}
+}
 static void			fork_and_execute(t_ast_simple_command *cmd, char *path, char **env)
 {
 	pid_t			pid;
@@ -28,6 +43,7 @@ static void			fork_and_execute(t_ast_simple_command *cmd, char *path, char **env
 	}
 	else if (pid == 0)
 	{
+		set_default_signal_if_not_ignored();
 		ast_simple_command_execve_child(path, args, env);
 		perror(path);
 		exit(0);

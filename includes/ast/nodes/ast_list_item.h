@@ -21,6 +21,7 @@
 # include "ast/ast_utils.h"
 
 # include "ast/nodes/ast_andor_item.h"
+# include "job_control/job.h"
 
 typedef struct		s_ast_list_item
 {
@@ -41,7 +42,7 @@ bool				ast_list_item_is_delimiter(t_token *token);
 
 void				ast_list_item_exec(t_ast_list_item *ast_list_item);
 void				ast_list_item_exec_async(t_ast_list_item *this);
-void				ast_list_item_exec_async_parent_create_job(t_lst *tokens, pid_t pid);
+t_job				*ast_list_item_exec_async_parent_create_job(t_lst *tokens, pid_t pid);
 int					ast_list_item_expan(t_ast_list_item *ast_list_item);
 
 void				ast_list_item_set_separator(t_ast_list_item *this, t_token *token);
