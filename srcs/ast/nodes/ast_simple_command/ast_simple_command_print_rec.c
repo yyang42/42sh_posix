@@ -20,7 +20,7 @@ void				ast_simple_command_print_rec(t_ast_simple_command *this,
 	char			*command_str;
 	char			*joined_command;
 
-	joined_command = token_mgr_strjoin(this->command_tokens, " ");
+	joined_command = token_mgr_strjoin(this->cmd_tokens_deep_copy, " ");
 	command_str = twl_str_truncate(joined_command, 20);
 	ast_print_indent(depth);
 	twl_printf_escape_nl("ast_simple_command (%s)", command_str);

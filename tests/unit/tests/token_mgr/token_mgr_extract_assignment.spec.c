@@ -29,9 +29,9 @@
 		mt_assert(strcmp(remaining_str, expected_remain) == 0); \
 		free(joined_str); \
 		free(remaining_str); \
-		token_mgr_del_inner(tokens); \
+		token_mgr_del(tokens); \
 		twl_lst_del(list_of_assigns, free); \
-		token_mgr_del(remaining_tokens); \
+		token_mgr_del_shallow(remaining_tokens); \
 	}
 
 mt_test_extract_assign(num1, "a=b echo a",    "a=b",      "echo_a",       false);

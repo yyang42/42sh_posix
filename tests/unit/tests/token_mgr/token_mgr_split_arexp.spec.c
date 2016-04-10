@@ -23,8 +23,8 @@
 		mt_assert(strcmp(joined_str, expected) == 0); \
 		free(joined_str); \
 		twl_lst_del(split_strings, free); \
-		token_mgr_del_inner(tokens); \
-		token_list_mgr_del(tokens_list); \
+		token_mgr_del(tokens); \
+		token_list_mgr_del_shallow(tokens_list); \
 	}
 
 mt_test_token_mgr_split(num1, "1, 2, 3", ",", "1_, / 2_, / 3", true, false);

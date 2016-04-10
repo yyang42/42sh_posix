@@ -14,5 +14,5 @@
 
 void				token_mgr_del(t_lst *tokens)
 {
-	twl_lst_del(tokens, NULL);
+	twl_lst_del(tokens, token_del);
 }

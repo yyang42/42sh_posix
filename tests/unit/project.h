@@ -39,7 +39,7 @@ void	reset_sandbox(void);
 		joined = token_mgr_strjoin(tokens, "_"); \
 		mt_assert(strcmp(joined, expected) == 0); \
 		free(joined); \
-		token_mgr_del_inner(tokens); \
+		token_mgr_del(tokens); \
 	}
 
 # define mt_test_tokenizer_arexp(test_name, input, expected, debug)	\
@@ -55,7 +55,7 @@ void	reset_sandbox(void);
 		joined = token_mgr_strjoin(tokens, "_");					\
 		mt_assert(strcmp(joined, expected) == 0);					\
 		free(joined);												\
-		token_mgr_del_inner(tokens);								\
+		token_mgr_del(tokens);								\
 	}
 
 # define mt_test_expan(name, input, no, expectedtext, expectedtype, debug)	\

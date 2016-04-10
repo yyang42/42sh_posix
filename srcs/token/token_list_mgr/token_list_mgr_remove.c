@@ -22,5 +22,5 @@ void				token_list_mgr_remove(t_lst *token_lists, t_lst *token_list)
 		assert(!"[ERROR] Object not found!");
 	}
 	twl_lst_popi(token_lists, index);
-	token_mgr_del(token_list);
+	token_mgr_del_shallow(token_list);
 }

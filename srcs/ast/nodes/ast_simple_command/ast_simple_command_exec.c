@@ -36,8 +36,8 @@ static void			iter_assign_fn(void *assign_, void *cmd_)
 	shenv_singleton()->shenv_cur_token = assign->token;
 	shvar = shvar_mgr_find_or_create(shenv_singleton()->shvars, assign->key);
 	shvar_check_print_readonly_error(shvar);
-	if (twl_lst_len(cmd->command_tokens) == 0
-		|| token_mgr_first_equ(cmd->command_tokens, ":"))
+	if (twl_lst_len(cmd->cmd_tokens_deep_copy) == 0
+		|| token_mgr_first_equ(cmd->cmd_tokens_deep_copy, ":"))
 	{
 		shvar_set_value(shvar, assign->value);
 	}
@@ -67,7 +67,7 @@ void				ast_simple_command_exec(t_ast_simple_command *cmd)
 	shenv_singleton()->info.last_exit = shenv_singleton()->last_exit_code;
 	shenv_singleton()->last_exit_code = EXIT_SUCCESS;
 	ast_simple_command_expan(cmd);
-	shenv_set_cur_token(shenv_singleton(), token_mgr_first(cmd->command_tokens));
+	shenv_set_cur_token(shenv_singleton(), token_mgr_first(cmd->cmd_tokens_deep_copy));
 	job_mgr_exec_update(shenv_singleton()->jobs);
 	twl_lst_iter(cmd->assignment_items, iter_assign_fn, cmd);
 	ast_simple_command_exec_with_redirs(cmd);

@@ -12,7 +12,7 @@
 
 #include "token/token_list_mgr.h"
 
-void				token_list_mgr_del(t_lst *token_lists)
+void				token_list_mgr_del_shallow(t_lst *token_lists)
 {
-	twl_lst_del(token_lists, token_mgr_del_void);
+	twl_lst_del(token_lists, token_mgr_del_shallow_void);
 }
