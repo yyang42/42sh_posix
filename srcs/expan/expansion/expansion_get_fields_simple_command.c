@@ -40,8 +40,12 @@ static void			iter_fn(void *data, void *prev, void *this)
 		expansion_push_before_split(this, token->text, false);
 }
 
-t_lst				*expansion_get_fields_simple_commands(t_expansion *this)
+//static void print_fn(void *data) { LOGGER_DEBUG("-- '%s' --", (char *)data) }
+
+t_lst				*expansion_get_fields_simple_command(t_expansion *this)
 {
+	t_lst			*ret;
+
 	if (this->error)
 		return (NULL);
 	twl_lst_iterp(this->tokens, iter_fn, this);
@@ -53,6 +57,9 @@ t_lst				*expansion_get_fields_simple_commands(t_expansion *this)
 		this->to_push_bs = NULL;
 	}
 	expansion_field_splitting(this);
+	//twl_lst_iter0(this->after_split, print_fn);
 	expansion_patmatch(this);
-	return (NULL);
+	ret = this->patmatch;
+	this->patmatch = NULL;
+	return (ret);
 }

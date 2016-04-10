@@ -14,6 +14,7 @@
 
 /*
 ** TODO: cf TODO expansion_get_fields_dquote.c
+** TODO: Rafistolage vraiment crade, à modifier
 */
 
 static void		iter_fn_wrap(void *data)
@@ -24,6 +25,19 @@ static void		iter_fn_wrap(void *data)
 	twl_lst_push_back(data, ebs);
 	ebs = expan_before_split_new("\"", false);
 	twl_lst_push_front(data, ebs);
+}
+
+static void		push_quote(t_lst *lst_inner)
+{
+	t_lst					*quote;
+	t_expan_before_split	*ebs;
+
+	quote = twl_lst_new();
+	ebs = expan_before_split_new("\"", false);
+	twl_lst_push_back(quote, ebs);
+	ebs = expan_before_split_new("\"", false);
+	twl_lst_push_front(quote, ebs);
+	twl_lst_push_back(lst_inner, quote);
 }
 
 void			expansion_dquote(t_expansion *this, t_expan_token *token)
@@ -40,8 +54,11 @@ void			expansion_dquote(t_expansion *this, t_expan_token *token)
 	lst_inner = expansion_get_fields_dquote(inner);
 	this->error = inner->error;
 	inner->error = NULL;
+	expansion_del(inner);
 	if (this->error)
 		return ;
 	twl_lst_iter0(lst_inner, iter_fn_wrap);
+	if (twl_lst_len(lst_inner) == 0)
+		push_quote(lst_inner);
 	expansion_push_lst_before_split(this, lst_inner);
 }

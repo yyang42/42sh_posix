@@ -13,7 +13,9 @@
 #include "expan/expansion.h"
 #include "ast/ast.h"
 #include "twl_get_next_line.h"
-#include <fcntl.h>
+#include <sys/types.h>
+#include <sys/uio.h>
+#include <unistd.h>
 
 /*
 ** TODO: Gestion d'erreurs shenv_singl_error (rebase)
@@ -31,6 +33,7 @@ static void	child_part(t_expansion *this, t_expan_token *token, int fd[2])
 	close(fd[0]);
 	cmd = twl_strndup(token->text + 1, twl_strlen(token->text + 2));
     ast_exec_string(cmd);
+	close(fd[1]);
 	free(cmd);
 	exit(-1);
 	(void)this;
@@ -38,12 +41,14 @@ static void	child_part(t_expansion *this, t_expan_token *token, int fd[2])
 
 static void	parent_part(t_expansion *this, t_expan_token *token, int fd[2])
 {
-	char	*str;
+	char	buf[128];
+	int		size;
 
 	close(fd[1]);
-	while (twl_get_next_line(fd[0], &str) > 0)
+	while ((size = read(fd[0], buf, 127)) > 0)
 	{
-		expansion_push_before_split(this, str, !this->quoted);
+		buf[size] = 0;
+		expansion_push_before_split(this, buf, !this->quoted);
 	}
 	close(fd[0]);
 	(void)token;

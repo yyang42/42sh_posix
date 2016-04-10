@@ -96,7 +96,8 @@ void				expan_push_dollar(t_expan_tokenizer *this)
 	}
 	else if (twl_isalpha(this->input[this->input_index]))
 	{
-		while (twl_isalnum(this->input[this->input_index]))
+		while (twl_isalnum(this->input[this->input_index])
+				|| this->input[this->input_index] == '_')
 			expan_tokenizer_addone(this);
 	}
 }

@@ -88,6 +88,7 @@ void			expansion_splitting(t_expansion *this, char *text)
 				push(to_push, text, &index);
 			else if (*match == ' ' || *match == '\t' || *match == '\n')
 			{
+				LOGGER_DEBUG(" '%s' '%s' ", to_push, *match == ' ' ? "space" : *match == '\t' ? "\t" : "\n")
 				if (*to_push != 0)
 					push_split(this, to_push);
 				index += 1;

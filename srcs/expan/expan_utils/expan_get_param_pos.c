@@ -19,5 +19,5 @@ char			*expan_get_param_pos(char *param)
 	int			i;
 
 	i = twl_atoi(param);
-	return (shenv_get_pos_param_at(shenv_singleton(), i + 1));
+	return (shenv_get_pos_param_at(shenv_singleton(), i - 1));
 }

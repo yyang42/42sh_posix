@@ -10,25 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ast/nodes/ast_compound_list.h>
+#include "expan/expansion.h"
 
-static void		iter_fn(void *ast_list_item_)
+t_lst			*expansion_get_fields_redir(t_expansion *this)
 {
-	t_ast_list_item 	*ast_list_item;
-
-	ast_list_item = ast_list_item_;
-	if (ast_list_item->separator
-			&& twl_strequ(ast_list_item->separator->text, "&"))
-	{
-		ast_list_item_exec_async(ast_list_item);
-	}
-	else
-	{
-		ast_list_item_exec(ast_list_item);
-	}
-}
-
-void				ast_compound_list_exec(t_ast_compound_list *ast_compound_list)
-{
-	twl_lst_iter0(ast_compound_list->ast_list_items, &iter_fn);
+	return (expansion_get_fields_simple_command(this));
 }

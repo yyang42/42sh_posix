@@ -19,11 +19,13 @@ static void		iter_fn(void *data, void *next, void *this)
 	quoted = expan_quote(data);
 	if (next)
 	{
-		expansion_push_before_split_s(this, quoted, true);
+		expansion_push_before_split_s(this, quoted,
+							!((t_expansion *)this)->quoted);
 	}
 	else
 	{
-		expansion_push_before_split(this, quoted, true);
+		expansion_push_before_split(this, quoted,
+							!((t_expansion *)this)->quoted);
 	}
 	free(quoted);
 }

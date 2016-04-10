@@ -17,7 +17,7 @@ static void		expan_param_pos(t_expansion *this, char *pos)
 	char		*param;
 	char		*quote;
 
-	param = expan_get_param_pos(pos);
+	param = expan_get_param_pos(pos + 1);
 	if (!param)
 		return ;
 	quote = expan_quote(param);
@@ -30,7 +30,7 @@ static void		expan_param_normal(t_expansion *this, char *normal)
 	char		*param;
 	char		*quote;
 
-	param = expan_get_param_normal(normal);
+	param = expan_get_param_normal(normal + 1);
 	if (!param)
 		return ;
 	quote = expan_quote(param);

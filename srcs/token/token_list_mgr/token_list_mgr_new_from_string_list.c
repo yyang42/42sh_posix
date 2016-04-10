@@ -10,25 +10,22 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ast/nodes/ast_compound_list.h>
+#include "token/token_mgr.h"
 
-static void		iter_fn(void *ast_list_item_)
+static void		iter_fn(void *data, void *ctx1, void *ctx2)
 {
-	t_ast_list_item 	*ast_list_item;
+	t_token		*to_push;
 
-	ast_list_item = ast_list_item_;
-	if (ast_list_item->separator
-			&& twl_strequ(ast_list_item->separator->text, "&"))
-	{
-		ast_list_item_exec_async(ast_list_item);
-	}
-	else
-	{
-		ast_list_item_exec(ast_list_item);
-	}
+	to_push = token_copy(ctx2);
+	token_set_text(to_push, data);
+	twl_lst_push_back(ctx1, to_push);
 }
 
-void				ast_compound_list_exec(t_ast_compound_list *ast_compound_list)
+t_lst			*token_mgr_new_from_string_list(t_token *to_cpy, t_lst *str_lst)
 {
-	twl_lst_iter0(ast_compound_list->ast_list_items, &iter_fn);
+	t_lst		*new;
+
+	new = twl_lst_new();
+	twl_lst_iter2(str_lst, iter_fn, new, to_cpy);
+	return (new);
 }

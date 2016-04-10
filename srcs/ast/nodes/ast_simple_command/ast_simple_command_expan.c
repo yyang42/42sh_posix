@@ -13,50 +13,97 @@
 #include "ast/nodes/ast_simple_command.h"
 #include "ast/nodes/ast_assignment.h"
 #include "ast/nodes/ast_redir.h"
-//#include "expan/expan_mgr.h"
-//#include "expan/expan_tokenizer.h"
-//#include "expan/expan_exec.h"
-//
-//static void 	iter_fn(void *token_, void *should_exec_)
-//{
-//	t_token					*token;
-//	bool					*should_exec;
-//
-//	should_exec = should_exec_;
-//	token = token_;
-//	*should_exec = expan_init(token, &token->text, token->text_unexpanded, TOKEN_ORIGIN_WORD);
-//}
-//
-//static void 	iter_assign_fn(void *assign_, void *should_exec_)
-//{
-//	t_ast_assignment		*assign;
-//	bool					*should_exec;
-//
-//	should_exec = should_exec_;
-//	assign = assign_;
-//	*should_exec = expan_init(assign->token, &assign->key, assign->key_unexpanded, TOKEN_ORIGIN_ASSIGNMENT_KEY);
-//	*should_exec = expan_init(assign->token, &assign->value, assign->value_unexpanded, TOKEN_ORIGIN_ASSIGNMENT_VALUE);
-//}
-//
-//static void 	iter_redir_fn(void *redir_, void *should_exec_)
-//{
-//	t_ast_redir				*redir;
-//	bool					*should_exec;
-//
-//	should_exec = should_exec_;
-//	redir = redir_;
-//	*should_exec = expan_init(token_mgr_first(redir->redir_tokens), &redir->param->text, redir->param->text_unexpanded, TOKEN_ORIGIN_REDIR_PARAM);
-//	*should_exec = expan_init(token_mgr_first(redir->redir_tokens), &redir->heredoc_text, redir->heredoc_text_unexpanded, TOKEN_ORIGIN_REDIR_HEREDOC);
-//}
+#include "expan/expansion.h"
+#include "shenv/shenv.h"
+#include "token/token_mgr.h"
 
-bool			ast_simple_command_expan(t_ast_simple_command *cmd)
+//static void print_fn(void *data) { LOGGER_DEBUG(" -> %s", (char *)data) }
+
+static void 	iter_cmd_fn(void *token, void *context)
 {
-	bool		should_exec;
+	t_expansion				*expansion;
+	t_ast_simple_command	*cmd;
+	t_lst					*expanded;
 
-	should_exec = true;
-	//twl_lst_iter(cmd->command_tokens, iter_fn, &should_exec);
-	//twl_lst_iter(cmd->redir_items, iter_redir_fn, &should_exec);
-	//twl_lst_iter(cmd->assignment_items, iter_assign_fn, &should_exec);
-	return (should_exec);
+	cmd = context;
+	expansion = expansion_new_from_token(token);
+	expanded = expansion_get_fields_simple_command(expansion);
+	if (expansion->error)
+	{
+		twl_dprintf(2, "%s\n", expansion->error);
+		expansion_del(expansion);
+		shenv_singleton()->shenv_shall_quit_curr_ast = true;
+		shenv_singleton()->last_exit_code = 1;
+		return ;
+	}
+//	LOGGER_DEBUG("token: %s", ((t_token *)token)->text_unexpanded)
+//	twl_lst_iter0(expanded, print_fn);
+	twl_lst_cat(cmd->command_tokens_expanded,
+				token_mgr_new_from_string_list(token, expanded));
+	twl_lst_del(expanded, free);
+}
+
+static void 	iter_assign_fn(void *data, void *context)
+{
+	t_expansion				*expansion;
+	t_ast_simple_command	*cmd;
+	t_ast_assignment		*assign;
+	char					*expanded;
+
+	assign = data;
+	cmd = context;
+	expansion = expansion_new_from_text(assign->value_unexpanded);
+	expanded = expansion_get_string_assign(expansion);
+	if (expansion->error)
+	{
+		twl_dprintf(2, "%s\n", expansion->error);
+		expansion_del(expansion);
+		shenv_singleton()->shenv_shall_quit_curr_ast = true;
+		shenv_singleton()->last_exit_code = 1;
+		return ;
+	}
+	//LOGGER_DEBUG("assign: %s = %s -> %s", assign->key, assign->value_unexpanded, expanded)
+	if (assign->value)
+		free(assign->value);
+	assign->value = expanded;
+	expansion_del(expansion);
 	(void)cmd;
+}
+
+static void 	iter_redir_fn(void *data, void *context)
+{
+	t_expansion				*expansion;
+	t_ast_simple_command	*cmd;
+	t_ast_redir				*redir;
+	t_lst					*expanded;
+
+	redir = data;
+	cmd = context;
+	expansion = expansion_new_from_token(redir->param);
+	expanded = expansion_get_fields_redir(expansion);
+	if (expansion->error)
+	{
+		twl_dprintf(2, "%s\n", expansion->error);
+		expansion_del(expansion);
+		shenv_singleton()->last_exit_code = 1;
+		return ;
+	}
+	if (twl_lst_len(expanded) != 1)
+	{
+		twl_dprintf(2, "42sh: %s: ambiguous redirect\n", redir->param->text_unexpanded);
+		expansion_del(expansion);
+		shenv_singleton()->last_exit_code = 1;
+		return ;
+	}
+	token_set_text(redir->param, twl_lst_first(expanded));
+	twl_lst_del(expanded, free);
+	(void)cmd;
+}
+
+void			ast_simple_command_expan(t_ast_simple_command *cmd)
+{
+	cmd->command_tokens_expanded = twl_lst_new();
+	twl_lst_iter(cmd->command_tokens, iter_cmd_fn, cmd);
+	twl_lst_iter(cmd->redir_items, iter_redir_fn, cmd);
+	twl_lst_iter(cmd->assignment_items, iter_assign_fn, cmd);
 }
