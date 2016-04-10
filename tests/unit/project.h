@@ -58,6 +58,23 @@ void	reset_sandbox(void);
 		token_mgr_del_inner(tokens);								\
 	}
 
+# define mt_test_expan(name, input, no, expectedtext, expectedtype, debug)	\
+static void test_## name(t_test *test)										\
+{																			\
+	t_lst			*tokens = expan_tokenizer_tokenize(input);				\
+	t_expan_token	*token = twl_lst_get(tokens, no);						\
+	if (debug && token)														\
+	{																		\
+		printf("  input:    %s\n", input);									\
+		printf("  actual:   %s\n", token->text);							\
+		printf("  expected: %s\n", expectedtext);							\
+	}																		\
+	mt_assert(token != NULL);												\
+	mt_assert(strcmp(token->text, expectedtext) == 0);						\
+	mt_assert(token->type == expectedtype);									\
+	twl_lst_del(tokens, expan_token_del);									\
+}
+
 # define mt_test_ast_error(test_name, input, expected, debug) \
 	static void test_## test_name(t_test *test) \
 	{ \

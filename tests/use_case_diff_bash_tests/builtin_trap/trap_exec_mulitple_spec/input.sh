@@ -5,7 +5,7 @@ trap "echo sigHUP" HUP
 trap "echo sigINT" INT
 trap
 
-PID=`bash -c 'echo $PPID'`
+PID=$$
 kill -HUP $PID
 kill -1 $PID
 kill -2 $PID

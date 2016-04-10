@@ -18,6 +18,7 @@
 #include "twl_printf.h"
 #include "logger.h"
 #include "twl_stdio.h"
+#include "twl_xstdio.h"
 #include "twl_color.h"
 
 static char			*get_level_color(t_logger_level level)
@@ -42,7 +43,7 @@ void				logger_printf(t_logger_level level, const char *fn, int line, const char
     time(&timer);
     tm_info = localtime(&timer);
     strftime(time_buffer, 26, "%Y:%m:%d %H:%M:%S", tm_info);
-	fd = open(".debug.out", O_CREAT | O_WRONLY | O_APPEND, 0644);
+	fd = open(DEBUG_FILE_PATH, O_CREAT | O_WRONLY | O_APPEND, 0644);
 	pf = pf_create((char *)fmt);
 	twl_dprintf(fd, "%s %s%s [%s:%d] ", time_buffer, get_level_color(level), C_CLEAR, fn, line);
 	va_start(pf->arglist, (char *)fmt);

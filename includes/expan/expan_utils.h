@@ -12,14 +12,18 @@
 
 #ifndef EXPAN_UTILS_H
 # define EXPAN_UTILS_H
-# include "expan/expan_type.h"
-# include "expan/expan_param.h"
 
-void				*expan_param_type_to_func_dict(t_expan_param_type type);
-void				*expan_param_type_to_print_func(t_expan_type type);
-t_expan_param_type	string_1_to_expan_parameter_type(char *str);
-t_expan_param_type	string_2_to_expan_parameter_type(char *str);
-int					expan_tokenizer_get_word_len(char **res, char *str,
-	char *delimiter);
-t_expan_param_type	char_to_special_param_type(char c);
+# include "basics.h"
+
+bool				expan_is_special_parameter(char c);
+bool				expan_is_begin_of_brace_type(char c);
+
+t_lst				*expan_get_param_spec(char param);
+char				*expan_get_param_pos(char *param);
+char				*expan_get_param_normal(char *param);
+
+char				*expan_quote(char *param);
+
+char				*expan_get_asterisk_quoted(t_lst *lsast);
+
 #endif

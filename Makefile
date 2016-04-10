@@ -29,7 +29,7 @@ COL_RED = \033[0;31m
 COL_GREEN = \033[0;32m
 CC_OPTIONS = $(CC_FLAGS) $(CC_HEADERS) $(CC_FLAGS_EXTRA)
 
-DEBUG_FILE_NAME = .debug.out
+DEBUG_FILE_NAME = /tmp/.debug.out
 
 MAKE_PATHS = $(dir $(wildcard ./libs/*/))
 MAKE = make -s

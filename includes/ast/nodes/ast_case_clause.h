@@ -25,6 +25,7 @@ struct s_ast_compound_list;
 typedef struct		s_ast_case_clause
 {
 	t_token			*needle_token;
+	t_token			*needle_expanded;
 	t_lst			*case_list;
 }					t_ast_case_clause;
 
@@ -41,5 +42,7 @@ bool				ast_case_clause_is_own_type(t_lst *tokens);
 
 void				ast_case_clause_exec(t_ast_case_clause *this);
 void				ast_case_clause_exec_void(void *this);
+
+void				ast_case_clause_expan_needle(t_ast_case_clause *this);
 
 #endif

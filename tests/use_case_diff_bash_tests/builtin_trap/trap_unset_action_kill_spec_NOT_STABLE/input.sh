@@ -1,5 +1,5 @@
 (
-	PID=`bash -c 'echo $PPID'`
+	PID=$$
 	trap "echo AAA" TERM
 	kill -TERM $PID
 	trap

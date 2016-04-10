@@ -17,6 +17,13 @@
 #include "data.h"
 #include "job_control/job_mgr.h"
 
+/*
+** If no command name results, or if the command name is a special built-in
+** or function, variable assignments shall affect the current
+** execution environment. Otherwise, the variable assignments shall be
+** exported for the execution environment of the command and shall not
+** affect the current execution environment
+*/
 
 static void			iter_assign_fn(void *assign_, void *cmd_)
 {
@@ -53,19 +60,13 @@ static void			ast_simple_command_exec_with_redirs(t_ast_simple_command *cmd)
 	ast_redir_fd_mgr_close(cmd->redir_fds);
 }
 
-/*
-	If no command name results, or if the command name is a special built-in
-	or function, variable assignments shall affect the current
-	execution environment. Otherwise, the variable assignments shall be
-	exported for the execution environment of the command and shall not
-	affect the current execution environment
-*/
-
 void				ast_simple_command_exec(t_ast_simple_command *cmd)
 {
 	if (!shenv_loop_should_exec(shenv_singleton()))
 		return ;
+	shenv_singleton()->info.last_exit = shenv_singleton()->last_exit_code;
 	shenv_singleton()->last_exit_code = EXIT_SUCCESS;
+	ast_simple_command_expan(cmd);
 	shenv_set_cur_token(shenv_singleton(), token_mgr_first(cmd->command_tokens));
 	job_mgr_exec_update(shenv_singleton()->jobs);
 	twl_lst_iter(cmd->assignment_items, iter_assign_fn, cmd);

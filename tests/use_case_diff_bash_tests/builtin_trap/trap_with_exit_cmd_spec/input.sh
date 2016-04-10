@@ -1,3 +1,3 @@
 trap "echo abc; exit 42" INT
-kill -INT `bash -c 'echo $PPID'`
+kill -INT $$
 echo "should not exec"

@@ -1,5 +1,5 @@
 (
-	PID=`bash -c 'echo $PPID'`
+	PID=$$
 	kill -TERM $PID
 	wait $PID 2>/tmp/test_kill_stderr
 ) &> /tmp/test_kill_stderr
