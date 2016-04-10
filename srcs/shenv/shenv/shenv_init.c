@@ -57,4 +57,6 @@ void				shenv_init(t_shenv *this)
 	twl_arr_iter(environ, init_env, this);
 	fill_flag_verbose_dict(this->flag_verbose);
 	init_env_info(&this->info);
+	shenv_init_shell_vars(this);
+	shenv_build_binary_db(this);
 }

@@ -11,7 +11,7 @@ test:
     - git clone git@github.com:yyang42/moulitest.git ../moulitest
     - make check_unit
     # - make check_leaks
-    - make check_libtowel
+    # - make check_libtowel
     - make check_ast
     - make check_use_case
     - make check_exit_code

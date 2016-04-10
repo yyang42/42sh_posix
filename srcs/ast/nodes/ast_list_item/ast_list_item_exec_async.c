@@ -27,6 +27,7 @@ static void			ast_list_item_exec_child(t_ast_list_item *this)
 void				ast_list_item_exec_async(t_ast_list_item *this)
 {
 	pid_t			pgid;
+	t_job			*job;
 
 	pgid = shenv_utils_fork();
 	if (pgid == -1)
@@ -41,6 +42,7 @@ void				ast_list_item_exec_async(t_ast_list_item *this)
 	else
 	{
 		setpgid (pgid, pgid);
-		ast_list_item_exec_async_parent_create_job(this->list_item_tokens, pgid);
+		job = ast_list_item_exec_async_parent_create_job(this->list_item_tokens, pgid);
+		job->is_group_id = true;
 	}
 }

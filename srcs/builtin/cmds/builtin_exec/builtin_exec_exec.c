@@ -38,9 +38,8 @@ static void			builtin_exec_execve_prep(t_lst *remainders)
 
 	argv = (char **)twl_lst_to_arr(remainders);
 	envp = (char **)shenv_get_env_arr(shenv_singleton());
-	path = ast_simple_command_utils_get_binary_path(argv[0], shenv_singleton());
+	path = shenv_find_binary_path(shenv_singleton(), argv[0]);
 	builtin_exec_execve_wrapper(path, argv, envp);
-	free(path);
 	twl_arr_del(envp, free);
 	twl_arr_del(argv, NULL);
 }

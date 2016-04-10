@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sys/wait.h>
-#include <errno.h>
 #include "job_control/job.h"
 
 bool				job_has_terminated(t_job *job)

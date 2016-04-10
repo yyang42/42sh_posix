@@ -25,12 +25,24 @@ static void         sigtstp_handler(int sig)
     longjmp(jump_buf, 1);
 }
 
-static void         ast_simple_command_execve_parent_wait_catch_stop(t_ast_simple_command *cmd, pid_t pid)
+static void         sig_int_quit_handler(int sig)
+{
+    LOGGER_INFO("SIGINT handler: pid: %d", sig, shenv_singleton()->jc_foreground_job_pid);
+    if (shenv_singleton()->jc_foreground_job_pid)
+        kill(-shenv_singleton()->jc_foreground_job_pid, sig);
+}
+
+static void         ast_simple_command_execve_parent_wait_catch_sigs(t_ast_simple_command *cmd, pid_t pid)
 {
     sig_t           saved_sig_handler;
+    sig_t           saved_sigint_handler;
+    sig_t           saved_sigquit_handler;
+    t_job           *job;
 
     saved_sig_handler = signal(SIGTSTP, sigtstp_handler);
-    setpgid(pid, pid);
+    saved_sigint_handler = signal(SIGINT, sig_int_quit_handler);
+    saved_sigquit_handler = signal(SIGQUIT, sig_int_quit_handler);
+    shenv_singleton()->jc_foreground_job_pid = pid;
     LOGGER_INFO("set SIGTSTP handler");
     if (setjmp(jump_buf) == 0)
     {
@@ -38,11 +50,13 @@ static void         ast_simple_command_execve_parent_wait_catch_stop(t_ast_simpl
     }
     else
     {
-        if (kill(-pid, SIGTSTP) == -1)
-            shenv_singl_error(EXIT_FAILURE, "kill: %s", strerror(errno));
-        ast_list_item_exec_async_parent_create_job(cmd->full_command_tokens, pid);
+        job = ast_list_item_exec_async_parent_create_job(cmd->full_command_tokens, pid);
+        job->is_group_id = false;
     }
-   signal(SIGTSTP, saved_sig_handler);
+    shenv_singleton()->jc_foreground_job_pid = 0;
+    signal(SIGTSTP, saved_sig_handler);
+    signal(SIGINT, saved_sigint_handler);
+    signal(SIGQUIT, saved_sigquit_handler);
 }
 
 void				ast_simple_command_execve_parent(t_ast_simple_command *cmd, pid_t pid)
@@ -53,6 +67,6 @@ void				ast_simple_command_execve_parent(t_ast_simple_command *cmd, pid_t pid)
     }
     else
     {
-        ast_simple_command_execve_parent_wait_catch_stop(cmd, pid);
+        ast_simple_command_execve_parent_wait_catch_sigs(cmd, pid);
     }
 }

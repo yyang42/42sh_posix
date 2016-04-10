@@ -16,7 +16,7 @@
 #include "logger.h"
 #include <signal.h>
 
-void				ast_list_item_exec_async_parent_create_job(t_lst *tokens, pid_t pid)
+t_job				*ast_list_item_exec_async_parent_create_job(t_lst *tokens, pid_t pid)
 {
 	char			*cmd_str;
 	t_job			*job;
@@ -28,4 +28,5 @@ void				ast_list_item_exec_async_parent_create_job(t_lst *tokens, pid_t pid)
 	if (shenv_singleton()->is_interactive_shell)
 		twl_dprintf(2, "[%d] %d\n", job->job_id, job->pid);
 	free(cmd_str);
+	return (job);
 }

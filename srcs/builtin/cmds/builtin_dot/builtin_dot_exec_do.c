@@ -31,7 +31,7 @@ static char			*get_file(char *raw_path, t_shenv *this)
 			return (NULL);
 		close(fd);
 	}
-	else if ((binary_path = ast_simple_command_utils_get_binary_path(raw_path, this)))
+	else if ((binary_path = shenv_find_binary_path(this, raw_path)))
 	{
 		resolved_path = twl_strdup(binary_path);
 	}

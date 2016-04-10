@@ -20,6 +20,7 @@ t_ast_subshell	*ast_subshell_new_from_tokens(t_lst *tokens, struct s_ast *ast)
 	t_token					*open;
 
 	ast_subshell = ast_subshell_new();
+	ast_subshell->tokens = twl_lst_copy(tokens, NULL);
 	open = twl_lst_pop_front(tokens);
 	ast_subshell->ast_compound_list = ast_compound_list_new_from_tokens(tokens,
 		ast);

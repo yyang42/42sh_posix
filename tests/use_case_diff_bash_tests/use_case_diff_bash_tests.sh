@@ -39,6 +39,10 @@ diff_test ()
     testcase_tmp_bash_stdout="$testcase_tmp/expected_stdout"
     testcase_tmp_bash_stderr="$testcase_tmp/expected_stderr"
 
+    if ! [ -z ${CI+x} ] && test "${testcase#*_noci_spec}" != "$testcase"; then
+        echo "skip no ci    ./42sh tests/use_case_diff_bash_tests/$testsuite/$testcase/input.sh"
+        return
+    fi
     mkdir -p $testcase_tmp
     rm -f $testcase_tmp/*
     $RENDU_PATH/42sh $testcase_path/input.sh > $testcase_tmp_stdout 2> $testcase_tmp_stderr

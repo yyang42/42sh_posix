@@ -19,6 +19,7 @@
 # include "twl_dict.h"
 # include <errno.h>
 # include "twl_arr.h"
+# include "twl_htab.h"
 # include "twl_arr2.h"
 # include "token/token.h"
 
@@ -66,6 +67,7 @@ typedef struct				s_shenv
 	struct termios			jc_tmodes;
 	int						jc_terminal;
 	struct s_job			*jc_foreground_job;
+	pid_t					jc_foreground_job_pid;
 
 	int						shenv_break_counter;
 	int						shenv_continue_counter;
@@ -75,12 +77,15 @@ typedef struct				s_shenv
 	bool					shenv_is_function_or_script;
 	bool					shenv_ignore_errexit;
 	bool					shenv_is_inside_job_control;
+	t_htab					*shenv_binary_db;
+	char					*shenv_binary_saved_path;
 }							t_shenv;
 
 t_shenv				*shenv_new(void);
 void				shenv_del(t_shenv *this);
 t_shenv				*shenv_copy(t_shenv *this);
 void				shenv_init(t_shenv *this);
+void				shenv_init_shell_vars(t_shenv *this);
 t_shvar				*shenv_shvars_set_split_by_equal(t_shenv *this, char *str, char *command_name);
 char				*shenv_shvars_get_value(t_shenv *this, char *key);
 t_shvar				*shenv_shvars_set(t_shenv *t, char *k, char *v, char *command_name);
@@ -112,7 +117,9 @@ int					shenv_print_error_printf(t_shenv *this, int line,
 void				shenv_singl_error(int exit_code, char *fmt, ...);
 void				shenv_increase_shlvl(t_shenv *this);
 pid_t				shenv_utils_fork(void);
-
+char				*shenv_find_binary_path(t_shenv *env, char *cmd);
+void				shenv_build_binary_db(t_shenv *env);
+void				shenv_set_binary_saved_path(t_shenv *env, char *path);
 
 /*
 ** exit

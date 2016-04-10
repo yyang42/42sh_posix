@@ -55,11 +55,12 @@ char				*builtin_cd_get_path(char *dirname, t_shenv *this)
 		paths = twl_strsplit(cd_path, ':');
 		to_join = twl_arr_find(paths, find_matching_path, dirname);
 		if (to_join)
-		{
 			new_path = join_paths(to_join, dirname);
-			twl_arr_del(paths, free);
-			return (new_path);
-		}
+		else
+			new_path = twl_strdup(dirname);
+		twl_printf("%s\n", new_path);
+		twl_arr_del(paths, free);
+		return (new_path);
 	}
 	return (twl_strdup(dirname));
 }

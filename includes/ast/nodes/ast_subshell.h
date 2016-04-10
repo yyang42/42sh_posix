@@ -23,6 +23,7 @@
 struct s_ast_compound_list;
 typedef struct					s_ast_subshell
 {
+	t_lst						*tokens;
 	struct s_ast_compound_list	*ast_compound_list;
 }								t_ast_subshell;
 

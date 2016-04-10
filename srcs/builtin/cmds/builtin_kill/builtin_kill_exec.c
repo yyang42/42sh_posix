@@ -59,7 +59,7 @@ static void			iter_pids_fn(void *token_, void *signum_ptr)
 	token = token_;
 	if ((job = get_job_by_id(token->text)))
 	{
-		pid = -1 * job->pid;
+		pid = job->pid;
 		builtin_kill_update_job(job, signum);
 	}
 	else if (twl_str_is_num(token->text))
@@ -80,8 +80,8 @@ static void			iter_pids_fn(void *token_, void *signum_ptr)
 		shenv_singleton()->last_exit_code = EXIT_FAILURE;
 		return ;
 	}
-	if (job_mgr_find_by_pid(shenv_singleton()->jobs, pid))
-		pid = - pid;
+	if ((job = job_mgr_find_by_pid(shenv_singleton()->jobs, pid)))
+		pid = job_get_kill_pid(job);
 	LOGGER_INFO("kill: %s(%d), pid=%d",
 		shsignal_mgr_get_signame(data_signals(), signum), signum, pid);
 	if (kill(pid, signum) == -1)

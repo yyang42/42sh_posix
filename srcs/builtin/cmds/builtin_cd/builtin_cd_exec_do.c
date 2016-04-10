@@ -40,20 +40,22 @@ static void	cd_symlink(char *path, t_shenv *this)
 	}
 }
 
-void				builtin_cd_exec_do(char *path, int no_symlinks, t_shenv *this)
+void				builtin_cd_exec_do(char *path, char *original_path, int follow_symlinks, t_shenv *this)
 {
 	char			*new_path;
 
 	new_path = NULL;
-	if (!no_symlinks)
+	if (follow_symlinks)
 		new_path = set_canonical_form(path);
-	if (no_symlinks)
+	if (!follow_symlinks)
+	{
 		cd_symlink(path, this);
+	}
 	else
 	{
 		if (chdir(new_path) == -1)
 		{
-			shenv_singl_error(EXIT_FAILURE, "cd: %s", strerror(errno));
+			shenv_singl_error(EXIT_FAILURE, "cd: %s: %s", original_path, strerror(errno));
 		}
 		else
 		{
@@ -61,6 +63,6 @@ void				builtin_cd_exec_do(char *path, int no_symlinks, t_shenv *this)
 			set_pwd(new_path, this);
 		}
 	}
-	if (!no_symlinks)
+	if (follow_symlinks)
 		free(new_path);
 }

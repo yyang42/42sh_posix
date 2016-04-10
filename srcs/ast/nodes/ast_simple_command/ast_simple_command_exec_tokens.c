@@ -41,9 +41,8 @@ void				ast_simple_command_exec_tokens(t_ast_simple_command *cmd)
 	else
 	{
 		env_arr = (char **)shenv_get_env_arr(shenv_singleton());
-		path = ast_simple_command_utils_get_binary_path(cmd_name, shenv_singleton());
+		path = shenv_find_binary_path(shenv_singleton(), cmd_name);
 		ast_simple_command_execve(cmd, path, env_arr);
-		free(path);
 		twl_arr_del(env_arr, free);
 	}
 }

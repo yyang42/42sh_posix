@@ -20,6 +20,7 @@
 #include "twl_stdio.h"
 #include "twl_xstdio.h"
 #include "twl_color.h"
+#include "twl_xstdio.h"
 
 static char			*get_level_color(t_logger_level level)
 {

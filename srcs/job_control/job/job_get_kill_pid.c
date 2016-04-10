@@ -10,31 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_simple_command.h"
-#include "builtin/builtin.h"
+#include <sys/wait.h>
+#include <errno.h>
+#include "job_control/job.h"
 
-char			*ast_simple_command_utils_get_binary_path(char *cmd, t_shenv *env)
+pid_t				job_get_kill_pid(t_job *job)
 {
-	char			**paths;
-	char			*path;
-	int				i;
-
-	if (cmd && (cmd[0] == '/' || twl_strncmp(cmd, "./", 2) == 0))
-		return (!file_exists(cmd) ? NULL : twl_strdup(cmd));
-	paths = shenv_get_paths(env);
-	if (!paths)
-		return (NULL);
-	i = -1;
-	while (paths[++i])
-	{
-		path = twl_joinpath(paths[i], cmd);
-		if (file_exists(path))
-		{
-			twl_arr_del(paths, free);
-			return (path);
-		}
-		free(path);
-	}
-	twl_arr_del(paths, free);
-	return (NULL);
+	if (job->is_group_id)
+		return (-job->pid);
+	else
+		return (job->pid);
 }

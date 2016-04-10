@@ -63,5 +63,7 @@ t_shenv				*shenv_copy(t_shenv *this)
 	copy->shenv_ignore_errexit = this->shenv_ignore_errexit;
 	copy->shenv_is_inside_job_control = this->shenv_is_inside_job_control;
 	copy->is_interactive_shell = this->is_interactive_shell;
+	copy->shenv_binary_db = NULL;
+	copy->shenv_binary_saved_path = twl_strdup("");
 	return (copy);
 }

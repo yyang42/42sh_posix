@@ -52,10 +52,16 @@ static void         put_in_fg(t_job *job, t_token *cmd_token)
     {
 
         // tcsetattr (env->jc_terminal, TCSADRAIN, &job->tmodes);
-        if (kill (-job->pid, SIGCONT) < 0)
-            twl_dprintf (2, "kill (SIGCONT)");
+        if (kill(job_get_kill_pid(job), SIGCONT) < 0)
+        {
+            LOGGER_ERROR("kill (SIGCONT): pid: %d", job->pid);
+            shenv_singleton()->last_exit_code = EXIT_FAILURE;
+        }
     }
-    fg_waitpid(job, cmd_token);
+    if (shenv_singleton()->last_exit_code == 0)
+    {
+        fg_waitpid(job, cmd_token);
+    }
     /* Put the shell back in the foreground.  */
     tcsetpgrp (env->jc_terminal, env->jc_pgid);
 

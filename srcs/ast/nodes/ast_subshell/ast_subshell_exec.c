@@ -37,10 +37,15 @@ static void			ast_subshell_fork_exec(t_ast_subshell *this)
     	{
 			shenv_singleton()->last_exit_code = WEXITSTATUS(res);
     	}
+		else if (WIFSIGNALED(res))
+		{
+			shenv_singl_error(143, "%d Terminated: %d", pid, WTERMSIG(res));
+		}
 	}
 }
 
 void				ast_subshell_exec(t_ast_subshell *this)
 {
+	shenv_set_cur_token(shenv_singleton(), token_mgr_first(this->tokens));
 	ast_subshell_fork_exec(this);
 }
