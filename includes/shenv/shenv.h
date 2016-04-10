@@ -19,6 +19,7 @@
 # include "twl_dict.h"
 # include <errno.h>
 # include "twl_arr.h"
+# include "twl_htab.h"
 # include "twl_arr2.h"
 # include "token/token.h"
 
@@ -76,6 +77,7 @@ typedef struct				s_shenv
 	bool					shenv_is_function_or_script;
 	bool					shenv_ignore_errexit;
 	bool					shenv_is_inside_job_control;
+	t_htab					*shenv_binary_db;
 }							t_shenv;
 
 t_shenv				*shenv_new(void);
@@ -114,7 +116,8 @@ int					shenv_print_error_printf(t_shenv *this, int line,
 void				shenv_singl_error(int exit_code, char *fmt, ...);
 void				shenv_increase_shlvl(t_shenv *this);
 pid_t				shenv_utils_fork(void);
-
+char				*shenv_find_binary_path(t_shenv *env, char *cmd);
+void				shenv_build_binary_db(t_shenv *env);
 
 /*
 ** exit

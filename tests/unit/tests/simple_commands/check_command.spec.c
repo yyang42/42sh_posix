@@ -19,11 +19,10 @@ static void test_get_binary_path(t_test *test)
 	t_shenv *env;
 
 	env = shenv_singleton();
-	str = ast_simple_command_utils_get_binary_path("pouet", env);
+	str = shenv_find_binary_path(env, "pouet");
 	mt_assert( str == NULL);
-	str = ast_simple_command_utils_get_binary_path("ls", env);
+	str = shenv_find_binary_path(env, "ls");
 	mt_assert(str != NULL);
-	twl_strdel(&str);
 }
 
 void	suite_check_command(t_suite *suite)

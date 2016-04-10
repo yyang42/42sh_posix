@@ -10,31 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_simple_command.h"
-#include "builtin/builtin.h"
+#include "shenv/shenv.h"
+#include "file.h"
 
-char			*ast_simple_command_utils_get_binary_path(char *cmd, t_shenv *env)
+char				*shenv_find_binary_path(t_shenv *env, char *cmd)
 {
-	char			**paths;
 	char			*path;
-	int				i;
 
-	if (cmd && (cmd[0] == '/' || twl_strncmp(cmd, "./", 2) == 0))
-		return (!file_exists(cmd) ? NULL : twl_strdup(cmd));
-	paths = shenv_get_paths(env);
-	if (!paths)
-		return (NULL);
-	i = -1;
-	while (paths[++i])
-	{
-		path = twl_joinpath(paths[i], cmd);
-		if (file_exists(path))
-		{
-			twl_arr_del(paths, free);
-			return (path);
-		}
-		free(path);
-	}
-	twl_arr_del(paths, free);
-	return (NULL);
+	path = twl_htab_get(env->shenv_binary_db, cmd);
+	if (!path)
+		shenv_build_binary_db(env);
+	path = twl_htab_get(env->shenv_binary_db, cmd);
+	return (path);
 }
