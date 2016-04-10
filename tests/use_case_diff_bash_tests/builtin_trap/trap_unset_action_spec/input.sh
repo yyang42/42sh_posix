@@ -1,4 +1,4 @@
-PID=`bash -c 'echo $PPID'`
+PID=$$
 trap "echo AAA" HUP
 trap "echo BBB" INT
 trap "echo CCC" QUIT

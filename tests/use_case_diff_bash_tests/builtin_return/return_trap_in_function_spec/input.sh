@@ -1,6 +1,6 @@
 foo ()
 {
-	PID=`bash -c 'echo $PPID'`
+	PID=$$
 	trap 'return' USR1
 	echo 'Before kill'
 	kill -USR1 $PID
