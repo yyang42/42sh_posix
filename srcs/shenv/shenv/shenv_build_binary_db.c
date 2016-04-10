@@ -17,14 +17,10 @@
 static void			htab_push_path(t_htab *htab, char *dirpath, char *filename)
 {
 	char			*full_path;
-	// LOGGER_DEBUG("bin %s/%s", dirpath, filename);
 	if (!twl_htab_get(htab, filename))
 	{
 		full_path = twl_joinpath(dirpath, filename);
-			twl_htab_set(htab, filename, full_path, free);
-		// if (file_exists(full_path))
-		// else
-		// 	free(full_path);
+		twl_htab_set(htab, filename, full_path, free);
 	}
 }
 
@@ -33,7 +29,6 @@ static void			shenv_build_binary_db_travel_dir(t_htab *htab, char *dir_path)
 	DIR				*dir;
 	struct dirent	*ent;
 
-	// LOGGER_DEBUG("dir %s", dir_path);
 	if ((dir = opendir(dir_path)) != NULL) {
 		while ((ent = readdir (dir)) != NULL)
 		{
