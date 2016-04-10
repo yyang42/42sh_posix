@@ -19,7 +19,7 @@
 		} \
 		mt_assert(strcmp(joined_str, expected) == 0); \
 		free(joined_str); \
-		token_mgr_del_inner(tokens); \
+		token_mgr_del(tokens); \
 	}
 
 mt_test_token_mgr_pop_linebreak(num1, "a b c", "a_b_c", false);

@@ -18,7 +18,7 @@
             twl_printf("expected : %s\n", expected); \
         } \
         mt_assert(t->err_msg && strcmp(t->err_msg, expected) == 0); \
-        token_mgr_del_inner(tokens); \
+        token_mgr_del(tokens); \
     }
 
 mt_test_tokenizer_err(err01, "'",               "42sh: line: 1: tokenizer: looking for matching `''", false);

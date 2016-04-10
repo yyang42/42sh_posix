@@ -12,7 +12,7 @@
 
 #include "token/token_mgr.h"
 
-void				token_mgr_del_void(void *tokens)
+void				token_mgr_del_shallow_void(void *tokens)
 {
-	token_mgr_del(tokens);
+	token_mgr_del_shallow(tokens);
 }

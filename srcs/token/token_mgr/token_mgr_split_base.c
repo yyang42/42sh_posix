@@ -97,6 +97,6 @@ t_lst				*token_mgr_split_base(t_lst *tokens, t_lst *split_strings,
 		do_split_true(tokens_copy, tokens_list, split_strings, matcher);
 	else
 		do_split_false(tokens_copy, tokens_list, split_strings, matcher);
-	token_mgr_del(tokens_copy);
+	token_mgr_del_shallow(tokens_copy);
 	return (tokens_list);
 }

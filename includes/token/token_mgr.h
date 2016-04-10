@@ -20,9 +20,9 @@
 t_lst				*token_mgr_new(void);
 t_lst				*token_mgr_new_from_string_list(t_token *to_cpy,
 													t_lst *str_lst);
+void				token_mgr_del_shallow(t_lst *tokens);
+void				token_mgr_del_shallow_void(void *tokens);
 void				token_mgr_del(t_lst *tokens);
-void				token_mgr_del_void(void *tokens);
-void				token_mgr_del_inner(t_lst *tokens);
 void				token_mgr_add(t_lst *tokens, t_token *token);
 void				token_mgr_remove(t_lst *tokens, t_token *token);
 void				token_mgr_print(t_lst *tokens);

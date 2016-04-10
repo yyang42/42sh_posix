@@ -31,9 +31,9 @@
 
 typedef struct			s_ast_simple_command
 {
-	t_lst				*full_command_tokens;
-	t_lst				*command_tokens;
-	t_lst				*command_tokens_expanded;
+	t_lst				*all_tokens;
+	t_lst				*cmd_tokens_deep_copy;
+	t_lst				*cmd_tokens_expanded;
 	t_lst				*redir_items;
 	t_lst				*assignment_items;
 	t_lst				*redir_fds;

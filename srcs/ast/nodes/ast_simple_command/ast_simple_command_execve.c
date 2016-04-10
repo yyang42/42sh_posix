@@ -35,7 +35,7 @@ static void			fork_and_execute(t_ast_simple_command *cmd, char *path, char **env
 	pid_t			pid;
 	char			**args;
 
-	args = token_mgr_to_str_arr(cmd->command_tokens_expanded);
+	args = token_mgr_to_str_arr(cmd->cmd_tokens_expanded);
 	pid = shenv_utils_fork();
 	if (pid == -1)
 	{
@@ -67,8 +67,8 @@ void			ast_simple_command_execve(t_ast_simple_command *cmd, char *path, char **e
 	else
 	{
 		shenv_print_error_printf(shenv_singleton(),
-			token_mgr_first(cmd->command_tokens_expanded)->line,
-			"%s: %s", token_mgr_first(cmd->command_tokens_expanded)->text,
+			token_mgr_first(cmd->cmd_tokens_expanded)->line,
+			"%s: %s", token_mgr_first(cmd->cmd_tokens_expanded)->text,
 			SHENV_ERROR_COMMAND_NOT_FOUND);
 		shenv_singleton()->last_exit_code = EXIT_COMMAND_NOT_FOUND;
 	}

@@ -63,11 +63,11 @@ static void				build_tokens(t_ast_simple_command *this,
 	remaining_of_assign_tokens = twl_lst_new();
 	this->assignment_items = token_mgr_extract_assignment(remaining_of_redir_tokens,
 		remaining_of_assign_tokens);
-	this->command_tokens = twl_lst_copy(remaining_of_assign_tokens, NULL);
+	this->cmd_tokens_deep_copy = twl_lst_copy(remaining_of_assign_tokens, NULL);
 	twl_lst_iter2(redir_tokens_groups, push_redir_fn, this->redir_items, ast);
 	twl_lst_del(remaining_of_redir_tokens, NULL);
 	twl_lst_del(remaining_of_assign_tokens, NULL);
-	token_list_mgr_del(redir_tokens_groups);
+	token_list_mgr_del_shallow(redir_tokens_groups);
 }
 
 t_ast_simple_command	*ast_simple_command_new_from_tokens(t_lst *tokens, struct s_ast *ast)
@@ -75,25 +75,23 @@ t_ast_simple_command	*ast_simple_command_new_from_tokens(t_lst *tokens, struct s
 	t_ast_simple_command		*this;
 
 	this = ast_simple_command_new();
-	this->full_command_tokens = twl_lst_copy(tokens, NULL);
-	this->command_tokens = twl_lst_new();
+	this->all_tokens = twl_lst_copy(tokens, NULL);
+	this->cmd_tokens_deep_copy = twl_lst_new();
 	while (token_mgr_first(tokens)
-		&& !token_is_control_operators_nl(token_mgr_first(tokens))
-		)
+		&& !token_is_control_operators_nl(token_mgr_first(tokens)))
 	{
-		twl_lst_push_back(this->command_tokens, twl_lst_pop_front(tokens));
+		twl_lst_push_back(this->cmd_tokens_deep_copy, token_copy(twl_lst_pop_front(tokens)));
 	}
-	if (twl_lst_len(this->command_tokens) == 0)
+	if (twl_lst_len(this->cmd_tokens_deep_copy) == 0)
 	{
 		ast_simple_command_del(this);
 		ast_set_error_msg_syntax_error_near(ast,
 			token_mgr_first(tokens), "Empty simple command");
 		return (NULL);
 	}
-	build_tokens(this, this->command_tokens, ast);
+	// TODO: Handle Alias here
+	build_tokens(this, this->cmd_tokens_deep_copy, ast);
 	if (ast_has_error(ast))
 		return (NULL);
 	return (this);
-	(void)ast;
-	(void)tokens;
 }

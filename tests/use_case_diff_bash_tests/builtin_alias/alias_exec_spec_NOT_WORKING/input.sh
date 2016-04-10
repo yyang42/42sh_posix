@@ -1,2 +1,2 @@
-alias lsl="ls -l"
-lsl -a
+alias echoabc="echo abc"
+echoabc 123

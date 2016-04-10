@@ -24,6 +24,6 @@ t_ast				*ast_new_from_tokens(t_lst *src_tokens)
 	if ((twl_lst_len(tokens_copy) > 0)
 		&& !ast->error_msg)
 		ast_set_error_msg_syntax_error_near(ast, twl_lst_first(tokens_copy), NULL);
-	token_mgr_del(tokens_copy);
+	token_mgr_del_shallow(tokens_copy);
 	return (ast);
 }

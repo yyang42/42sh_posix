@@ -50,7 +50,7 @@ static void         ast_simple_command_execve_parent_wait_catch_sigs(t_ast_simpl
     }
     else
     {
-        job = ast_list_item_exec_async_parent_create_job(cmd->full_command_tokens, pid);
+        job = ast_list_item_exec_async_parent_create_job(cmd->all_tokens, pid);
         job->is_group_id = false;
     }
     shenv_singleton()->jc_foreground_job_pid = 0;

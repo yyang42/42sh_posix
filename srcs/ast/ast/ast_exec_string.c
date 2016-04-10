@@ -24,13 +24,9 @@ int					ast_exec_string(char *input)
 	{
 		twl_dprintf(2, "%s\n", tokenizer->err_msg);
 		exit(2);
-		exit_code = 1;
 	}
-	else
-	{
-		exit_code = ast_exec_tokens(tokens);
-	}
+	exit_code = ast_exec_tokens(tokens);
 	tokenizer_del(tokenizer);
-	token_mgr_del_inner(tokens);
+	token_mgr_del(tokens);
 	return (exit_code);
 }

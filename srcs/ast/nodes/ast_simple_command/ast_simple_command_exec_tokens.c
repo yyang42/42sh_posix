@@ -23,19 +23,19 @@ void				ast_simple_command_exec_tokens(t_ast_simple_command *cmd)
 	char			*cmd_name;
 	t_builtin		*builtin;
 
-	if (twl_lst_len(cmd->command_tokens_expanded) == 0)
+	if (twl_lst_len(cmd->cmd_tokens_expanded) == 0)
 		return ;
-	cmd_name = token_mgr_first(cmd->command_tokens_expanded)->text;
+	cmd_name = token_mgr_first(cmd->cmd_tokens_expanded)->text;
 	builtin = builtin_mgr_find_by_name(data_builtins(), cmd_name);
 	if (builtin)
 	{
 		shenv_set_cur_cmd(shenv_singleton(), cmd_name);
-		shenv_set_cur_token(shenv_singleton(), token_mgr_first(cmd->command_tokens_expanded));
-		builtin->builtin_fn(cmd->command_tokens_expanded, shenv_singleton());
+		shenv_set_cur_token(shenv_singleton(), token_mgr_first(cmd->cmd_tokens_expanded));
+		builtin->builtin_fn(cmd->cmd_tokens_expanded, shenv_singleton());
 	}
 	else if (shenv_shfuncs_get(shenv_singleton(), cmd_name))
 	{
-		ast_simple_command_exec_function(cmd->command_tokens_expanded,
+		ast_simple_command_exec_function(cmd->cmd_tokens_expanded,
 								shenv_shfuncs_get(shenv_singleton(), cmd_name));
 	}
 	else

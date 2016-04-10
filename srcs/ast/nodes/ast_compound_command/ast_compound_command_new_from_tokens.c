@@ -54,7 +54,7 @@ static void				build_redir_tokens(t_lst *redir_items,
 	{
 		ast_set_error_msg_syntax_error_unexpected(ast, twl_lst_first(redir_tokens));
 	}
-	token_list_mgr_del(redir_tokens_groups);
+	token_list_mgr_del_shallow(redir_tokens_groups);
 }
 
 static void				new_compound_command_do(t_ast_compound_command *this,

@@ -27,9 +27,9 @@
 		mt_assert(strcmp(joined_str, expected) == 0); \
 		free(joined_str); \
 		free(remaining_str); \
-		token_mgr_del_inner(tokens); \
-		token_mgr_del(remaining_tokens); \
-		token_list_mgr_del(tokens_list); \
+		token_mgr_del(tokens); \
+		token_mgr_del_shallow(remaining_tokens); \
+		token_list_mgr_del_shallow(tokens_list); \
 	}
 
 mt_test_token_mgr_extract_redir(num1,
