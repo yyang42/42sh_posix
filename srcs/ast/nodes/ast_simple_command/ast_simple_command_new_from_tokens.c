@@ -89,6 +89,7 @@ t_ast_simple_command	*ast_simple_command_new_from_tokens(t_lst *tokens, struct s
 			token_mgr_first(tokens), "Empty simple command");
 		return (NULL);
 	}
+	// TODO: Handle Alias here
 	build_tokens(this, this->cmd_tokens_deep_copy, ast);
 	if (ast_has_error(ast))
 		return (NULL);

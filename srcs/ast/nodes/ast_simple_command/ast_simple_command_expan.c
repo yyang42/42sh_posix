@@ -38,7 +38,7 @@ static void 	iter_cmd_fn(void *token, void *context)
 	}
 //	LOGGER_DEBUG("token: %s", ((t_token *)token)->text_unexpanded)
 //	twl_lst_iter0(expanded, print_fn);
-	twl_lst_cat(cmd->cmd_tokens_deep_copy_expanded,
+	twl_lst_cat(cmd->cmd_tokens_expanded,
 				token_mgr_new_from_string_list(token, expanded));
 	twl_lst_del(expanded, free);
 }
@@ -102,7 +102,7 @@ static void 	iter_redir_fn(void *data, void *context)
 
 void			ast_simple_command_expan(t_ast_simple_command *cmd)
 {
-	cmd->cmd_tokens_deep_copy_expanded = twl_lst_new();
+	cmd->cmd_tokens_expanded = twl_lst_new();
 	twl_lst_iter(cmd->cmd_tokens_deep_copy, iter_cmd_fn, cmd);
 	twl_lst_iter(cmd->redir_items, iter_redir_fn, cmd);
 	twl_lst_iter(cmd->assignment_items, iter_assign_fn, cmd);

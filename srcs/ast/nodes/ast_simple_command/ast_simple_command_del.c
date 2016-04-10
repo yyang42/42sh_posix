@@ -19,7 +19,7 @@ void				ast_simple_command_del(t_ast_simple_command *this)
 	twl_lst_del(this->redir_items, ast_redir_del);
 	twl_lst_del(this->assignment_items, ast_assignment_del);
 	if (this->cmd_tokens_deep_copy)
-		twl_lst_del(this->cmd_tokens_deep_copy, NULL);
+		twl_lst_del(this->cmd_tokens_deep_copy, token_del);
 	twl_lst_del(this->redir_fds, NULL);
 	free(this);
 }
