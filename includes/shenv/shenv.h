@@ -78,6 +78,7 @@ typedef struct				s_shenv
 	bool					shenv_ignore_errexit;
 	bool					shenv_is_inside_job_control;
 	t_htab					*shenv_binary_db;
+	char					*shenv_binary_saved_path;
 }							t_shenv;
 
 t_shenv				*shenv_new(void);
@@ -118,6 +119,7 @@ void				shenv_increase_shlvl(t_shenv *this);
 pid_t				shenv_utils_fork(void);
 char				*shenv_find_binary_path(t_shenv *env, char *cmd);
 void				shenv_build_binary_db(t_shenv *env);
+void				shenv_set_binary_saved_path(t_shenv *env, char *path);
 
 /*
 ** exit

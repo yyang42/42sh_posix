@@ -51,5 +51,6 @@ t_shenv			*shenv_new(void)
 	this->shenv_is_function_or_script = 0;
 	this->shenv_ignore_errexit = false;
 	this->shenv_is_inside_job_control = false;
+	this->shenv_binary_saved_path = twl_strdup("");
 	return (this);
 }

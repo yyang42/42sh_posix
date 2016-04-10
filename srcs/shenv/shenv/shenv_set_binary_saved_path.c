@@ -10,41 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "twl_xstdlib.h"
+
 #include "shenv/shenv.h"
-#include "file.h"
+#include "xopt.h"
 
-static void			update_binary_db_on_path_change(t_shenv *env)
+void				shenv_set_binary_saved_path(t_shenv *env, char *path)
 {
-	char			*path_var;
-
-	path_var = shenv_shvars_get_value(env, "PATH");
-	if (path_var)
-	{
-		if (!twl_strequ(env->shenv_binary_saved_path, path_var))
-		{
-			shenv_build_binary_db(env);
-			shenv_set_binary_saved_path(env, path_var);
-		}
-	}
-}
-
-static bool			is_absolute_or_relative_path(char *cmd)
-{
-	return (cmd && (cmd[0] == '/' || twl_strncmp(cmd, "./", 2) == 0));
-}
-
-char				*shenv_find_binary_path(t_shenv *env, char *cmd)
-{
-	char			*path;
-
-	update_binary_db_on_path_change(env);
-	if (is_absolute_or_relative_path(cmd))
-		return (file_exists(cmd) ? cmd : NULL);
-	path = NULL;
-	if (env->shenv_binary_db)
-		path = twl_htab_get(env->shenv_binary_db, cmd);
-	if (!path)
-		shenv_build_binary_db(env);
-	path = twl_htab_get(env->shenv_binary_db, cmd);
-	return (path);
+	free(env->shenv_binary_saved_path);
+	env->shenv_binary_saved_path = twl_strdup(path);
 }
