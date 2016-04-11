@@ -10,39 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_list_item.h"
-#include "job_control/job_mgr.h"
-#include "job_control/job.h"
-#include "logger.h"
-#include <signal.h>
+#ifndef ALIAS_MGR_H
+# define ALIAS_MGR_H
 
-static void			ast_list_item_exec_child(t_ast_list_item *this)
-{
-	job_utils_sigs_dfl_on_interactive_for_chld_proc();
-	shenv_singleton()->shenv_is_inside_job_control = true;
-	ast_list_item_exec_non_async(this);
-}
+#include "twl_htab.h"
 
+t_lst				*alias_mgr_expan_tokens(t_htab *aliases, t_lst *tokens);
 
-void				ast_list_item_exec_async(t_ast_list_item *this)
-{
-	pid_t			pgid;
-	t_job			*job;
-
-	pgid = shenv_utils_fork();
-	if (pgid == -1)
-	{
-		twl_dprintf(2, "cannot fork: %s", strerror(errno));
-	}
-	else if (pgid == 0)
-	{
-		ast_list_item_exec_child(this);
-		exit(shenv_singleton()->last_exit_code);
-	}
-	else
-	{
-		setpgid (pgid, pgid);
-		job = ast_list_item_exec_async_parent_create_job(this->list_item_tokens, pgid);
-		job->is_group_id = true;
-	}
-}
+#endif

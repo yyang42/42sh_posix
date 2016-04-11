@@ -16,33 +16,29 @@
 #include "logger.h"
 #include <signal.h>
 
-static void			ast_list_item_exec_child(t_ast_list_item *this)
+static void			iter_fn(void *ast_andor_item_, void *prev_, void *last_item)
 {
-	job_utils_sigs_dfl_on_interactive_for_chld_proc();
-	shenv_singleton()->shenv_is_inside_job_control = true;
-	ast_list_item_exec_non_async(this);
+	t_ast_andor_item	*ast_andor_item;
+	t_ast_andor_item	*prev;
+	int					last_exit_code;
+
+	ast_andor_item = ast_andor_item_;
+	prev = prev_;
+	last_exit_code = shenv_singleton()->last_exit_code;
+	if (!prev
+		|| (prev->separator->type == TOKEN_AND_IF && last_exit_code == 0)
+		|| (prev->separator->type == TOKEN_OR_IF && last_exit_code > 0))
+	{
+		ast_andor_item_exec(ast_andor_item);
+		if (ast_andor_item == last_item)
+			shenv_exit_if_errexit_enabled(shenv_singleton());
+	}
 }
 
-
-void				ast_list_item_exec_async(t_ast_list_item *this)
+void				ast_list_item_exec_non_async(t_ast_list_item *ast_list_item)
 {
-	pid_t			pgid;
-	t_job			*job;
+	t_ast_andor_item	*last_item;
 
-	pgid = shenv_utils_fork();
-	if (pgid == -1)
-	{
-		twl_dprintf(2, "cannot fork: %s", strerror(errno));
-	}
-	else if (pgid == 0)
-	{
-		ast_list_item_exec_child(this);
-		exit(shenv_singleton()->last_exit_code);
-	}
-	else
-	{
-		setpgid (pgid, pgid);
-		job = ast_list_item_exec_async_parent_create_job(this->list_item_tokens, pgid);
-		job->is_group_id = true;
-	}
+	last_item = twl_lst_last(ast_list_item->ast_andor_items);
+	twl_lst_iterp(ast_list_item->ast_andor_items, &iter_fn, last_item);
 }
