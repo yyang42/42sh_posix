@@ -27,9 +27,6 @@ void				builtin_alias_set(char *str, t_shenv *env)
 		env->last_exit_code = EXIT_FAILURE;
 		return ;
 	}
-	if (twl_dict_key_exist(env->alias, key))
-		twl_dict_set(env->alias, key, twl_strdup(value + 1), free);
-	else
-		twl_dict_add(env->alias, key, twl_strdup(value + 1));
+	twl_htab_set(env->alias, key, twl_strdup(value + 1), free);
 	free(key);
 }

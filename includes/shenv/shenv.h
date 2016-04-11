@@ -53,7 +53,7 @@ typedef struct				s_shenv
 	t_lst					*shvars;
 	t_lst					*pos_params;
 	t_lst					*flags;
-	t_dict					*alias;
+	t_htab					*alias;
 	t_dict					*flag_verbose;
 	t_dict					*shfuncs;
 	int						function_depth;
