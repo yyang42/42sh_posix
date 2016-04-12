@@ -15,6 +15,6 @@
 
 #include "twl_htab.h"
 
-t_lst				*alias_mgr_expan_tokens(t_htab *aliases, t_lst *tokens);
+void				alias_mgr_expan_tokens(t_htab *aliases, t_lst *tokens);
 
 #endif

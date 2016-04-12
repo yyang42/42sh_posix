@@ -22,7 +22,7 @@ static bool			is_command_separator(char *str)
 		|| data_utils_is_reserved_word(str));
 }
 
-static void			expan_token(t_token *token, t_lst *res_tokens, t_htab *aliases)
+static char			*expan_token(t_token *token, t_lst *accumulator, t_htab *aliases)
 {
 	char			*found;
 	t_lst			*tokenized_tokens;
@@ -36,39 +36,39 @@ static void			expan_token(t_token *token, t_lst *res_tokens, t_htab *aliases)
 		if (tokenizer->err_msg)
 		{
 			twl_dprintf(2, "%s\n", tokenizer->err_msg);
-			exit(2);
+			// tokenizer
+			return (NULL);
 		}
-		twl_lst_extend(res_tokens, tokenized_tokens);
+		twl_lst_extend(accumulator, tokenized_tokens);
 		twl_lst_del(tokenized_tokens, NULL);
+		return (found);
 	}
-	else
-	{
-		twl_lst_push_back(res_tokens, token_copy(token));
-	}
+	return (NULL);
 }
 
-t_lst				*alias_mgr_expan_tokens(t_htab *aliases, t_lst *tokens)
+void				alias_mgr_expan_tokens(t_htab *aliases, t_lst *tokens)
 {
 	t_lst			*copy_tokens;
 	t_token			*token;
-	t_lst			*res_tokens;
+	char			*alias;
+	t_lst			*accumulator;
 
-	res_tokens = twl_lst_new();
 	copy_tokens = twl_lst_copy(tokens, NULL);
-	while ((token = twl_lst_pop_front(copy_tokens)))
+	accumulator = twl_lst_new();
+	while (true)
 	{
-		if (is_command_separator(token->text))
+		token = twl_lst_pop_front(copy_tokens);
+		if (!token || is_command_separator(token->text))
+			break ;
+		alias = expan_token(token, accumulator, aliases);
+		if (alias)
 		{
-			twl_lst_push_back(res_tokens, token_copy(token));
-			continue ;
+			twl_lst_pop_front(tokens);
+			if (twl_str_ends_with(alias, " ") && twl_lst_len(copy_tokens))
+				continue ;
 		}
-		expan_token(token, res_tokens, aliases);
-		while (token_mgr_first(copy_tokens)
-			&& !is_command_separator(token_mgr_first(copy_tokens)->text))
-		{
-			twl_lst_push_back(res_tokens, token_copy(twl_lst_pop_front(copy_tokens)));
-		}
+		break ;
 	}
-	twl_lst_del(copy_tokens, NULL);
-	return (res_tokens);
+	twl_lst_extend_front(tokens, accumulator);
+	twl_lst_del(accumulator, NULL);
 }
