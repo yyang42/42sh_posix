@@ -31,7 +31,7 @@ typedef enum		e_ast_type
 
 typedef struct		s_ast
 {
-	t_lst						*tokens;
+	t_lst						*tokens_ref_tracker;
 	t_ast_compound_list			*compound_list;
 	char						*error_msg;
 }					t_ast;

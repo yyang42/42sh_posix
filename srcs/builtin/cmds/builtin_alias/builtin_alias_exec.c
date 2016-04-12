@@ -21,12 +21,16 @@ static void		iter_fn(void *elem, void *context)
 	str = elem;
 	this = context;
 	if (twl_strchr(str, '='))
+	{
 		builtin_alias_set(str, this);
+	}
 	else
 	{
 		tmp = builtin_alias_get(str, this);
 		if (tmp)
 			twl_printf("%s=\'%s\'\n", str, tmp);
+		else
+			shenv_singl_error(EXIT_FAILURE, "alias: %s: not found", str);
 	}
 }
 

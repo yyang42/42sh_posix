@@ -14,7 +14,8 @@
 # define ALIAS_MGR_H
 
 #include "twl_htab.h"
+#include "ast/ast.h"
 
-void				alias_mgr_expan_tokens(t_htab *aliases, t_lst *tokens);
+void				alias_mgr_expan_tokens(t_htab *aliases, t_lst *tokens, t_ast *ast);
 
 #endif

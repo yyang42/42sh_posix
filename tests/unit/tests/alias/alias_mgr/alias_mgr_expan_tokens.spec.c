@@ -18,7 +18,7 @@
 		twl_htab_set(aliases, "if", "shoud_not_expan_to_this", NULL); \
 		twl_htab_set(aliases, "while", "shoud_not_expan_to_this", NULL); \
 		tokens = tokenizer_utils_tokenize(input); \
-		alias_mgr_expan_tokens(aliases, tokens); \
+		alias_mgr_expan_tokens(aliases, tokens, NULL); \
 		joined = token_mgr_strjoin(tokens, "_"); \
 		if (debug) \
 		{ \

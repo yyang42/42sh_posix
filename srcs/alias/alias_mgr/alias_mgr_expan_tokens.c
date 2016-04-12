@@ -22,7 +22,7 @@ static bool			is_command_separator(char *str)
 		|| data_utils_is_reserved_word(str));
 }
 
-static char			*expan_token(t_token *token, t_lst *accumulator, t_htab *aliases)
+static char			*expan_token(t_token *token, t_lst *accumulator, t_htab *aliases, t_ast *ast)
 {
 	char			*found;
 	t_lst			*tokenized_tokens;
@@ -36,17 +36,22 @@ static char			*expan_token(t_token *token, t_lst *accumulator, t_htab *aliases)
 		if (tokenizer->err_msg)
 		{
 			twl_dprintf(2, "%s\n", tokenizer->err_msg);
-			// tokenizer
+			tokenizer_del(tokenizer);
 			return (NULL);
 		}
 		twl_lst_extend(accumulator, tokenized_tokens);
+		if (ast)
+		{
+			twl_lst_extend(ast->tokens_ref_tracker, tokenized_tokens);
+		}
 		twl_lst_del(tokenized_tokens, NULL);
+		tokenizer_del(tokenizer);
 		return (found);
 	}
 	return (NULL);
 }
 
-void				alias_mgr_expan_tokens(t_htab *aliases, t_lst *tokens)
+void				alias_mgr_expan_tokens(t_htab *aliases, t_lst *tokens, t_ast *ast)
 {
 	t_lst			*copy_tokens;
 	t_token			*token;
@@ -60,7 +65,7 @@ void				alias_mgr_expan_tokens(t_htab *aliases, t_lst *tokens)
 		token = twl_lst_pop_front(copy_tokens);
 		if (!token || is_command_separator(token->text))
 			break ;
-		alias = expan_token(token, accumulator, aliases);
+		alias = expan_token(token, accumulator, aliases, ast);
 		if (alias)
 		{
 			twl_lst_pop_front(tokens);
