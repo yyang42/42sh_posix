@@ -14,7 +14,7 @@
 
 void				ast_list_item_exec(t_ast_list_item *ast_list_item)
 {
-	if (token_mgr_last_equ(ast_list_item->list_item_tokens, "&"))
+	if (ast_list_item_is_async(ast_list_item))
 	{
 		ast_list_item_exec_async(ast_list_item);
 	}
