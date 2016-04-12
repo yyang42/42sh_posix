@@ -18,9 +18,20 @@ void				edit_move_right(void *_edit)
 
 	edit = _edit;
 
-	edit->index += 1;
-	if (edit->index >= (int)letter_mgr_get_size(edit->letters))
+	if (edit->state == NORMAL)
 	{
-		edit->index = letter_mgr_get_size(edit->letters) - 1;
+		edit->index += 1;
+		if (edit->index >= (int)letter_mgr_get_size(edit->letters))
+		{
+			edit->index = letter_mgr_get_size(edit->letters) - 1;
+		}
+	}
+	else if (edit->state == SEARCH)
+	{
+		edit->return_cmd = true;
+		edit_clear_line(edit);
+		edit->return_cmd = false;
+		edit_handle_string(edit, twl_strdup(history_get_search_at_index(edit->history)));
+		edit->state = NORMAL;
 	}
 }
