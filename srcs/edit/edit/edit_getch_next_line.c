@@ -66,17 +66,12 @@ static char			*get_str_to_handle(void)
 static int			find_nl_in_str_to_handle(t_edit *edit, char *str_to_handle,
 																char *find_nl)
 {
-	char 			*rest_to_save;
 	char			*ret_str;
 
 	ret_str = twl_strsub(str_to_handle, 0, find_nl - str_to_handle);
-
-	rest_to_save = twl_strdup(str_to_handle + twl_strlen(ret_str) + 1);
-	if (twl_strlen(rest_to_save) < 1)
-		get_or_set_rest_buffer(NULL, true);
-	else
-		get_or_set_rest_buffer(twl_strdup(str_to_handle + twl_strlen(ret_str) + 1), false);
+	get_or_set_rest_buffer(twl_strdup(str_to_handle + twl_strlen(ret_str) + 1), false);
 	edit_handle_string(edit, ret_str);
+	free(ret_str);
 	return (RETURN_KEY);
 }
 
@@ -85,7 +80,6 @@ static void			not_find_nl_in_str_to_handle(t_edit *edit)
 	char			*ret_str;
 
 	ret_str = get_or_set_rest_buffer(NULL, false);
-	get_or_set_rest_buffer(NULL, true);
 	edit_handle_string(edit, ret_str);
 }
 
@@ -95,8 +89,10 @@ static int			str_is_a_special_command(char *str_to_handle)
 
 	ret_val = 0;
 	ret_val = str_to_handle[0];
-	ret_val += str_to_handle[1] << 8;
-	ret_val += str_to_handle[2] << 16;
+	if (twl_strlen(str_to_handle) > 1)
+		ret_val += str_to_handle[1] << 8;
+	if (twl_strlen(str_to_handle) > 2)
+		ret_val += str_to_handle[2] << 16;
 	get_or_set_rest_buffer(NULL, true);
 	return (ret_val);
 }

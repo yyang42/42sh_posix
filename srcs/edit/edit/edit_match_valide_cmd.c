@@ -63,7 +63,7 @@ static char			*new_loop(t_openclose *token)
 	print_line(edit_min, token->open);
 	while (!cmd)
 	{
-		key = twl_getch();
+		key = edit_getch_next_line(edit_min);
 		cmd = edit_handle_one_input(edit_min, key);
 		print_line(edit_min, token->open);
 	}

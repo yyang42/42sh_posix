@@ -32,7 +32,6 @@ char				*edit_loop(t_edit *this)
 	{
 		twl_xprintf("TERMINAL ERROR");
 	}
-	// TODO Error handling
 	edit_print_letters(this);
 	while (!this->return_cmd)
 	{

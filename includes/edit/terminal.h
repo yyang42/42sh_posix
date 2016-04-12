@@ -46,6 +46,7 @@ void				terminal_disable(void);
 
 void				terminal_clean_line(void);
 void				terminal_carriage_return(void);
+void				terminal_clear_screen(void);
 void				terminal_delete_line(void);
 void				terminal_radio_letter(void);
 void				terminal_clear_letter(void);
