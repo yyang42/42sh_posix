@@ -10,22 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/cmds/builtin_alias.h"
+#include "alias/alias.h"
 
-void				builtin_alias_set(char *str, t_shenv *env)
+bool				alias_is_valid_name(char *str)
 {
-	char			*value;
-	char			*key;
+	char			c;
 
-	value = twl_strchr(str, '=');
-	key = twl_strsub(str, 0, twl_strlen(str) - twl_strlen(value));
-	if (alias_is_valid_name(key))
+	while (*str)
 	{
-		twl_htab_set(env->alias, key, twl_strdup(value + 1), free);
+		c = *str;
+		if (twl_isalpha(c) || twl_isdigit(c) || c == '_'
+			|| twl_strchr("!%,@{}^~[]?", c))
+			str++;
+		else
+			return (false);
 	}
-	else
-	{
-		shenv_singl_error(127, "alias: `%s': invalid alias name", key);
-	}
-	free(key);
+	return (true);
 }

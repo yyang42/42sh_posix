@@ -12,20 +12,14 @@
 
 #include "builtin/cmds/builtin_alias.h"
 
-void				builtin_alias_set(char *str, t_shenv *env)
+t_argparser			*builtin_alias_argparser(void)
 {
-	char			*value;
-	char			*key;
+	static t_argparser		*argparser;
 
-	value = twl_strchr(str, '=');
-	key = twl_strsub(str, 0, twl_strlen(str) - twl_strlen(value));
-	if (alias_is_valid_name(key))
+	if (argparser == NULL)
 	{
-		twl_htab_set(env->alias, key, twl_strdup(value + 1), free);
+		argparser = argparser_new("alias");
+		argparser_set_usage(argparser, "[name[=value] ... ]");
 	}
-	else
-	{
-		shenv_singl_error(127, "alias: `%s': invalid alias name", key);
-	}
-	free(key);
+	return (argparser);
 }

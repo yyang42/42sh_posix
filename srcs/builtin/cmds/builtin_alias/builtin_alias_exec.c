@@ -12,21 +12,19 @@
 
 #include "builtin/cmds/builtin_alias.h"
 
-static void		iter_fn(void *elem, void *context)
+static void		iter_alias_fn(void *str_, void *env)
 {
-	char			*str;
 	char			*tmp;
-	t_shenv	*this;
+	char			*str;
 
-	str = elem;
-	this = context;
-	if (twl_strchr(str, '='))
+	str = str_;
+	if (twl_strchr(str, '=') && (*str != '='))
 	{
-		builtin_alias_set(str, this);
+		builtin_alias_set(str, env);
 	}
 	else
 	{
-		tmp = builtin_alias_get(str, this);
+		tmp = builtin_alias_get(str, env);
 		if (tmp)
 			twl_printf("%s=\'%s\'\n", str, tmp);
 		else
@@ -34,14 +32,21 @@ static void		iter_fn(void *elem, void *context)
 	}
 }
 
-void				builtin_alias_exec(t_lst *tokens, t_shenv *this)
+void				builtin_alias_exec(t_lst *tokens, t_shenv *env)
 {
-	char			**tab;
+	t_argparser_result	*argparser_result;
 
-	tab = token_mgr_to_str_arr(tokens);
-	if (twl_arr_len(tab) == 1)
-		builtin_alias_print(this);
-	else if (twl_arr_len(tab) > 1)
-		twl_arr_iter(&tab[1], iter_fn, this);
-	twl_arr_del(tab, NULL);
+	argparser_result = argparser_parse_tokens(builtin_alias_argparser(), tokens);
+	if (argparser_result->err_msg)
+	{
+		argparser_result_print_error_with_help(argparser_result);
+		env->last_exit_code = EXIT_FAILURE;
+	}
+	else
+	{
+		if (twl_lst_len(argparser_result->remainders) == 0)
+			builtin_alias_print(env);
+		else
+			twl_lst_iter(argparser_result->remainders, iter_alias_fn, env);
+	}
 }

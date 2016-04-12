@@ -13,18 +13,17 @@
 #ifndef BUILTIN_ALIAS_H
 # define BUILTIN_ALIAS_H
 
-# include "twl_arr.h"
-# include "twl_opt.h"
 # include "twl_stdio.h"
 # include "shenv/shenv.h"
-# include "twl_dict.h"
-# include "twl_arr.h"
+# include "alias/alias.h"
 # include "builtin/builtin.h"
+# include "argparser_extension.h"
 # include <stdbool.h>
 
 char				*builtin_alias_get(char *key, t_shenv *this);
 void				builtin_alias_set(char *str, t_shenv *this);
 void				builtin_alias_print(t_shenv *this);
 void				builtin_alias_exec(t_lst *tokens, t_shenv *this);
+t_argparser			*builtin_alias_argparser(void);
 
 #endif
