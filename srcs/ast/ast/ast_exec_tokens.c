@@ -17,7 +17,6 @@ int					ast_exec_tokens(t_lst *tokens)
 	t_ast			*ast;
 	int				exit_code;
 
-	// token_mgr_print(tokens);
 	ast = ast_new_from_tokens(tokens);
 	if (ast->error_msg)
 	{

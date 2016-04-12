@@ -79,6 +79,7 @@ typedef struct				s_shenv
 	bool					shenv_is_inside_job_control;
 	t_htab					*shenv_binary_db;
 	char					*shenv_binary_saved_path;
+	int						shenv_list_item_level;
 }							t_shenv;
 
 t_shenv				*shenv_new(void);

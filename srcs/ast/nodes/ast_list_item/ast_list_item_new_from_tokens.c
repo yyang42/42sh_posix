@@ -30,10 +30,21 @@ t_ast_list_item		*ast_list_item_new_from_tokens(t_lst *tokens, struct s_ast *ast
 {
 	t_ast_list_item				*this;
 
+	shenv_singleton()->shenv_list_item_level++;
 	this = ast_list_item_new();
+	// token_mgr_print(tokens);
 	this->list_item_tokens = twl_lst_copy(tokens, NULL);
 	this->ast_andor_items = ast_lap_build_items(tokens, AST_TYPE_ANDOR_ITEM, ast);
+	if (ast->error_msg)
+	{
+		return (this);
+	}
 	ast_list_item_build_tokens_copy(this, tokens);
+	LOGGER_DEBUG("level %d cmd %s", shenv_singleton()->shenv_list_item_level,
+		token_mgr_strjoin(tokens, " "));
+	if (shenv_singleton()->shenv_list_item_level == 1)
+		ast_list_item_exec(this);
+	shenv_singleton()->shenv_list_item_level--;
 	(void)ast;
 	(void)tokens;
 	return (this);

@@ -3,7 +3,7 @@
 #include "ast/ast.h"
 
 mt_test_ast_error(01, "echo abcd &&\n",
-	"SyntaxError 1:11 : Syntax error near '&&'", false);
+	"SyntaxError 1:11 : Syntax error near '&&'", true);
 mt_test_ast_error(02, "echo abcd &&",
 	"SyntaxError 1:11 : Syntax error near '&&'", false);
 mt_test_ast_error(03, "echo abcd && &&",
