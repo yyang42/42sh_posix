@@ -20,6 +20,7 @@ int					ast_exec_string(char *input)
 
 	tokenizer = tokenizer_new(input);
 	tokens = tokenizer_tokenize(tokenizer);
+	// token_mgr_print(tokens);
 	if (tokenizer->err_msg)
 	{
 		twl_dprintf(2, "%s\n", tokenizer->err_msg);

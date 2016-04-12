@@ -35,6 +35,8 @@ t_ast_for_clause		*ast_for_clause_new_from_tokens(t_lst *tokens,
 	t_ast_for_clause		*this;
 	t_token				*open;
 
+	// twl_printf("======= for clause =======\n");
+	// token_mgr_print(tokens);
 	this = ast_for_clause_new();
 	open = twl_lst_pop_front(tokens);
 	if (twl_lst_len(tokens) == 0)

@@ -52,13 +52,14 @@ static char			*match_fn(t_tokenizer *t, char *input)
 	openclose_matcher_add(matcher, "\"", "\"");
 	openclose_matcher_add(matcher, "\'", "\'");
 	openclose_matcher_set_skip_quoted(matcher, true);
-		match = openclose_matcher_find_matching(matcher, input);
-		if (matcher->err_msg)
+	match = openclose_matcher_find_matching(matcher, input);
+	if (matcher->err_msg)
 	{
-			twl_asprintf(&t->err_msg, "%s: line: %d: %s",
-			shenv_singleton()->shenv_name, t->cur_line, matcher->err_msg);
-		}
-		openclose_matcher_del(matcher);
+		// twl_asprintf(&t->err_msg, "%s: line: %d: %s",
+		// 	shenv_singleton()->shenv_name, t->cur_line, matcher->err_msg);
+		(void)t;
+	}
+	openclose_matcher_del(matcher);
 	return (match);
 }
 
