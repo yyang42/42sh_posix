@@ -3,17 +3,17 @@
 #include "ast/ast.h"
 
 mt_test_ast_error(01, "echo abcd &&\n",
-	"SyntaxError 1:11 : Syntax error near '&&'", true);
+	"SyntaxError 1 : Syntax error near '&&'", false);
 mt_test_ast_error(02, "echo abcd &&",
-	"SyntaxError 1:11 : Syntax error near '&&'", false);
+	"SyntaxError 1 : Syntax error near '&&'", false);
 mt_test_ast_error(03, "echo abcd && &&",
-	"SyntaxError 1:14 : Syntax error near '&&' : Empty simple command", false);
+	"SyntaxError 1 : Syntax error near '&&' : Empty simple command", false);
 mt_test_ast_error(04, "echo abcd && ||",
-	"SyntaxError 1:14 : Syntax error near '||' : Empty simple command", false);
+	"SyntaxError 1 : Syntax error near '||' : Empty simple command", false);
 mt_test_ast_error(05, "&&",
-	"SyntaxError 1:1 : Syntax error near '&&' : Empty simple command", false);
+	"SyntaxError 1 : Syntax error near '&&' : Empty simple command", false);
 mt_test_ast_error(06, "echo abcd ||\n",
-	"SyntaxError 1:11 : Syntax error near '||'", false);
+	"SyntaxError 1 : Syntax error near '||'", false);
 
 void	suite_ast_syntax_error_andor(t_suite *suite)
 {
