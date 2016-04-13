@@ -5,12 +5,12 @@ test_fn () {
 	echo $continue_nbr "< continue_nbr ==========="
 	until [ $counter_outer -eq 0 ]
 	do
-		counter_outer=`echo " " $counter_outer - 1 | bc`
+		counter_outer=$((counter_outer-1))
 		echo "outer start" $counter_outer
 		counter_inner=4
 		until [ $counter_inner -eq 0 ]
 		do
-			counter_inner=`echo " " $counter_inner - 1 | bc`
+			counter_inner=$((counter_inner-1))
 			echo "inner start" $counter_inner
 			if [ $counter_inner -lt 2 ]
 			then

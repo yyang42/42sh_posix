@@ -76,6 +76,7 @@ t_ast_simple_command	*ast_simple_command_new_from_tokens(t_lst *tokens, struct s
 
 	this = ast_simple_command_new();
 	this->all_tokens = twl_lst_copy(tokens, NULL);
+	// token_mgr_print(tokens);
 	this->cmd_tokens_deep_copy = twl_lst_new();
 	while (token_mgr_first(tokens)
 		&& !token_is_control_operators_nl(token_mgr_first(tokens)))

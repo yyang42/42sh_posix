@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "ast/ast_lap.h"
+#include "alias/alias_mgr.h"
 
 static bool is_reserved_word_delimiter(t_lst *tokens)
 {
@@ -58,6 +59,8 @@ t_lst				*ast_lap_build_items(t_lst *tokens,
 	while (42)
 	{
 		token_mgr_pop_linebreak(tokens);
+		alias_mgr_expan_tokens(shenv_singleton()->alias, tokens, ast);
+		// token_mgr_print(tokens);
 		if (twl_lst_len(tokens) == 0 || is_reserved_word_delimiter(tokens))
 			break ;
 		if (is_list_sep_followed_by_closing_parenthesis(tokens, type, last_sep))
@@ -71,6 +74,11 @@ t_lst				*ast_lap_build_items(t_lst *tokens,
 			break ;
 		ast_lap_set_separator_fns()[type](item, token_mgr_first(tokens));
 		last_sep = twl_lst_pop_front(tokens);
+	}
+	if (token_mgr_first_equ(tokens, "("))
+	{
+		ast_set_error_msg_syntax_error_near(ast, token_mgr_first(tokens), NULL);
+		return (NULL);
 	}
 	if (is_last_sep_that_require_more_tokens(last_sep))
 	{

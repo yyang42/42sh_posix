@@ -18,18 +18,14 @@ void				builtin_alias_set(char *str, t_shenv *env)
 	char			*key;
 
 	value = twl_strchr(str, '=');
-	if (value)
+	key = twl_strsub(str, 0, twl_strlen(str) - twl_strlen(value));
+	if (alias_utils_is_valid_name(key))
 	{
-		key = twl_strsub(str, 0, twl_strlen(str) - twl_strlen(value));
+		twl_htab_set(env->alias, key, twl_strdup(value + 1), free);
 	}
 	else
 	{
-		env->last_exit_code = EXIT_FAILURE;
-		return ;
+		shenv_singl_error(127, "alias: `%s': invalid alias name", key);
 	}
-	if (twl_dict_key_exist(env->alias, key))
-		twl_dict_set(env->alias, key, twl_strdup(value + 1), free);
-	else
-		twl_dict_add(env->alias, key, twl_strdup(value + 1));
 	free(key);
 }

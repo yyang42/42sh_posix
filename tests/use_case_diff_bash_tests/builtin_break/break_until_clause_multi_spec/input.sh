@@ -11,7 +11,7 @@ test_fn () {
 		do
 			marker=inner
 			echo "inner start" $marker $counter
-			counter=`echo $counter + 1 | bc`
+			counter=$((counter+1))
 			if [ $counter -gt 3 ]
 			then
 				break $break_nbr

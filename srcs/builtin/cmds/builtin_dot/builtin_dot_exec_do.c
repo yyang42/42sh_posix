@@ -51,16 +51,16 @@ void				builtin_dot_exec_do(char *raw_path)
 			exit(EXIT_FAILURE);
 		return ;
 	}
+	shenv_singleton()->shenv_is_function_or_script = true;
 	ast = ast_new(twl_file_to_str(resolved_path));
+	shenv_singleton()->shenv_is_function_or_script = false;
 	if (ast->error_msg)
 	{
 		shenv_singl_error(EXIT_FAILURE, "ast: %s", ast->error_msg);
 	}
 	else
 	{
-		shenv_singleton()->shenv_is_function_or_script = true;
 		ast_exec(ast);
-		shenv_singleton()->shenv_is_function_or_script = false;
 	}
 	ast_del(ast);
 	free(resolved_path);

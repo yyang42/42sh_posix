@@ -12,7 +12,7 @@
 
 #include "builtin/cmds/builtin_alias.h"
 
-static void			print_key_value(char *key, void *value, void *context_)
+static void			print_key_value(void *key, void *value, void *context_)
 {
 	twl_printf("%s='%s'\n", key, value);
 	(void)context_;
@@ -20,5 +20,5 @@ static void			print_key_value(char *key, void *value, void *context_)
 
 void				builtin_alias_print(t_shenv *env)
 {
-	twl_dict_iter(env->alias, print_key_value, NULL);
+	twl_htab_iter(env->alias, print_key_value, NULL);
 }

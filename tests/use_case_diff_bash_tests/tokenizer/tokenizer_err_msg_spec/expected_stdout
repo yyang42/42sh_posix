@@ -1,2 +1,2 @@
-/tmp/42sh_test.sh: line: 1: tokenizer: looking for matching `''
+SyntaxError 1 : Syntax error near '('
 exit_code: 0

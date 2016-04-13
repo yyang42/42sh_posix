@@ -19,6 +19,7 @@ void				builtin_jobs_exec_print(t_lst *jobs, int flags)
 
 	job_mgr_update_sign(jobs);
 	jobs_copy = twl_lst_copy(jobs, NULL);
+	LOGGER_DEBUG("jobs len %d", twl_lst_len(jobs));
 	while ((job = twl_lst_pop_front(jobs_copy)))
 	{
 		job_print(job, flags);

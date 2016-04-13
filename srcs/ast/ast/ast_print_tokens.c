@@ -15,5 +15,5 @@
 
 void				ast_print_tokens(t_ast *ast)
 {
-	token_mgr_print(ast->tokens);
+	token_mgr_print(ast->tokens_ref_tracker);
 }

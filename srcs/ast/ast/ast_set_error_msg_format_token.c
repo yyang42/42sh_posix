@@ -25,7 +25,7 @@ void				ast_set_error_msg_format_token(t_ast *ast, t_token *token,
 	va_start(pf->arglist, (char *)fmt);
 	pf_prepare_xprintf__(pf);
 	va_end(pf->arglist);
-	twl_asprintf(&ast->error_msg, "SyntaxError %d:%d : %s",
-				token->line, token->col, pf->output);
+	twl_asprintf(&ast->error_msg, "SyntaxError %d : %s",
+				token->line, pf->output);
 	pf_free(pf);
 }

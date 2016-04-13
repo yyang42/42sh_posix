@@ -16,10 +16,6 @@ char				*builtin_alias_get(char *key, t_shenv *this)
 {
 	char			*value;
 
-	value = twl_dict_get(this->alias, key);
-	if (!value)
-	{
-		this->last_exit_code = EXIT_FAILURE;
-	}
+	value = twl_htab_get(this->alias, key);
 	return (value);
 }

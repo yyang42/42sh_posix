@@ -2,7 +2,7 @@ counter=0
 while true
 do
 	echo "start" $counter
-	counter=`echo $counter + 1 | bc`
+	counter=$((counter+1))
 	if [ $counter -gt 5 ]
 	then
 		break

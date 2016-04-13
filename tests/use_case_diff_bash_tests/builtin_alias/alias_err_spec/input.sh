@@ -1,0 +1,1 @@
+alias |='echo 44'

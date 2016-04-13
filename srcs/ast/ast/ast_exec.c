@@ -14,6 +14,7 @@
 
 int				ast_exec(t_ast *this)
 {
-	ast_compound_list_exec(this->compound_list);
 	return (shenv_singleton()->last_exit_code);
+	// ast_compound_list_exec(this->compound_list);
+	(void)this;
 }

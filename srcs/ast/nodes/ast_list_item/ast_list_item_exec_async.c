@@ -20,7 +20,7 @@ static void			ast_list_item_exec_child(t_ast_list_item *this)
 {
 	job_utils_sigs_dfl_on_interactive_for_chld_proc();
 	shenv_singleton()->shenv_is_inside_job_control = true;
-	ast_list_item_exec(this);
+	ast_list_item_exec_non_async(this);
 }
 
 
