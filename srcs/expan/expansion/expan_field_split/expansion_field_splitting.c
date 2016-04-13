@@ -48,10 +48,10 @@ static void		wrapper_split_iter_fn(void *data, void *context)
 
 	this = context;
 	twl_lst_iter(data, split_iter_fn, this);
-	if (this->to_push_as)
+	if (this->to_push_as && *this->to_push_as)
 	{
-		twl_lst_push_back(this->after_split, this->to_push_as);
-		this->to_push_as = NULL;
+		twl_lst_push_back(this->after_split, twl_strdup(this->to_push_as));
+		twl_strclr(this->to_push_as);
 	}
 }
 
@@ -61,9 +61,9 @@ void			expansion_field_splitting(t_expansion *this)
 	if (!this->ifs)
 		this->ifs = " \t\n";
 	twl_lst_iter(this->before_split, wrapper_split_iter_fn, this);
-	if (this->to_push_as)
+	if (this->to_push_as && *this->to_push_as)
 	{
-		twl_lst_push_back(this->after_split, this->to_push_as);
-		this->to_push_as = NULL;
+		twl_lst_push_back(this->after_split, twl_strdup(this->to_push_as));
+		twl_strclr(this->to_push_as);
 	}
 }

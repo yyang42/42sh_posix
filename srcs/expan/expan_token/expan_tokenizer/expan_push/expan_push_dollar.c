@@ -90,10 +90,7 @@ void				expan_push_dollar(t_expan_tokenizer *this)
 	else if (expan_tokenizer_is_special_parameter(this))
 		expan_tokenizer_addone(this);
 	else if (twl_isdigit(this->input[this->input_index]))
-	{
-		while (twl_isdigit(this->input[this->input_index]))
-			expan_tokenizer_addone(this);
-	}
+		expan_tokenizer_addone(this);
 	else if (twl_isalpha(this->input[this->input_index]))
 	{
 		while (twl_isalnum(this->input[this->input_index])

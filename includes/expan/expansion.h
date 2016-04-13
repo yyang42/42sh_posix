@@ -63,7 +63,9 @@ void				expansion_cmdsbt_bquote(t_expansion *this,
 											t_expan_token *token);
 void				expansion_arithmetic(t_expansion *this,
 											t_expan_token *token);
-void				expansion_dquote(t_expansion *this,
+void				expansion_dquote_wrap(t_expansion *this,
+											t_expan_token *token);
+void				expansion_dquote_unwrap(t_expansion *this,
 											t_expan_token *token);
 
 void				expansion_push_before_split(t_expansion *this,

@@ -48,7 +48,7 @@ static void	expan_param_asterisk(t_expansion *this, char *word)
 	if (this->quoted)
 	{
 		join = expan_get_asterisk_quoted(new);
-		quoted = expan_quote(join);
+		quoted = expan_quote(join, this->quoted);
 		expansion_push_before_split(this, quoted, false);
 		free(quoted);
 		free(join);
@@ -96,7 +96,7 @@ static void	expan_param_spec(t_expansion *this, char special, char *word)
 	}
 	substr = substr_new();
 	to_quote = substr_sharp(substr, twl_lst_get(ls, 0), word);
-	quote = expan_quote(to_quote);
+	quote = expan_quote(to_quote, this->quoted);
 	expansion_push_before_split(this, quote, !this->quoted);
 	free(quote);
 	free(to_quote);

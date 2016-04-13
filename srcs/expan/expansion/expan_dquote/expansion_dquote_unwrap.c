@@ -17,16 +17,6 @@
 ** TODO: Rafistolage vraiment crade, à modifier
 */
 
-static void		iter_fn_wrap(void *data)
-{
-	t_expan_before_split	*ebs;
-
-	ebs = expan_before_split_new("\"", false);
-	twl_lst_push_back(data, ebs);
-	ebs = expan_before_split_new("\"", false);
-	twl_lst_push_front(data, ebs);
-}
-
 static void		push_quote(t_lst *lst_inner)
 {
 	t_lst					*quote;
@@ -40,7 +30,7 @@ static void		push_quote(t_lst *lst_inner)
 	twl_lst_push_back(lst_inner, quote);
 }
 
-void			expansion_dquote(t_expansion *this, t_expan_token *token)
+void			expansion_dquote_unwrap(t_expansion *this, t_expan_token *token)
 {
 	char		*dquote;
 	t_expansion	*inner;
@@ -57,7 +47,6 @@ void			expansion_dquote(t_expansion *this, t_expan_token *token)
 	expansion_del(inner);
 	if (this->error)
 		return ;
-	twl_lst_iter0(lst_inner, iter_fn_wrap);
 	if (twl_lst_len(lst_inner) == 0)
 		push_quote(lst_inner);
 	expansion_push_lst_before_split(this, lst_inner);

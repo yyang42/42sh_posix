@@ -16,7 +16,7 @@ static void		iter_fn(void *data, void *prev, void *next, void *this)
 {
 	char		*quoted;
 
-	quoted = expan_quote(data);
+	quoted = expan_quote(data, ((t_expansion *)this)->quoted);
 	if (prev)
 		quoted = twl_strjoinfree("\"", quoted, 'r');
 	if (next)

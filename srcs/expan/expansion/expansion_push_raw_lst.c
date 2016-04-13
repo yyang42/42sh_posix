@@ -16,7 +16,7 @@ static void		iter_fn(void *data, void *next, void *this)
 {
 	char		*quoted;
 
-	quoted = expan_quote(data);
+	quoted = expan_quote(data, ((t_expansion *)this)->quoted);
 	if (next)
 	{
 		expansion_push_before_split_s(this, quoted,

@@ -22,7 +22,7 @@ static void		expan_param_pos(t_expansion *this, t_expansion_brace *eb)
 		expansion_brace_hyphen_solve(this, eb->word);
 	else
 	{
-		quote = expan_quote(param);
+		quote = expan_quote(param, this->quoted);
 		expansion_push_before_split(this, quote, !this->quoted);
 		free(quote);
 	}
@@ -38,7 +38,7 @@ static void		expan_param_normal(t_expansion *this, t_expansion_brace *eb)
 		expansion_brace_hyphen_solve(this, eb->word);
 	else
 	{
-		quote = expan_quote(param);
+		quote = expan_quote(param, this->quoted);
 		expansion_push_before_split(this, quote, !this->quoted);
 		free(quote);
 	}

@@ -28,7 +28,7 @@ static void	expan_param_asterisk(t_expansion *this)
 	if (this->quoted)
 	{
 		join = expan_get_asterisk_quoted(lsast);
-		quoted = expan_quote(join);
+		quoted = expan_quote(join, this->quoted);
 		expansion_push_before_split(this, quoted, false);
 		free(quoted);
 		free(join);
@@ -67,7 +67,7 @@ static void	expan_param_spec(t_expansion *this, char special)
 			twl_lst_del(ls, free);
 		return ;
 	}
-	quote = expan_quote(twl_lst_get(ls, 0));
+	quote = expan_quote(twl_lst_get(ls, 0), this->quoted);
 	expansion_push_before_split(this, quote, !this->quoted);
 	free(quote);
 	twl_lst_del(ls, free);

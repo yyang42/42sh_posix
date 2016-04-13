@@ -12,7 +12,7 @@
 
 #include "expan/expan_utils.h"
 
-char			*expan_quote(char *param)
+char			*expan_quote(char *param, bool quoted)
 {
 	char		*cpy;
 	char		*ret;
@@ -24,7 +24,9 @@ char			*expan_quote(char *param)
 	ind_cpy = 0;
 	while (param[ind_par])
 	{
-		if (param[ind_par] == '"' || param[ind_par] == '\\')
+		if ((quoted && (param[ind_par] == '\\' || param[ind_par] == '"')) ||
+			(!quoted && (param[ind_par] == '\\' || param[ind_par] == '"' ||
+						 param[ind_par] == '\'')))
 		{
 			cpy[ind_cpy] = '\\';
 			ind_cpy += 1;

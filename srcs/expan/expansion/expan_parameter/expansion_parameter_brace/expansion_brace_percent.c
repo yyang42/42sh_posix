@@ -31,7 +31,7 @@ static void		expan_param_pos(t_expansion *this, t_expansion_brace *eb)
 		substr_del(substr);
 		return ;
 	}
-	quote = expan_quote(match);
+	quote = expan_quote(match, this->quoted);
 	expansion_push_before_split(this, quote, !this->quoted);
 	free(quote);
 	free(match);
@@ -56,7 +56,7 @@ static void		expan_param_normal(t_expansion *this, t_expansion_brace *eb)
 		substr_del(substr);
 		return ;
 	}
-	quote = expan_quote(match);
+	quote = expan_quote(match, this->quoted);
 	expansion_push_before_split(this, quote, !this->quoted);
 	free(quote);
 	free(match);
