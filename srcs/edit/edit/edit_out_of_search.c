@@ -12,22 +12,11 @@
 
 #include "edit/edit.h"
 
-void				edit_move_right(void *_edit)
+void				edit_out_of_search(t_edit *this)
 {
-	t_edit			*edit;
-
-	edit = _edit;
-
-	if (edit->state == NORMAL)
-	{
-		edit->index += 1;
-		if (edit->index >= (int)letter_mgr_get_size(edit->letters))
-		{
-			edit->index = letter_mgr_get_size(edit->letters) - 1;
-		}
-	}
-	else if (edit->state == SEARCH)
-	{
-		edit_out_of_search(edit);
-	}
+	this->return_cmd = true;
+	edit_clear_line(this);
+	this->return_cmd = false;
+	edit_handle_string(this, history_get_search_at_index(this->history));
+	this->state = NORMAL;
 }

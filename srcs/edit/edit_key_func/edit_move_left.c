@@ -28,10 +28,6 @@ void				edit_move_left(void *_edit)
 	}
 	else if (edit->state == SEARCH)
 	{
-		edit->return_cmd = true;
-		edit_clear_line(edit);
-		edit->return_cmd = false;
-		edit_handle_string(edit, twl_strdup(history_get_search_at_index(edit->history)));
-		edit->state = NORMAL;
+		edit_out_of_search(edit);
 	}
 }
