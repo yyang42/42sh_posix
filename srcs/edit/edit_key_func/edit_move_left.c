@@ -18,9 +18,16 @@ void				edit_move_left(void *_edit)
 
 	edit = _edit;
 
-	edit->index -= 1;
-	if (edit->index < 0)
+	if (edit->state == NORMAL)
 	{
-		edit->index = 0;
+		edit->index -= 1;
+		if (edit->index < 0)
+		{
+			edit->index = 0;
+		}
+	}
+	else if (edit->state == SEARCH)
+	{
+		edit_out_of_search(edit);
 	}
 }

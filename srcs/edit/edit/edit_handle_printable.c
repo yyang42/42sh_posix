@@ -32,5 +32,6 @@ void				edit_handle_printable(t_edit *edit, int key)
 		tmp_str = letter_mgr_concat_string(edit->letters);
 		tmp_str = twl_strtrim_free(tmp_str);
 		edit->history->match = history_mgr_find_match(edit->history->history, tmp_str);
+		free(tmp_str);
 	}
 }

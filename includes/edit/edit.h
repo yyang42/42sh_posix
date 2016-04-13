@@ -60,4 +60,6 @@ void				edit_clear_line(t_edit *this);
 
 char				*edit_match_valide_cmd(char *cmd);
 
+void				edit_out_of_search(t_edit *this);
+
 #endif

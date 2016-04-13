@@ -19,7 +19,9 @@ void				edit_move_end(void *_edit)
 	edit = _edit;
 
 	if (edit->state == SEARCH)
-		return ;
+	{
+		edit_out_of_search(edit);
+	}
 	if (letter_mgr_get_size(edit->letters) > 0)
 	{
 		edit->index = (int)(letter_mgr_get_size(edit->letters) - 1);

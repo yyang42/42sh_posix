@@ -17,6 +17,10 @@ void				edit_move_start(void *_edit)
 	t_edit			*edit;
 
 	edit = _edit;
+	if (edit->state == SEARCH)
+	{
+		edit_out_of_search(edit);
+	}
 	if (edit->state == NORMAL)
 		edit->index = 0;
 }
