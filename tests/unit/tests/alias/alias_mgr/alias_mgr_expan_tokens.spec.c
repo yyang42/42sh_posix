@@ -47,7 +47,7 @@ mt_test_alias(multi_words, "multi 123", "echo_abc_123", false);
 mt_test_alias(recursive, "cc", "11_22_33", false);
 mt_test_alias(empty, "", "", false);
 mt_test_alias(no_self_expan, "mm", "mm", true);
-mt_test_alias(no_self_expan2, "nn", "nn", true);
+mt_test_alias(no_self_expan2, "nn", "nn_oo", true);
 
 void	suite_alias_mgr_expan_tokens(t_suite *suite)
 {
