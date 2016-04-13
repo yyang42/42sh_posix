@@ -17,6 +17,9 @@
 		twl_htab_set(aliases, "multi", "echo abc", NULL); \
 		twl_htab_set(aliases, "if", "shoud_not_expan_to_this", NULL); \
 		twl_htab_set(aliases, "while", "shoud_not_expan_to_this", NULL); \
+		twl_htab_set(aliases, "aa", "11", NULL); \
+		twl_htab_set(aliases, "bb", "aa 22", NULL); \
+		twl_htab_set(aliases, "cc", "bb 33", NULL); \
 		tokens = tokenizer_utils_tokenize(input); \
 		alias_mgr_expan_tokens(aliases, tokens, NULL); \
 		joined = token_mgr_strjoin(tokens, "_"); \
@@ -39,6 +42,8 @@ mt_test_alias(reserved, "if bla", "if_bla", false);
 mt_test_alias(reserved2, "while bla", "while_bla", false);
 mt_test_alias(expan_only_first, "xxx xxx", "echo_xxx", false);
 mt_test_alias(multi_words, "multi 123", "echo_abc_123", false);
+mt_test_alias(recursive, "cc", "11_22_33", false);
+mt_test_alias(empty, "", "", false);
 
 void	suite_alias_mgr_expan_tokens(t_suite *suite)
 {
@@ -50,4 +55,6 @@ void	suite_alias_mgr_expan_tokens(t_suite *suite)
 	SUITE_ADD_TEST(suite, reserved2);
 	SUITE_ADD_TEST(suite, expan_only_first);
 	SUITE_ADD_TEST(suite, multi_words);
+	SUITE_ADD_TEST(suite, recursive);
+	SUITE_ADD_TEST(suite, empty);
 }

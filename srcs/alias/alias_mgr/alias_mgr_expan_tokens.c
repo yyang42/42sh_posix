@@ -55,20 +55,17 @@ static void			extend_tokens(t_lst *tokens, char **accumulator, int line, t_ast *
 	}
 }
 
-void				alias_mgr_expan_tokens(t_htab *aliases, t_lst *tokens, t_ast *ast)
+bool				alias_mgr_expan_tokens_inner(t_htab *aliases, t_lst *tokens, int line, t_ast *ast)
 {
 	t_lst			*copy_tokens;
 	t_token			*token;
 	char			*alias;
 	char			*accumulator;
-	int				line;
+	bool			has_expan;
 
-	if (twl_lst_len(tokens))
-		line = token_mgr_first(tokens)->line;
-	else
-		line = 1;
 	copy_tokens = twl_lst_copy(tokens, NULL);
 	accumulator = twl_strdup("");
+	has_expan = false;
 	while (true)
 	{
 		token = twl_lst_pop_front(copy_tokens);
@@ -77,6 +74,7 @@ void				alias_mgr_expan_tokens(t_htab *aliases, t_lst *tokens, t_ast *ast)
 		alias = expan_token(token, &accumulator, aliases);
 		if (alias)
 		{
+			has_expan = true;
 			twl_lst_pop_front(tokens);
 			if (twl_str_ends_with(alias, " ") && twl_lst_len(copy_tokens))
 				continue ;
@@ -84,5 +82,18 @@ void				alias_mgr_expan_tokens(t_htab *aliases, t_lst *tokens, t_ast *ast)
 		break ;
 	}
 	extend_tokens(tokens, &accumulator, line, ast);
+	twl_lst_del(copy_tokens, NULL);
 	free(accumulator);
+	return (has_expan);
+}
+
+void				alias_mgr_expan_tokens(t_htab *aliases, t_lst *tokens, t_ast *ast)
+{
+	int				line;
+
+	if (twl_lst_len(tokens) == 0)
+		return ;
+	line = token_mgr_first(tokens)->line;
+	while (alias_mgr_expan_tokens_inner(aliases, tokens, line, ast))
+		;
 }
