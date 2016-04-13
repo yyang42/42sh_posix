@@ -22,35 +22,37 @@ static bool			is_command_separator(char *str)
 		|| data_utils_is_reserved_word(str));
 }
 
-static char			*expan_token(t_token *token, char **accumulator_ptr, t_htab *aliases, t_ast *ast)
+static char			*expan_token(t_token *token, char **accumulator_ptr, t_htab *aliases)
 {
 	char			*found;
-	// t_lst			*tokenized_tokens;
-	// t_tokenizer		*tokenizer;
 
-	(void)ast;
 	found = twl_htab_get(aliases, token->text);
 	if (found)
 	{
 		*accumulator_ptr = twl_strjoinfree(*accumulator_ptr, found, 'l');
-		// tokenizer = tokenizer_new(found);
-		// tokenized_tokens = tokenizer_tokenize(tokenizer);
-		// if (tokenizer->err_msg)
-		// {
-		// 	twl_dprintf(2, "%s\n", tokenizer->err_msg);
-		// 	tokenizer_del(tokenizer);
-		// 	return (NULL);
-		// }
-		// twl_lst_extend(accumulator, tokenized_tokens);
-		// if (ast)
-		// {
-		// 	twl_lst_extend(ast->tokens_ref_tracker, tokenized_tokens);
-		// }
-		// twl_lst_del(tokenized_tokens, NULL);
-		// tokenizer_del(tokenizer);
 		return (found);
 	}
 	return (NULL);
+}
+
+static void			extend_tokens(t_lst *tokens, char **accumulator, int line, t_ast *ast)
+{
+	t_lst			*tokenized_tokens;
+	t_tokenizer		*tokenizer;
+	if (twl_lst_len(tokens))
+	{
+		*accumulator = twl_strjoinfree(*accumulator, "  ", 'l');
+		*accumulator = twl_strjoinfree(*accumulator, token_mgr_first(tokens)->text, 'l');
+		twl_lst_pop_front(tokens);
+	}
+	tokenizer = tokenizer_new(*accumulator);
+	tokenizer->cur_line = line;
+	tokenized_tokens = tokenizer_tokenize(tokenizer);
+	twl_lst_extend_front(tokens, tokenized_tokens);
+	if (ast)
+	{
+		twl_lst_extend(ast->tokens_ref_tracker, tokenized_tokens);
+	}
 }
 
 void				alias_mgr_expan_tokens(t_htab *aliases, t_lst *tokens, t_ast *ast)
@@ -72,7 +74,7 @@ void				alias_mgr_expan_tokens(t_htab *aliases, t_lst *tokens, t_ast *ast)
 		token = twl_lst_pop_front(copy_tokens);
 		if (!token || is_command_separator(token->text))
 			break ;
-		alias = expan_token(token, &accumulator, aliases, ast);
+		alias = expan_token(token, &accumulator, aliases);
 		if (alias)
 		{
 			twl_lst_pop_front(tokens);
@@ -81,20 +83,6 @@ void				alias_mgr_expan_tokens(t_htab *aliases, t_lst *tokens, t_ast *ast)
 		}
 		break ;
 	}
-
-	// char *joined;
-	t_lst			*tokenized_tokens;
-	t_tokenizer		*tokenizer;
-	if (twl_lst_len(tokens))
-	{
-		accumulator = twl_strjoinfree(accumulator, "  ", 'l');
-		accumulator = twl_strjoinfree(accumulator, token_mgr_first(tokens)->text, 'l');
-		twl_lst_pop_front(tokens);
-	}
-	// joined = twl_strjoin(accumulator, " ");
-	tokenizer = tokenizer_new(accumulator);
-	tokenizer->cur_line = line;
-	tokenized_tokens = tokenizer_tokenize(tokenizer);
-	twl_lst_extend_front(tokens, tokenized_tokens);
+	extend_tokens(tokens, &accumulator, line, ast);
 	free(accumulator);
 }
