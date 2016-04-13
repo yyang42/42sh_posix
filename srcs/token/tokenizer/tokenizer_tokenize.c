@@ -51,8 +51,6 @@ static bool			fn_loop(t_tokenizer *t)
 	while (g_tokenizer_rule_fns[i])
 	{
 		status = g_tokenizer_rule_fns[i](t);
-		if (t->err_msg)
-			return (false);
 		if (status != RULE_STATUS_NOT_APPLIED)
 			break ;
 		i++;

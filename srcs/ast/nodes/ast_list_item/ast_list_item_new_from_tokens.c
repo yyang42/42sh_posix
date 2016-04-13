@@ -27,6 +27,34 @@ static void			ast_list_item_build_tokens_copy(t_ast_list_item *this, t_lst *toke
 	this->list_item_tokens = twl_lst_slice(this->list_item_tokens, 0, slice_len);
 }
 
+static void			ast_list_item_exec_check_error(t_ast_list_item *this, struct s_ast *ast)
+{
+	t_tokenizer		*tokenizer;
+	char			*cmd;
+	t_lst			*tokens;
+
+	cmd = token_mgr_strjoin(this->list_item_tokens, " ");
+	tokenizer = tokenizer_new(cmd);
+	tokens = tokenizer_tokenize(tokenizer);
+	if (tokenizer->err_msg)
+		ast->error_msg = twl_strdup(tokenizer->err_msg);
+	tokenizer_del(tokenizer);
+	token_mgr_del(tokens);
+	free(cmd);
+}
+
+static void			ast_list_item_exec_wrapper(t_ast_list_item *this, struct s_ast *ast)
+{
+	ast_list_item_exec_check_error(this, ast);
+	if (ast->error_msg)
+		return ;
+	if (shenv_singleton()->shenv_list_item_level == 1
+		&& !xopt_singleton()->print_ast)
+	{
+		ast_list_item_exec(this);
+	}
+}
+
 t_ast_list_item		*ast_list_item_new_from_tokens(t_lst *tokens, struct s_ast *ast)
 {
 	t_ast_list_item				*this;
@@ -38,9 +66,7 @@ t_ast_list_item		*ast_list_item_new_from_tokens(t_lst *tokens, struct s_ast *ast
 	if (!ast->error_msg)
 	{
 		ast_list_item_build_tokens_copy(this, tokens);
-		if (shenv_singleton()->shenv_list_item_level == 1
-			&& !xopt_singleton()->print_ast)
-			ast_list_item_exec(this);
+		ast_list_item_exec_wrapper(this, ast);
 	}
 	shenv_singleton()->shenv_list_item_level--;
 	return (this);

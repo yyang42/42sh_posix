@@ -55,9 +55,7 @@ static char			*match_fn(t_tokenizer *t, char *input)
 	match = openclose_matcher_find_matching(matcher, input);
 	if (matcher->err_msg)
 	{
-		// twl_asprintf(&t->err_msg, "%s: line: %d: %s",
-		// 	shenv_singleton()->shenv_name, t->cur_line, matcher->err_msg);
-		(void)t;
+		twl_asprintf(&t->err_msg, "SyntaxError %d : %s", t->cur_line, matcher->err_msg);
 	}
 	openclose_matcher_del(matcher);
 	return (match);
@@ -71,8 +69,6 @@ t_rule_status		tokenizer_apply_rule05(t_tokenizer *t)
 		&& is_start_candidate(*t->curpos))
 	{
 		found = match_fn(t, t->curpos);
-		if (t->err_msg)
-			return (RULE_STATUS_NOT_APPLIED);
 		if (!found)
 			found = t->curpos + twl_strlen(t->curpos);
 		tokenizer_append_to_curtoken(t, found - t->curpos);
