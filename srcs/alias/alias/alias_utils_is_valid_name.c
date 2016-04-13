@@ -12,7 +12,7 @@
 
 #include "alias/alias.h"
 
-bool				alias_is_valid_name(char *str)
+bool				alias_utils_is_valid_name(char *str)
 {
 	char			c;
 

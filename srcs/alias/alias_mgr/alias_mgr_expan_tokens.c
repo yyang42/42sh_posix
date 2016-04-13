@@ -16,7 +16,7 @@
 #include "token/token_mgr.h"
 #include "token/tokenizer.h"
 
-static bool			is_command_separator(char *str)
+static bool			alias_is_command_separator(char *str)
 {
 	return (data_utils_is_control_operators_nl(str)
 		|| data_utils_is_reserved_word(str));
@@ -29,6 +29,8 @@ static char			*expan_token(t_token *token, char **accumulator_ptr, t_htab *alias
 	found = twl_htab_get(aliases, token->text);
 	if (found)
 	{
+		if (alias_utils_starts_with(found, token->text))
+			return (NULL);
 		*accumulator_ptr = twl_strjoinfree(*accumulator_ptr, found, 'l');
 		return (found);
 	}
@@ -69,7 +71,7 @@ bool				alias_mgr_expan_tokens_inner(t_htab *aliases, t_lst *tokens, int line, t
 	while (true)
 	{
 		token = twl_lst_pop_front(copy_tokens);
-		if (!token || is_command_separator(token->text))
+		if (!token || alias_is_command_separator(token->text))
 			break ;
 		alias = expan_token(token, &accumulator, aliases);
 		if (alias)

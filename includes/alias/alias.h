@@ -16,6 +16,7 @@
 # include "basics.h"
 # include "twl_ctype.h"
 
-bool				alias_is_valid_name(char *str);
+bool				alias_utils_is_valid_name(char *str);
+bool				alias_utils_starts_with(char *alias_str, char *needle);
 
 #endif

@@ -10,13 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ALIAS_MGR_H
-# define ALIAS_MGR_H
-
-#include "twl_htab.h"
-#include "ast/ast.h"
 #include "alias/alias.h"
 
-void				alias_mgr_expan_tokens(t_htab *aliases, t_lst *tokens, t_ast *ast);
+bool				alias_utils_starts_with(char *alias_str, char *needle)
+{
+	char			*first;
+	bool			res;
 
-#endif
+	first = twl_str_split_get(alias_str, " ", 0);
+	res = twl_strequ(needle, first);
+	free(first);
+	return (res);
+}

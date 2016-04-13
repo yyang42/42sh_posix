@@ -1,0 +1,11 @@
+alias 00='11'
+alias 11='22'
+alias 22='33'
+alias 33='44'
+alias 44='55'
+alias 55='66'
+alias 66='77'
+alias 77='88'
+alias 88='99'
+alias 99='echo victory'
+00
