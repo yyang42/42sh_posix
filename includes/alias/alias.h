@@ -14,7 +14,18 @@
 # define ALIAS_H
 
 # include "basics.h"
+# include "twl_htab.h"
+# include "ast/ast.h"
 # include "twl_ctype.h"
+
+typedef struct 		s_alias_processor
+{
+	t_htab			*aliases;
+	t_lst			*tokens;
+	t_ast			*ast;
+	int				line;
+	t_lst			*processed;
+}					t_alias_processor;
 
 bool				alias_utils_is_valid_name(char *str);
 bool				alias_utils_starts_with(char *alias_str, char *needle);
