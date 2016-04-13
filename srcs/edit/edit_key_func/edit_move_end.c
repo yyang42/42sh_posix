@@ -19,7 +19,13 @@ void				edit_move_end(void *_edit)
 	edit = _edit;
 
 	if (edit->state == SEARCH)
-		return ;
+	{
+		edit->return_cmd = true;
+		edit_clear_line(edit);
+		edit->return_cmd = false;
+		edit_handle_string(edit, twl_strdup(history_get_search_at_index(edit->history)));
+		edit->state = NORMAL;
+	}
 	if (letter_mgr_get_size(edit->letters) > 0)
 	{
 		edit->index = (int)(letter_mgr_get_size(edit->letters) - 1);

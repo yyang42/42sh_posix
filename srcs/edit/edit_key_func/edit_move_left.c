@@ -18,9 +18,20 @@ void				edit_move_left(void *_edit)
 
 	edit = _edit;
 
-	edit->index -= 1;
-	if (edit->index < 0)
+	if (edit->state == NORMAL)
 	{
-		edit->index = 0;
+		edit->index -= 1;
+		if (edit->index < 0)
+		{
+			edit->index = 0;
+		}
+	}
+	else if (edit->state == SEARCH)
+	{
+		edit->return_cmd = true;
+		edit_clear_line(edit);
+		edit->return_cmd = false;
+		edit_handle_string(edit, twl_strdup(history_get_search_at_index(edit->history)));
+		edit->state = NORMAL;
 	}
 }

@@ -17,6 +17,14 @@ void				edit_move_start(void *_edit)
 	t_edit			*edit;
 
 	edit = _edit;
+	if (edit->state == SEARCH)
+	{
+		edit->return_cmd = true;
+		edit_clear_line(edit);
+		edit->return_cmd = false;
+		edit_handle_string(edit, twl_strdup(history_get_search_at_index(edit->history)));
+		edit->state = NORMAL;
+	}
 	if (edit->state == NORMAL)
 		edit->index = 0;
 }
