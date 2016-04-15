@@ -47,6 +47,11 @@ void				builtin_set_exec(t_lst *tokens, t_shenv *env)
 	t_set_opt		*opt;
 	char			**arr;
 
+	if (twl_lst_len(tokens) == 1)
+	{
+		builtin_set_exec_print(env);
+		return ;
+	}
 	arr = token_mgr_to_str_arr(tokens);
 	opt = builtin_set_opt_new(arr, SET_OPT_VALID_OPTS);
 	if (!builtin_set_check_invalid_opts(opt, "set", SET_OPT_VALID_OPTS))

@@ -43,4 +43,6 @@ void				builtin_set_o_negative(t_shenv *env);
 void				builtin_set_check_args(t_set_opt *opt, t_shenv *env);
 int					builtin_set_check_invalid_opts(t_set_opt *opt, char *exe_name,
 																char *flags);
+void				builtin_set_exec_print(t_shenv *this);
+
 #endif
