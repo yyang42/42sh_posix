@@ -36,7 +36,7 @@
 
 typedef struct				s_shenv_info
 {
-	int						last_exit;
+	int						saved_last_exit;
 	int						cur_shell_pid;
 	int						parent_shell_pid;
 	int						most_recent_background_command_pid;
