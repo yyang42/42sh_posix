@@ -28,7 +28,6 @@ typedef struct		s_set_opt
 	t_lst			*negative_opts;
 	t_lst			*args;
 	char			*valid_opts;
-	char			*cmd;
 }					t_set_opt;
 
 void				builtin_set_exec(t_lst *tokens, t_shenv *env);
@@ -43,4 +42,6 @@ void				builtin_set_o_negative(t_shenv *env);
 void				builtin_set_check_args(t_set_opt *opt, t_shenv *env);
 int					builtin_set_check_invalid_opts(t_set_opt *opt, char *exe_name,
 																char *flags);
+void				builtin_set_exec_print(t_shenv *this);
+
 #endif

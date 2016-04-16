@@ -41,14 +41,11 @@ static void			parse_argv(char **arr_opts, t_set_opt *opt,
 t_set_opt			*builtin_set_opt_new(char **argv, char *valid_opts)
 {
 	t_set_opt		*opt;
-	char			**argv_without_cmd;
 
 	opt = malloc(sizeof(t_set_opt));
-	opt->cmd = twl_strdup(argv[0]);
-	argv_without_cmd = argv + 1;
 	opt->negative_opts = twl_lst_new();
 	opt->positive_opts = twl_lst_new();
 	opt->valid_opts = twl_strdup(valid_opts);
-	parse_argv(argv_without_cmd, opt, valid_opts);
+	parse_argv(argv, opt, valid_opts);
 	return (opt);
 }
