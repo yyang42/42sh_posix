@@ -40,6 +40,7 @@ static void	expan_param_at(t_expansion *this)
 {
 	t_lst	*lsat;
 
+	this->is_at_present = true;
 	lsat = expan_get_param_spec('@');
 	if (!lsat || twl_lst_len(lsat) == 0)
 		return ;

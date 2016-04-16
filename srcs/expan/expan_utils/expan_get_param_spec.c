@@ -39,6 +39,6 @@ t_lst			*expan_get_param_spec(char param)
 		twl_lst_push_back(lsparam,
 				twl_itoa(shenv->info.most_recent_background_command_pid));
 	else
-		twl_lst_push_back(lsparam, twl_strdup(shenv->info.name));
+		twl_lst_push_back(lsparam, twl_strdup(shenv->shenv_name));
 	return (lsparam);
 }

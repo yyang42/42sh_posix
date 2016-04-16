@@ -59,12 +59,15 @@ static bool			cmp_func(void *s1_, void *s2_)
 	return ((twl_strcmp(s1, s2) < 0) ? true : false);
 }
 
+static void iter_fn(void *d){t_pattern_data *e = d;LOGGER_DEBUG("%s - %i",e->split,e->fixed)}
+
 t_lst				*patmatch_match(t_patmatch *this, char *pattern)
 {
 	t_matching_		match;
 	t_lst			*ret;
 
 	this->pattern = pattern_new(pattern);
+	twl_lst_iter0(this->pattern->split, iter_fn);
 	this->match = twl_lst_new();
 	init_match(this, &match);
 	patmatch_recurs__(this, &match);

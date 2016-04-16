@@ -37,13 +37,14 @@ static void	expan_param_asterisk(t_expansion *this)
 	{
 		expansion_push_raw_lst(this, lsast);
 	}
-	twl_lst_del(lsast, free);
+	twl_lst_del(lsast, NULL);
 }
 
 static void	expan_param_at(t_expansion *this)
 {
 	t_lst	*lsat;
 
+	this->is_at_present = true;
 	lsat = expan_get_param_spec('@');
 	if (!lsat || twl_lst_len(lsat) == 0)
 	{
@@ -52,7 +53,7 @@ static void	expan_param_at(t_expansion *this)
 		return ;
 	}
 	expansion_push_raw_lst(this, lsat);
-	twl_lst_del(lsat, free);
+	twl_lst_del(lsat, NULL);
 }
 
 static void	expan_param_spec(t_expansion *this, char special)

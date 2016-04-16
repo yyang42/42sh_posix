@@ -31,6 +31,7 @@ typedef struct		s_expansion
 	t_lst			*patmatch;
 	char			*error;
 	bool			quoted;
+	bool			is_at_present;
 }					t_expansion;
 
 t_expansion			*expansion_new(void);
