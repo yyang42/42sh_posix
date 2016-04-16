@@ -61,5 +61,6 @@ char				**token_mgr_to_str_arr(t_lst *tokens);
 t_lst				*token_mgr_to_lst(t_lst *tokens);
 
 t_token				**token_mgr_arexp_extract_assign(t_lst *tokens);
+void				token_mgr_verbose(t_lst *tokens);
 
 #endif

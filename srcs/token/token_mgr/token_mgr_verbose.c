@@ -10,17 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/ast.h"
+#include "token/token_mgr.h"
 
-t_ast				*ast_new(char *input)
+static void			print_token_fn(void *token_)
 {
-	t_ast			*ast;
-	t_lst			*tokens;
+	t_token	*token;
 
-	if (shenv_flag_exist(shenv_singleton(), "v"))
-		twl_putstr_fd(input, 2);
-	tokens = tokenizer_utils_tokenize(input);
-	ast = ast_new_from_tokens(tokens);
-	token_mgr_del(tokens);
-	return (ast);
+	token = token_;
+	twl_putstr(token->text);
+	twl_putstr(" ");
+}
+
+void				token_mgr_verbose(t_lst *tokens)
+{
+	twl_lst_iter0(tokens, print_token_fn);
 }
