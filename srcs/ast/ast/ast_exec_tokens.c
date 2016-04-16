@@ -21,7 +21,7 @@ int					ast_exec_tokens(t_lst *tokens)
 	if (ast->error_msg)
 	{
 		twl_dprintf(2, "%s\n", ast->error_msg);
-		exit_code = 1;
+		exit_code = 2;
 	}
 	else
 	{

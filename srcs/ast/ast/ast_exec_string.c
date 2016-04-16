@@ -20,12 +20,6 @@ int					ast_exec_string(char *input)
 
 	tokenizer = tokenizer_new(input);
 	tokens = tokenizer_tokenize(tokenizer);
-	// token_mgr_print(tokens);
-	// if (tokenizer->err_msg && tokenizer->stop_on_error)
-	// {
-	// 	twl_dprintf(2, "%s\n", tokenizer->err_msg);
-	// 	exit(2);
-	// }
 	exit_code = ast_exec_tokens(tokens);
 	tokenizer_del(tokenizer);
 	token_mgr_del(tokens);
