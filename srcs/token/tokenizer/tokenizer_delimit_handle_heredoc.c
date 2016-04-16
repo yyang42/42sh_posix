@@ -12,15 +12,26 @@
 
 #include "token/token_mgr.h"
 #include "token/tokenizer.h"
+#include "pattern_matching/pattern.h"
+#include "ast/nodes/ast_redir.h"
 
-static void			record_heredoc(t_tokenizer *t, t_token *new_token)
+static char			*get_delimiter(char *str)
 {
 	char			*delimiter;
-	char			*pos;
-	char			*heredoc_text;
+	t_pattern		*tmp;
+	char			*actual;
 
-	twl_asprintf(&delimiter, "\n%s\n", new_token->text);
-	heredoc_text = twl_strnew(twl_strlen(t->curpos));
+	tmp = pattern_new(str);
+	actual = pattern_to_string(tmp);
+	twl_asprintf(&delimiter, "%s\n", actual);
+	pattern_del(tmp);
+	return (delimiter);
+}
+
+static char			*get_heredoc_start_pos(t_tokenizer *t)
+{
+	char			*pos;
+
 	if (t->heredoc_pos > t->curpos)
 	{
 		pos = t->heredoc_pos;
@@ -37,17 +48,56 @@ static void			record_heredoc(t_tokenizer *t, t_token *new_token)
 		if (*pos == '\n')
 			pos++;
 	}
+	return (pos);
+}
+
+static void			build_heredoc(t_tokenizer *t, t_token *new_token, char *pos,
+	bool skip_leading_tabs)
+{
+	char			*delimiter;
+	char			*heredoc_text;
+	bool			delimiter_found;
+	bool			is_prev_newline;
+
+	delimiter = get_delimiter(new_token->text);
+	heredoc_text = twl_strnew(twl_strlen(t->curpos));
+	delimiter_found = false;
+	is_prev_newline = true;
 	while (*pos)
 	{
-		twl_strncat(heredoc_text, pos, 1);
-		if (twl_str_starts_with(pos, delimiter))
+		if (skip_leading_tabs && is_prev_newline)
+		{
+			while (*pos == '\t')
+				pos++;
+		}
+		if (is_prev_newline && twl_str_starts_with(pos, delimiter))
+		{
+			delimiter_found = true;
 			break ;
+		}
+		twl_strncat(heredoc_text, pos, 1);
+		is_prev_newline = (*pos == '\n');
 		pos++;
 	}
 	new_token->heredoc_text = twl_strdup(heredoc_text);
-	t->heredoc_pos = pos + twl_strlen(delimiter);
+	if (delimiter_found)
+		t->heredoc_pos = pos + twl_strlen(delimiter);
+	else
+		t->heredoc_pos = pos;
 	free(heredoc_text);
 	free(delimiter);
+}
+
+
+
+static void			record_heredoc(t_tokenizer *t, t_token *new_token)
+{
+	char			*pos;
+	bool			skip_leading_tabs;
+
+	skip_leading_tabs = token_mgr_last_equ(t->tokens, "<<-");
+	pos = get_heredoc_start_pos(t);
+	build_heredoc(t, new_token, pos, skip_leading_tabs);
 }
 
 /*
@@ -57,8 +107,10 @@ static void			record_heredoc(t_tokenizer *t, t_token *new_token)
 void				tokenizer_delimit_handle_heredoc(t_tokenizer *t,
 														t_token *new_token)
 {
-	if (token_mgr_last_equ(t->tokens, "<<")
-		|| token_mgr_last_equ(t->tokens, "<<-"))
+	t_token			*last_token;
+
+	last_token = token_mgr_last(t->tokens);
+	if (last_token && ast_redir_utils_is_heredoc(last_token->text))
 	{
 		record_heredoc(t, new_token);
 	}

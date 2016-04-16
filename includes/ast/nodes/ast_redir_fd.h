@@ -34,4 +34,8 @@ void					ast_redir_fd_redir_output(t_ast_redir *redir, t_ast_redir_fd *redir_fd)
 void					ast_redir_fd_redir_input_output(t_ast_redir *redir, t_ast_redir_fd *redir_fd);
 void					ast_redir_fd_redir_agreg(t_ast_redir *redir, t_lst *redir_fds, t_ast_redir_fd *redir_fd);
 
+void 					ast_redir_fd_utils_dup_fds(int fd1, int fd2);
+int						ast_redir_fd_utils_get_duplication_fd(t_token *token);
+bool					ast_redir_fd_utils_is_valid_duplicate_fd(int fd);
+
 #endif

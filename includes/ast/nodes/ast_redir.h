@@ -45,8 +45,6 @@ void				ast_redir_print_rec_list(t_lst *redir_items, int depth);
 
 bool				ast_redir_is_own_type(t_lst *tokens);
 
-void 				ast_redir_fd_utils_dup_fds(int fd1, int fd2);
-int					ast_redir_fd_utils_get_duplication_fd(t_token *token);
-bool				ast_redir_fd_utils_is_valid_duplicate_fd(int fd);
+bool				ast_redir_utils_is_heredoc(char *str);
 
 #endif

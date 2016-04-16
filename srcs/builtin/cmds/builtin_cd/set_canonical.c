@@ -33,7 +33,7 @@ static t_lst	*handle_dot_dot(t_lst *lst)
 	{
 		if (tmp->next && tmp->next->data
 			&& twl_strcmp(((char *)tmp->data), "..")
-			&& !twl_strcmp(((char *)tmp->next->data), ".."))
+			&& twl_strequ(((char *)tmp->next->data), ".."))
 		{
 			twl_lst_del_elem__(lst, tmp->next, free);
 			twl_lst_del_elem__(lst, tmp, free);
