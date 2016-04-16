@@ -29,7 +29,6 @@ int					patmatch_supervisor__(t_patmatch *this, t_match__ *m)
 	ret = 0;
 	if (!data)
 		return (match_is_end(this, m));
-//	LOGGER_DEBUG("\033[31;1m%s\033[0m", data->split)
 	if (m->name[m->ind_n] == 0 && (!data->fixed && data->split[0] == '*'))
 	{
 		m->ind_p += 1;
