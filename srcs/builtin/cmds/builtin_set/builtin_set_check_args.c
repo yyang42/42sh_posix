@@ -66,11 +66,14 @@ void				builtin_set_check_args(t_set_opt *opt, t_shenv *env)
 	if (i == 0)
 	{
 		shenv_remove_all_pos_params(env);
-		env->pos_params = twl_lst_new();
 		twl_lst_iter(opt->args, add_pos_param, env);
 	}
 	else if (i == POSITIVE_OPT)
+	{
 		remove_matching_flag(env, twl_lst_first(opt->args));
+	}
 	else if (i == NEGATIVE_OPT)
+	{
 		add_matching_flag(env, twl_lst_first(opt->args));
+	}
 }
