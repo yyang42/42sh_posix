@@ -16,6 +16,8 @@
 #include "twl_opt_elem.h"
 #include "twl_xstring.h"
 
+#define SET_MINUS_O_PADDING 15
+
 static void			get_flag_verbose(char *key, void *data, void *context)
 {
 	t_shenv	*env;
@@ -25,7 +27,7 @@ static void			get_flag_verbose(char *key, void *data, void *context)
 
 	env = context;
 	flag = data;
-	space_count = 16 - (int)twl_strlen(flag);
+	space_count = SET_MINUS_O_PADDING - (int)twl_strlen(flag);
 	if (space_count < 0)
 		space = twl_strdup("\t");
 	else
@@ -37,7 +39,7 @@ static void			get_flag_verbose(char *key, void *data, void *context)
 	if (shenv_flag_exist(env, key))
 		twl_printf("%s%s%s\n", flag, space, "on");
 	else
-		twl_printf("%s%s%s\n", flag, space, "off");
+		twl_printf("%s%s\t%s\n", flag, space, "off");
 	free(space);
 }
 
