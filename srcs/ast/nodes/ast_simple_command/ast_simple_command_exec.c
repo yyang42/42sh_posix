@@ -64,7 +64,7 @@ void				ast_simple_command_exec(t_ast_simple_command *cmd)
 {
 	if (!shenv_loop_should_exec(shenv_singleton()))
 		return ;
-	shenv_singleton()->info.last_exit = shenv_singleton()->last_exit_code;
+	shenv_singleton()->info.saved_last_exit = shenv_singleton()->last_exit_code;
 	shenv_singleton()->last_exit_code = EXIT_SUCCESS;
 	ast_simple_command_expan(cmd);
 	shenv_set_cur_token(shenv_singleton(), token_mgr_first(cmd->cmd_tokens_deep_copy));
