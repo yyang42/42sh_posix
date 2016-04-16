@@ -18,7 +18,7 @@
 
 t_rule_status		tokenizer_apply_rule09(t_tokenizer *t)
 {
-	if (twl_strlen(t->curtoken))
+	if (*t->curtoken)
 	{
 		tokenizer_append_to_curtoken(t, 1);
 		t->curpos++;
