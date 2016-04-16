@@ -12,6 +12,7 @@
 
 #include "token/tokenizer.h"
 #include "shenv/shenv.h"
+#include "twl_xstring.h"
 #include "openclose/openclose_matcher.h"
 
 /*

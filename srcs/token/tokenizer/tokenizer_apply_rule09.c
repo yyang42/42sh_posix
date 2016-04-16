@@ -18,6 +18,12 @@
 
 t_rule_status		tokenizer_apply_rule09(t_tokenizer *t)
 {
+	if (*t->curtoken)
+	{
+		tokenizer_append_to_curtoken(t, 1);
+		t->curpos++;
+		return (RULE_STATUS_APPLIED);
+	}
 	return (RULE_STATUS_NOT_APPLIED);
 	(void)t;
 }
