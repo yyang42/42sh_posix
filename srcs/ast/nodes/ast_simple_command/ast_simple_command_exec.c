@@ -34,6 +34,8 @@ static void			iter_assign_fn(void *assign_, void *cmd_)
 	assign = assign_;
 	cmd = cmd_;
 	shenv_singleton()->shenv_cur_token = assign->token;
+	if (shenv_flag_exist(shenv_singleton(), "x"))
+		twl_dprintf(2, "+ %s=%s\n", assign->key, assign->value);
 	shvar = shvar_mgr_find_or_create(shenv_singleton()->shvars, assign->key);
 	shvar_check_print_readonly_error(shvar);
 	if (twl_lst_len(cmd->cmd_tokens_deep_copy) == 0
@@ -70,6 +72,8 @@ void				ast_simple_command_exec(t_ast_simple_command *cmd)
 	shenv_set_cur_token(shenv_singleton(), token_mgr_first(cmd->cmd_tokens_deep_copy));
 	job_mgr_exec_update(shenv_singleton()->jobs);
 	twl_lst_iter(cmd->assignment_items, iter_assign_fn, cmd);
+	if (shenv_flag_exist(shenv_singleton(), "x") && twl_lst_len(cmd->cmd_tokens_expanded))
+		token_mgr_xtrace_print(cmd->cmd_tokens_expanded);
 	ast_simple_command_exec_with_redirs(cmd);
 	shvar_mgr_clear_assign_value(shenv_singleton()->shvars);
 }

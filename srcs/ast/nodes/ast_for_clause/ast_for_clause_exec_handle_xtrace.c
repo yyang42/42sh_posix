@@ -10,18 +10,29 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "token/token_mgr.h"
+#include "ast/nodes/ast_if_then.h"
+#include "ast/nodes/ast_for_clause.h"
 
-static void			print_token_fn(void *token_)
+static void			print_token_fn(void *token_, void *next, void *ctx)
 {
 	t_token	*token;
 
 	token = token_;
-	twl_putstr(token->text);
-	twl_putstr(" ");
+	twl_putstr_fd(token->text, 2);
+	if (next)
+	{
+		twl_putstr_fd(" ", 2);
+	}
+	(void)ctx;
 }
 
-void				token_mgr_verbose(t_lst *tokens)
+void				ast_for_clause_exec_handle_xtrace(t_ast_for_clause *this)
 {
-	twl_lst_iter0(tokens, print_token_fn);
+	;
+	if (shenv_flag_exist(shenv_singleton(), "x"))
+	{
+		twl_dprintf(2, "+ for %s in ", this->name);
+		twl_lst_itern(this->wordlist, print_token_fn, NULL);
+		twl_putstr_fd("\n", 2);
+	}
 }

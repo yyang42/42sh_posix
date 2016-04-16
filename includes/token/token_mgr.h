@@ -26,6 +26,7 @@ void				token_mgr_del(t_lst *tokens);
 void				token_mgr_add(t_lst *tokens, t_token *token);
 void				token_mgr_remove(t_lst *tokens, t_token *token);
 void				token_mgr_print(t_lst *tokens);
+void				token_mgr_print_sep(t_lst *tokens, char *sep);
 void				token_mgr_print_token_text_by_index(t_lst *tokens,
 																	int index);
 
@@ -61,6 +62,6 @@ char				**token_mgr_to_str_arr(t_lst *tokens);
 t_lst				*token_mgr_to_lst(t_lst *tokens);
 
 t_token				**token_mgr_arexp_extract_assign(t_lst *tokens);
-void				token_mgr_verbose(t_lst *tokens);
+void				token_mgr_xtrace_print(t_lst *tokens);
 
 #endif
