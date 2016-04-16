@@ -30,7 +30,16 @@ static char			*get_cmd(void)
 	edit_del(edit);
 	return (cmd);
 }
-#include "job_control/job_mgr.h"
+
+void				handle_verbose(char *input)
+{
+	if (shenv_flag_exist(shenv_singleton(), "v"))
+	{
+		twl_putstr_fd(input, 2);
+		twl_putstr_fd("\n", 2);
+	}
+}
+
 void				prog_main_loop(t_prog *prog)
 {
 	char			*input;
@@ -38,6 +47,7 @@ void				prog_main_loop(t_prog *prog)
 	while (1)
 	{
 		input = get_cmd();
+		handle_verbose(input);
 		ast_exec_string(input);;
 		free(input);
 	}
