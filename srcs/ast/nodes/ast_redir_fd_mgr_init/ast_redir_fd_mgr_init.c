@@ -52,7 +52,8 @@ static void	iter_redir_fn(void *redir_, void *redir_fds)
 	redir = redir_;
 	redir_fd = ast_redir_fd_new();
 	redir_fd->fd_file = -1;
-	if (!twl_strcmp("<", redir->operator) || !twl_strcmp("<<", redir->operator))
+	if (!twl_strcmp("<", redir->operator)
+		|| ast_redir_utils_is_heredoc(redir->operator))
 		ast_redir_fd_redir_input(redir, redir_fd);
 	else if (!twl_strcmp(">", redir->operator)
 		|| !twl_strcmp(">|", redir->operator)
