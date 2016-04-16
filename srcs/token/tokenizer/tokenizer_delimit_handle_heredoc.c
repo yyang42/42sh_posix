@@ -23,7 +23,7 @@ static char			*get_delimiter(char *str)
 
 	tmp = pattern_new(str);
 	actual = pattern_to_string(tmp);
-	twl_asprintf(&delimiter, "\n%s\n", actual);
+	twl_asprintf(&delimiter, "%s\n", actual);
 	pattern_del(tmp);
 	return (delimiter);
 }
@@ -57,26 +57,26 @@ static void			build_heredoc(t_tokenizer *t, t_token *new_token, char *pos,
 	char			*delimiter;
 	char			*heredoc_text;
 	bool			delimiter_found;
-	bool			should_skip_tabs;
+	bool			is_prev_newline;
 
 	delimiter = get_delimiter(new_token->text);
 	heredoc_text = twl_strnew(twl_strlen(t->curpos));
 	delimiter_found = false;
-	should_skip_tabs = true;
+	is_prev_newline = true;
 	while (*pos)
 	{
-		if (skip_leading_tabs && should_skip_tabs)
+		if (skip_leading_tabs && is_prev_newline)
 		{
 			while (*pos == '\t')
 				pos++;
 		}
-		twl_strncat(heredoc_text, pos, 1);
-		if (twl_str_starts_with(pos, delimiter))
+		if (is_prev_newline && twl_str_starts_with(pos, delimiter))
 		{
 			delimiter_found = true;
 			break ;
 		}
-		should_skip_tabs = (*pos == '\n');
+		twl_strncat(heredoc_text, pos, 1);
+		is_prev_newline = (*pos == '\n');
 		pos++;
 	}
 	new_token->heredoc_text = twl_strdup(heredoc_text);
