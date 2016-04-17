@@ -103,27 +103,6 @@ char				*builtin_read_gnl(void)
 	return (NULL);
 }
 
-static bool			has_line_continuation(char *str)
-{
-	while (*str)
-	{
-		if (*str == '\\')
-		{
-			if (*(str + 1) == '\0')
-			{
-				return (true);
-			}
-			else
-			{
-				str += 2;
-				continue ;
-			}
-		}
-		str++;
-	}
-	return (false);
-}
-
 void				builtin_read_exec_readline(t_lst *remainders)
 {
 	char			*line;
@@ -137,7 +116,7 @@ void				builtin_read_exec_readline(t_lst *remainders)
 		{
 			accumulator = twl_strjoinfree(accumulator, line, 'l');
 			free(line);
-			if (has_line_continuation(accumulator))
+			if (utils_has_line_continuation(accumulator))
 				continue ;
 			break ;
 		}
