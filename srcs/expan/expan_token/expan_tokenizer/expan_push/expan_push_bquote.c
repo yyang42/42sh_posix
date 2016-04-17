@@ -18,6 +18,11 @@ void				expan_push_bquote(t_expan_tokenizer *this)
 	while (this->input[this->input_index] &&
 			this->input[this->input_index] != '`')
 	{
+		if (this->input[this->input_index] == '\\' &&
+				(this->input[this->input_index + 1] == '`' ||
+					this->input[this->input_index + 1] == '$' ||
+					this->input[this->input_index + 1] == '\\'))
+			expan_tokenizer_addone(this);
 		expan_tokenizer_addone(this);
 	}
 	if (this->input[this->input_index])

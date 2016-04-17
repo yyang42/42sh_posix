@@ -31,7 +31,8 @@ static void	child_part(t_expansion *this, t_expan_token *token, int fd[2])
 		exit(-1);
 	}
 	close(fd[0]);
-	cmd = twl_strndup(token->text + 1, twl_strlen(token->text + 2));
+	cmd = expansion_cmdsbt_bquote_getstring(token->text);
+	LOGGER_DEBUG("%s", cmd)
     ast_exec_string(cmd);
 	close(fd[1]);
 	free(cmd);
@@ -39,17 +40,55 @@ static void	child_part(t_expansion *this, t_expan_token *token, int fd[2])
 	(void)this;
 }
 
-static void	parent_part(t_expansion *this, t_expan_token *token, int fd[2])
+static void	remove_end_newline_fn(void *data, void *context)
 {
-	char	buf[128];
-	int		size;
+	char	*str;
+	bool	*check;
+	int		index;
+
+	str = data;
+	check = context;
+	if (*check)
+		return ;
+	index = 0;
+	while (str[index])
+		index += 1;
+	while (--index >= 0)
+	{
+		if (str[index] == '\n')
+			str[index] = 0;
+		else
+		{
+			*check = true;
+			return ;
+		}
+	}
+}
+
+static void	push_before_split_fn(void *data, void *context)
+{
+	expansion_push_before_split(context, data,
+								!((t_expansion *)context)->quoted);
+}
+
+static void parent_part(t_expansion *this, t_expan_token *token, int fd[2])
+{
+	t_lst	*lst;
+	char    buf[128];
+	int     size;
+	bool	check;
 
 	close(fd[1]);
+	lst = twl_lst_new();
 	while ((size = read(fd[0], buf, 127)) > 0)
 	{
 		buf[size] = 0;
-		expansion_push_before_split(this, buf, !this->quoted);
+		twl_lst_push_back(lst, expan_quote(buf, this->quoted));
 	}
+	check = false;
+	twl_lst_iterb(lst, remove_end_newline_fn, &check);
+	twl_lst_iter(lst, push_before_split_fn, this);
+	twl_lst_del(lst, free);
 	close(fd[0]);
 	(void)token;
 }

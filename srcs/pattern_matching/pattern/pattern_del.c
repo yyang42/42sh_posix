@@ -31,8 +31,15 @@ static void			del_harmonize(void *data_)
 
 void				pattern_del(t_pattern *this)
 {
-	twl_lst_del(this->split, &del_pattern_data);
-	twl_lst_del(this->harm_, &del_harmonize);
-	free(this->pattern);
+	if (!this)
+		return ;
+	if (this->split)
+		twl_lst_del(this->split, &del_pattern_data);
+	if (this->harm_)
+		twl_lst_del(this->harm_, &del_harmonize);
+	if (this->pattern)
+		free(this->pattern);
+	if (this->num_slash)
+		free(this->num_slash);
 	free(this);
 }

@@ -11,8 +11,8 @@ mt_test_expan(num06, "$((1+'1'))", 0, "$((1+'1'))", EXPAN_ARITHMETIC, false)
 mt_test_expan(num07, "$( (ls) | \"cat\")", 0, "$( (ls) | \"cat\")", EXPAN_CMDSBT_DOLLAR, false)
 mt_test_expan(num08, "$(echo '(((')lol", 0, "$(echo '(((')", EXPAN_CMDSBT_DOLLAR, false)
 mt_test_expan(num09, "$(($(echo '(((')1`echo ')))'`))", 0, "$(($(echo '(((')1`echo ')))'`))", EXPAN_ARITHMETIC, false)
-mt_test_expan(num10, "$123aze", 0, "$123", EXPAN_PARAMETER, false)
-mt_test_expan(num11, "$123aze", 1, "aze", EXPAN_NONE, false)
+mt_test_expan(num10, "$123aze", 0, "$1", EXPAN_PARAMETER, false)
+mt_test_expan(num11, "$123aze", 1, "23aze", EXPAN_NONE, false)
 mt_test_expan(num12, "${##}", 0, "${##}", EXPAN_PARAMETER, false)
 mt_test_expan(num13, "$aze123", 0, "$aze123", EXPAN_PARAMETER, false)
 mt_test_expan(num14, "$@aze123", 0, "$@", EXPAN_PARAMETER, false)
@@ -21,6 +21,7 @@ mt_test_expan(num16, "$(echo ')))')", 0, "$(echo ')))')", EXPAN_CMDSBT_DOLLAR, f
 mt_test_expan(num17, "$}lol", 0, "$", EXPAN_PARAMETER, false)
 mt_test_expan(num18, "$}lol", 1, "}lol", EXPAN_NONE, false)
 mt_test_expan(num19, "$a_bc", 0, "$a_bc", EXPAN_PARAMETER, false)
+mt_test_expan(num20, "$#", 0, "$#", EXPAN_PARAMETER, false)
 
 void suite_expan_tokenizer_rule06(t_suite *suite)
 {
@@ -43,4 +44,5 @@ void suite_expan_tokenizer_rule06(t_suite *suite)
 	SUITE_ADD_TEST(suite, test_num17);
 	SUITE_ADD_TEST(suite, test_num18);
 	SUITE_ADD_TEST(suite, test_num19);
+	SUITE_ADD_TEST(suite, test_num20);
 }

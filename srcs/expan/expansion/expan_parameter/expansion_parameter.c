@@ -20,7 +20,7 @@ static void		expan_param_pos(t_expansion *this, char *pos)
 	param = expan_get_param_pos(pos + 1);
 	if (!param)
 		return ;
-	quote = expan_quote(param);
+	quote = expan_quote(param, this->quoted);
 	expansion_push_before_split(this, quote, !this->quoted);
 	free(quote);
 }
@@ -33,7 +33,7 @@ static void		expan_param_normal(t_expansion *this, char *normal)
 	param = expan_get_param_normal(normal + 1);
 	if (!param)
 		return ;
-	quote = expan_quote(param);
+	quote = expan_quote(param, this->quoted);
 	expansion_push_before_split(this, quote, !this->quoted);
 	free(quote);
 }

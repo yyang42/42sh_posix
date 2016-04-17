@@ -31,6 +31,7 @@ typedef struct		s_expansion
 	t_lst			*patmatch;
 	char			*error;
 	bool			quoted;
+	bool			is_at_present;
 }					t_expansion;
 
 t_expansion			*expansion_new(void);
@@ -61,9 +62,12 @@ void				expansion_cmdsbt_dollar(t_expansion *this,
 											t_expan_token *token);
 void				expansion_cmdsbt_bquote(t_expansion *this,
 											t_expan_token *token);
+char				*expansion_cmdsbt_bquote_getstring(char *text);
 void				expansion_arithmetic(t_expansion *this,
 											t_expan_token *token);
-void				expansion_dquote(t_expansion *this,
+void				expansion_dquote_wrap(t_expansion *this,
+											t_expan_token *token);
+void				expansion_dquote_unwrap(t_expansion *this,
 											t_expan_token *token);
 
 void				expansion_push_before_split(t_expansion *this,

@@ -35,12 +35,12 @@ static void			iter_fn(void *data, void *prev, void *this)
 	else if (token->type == EXPAN_ARITHMETIC)
 		expansion_arithmetic(this, token);
 	else if (token->type == EXPAN_DQUOTE)
-		expansion_dquote(this, token);
+		expansion_dquote_wrap(this, token);
 	else
 		expansion_push_before_split(this, token->text, false);
 }
 
-//static void print_fn(void *data) { LOGGER_DEBUG("-- '%s' --", (char *)data) }
+//static void print_fn(void *data) { LOGGER_DEBUG(">>>%s<<<", (char *)data) }
 
 t_lst				*expansion_get_fields_simple_command(t_expansion *this)
 {

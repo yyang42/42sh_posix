@@ -16,86 +16,91 @@
 
 #include "twl_xstring.h"
 
-static long long	get_old_value(t_token *token)
+static void			*map_fn(void *data)
 {
-	long long		ll_value;
-	char			*old_value;
-	char			*tmp;
-	int				sign;
+	t_token				**token;
+	t_assign_old_val	*old_value;
+	char				*var;
+	bool				negative;
 
-	old_value = shenv_shvars_get_value(shenv_singleton(), token->text);
-	if (!old_value)
-		return (0);
-	sign = (*old_value == '-') ? 0 : 1;
-	if (!sign || *old_value == '+')
-		old_value += 1;
-	tmp = token->text;
-	token->text = old_value;
-	ll_value = arexp_atoll(arexp_singleton(NULL, false), token);
-	ll_value = sign ? ll_value : -ll_value;
-	token->text = tmp;
+	token = data;
+	old_value = twl_malloc_x0(sizeof(t_assign_old_val));
+	old_value->variable = token[0]->text;
+	old_value->assign_type = token[1]->type;
+	if (!(var = shenv_shvars_get_value(shenv_singleton(), old_value->variable)))
+		return (old_value);
+	negative = (*var == '-') ? true : false;
+	if (negative || *var == '+')
+		var += 1;
+	old_value->old = arexp_atoll_from_string(arexp_singleton(NULL, false), var);
+	old_value->old = negative ? -old_value->old : old_value->old;
 	if (arexp_singleton(NULL, false)->error_msg)
 	{
 		twl_strdel(&arexp_singleton(NULL, false)->error_msg);
-		return (0);
+		old_value->old = 0;
 	}
-	return (ll_value);
+	return (old_value);
 }
 
-static void			get_new_value(t_token *token, long long ret, long long *old)
+static void			get_new_value(t_assign_old_val *old_value, long long *ret)
 {
-	if (token->type == TOK_AREXP_ASSIGN_INC_OR)
-		*old |= ret;
-	else if (token->type == TOK_AREXP_ASSIGN_EXC_OR)
-		*old ^= ret;
-	else if (token->type == TOK_AREXP_ASSIGN_AND)
-		*old &= ret;
-	else if (token->type == TOK_AREXP_ASSIGN_PLUS)
-		*old += ret;
-	else if (token->type == TOK_AREXP_ASSIGN_MINUS)
-		*old -= ret;
-	else if (token->type == TOK_AREXP_ASSIGN_MUL)
-		*old *= ret;
-	else if (token->type == TOK_AREXP_ASSIGN_LSHIFT)
-		*old <<= ret;
-	else if (token->type == TOK_AREXP_ASSIGN_RSHIFT)
-		*old >>= ret;
-	else if (token->type == TOK_AREXP_ASSIGN)
-		*old = ret;
-	else if (ret && token->type == TOK_AREXP_ASSIGN_DIV)
-		*old /= ret;
-	else if (ret && token->type == TOK_AREXP_ASSIGN_MOD)
-		*old %= ret;
+	if (old_value->assign_type == TOK_AREXP_ASSIGN_INC_OR)
+		*ret = old_value->old | *ret;
+	else if (old_value->assign_type == TOK_AREXP_ASSIGN_EXC_OR)
+		*ret = old_value->old ^ *ret;
+	else if (old_value->assign_type == TOK_AREXP_ASSIGN_AND)
+		*ret = old_value->old & *ret;
+	else if (old_value->assign_type == TOK_AREXP_ASSIGN_PLUS)
+		*ret = old_value->old + *ret;
+	else if (old_value->assign_type == TOK_AREXP_ASSIGN_MINUS)
+		*ret = old_value->old - *ret;
+	else if (old_value->assign_type == TOK_AREXP_ASSIGN_MUL)
+		*ret = old_value->old * *ret;
+	else if (old_value->assign_type == TOK_AREXP_ASSIGN_LSHIFT)
+		*ret = old_value->old << *ret;
+	else if (old_value->assign_type == TOK_AREXP_ASSIGN_RSHIFT)
+		*ret = old_value->old >> *ret;
+	else if (old_value->assign_type == TOK_AREXP_ASSIGN)
+		*ret = *ret;
+	else if (*ret && old_value->assign_type == TOK_AREXP_ASSIGN_DIV)
+		*ret = old_value->old / *ret;
+	else if (*ret && old_value->assign_type == TOK_AREXP_ASSIGN_MOD)
+		*ret = old_value->old % *ret;
 	else
 		arexp_singleton(NULL, false)->error_msg = twl_strdup("division by 0");
 }
 
-static void			fn_iter(void *token_, void *ret)
+static void			iter_fn(void *data, void *ctx)
 {
-	t_token			**token;
-	char			*tmp;
-	long long		old;
+	t_assign_old_val	*old_value;
+	long long			*ret;
+	char				*to_push;
 
 	if (arexp_singleton(NULL, false)->error_msg)
 		return ;
-	token = token_;
-	old = get_old_value(((t_token **)token_)[0]);
-	get_new_value(((t_token **)token)[1], *((long long *)ret), &old);
+	old_value = data;
+	ret = ctx;
+	get_new_value(data, ret);
 	if (arexp_singleton(NULL, false)->error_msg)
 		return ;
-	tmp = twl_lltoa(old);
-	shenv_shvars_set(shenv_singleton(), ((t_token **)token)[0]->text, tmp, NULL);
-	free(tmp);
-	*((long long *)ret) = old;
+	to_push = twl_lltoa(*ret);
+	shenv_shvars_set(shenv_singleton(), old_value->variable, to_push, NULL);
+	free(to_push);
 }
 
 long long			arexp_assignment_eval(t_arexp_assignment *this)
 {
+	t_lst			*old_value;
 	long long		ret;
 
+	old_value = twl_lst_map(this->assign, map_fn);
 	ret = arexp_condition_eval(this->condition);
 	if (arexp_singleton(NULL, false)->error_msg)
+	{
+		twl_lst_del(old_value, free);
 		return (0);
-	twl_lst_iter(this->assign, fn_iter, &ret);
+	}
+	twl_lst_iter(old_value, iter_fn, &ret);
+	twl_lst_del(old_value, free);
 	return (ret);
 }

@@ -24,7 +24,7 @@ static void	expan_param_asterisk(t_expansion *this)
 	if (this->quoted)
 	{
 		join = expan_get_asterisk_quoted(lsast);
-		quoted = expan_quote(join);
+		quoted = expan_quote(join, this->quoted);
 		expansion_push_before_split(this, quoted, false);
 		free(quoted);
 		free(join);
@@ -40,6 +40,7 @@ static void	expan_param_at(t_expansion *this)
 {
 	t_lst	*lsat;
 
+	this->is_at_present = true;
 	lsat = expan_get_param_spec('@');
 	if (!lsat || twl_lst_len(lsat) == 0)
 		return ;
@@ -55,7 +56,7 @@ static void	expan_param_spec(t_expansion *this, char special)
 	ls = expan_get_param_spec(special);
 	if (!ls || twl_lst_len(ls) != 1)
 		return ;
-	quote = expan_quote(twl_lst_get(ls, 0));
+	quote = expan_quote(twl_lst_get(ls, 0), this->quoted);
 	expansion_push_before_split(this, quote, !this->quoted);
 	free(quote);
 	twl_lst_del(ls, free);

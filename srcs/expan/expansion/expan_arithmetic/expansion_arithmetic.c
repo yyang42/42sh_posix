@@ -38,7 +38,7 @@ static void			expan_arexp_exec(t_expansion *this, char *arexp)
 	eval = arexp_eval(ar);
 	if (ar->error_msg)
 	{
-		twl_asprintf(&this->error, "42sh: %s: %s\n", arexp, ar->error_msg);
+		twl_asprintf(&this->error, "42sh: %s: %s", arexp, ar->error_msg);
 		arexp_del(ar);
 		return ;
 	}

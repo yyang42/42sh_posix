@@ -22,7 +22,7 @@ t_lst				*expan_get_param_spec(char param);
 char				*expan_get_param_pos(char *param);
 char				*expan_get_param_normal(char *param);
 
-char				*expan_quote(char *param);
+char				*expan_quote(char *param, bool quoted);
 
 char				*expan_get_asterisk_quoted(t_lst *lsast);
 

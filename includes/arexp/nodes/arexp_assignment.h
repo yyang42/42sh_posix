@@ -18,6 +18,13 @@
 # include "arexp/arexp_defines.h"
 # include "arexp/nodes/arexp_condition.h"
 
+typedef struct			s_assign_old_val
+{
+	long long			old;
+	char				*variable;
+	t_token_type		assign_type;
+}						t_assign_old_val;
+
 typedef struct			s_arexp_assignment
 {
 	t_lst				*assign;

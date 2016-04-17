@@ -5,6 +5,6 @@ myfn () {
 	cat /tmp/test_expan_redir_param_123
 	cat /tmp/test_expan_redir_param_$myvar
 }
-myfn
-myfn
-myfn
+myfn 1
+myfn 2
+myfn 3

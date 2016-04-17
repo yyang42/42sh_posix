@@ -25,7 +25,7 @@ static void test_## name(t_test *test)						\
 
 mt_test_eval(num00, "a=0,b=0,c=0,d=0", "d", "0", false);
 mt_test_eval(num01, "a=42", "a", "42", false);
-mt_test_eval(num02, "b+=b+=b+=b+=b+=10", "b", "160", false);
+mt_test_eval(num02, "b=10,b+=b+=b+=b+=b+=10", "b", "60", false);
 mt_test_eval(num03, "c=35#666", "c", "7566", false);
 mt_test_eval(num04, "a=10,b=20,c=a+b", "c", "30", false);
 mt_test_eval(num05, "a=14,a|=1", "a", "15", false);

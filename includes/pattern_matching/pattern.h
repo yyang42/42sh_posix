@@ -41,6 +41,8 @@ typedef struct		s_pattern
 {
 	t_lst			*split;
 	t_lst			*harm_;
+	int				tot_num_slash;
+	int				*num_slash;
 	char			*pattern;
 	int				depth;
 	size_t			index;
@@ -66,6 +68,7 @@ void				pattern_build_double_quote_(t_pattern *this);
 void				pattern_build_normal_char_(t_pattern *this);
 void				pattern_build_finish_(t_pattern *this);
 void				pattern_build_harmonize_(t_pattern *this);
+void				pattern_build_num_slash_(t_pattern *this);
 
 /*
 ** Public method to simplify my life <3
@@ -75,6 +78,8 @@ char				pattern_get_begin_file(t_pattern *this);
 char				*pattern_to_string(t_pattern *this);
 int					pattern_get_depth(t_pattern *this);
 t_lst				*pattern_get_pattern(t_pattern *this, int depth);
+int					pattern_get_num_slash(t_pattern *this, int index);
 int					pattern_is_directory(t_pattern *this, int depth);
+bool				pattern_is_all_fixed(t_pattern *this);
 
 #endif
