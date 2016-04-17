@@ -76,7 +76,7 @@ char				*openclose_matcher_find_matching_base(
 {
 	while (*s)
 	{
-		if (matcher->skip_quoted)
+		if (matcher->flags & OC_MATCHER_FLAG_SKIP_QUOTED)
 		{
 			if (is_quoted_skip(&s))
 				continue ;

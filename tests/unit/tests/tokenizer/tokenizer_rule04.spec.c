@@ -20,7 +20,9 @@ mt_test_tokenizer(num17, "echo \"$( echo \" abc \" )\"", "echo_\"$( echo \" abc 
 mt_test_tokenizer(num19, "echo '$('", "echo_'$('", false);
 mt_test_tokenizer(num20, "echo $(echo '$(')", "echo_$(echo '$(')", false);
 mt_test_tokenizer(num21, "echo a\\\nb", "echo_ab", true);
-mt_test_tokenizer(num22, "echo a\\\\\nb", "echo_a\\b", true);
+mt_test_tokenizer(num22, "echo a\\\\\nb", "echo_a\\\\_\n_b", true);
+mt_test_tokenizer(num23, "echo a\\\\\\\\\\\nb", "echo_a\\\\\\\\b", true);
+// mt_test_tokenizer(num24, "echo \"aa\\\nbb\"", "echo \"aabb\"", true);
 
 void    suite_tokenizer_rule04(t_suite *suite)
 {
@@ -42,4 +44,6 @@ void    suite_tokenizer_rule04(t_suite *suite)
     SUITE_ADD_TEST(suite, test_num20);
     SUITE_ADD_TEST(suite, test_num21);
     SUITE_ADD_TEST(suite, test_num22);
+    SUITE_ADD_TEST(suite, test_num23);
+    // SUITE_ADD_TEST(suite, test_num24);
 }

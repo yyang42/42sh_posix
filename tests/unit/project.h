@@ -33,11 +33,14 @@ void	reset_sandbox(void);
 		t_lst			*tokens; \
 		char			*joined; \
 		tokens = tokenizer_utils_tokenize(input); \
+		joined = token_mgr_strjoin(tokens, "_"); \
 		if (debug) \
 		{ \
+			twl_printf("case ======\n"); \
+			twl_printf("joined   : %s\n", joined); \
+			twl_printf("expected : %s\n", expected); \
 			token_mgr_print(tokens); \
 		} \
-		joined = token_mgr_strjoin(tokens, "_"); \
 		mt_assert(strcmp(joined, expected) == 0); \
 		free(joined); \
 		token_mgr_del(tokens); \

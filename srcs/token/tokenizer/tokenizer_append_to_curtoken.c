@@ -19,6 +19,20 @@ void				tokenizer_append_to_curtoken(t_tokenizer *t, int len)
 		twl_strcat(t->curtoken, "\\");
 	}
 	twl_strcpy(t->curtokenplus, t->curtoken);
-	twl_strncat(t->curtoken, t->curpos, len);
 	twl_strncat(t->curtokenplus, t->curpos, len + 1);
+	twl_strncat(t->curtoken, t->curpos, len);
+	// twl_printf("t->curtoken     : {%s}\n", t->curtoken);
+	// twl_printf("t->curtokenplus : {%s}\n", t->curtokenplus);
+	// twl_printf("\n");
+	// twl_strcpy(t->curtoken, t->curtokenplus);
+	// if (*t->curtoken)
+	// 	t->curtoken[twl_strlen(t->curtoken) - 1] = 0;
+	// twl_strcpy(t->curtoken, t->curtokenplus);
+	// // if (*t->curtokenplus)
+	// // else
+	// // 	*t->curtoken = 0;
+
+	// twl_printf("t->curtoken     : {%s}\n", t->curtoken);
+	// twl_printf("t->curtokenplus : {%s}\n", t->curtokenplus);
+	// twl_printf("\n");
 }

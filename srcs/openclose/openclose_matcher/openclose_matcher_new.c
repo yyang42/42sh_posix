@@ -21,7 +21,6 @@ t_openclose_matcher			*openclose_matcher_new(int flags)
 	this = twl_malloc_x0(sizeof(t_openclose_matcher));
 	this->oc_pairs = twl_lst_new();
 	this->flags = flags;
-	this->skip_quoted = false;
 	this->err_msg = NULL;
 	return (this);
 }

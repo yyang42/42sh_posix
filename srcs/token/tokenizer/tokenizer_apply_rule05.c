@@ -45,14 +45,13 @@ static char			*match_fn(t_tokenizer *t, char *input)
 	t_openclose_matcher		*matcher;
 	char					*match;
 
-	matcher = openclose_matcher_new(OC_MATCHER_JUMP_SINGLE_QUOTE);
+	matcher = openclose_matcher_new(OC_MATCHER_JUMP_SINGLE_QUOTE | OC_MATCHER_FLAG_SKIP_QUOTED);
 	openclose_matcher_add(matcher, "$((", "))");
 	openclose_matcher_add(matcher, "$(", ")");
 	openclose_matcher_add(matcher, "${", "}");
 	openclose_matcher_add(matcher, "`", "`");
 	openclose_matcher_add(matcher, "\"", "\"");
 	openclose_matcher_add(matcher, "\'", "\'");
-	openclose_matcher_set_skip_quoted(matcher, true);
 	match = openclose_matcher_find_matching(matcher, input);
 	if (matcher->err_msg)
 	{
@@ -73,6 +72,7 @@ t_rule_status		tokenizer_apply_rule05(t_tokenizer *t)
 		if (!found)
 			found = t->curpos + twl_strlen(t->curpos);
 		tokenizer_append_to_curtoken(t, found - t->curpos);
+		tokenizer_remove_line_continuation(t);
 		t->curpos = found;
 		return (RULE_STATUS_APPLIED);
 	}
