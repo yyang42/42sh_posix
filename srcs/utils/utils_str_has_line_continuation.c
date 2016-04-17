@@ -10,26 +10,25 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#include "utils.h"
 
-# include "basics.h"
-
-char				*get_prompt(void);
-char				*get_search_prompt(void);
-
-char				*build_ast_line(int depth, char *s1, char *s2);
-bool				str_is_redir_operator(char *str);
-
-char				*get_path_of_file(char *str);
-char				*get_last_part_of_path(char *str);
-t_lst				*read_directory(char *path);
-
-void				signal_handle_ctrl_c(void);
-void				signal_handle_sigwinch(void);
-void				disable_all_signals(void);
-char				*str_unescape_backslash(char *str);
-char				*utils_str_unescape_backslash(char *str);
-bool				utils_has_line_continuation(char *str);
-
-#endif
+bool				utils_has_line_continuation(char *str)
+{
+	while (*str)
+	{
+		if (*str == '\\')
+		{
+			if (*(str + 1) == '\0')
+			{
+				return (true);
+			}
+			else
+			{
+				str += 2;
+				continue ;
+			}
+		}
+		str++;
+	}
+	return (false);
+}
