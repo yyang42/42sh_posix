@@ -10,46 +10,29 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "prog.h"
-#include "ast/ast.h"
-#include "edit/edit.h"
-#include "job_control/job_mgr.h"
+#include "ast/nodes/ast_if_then.h"
+#include "ast/nodes/ast_for_clause.h"
 
-static char			*get_cmd(void)
+static void			print_token_fn(void *token_, void *next, void *ctx)
 {
-	t_edit			*edit;
-	char 			*cmd;
+	t_token	*token;
 
-	edit = edit_new();
-	cmd = edit_loop(edit);
-	if (twl_strcmp(cmd, "history") == 0)
+	token = token_;
+	twl_putstr_fd(token->text, 2);
+	if (next)
 	{
-		history_mgr_print(edit->history->history);
+		twl_putstr_fd(" ", 2);
 	}
-	history_mgr_add(edit->history->history, cmd);
-	edit_del(edit);
-	return (cmd);
+	(void)ctx;
 }
 
-void				handle_verbose(char *input)
+void				ast_for_clause_exec_handle_xtrace(t_ast_for_clause *this)
 {
-	if (shenv_flag_exist(shenv_singleton(), "v"))
+	;
+	if (shenv_flag_exist(shenv_singleton(), "x"))
 	{
-		twl_putstr_fd(input, 2);
+		twl_dprintf(2, "+ for %s in ", this->name);
+		twl_lst_itern(this->wordlist, print_token_fn, NULL);
 		twl_putstr_fd("\n", 2);
 	}
-}
-
-void				prog_main_loop(t_prog *prog)
-{
-	char			*input;
-
-	while (1)
-	{
-		input = get_cmd();
-		handle_verbose(input);
-		ast_exec_string(input);;
-		free(input);
-	}
-	(void)prog;
 }

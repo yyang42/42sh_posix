@@ -20,6 +20,7 @@ static void			iter_wordlist_fn(void *word_token, void *this_)
 	this = this_;
 	if (!shenv_loop_should_exec(shenv_singleton()))
 		return ;
+	ast_for_clause_exec_handle_xtrace(this);
 	shenv_shvars_set(shenv_singleton(), this->name, word_token, NULL);
 	ast_compound_list_exec(this->do_group);
 	shenv_continue_counter_decr_if_one(shenv_singleton());

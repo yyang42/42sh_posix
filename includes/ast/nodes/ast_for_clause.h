@@ -42,5 +42,6 @@ bool				ast_for_clause_is_own_type(t_lst *tokens);
 
 void				ast_for_clause_exec(t_ast_for_clause *this);
 void				ast_for_clause_exec_void(void *this);
+void				ast_for_clause_exec_handle_xtrace(t_ast_for_clause *this);
 
 #endif

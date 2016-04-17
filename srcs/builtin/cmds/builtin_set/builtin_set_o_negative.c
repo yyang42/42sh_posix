@@ -37,7 +37,7 @@ static void			get_flag_verbose(char *key, void *data, void *context)
 		space[space_count] = 0;
 	}
 	if (shenv_flag_exist(env, key))
-		twl_printf("%s%s%s\n", flag, space, "on");
+		twl_printf("%s%s\t%s\n", flag, space, "on");
 	else
 		twl_printf("%s%s\t%s\n", flag, space, "off");
 	free(space);
