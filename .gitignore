@@ -2,6 +2,7 @@
 .valgrind.log
 42sh.dSYM/
 
+/sandbox.sh
 /42sh
 .debug.out
 /tests/unit/test.out.dSYM/Contents/Info.plist

@@ -9,7 +9,7 @@ mt_test_tokenizer(num3, "aa\n\nbb",     "aa_\n_\n_bb", false);
 mt_test_tokenizer(num4, "\naa\n\nbb", 	"\n_aa_\n_\n_bb", false);
 mt_test_tokenizer(num5, "aa\n\nbb\n", 	"aa_\n_\n_bb_\n", false);
 mt_test_tokenizer(num6, "\n\n\naa\n\nbb", "\n_\n_\n_aa_\n_\n_bb", false);
-mt_test_tokenizer(num7, "a\\\nb", 		"a\\\nb", false);
+mt_test_tokenizer(num7, "a\\\nb", 		"ab", false);
 
 void	suite_tokenizer_rule07(t_suite *suite)
 {

@@ -32,6 +32,11 @@
 
 t_rule_status		tokenizer_apply_rule04(t_tokenizer *t)
 {
+	// twl_printf("t->curpos %s\n", t->curpos);
+	if (t->cur_is_quoted && (*t->curpos == '\n'))
+	{
+		t->curpos++;
+		return (RULE_STATUS_APPLIED);
+	}
 	return (RULE_STATUS_NOT_APPLIED);
-	(void)t;
 }
