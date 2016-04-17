@@ -15,6 +15,7 @@
 #include "arexp/arexp.h"
 #include "token/token_mgr.h"
 #include "data_utils.h"
+#include "twl_ctype.h"
 
 static t_arexp_unary	*arexp_unary_init(t_lst *tokens, t_arexp *singleton)
 {
@@ -102,7 +103,7 @@ t_arexp_unary			*arexp_unary_new_from_tokens(t_lst *tokens)
 	token = token_mgr_first(tokens);
 	if (token->type == TOK_AREXP_CONSTANT)
 		arexp_unary_constant(arexp_unary, tokens, singleton);
-	else if (token->type == TOK_AREXP_VARIABLE)
+	else if (token->type == TOK_AREXP_VARIABLE && twl_isalpha(*token->text))
 		arexp_unary_variable(arexp_unary, tokens);
 	else if (token->type == TOK_AREXP_LPARENTHESIS)
 	{
