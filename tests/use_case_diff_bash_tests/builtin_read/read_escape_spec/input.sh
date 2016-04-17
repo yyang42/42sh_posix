@@ -1,4 +1,4 @@
-echo -n 'aa \$b\b c\@\"c' > /tmp/builtin_read_file
+echo -n 'a\\a \$b\b c\@\"c' > /tmp/builtin_read_file
 
 read mytestvar1 mytestvar2 < /tmp/builtin_read_file
 

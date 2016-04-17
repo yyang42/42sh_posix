@@ -12,17 +12,18 @@
 
 #include "builtin/cmds/builtin_read.h"
 #include "twl_get_next_line.h"
+#include "utils.h"
 
 static void			set_env_var(char *var, char *value)
 {
 	char			*tmp;
 
-	tmp = twl_str_replace(value, "\\", "");
+	tmp = utils_str_unescape_backslash(value);
 	shenv_shvars_set(shenv_singleton(), var, tmp, "read");
 	free(tmp);
 }
 
-static char			*strchr_ifs(char *str)
+static char			*strchr_ifs(char *ifs, char *str)
 {
 	char			*found;
 
@@ -34,7 +35,7 @@ static char			*strchr_ifs(char *str)
 		}
 		else
 		{
-			found = twl_strchr(shenv_get_ifs(shenv_singleton()), *str);
+			found = twl_strchr(ifs, *str);
 			if (found)
 				return (str);
 		}
@@ -43,7 +44,7 @@ static char			*strchr_ifs(char *str)
 	return (NULL);
 }
 
-static void			fill_vars(t_lst *vars, char *line)
+static void			fill_vars(t_lst *vars, char *line, char *ifs)
 {
 	t_lst			*vars_copy;
 	char			*var;
@@ -55,9 +56,9 @@ static void			fill_vars(t_lst *vars, char *line)
 	tmp = line;
 	while ((var = twl_lst_pop_front(vars_copy)))
 	{
-		if (twl_strchr(shenv_get_ifs(shenv_singleton()), *tmp))
+		if (twl_strchr(ifs, *tmp))
 			tmp++;
-		tmp_end = strchr_ifs(tmp);
+		tmp_end = strchr_ifs(ifs, tmp);
 		if (twl_lst_len(vars_copy) == 0)
 		{
 			value = twl_strdup(tmp);
@@ -85,21 +86,66 @@ static void			fill_vars(t_lst *vars, char *line)
 	twl_lst_del(vars_copy, NULL);
 }
 
-void				builtin_read_exec_readline(t_lst *remainders)
+char				*builtin_read_gnl(void)
 {
 	int				ret;
 	char			*line;
 
 	ret = twl_get_next_line(0, &line);
-	LOGGER_DEBUG("read: ret: %d", ret);
-	LOGGER_DEBUG("read: line: {%s}", line);
 	if (ret == -1)
 	{
 		LOGGER_ERROR("read: ret: %d", ret);
 	}
 	else if (ret > 0)
 	{
-		fill_vars(remainders, line);
-		free(line);
+		return (line);
 	}
+	return (NULL);
+}
+
+static bool			has_line_continuation(char *str)
+{
+	while (*str)
+	{
+		if (*str == '\\')
+		{
+			if (*(str + 1) == '\0')
+			{
+				return (true);
+			}
+			else
+			{
+				str += 2;
+				continue ;
+			}
+		}
+		str++;
+	}
+	return (false);
+}
+
+void				builtin_read_exec_readline(t_lst *remainders)
+{
+	char			*line;
+	char			*accumulator;
+
+	accumulator = twl_strdup("");
+	while (true)
+	{
+		line = builtin_read_gnl();
+		if (line)
+		{
+			accumulator = twl_strjoinfree(accumulator, line, 'l');
+			free(line);
+			if (has_line_continuation(accumulator))
+				continue ;
+			break ;
+		}
+		else
+		{
+			break ;
+		}
+	}
+	fill_vars(remainders, accumulator, shenv_get_ifs(shenv_singleton()));
+	free(accumulator);
 }
