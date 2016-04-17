@@ -23,5 +23,6 @@ void				builtin_read_add(t_shenv *env, t_lst *opt);
 t_argparser			*builtin_read_argparser(void);
 void				builtin_read_exec_readline(t_lst *remainders);
 bool				builtin_read_utils_has_line_continuation(char *str);
+void				builtin_read_exec_build_vars_from_line(t_lst *vars, char *line, char *ifs);
 
 #endif
