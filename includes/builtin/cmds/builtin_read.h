@@ -21,5 +21,6 @@ void				builtin_read_exec(t_lst *tokens, t_shenv *env);
 void				builtin_read_verbose(t_shenv *env);
 void				builtin_read_add(t_shenv *env, t_lst *opt);
 t_argparser			*builtin_read_argparser(void);
+void				builtin_read_exec_readline(t_lst *remainders);
 
 #endif
