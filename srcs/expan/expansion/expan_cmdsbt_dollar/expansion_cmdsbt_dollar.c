@@ -79,7 +79,7 @@ static void parent_part(t_expansion *this, t_expan_token *token, int fd[2])
 	while ((size = read(fd[0], buf, 127)) > 0)
 	{
 		buf[size] = 0;
-		twl_lst_push_back(lst, twl_strdup(buf));
+		twl_lst_push_back(lst, expan_quote(buf, this->quoted));
 	}
 	check = false;
 	twl_lst_iterb(lst, remove_end_newline_fn, &check);

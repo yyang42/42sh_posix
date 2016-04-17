@@ -10,35 +10,25 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AREXP_ASSIGNMENT_H
-# define AREXP_ASSIGNMENT_H
+#include "expan/expansion.h"
 
-# include "basics.h"
-# include "twl_lst.h"
-# include "arexp/arexp_defines.h"
-# include "arexp/nodes/arexp_condition.h"
-
-typedef struct			s_assign_old_val
+char			*expansion_cmdsbt_bquote_getstring(char *text)
 {
-	long long			old;
-	char				*variable;
-	t_token_type		assign_type;
-}						t_assign_old_val;
+	char		*cpy;
+	size_t		index;
+	size_t		index_cpy;
 
-typedef struct			s_arexp_assignment
-{
-	t_lst				*assign;
-	t_arexp_condition	*condition;
-}						t_arexp_assignment;
-
-t_arexp_assignment		*arexp_assignment_new(void);
-void					arexp_assignment_del(t_arexp_assignment *assignment);
-
-t_arexp_assignment		*arexp_assignment_new_from_tokens(t_lst *tokens);
-
-void					arexp_assignment_print_rec(t_arexp_assignment *this,
-																	int depth);
-
-long long				arexp_assignment_eval(t_arexp_assignment *this);
-
-#endif
+	cpy = twl_strnew(twl_strlen(text));
+	index = 1;
+	index_cpy = 0;
+	while (text[index + 1])
+	{
+		if (text[index] == '\\' && (text[index + 1] == '`' ||
+					text[index + 1] == '$' || text[index + 1] == '\\'))
+			index += 1;
+		cpy[index_cpy] = text[index];
+		index += 1;
+		index_cpy += 1;
+	}
+	return (cpy);
+}

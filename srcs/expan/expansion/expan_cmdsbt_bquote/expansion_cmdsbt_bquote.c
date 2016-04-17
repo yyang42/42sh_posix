@@ -31,7 +31,8 @@ static void	child_part(t_expansion *this, t_expan_token *token, int fd[2])
 		exit(-1);
 	}
 	close(fd[0]);
-	cmd = twl_strndup(token->text + 1, twl_strlen(token->text + 2));
+	cmd = expansion_cmdsbt_bquote_getstring(token->text);
+	LOGGER_DEBUG("%s", cmd)
     ast_exec_string(cmd);
 	close(fd[1]);
 	free(cmd);
@@ -82,7 +83,7 @@ static void parent_part(t_expansion *this, t_expan_token *token, int fd[2])
 	while ((size = read(fd[0], buf, 127)) > 0)
 	{
 		buf[size] = 0;
-		twl_lst_push_back(lst, twl_strdup(buf));
+		twl_lst_push_back(lst, expan_quote(buf, this->quoted));
 	}
 	check = false;
 	twl_lst_iterb(lst, remove_end_newline_fn, &check);

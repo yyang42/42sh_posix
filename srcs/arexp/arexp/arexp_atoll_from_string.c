@@ -10,35 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AREXP_ASSIGNMENT_H
-# define AREXP_ASSIGNMENT_H
+#include "arexp/arexp.h"
 
-# include "basics.h"
-# include "twl_lst.h"
-# include "arexp/arexp_defines.h"
-# include "arexp/nodes/arexp_condition.h"
-
-typedef struct			s_assign_old_val
+long long		arexp_atoll_from_string(t_arexp *this, char *input)
 {
-	long long			old;
-	char				*variable;
-	t_token_type		assign_type;
-}						t_assign_old_val;
+	t_token		token;
 
-typedef struct			s_arexp_assignment
-{
-	t_lst				*assign;
-	t_arexp_condition	*condition;
-}						t_arexp_assignment;
-
-t_arexp_assignment		*arexp_assignment_new(void);
-void					arexp_assignment_del(t_arexp_assignment *assignment);
-
-t_arexp_assignment		*arexp_assignment_new_from_tokens(t_lst *tokens);
-
-void					arexp_assignment_print_rec(t_arexp_assignment *this,
-																	int depth);
-
-long long				arexp_assignment_eval(t_arexp_assignment *this);
-
-#endif
+	token.text = input;
+	return (arexp_atoll(this, &token));
+}

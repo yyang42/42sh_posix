@@ -62,6 +62,7 @@ void				expansion_cmdsbt_dollar(t_expansion *this,
 											t_expan_token *token);
 void				expansion_cmdsbt_bquote(t_expansion *this,
 											t_expan_token *token);
+char				*expansion_cmdsbt_bquote_getstring(char *text);
 void				expansion_arithmetic(t_expansion *this,
 											t_expan_token *token);
 void				expansion_dquote_wrap(t_expansion *this,
