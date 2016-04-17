@@ -28,6 +28,7 @@
 #include "builtin/cmds/builtin_fg.h"
 #include "builtin/cmds/builtin_jobs.h"
 #include "builtin/cmds/builtin_kill.h"
+#include "builtin/cmds/builtin_read.h"
 #include "builtin/cmds/builtin_readonly.h"
 #include "builtin/cmds/builtin_return.h"
 #include "builtin/cmds/builtin_set.h"
@@ -66,6 +67,7 @@ t_lst				*data_builtins(void)
 		twl_lst_push_back(builtins, builtin_new("fg", builtin_fg_exec));
 		twl_lst_push_back(builtins, builtin_new("jobs", builtin_jobs_exec));
 		twl_lst_push_back(builtins, builtin_new("kill", builtin_kill_exec));
+		twl_lst_push_back(builtins, builtin_new("read", builtin_read_exec));
 		twl_lst_push_back(builtins, builtin_new("readonly", builtin_readonly_exec));
 		twl_lst_push_back(builtins, builtin_new("return", builtin_return_exec));
 		twl_lst_push_back(builtins, builtin_new("set", builtin_set_exec));
