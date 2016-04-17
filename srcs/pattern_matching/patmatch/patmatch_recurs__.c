@@ -57,7 +57,6 @@ static int	could_match(t_patmatch *this, t_matching_ *match,
 	char			*pbuf;
 
 	data = twl_lst_get(match->pattern, 0);
-	LOGGER_DEBUG("\033[34;1m%s|%s\033[0m", data->split, dir->d_name)
 	if (!data)
 		return (0);
 	if (((data->split[0] == '.') ^ (dir->d_name[0] == '.')))
