@@ -19,6 +19,7 @@
 
 # define OC_MATCHER_FLAG_SKIP_QUOTED (1 << 0)
 # define OC_MATCHER_JUMP_SINGLE_QUOTE (1 << 1)
+# define OC_MATCHER_MATCH_PARENT_IN_ARITH_EXPAN (1 << 2)
 
 typedef struct		s_openclose_matcher
 {
