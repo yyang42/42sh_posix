@@ -46,7 +46,7 @@ void				ast_compound_command_exec_with_redirs(t_ast_compound_command *this)
 	{
 		twl_dprintf(2, "error: compound command not found\n");
 	}
-	ast_redir_fd_mgr_close(this->redir_fds);
+	ast_redir_fd_mgr_close_clear(this->redir_fds);
 }
 
 void				ast_compound_command_exec(t_ast_compound_command *this)
