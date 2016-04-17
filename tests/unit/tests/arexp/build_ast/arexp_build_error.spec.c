@@ -26,7 +26,7 @@ mt_test_arexp_error(num07, "123456789a", "value too great for base: 123456789a",
 mt_test_arexp_error(num08, "37#abcDEF", "value too great for base: 37#abcDEF", false);
 mt_test_arexp_error(num09, "(1,2,)", "expected operand got )", false);
 mt_test_arexp_error(num10, "1,2,3?4,5,6:(7,8,9", "expected `)' got nothing", false);
-mt_test_arexp_error(num11, "a=-b=c", "unexpected token: =", false);
+mt_test_arexp_error(num11, "1+\"1\"", "expected operand got \"1\"", false);
 
 static void test_num12(t_test *test)
 {

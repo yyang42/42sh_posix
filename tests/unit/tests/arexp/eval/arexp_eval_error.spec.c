@@ -25,7 +25,6 @@ mt_test_eval(num02, "1%0", "division by 0", false);
 mt_test_eval(num03, "a", "value too great for base: Bonjour", false);
 mt_test_eval(num04, "a=100, a/(a>>10)", "division by 0", false);
 mt_test_eval(num05, "a=100, a%(a>>10)", "division by 0", false);
-mt_test_eval(num06, "1+1aA", "division by 0", true);
 
 void suite_arexp_eval_error(t_suite *suite)
 {
@@ -35,5 +34,4 @@ void suite_arexp_eval_error(t_suite *suite)
 	SUITE_ADD_TEST(suite, test_num03);
 	SUITE_ADD_TEST(suite, test_num04);
 	SUITE_ADD_TEST(suite, test_num05);
-	SUITE_ADD_TEST(suite, test_num06);
 }
