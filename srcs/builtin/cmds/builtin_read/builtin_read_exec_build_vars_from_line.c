@@ -14,16 +14,33 @@
 #include "twl_get_next_line.h"
 #include "utils.h"
 
-static void			set_env_var(char *var, char *value)
+static void			set_env_var(char *var, char *value, t_argparser_result *arg_res)
 {
 	char			*tmp;
 
+	if (argparser_result_opt_is_set(arg_res, "r"))
+	{
+		shenv_shvars_set(shenv_singleton(), var, value, "read");
+		return ;
+	}
 	tmp = utils_str_unescape_backslash(value);
 	shenv_shvars_set(shenv_singleton(), var, tmp, "read");
 	free(tmp);
 }
 
-void				builtin_read_exec_build_vars_from_line(t_lst *vars, char *line, char *ifs)
+static char			*strchr_mult(char *str, char *needles, t_argparser_result *arg_res)
+{
+	char			*found;
+
+	if (argparser_result_opt_is_set(arg_res, "r"))
+		found = twl_strchr_any(str, needles);
+	else
+		found = utils_strchr_multi_skip_escaped(str, needles);
+	return (found);
+	(void)arg_res;
+}
+
+void				builtin_read_exec_build_vars_from_line(t_argparser_result *arg_res, char *line, char *ifs)
 {
 	t_lst			*vars_copy;
 	char			*var;
@@ -31,13 +48,13 @@ void				builtin_read_exec_build_vars_from_line(t_lst *vars, char *line, char *if
 	char			*tmp;
 	char			*tmp_end;
 
-	vars_copy = twl_lst_copy(vars, NULL);
+	vars_copy = twl_lst_copy(arg_res->remainders, NULL);
 	tmp = line;
 	while ((var = twl_lst_pop_front(vars_copy)))
 	{
 		if (twl_strchr(ifs, *tmp))
 			tmp++;
-		tmp_end = utils_strchr_multi_skip_escaped(tmp, ifs);
+		tmp_end = strchr_mult(tmp, ifs, arg_res);
 		if (twl_lst_len(vars_copy) == 0)
 		{
 			value = twl_strdup(tmp);
@@ -51,16 +68,12 @@ void				builtin_read_exec_build_vars_from_line(t_lst *vars, char *line, char *if
 		{
 			value = twl_strdup(tmp);
 		}
-		LOGGER_DEBUG("read: var    : %s", var);
-		LOGGER_DEBUG("read: value  : %s", value);
-		LOGGER_DEBUG("read: tmp    : %s", tmp);
-		LOGGER_DEBUG("read: tmp_end: %s", tmp_end);
 		tmp += twl_strlen(value);
-		set_env_var(var, value);
+		set_env_var(var, value, arg_res);
 		if (!tmp_end)
 			break ;
 	}
 	while ((var = twl_lst_pop_front(vars_copy)))
-		set_env_var(var, "");
+		set_env_var(var, "", arg_res);
 	twl_lst_del(vars_copy, NULL);
 }

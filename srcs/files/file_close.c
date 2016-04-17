@@ -12,8 +12,12 @@
 
 #include "file.h"
 
-void		close_file(int fd)
+void				close_file(int fd)
 {
+	LOGGER_INFO("Close file: %d", fd);
 	if (close(fd) == -1)
+	{
+		LOGGER_ERROR("Fail to close file: %d", fd);
 		perror("close");
+	}
 }

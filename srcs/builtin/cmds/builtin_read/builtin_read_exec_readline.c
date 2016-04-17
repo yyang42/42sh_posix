@@ -14,12 +14,12 @@
 #include "twl_get_next_line.h"
 #include "utils.h"
 
-char				*builtin_read_gnl(void)
+char				*builtin_read_gnl(char **remainder_ptr)
 {
 	int				ret;
 	char			*line;
 
-	ret = twl_get_next_line(0, &line);
+	ret = twl_get_next_line_v2(0, &line, remainder_ptr);
 	if (ret == -1)
 	{
 		LOGGER_ERROR("read: ret: %d", ret);
@@ -31,20 +31,23 @@ char				*builtin_read_gnl(void)
 	return (NULL);
 }
 
-void				builtin_read_exec_readline(t_lst *remainders)
+void				builtin_read_exec_readline(t_argparser_result *arg_res)
 {
 	char			*line;
 	char			*accumulator;
+	char			*remainder;
 
+	remainder = NULL;
 	accumulator = twl_strdup("");
 	while (true)
 	{
-		line = builtin_read_gnl();
+		line = builtin_read_gnl(&remainder);
 		if (line)
 		{
 			accumulator = twl_strjoinfree(accumulator, line, 'l');
 			free(line);
-			if (utils_has_line_continuation(accumulator))
+			if (!argparser_result_opt_is_set(arg_res, "r")
+				&& utils_has_line_continuation(accumulator))
 				continue ;
 			break ;
 		}
@@ -53,6 +56,7 @@ void				builtin_read_exec_readline(t_lst *remainders)
 			break ;
 		}
 	}
-	builtin_read_exec_build_vars_from_line(remainders, accumulator, shenv_get_ifs(shenv_singleton()));
+	builtin_read_exec_build_vars_from_line(
+		arg_res, accumulator, shenv_get_ifs(shenv_singleton()));
 	free(accumulator);
 }

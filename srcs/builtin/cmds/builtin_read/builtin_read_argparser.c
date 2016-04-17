@@ -20,9 +20,10 @@ t_argparser			*builtin_read_argparser(void)
 	{
 		argparser = argparser_new("read");
 		argparser_set_usage(argparser,
-			"[-p] name[=word]...");
+			"[-r] var...");
 		argparser_add_argument(argparser,
-			argparser_argument_new('p', NULL, "Print all read variables", 0));
+			argparser_argument_new('r', NULL,
+				"Do not treat a <backslash> character in any special way.", 0));
 	}
 	return (argparser);
 }

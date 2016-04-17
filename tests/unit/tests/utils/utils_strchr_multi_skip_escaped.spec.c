@@ -20,15 +20,15 @@
 			{ mt_assert(actual == expected); } \
 	}
 
-mt_test_utils_strchr_multi_skip_escaped(test1, "abc", "b", "bc", true);
-mt_test_utils_strchr_multi_skip_escaped(test2, "abcbd", "b", "bcbd", true);
-mt_test_utils_strchr_multi_skip_escaped(test3, "a\\bcbd", "b", "bd", true);
-mt_test_utils_strchr_multi_skip_escaped(test4, "a\\bcbd", "bc", "cbd", true);
-mt_test_utils_strchr_multi_skip_escaped(test5, "", "bc", false, true);
-mt_test_utils_strchr_multi_skip_escaped(test6, "\\", "bc", false, true);
-mt_test_utils_strchr_multi_skip_escaped(test7, "\\b", "bc", false, true);
-mt_test_utils_strchr_multi_skip_escaped(test8, "\\\\", "bc", false, true);
-mt_test_utils_strchr_multi_skip_escaped(test9, "bc", "", false, true);
+mt_test_utils_strchr_multi_skip_escaped(test1, "abc", "b", "bc", false);
+mt_test_utils_strchr_multi_skip_escaped(test2, "abcbd", "b", "bcbd", false);
+mt_test_utils_strchr_multi_skip_escaped(test3, "a\\bcbd", "b", "bd", false);
+mt_test_utils_strchr_multi_skip_escaped(test4, "a\\bcbd", "bc", "cbd", false);
+mt_test_utils_strchr_multi_skip_escaped(test5, "", "bc", false, false);
+mt_test_utils_strchr_multi_skip_escaped(test6, "\\", "bc", false, false);
+mt_test_utils_strchr_multi_skip_escaped(test7, "\\b", "bc", false, false);
+mt_test_utils_strchr_multi_skip_escaped(test8, "\\\\", "bc", false, false);
+mt_test_utils_strchr_multi_skip_escaped(test9, "bc", "", false, false);
 
 void	suite_utils_strchr_multi_skip_escaped(t_suite *suite)
 {

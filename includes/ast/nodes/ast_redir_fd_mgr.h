@@ -16,6 +16,6 @@
 # include "basics.h"
 
 void				ast_redir_fd_mgr_init(t_lst *redir_fds, t_lst *redir_items);
-void				ast_redir_fd_mgr_close(t_lst *redir_fds);
+void				ast_redir_fd_mgr_close_clear(t_lst *redir_fds);
 
 #endif
