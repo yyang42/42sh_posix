@@ -13,6 +13,27 @@
 #include "openclose/openclose_matcher.h"
 #include "openclose/openclose_mgr.h"
 
+static bool			match_stack_fn(void *oc_, void *searched)
+{
+	t_openclose		*oc;
+
+	oc = oc_;
+	return (twl_strequ(searched, oc->open));
+}
+
+static bool			find_open_start_handle_arith_expan_parent_fn(void *oc_, void *stack, void *pos)
+{
+	t_openclose		*oc;
+
+	oc = oc_;
+	if (twl_strequ(oc->open, "("))
+	{
+		if (!twl_lst_find(stack, match_stack_fn, "$(("))
+			return (false);
+	}
+	return (twl_str_starts_with(pos, oc->open));
+}
+
 static bool			find_open_start_fn(void *oc_, void *pos)
 {
 	t_openclose		*oc;
@@ -30,8 +51,10 @@ static void			resolve(t_openclose_matcher *matcher, t_lst *stack,
 
 	pos = *s_ptr;
 	oc = twl_lst_last(stack);
-	open_pos = twl_lst_find(matcher->oc_pairs, find_open_start_fn, pos);
-
+	if ((matcher->flags & OC_MATCHER_MATCH_PARENT_IN_ARITH_EXPAN))
+		open_pos = twl_lst_find2(matcher->oc_pairs, find_open_start_handle_arith_expan_parent_fn, stack, pos);
+	else
+		open_pos = twl_lst_find(matcher->oc_pairs, find_open_start_fn, pos);
 	if (oc && twl_str_starts_with(pos, oc->close))
 	{
 		twl_lst_pop_back(stack);
@@ -76,7 +99,7 @@ char				*openclose_matcher_find_matching_base(
 {
 	while (*s)
 	{
-		if (matcher->skip_quoted)
+		if (matcher->flags & OC_MATCHER_FLAG_SKIP_QUOTED)
 		{
 			if (is_quoted_skip(&s))
 				continue ;

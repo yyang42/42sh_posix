@@ -54,6 +54,7 @@ bool				tokenizer_utils_can_form_operator(t_tokenizer *this,
 void				tokenizer_delimit(t_tokenizer *this);
 void				tokenizer_delimit_handle_heredoc(t_tokenizer *this,
 														t_token *new_token);
+void				tokenizer_remove_line_continuation(t_tokenizer *t);
 
 /*
 **	Tokenizer rules

@@ -32,6 +32,14 @@
 
 t_rule_status		tokenizer_apply_rule04(t_tokenizer *t)
 {
+	if (t->cur_is_quoted && twl_strchr("\\\n", *t->curpos))
+	{
+		if (*t->curpos == '\\')
+		{
+			tokenizer_append_to_curtoken(t, 1);
+		}
+		t->curpos++;
+		return (RULE_STATUS_APPLIED);
+	}
 	return (RULE_STATUS_NOT_APPLIED);
-	(void)t;
 }

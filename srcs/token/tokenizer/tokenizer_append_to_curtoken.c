@@ -19,6 +19,6 @@ void				tokenizer_append_to_curtoken(t_tokenizer *t, int len)
 		twl_strcat(t->curtoken, "\\");
 	}
 	twl_strcpy(t->curtokenplus, t->curtoken);
-	twl_strncat(t->curtoken, t->curpos, len);
 	twl_strncat(t->curtokenplus, t->curpos, len + 1);
+	twl_strncat(t->curtoken, t->curpos, len);
 }
