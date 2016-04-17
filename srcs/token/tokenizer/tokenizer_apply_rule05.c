@@ -52,6 +52,7 @@ static char			*match_fn(t_tokenizer *t, char *input)
 	openclose_matcher_add(matcher, "`", "`");
 	openclose_matcher_add(matcher, "\"", "\"");
 	openclose_matcher_add(matcher, "\'", "\'");
+	openclose_matcher_add(matcher, "(", ")");
 	match = openclose_matcher_find_matching(matcher, input);
 	if (matcher->err_msg)
 	{
