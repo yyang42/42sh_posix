@@ -12,18 +12,13 @@
 
 #include "pattern_matching/pattern.h"
 
-void				pattern_build_finish_(t_pattern *this)
+static bool		find_fn(void *data, void *ctx)
 {
-	if (this->itp_)
-	{
-		pattern_build_push_(this);
-	}
-	else if (this->to_push_)
-	{
-		free(this->to_push_->split);
-		free(this->to_push_);
-		this->to_push_ = NULL;
-	}
-	pattern_build_harmonize_(this);
-	pattern_build_num_slash_(this);
+	return (!((t_pattern_data *)data)->fixed);
+	(void)ctx;
+}
+
+bool			pattern_is_all_fixed(t_pattern *this)
+{
+	return (twl_lst_find(this->split, find_fn, NULL) == NULL);
 }

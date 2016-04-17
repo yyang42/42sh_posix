@@ -28,12 +28,6 @@ static void			init_match(t_patmatch *this, t_matching_ *match)
 	match->fd_dir = NULL;
 }
 
-static void			del_match(t_matching_ *match)
-{
-	if (match->building)
-		free(match->building);
-}
-
 static void			erase_building_start(void *data_)
 {
 	char	*data;
@@ -59,7 +53,14 @@ static bool			cmp_func(void *s1_, void *s2_)
 	return ((twl_strcmp(s1, s2) < 0) ? true : false);
 }
 
-static void iter_fn(void *d){t_pattern_data *e = d;LOGGER_DEBUG("%s - %i",e->split,e->fixed)}
+static t_lst		*all_fixed_return_to_string(t_pattern *pattern)
+{
+	t_lst			*ret;
+
+	ret = twl_lst_new();
+	twl_lst_push_back(ret, pattern_to_string(pattern));
+	return (ret);
+}
 
 t_lst				*patmatch_match(t_patmatch *this, char *pattern)
 {
@@ -67,7 +68,8 @@ t_lst				*patmatch_match(t_patmatch *this, char *pattern)
 	t_lst			*ret;
 
 	this->pattern = pattern_new(pattern);
-	twl_lst_iter0(this->pattern->split, iter_fn);
+	if (pattern_is_all_fixed(this->pattern))
+		return (all_fixed_return_to_string(this->pattern));
 	this->match = twl_lst_new();
 	init_match(this, &match);
 	patmatch_recurs__(this, &match);
@@ -78,6 +80,7 @@ t_lst				*patmatch_match(t_patmatch *this, char *pattern)
 	pattern_del(this->pattern);
 	ret = this->match;
 	this->match = NULL;
-	del_match(&match);
+	if (match.building)
+		free(match.building);
 	return (ret);
 }

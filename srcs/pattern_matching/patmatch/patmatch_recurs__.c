@@ -57,7 +57,6 @@ static int	could_match(t_patmatch *this, t_matching_ *match,
 	char			*pbuf;
 
 	data = twl_lst_get(match->pattern, 0);
-	LOGGER_DEBUG("\033[34;1m%s|%s\033[0m", data->split, dir->d_name)
 	if (!data)
 		return (0);
 	if (((data->split[0] == '.') ^ (dir->d_name[0] == '.')))
@@ -102,7 +101,7 @@ void		patmatch_recurs__(t_patmatch *this, t_matching_ *match)
 		if (match_(this, match, dir->d_name))
 		{
 			next.building = twl_joinpath(match->building, dir->d_name);
-			LOGGER_DEBUG(">%s[]%s<", match->building, next.building)
+//			LOGGER_DEBUG(">%s[]%s<", match->building, next.building)
 			patmatch_recurs__(this, &next);
 			free(next.building);
 		}

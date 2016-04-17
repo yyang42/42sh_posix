@@ -12,18 +12,9 @@
 
 #include "pattern_matching/pattern.h"
 
-void				pattern_build_finish_(t_pattern *this)
+int					pattern_get_num_slash(t_pattern *this, int index)
 {
-	if (this->itp_)
-	{
-		pattern_build_push_(this);
-	}
-	else if (this->to_push_)
-	{
-		free(this->to_push_->split);
-		free(this->to_push_);
-		this->to_push_ = NULL;
-	}
-	pattern_build_harmonize_(this);
-	pattern_build_num_slash_(this);
+	if (index < 0 || index > this->tot_num_slash)
+		return (-1);
+	return (this->num_slash[index]);
 }
