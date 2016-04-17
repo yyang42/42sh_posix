@@ -13,6 +13,36 @@
 #include "builtin/cmds/builtin_read.h"
 #include "twl_get_next_line.h"
 
+static void			set_env_var(char *var, char *value)
+{
+	char			*tmp;
+
+	tmp = twl_str_replace(value, "\\", "");
+	shenv_shvars_set(shenv_singleton(), var, tmp, "read");
+	free(tmp);
+}
+
+static char			*strchr_ifs(char *str)
+{
+	char			*found;
+
+	while (*str)
+	{
+		if (*str == '\\' && *(str + 1) != '\0')
+		{
+			str += 2;
+		}
+		else
+		{
+			found = twl_strchr(shenv_get_ifs(shenv_singleton()), *str);
+			if (found)
+				return (str);
+		}
+		str++;
+	}
+	return (NULL);
+}
+
 static void			fill_vars(t_lst *vars, char *line)
 {
 	t_lst			*vars_copy;
@@ -25,9 +55,9 @@ static void			fill_vars(t_lst *vars, char *line)
 	tmp = line;
 	while ((var = twl_lst_pop_front(vars_copy)))
 	{
-		while (twl_strchr(shenv_get_ifs(shenv_singleton()), *tmp))
+		if (twl_strchr(shenv_get_ifs(shenv_singleton()), *tmp))
 			tmp++;
-		tmp_end = twl_strchr_any(tmp, shenv_get_ifs(shenv_singleton()));
+		tmp_end = strchr_ifs(tmp);
 		if (twl_lst_len(vars_copy) == 0)
 		{
 			value = twl_strdup(tmp);
@@ -46,12 +76,12 @@ static void			fill_vars(t_lst *vars, char *line)
 		LOGGER_DEBUG("read: tmp    : %s", tmp);
 		LOGGER_DEBUG("read: tmp_end: %s", tmp_end);
 		tmp += twl_strlen(value);
-		shenv_shvars_set(shenv_singleton(), var, value, "read");
+		set_env_var(var, value);
 		if (!tmp_end)
 			break ;
 	}
 	while ((var = twl_lst_pop_front(vars_copy)))
-		shenv_shvars_set(shenv_singleton(), var, "", "read");
+		set_env_var(var, "");
 	twl_lst_del(vars_copy, NULL);
 }
 
