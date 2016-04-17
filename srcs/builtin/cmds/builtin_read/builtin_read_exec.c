@@ -15,11 +15,9 @@
 void				builtin_read_exec(t_lst *tokens, t_shenv *env)
 {
 	t_argparser_result	*argparser_result;
-	t_lst				*remainders;
 
 	env->shenv_cur_token = token_mgr_first(tokens);
 	argparser_result = argparser_parse_tokens(builtin_read_argparser(), tokens);
-	remainders = argparser_result->remainders;
 	if (argparser_result->err_msg)
 	{
 		argparser_result_print_usage_exit_status(argparser_result, 2);
