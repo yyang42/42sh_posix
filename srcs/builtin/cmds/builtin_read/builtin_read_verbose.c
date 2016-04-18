@@ -10,14 +10,26 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "file.h"
+#include "builtin/cmds/builtin_read.h"
+#include "shenv/shenv.h"
+#include "twl_opt.h"
+#include "twl_lst.h"
 
-void				close_file(int fd)
+static void			read_something(void *data)
 {
-	LOGGER_INFO("Close file: %d", fd);
-	if (close(fd) == -1)
+	t_shvar	*shvar;
+
+	shvar = data;
+	if (shvar->shvar_read_only)
 	{
-		LOGGER_ERROR("Fail to close file: %d", fd);
-		perror("close");
+		if (shvar->shvar_value)
+			twl_printf("read %s=\"%s\"\n", shvar->shvar_key, shvar->shvar_value ? shvar->shvar_value : "");
+		else
+			twl_printf("read %s\n", shvar->shvar_key);
 	}
+}
+
+void				builtin_read_verbose(t_shenv *env)
+{
+	twl_lst_iter0(env->shvars, read_something);
 }

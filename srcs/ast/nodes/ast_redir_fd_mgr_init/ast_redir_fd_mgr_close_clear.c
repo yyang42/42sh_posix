@@ -10,14 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "file.h"
+#include "ast/nodes/ast_redir.h"
+#include "ast/nodes/ast_simple_command.h"
 
-void				close_file(int fd)
+static void	iter_redir_fds_fn(void *redir_fd_)
 {
-	LOGGER_INFO("Close file: %d", fd);
-	if (close(fd) == -1)
-	{
-		LOGGER_ERROR("Fail to close file: %d", fd);
-		perror("close");
-	}
+	t_ast_redir_fd			*redir_fd;
+
+	redir_fd = redir_fd_;
+	if (redir_fd->fd_file != -1)
+		close_file(redir_fd->fd_file);
+	ast_redir_fd_utils_dup_fds(redir_fd->fd_save, redir_fd->fd_origin);
+}
+
+void				ast_redir_fd_mgr_close_clear(t_lst *redir_fds)
+{
+	twl_lst_iter0(redir_fds, iter_redir_fds_fn);
+	twl_lst_clear(redir_fds, ast_redir_fd_del);
 }

@@ -10,14 +10,28 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "file.h"
+#include "utils.h"
 
-void				close_file(int fd)
+char				*utils_strchr_multi_skip_escaped(char *str, char *needles)
 {
-	LOGGER_INFO("Close file: %d", fd);
-	if (close(fd) == -1)
+	char			*found;
+
+	if (*needles == 0)
+		return (NULL);
+	while (*str)
 	{
-		LOGGER_ERROR("Fail to close file: %d", fd);
-		perror("close");
+		if (*str == '\\' && *(str + 1) != '\0')
+		{
+			str += 2;
+			continue ;
+		}
+		else
+		{
+			found = twl_strchr(needles, *str);
+			if (found)
+				return (str);
+		}
+		str++;
 	}
+	return (NULL);
 }

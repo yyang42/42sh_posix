@@ -10,14 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "file.h"
+#include "builtin/cmds/builtin_read.h"
 
-void				close_file(int fd)
+void				builtin_read_exec(t_lst *tokens, t_shenv *env)
 {
-	LOGGER_INFO("Close file: %d", fd);
-	if (close(fd) == -1)
+	t_argparser_result	*argparser_result;
+
+	env->shenv_cur_token = token_mgr_first(tokens);
+	argparser_result = argparser_parse_tokens(builtin_read_argparser(), tokens);
+	if (argparser_result->err_msg)
 	{
-		LOGGER_ERROR("Fail to close file: %d", fd);
-		perror("close");
+		argparser_result_print_usage_exit_status(argparser_result, 2);
+	}
+	else
+	{
+		builtin_read_exec_readline(argparser_result);
 	}
 }

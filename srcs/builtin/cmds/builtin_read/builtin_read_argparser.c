@@ -10,14 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "file.h"
+#include "builtin/cmds/builtin_read.h"
 
-void				close_file(int fd)
+t_argparser			*builtin_read_argparser(void)
 {
-	LOGGER_INFO("Close file: %d", fd);
-	if (close(fd) == -1)
+	static t_argparser		*argparser;
+
+	if (argparser == NULL)
 	{
-		LOGGER_ERROR("Fail to close file: %d", fd);
-		perror("close");
+		argparser = argparser_new("read");
+		argparser_set_usage(argparser,
+			"[-r] var...");
+		argparser_add_argument(argparser,
+			argparser_argument_new('r', NULL,
+				"Do not treat a <backslash> character in any special way.", 0));
 	}
+	return (argparser);
 }

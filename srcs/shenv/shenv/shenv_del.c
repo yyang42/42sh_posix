@@ -31,5 +31,6 @@ void				shenv_del(t_shenv *this)
 		twl_htab_del(this->alias, NULL);
 	if (this->info.name)
 		free(this->info.name);
+	free(this->shenv_read_buffer_db);
 	free(this);
 }

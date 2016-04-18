@@ -10,14 +10,22 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "file.h"
+#include "utils.h"
 
-void				close_file(int fd)
+char				*utils_str_unescape_backslash(char *str)
 {
-	LOGGER_INFO("Close file: %d", fd);
-	if (close(fd) == -1)
+	char			*cpy;
+	char			*cpy_start;
+
+	cpy = twl_strnew(twl_strlen(str));
+	cpy_start = cpy;
+	while (*str)
 	{
-		LOGGER_ERROR("Fail to close file: %d", fd);
-		perror("close");
+		if (*str == '\\')
+			str++;
+		*cpy = *str;
+		cpy++;
+		str++;
 	}
+	return (cpy_start);
 }

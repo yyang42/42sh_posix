@@ -10,14 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "file.h"
+#include "builtin/cmds/builtin_read.h"
+#include "shenv/shenv.h"
+#include "twl_opt.h"
+#include "twl_lst.h"
 
-void				close_file(int fd)
+static void			read_something(void *str_arg, void *env)
 {
-	LOGGER_INFO("Close file: %d", fd);
-	if (close(fd) == -1)
+	t_shvar			*shvar;
+
+	shvar = shenv_shvars_set_split_by_equal(env, str_arg, "read");
+	if (shvar)
 	{
-		LOGGER_ERROR("Fail to close file: %d", fd);
-		perror("close");
+		shvar->shvar_read_only = true;
 	}
+}
+
+void				builtin_read_add(t_shenv *env, t_lst *remainders)
+{
+	twl_lst_iter(remainders, read_something, env);
 }

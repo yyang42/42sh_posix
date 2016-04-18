@@ -10,14 +10,25 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "file.h"
+#include "utils.h"
 
-void				close_file(int fd)
+bool				utils_has_line_continuation(char *str)
 {
-	LOGGER_INFO("Close file: %d", fd);
-	if (close(fd) == -1)
+	while (*str)
 	{
-		LOGGER_ERROR("Fail to close file: %d", fd);
-		perror("close");
+		if (*str == '\\')
+		{
+			if (*(str + 1) == '\0')
+			{
+				return (true);
+			}
+			else
+			{
+				str += 2;
+				continue ;
+			}
+		}
+		str++;
 	}
+	return (false);
 }

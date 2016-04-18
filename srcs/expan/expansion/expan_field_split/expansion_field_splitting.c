@@ -57,9 +57,7 @@ static void		wrapper_split_iter_fn(void *data, void *context)
 
 void			expansion_field_splitting(t_expansion *this)
 {
-	this->ifs = shenv_shvars_get_value(shenv_singleton(), "IFS");
-	if (!this->ifs)
-		this->ifs = " \t\n";
+	this->ifs = shenv_get_ifs(shenv_singleton());
 	twl_lst_iter(this->before_split, wrapper_split_iter_fn, this);
 	if (this->to_push_as && *this->to_push_as)
 	{

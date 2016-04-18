@@ -53,13 +53,23 @@ static void			iter_assign_fn(void *assign_, void *cmd_)
 	}
 }
 
+static void			ast_simple_command_exec_print_log(t_ast_simple_command *cmd)
+{
+	char			*cmd_str;
+
+	cmd_str = token_mgr_strjoin(cmd->cmd_tokens_deep_copy, " ");
+	LOGGER_INFO("simple command exec: %s", cmd_str);
+	free(cmd_str);
+}
+
 static void			ast_simple_command_exec_with_redirs(t_ast_simple_command *cmd)
 {
+	ast_simple_command_exec_print_log(cmd);
 	ast_redir_fd_mgr_init(cmd->redir_fds, cmd->redir_items);
 	if (shenv_singleton()->last_exit_code != 0)
 		return ;
 	ast_simple_command_exec_tokens(cmd);
-	ast_redir_fd_mgr_close(cmd->redir_fds);
+	ast_redir_fd_mgr_close_clear(cmd->redir_fds);
 }
 
 void				ast_simple_command_exec(t_ast_simple_command *cmd)

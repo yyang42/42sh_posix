@@ -10,14 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "file.h"
+#include "shenv/shenv.h"
 
-void				close_file(int fd)
+int					shenv_set_read_buffer_ptr(t_shenv *env, int fd)
 {
-	LOGGER_INFO("Close file: %d", fd);
-	if (close(fd) == -1)
+	if (fd >= 0 && fd < getdtablesize())
 	{
-		LOGGER_ERROR("Fail to close file: %d", fd);
-		perror("close");
+		env->shenv_read_buffer_ptr = &(env->shenv_read_buffer_db[fd]);
+		return (0);
 	}
+	return (-1);
 }

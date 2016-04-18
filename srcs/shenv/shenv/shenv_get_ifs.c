@@ -10,20 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_redir.h"
-#include "ast/nodes/ast_simple_command.h"
+#include "shenv/shenv.h"
 
-static void	iter_redir_fds_fn(void *redir_fd_)
+char				*shenv_get_ifs(t_shenv *this)
 {
-	t_ast_redir_fd			*redir_fd;
+	char			*ifs;
 
-	redir_fd = redir_fd_;
-	if (redir_fd->fd_file != -1)
-		close_file(redir_fd->fd_file);
-	ast_redir_fd_utils_dup_fds(redir_fd->fd_save, redir_fd->fd_origin);
-}
-
-void				ast_redir_fd_mgr_close(t_lst *redir_fds)
-{
-	twl_lst_iter0(redir_fds, iter_redir_fds_fn);
+	ifs = shenv_shvars_get_value(this, "IFS");
+	if (!ifs)
+		ifs = SHENV_DEFAULT_IFS;
+	return (ifs);
 }

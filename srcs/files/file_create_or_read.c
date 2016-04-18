@@ -12,6 +12,7 @@
 
 #include "file.h"
 #include "shenv/shenv.h"
+#include "logger.h"
 
 int		append_to_file(t_token *token)
 {
@@ -26,7 +27,9 @@ int 	read_file(t_token *token)
 int		create_file(t_token *token)
 {
 	int fd;
+
 	fd = file_open_and_hand_error(token, O_CREAT | O_RDWR | O_TRUNC, 0666);
+	LOGGER_INFO("Create file: %d", fd);
 	return (fd);
 }
 
