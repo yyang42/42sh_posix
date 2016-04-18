@@ -23,6 +23,11 @@ char				*builtin_read_gnl(char **remainder_ptr)
 	if (ret == -1)
 	{
 		LOGGER_ERROR("read: ret: %d", ret);
+		shenv_singleton()->last_exit_code = 2;
+	}
+	else if (ret == 0)
+	{
+		shenv_singleton()->last_exit_code = EXIT_FAILURE;
 	}
 	else if (ret > 0)
 	{
@@ -35,13 +40,11 @@ void				builtin_read_exec_readline(t_argparser_result *arg_res)
 {
 	char			*line;
 	char			*accumulator;
-	char			*remainder;
 
-	remainder = NULL;
 	accumulator = twl_strdup("");
 	while (true)
 	{
-		line = builtin_read_gnl(&remainder);
+		line = builtin_read_gnl(shenv_singleton()->shenv_read_buffer_ptr);
 		if (line)
 		{
 			accumulator = twl_strjoinfree(accumulator, line, 'l');

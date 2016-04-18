@@ -81,6 +81,8 @@ typedef struct				s_shenv
 	t_htab					*shenv_binary_db;
 	char					*shenv_binary_saved_path;
 	int						shenv_list_item_level;
+	char					**shenv_read_buffer_ptr;
+	char					**shenv_read_buffer_db;
 }							t_shenv;
 
 t_shenv				*shenv_new(void);
@@ -123,6 +125,7 @@ char				*shenv_find_binary_path(t_shenv *env, char *cmd);
 void				shenv_build_binary_db(t_shenv *env);
 void				shenv_set_binary_saved_path(t_shenv *env, char *path);
 char				*shenv_get_ifs(t_shenv *this);
+int					shenv_set_read_buffer_ptr(t_shenv *env, int fd);
 
 /*
 ** exit

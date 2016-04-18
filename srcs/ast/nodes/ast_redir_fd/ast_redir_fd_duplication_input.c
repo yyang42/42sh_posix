@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "ast/nodes/ast_redir_fd.h"
+#include "shenv/shenv.h"
 
 int					ast_redir_fd_duplication_input(t_ast_redir *redir,
 													t_ast_redir_fd *redir_fd)
@@ -30,6 +31,7 @@ int					ast_redir_fd_duplication_input(t_ast_redir *redir,
 			redir_fd->fd_origin = redir->io_number == -1
 				? STDIN_FILENO : redir->io_number;
 			ast_redir_fd_utils_dup_fds(duplicated_fd, redir_fd->fd_origin);
+			shenv_set_read_buffer_ptr(shenv_singleton(), duplicated_fd);
 		}
 	}
 	return (duplicated_fd);
