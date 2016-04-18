@@ -6,14 +6,22 @@ foo ()
 	env | grep mytestvar | sort
 }
 
-# printf 'aa bb\n' > /tmp/builtin_read_file; foo
+printf 'aa bb\n' > /tmp/builtin_read_file; foo
 
-# printf '1aa\\ bb\n'  > /tmp/builtin_read_file; foo
-# printf '2aa\\bb\n'  > /tmp/builtin_read_file; foo
-# printf '3aab\n'  > /tmp/builtin_read_file; foo
-# printf '4aab\\'  > /tmp/builtin_read_file; foo
+printf '1aa\\ bb\n'  > /tmp/builtin_read_file; foo
+printf '2aa\\bb\n'  > /tmp/builtin_read_file; foo
+printf '3aab\n'  > /tmp/builtin_read_file; foo
+printf '4aab\\'  > /tmp/builtin_read_file; foo
 printf '5aa\\
-bb\n' > /tmp/builtin_read_file; foo
-# printf '6aa\\
-# bb\\
-# cc\n' > /tmp/builtin_read_file; foo
+5bb\n' > /tmp/builtin_read_file; foo
+printf '6aa\\
+6bb\\
+6cc\n' > /tmp/builtin_read_file; foo
+
+printf '7aa\\
+7bb\\
+7cc\n' > /tmp/builtin_read_file; foo
+
+printf '8aa\\
+8bb\\
+8cc\n' > /tmp/builtin_read_file; foo
