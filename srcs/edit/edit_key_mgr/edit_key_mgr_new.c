@@ -36,5 +36,6 @@ t_lst				*edit_key_mgr_new(void)
 	edit_key_mgr_add(edit_keys, edit_key_new(CTRL_P, edit_paste_clip));
 	edit_key_mgr_add(edit_keys, edit_key_new(CTRL_R, edit_search_handle));
 	edit_key_mgr_add(edit_keys, edit_key_new(TAB, edit_autocomplete));
+	edit_key_mgr_add(edit_keys, edit_key_new(CTRL_L, edit_handle_ctrl_l));
 	return (edit_keys);
 }

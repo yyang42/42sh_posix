@@ -63,7 +63,7 @@ static char			*new_loop(t_openclose *token)
 	print_line(edit_min, token->open);
 	while (!cmd)
 	{
-		key = twl_getch();
+		key = edit_getch_next_line(edit_min);
 		cmd = edit_handle_one_input(edit_min, key);
 		print_line(edit_min, token->open);
 	}
@@ -167,63 +167,6 @@ static bool			find_fn(void *_pairs, void *cmd)
 	return (twl_str_starts_with(cmd, pairs->open));
 }
 
-static char			*get_part_before_heredoc(char *cmd)
-{
-	char			buff[1000];
-	int				i;
-
-	i = 0;
-	twl_bzero(buff, 1000);
-	while (!twl_str_starts_with(cmd, "<<"))
-	{
-		buff[i] = *cmd;
-		cmd++;
-		i++;
-	}
-	return twl_strdup(buff);
-}
-
-static char			*get_part_between_sep(char *cmd,char *sep)
-{
-	char			buff[1000];
-	int				i;
-
-	i = 0;
-	twl_bzero(buff, 1000);
-	while (!twl_str_starts_with(cmd, "<<"))
-		cmd++;
-	cmd += 2;
-	while (twl_isspace(*cmd))
-		cmd++;
-	cmd += twl_strlen(sep);
-	while (!twl_str_starts_with(cmd, sep))
-	{
-		buff[i] = *cmd;
-		cmd++;
-		i++;
-	}
-	return twl_strtrim(buff);
-}
-
-static char			*clean_heredoc(char *cmd)
-{
-	char			*sep;
-	char			*first_part;
-	char			*middle_part;
-	char			*new_cmd;
-
-	sep = get_heredoc_sep(cmd);
-	if (sep == NULL)
-		return (cmd);
-	first_part = get_part_before_heredoc(cmd);
-	middle_part = get_part_between_sep(cmd, sep);
-	free(cmd);
-	free(sep);
-	new_cmd = twl_strjoinfree(first_part, " ", 'l');
-	new_cmd = twl_strjoinfree(new_cmd, middle_part, 'b');
-	return (new_cmd);
-}
-
 char				*edit_match_valide_cmd(char *cmd)
 {
 	t_openclose_matcher	*matcher;
@@ -251,6 +194,7 @@ char				*edit_match_valide_cmd(char *cmd)
 		stack = openclose_matcher_find_matching_stack(matcher, cpy);
 		if (twl_lst_len(stack) > 0)
 		{
+			cmd = twl_strjoinfree(cmd, "\n", 'l');
 			new_cmd = new_loop(twl_lst_last(stack));
 			cmd = twl_strjoinfree(cmd, new_cmd, 'b');
 			twl_lst_del(stack, NULL);
@@ -261,7 +205,6 @@ char				*edit_match_valide_cmd(char *cmd)
 			break;
 		}
 	}
-	cmd = clean_heredoc(cmd);
 	openclose_matcher_del(matcher);
 	return (cmd);
 }

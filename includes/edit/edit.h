@@ -48,6 +48,9 @@ void				edit_debug_print(t_edit *this);
 void				edit_del(t_edit *this);
 char				*edit_loop(t_edit *this);
 
+int					edit_advance_getch(t_edit *edit);
+int					edit_getch_next_line(t_edit *this);
+
 char				*edit_handle_one_input(t_edit *this, int key);
 char				*edit_handle_string(t_edit *this, char *str);
 
