@@ -3,7 +3,6 @@
 #include "shenv/shenv.h"
 #include "builtin/cmds/builtin_shift.h"
 #include "builtin/cmds/builtin_set.h"
-#include "xopt.h"
 #include <stdlib.h>
 #include "token/tokenizer.h"
 

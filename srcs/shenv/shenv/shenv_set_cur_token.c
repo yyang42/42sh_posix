@@ -13,7 +13,6 @@
 #include "twl_xstdlib.h"
 
 #include "shenv/shenv.h"
-#include "xopt.h"
 
 void				shenv_set_cur_token(t_shenv *env, t_token *token)
 {

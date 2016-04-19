@@ -13,7 +13,6 @@
 #include "twl_xstdlib.h"
 
 #include "shenv/shenv.h"
-#include "xopt.h"
 
 void				shenv_set_cur_cmd(t_shenv *env, char *cur_cmd)
 {

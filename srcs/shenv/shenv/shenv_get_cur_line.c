@@ -11,9 +11,7 @@
 /* ************************************************************************** */
 
 #include "twl_xstdlib.h"
-
 #include "shenv/shenv.h"
-#include "xopt.h"
 
 int					shenv_get_cur_line()
 {

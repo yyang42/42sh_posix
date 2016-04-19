@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 
-#include "xopt.h"
 #include "twl_opt_elem.h"
 
 #include "shenv/shenv.h"

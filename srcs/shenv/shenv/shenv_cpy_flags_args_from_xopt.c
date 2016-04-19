@@ -10,32 +10,31 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "xopt.h"
 #include "shenv/shenv.h"
 #include "twl_lst.h"
 #include "twl_opt_elem.h"
 
-static void			push_flag(void *data, void *context)
-{
-	t_shenv	*env;
-	t_opt_elem		*elem;
+// static void			push_flag(void *data, void *context)
+// {
+// 	t_shenv	*env;
+// 	t_opt_elem		*elem;
 
-	elem = data;
-	env = context;
-	if (elem->key)
-		shenv_add_flag((char*)elem->key, env);
-}
+// 	elem = data;
+// 	env = context;
+// 	if (elem->key)
+// 		shenv_add_flag((char*)elem->key, env);
+// }
 
-static void			push_args(void *data, void *context)
-{
-	t_shenv	*env;
-	char			*arg;
+// static void			push_args(void *data, void *context)
+// {
+// 	t_shenv	*env;
+// 	char			*arg;
 
-	arg = data;
-	env = context;
-	if (arg)
-		shenv_add_pos_param(arg, env);
-}
+// 	arg = data;
+// 	env = context;
+// 	if (arg)
+// 		shenv_add_pos_param(arg, env);
+// }
 
 void				shenv_cpy_flags_args_from_xopt(t_shenv *env)
 {
@@ -51,7 +50,7 @@ void				shenv_cpy_flags_args_from_xopt(t_shenv *env)
 	// args = xopt_get_args(xopt);
 	// if (args)
 	// 	twl_lst_iter(args, push_args, env);
-	(void)push_args;
-	(void)push_flag;
+	// (void)push_args;
+	// (void)push_flag;
 	(void)env;
 }
