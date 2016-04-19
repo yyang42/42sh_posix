@@ -54,6 +54,10 @@ void				expansion_tilde(t_expansion *this,
 											t_expan_token *token);
 void				expansion_no_tilde(t_expansion *this,
 											t_expan_token *token);
+void				expansion_tilde_split(t_expansion *this,
+											t_expan_token *token);
+void				expansion_no_tilde_split(t_expansion *this,
+											t_expan_token *token);
 void				expansion_parameter(t_expansion *this,
 											t_expan_token *token);
 void				expansion_parameter_special(t_expansion *this,

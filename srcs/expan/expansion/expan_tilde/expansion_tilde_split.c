@@ -10,20 +10,38 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "expan/expansion_parameter_brace.h"
+#include "expan/expansion.h"
 
-void			expansion_brace_hyphen_solve(t_expansion *this, char *word)
+static void			get_home(t_expansion *this)
 {
-	t_expansion	*inner;
-	t_lst		*lst_inner;
+	char			*home;
+	struct passwd	*pw;
 
-	inner = expansion_new_from_text(word);
-	inner->quoted = this->quoted;
-	lst_inner = expansion_get_fields_word(inner);
-	this->error = inner->error;
-	inner->error = NULL;
-	expansion_del(inner);
+	home = shenv_shvars_get_value(shenv_singleton(), "HOME");
+	if (!home)
+	{
+		if ((pw = getpwuid(geteuid())))
+			expansion_push_before_split(this, pw->pw_dir, false);
+		else
+			expansion_push_before_split(this, "~", false);
+	}
+	else
+	{
+		expansion_push_before_split(this, home, false);
+	}
+}
+
+void				expansion_tilde_split(t_expansion *this,
+											t_expan_token *token)
+{
+	struct passwd	*pw;
+
 	if (this->error)
 		return ;
-	expansion_push_lst_before_split(this, lst_inner);
+	if (!token->text[1])
+		get_home(this);
+	else if ((pw = getpwnam(token->text + 1)))
+		expansion_push_before_split(this, pw->pw_dir, false);
+	else
+		expansion_no_tilde_split(this, token);
 }
