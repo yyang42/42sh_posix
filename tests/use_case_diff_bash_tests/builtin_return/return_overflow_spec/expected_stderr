@@ -1,0 +1,3 @@
+/Users/yyang/repos/github/42sh_posix/tests/use_case_diff_bash_tests//builtin_return/return_overflow_spec/input.sh: line 3: return: 0: loop count out of range
+/Users/yyang/repos/github/42sh_posix/tests/use_case_diff_bash_tests//builtin_return/return_overflow_spec/input.sh: line 3: return: -1: loop count out of range
+/Users/yyang/repos/github/42sh_posix/tests/use_case_diff_bash_tests//builtin_return/return_overflow_spec/input.sh: line 3: return: 256: loop count out of range
