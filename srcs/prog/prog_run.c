@@ -51,6 +51,19 @@ static void			prog_run_input(t_prog *prog, char *input)
 	}
 }
 
+static void			prog_run_input_from_stdin(t_prog *prog)
+{
+	char			*input;
+
+	input = twl_fd_to_str(STDIN_FILENO);
+	if (!input)
+	{
+		shenv_singl_error_simple(1, "Can't read from stdin");
+		exit(1);
+	}
+	prog_run_input(prog, input);
+}
+
 static void			prog_run_interactive(t_prog *prog)
 {
 	shenv_singleton()->is_interactive_shell = true;
@@ -67,9 +80,12 @@ int					prog_run(t_prog *prog)
 	{
 		prog_run_input(prog, input);
 	}
-	else
+	else if (twl_lst_len(prog->argparser_result->remainders) == 0)
 	{
-		prog_run_interactive(prog);
+		if (isatty(0))
+			prog_run_interactive(prog);
+		else
+			prog_run_input_from_stdin(prog);
 	}
 	free(input);
 	return (shenv_singleton()->last_exit_code);
