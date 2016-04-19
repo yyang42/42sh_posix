@@ -55,6 +55,7 @@ void        suite_pattern_get_num_slash(t_suite *suite)
 	SUITE_ADD_TEST(suite, test_num15);
 	SUITE_ADD_TEST(suite, test_num16);
 	SUITE_ADD_TEST(suite, test_num17);
+	SUITE_ADD_TEST(suite, test_num17);
 	SUITE_ADD_TEST(suite, test_num18);
 	SUITE_ADD_TEST(suite, test_num19);
 }
