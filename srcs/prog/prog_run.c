@@ -15,7 +15,7 @@
 #include "shenv/shenv.h"
 #include "ast/ast.h"
 #include "builtin/cmds/builtin_set.h"
-#include "twl_get_next_line.h"
+#include "twl_gnl.h"
 
 int					prog_run(t_prog *prog)
 {

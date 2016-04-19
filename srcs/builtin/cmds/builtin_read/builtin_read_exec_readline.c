@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "builtin/cmds/builtin_read.h"
-#include "twl_get_next_line.h"
+#include "twl_gnl.h"
 #include "utils.h"
 
 char				*builtin_read_gnl(char **remainder_ptr)
@@ -19,7 +19,7 @@ char				*builtin_read_gnl(char **remainder_ptr)
 	int				ret;
 	char			*line;
 
-	ret = twl_get_next_line_v2(0, &line, remainder_ptr);
+	ret = twl_gnl(0, &line, remainder_ptr);
 	if (ret == -1)
 	{
 		LOGGER_ERROR("read: ret: %d", ret);

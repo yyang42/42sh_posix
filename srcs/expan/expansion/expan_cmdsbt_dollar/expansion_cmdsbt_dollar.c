@@ -12,7 +12,7 @@
 
 #include "expan/expansion.h"
 #include "ast/ast.h"
-#include "twl_get_next_line.h"
+#include "twl_gnl.h"
 #include <fcntl.h>
 
 /*
