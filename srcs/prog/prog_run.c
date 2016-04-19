@@ -34,9 +34,9 @@ int					prog_run(t_prog *prog)
 	}
 	if (input)
 	{
-		if (prog_is_opt_set(prog, "z"))
+		if (prog_is_opt_set(prog, "ast"))
 			prog_print_ast(prog, input);
-		if (prog_is_opt_set(prog, "y"))
+		if (prog_is_opt_set(prog, "arexp"))
 			prog_print_arexp(prog, input);
 		else
 		{

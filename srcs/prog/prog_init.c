@@ -20,9 +20,9 @@ static t_argparser	*init_argparser(void)
 	argparser_add_argument(argparser,
 		argparser_argument_new('c', "command", "Command", ARGP_HAS_OPTION_ARGUMENT));
 	argparser_add_argument(argparser,
-		argparser_argument_new('z', "ast", "Print AST", 0));
+		argparser_argument_new(0, "ast", "Print AST", 0));
 	argparser_add_argument(argparser,
-		argparser_argument_new('y', "arexp", "Print arexp", 0));
+		argparser_argument_new(0, "arexp", "Print arexp", 0));
 	return (argparser);
 }
 
