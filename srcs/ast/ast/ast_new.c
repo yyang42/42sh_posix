@@ -12,7 +12,7 @@
 
 #include "ast/ast.h"
 
-t_ast				*ast_new(char *input)
+t_ast				*ast_new(char *input, int flags)
 {
 	t_ast			*ast;
 	t_lst			*tokens;
@@ -21,6 +21,7 @@ t_ast				*ast_new(char *input)
 		twl_putstr_fd(input, 2);
 	tokens = tokenizer_utils_tokenize(input);
 	ast = ast_new_from_tokens(tokens);
+	ast->flags = flags;
 	token_mgr_del(tokens);
 	return (ast);
 }

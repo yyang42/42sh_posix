@@ -16,7 +16,7 @@
 #include "ast/ast_lap.h"
 #include "ast/ast.h"
 #include "data.h"
-#include "xopt.h"
+#include "prog.h"
 
 static void			ast_list_item_build_tokens_copy(t_ast_list_item *this, t_lst *tokens)
 {
@@ -49,7 +49,7 @@ static void			ast_list_item_exec_wrapper(t_ast_list_item *this, struct s_ast *as
 	if (ast->error_msg)
 		return ;
 	if (shenv_singleton()->shenv_list_item_level == 1
-		&& !xopt_singleton()->print_ast)
+		&& !(prog_is_opt_set(prog_singl(), "ast")))
 	{
 		ast_list_item_exec(this);
 	}

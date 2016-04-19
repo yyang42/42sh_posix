@@ -10,14 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "xopt.h"
+#include "prog.h"
 
-t_xopt				*xopt_new(void)
+t_prog				*prog_singl(void)
 {
-	t_xopt			*xopt;
+	static t_prog	*prog = NULL;
 
-	xopt = twl_malloc_x0(sizeof(t_xopt));
-	xopt->print_ast = false;
-	xopt->opt = NULL;
-	return (xopt);
+	if (!prog)
+	{
+		prog = prog_new();
+	}
+	return (prog);
 }

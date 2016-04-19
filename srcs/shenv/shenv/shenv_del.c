@@ -10,11 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
-#include "xopt.h"
-#include "twl_opt_elem.h"
-
 #include "shenv/shenv.h"
+#include "twl_opt_elem.h"
 
 void				shenv_del(t_shenv *this)
 {

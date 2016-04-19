@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "xopt.h"
 #include "shenv/shenv.h"
 #include "twl_string.h"
 #include "twl_lst.h"

@@ -1,0 +1,19 @@
+start
+42
+start
+1
+start
+0
+start
+1
+start
+254
+start
+255
+start
+start
+1
+CMD_PATH: line 3: return: -1: loop count out of range
+CMD_PATH: line 3: return: 256: loop count out of range
+CMD_PATH: line 3: return: 1000: loop count out of range
+exit_code: 0

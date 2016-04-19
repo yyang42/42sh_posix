@@ -15,42 +15,78 @@
 #include "shenv/shenv.h"
 #include "ast/ast.h"
 #include "builtin/cmds/builtin_set.h"
-#include "twl_get_next_line.h"
+#include "twl_gnl.h"
+
+static char			*prog_run_get_input(t_prog *prog)
+{
+	char			*input;
+	t_lst			*remainders;
+
+	input = NULL;
+	remainders = prog->argparser_result->remainders;
+	if (prog_is_opt_set(prog, "c"))
+	{
+		input = twl_strdup(argparser_result_opt_get_arg(prog->argparser_result, "c"));
+	}
+	else if (twl_lst_len(remainders) > 0)
+	{
+		input = prog_run_file_to_str(prog, twl_lst_first(remainders));
+	}
+	return (input);
+}
+
+static void			prog_run_input(t_prog *prog, char *input)
+{
+	if (prog_is_opt_set(prog, "ast"))
+	{
+		prog_print_ast(prog, input);
+	}
+	else if (prog_is_opt_set(prog, "arexp"))
+	{
+		prog_print_arexp(prog, input);
+	}
+	else
+	{
+		ast_exec_string(input);
+	}
+}
+
+static void			prog_run_input_from_stdin(t_prog *prog)
+{
+	char			*input;
+
+	input = twl_fd_to_str(STDIN_FILENO);
+	if (!input)
+	{
+		shenv_singl_error_simple(1, "Can't read from stdin");
+		exit(1);
+	}
+	prog_run_input(prog, input);
+}
+
+static void			prog_run_interactive(t_prog *prog)
+{
+	shenv_singleton()->is_interactive_shell = true;
+	shenv_init_job_control(shenv_singleton());
+	prog_main_loop(prog);
+}
 
 int					prog_run(t_prog *prog)
 {
 	char			*input;
-	int				exit_code;
 
-	input = NULL;
-	exit_code = 0;
-	if (xopt_singleton()->command)
-	{
-		input = twl_strdup(xopt_singleton()->command);
-	}
-	else if (twl_lst_len(xopt_singleton()->opt->args) > 0)
-	{
-		// TODO: READ LIMITÉ A 2 MILLION, REMPLACER PAR AUTRE CHOSE
-		shenv_set_name(shenv_singleton(), twl_lst_get(xopt_singleton()->opt->args, 0));
-		input = twl_file_to_str(shenv_singleton()->shenv_name);
-	}
+	input = prog_run_get_input(prog);
 	if (input)
 	{
-		if (xopt_singleton()->print_ast)
-			prog_print_ast(prog, input);
-		else if (xopt_singleton()->print_arexp)
-			prog_print_arexp(prog, input);
-		else
-		{
-			exit_code = ast_exec_string(input);
-		}
+		prog_run_input(prog, input);
 	}
-	else
+	else if (twl_lst_len(prog->argparser_result->remainders) == 0)
 	{
-		shenv_singleton()->is_interactive_shell = true;
-		shenv_init_job_control(shenv_singleton());
-		prog_main_loop(prog);
+		if (isatty(0))
+			prog_run_interactive(prog);
+		else
+			prog_run_input_from_stdin(prog);
 	}
 	free(input);
-	return (exit_code);
+	return (shenv_singleton()->last_exit_code);
 }

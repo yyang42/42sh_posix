@@ -10,12 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <fcntl.h>
+#include "prog.h"
+#include "shenv/shenv.h"
 #include "ast/ast.h"
+#include "builtin/cmds/builtin_set.h"
+#include "twl_gnl.h"
 
-int				ast_exec(t_ast *this)
+int					prog_is_opt_set(t_prog *prog, char *opt)
 {
-	shenv_singleton()->shenv_shall_quit_curr_ast = false;
-	return (shenv_singleton()->last_exit_code);
-	// ast_compound_list_exec(this->compound_list);
-	(void)this;
+	return (argparser_result_opt_is_set(prog->argparser_result, opt));
 }

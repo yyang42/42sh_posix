@@ -22,13 +22,11 @@ int					main(int ac, char **av)
 	t_prog			*prog;
 	int				ret;
 
-	// disable_all_signals();
 	twl_debug_main_start();
-	prog = prog_new();
-	xopt_init(xopt_singleton(), av);
+	prog = prog_singl();
+	prog_init(prog, av);
 	ret = prog_run(prog);
 	prog_handle_exit_signal(prog);
-	xopt_del(xopt_singleton());
 	prog_del(prog);
 	twl_debug_main_end();
 	return (ret);

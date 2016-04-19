@@ -19,7 +19,7 @@ static void			builtin_return_exec_one_arg(char *str_counter)
 	if (twl_str_is_num(str_counter))
 	{
 		return_counter = twl_atoi(str_counter);
-		if (return_counter > 0)
+		if (return_counter >= 0 && return_counter <= 255)
 		{
 			shenv_singleton()->last_exit_code = return_counter;
 		}

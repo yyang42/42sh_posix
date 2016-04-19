@@ -18,7 +18,7 @@
 
 #include "shenv/shenv.h"
 
-#include "twl_get_next_line.h"
+#include "twl_gnl.h"
 
 static bool			find_fn(void *data, void *ctx)
 {

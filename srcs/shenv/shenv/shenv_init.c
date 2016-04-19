@@ -13,7 +13,6 @@
 
 #include "shenv/shenv.h"
 #include "twl_arr.h"
-#include "xopt.h"
 
 static void			init_env_info(t_shenv_info *info)
 {

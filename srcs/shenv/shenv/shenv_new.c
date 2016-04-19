@@ -13,12 +13,10 @@
 #include "twl_xstdlib.h"
 
 #include "shenv/shenv.h"
-#include "xopt.h"
 
 t_shenv			*shenv_new(void)
 {
 	t_shenv		*this;
-	// t_xopt				*xopt;
 
 	this = twl_malloc_x0(sizeof(t_shenv));
 	this->shvars = twl_lst_new();

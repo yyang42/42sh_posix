@@ -6,38 +6,23 @@
 /*   By: chuck <chuck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2042/02/30 42:00:00 by chuck             #+#    #+#             */
-/*   Updated: 2042/02/30 42:00:00 by chuck            ###   ########.fr       */
+/*   Updated: 2042/02/30 41:59:59 by chuck            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef XOPT_H
-# define XOPT_H
+#include "prog.h"
 
-# include "twl_opt.h"
-
-# include "basics.h"
-
-# define XOPT_VALID_OPTS "abc:Cefimnosuvxyz"
-
-typedef struct		s_xopt
+char				*prog_run_file_to_str(t_prog *prog, char *file)
 {
-	t_opt			*opt;
-	bool			print_ast;
-	bool			print_arexp;
-	char			*command;
-}					t_xopt;
+	char			*input;
 
-t_xopt				*xopt_new(void);
-void				xopt_del(t_xopt *xopt);
-
-t_xopt				*xopt_singleton(void);
-
-void				xopt_init(t_xopt *xopt, char **av);
-void				xopt_check_valid_opts(t_xopt *xopt);
-t_lst				*xopt_get_opts(t_xopt *xopt);
-t_lst				*xopt_get_args(t_xopt *xopt);
-
-void				xopt_print_opts(t_xopt *xopt);
-char				*xopt_concat_opts(t_xopt *xopt);
-
-#endif
+	shenv_set_name(shenv_singleton(), file);
+	input = twl_file_to_str(file);
+	if (!input)
+	{
+		shenv_singl_error_simple(1, "%s: No such file or directory", file);
+		exit(1);
+	}
+	return (input);
+	(void)prog;
+}
