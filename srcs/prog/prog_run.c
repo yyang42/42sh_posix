@@ -17,7 +17,7 @@
 #include "builtin/cmds/builtin_set.h"
 #include "twl_gnl.h"
 
-int					prog_run(t_prog *prog)
+static char			*prog_run_get_input(t_prog *prog)
 {
 	char			*input;
 	t_lst			*remainders;
@@ -32,22 +32,44 @@ int					prog_run(t_prog *prog)
 	{
 		input = prog_run_file_to_str(prog, twl_lst_first(remainders));
 	}
-	if (input)
+	return (input);
+}
+
+static void			prog_run_input(t_prog *prog, char *input)
+{
+	if (prog_is_opt_set(prog, "ast"))
 	{
-		if (prog_is_opt_set(prog, "ast"))
-			prog_print_ast(prog, input);
-		if (prog_is_opt_set(prog, "arexp"))
-			prog_print_arexp(prog, input);
-		else
-		{
-			ast_exec_string(input);
-		}
+		prog_print_ast(prog, input);
+	}
+	else if (prog_is_opt_set(prog, "arexp"))
+	{
+		prog_print_arexp(prog, input);
 	}
 	else
 	{
-		shenv_singleton()->is_interactive_shell = true;
-		shenv_init_job_control(shenv_singleton());
-		prog_main_loop(prog);
+		ast_exec_string(input);
+	}
+}
+
+static void			prog_run_interactive(t_prog *prog)
+{
+	shenv_singleton()->is_interactive_shell = true;
+	shenv_init_job_control(shenv_singleton());
+	prog_main_loop(prog);
+}
+
+int					prog_run(t_prog *prog)
+{
+	char			*input;
+
+	input = prog_run_get_input(prog);
+	if (input)
+	{
+		prog_run_input(prog, input);
+	}
+	else
+	{
+		prog_run_interactive(prog);
 	}
 	free(input);
 	return (shenv_singleton()->last_exit_code);
