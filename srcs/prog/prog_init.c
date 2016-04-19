@@ -30,4 +30,9 @@ void				prog_init(t_prog *prog, char **argv)
 {
 	prog->argparser = init_argparser();
 	prog->argparser_result = argparser_parse_from_arr(prog->argparser, argv);
+	if (prog->argparser_result)
+	{
+		argparser_result_print_error_with_help(prog->argparser_result);
+		exit(1);
+	}
 }
