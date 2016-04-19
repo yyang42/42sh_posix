@@ -20,29 +20,27 @@
 int					prog_run(t_prog *prog)
 {
 	char			*input;
-	int				exit_code;
+	t_lst			*remainders;
 
 	input = NULL;
-	exit_code = 0;
-	if (xopt_singleton()->command)
+	remainders = prog->argparser_result->remainders;
+	if (prog_is_opt_set(prog, "c"))
 	{
-		input = twl_strdup(xopt_singleton()->command);
+		input = twl_strdup(argparser_result_opt_get_arg(prog->argparser_result, "c"));
 	}
-	else if (twl_lst_len(xopt_singleton()->opt->args) > 0)
+	else if (twl_lst_len(remainders) > 0)
 	{
-		// TODO: READ LIMITÉ A 2 MILLION, REMPLACER PAR AUTRE CHOSE
-		shenv_set_name(shenv_singleton(), twl_lst_get(xopt_singleton()->opt->args, 0));
-		input = twl_file_to_str(shenv_singleton()->shenv_name);
+		input = prog_run_file_to_str(prog, twl_lst_first(remainders));
 	}
 	if (input)
 	{
-		if (xopt_singleton()->print_ast)
+		if (prog_is_opt_set(prog, "z"))
 			prog_print_ast(prog, input);
-		else if (xopt_singleton()->print_arexp)
+		if (prog_is_opt_set(prog, "y"))
 			prog_print_arexp(prog, input);
 		else
 		{
-			exit_code = ast_exec_string(input);
+			ast_exec_string(input);
 		}
 	}
 	else
@@ -52,5 +50,5 @@ int					prog_run(t_prog *prog)
 		prog_main_loop(prog);
 	}
 	free(input);
-	return (exit_code);
+	return (shenv_singleton()->last_exit_code);
 }

@@ -10,14 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "xopt.h"
+#include "shenv/shenv.h"
+#include "prog.h"
 
-t_xopt				*xopt_new(void)
+t_argparser			*prog_argparser(void)
 {
-	t_xopt			*xopt;
+	static t_argparser		*argparser;
 
-	xopt = twl_malloc_x0(sizeof(t_xopt));
-	xopt->print_ast = false;
-	xopt->opt = NULL;
-	return (xopt);
+	if (argparser == NULL)
+	{
+		argparser = argparser_new(SHENV_DEFAULT_NAME);
+		argparser_set_usage(argparser, "[script-file]");
+	}
+	return (argparser);
 }

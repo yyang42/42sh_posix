@@ -10,12 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/ast.h"
+#include "shenv/shenv.h"
+#include "twl_printf.h"
 
-int				ast_exec(t_ast *this)
+void				shenv_singl_error_simple(int exit_code, char *fmt, ...)
 {
-	shenv_singleton()->shenv_shall_quit_curr_ast = false;
-	return (shenv_singleton()->last_exit_code);
-	// ast_compound_list_exec(this->compound_list);
-	(void)this;
+	t_pf	*pf;
+
+	pf = pf_create((char *)fmt);
+	va_start(pf->arglist, (char *)fmt);
+	pf_prepare_xprintf__(pf);
+	twl_dprintf(STDERR_FILENO, "%s: ", SHENV_DEFAULT_NAME);
+	pf_print_fd(pf, STDERR_FILENO);
+	twl_dprintf(STDERR_FILENO, "\n");
+	va_end(pf->arglist);
+	pf_free(pf);
+	shenv_singleton()->last_exit_code = exit_code;
 }

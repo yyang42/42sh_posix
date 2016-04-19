@@ -10,13 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "xopt.h"
+#include "prog.h"
 
-t_xopt				*xopt_singleton(void)
+static t_argparser	*init_argparser(void)
 {
-	static t_xopt	*xopt = NULL;
+	t_argparser		*argparser;
 
-	if (!xopt)
-		xopt = xopt_new();
-	return (xopt);
+	argparser = argparser_new(SHENV_DEFAULT_NAME);
+	argparser_add_argument(argparser,
+		argparser_argument_new('c', "command", "Command", ARGP_HAS_OPTION_ARGUMENT));
+	argparser_add_argument(argparser,
+		argparser_argument_new('z', "ast", "Print AST", 0));
+	argparser_add_argument(argparser,
+		argparser_argument_new('y', "arexp", "Print arexp", 0));
+	return (argparser);
+}
+
+void				prog_init(t_prog *prog, char **argv)
+{
+	prog->argparser = init_argparser();
+	prog->argparser_result = argparser_parse_from_arr(prog->argparser, argv);
 }

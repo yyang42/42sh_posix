@@ -10,12 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "xopt.h"
+#include "prog.h"
 
-t_lst				*xopt_get_opts(t_xopt *xopt)
+char				*prog_run_file_to_str(t_prog *prog, char *file)
 {
-	if (xopt && xopt->opt)
-		return (xopt->opt->opts);
-	else
-		return (NULL);
+	char			*input;
+
+	shenv_set_name(shenv_singleton(), file);
+	input = twl_file_to_str(file);
+	if (!input)
+	{
+		shenv_singl_error_simple(1, "%s: No such file or directory", file);
+		exit(1);
+	}
+	return (input);
+	(void)prog;
 }

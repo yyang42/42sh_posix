@@ -10,33 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "xopt.h"
-#include "twl_string.h"
-#include "twl_lst.h"
-#include "twl_opt_elem.h"
+#include "prog.h"
 
-static void			concat_opt(void *data, void *context)
+t_prog				*prog_singl(void)
 {
-	t_opt_elem	*elem;
-	char		**concat_ptr;
-	char		*concat;
+	static t_prog	*prog = NULL;
 
-	elem = data;
-	concat_ptr = context;
-	concat = *concat_ptr;
-	if (elem && elem->key)
+	if (!prog)
 	{
-		concat = twl_strjoin(concat, elem->key);
-		*concat_ptr = concat;
+		prog = prog_new();
 	}
-}
-
-char				*xopt_concat_opts(t_xopt *xopt)
-{
-	char	*concat;
-
-	concat = twl_strdup("");
-	if (xopt && xopt->opt)
-		twl_lst_iter(xopt->opt->opts, concat_opt, &concat);
-	return (concat);
+	return (prog);
 }

@@ -12,21 +12,15 @@
 
 #include "ast/ast.h"
 
-int					ast_exec_tokens(t_lst *tokens)
+void				ast_exec_tokens(t_lst *tokens)
 {
 	t_ast			*ast;
-	int				exit_code;
 
 	ast = ast_new_from_tokens(tokens);
 	if (ast->error_msg)
 	{
 		twl_dprintf(2, "%s\n", ast->error_msg);
-		exit_code = 2;
-	}
-	else
-	{
-		exit_code = ast_exec(ast);
+		shenv_singleton()->last_exit_code = 2;
 	}
 	ast_del(ast);
-	return (exit_code);
 }

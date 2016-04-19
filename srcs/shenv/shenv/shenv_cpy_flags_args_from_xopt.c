@@ -39,15 +39,19 @@ static void			push_args(void *data, void *context)
 
 void				shenv_cpy_flags_args_from_xopt(t_shenv *env)
 {
-	t_xopt	*xopt;
-	t_lst	*opts;
-	t_lst	*args;
+	// TODO: IMPLEMENT THIS
 
-	xopt = xopt_singleton();
-	opts = xopt_get_opts(xopt);
-	if (opts)
-		twl_lst_iter(opts, push_flag, env);
-	args = xopt_get_args(xopt);
-	if (args)
-		twl_lst_iter(args, push_args, env);
+	// t_xopt	*xopt;
+	// t_lst	*opts;
+	// t_lst	*args;
+	// xopt = xopt_singleton();
+	// opts = xopt_get_opts(xopt);
+	// if (opts)
+	// 	twl_lst_iter(opts, push_flag, env);
+	// args = xopt_get_args(xopt);
+	// if (args)
+	// 	twl_lst_iter(args, push_args, env);
+	(void)push_args;
+	(void)push_flag;
+	(void)env;
 }

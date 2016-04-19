@@ -12,16 +12,14 @@
 
 #include "ast/ast.h"
 
-int					ast_exec_string(char *input)
+void				ast_exec_string(char *input)
 {
-	int				exit_code;
 	t_lst			*tokens;
 	t_tokenizer		*tokenizer;
 
 	tokenizer = tokenizer_new(input);
 	tokens = tokenizer_tokenize(tokenizer);
-	exit_code = ast_exec_tokens(tokens);
+	ast_exec_tokens(tokens);
 	tokenizer_del(tokenizer);
 	token_mgr_del(tokens);
-	return (exit_code);
 }
