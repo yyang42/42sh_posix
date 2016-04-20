@@ -12,12 +12,13 @@
 
 #include "builtin/builtin.h"
 
-t_builtin			*builtin_new(char *name, t_builtin_fn *builtin_fn)
+t_builtin			*builtin_new(char *name, t_builtin_fn *builtin_fn, int flags)
 {
 	t_builtin		*this;
 
 	this = twl_malloc_x0(sizeof(t_builtin));
 	this->builtin_name = twl_strdup(name);
 	this->builtin_fn = builtin_fn;
+	this->builtin_flags = flags;
 	return (this);
 }
