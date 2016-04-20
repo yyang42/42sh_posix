@@ -67,7 +67,14 @@ static void			ast_simple_command_exec_with_redirs(t_ast_simple_command *cmd)
 	ast_simple_command_exec_print_log(cmd);
 	ast_redir_fd_mgr_init(cmd->redir_fds, cmd->redir_items);
 	if (shenv_singleton()->last_exit_code != 0)
+	{
+		if (builtin_mgr_is_special_builtin(data_builtins(),
+			token_mgr_first(cmd->cmd_tokens_expanded)->text))
+		{
+			exit(1);
+		}
 		return ;
+	}
 	ast_simple_command_exec_tokens(cmd);
 	ast_redir_fd_mgr_close_clear(cmd->redir_fds);
 }

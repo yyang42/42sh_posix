@@ -10,16 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_redir.h"
-#include "ast/nodes/ast_assignment.h"
-#include "ast/nodes/ast_simple_command.h"
+#include "builtin/builtin_mgr.h"
 
-bool		ast_redir_fd_utils_is_valid_duplicate_fd(int fd)
+bool				builtin_mgr_is_special_builtin(t_lst *builtins, char *name)
 {
-	if (fd > getdtablesize())
+	t_builtin		*builtin;
+
+	if (!name)
 	{
-		shenv_singl_error(EXIT_FAILURE, "%d: Bad file descriptor", fd);
+		LOGGER_ERROR("name not set");
 		return (false);
 	}
-	return (true);
+	builtin = builtin_mgr_find_by_name(builtins, name);
+	if (!builtin)
+		return (false);
+	return (builtin->builtin_flags & BUILTIN_FLAG_SPECIAL_BUILTIN);
 }
