@@ -45,6 +45,7 @@ t_lst				*expansion_get_fields_arexp(t_expansion *this);
 t_lst				*expansion_get_fields_dquote(t_expansion *this);
 t_lst				*expansion_get_fields_word(t_expansion *this);
 t_lst				*expansion_get_fields_redir(t_expansion *this);
+t_lst				*expansion_get_fields_for_clause(t_expansion *this);
 
 char				*expansion_get_string_needle_case(t_expansion *this);
 char				*expansion_get_string_pattern_case(t_expansion *this);
