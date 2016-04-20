@@ -1,0 +1,24 @@
+=== test .
+before
+
+=== test :
+before
+
+=== test alias
+before
+after
+
+=== test break
+before
+
+=== test continue
+before
+
+=== test env
+before
+after
+
+=== test eval
+before
+
+exit_code: 0
