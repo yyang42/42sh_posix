@@ -7,5 +7,5 @@ test_fn () {
 
 test_fn << EOF 2> /dev/null
 set -w
-echo "after set"
+echo "after set: should not print"
 EOF

@@ -1,0 +1,2 @@
+set: illegal option -- w
+usage: set [--abCefhmnouvx] [arg ...]
