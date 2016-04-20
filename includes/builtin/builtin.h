@@ -19,6 +19,8 @@
 # include "shenv/shenv.h"
 # include "ast/nodes/ast_simple_command.h"
 
+// # define BUILTIN_
+
 typedef void (t_builtin_fn)(t_lst *tokens, t_shenv *this);
 
 int					builtin_utils_check_invalid_opts(t_opt *opt, char *exe_name, char *flags);
