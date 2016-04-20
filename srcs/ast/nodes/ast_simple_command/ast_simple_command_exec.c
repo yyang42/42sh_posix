@@ -13,8 +13,6 @@
 #include "ast/nodes/ast_simple_command.h"
 #include "ast/nodes/ast_assignment.h"
 #include "ast/nodes/ast_redir.h"
-#include "builtin/builtin_mgr.h"
-#include "data.h"
 #include "job_control/job_mgr.h"
 
 /*
@@ -68,11 +66,8 @@ static void			ast_simple_command_exec_with_redirs(t_ast_simple_command *cmd)
 	ast_redir_fd_mgr_init(cmd->redir_fds, cmd->redir_items);
 	if (shenv_singleton()->last_exit_code != 0)
 	{
-		if (builtin_mgr_is_special_builtin(data_builtins(),
-			token_mgr_first(cmd->cmd_tokens_expanded)->text))
-		{
+		if (ast_simple_command_is_special_builtin(cmd))
 			exit(1);
-		}
 		return ;
 	}
 	ast_simple_command_exec_tokens(cmd);

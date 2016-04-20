@@ -10,32 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/cmds/builtin_exec.h"
-#include "logger.h"
+#include "ast/nodes/ast_simple_command.h"
+#include "builtin/builtin_mgr.h"
+#include "data.h"
 
-static void			iter_redir_fn(void *tokens)
+bool				ast_simple_command_is_special_builtin(t_ast_simple_command *this)
 {
-	int				io_number;
-	char			*operator;
-	char			*param;
+	t_token			*first;
 
-	if (twl_lst_len(tokens) == 3)
-	{
-		io_number = twl_atoi(token_mgr_get(tokens, 0)->text);
-		operator = token_mgr_get(tokens, 1)->text;
-		param = token_mgr_get(tokens, 2)->text;
-		builtin_exec_redir_exec(io_number, operator, param);
-		if (shenv_singleton()->last_exit_code != EXIT_SUCCESS)
-			builtin_exec_exit(shenv_singleton()->last_exit_code);
-	}
-	else
-	{
-		shenv_singl_error(1, "exec: redir error");
-		exit(1);
-	}
-}
-
-void				builtin_exec_redir_handler(t_lst *redir_tokens_groups)
-{
-	twl_lst_iter0(redir_tokens_groups, iter_redir_fn);
+	first = token_mgr_first(this->cmd_tokens_expanded);
+	if (!first)
+		return (false);
+	return (builtin_mgr_is_special_builtin(data_builtins(), first->text));
 }
