@@ -16,8 +16,9 @@
 #include "expan/expansion.h"
 #include "shenv/shenv.h"
 #include "token/token_mgr.h"
+#include "pattern_matching/pattern.h"
 
-//static void print_fn(void *data) { LOGGER_DEBUG(" -> %s", (char *)data) }
+// TODO: Eventuellement quitter au début des iterations en cas d'erreurs
 
 static void 	iter_cmd_fn(void *token, void *context)
 {
@@ -36,8 +37,6 @@ static void 	iter_cmd_fn(void *token, void *context)
 		shenv_singleton()->last_exit_code = 1;
 		return ;
 	}
-//	LOGGER_DEBUG("token: %s", ((t_token *)token)->text_unexpanded)
-//	twl_lst_iter0(expanded, print_fn);
 	twl_lst_cat(cmd->cmd_tokens_expanded,
 				token_mgr_new_from_string_list(token, expanded));
 	twl_lst_del(expanded, free);
@@ -62,12 +61,40 @@ static void 	iter_assign_fn(void *data, void *context)
 		shenv_singleton()->last_exit_code = 1;
 		return ;
 	}
-	//LOGGER_DEBUG("assign: %s = %s -> %s", assign->key, assign->value_unexpanded, expanded)
 	if (assign->value)
 		free(assign->value);
 	assign->value = expanded;
 	expansion_del(expansion);
 	(void)cmd;
+}
+
+static void		expan_heredoc(t_ast_redir *redir)
+{
+	t_expansion	*expansion;
+	t_pattern	*pattern_test;
+	char		*pattern_unquoted;
+
+	pattern_test = pattern_new(redir->param->text);
+	pattern_unquoted = pattern_to_string(pattern_test);
+	pattern_del(pattern_test);
+	if (twl_strcmp(pattern_unquoted, redir->param->text))
+	{
+		free(pattern_unquoted);
+		return ;
+	}
+	free(pattern_unquoted);
+	if (redir->heredoc_text)
+		free(redir->heredoc_text);
+	expansion = expansion_new_from_text(redir->heredoc_text_unexpanded);
+	redir->heredoc_text = expansion_get_string_heredoc(expansion);
+	if (expansion->error)
+	{
+		twl_dprintf(2, "%s\n", expansion->error);
+		expansion_del(expansion);
+		shenv_singleton()->last_exit_code = 1;
+		return ;
+	}
+	expansion_del(expansion);
 }
 
 static void 	iter_redir_fn(void *data, void *context)
@@ -90,13 +117,15 @@ static void 	iter_redir_fn(void *data, void *context)
 	}
 	if (twl_lst_len(expanded) != 1)
 	{
-		twl_dprintf(2, "42sh: %s: ambiguous redirect\n", redir->param->text_unexpanded);
+		twl_dprintf(2, "42sh: %s: ambiguous redirect\n", redir->param->text_unexpanded); // TODO: obvious
 		expansion_del(expansion);
 		shenv_singleton()->last_exit_code = 1;
 		return ;
 	}
 	token_set_text(redir->param, twl_lst_first(expanded));
 	twl_lst_del(expanded, free);
+	if (redir->heredoc_text)
+		expan_heredoc(redir);
 	(void)cmd;
 }
 

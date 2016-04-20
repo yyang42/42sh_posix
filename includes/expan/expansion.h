@@ -50,6 +50,7 @@ t_lst				*expansion_get_fields_for_clause(t_expansion *this);
 char				*expansion_get_string_needle_case(t_expansion *this);
 char				*expansion_get_string_pattern_case(t_expansion *this);
 char				*expansion_get_string_assign(t_expansion *this);
+char				*expansion_get_string_heredoc(t_expansion *this);
 
 void				expansion_tilde(t_expansion *this,
 											t_expan_token *token);

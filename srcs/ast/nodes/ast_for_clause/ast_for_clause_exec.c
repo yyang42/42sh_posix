@@ -34,7 +34,7 @@ static void			iter_expan_fn(void *data, void *ctx)
 
 	expansion = expansion_new_from_token(data);
 	link = expansion_get_fields_for_clause(expansion);
-	twl_lst_cat(ctx, link);
+	twl_lst_cat(ctx, link); // TODO: Leaks ?
 	expansion_del(expansion);
 }
 
