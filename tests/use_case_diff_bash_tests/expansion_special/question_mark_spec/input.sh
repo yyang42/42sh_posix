@@ -8,4 +8,3 @@ echo $?
 true
 echo $?
 myfn 12 ; echo $?
-myfn -46 || echo $?
