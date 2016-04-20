@@ -25,7 +25,7 @@ static void		expan_param_asterisk(t_expansion *this, t_expansion_brace *eb)
 	{
 		expansion_brace_plus_solve(this, eb);
 	}
-	twl_lst_del(lsast, free);
+	twl_lst_del(lsast, NULL);
 }
 
 static void		expan_param_at(t_expansion *this, t_expansion_brace *eb)
@@ -41,7 +41,7 @@ static void		expan_param_at(t_expansion *this, t_expansion_brace *eb)
 	{
 		expansion_brace_plus_solve(this, eb);
 	}
-	twl_lst_del(lsat, free);
+	twl_lst_del(lsat, NULL);
 }
 
 static void		expan_param_spec(t_expansion *this, t_expansion_brace *eb)
