@@ -32,7 +32,6 @@ static void	child_part(t_expansion *this, t_expan_token *token, int fd[2])
 	}
 	close(fd[0]);
 	cmd = expansion_cmdsbt_bquote_getstring(token->text);
-	LOGGER_DEBUG("%s", cmd)
     ast_exec_string(cmd);
 	close(fd[1]);
 	free(cmd);

@@ -45,14 +45,20 @@ t_lst				*expansion_get_fields_arexp(t_expansion *this);
 t_lst				*expansion_get_fields_dquote(t_expansion *this);
 t_lst				*expansion_get_fields_word(t_expansion *this);
 t_lst				*expansion_get_fields_redir(t_expansion *this);
+t_lst				*expansion_get_fields_for_clause(t_expansion *this);
 
 char				*expansion_get_string_needle_case(t_expansion *this);
 char				*expansion_get_string_pattern_case(t_expansion *this);
 char				*expansion_get_string_assign(t_expansion *this);
+char				*expansion_get_string_heredoc(t_expansion *this);
 
 void				expansion_tilde(t_expansion *this,
 											t_expan_token *token);
 void				expansion_no_tilde(t_expansion *this,
+											t_expan_token *token);
+void				expansion_tilde_split(t_expansion *this,
+											t_expan_token *token);
+void				expansion_no_tilde_split(t_expansion *this,
 											t_expan_token *token);
 void				expansion_parameter(t_expansion *this,
 											t_expan_token *token);

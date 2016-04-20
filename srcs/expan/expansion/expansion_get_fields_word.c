@@ -51,9 +51,9 @@ static void			iter_wrap_fn(void *data, void *prev, void *this)
 	if (token->type == EXPAN_TILDE)
 	{
 		if (prev || ((t_expansion *)this)->quoted)
-			expansion_no_tilde(this, token);
+			expansion_no_tilde_split(this, token);
 		else
-			expansion_tilde(this, token);
+			expansion_tilde_split(this, token);
 	}
 	else if (token->type == EXPAN_PARAMETER)
 		expansion_parameter(this, token);

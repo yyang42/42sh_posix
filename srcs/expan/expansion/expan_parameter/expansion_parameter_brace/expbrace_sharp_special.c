@@ -40,7 +40,7 @@ static void	expan_param_asterisk(t_expansion *this, char *word)
 	if (!lsast || twl_lst_len(lsast) == 0)
 	{
 		if (lsast)
-			twl_lst_del(lsast, free);
+			twl_lst_del(lsast, NULL);
 		return ;
 	}
 	new = twl_lst_new();
@@ -57,7 +57,7 @@ static void	expan_param_asterisk(t_expansion *this, char *word)
 	{
 		expansion_push_raw_lst(this, new);
 	}
-	twl_lst_del(lsast, free);
+	twl_lst_del(lsast, NULL);
 	twl_lst_del(new, free);
 }
 
@@ -70,13 +70,13 @@ static void	expan_param_at(t_expansion *this, char *word)
 	if (!lsat || twl_lst_len(lsat) == 0)
 	{
 		if (lsat)
-			twl_lst_del(lsat, free);
+			twl_lst_del(lsat, NULL);
 		return ;
 	}
 	new = twl_lst_new();
 	twl_lst_iter2(lsat, iter_fn, word, new);
 	expansion_push_raw_lst(this, new);
-	twl_lst_del(lsat, free);
+	twl_lst_del(lsat, NULL);
 	twl_lst_del(new, free);
 }
 

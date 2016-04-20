@@ -30,7 +30,8 @@ static void		iter_fn(void *data, void *next, void *context)
 
 static void		qmark_error(t_expansion *this, char *param, char *msg)
 {
-	twl_asprintf(&this->error, "42sh: %s: %s", param, msg);
+	twl_asprintf(&this->error, "%s: %s: %s", shenv_singleton()->shenv_name,
+												param, msg);
 }
 
 void			expansion_brace_qmark_solve(t_expansion *this,

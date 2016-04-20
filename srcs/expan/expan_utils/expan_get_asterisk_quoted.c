@@ -34,6 +34,5 @@ char			*expan_get_asterisk_quoted(t_lst *lsast)
 
 	ret = twl_strnew(0);
 	twl_lst_itern(lsast, iter_fn, &ret);
-	LOGGER_DEBUG("asterisk_expanded: >%s<", ret)
 	return (ret);
 }

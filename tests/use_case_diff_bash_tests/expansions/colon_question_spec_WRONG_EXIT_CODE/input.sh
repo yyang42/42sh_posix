@@ -1,2 +1,0 @@
-unset posix
-echo ${posix:?}

@@ -30,7 +30,6 @@ t_ast_redir	*ast_redir_new_from_tokens(t_lst *tokens, struct s_ast *ast)
 	{
 		this->operator = twl_strdup(token_mgr_get(tokens, -2)->text);
 		this->param = token_mgr_get(tokens, -1);
-		// this->param_unexpanded = twl_strdup(this->param);
 	}
 	else
 	{

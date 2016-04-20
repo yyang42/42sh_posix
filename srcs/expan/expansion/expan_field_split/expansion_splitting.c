@@ -98,8 +98,22 @@ void			expansion_splitting(t_expansion *this, char *text)
 		}
 		else
 		{
-			push_split(this, &index_tp);
-			index_txt += 1;
+			if (*this->to_push_as != 0 || index_txt == 0)
+			{
+				push_split(this, &index_tp);
+				index_txt += 1;
+			}
+			else
+			{
+				match = twl_strchr(this->ifs, text[index_txt - 1]);
+				if (!match || (*match != ' ' && *match != '\t' && *match != '\n'))
+				{
+					push_split(this, &index_tp);
+					index_txt += 1;
+				}
+				else
+					index_txt += 1;
+			}
 		}
 	}
 }

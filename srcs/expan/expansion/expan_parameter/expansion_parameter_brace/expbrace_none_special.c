@@ -22,7 +22,7 @@ static void	expan_param_asterisk(t_expansion *this)
 	if (!lsast || twl_lst_len(lsast) == 0)
 	{
 		if (lsast)
-			twl_lst_del(lsast, free);
+			twl_lst_del(lsast, NULL);
 		return ;
 	}
 	if (this->quoted)
@@ -49,7 +49,7 @@ static void	expan_param_at(t_expansion *this)
 	if (!lsat || twl_lst_len(lsat) == 0)
 	{
 		if (lsat)
-			twl_lst_del(lsat, free);
+			twl_lst_del(lsat, NULL);
 		return ;
 	}
 	expansion_push_raw_lst(this, lsat);
