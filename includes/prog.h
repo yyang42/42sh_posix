@@ -14,21 +14,27 @@
 # define PROG_H
 
 # include "basics.h"
-# include "xopt.h"
 # include "shenv/shenv.h"
 # include "utils.h"
+# include "argparser_extension.h"
 
 typedef struct		s_prog
 {
-	void			*test;
+	t_argparser			*argparser;
+	t_argparser_result	*argparser_result;
 }					t_prog;
 
 t_prog				*prog_new(void);
+t_prog				*prog_singl(void);
+void				prog_init(t_prog *prog, char **argv);
 void				prog_del(t_prog *prog);
 int					prog_run(t_prog *prog);
+char				*prog_run_file_to_str(t_prog *prog, char *file);
 int					prog_print_ast(t_prog *prog, char *input);
 int					prog_print_arexp(t_prog *prog, char *input);
 void				prog_main_loop(t_prog *prog);
 void				prog_handle_exit_signal(t_prog *prog);
+t_argparser			*prog_argparser(void);
+int					prog_is_opt_set(t_prog *prog, char *opt);
 
 #endif

@@ -10,32 +10,29 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "xopt.h"
-#include "twl_dict.h"
+#include "prog.h"
 
-static void			print_help(void)
+static t_argparser	*init_argparser(void)
 {
-	twl_printf("Usage: ./42sh [file]\n");
-	twl_printf("\t-h              Help\n");
-	twl_printf("\t-c <command>    Command\n");
-	twl_printf("\t-z              Print AST\n");
-	twl_printf("\n");
-	twl_printf("Examples:\n");
-	twl_printf("\t./42sh -z -c 'echo abc'    # Print ast for 'echo abc'\n");
-	twl_printf("\t./42sh -c 'echo abc'       # Execute 'echo abc'\n");
-	twl_printf("\t./42sh /tmp/input          # Execute the file /tmp/input\n");
+	t_argparser		*argparser;
+
+	argparser = argparser_new(SHENV_DEFAULT_NAME);
+	argparser_add_argument(argparser,
+		argparser_argument_new('c', "command", "Command", ARGP_HAS_OPTION_ARGUMENT));
+	argparser_add_argument(argparser,
+		argparser_argument_new(0, "ast", "Print AST", 0));
+	argparser_add_argument(argparser,
+		argparser_argument_new(0, "arexp", "Print arexp", 0));
+	return (argparser);
 }
 
-void				xopt_init(t_xopt *xopt, char **av)
+void				prog_init(t_prog *prog, char **argv)
 {
-	xopt->opt = twl_opt_new(av, XOPT_VALID_OPTS);
-	xopt_check_valid_opts(xopt);
-	if (twl_opt_exist(xopt->opt, "h"))
+	prog->argparser = init_argparser();
+	prog->argparser_result = argparser_parse_from_arr(prog->argparser, argv);
+	if (prog->argparser_result->err_msg)
 	{
-		print_help();
-		exit(0);
+		argparser_result_print_error_with_help(prog->argparser_result);
+		exit(1);
 	}
-	xopt->print_ast = twl_opt_exist(xopt->opt, "z");
-	xopt->print_arexp = twl_opt_exist(xopt->opt, "y");
-	xopt->command = twl_opt_get_param(xopt->opt, "c");
 }

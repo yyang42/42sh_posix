@@ -21,6 +21,7 @@
 # include "twl_arr.h"
 # include "twl_htab.h"
 # include "twl_arr2.h"
+# include "twl_opt.h"
 # include "token/token.h"
 
 #include <sys/types.h>
@@ -53,7 +54,7 @@ typedef struct				s_shenv
 	t_token					*shenv_cur_token;
 	t_lst					*shvars;
 	t_lst					*pos_params;
-	t_lst					*flags;
+	t_lst					*flags; // TODO: Change flags to htab
 	t_htab					*alias;
 	t_dict					*flag_verbose;
 	t_dict					*shfuncs;
@@ -119,6 +120,7 @@ int					shenv_get_cur_line(void);
 int					shenv_print_error_printf(t_shenv *this, int line,
 											char *fmt, ...);
 void				shenv_singl_error(int exit_code, char *fmt, ...);
+void				shenv_singl_error_simple(int exit_code, char *fmt, ...);
 void				shenv_increase_shlvl(t_shenv *this);
 pid_t				shenv_utils_fork(void);
 char				*shenv_find_binary_path(t_shenv *env, char *cmd);

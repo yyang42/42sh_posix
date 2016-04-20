@@ -13,7 +13,6 @@
 
 #include "shenv/shenv.h"
 #include "twl_arr.h"
-#include "xopt.h"
 #include "twl_stdlib.h"
 
 void				shenv_increase_shlvl(t_shenv *this)

@@ -10,33 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "xopt.h"
-#include "twl_string.h"
-#include "twl_lst.h"
-#include "twl_opt_elem.h"
+#include "shenv/shenv.h"
+#include "prog.h"
 
-static void			concat_opt(void *data, void *context)
+t_argparser			*prog_argparser(void)
 {
-	t_opt_elem	*elem;
-	char		**concat_ptr;
-	char		*concat;
+	static t_argparser		*argparser;
 
-	elem = data;
-	concat_ptr = context;
-	concat = *concat_ptr;
-	if (elem && elem->key)
+	if (argparser == NULL)
 	{
-		concat = twl_strjoin(concat, elem->key);
-		*concat_ptr = concat;
+		argparser = argparser_new(SHENV_DEFAULT_NAME);
+		argparser_set_usage(argparser, "[script-file]");
 	}
-}
-
-char				*xopt_concat_opts(t_xopt *xopt)
-{
-	char	*concat;
-
-	concat = twl_strdup("");
-	if (xopt && xopt->opt)
-		twl_lst_iter(xopt->opt->opts, concat_opt, &concat);
-	return (concat);
+	return (argparser);
 }

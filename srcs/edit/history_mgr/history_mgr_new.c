@@ -18,7 +18,7 @@
 
 #include "shenv/shenv.h"
 
-#include "twl_get_next_line.h"
+#include "twl_gnl.h"
 
 t_lst				*history_mgr_new(void)
 {
@@ -27,6 +27,7 @@ t_lst				*history_mgr_new(void)
 	int				fd;
 	char			*line;
 	char			*home_path;
+	char			*gnl_remainder;
 
 	home_path = shenv_shvars_get_value(shenv_singleton(), "HOME");
 	if (!home_path || !twl_isdir(home_path))
@@ -37,12 +38,14 @@ t_lst				*history_mgr_new(void)
 	/*
 	** TODO : FD Error handling
 	*/
-	while (twl_get_next_line(fd, &line))
+	gnl_remainder = NULL;
+	while (twl_gnl(fd, &line, &gnl_remainder) > 0)
 	{
 		history_mgr_add(history, line);
 		free(line);
 	}
 	free(filename);
+	free(gnl_remainder);
 	close(fd);
 	return (history);
 }

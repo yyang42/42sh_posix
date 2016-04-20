@@ -21,7 +21,6 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdbool.h>
-# include "xopt.h"
 
 char	*get_cmd_out(const char *cmd);
 void	sandbox_cmd(const char *cmd);
@@ -83,8 +82,7 @@ static void test_## name(t_test *test)										\
 	static void test_## test_name(t_test *test) \
 	{ \
 		t_ast			*ast; \
-		xopt_singleton()->print_ast = true; \
-		ast = ast_new(input); \
+		ast = ast_new(input, AST_FLAG_EXEC_AST); \
 		if (debug) \
 		{ \
 			twl_printf("input    : %s\n", input); \

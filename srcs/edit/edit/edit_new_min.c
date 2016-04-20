@@ -12,7 +12,7 @@
 
 #include <fcntl.h>
 
-#include "twl_get_next_line.h"
+#include "twl_gnl.h"
 #include "twl_xstdlib.h"
 
 #include "edit/edit.h"

@@ -33,6 +33,7 @@ t_ast				*ast_new_from_tokens(t_lst *src_tokens)
 	int				saved_level;
 	t_ast			*ast;
 
+	shenv_singleton()->shenv_shall_quit_curr_ast = false;
 	saved_level = shenv_singleton()->shenv_list_item_level;
 	shenv_singleton()->shenv_list_item_level = 0; // REFACTOR NOT RELIABLE
 	ast = ast_new_from_tokens_do(src_tokens);

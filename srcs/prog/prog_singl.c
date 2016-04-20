@@ -10,13 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "xopt.h"
-#include "twl_lst.h"
+#include "prog.h"
 
-t_lst				*xopt_get_args(t_xopt *xopt)
+t_prog				*prog_singl(void)
 {
-	if (xopt && xopt->opt)
-		return (xopt->opt->args);
-	else
-		return (NULL);
+	static t_prog	*prog = NULL;
+
+	if (!prog)
+	{
+		prog = prog_new();
+	}
+	return (prog);
 }

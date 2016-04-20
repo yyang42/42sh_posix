@@ -45,9 +45,12 @@ diff_test ()
     fi
     mkdir -p $testcase_tmp
     rm -f $testcase_tmp/*
+    export TESTED_SHELL
+    TESTED_SHELL=$RENDU_PATH/42sh
     $RENDU_PATH/42sh $testcase_path/input.sh > $testcase_tmp_stdout 2> $testcase_tmp_stderr
     echo "exit_code: $?" >> $testcase_tmp_stdout
     if [ ! -f $testcase_path/expected_stdout ] || [ ! -f $testcase_path/expected_stderr ]; then
+        TESTED_SHELL='bash --posix'
         bash --posix $testcase_path/input.sh > $testcase_tmp_bash_stdout 2> $testcase_tmp_bash_stderr
         echo "exit_code: $?" >> $testcase_tmp_bash_stdout
     fi

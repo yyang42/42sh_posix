@@ -38,6 +38,7 @@
 # define CTRL_W 23
 # define CTRL_K 11
 # define CTRL_P 16
+# define CTRL_L 12
 # define CTRL_R 18
 # define TAB    9
 

@@ -20,15 +20,11 @@ void				builtin_eval_exec_str(char *str)
 
 	if (twl_strlen(str) == 0)
 		return ;
-	ast = ast_new(str);
+	ast = ast_new(str, 0);
 	if (ast->error_msg)
 	{
 		twl_dprintf(2, "%s\n", ast->error_msg);
 		shenv_singleton()->last_exit_code = EXIT_FAILURE;
-	}
-	else
-	{
-		shenv_singleton()->last_exit_code = ast_exec(ast);
 	}
 	ast_del(ast);
 }

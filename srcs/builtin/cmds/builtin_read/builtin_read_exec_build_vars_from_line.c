@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "builtin/cmds/builtin_read.h"
-#include "twl_get_next_line.h"
+#include "twl_gnl.h"
 #include "utils.h"
 
 static void			set_env_var(char *var, char *value, t_argparser_result *arg_res)

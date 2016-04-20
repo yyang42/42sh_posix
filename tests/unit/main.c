@@ -6,6 +6,7 @@
 #include <signal.h>
 #include <locale.h>
 #include "project.h"
+#include "prog.h"
 #include <mt_lst.h>
 
 # define MT_ADD_PROTO(name)			void suite_ ## name(t_suite *suite)
@@ -20,6 +21,7 @@ int main()
 
 	ADD_TESTS
 
+	prog_init(prog_singl(), (char *[]){"prog", "--ast", NULL});
 	int ret = mt_exec(mt);
 	mt_del(mt);
 	return(ret);

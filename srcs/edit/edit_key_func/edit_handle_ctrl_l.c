@@ -10,12 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "xopt.h"
+#include "edit/edit.h"
+#include "edit/edit_key_func.h"
+#include "edit/terminal.h"
 
-t_lst				*xopt_get_opts(t_xopt *xopt)
+void				edit_handle_ctrl_l(void *_edit)
 {
-	if (xopt && xopt->opt)
-		return (xopt->opt->opts);
-	else
-		return (NULL);
+	terminal_clear_screen();
+	(void)_edit;
 }
