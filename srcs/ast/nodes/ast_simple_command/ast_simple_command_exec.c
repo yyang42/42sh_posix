@@ -13,8 +13,6 @@
 #include "ast/nodes/ast_simple_command.h"
 #include "ast/nodes/ast_assignment.h"
 #include "ast/nodes/ast_redir.h"
-#include "builtin/builtin_mgr.h"
-#include "data.h"
 #include "job_control/job_mgr.h"
 
 /*
@@ -37,9 +35,10 @@ static void			iter_assign_fn(void *assign_, void *cmd_)
 	if (shenv_flag_exist(shenv_singleton(), "x"))
 		twl_dprintf(2, "+ %s=%s\n", assign->key, assign->value);
 	shvar = shvar_mgr_find_or_create(shenv_singleton()->shvars, assign->key);
-	shvar_check_print_readonly_error(shvar);
+	if (shvar_check_is_readonly_and_print(shvar))
+		return ;
 	if (twl_lst_len(cmd->cmd_tokens_deep_copy) == 0
-		|| token_mgr_first_equ(cmd->cmd_tokens_deep_copy, ":"))
+		|| ast_simple_command_is_special_builtin(cmd))
 	{
 		shvar_set_value(shvar, assign->value);
 	}
@@ -67,7 +66,11 @@ static void			ast_simple_command_exec_with_redirs(t_ast_simple_command *cmd)
 	ast_simple_command_exec_print_log(cmd);
 	ast_redir_fd_mgr_init(cmd->redir_fds, cmd->redir_items);
 	if (shenv_singleton()->last_exit_code != 0)
+	{
+		if (ast_simple_command_is_special_builtin(cmd))
+			exit(1);
 		return ;
+	}
 	ast_simple_command_exec_tokens(cmd);
 	ast_redir_fd_mgr_close_clear(cmd->redir_fds);
 }
@@ -82,6 +85,11 @@ void				ast_simple_command_exec(t_ast_simple_command *cmd)
 	shenv_set_cur_token(shenv_singleton(), token_mgr_first(cmd->cmd_tokens_deep_copy));
 	job_mgr_exec_update(shenv_singleton()->jobs);
 	twl_lst_iter(cmd->assignment_items, iter_assign_fn, cmd);
+	if (shenv_singleton()->last_exit_code != 0 && twl_lst_len(cmd->cmd_tokens_deep_copy) == 0)
+	{
+		exit(1);
+		return ;
+	}
 	if (shenv_flag_exist(shenv_singleton(), "x") && twl_lst_len(cmd->cmd_tokens_expanded))
 		token_mgr_xtrace_print(cmd->cmd_tokens_expanded);
 	ast_simple_command_exec_with_redirs(cmd);

@@ -20,7 +20,7 @@ t_argparser			*builtin_dot_argparser(void)
 	{
 		argparser = argparser_new(".");
 		argparser_set_usage(argparser,
-			" . filename [arguments]");
+			"filename [arguments]");
 	}
 	return (argparser);
 }

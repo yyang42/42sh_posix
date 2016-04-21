@@ -10,20 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/builtin.h"
+#include "builtin/builtin_mgr.h"
 
-int					builtin_utils_check_invalid_opts(t_opt *opt, char *exe_name, char *flags)
+bool				builtin_mgr_is_special_builtin(t_lst *builtins, char *name)
 {
-	char				*invalid;
+	t_builtin		*builtin;
 
-	invalid = twl_opt_check_invalid_opts(opt);
-	if (invalid && twl_strlen(invalid) > 0)
+	if (!name)
 	{
-		shenv_singleton()->last_exit_code = EXIT_FAILURE;
-		twl_dprintf(2, "%s: illegal option -- %s\nusage: %s [-%s%s\n",
-		exe_name, invalid, exe_name,
-			flags, "] [name=value ...] [utility [argument ...]]");
-		return (1);
+		LOGGER_ERROR("name not set");
+		return (false);
 	}
-	return (0);
+	builtin = builtin_mgr_find_by_name(builtins, name);
+	if (!builtin)
+		return (false);
+	return (builtin->builtin_flags & BUILTIN_FLAG_SPECIAL_BUILTIN);
 }

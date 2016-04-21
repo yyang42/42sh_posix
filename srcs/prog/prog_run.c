@@ -62,6 +62,7 @@ static void			prog_run_input_from_stdin(t_prog *prog)
 		exit(1);
 	}
 	prog_run_input(prog, input);
+	free(input);
 }
 
 static void			prog_run_interactive(t_prog *prog)

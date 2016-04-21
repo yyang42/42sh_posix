@@ -23,5 +23,6 @@ void				builtin_mgr_remove(t_lst *builtins, t_builtin *builtin);
 void				builtin_mgr_print(t_lst *builtins);
 
 t_builtin			*builtin_mgr_find_by_name(t_lst *builtins, char *name);
+bool				builtin_mgr_is_special_builtin(t_lst *builtins, char *name);
 
 #endif

@@ -60,4 +60,6 @@ void					ast_simple_command_execve_child(char *path, char **args,
 void					ast_simple_command_execve_parent(t_ast_simple_command *cmd, pid_t pid);
 void					ast_simple_command_execve_parent_wait(pid_t pid);
 
+bool					ast_simple_command_is_special_builtin(t_ast_simple_command *this);
+
 #endif

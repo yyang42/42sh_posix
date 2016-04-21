@@ -10,16 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_redir.h"
-#include "ast/nodes/ast_assignment.h"
 #include "ast/nodes/ast_simple_command.h"
+#include "builtin/builtin_mgr.h"
+#include "data.h"
 
-bool		ast_redir_fd_utils_is_valid_duplicate_fd(int fd)
+bool				ast_simple_command_is_special_builtin(t_ast_simple_command *this)
 {
-	if (fd > getdtablesize())
-	{
-		shenv_singl_error(EXIT_FAILURE, "%d: Bad file descriptor", fd);
+	t_token			*first;
+
+	first = token_mgr_first(this->cmd_tokens_expanded);
+	if (!first)
 		return (false);
-	}
-	return (true);
+	return (builtin_mgr_is_special_builtin(data_builtins(), first->text));
 }

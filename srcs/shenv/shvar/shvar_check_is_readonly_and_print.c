@@ -13,14 +13,11 @@
 #include "shenv/shvar.h"
 #include "shenv/shenv.h"
 
-void				shvar_check_print_readonly_error(t_shvar *this)
+bool				shvar_check_is_readonly_and_print(t_shvar *this)
 {
 	if (this->shvar_read_only)
 	{
 		shenv_singl_error(EXIT_FAILURE, "%s: readonly variable", this->shvar_key);
-		if (!shenv_singleton()->is_interactive_shell)
-		{
-			exit(EXIT_FAILURE);
-		}
 	}
+	return (this->shvar_read_only);
 }

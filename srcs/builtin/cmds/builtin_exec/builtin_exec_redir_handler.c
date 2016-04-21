@@ -30,7 +30,8 @@ static void			iter_redir_fn(void *tokens)
 	}
 	else
 	{
-		LOGGER_ERROR("exec: redirs len other than 3 not handled")
+		shenv_singl_error(1, "exec: redir error");
+		exit(1);
 	}
 }
 

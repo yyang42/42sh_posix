@@ -49,7 +49,11 @@ void				builtin_set_exec_args(t_lst *tokens_copy, t_shenv *env)
 
 	arr = token_mgr_to_str_arr(tokens_copy);
 	opt = builtin_set_opt_new(arr, SET_OPT_VALID_OPTS);
-	if (!builtin_set_check_invalid_opts(opt, "set", SET_OPT_VALID_OPTS))
+	if (builtin_set_check_invalid_opts(opt, "set", SET_OPT_VALID_OPTS))
+	{
+		exit(2);
+	}
+	else
 	{
 		twl_lst_iter2(opt->positive_opts, remove_shell_flags, env, opt->args);
 		twl_lst_iter2(opt->negative_opts, add_shell_flags, env, opt->args);
