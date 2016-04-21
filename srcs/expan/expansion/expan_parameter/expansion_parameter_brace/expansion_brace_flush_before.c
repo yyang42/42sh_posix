@@ -29,7 +29,7 @@ void					expansion_brace_flush_before(t_expansion_brace *this,
 		while (twl_isdigit(input[this->index]))
 			this->index += 1;
 	}
-	else if (twl_isalpha(input[this->index]))
+	else if (twl_isalpha(input[this->index]) || input[this->index] == '_')
 	{
 		while (twl_isalnum(input[this->index]) || input[this->index] == '_')
 			this->index += 1;
