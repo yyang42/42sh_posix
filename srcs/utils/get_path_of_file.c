@@ -31,6 +31,10 @@ char				*get_path_of_file(char *str)
 		{
 			free(twl_lst_pop_back(path_lst));
 			path = twl_strjoinlst(path_lst, "/");
+			if (twl_str_starts_with(str, "/"))
+			{
+				path = twl_strjoinfree("/", path, 'r');
+			}
 			twl_lst_del(path_lst, NULL);
 			return (path);
 		}
