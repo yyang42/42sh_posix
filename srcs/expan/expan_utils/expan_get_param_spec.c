@@ -34,7 +34,7 @@ t_lst			*expan_get_param_spec(char param)
 	else if (param == '-')
 		twl_lst_push_back(lsparam, shenv_concat_flags(shenv));
 	else if (param == '$')
-		twl_lst_push_back(lsparam, twl_itoa(shenv->info.cur_shell_pid));
+		twl_lst_push_back(lsparam, twl_itoa(getpid()));
 	else if (param == '!')
 		twl_lst_push_back(lsparam,
 				twl_itoa(shenv->info.most_recent_background_command_pid));

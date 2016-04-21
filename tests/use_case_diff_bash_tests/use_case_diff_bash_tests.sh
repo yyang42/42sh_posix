@@ -20,12 +20,12 @@ print_result ()
 {
     if [ $1 -eq 0 ]
     then
-        echo $C_GREEN"$2"$C_CLEAR"\c"
+        /usr/bin/printf $C_GREEN"$2"$C_CLEAR"\c"
     else
-        echo $C_RED"$2"$C_CLEAR"\c"
+        /usr/bin/printf $C_RED"$2"$C_CLEAR"\c"
         exit_status=1
     fi
-    echo " \c"
+    /usr/bin/printf " \c"
 }
 
 diff_test ()
@@ -74,7 +74,7 @@ diff_test ()
     echo "./42sh tests/use_case_diff_bash_tests/$testsuite/$testcase/input.sh"
 }
 
-echo $C_CYAN"====== START AST DIFF TESTS ======"$C_CLEAR
+/usr/bin/printf $C_CYAN"====== START AST DIFF TESTS ======"$C_CLEAR
 
 for CASE_PATH in $TESTS_ROOT_PATH/${PATTERN:-*}; do
     if [ -d "${CASE_PATH}" ]; then
@@ -86,6 +86,6 @@ for CASE_PATH in $TESTS_ROOT_PATH/${PATTERN:-*}; do
     fi
 done
 
-echo $C_CYAN"======  END TESTS  ======"$C_CLEAR
+/usr/bin/printf $C_CYAN"======  END TESTS  ======"$C_CLEAR
 
 exit $exit_status

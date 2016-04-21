@@ -42,7 +42,7 @@ static bool		loop_alpha(t_expansion_brace *this, char *input)
 	size_t		index;
 
 	index = 3;
-	while (twl_isalnum(input[index]))
+	while (twl_isalnum(input[index]) || input[index] == '_')
 		index += 1;
 	if (input[index] == '}')
 		return (sharp_applied(this, input));
@@ -58,7 +58,7 @@ bool			expansion_brace_length_case_applied(t_expansion_brace *this,
 		return (sharp_applied(this, input));
 	if (twl_isdigit(input[3]))
 		return (loop_digit(this, input));
-	if (twl_isalpha(input[3]))
+	if (twl_isalpha(input[3]) || input[3] == '_')
 		return (loop_alpha(this, input));
 	if (expan_is_begin_of_brace_type(input[3]))
 		return (false);

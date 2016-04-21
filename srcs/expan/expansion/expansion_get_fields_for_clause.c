@@ -64,6 +64,7 @@ t_lst				*expansion_get_fields_for_clause(t_expansion *this)
 		this->to_push_bs = NULL;
 	}
 	expansion_field_splitting(this);
-	ret = twl_lst_map(this->after_split, map_fn);
+	expansion_patmatch(this);
+	ret = twl_lst_map(this->patmatch, map_fn);
 	return (ret);
 }
