@@ -16,7 +16,7 @@
 #include <sys/wait.h>
 #include "job_control/job.h"
 
-#define SH_PATH "/bin/sh"
+#define SH_PATH_FALLBACK_WHEN_NO_SHEBANG "/bin/sh"
 
 static int			execve_base(char *path, t_lst *argv_lst, char **envp, int *errno_ptr)
 {
@@ -39,8 +39,10 @@ static void			execve_fallback_wrapper(char *path, t_lst *argv_lst, char **envp)
 	ret = execve_base(path, argv_lst, envp, &errno_save);
 	if (ret == -1 && errno_save == ENOEXEC)
 	{
-		twl_lst_push_front(argv_lst, SH_PATH);
-		ret = execve_base(SH_PATH, argv_lst, envp, &errno_save);
+		twl_lst_pop_front(argv_lst);
+		twl_lst_push_front(argv_lst, path);
+		twl_lst_push_front(argv_lst, SH_PATH_FALLBACK_WHEN_NO_SHEBANG);
+		ret = execve_base(SH_PATH_FALLBACK_WHEN_NO_SHEBANG, argv_lst, envp, &errno_save);
 	}
 	if (ret == -1)
 	{
