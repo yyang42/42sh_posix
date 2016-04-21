@@ -31,7 +31,7 @@ void					expansion_brace_flush_before(t_expansion_brace *this,
 	}
 	else if (twl_isalpha(input[this->index]))
 	{
-		while (twl_isalnum(input[this->index]))
+		while (twl_isalnum(input[this->index]) || input[this->index] == '_')
 			this->index += 1;
 	}
 	if (this->index == 2)
