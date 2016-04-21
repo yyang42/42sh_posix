@@ -18,8 +18,6 @@
 
 void				ast_simple_command_exec_tokens(t_ast_simple_command *cmd)
 {
-	char			**env_arr;
-	char			*path;
 	char			*cmd_name;
 	t_builtin		*builtin;
 
@@ -40,9 +38,7 @@ void				ast_simple_command_exec_tokens(t_ast_simple_command *cmd)
 	}
 	else
 	{
-		env_arr = (char **)shenv_get_env_arr(shenv_singleton());
-		path = shenv_find_binary_path(shenv_singleton(), cmd_name);
-		ast_simple_command_execve(cmd, path, env_arr);
-		twl_arr_del(env_arr, free);
+
+		ast_simple_command_execve(cmd, cmd_name);
 	}
 }

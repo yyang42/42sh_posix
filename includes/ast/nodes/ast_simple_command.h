@@ -51,12 +51,11 @@ bool					ast_simple_command_is_own_type(t_lst *tokens);
 void					ast_simple_command_exec(t_ast_simple_command *cmd);
 void					ast_simple_command_expan(t_ast_simple_command *cmd);
 
-void					ast_simple_command_execve(t_ast_simple_command *cmd, char *path, char **env);
+void					ast_simple_command_execve(t_ast_simple_command *cmd, char *cmd_name);
 void					ast_simple_command_exec_tokens(t_ast_simple_command *ast_s_cmd);
 
 void					ast_simple_command_exec_function(t_lst *tokens, struct s_ast_compound_command *compound_cmd);
-void					ast_simple_command_execve_child(char *path, char **args,
-																	char **env);
+void					ast_simple_command_execve_child(t_ast_simple_command *cmd, char *path);
 void					ast_simple_command_execve_parent(t_ast_simple_command *cmd, pid_t pid);
 void					ast_simple_command_execve_parent_wait(pid_t pid);
 
