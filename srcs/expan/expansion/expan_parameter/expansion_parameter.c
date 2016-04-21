@@ -51,7 +51,7 @@ void			expansion_parameter(t_expansion *this, t_expan_token *token)
 		expansion_parameter_special(this, token);
 	else if (twl_isdigit(c))
 		expan_param_pos(this, token->text);
-	else if (twl_isalpha(c))
+	else if (twl_isalpha(c) || c == '_')
 		expan_param_normal(this, token->text);
 	else
 		expansion_push_before_split(this, token->text, false);

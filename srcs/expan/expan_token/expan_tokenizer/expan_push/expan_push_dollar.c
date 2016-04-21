@@ -91,10 +91,11 @@ void				expan_push_dollar(t_expan_tokenizer *this)
 		expan_tokenizer_addone(this);
 	else if (twl_isdigit(this->input[this->input_index]))
 		expan_tokenizer_addone(this);
-	else if (twl_isalpha(this->input[this->input_index]))
+	else if (twl_isalpha(this->input[this->input_index]) ||
+			this->input[this->input_index] == '_')
 	{
-		while (twl_isalnum(this->input[this->input_index])
-				|| this->input[this->input_index] == '_')
+		while (twl_isalnum(this->input[this->input_index]) ||
+				this->input[this->input_index] == '_')
 			expan_tokenizer_addone(this);
 	}
 }
