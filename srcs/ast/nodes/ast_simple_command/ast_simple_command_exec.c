@@ -37,7 +37,6 @@ static void			iter_assign_fn(void *assign_, void *cmd_)
 	shvar = shvar_mgr_find_or_create(shenv_singleton()->shvars, assign->key);
 	if (shvar_check_is_readonly_and_print(shvar))
 		return ;
-	LOGGER_DEBUG("=====17b %d", shenv_singleton()->last_exit_code);
 	if (twl_lst_len(cmd->cmd_tokens_deep_copy) == 0
 		|| token_mgr_first_equ(cmd->cmd_tokens_deep_copy, ":"))
 	{
@@ -66,18 +65,12 @@ static void			ast_simple_command_exec_with_redirs(t_ast_simple_command *cmd)
 {
 	ast_simple_command_exec_print_log(cmd);
 	ast_redir_fd_mgr_init(cmd->redir_fds, cmd->redir_items);
-	LOGGER_DEBUG("=====18 a %d", shenv_singleton()->last_exit_code);
 	if (shenv_singleton()->last_exit_code != 0)
 	{
-	LOGGER_DEBUG("=====18 b %d", shenv_singleton()->last_exit_code);
-	LOGGER_DEBUG("=====18 cmd %s", cmd);
-	LOGGER_DEBUG("=====18 is builtin %d", ast_simple_command_is_special_builtin(cmd));
 		if (ast_simple_command_is_special_builtin(cmd))
 			exit(1);
-	LOGGER_DEBUG("=====18 c %d", shenv_singleton()->last_exit_code);
 		return ;
 	}
-	LOGGER_DEBUG("=====18 d %d", shenv_singleton()->last_exit_code);
 	ast_simple_command_exec_tokens(cmd);
 	ast_redir_fd_mgr_close_clear(cmd->redir_fds);
 }
@@ -86,33 +79,19 @@ void				ast_simple_command_exec(t_ast_simple_command *cmd)
 {
 	if (!shenv_loop_should_exec(shenv_singleton()))
 		return ;
-	LOGGER_DEBUG("=====11");
 	shenv_singleton()->info.saved_last_exit = shenv_singleton()->last_exit_code;
-	LOGGER_DEBUG("=====12");
 	shenv_singleton()->last_exit_code = EXIT_SUCCESS;
-	LOGGER_DEBUG("=====13");
 	ast_simple_command_expan(cmd);
-	LOGGER_DEBUG("=====14");
 	shenv_set_cur_token(shenv_singleton(), token_mgr_first(cmd->cmd_tokens_deep_copy));
-	LOGGER_DEBUG("=====15");
 	job_mgr_exec_update(shenv_singleton()->jobs);
-	LOGGER_DEBUG("=====16 %d", shenv_singleton()->info.saved_last_exit);
 	twl_lst_iter(cmd->assignment_items, iter_assign_fn, cmd);
 	if (shenv_singleton()->last_exit_code != 0 && twl_lst_len(cmd->cmd_tokens_deep_copy) == 0)
 	{
-	LOGGER_DEBUG("=====18 b %d", shenv_singleton()->last_exit_code);
-	LOGGER_DEBUG("=====18 cmd %s", cmd);
-	LOGGER_DEBUG("=====18 is builtin %d", ast_simple_command_is_special_builtin(cmd));
 		exit(1);
-	LOGGER_DEBUG("=====18 c %d", shenv_singleton()->last_exit_code);
 		return ;
 	}
-	LOGGER_DEBUG("=====17 %d", shenv_singleton()->last_exit_code);
 	if (shenv_flag_exist(shenv_singleton(), "x") && twl_lst_len(cmd->cmd_tokens_expanded))
 		token_mgr_xtrace_print(cmd->cmd_tokens_expanded);
-	LOGGER_DEBUG("=====18 %d", shenv_singleton()->last_exit_code);
 	ast_simple_command_exec_with_redirs(cmd);
-	LOGGER_DEBUG("=====19 %d", shenv_singleton()->last_exit_code);
 	shvar_mgr_clear_assign_value(shenv_singleton()->shvars);
-	LOGGER_DEBUG("=====110");
 }
