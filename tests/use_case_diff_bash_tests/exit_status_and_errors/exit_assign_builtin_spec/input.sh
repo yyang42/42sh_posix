@@ -17,7 +17,6 @@ echo
 foo .
 foo :
 foo alias
-# foo bg
 foo break
 foo cd
 foo continue
@@ -26,19 +25,22 @@ foo env
 foo eval
 foo export
 foo false
-# foo fg
 foo jobs
-# foo kill
-# foo read
 foo readonly
 foo return
 foo set
-# foo setenv
 foo shift
 foo times
 foo trap
 foo true
 foo umask
 foo unset
-# foo unsetenv
 foo wait
+
+# not testable
+# foo bg
+# foo fg
+# foo kill
+# foo read
+# foo setenv
+# foo unsetenv
