@@ -38,7 +38,7 @@ static void			iter_assign_fn(void *assign_, void *cmd_)
 	if (shvar_check_is_readonly_and_print(shvar))
 		return ;
 	if (twl_lst_len(cmd->cmd_tokens_deep_copy) == 0
-		|| token_mgr_first_equ(cmd->cmd_tokens_deep_copy, ":"))
+		|| ast_simple_command_is_special_builtin(cmd))
 	{
 		shvar_set_value(shvar, assign->value);
 	}
