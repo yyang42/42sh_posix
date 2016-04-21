@@ -89,6 +89,7 @@ static void parent_part(t_expansion *this, t_expan_token *token, int fd[2])
 	twl_lst_iter(lst, push_before_split_fn, this);
 	twl_lst_del(lst, free);
 	close(fd[0]);
+	wait(&size); // TODO: message d'erreur toussa...
 	(void)token;
 }
 
