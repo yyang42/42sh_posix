@@ -47,7 +47,7 @@ static t_htab		*shenv_build_htab(t_shenv *env)
 	htab = twl_htab_new();
 	paths = shenv_get_paths(env);
 	if (!paths)
-		return (NULL);
+		return (htab);
 	i = 0;
 	while (paths[i])
 	{

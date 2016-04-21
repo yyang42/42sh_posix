@@ -30,12 +30,11 @@ static void			set_default_signal_if_not_ignored(void)
 		i++;
 	}
 }
-static void			fork_and_execute(t_ast_simple_command *cmd, char *path, char **env)
+static void			fork_and_execute(t_ast_simple_command *cmd, char *path)
 {
 	pid_t			pid;
-	char			**args;
 
-	args = token_mgr_to_str_arr(cmd->cmd_tokens_expanded);
+
 	pid = shenv_utils_fork();
 	if (pid == -1)
 	{
@@ -44,23 +43,23 @@ static void			fork_and_execute(t_ast_simple_command *cmd, char *path, char **env
 	else if (pid == 0)
 	{
 		set_default_signal_if_not_ignored();
-		ast_simple_command_execve_child(path, args, env);
-		perror(path);
-		exit(0);
+		ast_simple_command_execve_child(cmd, path);
 	}
 	else
 	{
 		ast_simple_command_execve_parent(cmd, pid);
 	}
-	twl_arr_del(args, NULL);
 }
 
-void			ast_simple_command_execve(t_ast_simple_command *cmd, char *path, char **env)
+void			ast_simple_command_execve(t_ast_simple_command *cmd, char *cmd_name)
 {
+	char			*path;
+
+	path = shenv_find_binary_path(shenv_singleton(), cmd_name);
 	if (file_exists(path))
 	{
 		if (file_isexecutable(path))
-			fork_and_execute(cmd, path, env);
+			fork_and_execute(cmd, path);
 		else
 			error_permission_denied(path);
 	}

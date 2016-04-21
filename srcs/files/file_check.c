@@ -16,6 +16,8 @@ int file_exists (char *file)
 {
 	struct stat sb;
 
+	if (!file)
+		return (false);
 	return (stat(file, &sb) == 0);
 }
 
@@ -23,6 +25,8 @@ int file_isdir (char *file)
 {
 	struct stat sb;
 
+	if (!file)
+		return (false);
 	return ((stat (file, &sb) == 0) && S_ISDIR(sb.st_mode));
 }
 
@@ -30,5 +34,7 @@ int	file_isexecutable(char *file)
 {
 	struct stat sb;
 
+	if (!file)
+		return (false);
 	return (stat(file, &sb) == 0 && sb.st_mode & S_IXUSR);
 }
