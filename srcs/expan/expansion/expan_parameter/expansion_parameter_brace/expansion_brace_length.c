@@ -16,17 +16,22 @@ static void		expan_param_spec(t_expansion *this, char spec)
 {
 	t_lst		*lspec;
 	char		*to_push;
+	void		(*del)(void *);
 
 	lspec = expan_get_param_spec(spec);
+	del = free;
 	if (twl_lst_len(lspec) == 0)
 		to_push = twl_strdup("0");
 	else if (spec == '@' || spec == '*')
+	{
 		to_push = twl_itoa(twl_lst_len(lspec));
+		del = NULL;
+	}
 	else
 		to_push = twl_itoa(twl_strlen(twl_lst_get(lspec, 0)));
 	expansion_push_before_split(this, to_push, !this->quoted);
 	free(to_push);
-	twl_lst_del(lspec, free);
+	twl_lst_del(lspec, del);
 }
 
 static void		expan_param_pos(t_expansion *this, char *pos)
