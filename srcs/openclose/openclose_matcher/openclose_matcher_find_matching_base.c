@@ -80,7 +80,7 @@ static void			resolve(t_openclose_matcher *matcher, t_lst *stack,
 	}
 }
 
-static bool			is_quoted_skip(char **s_ptr)
+static bool			is_escaped(char **s_ptr)
 {
 	if (**s_ptr == '\\')
 	{
@@ -101,13 +101,13 @@ char				*openclose_matcher_find_matching_base(
 	{
 		if (matcher->flags & OC_MATCHER_FLAG_SKIP_QUOTED)
 		{
-			if (is_quoted_skip(&s))
+			if (is_escaped(&s))
 				continue ;
 		}
 		if (matcher->flags & OC_MATCHER_JUMP_SINGLE_QUOTE)
 		{
 			if (*s == '\'' && twl_lst_len(stack)
-				&& twl_strequ(openclose_mgr_first(stack)->open, "\""))
+				&& twl_strequ(openclose_mgr_last(stack)->open, "\""))
 			{
 				s++;
 				continue;
