@@ -15,6 +15,13 @@
 #include "shsignal/shsignal_mgr.h"
 #include "data.h"
 #include "logger.h"
+/*
+static void     intercept_logger_handler(int sig)
+{
+  LOGGER("INTERACTIVE: Ignore signal %s(%d)", shsignal_mgr_get_signame(data_signals(), sig), sig);
+  LOGGER("INTERACTIVE: pid (%d)", getpid());
+  (void)sig;
+}*/
 
 void				job_utils_sigs_dfl_on_interactive_for_chld_proc(void)
 {

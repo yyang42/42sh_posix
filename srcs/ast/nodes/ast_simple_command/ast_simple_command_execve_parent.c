@@ -16,8 +16,17 @@
 #include "shsignal/shsignal.h"
 #include <setjmp.h>
 #include <sys/wait.h>
+#include "shsignal/shsignal_mgr.h"
+#include "data.h"
 
 static jmp_buf jump_buf;
+
+static void     intercept_logger_handler(int sig)
+{
+  LOGGER_DEBUG("INTERACTIVE: Ignore signal %s(%d)", shsignal_mgr_get_signame(data_signals(), sig), sig);
+  LOGGER_DEBUG("INTERACTIVE: pid (%d)", getpid());
+  (void)sig;
+}
 
 static void         sigtstp_handler(int sig)
 {
@@ -29,7 +38,12 @@ static void         sig_int_quit_handler(int sig)
 {
     LOGGER_INFO("SIGINT handler: pid: %d", sig, shenv_singleton()->jc_foreground_job_pid);
     if (shenv_singleton()->jc_foreground_job_pid)
-        kill(-shenv_singleton()->jc_foreground_job_pid, sig);
+    {
+        if (kill(-shenv_singleton()->jc_foreground_job_pid, sig) == -1)
+        {
+            LOGGER_ERROR("kill: %s", strerror(errno));
+        }
+    }
 }
 
 static void         ast_simple_command_execve_parent_wait_catch_sigs(t_ast_simple_command *cmd, pid_t pid)
@@ -51,12 +65,14 @@ static void         ast_simple_command_execve_parent_wait_catch_sigs(t_ast_simpl
     else
     {
         job = ast_list_item_exec_async_parent_create_job(cmd->all_tokens, pid);
-        job->is_group_id = false;
+        if (kill(-pid, SIGTSTP) == -1)
+            LOGGER_ERROR("kill: %s", strerror(errno));
     }
     shenv_singleton()->jc_foreground_job_pid = 0;
     signal(SIGTSTP, saved_sig_handler);
     signal(SIGINT, saved_sigint_handler);
     signal(SIGQUIT, saved_sigquit_handler);
+    (void)intercept_logger_handler;
 }
 
 void				ast_simple_command_execve_parent(t_ast_simple_command *cmd, pid_t pid)

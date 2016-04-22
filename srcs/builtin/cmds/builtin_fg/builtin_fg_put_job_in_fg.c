@@ -41,20 +41,22 @@ static void         fg_waitpid(t_job *job, t_token *cmd_token)
 static void         put_in_fg(t_job *job, t_token *cmd_token)
 {
     t_shenv         *env;
+    pid_t           pid;
 
     env = shenv_singleton();
+    pid = job_get_kill_pid(job);
     /* Put the job into the foreground.  */
-    tcsetpgrp (env->jc_terminal, job->pid);
+    tcsetpgrp (env->jc_terminal, pid);
     /* Send the job a continue signal, if necessary.  */
 
-    LOGGER_INFO("fg: continue pid=%d", job->pid);
+    LOGGER_INFO("fg: continue pid=%d", pid);
     if (job->job_status == JOB_STOPPED)
     {
 
         // tcsetattr (env->jc_terminal, TCSADRAIN, &job->tmodes);
         if (kill(job_get_kill_pid(job), SIGCONT) < 0)
         {
-            LOGGER_ERROR("kill (SIGCONT): pid: %d", job->pid);
+            LOGGER_ERROR("kill (SIGCONT): pid: %d", pid);
             shenv_singleton()->last_exit_code = EXIT_FAILURE;
         }
     }

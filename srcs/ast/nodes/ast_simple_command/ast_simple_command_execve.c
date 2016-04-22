@@ -42,6 +42,7 @@ static void			fork_and_execute(t_ast_simple_command *cmd, char *path)
 	}
 	else if (pid == 0)
 	{
+		setpgid(pid, pid);
 		set_default_signal_if_not_ignored();
 		ast_simple_command_execve_child(cmd, path);
 	}
