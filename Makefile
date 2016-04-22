@@ -110,6 +110,9 @@ norm:
 check_leaks:
 	./tools/valgrind.sh
 
+check_log_error:
+	! grep ERROR /tmp/.debug.out
+
 log:
 	touch $(DEBUG_FILE_NAME)
 	tail -f $(DEBUG_FILE_NAME)

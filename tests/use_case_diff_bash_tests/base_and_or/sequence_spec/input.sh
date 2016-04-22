@@ -1,1 +1,1 @@
-echo lol | cat -e ;echo lol > pouet && cat pouet;cat < pouet
+echo lol | cat -e ;echo lol > /tmp/test_sequence_file && cat /tmp/test_sequence_file;cat < /tmp/test_sequence_file
