@@ -45,9 +45,7 @@ static char			*match_fn(t_tokenizer *t, char *input)
 	t_openclose_matcher		*matcher;
 	char					*match;
 
-	matcher = openclose_matcher_new(OC_MATCHER_JUMP_SINGLE_QUOTE
-		| OC_MATCHER_FLAG_SKIP_QUOTED
-		| OC_MATCHER_MATCH_PARENT_IN_ARITH_EXPAN);
+	matcher = openclose_matcher_new();
 	openclose_matcher_add(matcher, "$((", "))");
 	openclose_matcher_add(matcher, "$(", ")");
 	openclose_matcher_add(matcher, "${", "}");
