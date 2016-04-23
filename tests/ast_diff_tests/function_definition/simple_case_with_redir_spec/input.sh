@@ -1,4 +1,4 @@
 coucou () {
     echo "hello world!"
-} > file
+} > /tmp/function_test_file
 coucou

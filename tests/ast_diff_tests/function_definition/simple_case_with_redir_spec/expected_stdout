@@ -12,7 +12,7 @@ compound_list
                                             ast_pipe_item
                                                 ast_command
                                                     ast_simple_command (echo "hello world!")
-                            ast_redir (> file)
+                            ast_redir (> /tmp/function_test_file)
     ast_list_item (sep=\n)
         ast_andor_item (negate=false, sep=none)
             ast_pipe_item
