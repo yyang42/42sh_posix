@@ -13,31 +13,27 @@
 #include "ast/nodes/ast_redir.h"
 #include "ast/nodes/ast_simple_command.h"
 
-static int	redir_fn_2(t_lst	*redir_fds,
-	t_ast_redir *redir, t_ast_redir_fd *redir_fd)
+static int			redir_fn_2(t_lst *redir_fds, t_ast_redir *redir, t_ast_redir_fd *redir_fd)
 {
 	if (twl_strequ(">&", redir->operator))
 	{
-		if (ast_redir_fd_duplication_output(redir, redir_fd) == -1)
-		{
-			free(redir_fd);
-			return (1);
-		}
+		if (ast_redir_fd_duplication(redir, redir_fd, STDOUT_FILENO) == -1)
+			return (-1);
 	}
 	else if (twl_strequ("<&", redir->operator))
 	{
 		if (ast_redir_fd_duplication_input(redir, redir_fd) == -1)
-		{
-			free(redir_fd);
-			return (1);
-		}
+			return (-1);
 	}
 	else if (twl_strequ("<>", redir->operator))
+	{
 		ast_redir_fd_redir_input_output(redir, redir_fd);
+		return (0);
+	}
 	else if (twl_strequ("&>", redir->operator))
 	{
 		ast_redir_fd_redir_agreg(redir, redir_fds, redir_fd);
-		return (1) ;
+		return (0) ;
 	}
 	return (0);
 }
@@ -65,12 +61,16 @@ static void	iter_redir_fn(void *redir_, void *redir_fds)
 	}
 	else
 	{
-		if (redir_fn_2(redir_fds, redir, redir_fd) == 1)
-			return ;
+		if (redir_fn_2(redir_fds, redir, redir_fd) > -1)
+			twl_lst_push_front(redir_fds, redir_fd);
+		return ;
 	}
-	if (redir_fd->fd_file != -1)
+	if (redir_fd->fd_file == -1)
+		shenv_singleton()->last_exit_code = EXIT_FAILURE;
+	else
 		ast_redir_fd_utils_dup_fds(redir_fd->fd_file, redir_fd->fd_origin);
 	twl_lst_push_front(redir_fds, redir_fd);
+
 }
 
 void				ast_redir_fd_mgr_init(t_lst *redir_fds, t_lst *redir_items)

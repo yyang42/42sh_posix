@@ -12,17 +12,22 @@
 
 #include "ast/nodes/ast_redir_fd.h"
 
-void				ast_redir_fd_redir_agreg(t_ast_redir *redir, t_lst *redir_fds, t_ast_redir_fd *redir_fd)
+int					ast_redir_fd_duplication(t_ast_redir *redir,
+									t_ast_redir_fd *redir_fd, int default_fd)
 {
-	t_ast_redir_fd *redir_fd2;
+	int				duplicated_fd;
 
-	ast_redir_fd_init_save_origin(redir_fd, redir, STDOUT_FILENO);
-	redir_fd2 = ast_redir_fd_new();
-	ast_redir_fd_init_save_origin(redir_fd2, redir, STDERR_FILENO);
-	redir_fd->fd_file = create_file(redir->param);
-	redir_fd2->fd_file = create_file(redir->param);
-	ast_redir_fd_utils_dup_fds(redir_fd->fd_file, redir_fd->fd_origin);
-	ast_redir_fd_utils_dup_fds(redir_fd2->fd_file, redir_fd2->fd_origin);
-	// twl_lst_push_front(redir_fds, redir_fd);
-	twl_lst_push_front(redir_fds, redir_fd2);
+	duplicated_fd = -1;
+	if (twl_strequ("-", redir->param->text))
+		close_file(redir->io_number);
+	else
+	{
+		duplicated_fd = ast_redir_fd_utils_get_duplication_fd(redir->param);
+		if (duplicated_fd > -1)
+		{
+			ast_redir_fd_init_save_origin(redir_fd, redir, default_fd);
+			ast_redir_fd_utils_dup_fds(duplicated_fd, redir_fd->fd_origin);
+		}
+	}
+	return (duplicated_fd);
 }

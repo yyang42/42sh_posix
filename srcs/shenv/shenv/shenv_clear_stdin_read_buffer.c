@@ -10,24 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_redir_fd.h"
+#include "shenv/shenv.h"
+#include "twl_printf.h"
 
-int					ast_redir_fd_duplication_output(t_ast_redir *redir,
-												t_ast_redir_fd *redir_fd)
+void				shenv_clear_stdin_read_buffer(t_shenv *env)
 {
-	int				duplicated_fd;
-
-	duplicated_fd = -1;
-	if (twl_strequ("-", redir->param->text))
-		close_file(redir->io_number);
-	else
+	if (env->shenv_read_buffer_ptr
+		&& env->shenv_read_buffer_ptr[STDIN_FILENO])
 	{
-		duplicated_fd = ast_redir_fd_utils_get_duplication_fd(redir->param);
-		if (duplicated_fd > -1)
-		{
-			ast_redir_fd_init_save_origin(redir_fd, redir, STDOUT_FILENO);
-			ast_redir_fd_utils_dup_fds(duplicated_fd, redir_fd->fd_origin);
-		}
+		*(env->shenv_read_buffer_ptr[STDIN_FILENO]) = '\0';
 	}
-	return (duplicated_fd);
 }
