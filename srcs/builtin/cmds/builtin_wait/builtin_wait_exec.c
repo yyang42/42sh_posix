@@ -19,6 +19,7 @@ static void         sigint_handler(int sig)
 {
     LOGGER_INFO("SIGINT handler: %d", sig);
     longjmp(jump_buf, 1);
+    (void)sig;
 }
 
 void                builtin_wait_exec(t_lst *tokens, t_shenv *shenv)
