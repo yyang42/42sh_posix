@@ -13,15 +13,28 @@
 #include "ast/nodes/ast_redir_fd.h"
 #include "shenv/shenv.h"
 
-void				ast_redir_fd_redir_input(t_ast_redir_fd *redir_fd, t_ast_redir *redir)
+void				ast_redir_fd_handle_duplication(t_ast_redir_fd *redir_fd, t_ast_redir *redir, int default_fd)
 {
-	ast_redir_fd_init_save_origin(redir_fd, redir, STDIN_FILENO);
-	if (twl_strequ("<", redir->operator))
-		redir_fd->fd_file = read_file(redir->param);
-	else if (twl_strequ("<>", redir->operator))
-		redir_fd->fd_file = read_write_file(redir->param);
-	else if (ast_redir_utils_is_heredoc(redir->operator))
-		redir_fd->fd_file = ast_redir_fd_write_heredoc_to_tmp_file(redir);
-	if (redir_fd->fd_origin == STDIN_FILENO)
-		shenv_clear_stdin_read_buffer(shenv_singleton());
+	int				duplicated_fd;
+
+	if (twl_strequ("-", redir->param->text))
+	{
+		if (close_file(redir->io_number) == -1)
+			shenv_singleton()->last_exit_code = EXIT_FAILURE;
+	}
+	else
+	{
+		duplicated_fd = ast_redir_fd_utils_get_duplication_fd(redir->param);
+		if (duplicated_fd == -1)
+		{
+			shenv_singleton()->last_exit_code = EXIT_FAILURE;
+		}
+		else
+		{
+			ast_redir_fd_init_save_origin(redir_fd, redir, default_fd);
+			ast_redir_fd_utils_dup_fds(duplicated_fd, redir_fd->fd_origin);
+			if (default_fd == STDIN_FILENO)
+				shenv_set_read_buffer_ptr(shenv_singleton(), duplicated_fd);
+		}
+	}
 }

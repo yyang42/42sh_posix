@@ -13,28 +13,15 @@
 #include "ast/nodes/ast_redir_fd.h"
 #include "shenv/shenv.h"
 
-void				ast_redir_fd_duplication(t_ast_redir_fd *redir_fd, t_ast_redir *redir, int default_fd)
+void				ast_redir_fd_handle_output(t_ast_redir_fd *redir_fd, t_ast_redir *redir)
 {
-	int				duplicated_fd;
-
-	if (twl_strequ("-", redir->param->text))
-	{
-		if (close_file(redir->io_number) == -1)
-			shenv_singleton()->last_exit_code = EXIT_FAILURE;
-	}
+	ast_redir_fd_init_save_origin(redir_fd, redir, STDOUT_FILENO);
+	if (twl_strequ(">", redir->operator))
+		redir_fd->fd_file = file_create_handle_noclobber(redir->param);
+	else if (twl_strequ(">|", redir->operator))
+		redir_fd->fd_file = create_file(redir->param);
+	else if (twl_strequ(">>", redir->operator))
+		redir_fd->fd_file = append_to_file(redir->param);
 	else
-	{
-		duplicated_fd = ast_redir_fd_utils_get_duplication_fd(redir->param);
-		if (duplicated_fd == -1)
-		{
-			shenv_singleton()->last_exit_code = EXIT_FAILURE;
-		}
-		else
-		{
-			ast_redir_fd_init_save_origin(redir_fd, redir, default_fd);
-			ast_redir_fd_utils_dup_fds(duplicated_fd, redir_fd->fd_origin);
-			if (default_fd == STDIN_FILENO)
-				shenv_set_read_buffer_ptr(shenv_singleton(), duplicated_fd);
-		}
-	}
+		LOGGER_ERROR("Operator not found");
 }

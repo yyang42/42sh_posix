@@ -13,18 +13,7 @@
 #include "ast/nodes/ast_redir.h"
 #include "ast/nodes/ast_simple_command.h"
 
-static void			redir_fn_2(t_lst *redir_fds, t_ast_redir *redir, t_ast_redir_fd *redir_fd)
-{
-	if (twl_strequ(">&", redir->operator))
-		ast_redir_fd_duplication(redir_fd, redir, STDOUT_FILENO);
-	else if (twl_strequ("<&", redir->operator))
-		ast_redir_fd_duplication(redir_fd, redir, STDIN_FILENO);
-	else if (twl_strequ("&>", redir->operator))
-		ast_redir_fd_redir_agreg(redir_fd, redir, redir_fds);
-	twl_lst_push_front(redir_fds, redir_fd);
-}
-
-static void			create_redir_fd_do(t_ast_redir *redir, t_lst *redir_fds)
+static t_ast_redir_fd		*create_redir_fd(t_ast_redir *redir, t_lst *redir_fds)
 {
 	t_ast_redir_fd			*redir_fd;
 
@@ -32,31 +21,38 @@ static void			create_redir_fd_do(t_ast_redir *redir, t_lst *redir_fds)
 	if (twl_strequ("<", redir->operator)
 		|| twl_strequ("<>", redir->operator)
 		|| ast_redir_utils_is_heredoc(redir->operator))
-		ast_redir_fd_redir_input(redir_fd, redir);
+		ast_redir_fd_handle_input(redir_fd, redir);
 	else if (twl_strequ(">", redir->operator)
 		|| twl_strequ(">|", redir->operator)
 		|| twl_strequ(">>", redir->operator))
-		ast_redir_fd_redir_output(redir_fd, redir);
+		ast_redir_fd_handle_output(redir_fd, redir);
+	else if (twl_strequ("&>", redir->operator))
+		ast_redir_fd_handle_agregation(redir_fd, redir, redir_fds);
+	else if (twl_strequ(">&", redir->operator))
+		ast_redir_fd_handle_duplication(redir_fd, redir, STDOUT_FILENO);
+	else if (twl_strequ("<&", redir->operator))
+		ast_redir_fd_handle_duplication(redir_fd, redir, STDIN_FILENO);
 	else
-	{
-		redir_fn_2(redir_fds, redir, redir_fd);
+		LOGGER_ERROR("Operator not found %s", redir->operator);
+	return (redir_fd);
+
+}
+
+static void					iter_redir_fn(void *redir, void *redir_fds)
+{
+	t_ast_redir_fd			*redir_fd;
+
+	if (shenv_singleton()->last_exit_code != 0)
 		return ;
-	}
-	if (redir_fd->fd_file == -1)
+	redir_fd = create_redir_fd(redir, redir_fds);
+	if (redir_fd->fd_file == REDIR_FD_FILE_FD_ERROR)
 		shenv_singleton()->last_exit_code = EXIT_FAILURE;
-	else
+	else if (redir_fd->fd_file >= 0)
 		ast_redir_fd_utils_dup_fds(redir_fd->fd_file, redir_fd->fd_origin);
 	twl_lst_push_front(redir_fds, redir_fd);
 }
 
-static void			create_redir_fd_fn(void *redir, void *redir_fds)
+void						ast_redir_fd_mgr_init(t_lst *redir_fds, t_lst *redir_items)
 {
-	if (shenv_singleton()->last_exit_code > 0)
-		return ;
-	create_redir_fd_do(redir, redir_fds);
-}
-
-void				ast_redir_fd_mgr_init(t_lst *redir_fds, t_lst *redir_items)
-{
-	twl_lst_iter(redir_items, create_redir_fd_fn, redir_fds);
+	twl_lst_iter(redir_items, iter_redir_fn, redir_fds);
 }

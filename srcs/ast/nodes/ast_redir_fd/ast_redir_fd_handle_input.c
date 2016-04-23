@@ -11,18 +11,19 @@
 /* ************************************************************************** */
 
 #include "ast/nodes/ast_redir_fd.h"
+#include "shenv/shenv.h"
 
-void				ast_redir_fd_redir_agreg(t_ast_redir_fd *redir_fd, t_ast_redir *redir, t_lst *redir_fds)
+void				ast_redir_fd_handle_input(t_ast_redir_fd *redir_fd, t_ast_redir *redir)
 {
-	t_ast_redir_fd *redir_fd2;
-
-	ast_redir_fd_init_save_origin(redir_fd, redir, STDOUT_FILENO);
-	redir_fd->fd_file = create_file(redir->param);
-	ast_redir_fd_utils_dup_fds(redir_fd->fd_file, redir_fd->fd_origin);
-
-	redir_fd2 = ast_redir_fd_new();
-	ast_redir_fd_init_save_origin(redir_fd2, redir, STDERR_FILENO);
-	redir_fd2->fd_file = -1;
-	ast_redir_fd_utils_dup_fds(redir_fd->fd_file, redir_fd2->fd_origin);
-	twl_lst_push_front(redir_fds, redir_fd2);
+	ast_redir_fd_init_save_origin(redir_fd, redir, STDIN_FILENO);
+	if (twl_strequ("<", redir->operator))
+		redir_fd->fd_file = read_file(redir->param);
+	else if (twl_strequ("<>", redir->operator))
+		redir_fd->fd_file = read_write_file(redir->param);
+	else if (ast_redir_utils_is_heredoc(redir->operator))
+		redir_fd->fd_file = ast_redir_fd_utils_heredoc_to_fd(redir);
+	else
+		LOGGER_ERROR("Operator not found");
+	if (redir_fd->fd_origin == STDIN_FILENO)
+		shenv_clear_stdin_read_buffer(shenv_singleton());
 }

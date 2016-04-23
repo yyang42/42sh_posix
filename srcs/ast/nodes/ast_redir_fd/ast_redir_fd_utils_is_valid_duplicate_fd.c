@@ -14,7 +14,7 @@
 #include "ast/nodes/ast_assignment.h"
 #include "ast/nodes/ast_simple_command.h"
 
-bool		ast_redir_fd_utils_is_valid_duplicate_fd(int fd)
+bool				ast_redir_fd_utils_is_valid_duplicate_fd(int fd)
 {
 	if (fd > getdtablesize())
 	{

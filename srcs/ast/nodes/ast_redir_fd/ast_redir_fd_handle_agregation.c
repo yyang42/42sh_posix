@@ -11,21 +11,21 @@
 /* ************************************************************************** */
 
 #include "ast/nodes/ast_redir_fd.h"
-#include "shenv/shenv.h"
 
-void				ast_redir_fd_redir_output(t_ast_redir_fd *redir_fd, t_ast_redir *redir)
+static void			handle_redir_stderr(int file_fd, t_ast_redir *redir, t_lst *redir_fds)
+{
+	t_ast_redir_fd *redir_fd;
+
+	redir_fd = ast_redir_fd_new();
+	ast_redir_fd_init_save_origin(redir_fd, redir, STDERR_FILENO);
+	ast_redir_fd_utils_dup_fds(file_fd, redir_fd->fd_origin);
+	twl_lst_push_front(redir_fds, redir_fd);
+}
+
+void				ast_redir_fd_handle_agregation(t_ast_redir_fd *redir_fd, t_ast_redir *redir, t_lst *redir_fds)
 {
 	ast_redir_fd_init_save_origin(redir_fd, redir, STDOUT_FILENO);
-	if (twl_strequ(">", redir->operator))
-	{
-		redir_fd->fd_file = file_create_handle_noclobber(redir->param);
-	}
-	else if (twl_strequ(">|", redir->operator))
-	{
-		redir_fd->fd_file = create_file(redir->param);
-	}
-	else if (twl_strequ(">>", redir->operator))
-	{
-		redir_fd->fd_file = append_to_file(redir->param);
-	}
+	redir_fd->fd_file = create_file(redir->param);
+	ast_redir_fd_utils_dup_fds(redir_fd->fd_file, redir_fd->fd_origin);
+	handle_redir_stderr(redir_fd->fd_file, redir, redir_fds);
 }
