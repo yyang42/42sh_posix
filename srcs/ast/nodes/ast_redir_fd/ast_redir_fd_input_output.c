@@ -14,9 +14,6 @@
 
 void	ast_redir_fd_redir_input_output(t_ast_redir *redir, t_ast_redir_fd *redir_fd)
 {
-	redir_fd->fd_save = dup(redir->io_number == -1
-		? STDIN_FILENO : redir->io_number);
-	redir_fd->fd_origin = redir->io_number == -1
-		? STDIN_FILENO : redir->io_number;
+	ast_redir_fd_init_save_origin(redir_fd, redir, STDOUT_FILENO);
 	redir_fd->fd_file = read_write_file(redir->param);
 }

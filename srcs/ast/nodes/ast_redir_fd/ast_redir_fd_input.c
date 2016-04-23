@@ -15,13 +15,7 @@
 
 void				ast_redir_fd_redir_input(t_ast_redir *redir, t_ast_redir_fd *redir_fd)
 {
-	int				fd;
-
-	fd = redir->io_number == -1 ? STDIN_FILENO : redir->io_number;
-	redir_fd->fd_save = dup(fd);
-	if (redir_fd->fd_save == -1)
-		LOGGER_ERROR("dup(%d): %s", fd, strerror(errno));
-	redir_fd->fd_origin = fd;
+	ast_redir_fd_init_save_origin(redir_fd, redir, STDIN_FILENO);
 	if (twl_strequ("<", redir->operator))
 		redir_fd->fd_file = read_file(redir->param);
 	else if (ast_redir_utils_is_heredoc(redir->operator))
@@ -32,6 +26,6 @@ void				ast_redir_fd_redir_input(t_ast_redir *redir, t_ast_redir_fd *redir_fd)
 		shenv_singleton()->last_exit_code = EXIT_FAILURE;
 		return ;
 	}
-	if (fd == STDIN_FILENO && *shenv_singleton()->shenv_read_buffer_ptr)
+	if (redir_fd->fd_origin == STDIN_FILENO && *shenv_singleton()->shenv_read_buffer_ptr)
 		(*shenv_singleton()->shenv_read_buffer_ptr)[0] = 0;
 }

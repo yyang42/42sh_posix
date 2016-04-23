@@ -25,10 +25,7 @@ int					ast_redir_fd_duplication_output(t_ast_redir *redir,
 		duplicated_fd = ast_redir_fd_utils_get_duplication_fd(redir->param);
 		if (duplicated_fd > -1)
 		{
-			redir_fd->fd_origin = redir->io_number == -1 ? STDOUT_FILENO : redir->io_number;
-			redir_fd->fd_save = dup(redir_fd->fd_origin);
-			if (redir_fd->fd_save == -1)
-				LOGGER_ERROR("dup(STDOUT_FILENO): %d", STDOUT_FILENO);
+			ast_redir_fd_init_save_origin(redir_fd, redir, STDOUT_FILENO);
 			ast_redir_fd_utils_dup_fds(duplicated_fd, redir_fd->fd_origin);
 		}
 	}

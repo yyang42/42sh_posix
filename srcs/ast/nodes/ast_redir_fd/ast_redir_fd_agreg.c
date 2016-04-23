@@ -12,20 +12,13 @@
 
 #include "ast/nodes/ast_redir_fd.h"
 
-void				ast_redir_fd_redir_agreg(t_ast_redir *redir, t_lst *redir_fds,
-	t_ast_redir_fd *redir_fd)
+void				ast_redir_fd_redir_agreg(t_ast_redir *redir, t_lst *redir_fds, t_ast_redir_fd *redir_fd)
 {
 	t_ast_redir_fd *redir_fd2;
 
+	ast_redir_fd_init_save_origin(redir_fd, redir, STDOUT_FILENO);
 	redir_fd2 = ast_redir_fd_new();
-	redir_fd->fd_save = dup(STDOUT_FILENO);
-	if (redir_fd->fd_save == -1)
-		LOGGER_ERROR("dup(STDOUT_FILENO): %d", STDOUT_FILENO);
-	redir_fd->fd_origin = STDOUT_FILENO;
-	redir_fd2->fd_save = dup(STDERR_FILENO);
-	if (redir_fd2->fd_save == -1)
-		LOGGER_ERROR("dup(STDOUT_FILENO): %d", STDOUT_FILENO);
-	redir_fd2->fd_origin = STDERR_FILENO;
+	ast_redir_fd_init_save_origin(redir_fd2, redir, STDERR_FILENO);
 	redir_fd->fd_file = create_file(redir->param);
 	redir_fd2->fd_file = create_file(redir->param);
 	ast_redir_fd_utils_dup_fds(redir_fd->fd_file, redir_fd->fd_origin);
