@@ -30,14 +30,13 @@ static void			create_redir_fd_do(t_ast_redir *redir, t_lst *redir_fds)
 
 	redir_fd = ast_redir_fd_new();
 	if (twl_strequ("<", redir->operator)
+		|| twl_strequ("<>", redir->operator)
 		|| ast_redir_utils_is_heredoc(redir->operator))
 		ast_redir_fd_redir_input(redir, redir_fd);
 	else if (twl_strequ(">", redir->operator)
 		|| twl_strequ(">|", redir->operator)
 		|| twl_strequ(">>", redir->operator))
 		ast_redir_fd_redir_output(redir, redir_fd);
-	else if (twl_strequ("<>", redir->operator))
-		ast_redir_fd_redir_input_output(redir, redir_fd);
 	else
 	{
 		redir_fn_2(redir_fds, redir, redir_fd);
