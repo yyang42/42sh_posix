@@ -31,20 +31,22 @@ static void			exec_job_str_id(char *job_str_id, t_token *cmd_token)
 
 void				builtin_fg_exec(t_lst *tokens, t_shenv *shenv)
 {
-	t_token			*first_token;
+	t_token			*first_arg_token;
 	char			*job_str_id;
-	t_lst			*tokens_copy;
 
-	tokens_copy = twl_lst_copy(tokens, NULL);
-	twl_lst_pop_front(tokens_copy);
-	if (twl_lst_len(tokens_copy) == 0)
+	if (twl_lst_len(tokens) == 1)
 	{
+		if (twl_lst_len(shenv_singleton()->jobs) == 0)
+		{
+			shenv_singl_error(1, "fg: current: no such job");
+			return ;
+		}
 		job_str_id = "+";
 	}
 	else
 	{
-		first_token = token_mgr_first(tokens_copy);
-		job_str_id = first_token->text;
+		first_arg_token = token_mgr_get(tokens, 1);
+		job_str_id = first_arg_token->text;
 		if (*job_str_id == '-' && twl_strlen(job_str_id) > 1)
 		{
 			builtin_fg_invalid_opt_print_usage(job_str_id + 1, token_mgr_first(tokens));
@@ -55,6 +57,5 @@ void				builtin_fg_exec(t_lst *tokens, t_shenv *shenv)
 			job_str_id++;
 	}
 	exec_job_str_id(job_str_id, token_mgr_first(tokens));
-	twl_lst_del(tokens_copy, NULL);
 	(void)shenv;
 }

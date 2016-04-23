@@ -30,5 +30,4 @@ void                builtin_fg_put_job_in_fg(t_job *job, t_token *cmd_token)
         return ;
     }
     job_put_in_fg(job);
-    // job_mgr_add(shenv_singleton()->jobs, job);
 }
