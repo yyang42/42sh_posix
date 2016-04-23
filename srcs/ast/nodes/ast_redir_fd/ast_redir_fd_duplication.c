@@ -13,8 +13,7 @@
 #include "ast/nodes/ast_redir_fd.h"
 #include "shenv/shenv.h"
 
-void				ast_redir_fd_duplication(t_ast_redir *redir,
-									t_ast_redir_fd *redir_fd, int default_fd)
+void				ast_redir_fd_duplication(t_ast_redir_fd *redir_fd, t_ast_redir *redir, int default_fd)
 {
 	int				duplicated_fd;
 

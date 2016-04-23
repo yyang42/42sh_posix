@@ -16,11 +16,11 @@
 static void			redir_fn_2(t_lst *redir_fds, t_ast_redir *redir, t_ast_redir_fd *redir_fd)
 {
 	if (twl_strequ(">&", redir->operator))
-		ast_redir_fd_duplication(redir, redir_fd, STDOUT_FILENO);
+		ast_redir_fd_duplication(redir_fd, redir, STDOUT_FILENO);
 	else if (twl_strequ("<&", redir->operator))
-		ast_redir_fd_duplication(redir, redir_fd, STDIN_FILENO);
+		ast_redir_fd_duplication(redir_fd, redir, STDIN_FILENO);
 	else if (twl_strequ("&>", redir->operator))
-		ast_redir_fd_redir_agreg(redir, redir_fds, redir_fd);
+		ast_redir_fd_redir_agreg(redir_fd, redir, redir_fds);
 	twl_lst_push_front(redir_fds, redir_fd);
 }
 
@@ -32,11 +32,11 @@ static void			create_redir_fd_do(t_ast_redir *redir, t_lst *redir_fds)
 	if (twl_strequ("<", redir->operator)
 		|| twl_strequ("<>", redir->operator)
 		|| ast_redir_utils_is_heredoc(redir->operator))
-		ast_redir_fd_redir_input(redir, redir_fd);
+		ast_redir_fd_redir_input(redir_fd, redir);
 	else if (twl_strequ(">", redir->operator)
 		|| twl_strequ(">|", redir->operator)
 		|| twl_strequ(">>", redir->operator))
-		ast_redir_fd_redir_output(redir, redir_fd);
+		ast_redir_fd_redir_output(redir_fd, redir);
 	else
 	{
 		redir_fn_2(redir_fds, redir, redir_fd);
