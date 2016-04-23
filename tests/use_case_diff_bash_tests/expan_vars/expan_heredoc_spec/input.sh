@@ -1,4 +1,5 @@
 export myvar=123
+set foo bar baz
 cat << EOF
 $myvar
 'aaa'
@@ -17,5 +18,6 @@ $?
 `echo aaa $(echo bbb $( echo ccc $(echo ddd | wc) ) ) `
 $(pwd)
 $(echo acb | cat | cat -e | cat | cat -e | cat | cat -e | cat | cat -e | cat | cat -e | cat | cat -e | cat | cat -e | wc)
+echo "${1}$2${3}"
 EOF
 # 'aa$myvar'
