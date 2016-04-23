@@ -16,24 +16,24 @@
 
 int		append_to_file(t_token *token)
 {
+	LOGGER_INFO("append_to_file: %s", token->text);
 	return (file_open_and_hand_error(token, O_CREAT | O_RDWR | O_APPEND, 0666));
 }
 
 int 	read_file(t_token *token)
 {
+	LOGGER_INFO("read_file: %s", token->text);
 	return (file_open_and_hand_error(token, O_RDONLY, 0666));
 }
 
 int		create_file(t_token *token)
 {
-	int fd;
-
-	fd = file_open_and_hand_error(token, O_CREAT | O_RDWR | O_TRUNC, 0666);
-	LOGGER_INFO("Create file: %d", fd);
-	return (fd);
+	LOGGER_INFO("create_file: %s", token->text);
+	return (file_open_and_hand_error(token, O_CREAT | O_RDWR | O_TRUNC, 0666));
 }
 
 int		read_write_file(t_token *token)
 {
+	LOGGER_INFO("read_write_file: %s", token->text);
 	return (file_open_and_hand_error(token, O_CREAT | O_RDWR, 0666));
 }

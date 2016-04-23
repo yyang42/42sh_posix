@@ -19,6 +19,8 @@ void				ast_redir_fd_redir_input(t_ast_redir *redir, t_ast_redir_fd *redir_fd)
 
 	fd = redir->io_number == -1 ? STDIN_FILENO : redir->io_number;
 	redir_fd->fd_save = dup(fd);
+	if (redir_fd->fd_save == -1)
+		LOGGER_ERROR("dup(%d): %s", fd, strerror(errno));
 	redir_fd->fd_origin = fd;
 	if (twl_strequ("<", redir->operator))
 		redir_fd->fd_file = read_file(redir->param);
@@ -26,6 +28,7 @@ void				ast_redir_fd_redir_input(t_ast_redir *redir, t_ast_redir_fd *redir_fd)
 		redir_fd->fd_file = ast_redir_fd_write_heredoc_to_tmp_file(redir);
 	if (redir_fd->fd_file == -1)
 	{
+		LOGGER_INFO("redir_fd->fd_file failure");
 		shenv_singleton()->last_exit_code = EXIT_FAILURE;
 		return ;
 	}

@@ -12,20 +12,44 @@
 
 #include "ast/nodes/ast_redir_fd.h"
 
-int	ast_redir_fd_write_heredoc_to_tmp_file(t_ast_redir *redir)
+static char			*build_tmp_file_name(int io_number)
 {
-	int fd;
+	char			*file_path;
+
+	twl_asprintf(&file_path, "/tmp/.42sh_heredoc_tmp_%d", io_number);
+	return (file_path);
+}
+
+int					ast_redir_fd_write_heredoc_to_tmp_file(t_ast_redir *redir)
+{
+	char			*tmp_file;
+	int				fd;
 	t_token			*token;
 
 	if (!redir->heredoc_text)
 		return (-1);
-	token = token_new("/tmp/.tmpfilefor42shposix", redir->param->line, redir->param->col);
+	tmp_file = build_tmp_file_name(redir->io_number);
+	if (tmp_file == NULL)
+	{
+		LOGGER_ERROR("error creating file for io_number %d", redir->io_number);
+		return (-1);
+	}
+	LOGGER_INFO("create tmp heredoc file for io_number %d", redir->io_number);
+	token = token_new(tmp_file, redir->param->line, redir->param->col);
 	fd = create_file(token);
 	if (fd == -1)
+	{
+		LOGGER_ERROR("fail to create file %s", tmp_file);
+		token_del(token);
 		return (-1);
+	}
 	write(fd, redir->heredoc_text, twl_strlen(redir->heredoc_text));
-	close(fd);
+	if (close(fd) == -1)
+	{
+		LOGGER_ERROR("fail to close fd %d", fd);
+	}
 	fd = read_file(token);
 	token_del(token);
+	free(tmp_file);
 	return (fd);
 }

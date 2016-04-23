@@ -17,6 +17,7 @@ char				*prog_run_file_to_str(t_prog *prog, char *file)
 	char			*input;
 
 	shenv_set_name(shenv_singleton(), file);
+	LOGGER_INFO("read file: %s", file);
 	input = twl_file_to_str(file);
 	if (!input)
 	{

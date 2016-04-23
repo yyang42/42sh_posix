@@ -18,10 +18,12 @@ int					file_open_and_hand_error(t_token *token, int flags, int mod)
 	int fd;
 
 	fd = open(token->text, flags, mod);
+	LOGGER_INFO("open: fd (%d) for file (%s)", fd, token->text);
 	if (fd == -1)
 	{
 		shenv_singl_error(EXIT_FAILURE,
 			"%s: %s", token->text,  strerror(errno));
+		return (-1);
 	}
 	return (fd);
 }
