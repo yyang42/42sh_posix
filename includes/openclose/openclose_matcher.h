@@ -17,18 +17,13 @@
 
 # include "openclose/openclose.h"
 
-# define OC_MATCHER_FLAG_SKIP_QUOTED (1 << 0)
-# define OC_MATCHER_JUMP_SINGLE_QUOTE (1 << 1)
-# define OC_MATCHER_MATCH_PARENT_IN_ARITH_EXPAN (1 << 2)
-
 typedef struct		s_openclose_matcher
 {
 	t_lst			*oc_pairs;
 	char			*err_msg;
-	int				flags;
 }					t_openclose_matcher;
 
-t_openclose_matcher	*openclose_matcher_new(int flags);
+t_openclose_matcher	*openclose_matcher_new(void);
 void				openclose_matcher_del(t_openclose_matcher *this);
 
 void				openclose_matcher_add(t_openclose_matcher *matcher,

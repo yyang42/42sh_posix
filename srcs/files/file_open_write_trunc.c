@@ -11,29 +11,9 @@
 /* ************************************************************************** */
 
 #include "file.h"
-#include "shenv/shenv.h"
-#include "logger.h"
 
-int		append_to_file(t_token *token)
+int					file_open_write_trunc(t_token *token)
 {
-	return (file_open_and_hand_error(token, O_CREAT | O_RDWR | O_APPEND, 0666));
-}
-
-int 	read_file(t_token *token)
-{
-	return (file_open_and_hand_error(token, O_RDONLY, 0666));
-}
-
-int		create_file(t_token *token)
-{
-	int fd;
-
-	fd = file_open_and_hand_error(token, O_CREAT | O_RDWR | O_TRUNC, 0666);
-	LOGGER_INFO("Create file: %d", fd);
-	return (fd);
-}
-
-int		read_write_file(t_token *token)
-{
-	return (file_open_and_hand_error(token, O_CREAT | O_RDWR, 0666));
+	LOGGER_INFO("file_open_write_trunc: %s", token->text);
+	return (file_open_and_hand_error(token, O_CREAT | O_WRONLY | O_TRUNC, FILE_DEFAULT_PERM));
 }

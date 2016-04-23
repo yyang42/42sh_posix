@@ -7,7 +7,7 @@
 	{ \
 		t_openclose_matcher		*matcher; \
 		char					*match; \
-		matcher = openclose_matcher_new(0); \
+		matcher = openclose_matcher_new(); \
 		openclose_matcher_add(matcher, "$(", ")"); \
 		openclose_matcher_add(matcher, "${", "}"); \
 		openclose_matcher_add(matcher, "'", "'"); \

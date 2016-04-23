@@ -11,28 +11,21 @@
 /* ************************************************************************** */
 
 #include "ast/nodes/ast_redir_fd.h"
-#include "shenv/shenv.h"
 
-int					ast_redir_fd_duplication_input(t_ast_redir *redir,
-													t_ast_redir_fd *redir_fd)
+static void			handle_redir_stderr(int file_fd, t_ast_redir *redir, t_lst *redir_fds)
 {
-	int duplicated_fd;
+	t_ast_redir_fd *redir_fd;
 
-	duplicated_fd = -1;
-	if (twl_strequ("-", redir->param->text))
-		close_file(redir->io_number);
-	else
-	{
-		duplicated_fd = ast_redir_fd_utils_get_duplication_fd(redir->param);
-		if (duplicated_fd > -1)
-		{
-			redir_fd->fd_save = dup(redir->io_number == -1
-				? STDIN_FILENO : redir->io_number);
-			redir_fd->fd_origin = redir->io_number == -1
-				? STDIN_FILENO : redir->io_number;
-			ast_redir_fd_utils_dup_fds(duplicated_fd, redir_fd->fd_origin);
-			shenv_set_read_buffer_ptr(shenv_singleton(), duplicated_fd);
-		}
-	}
-	return (duplicated_fd);
+	redir_fd = ast_redir_fd_new();
+	ast_redir_fd_init_save_origin(redir_fd, redir, STDERR_FILENO);
+	ast_redir_fd_utils_dup_fds(file_fd, redir_fd->fd_origin);
+	twl_lst_push_front(redir_fds, redir_fd);
+}
+
+void				ast_redir_fd_handle_agregation(t_ast_redir_fd *redir_fd, t_ast_redir *redir, t_lst *redir_fds)
+{
+	ast_redir_fd_init_save_origin(redir_fd, redir, STDOUT_FILENO);
+	redir_fd->fd_file = file_open_write_trunc(redir->param);
+	ast_redir_fd_utils_dup_fds(redir_fd->fd_file, redir_fd->fd_origin);
+	handle_redir_stderr(redir_fd->fd_file, redir, redir_fds);
 }

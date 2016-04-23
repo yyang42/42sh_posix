@@ -10,27 +10,31 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_simple_command.h"
-#include <sys/wait.h>
+#include "ast/nodes/ast_redir_fd.h"
+#include "shenv/shenv.h"
 
-void				ast_simple_command_execve_parent_wait(pid_t pid)
+void				ast_redir_fd_handle_duplication(t_ast_redir_fd *redir_fd, t_ast_redir *redir, int default_fd)
 {
-	int				res;
-	pid_t			waitpid_ret;
+	int				duplicated_fd;
 
- 	waitpid_ret = waitpid(pid, &res, 0);
- 	if (waitpid_ret == -1)
- 	{
- 		perror("waitpid");
-		LOGGER_ERROR("waitpid error: pid: %d", pid);
- 	}
- 	else if (waitpid_ret == pid)
- 	{
-        handle_signal(res);
-        if (WIFEXITED(res))
-        {
-			shenv_singleton()->last_exit_code = WEXITSTATUS(res);
-			LOGGER_INFO("exit status: %d", shenv_singleton()->last_exit_code);
-    	}
- 	}
+	if (twl_strequ("-", redir->param->text))
+	{
+		if (file_close(redir->io_number) == -1)
+			shenv_singleton()->last_exit_code = EXIT_FAILURE;
+	}
+	else
+	{
+		duplicated_fd = ast_redir_fd_utils_get_duplication_fd(redir->param);
+		if (duplicated_fd == -1)
+		{
+			shenv_singleton()->last_exit_code = EXIT_FAILURE;
+		}
+		else
+		{
+			ast_redir_fd_init_save_origin(redir_fd, redir, default_fd);
+			ast_redir_fd_utils_dup_fds(duplicated_fd, redir_fd->fd_origin);
+			if (default_fd == STDIN_FILENO)
+				shenv_set_read_buffer_ptr(shenv_singleton(), duplicated_fd);
+		}
+	}
 }

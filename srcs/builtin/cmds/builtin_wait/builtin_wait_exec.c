@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "builtin/cmds/builtin_wait.h"
-#include <stdio.h>
 #include <setjmp.h>
 
 static jmp_buf jump_buf;

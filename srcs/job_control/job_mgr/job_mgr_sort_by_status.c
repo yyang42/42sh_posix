@@ -10,27 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_redir_fd.h"
+#include "job_control/job_mgr.h"
 
-int					ast_redir_fd_duplication_output(t_ast_redir *redir,
-												t_ast_redir_fd *redir_fd)
+static bool			sort_by_id_fn(void *job1_, void *job2_, void *context)
 {
-	int duplicated_fd;
+	t_job	*job1;
+	t_job	*job2;
 
-	duplicated_fd = -1;
-	if (twl_strequ("-", redir->param->text))
-		close_file(redir->io_number);
-	else
-	{
-		duplicated_fd = ast_redir_fd_utils_get_duplication_fd(redir->param);
-		if (duplicated_fd > -1)
-		{
-			redir_fd->fd_save = dup(redir->io_number == -1
-				? STDOUT_FILENO : redir->io_number);
-			redir_fd->fd_origin = redir->io_number == -1
-				? STDOUT_FILENO : redir->io_number;
-			ast_redir_fd_utils_dup_fds(duplicated_fd, redir_fd->fd_origin);
-		}
-	}
-	return (duplicated_fd);
+	job1 = job1_;
+	job2 = job2_;
+	return (job1->status < job2->status);
+	(void)context;
+}
+
+void				job_mgr_sort_by_status(t_lst *jobs)
+{
+	twl_lst_sort(jobs, sort_by_id_fn, NULL);
 }

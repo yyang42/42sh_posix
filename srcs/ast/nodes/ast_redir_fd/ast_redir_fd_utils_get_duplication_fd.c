@@ -14,7 +14,7 @@
 #include "ast/nodes/ast_assignment.h"
 #include "ast/nodes/ast_simple_command.h"
 
-int			ast_redir_fd_utils_get_duplication_fd(t_token *token)
+int					ast_redir_fd_utils_get_duplication_fd(t_token *token)
 {
 	int fd;
 

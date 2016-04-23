@@ -14,13 +14,12 @@
 
 #include "openclose/openclose_matcher.h"
 
-t_openclose_matcher			*openclose_matcher_new(int flags)
+t_openclose_matcher			*openclose_matcher_new()
 {
 	t_openclose_matcher		*this;
 
 	this = twl_malloc_x0(sizeof(t_openclose_matcher));
 	this->oc_pairs = twl_lst_new();
-	this->flags = flags;
 	this->err_msg = NULL;
 	return (this);
 }

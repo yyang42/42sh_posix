@@ -177,7 +177,7 @@ char				*edit_match_valide_cmd(char *cmd)
 
 	cpy = cmd;
 	res = NULL;
-	matcher = openclose_matcher_new(0);
+	matcher = openclose_matcher_new();
 	create_openclose_condition(matcher);
 	match_heredoc(cmd, matcher);
 	while (true)

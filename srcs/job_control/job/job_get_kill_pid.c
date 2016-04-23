@@ -16,8 +16,5 @@
 
 pid_t				job_get_kill_pid(t_job *job)
 {
-	if (job->is_group_id)
-		return (-job->pid);
-	else
-		return (job->pid);
+	return (-job->pid);
 }

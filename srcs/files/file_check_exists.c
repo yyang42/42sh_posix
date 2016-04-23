@@ -10,13 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_redir_fd.h"
+#include "file.h"
 
-void	ast_redir_fd_redir_input_output(t_ast_redir *redir, t_ast_redir_fd *redir_fd)
+int 				file_exists(char *file)
 {
-	redir_fd->fd_save = dup(redir->io_number == -1
-		? STDIN_FILENO : redir->io_number);
-	redir_fd->fd_origin = redir->io_number == -1
-		? STDIN_FILENO : redir->io_number;
-	redir_fd->fd_file = read_write_file(redir->param);
+	struct stat sb;
+
+	if (!file)
+		return (false);
+	return (stat(file, &sb) == 0);
 }

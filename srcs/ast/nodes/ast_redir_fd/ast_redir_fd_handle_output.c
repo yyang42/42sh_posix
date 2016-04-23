@@ -11,21 +11,17 @@
 /* ************************************************************************** */
 
 #include "ast/nodes/ast_redir_fd.h"
+#include "shenv/shenv.h"
 
-int	ast_redir_fd_write_heredoc_to_tmp_file(t_ast_redir *redir)
+void				ast_redir_fd_handle_output(t_ast_redir_fd *redir_fd, t_ast_redir *redir)
 {
-	int fd;
-	t_token			*token;
-
-	if (!redir->heredoc_text)
-		return (-1);
-	token = token_new("/tmp/.tmpfilefor42shposix", redir->param->line, redir->param->col);
-	fd = create_file(token);
-	if (fd == -1)
-		return (-1);
-	write(fd, redir->heredoc_text, twl_strlen(redir->heredoc_text));
-	close(fd);
-	fd = read_file(token);
-	token_del(token);
-	return (fd);
+	ast_redir_fd_init_save_origin(redir_fd, redir, STDOUT_FILENO);
+	if (twl_strequ(">", redir->operator))
+		redir_fd->fd_file = file_create_handle_noclobber(redir->param);
+	else if (twl_strequ(">|", redir->operator))
+		redir_fd->fd_file = file_open_write_trunc(redir->param);
+	else if (twl_strequ(">>", redir->operator))
+		redir_fd->fd_file = file_open_append(redir->param);
+	else
+		LOGGER_ERROR("Operator not found");
 }

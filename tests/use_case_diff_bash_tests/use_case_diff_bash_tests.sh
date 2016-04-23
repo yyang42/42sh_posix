@@ -74,7 +74,7 @@ diff_test ()
     echo "./42sh tests/use_case_diff_bash_tests/$testsuite/$testcase/input.sh"
 }
 
-/usr/bin/printf $C_CYAN"====== START AST DIFF TESTS ======"$C_CLEAR
+/usr/bin/printf $C_CYAN"====== START AST DIFF TESTS ======"$C_CLEAR"\n"
 
 for CASE_PATH in $TESTS_ROOT_PATH/${PATTERN:-*}; do
     if [ -d "${CASE_PATH}" ]; then
@@ -86,6 +86,6 @@ for CASE_PATH in $TESTS_ROOT_PATH/${PATTERN:-*}; do
     fi
 done
 
-/usr/bin/printf $C_CYAN"======  END TESTS  ======"$C_CLEAR
+/usr/bin/printf $C_CYAN"======  END TESTS  ======"$C_CLEAR"\n"
 
 exit $exit_status

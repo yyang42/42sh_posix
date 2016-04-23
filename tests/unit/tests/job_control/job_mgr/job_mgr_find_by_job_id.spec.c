@@ -10,11 +10,11 @@ static void test_num1(t_test *test)
     t_job       *job84;
     t_lst       *jobs = shenv_singleton()->jobs;
     twl_lst_clear(jobs, job_del_void);
-    job21 = job_new(1, "job 21", twl_lst_new());
+    job21 = job_new(1, twl_lst_new());
     job21->job_id = 21;
-    job42 = job_new(2, "job 42", twl_lst_new());
+    job42 = job_new(2, twl_lst_new());
     job42->job_id = 42;
-    job84 = job_new(3, "job 84", twl_lst_new());
+    job84 = job_new(3, twl_lst_new());
     job84->job_id = 84;
     twl_lst_push_back(jobs, job21);
     twl_lst_push_back(jobs, job42);

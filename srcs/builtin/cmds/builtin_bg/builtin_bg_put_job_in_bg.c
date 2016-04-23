@@ -15,14 +15,12 @@
 
 static void         put_in_bg(t_job *job)
 {
-    pid_t           pid;
     int             errno_saved;
 
-    pid = - job->pid;
     if (job->job_status == JOB_STOPPED)
     {
-        LOGGER_INFO("bg: continue pid=%d", pid);
-        if (kill (pid, SIGCONT) < 0)
+        LOGGER_INFO("bg: continue pid=%d", job_get_kill_pid(job));
+        if (kill (job_get_kill_pid(job), SIGCONT) < 0)
         {
             errno_saved = errno;
             shenv_print_error_printf(shenv_singleton(), shenv_get_cur_line(),

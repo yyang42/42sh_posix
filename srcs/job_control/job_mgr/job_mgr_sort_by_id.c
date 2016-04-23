@@ -10,23 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_list_item.h"
 #include "job_control/job_mgr.h"
-#include "job_control/job.h"
-#include "logger.h"
-#include <signal.h>
 
-t_job				*ast_list_item_exec_async_parent_create_job(t_lst *tokens, pid_t pid)
+static bool			sort_by_id_fn(void *job1_, void *job2_, void *context)
 {
-	char			*cmd_str;
-	t_job			*job;
+	t_job	*job1;
+	t_job	*job2;
 
-	cmd_str = token_mgr_strjoin(tokens, " ");
-	LOGGER_INFO("async exec: %s", cmd_str);
-	job = job_new(pid, cmd_str, tokens);
-	job_mgr_env_push(job);
-	if (shenv_singleton()->is_interactive_shell)
-		twl_dprintf(2, "[%d] %d\n", job->job_id, job->pid);
-	free(cmd_str);
-	return (job);
+	job1 = job1_;
+	job2 = job2_;
+	return (job1->job_id < job2->job_id);
+	(void)context;
+}
+
+void				job_mgr_sort_by_id(t_lst *jobs)
+{
+	twl_lst_sort(jobs, sort_by_id_fn, NULL);
 }

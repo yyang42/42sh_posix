@@ -18,9 +18,10 @@ static void	iter_redir_fds_fn(void *redir_fd_)
 	t_ast_redir_fd			*redir_fd;
 
 	redir_fd = redir_fd_;
-	if (redir_fd->fd_file != -1)
-		close_file(redir_fd->fd_file);
-	ast_redir_fd_utils_dup_fds(redir_fd->fd_save, redir_fd->fd_origin);
+	if (redir_fd->fd_file >= 0)
+		file_close(redir_fd->fd_file);
+	if (redir_fd->fd_saved_std_fd != -1)
+		ast_redir_fd_utils_dup_fds(redir_fd->fd_saved_std_fd, redir_fd->fd_origin);
 }
 
 void				ast_redir_fd_mgr_close_clear(t_lst *redir_fds)

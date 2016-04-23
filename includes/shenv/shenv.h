@@ -128,6 +128,7 @@ void				shenv_build_binary_db(t_shenv *env);
 void				shenv_set_binary_saved_path(t_shenv *env, char *path);
 char				*shenv_get_ifs(t_shenv *this);
 int					shenv_set_read_buffer_ptr(t_shenv *env, int fd);
+void				shenv_clear_stdin_read_buffer(t_shenv *env);
 
 /*
 ** exit

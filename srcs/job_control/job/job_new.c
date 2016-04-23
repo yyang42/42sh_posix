@@ -11,19 +11,18 @@
 /* ************************************************************************** */
 
 #include "job_control/job.h"
+#include "token/token_mgr.h"
 
-t_job				*job_new(pid_t pid, char *cmd_str, t_lst *tokens)
+t_job				*job_new(pid_t pid, t_lst *tokens)
 {
 	t_job					*this;
-	static long long int	job_id = 1;
 
 	this = twl_malloc_x0(sizeof(t_job));
-	this->job_id = job_id;
+	this->job_id = 0;
 	this->pid = pid;
-	this->cmd_str = twl_strdup(cmd_str);
+	this->cmd_str = token_mgr_strjoin(tokens, " ");
 	this->tokens = twl_lst_copy(tokens, NULL);
 	this->stopped_signal = 0;
 	this->job_status = JOB_RUNNING;
-	job_id++;
 	return (this);
 }

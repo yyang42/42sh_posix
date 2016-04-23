@@ -14,5 +14,16 @@
 
 void				job_mgr_env_push(t_job *job)
 {
-	twl_lst_push_back(shenv_singleton()->jobs, job);
+	static long long int	job_id = 1;
+
+	if (job->job_id == 0)
+	{
+		job->job_id = job_id;
+		twl_lst_push_back(shenv_singleton()->jobs, job);
+		job_id++;
+	}
+	else
+	{
+		twl_lst_push_back(shenv_singleton()->jobs, job);
+	}
 }

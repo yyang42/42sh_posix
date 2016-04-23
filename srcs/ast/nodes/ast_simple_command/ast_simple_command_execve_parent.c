@@ -14,59 +14,21 @@
 #include "ast/nodes/ast_simple_command.h"
 #include "logger.h"
 #include "shsignal/shsignal.h"
-#include <setjmp.h>
 #include <sys/wait.h>
-
-static jmp_buf jump_buf;
-
-static void         sigtstp_handler(int sig)
-{
-    LOGGER_INFO("SIGTSTP handler: %d", sig);
-    longjmp(jump_buf, 1);
-}
-
-static void         sig_int_quit_handler(int sig)
-{
-    LOGGER_INFO("SIGINT handler: pid: %d", sig, shenv_singleton()->jc_foreground_job_pid);
-    if (shenv_singleton()->jc_foreground_job_pid)
-        kill(-shenv_singleton()->jc_foreground_job_pid, sig);
-}
-
-static void         ast_simple_command_execve_parent_wait_catch_sigs(t_ast_simple_command *cmd, pid_t pid)
-{
-    sig_t           saved_sig_handler;
-    sig_t           saved_sigint_handler;
-    sig_t           saved_sigquit_handler;
-    t_job           *job;
-
-    saved_sig_handler = signal(SIGTSTP, sigtstp_handler);
-    saved_sigint_handler = signal(SIGINT, sig_int_quit_handler);
-    saved_sigquit_handler = signal(SIGQUIT, sig_int_quit_handler);
-    shenv_singleton()->jc_foreground_job_pid = pid;
-    LOGGER_INFO("set SIGTSTP handler");
-    if (setjmp(jump_buf) == 0)
-    {
-        ast_simple_command_execve_parent_wait(pid);
-    }
-    else
-    {
-        job = ast_list_item_exec_async_parent_create_job(cmd->all_tokens, pid);
-        job->is_group_id = false;
-    }
-    shenv_singleton()->jc_foreground_job_pid = 0;
-    signal(SIGTSTP, saved_sig_handler);
-    signal(SIGINT, saved_sigint_handler);
-    signal(SIGQUIT, saved_sigquit_handler);
-}
+#include "shsignal/shsignal_mgr.h"
+#include "data.h"
 
 void				ast_simple_command_execve_parent(t_ast_simple_command *cmd, pid_t pid)
 {
+    t_job           *job;
+
     if (shenv_singleton()->shenv_is_inside_job_control)
     {
-        ast_simple_command_execve_parent_wait(pid);
+        job_utils_waitpid(pid);
     }
     else
     {
-        ast_simple_command_execve_parent_wait_catch_sigs(cmd, pid);
+        job = job_new(pid, cmd->all_tokens);
+        job_put_in_fg(job);
     }
 }

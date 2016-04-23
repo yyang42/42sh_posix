@@ -11,13 +11,18 @@
 /* ************************************************************************** */
 
 #include "file.h"
+#include "shenv/shenv.h"
 
-void				close_file(int fd)
+int					file_close(int fd)
 {
+	int				ret;
+
 	LOGGER_INFO("Close file: %d", fd);
-	if (close(fd) == -1)
+	ret = close(fd);
+	if (ret == -1)
 	{
+		shenv_singl_error(1, "close: %s", strerror(errno));
 		LOGGER_ERROR("Fail to close file: %d", fd);
-		perror("close");
 	}
+	return (ret);
 }

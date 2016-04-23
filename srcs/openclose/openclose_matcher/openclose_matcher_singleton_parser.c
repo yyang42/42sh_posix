@@ -25,7 +25,7 @@ t_openclose_matcher	*openclose_matcher_singleton_parser(void)
 
 	if (matcher == NULL)
 	{
-		matcher = openclose_matcher_new(0);
+		matcher = openclose_matcher_new();
 		twl_lst_iter(data_compound_commands(), push_fn, matcher);
 	}
 	return (matcher);

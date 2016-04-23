@@ -10,7 +10,7 @@ cat << EOF > /tmp/builtin_read_file_11
 EOF
 
 exec 21</tmp/builtin_read_file_aa
-exec 4242</tmp/builtin_read_file_11
+exec 42</tmp/builtin_read_file_11
 
 foo ()
 {
@@ -18,8 +18,8 @@ foo ()
 	echo "$aa-$bb"
 }
 foo 21
-foo 4242
+foo 42
 foo 21
 foo 21
-foo 4242
-foo 4242
+foo 42
+foo 42

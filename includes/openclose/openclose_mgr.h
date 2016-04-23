@@ -24,5 +24,6 @@ void				openclose_mgr_remove(t_lst *opencloses,
 														t_openclose *openclose);
 void				openclose_mgr_print(t_lst *opencloses);
 t_openclose			*openclose_mgr_first(t_lst *opencloses);
+t_openclose			*openclose_mgr_last(t_lst *opencloses);
 
 #endif

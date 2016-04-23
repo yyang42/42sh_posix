@@ -10,25 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_redir_fd.h"
-#include "shenv/shenv.h"
+#include "file.h"
 
-void				ast_redir_fd_redir_input(t_ast_redir *redir, t_ast_redir_fd *redir_fd)
+int					file_isexecutable(char *file)
 {
-	int				fd;
+	struct stat sb;
 
-	fd = redir->io_number == -1 ? STDIN_FILENO : redir->io_number;
-	redir_fd->fd_save = dup(fd);
-	redir_fd->fd_origin = fd;
-	if (twl_strequ("<", redir->operator))
-		redir_fd->fd_file = read_file(redir->param);
-	else if (ast_redir_utils_is_heredoc(redir->operator))
-		redir_fd->fd_file = ast_redir_fd_write_heredoc_to_tmp_file(redir);
-	if (redir_fd->fd_file == -1)
-	{
-		shenv_singleton()->last_exit_code = EXIT_FAILURE;
-		return ;
-	}
-	if (fd == STDIN_FILENO && *shenv_singleton()->shenv_read_buffer_ptr)
-		(*shenv_singleton()->shenv_read_buffer_ptr)[0] = 0;
+	if (!file)
+		return (false);
+	return (stat(file, &sb) == 0 && sb.st_mode & S_IXUSR);
 }

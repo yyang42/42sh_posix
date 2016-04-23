@@ -24,7 +24,7 @@ int					file_create_handle_noclobber(t_token *param_token)
 	}
 	else
 	{
-		fd = create_file(param_token);
+		fd = file_open_write_trunc(param_token);
 	}
 	return (fd);
 }
