@@ -11,23 +11,31 @@
 /* ************************************************************************** */
 
 #include "ast/nodes/ast_redir_fd.h"
+#include "shenv/shenv.h"
 
-int					ast_redir_fd_duplication(t_ast_redir *redir,
+void				ast_redir_fd_duplication(t_ast_redir *redir,
 									t_ast_redir_fd *redir_fd, int default_fd)
 {
 	int				duplicated_fd;
 
-	duplicated_fd = -1;
 	if (twl_strequ("-", redir->param->text))
-		close_file(redir->io_number);
+	{
+		if (close_file(redir->io_number) == -1)
+			shenv_singleton()->last_exit_code = EXIT_FAILURE;
+	}
 	else
 	{
 		duplicated_fd = ast_redir_fd_utils_get_duplication_fd(redir->param);
-		if (duplicated_fd > -1)
+		if (duplicated_fd == -1)
+		{
+			shenv_singleton()->last_exit_code = EXIT_FAILURE;
+		}
+		else
 		{
 			ast_redir_fd_init_save_origin(redir_fd, redir, default_fd);
 			ast_redir_fd_utils_dup_fds(duplicated_fd, redir_fd->fd_origin);
+			if (default_fd == STDIN_FILENO)
+				shenv_set_read_buffer_ptr(shenv_singleton(), duplicated_fd);
 		}
 	}
-	return (duplicated_fd);
 }

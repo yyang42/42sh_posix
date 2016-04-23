@@ -23,6 +23,5 @@ void				ast_redir_fd_redir_agreg(t_ast_redir *redir, t_lst *redir_fds, t_ast_red
 	redir_fd2->fd_file = create_file(redir->param);
 	ast_redir_fd_utils_dup_fds(redir_fd->fd_file, redir_fd->fd_origin);
 	ast_redir_fd_utils_dup_fds(redir_fd2->fd_file, redir_fd2->fd_origin);
-	// twl_lst_push_front(redir_fds, redir_fd);
 	twl_lst_push_front(redir_fds, redir_fd2);
 }

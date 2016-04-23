@@ -28,7 +28,7 @@ int			append_to_file(t_token *token);
 int 		read_file(t_token *token);
 int			create_file(t_token *token);
 int			file_create_handle_noclobber(t_token *param_token);
-void		close_file(int fd);
+int			close_file(int fd);
 int			read_write_file(t_token *token);
 int			file_open_and_hand_error(t_token *token, int flags, int mod);
 

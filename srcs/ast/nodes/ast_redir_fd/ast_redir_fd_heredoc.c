@@ -36,10 +36,11 @@ int					ast_redir_fd_write_heredoc_to_tmp_file(t_ast_redir *redir)
 	}
 	LOGGER_INFO("create tmp heredoc file for io_number %d", redir->io_number);
 	token = token_new(tmp_file, redir->param->line, redir->param->col);
+	free(tmp_file);
 	fd = create_file(token);
 	if (fd == -1)
 	{
-		LOGGER_ERROR("fail to create file %s", tmp_file);
+		LOGGER_ERROR("fail to create file %s", token->text);
 		token_del(token);
 		return (-1);
 	}
@@ -50,6 +51,5 @@ int					ast_redir_fd_write_heredoc_to_tmp_file(t_ast_redir *redir)
 	}
 	fd = read_file(token);
 	token_del(token);
-	free(tmp_file);
 	return (fd);
 }
