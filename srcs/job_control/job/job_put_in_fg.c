@@ -30,6 +30,7 @@ static void         sigtstp_handler(int sig)
 {
     LOGGER_INFO("SIGTSTP handler: %d", sig);
     longjmp(jump_buf, 1);
+    (void)sig;
 }
 
 static void         sig_int_quit_handler(int sig)
