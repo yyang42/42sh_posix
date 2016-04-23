@@ -5,9 +5,9 @@ foo () {
 	done
 }
 (
-	foo 5
-	foo 6
-)  5<< EOF 6<< EOF2 # | cat -e > /tmp/test_redir_heredoc_result
+	foo 21
+	foo 42
+)  21<< EOF 42<< EOF2 | cat -e > /tmp/test_redir_heredoc_result
 A1 A2
 B1 B2
 EOF
@@ -15,4 +15,4 @@ EOF
 21 22
 EOF2
 
-# cat -e /tmp/test_redir_heredoc_result
+cat -e /tmp/test_redir_heredoc_result

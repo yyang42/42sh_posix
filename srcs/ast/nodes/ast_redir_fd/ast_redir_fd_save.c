@@ -12,25 +12,7 @@
 
 #include "ast/nodes/ast_redir_fd.h"
 
-int					ast_redir_fd_duplication_output(t_ast_redir *redir,
-												t_ast_redir_fd *redir_fd)
+void				ast_redir_fd_save(t_ast_redir_fd *ast_redir_fd)
 {
-	int				duplicated_fd;
-
-	duplicated_fd = -1;
-	if (twl_strequ("-", redir->param->text))
-		close_file(redir->io_number);
-	else
-	{
-		duplicated_fd = ast_redir_fd_utils_get_duplication_fd(redir->param);
-		if (duplicated_fd > -1)
-		{
-			redir_fd->fd_origin = redir->io_number == -1 ? STDOUT_FILENO : redir->io_number;
-			redir_fd->fd_save = dup(redir_fd->fd_origin);
-			if (redir_fd->fd_save == -1)
-				LOGGER_ERROR("dup(STDOUT_FILENO): %d", STDOUT_FILENO);
-			ast_redir_fd_utils_dup_fds(duplicated_fd, redir_fd->fd_origin);
-		}
-	}
-	return (duplicated_fd);
+	free(ast_redir_fd);
 }

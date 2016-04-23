@@ -14,8 +14,10 @@ exec 42</tmp/builtin_read_file_11
 
 foo ()
 {
-	read aa bb <&$1
-	echo "$aa-$bb"
+	while read aa bb <&$1
+	do
+		echo "$aa-$bb"
+	done
 }
 foo 21
 foo 42

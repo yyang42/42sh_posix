@@ -49,7 +49,6 @@ static void			handle_sigcont(t_job *job)
     if (job->job_status == JOB_STOPPED)
     {
 
-        // tcsetattr (env->jc_terminal, TCSADRAIN, &job->tmodes);
         if (kill(job_get_kill_pid(job), SIGCONT) < 0)
         {
             LOGGER_ERROR("kill (SIGCONT): pid: %d", job_get_kill_pid(job));
