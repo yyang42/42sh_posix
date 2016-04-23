@@ -19,9 +19,9 @@ void				ast_redir_fd_handle_output(t_ast_redir_fd *redir_fd, t_ast_redir *redir)
 	if (twl_strequ(">", redir->operator))
 		redir_fd->fd_file = file_create_handle_noclobber(redir->param);
 	else if (twl_strequ(">|", redir->operator))
-		redir_fd->fd_file = create_file(redir->param);
+		redir_fd->fd_file = file_open_write_trunc(redir->param);
 	else if (twl_strequ(">>", redir->operator))
-		redir_fd->fd_file = append_to_file(redir->param);
+		redir_fd->fd_file = file_open_append(redir->param);
 	else
 		LOGGER_ERROR("Operator not found");
 }

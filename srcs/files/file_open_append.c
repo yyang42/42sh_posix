@@ -12,29 +12,8 @@
 
 #include "file.h"
 
-int file_exists (char *file)
+int					file_open_append(t_token *token)
 {
-	struct stat sb;
-
-	if (!file)
-		return (false);
-	return (stat(file, &sb) == 0);
-}
-
-int file_isdir (char *file)
-{
-	struct stat sb;
-
-	if (!file)
-		return (false);
-	return ((stat (file, &sb) == 0) && S_ISDIR(sb.st_mode));
-}
-
-int	file_isexecutable(char *file)
-{
-	struct stat sb;
-
-	if (!file)
-		return (false);
-	return (stat(file, &sb) == 0 && sb.st_mode & S_IXUSR);
+	LOGGER_INFO("file_open_append: %s", token->text);
+	return (file_open_and_hand_error(token, O_CREAT | O_WRONLY | O_APPEND, FILE_DEFAULT_PERM));
 }

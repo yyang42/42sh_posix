@@ -25,7 +25,7 @@ static void			handle_redir_stderr(int file_fd, t_ast_redir *redir, t_lst *redir_
 void				ast_redir_fd_handle_agregation(t_ast_redir_fd *redir_fd, t_ast_redir *redir, t_lst *redir_fds)
 {
 	ast_redir_fd_init_save_origin(redir_fd, redir, STDOUT_FILENO);
-	redir_fd->fd_file = create_file(redir->param);
+	redir_fd->fd_file = file_open_write_trunc(redir->param);
 	ast_redir_fd_utils_dup_fds(redir_fd->fd_file, redir_fd->fd_origin);
 	handle_redir_stderr(redir_fd->fd_file, redir, redir_fds);
 }

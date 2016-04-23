@@ -13,7 +13,7 @@
 #include "file.h"
 #include "shenv/shenv.h"
 
-int					close_file(int fd)
+int					file_close(int fd)
 {
 	int				ret;
 

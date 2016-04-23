@@ -11,20 +11,12 @@
 /* ************************************************************************** */
 
 #include "file.h"
-#include "shenv/shenv.h"
 
-int					file_create_handle_noclobber(t_token *param_token)
+int					file_isexecutable(char *file)
 {
-	int				fd;
+	struct stat sb;
 
-	if (shenv_flag_exist(shenv_singleton(), "C") && file_exists(param_token->text))
-	{
-		shenv_singl_error(EXIT_FAILURE, "%s: cannot overwrite existing file", param_token->text);
-		fd = -1;
-	}
-	else
-	{
-		fd = file_open_write_trunc(param_token);
-	}
-	return (fd);
+	if (!file)
+		return (false);
+	return (stat(file, &sb) == 0 && sb.st_mode & S_IXUSR);
 }

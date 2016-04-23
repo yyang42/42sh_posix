@@ -11,20 +11,9 @@
 /* ************************************************************************** */
 
 #include "file.h"
-#include "shenv/shenv.h"
 
-int					file_create_handle_noclobber(t_token *param_token)
+int					file_open_read_write(t_token *token)
 {
-	int				fd;
-
-	if (shenv_flag_exist(shenv_singleton(), "C") && file_exists(param_token->text))
-	{
-		shenv_singl_error(EXIT_FAILURE, "%s: cannot overwrite existing file", param_token->text);
-		fd = -1;
-	}
-	else
-	{
-		fd = file_open_write_trunc(param_token);
-	}
-	return (fd);
+	LOGGER_INFO("file_open_read_write: %s", token->text);
+	return (file_open_and_hand_error(token, O_CREAT | O_RDWR, FILE_DEFAULT_PERM));
 }

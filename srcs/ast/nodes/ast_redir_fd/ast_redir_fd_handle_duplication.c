@@ -19,7 +19,7 @@ void				ast_redir_fd_handle_duplication(t_ast_redir_fd *redir_fd, t_ast_redir *r
 
 	if (twl_strequ("-", redir->param->text))
 	{
-		if (close_file(redir->io_number) == -1)
+		if (file_close(redir->io_number) == -1)
 			shenv_singleton()->last_exit_code = EXIT_FAILURE;
 	}
 	else
