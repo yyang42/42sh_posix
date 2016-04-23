@@ -19,37 +19,28 @@ static void			redir_fn_2(t_lst *redir_fds, t_ast_redir *redir, t_ast_redir_fd *r
 		ast_redir_fd_duplication(redir, redir_fd, STDOUT_FILENO);
 	else if (twl_strequ("<&", redir->operator))
 		ast_redir_fd_duplication(redir, redir_fd, STDIN_FILENO);
-	else if (twl_strequ("<>", redir->operator))
-		ast_redir_fd_redir_input_output(redir, redir_fd);
 	else if (twl_strequ("&>", redir->operator))
 		ast_redir_fd_redir_agreg(redir, redir_fds, redir_fd);
+	twl_lst_push_front(redir_fds, redir_fd);
 }
 
-static void	iter_redir_fn(void *redir_, void *redir_fds)
+static void			create_redir_fd_do(t_ast_redir *redir, t_lst *redir_fds)
 {
-	t_ast_redir				*redir;
 	t_ast_redir_fd			*redir_fd;
 
-	if (shenv_singleton()->last_exit_code > 0)
-		return ;
-	redir = redir_;
 	redir_fd = ast_redir_fd_new();
-	redir_fd->fd_file = -1;
 	if (twl_strequ("<", redir->operator)
 		|| ast_redir_utils_is_heredoc(redir->operator))
-	{
 		ast_redir_fd_redir_input(redir, redir_fd);
-	}
 	else if (twl_strequ(">", redir->operator)
 		|| twl_strequ(">|", redir->operator)
 		|| twl_strequ(">>", redir->operator))
-	{
 		ast_redir_fd_redir_output(redir, redir_fd);
-	}
+	else if (twl_strequ("<>", redir->operator))
+		ast_redir_fd_redir_input_output(redir, redir_fd);
 	else
 	{
 		redir_fn_2(redir_fds, redir, redir_fd);
-		twl_lst_push_front(redir_fds, redir_fd);
 		return ;
 	}
 	if (redir_fd->fd_file == -1)
@@ -57,10 +48,16 @@ static void	iter_redir_fn(void *redir_, void *redir_fds)
 	else
 		ast_redir_fd_utils_dup_fds(redir_fd->fd_file, redir_fd->fd_origin);
 	twl_lst_push_front(redir_fds, redir_fd);
+}
 
+static void			create_redir_fd_fn(void *redir, void *redir_fds)
+{
+	if (shenv_singleton()->last_exit_code > 0)
+		return ;
+	create_redir_fd_do(redir, redir_fds);
 }
 
 void				ast_redir_fd_mgr_init(t_lst *redir_fds, t_lst *redir_items)
 {
-	twl_lst_iter(redir_items, iter_redir_fn, redir_fds);
+	twl_lst_iter(redir_items, create_redir_fd_fn, redir_fds);
 }

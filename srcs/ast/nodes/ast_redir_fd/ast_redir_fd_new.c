@@ -17,5 +17,6 @@ t_ast_redir_fd			*ast_redir_fd_new(void)
 	t_ast_redir_fd		*ast_redir_fd;
 
 	ast_redir_fd = twl_malloc_x0(sizeof(t_ast_redir_fd));
+	ast_redir_fd->fd_file = -1;
 	return (ast_redir_fd);
 }
