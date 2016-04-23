@@ -18,15 +18,9 @@
 
 t_job				*ast_list_item_exec_async_parent_create_job(t_lst *tokens, pid_t pid)
 {
-	char			*cmd_str;
 	t_job			*job;
 
-	cmd_str = token_mgr_strjoin(tokens, " ");
-	LOGGER_INFO("async exec: %s", cmd_str);
-	job = job_new(pid, cmd_str, tokens);
+	job = job_new(pid, tokens);
 	job_mgr_env_push(job);
-	if (shenv_singleton()->is_interactive_shell)
-		twl_dprintf(2, "[%d] %d\n", job->job_id, job->pid);
-	free(cmd_str);
 	return (job);
 }

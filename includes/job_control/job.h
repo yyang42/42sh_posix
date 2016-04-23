@@ -36,11 +36,10 @@ typedef struct		s_job
 	char			*cmd_str;
 	int				end_pid;
 	int				stopped_signal;
-	bool			is_group_id;
   	struct termios	tmodes;      /* saved terminal modes */
 }					t_job;
 
-t_job				*job_new(pid_t pid, char *cmd_str, t_lst *tokens);
+t_job				*job_new(pid_t pid, t_lst *tokens);
 void				job_del(t_job *job);
 void				job_del_void(void *job);
 
@@ -53,8 +52,10 @@ void				job_print(t_job *this, int flags);
 
 void				job_utils_sigs_init_on_interactive(void);
 void				job_utils_sigs_dfl_on_interactive_for_chld_proc(void);
+void				job_utils_waitpid(pid_t pid);
 
 bool				job_exec_update_status(t_job *job);
 pid_t				job_get_kill_pid(t_job *job);
+void	         	job_put_in_fg(t_job *job);
 
 #endif

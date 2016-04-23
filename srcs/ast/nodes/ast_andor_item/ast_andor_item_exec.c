@@ -14,7 +14,7 @@
 
 static int			fork_error(void)
 {
-	perror("fork");
+	shenv_singl_error(1, "fork: %s", strerror(errno));
 	return (1);
 }
 

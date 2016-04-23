@@ -80,3 +80,20 @@ The AST is not finished. It currently implements (see also diff tests):
 - copy / paste
 - search in history
 -
+
+## Testing Job Control
+Test 1:
+
+- ping google.com
+- CTRL+Z
+- jobs 				# check job is in background and stopped
+- bg 				# ping should restart printing its output
+- CTRL+Z 			# should NOT stop the task in background
+
+- fg 				# now the job is in foreground
+- CTRL+Z 			# should stop the task
+- jobs 				# check the task is in background and stopped
+
+- bg 				# should run the task in bg
+- kill -TSTP %+     # stop the job
+- jobs				# check job in bg and stopped

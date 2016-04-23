@@ -19,7 +19,6 @@
 # include "basics.h"
 # include <fcntl.h>
 # include <string.h>
-# include <stdio.h>
 # include "token/token.h"
 
 int			file_exists (char *fn);

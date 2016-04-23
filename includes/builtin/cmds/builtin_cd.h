@@ -22,7 +22,6 @@
 # include <fcntl.h>
 # include <string.h>
 # include <stdlib.h>
-# include <stdio.h>
 # include "builtin/builtin.h"
 # include "argparser_extension.h"
 

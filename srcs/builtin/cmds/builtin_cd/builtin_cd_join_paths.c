@@ -19,7 +19,7 @@ char		*join_pwd_to_path(char *dirname)
 	twl_bzero(buf, MAX_SIZE);
 	if (!getcwd(buf, MAX_SIZE))
 	{
-		perror("cd");
+		shenv_singl_error(1, "cd: %s", strerror(errno));
 		return (NULL);
 	}
 	return (join_paths(buf, dirname));

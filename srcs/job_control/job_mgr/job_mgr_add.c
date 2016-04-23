@@ -14,5 +14,8 @@
 
 void				job_mgr_add(t_lst *jobs, t_job *job)
 {
+	LOGGER_INFO("async exec: %s", job->cmd_str);
+	if (shenv_singleton()->is_interactive_shell)
+		twl_dprintf(2, "[%d] %d\n", job->job_id, job->pid);
 	twl_lst_push_back(jobs, job);
 }

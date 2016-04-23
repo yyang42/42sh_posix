@@ -25,7 +25,6 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include "twl_stdio.h"
-# include <stdio.h>
 # include <string.h>
 
 int				execute(char *path, char **args, char **env);

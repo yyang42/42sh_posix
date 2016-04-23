@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_simple_command.h"
-#include <sys/wait.h>
+#include "shenv/shenv.h"
+#include "shsignal/shsignal.h"
 
-void				ast_simple_command_execve_parent_wait(pid_t pid)
+void				job_utils_waitpid(pid_t pid)
 {
 	int				res;
 	pid_t			waitpid_ret;
@@ -21,7 +21,7 @@ void				ast_simple_command_execve_parent_wait(pid_t pid)
  	waitpid_ret = waitpid(pid, &res, 0);
  	if (waitpid_ret == -1)
  	{
- 		perror("waitpid");
+ 		shenv_singl_error(1, "waitpid: %s", strerror(errno));
 		LOGGER_ERROR("waitpid error: pid: %d", pid);
  	}
  	else if (waitpid_ret == pid)
