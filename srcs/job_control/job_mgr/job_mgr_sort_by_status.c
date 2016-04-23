@@ -10,19 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "job_control/job.h"
-#include "token/token_mgr.h"
+#include "job_control/job_mgr.h"
 
-t_job				*job_new(pid_t pid, t_lst *tokens)
+static bool			sort_by_id_fn(void *job1_, void *job2_, void *context)
 {
-	t_job					*this;
+	t_job	*job1;
+	t_job	*job2;
 
-	this = twl_malloc_x0(sizeof(t_job));
-	this->job_id = 0;
-	this->pid = pid;
-	this->cmd_str = token_mgr_strjoin(tokens, " ");
-	this->tokens = twl_lst_copy(tokens, NULL);
-	this->stopped_signal = 0;
-	this->job_status = JOB_RUNNING;
-	return (this);
+	job1 = job1_;
+	job2 = job2_;
+	return (job1->status < job2->status);
+	(void)context;
+}
+
+void				job_mgr_sort_by_status(t_lst *jobs)
+{
+	twl_lst_sort(jobs, sort_by_id_fn, NULL);
 }

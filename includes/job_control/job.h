@@ -18,9 +18,9 @@
 
 typedef enum s_job_status
 {
+	JOB_STOPPED,
 	JOB_RUNNING,
 	JOB_DONE,
-	JOB_STOPPED,
 	JOB_CONTINUED,
 	JOB_TERMINATED,
 } t_job_status;
