@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <sys/wait.h>
 #include "shenv/shenv.h"
 #include "shsignal/shsignal.h"
 

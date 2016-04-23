@@ -44,6 +44,20 @@ static void         sig_int_quit_handler(int sig)
     }
 }
 
+static void			handle_sigcont(t_job *job)
+{
+    if (job->job_status == JOB_STOPPED)
+    {
+
+        // tcsetattr (env->jc_terminal, TCSADRAIN, &job->tmodes);
+        if (kill(job_get_kill_pid(job), SIGCONT) < 0)
+        {
+            LOGGER_ERROR("kill (SIGCONT): pid: %d", job_get_kill_pid(job));
+            shenv_singleton()->last_exit_code = EXIT_FAILURE;
+        }
+    }
+}
+
 void	         	job_put_in_fg(t_job *job)
 {
     sig_t           saved_sig_handler;
@@ -57,6 +71,7 @@ void	         	job_put_in_fg(t_job *job)
     LOGGER_INFO("set SIGTSTP handler");
     if (setjmp(jump_buf) == 0)
     {
+    	handle_sigcont(job);
         job_utils_waitpid(job->pid);
         job_del(job);
     }

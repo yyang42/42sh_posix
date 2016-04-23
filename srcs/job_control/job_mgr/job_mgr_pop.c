@@ -10,25 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/cmds/builtin_fg.h"
-#include "shsignal/shsignal_mgr.h"
-#include "data.h"
-#include <setjmp.h>
-#include <sys/wait.h>
+#include "job_control/job_mgr.h"
 
-void                builtin_fg_put_job_in_fg(t_job *job, t_token *cmd_token)
+t_job				*job_mgr_pop(t_lst *jobs, t_job *job)
 {
-    if (job_has_terminated(job))
-    {
-        shenv_print_error_printf(shenv_singleton(), cmd_token->line,
-            "fg: job has terminated");
-        return ;
-    }
-    if (job_mgr_pop(shenv_singleton()->jobs, job) == NULL)
-    {
-        shenv_singl_error(1, "fg: fail to pop job from jobs (pid=%d)", job->pid);
-        return ;
-    }
-    job_put_in_fg(job);
-    // job_mgr_add(shenv_singleton()->jobs, job);
+	int				index;
+
+	index = twl_lst_indexof(jobs, job);
+	if (index == -1)
+		return (NULL);
+	twl_lst_popi(jobs, index);
+	return (job);
 }

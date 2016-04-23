@@ -18,6 +18,7 @@ void				builtin_jobs_exec_print(t_lst *jobs, int flags)
 	t_job			*job;
 
 	job_mgr_update_sign(jobs);
+	job_mgr_sort_by_id(jobs);
 	jobs_copy = twl_lst_copy(jobs, NULL);
 	while ((job = twl_lst_pop_front(jobs_copy)))
 	{
