@@ -16,6 +16,6 @@
 void				ast_simple_command_execve_child(t_lst *argv_lst, char *path)
 {
 	// TODO: also apply this on other use case of shenv_execve?
-	job_utils_sigs_dfl_on_interactive_for_chld_proc();
+	// job_utils_sigs_dfl_on_interactive_for_chld_proc();
 	shenv_execve(shenv_singleton(), path, argv_lst);
 }

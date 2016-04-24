@@ -19,11 +19,14 @@ void				job_utils_waitpid(pid_t pid)
 	int				res;
 	pid_t			waitpid_ret;
 
+	LOG_INFO("waitpid(%d) start", pid);
  	waitpid_ret = waitpid(pid, &res, 0);
+	LOG_INFO("waitpid(%d) end", pid);
+	LOG_INFO("waitpid ret: %d", waitpid_ret);
  	if (waitpid_ret == -1)
  	{
  		shenv_singl_error(1, "waitpid: %s", strerror(errno));
-		LOG_ERROR("waitpid error: pid: %d", pid);
+		LOG_ERROR("waitpid error: pid: %d: %s", pid, strerror(errno));
  	}
  	else if (waitpid_ret == pid)
  	{
@@ -33,5 +36,17 @@ void				job_utils_waitpid(pid_t pid)
 			shenv_singleton()->last_exit_code = WEXITSTATUS(res);
 			LOG_INFO("exit status: %d", shenv_singleton()->last_exit_code);
     	}
+    	if (WIFCONTINUED(res))
+    	{
+    		LOG_DEBUG("WIFCONTINUED");
+    	}
+		else if (WIFEXITED(res))
+		{
+			LOG_DEBUG("WIFEXITED");
+		}
+		else if (WIFSIGNALED(res))
+		{
+			LOG_DEBUG("WIFSIGNALED");
+		}
  	}
 }

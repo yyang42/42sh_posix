@@ -15,6 +15,10 @@
 #include "twl_logger.h"
 #include "trap/trap_mgr.h"
 #include <sys/wait.h>
+#include "job_control/job.h"
+#include <setjmp.h>
+
+static jmp_buf jmp_buffer;
 
 static void			set_default_signal_if_not_ignored(void)
 {
@@ -30,11 +34,62 @@ static void			set_default_signal_if_not_ignored(void)
 		i++;
 	}
 }
+
+static void catcher(int signum, siginfo_t *info, void *vp)
+{
+    LOG_DEBUG("signum: %d, Signal %d from PID %d, code: %d, value: %d",
+    	signum, info->si_signo, (int)info->si_pid, info->si_code, info->si_value);
+    if (info->si_code == CLD_STOPPED)
+	{
+    	LOG_DEBUG("child stopped: %d", info->si_pid);
+    	longjmp(jmp_buffer, 1);
+	}
+    (void)vp;
+}
+
+static void sig_handler_init(int signum, struct sigaction *sa, struct sigaction *oldsa)
+{
+    sa->sa_flags = SA_SIGINFO | SA_RESTART;
+    sa->sa_sigaction = catcher;
+    sigemptyset(&sa->sa_mask);
+    if (sigaction(signum, sa, oldsa) != 0)
+    {
+        int errnum = errno;
+        LOG_ERROR("Failed to set signal handler (%d: %s)\n", errnum, strerror(errnum));
+        exit(1);
+    }
+}
+
+static void sig_handler_restore(int signum, struct sigaction *oldsa)
+{
+    if (sigaction(signum, oldsa, 0) != 0)
+    {
+        int errnum = errno;
+        LOG_ERROR("Failed to set signal handler (%d: %s)\n", errnum, strerror(errnum));
+        exit(1);
+    }
+}
+
+static void			job_utils_waitpid_wrapper(pid_t pid)
+{
+	if (setjmp(jmp_buffer) == 0)
+	{
+		job_utils_waitpid(pid);
+	}
+	else
+	{
+        LOG_DEBUG("SAVE JOB HERE");
+	}
+}
+
 static void			fork_and_execute(t_lst *cmd_tokens, t_lst *all_tokens_for_job_control, char *path)
 {
 	pid_t			pid;
+	struct sigaction sa;
+	struct sigaction oldsa;
 
-
+	signal(SIGTSTP, SIG_IGN);
+	sig_handler_init(SIGCHLD, &sa, &oldsa);
 	pid = shenv_utils_fork();
 	if (pid == -1)
 	{
@@ -43,14 +98,21 @@ static void			fork_and_execute(t_lst *cmd_tokens, t_lst *all_tokens_for_job_cont
 	}
 	else if (pid == 0)
 	{
-		setpgid(getpid(), getpid());
-		set_default_signal_if_not_ignored();
+		// setpgid(0, 0);
+		signal(SIGTSTP, SIG_DFL);
 		ast_simple_command_execve_child(cmd_tokens, path);
+		exit(0);
 	}
 	else
 	{
-		ast_simple_command_execve_parent(all_tokens_for_job_control, pid);
+		// setpgid(pid, pid);
+		// tcsetpgrp(STDIN_FILENO, pid);
+		job_utils_waitpid_wrapper(pid);
+		// tcsetpgrp(STDIN_FILENO, getpid());
 	}
+	(void)all_tokens_for_job_control;
+	(void)set_default_signal_if_not_ignored;
+	sig_handler_restore(SIGCHLD, &oldsa);
 }
 
 void			ast_simple_command_execve(t_lst *cmd_tokens, t_lst *all_tokens_for_job_control)
