@@ -17,6 +17,7 @@ t_shvar				*shenv_shvars_set_split_by_equal(t_shenv *shenv, char *str_token, cha
 	t_lst			*segs;
 	char			*key;
 	char			*value;
+	t_shvar			*ret;
 
 	segs = shvar_utils_split_by_equal(str_token);
 	if (segs)
@@ -30,5 +31,9 @@ t_shvar				*shenv_shvars_set_split_by_equal(t_shenv *shenv, char *str_token, cha
 		key = str_token;
 		value = NULL;
 	}
-	return (shenv_shvars_set(shenv, key, value, command_name));
+	ret = shenv_shvars_set(shenv, key, value, command_name);
+	free(key);
+	if (value)
+		free(value);
+	return (ret);
 }
