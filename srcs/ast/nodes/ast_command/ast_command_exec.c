@@ -28,6 +28,6 @@ void				ast_command_exec(t_ast_command *this)
 	}
 	else
 	{
-		LOGGER_ERROR("wrong command type");
+		LOG_ERROR("wrong command type");
 	}
 }

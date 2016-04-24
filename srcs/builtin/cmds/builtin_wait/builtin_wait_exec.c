@@ -17,7 +17,7 @@ static jmp_buf jump_buf;
 
 static void         sigint_handler(int sig)
 {
-    LOGGER_INFO("SIGINT handler: %d", sig);
+    LOG_INFO("SIGINT handler: %d", sig);
     longjmp(jump_buf, 1);
     (void)sig;
 }

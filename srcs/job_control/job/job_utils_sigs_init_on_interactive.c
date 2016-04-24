@@ -73,7 +73,7 @@ void				job_utils_sigs_init_on_interactive(void)
 {
 	if (!shenv_singleton()->is_interactive_shell)
 		return ;
-	LOGGER_INFO("ignore signals")
+	LOG_INFO("ignore signals")
 	signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGTSTP, SIG_IGN);

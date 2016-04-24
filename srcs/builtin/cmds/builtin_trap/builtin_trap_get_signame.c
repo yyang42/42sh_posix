@@ -24,7 +24,7 @@ char				*builtin_trap_get_signame(int signum)
 	signame = shsignal_mgr_get_signame(data_signals_with_exit(), signum);
 	if (!signame)
 	{
-		LOGGER_ERROR("trap: unknown signal");
+		LOG_ERROR("trap: unknown signal");
 		signame = "UNKNOWN";
 	}
 	return (signame);

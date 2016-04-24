@@ -12,13 +12,13 @@
 
 #include "builtin/cmds/builtin_exec.h"
 #include "file.h"
-#include "logger.h"
+#include "twl_logger.h"
 
 static void			open_fd(int io_number, char *path, int flags, int mode)
 {
 	int				tmp_fd;
 
-	LOGGER_INFO("exec: open fd: %d %s", io_number, path);
+	LOG_INFO("exec: open fd: %d %s", io_number, path);
 	tmp_fd = open(path, flags, mode);
 	if (tmp_fd == -1)
 	{
@@ -28,11 +28,11 @@ static void			open_fd(int io_number, char *path, int flags, int mode)
 	if (dup2(tmp_fd, io_number) == -1)
 	{
 		shenv_singl_error(EXIT_FAILURE, "%d: %s", io_number, strerror(errno));
-		LOGGER_INFO("exec: dup2(%d, %d)", tmp_fd, io_number);
+		LOG_INFO("exec: dup2(%d, %d)", tmp_fd, io_number);
 	}
 	if (close(tmp_fd) == -1)
 	{
-		LOGGER_ERROR("exec: close tmp_fd(%d): ", strerror(errno));
+		LOG_ERROR("exec: close tmp_fd(%d): ", strerror(errno));
 		shenv_singl_error(EXIT_FAILURE, "exec: %s", strerror(errno));
 	}
 }
@@ -48,7 +48,7 @@ static void			copy_fd(int target_fd, char *param)
 		return ;
 	}
 	source_fd = twl_atoi(param);
-	LOGGER_INFO("exec: copy: dup2(%d, %d)", source_fd, target_fd);
+	LOG_INFO("exec: copy: dup2(%d, %d)", source_fd, target_fd);
 	if (dup2(source_fd, target_fd) == -1)
 	{
 		shenv_singl_error(EXIT_FAILURE, "%d or %d: %s", source_fd, target_fd, strerror(errno));
@@ -59,11 +59,11 @@ void				builtin_exec_redir_exec(int io_number, char *operator, char *param)
 {
 	if (twl_strequ(operator, "<&") && twl_strequ(param, "-"))
 	{
-		LOGGER_INFO("exec: close fd: %d", io_number);
+		LOG_INFO("exec: close fd: %d", io_number);
 
 		if (close(io_number) == -1)
 		{
-			LOGGER_INFO("exec: close error: %s", strerror(errno));
+			LOG_INFO("exec: close error: %s", strerror(errno));
 		}
 	}
 	else if (twl_strequ(operator, ">"))

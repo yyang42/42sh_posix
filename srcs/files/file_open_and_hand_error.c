@@ -19,11 +19,11 @@ int					file_open_and_hand_error(t_token *token, int flags, int mod)
 
 	if (!token)
 	{
-		LOGGER_ERROR("token required");
+		LOG_ERROR("token required");
 		return (-1);
 	}
 	fd = open(token->text, flags, mod);
-	LOGGER_INFO("open: fd (%d) for file (%s)", fd, token->text);
+	LOG_INFO("open: fd (%d) for file (%s)", fd, token->text);
 	if (fd == -1)
 	{
 		shenv_singl_error(EXIT_FAILURE,

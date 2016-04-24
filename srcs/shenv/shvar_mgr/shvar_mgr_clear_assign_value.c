@@ -17,8 +17,7 @@ static void			iter_clean_assign(void *data)
 	t_shvar			*shvar;
 
 	shvar = data;
-	if (shvar->shvar_assign_value)
-		free(shvar->shvar_assign_value);
+	free(shvar->shvar_assign_value);
 	shvar->shvar_assign_value = NULL;
 }
 

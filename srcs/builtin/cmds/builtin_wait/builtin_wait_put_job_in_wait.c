@@ -22,7 +22,7 @@ static void         put_in_wait(t_job *job)
     pid = - job->pid;
     if (job->job_status == JOB_RUNNING)
     {
-        LOGGER_INFO("wait for job %d to complete", pid);
+        LOG_INFO("wait for job %d to complete", pid);
         waitpid_ret = waitpid(job->pid, &job->status, 0);
         if (waitpid_ret < 0)
         {
@@ -45,7 +45,7 @@ static void         put_in_wait(t_job *job)
     }
     else
     {
-        LOGGER_INFO("wait: pid=%d: trying to continue a non stopped job", job->pid);
+        LOG_INFO("wait: pid=%d: trying to continue a non stopped job", job->pid);
     }
 }
 

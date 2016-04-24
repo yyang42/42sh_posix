@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "trap/trap_mgr.h"
-#include "logger.h"
+#include "twl_logger.h"
 #include "shenv/shenv.h"
 #include "data.h"
 #include "shsignal/shsignal_mgr.h"
@@ -30,7 +30,7 @@ void				trap_signal_handler(int signum)
 {
 	t_trap			*trap;
 
-	LOGGER_INFO("trap_signal_handler called with: %s(%d)",
+	LOG_INFO("trap_signal_handler called with: %s(%d)",
 		shsignal_mgr_get_signame(data_signals(), signum), signum);
 	trap = trap_mgr_find_by_signum(shenv_singleton()->traps, signum);
 	if (trap)
@@ -39,6 +39,6 @@ void				trap_signal_handler(int signum)
 	}
 	else
 	{
-		LOGGER_ERROR("Trap not found for signum: %d", signum);
+		LOG_ERROR("Trap not found for signum: %d", signum);
 	}
 }

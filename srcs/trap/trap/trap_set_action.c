@@ -18,7 +18,7 @@ void				trap_set_action(t_trap *trap, char *trap_action)
 {
 	free(trap->trap_action);
 	trap->trap_action = twl_strdup(trap_action);
-	LOGGER_INFO("set signal %s(%d) to : %s",
+	LOG_INFO("set signal %s(%d) to : %s",
 		shsignal_mgr_get_signame(data_signals(), trap->trap_signum),
 		trap->trap_signum,
 		trap->trap_action);

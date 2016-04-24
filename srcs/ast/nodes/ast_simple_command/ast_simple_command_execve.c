@@ -12,7 +12,7 @@
 
 #include "ast/nodes/ast_simple_command.h"
 #include "shsignal/shsignal.h"
-#include "logger.h"
+#include "twl_logger.h"
 #include "trap/trap_mgr.h"
 #include <sys/wait.h>
 

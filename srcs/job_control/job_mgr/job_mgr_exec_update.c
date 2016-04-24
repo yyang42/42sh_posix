@@ -13,7 +13,7 @@
 #include <sys/wait.h>
 #include "job_control/job_mgr.h"
 #include "token/token_mgr.h"
-#include "logger.h"
+#include "twl_logger.h"
 
 static bool			iter_job_fn(void *job_, void *ctx)
 {
@@ -24,7 +24,7 @@ static bool			iter_job_fn(void *job_, void *ctx)
 	errno = 0;
 	job->end_pid = waitpid(job->pid, &job->status, WNOHANG | WUNTRACED);
 	errno_ret = errno;
-	LOGGER_INFO("job waitpid (pid=%d, endpid=%d, errno_ret=%d, ECHILD=%d",
+	LOG_INFO("job waitpid (pid=%d, endpid=%d, errno_ret=%d, ECHILD=%d",
 		job->pid, job->end_pid, errno_ret, ECHILD);
 	if (job->end_pid == job->pid)
 	{

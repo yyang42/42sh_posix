@@ -64,7 +64,7 @@ void				builtin_trap_exec(t_lst *tokens, t_shenv *env)
 		}
 		else
 		{
-			LOGGER_ERROR("Should run")
+			LOG_ERROR("Should run")
 		}
 	}
 }

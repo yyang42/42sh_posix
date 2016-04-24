@@ -13,7 +13,7 @@
 #include "ast/nodes/ast_list_item.h"
 #include "job_control/job_mgr.h"
 #include "job_control/job.h"
-#include "logger.h"
+#include "twl_logger.h"
 #include <signal.h>
 
 static void			ast_list_item_exec_child(t_ast_list_item *this)

@@ -14,6 +14,6 @@
 
 int					file_open_append(t_token *token)
 {
-	LOGGER_INFO("file_open_append: %s", token->text);
+	LOG_INFO("file_open_append: %s", token->text);
 	return (file_open_and_hand_error(token, O_CREAT | O_WRONLY | O_APPEND, FILE_DEFAULT_PERM));
 }

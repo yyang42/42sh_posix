@@ -45,11 +45,11 @@ void				builtin_return_exec(t_lst *tokens, t_shenv *env)
 	shenv_singleton()->shenv_return_triggered = true;
 	if (twl_lst_len(tokens) == 1)
 	{
-		LOGGER_INFO("return");
+		LOG_INFO("return");
 	}
 	else if (twl_lst_len(tokens) == 2)
 	{
-		LOGGER_INFO("return: %s", token_mgr_get(tokens, 1)->text);
+		LOG_INFO("return: %s", token_mgr_get(tokens, 1)->text);
 		builtin_return_exec_one_arg(token_mgr_get(tokens, 1)->text);
 	}
 	else

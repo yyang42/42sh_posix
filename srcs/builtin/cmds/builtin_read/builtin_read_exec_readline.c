@@ -22,7 +22,7 @@ char				*builtin_read_gnl(char **remainder_ptr)
 	ret = twl_gnl(0, &line, remainder_ptr);
 	if (ret == -1)
 	{
-		LOGGER_ERROR("read: ret: %d", ret);
+		LOG_ERROR("read: ret: %d", ret);
 		shenv_singleton()->last_exit_code = 2;
 	}
 	else if (ret == 0)

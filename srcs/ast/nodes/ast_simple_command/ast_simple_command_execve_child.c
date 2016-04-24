@@ -12,7 +12,7 @@
 
 #include "ast/nodes/ast_simple_command.h"
 #include "shsignal/shsignal.h"
-#include "logger.h"
+#include "twl_logger.h"
 #include <sys/wait.h>
 #include "job_control/job.h"
 
@@ -24,7 +24,7 @@ static int			execve_base(char *path, t_lst *argv_lst, char **envp, int *errno_pt
 	int				ret;
 
 	argv = (char **)twl_lst_to_arr(argv_lst);
-	LOGGER_INFO("execve: path: %s", path);
+	LOG_INFO("execve: path: %s", path);
 	ret = execve(path, argv, envp);
 	*errno_ptr = errno;
 	twl_arr_del(argv, NULL);
@@ -60,7 +60,7 @@ void				ast_simple_command_execve_child(t_ast_simple_command *cmd, char *path)
 	envp = (char **)shenv_get_env_arr(shenv_singleton());
 	job_utils_sigs_dfl_on_interactive_for_chld_proc();
 	cmd_str = twl_lst_strjoin(argv_lst, " ");
-	LOGGER_INFO("execve: %s (pid=%d)", cmd_str, getpid());
+	LOG_INFO("execve: %s (pid=%d)", cmd_str, getpid());
 	execve_fallback_wrapper(path, argv_lst, envp);
 	free(cmd_str);
 	twl_lst_del(argv_lst, NULL);

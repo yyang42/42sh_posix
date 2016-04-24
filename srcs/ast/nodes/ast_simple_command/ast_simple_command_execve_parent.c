@@ -12,7 +12,7 @@
 
 #include "ast/nodes/ast_list_item.h"
 #include "ast/nodes/ast_simple_command.h"
-#include "logger.h"
+#include "twl_logger.h"
 #include "shsignal/shsignal.h"
 #include <sys/wait.h>
 #include "shsignal/shsignal_mgr.h"

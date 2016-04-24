@@ -23,5 +23,5 @@ void				ast_redir_fd_handle_output(t_ast_redir_fd *redir_fd, t_ast_redir *redir)
 	else if (twl_strequ(">>", redir->operator))
 		redir_fd->fd_file = file_open_append(redir->param);
 	else
-		LOGGER_ERROR("Operator not found");
+		LOG_ERROR("Operator not found");
 }

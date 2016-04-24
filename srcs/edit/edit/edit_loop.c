@@ -13,7 +13,7 @@
 #include "twl_stdlib.h"
 #include "twl_xunistd.h"
 
-#include "logger.h"
+#include "twl_logger.h"
 #include "edit/edit.h"
 #include "edit/terminal.h"
 
@@ -36,7 +36,7 @@ char				*edit_loop(t_edit *this)
 	while (!this->return_cmd)
 	{
 		key = edit_getch_next_line(this);
-		LOGGER_INFO("KEYPRESS: %d", key);
+		LOG_INFO("KEYPRESS: %d", key);
 		cmd = edit_handle_one_input(this, key);
 		edit_print_letters(this);
 		edit_clear_line(this);
