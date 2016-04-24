@@ -53,12 +53,14 @@ static bool			cmp_func(void *s1_, void *s2_)
 	return ((twl_strcmp(s1, s2) < 0) ? true : false);
 }
 
-static t_lst		*all_fixed_return_to_string(t_pattern *pattern)
+static t_lst		*all_fixed_return_to_string(t_patmatch *this)
 {
 	t_lst			*ret;
 
 	ret = twl_lst_new();
-	twl_lst_push_back(ret, pattern_to_string(pattern));
+	twl_lst_push_back(ret, pattern_to_string(this->pattern));
+	pattern_del(this->pattern);
+	this->pattern = NULL;
 	return (ret);
 }
 
@@ -69,7 +71,7 @@ t_lst				*patmatch_match(t_patmatch *this, char *pattern)
 
 	this->pattern = pattern_new(pattern);
 	if (pattern_is_all_fixed(this->pattern))
-		return (all_fixed_return_to_string(this->pattern));
+		return (all_fixed_return_to_string(this));
 	this->match = twl_lst_new();
 	init_match(this, &match);
 	patmatch_recurs__(this, &match);
@@ -78,6 +80,7 @@ t_lst				*patmatch_match(t_patmatch *this, char *pattern)
 	if (twl_lst_len(this->match) == 0)
 		twl_lst_push_back(this->match, pattern_to_string(this->pattern));
 	pattern_del(this->pattern);
+	this->pattern = NULL;
 	ret = this->match;
 	this->match = NULL;
 	if (match.building)

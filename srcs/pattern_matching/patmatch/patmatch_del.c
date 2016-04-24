@@ -14,7 +14,7 @@
 
 void				patmatch_del(t_patmatch *this)
 {
-	this->match = NULL;
-	this->pattern = NULL;
+	if (!this)
+		return ;
 	free(this);
 }

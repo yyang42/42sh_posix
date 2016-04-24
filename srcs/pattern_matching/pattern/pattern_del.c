@@ -39,7 +39,5 @@ void				pattern_del(t_pattern *this)
 		twl_lst_del(this->harm_, &del_harmonize);
 	if (this->pattern)
 		free(this->pattern);
-	if (this->num_slash)
-		free(this->num_slash);
 	free(this);
 }
