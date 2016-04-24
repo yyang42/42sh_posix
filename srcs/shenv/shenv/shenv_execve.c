@@ -40,7 +40,7 @@ static void			execve_fallback_wrapper(char *path, t_lst *argv_lst, char **envp)
 	}
 	if (ret == -1)
 	{
-		shenv_singl_error(126, "execve: %s", strerror(errno_save));
+		shenv_singl_error(126, "execve: %s: %s", path, strerror(errno_save));
 	}
 }
 
@@ -55,5 +55,4 @@ void				shenv_execve(t_shenv *env, char *path, t_lst *argv_lst)
 	execve_fallback_wrapper(path, argv_lst, envp);
 	free(cmd_str);
 	twl_arr_del(envp, free);
-	exit(1);
 }

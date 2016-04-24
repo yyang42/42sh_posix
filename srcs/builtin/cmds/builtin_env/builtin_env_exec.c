@@ -13,13 +13,23 @@
 #include "builtin/cmds/builtin_env.h"
 #include "ast/ast.h"
 
+static void			push_token_fn(void *str, void *tokens)
+{
+	char			*tmp;
+
+	twl_asprintf(&tmp, "'%s'", str);
+	twl_lst_push_back(tokens, token_new(tmp, 1, 1));
+	free(tmp);
+}
+
 static void			exec_remainders(t_lst *remainders)
 {
-	char *str_cmd;
+	t_lst			*tokens;
 
-	str_cmd = twl_lst_strjoin(remainders, " ");
-	ast_exec_string(str_cmd);
-	free(str_cmd);
+	tokens = twl_lst_new();
+	twl_lst_iter(remainders, push_token_fn, tokens);
+	ast_exec_tokens(tokens);
+	token_mgr_del(tokens);
 }
 
 static void			exec_remaining_command(t_argparser_result *argparser_result)

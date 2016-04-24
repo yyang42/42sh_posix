@@ -38,7 +38,8 @@ static void			fork_and_execute(t_ast_simple_command *cmd, char *path)
 	pid = shenv_utils_fork();
 	if (pid == -1)
 	{
-		twl_dprintf(2, "cannot fork: %s", strerror(errno));
+		shenv_singl_error(2, "cannot fork: %s", strerror(errno));
+		LOG_ERROR("cannot fork: %s", strerror(errno));
 	}
 	else if (pid == 0)
 	{
@@ -66,10 +67,8 @@ void			ast_simple_command_execve(t_ast_simple_command *cmd, char *cmd_name)
 	}
 	else
 	{
-		shenv_print_error_printf(shenv_singleton(),
-			token_mgr_first(cmd->cmd_tokens_expanded)->line,
-			"%s: %s", token_mgr_first(cmd->cmd_tokens_expanded)->text,
+		shenv_singl_error(EXIT_COMMAND_NOT_FOUND, "%s: %s", cmd_name,
 			SHENV_ERROR_COMMAND_NOT_FOUND);
-		shenv_singleton()->last_exit_code = EXIT_COMMAND_NOT_FOUND;
+		LOG_INFO("%s: %s", cmd_name, SHENV_ERROR_COMMAND_NOT_FOUND);
 	}
 }
