@@ -39,7 +39,7 @@ static void			iter_trap_fn(void *sigstr, void *action)
 		}
 		else
 		{
-			LOGGER_INFO("Already ignored signal not added: %d", sigstr);
+			LOG_INFO("Already ignored signal not added: %d", sigstr);
 		}
 	}
 	else

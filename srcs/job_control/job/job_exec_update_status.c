@@ -31,7 +31,7 @@ bool				job_exec_update_status(t_job *job)
 	else
 		job->job_status = -1;
 	str_status = job_status_str_long(job, true);
-	LOGGER_INFO("job %d status: %s ", job->job_id, str_status);
+	LOG_INFO("job %d status: %s ", job->job_id, str_status);
 	free(str_status);
 	if (!shenv_singleton()->is_interactive_shell)
 		return (false);

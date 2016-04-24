@@ -31,22 +31,22 @@ int					ast_redir_fd_utils_heredoc_to_fd(t_ast_redir *redir)
 	tmp_file = build_tmp_file_name(redir->io_number);
 	if (tmp_file == NULL)
 	{
-		LOGGER_ERROR("error creating file for io_number %d", redir->io_number);
+		LOG_ERROR("error creating file for io_number %d", redir->io_number);
 		return (REDIR_FD_FILE_FD_ERROR);
 	}
-	LOGGER_INFO("create tmp heredoc file for io_number %d", redir->io_number);
+	LOG_INFO("create tmp heredoc file for io_number %d", redir->io_number);
 	token = token_new(tmp_file, redir->param->line, redir->param->col);
 	free(tmp_file);
 	fd = file_open_write_trunc(token);
 	if (fd == -1)
 	{
-		LOGGER_ERROR("fail to create file %s", token->text);
+		LOG_ERROR("fail to create file %s", token->text);
 		token_del(token);
 		return (REDIR_FD_FILE_FD_ERROR);
 	}
 	write(fd, redir->heredoc_text, twl_strlen(redir->heredoc_text));
 	if (close(fd) == -1)
-		LOGGER_ERROR("fail to close fd %d", fd);
+		LOG_ERROR("fail to close fd %d", fd);
 	fd = file_open_read(token);
 	token_del(token);
 	return (fd);

@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include <signal.h>
-#include "logger.h"
+#include "twl_logger.h"
 #include "data.h"
 #include "shsignal/shsignal_mgr.h"
 #include "shenv/shenv.h"

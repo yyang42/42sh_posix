@@ -21,25 +21,26 @@ static jmp_buf jump_buf;
 
 static void     intercept_logger_handler(int sig)
 {
-  LOGGER_DEBUG("INTERACTIVE: Ignore signal %s(%d)", shsignal_mgr_get_signame(data_signals(), sig), sig);
-  LOGGER_DEBUG("INTERACTIVE: pid (%d)", getpid());
+  LOG_DEBUG("INTERACTIVE: Ignore signal %s(%d)", shsignal_mgr_get_signame(data_signals(), sig), sig);
+  LOG_DEBUG("INTERACTIVE: pid (%d)", getpid());
   (void)sig;
 }
 
 static void         sigtstp_handler(int sig)
 {
-    LOGGER_INFO("SIGTSTP handler: %d", sig);
+    LOG_INFO("SIGTSTP handler: %d", sig);
     longjmp(jump_buf, 1);
+    (void)sig;
 }
 
 static void         sig_int_quit_handler(int sig)
 {
-    LOGGER_INFO("SIGINT/QUIT handler: pid: %d", sig, shenv_singleton()->jc_foreground_job_pid);
+    LOG_INFO("SIGINT/QUIT handler: pid: %d", sig, shenv_singleton()->jc_foreground_job_pid);
     if (shenv_singleton()->jc_foreground_job_pid)
     {
         if (kill(-shenv_singleton()->jc_foreground_job_pid, sig) == -1)
         {
-            LOGGER_ERROR("kill: %s", strerror(errno));
+            LOG_ERROR("kill: %s", strerror(errno));
         }
     }
 }
@@ -51,7 +52,7 @@ static void			handle_sigcont(t_job *job)
 
         if (kill(job_get_kill_pid(job), SIGCONT) < 0)
         {
-            LOGGER_ERROR("kill (SIGCONT): pid: %d", job_get_kill_pid(job));
+            LOG_ERROR("kill (SIGCONT): pid: %d", job_get_kill_pid(job));
             shenv_singleton()->last_exit_code = EXIT_FAILURE;
         }
     }
@@ -67,7 +68,7 @@ void	         	job_put_in_fg(t_job *job)
     saved_sigint_handler = signal(SIGINT, sig_int_quit_handler);
     saved_sigquit_handler = signal(SIGQUIT, sig_int_quit_handler);
     shenv_singleton()->jc_foreground_job_pid = job->pid;
-    LOGGER_INFO("set SIGTSTP handler");
+    LOG_INFO("set SIGTSTP handler");
     if (setjmp(jump_buf) == 0)
     {
     	handle_sigcont(job);
@@ -76,9 +77,9 @@ void	         	job_put_in_fg(t_job *job)
     }
     else
     {
-        LOGGER_INFO("kill(%d, SIGTSTP)", job_get_kill_pid(job));
+        LOG_INFO("kill(%d, SIGTSTP)", job_get_kill_pid(job));
         if (kill(job_get_kill_pid(job), SIGTSTP) == -1)
-            LOGGER_ERROR("kill: %s", strerror(errno));
+            LOG_ERROR("kill: %s", strerror(errno));
         job_mgr_env_push(job);
     }
     shenv_singleton()->jc_foreground_job_pid = 0;

@@ -18,7 +18,7 @@ bool				builtin_mgr_is_special_builtin(t_lst *builtins, char *name)
 
 	if (!name)
 	{
-		LOGGER_ERROR("name not set");
+		LOG_ERROR("name not set");
 		return (false);
 	}
 	builtin = builtin_mgr_find_by_name(builtins, name);

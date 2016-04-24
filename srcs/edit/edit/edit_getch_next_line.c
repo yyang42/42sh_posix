@@ -46,7 +46,7 @@ static char			*read_standard_input(void)
 
 	twl_bzero(buffer, 5000);
 	read(0, buffer, 4999);
-	LOGGER_INFO("stdin");
+	LOG_INFO("stdin");
 	return (twl_strdup(buffer));
 }
 

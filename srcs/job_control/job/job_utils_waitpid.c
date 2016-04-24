@@ -23,7 +23,7 @@ void				job_utils_waitpid(pid_t pid)
  	if (waitpid_ret == -1)
  	{
  		shenv_singl_error(1, "waitpid: %s", strerror(errno));
-		LOGGER_ERROR("waitpid error: pid: %d", pid);
+		LOG_ERROR("waitpid error: pid: %d", pid);
  	}
  	else if (waitpid_ret == pid)
  	{
@@ -31,7 +31,7 @@ void				job_utils_waitpid(pid_t pid)
         if (WIFEXITED(res))
         {
 			shenv_singleton()->last_exit_code = WEXITSTATUS(res);
-			LOGGER_INFO("exit status: %d", shenv_singleton()->last_exit_code);
+			LOG_INFO("exit status: %d", shenv_singleton()->last_exit_code);
     	}
  	}
 }

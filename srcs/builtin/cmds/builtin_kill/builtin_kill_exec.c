@@ -12,7 +12,7 @@
 
 #include "builtin/builtin.h"
 #include "builtin/cmds/builtin_kill.h"
-#include "logger.h"
+#include "twl_logger.h"
 #include "data.h"
 #include "shsignal/shsignal_mgr.h"
 #include "job_control/job_mgr.h"
@@ -82,7 +82,7 @@ static void			iter_pids_fn(void *token_, void *signum_ptr)
 	}
 	if ((job = job_mgr_find_by_pid(shenv_singleton()->jobs, pid)))
 		pid = job_get_kill_pid(job);
-	LOGGER_INFO("kill: %s(%d), pid=%d",
+	LOG_INFO("kill: %s(%d), pid=%d",
 		shsignal_mgr_get_signame(data_signals(), signum), signum, pid);
 	if (kill(pid, signum) == -1)
 		shenv_singl_error(1, "kill: %s", strerror(errno));

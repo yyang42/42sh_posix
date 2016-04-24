@@ -25,12 +25,12 @@ static void			unset_fn(void *sigstr)
 		trap = trap_mgr_find_by_signum(shenv_singleton()->traps, shsignal->signum);
 		if (trap)
 		{
-			LOGGER_INFO("unset trap -- '%s' %s", trap->trap_action, builtin_trap_get_signame(trap->trap_signum));
+			LOG_INFO("unset trap -- '%s' %s", trap->trap_action, builtin_trap_get_signame(trap->trap_signum));
 			trap_mgr_remove(shenv_singleton()->traps, trap);
 		}
 		else
 		{
-			LOGGER_INFO("unable to unset trap: %s", sigstr);
+			LOG_INFO("unable to unset trap: %s", sigstr);
 		}
 	}
 	else

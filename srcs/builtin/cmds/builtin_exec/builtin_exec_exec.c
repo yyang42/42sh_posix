@@ -12,37 +12,7 @@
 
 #include "builtin/cmds/builtin_exec.h"
 #include "file.h"
-#include "logger.h"
-
-static void			builtin_exec_execve_wrapper(char *path, char **argv, char **envp)
-{
-	if (!path)
-	{
-		shenv_singl_error(127, "exec: %s: not found", argv[0]);
-	}
-	else if (file_isdir(path) || !file_exists(path) || !file_isexecutable(path))
-	{
-		shenv_singl_error(126, "exec: %s: cannot execute", argv[0]);
-	}
-	else
-	{
-		execve(path, argv, envp);
-	}
-}
-
-static void			builtin_exec_execve_prep(t_lst *remainders)
-{
-	char			*path;
-	char			**argv;
-	char			**envp;
-
-	argv = (char **)twl_lst_to_arr(remainders);
-	envp = (char **)shenv_get_env_arr(shenv_singleton());
-	path = shenv_find_binary_path(shenv_singleton(), argv[0]);
-	builtin_exec_execve_wrapper(path, argv, envp);
-	twl_arr_del(envp, free);
-	twl_arr_del(argv, NULL);
-}
+#include "twl_logger.h"
 
 void				builtin_exec_exec_do(t_lst *tokens)
 {
@@ -56,7 +26,9 @@ void				builtin_exec_exec_do(t_lst *tokens)
 	else
 	{
 		if (twl_lst_len(argparser_result->remainders))
-			builtin_exec_execve_prep(argparser_result->remainders);
+		{
+			shenv_execve_findpath(shenv_singleton(), argparser_result->remainders);
+		}
 	}
 }
 

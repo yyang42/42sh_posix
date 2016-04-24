@@ -23,7 +23,7 @@ void				ast_redir_fd_handle_input(t_ast_redir_fd *redir_fd, t_ast_redir *redir)
 	else if (ast_redir_utils_is_heredoc(redir->operator))
 		redir_fd->fd_file = ast_redir_fd_utils_heredoc_to_fd(redir);
 	else
-		LOGGER_ERROR("Operator not found");
+		LOG_ERROR("Operator not found");
 	if (redir_fd->fd_origin == STDIN_FILENO)
 		shenv_clear_stdin_read_buffer(shenv_singleton());
 }

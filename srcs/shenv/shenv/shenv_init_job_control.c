@@ -12,7 +12,7 @@
 
 #include "data.h"
 #include "job_control/job.h"
-#include "logger.h"
+#include "twl_logger.h"
 #include "shenv/shenv.h"
 #include "shsignal/shsignal_mgr.h"
 #include "utils.h"
@@ -22,7 +22,7 @@ void                shenv_init_job_control(t_shenv *this)
     this->jc_terminal = STDIN_FILENO;
     if (this->is_interactive_shell)
     {
-        LOGGER_INFO("Init job control");
+        LOG_INFO("Init job control");
         while (tcgetpgrp (this->jc_terminal) != (this->jc_pgid = getpgrp ()))
         {
             kill (- this->jc_pgid, SIGTTIN);

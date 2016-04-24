@@ -14,7 +14,7 @@
 #include "builtin/cmds/builtin_kill.h"
 #include "shsignal/shsignal_mgr.h"
 #include "data.h"
-#include "logger.h"
+#include "twl_logger.h"
 /*
 static void     intercept_logger_handler(int sig)
 {
@@ -27,7 +27,7 @@ void				job_utils_sigs_dfl_on_interactive_for_chld_proc(void)
 {
 	if (!shenv_singleton()->is_interactive_shell)
 		return ;
-	LOGGER_INFO("job_utils_sigs_dfl_on_interactive_for_chld_proc called");
+	LOG_INFO("job_utils_sigs_dfl_on_interactive_for_chld_proc called");
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 	signal(SIGTSTP, SIG_DFL);

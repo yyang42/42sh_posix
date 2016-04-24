@@ -19,7 +19,7 @@ void				ast_redir_fd_utils_dup_fds(int fd1, int fd2)
 	if (dup2(fd1, fd2) == -1)
 	{
 		shenv_singl_error(1, "%d: %s", fd1, strerror(errno));
-		LOGGER_INFO("dup2(%d, %d): %s", fd1, fd2, strerror(errno));
+		LOG_INFO("dup2(%d, %d): %s", fd1, fd2, strerror(errno));
 		shenv_singleton()->last_exit_code = EXIT_FAILURE;
 	}
 }

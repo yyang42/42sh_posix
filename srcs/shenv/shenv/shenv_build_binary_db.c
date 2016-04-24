@@ -65,5 +65,5 @@ void				shenv_build_binary_db(t_shenv *env)
 		twl_htab_del(env->shenv_binary_db, free);
 	}
 	env->shenv_binary_db = shenv_build_htab(env);
-	LOGGER_INFO("Build binary db done! count: %zu", twl_htab_len(env->shenv_binary_db));
+	LOG_INFO("Build binary db done! count: %zu", twl_htab_len(env->shenv_binary_db));
 }

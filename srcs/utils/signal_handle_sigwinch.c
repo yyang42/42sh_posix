@@ -18,7 +18,7 @@
 
 static void			sig_handler(int signum)
 {
-	LOGGER_INFO("SIGWINCH handler called: %d", signum);
+	LOG_INFO("SIGWINCH handler called: %d", signum);
 	cursor_reset_screen_width();
 	(void)signum;
 }

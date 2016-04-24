@@ -38,7 +38,7 @@ all:
 	@$(foreach lib, $(MAKE_PATHS), $(MAKE) -C $(lib);)
 	@$(MAKE) $(NAME)
 
-$(NAME): $(O_FILES)
+$(NAME): $(O_FILES) $(LIB_TOWEL_LD)
 	@echo ""
 	@echo "[info] compile $(OUTPUT_TYPE) ..."
 

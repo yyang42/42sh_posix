@@ -22,7 +22,7 @@ static void			builtin_continue_exec_one_arg(char *str_counter)
 		if (continue_counter > 0)
 		{
 			shenv_singleton()->shenv_continue_counter = continue_counter;
-			LOGGER_INFO("continue: %d", continue_counter);
+			LOG_INFO("continue: %d", continue_counter);
 		}
 		else
 		{

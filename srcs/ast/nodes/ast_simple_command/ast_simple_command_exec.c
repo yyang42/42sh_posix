@@ -57,7 +57,7 @@ static void			ast_simple_command_exec_print_log(t_ast_simple_command *cmd)
 	char			*cmd_str;
 
 	cmd_str = token_mgr_strjoin(cmd->cmd_tokens_deep_copy, " ");
-	LOGGER_INFO("simple command exec: %s", cmd_str);
+	LOG_INFO("simple command exec: %s", cmd_str);
 	free(cmd_str);
 }
 

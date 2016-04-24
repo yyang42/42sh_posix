@@ -33,7 +33,7 @@ static t_ast_redir_fd		*create_redir_fd(t_ast_redir *redir, t_lst *redir_fds)
 	else if (twl_strequ("<&", redir->operator))
 		ast_redir_fd_handle_duplication(redir_fd, redir, STDIN_FILENO);
 	else
-		LOGGER_ERROR("Operator not found %s", redir->operator);
+		LOG_ERROR("Operator not found %s", redir->operator);
 	return (redir_fd);
 
 }

@@ -35,6 +35,7 @@
 # define SHENV_ERROR_FILE_NOT_FOUND "No such file or directory"
 # define EXIT_COMMAND_NOT_FOUND 127
 # define SHENV_DEFAULT_IFS " \t\n"
+# define SHENV_SH_PATH_FALLBACK_WHEN_NO_SHEBANG "/bin/sh"
 
 typedef struct				s_shenv_info
 {
@@ -129,6 +130,8 @@ void				shenv_set_binary_saved_path(t_shenv *env, char *path);
 char				*shenv_get_ifs(t_shenv *this);
 int					shenv_set_read_buffer_ptr(t_shenv *env, int fd);
 void				shenv_clear_stdin_read_buffer(t_shenv *env);
+void				shenv_execve(t_shenv *env, char *path, t_lst *argv_lst);
+void				shenv_execve_findpath(t_shenv *env, t_lst *argv_lst);
 
 /*
 ** exit

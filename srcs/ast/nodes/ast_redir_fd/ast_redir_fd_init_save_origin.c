@@ -22,7 +22,7 @@ void				ast_redir_fd_init_save_origin(t_ast_redir_fd *redir_fd, t_ast_redir *red
 		if (redir_fd->fd_saved_std_fd == -1)
 		{
 			shenv_singleton()->last_exit_code = EXIT_FAILURE;
-			LOGGER_ERROR("dup(redir_fd->fd_origin): %d", redir_fd->fd_origin);
+			LOG_ERROR("dup(redir_fd->fd_origin): %d", redir_fd->fd_origin);
 		}
 	}
 	else

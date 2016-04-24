@@ -18,7 +18,7 @@
 
 static void			exec_exit(int status)
 {
-	LOGGER_INFO("exit(%d)", status);
+	LOG_INFO("exit(%d)", status);
 	exit(status);
 }
 

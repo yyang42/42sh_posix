@@ -10,21 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LOGGER_H
-# define LOGGER_H
+#include "shenv/shenv.h"
 
-# define _LOGGER(lvl, ...) logger_printf(lvl,__FILE__,__LINE__,__VA_ARGS__);
-# define LOGGER_INFO(...) _LOGGER(LOGGER_LEVEL_INFO, __VA_ARGS__);
-# define LOGGER_DEBUG(...) _LOGGER(LOGGER_LEVEL_DEBUG, __VA_ARGS__);
-# define LOGGER_ERROR(...) _LOGGER(LOGGER_LEVEL_ERROR, __VA_ARGS__);
-
-typedef enum		e_logger_level
+void				shenv_execve_findpath(t_shenv *env, t_lst *argv_lst)
 {
-	LOGGER_LEVEL_DEBUG,
-	LOGGER_LEVEL_INFO,
-	LOGGER_LEVEL_ERROR,
-}					t_logger_level;
+	char			*path;
 
-void				logger_printf(t_logger_level level, const char *fn, int line, const char *fmt, ...);
-
-#endif
+	path = shenv_find_binary_path(env, twl_lst_first(argv_lst));
+	if (!path)
+		shenv_singl_error(127, "execve: %s: not found", twl_lst_first(argv_lst));
+	else
+		shenv_execve(env, path, argv_lst);
+}
