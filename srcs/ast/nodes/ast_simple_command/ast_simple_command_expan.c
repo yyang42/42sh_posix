@@ -85,7 +85,8 @@ static void		expan_heredoc(t_ast_redir *redir)
 	free(pattern_unquoted);
 	if (redir->heredoc_text)
 		free(redir->heredoc_text);
-	expansion = expansion_new_from_text(redir->heredoc_text_unexpanded);
+	expansion = expansion_new_from_text_remove_squote(
+												redir->heredoc_text_unexpanded);
 	redir->heredoc_text = expansion_get_string_heredoc(expansion);
 	if (expansion->error)
 	{

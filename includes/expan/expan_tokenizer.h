@@ -39,6 +39,8 @@ t_expan_tokenizer			*expan_tokenizer_new(char *input);
 void						expan_tokenizer_del(t_expan_tokenizer *this);
 
 t_lst						*expan_tokenizer_tokenize(char *input);
+t_lst						*expan_tokenizer_tokenize_remove_squote(
+																char *input);
 
 t_rule_expan_status			expan_tokenizer_apply_rule01(t_expan_tokenizer *this);
 t_rule_expan_status			expan_tokenizer_apply_rule02(t_expan_tokenizer *this);

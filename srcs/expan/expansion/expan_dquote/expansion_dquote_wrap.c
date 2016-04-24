@@ -49,7 +49,7 @@ void			expansion_dquote_wrap(t_expansion *this, t_expan_token *token)
 	if (this->error)
 		return ;
 	dquote = twl_strndup(token->text + 1, twl_strlen(token->text + 2));
-	inner = expansion_new_from_text(dquote);
+	inner = expansion_new_from_text_remove_squote(dquote);
 	free(dquote);
 	lst_inner = expansion_get_fields_dquote(inner);
 	this->is_at_present = inner->is_at_present;
