@@ -10,12 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_simple_command.h"
 #include "job_control/job.h"
+#include "token/token_mgr.h"
 
-void				ast_simple_command_execve_child(t_lst *argv_lst, char *path)
+t_job				*job_new_from_tokens(pid_t pid, t_lst *tokens)
 {
-	// TODO: also apply this on other use case of shenv_execve?
-	job_utils_sigs_dfl_on_interactive_for_chld_proc();
-	shenv_execve(shenv_singleton(), path, argv_lst);
+	t_lst			*str_tokens;
+	t_job			*job;
+
+	str_tokens = token_mgr_to_lst(tokens);
+	job = job_new(pid, str_tokens);
+	twl_lst_del(str_tokens, NULL);
+	return (job);
 }

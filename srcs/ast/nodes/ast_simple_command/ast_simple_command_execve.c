@@ -30,7 +30,7 @@ static void			set_default_signal_if_not_ignored(void)
 		i++;
 	}
 }
-static void			fork_and_execute(t_ast_simple_command *cmd, char *path)
+static void			fork_and_execute(t_lst *cmd_tokens, t_lst *all_tokens_for_job_control, char *path)
 {
 	pid_t			pid;
 
@@ -45,23 +45,25 @@ static void			fork_and_execute(t_ast_simple_command *cmd, char *path)
 	{
 		setpgid(getpid(), getpid());
 		set_default_signal_if_not_ignored();
-		ast_simple_command_execve_child(cmd, path);
+		ast_simple_command_execve_child(cmd_tokens, path);
 	}
 	else
 	{
-		ast_simple_command_execve_parent(cmd, pid);
+		ast_simple_command_execve_parent(all_tokens_for_job_control, pid);
 	}
 }
 
-void			ast_simple_command_execve(t_ast_simple_command *cmd, char *cmd_name)
+void			ast_simple_command_execve(t_lst *cmd_tokens, t_lst *all_tokens_for_job_control)
 {
 	char			*path;
+	char			*cmd_name;
 
+	cmd_name = twl_lst_first(cmd_tokens);
 	path = shenv_find_binary_path(shenv_singleton(), cmd_name);
 	if (file_exists(path))
 	{
 		if (file_isexecutable(path))
-			fork_and_execute(cmd, path);
+			fork_and_execute(cmd_tokens, all_tokens_for_job_control, path);
 		else
 			error_permission_denied(path);
 	}

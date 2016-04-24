@@ -43,7 +43,7 @@ void				ast_list_item_exec_async(t_ast_list_item *this)
 	{
 		setpgid (pgid, pgid);
 		shenv_singleton()->info.most_recent_background_command_pid = pgid;
-		job = job_new(pgid, this->list_item_tokens);
+		job = job_new_from_tokens(pgid, this->list_item_tokens);
 		job_mgr_env_push(job);
 	}
 }

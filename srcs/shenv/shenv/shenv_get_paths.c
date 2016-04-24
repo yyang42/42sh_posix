@@ -12,15 +12,30 @@
 
 #include "shenv/shenv.h"
 
-char		**shenv_get_paths(t_shenv *this)
+static char			**split_path(char *str)
+{
+	return (twl_strsplit(str, ':'));
+}
+
+static char			**shenv_get_paths_from_env(t_shenv *this)
 {
 	char			*str;
 
 	str = shenv_shvars_get_value(this, "PATH");
-	if (str == NULL || *str == '\0')
+	if (str == NULL)
 	{
 		errno = EINVAL;
 		return (NULL);
 	}
-	return (twl_strsplit(str, ':'));
+	return (split_path(str));
+}
+
+char				**shenv_get_paths(t_shenv *this)
+{
+	char			**paths;
+
+	paths = shenv_get_paths_from_env(this);
+	if (!paths)
+		paths = split_path("/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:.");
+	return (paths);
 }

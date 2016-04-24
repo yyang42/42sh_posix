@@ -11,10 +11,13 @@
 /* ************************************************************************** */
 
 #include "shenv/shvar.h"
+#include "shenv/shenv.h"
 
 void				shvar_set_value(t_shvar *this, char *value)
 {
 	if (this->shvar_value)
 		free(this->shvar_value);
 	this->shvar_value = twl_strdup(value);
+	if (twl_strequ(this->shvar_key, "PATH"))
+		shenv_build_binary_db(shenv_singleton());
 }

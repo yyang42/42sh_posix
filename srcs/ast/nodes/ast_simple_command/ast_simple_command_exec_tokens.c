@@ -16,6 +16,18 @@
 #include "builtin/builtin_mgr.h"
 #include "data.h"
 
+static void			ast_simple_command_execve_wrapper(t_ast_simple_command *cmd)
+{
+	t_lst			*cmd_tokens;
+	t_lst			*all_tokens;
+
+	cmd_tokens = token_mgr_to_lst(cmd->cmd_tokens_expanded);
+	all_tokens = token_mgr_to_lst(cmd->all_tokens);
+	ast_simple_command_execve(cmd_tokens, all_tokens);
+	twl_lst_del(cmd_tokens, NULL);
+	twl_lst_del(all_tokens, NULL);
+}
+
 void				ast_simple_command_exec_tokens(t_ast_simple_command *cmd)
 {
 	char			*cmd_name;
@@ -38,7 +50,6 @@ void				ast_simple_command_exec_tokens(t_ast_simple_command *cmd)
 	}
 	else
 	{
-
-		ast_simple_command_execve(cmd, cmd_name);
+		ast_simple_command_execve_wrapper(cmd);
 	}
 }
