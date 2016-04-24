@@ -25,5 +25,4 @@ void				pattern_build_finish_(t_pattern *this)
 		this->to_push_ = NULL;
 	}
 	pattern_build_harmonize_(this);
-	pattern_build_num_slash_(this);
 }
