@@ -20,7 +20,7 @@ static void			build_iter_fn(void *data, void *this)
 	if (((t_expansion *)this)->error)
 		return ;
 	if (token->type == EXPAN_TILDE)
-		expansion_tilde(this, token);
+		expansion_no_tilde(this, token);
 	else if (token->type == EXPAN_PARAMETER)
 		expansion_parameter(this, token);
 	else if (token->type == EXPAN_CMDSBT_DOLLAR)

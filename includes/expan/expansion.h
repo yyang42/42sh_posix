@@ -38,6 +38,7 @@ t_expansion			*expansion_new(void);
 void				expansion_del(t_expansion *this);
 
 t_expansion			*expansion_new_from_text(char *text);
+t_expansion			*expansion_new_from_text_remove_squote(char *text);
 t_expansion			*expansion_new_from_token(t_token *to_expand);
 
 t_lst				*expansion_get_fields_simple_command(t_expansion *this);
