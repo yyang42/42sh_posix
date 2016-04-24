@@ -35,10 +35,11 @@ t_lst			*expan_get_param_spec(char param)
 		twl_lst_push_back(lsparam, shenv_concat_flags(shenv));
 	else if (param == '$')
 		twl_lst_push_back(lsparam, twl_itoa(getpid()));
-	else if (param == '!')
+	else if (param == '!' &&
+			shenv->info.most_recent_background_command_pid != -1)
 		twl_lst_push_back(lsparam,
 				twl_itoa(shenv->info.most_recent_background_command_pid));
-	else
+	else if (param == '0')
 		twl_lst_push_back(lsparam, twl_strdup(shenv->shenv_name));
 	return (lsparam);
 }
