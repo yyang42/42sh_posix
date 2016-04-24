@@ -74,6 +74,14 @@ static void			job_utils_waitpid_wrapper(t_lst *all_tokens, pid_t pid,
 	}
 }
 
+static void			tcsetpgrp_wrapper(int fd, pid_t pid)
+{
+	if (!isatty(fd))
+		return ;
+	if (tcsetpgrp(fd, pid) == -1)
+		LOG_ERROR("tcsetpgrp: fd=%d pid=%d: %s",fd, pid, strerror(errno));
+}
+
 void				jobexec_fork_exec(t_lst *all_tokens, void *exec_ctx,
 					void (wait_fn)(int pid),
 					void (execve_fn)(void *ctx))
@@ -109,11 +117,9 @@ void				jobexec_fork_exec(t_lst *all_tokens, void *exec_ctx,
 	        wait_fn(pid);
 	    else
 	    {
-			if (tcsetpgrp(STDIN_FILENO, pid) == -1)
-				LOG_ERROR("tcsetpgrp STDIN_FILENO pid: %d: %s", pid, strerror(errno));
+	    	tcsetpgrp_wrapper(STDIN_FILENO, pid);
 			job_utils_waitpid_wrapper(all_tokens, pid, wait_fn);
-			if (tcsetpgrp(STDIN_FILENO, getpid()) == -1)
-				LOG_ERROR("tcsetpgrp STDIN_FILENO getpid(): %d: %s", getpid(), strerror(errno));
+	    	tcsetpgrp_wrapper(STDIN_FILENO, getpid());
 	    }
 	}
 	sig_handler_restore(SIGCHLD, &oldsa);
