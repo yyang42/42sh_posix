@@ -20,7 +20,9 @@
 
 void				ast_simple_command_execve_parent(t_lst *str_tokens, pid_t pid)
 {
-    t_job           *job;
+    (void)str_tokens;
+    (void)pid;
+/*    t_job           *job;
 
     if (shenv_singleton()->shenv_is_inside_job_control)
     {
@@ -30,5 +32,5 @@ void				ast_simple_command_execve_parent(t_lst *str_tokens, pid_t pid)
     {
         job = job_new(pid, str_tokens);
         job_put_in_fg(job);
-    }
+    }*/
 }

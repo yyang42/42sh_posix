@@ -10,14 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_simple_command.h"
-#include "job_control/job.h"
+#ifndef JOB_CONTROL_JOBEXEC_H
+# define JOB_CONTROL_JOBEXEC_H
 
-void				ast_simple_command_execve_child(t_lst *argv_lst, char *path)
-{
-	// TODO: also apply this on other use case of shenv_execve?
-	// job_utils_sigs_dfl_on_interactive_for_chld_proc();
-	// shenv_execve(shenv_singleton(), path, argv_lst);
-	(void)argv_lst;
-	(void)path;
-}
+# include "basics.h"
+# include "job_control/job_mgr.h"
+
+void				jobexec_fork_exec(t_lst *all_tokens, void *exec_ctx,
+					void (wait_fn)(int pid),
+					void (execve_fn)(void *ctx));
+
+#endif
