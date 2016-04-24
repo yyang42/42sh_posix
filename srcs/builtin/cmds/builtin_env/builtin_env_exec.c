@@ -46,6 +46,7 @@ static void			exec_remaining_command(t_argparser_result *argparser_result)
 	{
 		exec_remainders(remainders_copy);
 	}
+	twl_lst_del(remainders_copy, NULL);
 }
 
 static void			exec_remaining_command_in_new_env(t_argparser_result *argparser_result)
