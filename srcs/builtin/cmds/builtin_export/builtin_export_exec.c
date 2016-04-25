@@ -14,7 +14,7 @@
 
 void				builtin_export_exec(t_lst *tokens, t_shenv *shenv)
 {
-	t_argparser_result *argparser_result;
+	t_argparser_result	*argparser_result;
 
 	argparser_result = argparser_parse_tokens(builtin_export_argparser(), tokens);
 	if (argparser_result->err_msg)
@@ -34,4 +34,5 @@ void				builtin_export_exec(t_lst *tokens, t_shenv *shenv)
 			builtin_export_exec_export_tokens(argparser_result, shenv);
 		}
 	}
+	argparser_result_del(argparser_result);
 }

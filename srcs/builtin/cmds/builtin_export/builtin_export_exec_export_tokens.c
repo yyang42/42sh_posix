@@ -26,7 +26,9 @@ static void			iter_fn(void *str_token, void *shenv, void *command_name)
 		shvar->shvar_exported = true;
 }
 
-void				builtin_export_exec_export_tokens(t_argparser_result *argparser_result, t_shenv *shenv)
+void				builtin_export_exec_export_tokens(
+						t_argparser_result *argparser_result, t_shenv *shenv)
 {
-	twl_lst_iter2(argparser_result->remainders, iter_fn, shenv, argparser_result->command_name);
+	twl_lst_iter2(argparser_result->remainders, iter_fn, shenv,
+											argparser_result->command_name);
 }

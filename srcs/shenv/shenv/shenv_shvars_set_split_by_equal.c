@@ -12,7 +12,8 @@
 
 #include "shenv/shenv.h"
 
-t_shvar				*shenv_shvars_set_split_by_equal(t_shenv *shenv, char *str_token, char *command_name)
+t_shvar				*shenv_shvars_set_split_by_equal(t_shenv *shenv,
+										char *str_token, char *command_name)
 {
 	t_lst			*segs;
 	char			*key;
@@ -28,7 +29,7 @@ t_shvar				*shenv_shvars_set_split_by_equal(t_shenv *shenv, char *str_token, cha
 	}
 	else
 	{
-		key = str_token;
+		key = twl_strdup(str_token);
 		value = NULL;
 	}
 	ret = shenv_shvars_set(shenv, key, value, command_name);
