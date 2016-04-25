@@ -12,6 +12,8 @@
 
 #include "shenv/shenv.h"
 #include "twl_opt_elem.h"
+#include "job_control/job.h"
+#include "trap/trap.h"
 
 void				shenv_del(t_shenv *this)
 {
@@ -28,6 +30,15 @@ void				shenv_del(t_shenv *this)
 		twl_htab_del(this->alias, NULL);
 	if (this->info.name)
 		free(this->info.name);
+	free(this->shenv_name);
+	free(this->shenv_cur_cmd);
 	free(this->shenv_read_buffer_db);
+	if (this->shenv_binary_saved_path)
+		free(this->shenv_binary_saved_path);
+	if (this->jobs)
+		twl_lst_del(this->jobs, job_del);
+	twl_lst_del(this->traps, trap_del);
+	if (this->shenv_binary_db)
+		twl_htab_del(this->shenv_binary_db, NULL);
 	free(this);
 }
