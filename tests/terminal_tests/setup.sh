@@ -6,3 +6,4 @@ send_line () {
   send_key "$1"$'\n'
 }
 
+send_line "$TEST_SHELL"

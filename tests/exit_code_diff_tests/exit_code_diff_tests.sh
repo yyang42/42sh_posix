@@ -6,7 +6,7 @@ C_RED="\033[31;1m"
 C_CLEAR="\033[0m"
 
 RENDU_PATH="`pwd`"
-TESTS_ROOT_PATH="$RENDU_PATH/tests/exit_code_diff_tests/"
+TESTS_ROOT="$RENDU_PATH/tests/exit_code_diff_tests/"
 
 exit_status=0
 
@@ -32,7 +32,7 @@ diff_test ()
 {
     testsuite=$1
     testcase=$2
-    testcase_path="$TESTS_ROOT_PATH/$testsuite/$testcase"
+    testcase_path="$TESTS_ROOT/$testsuite/$testcase"
     # testcase_tmp="$testcase_path/.tmp"
     actual="/tmp/test_actual_exit_code"
     expected="/tmp/test_expected_exit_code"
@@ -67,7 +67,7 @@ then
 
     # diff_test andor false_and_true
 
-    for CASE_PATH in $TESTS_ROOT_PATH/*; do
+    for CASE_PATH in $TESTS_ROOT/*; do
         if [ -d "${CASE_PATH}" ]; then
             for TEST_PATH in $CASE_PATH/*_spec.sh; do
                 if [ -f "${TEST_PATH}" ]; then
