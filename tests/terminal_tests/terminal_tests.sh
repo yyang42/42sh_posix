@@ -85,7 +85,7 @@ diff_test ()
 
 for CASE_PATH in $TESTS_ROOT/${PATTERN:-*}; do
     if [ -d "${CASE_PATH}" ]; then
-        for TEST_PATH in $CASE_PATH/*_spec; do
+        for TEST_PATH in $CASE_PATH/${PATTERN_SPEC:-*_spec}; do
             if [ -d "${TEST_PATH}" ]; then
                 diff_test `basename $CASE_PATH` `basename $TEST_PATH`
             fi
