@@ -13,13 +13,11 @@
 #include "ast/nodes/ast_simple_command.h"
 #include "job_control/job.h"
 
-void				ast_simple_command_execve_child(t_ast_simple_command *cmd, char *path)
+void				ast_simple_command_execve_child(t_lst *argv_lst, char *path)
 {
-	t_lst			*argv_lst;
-
-	argv_lst = token_mgr_to_lst(cmd->cmd_tokens_expanded);
 	// TODO: also apply this on other use case of shenv_execve?
-	job_utils_sigs_dfl_on_interactive_for_chld_proc();
-	shenv_execve(shenv_singleton(), path, argv_lst);
-	twl_lst_del(argv_lst, NULL);
+	// job_utils_sigs_dfl_on_interactive_for_chld_proc();
+	// shenv_execve(shenv_singleton(), path, argv_lst);
+	(void)argv_lst;
+	(void)path;
 }

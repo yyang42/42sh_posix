@@ -15,14 +15,6 @@
 #include "ast/nodes/ast_redir.h"
 #include "job_control/job_mgr.h"
 
-/*
-** If no command name results, or if the command name is a special built-in
-** or function, variable assignments shall affect the current
-** execution environment. Otherwise, the variable assignments shall be
-** exported for the execution environment of the command and shall not
-** affect the current execution environment
-*/
-
 static void			iter_assign_fn(void *assign_, void *cmd_)
 {
 	t_ast_assignment		*assign;

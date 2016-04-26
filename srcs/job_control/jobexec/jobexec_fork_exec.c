@@ -10,25 +10,33 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <errno.h>
-#include "shenv/shvar.h"
+#include "job_control/job.h"
+#include "shsignal/shsignal.h"
+#include "twl_logger.h"
+#include "trap/trap_mgr.h"
+#include "job_control/job.h"
+#include "job_control/job_mgr.h"
 
-t_shvar				*shvar_new(char *key, char *value, bool shvar_exported)
+void				jobexec_fork_exec(t_lst *all_tokens, void *exec_ctx,
+					void (wait_fn)(int pid, void *ctx),
+					void (execve_fn)(void *ctx))
 {
-	t_shvar	*this;
+	pid_t			pid;
 
-	if (key == NULL || *key == '\0')
+	pid = shenv_utils_fork();
+	if (pid == -1)
 	{
-		errno = EINVAL;
-		return (NULL);
+		shenv_singl_error(2, "cannot fork: %s", strerror(errno));
+		LOG_ERROR("cannot fork: %s", strerror(errno));
 	}
-	this = twl_malloc_x0(sizeof(t_shvar));
-	this->shvar_key = twl_strdup(key);
-	this->shvar_value = NULL;
-	if (value)
-		shvar_set_value(this, value);
-	this->shvar_assign_value = NULL;
-	this->shvar_exported = shvar_exported;
-	this->shvar_read_only = false;
-	return (this);
+	else if (pid == 0)
+	{
+		execve_fn(exec_ctx);
+		exit(shenv_singleton()->last_exit_code);
+	}
+	else
+	{
+	    wait_fn(pid, exec_ctx);
+	}
+	(void)all_tokens;
 }

@@ -13,15 +13,14 @@
 #include "job_control/job.h"
 #include "token/token_mgr.h"
 
-t_job				*job_new(pid_t pid, t_lst *tokens)
+t_job				*job_new(pid_t pid, t_lst *str_tokens)
 {
 	t_job					*this;
 
 	this = twl_malloc_x0(sizeof(t_job));
 	this->job_id = 0;
 	this->pid = pid;
-	this->cmd_str = token_mgr_strjoin(tokens, " ");
-	this->tokens = twl_lst_copy(tokens, NULL);
+	this->cmd_str = twl_lst_strjoin(str_tokens, " ");
 	this->stopped_signal = 0;
 	this->job_status = JOB_RUNNING;
 	return (this);

@@ -60,31 +60,37 @@ static void			handle_sigcont(t_job *job)
 
 void	         	job_put_in_fg(t_job *job)
 {
-    sig_t           saved_sig_handler;
-    sig_t           saved_sigint_handler;
-    sig_t           saved_sigquit_handler;
-
-    saved_sig_handler = signal(SIGTSTP, sigtstp_handler);
-    saved_sigint_handler = signal(SIGINT, sig_int_quit_handler);
-    saved_sigquit_handler = signal(SIGQUIT, sig_int_quit_handler);
-    shenv_singleton()->jc_foreground_job_pid = job->pid;
-    LOG_INFO("set SIGTSTP handler");
-    if (setjmp(jump_buf) == 0)
-    {
-    	handle_sigcont(job);
-        job_utils_waitpid(job->pid);
-        job_del(job);
-    }
-    else
-    {
-        LOG_INFO("kill(%d, SIGTSTP)", job_get_kill_pid(job));
-        if (kill(job_get_kill_pid(job), SIGTSTP) == -1)
-            LOG_ERROR("kill: %s", strerror(errno));
-        job_mgr_env_push(job);
-    }
-    shenv_singleton()->jc_foreground_job_pid = 0;
-    signal(SIGTSTP, saved_sig_handler);
-    signal(SIGINT, saved_sigint_handler);
-    signal(SIGQUIT, saved_sigquit_handler);
+    twl_printf("%s\n", job->cmd_str);
+    job_utils_waitpid(job->pid);
+    (void)handle_sigcont;
+    (void)sig_int_quit_handler;
+    (void)sigtstp_handler;
     (void)intercept_logger_handler;
+    // sig_t           saved_sig_handler;
+    // sig_t           saved_sigint_handler;
+    // sig_t           saved_sigquit_handler;
+
+    // saved_sig_handler = signal(SIGTSTP, sigtstp_handler);
+    // saved_sigint_handler = signal(SIGINT, sig_int_quit_handler);
+    // saved_sigquit_handler = signal(SIGQUIT, sig_int_quit_handler);
+    // shenv_singleton()->jc_foreground_job_pid = job->pid;
+    // LOG_INFO("set SIGTSTP handler");
+    // if (setjmp(jump_buf) == 0)
+    // {
+    // 	handle_sigcont(job);
+    //     job_utils_waitpid(job->pid);
+    //     job_del(job);
+    // }
+    // else
+    // {
+    //     LOG_INFO("kill(%d, SIGTSTP)", job_get_kill_pid(job));
+    //     if (kill(job_get_kill_pid(job), SIGTSTP) == -1)
+    //         LOG_ERROR("kill: %s", strerror(errno));
+    //     job_mgr_env_push(job);
+    // }
+    // shenv_singleton()->jc_foreground_job_pid = 0;
+    // signal(SIGTSTP, saved_sig_handler);
+    // signal(SIGINT, saved_sigint_handler);
+    // signal(SIGQUIT, saved_sigquit_handler);
+    // (void)intercept_logger_handler;
 }

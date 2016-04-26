@@ -10,25 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <errno.h>
-#include "shenv/shvar.h"
+#include "job_control/job.h"
+#include "token/token_mgr.h"
 
-t_shvar				*shvar_new(char *key, char *value, bool shvar_exported)
+t_job				*job_new_from_tokens(pid_t pid, t_lst *tokens)
 {
-	t_shvar	*this;
+	t_lst			*str_tokens;
+	t_job			*job;
 
-	if (key == NULL || *key == '\0')
-	{
-		errno = EINVAL;
-		return (NULL);
-	}
-	this = twl_malloc_x0(sizeof(t_shvar));
-	this->shvar_key = twl_strdup(key);
-	this->shvar_value = NULL;
-	if (value)
-		shvar_set_value(this, value);
-	this->shvar_assign_value = NULL;
-	this->shvar_exported = shvar_exported;
-	this->shvar_read_only = false;
-	return (this);
+	str_tokens = token_mgr_to_lst(tokens);
+	job = job_new(pid, str_tokens);
+	twl_lst_del(str_tokens, NULL);
+	return (job);
 }

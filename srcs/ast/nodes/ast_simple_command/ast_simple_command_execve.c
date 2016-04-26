@@ -11,57 +11,38 @@
 /* ************************************************************************** */
 
 #include "ast/nodes/ast_simple_command.h"
-#include "shsignal/shsignal.h"
-#include "twl_logger.h"
-#include "trap/trap_mgr.h"
-#include <sys/wait.h>
+#include "job_control/jobexec.h"
 
-static void			set_default_signal_if_not_ignored(void)
-{
-	int				i;
-	sig_t			saved;
-
-	i = 0;
-	while (i < 32)
-	{
-		saved = signal(i, SIG_DFL);
-		if (saved == SIG_IGN)
-			signal(i, SIG_IGN);
-		i++;
-	}
-}
-static void			fork_and_execute(t_ast_simple_command *cmd, char *path)
-{
-	pid_t			pid;
-
-
-	pid = shenv_utils_fork();
-	if (pid == -1)
-	{
-		shenv_singl_error(2, "cannot fork: %s", strerror(errno));
-		LOG_ERROR("cannot fork: %s", strerror(errno));
-	}
-	else if (pid == 0)
-	{
-		setpgid(getpid(), getpid());
-		set_default_signal_if_not_ignored();
-		ast_simple_command_execve_child(cmd, path);
-	}
-	else
-	{
-		ast_simple_command_execve_parent(cmd, pid);
-	}
-}
-
-void			ast_simple_command_execve(t_ast_simple_command *cmd, char *cmd_name)
+static void			job_execve_fn(void *tokens)
 {
 	char			*path;
 
+	path = shenv_find_binary_path(shenv_singleton(), twl_lst_first(tokens));
+	if (path)
+		shenv_execve(shenv_singleton(), path, tokens);
+	else
+		LOG_ERROR("path not found");
+}
+
+static void			wait_fn(int pid, void *ctx)
+{
+	LOG_DEBUG("simple cmd wait_fn called");
+	job_utils_waitpid(pid);
+	(void)pid;
+	(void)ctx;
+}
+
+void				ast_simple_command_execve(t_lst *cmd_tokens, t_lst *all_tokens)
+{
+	char			*path;
+	char			*cmd_name;
+
+	cmd_name = twl_lst_first(cmd_tokens);
 	path = shenv_find_binary_path(shenv_singleton(), cmd_name);
 	if (file_exists(path))
 	{
 		if (file_isexecutable(path))
-			fork_and_execute(cmd, path);
+			jobexec_fork_exec(all_tokens, cmd_tokens, wait_fn, job_execve_fn);
 		else
 			error_permission_denied(path);
 	}

@@ -6,7 +6,7 @@ C_RED="\033[31;1m"
 C_CLEAR="\033[0m"
 
 RENDU_PATH="`pwd`"
-TESTS_ROOT="$RENDU_PATH/tests/use_case_diff_bash_tests/"
+TESTS_ROOT="$RENDU_PATH/tests/terminal_tests/"
 
 exit_status=0
 
@@ -40,45 +40,52 @@ diff_test ()
     testcase_tmp_bash_stderr="$testcase_tmp/expected_stderr"
 
     if ! [ -z ${CI+x} ] && test "${testcase#*_noci_spec}" != "$testcase"; then
-        echo "skip no ci    ./42sh tests/use_case_diff_bash_tests/$testsuite/$testcase/input.sh"
+        echo "skip no ci    ./42sh tests/terminal_tests/$testsuite/$testcase/input.sh"
         return
     fi
     mkdir -p $testcase_tmp
     rm -f $testcase_tmp/*
-    export TESTED_SHELL
-    TESTED_SHELL=$RENDU_PATH/42sh
-    $RENDU_PATH/42sh $testcase_path/input.sh > $testcase_tmp_stdout 2> $testcase_tmp_stderr
-    echo "exit_code: $?" >> $testcase_tmp_stdout
+    export TEST_SHELL TEST_STDOUT TESTS_ROOT
+    TEST_SHELL=$RENDU_PATH/42sh
+    TEST_STDOUT=$testcase_tmp_stdout
+    : > $TEST_STDOUT
+    bash $testcase_path/input.sh
     if [ ! -f $testcase_path/expected_stdout ] || [ ! -f $testcase_path/expected_stderr ]; then
-        TESTED_SHELL='bash --posix'
-        bash --posix $testcase_path/input.sh > $testcase_tmp_bash_stdout 2> $testcase_tmp_bash_stderr
-        echo "exit_code: $?" >> $testcase_tmp_bash_stdout
+        TEST_SHELL='bash --posix'
+        TEST_STDOUT=$testcase_tmp_bash_stdout
+        : > $TEST_STDOUT
+        sleep 0.1
+        bash $testcase_path/input.sh
     fi
     if [ -f $testcase_path/expected_stdout ]; then
         expected_stdout_file=$testcase_path/expected_stdout
     else
         expected_stdout_file=$testcase_tmp_bash_stdout
     fi
-    if [ -f $testcase_path/expected_stderr ]; then
-        expected_stderr_file=$testcase_path/expected_stderr
-    else
-        expected_stderr_file=$testcase_tmp_bash_stderr
-    fi
+    sleep 0.1
+    # if [ -f $testcase_path/expected_stderr ]; then
+    #     expected_stderr_file=$testcase_path/expected_stderr
+    # else
+    #     expected_stderr_file=$testcase_tmp_bash_stderr
+    # fi
     diff $expected_stdout_file $testcase_tmp_stdout
     stdout_res="$?"
-    diff $expected_stderr_file $testcase_tmp_stderr
-    stdout_err="$?"
-
+    # diff $expected_stderr_file $testcase_tmp_stderr
+    # stdout_err="$?"
+    if [ ! -s $testcase_tmp_stdout ]
+    then
+        stdout_res="1"
+    fi
     print_result "$stdout_res" stdout
-    print_result "$stdout_err" stderr
-    echo "./42sh tests/use_case_diff_bash_tests/$testsuite/$testcase/input.sh"
+    # print_result "$stdout_err" stderr
+    echo "./42sh tests/terminal_tests/$testsuite/$testcase/input.sh"
 }
 
 /usr/bin/printf $C_CYAN"====== START AST DIFF TESTS ======"$C_CLEAR"\n"
 
 for CASE_PATH in $TESTS_ROOT/${PATTERN:-*}; do
     if [ -d "${CASE_PATH}" ]; then
-        for TEST_PATH in $CASE_PATH/*_spec; do
+        for TEST_PATH in $CASE_PATH/${PATTERN_SPEC:-*_spec}; do
             if [ -d "${TEST_PATH}" ]; then
                 diff_test `basename $CASE_PATH` `basename $TEST_PATH`
             fi

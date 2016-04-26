@@ -13,37 +13,28 @@
 #include "ast/nodes/ast_list_item.h"
 #include "job_control/job_mgr.h"
 #include "job_control/job.h"
+#include "job_control/jobexec.h"
 #include "twl_logger.h"
 #include <signal.h>
 
-static void			ast_list_item_exec_child(t_ast_list_item *this)
+static void			job_execve_fn(void *this)
 {
-	job_utils_sigs_dfl_on_interactive_for_chld_proc();
-	shenv_singleton()->shenv_is_inside_job_control = true;
 	ast_list_item_exec_non_async(this);
 }
 
+static void			wait_fn(int pid, void *this_)
+{
+	t_ast_list_item *this;
+	t_lst			*str_tokens;
+
+	this = this_;
+	LOG_DEBUG("ast_list_item_exec_async: wait_fn");
+	str_tokens = token_mgr_to_lst(this->list_item_tokens);
+	job_mgr_env_push(job_new(pid, str_tokens));
+	twl_lst_del(str_tokens, NULL);
+}
 
 void				ast_list_item_exec_async(t_ast_list_item *this)
 {
-	pid_t			pgid;
-	t_job			*job;
-
-	pgid = shenv_utils_fork();
-	if (pgid == -1)
-	{
-		twl_dprintf(2, "cannot fork: %s", strerror(errno));
-	}
-	else if (pgid == 0)
-	{
-		ast_list_item_exec_child(this);
-		exit(shenv_singleton()->last_exit_code);
-	}
-	else
-	{
-		setpgid (pgid, pgid);
-		shenv_singleton()->info.most_recent_background_command_pid = pgid;
-		job = job_new(pgid, this->list_item_tokens);
-		job_mgr_env_push(job);
-	}
+	jobexec_fork_exec(this->list_item_tokens, this, wait_fn, job_execve_fn);
 }

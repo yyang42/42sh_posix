@@ -38,6 +38,7 @@ static void			iter_fn(void *job_, int index, void *len_ptr)
 void				job_mgr_update_sign(t_lst *jobs)
 {
 	int				len;
+
 	len = twl_lst_len(jobs);
 	twl_lst_iteri(jobs, iter_fn, &len);
 }

@@ -26,6 +26,7 @@ static char			*prog_run_get_input(t_prog *prog)
 	remainders = prog->argparser_result->remainders;
 	if (prog_is_opt_set(prog, "c"))
 	{
+		LOG_INFO("exec opt -c");
 		input = twl_strdup(argparser_result_opt_get_arg(prog->argparser_result, "c"));
 	}
 	else if (twl_lst_len(remainders) > 0)
@@ -67,6 +68,7 @@ static void			prog_run_input_from_stdin(t_prog *prog)
 
 static void			prog_run_interactive(t_prog *prog)
 {
+	LOG_INFO("run interactive shell");
 	shenv_singleton()->is_interactive_shell = true;
 	shenv_init_job_control(shenv_singleton());
 	prog_main_loop(prog);

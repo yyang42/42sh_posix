@@ -18,9 +18,11 @@
 #include "shsignal/shsignal_mgr.h"
 #include "data.h"
 
-void				ast_simple_command_execve_parent(t_ast_simple_command *cmd, pid_t pid)
+void				ast_simple_command_execve_parent(t_lst *str_tokens, pid_t pid)
 {
-    t_job           *job;
+    (void)str_tokens;
+    (void)pid;
+/*    t_job           *job;
 
     if (shenv_singleton()->shenv_is_inside_job_control)
     {
@@ -28,7 +30,7 @@ void				ast_simple_command_execve_parent(t_ast_simple_command *cmd, pid_t pid)
     }
     else
     {
-        job = job_new(pid, cmd->all_tokens);
+        job = job_new(pid, str_tokens);
         job_put_in_fg(job);
-    }
+    }*/
 }
