@@ -60,6 +60,7 @@ static void			handle_sigcont(t_job *job)
 
 void	         	job_put_in_fg(t_job *job)
 {
+    twl_printf("%s\n", job->cmd_str);
     job_utils_waitpid(job->pid);
     (void)handle_sigcont;
     (void)sig_int_quit_handler;
