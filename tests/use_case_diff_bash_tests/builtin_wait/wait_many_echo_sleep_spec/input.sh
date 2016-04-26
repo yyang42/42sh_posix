@@ -1,5 +1,4 @@
-set -m
-sleep 0.01 && echo "sleep 1" && \
+sleep 0.05 && echo "sleep 1" && \
 sleep 0.01 && echo "sleep 2" && \
 sleep 0.01 && echo "sleep 3" && \
 sleep 0.01 && echo "sleep 4" && \
@@ -15,5 +14,6 @@ sleep 0.01 && echo "sleep 13" && \
 sleep 0.01 && echo "sleep 14" && \
 sleep 0.01 && echo "sleep 15" && \
 sleep 0.01 && echo "sleep 16" &
-fg > /tmp/builtin_fg_test_file && cat -e /tmp/builtin_fg_test_file | sed 's/ &//g'
+echo "before wait"
 wait
+echo "after wait"
