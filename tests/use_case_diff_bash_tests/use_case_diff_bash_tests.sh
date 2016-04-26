@@ -78,7 +78,7 @@ diff_test ()
     echo "./42sh tests/use_case_diff_bash_tests/$testsuite/$testcase/input.sh"
 }
 
-/usr/bin/printf $C_CYAN"============================ START AST DIFF TESTS =========================="$C_CLEAR"\n"
+/usr/bin/printf "============================ START AST DIFF TESTS ==========================\n"
 for CASE_PATH in $TESTS_ROOT/${PATTERN:-*}; do
     if [ -d "${CASE_PATH}" ]; then
         for TEST_PATH in $CASE_PATH/*_spec; do

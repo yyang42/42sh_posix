@@ -16,3 +16,4 @@ sleep 0.01 && echo "sleep 14" && \
 sleep 0.01 && echo "sleep 15" && \
 sleep 0.01 && echo "sleep 16" &
 fg > /tmp/builtin_fg_test_file && cat -e /tmp/builtin_fg_test_file | sed 's/ &//g'
+wait
