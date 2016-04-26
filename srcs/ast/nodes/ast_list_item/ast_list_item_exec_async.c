@@ -22,10 +22,16 @@ static void			job_execve_fn(void *this)
 	ast_list_item_exec_non_async(this);
 }
 
-static void			wait_fn(int pid)
+static void			wait_fn(int pid, void *this_)
 {
-	LOG_DEBUG("list wait_fn called");
-	(void)pid;
+	t_ast_list_item *this;
+	t_lst			*str_tokens;
+
+	this = this_;
+	LOG_DEBUG("ast_list_item_exec_async: wait_fn");
+	str_tokens = token_mgr_to_lst(this->list_item_tokens);
+	job_mgr_env_push(job_new(pid, str_tokens));
+	twl_lst_del(str_tokens, NULL);
 }
 
 void				ast_list_item_exec_async(t_ast_list_item *this)

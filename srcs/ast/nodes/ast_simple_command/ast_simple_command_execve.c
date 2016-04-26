@@ -24,11 +24,12 @@ static void			job_execve_fn(void *tokens)
 		LOG_ERROR("path not found");
 }
 
-static void			wait_fn(int pid)
+static void			wait_fn(int pid, void *ctx)
 {
 	LOG_DEBUG("simple cmd wait_fn called");
 	job_utils_waitpid(pid);
 	(void)pid;
+	(void)ctx;
 }
 
 void				ast_simple_command_execve(t_lst *cmd_tokens, t_lst *all_tokens)

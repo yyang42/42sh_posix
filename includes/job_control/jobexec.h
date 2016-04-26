@@ -17,7 +17,7 @@
 # include "job_control/job_mgr.h"
 
 void				jobexec_fork_exec(t_lst *all_tokens, void *exec_ctx,
-					void (wait_fn)(int pid),
+					void (wait_fn)(int pid, void *ctx),
 					void (execve_fn)(void *ctx));
 
 #endif
