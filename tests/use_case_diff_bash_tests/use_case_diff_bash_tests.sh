@@ -9,6 +9,8 @@ RENDU_PATH="`pwd`"
 TESTS_ROOT="$RENDU_PATH/tests/use_case_diff_bash_tests/"
 
 exit_status=0
+count_success=0
+count_failure=0
 
 make
 
@@ -21,8 +23,10 @@ print_result ()
     if [ $1 -eq 0 ]
     then
         /usr/bin/printf $C_GREEN"$2"$C_CLEAR"\c"
+        count_success=$((count_success+1))
     else
         /usr/bin/printf $C_RED"$2"$C_CLEAR"\c"
+        count_failure=$((count_failure+1))
         exit_status=1
     fi
     /usr/bin/printf " \c"
@@ -74,8 +78,7 @@ diff_test ()
     echo "./42sh tests/use_case_diff_bash_tests/$testsuite/$testcase/input.sh"
 }
 
-/usr/bin/printf $C_CYAN"====== START AST DIFF TESTS ======"$C_CLEAR"\n"
-
+/usr/bin/printf $C_CYAN"============================ START AST DIFF TESTS =========================="$C_CLEAR"\n"
 for CASE_PATH in $TESTS_ROOT/${PATTERN:-*}; do
     if [ -d "${CASE_PATH}" ]; then
         for TEST_PATH in $CASE_PATH/*_spec; do
@@ -86,6 +89,13 @@ for CASE_PATH in $TESTS_ROOT/${PATTERN:-*}; do
     fi
 done
 
-/usr/bin/printf $C_CYAN"======  END TESTS  ======"$C_CLEAR"\n"
+if [ $count_failure -gt 0 ]; then
+    echo "$C_RED\c"
+else
+    echo "$C_GREEN\c"
+fi
+echo "============================ $count_failure failed, $count_success passed ============================"
+echo "$C_CLEAR\c"
+# /usr/bin/printf $C_CYAN"======  END TESTS  ==============="$C_CLEAR"\n"
 
 exit $exit_status
