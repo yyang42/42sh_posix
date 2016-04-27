@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_norris_loves_the_norminette.h                :+:      :+:    :+:   */
+/*   check_norris_loves_the_norminette.c                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chuck <chuck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,16 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_COMMAND_H
-# define BUILTIN_COMMAND_H
+#include "builtin/cmds/builtin_command.h"
 
-# include "basics.h"
-# include "twl_opt.h"
-# include "argparser_extension.h"
-# include "builtin/builtin.h"
+void					builtin_command_exec(t_lst *tokens, t_shenv *shenv)
+{
+	t_argparser_result	*result;
 
-void				builtin_command_exec(t_lst *tokens, t_shenv *shenv);
-
-t_argparser			*builtin_command_argparser(void);
-
-#endif
+	result = argparser_parse_tokens(builtin_command_argparser(), tokens);
+	if (result->err_msg)
+	{
+		argparser_result_print_error_with_help(result);
+		shenv->last_exit_code = EXIT_FAILURE;
+	}
+	arparser_result_del(result);
+}
