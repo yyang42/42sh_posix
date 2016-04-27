@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_norris_loves_the_norminette.h                :+:      :+:    :+:   */
+/*   check_norris_loves_the_norminette.c                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chuck <chuck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,20 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_COMMAND_H
-# define BUILTIN_COMMAND_H
+#include "builtin/cmds/builtin_command.h"
 
-# include "basics.h"
-# include "twl_opt.h"
-# include "argparser_extension.h"
-# include "builtin/builtin.h"
-# include "shenv/shenv.h"
 
-# define BUILTIN_COMMAND_USUAL_PATHS "/bin:/usr/bin:/usr/local/bin"
-
-void				builtin_command_exec(t_lst *tokens, t_shenv *shenv);
-void				builtin_command_exec_command(t_argparser_result *result, t_shenv *shenv);
-
-t_argparser			*builtin_command_argparser(void);
-
-#endif
+//static void iter_fn(void *data){twl_printf("%s\n",data);}
+void			builtin_command_exec_command(t_argparser_result *result,
+													t_shenv *shenv)
+{
+	(void)result;
+	(void)shenv;
+}

@@ -12,6 +12,36 @@
 
 #include "builtin/cmds/builtin_command.h"
 
+void			builtin_command_exec_true_verbose(t_argparser_result *result,
+													t_shenv *shenv)
+{
+	(void)result;
+	(void)shenv;
+}
+
+void			builtin_command_exec_verbose(t_argparser_result *result,
+													t_shenv *shenv)
+{
+	(void)result;
+	(void)shenv;
+}
+
+static void				set_usual_path_command(t_argparser_result *result,
+												t_shenv *shenv)
+{
+	char				*save_path;
+
+	save_path = shenv_shvars_get_value(shenv, "PATH");
+	shenv_shvars_set(shenv, "PATH", BUILTIN_COMMAND_USUAL_PATHS, NULL);
+	if (argparser_result_opt_is_set(result, "V"))
+		builtin_command_exec_true_verbose(result, shenv);
+	else if (argparser_result_opt_is_set(result, "v"))
+		builtin_command_exec_verbose(result, shenv);
+	else
+		builtin_command_exec_command(result, shenv);
+	shenv_shvars_set(shenv, "PATH", save_path, NULL);
+}
+
 void					builtin_command_exec(t_lst *tokens, t_shenv *shenv)
 {
 	t_argparser_result	*result;
@@ -22,5 +52,13 @@ void					builtin_command_exec(t_lst *tokens, t_shenv *shenv)
 		argparser_result_print_error_with_help(result);
 		shenv->last_exit_code = EXIT_FAILURE;
 	}
+	else if (argparser_result_opt_is_set(result, "p"))
+		set_usual_path_command(result, shenv);
+	else if (argparser_result_opt_is_set(result, "V"))
+		builtin_command_exec_true_verbose(result, shenv);
+	else if (argparser_result_opt_is_set(result, "v"))
+		builtin_command_exec_verbose(result, shenv);
+	else
+		builtin_command_exec_command(result, shenv);
 	argparser_result_del(result);
 }
