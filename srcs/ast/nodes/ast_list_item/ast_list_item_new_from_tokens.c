@@ -62,6 +62,7 @@ t_ast_list_item		*ast_list_item_new_from_tokens(t_lst *tokens, struct s_ast *ast
 	shenv_singleton()->shenv_list_item_level++;
 	this = ast_list_item_new();
 	this->list_item_tokens = twl_lst_copy(tokens, NULL);
+	twl_lst_del(this->ast_andor_items, NULL); // LEAKS: same as ast_compound_list
 	this->ast_andor_items = ast_lap_build_items(tokens, AST_TYPE_ANDOR_ITEM, ast);
 	if (!ast->error_msg)
 	{

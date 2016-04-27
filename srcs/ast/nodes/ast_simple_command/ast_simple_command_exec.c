@@ -86,4 +86,6 @@ void				ast_simple_command_exec(t_ast_simple_command *cmd)
 		token_mgr_xtrace_print(cmd->cmd_tokens_expanded);
 	ast_simple_command_exec_with_redirs(cmd);
 	shvar_mgr_clear_assign_value(shenv_singleton()->shvars);
+	// twl_lst_del(cmd->cmd_tokens_expanded, token_del); // LEAKS <- pas necessairement safe
+	// cmd->cmd_tokens_expanded = NULL;
 }
