@@ -22,7 +22,9 @@
 # define BUILTIN_COMMAND_USUAL_PATHS "/bin:/usr/bin:/usr/local/bin"
 
 void				builtin_command_exec(t_lst *tokens, t_shenv *shenv);
-void				builtin_command_exec_command(t_argparser_result *result, t_shenv *shenv);
+void				builtin_command_exec_command(t_lst *tokens,
+													t_argparser_result *result,
+													t_shenv *shenv);
 
 t_argparser			*builtin_command_argparser(void);
 
