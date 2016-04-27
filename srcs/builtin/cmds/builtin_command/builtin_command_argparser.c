@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/cmd/builtin_command.h"
+#include "builtin/cmds/builtin_command.h"
 
 t_argparser				*builtin_command_argparser(void)
 {
@@ -19,15 +19,15 @@ t_argparser				*builtin_command_argparser(void)
 	if (argparser == NULL)
 	{
 		argparser = argparser_new("command");
-		argparser_set_usage(argparser, " [-pVv] command [arg ...]");
+		argparser_set_usage(argparser, "[-pVv] command [arg ...]");
 		argparser_add_argument(argparser, argparser_argument_new('p', NULL,
-			"Perform the command search using a default value for PATH", 0);
+			"Perform the command search using a default value for PATH", 0));
 		argparser_add_argument(argparser, argparser_argument_new('v', NULL,
 			"Indicates the pathname or command that will be used by the shell",
-			0);
+			0));
 		argparser_add_argument(argparser, argparser_argument_new('V', NULL,
 			"Indicates how the name given in the command_name operand will"\
-			" be interpreted", 0);
+			" be interpreted", 0));
 	}
 	return (argparser);
 }

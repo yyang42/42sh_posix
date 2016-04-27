@@ -22,5 +22,5 @@ void					builtin_command_exec(t_lst *tokens, t_shenv *shenv)
 		argparser_result_print_error_with_help(result);
 		shenv->last_exit_code = EXIT_FAILURE;
 	}
-	arparser_result_del(result);
+	argparser_result_del(result);
 }
