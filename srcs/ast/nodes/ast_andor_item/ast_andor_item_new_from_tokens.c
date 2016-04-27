@@ -28,6 +28,7 @@ t_ast_andor_item		*ast_andor_item_new_from_tokens(t_lst *tokens, struct s_ast *a
 		this->negate = true;
 		twl_lst_pop_front(tokens);
 	}
+	twl_lst_del(this->ast_pipe_items, NULL); // LEAKS: same as compound_list: could not be safe
 	this->ast_pipe_items = ast_lap_build_items(tokens, AST_TYPE_PIPE_ITEM, ast);
 	return (this);
 	(void)tokens;

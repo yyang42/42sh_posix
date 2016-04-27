@@ -40,6 +40,7 @@ static void 	iter_cmd_fn(void *token, void *context)
 	twl_lst_cat(cmd->cmd_tokens_expanded,
 				token_mgr_new_from_string_list(token, expanded));
 	twl_lst_del(expanded, free);
+	expansion_del(expansion);
 }
 
 static void 	iter_assign_fn(void *data, void *context)

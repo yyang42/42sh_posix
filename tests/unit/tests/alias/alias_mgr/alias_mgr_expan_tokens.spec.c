@@ -35,6 +35,7 @@
 		mt_assert(twl_strcmp(joined, expected) == 0); \
 		token_mgr_del(tokens); \
 		free(joined); \
+		twl_htab_del(aliases, NULL); \
 	}
 
 mt_test_alias(num1, "xxx abc", "echo_abc", false);

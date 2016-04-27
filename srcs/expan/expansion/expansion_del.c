@@ -24,7 +24,10 @@ void			expansion_del(t_expansion *this)
 	if (this->tokens)
 		twl_lst_del(this->tokens, expan_token_del);
 	if (this->before_split)
+	{
 		twl_lst_iter0(this->before_split, iter_del_fn);
+		twl_lst_del(this->before_split, NULL);
+	}
 	if (this->to_push_bs)
 		twl_lst_del(this->to_push_bs, expan_before_split_del);
 	if (this->after_split)
@@ -33,4 +36,5 @@ void			expansion_del(t_expansion *this)
 		twl_lst_del(this->patmatch, free);
 	if (this->error)
 		free(this->error);
+	free(this);
 }
