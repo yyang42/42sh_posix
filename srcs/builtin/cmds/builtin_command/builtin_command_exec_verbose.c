@@ -74,14 +74,13 @@ void			builtin_command_exec_verbose(t_argparser_result *result,
 	while ((cmd_name = twl_lst_pop_front(remainders_copy)))
 	{
 		if (is_an_alias(cmd_name, shenv))
-			continue ;
-		if (is_a_function(cmd_name, shenv))
-			continue ;
-		if (is_a_builtin(cmd_name, shenv))
-			continue ;
-		if (is_in_path(cmd_name, shenv))
-			continue ;
-		ret = 0;
+			ret = 0;
+		else if (is_a_function(cmd_name, shenv))
+			ret = 0;
+		else if (is_a_builtin(cmd_name, shenv))
+			ret = 0;
+		else if (is_in_path(cmd_name, shenv))
+			ret = 0;
 	}
 	twl_lst_del(remainders_copy, NULL);
 	shenv->last_exit_code = ret;
