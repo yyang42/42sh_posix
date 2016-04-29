@@ -71,7 +71,10 @@ static void			prog_run_interactive(t_prog *prog)
 	LOG_INFO("run interactive shell");
 	shenv_singleton()->is_interactive_shell = true;
 	shenv_init_job_control(shenv_singleton());
-	prog_main_loop(prog);
+	if (prog_is_opt_set(prog, "gnl"))
+		prog_main_loop_gnl(prog);
+	else
+		prog_main_loop(prog);
 }
 
 int					prog_run(t_prog *prog)

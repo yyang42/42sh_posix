@@ -58,10 +58,20 @@ static void			handle_sigcont(t_job *job)
     }
 }
 
+// static void         tcsetpgrp_wrapper(int fd, pid_t pid)
+// {
+//     // if (!isatty(fd))
+//     //     return ;
+//     if (tcsetpgrp(fd, pid) == -1)
+//         LOG_ERROR("tcsetpgrp: fd=%d pid=%d: %s",fd, pid, strerror(errno));
+// }
+
 void	         	job_put_in_fg(t_job *job)
 {
     twl_printf("%s\n", job->cmd_str);
+    // tcsetpgrp_wrapper(STDIN_FILENO, job->pid);
     job_utils_waitpid(job->pid);
+    // tcsetpgrp_wrapper(STDIN_FILENO, getpid());
     (void)handle_sigcont;
     (void)sig_int_quit_handler;
     (void)sigtstp_handler;

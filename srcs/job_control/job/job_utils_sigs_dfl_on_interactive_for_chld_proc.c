@@ -15,23 +15,24 @@
 #include "shsignal/shsignal_mgr.h"
 #include "data.h"
 #include "twl_logger.h"
-/*
+
 static void     intercept_logger_handler(int sig)
 {
-  LOGGER("INTERACTIVE: Ignore signal %s(%d)", shsignal_mgr_get_signame(data_signals(), sig), sig);
-  LOGGER("INTERACTIVE: pid (%d)", getpid());
+  LOG_DEBUG("INTERACTIVE: Ignore signal %s(%d)", shsignal_mgr_get_signame(data_signals(), sig), sig);
+  LOG_DEBUG("INTERACTIVE: pid (%d)", getpid());
   (void)sig;
-}*/
+}
 
 void				job_utils_sigs_dfl_on_interactive_for_chld_proc(void)
 {
+	LOG_INFO("job_utils_sigs_dfl_on_interactive_for_chld_proc called 1");
 	if (!shenv_singleton()->is_interactive_shell)
 		return ;
-	LOG_INFO("job_utils_sigs_dfl_on_interactive_for_chld_proc called");
-	signal(SIGINT, SIG_DFL);
-	signal(SIGQUIT, SIG_DFL);
-	signal(SIGTSTP, SIG_DFL);
-	signal(SIGTTIN, SIG_DFL);
-	signal(SIGTTOU, SIG_DFL);
-	signal(SIGCHLD, SIG_DFL);
+	LOG_INFO("job_utils_sigs_dfl_on_interactive_for_chld_proc called 2");
+	signal(SIGINT, intercept_logger_handler);
+	signal(SIGQUIT, intercept_logger_handler);
+	signal(SIGTSTP, intercept_logger_handler);
+	signal(SIGTTIN, intercept_logger_handler);
+	signal(SIGTTOU, intercept_logger_handler);
+	signal(SIGCHLD, intercept_logger_handler);
 }

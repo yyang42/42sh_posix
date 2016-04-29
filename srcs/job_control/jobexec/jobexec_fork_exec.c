@@ -16,6 +16,14 @@
 #include "trap/trap_mgr.h"
 #include "job_control/job.h"
 #include "job_control/job_mgr.h"
+#include "data.h"
+#include "shsignal/shsignal_mgr.h"
+
+static void     intercept_logger_handler(int sig)
+{
+  LOG_DEBUG("Signal %s(%d)", shsignal_mgr_get_signame(data_signals(), sig), sig);
+  (void)sig;
+}
 
 void				jobexec_fork_exec(t_lst *all_tokens, void *exec_ctx,
 					void (wait_fn)(int pid, void *ctx),
@@ -23,6 +31,10 @@ void				jobexec_fork_exec(t_lst *all_tokens, void *exec_ctx,
 {
 	pid_t			pid;
 
+	// signal(SIGTTOU, intercept_logger_handler);
+	signal(SIGTTIN, intercept_logger_handler);
+	// signal(SIGTTIN, SIG_IGN);
+	// (void)intercept_logger_handler;
 	pid = shenv_utils_fork();
 	if (pid == -1)
 	{
