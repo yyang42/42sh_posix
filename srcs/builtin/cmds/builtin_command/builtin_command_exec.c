@@ -12,13 +12,6 @@
 
 #include "builtin/cmds/builtin_command.h"
 
-void			builtin_command_exec_true_verbose(t_argparser_result *result,
-													t_shenv *shenv)
-{
-	(void)result;
-	(void)shenv;
-}
-
 static void				set_usual_path_command(t_lst *tokens,
 												t_argparser_result *result,
 												t_shenv *shenv)
