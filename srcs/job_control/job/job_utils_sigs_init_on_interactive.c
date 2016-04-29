@@ -16,13 +16,13 @@
 #include "data.h"
 #include <sys/wait.h>
 
-/*
+
 static void     intercept_logger_handler(int sig)
 {
-  LOGGER("INTERACTIVE: Ignore signal %s(%d)", shsignal_mgr_get_signame(data_signals(), sig), sig);
-  LOGGER("INTERACTIVE: pid (%d)", getpid());
+  LOG_DEBUG("INTERACTIVE: Ignore signal %s(%d)", shsignal_mgr_get_signame(data_signals(), sig), sig);
+  LOG_DEBUG("INTERACTIVE: pid (%d)", getpid());
   (void)sig;
-}*/
+}
 
 static void			handle_notify_do(pid_t pid, int status)
 {
@@ -74,10 +74,10 @@ void				job_utils_sigs_init_on_interactive(void)
 	if (!shenv_singleton()->is_interactive_shell)
 		return ;
 	LOG_INFO("ignore signals")
-	signal(SIGINT, SIG_IGN);
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGTSTP, SIG_IGN);
-	signal(SIGTTIN, SIG_IGN);
-	signal(SIGTTOU, SIG_IGN);
+	signal(SIGINT, intercept_logger_handler);
+	signal(SIGQUIT, intercept_logger_handler);
+	signal(SIGTSTP, intercept_logger_handler);
+	signal(SIGTTIN, intercept_logger_handler);
+	signal(SIGTTOU, intercept_logger_handler);
 	signal(SIGCHLD, handle_notify);
 }

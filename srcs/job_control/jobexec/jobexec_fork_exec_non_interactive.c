@@ -10,29 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/builtin.h"
-#include "builtin/cmds/builtin_kill.h"
-#include "shsignal/shsignal_mgr.h"
-#include "data.h"
-#include "twl_logger.h"
+#include "job_control/jobexec.h"
 
-static void     intercept_logger_handler(int sig)
+void				jobexec_fork_exec_non_interactive(t_lst *all_tokens,
+					void *exec_ctx,
+					void (wait_fn)(int pid, void *ctx),
+					void (execve_fn)(void *ctx))
 {
-  LOG_DEBUG("INTERACTIVE: Ignore signal %s(%d)", shsignal_mgr_get_signame(data_signals(), sig), sig);
-  LOG_DEBUG("INTERACTIVE: pid (%d)", getpid());
-  (void)sig;
-}
+	pid_t			pid;
 
-void				job_utils_sigs_dfl_on_interactive_for_chld_proc(void)
-{
-	LOG_INFO("job_utils_sigs_dfl_on_interactive_for_chld_proc called 1");
-	if (!shenv_singleton()->is_interactive_shell)
-		return ;
-	LOG_INFO("job_utils_sigs_dfl_on_interactive_for_chld_proc called 2");
-	signal(SIGINT, intercept_logger_handler);
-	signal(SIGQUIT, intercept_logger_handler);
-	signal(SIGTSTP, intercept_logger_handler);
-	signal(SIGTTIN, intercept_logger_handler);
-	signal(SIGTTOU, intercept_logger_handler);
-	signal(SIGCHLD, intercept_logger_handler);
+	pid = shenv_utils_fork();
+	if (pid == 0)
+	{
+		execve_fn(exec_ctx);
+		exit(shenv_singleton()->last_exit_code);
+	}
+	else
+	{
+	    wait_fn(pid, exec_ctx);
+	}
+	(void)all_tokens;
 }

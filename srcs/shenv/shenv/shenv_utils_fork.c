@@ -17,11 +17,20 @@
 
 pid_t					shenv_utils_fork(void)
 {
-	pid_t				pid;
+	pid_t			pid;
+	int				errno_save;
+
 	pid = fork();
+	errno_save = errno;
 	if (pid == 0)
 	{
 		twl_lst_clear(shenv_singleton()->jobs, NULL);
 	}
+	else if (pid == -1)
+	{
+		shenv_singl_error(2, "cannot fork: %s", strerror(errno_save));
+		LOG_ERROR("cannot fork: %s", strerror(errno_save));
+	}
+	errno = errno_save;
 	return (pid);
 }

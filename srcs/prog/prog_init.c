@@ -23,6 +23,8 @@ static t_argparser	*init_argparser(void)
 		argparser_argument_new(0, "ast", "Print AST", 0));
 	argparser_add_argument(argparser,
 		argparser_argument_new(0, "arexp", "Print arexp", 0));
+	argparser_add_argument(argparser,
+		argparser_argument_new(0, "gnl", "gnl mode", 0));
 	return (argparser);
 }
 

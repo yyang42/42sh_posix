@@ -19,22 +19,23 @@
 
 void                shenv_init_job_control(t_shenv *this)
 {
-    this->jc_terminal = STDIN_FILENO;
-    if (this->is_interactive_shell)
-    {
-        LOG_INFO("Init job control");
-        while (tcgetpgrp (this->jc_terminal) != (this->jc_pgid = getpgrp ()))
-        {
-            kill (- this->jc_pgid, SIGTTIN);
-        }
-        job_utils_sigs_init_on_interactive();
-        this->jc_pgid = getpid ();
-        if (setpgid (this->jc_pgid, this->jc_pgid) < 0)
-        {
-            twl_dprintf(2, "error: Couldn't put the shell in its own process group");
-            exit (1);
-        }
-        tcsetpgrp (this->jc_terminal, this->jc_pgid);
-        tcgetattr (this->jc_terminal, &this->jc_tmodes);
-    }
+    (void)this;
+    // this->jc_terminal = STDIN_FILENO;
+    // if (this->is_interactive_shell)
+    // {
+    //     LOG_INFO("Init job control");
+    //     while (tcgetpgrp (this->jc_terminal) != (this->jc_pgid = getpgrp ()))
+    //     {
+    //         kill (- this->jc_pgid, SIGTTIN);
+    //     }
+    //     job_utils_sigs_init_on_interactive();
+    //     this->jc_pgid = getpid ();
+    //     if (setpgid (this->jc_pgid, this->jc_pgid) < 0)
+    //     {
+    //         twl_dprintf(2, "error: Couldn't put the shell in its own process group");
+    //         exit (1);
+    //     }
+    //     tcsetpgrp (this->jc_terminal, this->jc_pgid);
+    //     tcgetattr (this->jc_terminal, &this->jc_tmodes);
+    // }
 }

@@ -19,5 +19,13 @@
 void				jobexec_fork_exec(t_lst *all_tokens, void *exec_ctx,
 					void (wait_fn)(int pid, void *ctx),
 					void (execve_fn)(void *ctx));
+void				jobexec_fork_exec_non_interactive(t_lst *all_tokens,
+					void *exec_ctx,
+					void (wait_fn)(int pid, void *ctx),
+					void (execve_fn)(void *ctx));
+void				jobexec_fork_exec_interactive(t_lst *all_tokens,
+					void *exec_ctx,
+					void (wait_fn)(int pid, void *ctx),
+					void (execve_fn)(void *ctx));
 
 #endif
