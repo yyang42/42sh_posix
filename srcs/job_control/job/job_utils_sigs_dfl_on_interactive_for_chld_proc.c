@@ -16,23 +16,16 @@
 #include "data.h"
 #include "twl_logger.h"
 
-static void     intercept_logger_handler(int sig)
-{
-  LOG_DEBUG("INTERACTIVE: Ignore signal %s(%d)", shsignal_mgr_get_signame(data_signals(), sig), sig);
-  LOG_DEBUG("INTERACTIVE: pid (%d)", getpid());
-  (void)sig;
-}
-
 void				job_utils_sigs_dfl_on_interactive_for_chld_proc(void)
 {
 	LOG_INFO("job_utils_sigs_dfl_on_interactive_for_chld_proc called 1");
 	if (!shenv_singleton()->is_interactive_shell)
 		return ;
 	LOG_INFO("job_utils_sigs_dfl_on_interactive_for_chld_proc called 2");
-	signal(SIGINT, intercept_logger_handler);
-	signal(SIGQUIT, intercept_logger_handler);
-	signal(SIGTSTP, intercept_logger_handler);
-	signal(SIGTTIN, intercept_logger_handler);
-	signal(SIGTTOU, intercept_logger_handler);
-	signal(SIGCHLD, intercept_logger_handler);
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGTSTP, SIG_IGN);
+	signal(SIGTTIN, SIG_IGN);
+	signal(SIGTTOU, SIG_IGN);
+	signal(SIGCHLD, SIG_IGN);
 }

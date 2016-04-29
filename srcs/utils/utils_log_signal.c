@@ -10,36 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "job_control/jobexec.h"
+#include "shsignal/shsignal_mgr.h"
 
-void				jobexec_fork_exec_interactive(t_lst *all_tokens, void *exec_ctx,
-					void (wait_fn)(int pid, void *ctx),
-					void (execve_fn)(void *ctx))
+#include "utils.h"
+#include "data.h"
+
+static void     intercept_logger_handler(int sig)
 {
-	pid_t			pid;
+	LOG_DEBUG("Signal received %s(%d)",
+  	shsignal_mgr_get_signame(data_signals(), sig), sig);
+}
 
-	signal(SIGTTIN, SIG_IGN);
-	signal(SIGTTOU, SIG_IGN);
-	pid = shenv_utils_fork();
-	if (setpgid(0, 0) < 0)
-		LOG_ERROR("setpgid: %s", strerror(errno));
-	if (setpgid(pid, pid) < 0)
-		LOG_ERROR("setpgid: %s", strerror(errno));
-	if (pid == 0)
-	{
-		if (tcsetpgrp(0, getpid()) < 0)
-			LOG_ERROR("tcsetpgrp: %s", strerror(errno));
-		execve_fn(exec_ctx);
-		signal(SIGTTOU, SIG_DFL);
-		exit(shenv_singleton()->last_exit_code);
-	}
-	else
-	{
-		LOG_DEBUG("before wait_fn");
-		wait_fn(pid, exec_ctx);
-		LOG_DEBUG("after wait_fn");
-		if (tcsetpgrp(0, getpid()) < 0)
-			LOG_ERROR("tcsetpgrp: %s", strerror(errno));
-	}
-	(void)all_tokens;
+void				utils_log_signal(int signum)
+{
+	signal(signum, intercept_logger_handler);
 }
