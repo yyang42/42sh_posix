@@ -17,7 +17,7 @@
 #include "shsignal/shsignal_mgr.h"
 #include "job_control/job_mgr.h"
 
-static char			*get_sigstr_from_minus_s_opt(t_lst *tokens, t_shenv *env)
+static char			*get_sigstr_from_minus_s_opt(t_lst *tokens)
 {
 	char			*sigstr;
 	t_token			*first;
@@ -26,9 +26,8 @@ static char			*get_sigstr_from_minus_s_opt(t_lst *tokens, t_shenv *env)
 	first = twl_lst_pop_front(tokens);
 	if (twl_lst_len(tokens) == 0)
 	{
-		shenv_print_error_printf(env, first->line,
+		shenv_singl_error(EXIT_FAILURE,
 			"kill: -s: option requires an argument");
-		env->last_exit_code = EXIT_FAILURE;
 		return (NULL);
 	}
 	else
@@ -67,17 +66,15 @@ static void			iter_pids_fn(void *token_, void *signum_ptr)
 		pid = twl_atoi(token->text);
 		if (kill(pid, 0) == -1)
 		{
-			shenv_print_error_printf(shenv_singleton(), token->line,
+			shenv_singl_error(EXIT_FAILURE,
 				"kill: (%s) - No such process", token->text);
-			shenv_singleton()->last_exit_code = EXIT_FAILURE;
 			return ;
 		}
 	}
 	else
 	{
-		shenv_print_error_printf(shenv_singleton(), token->line,
+		shenv_singl_error(EXIT_FAILURE,
 			"kill: %s: arguments must be process or job IDs", token->text);
-		shenv_singleton()->last_exit_code = EXIT_FAILURE;
 		return ;
 	}
 	if ((job = job_mgr_find_by_pid(shenv_singleton()->jobs, pid)))
@@ -88,17 +85,16 @@ static void			iter_pids_fn(void *token_, void *signum_ptr)
 		shenv_singl_error(1, "kill: %s", strerror(errno));
 }
 
-static void			builtin_kill_exec_sigstr(char *sigstr, t_lst *tokens_copy,
-	t_token *first_token, t_shenv *env)
+static void			builtin_kill_exec_sigstr(char *sigstr,
+					t_lst *tokens_copy, t_shenv *env)
 {
 	int				signum;
 
 	signum = job_utils_get_signum(sigstr);
 	if (signum == -1)
 	{
-		shenv_print_error_printf(env, first_token->line,
+		shenv_singl_error(EXIT_FAILURE,
 			"kill: %s: invalid signal specification", sigstr);
-		env->last_exit_code = EXIT_FAILURE;
 	}
 	else
 	{
@@ -136,7 +132,7 @@ void				builtin_kill_exec(t_lst *tokens, t_shenv *env)
 		}
 		if (token_mgr_first_equ(tokens_copy, "-s"))
 		{
-			sigstr = get_sigstr_from_minus_s_opt(tokens_copy, env);
+			sigstr = get_sigstr_from_minus_s_opt(tokens_copy);
 		}
 		else if (!twl_strequ(token_mgr_first(tokens_copy)->text, "--")
 			&& twl_str_starts_with(token_mgr_first(tokens_copy)->text, "-"))
@@ -153,7 +149,7 @@ void				builtin_kill_exec(t_lst *tokens, t_shenv *env)
 			twl_lst_pop_front(tokens_copy);
 		if (sigstr)
 		{
-			builtin_kill_exec_sigstr(sigstr, tokens_copy, twl_lst_first(tokens), env);
+			builtin_kill_exec_sigstr(sigstr, tokens_copy, env);
 		}
 	}
 }

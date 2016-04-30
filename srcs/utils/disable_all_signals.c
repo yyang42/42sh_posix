@@ -20,9 +20,9 @@ static void			intercept_logger_handler(int sig)
 {
 	if (sig == SIGCHLD)
 		return ;
-    shenv_print_error_printf(shenv_singleton(), shenv_get_cur_line(),
+    shenv_singl_error(143,
     	"%d Terminated: %d", getpid(), sig);
-    exit(143);
+    exit(shenv_singleton()->last_exit_code);
 }
 
 void				disable_all_signals(void)

@@ -21,10 +21,8 @@ t_shvar				*shenv_shvars_set(t_shenv *shenv, char *key, char *value, char *comma
 
 	if (!token_utils_is_valid_name(key))
 	{
-		shenv_print_error_printf(shenv_singleton(),
-			shenv_get_cur_line(),
+		shenv_singl_error(EXIT_FAILURE,
 			"%s: `%s': %s", command_name, key, "not a valid identifier");
-		shenv->last_exit_code = EXIT_FAILURE;
 		return (NULL);
 	}
 	shvar = shvar_mgr_find_or_create(shenv->shvars, key);

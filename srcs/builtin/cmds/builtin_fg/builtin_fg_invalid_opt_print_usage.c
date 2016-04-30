@@ -12,9 +12,8 @@
 
 #include "builtin/cmds/builtin_fg.h"
 
-void				builtin_fg_invalid_opt_print_usage(char *opt, t_token *token)
+void				builtin_fg_invalid_opt_print_usage(char *opt)
 {
-	shenv_print_error_printf(shenv_singleton(), token->line,
-		"fg: -%c: invalid option", *opt);
+	shenv_singl_error(2, "fg: -%c: invalid option", *opt);
 	twl_dprintf(2, "fg: usage: fg [job_spec]");
 }

@@ -19,9 +19,7 @@ static void			exec_job_str_id(char *job_str_id)
 	job = job_mgr_find_by_job_id(shenv_singleton()->jobs, job_str_id);
 	if (!job)
 	{
-		shenv_print_error_printf(shenv_singleton(), shenv_get_cur_line(),
-			"bg: %s: no such job", job_str_id);
-		shenv_singleton()->last_exit_code = EXIT_FAILURE;
+		shenv_singl_error(EXIT_FAILURE, "bg: %s: no such job", job_str_id);
 	}
 	else
 	{
