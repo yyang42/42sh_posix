@@ -12,7 +12,6 @@
 
 #include "ast/nodes/ast_compound_list.h"
 
-// TODO: changer next -> prev dans le .h
 static void			iter_fn(void *ast_list_item, void *prev, void *depth_ptr)
 {
 	ast_list_item_print_function(ast_list_item, prev, *(int *)depth_ptr);
