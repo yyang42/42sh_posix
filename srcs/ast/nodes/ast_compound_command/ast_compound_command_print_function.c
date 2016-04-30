@@ -38,8 +38,7 @@ void									ast_compound_command_print_function(
 {
 	if (this->command_type != COMPOUND_COMMAND_NONE)
 	{
-		get_print_function_fns()[this->command_type](
-			this->command, depth);
+		get_print_function_fns()[this->command_type](this->command, depth);
 		// ast_redir_print_rec_list(this->redir_items, depth);
 	}
 }

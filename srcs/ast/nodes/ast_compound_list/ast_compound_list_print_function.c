@@ -12,15 +12,15 @@
 
 #include "ast/nodes/ast_compound_list.h"
 
-static void			iter_fn(void *ast_list_item, void *next, void *depth_ptr)
+// TODO: changer next -> prev dans le .h
+static void			iter_fn(void *ast_list_item, void *prev, void *depth_ptr)
 {
-	ast_list_item_print_function(ast_list_item, next, *(int *)depth_ptr);
+	ast_list_item_print_function(ast_list_item, prev, *(int *)depth_ptr);
 }
 
 void				ast_compound_list_print_function(
 							t_ast_compound_list *this,
 							int depth)
 {
-	twl_printf("%*c", depth * 4, ' ');
-	twl_lst_itern(this->ast_list_items, iter_fn, &depth);
+	twl_lst_iterp(this->ast_list_items, iter_fn, &depth);
 }

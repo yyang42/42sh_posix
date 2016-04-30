@@ -18,23 +18,23 @@ static void			iter_fn(void *ast_andor_item, void *depth_ptr)
 }
 
 void				ast_list_item_print_function(t_ast_list_item *this,
-																	void *next,
-																	int depth)
+											t_ast_list_item *prev, int depth)
 {
-	twl_lst_iter(this->ast_andor_items, iter_fn, &depth);
-	if (this->separator)
+	if (!prev)
 	{
-		if (*this->separator->text == '&')
-		{
-			twl_putstr(" & ");
-		}
-		else if (next)
-		{
-			twl_putstr(";\n");
-		}
-		else
-		{
-			twl_putstr("\n");
-		}
+		twl_printf("\n%*c", depth * 4, ' ');
+	}
+	else if (*prev->separator->text != '&')
+	{
+		twl_printf(";\n%*c", depth * 4, ' ');
+	}
+	else
+	{
+		twl_putchar(' ');
+	}
+	twl_lst_iter(this->ast_andor_items, iter_fn, &depth);
+	if (*this->separator->text == '&')
+	{
+		twl_putstr(" &");
 	}
 }

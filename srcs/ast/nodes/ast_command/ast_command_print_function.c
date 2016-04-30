@@ -15,9 +15,9 @@
 
 void				ast_command_print_function(t_ast_command *this, int depth)
 {
-	/*if (this->command_type == COMMAND_COMPOUND_COMMAND)
+	if (this->command_type == COMMAND_COMPOUND_COMMAND)
 		ast_compound_command_print_function(this->command, depth);
-	else */if (this->command_type == COMMAND_SIMPLE_COMMAND)
+	else if (this->command_type == COMMAND_SIMPLE_COMMAND)
 		ast_simple_command_print_function(this->command, depth);
 //	else if (this->command_type == COMMAND_FUNCTION_DEF)
 //		ast_function_def_print_function(this->command, depth);

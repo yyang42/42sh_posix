@@ -32,10 +32,12 @@ static bool		is_an_alias(char *cmd_name, t_shenv *shenv)
 static bool		is_a_function(char *cmd_name, t_shenv *shenv)
 {
 	t_ast_compound_command	*astcc;
+
 	if ((astcc = shenv_shfuncs_get(shenv, cmd_name)))
 	{
-		twl_printf("%s ()\n", cmd_name);
+		twl_printf("%s is a function\n%s () \n", cmd_name, cmd_name);
 		ast_compound_command_print_function(astcc, 0);
+		twl_putchar('\n');
 		return (true);
 	}
 	return (false);
@@ -59,7 +61,7 @@ static bool		is_in_path(char *cmd_name, t_shenv *shenv)
 	path = shenv_find_binary_path(shenv, cmd_name);
 	if (path)
 	{
-		twl_printf("%s\n", path);
+		twl_printf("%s is %s\n", cmd_name, path);
 		return (true);
 	}
 	return (false);

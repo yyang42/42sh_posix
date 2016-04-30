@@ -15,8 +15,14 @@
 
 void	ast_brace_group_print_function(t_ast_brace_group *this, int depth)
 {
-	ast_print_indent(depth);
-	twl_printf("{\n");
+	twl_putstr("{ ");
 	ast_compound_list_print_function(this->ast_compound_list, depth + 1);
-	twl_printf("}\n");
+	if (depth)
+	{
+		twl_printf("\n%*c", depth * 4 + 1, '}');
+	}
+	else
+	{
+		twl_putstr("\n}");
+	}
 }
