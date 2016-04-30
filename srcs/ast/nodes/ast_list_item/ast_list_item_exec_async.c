@@ -36,5 +36,6 @@ static void			wait_fn(int pid, void *this_)
 
 void				ast_list_item_exec_async(t_ast_list_item *this)
 {
+	shenv_singleton()->shenv_is_inside_job_control = true;
 	jobexec_fork_exec(this->list_item_tokens, this, wait_fn, job_execve_fn);
 }

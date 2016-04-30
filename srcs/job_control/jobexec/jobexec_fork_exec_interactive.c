@@ -30,7 +30,6 @@ void				jobexec_fork_exec_interactive(t_lst *all_tokens, void *exec_ctx,
 		if (tcsetpgrp(0, getpid()) < 0)
 			LOG_ERROR("tcsetpgrp: %s", strerror(errno));
 		execve_fn(exec_ctx);
-		signal(SIGTTOU, SIG_DFL);
 		exit(shenv_singleton()->last_exit_code);
 	}
 	else
