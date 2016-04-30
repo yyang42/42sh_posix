@@ -12,17 +12,15 @@
 
 #include "job_control/jobexec.h"
 
-void				jobexec_fork_exec(t_lst *all_tokens, void *exec_ctx,
-					void (wait_fn)(int pid, void *ctx),
-					void (execve_fn)(void *ctx))
+void				jobexec_fork_exec(t_jobexec *je)
 {
 	if (shenv_singleton()->is_interactive_shell
 		&& !shenv_singleton()->shenv_is_inside_job_control)
 	{
-		jobexec_fork_exec_interactive(all_tokens, exec_ctx, wait_fn, execve_fn);
+		jobexec_fork_exec_interactive_sig_wrapper(je);
 	}
 	else
 	{
-		jobexec_fork_exec_non_interactive(all_tokens, exec_ctx, wait_fn, execve_fn);
+		jobexec_fork_exec_non_interactive(je);
 	}
 }

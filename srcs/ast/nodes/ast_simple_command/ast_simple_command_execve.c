@@ -32,6 +32,17 @@ static void			wait_fn(int pid, void *ctx)
 	(void)ctx;
 }
 
+static void			jobexec_fork_exec_wrapper(t_lst *all_tokens, t_lst *cmd_tokens)
+{
+	t_jobexec		je;
+
+	je.all_tokens = all_tokens;
+	je.exec_ctx = cmd_tokens;
+	je.wait_fn = wait_fn;
+	je.execve_fn = job_execve_fn;
+	jobexec_fork_exec(&je);
+}
+
 void				ast_simple_command_execve(t_lst *cmd_tokens, t_lst *all_tokens)
 {
 	char			*path;
@@ -42,7 +53,7 @@ void				ast_simple_command_execve(t_lst *cmd_tokens, t_lst *all_tokens)
 	if (file_exists(path))
 	{
 		if (file_isexecutable(path))
-			jobexec_fork_exec(all_tokens, cmd_tokens, wait_fn, job_execve_fn);
+			jobexec_fork_exec_wrapper(all_tokens, cmd_tokens);
 		else
 			error_permission_denied(path);
 	}

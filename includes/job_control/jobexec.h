@@ -16,16 +16,20 @@
 # include "basics.h"
 # include "job_control/job_mgr.h"
 
-void				jobexec_fork_exec(t_lst *all_tokens, void *exec_ctx,
-					void (wait_fn)(int pid, void *ctx),
-					void (execve_fn)(void *ctx));
-void				jobexec_fork_exec_non_interactive(t_lst *all_tokens,
-					void *exec_ctx,
-					void (wait_fn)(int pid, void *ctx),
-					void (execve_fn)(void *ctx));
-void				jobexec_fork_exec_interactive(t_lst *all_tokens,
-					void *exec_ctx,
-					void (wait_fn)(int pid, void *ctx),
-					void (execve_fn)(void *ctx));
+typedef void (t_je_wait_fn)(int pid, void *ctx);
+typedef void (t_je_execve_fn)(void *ctx);
+
+typedef struct		s_jobexec
+{
+	t_lst			*all_tokens;
+	void			*exec_ctx;
+	t_je_wait_fn	*wait_fn;
+	t_je_execve_fn	*execve_fn;
+} 					t_jobexec;
+
+void				jobexec_fork_exec(t_jobexec *je);
+void				jobexec_fork_exec_non_interactive(t_jobexec *je);
+void				jobexec_fork_exec_interactive(t_jobexec *je);
+void				jobexec_fork_exec_interactive_sig_wrapper(t_jobexec *je);
 
 #endif

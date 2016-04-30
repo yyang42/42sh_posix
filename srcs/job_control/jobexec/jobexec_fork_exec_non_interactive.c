@@ -12,22 +12,18 @@
 
 #include "job_control/jobexec.h"
 
-void				jobexec_fork_exec_non_interactive(t_lst *all_tokens,
-					void *exec_ctx,
-					void (wait_fn)(int pid, void *ctx),
-					void (execve_fn)(void *ctx))
+void				jobexec_fork_exec_non_interactive(t_jobexec *je)
 {
 	pid_t			pid;
 
 	pid = shenv_utils_fork();
 	if (pid == 0)
 	{
-		execve_fn(exec_ctx);
+		je->execve_fn(je->exec_ctx);
 		exit(shenv_singleton()->last_exit_code);
 	}
 	else
 	{
-	    wait_fn(pid, exec_ctx);
+	    je->wait_fn(pid, je->exec_ctx);
 	}
-	(void)all_tokens;
 }
