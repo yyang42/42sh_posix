@@ -51,20 +51,30 @@ typedef struct		s_ast_compound_command
 }					t_ast_compound_command;
 
 t_ast_compound_command		*ast_compound_command_new(void);
-void						ast_compound_command_del(t_ast_compound_command *ast_compound_command);
+void						ast_compound_command_del(
+								t_ast_compound_command *ast_compound_command);
 
-t_ast_compound_command		*ast_compound_command_new_from_tokens(t_lst *tokens, struct s_ast *ast);
-void						ast_compound_command_print_rec(t_ast_compound_command *ast_compound_command, int depth);
+t_ast_compound_command		*ast_compound_command_new_from_tokens(t_lst *tokens,
+															struct s_ast *ast);
+void						ast_compound_command_print_rec(
+								t_ast_compound_command *ast_compound_command,
+								int depth);
+void						ast_compound_command_print_function(
+								t_ast_compound_command *ast_compound_command,
+								int depth);
 
 bool						ast_compound_command_is_own_type(t_lst *tokens);
 
-typedef void *(*t_compound_command_new_from_token_fn)(t_lst *tokens, struct s_ast *ast);
+typedef void *(*t_compound_command_new_from_token_fn)(t_lst *tokens,
+															struct s_ast *ast);
 typedef void (*t_compound_command_print_rec_fn)(void *command, int depth);
 typedef void (*t_compound_command_print_del_fn)(void *command);
 typedef void (*t_compound_command_exec_fn)(void *command);
 
+typedef void (*t_compound_command_print_function_fn)(void *command, int depth);
+
 t_compound_command_new_from_token_fn *compound_command_from_token_fns(void);
-t_compound_command_type	ast_compound_command_get_type_from_tokens(t_lst *tokens);
+t_compound_command_type		ast_compound_command_get_type_from_tokens(t_lst *tokens);
 
 void				ast_compound_command_exec(t_ast_compound_command *this);
 
