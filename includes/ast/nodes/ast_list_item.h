@@ -41,6 +41,7 @@ void				*ast_list_item_new_from_tokens_void(t_lst *tokens,
 void				ast_list_item_print_rec(t_ast_list_item *ast_list_item,
 																	int depth);
 void				ast_list_item_print_function(t_ast_list_item *ast_list_item,
+																	void *next,
 																	int depth);
 
 bool				ast_list_item_is_delimiter(t_token *token);

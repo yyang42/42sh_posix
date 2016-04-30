@@ -42,6 +42,8 @@ void				ast_brace_group_print_rec_void(void *ast_brace_group,
 void				ast_brace_group_print_function(
 											t_ast_brace_group *ast_brace_group,
 											int depth);
+void				ast_brace_group_print_function_void(void *ast_brace_group,
+											int depth);
 
 bool				ast_brace_group_is_own_type(t_lst *tokens);
 
