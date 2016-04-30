@@ -24,19 +24,20 @@ static void         job_exec_fn(void *job_)
     kill_ret = kill(job_get_kill_pid(job), SIGCONT);
     if (kill_ret == 0)
     {
-        EXEC_LOG_ERRNO(tcsetpgrp(STDIN_FILENO, job->pid));
+        if (tcsetpgrp(STDIN_FILENO, job->pid) < 0)
+            LOG_ERROR("tcsetpgrp: %s", strerror(errno));
     }
     else if (kill_ret < 0)
     {
-        LOG_ERROR("kill: %d", job_get_kill_pid(job));
+        LOG_ERROR("kill: %s, %d", strerror(errno), job_get_kill_pid(job));
         shenv_singleton()->last_exit_code = EXIT_FAILURE;
     }
     job_utils_waitpid(job->pid);
-    EXEC_LOG_ERRNO(tcsetpgrp(STDIN_FILENO, getpid()));
+    if(tcsetpgrp(STDIN_FILENO, getpid()) < 0)
+        LOG_ERROR("tcsetpgrp: %s", strerror(errno));
 }
 
 void	         	job_put_in_fg(t_job *job)
 {
-    twl_printf("%s\n", job->cmd_str);
     jobexec_fork_exec_interactive_job_sig_wrapper(job, job, job_exec_fn);
 }

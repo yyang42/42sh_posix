@@ -29,5 +29,6 @@ void                builtin_fg_put_job_in_fg(t_job *job, t_token *cmd_token)
         shenv_singl_error(1, "fg: fail to pop job from jobs (pid=%d)", job->pid);
         return ;
     }
+    twl_printf("%s\n", job->cmd_str);
     job_put_in_fg(job);
 }

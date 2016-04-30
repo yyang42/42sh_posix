@@ -17,24 +17,21 @@ void				jobexec_fork_exec_interactive(t_jobexec *je)
 {
 	pid_t			pid;
 
-	signal(SIGTTIN, SIG_IGN);
-	signal(SIGTTOU, SIG_IGN);
+	LOG_INFO("jobexec_fork_exec_interactive");
 	pid = shenv_utils_fork();
-	if (setpgid(0, 0) < 0)
-		LOG_ERROR("setpgid: %s", strerror(errno));
-	if (setpgid(pid, pid) < 0)
-		LOG_ERROR("setpgid: %s", strerror(errno));
 	if (pid == 0)
 	{
+		if (setpgid(0, 0) < 0)
+			LOG_ERROR("setpgid: %s", strerror(errno));
 		if (tcsetpgrp(0, getpid()) < 0)
 			LOG_ERROR("tcsetpgrp: %s", strerror(errno));
-		je->execve_fn(je->exec_ctx);
+		jobexec_fork_exec_execve_fn(je);
 		exit(shenv_singleton()->last_exit_code);
 	}
 	else
 	{
 		LOG_DEBUG("before wait_fn");
-		je->wait_fn(pid, je->exec_ctx);
+		jobexec_fork_exec_wait_fn(je, pid);
 		LOG_DEBUG("after wait_fn");
 		if (tcsetpgrp(0, getpid()) < 0)
 			LOG_ERROR("tcsetpgrp: %s", strerror(errno));

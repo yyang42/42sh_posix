@@ -34,5 +34,7 @@ void				jobexec_fork_exec_interactive_void(void *je);
 void				jobexec_fork_exec_interactive_job(t_jobexec *je);
 void				jobexec_fork_exec_interactive_job_sig_wrapper(t_job *job, void *ctx,
 					void (exec_interactive_fn)(void *ctx));
+void				jobexec_fork_exec_execve_fn(t_jobexec *je);
+void				jobexec_fork_exec_wait_fn(t_jobexec *je, pid_t pid);
 
 #endif

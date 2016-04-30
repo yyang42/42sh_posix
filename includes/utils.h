@@ -15,7 +15,7 @@
 
 # include "basics.h"
 
-#define EXEC_LOG_ERRNO(subject) utils_log_errno(#subject, (subject));
+#define CHECK(subject) utils_log_errno(#subject, (subject));
 
 char				*get_prompt(void);
 char				*get_search_prompt(void);

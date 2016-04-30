@@ -16,8 +16,14 @@
 void				utils_log_errno(char *name, int error_code)
 {
 	int				errno_save;
+	char			*msg;
 
 	errno_save = errno;
 	if (error_code < 0)
-		LOG_ERROR("%s: %s", name, strerror(errno_save));
+	{
+		twl_asprintf(&msg, "%s: %s", name, strerror(errno_save));
+		LOG_ERROR(msg);
+		twl_dprintf(2, msg);
+		exit(1);
+	}
 }

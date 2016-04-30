@@ -55,37 +55,56 @@ static void			ast_simple_command_exec_print_log(t_ast_simple_command *cmd)
 
 static void			ast_simple_command_exec_with_redirs(t_ast_simple_command *cmd)
 {
+	LOG_INFO("=======11");
 	ast_simple_command_exec_print_log(cmd);
+	LOG_INFO("=======12");
 	ast_redir_fd_mgr_init(cmd->redir_fds, cmd->redir_items);
+	LOG_INFO("=======13");
 	if (shenv_singleton()->last_exit_code != 0)
 	{
+	LOG_INFO("=======14");
 		if (ast_simple_command_is_special_builtin(cmd))
 			exit(1);
+	LOG_INFO("=======15");
 		return ;
 	}
+	LOG_INFO("=======16");
 	ast_simple_command_exec_tokens(cmd);
+	LOG_INFO("=======17");
 	ast_redir_fd_mgr_close_clear(cmd->redir_fds);
+	LOG_INFO("=======18 1");
 }
 
 void				ast_simple_command_exec(t_ast_simple_command *cmd)
 {
+	LOG_INFO("=======18 2");
 	if (!shenv_loop_should_exec(shenv_singleton()))
 		return ;
+	LOG_INFO("=======18 3");
 	shenv_singleton()->info.saved_last_exit = shenv_singleton()->last_exit_code;
 	shenv_singleton()->last_exit_code = EXIT_SUCCESS;
+	LOG_INFO("=======18 4");
 	ast_simple_command_expan(cmd);
 	shenv_set_cur_token(shenv_singleton(), token_mgr_first(cmd->cmd_tokens_deep_copy));
+	LOG_INFO("=======18 5");
 	job_mgr_exec_update(shenv_singleton()->jobs);
+	LOG_INFO("=======18 6");
 	twl_lst_iter(cmd->assignment_items, iter_assign_fn, cmd);
+	LOG_INFO("=======18 7");
 	if (shenv_singleton()->last_exit_code != 0 && twl_lst_len(cmd->cmd_tokens_deep_copy) == 0)
 	{
+	LOG_INFO("=======18 8");
 		exit(1);
 		return ;
 	}
+	LOG_INFO("=======18 9");
 	if (shenv_flag_exist(shenv_singleton(), "x") && twl_lst_len(cmd->cmd_tokens_expanded))
 		token_mgr_xtrace_print(cmd->cmd_tokens_expanded);
+	LOG_INFO("=======18 10");
 	ast_simple_command_exec_with_redirs(cmd);
+	LOG_INFO("=======18 11");
 	shvar_mgr_clear_assign_value(shenv_singleton()->shvars);
+	LOG_INFO("=======18 12");
 	// twl_lst_del(cmd->cmd_tokens_expanded, token_del); // LEAKS <- pas necessairement safe
 	// cmd->cmd_tokens_expanded = NULL;
 }

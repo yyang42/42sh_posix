@@ -45,11 +45,10 @@ void				jobexec_fork_exec_interactive_job_sig_wrapper(t_job *job, void *ctx,
 {
 	struct sigaction sa;
 	struct sigaction oldsa;
+    int             pid;
 
 	sig_handler_init(SIGCHLD, &sa, &oldsa);
-	int				pid;
-
-	if ((pid = setjmp(jmp_buffer)) == 0)
+    if ((pid = setjmp(jmp_buffer)) == 0)
 	{
 		exec_interactive_fn(ctx);
 		job_del(job);
@@ -60,7 +59,8 @@ void				jobexec_fork_exec_interactive_job_sig_wrapper(t_job *job, void *ctx,
 			job->pid = pid;
 		if (job->pid != pid)
         	LOG_ERROR("job->pid(%d) != pid(%d)", job->pid, pid);
-        EXEC_LOG_ERRNO(tcsetpgrp(0, getpid()));
+        if(tcsetpgrp(0, getpid()) < 0)
+            LOG_ERROR("tcsetpgrp: %s", strerror(errno));
         LOG_DEBUG("job saved: %d", pid);
         job_mgr_env_push(job);
 	}
