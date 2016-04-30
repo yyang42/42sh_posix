@@ -32,5 +32,6 @@ char				*str_unescape_backslash(char *str);
 char				*utils_str_unescape_backslash(char *str);
 bool				utils_has_line_continuation(char *str);
 char				*utils_strchr_multi_skip_escaped(char *str, char *needles);
+void				utils_log_signal(int signum);
 
 #endif

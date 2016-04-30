@@ -10,25 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ALIAS_H
-# define ALIAS_H
+#include "shsignal/shsignal_mgr.h"
 
-# include "basics.h"
-# include "twl_htab.h"
-# include "ast/ast.h"
-# include "twl_ctype.h"
+#include "utils.h"
+#include "data.h"
 
-typedef struct 		s_alias_processor
+static void     intercept_logger_handler(int sig)
 {
-	t_htab			*aliases;
-	t_lst			*tokens;
-	t_ast			*ast;
-	int				line;
-	t_lst			*processed;
-	t_lst			*prev_processed;
-}					t_alias_processor;
+	LOG_DEBUG("Signal received %s(%d)",
+  	shsignal_mgr_get_signame(data_signals(), sig), sig);
+}
 
-bool				alias_utils_is_valid_name(char *str);
-bool				alias_utils_starts_with(char *alias_str, char *needle);
-
-#endif
+void				utils_log_signal(int signum)
+{
+	signal(signum, intercept_logger_handler);
+}

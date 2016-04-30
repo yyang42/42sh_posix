@@ -59,6 +59,8 @@ static void			extend_tokens(t_alias_processor *p, char **accumulator)
 	tokenizer = tokenizer_new(*accumulator);
 	tokenizer->cur_line = p->line;
 	tokenized_tokens = tokenizer_tokenize(tokenizer);
+	token_mgr_mark_is_alias_expan(tokenized_tokens, p->processed);
+	token_mgr_mark_is_alias_expan(tokenized_tokens, p->prev_processed);
 	twl_lst_extend_front(p->tokens, tokenized_tokens);
 	if (p->ast)
 	{
@@ -88,6 +90,8 @@ bool				alias_mgr_expan_tokens_inner(t_alias_processor *p)
 		if (alias)
 		{
 			has_expan = true;
+			if (twl_lst_find(p->prev_processed, find_fn, token->text))
+				return (NULL);
 			twl_lst_pop_front(p->tokens); // LEAKS !!!!
 			if (twl_str_ends_with(alias, " ") && twl_lst_len(copy_tokens))
 				continue ;
@@ -114,6 +118,7 @@ void				alias_mgr_expan_tokens(t_htab *aliases, t_lst *tokens,
 	p.aliases = aliases;
 	p.ast = ast;
 	p.processed = processed;
+	p.prev_processed = token_mgr_first(tokens)->source_alias_expans;
 	while (alias_mgr_expan_tokens_inner(&p))
 		;
 }

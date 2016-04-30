@@ -27,5 +27,6 @@ t_token				*token_copy(t_token *src)
 	this->col = src->col;
 	if (src->heredoc_text)
 		this->heredoc_text = twl_strdup(src->heredoc_text);
+	this->source_alias_expans = twl_lst_copy(src->source_alias_expans, NULL);
 	return (this);
 }

@@ -10,25 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ALIAS_H
-# define ALIAS_H
+#include "token/token_mgr.h"
 
-# include "basics.h"
-# include "twl_htab.h"
-# include "ast/ast.h"
-# include "twl_ctype.h"
-
-typedef struct 		s_alias_processor
+static void			mark_is_alias_expan_fn(void *token_, void *source_alias_expans)
 {
-	t_htab			*aliases;
-	t_lst			*tokens;
-	t_ast			*ast;
-	int				line;
-	t_lst			*processed;
-	t_lst			*prev_processed;
-}					t_alias_processor;
+	t_token	*token;
 
-bool				alias_utils_is_valid_name(char *str);
-bool				alias_utils_starts_with(char *alias_str, char *needle);
+	token = token_;
+	twl_lst_extend(token->source_alias_expans, source_alias_expans);
+}
 
-#endif
+void				token_mgr_mark_is_alias_expan(t_lst *tokens, t_lst *source_alias_expans)
+{
+	twl_lst_iter(tokens, mark_is_alias_expan_fn, source_alias_expans);
+}

@@ -69,7 +69,6 @@ static void			prog_run_input_from_stdin(t_prog *prog)
 static void			prog_run_interactive(t_prog *prog)
 {
 	LOG_INFO("run interactive shell");
-	shenv_singleton()->is_interactive_shell = true;
 	shenv_init_job_control(shenv_singleton());
 	if (prog_is_opt_set(prog, "gnl"))
 		prog_main_loop_gnl(prog);
@@ -88,7 +87,8 @@ int					prog_run(t_prog *prog)
 	}
 	else if (twl_lst_len(prog->argparser_result->remainders) == 0)
 	{
-		if (isatty(0))
+		shenv_singleton()->is_interactive_shell = isatty(0);
+		if (shenv_singleton()->is_interactive_shell)
 			prog_run_interactive(prog);
 		else
 			prog_run_input_from_stdin(prog);

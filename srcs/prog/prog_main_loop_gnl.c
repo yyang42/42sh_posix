@@ -21,33 +21,8 @@
 
 static void			exec_input(char *input)
 {
-	ast_exec_string(input);;
+	ast_exec_string(input);
 }
-/*
-void				prog_main_loop_gnl(t_prog *prog)
-{
-	char      *input;
-	char      *remain;
-
-	remain = NULL;
-	input = NULL;
-	twl_printf("GNL Line Edit\n");
-	while (true)
-	{
-		twl_printf("$ ");
-		if (twl_gnl(0, &input, &remain))
-		{
-			exec_input(input);
-			free(input);
-		}
-		else
-		{
-			break ;
-		}
-	}
-	(void)prog;
-}
-*/
 
 #define BUFF_SIZE 1000
 
@@ -56,6 +31,7 @@ void				prog_main_loop_gnl(t_prog *prog)
 	char			buff[BUFF_SIZE + 1];
 	int				ret;
 	int				errno_save;
+	static int		err_count = 0;
 
 	while (true)
 	{
@@ -65,7 +41,9 @@ void				prog_main_loop_gnl(t_prog *prog)
 		if (ret < 0)
 		{
 			twl_dprintf(2, "[error] %s\n", strerror(errno_save));
-			exit(1);
+			err_count++;
+			if (err_count > 3)
+				exit(1);
 		}
 		else if (ret == 0)
 		{
@@ -81,5 +59,4 @@ void				prog_main_loop_gnl(t_prog *prog)
 		}
 	}
 	(void)prog;
-	(void)exec_input;
 }
