@@ -20,8 +20,11 @@
 static char			*get_sigstr_from_minus_s_opt(t_lst *tokens)
 {
 	char			*sigstr;
+	t_token			*first;
 
 	sigstr = NULL;
+	first = twl_lst_pop_front(tokens);
+	(void)first;
 	if (twl_lst_len(tokens) == 0)
 	{
 		shenv_singl_error(EXIT_FAILURE,
