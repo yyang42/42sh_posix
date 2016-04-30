@@ -16,6 +16,7 @@ void				job_mgr_env_push(t_job *job)
 {
 	static long long int	job_id = 1;
 
+	LOG_INFO("job_mgr_env_push: %d", job->pid);
 	if (job->job_id == 0)
 	{
 		job->job_id = job_id;

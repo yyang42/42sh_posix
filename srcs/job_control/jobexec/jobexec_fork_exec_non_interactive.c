@@ -17,21 +17,15 @@ void				jobexec_fork_exec_non_interactive(t_jobexec *je)
 	pid_t			pid;
 
 	pid = shenv_utils_fork();
-	LOG_INFO("======= 1");
 	if (pid == 0)
 	{
 		if (setpgid(pid, pid) < 0)
 			LOG_ERROR("setpgid: %s", strerror(errno));
-	LOG_INFO("======= 2");
 		jobexec_fork_exec_execve_fn(je);
-	LOG_INFO("======= 3");
 		exit(shenv_singleton()->last_exit_code);
-	LOG_INFO("======= 4");
 	}
 	else
 	{
-	LOG_INFO("======= 5");
 		jobexec_fork_exec_wait_fn(je, pid);
-		LOG_INFO("======= 6");
 	}
 }

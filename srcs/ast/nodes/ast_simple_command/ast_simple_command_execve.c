@@ -26,7 +26,7 @@ static void			job_execve_fn(void *tokens)
 
 static void			wait_fn(int pid, void *ctx)
 {
-	LOG_DEBUG("simple cmd wait_fn called");
+	LOG_INFO("ast_simple_command_execve wait_fn");
 	job_utils_waitpid(pid);
 	(void)pid;
 	(void)ctx;

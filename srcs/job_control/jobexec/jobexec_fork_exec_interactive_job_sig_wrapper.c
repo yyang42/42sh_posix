@@ -61,7 +61,6 @@ void				jobexec_fork_exec_interactive_job_sig_wrapper(t_job *job, void *ctx,
         	LOG_ERROR("job->pid(%d) != pid(%d)", job->pid, pid);
         if(tcsetpgrp(0, getpid()) < 0)
             LOG_ERROR("tcsetpgrp: %s", strerror(errno));
-        LOG_DEBUG("job saved: %d", pid);
         job_mgr_env_push(job);
 	}
 }

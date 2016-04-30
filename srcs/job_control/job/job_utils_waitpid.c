@@ -38,15 +38,15 @@ void				job_utils_waitpid(pid_t pid)
     	}
     	if (WIFCONTINUED(res))
     	{
-    		LOG_DEBUG("WIFCONTINUED");
+    		LOG_INFO("WIFCONTINUED");
     	}
 		else if (WIFEXITED(res))
 		{
-			LOG_DEBUG("WIFEXITED");
+			LOG_INFO("WIFEXITED");
 		}
 		else if (WIFSIGNALED(res))
 		{
-			LOG_DEBUG("WIFSIGNALED");
+			LOG_INFO("WIFSIGNALED");
 		}
  	}
 }

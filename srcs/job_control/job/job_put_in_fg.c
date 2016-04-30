@@ -20,7 +20,7 @@ static void         job_exec_fn(void *job_)
     int             kill_ret;
 
     job = job_;
-    LOG_DEBUG("job_exec_fn called: pid: %d", job->pid);
+    LOG_INFO("job_put_in_fg: job_exec_fn: pid: %d", job->pid);
     kill_ret = kill(job_get_kill_pid(job), SIGCONT);
     if (kill_ret == 0)
     {
