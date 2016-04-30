@@ -40,20 +40,19 @@ static void			iter_redir_fn(void *data, void *ctx1, void *ctx2)
 	}
 }
 
-static void			iter_heredoc_fn(void *data, void *ctx1, void *ctx2)
+static void			iter_heredoc_fn(void *data)
 {
 	t_ast_redir		*this;
 
 	this = data;
 	if (!this->heredoc_text)
 		return ;
-	*(size_t *)ctx2 += 1;
 	if (this->io_number != IO_NUMBER_NOT_DEFINED)
 	{
 		twl_putnbr(this->io_number);
 	}
-	twl_printf(" %s%s\n%s\n", this->operator, this->param->text, this->heredoc_text_unexpanded);
-	(void)ctx1;
+	twl_printf(" %s%s\n%s\n", this->operator, this->param->text,
+			this->heredoc_text_unexpanded);
 }
 
 void				ast_redir_print_function_list(t_lst *redir_items)
@@ -68,5 +67,5 @@ void				ast_redir_print_function_list(t_lst *redir_items)
 	twl_lst_iter2(redir_items, iter_redir_fn, &len, &sum);
 	if (sum == len)
 		return ;
-	twl_lst_iter2(redir_items, iter_heredoc_fn, &len, &sum);
+	twl_lst_iter0(redir_items, iter_heredoc_fn);
 }

@@ -39,7 +39,7 @@ void									ast_compound_command_print_function(
 	if (this->command_type != COMPOUND_COMMAND_NONE)
 	{
 		get_print_function_fns()[this->command_type](this->command, depth);
-		if (depth > 0)
+		if (twl_lst_len(this->redir_items) > 0)
 		{
 			twl_putchar(' ');
 			ast_redir_print_function_list(this->redir_items);
