@@ -28,15 +28,28 @@ typedef struct				s_ast_compound_list
 }							t_ast_compound_list;
 
 t_ast_compound_list			*ast_compound_list_new(void);
-void						ast_compound_list_del(t_ast_compound_list *ast_compound_list);
+void						ast_compound_list_del(
+										t_ast_compound_list *ast_compound_list);
 
-t_ast_compound_list			*ast_compound_list_new_from_tokens(t_lst *tokens, struct s_ast *ast);
-t_ast_compound_list	*ast_compound_list_new_from_tokens_wrap(t_lst *tokens,
-								char *open, char *close, struct s_ast *ast);
-void						ast_compound_list_print_rec(t_ast_compound_list *ast_compound_list, int depth);
+t_ast_compound_list			*ast_compound_list_new_from_tokens(t_lst *tokens,
+															struct s_ast *ast);
+t_ast_compound_list			*ast_compound_list_new_from_tokens_wrap(
+														t_lst *tokens,
+														char *open,
+														char *close,
+														struct s_ast *ast);
+void						ast_compound_list_print_rec(
+										t_ast_compound_list *ast_compound_list,
+										int depth);
+void						ast_compound_list_print_function(
+										t_ast_compound_list *ast_compound_list,
+										int depth);
 
-void						ast_compound_list_exec(t_ast_compound_list *ast_compound_list);
-void						ast_compound_list_exec_ignore_errexit(t_ast_compound_list *ast_compound_list);
-int							ast_compound_list_expan(t_ast_compound_list *ast_compound_list);
+void						ast_compound_list_exec(
+										t_ast_compound_list *ast_compound_list);
+void						ast_compound_list_exec_ignore_errexit(
+										t_ast_compound_list *ast_compound_list);
+int							ast_compound_list_expan(
+										t_ast_compound_list *ast_compound_list);
 
 #endif
