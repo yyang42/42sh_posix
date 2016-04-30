@@ -25,5 +25,6 @@ t_token				*token_new(char *text, int line, int col)
 	this->line = line;
 	this->col = col;
 	this->heredoc_text = NULL;
+	this->source_alias_expans = twl_lst_new();
 	return (this);
 }
