@@ -40,6 +40,7 @@ static void         put_in_bg(t_job *job)
 
 void                builtin_bg_put_job_in_bg(t_job *job)
 {
+    job_print(job, 0);
     put_in_bg(job);
     job->job_status = JOB_RUNNING;
 }

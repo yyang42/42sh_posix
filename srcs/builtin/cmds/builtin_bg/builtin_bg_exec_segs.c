@@ -43,6 +43,11 @@ void				builtin_bg_exec_segs(t_argparser_result *argparser_result)
 
 	segs = twl_lst_copy(argparser_result->remainders, NULL);
 	if (twl_lst_len(segs) == 0)
-		twl_lst_push_back(segs, "+");
+	{
+		if (twl_lst_len(shenv_singleton()->jobs) == 0)
+			shenv_singl_error(EXIT_FAILURE, "bg: current: no such job");
+		else
+			twl_lst_push_back(segs, "+");
+	}
 	twl_lst_iter0(segs, iter_str_token_fn);
 }

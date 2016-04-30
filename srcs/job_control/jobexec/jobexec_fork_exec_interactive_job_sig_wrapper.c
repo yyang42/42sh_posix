@@ -14,15 +14,26 @@
 #include "utils.h"
 #include <setjmp.h>
 
-static jmp_buf jmp_buffer;
+static jmp_buf      jmp_buffer;
+static pid_t        active_pid;
+
 static void			sigstp_catcher(int signum, siginfo_t *info, void *vp)
 {
     LOG_INFO("signum: %d, Signal %d from PID %d, code: %d, value: %d",
     	signum, info->si_signo, (int)info->si_pid, info->si_code, info->si_value);
     if (info->si_code == CLD_STOPPED)
 	{
-    	LOG_INFO("child stopped: %d", info->si_pid);
-    	longjmp(jmp_buffer, info->si_pid);
+        LOG_INFO("child stopped: %d", info->si_pid);
+        LOG_INFO("active_pid: %d", active_pid);
+        if (active_pid == info->si_pid || active_pid == 0)
+        {
+            LOG_INFO("longjmp: %d", info->si_pid);
+            longjmp(jmp_buffer, info->si_pid);
+        }
+        else
+        {
+            LOG_INFO("no longjmp: %d", info->si_pid);
+        }
 	}
     (void)vp;
 }
@@ -48,6 +59,7 @@ void				jobexec_fork_exec_interactive_job_sig_wrapper(t_job *job, void *ctx,
     int             pid;
 
 	sig_handler_init(SIGCHLD, &sa, &oldsa);
+    active_pid = job->pid;
     if ((pid = setjmp(jmp_buffer)) == 0)
 	{
 		exec_interactive_fn(ctx);
