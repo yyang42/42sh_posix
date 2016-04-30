@@ -17,7 +17,7 @@ void				jobexec_fork_exec(t_jobexec *je)
 	if (shenv_singleton()->is_interactive_shell
 		&& !shenv_singleton()->shenv_is_inside_job_control)
 	{
-		jobexec_fork_exec_interactive_sig_wrapper(je);
+		jobexec_fork_exec_interactive_job(je);
 	}
 	else
 	{

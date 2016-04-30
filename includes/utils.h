@@ -15,6 +15,8 @@
 
 # include "basics.h"
 
+#define LOG_ERRNO(subject) utils_log_errno(#subject, (subject));
+
 char				*get_prompt(void);
 char				*get_search_prompt(void);
 
@@ -33,5 +35,6 @@ char				*utils_str_unescape_backslash(char *str);
 bool				utils_has_line_continuation(char *str);
 char				*utils_strchr_multi_skip_escaped(char *str, char *needles);
 void				utils_log_signal(int signum);
+void				utils_log_errno(char *name, int error_code);
 
 #endif

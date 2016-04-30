@@ -12,31 +12,12 @@
 
 #include "job_control/jobexec.h"
 #include "utils.h"
+#include <setjmp.h>
 
-void				jobexec_fork_exec_interactive(t_jobexec *je)
+void				jobexec_fork_exec_interactive_job(t_jobexec *je)
 {
-	pid_t			pid;
+	t_job           *job;
 
-	signal(SIGTTIN, SIG_IGN);
-	signal(SIGTTOU, SIG_IGN);
-	pid = shenv_utils_fork();
-	if (setpgid(0, 0) < 0)
-		LOG_ERROR("setpgid: %s", strerror(errno));
-	if (setpgid(pid, pid) < 0)
-		LOG_ERROR("setpgid: %s", strerror(errno));
-	if (pid == 0)
-	{
-		if (tcsetpgrp(0, getpid()) < 0)
-			LOG_ERROR("tcsetpgrp: %s", strerror(errno));
-		je->execve_fn(je->exec_ctx);
-		exit(shenv_singleton()->last_exit_code);
-	}
-	else
-	{
-		LOG_DEBUG("before wait_fn");
-		je->wait_fn(pid, je->exec_ctx);
-		LOG_DEBUG("after wait_fn");
-		if (tcsetpgrp(0, getpid()) < 0)
-			LOG_ERROR("tcsetpgrp: %s", strerror(errno));
-	}
+	job = job_new(0, je->all_tokens);
+    jobexec_fork_exec_interactive_job_sig_wrapper(job, je);
 }

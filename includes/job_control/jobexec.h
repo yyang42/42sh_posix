@@ -30,6 +30,7 @@ typedef struct		s_jobexec
 void				jobexec_fork_exec(t_jobexec *je);
 void				jobexec_fork_exec_non_interactive(t_jobexec *je);
 void				jobexec_fork_exec_interactive(t_jobexec *je);
-void				jobexec_fork_exec_interactive_sig_wrapper(t_jobexec *je);
+void				jobexec_fork_exec_interactive_job(t_jobexec *je);
+void				jobexec_fork_exec_interactive_job_sig_wrapper(t_job *job, void *je);
 
 #endif

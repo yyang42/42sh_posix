@@ -10,10 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "job_control/jobexec.h"
 #include "utils.h"
+#include <errno.h>
 
-void				jobexec_fork_exec_interactive_sig_wrapper(t_jobexec *je)
+void				utils_log_errno(char *name, int error_code)
 {
-	jobexec_fork_exec_interactive(je);
+	int				errno_save;
+
+	errno_save = errno;
+	if (error_code < 0)
+		LOG_ERROR("%s: %s", name, strerror(errno_save));
 }
