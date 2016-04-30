@@ -51,8 +51,8 @@ static void			iter_heredoc_fn(void *data)
 	{
 		twl_putnbr(this->io_number);
 	}
-	twl_printf(" %s%s\n%s\n", this->operator, this->param->text,
-			this->heredoc_text_unexpanded);
+	twl_printf(" %s%s\n%s%s\n", this->operator, this->param->text,
+			this->heredoc_text_unexpanded, this->param->text);
 }
 
 void				ast_redir_print_function_list(t_lst *redir_items)
