@@ -74,7 +74,8 @@ typedef void (*t_compound_command_exec_fn)(void *command);
 typedef void (*t_compound_command_print_function_fn)(void *command, int depth);
 
 t_compound_command_new_from_token_fn *compound_command_from_token_fns(void);
-t_compound_command_type		ast_compound_command_get_type_from_tokens(t_lst *tokens);
+t_compound_command_type		ast_compound_command_get_type_from_tokens(
+																t_lst *tokens);
 
 void				ast_compound_command_exec(t_ast_compound_command *this);
 

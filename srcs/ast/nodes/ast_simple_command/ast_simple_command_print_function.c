@@ -40,11 +40,12 @@ void				ast_simple_command_print_function(
 	bool			is_prev_set;
 
 	is_prev_set = false;
-	twl_lst_iterp(this->assignment_items, assign_iter_fn, &is_prev_set);
+	twl_lst_itern(this->assignment_items, assign_iter_fn, &is_prev_set);
 	if (is_prev_set && twl_lst_len(this->cmd_tokens_deep_copy))
 		twl_putchar(' ');
 	twl_lst_itern(this->cmd_tokens_deep_copy, command_iter_fn, &is_prev_set);
+	if (is_prev_set && twl_lst_len(this->redir_items))
+		twl_putchar(' ');
+	ast_redir_print_function_list(this->redir_items);
 	(void)depth;
-//	ast_redir_print_rec_list(this->redir_items, depth);
-//	ast_assignment_print_rec_list(this->assignment_items, depth);
 }
