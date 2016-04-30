@@ -81,13 +81,13 @@ int					prog_run(t_prog *prog)
 	char			*input;
 
 	input = prog_run_get_input(prog);
-	shenv_singleton()->is_interactive_shell = isatty(0);
 	if (input)
 	{
 		prog_run_input(prog, input);
 	}
 	else if (twl_lst_len(prog->argparser_result->remainders) == 0)
 	{
+		shenv_singleton()->is_interactive_shell = isatty(0);
 		if (shenv_singleton()->is_interactive_shell)
 			prog_run_interactive(prog);
 		else
