@@ -34,9 +34,8 @@ static bool		is_a_function(char *cmd_name, t_shenv *shenv)
 	t_ast_compound_command	*astcc;
 	if ((astcc = shenv_shfuncs_get(shenv, cmd_name)))
 	{
-		twl_printf("%s () {\n", cmd_name);
-		ast_compound_command_print_rec(astcc, 0);
-		twl_printf("}\n");
+		twl_printf("%s ()\n", cmd_name);
+		ast_compound_command_print_function(astcc, 0);
 		return (true);
 	}
 	return (false);
