@@ -37,5 +37,6 @@ static void         job_exec_fn(void *job_)
 
 void	         	job_put_in_fg(t_job *job)
 {
+    twl_printf("%s\n", job->cmd_str);
     jobexec_fork_exec_interactive_job_sig_wrapper(job, job, job_exec_fn);
 }

@@ -17,13 +17,12 @@
 static jmp_buf jmp_buffer;
 static void			sigstp_catcher(int signum, siginfo_t *info, void *vp)
 {
-    LOG_DEBUG("signum: %d, Signal %d from PID %d, code: %d, value: %d",
+    LOG_INFO("signum: %d, Signal %d from PID %d, code: %d, value: %d",
     	signum, info->si_signo, (int)info->si_pid, info->si_code, info->si_value);
     if (info->si_code == CLD_STOPPED)
 	{
-    	LOG_DEBUG("child stopped: %d", info->si_pid);
+    	LOG_INFO("child stopped: %d", info->si_pid);
     	longjmp(jmp_buffer, info->si_pid);
-    	// utils_log_errno("kill", kill(-info->si_pid, SIGTSTP) < 0);
 	}
     (void)vp;
 }
