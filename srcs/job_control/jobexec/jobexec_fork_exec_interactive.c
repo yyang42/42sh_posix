@@ -30,9 +30,9 @@ void				jobexec_fork_exec_interactive(t_jobexec *je)
 	}
 	else
 	{
-		LOG_DEBUG("before wait_fn");
+		LOG_INFO("before wait_fn");
 		jobexec_fork_exec_wait_fn(je, pid);
-		LOG_DEBUG("after wait_fn");
+		LOG_INFO("after wait_fn");
 		if (tcsetpgrp(0, getpid()) < 0)
 			LOG_ERROR("tcsetpgrp: %s", strerror(errno));
 	}
