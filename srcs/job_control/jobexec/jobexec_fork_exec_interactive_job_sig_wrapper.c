@@ -41,7 +41,8 @@ static void			sig_handler_init(int signum, struct sigaction *sa, struct sigactio
     }
 }
 
-void				jobexec_fork_exec_interactive_job_sig_wrapper(t_job *job, void *ctx)
+void				jobexec_fork_exec_interactive_job_sig_wrapper(t_job *job, void *ctx,
+					void (exec_interactive_fn)(void *ctx))
 {
 	struct sigaction sa;
 	struct sigaction oldsa;
@@ -51,7 +52,7 @@ void				jobexec_fork_exec_interactive_job_sig_wrapper(t_job *job, void *ctx)
 
 	if ((pid = setjmp(jmp_buffer)) == 0)
 	{
-		jobexec_fork_exec_interactive(ctx);
+		exec_interactive_fn(ctx);
 		job_del(job);
 	}
 	else
@@ -60,8 +61,7 @@ void				jobexec_fork_exec_interactive_job_sig_wrapper(t_job *job, void *ctx)
 			job->pid = pid;
 		if (job->pid != pid)
         	LOG_ERROR("job->pid(%d) != pid(%d)", job->pid, pid);
-
-        LOG_ERRNO(tcsetpgrp(0, getpid()));
+        EXEC_LOG_ERRNO(tcsetpgrp(0, getpid()));
         LOG_DEBUG("job saved: %d", pid);
         job_mgr_env_push(job);
 	}
