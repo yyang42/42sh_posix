@@ -23,6 +23,8 @@
 
 bool				token_utils_is_valid_name(char *str)
 {
+	if (!str)
+		return (false);
 	if (twl_isdigit(*str) || *str == '\0')
 		return (false);
 	while (*str)
