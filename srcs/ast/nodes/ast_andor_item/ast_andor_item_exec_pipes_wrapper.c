@@ -12,7 +12,7 @@
 
 #include "ast/nodes/ast_andor_item.h"
 #include "job_control/jobexec.h"
-/*
+
 static void			job_execve_fn(void *this)
 {
 	ast_andor_item_exec_pipes(this);
@@ -24,20 +24,19 @@ static void			wait_fn(int pid, void *this_)
 
 	this = this_;
 	LOG_INFO("ast_andor_item_exec_pipes_wrapper: wait_fn");
-	// job_mgr_env_push(job_new(pid, str_tokens));
-	// shenv_singleton()->info.most_recent_background_command_pid = pid;
 	job_utils_waitpid(pid);
 	(void)this;
 }
-*/
+
 void				ast_andor_item_exec_pipes_wrapper(t_ast_andor_item *this)
 {
-/*	t_jobexec		je;
+	t_jobexec		je;
 
 	je.all_tokens = this->andor_all_tokens;
 	je.exec_ctx = this;
 	je.wait_fn = wait_fn;
 	je.execve_fn = job_execve_fn;
-	jobexec_fork_exec(&je);*/
-	ast_andor_item_exec_pipes(this);
+	je.is_bg_job = false;
+	jobexec_fork_exec(&je);
+	// ast_andor_item_exec_pipes(this);
 }

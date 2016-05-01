@@ -78,10 +78,12 @@ re:
 	@$(MAKE) all
 
 check:
+	rm /tmp/.debug.out
 	make check_unit
 	make check_ast
 	make check_exit_code
 	make check_use_case
+	make check_log_error
 
 check_libtowel:
 	make -C $(LIB_TOWEL_PATH) check

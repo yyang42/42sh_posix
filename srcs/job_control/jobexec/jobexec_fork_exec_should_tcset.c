@@ -14,6 +14,9 @@
 
 bool				jobexec_fork_exec_should_tcset(t_jobexec *je)
 {
+	LOG_DEBUG("jobexec_fork_exec_should_tcset: fork level: %d\n", shenv_singleton()->shenv_fork_level);
+	LOG_DEBUG("jobexec_fork_exec_should_tcset: isatty    : %d\n", isatty(0));
+	LOG_DEBUG("jobexec_fork_exec_should_tcset: is_bg_job : %d\n", je->is_bg_job);
 	return ((shenv_singleton()->shenv_fork_level == 0)
 		&& isatty(0)
 		&& !je->is_bg_job);
