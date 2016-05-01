@@ -28,7 +28,8 @@ static t_compound_command_print_function_fn		*get_print_function_fns(void)
 		fns[COMPOUND_COMMAND_IF_CLAUSE] = ast_if_clause_print_function_void;
 		fns[COMPOUND_COMMAND_WHILE_CLAUSE] =
 			ast_while_clause_print_function_void;
-		//fns[COMPOUND_COMMAND_UNTIL_CLAUSE] = ast_until_clause_print_function;
+		fns[COMPOUND_COMMAND_UNTIL_CLAUSE] =
+			ast_until_clause_print_function_void;
 		already_loaded = true;
 	}
 	return (fns);
