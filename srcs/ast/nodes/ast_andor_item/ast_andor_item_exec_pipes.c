@@ -12,12 +12,6 @@
 
 #include "ast/nodes/ast_andor_item.h"
 
-static int			fork_error(void)
-{
-	shenv_singl_error(1, "fork: %s", strerror(errno));
-	return (1);
-}
-
 static void			andor_fn_2(t_ast_pipe_item *pipe_item, pid_t pid)
 {
 	int				res;
@@ -33,7 +27,6 @@ static void			andor_fn_2(t_ast_pipe_item *pipe_item, pid_t pid)
 			close(0);
 			dup2(pipe_item->fds[0], 0);
 		}
-		// twl_printf("shenv_singleton()->last_exit_code %d\n", shenv_singleton()->last_exit_code);
 		ast_pipe_item_exec(pipe_item);
 		exit(shenv_singleton()->last_exit_code);
 	}
@@ -60,11 +53,11 @@ static void			iter_andor_fn(void *ast_pipe_item_)
 	child_pid = shenv_utils_fork();
 	if (child_pid == -1)
 	{
+		LOG_ERROR("fork: %s", strerror(errno));
 		if (ast_pipe_item->fds[0] != -1)
 			close(ast_pipe_item->fds[0]);
 		if (ast_pipe_item->fds[1] != -1)
 			close(ast_pipe_item->fds[1]);
-		fork_error();
 	}
 	else
 	{
@@ -78,7 +71,8 @@ static void			iter_fds_fn(void *data, void *next_data, void *context_)
 	t_ast_pipe_item	*pipe_item_next;
 	int				fds[2];
 
-	pipe(fds);
+	if (pipe(fds) < 0)
+		LOG_ERROR("pipe: %s", strerror(errno));
 	pipe_item = data;
 	pipe_item_next = next_data;
 	if (pipe_item_next)
