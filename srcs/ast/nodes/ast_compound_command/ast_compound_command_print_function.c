@@ -22,7 +22,7 @@ static t_compound_command_print_function_fn		*get_print_function_fns(void)
 	if (already_loaded == false)
 	{
 		fns[COMPOUND_COMMAND_BRACE_GROUP] = ast_brace_group_print_function_void;
-		//fns[COMPOUND_COMMAND_SUBSHELL] = ast_subshell_print_function;
+		fns[COMPOUND_COMMAND_SUBSHELL] = ast_subshell_print_function_void;
 		//fns[COMPOUND_COMMAND_FOR_CLAUSE] = ast_for_clause_print_function;
 		//fns[COMPOUND_COMMAND_CASE_CLAUSE] = ast_case_clause_print_function;
 		//fns[COMPOUND_COMMAND_IF_CLAUSE] = ast_if_clause_print_function;
