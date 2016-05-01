@@ -10,15 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_command.h"
-#include "token/token_mgr.h"
+#include "ast/nodes/ast_function_def.h"
+#include "ast/nodes/ast_compound_command.h"
 
-void				ast_command_print_function(t_ast_command *this, int depth)
+void			ast_function_def_print_function(
+					t_ast_function_def *this, int depth)
 {
-	if (this->command_type == COMMAND_COMPOUND_COMMAND)
-		ast_compound_command_print_function(this->command, depth);
-	else if (this->command_type == COMMAND_SIMPLE_COMMAND)
-		ast_simple_command_print_function(this->command, depth);
-	else if (this->command_type == COMMAND_FUNCTION_DEF)
-		ast_function_def_print_function(this->command, depth);
+	twl_printf("function %s () \n%*c", this->name, depth * 4, ' ');
+	if (this->compound_command)
+	{
+		ast_compound_command_print_function(this->compound_command, depth);
+	}
 }
