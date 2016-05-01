@@ -85,6 +85,7 @@ typedef struct				s_shenv
 	int						shenv_list_item_level;
 	char					**shenv_read_buffer_ptr;
 	char					**shenv_read_buffer_db;
+	int						shenv_fork_level;
 }							t_shenv;
 
 t_shenv				*shenv_new(void);

@@ -19,8 +19,13 @@ void				jobexec_fork_exec_non_interactive(t_jobexec *je)
 	pid = shenv_utils_fork();
 	if (pid == 0)
 	{
-		if (setpgid(pid, pid) < 0)
-			LOG_ERROR("setpgid: %s", strerror(errno));
+		LOG_INFO("fork non interactive: %d", getpid());
+		LOG_INFO("fork level: %d", shenv_singleton()->shenv_fork_level);
+		if (shenv_singleton()->shenv_fork_level == 1)
+		{
+			if (setpgid(0, 0) < 0)
+				LOG_ERROR("setpgid: %s", strerror(errno));
+		}
 		jobexec_fork_exec_execve_fn(je);
 		exit(shenv_singleton()->last_exit_code);
 	}
