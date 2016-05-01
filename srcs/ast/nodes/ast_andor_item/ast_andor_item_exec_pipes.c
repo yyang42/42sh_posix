@@ -11,36 +11,43 @@
 /* ************************************************************************** */
 
 #include "ast/nodes/ast_andor_item.h"
+#include "job_control/job.h"
+
+static void			wait_last_pipe_item(t_ast_pipe_item *ast_pipe_item)
+{
+	LOG_DEBUG("job_utils_waitpid");
+	job_utils_waitpid(ast_pipe_item->pipe_child_pid);
+}
 
 static void			andor_fn_2(t_ast_pipe_item *pipe_item, pid_t pid)
 {
-	int				res;
 	if (pid == 0)
 	{
 		if (pipe_item->fds[1] != -1)
 		{
-			close(1);
-			dup2(pipe_item->fds[1], 1);
+			if (dup2(pipe_item->fds[1], 1) < 0)
+				LOG_ERROR("dup2: %s", strerror(errno));
 		}
 		if (pipe_item->fds[0] != -1)
 		{
-			close(0);
-			dup2(pipe_item->fds[0], 0);
+			if (dup2(pipe_item->fds[0], 0) < 0)
+				LOG_ERROR("dup2: %s", strerror(errno));
 		}
 		ast_pipe_item_exec(pipe_item);
 		exit(shenv_singleton()->last_exit_code);
 	}
 	else
 	{
-		waitpid(pid, &res, 0);
-		handle_signal(res);
-    	if (WIFEXITED(res))
-    	{
-			shenv_singleton()->last_exit_code = WEXITSTATUS(res);
-    	}
-		close(pipe_item->fds[1]);
 		if (pipe_item->fds[0] != -1)
-			close(pipe_item->fds[0]);
+		{
+			if (close(pipe_item->fds[0]) < 0)
+				LOG_ERROR("close: %s", strerror(errno));
+		}
+		if (pipe_item->fds[1] != -1)
+		{
+			if (close(pipe_item->fds[1]) < 0)
+				LOG_ERROR("close: %s", strerror(errno));
+		}
 	}
 }
 
@@ -50,14 +57,23 @@ static void			iter_andor_fn(void *ast_pipe_item_)
 	pid_t			child_pid;
 
 	ast_pipe_item = ast_pipe_item_;
+	LOG_DEBUG("ast_pipe_item->fds[0] %d", ast_pipe_item->fds[0]);;
+	LOG_DEBUG("ast_pipe_item->fds[1] %d", ast_pipe_item->fds[1]);;
 	child_pid = shenv_utils_fork();
+	ast_pipe_item->pipe_child_pid = child_pid;
 	if (child_pid == -1)
 	{
 		LOG_ERROR("fork: %s", strerror(errno));
 		if (ast_pipe_item->fds[0] != -1)
-			close(ast_pipe_item->fds[0]);
+		{
+			if (close(ast_pipe_item->fds[0]) < 0)
+				LOG_ERROR("close: %s", strerror(errno));
+		}
 		if (ast_pipe_item->fds[1] != -1)
-			close(ast_pipe_item->fds[1]);
+		{
+			if (close(ast_pipe_item->fds[1]) < 0)
+				LOG_ERROR("close: %s", strerror(errno));
+		}
 	}
 	else
 	{
@@ -87,4 +103,5 @@ void				ast_andor_item_exec_pipes(t_ast_andor_item *ast_andor_item)
 {
 	twl_lst_itern(ast_andor_item->ast_pipe_items, iter_fds_fn, NULL);
 	twl_lst_iter0(ast_andor_item->ast_pipe_items, iter_andor_fn);
+	wait_last_pipe_item(twl_lst_last(ast_andor_item->ast_pipe_items));
 }
