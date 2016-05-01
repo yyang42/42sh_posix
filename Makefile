@@ -78,7 +78,7 @@ re:
 	@$(MAKE) all
 
 check:
-	rm /tmp/.debug.out
+	rm -f /tmp/.debug.out
 	make check_unit
 	make check_ast
 	make check_exit_code

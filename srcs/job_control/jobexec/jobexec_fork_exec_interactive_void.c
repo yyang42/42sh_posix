@@ -13,7 +13,7 @@
 #include "job_control/jobexec.h"
 #include "utils.h"
 
-void				jobexec_fork_exec_interactive_void(void *je)
+void				jobexec_fork_exec_interactive_void(t_job *job, void *je)
 {
-	jobexec_fork_exec_interactive(je);
+	jobexec_fork_exec_interactive(job, je);
 }

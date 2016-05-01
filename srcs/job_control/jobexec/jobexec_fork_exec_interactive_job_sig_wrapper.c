@@ -28,9 +28,8 @@ static void         push_job(t_job *job)
 {
     if(tcsetpgrp(0, getpid()) < 0)
         LOG_ERROR("tcsetpgrp: %s", strerror(errno));
-    // if(kill(job_get_kill_pid(job), SIGTSTP) < 0)
-    //     LOG_ERROR("kill: %s", strerror(errno));
-    job->job_status = JOB_STOPPED;
+    if(kill(job_get_kill_pid(job), SIGTSTP) < 0)
+        LOG_ERROR("kill: %s", strerror(errno));
     job_mgr_env_push(job);
 }
 
@@ -43,16 +42,8 @@ static void			sigstp_catcher(int signum, siginfo_t *info, void *vp)
     if (info->si_code == CLD_STOPPED)
 	{
         LOG_INFO("child stopped: %d", info->si_pid);
+        LOG_INFO("data_tmp_jobs() len: %d", twl_lst_len(data_tmp_jobs()));
         job = job_mgr_find_by_pid(data_tmp_jobs(), info->si_pid);
-        if (!job)
-        {
-            job = job_mgr_find_by_pid(data_tmp_jobs(), 0);
-            if (job)
-            {
-                LOG_DEBUG("set job pid to: %d", info->si_pid);
-                job->pid = info->si_pid;
-            }
-        }
         if (job)
         {
             LOG_DEBUG("info->si_pid: %d", info->si_pid);
@@ -81,7 +72,7 @@ static void			sig_handler_init(int signum, struct sigaction *sa, struct sigactio
 }
 
 void				jobexec_fork_exec_interactive_job_sig_wrapper(t_job *job, void *ctx,
-					void (exec_interactive_fn)(void *ctx))
+					void (exec_interactive_fn)(t_job *job, void *ctx))
 {
 	struct sigaction sa;
 	struct sigaction oldsa;
@@ -91,7 +82,7 @@ void				jobexec_fork_exec_interactive_job_sig_wrapper(t_job *job, void *ctx,
     sig_handler_init(SIGCHLD, &sa, &oldsa);
     twl_lst_push_back(data_tmp_jobs(), job);
     LOG_DEBUG("data_tmp_jobs() len: %d", twl_lst_len(data_tmp_jobs()));
-    exec_interactive_fn(ctx);
+    exec_interactive_fn(job, ctx);
     job_mgr_pop(data_tmp_jobs(), job);
     LOG_DEBUG("data_tmp_jobs() len: %d", twl_lst_len(data_tmp_jobs()));
     if (!job_mgr_find_by_pid(shenv_singleton()->jobs, job->pid))

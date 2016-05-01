@@ -18,13 +18,13 @@ static void			job_execve_fn(void *this)
 	ast_andor_item_exec_pipes(this);
 }
 
-static void			wait_fn(int pid, void *this_)
+static void			wait_fn(int pid, int *res, void *this_)
 {
 	t_ast_andor_item	*this;
 
 	this = this_;
 	LOG_INFO("ast_andor_item_exec_pipes_wrapper: wait_fn");
-	job_utils_waitpid(pid);
+	job_utils_waitpid(pid, res);
 	(void)this;
 }
 

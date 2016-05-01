@@ -16,7 +16,7 @@
 static void			wait_last_pipe_item(t_ast_pipe_item *ast_pipe_item)
 {
 	LOG_DEBUG("job_utils_waitpid");
-	job_utils_waitpid(ast_pipe_item->pipe_child_pid);
+	job_utils_waitpid(ast_pipe_item->pipe_child_pid, NULL);
 }
 
 static void			andor_fn_2(t_ast_pipe_item *pi)

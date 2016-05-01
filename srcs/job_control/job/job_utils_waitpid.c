@@ -14,7 +14,7 @@
 #include "shenv/shenv.h"
 #include "shsignal/shsignal.h"
 
-void				job_utils_waitpid(pid_t pid)
+void				job_utils_waitpid(pid_t pid, int *res_ptr)
 {
 	int				res;
 	pid_t			waitpid_ret;
@@ -48,5 +48,23 @@ void				job_utils_waitpid(pid_t pid)
 		{
 			LOG_INFO("WIFSIGNALED");
 		}
+		else if (WIFSTOPPED(res))
+		{
+			LOG_INFO("WIFSTOPPED");
+		}
+		else if (WSTOPSIG(res))
+		{
+			LOG_INFO("WSTOPSIG");
+		}
+		else
+		{
+			LOG_INFO("UNKNOWN");
+		}
+ 	}
+ 	if (res_ptr)
+ 	{
+ 		*res_ptr = res;
+ 		LOG_INFO("res     hex: %lx", res);
+ 		LOG_INFO("res_ptr hex: %lx", *res_ptr);
  	}
 }
