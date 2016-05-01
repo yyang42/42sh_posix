@@ -42,6 +42,9 @@ void				ast_list_item_print_rec(t_ast_list_item *ast_list_item,
 																	int depth);
 void				ast_list_item_print_function(t_ast_list_item *ast_list_item,
 											t_ast_list_item *prev, int depth);
+void				ast_list_item_print_function_unfirst(
+											t_ast_list_item *ast_list_item,
+											t_ast_list_item *prev, int depth);
 
 bool				ast_list_item_is_delimiter(t_token *token);
 

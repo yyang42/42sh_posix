@@ -23,16 +23,7 @@ static void			iter_fn(void *ast_andor_item, void *depth_ptr)
 void				ast_list_item_print_function(t_ast_list_item *this,
 											t_ast_list_item *prev, int depth)
 {
-	g_if_then_last_semi_colon = false;
-	g_for_clause_last_semi_colon = false;
-	if (g_is_first_ast_subshell || g_is_first_ast_if_then)
-	{
-		if (g_is_first_ast_subshell)
-			g_is_first_ast_subshell = false;
-		if (g_is_first_ast_if_then)
-			g_is_first_ast_if_then = false;
-	}
-	else if (!prev)
+	if (!prev)
 		twl_printf("\n%*c", depth * 4, ' ');
 	else if (*prev->separator->text != '&')
 		twl_printf(";\n%*c", depth * 4, ' ');
@@ -42,10 +33,5 @@ void				ast_list_item_print_function(t_ast_list_item *this,
 	if (this->separator && *this->separator->text == '&')
 	{
 		twl_putstr(" &");
-	}
-	else
-	{
-		g_for_clause_last_semi_colon = true;
-		g_if_then_last_semi_colon = true;
 	}
 }

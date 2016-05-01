@@ -14,8 +14,6 @@
 #include "ast/nodes/ast_compound_list.h"
 #include "ast/nodes/ast_if_then.h"
 
-bool				g_for_clause_last_semi_colon = false;
-
 void				ast_for_clause_print_function(t_ast_for_clause *this,
 																	int depth)
 {
@@ -31,14 +29,9 @@ void				ast_for_clause_print_function(t_ast_for_clause *this,
 	else
 		twl_putstr(" in \"$@\"");
 	twl_printf(";\n%*c%s", depth * 4, ' ', "do");
-	g_for_clause_last_semi_colon = false;
 	if (this->do_group)
 	{
-		ast_compound_list_print_function(this->do_group, depth + 1);
+		ast_compound_list_print_function_seplast(this->do_group, depth + 1);
 	}
-	if (g_for_clause_last_semi_colon)
-		twl_printf(";\n%*c%s", depth * 4, ' ', "done");
-	else
-		twl_printf("\n%*c%s", depth * 4, ' ', "done");
-	g_for_clause_last_semi_colon = false;
+	twl_printf("\n%*c%s", depth * 4, ' ', "done");
 }

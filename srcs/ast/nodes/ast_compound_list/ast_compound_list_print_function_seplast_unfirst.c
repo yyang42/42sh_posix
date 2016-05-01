@@ -10,16 +10,26 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_subshell.h"
 #include "ast/nodes/ast_compound_list.h"
 
-bool			g_is_first_ast_subshell = false;
-
-void				ast_subshell_print_function(t_ast_subshell *ast_subshell,
-																	int depth)
+static void			iter_fn(void *ast_list_item, void *prev, 
+							void *next, void *depth_ptr)
 {
-	twl_putstr("( ");
-	ast_compound_list_print_function_unfirst(ast_subshell->ast_compound_list,
-			depth);
-	twl_putstr(" )");
+	t_ast_list_item	*this;
+
+	ast_list_item_print_function_unfirst(ast_list_item, prev,
+										*(int *)depth_ptr);
+	if (!next)
+	{
+		this = ast_list_item;
+		if (!this->separator || *this->separator->text != '&')
+			twl_putchar(';');
+	}
+}
+
+void				ast_compound_list_print_function_seplast_unfirst(
+							t_ast_compound_list *this,
+							int depth)
+{
+	twl_lst_iternp(this->ast_list_items, iter_fn, &depth);
 }

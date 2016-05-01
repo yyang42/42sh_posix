@@ -20,8 +20,6 @@
 # include "ast/ast_defines.h"
 # include "ast/ast_utils.h"
 
-extern bool						g_is_first_ast_subshell;
-
 struct s_ast_compound_list;
 typedef struct					s_ast_subshell
 {

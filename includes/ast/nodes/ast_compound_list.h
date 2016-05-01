@@ -44,6 +44,15 @@ void						ast_compound_list_print_rec(
 void						ast_compound_list_print_function(
 										t_ast_compound_list *ast_compound_list,
 										int depth);
+void						ast_compound_list_print_function_seplast(
+										t_ast_compound_list *ast_compound_list,
+										int depth);
+void						ast_compound_list_print_function_seplast_unfirst(
+										t_ast_compound_list *ast_compound_list,
+										int depth);
+void						ast_compound_list_print_function_unfirst(
+										t_ast_compound_list *ast_compound_list,
+										int depth);
 
 void						ast_compound_list_exec(
 										t_ast_compound_list *ast_compound_list);

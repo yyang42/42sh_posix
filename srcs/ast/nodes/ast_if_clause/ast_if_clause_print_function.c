@@ -39,9 +39,8 @@ void				ast_if_clause_print_function(t_ast_if_clause *ast_if_clause,
 	if (ast_if_clause->else_body)
 	{
 		twl_printf("\n%*celse", depth * 4, ' ');
-		ast_compound_list_print_function(ast_if_clause->else_body, depth + 1);
-		if (g_if_then_last_semi_colon == true)
-			twl_putchar(';');
+		ast_compound_list_print_function_seplast(ast_if_clause->else_body,
+				depth + 1);
 	}
 	while (depth > save_depth)
 	{
