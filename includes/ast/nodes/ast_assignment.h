@@ -31,8 +31,12 @@ typedef struct		s_ast_assignment
 void				ast_assignment_del(t_ast_assignment *ast_assignment);
 
 t_ast_assignment	*ast_assignment_new(t_token *token, char *key, char *value);
-void				ast_assignment_print_rec(t_ast_assignment *ast_assignment, int depth);
-void				ast_assignment_print_rec_list(t_lst *assignment_items, int depth);
+void				ast_assignment_print_rec(t_ast_assignment *ast_assignment,
+																	int depth);
+void				ast_assignment_print_rec_list(t_lst *assignment_items,
+																	int depth);
+void				ast_assignment_print_function(
+								t_ast_assignment *ast_assignment);
 
 bool				ast_assignment_is_own_type(t_lst *tokens);
 

@@ -33,20 +33,31 @@ typedef struct		s_ast_list_item
 t_ast_list_item		*ast_list_item_new(void);
 void				ast_list_item_del(t_ast_list_item *ast_list_item);
 
-t_ast_list_item		*ast_list_item_new_from_tokens(t_lst *tokens, struct s_ast *ast);
-void				*ast_list_item_new_from_tokens_void(t_lst *tokens, struct s_ast *ast);
+t_ast_list_item		*ast_list_item_new_from_tokens(t_lst *tokens,
+															struct s_ast *ast);
+void				*ast_list_item_new_from_tokens_void(t_lst *tokens,
+															struct s_ast *ast);
 
-void				ast_list_item_print_rec(t_ast_list_item *ast_list_item, int depth);
+void				ast_list_item_print_rec(t_ast_list_item *ast_list_item,
+																	int depth);
+void				ast_list_item_print_function(t_ast_list_item *ast_list_item,
+											t_ast_list_item *prev, int depth);
+void				ast_list_item_print_function_unfirst(
+											t_ast_list_item *ast_list_item,
+											t_ast_list_item *prev, int depth);
 
 bool				ast_list_item_is_delimiter(t_token *token);
 
 void				ast_list_item_exec(t_ast_list_item *ast_list_item);
 void				ast_list_item_exec_async(t_ast_list_item *this);
-void				ast_list_item_exec_non_async(t_ast_list_item *ast_list_item);
+void				ast_list_item_exec_non_async(
+												t_ast_list_item *ast_list_item);
 int					ast_list_item_expan(t_ast_list_item *ast_list_item);
 
-void				ast_list_item_set_separator(t_ast_list_item *this, t_token *token);
-void				ast_list_item_set_separator_void(void *this, t_token *token);
+void				ast_list_item_set_separator(t_ast_list_item *this,
+																t_token *token);
+void				ast_list_item_set_separator_void(void *this,
+																t_token *token);
 bool				ast_list_item_is_async(t_ast_list_item *ast_list_item);
 
 #endif

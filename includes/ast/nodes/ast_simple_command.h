@@ -44,20 +44,32 @@ struct s_ast_compound_command;
 t_ast_simple_command	*ast_simple_command_new(void);
 void					ast_simple_command_del(t_ast_simple_command *ast_s_cmd);
 bool					ast_simple_command_check_files(t_ast_simple_command *t);
-t_ast_simple_command	*ast_simple_command_new_from_tokens(t_lst *tokens, struct s_ast *ast);
-void					ast_simple_command_print_rec(t_ast_simple_command *ast_s_cmd, int depth);
+t_ast_simple_command	*ast_simple_command_new_from_tokens(t_lst *tokens,
+															struct s_ast *ast);
+void					ast_simple_command_print_rec(
+												t_ast_simple_command *ast_s_cmd,
+												int depth);
+void					ast_simple_command_print_function(
+												t_ast_simple_command *ast_s_cmd,
+												int depth);
 
 bool					ast_simple_command_is_own_type(t_lst *tokens);
 void					ast_simple_command_exec(t_ast_simple_command *cmd);
 void					ast_simple_command_expan(t_ast_simple_command *cmd);
 
-void					ast_simple_command_execve(t_lst *cmd_tokens, t_lst *all_tokens);
-void					ast_simple_command_exec_tokens(t_ast_simple_command *ast_s_cmd);
+void					ast_simple_command_execve(t_lst *cmd_tokens,
+															t_lst *all_tokens);
+void					ast_simple_command_exec_tokens(
+											t_ast_simple_command *ast_s_cmd);
 
-void					ast_simple_command_exec_function(t_lst *tokens, struct s_ast_compound_command *compound_cmd);
-void					ast_simple_command_execve_child(t_lst *cmd_tokens, char *path);
-void					ast_simple_command_execve_parent(t_lst *all_tokens, pid_t pid);
+void					ast_simple_command_exec_function(t_lst *tokens,
+								struct s_ast_compound_command *compound_cmd);
+void					ast_simple_command_execve_child(t_lst *cmd_tokens,
+															char *path);
+void					ast_simple_command_execve_parent(t_lst *all_tokens,
+															pid_t pid);
 
-bool					ast_simple_command_is_special_builtin(t_ast_simple_command *this);
+bool					ast_simple_command_is_special_builtin(
+													t_ast_simple_command *this);
 
 #endif

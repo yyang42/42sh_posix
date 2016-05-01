@@ -39,13 +39,18 @@ typedef struct		s_ast_command
 t_ast_command		*ast_command_new(void);
 void				ast_command_del(t_ast_command *ast_command);
 
-t_ast_command		*ast_command_new_from_tokens(t_lst *tokens, struct s_ast *ast);
-t_ast_command		*ast_command_new_from_tokens(t_lst *tokens, struct s_ast *ast);
-void				ast_command_print_rec(t_ast_command *ast_command, int depth);
+t_ast_command		*ast_command_new_from_tokens(t_lst *tokens,
+															struct s_ast *ast);
+t_ast_command		*ast_command_new_from_tokens(t_lst *tokens,
+															struct s_ast *ast);
+void				ast_command_print_rec(t_ast_command *ast_command,
+																	int depth);
+void				ast_command_print_function(t_ast_command *ast_command,
+																	int depth);
 
 t_command_type		ast_command_utils_get_command_type(t_lst *tokens);
 
 void				ast_command_exec(t_ast_command *this);
-int					ast_command_expan(t_ast_command *this);;
+int					ast_command_expan(t_ast_command *this);
 
 #endif

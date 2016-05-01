@@ -22,24 +22,33 @@
 
 struct s_ast_compound_list;
 
-typedef struct		s_ast_if_clause
+typedef struct					s_ast_if_clause
 {
 	t_lst						*if_then_list;
 	struct s_ast_compound_list	*else_body;
-}					t_ast_if_clause;
+}								t_ast_if_clause;
 
-t_ast_if_clause		*ast_if_clause_new(void);
-void				ast_if_clause_del(t_ast_if_clause *ast_if_clause);
-void				ast_if_clause_del_void(void *this);
+t_ast_if_clause					*ast_if_clause_new(void);
+void							ast_if_clause_del(
+												t_ast_if_clause *ast_if_clause);
+void							ast_if_clause_del_void(void *this);
 
-t_ast_if_clause		*ast_if_clause_new_from_tokens(t_lst *tokens, struct s_ast *ast);
-void				*ast_if_clause_new_from_tokens_void(t_lst *tokens, struct s_ast *ast);
-void				ast_if_clause_print_rec(t_ast_if_clause *ast_if_clause, int depth);
-void				ast_if_clause_print_rec_void(void *ast_if_clause, int depth);
+t_ast_if_clause					*ast_if_clause_new_from_tokens(t_lst *tokens,
+															struct s_ast *ast);
+void							*ast_if_clause_new_from_tokens_void(
+											t_lst *tokens, struct s_ast *ast);
+void							ast_if_clause_print_rec(
+									t_ast_if_clause *ast_if_clause, int depth);
+void							ast_if_clause_print_rec_void(
+												void *ast_if_clause, int depth);
+void							ast_if_clause_print_function(
+									t_ast_if_clause *ast_if_clause, int depth);
+void							ast_if_clause_print_function_void(
+												void *ast_if_clause, int depth);
 
-bool				ast_if_clause_is_own_type(t_lst *tokens);
+bool							ast_if_clause_is_own_type(t_lst *tokens);
 
-void				ast_if_clause_exec(t_ast_if_clause *this);
-void				ast_if_clause_exec_void(void *this);
+void							ast_if_clause_exec(t_ast_if_clause *this);
+void							ast_if_clause_exec_void(void *this);
 
 #endif

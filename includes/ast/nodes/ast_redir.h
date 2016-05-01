@@ -43,6 +43,8 @@ void				*ast_redir_new_from_tokens_void(t_lst *tokens, struct s_ast *ast);
 void				ast_redir_print_rec(t_ast_redir *ast_redir, int depth);
 void				ast_redir_print_rec_list(t_lst *redir_items, int depth);
 
+void				ast_redir_print_function_list(t_lst *redir_items);
+
 bool				ast_redir_is_own_type(t_lst *tokens);
 
 bool				ast_redir_utils_is_heredoc(char *str);

@@ -22,26 +22,41 @@
 
 struct s_ast_compound_list;
 
-typedef struct		s_ast_for_clause
+typedef struct					s_ast_for_clause
 {
-	char			*name;
-	t_lst			*wordlist;
+	char						*name;
+	t_lst						*wordlist;
 	struct s_ast_compound_list	*do_group;
-}					t_ast_for_clause;
+}								t_ast_for_clause;
 
-t_ast_for_clause	*ast_for_clause_new(void);
-void				ast_for_clause_del(t_ast_for_clause *ast_for_clause);
-void				ast_for_clause_del_void(void *this);
+t_ast_for_clause				*ast_for_clause_new(void);
+void							ast_for_clause_del(
+											t_ast_for_clause *ast_for_clause);
+void							ast_for_clause_del_void(void *this);
 
-t_ast_for_clause	*ast_for_clause_new_from_tokens(t_lst *tokens, struct s_ast *ast);
-void				*ast_for_clause_new_from_tokens_void(t_lst *tokens, struct s_ast *ast);
-void				ast_for_clause_print_rec(t_ast_for_clause *ast_for_clause, int depth);
-void				ast_for_clause_print_rec_void(void *ast_for_clause, int depth);
+t_ast_for_clause				*ast_for_clause_new_from_tokens(t_lst *tokens,
+															struct s_ast *ast);
+void							*ast_for_clause_new_from_tokens_void(
+															t_lst *tokens,
+															struct s_ast *ast);
+void							ast_for_clause_print_rec(
+											t_ast_for_clause *ast_for_clause,
+											int depth);
+void							ast_for_clause_print_rec_void(
+											void *ast_for_clause,
+											int depth);
+void							ast_for_clause_print_function(
+											t_ast_for_clause *ast_for_clause,
+											int depth);
+void							ast_for_clause_print_function_void(
+											void *ast_for_clause,
+											int depth);
 
-bool				ast_for_clause_is_own_type(t_lst *tokens);
+bool							ast_for_clause_is_own_type(t_lst *tokens);
 
-void				ast_for_clause_exec(t_ast_for_clause *this);
-void				ast_for_clause_exec_void(void *this);
-void				ast_for_clause_exec_handle_xtrace(t_ast_for_clause *this);
+void							ast_for_clause_exec(t_ast_for_clause *this);
+void							ast_for_clause_exec_void(void *this);
+void							ast_for_clause_exec_handle_xtrace(
+														t_ast_for_clause *this);
 
 #endif

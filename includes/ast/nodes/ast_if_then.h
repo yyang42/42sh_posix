@@ -22,20 +22,25 @@
 
 # include "ast/nodes/ast_compound_list.h"
 
-typedef struct		s_ast_if_then
+typedef struct				s_ast_if_then
 {
 	t_ast_compound_list		*cond_compound;
 	t_ast_compound_list		*then_compound;
-}					t_ast_if_then;
+}							t_ast_if_then;
 
-t_ast_if_then		*ast_if_then_new(void);
-void				ast_if_then_del(t_ast_if_then *ast_if_then);
-void				ast_if_then_del_void(void *ast_if_then);
+t_ast_if_then				*ast_if_then_new(void);
+void						ast_if_then_del(t_ast_if_then *ast_if_then);
+void						ast_if_then_del_void(void *ast_if_then);
 
-t_ast_if_then		*ast_if_then_new_from_tokens(t_lst *tokens, struct s_ast *ast);
-void				*ast_if_then_new_from_tokens_void(t_lst *tokens, struct s_ast *ast);
-void				ast_if_then_print_rec(t_ast_if_then *ast_if_then, int depth);
+t_ast_if_then				*ast_if_then_new_from_tokens(t_lst *tokens,
+														struct s_ast *ast);
+void						*ast_if_then_new_from_tokens_void(t_lst *tokens,
+														struct s_ast *ast);
+void						ast_if_then_print_rec(t_ast_if_then *ast_if_then,
+													int depth);
+void						ast_if_then_print_function(
+										t_ast_if_then *ast_if_then, int depth);
 
-bool				ast_if_then_is_own_type(t_lst *tokens);
+bool						ast_if_then_is_own_type(t_lst *tokens);
 
 #endif

@@ -30,10 +30,20 @@ t_ast_brace_group	*ast_brace_group_new(void);
 void				ast_brace_group_del(t_ast_brace_group *ast_brace_group);
 void				ast_brace_group_del_void(void *this);
 
-t_ast_brace_group	*ast_brace_group_new_from_tokens(t_lst *tokens, struct s_ast *ast);
-void				*ast_brace_group_new_from_tokens_void(t_lst *tokens, struct s_ast *ast);
-void				ast_brace_group_print_rec(t_ast_brace_group *ast_brace_group, int depth);
-void				ast_brace_group_print_rec_void(void *ast_brace_group, int depth);
+t_ast_brace_group	*ast_brace_group_new_from_tokens(t_lst *tokens,
+											struct s_ast *ast);
+void				*ast_brace_group_new_from_tokens_void(t_lst *tokens,
+											struct s_ast *ast);
+void				ast_brace_group_print_rec(
+											t_ast_brace_group *ast_brace_group,
+											int depth);
+void				ast_brace_group_print_rec_void(void *ast_brace_group,
+											int depth);
+void				ast_brace_group_print_function(
+											t_ast_brace_group *ast_brace_group,
+											int depth);
+void				ast_brace_group_print_function_void(void *ast_brace_group,
+											int depth);
 
 bool				ast_brace_group_is_own_type(t_lst *tokens);
 
