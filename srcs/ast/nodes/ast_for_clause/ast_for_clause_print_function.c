@@ -10,34 +10,35 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_list_item.h"
-#include "ast/nodes/ast_subshell.h"
 #include "ast/nodes/ast_for_clause.h"
+#include "ast/nodes/ast_compound_list.h"
+#include "ast/nodes/ast_if_then.h"
 
-static void			iter_fn(void *ast_andor_item, void *depth_ptr)
-{
-	ast_andor_item_print_function(ast_andor_item, *(int *)depth_ptr);
-}
+bool				g_for_clause_last_semi_colon = false;
 
-void				ast_list_item_print_function(t_ast_list_item *this,
-											t_ast_list_item *prev, int depth)
+void				ast_for_clause_print_function(t_ast_for_clause *this,
+																	int depth)
 {
+	char			*joined_wordlist;
+
+	twl_printf("for %s", this->name);
+	if (twl_lst_len(this->wordlist))
+	{
+		joined_wordlist = token_mgr_strjoin(this->wordlist, " ");
+		twl_printf(" in %s", joined_wordlist);
+		free(joined_wordlist);
+	}
+	else
+		twl_putstr(" in \"$@\"");
+	twl_printf(";\n%*c%s", depth * 4, ' ', "do");
 	g_for_clause_last_semi_colon = false;
-	if (g_is_first_ast_subshell)
-		g_is_first_ast_subshell = false;
-	else if (!prev)
-		twl_printf("\n%*c", depth * 4, ' ');
-	else if (*prev->separator->text != '&')
-		twl_printf(";\n%*c", depth * 4, ' ');
-	else
-		twl_putchar(' ');
-	twl_lst_iter(this->ast_andor_items, iter_fn, &depth);
-	if (this->separator && *this->separator->text == '&')
+	if (this->do_group)
 	{
-		twl_putstr(" &");
+		ast_compound_list_print_function(this->do_group, depth + 1);
 	}
+	if (g_for_clause_last_semi_colon)
+		twl_printf(";\n%*c%s", depth * 4, ' ', "done");
 	else
-	{
-		g_for_clause_last_semi_colon = true;
-	}
+		twl_printf("\n%*c%s", depth * 4, ' ', "done");
+	g_for_clause_last_semi_colon = false;
 }

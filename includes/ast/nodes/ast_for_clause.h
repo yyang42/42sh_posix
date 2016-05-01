@@ -22,6 +22,8 @@
 
 struct s_ast_compound_list;
 
+extern bool						g_for_clause_last_semi_colon;
+
 typedef struct					s_ast_for_clause
 {
 	char						*name;
