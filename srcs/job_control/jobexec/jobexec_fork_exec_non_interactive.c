@@ -17,21 +17,32 @@ void				jobexec_fork_exec_non_interactive(t_jobexec *je)
 	pid_t			pid;
 
 	pid = shenv_utils_fork();
+	LOG_INFO("jobexec_fork_exec_should_tcset(je): %d", jobexec_fork_exec_should_tcset(je));
 	if (pid == 0)
 	{
-		shenv_singleton()->shenv_fork_level++;
 		LOG_INFO("fork non interactive: %d", getpid());
 		LOG_INFO("fork level: %d", shenv_singleton()->shenv_fork_level);
-		if (shenv_singleton()->shenv_fork_level == 1)
+		if (shenv_singleton()->shenv_fork_level == 0)
 		{
 			if (setpgid(0, 0) < 0)
 				LOG_ERROR("setpgid: %s", strerror(errno));
 		}
+		if (jobexec_fork_exec_should_tcset(je))
+		{
+			if (tcsetpgrp(0, getpid()) < 0)
+				LOG_ERROR("tcsetpgrp: %s", strerror(errno));
+		}
+		shenv_singleton()->shenv_fork_level++;
 		jobexec_fork_exec_execve_fn(je);
 		exit(shenv_singleton()->last_exit_code);
 	}
 	else
 	{
+		if (jobexec_fork_exec_should_tcset(je))
+		{
+			if (tcsetpgrp(0, getpid()) < 0)
+				LOG_ERROR("tcsetpgrp: %s", strerror(errno));
+		}
 		jobexec_fork_exec_wait_fn(je, pid);
 	}
 }

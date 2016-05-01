@@ -40,6 +40,7 @@ static void			jobexec_fork_exec_wrapper(t_lst *all_tokens, t_lst *cmd_tokens)
 	je.exec_ctx = cmd_tokens;
 	je.wait_fn = wait_fn;
 	je.execve_fn = job_execve_fn;
+	je.is_bg_job = false;
 	jobexec_fork_exec(&je);
 }
 

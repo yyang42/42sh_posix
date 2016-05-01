@@ -25,6 +25,7 @@ typedef struct		s_jobexec
 	void			*exec_ctx;
 	t_je_wait_fn	*wait_fn;
 	t_je_execve_fn	*execve_fn;
+	bool			is_bg_job;
 } 					t_jobexec;
 
 void				jobexec_fork_exec(t_jobexec *je);
@@ -36,5 +37,6 @@ void				jobexec_fork_exec_interactive_job_sig_wrapper(t_job *job, void *ctx,
 					void (exec_interactive_fn)(void *ctx));
 void				jobexec_fork_exec_execve_fn(t_jobexec *je);
 void				jobexec_fork_exec_wait_fn(t_jobexec *je, pid_t pid);
+bool				jobexec_fork_exec_should_tcset(t_jobexec *je);
 
 #endif
