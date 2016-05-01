@@ -20,29 +20,27 @@ static void         put_in_bg(t_job *job)
     if (job->job_status == JOB_STOPPED)
     {
         LOG_INFO("bg: continue pid=%d", job_get_kill_pid(job));
-        if (kill (job_get_kill_pid(job), SIGCONT) < 0)
+        if (kill(job_get_kill_pid(job), SIGCONT) < 0)
         {
             errno_saved = errno;
-            shenv_print_error_printf(shenv_singleton(), shenv_get_cur_line(),
+            shenv_singl_error(EXIT_FAILURE,
                 "wait: error: %s", strerror(errno_saved));
-            shenv_singleton()->last_exit_code = EXIT_FAILURE;
         }
     }
     else if (job->job_status == JOB_RUNNING)
     {
-        shenv_print_error_printf(shenv_singleton(), shenv_get_cur_line(),
+        shenv_singl_error(EXIT_FAILURE,
             "bg: job %d already in background", job->job_id);
-        shenv_singleton()->last_exit_code = EXIT_FAILURE;
     }
     else
     {
-        LOG_ERROR("bg: bad job status");
-        shenv_singleton()->last_exit_code = EXIT_FAILURE;
+        shenv_singl_error(EXIT_FAILURE, "bg: bad job status");
     }
 }
 
 void                builtin_bg_put_job_in_bg(t_job *job)
 {
+    job_print(job, 0);
     put_in_bg(job);
     job->job_status = JOB_RUNNING;
 }

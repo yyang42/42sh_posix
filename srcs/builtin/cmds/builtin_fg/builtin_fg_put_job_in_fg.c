@@ -16,18 +16,19 @@
 #include <setjmp.h>
 #include <sys/wait.h>
 
-void                builtin_fg_put_job_in_fg(t_job *job, t_token *cmd_token)
+void                builtin_fg_put_job_in_fg(t_job *job)
 {
     if (job_has_terminated(job))
     {
-        shenv_print_error_printf(shenv_singleton(), cmd_token->line,
-            "fg: job has terminated");
+        shenv_singl_error(EXIT_FAILURE, "fg: job has terminated");
         return ;
     }
     if (job_mgr_pop(shenv_singleton()->jobs, job) == NULL)
     {
-        shenv_singl_error(1, "fg: fail to pop job from jobs (pid=%d)", job->pid);
+        shenv_singl_error(EXIT_FAILURE,
+            "fg: fail to pop job from jobs (pid=%d)", job->pid);
         return ;
     }
+    twl_printf("%s\n", job->cmd_str);
     job_put_in_fg(job);
 }

@@ -14,7 +14,6 @@
 
 void				builtin_trap_print_invalid_sig_error(char *sigstr)
 {
-	shenv_print_error_printf(shenv_singleton(), shenv_get_cur_line(),
+	shenv_singl_error(EXIT_FAILURE,
 		"trap: %s: invalid signal specification", sigstr);
-	shenv_singleton()->last_exit_code = EXIT_FAILURE;
 }

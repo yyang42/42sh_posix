@@ -11,35 +11,31 @@
 /* ************************************************************************** */
 
 #include "job_control/jobexec.h"
+#include "utils.h"
 
-void				jobexec_fork_exec_interactive(t_lst *all_tokens, void *exec_ctx,
-					void (wait_fn)(int pid, void *ctx),
-					void (execve_fn)(void *ctx))
+void				jobexec_fork_exec_interactive(t_jobexec *je)
 {
 	pid_t			pid;
 
-	signal(SIGTTIN, SIG_IGN);
-	signal(SIGTTOU, SIG_IGN);
+	LOG_INFO("jobexec_fork_exec_interactive");
 	pid = shenv_utils_fork();
-	if (setpgid(0, 0) < 0)
-		LOG_ERROR("setpgid: %s", strerror(errno));
-	if (setpgid(pid, pid) < 0)
-		LOG_ERROR("setpgid: %s", strerror(errno));
 	if (pid == 0)
 	{
+		shenv_singleton()->shenv_fork_level++;
+		LOG_INFO("setpgid and tcsetpgrp");
+		if (setpgid(0, 0) < 0)
+			LOG_ERROR("setpgid: %s", strerror(errno));
 		if (tcsetpgrp(0, getpid()) < 0)
 			LOG_ERROR("tcsetpgrp: %s", strerror(errno));
-		execve_fn(exec_ctx);
-		signal(SIGTTOU, SIG_DFL);
+		jobexec_fork_exec_execve_fn(je);
 		exit(shenv_singleton()->last_exit_code);
 	}
 	else
 	{
-		LOG_DEBUG("before wait_fn");
-		wait_fn(pid, exec_ctx);
-		LOG_DEBUG("after wait_fn");
+		LOG_INFO("before wait_fn");
+		jobexec_fork_exec_wait_fn(je, pid);
+		LOG_INFO("after wait_fn");
 		if (tcsetpgrp(0, getpid()) < 0)
 			LOG_ERROR("tcsetpgrp: %s", strerror(errno));
 	}
-	(void)all_tokens;
 }

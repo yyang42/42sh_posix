@@ -53,6 +53,7 @@ void				job_print(t_job *this, int flags);
 void				job_utils_sigs_init_on_interactive(void);
 void				job_utils_sigs_dfl_on_interactive_for_chld_proc(void);
 void				job_utils_waitpid(pid_t pid);
+bool				job_utils_is_job_control_active(void);
 
 bool				job_exec_update_status(t_job *job);
 pid_t				job_get_kill_pid(t_job *job);

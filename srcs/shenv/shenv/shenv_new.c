@@ -51,6 +51,7 @@ t_shenv			*shenv_new(void)
 	this->shenv_is_inside_job_control = false;
 	this->shenv_binary_saved_path = twl_strdup("");
 	this->shenv_read_buffer_db = twl_malloc_x0(sizeof(char *) * getdtablesize());
+	this->shenv_fork_level = 0;
 	shenv_set_read_buffer_ptr(this, 0);
 	return (this);
 }

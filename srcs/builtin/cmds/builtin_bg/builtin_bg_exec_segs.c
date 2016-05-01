@@ -19,9 +19,7 @@ static void			exec_job_str_id(char *job_str_id)
 	job = job_mgr_find_by_job_id(shenv_singleton()->jobs, job_str_id);
 	if (!job)
 	{
-		shenv_print_error_printf(shenv_singleton(), shenv_get_cur_line(),
-			"bg: %s: no such job", job_str_id);
-		shenv_singleton()->last_exit_code = EXIT_FAILURE;
+		shenv_singl_error(EXIT_FAILURE, "bg: %s: no such job", job_str_id);
 	}
 	else
 	{
@@ -45,6 +43,11 @@ void				builtin_bg_exec_segs(t_argparser_result *argparser_result)
 
 	segs = twl_lst_copy(argparser_result->remainders, NULL);
 	if (twl_lst_len(segs) == 0)
-		twl_lst_push_back(segs, "+");
+	{
+		if (twl_lst_len(shenv_singleton()->jobs) == 0)
+			shenv_singl_error(EXIT_FAILURE, "bg: current: no such job");
+		else
+			twl_lst_push_back(segs, "+");
+	}
 	twl_lst_iter0(segs, iter_str_token_fn);
 }

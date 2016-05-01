@@ -20,7 +20,7 @@ void				job_utils_waitpid(pid_t pid)
 	pid_t			waitpid_ret;
 
 	LOG_INFO("waitpid(%d) start", pid);
- 	waitpid_ret = waitpid(pid, &res, 0);
+ 	waitpid_ret = waitpid(pid, &res, WUNTRACED);
 	LOG_INFO("waitpid(%d) end", pid);
 	LOG_INFO("waitpid ret: %d", waitpid_ret);
  	if (waitpid_ret == -1)
@@ -38,15 +38,15 @@ void				job_utils_waitpid(pid_t pid)
     	}
     	if (WIFCONTINUED(res))
     	{
-    		LOG_DEBUG("WIFCONTINUED");
+    		LOG_INFO("WIFCONTINUED");
     	}
 		else if (WIFEXITED(res))
 		{
-			LOG_DEBUG("WIFEXITED");
+			LOG_INFO("WIFEXITED");
 		}
 		else if (WIFSIGNALED(res))
 		{
-			LOG_DEBUG("WIFSIGNALED");
+			LOG_INFO("WIFSIGNALED");
 		}
  	}
 }

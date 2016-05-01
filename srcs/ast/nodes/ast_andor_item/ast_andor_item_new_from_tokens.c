@@ -23,6 +23,7 @@ t_ast_andor_item		*ast_andor_item_new_from_tokens(t_lst *tokens, struct s_ast *a
 	t_ast_andor_item			*this;
 
 	this = ast_andor_item_new();
+	this->andor_all_tokens = twl_lst_copy(tokens, NULL);
 	if (token_mgr_first_equ(tokens, "!"))
 	{
 		this->negate = true;

@@ -12,22 +12,37 @@
 
 #include "job_control/jobexec.h"
 
-void				jobexec_fork_exec_non_interactive(t_lst *all_tokens,
-					void *exec_ctx,
-					void (wait_fn)(int pid, void *ctx),
-					void (execve_fn)(void *ctx))
+void				jobexec_fork_exec_non_interactive(t_jobexec *je)
 {
 	pid_t			pid;
 
 	pid = shenv_utils_fork();
+	LOG_INFO("jobexec_fork_exec_should_tcset(je): %d", jobexec_fork_exec_should_tcset(je));
 	if (pid == 0)
 	{
-		execve_fn(exec_ctx);
+		LOG_INFO("fork non interactive: %d", getpid());
+		LOG_INFO("fork level: %d", shenv_singleton()->shenv_fork_level);
+		if (shenv_singleton()->shenv_fork_level == 0)
+		{
+			if (setpgid(0, 0) < 0)
+				LOG_ERROR("setpgid: %s", strerror(errno));
+		}
+		if (jobexec_fork_exec_should_tcset(je))
+		{
+			if (tcsetpgrp(0, getpid()) < 0)
+				LOG_ERROR("tcsetpgrp: %s", strerror(errno));
+		}
+		shenv_singleton()->shenv_fork_level++;
+		jobexec_fork_exec_execve_fn(je);
 		exit(shenv_singleton()->last_exit_code);
 	}
 	else
 	{
-	    wait_fn(pid, exec_ctx);
+		if (jobexec_fork_exec_should_tcset(je))
+		{
+			if (tcsetpgrp(0, getpid()) < 0)
+				LOG_ERROR("tcsetpgrp: %s", strerror(errno));
+		}
+		jobexec_fork_exec_wait_fn(je, pid);
 	}
-	(void)all_tokens;
 }

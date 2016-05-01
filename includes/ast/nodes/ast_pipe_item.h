@@ -24,10 +24,12 @@
 
 typedef struct		s_ast_pipe_item
 {
-	int				fds[2];
+	int				pipe_read_end;
+	int				pipe_write_end;
 	t_ast_command	*ast_command;
 	t_lst			*tokens;
 	t_token			*separator;
+	pid_t			pipe_child_pid;
 }					t_ast_pipe_item;
 
 t_ast_pipe_item		*ast_pipe_item_new(void);
