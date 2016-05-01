@@ -28,7 +28,7 @@ static void			exec_job_str_id(char *job_str_id)
 	}
 }
 
-void				builtin_fg_exec(t_lst *tokens, t_shenv *shenv)
+void				builtin_fg_exec_do(t_lst *tokens)
 {
 	t_token			*first_arg_token;
 	char			*job_str_id;
@@ -56,5 +56,15 @@ void				builtin_fg_exec(t_lst *tokens, t_shenv *shenv)
 			job_str_id++;
 	}
 	exec_job_str_id(job_str_id);
+}
+
+void				builtin_fg_exec(t_lst *tokens, t_shenv *shenv)
+{
+	if (!shenv_flag_exist(shenv_singleton(), "m"))
+	{
+		shenv_singl_error(EXIT_FAILURE, "fg: no job control");
+		return ;
+	}
+	builtin_fg_exec_do(tokens);
 	(void)shenv;
 }

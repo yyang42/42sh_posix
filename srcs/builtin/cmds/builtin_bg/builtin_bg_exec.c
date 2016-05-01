@@ -16,6 +16,11 @@ void				builtin_bg_exec(t_lst *tokens, t_shenv *shenv)
 {
 	t_argparser_result *argparser_result;
 
+	if (!shenv_flag_exist(shenv_singleton(), "m"))
+	{
+		shenv_singl_error(EXIT_FAILURE, "bg: no job control");
+		return ;
+	}
 	argparser_result = argparser_parse_tokens(builtin_bg_argparser(), tokens);
 	shenv->shenv_cur_token = token_mgr_first(tokens);
 	if (argparser_result->err_msg)
