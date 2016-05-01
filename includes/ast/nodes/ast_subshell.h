@@ -20,7 +20,7 @@
 # include "ast/ast_defines.h"
 # include "ast/ast_utils.h"
 
-extern bool				g_is_first_ast_subshell;
+extern bool						g_is_first_ast_subshell;
 
 struct s_ast_compound_list;
 typedef struct					s_ast_subshell
@@ -29,28 +29,32 @@ typedef struct					s_ast_subshell
 	struct s_ast_compound_list	*ast_compound_list;
 }								t_ast_subshell;
 
-t_ast_subshell		*ast_subshell_new(void);
-void				ast_subshell_del(t_ast_subshell *ast_subshell);
-void				ast_subshell_del_void(void *this);
+t_ast_subshell					*ast_subshell_new(void);
+void							ast_subshell_del(t_ast_subshell *ast_subshell);
+void							ast_subshell_del_void(void *this);
 
-t_ast_subshell		*ast_subshell_new_from_tokens(t_lst *tokens,
-															struct s_ast *ast);
-void				*ast_subshell_new_from_tokens_void(t_lst *tokens,
-															struct s_ast *ast);
-void				ast_subshell_print_rec(t_ast_subshell *ast_subshell,
-															int depth);
-void				ast_subshell_print_rec_void(void *ast_subshell,
-															int depth);
+t_ast_subshell					*ast_subshell_new_from_tokens(t_lst *tokens,
+														struct s_ast *ast);
+void							*ast_subshell_new_from_tokens_void(
+														t_lst *tokens,
+														struct s_ast *ast);
+void							ast_subshell_print_rec(
+												t_ast_subshell *ast_subshell,
+												int depth);
+void							ast_subshell_print_rec_void(void *ast_subshell,
+																	int depth);
 
-void				ast_subshell_print_function(t_ast_subshell *ast_subshell,
-															int depth);
-void				ast_subshell_print_function_void(void *ast_subshell,
-															int depth);
+void							ast_subshell_print_function(
+												t_ast_subshell *ast_subshell,
+												int depth);
+void							ast_subshell_print_function_void(
+												void *ast_subshell,
+												int depth);
 
 
-bool				ast_subshell_is_own_type(t_lst *tokens);
+bool							ast_subshell_is_own_type(t_lst *tokens);
 
-void				ast_subshell_exec(t_ast_subshell *this);
-void				ast_subshell_exec_void(void *this);
+void							ast_subshell_exec(t_ast_subshell *this);
+void							ast_subshell_exec_void(void *this);
 
 #endif
