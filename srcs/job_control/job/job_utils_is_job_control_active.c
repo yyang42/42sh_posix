@@ -14,39 +14,8 @@
 #include "shenv/shenv.h"
 #include "shsignal/shsignal.h"
 
-void				job_utils_waitpid(pid_t pid)
+bool				job_utils_is_job_control_active(void)
 {
-	int				res;
-	pid_t			waitpid_ret;
-
-	LOG_INFO("waitpid(%d) start", pid);
- 	waitpid_ret = waitpid(pid, &res, WUNTRACED);
-	LOG_INFO("waitpid(%d) end", pid);
-	LOG_INFO("waitpid ret: %d", waitpid_ret);
- 	if (waitpid_ret == -1)
- 	{
- 		shenv_singl_error(1, "waitpid: %s", strerror(errno));
-		LOG_ERROR("waitpid error: pid: %d: %s", pid, strerror(errno));
- 	}
- 	else if (waitpid_ret == pid)
- 	{
-        handle_signal(res);
-        if (WIFEXITED(res))
-        {
-			shenv_singleton()->last_exit_code = WEXITSTATUS(res);
-			LOG_INFO("exit status: %d", shenv_singleton()->last_exit_code);
-    	}
-    	if (WIFCONTINUED(res))
-    	{
-    		LOG_INFO("WIFCONTINUED");
-    	}
-		else if (WIFEXITED(res))
-		{
-			LOG_INFO("WIFEXITED");
-		}
-		else if (WIFSIGNALED(res))
-		{
-			LOG_INFO("WIFSIGNALED");
-		}
- 	}
+	return (!shenv_singleton()->is_interactive_shell
+		&& !shenv_flag_exist(shenv_singleton(), "m"));
 }

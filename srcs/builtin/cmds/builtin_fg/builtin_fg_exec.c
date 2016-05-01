@@ -60,7 +60,7 @@ void				builtin_fg_exec_do(t_lst *tokens)
 
 void				builtin_fg_exec(t_lst *tokens, t_shenv *shenv)
 {
-	if (!shenv_flag_exist(shenv_singleton(), "m"))
+	if (job_utils_is_job_control_active())
 	{
 		shenv_singl_error(EXIT_FAILURE, "fg: no job control");
 		return ;

@@ -14,21 +14,47 @@
 #include "utils.h"
 #include <setjmp.h>
 
-static jmp_buf      jmp_buffer;
-static pid_t        active_pid;
+t_lst               *data_tmp_jobs(void)
+{
+    static t_lst    *jobs = NULL;
+
+    if (jobs == NULL)
+        jobs = twl_lst_new();
+    return (jobs);
+}
+
+
+static void         push_job(t_job *job)
+{
+    if(tcsetpgrp(0, getpid()) < 0)
+        LOG_ERROR("tcsetpgrp: %s", strerror(errno));
+    job_mgr_env_push(job);
+}
+
 
 static void			sigstp_catcher(int signum, siginfo_t *info, void *vp)
 {
+    t_job           *job;
     LOG_INFO("signum: %d, Signal %d from PID %d, code: %d, value: %d",
     	signum, info->si_signo, (int)info->si_pid, info->si_code, info->si_value);
     if (info->si_code == CLD_STOPPED)
 	{
         LOG_INFO("child stopped: %d", info->si_pid);
-        LOG_INFO("active_pid: %d", active_pid);
-        if (active_pid == info->si_pid || active_pid == 0)
+        job = job_mgr_find_by_pid(data_tmp_jobs(), info->si_pid);
+        if (!job)
         {
-            LOG_INFO("longjmp: %d", info->si_pid);
-            longjmp(jmp_buffer, info->si_pid);
+            job = job_mgr_find_by_pid(data_tmp_jobs(), 0);
+            if (job)
+            {
+                LOG_DEBUG("set job pid to: %d", info->si_pid);
+                job->pid = info->si_pid;
+            }
+        }
+        if (job)
+        {
+            LOG_DEBUG("info->si_pid: %d", info->si_pid);
+            LOG_DEBUG("job->pid: %d", job->pid);
+            push_job(job);
         }
         else
         {
@@ -56,23 +82,15 @@ void				jobexec_fork_exec_interactive_job_sig_wrapper(t_job *job, void *ctx,
 {
 	struct sigaction sa;
 	struct sigaction oldsa;
-    int             pid;
 
-	sig_handler_init(SIGCHLD, &sa, &oldsa);
-    active_pid = job->pid;
-    if ((pid = setjmp(jmp_buffer)) == 0)
-	{
-		exec_interactive_fn(ctx);
-		job_del(job);
-	}
-	else
-	{
-		if (job->pid == 0)
-			job->pid = pid;
-		if (job->pid != pid)
-        	LOG_ERROR("job->pid(%d) != pid(%d)", job->pid, pid);
-        if(tcsetpgrp(0, getpid()) < 0)
-            LOG_ERROR("tcsetpgrp: %s", strerror(errno));
-        job_mgr_env_push(job);
-	}
+    LOG_INFO("jobexec_fork_exec_interactive_job_sig_wrapper");
+    LOG_DEBUG("data_tmp_jobs() len: %d", twl_lst_len(data_tmp_jobs()));
+    sig_handler_init(SIGCHLD, &sa, &oldsa);
+    twl_lst_push_back(data_tmp_jobs(), job);
+    LOG_DEBUG("data_tmp_jobs() len: %d", twl_lst_len(data_tmp_jobs()));
+    exec_interactive_fn(ctx);
+    job_mgr_pop(data_tmp_jobs(), job);
+    LOG_DEBUG("data_tmp_jobs() len: %d", twl_lst_len(data_tmp_jobs()));
+    if (!job_mgr_find_by_pid(shenv_singleton()->jobs, job->pid))
+        job_del(job);
 }
