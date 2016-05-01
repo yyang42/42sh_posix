@@ -22,6 +22,9 @@
 
 # include "ast/nodes/ast_compound_list.h"
 
+extern bool					g_if_then_last_semi_colon;
+extern bool					g_is_first_ast_if_then;
+
 typedef struct				s_ast_if_then
 {
 	t_ast_compound_list		*cond_compound;

@@ -10,42 +10,27 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_list_item.h"
-#include "ast/nodes/ast_subshell.h"
-#include "ast/nodes/ast_for_clause.h"
 #include "ast/nodes/ast_if_then.h"
+#include "ast/nodes/ast_compound_list.h"
 
-static void			iter_fn(void *ast_andor_item, void *depth_ptr)
-{
-	ast_andor_item_print_function(ast_andor_item, *(int *)depth_ptr);
-}
+bool				g_if_then_last_semi_colon = false;
+bool				g_is_first_ast_if_then = false;
 
-void				ast_list_item_print_function(t_ast_list_item *this,
-											t_ast_list_item *prev, int depth)
+void				ast_if_then_print_function(t_ast_if_then *ast_if_then,
+															int depth)
 {
+	twl_putstr("if ");
 	g_if_then_last_semi_colon = false;
-	g_for_clause_last_semi_colon = false;
-	if (g_is_first_ast_subshell || g_is_first_ast_if_then)
-	{
-		if (g_is_first_ast_subshell)
-			g_is_first_ast_subshell = false;
-		if (g_is_first_ast_if_then)
-			g_is_first_ast_if_then = false;
-	}
-	else if (!prev)
-		twl_printf("\n%*c", depth * 4, ' ');
-	else if (*prev->separator->text != '&')
-		twl_printf(";\n%*c", depth * 4, ' ');
+	g_is_first_ast_if_then = true;
+	ast_compound_list_print_function(ast_if_then->cond_compound, depth);
+	g_is_first_ast_if_then = false;
+	if (g_if_then_last_semi_colon)
+		twl_putstr("; then");
 	else
-		twl_putchar(' ');
-	twl_lst_iter(this->ast_andor_items, iter_fn, &depth);
-	if (this->separator && *this->separator->text == '&')
-	{
-		twl_putstr(" &");
-	}
-	else
-	{
-		g_for_clause_last_semi_colon = true;
-		g_if_then_last_semi_colon = true;
-	}
+		twl_putstr(" then");
+	g_if_then_last_semi_colon = false;
+	ast_compound_list_print_function(ast_if_then->then_compound, depth + 1);
+	if (g_if_then_last_semi_colon)
+		twl_putstr(";");
+	g_if_then_last_semi_colon = false;
 }
