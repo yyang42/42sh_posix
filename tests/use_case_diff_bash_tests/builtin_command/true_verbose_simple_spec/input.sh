@@ -6,3 +6,4 @@ command -V /bin/ls
 command -V return
 command -V aa
 command -V lel
+command -V 'JENEXISTEPAS!!!'

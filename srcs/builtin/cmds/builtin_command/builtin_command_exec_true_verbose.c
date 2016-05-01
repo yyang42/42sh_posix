@@ -86,6 +86,8 @@ void			builtin_command_exec_true_verbose(t_argparser_result *result,
 			ret = 0;
 		else if (is_in_path(cmd_name, shenv))
 			ret = 0;
+		else
+			shenv_singl_error(0, "command: %s: not found", cmd_name);
 	}
 	twl_lst_del(remainders_copy, NULL);
 	shenv->last_exit_code = ret;
