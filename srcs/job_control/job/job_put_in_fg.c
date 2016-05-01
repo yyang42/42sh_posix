@@ -14,12 +14,10 @@
 #include "job_control/jobexec.h"
 #include "utils.h"
 
-static void         job_exec_fn(void *job_)
+static void         job_exec_fn(t_job *job, void *ctx)
 {
-    t_job           *job;
     int             kill_ret;
 
-    job = job_;
     LOG_INFO("job_put_in_fg: job_exec_fn: pid: %d", job->pid);
     kill_ret = kill(job_get_kill_pid(job), SIGCONT);
     if (kill_ret == 0)
@@ -32,12 +30,13 @@ static void         job_exec_fn(void *job_)
         LOG_ERROR("kill: %s, %d", strerror(errno), job_get_kill_pid(job));
         shenv_singleton()->last_exit_code = EXIT_FAILURE;
     }
-    job_utils_waitpid(job->pid);
+    job_utils_waitpid(job->pid, &job->status);
     if(tcsetpgrp(STDIN_FILENO, getpid()) < 0)
         LOG_ERROR("tcsetpgrp: %s", strerror(errno));
+    (void)ctx;
 }
 
 void	         	job_put_in_fg(t_job *job)
 {
-    jobexec_fork_exec_interactive_job_sig_wrapper(job, job, job_exec_fn);
+    jobexec_fork_exec_interactive_job_sig_wrapper(job, NULL, job_exec_fn);
 }

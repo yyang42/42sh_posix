@@ -12,7 +12,7 @@
 
 #include "job_control/jobexec.h"
 
-void				jobexec_fork_exec_wait_fn(t_jobexec *je, pid_t pid)
+void				jobexec_fork_exec_wait_fn(t_jobexec *je, pid_t pid, int *res)
 {
-	je->wait_fn(pid, je->exec_ctx);
+	je->wait_fn(pid, res, je->exec_ctx);
 }

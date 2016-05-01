@@ -18,25 +18,28 @@ static void			job_execve_fn(void *this)
 	ast_andor_item_exec_pipes(this);
 }
 
-static void			wait_fn(int pid, void *this_)
+static void			wait_fn(int pid, int *res, void *this_)
 {
 	t_ast_andor_item	*this;
 
 	this = this_;
 	LOG_INFO("ast_andor_item_exec_pipes_wrapper: wait_fn");
-	job_utils_waitpid(pid);
+	job_utils_waitpid(pid, res);
 	(void)this;
 }
 
 void				ast_andor_item_exec_pipes_wrapper(t_ast_andor_item *this)
 {
 	t_jobexec		je;
+	t_lst			*str_tokens;
 
-	je.all_tokens = this->andor_all_tokens;
+	str_tokens = token_mgr_to_lst(this->andor_all_tokens);
+	je.all_tokens = str_tokens;
 	je.exec_ctx = this;
 	je.wait_fn = wait_fn;
 	je.execve_fn = job_execve_fn;
 	je.is_bg_job = false;
 	jobexec_fork_exec(&je);
 	// ast_andor_item_exec_pipes(this);
+	twl_lst_del(str_tokens, NULL);
 }

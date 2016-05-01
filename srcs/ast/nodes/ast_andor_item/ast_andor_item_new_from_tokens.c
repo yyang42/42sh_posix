@@ -21,9 +21,10 @@
 t_ast_andor_item		*ast_andor_item_new_from_tokens(t_lst *tokens, struct s_ast *ast)
 {
 	t_ast_andor_item			*this;
+	t_lst						*tmp_tokens;
 
 	this = ast_andor_item_new();
-	this->andor_all_tokens = twl_lst_copy(tokens, NULL);
+	tmp_tokens = twl_lst_copy(tokens, NULL);
 	if (token_mgr_first_equ(tokens, "!"))
 	{
 		this->negate = true;
@@ -31,7 +32,7 @@ t_ast_andor_item		*ast_andor_item_new_from_tokens(t_lst *tokens, struct s_ast *a
 	}
 	twl_lst_del(this->ast_pipe_items, NULL); // LEAKS: same as compound_list: could not be safe
 	this->ast_pipe_items = ast_lap_build_items(tokens, AST_TYPE_PIPE_ITEM, ast);
+	this->andor_all_tokens = twl_lst_copy_until(tmp_tokens, NULL, twl_lst_first(tokens));
+	twl_lst_del(tmp_tokens, NULL);
 	return (this);
-	(void)tokens;
-	(void)ast;
 }

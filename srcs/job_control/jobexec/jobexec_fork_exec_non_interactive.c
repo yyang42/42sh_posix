@@ -43,6 +43,6 @@ void				jobexec_fork_exec_non_interactive(t_jobexec *je)
 			if (tcsetpgrp(0, getpid()) < 0)
 				LOG_ERROR("tcsetpgrp: %s", strerror(errno));
 		}
-		jobexec_fork_exec_wait_fn(je, pid);
+		jobexec_fork_exec_wait_fn(je, pid, NULL);
 	}
 }

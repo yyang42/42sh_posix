@@ -22,7 +22,7 @@ static void			job_execve_fn(void *this)
 	ast_list_item_exec_non_async(this);
 }
 
-static void			wait_fn(int pid, void *this_)
+static void			wait_fn(int pid, int *res, void *this_)
 {
 	t_ast_list_item *this;
 	t_lst			*str_tokens;
@@ -33,6 +33,7 @@ static void			wait_fn(int pid, void *this_)
 	job_mgr_env_push(job_new(pid, str_tokens));
 	shenv_singleton()->info.most_recent_background_command_pid = pid;
 	twl_lst_del(str_tokens, NULL);
+	(void)res;
 }
 
 void				ast_list_item_exec_async(t_ast_list_item *this)
