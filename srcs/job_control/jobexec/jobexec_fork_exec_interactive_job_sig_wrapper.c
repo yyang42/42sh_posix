@@ -28,8 +28,8 @@ static void         push_job(t_job *job)
 {
     if(tcsetpgrp(0, getpid()) < 0)
         LOG_ERROR("tcsetpgrp: %s", strerror(errno));
-    if(kill(job_get_kill_pid(job), SIGTSTP) < 0)
-        LOG_ERROR("kill: %s", strerror(errno));
+    // if(kill(job_get_kill_pid(job), SIGTSTP) < 0)
+    //     LOG_ERROR("kill: %s", strerror(errno));
     job->job_status = JOB_STOPPED;
     job_mgr_env_push(job);
 }

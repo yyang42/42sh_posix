@@ -24,6 +24,7 @@
 
 typedef struct		s_ast_andor_item
 {
+	t_lst			*andor_all_tokens;
 	t_lst			*ast_pipe_items;
 	t_token			*separator;
 	bool			negate;
@@ -46,6 +47,8 @@ void				ast_andor_item_print_function(
 bool				ast_andor_item_is_delimiter(t_token *tokens);
 
 void				ast_andor_item_exec(t_ast_andor_item *ast_andor_item);
+void				ast_andor_item_exec_pipes(t_ast_andor_item *ast_andor_item);
+void				ast_andor_item_exec_pipes_wrapper(t_ast_andor_item *ast_andor_item);
 int					ast_andor_item_expan(t_ast_andor_item *ast_andor_item);
 
 void				ast_andor_item_set_separator(t_ast_andor_item *this,

@@ -19,6 +19,7 @@ void				jobexec_fork_exec_non_interactive(t_jobexec *je)
 	pid = shenv_utils_fork();
 	if (pid == 0)
 	{
+		shenv_singleton()->shenv_fork_level++;
 		LOG_INFO("fork non interactive: %d", getpid());
 		LOG_INFO("fork level: %d", shenv_singleton()->shenv_fork_level);
 		if (shenv_singleton()->shenv_fork_level == 1)

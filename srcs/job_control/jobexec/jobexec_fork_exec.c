@@ -16,10 +16,10 @@ void				jobexec_fork_exec(t_jobexec *je)
 {
 	signal(SIGTTIN, SIG_IGN);
 	signal(SIGTTOU, SIG_IGN);
+	LOG_INFO("jobexec_fork_exec");
 	if (setpgid(0, 0) < 0)
 		LOG_ERROR("setpgid: %s", strerror(errno));
-	if (shenv_singleton()->is_interactive_shell
-		&& !shenv_singleton()->shenv_is_inside_job_control)
+	if (shenv_singleton()->is_interactive_shell && (shenv_singleton()->shenv_fork_level == 0))
 	{
 		jobexec_fork_exec_interactive_job(je);
 	}

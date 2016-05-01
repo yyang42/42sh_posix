@@ -10,28 +10,34 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "token/token_mgr.h"
-#include "token/token_list_mgr.h"
-
-#include "ast/ast.h"
 #include "ast/nodes/ast_andor_item.h"
-#include "ast/nodes/ast_list_item.h"
-#include "ast/ast_lap.h"
-
-t_ast_andor_item		*ast_andor_item_new_from_tokens(t_lst *tokens, struct s_ast *ast)
+#include "job_control/jobexec.h"
+/*
+static void			job_execve_fn(void *this)
 {
-	t_ast_andor_item			*this;
+	ast_andor_item_exec_pipes(this);
+}
 
-	this = ast_andor_item_new();
-	this->andor_all_tokens = twl_lst_copy(tokens, NULL);
-	if (token_mgr_first_equ(tokens, "!"))
-	{
-		this->negate = true;
-		twl_lst_pop_front(tokens);
-	}
-	twl_lst_del(this->ast_pipe_items, NULL); // LEAKS: same as compound_list: could not be safe
-	this->ast_pipe_items = ast_lap_build_items(tokens, AST_TYPE_PIPE_ITEM, ast);
-	return (this);
-	(void)tokens;
-	(void)ast;
+static void			wait_fn(int pid, void *this_)
+{
+	t_ast_andor_item	*this;
+
+	this = this_;
+	LOG_INFO("ast_andor_item_exec_pipes_wrapper: wait_fn");
+	// job_mgr_env_push(job_new(pid, str_tokens));
+	// shenv_singleton()->info.most_recent_background_command_pid = pid;
+	job_utils_waitpid(pid);
+	(void)this;
+}
+*/
+void				ast_andor_item_exec_pipes_wrapper(t_ast_andor_item *this)
+{
+/*	t_jobexec		je;
+
+	je.all_tokens = this->andor_all_tokens;
+	je.exec_ctx = this;
+	je.wait_fn = wait_fn;
+	je.execve_fn = job_execve_fn;
+	jobexec_fork_exec(&je);*/
+	ast_andor_item_exec_pipes(this);
 }

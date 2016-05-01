@@ -24,7 +24,6 @@ pid_t					shenv_utils_fork(void)
 	errno_save = errno;
 	if (pid == 0)
 	{
-		shenv_singleton()->shenv_fork_level++;
 		twl_lst_clear(shenv_singleton()->jobs, NULL);
 	}
 	else if (pid == -1)
