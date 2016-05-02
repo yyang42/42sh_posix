@@ -58,5 +58,6 @@ bool				job_utils_is_job_control_active(void);
 bool				job_exec_update_status(t_job *job);
 pid_t				job_get_kill_pid(t_job *job);
 void	         	job_put_in_fg(t_job *job);
+void				job_print_if_stopped(t_job *job);
 
 #endif
