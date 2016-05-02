@@ -11,43 +11,20 @@
 /* ************************************************************************** */
 
 #include "prog.h"
+#include "ast/ast.h"
 
-static char			*prog_run_get_input(t_prog *prog)
+void				prog_run_input(t_prog *prog, char *input)
 {
-	char			*input;
-	t_lst			*remainders;
-
-	input = NULL;
-	remainders = prog->argparser_result->remainders;
-	if (prog_is_opt_set(prog, "c"))
+	if (prog_is_opt_set(prog, "ast"))
 	{
-		LOG_INFO("exec opt -c");
-		input = twl_strdup(argparser_result_opt_get_arg(prog->argparser_result, "c"));
+		prog_print_ast(prog, input);
 	}
-	else if (twl_lst_len(remainders) > 0)
+	else if (prog_is_opt_set(prog, "arexp"))
 	{
-		input = prog_run_file_to_str(prog, twl_lst_first(remainders));
+		prog_print_arexp(prog, input);
 	}
-	return (input);
-}
-
-int					prog_run(t_prog *prog)
-{
-	char			*input;
-
-	input = prog_run_get_input(prog);
-	if (input)
+	else
 	{
-		prog_run_input(prog, input);
+		ast_exec_string(input);
 	}
-	else if (twl_lst_len(prog->argparser_result->remainders) == 0)
-	{
-		shenv_singleton()->is_interactive_shell = isatty(0);
-		if (shenv_singleton()->is_interactive_shell)
-			prog_run_interactive(prog);
-		else
-			prog_run_input_from_stdin(prog);
-	}
-	free(input);
-	return (shenv_singleton()->last_exit_code);
 }

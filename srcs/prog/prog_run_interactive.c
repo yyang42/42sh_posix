@@ -12,42 +12,17 @@
 
 #include "prog.h"
 
-static char			*prog_run_get_input(t_prog *prog)
+static void			prog_run_interactive_sig_wrapper(t_prog *prog)
 {
-	char			*input;
-	t_lst			*remainders;
-
-	input = NULL;
-	remainders = prog->argparser_result->remainders;
-	if (prog_is_opt_set(prog, "c"))
-	{
-		LOG_INFO("exec opt -c");
-		input = twl_strdup(argparser_result_opt_get_arg(prog->argparser_result, "c"));
-	}
-	else if (twl_lst_len(remainders) > 0)
-	{
-		input = prog_run_file_to_str(prog, twl_lst_first(remainders));
-	}
-	return (input);
+	shenv_init_job_control(shenv_singleton());
+	if (prog_is_opt_set(prog, "gnl"))
+		prog_main_loop_gnl(prog);
+	else
+		prog_main_loop(prog);
 }
 
-int					prog_run(t_prog *prog)
+void				prog_run_interactive(t_prog *prog)
 {
-	char			*input;
-
-	input = prog_run_get_input(prog);
-	if (input)
-	{
-		prog_run_input(prog, input);
-	}
-	else if (twl_lst_len(prog->argparser_result->remainders) == 0)
-	{
-		shenv_singleton()->is_interactive_shell = isatty(0);
-		if (shenv_singleton()->is_interactive_shell)
-			prog_run_interactive(prog);
-		else
-			prog_run_input_from_stdin(prog);
-	}
-	free(input);
-	return (shenv_singleton()->last_exit_code);
+	LOG_INFO("run interactive shell");
+	prog_run_interactive_sig_wrapper(prog);
 }
