@@ -32,7 +32,10 @@ static void         push_job(t_job *job)
         LOG_ERROR("kill: %s", strerror(errno));
     job->stopped_signal = SIGTSTP;
     job->job_status = JOB_STOPPED;
+    job->sign = '+';
     job_mgr_env_push(job);
+    twl_putchar('\n');
+    job_print(job, 0);
 }
 
 
