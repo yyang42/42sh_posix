@@ -16,7 +16,7 @@ void				builtin_bg_exec(t_lst *tokens, t_shenv *shenv)
 {
 	t_argparser_result *argparser_result;
 
-	if (job_utils_is_job_control_active())
+	if (!job_utils_is_job_control_active())
 	{
 		shenv_singl_error(EXIT_FAILURE, "bg: no job control");
 		return ;
