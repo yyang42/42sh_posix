@@ -15,9 +15,9 @@
 
 void				job_print_if_stopped(t_job *job)
 {
-	if (shenv_singleton()->is_interactive_shell)
-		return ;
 	job_exec_update_status(job);
+	if (!shenv_singleton()->is_interactive_shell)
+		return ;
 	if (job->job_status == JOB_STOPPED)
 	{
 		job->sign = '+';

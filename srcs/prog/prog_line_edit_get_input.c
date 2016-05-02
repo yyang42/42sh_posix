@@ -11,43 +11,40 @@
 /* ************************************************************************** */
 
 #include "prog.h"
+#include "edit/edit.h"
+#include "job_control/job_mgr.h"
 
-static char			*prog_run_get_input(t_prog *prog)
+static char			*get_cmd(void)
 {
-	char			*input;
-	t_lst			*remainders;
+	t_edit			*edit;
+	char 			*cmd;
 
-	input = NULL;
-	remainders = prog->argparser_result->remainders;
-	if (prog_is_opt_set(prog, "c"))
+	edit = edit_new();
+	cmd = edit_loop(edit);
+	if (twl_strcmp(cmd, "history") == 0)
 	{
-		LOG_INFO("exec opt -c");
-		input = twl_strdup(argparser_result_opt_get_arg(prog->argparser_result, "c"));
+		history_mgr_print(edit->history->history);
 	}
-	else if (twl_lst_len(remainders) > 0)
-	{
-		input = prog_run_file_to_str(prog, twl_lst_first(remainders));
-	}
-	return (input);
+	history_mgr_add(edit->history->history, cmd);
+	edit_del(edit);
+	return (cmd);
 }
 
-int					prog_run(t_prog *prog)
+void				handle_verbose(char *input)
+{
+	if (shenv_flag_exist(shenv_singleton(), "v"))
+	{
+		twl_putstr_fd(input, 2);
+		twl_putstr_fd("\n", 2);
+	}
+}
+
+char				*prog_line_edit_get_input(t_prog *prog)
 {
 	char			*input;
 
-	input = prog_run_get_input(prog);
-	if (input)
-	{
-		prog_run_input(prog, input);
-	}
-	else if (twl_lst_len(prog->argparser_result->remainders) == 0)
-	{
-		shenv_singleton()->is_interactive_shell = isatty(0);
-		if (shenv_singleton()->is_interactive_shell)
-			prog_run_interactive(prog);
-		else
-			prog_run_input_from_stdin(prog);
-	}
-	free(input);
-	return (shenv_singleton()->last_exit_code);
+	input = get_cmd();
+	handle_verbose(input);
+	return (input);
+	(void)prog;
 }

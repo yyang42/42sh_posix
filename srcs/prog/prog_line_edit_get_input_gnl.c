@@ -11,45 +11,34 @@
 /* ************************************************************************** */
 
 #include "prog.h"
-#include "ast/ast.h"
-#include "edit/edit.h"
-#include "job_control/job_mgr.h"
+#include "twl_gnl.h"
+#include <stdlib.h>
 
-static char			*get_cmd(void)
+#define BUFF_SIZE 10000
+
+char				*prog_line_edit_get_input_gnl(t_prog *prog)
 {
-	t_edit			*edit;
-	char 			*cmd;
+	char			buff[BUFF_SIZE + 1];
+	int				ret;
+	int				errno_save;
 
-	edit = edit_new();
-	cmd = edit_loop(edit);
-	if (twl_strcmp(cmd, "history") == 0)
+	ret = read(0, buff, BUFF_SIZE);
+	errno_save = errno;
+	twl_printf("ret %d\n", ret);
+	if (ret < 0)
 	{
-		history_mgr_print(edit->history->history);
+		twl_dprintf(2, "[error] %s\n", strerror(errno_save));
+		exit(1);
 	}
-	history_mgr_add(edit->history->history, cmd);
-	edit_del(edit);
-	return (cmd);
-}
-
-void				handle_verbose(char *input)
-{
-	if (shenv_flag_exist(shenv_singleton(), "v"))
+	else if (ret == 0)
 	{
-		twl_putstr_fd(input, 2);
-		twl_putstr_fd("\n", 2);
+		twl_dprintf(2, "ret zero");
 	}
-}
-
-void				prog_main_loop(t_prog *prog)
-{
-	char			*input;
-
-	while (1)
+	else
 	{
-		input = get_cmd();
-		handle_verbose(input);
-		ast_exec_string(input);;
-		free(input);
+		buff[ret] = 0;
+		twl_printf("read: {%s}\n", buff);
 	}
+	return (twl_strdup(buff));
 	(void)prog;
 }
