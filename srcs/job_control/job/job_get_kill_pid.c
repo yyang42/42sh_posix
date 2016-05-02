@@ -16,5 +16,9 @@
 
 pid_t				job_get_kill_pid(t_job *job)
 {
-	return (-job->pid);
+	pid_t           gid;
+
+    if ((gid = getpgid(job->pid)) < 0)
+        LOG_ERROR("getpgid: %s", strerror(errno));
+	return (-gid);
 }
