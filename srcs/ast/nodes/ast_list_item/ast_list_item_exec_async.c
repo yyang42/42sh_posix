@@ -35,7 +35,8 @@ static void			wait_fn(int pid, int *res, void *this_)
 	job_mgr_env_push(job);
 	shenv_singleton()->info.most_recent_background_command_pid = pid;
 	twl_lst_del(str_tokens, NULL);
-	job_print(job, 0);
+	if (shenv_singleton()->is_interactive_shell)
+		job_print(job, 0);
 	(void)res;
 }
 

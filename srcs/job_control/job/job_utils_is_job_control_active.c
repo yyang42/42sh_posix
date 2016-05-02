@@ -16,6 +16,6 @@
 
 bool				job_utils_is_job_control_active(void)
 {
-	return (!shenv_singleton()->is_interactive_shell
-		&& !shenv_flag_exist(shenv_singleton(), "m"));
+	return (shenv_singleton()->is_interactive_shell
+		|| shenv_flag_exist(shenv_singleton(), "m"));
 }
