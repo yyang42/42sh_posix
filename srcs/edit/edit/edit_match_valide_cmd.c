@@ -26,6 +26,7 @@ void				create_openclose_condition(t_openclose_matcher *matcher)
 	openclose_matcher_add(matcher, "{", "}");
 	openclose_matcher_add(matcher, "(", ")");
 	openclose_matcher_add(matcher, "[", "]");
+	openclose_matcher_add(matcher, "$((", "))");
 }
 
 static void			print_fn(void *data, int i, void *_edit_min)
@@ -50,6 +51,15 @@ static void			print_line(t_edit *edit_min, char *token)
 	twl_lst_iteri(edit_min->letters, print_fn, edit_min);
 	if (edit_min->return_cmd)
 		twl_putstr("\n");
+}
+
+
+static size_t		get_pattern_len(char *str)
+{
+	if (twl_str_starts_with(str, "<<-"))
+		return (3);
+	else
+		return (2);
 }
 
 static char			*new_loop(t_openclose *token)
@@ -77,7 +87,7 @@ static char			*get_next_word_after_heredoc(char *str)
 	int				i;
 
 	i = 0;
-	str += 2;
+	str += get_pattern_len(str);
 	twl_bzero(buff, 1000);
 	while (twl_isspace(*str))
 		str++;
@@ -103,19 +113,22 @@ static char			*get_heredoc_sep(char* cmd)
 
 }
 
+
 static char			*get_open_sep(char* cmd)
 {
 	char			*heredoc_pos;
 	char			buff[1000];
 	int				i;
+	size_t			pat_len;
 
-	i = 2;
 	heredoc_pos = twl_strstr(cmd, "<<");
 	if (heredoc_pos == NULL)
 		return NULL;
+	pat_len = get_pattern_len(heredoc_pos);
+	i = (int)pat_len;
 	twl_bzero(buff, 1000);
-	twl_strncat(buff, heredoc_pos, 2);
-	heredoc_pos += 2;
+	twl_strncat(buff, heredoc_pos, pat_len);
+	heredoc_pos += pat_len;
 	while (twl_isspace(*heredoc_pos))
 	{
 		buff[i] = *heredoc_pos;
@@ -194,8 +207,8 @@ char				*edit_match_valide_cmd(char *cmd)
 		stack = openclose_matcher_find_matching_stack(matcher, cpy);
 		if (twl_lst_len(stack) > 0)
 		{
-			cmd = twl_strjoinfree(cmd, "\n", 'l');
 			new_cmd = new_loop(twl_lst_last(stack));
+			cmd = twl_strjoinfree(cmd, "\n", 'l');
 			cmd = twl_strjoinfree(cmd, new_cmd, 'b');
 			twl_lst_del(stack, NULL);
 		}

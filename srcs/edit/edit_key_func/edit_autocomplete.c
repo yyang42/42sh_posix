@@ -90,13 +90,21 @@ static void			filter_path_and_match(t_edit *edit, char *path)
 
 	cur_path = get_path_of_file(path);
 	match_str = get_last_part_of_path(path);
-	if (cur_path && twl_strlen(cur_path))
+	if (twl_str_ends_with(path, "/") && !twl_isdirl(path))
+	{
+		return ;
+	}
+	else if (cur_path && twl_strlen(cur_path) && twl_isdirl(cur_path))
 	{
 		dir_content = read_directory(cur_path);
 	}
-	else
+	else if (!cur_path || twl_strlen(cur_path) == 0)
 	{
 		dir_content = read_directory(".");
+	}
+	else
+	{
+		return ;
 	}
 	matches = twl_lst_findall(dir_content, find_fn, match_str);
 	handle_matches(edit, matches, match_str);
