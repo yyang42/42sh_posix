@@ -26,6 +26,7 @@ void				create_openclose_condition(t_openclose_matcher *matcher)
 	openclose_matcher_add(matcher, "{", "}");
 	openclose_matcher_add(matcher, "(", ")");
 	openclose_matcher_add(matcher, "[", "]");
+	openclose_matcher_add(matcher, "$((", "))");
 }
 
 static void			print_fn(void *data, int i, void *_edit_min)
@@ -206,7 +207,6 @@ char				*edit_match_valide_cmd(char *cmd)
 		stack = openclose_matcher_find_matching_stack(matcher, cpy);
 		if (twl_lst_len(stack) > 0)
 		{
-			cmd = twl_strjoinfree(cmd, "\n", 'l');
 			new_cmd = new_loop(twl_lst_last(stack));
 			cmd = twl_strjoinfree(cmd, "\n", 'l');
 			cmd = twl_strjoinfree(cmd, new_cmd, 'b');
@@ -218,8 +218,6 @@ char				*edit_match_valide_cmd(char *cmd)
 			break;
 		}
 	}
-	(void)clean_heredoc;
 	openclose_matcher_del(matcher);
-	LOGGER_INFO("cmd: %s", cmd);
 	return (cmd);
 }
