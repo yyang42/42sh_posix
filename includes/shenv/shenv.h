@@ -151,11 +151,6 @@ void				shenv_continue_counter_decr_if_one(t_shenv *this);
 bool				shenv_loop_should_exec(t_shenv *this);
 
 /*
-** JOB CONTROL
-*/
-void				shenv_init_job_control(t_shenv *env);
-
-/*
 ** SHELL FUNCTIONS
 */
 struct s_ast_compound_command;

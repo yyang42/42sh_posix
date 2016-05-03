@@ -36,6 +36,7 @@ void                builtin_wait_exec(t_lst *tokens, t_shenv *shenv)
     else
     {
         signal(SIGINT, sigint_handler);
+        // TODO: Avoid jump if possible
         if (setjmp(jump_buf) == 0)
         {
             builtin_wait_exec_segs(argparser_result);
