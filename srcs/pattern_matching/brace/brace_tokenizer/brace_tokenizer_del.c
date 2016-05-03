@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_norris_loves_the_norminette.h                :+:      :+:    :+:   */
+/*   check_norris_loves_the_norminette.c                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chuck <chuck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,33 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BRACE_TOKENIZER_H
-# define BRACE_TOKENIZER_H
+#include "pattern_matching/brace/brace_tokenizer.h"
 
-# include "basics.h"
-# include "pattern_matching/brace/brace_token.h"
-
-typedef enum			e_rule_brace_status
+void			brace_tokenizer_del(t_brace_tokenizer *this)
 {
-	BRACE_STATUS_APPLIED,
-	BRACE_STATUS_NOT_APPLIED,
-	BRACE_STATUS_END_OF_INPUT
-}						t_rule_brace_status;
-
-typedef struct			s_brace_tokenizer
-{
-	t_lst				*tokens;
-	char				*input;
-	size_t				index_input;
-	char				*to_push;
-	size_t				index_to_push;
-}						t_brace_tokenizer;
-
-t_brace_tokenizer		*brace_tokenizer_new(char *input);
-void					brace_tokenizer_del(t_brace_tokenizer *this);
-
-t_lst					*brace_tokenizer_expand(char *input);
-
-typedef t_rule_brace_status	(*t_brace_tokenizer_fn)(t_expan_tokenizer *this);
-
-#endif
+	if (!this)
+		return ;
+	if (this->tokens)
+		twl_lst_del(this->tokens, brace_token_del);
+	if (this->input)
+		free(this->input);
+	if (this->to_push)
+		free(this->to_push);
+	free(this);
+}
