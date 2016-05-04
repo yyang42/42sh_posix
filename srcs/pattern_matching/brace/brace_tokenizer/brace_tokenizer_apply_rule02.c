@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_norris_loves_the_norminette.h                :+:      :+:    :+:   */
+/*   check_norris_loves_the_norminette.c                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chuck <chuck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,21 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BRACE_H
-# define BRACE_H
+#include "pattern_matching/brace/brace_tokenizer.h"
 
-# include "basics.h"
-# include "token/token.h"
+/*
+** Check for brace.
+*/
 
-typedef struct		s_brace
+t_rule_brace_status	brace_tokenizer_apply_rule02(t_brace_tokenizer *this)
 {
-	
-}					t_brace;
-
-t_brace				*brace_new(void);
-void				brace_del(t_brace *this);
-
-t_lst				*brace_expand(char *input);
-t_lst				*brace_expand_from_tokens(t_token *token);
-
-#endif
+	if (this->input[this->input_index] == '{')
+	{
+		return (EXPAN_STATUS_APPLIED);
+	}
+	return (EXPAN_STATUS_NOT_APPLIED);
+}
