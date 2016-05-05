@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_norris_loves_the_norminette.h                :+:      :+:    :+:   */
+/*   check_norris_loves_the_norminette.c                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chuck <chuck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,24 +10,30 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BRACE_H
-# define BRACE_H
+#include "pattern_matching/brace/brace.h"
 
-# include "basics.h"
-# include "token/token.h"
-# include "pattern_matching/brace/brace_tokenizer.h"
-
-typedef struct		s_brace
+static void		init_val(char *input, int *start, int *end, int *step)
 {
-	int lol;
-}					t_brace;
+	*start = twl_atoi(input);
+	input = twl_strchr(input, '.') + 2;
+	*end = twl_atoi(input);
+	if (!twl_strchr(input, '.'))
+		*step = 1;
+	else
+		*step = twl_atoi(twl_strchr(input, '.') + 2);
+	if (*step == 0)
+		step = 1;
+	if (*start > *end)
+		*step = (*step < 0) ? -(*step) : *step;
+}
 
-t_brace				*brace_new(void);
-void				brace_del(t_brace *this);
+t_lst			*brace_expand_sequence_digit(char *input)
+{
+	int			start;
+	int			end;
+	int			step;
 
-t_lst				*brace_expand(char *input);
-
-t_lst				*brace_expand_sequence_digit(char *input);
-t_lst				*brace_expand_sequence_alpha(char *input);
-
-#endif
+	init_val(input, &start, &end, &step);
+	(void)input;
+	return (NULL);
+}
