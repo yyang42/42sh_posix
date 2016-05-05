@@ -11,41 +11,22 @@
 /* ************************************************************************** */
 
 #include "builtin/cmds/builtin_getopts.h"
-#include "twl_unistd.h"
 
-static void			init_getopts(t_shenv *env)
+static void			prep_exec_getopts(char *optstring,
+					char *varname, t_lst *remainders, t_shenv *env)
 {
-	char			*optind_str;
+	char			**argv;
+	t_lst			*argv_lst;
 
-	shenv_unsetenv(env, "OPTARG");
-
-	optind_str = shenv_shvars_get_value(env, "OPTIND");
-	g_twl_optind = optind_str ? twl_atoi(optind_str) : 1;
-}
-
-static void			process(char *optstring, char *varname, char **argv, t_shenv *env)
-{
-	char			getopt_c;
-
-	LOG_DEBUG("optstring   %s", optstring);
-	LOG_DEBUG("varname     %s", varname);
-	LOG_DEBUG("pos_params  %s", twl_strjoinarr((const char **)argv, " "));
-	init_getopts(env);
-	getopt_c = twl_getopt(twl_arr_len(argv), argv, optstring);
-	shenv_shvars_set_int(env, "OPTIND", g_twl_optind, "getopts");
-	if (getopt_c == -1)
-	{
-		env->last_exit_code = EXIT_FAILURE;
-		return ;
-	}
-	LOG_DEBUG("g_twl_optopt  {%c}", g_twl_optopt);
-	shenv_shvars_set(env, varname, (char[2]){g_twl_optopt, '\0'}, "getopts");
-	LOG_DEBUG("getopt_c %c", getopt_c);
-	if (g_twl_optarg)
-	{
-		shenv_shvars_set(env, "OPTARG", g_twl_optarg, "getopts");
-		LOG_DEBUG("g_twl_optarg %s", g_twl_optarg);
-	}
+	if (twl_lst_len(remainders))
+		argv_lst = twl_lst_copy(remainders, NULL);
+	else
+		argv_lst = twl_lst_copy(env->pos_params, NULL);
+	twl_lst_push_front(argv_lst, "getopts");
+	argv = (char **)twl_lst_to_arr(argv_lst);
+	builtin_getopts_exec_getopt(optstring, varname, argv, env);
+	twl_arr_del(argv, NULL);
+	twl_lst_del(argv_lst, NULL);
 }
 
 void				builtin_getopts_exec(t_lst *tokens, t_shenv *env)
@@ -53,7 +34,6 @@ void				builtin_getopts_exec(t_lst *tokens, t_shenv *env)
 	t_argparser_result	*argparser_result;
 	char				*optstring;
 	char				*varname;
-	char				**argv;
 	t_lst				*remainders_copy;
 
 	argparser_result = argparser_parse_tokens(builtin_getopts_argparser(), tokens);
@@ -67,13 +47,7 @@ void				builtin_getopts_exec(t_lst *tokens, t_shenv *env)
 		remainders_copy = twl_lst_copy(argparser_result->remainders, NULL);
 		optstring = twl_lst_pop_front(remainders_copy);
 		varname = twl_lst_pop_front(remainders_copy);
-		twl_lst_del(remainders_copy, NULL);
-
-		remainders_copy = twl_lst_copy(env->pos_params, NULL);
-		twl_lst_push_front(remainders_copy, "getopts");
-		argv = (char **)twl_lst_to_arr(remainders_copy);
-		process(optstring, varname, argv, env);
-		twl_arr_del(argv, NULL);
+		prep_exec_getopts(optstring, varname, remainders_copy, env);
 		twl_lst_del(remainders_copy, NULL);
 	}
 }

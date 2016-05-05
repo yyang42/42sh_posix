@@ -17,7 +17,8 @@
 # include "builtin/builtin.h"
 # include "argparser_extension.h"
 
-void				builtin_getopts_exec(t_lst *tokens, t_shenv *this);
 t_argparser			*builtin_getopts_argparser(void);
-
+void				builtin_getopts_exec(t_lst *tokens, t_shenv *this);
+void				builtin_getopts_exec_getopt(char *optstring,
+					char *varname, char **argv, t_shenv *env);
 #endif
