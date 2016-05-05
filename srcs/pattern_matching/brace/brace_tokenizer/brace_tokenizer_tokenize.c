@@ -12,16 +12,36 @@
 
 #include "pattern_matching/brace/brace_tokenizer.h"
 
-void				brace_tokenizer_delimit(t_brace_tokenizer *this,
-						t_brace_token_type type)
+t_brace_tokenizer_fn	g_brace_tokenizer_rule_fns[8] =
 {
-	t_brace_token	*brace_token;
+	brace_tokenizer_apply_rule01,
+	brace_tokenizer_apply_rule02,
+	brace_tokenizer_apply_rule03,
+	brace_tokenizer_apply_rule04,
+	brace_tokenizer_apply_rule05,
+	brace_tokenizer_apply_rule06,
+	brace_tokenizer_apply_rule07,
+	NULL
+};
 
-	if (type == BRACE_LIST)
-		brace_token = brace_token_new(type, this->brace);
-	else
-		brace_token = brace_token_new(type, this->to_push);
-	twl_bzero(this->to_push, this->index_to_push);
-	this->index_to_push = 0;
-	twl_lst_push_back(this->tokens, brace_token);
+t_lst					*brace_tokenizer_tokenize(char *input)
+{
+	t_brace_tokenizer	*this;
+	t_rule_brace_status	type;
+	t_lst				*ret;
+	size_t				index;
+
+	this = brace_tokenizer_new(input);
+	index = 0;
+	while (g_brace_tokenizer_rule_fns[index])
+	{
+		type = g_brace_tokenizer_rule_fns[index](this);
+		if (type == BRACE_STATUS_END_OF_INPUT)
+			break ;
+		index = (type == BRACE_STATUS_APPLIED) ? 0 : index + 1;
+	}
+	ret = this->tokens;
+	this->tokens = NULL;
+	brace_tokenizer_del(this);
+	return (ret);
 }

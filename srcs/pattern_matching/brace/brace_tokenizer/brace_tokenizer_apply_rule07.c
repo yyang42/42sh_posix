@@ -18,9 +18,9 @@
 
 t_rule_brace_status	brace_tokenizer_apply_rule07(t_brace_tokenizer *this)
 {
-	if (this->input[this->input_index] == '\\' &&
-			this->input[this->input_index + 1])
+	if (this->input[this->index_input] == '\\' &&
+			this->input[this->index_input + 1])
 		brace_tokenizer_addone(this);
 	brace_tokenizer_addone(this);
-	return (EXPAN_STATUS_APPLIED);
+	return (BRACE_STATUS_APPLIED);
 }

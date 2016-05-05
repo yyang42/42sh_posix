@@ -16,11 +16,43 @@
 ** Check for brace.
 */
 
-t_rule_brace_status	brace_tokenizer_apply_rule02(t_brace_tokenizer *this)
+static void				push_sequence_digit(t_brace_tokenizer *this)
 {
-	if (this->input[this->input_index] == '{')
+	brace_push_sequence(this);
+	brace_tokenizer_delimit(this, BRACE_SEQUENCE_DIGIT);
+}
+
+static void				push_sequence_alpha(t_brace_tokenizer *this)
+{
+	brace_push_sequence(this);
+	brace_tokenizer_delimit(this, BRACE_SEQUENCE_ALPHA);
+}
+
+static void				push_list(t_brace_tokenizer *this)
+{
+	this->brace = twl_lst_new();
+	brace_push_brace(this);
+	brace_tokenizer_delimit(this, BRACE_LIST);
+	this->brace = NULL;
+}
+
+t_rule_brace_status		brace_tokenizer_apply_rule02(t_brace_tokenizer *this)
+{
+	t_brace_token_type	type;
+
+	if (this->input[this->index_input] == '{')
 	{
-		return (EXPAN_STATUS_APPLIED);
+		if ((type = brace_could_push_brace(this)) == BRACE_IGNORE)
+			return (BRACE_STATUS_NOT_APPLIED);
+		if (this->index_to_push > 0)
+			brace_tokenizer_delimit(this, BRACE_IGNORE);
+		if (type == BRACE_SEQUENCE_DIGIT)
+			push_sequence_digit(this);
+		else if (type == BRACE_SEQUENCE_ALPHA)
+			push_sequence_alpha(this);
+		else
+			push_list(this);
+		return (BRACE_STATUS_APPLIED);
 	}
-	return (EXPAN_STATUS_NOT_APPLIED);
+	return (BRACE_STATUS_NOT_APPLIED);
 }

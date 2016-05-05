@@ -13,6 +13,21 @@
 #include "pattern_matching/brace/brace_tokenizer.h"
 #include "twl_ctype.h"
 
+static bool			is_special_parameter(t_brace_tokenizer *this)
+{
+	char			c;
+
+	c = this->input[this->index_input];
+	return (c == '?' ||
+			c == '-' ||
+			c == '$' ||
+			c == '!' ||
+			c == '0' ||
+			c == '*' ||
+			c == '@' ||
+			c == '#');
+}
+
 static void			brace_push_dollar_parenthesis_tmp(t_brace_tokenizer *this)
 {
 	if (this->input[this->index_input] == '\\')
@@ -87,7 +102,7 @@ void				brace_push_dollar(t_brace_tokenizer *this)
 		brace_push_dollar_brace(this);
 	else if (this->input[this->index_input] == '(')
 		brace_push_dollar_parenthesis(this);
-	else if (brace_tokenizer_is_special_parameter(this))
+	else if (is_special_parameter(this))
 		brace_tokenizer_addone(this);
 	else if (twl_isdigit(this->input[this->index_input]))
 		brace_tokenizer_addone(this);

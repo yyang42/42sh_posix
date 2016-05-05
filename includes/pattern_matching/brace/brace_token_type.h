@@ -10,18 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pattern_matching/brace/brace_tokenizer.h"
+#ifndef BRACE_TOKEN_TYPE_H
+# define BRACE_TOKEN_TYPE_H
 
-void				brace_tokenizer_delimit(t_brace_tokenizer *this,
-						t_brace_token_type type)
+typedef enum			e_brace_token_type
 {
-	t_brace_token	*brace_token;
+	BRACE_IGNORE,
+	BRACE_LIST,
+	BRACE_SEQUENCE_DIGIT,
+	BRACE_SEQUENCE_ALPHA
+}						t_brace_token_type;
 
-	if (type == BRACE_LIST)
-		brace_token = brace_token_new(type, this->brace);
-	else
-		brace_token = brace_token_new(type, this->to_push);
-	twl_bzero(this->to_push, this->index_to_push);
-	this->index_to_push = 0;
-	twl_lst_push_back(this->tokens, brace_token);
-}
+#endif

@@ -12,12 +12,15 @@
 
 #include "pattern_matching/brace/brace_token.h"
 
-t_brace_token		*brace_token_new(char *input, bool to_expand)
+t_brace_token		*brace_token_new(t_brace_token_type type, void *data)
 {
 	t_brace_token	*this;
 
 	this = twl_malloc_x0(sizeof(t_brace_token));
-	this->input = twl_strdup(input);
-	this->to_expand = to_expand;
+	if (type == BRACE_LIST)
+		this->brace_list = data;
+	else
+		this->text = twl_strdup(data);
+	this->type = type;
 	return (this);
 }

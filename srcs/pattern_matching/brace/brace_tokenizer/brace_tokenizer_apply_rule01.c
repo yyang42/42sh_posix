@@ -18,11 +18,11 @@
 
 t_rule_brace_status	brace_tokenizer_apply_rule01(t_brace_tokenizer *this)
 {
-	if (this->input[this->input_index] == 0)
+	if (this->input[this->index_input] == 0)
 	{
-		if (this->to_push_index > 0)
+		if (this->index_to_push > 0)
 		{
-			brace_tokenizer_delimit(this, EXPAN_NONE);
+			brace_tokenizer_delimit(this, BRACE_IGNORE);
 		}
 		return (BRACE_STATUS_END_OF_INPUT);
 	}

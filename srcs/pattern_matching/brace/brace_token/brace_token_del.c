@@ -16,7 +16,9 @@ void				brace_token_del(t_brace_token *this)
 {
 	if (!this)
 		return ;
-	if (this->input)
-		free(this->input);
+	if (this->text)
+		free(this->text);
+	if (this->brace_list)
+		twl_lst_del(this->brace_list, free);
 	free(this);
 }

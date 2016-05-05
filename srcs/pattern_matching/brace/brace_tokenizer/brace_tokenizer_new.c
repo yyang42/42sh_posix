@@ -22,4 +22,5 @@ t_brace_tokenizer		*brace_tokenizer_new(char *input)
 	this->index_input = 0;
 	this->to_push = twl_strnew(twl_strlen(input));
 	this->index_to_push = 0;
+	return (this);
 }
