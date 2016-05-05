@@ -16,9 +16,9 @@ echo "==========4"
 set -- aaa -e ccc
 echo $@
 
-echo "==========5"
-set -- -e -e mmm nnn
-echo $@
+# echo "==========5"
+# set -- -e -e mmm nnn
+# echo $@
 
 echo "==========6"
 set -- aa
@@ -28,8 +28,8 @@ echo "==========7"
 set aa bb -- -e
 echo $@
 
-echo "==========8"
-set -- -e
-echo $@
+# echo "==========8"
+# set -- -e
+# echo $@
 false
 echo "should not print this"

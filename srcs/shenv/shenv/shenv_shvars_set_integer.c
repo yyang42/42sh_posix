@@ -10,22 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "builtin/builtin.h"
+#include "token/token_utils.h"
 
 #include "shenv/shenv.h"
 
-static void			set_ppid(t_shenv *this)
+t_shvar				*shenv_shvars_set_int(t_shenv *shenv,
+					char *key, int intval, char *command_name)
 {
-	char			*pid;
-	t_shvar			*var;
+	t_shvar			*shvar;
+	char			*value;
 
-	pid = twl_itoa(getppid());
-	var = shenv_shvars_set(this, "PPID", pid, SHENV_DEFAULT_NAME);
-	var->shvar_read_only = true;
-	free(pid);
-}
-
-void				shenv_init_shell_vars(t_shenv *this)
-{
-	shenv_shvars_set(this, "OPTIND", "1", this->shenv_name);
-	set_ppid(this);
+	value = twl_itoa(intval);
+	shvar = shenv_shvars_set(shenv, key, value, command_name);
+	free(value);
+	return (shvar);
 }

@@ -20,7 +20,7 @@ t_argparser			*builtin_getopts_argparser(void)
 	{
 		argparser = argparser_new("getopts");
 		argparser_set_usage(argparser,
-			"filename [arguments]");
+			"optstring name [arg]");
 	}
 	return (argparser);
 }
