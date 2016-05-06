@@ -12,6 +12,7 @@
 
 #include "builtin/cmds/builtin_getopts.h"
 #include "twl_unistd.h"
+#include "token/token_utils.h"
 
 static void			init_getopts(t_shenv *env)
 {
@@ -87,6 +88,12 @@ void				builtin_getopts_exec_getopt(char *original_optstring,
 	char			getopt_c;
 	char			*optstring_with_colon;
 
+	if (!token_utils_is_valid_name(varname))
+	{
+		shenv_singl_error(EXIT_FAILURE,
+			"getopts: `%s': not a valid identifier", varname);
+		return ;
+	}
 	optstring_with_colon = builtin_getopt_string(original_optstring);
 	init_getopts(env);
 	getopt_c = twl_getopt(twl_arr_len(argv), argv, optstring_with_colon);
