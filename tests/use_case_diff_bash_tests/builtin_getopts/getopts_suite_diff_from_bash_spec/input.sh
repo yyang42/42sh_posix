@@ -4,9 +4,12 @@ foo () {
 	echo $@
 	echo "=================="
 	OPTIND=0
-	while getopts a:bc opt
+	optstring=$1
+	shift
+	while getopts $optstring opt
 	do
 	    echo "opt: $opt // OPTIND: $OPTIND // exit_code: $?"
+	    set | grep OPTARG=
 	    case $opt in
 	        a)    echo opt a with $OPTARG;;
 	        b)    echo opt b;;
@@ -22,8 +25,13 @@ foo () {
 	echo
 }
 
-foo -a argA -b -c arg1 arg2
-foo -1 -2 -3
-foo -11
-foo -W
-foo -Wa
+foo a:bc -a
+foo a:bc -a -b
+foo a:bc -a -b -c
+foo :a:bc -a -b
+foo :a:bc -a -b -a -b
+foo a:bc -a -b
+foo a:bc -a --
+foo :a:bc -a -a
+foo :a:bc -a -b
+foo :a:bc -a --

@@ -18,7 +18,6 @@ static void			init_getopts(t_shenv *env)
 	char			*optind_str;
 
 	shenv_unsetenv(env, "OPTARG");
-
 	optind_str = shenv_shvars_get_value(env, "OPTIND");
 	if (!optind_str)
 	{
@@ -55,6 +54,7 @@ void				builtin_getopts_exec_getopt(char *original_optstring,
 	char			getopt_c;
 	char			opt_value[2];
 	char			*optstring_with_colon;
+	char			*optarg_value;
 
 	twl_bzero(opt_value, 2);
 	optstring_with_colon = builtin_getopt_string(original_optstring);
@@ -65,6 +65,7 @@ void				builtin_getopts_exec_getopt(char *original_optstring,
 	g_twl_optopt = '@';
 	LOG_DEBUG("g_twl_optopt  {%c} 1", g_twl_optopt);
 	getopt_c = twl_getopt(twl_arr_len(argv), argv, optstring_with_colon);
+
 	LOG_DEBUG("g_twl_optopt  {%c} 2", g_twl_optopt);
 	set_optind(argv, env);
 	if (getopt_c == -1)
@@ -73,11 +74,28 @@ void				builtin_getopts_exec_getopt(char *original_optstring,
 		return ;
 	}
 	*opt_value = getopt_c;
+	optarg_value = g_twl_optarg;
 	LOG_DEBUG("getopt_c %c", getopt_c);
 	if (getopt_c == ':')
 	{
-		*opt_value = '?';
-		twl_dprintf(2, "%s: option requires an argument -- %c\n", shenv_singleton()->shenv_name, g_twl_optopt);
+		// if ((g_twl_optind > 0)
+		// 	&& (g_twl_optind) >= (int)twl_arr_len(argv))
+		// {
+		// 	// twl_printf(">>> arg          %s\n", argv[g_twl_optind - 1]);
+		// 	// twl_printf(">>> c            %c\n", g_twl_optopt);
+		// 	optarg_value = argv[g_twl_optind - 1];
+		// 	*opt_value = g_twl_optopt;
+		// }
+		// else
+		if (*original_optstring == ':')
+		{
+			optarg_value = (char [2]){g_twl_optopt, 0};
+		}
+		else
+		{
+			*opt_value = '?';
+			twl_dprintf(2, "%s: option requires an argument -- %c\n", shenv_singleton()->shenv_name, g_twl_optopt);
+		}
 	}
 	else if (getopt_c == '?')
 	{
@@ -85,9 +103,9 @@ void				builtin_getopts_exec_getopt(char *original_optstring,
 	}
 	LOG_DEBUG("g_twl_optopt  {%c} 3", g_twl_optopt);
 	shenv_shvars_set(env, varname, opt_value, "getopts");
-	if (g_twl_optarg)
+	if (optarg_value)
 	{
-		shenv_shvars_set(env, "OPTARG", g_twl_optarg, "getopts");
-		LOG_DEBUG("g_twl_optarg %s", g_twl_optarg);
+		shenv_shvars_set(env, "OPTARG", optarg_value, "getopts");
+		LOG_DEBUG("optarg_value %s", optarg_value);
 	}
 }
