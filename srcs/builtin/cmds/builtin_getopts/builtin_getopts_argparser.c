@@ -10,28 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "builtin/cmds/builtin_getopts.h"
 
-#include "shenv/shenv.h"
-
-static void			set_ppid(t_shenv *this)
+t_argparser			*builtin_getopts_argparser(void)
 {
-	int				pid;
-	t_shvar			*var;
+	static t_argparser		*argparser;
 
-
-	if ((pid = getppid()) < 0)
-		LOG_ERROR("getppid: %s", strerror(errno));
-	var = shenv_shvars_set_int(this, "PPID", pid, SHENV_DEFAULT_NAME);
-	var->shvar_read_only = true;
-}
-
-static void			set_getopt_vars(t_shenv *this)
-{
-	shenv_shvars_set(this, "OPTIND", "1", this->shenv_name);
-}
-
-void				shenv_init_shell_vars(t_shenv *this)
-{
-	set_getopt_vars(this);
-	set_ppid(this);
+	if (argparser == NULL)
+	{
+		argparser = argparser_new("getopts");
+		argparser_set_usage(argparser,
+			"optstring name [arg]");
+	}
+	return (argparser);
 }

@@ -12,6 +12,7 @@
 
 #include "shenv/shvar.h"
 #include "shenv/shenv.h"
+#include "twl_unistd.h"
 
 void				shvar_set_value(t_shvar *this, char *value)
 {
@@ -20,4 +21,10 @@ void				shvar_set_value(t_shvar *this, char *value)
 	this->shvar_value = twl_strdup(value);
 	if (twl_strequ(this->shvar_key, "PATH"))
 		shenv_build_binary_db(shenv_singleton());
+	if (twl_strequ(this->shvar_key, "OPTIND")
+		&& (twl_strequ(value, "1") || twl_strequ(value, "0")))
+	{
+		g_twl_optind = 1;
+		g_twl_optpos = NULL;
+	}
 }

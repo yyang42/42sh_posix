@@ -86,7 +86,6 @@ void				builtin_set_exec(t_lst *tokens, t_shenv *env)
 		shenv_remove_all_pos_params(env);
 		if (twl_lst_len(tokens_copy) == 1)
 			return ;
-		twl_lst_pop_front(tokens_copy);
 	}
 	builtin_set_exec_args(tokens_copy, env);
 	twl_lst_del(tokens_copy, NULL);

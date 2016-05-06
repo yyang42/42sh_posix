@@ -93,9 +93,13 @@ void				shenv_del(t_shenv *this);
 t_shenv				*shenv_copy(t_shenv *this);
 void				shenv_init(t_shenv *this);
 void				shenv_init_shell_vars(t_shenv *this);
-t_shvar				*shenv_shvars_set_split_by_equal(t_shenv *this, char *str, char *command_name);
+t_shvar				*shenv_shvars_set_split_by_equal(t_shenv *this,
+					char *str, char *command_name);
 char				*shenv_shvars_get_value(t_shenv *this, char *key);
-t_shvar				*shenv_shvars_set(t_shenv *t, char *k, char *v, char *command_name);
+t_shvar				*shenv_shvars_set(t_shenv *t,
+					char *k, char *v, char *command_name);
+t_shvar				*shenv_shvars_set_int(t_shenv *shenv,
+					char *key, int intval, char *command_name);
 
 void				shenv_print(t_shenv *this);
 void				shenv_unsetenv(t_shenv *this, char *str);
