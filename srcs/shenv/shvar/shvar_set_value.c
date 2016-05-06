@@ -24,10 +24,7 @@ void				shvar_set_value(t_shvar *this, char *value)
 	if (twl_strequ(this->shvar_key, "OPTIND")
 		&& (twl_strequ(value, "1") || twl_strequ(value, "0")))
 	{
-		LOG_DEBUG("SET VALUE OF OPTIND: %s", value);
 		g_twl_optind = 1;
 		g_twl_optpos = NULL;
-		g_twl_optarg = NULL;
-		g_twl_optopt = 0;
 	}
 }

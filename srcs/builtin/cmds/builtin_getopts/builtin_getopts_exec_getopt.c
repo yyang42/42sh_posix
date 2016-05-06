@@ -50,34 +50,14 @@ static void			set_optind(char **argv, t_shenv *env)
 	shenv_shvars_set_int(env, "OPTIND", ind, "getopts");
 }
 
-void				builtin_getopts_exec_getopt(char *original_optstring,
-					char *varname, char **argv, t_shenv *env)
+static void			process_getopt(char getopt_c, char *original_optstring, char *varname)
 {
-	char			getopt_c;
-	char			opt_value[2];
-	char			*optstring_with_colon;
 	char			*optarg_value;
+	char			opt_value[2];
 
 	twl_bzero(opt_value, 2);
-	optstring_with_colon = builtin_getopt_string(original_optstring);
-	LOG_DEBUG("optstring   {%s}", optstring_with_colon);
-	LOG_DEBUG("varname     {%s}", varname);
-	LOG_DEBUG("pos_params  {%s}", twl_strjoinarr((const char **)argv, " "));
-	init_getopts(env);
-	g_twl_optopt = '@';
-	LOG_DEBUG("g_twl_optopt  {%c} 1", g_twl_optopt);
-	getopt_c = twl_getopt(twl_arr_len(argv), argv, optstring_with_colon);
-
-	LOG_DEBUG("g_twl_optopt  {%c} 2", g_twl_optopt);
-	set_optind(argv, env);
-	if (getopt_c == -1)
-	{
-		env->last_exit_code = EXIT_FAILURE;
-		return ;
-	}
 	*opt_value = getopt_c;
 	optarg_value = g_twl_optarg;
-	LOG_DEBUG("getopt_c %c", getopt_c);
 	if (getopt_c == ':')
 	{
 		if (*original_optstring == ':')
@@ -94,11 +74,27 @@ void				builtin_getopts_exec_getopt(char *original_optstring,
 	{
 		twl_dprintf(2, "%s: illegal option -- %c\n", shenv_singleton()->shenv_name, g_twl_optopt);
 	}
-	LOG_DEBUG("g_twl_optopt  {%c} 3", g_twl_optopt);
-	shenv_shvars_set(env, varname, opt_value, "getopts");
+	shenv_shvars_set(shenv_singleton(), varname, opt_value, "getopts");
 	if (optarg_value)
 	{
-		shenv_shvars_set(env, "OPTARG", optarg_value, "getopts");
-		LOG_DEBUG("optarg_value %s", optarg_value);
+		shenv_shvars_set(shenv_singleton(), "OPTARG", optarg_value, "getopts");
 	}
+}
+
+void				builtin_getopts_exec_getopt(char *original_optstring,
+					char *varname, char **argv, t_shenv *env)
+{
+	char			getopt_c;
+	char			*optstring_with_colon;
+
+	optstring_with_colon = builtin_getopt_string(original_optstring);
+	init_getopts(env);
+	getopt_c = twl_getopt(twl_arr_len(argv), argv, optstring_with_colon);
+	set_optind(argv, env);
+	if (getopt_c == -1)
+	{
+		env->last_exit_code = EXIT_FAILURE;
+		return ;
+	}
+	process_getopt(getopt_c, original_optstring, varname);
 }
