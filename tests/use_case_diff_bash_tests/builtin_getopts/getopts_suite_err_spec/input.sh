@@ -26,10 +26,7 @@ foo () {
 }
 
 foo a^m*%bc -a argA -b -c arg1 arg2
-foo * a
-foo \* a
-foo \* a
-foo \*wRX{} +
+foo wRX{} +
 foo abc .
 foo abc \#
 foo abc \$
@@ -38,4 +35,4 @@ foo abc \\\\abc^%
 foo abc a.b
 foo abc "'" afsd fsdf sfdfsd
 foo [] [] []
-foo \* \*
+foo [] \-\=\+\(\{
