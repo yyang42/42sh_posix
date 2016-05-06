@@ -3,7 +3,7 @@ foo () {
 	echo "=================="
 	echo $@
 	echo "=================="
-	OPTIND=0
+	OPTIND=1
 	optstring=$1
 	shift
 	while getopts $optstring opt
@@ -35,3 +35,6 @@ foo a:bc -a --
 foo :a:bc -a -a
 foo :a:bc -a -b
 foo :a:bc -a --
+foo :a:bc -a -- -a --
+foo :a:bc -a -- --
+foo :a:bc -- -a --

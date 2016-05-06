@@ -36,6 +36,7 @@ static void			iter_assign_fn(void *assign_, void *cmd_)
 	}
 	else
 	{
+		shvar_set_value(shvar, shvar->shvar_value);
 		shvar->shvar_assign_value = twl_strdup(assign->value);
 	}
 	if (shenv_flag_exist(shenv_singleton(), "a"))

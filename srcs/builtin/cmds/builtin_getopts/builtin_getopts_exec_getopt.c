@@ -45,6 +45,8 @@ static void			set_optind(char **argv, t_shenv *env)
 	ind = g_twl_optind;
 	if (ind > (int)twl_arr_len(argv))
 		ind = twl_arr_len(argv);
+	if (ind == twl_atoi(shenv_shvars_get_value(env, "OPTIND")))
+		return ;
 	shenv_shvars_set_int(env, "OPTIND", ind, "getopts");
 }
 
@@ -78,15 +80,6 @@ void				builtin_getopts_exec_getopt(char *original_optstring,
 	LOG_DEBUG("getopt_c %c", getopt_c);
 	if (getopt_c == ':')
 	{
-		// if ((g_twl_optind > 0)
-		// 	&& (g_twl_optind) >= (int)twl_arr_len(argv))
-		// {
-		// 	// twl_printf(">>> arg          %s\n", argv[g_twl_optind - 1]);
-		// 	// twl_printf(">>> c            %c\n", g_twl_optopt);
-		// 	optarg_value = argv[g_twl_optind - 1];
-		// 	*opt_value = g_twl_optopt;
-		// }
-		// else
 		if (*original_optstring == ':')
 		{
 			optarg_value = (char [2]){g_twl_optopt, 0};
