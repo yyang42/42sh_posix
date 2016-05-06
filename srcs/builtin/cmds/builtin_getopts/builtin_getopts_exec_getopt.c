@@ -20,6 +20,11 @@ static void			init_getopts(t_shenv *env)
 	shenv_unsetenv(env, "OPTARG");
 
 	optind_str = shenv_shvars_get_value(env, "OPTIND");
+	if (!optind_str)
+	{
+		optind_str = "1";
+		LOG_ERROR("OPTIND is not initialized");
+	}
 	g_twl_optind = optind_str ? twl_atoi(optind_str) : 1;
 }
 

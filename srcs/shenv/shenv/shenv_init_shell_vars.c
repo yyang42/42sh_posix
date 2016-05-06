@@ -15,17 +15,23 @@
 
 static void			set_ppid(t_shenv *this)
 {
-	char			*pid;
+	int				pid;
 	t_shvar			*var;
 
-	pid = twl_itoa(getppid());
-	var = shenv_shvars_set(this, "PPID", pid, SHENV_DEFAULT_NAME);
+
+	if ((pid = getppid()) < 0)
+		LOG_ERROR("getppid: %s", strerror(errno));
+	var = shenv_shvars_set_int(this, "PPID", pid, SHENV_DEFAULT_NAME);
 	var->shvar_read_only = true;
-	free(pid);
+}
+
+static void			set_getopt_vars(t_shenv *this)
+{
+	shenv_shvars_set(this, "OPTIND", "1", this->shenv_name);
 }
 
 void				shenv_init_shell_vars(t_shenv *this)
 {
-	shenv_shvars_set(this, "OPTIND", "1", this->shenv_name);
+	set_getopt_vars(this);
 	set_ppid(this);
 }
