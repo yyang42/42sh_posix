@@ -1,2 +1,7 @@
 usage: getopts optstring name [arg]
 usage: getopts optstring name [arg]
+getopts: illegal option: a
+usage: getopts optstring name [arg]
+getopts: illegal option: b
+usage: getopts optstring name [arg]
+usage: getopts optstring name [arg]
