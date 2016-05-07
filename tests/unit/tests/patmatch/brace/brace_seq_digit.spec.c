@@ -34,6 +34,9 @@ mt_brace_seq_digit(num10, "+12..-0033..+7", 0, "00012", false);
 mt_brace_seq_digit(num11, "+12..-0033..+7", 2, "-0002", false);
 mt_brace_seq_digit(num12, "+12..-0033..+7", 6, "-0030", false);
 
+mt_brace_seq_digit(num13, "0..1..4294967296", 0, "0", false);
+mt_brace_seq_digit(num14, "0..1..4294967296", 1, "1", false);
+
 void		suite_brace_seq_digit(t_suite *suite)
 {
 	SUITE_ADD_TEST(suite, test_num0);
@@ -49,4 +52,6 @@ void		suite_brace_seq_digit(t_suite *suite)
 	SUITE_ADD_TEST(suite, test_num10);
 	SUITE_ADD_TEST(suite, test_num11);
 	SUITE_ADD_TEST(suite, test_num12);
+	SUITE_ADD_TEST(suite, test_num13);
+	SUITE_ADD_TEST(suite, test_num14);
 }
