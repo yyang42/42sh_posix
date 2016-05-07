@@ -12,11 +12,15 @@
 
 #include "pattern_matching/brace/brace.h"
 
-t_brace			*brace_new(void)
+void			brace_recurs_sequence(t_brace *this, t_lst_elem__ *elem,
+										t_brace_token *token, char *acc)
 {
-	t_brace		*this;
+	t_lst		*copy;
+	char		*content;
 
-	this = twl_malloc_x0(sizeof(t_brace));
-	this->final = twl_lst_new();
-	return (this);
+	copy = twl_lst_copy(token->brace_list, NULL);
+	while ((content = twl_lst_pop_front(copy)))
+	{
+		brace_recurs(this, elem->next, twl_strjoin(acc, content));
+	}
 }

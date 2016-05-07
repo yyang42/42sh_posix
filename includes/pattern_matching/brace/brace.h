@@ -28,6 +28,12 @@ void				brace_del(t_brace *this);
 
 t_lst				*brace_expand(char *input);
 
-bool				brace_is_expand(t_brace *this);
+void				brace_recurs(t_brace *this, t_lst_elem__ *elem, char *acc);
+void				brace_recurs_ignore(t_brace *this, t_lst_elem__ *elem, 
+						t_brace_token *token, char *acc);
+void				brace_recurs_list(t_brace *this, t_lst_elem__ *elem, 
+						t_brace_token *token, char *acc);
+void				brace_recurs_sequence(t_brace *this, t_lst_elem__ *elem, 
+						t_brace_token *token, char *acc);
 
 #endif

@@ -15,11 +15,13 @@
 t_lst			*brace_expand(char *input)
 {
 	t_brace		*this;
+	t_lst		*ret;
 
 	this = brace_new();
 	this->begin = brace_tokenizer_tokenize(input);
-	while (!brace_is_expand(this))
-	{
-	}
-	return (this->begin);
+	brace_recurs(this, this->begin->head, twl_strnew(0));
+	twl_lst_rev(this->final);
+	ret = this->final;
+	this->final = NULL;
+	return (ret);
 }
