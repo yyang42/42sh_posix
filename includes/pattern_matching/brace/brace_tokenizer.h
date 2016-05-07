@@ -15,6 +15,7 @@
 
 # include "basics.h"
 # include "pattern_matching/brace/brace_token.h"
+# include "pattern_matching/brace/brace_utils.h"
 
 typedef enum			e_rule_brace_status
 {

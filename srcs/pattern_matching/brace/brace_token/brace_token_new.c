@@ -17,10 +17,10 @@ t_brace_token		*brace_token_new(t_brace_token_type type, void *data)
 	t_brace_token	*this;
 
 	this = twl_malloc_x0(sizeof(t_brace_token));
-	if (type == BRACE_LIST)
-		this->brace_list = data;
-	else
+	if (type == BRACE_IGNORE)
 		this->text = twl_strdup(data);
+	else
+		this->brace_list = data;
 	this->type = type;
 	return (this);
 }

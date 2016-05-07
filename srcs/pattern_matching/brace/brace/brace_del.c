@@ -10,19 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pattern_matching/brace/brace_tokenizer.h"
+#include "pattern_matching/brace/brace.h"
 
-void				brace_tokenizer_delimit(t_brace_tokenizer *this,
-						t_brace_token_type type)
+void			brace_del(t_brace *this)
 {
-	t_brace_token	*brace_token;
-
-	if (type == BRACE_IGNORE)
-		brace_token = brace_token_new(type, this->to_push);
-	else
-		brace_token = brace_token_new(type, this->brace);
-	twl_bzero(this->to_push, this->index_to_push);
-	this->index_to_push = 0;
-	twl_lst_push_back(this->tokens, brace_token);
-	this->brace = NULL;
+	if (!this)
+		return ;
+	free(this);
 }

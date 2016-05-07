@@ -29,8 +29,8 @@ mt_brace_seq_alpha(num6, "A..z..3", 10, "_", false);
 mt_brace_seq_alpha(num7, "A..z..3", 19, "z", false);
 mt_brace_seq_alpha(num8, "A..z..-3", 10, "_", false);
 mt_brace_seq_alpha(num9, "A..z..-3", 19, "z", false);
-mt_brace_seq_alpha(num10, "z..A..-5", 6, "\\", true);
-mt_brace_seq_alpha(num11, "z..A..-5", 9, "M", true);
+mt_brace_seq_alpha(num10, "z..A..-5", 6, "\\", false);
+mt_brace_seq_alpha(num11, "z..A..-5", 9, "M", false);
 
 
 void		suite_brace_seq_alpha(t_suite *suite)

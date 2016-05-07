@@ -19,12 +19,16 @@
 static void				push_sequence_digit(t_brace_tokenizer *this)
 {
 	brace_push_sequence(this);
+	this->brace = brace_expand_sequence_digit(this->to_push);
+	twl_bzero(this->to_push, twl_strlen(this->to_push));
 	brace_tokenizer_delimit(this, BRACE_SEQUENCE_DIGIT);
 }
 
 static void				push_sequence_alpha(t_brace_tokenizer *this)
 {
 	brace_push_sequence(this);
+	this->brace = brace_expand_sequence_alpha(this->to_push);
+	twl_bzero(this->to_push, twl_strlen(this->to_push));
 	brace_tokenizer_delimit(this, BRACE_SEQUENCE_ALPHA);
 }
 

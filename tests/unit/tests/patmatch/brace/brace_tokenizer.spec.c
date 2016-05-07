@@ -26,11 +26,9 @@ static void test_## test_name(t_test *test)							\
 mt_brace_tokenizer(num1, "lol", 0, BRACE_IGNORE, "lol", NULL, false);
 
 mt_brace_tokenizer(num2, "lel{1..3..5}pouet", 0, BRACE_IGNORE, "lel", NULL, false);
-mt_brace_tokenizer(num3, "lel{1..3..5}pouet", 1, BRACE_SEQUENCE_DIGIT, "1..3..5", NULL, false);
 mt_brace_tokenizer(num4, "lel{1..3..5}pouet", 2, BRACE_IGNORE, "pouet", NULL, false);
 
 mt_brace_tokenizer(num5, "lel{a..z..+5}pouet", 0, BRACE_IGNORE, "lel", NULL, false);
-mt_brace_tokenizer(num6, "lel{a..z..+5}pouet", 1, BRACE_SEQUENCE_ALPHA, "a..z..+5", NULL, false);
 mt_brace_tokenizer(num7, "lel{a..z..+5}pouet", 2, BRACE_IGNORE, "pouet", NULL, false);
 
 mt_brace_tokenizer(num8, "$({echo,abc})`{ls,-la}`${hihi}", 0, BRACE_IGNORE, "$({echo,abc})`{ls,-la}`${hihi}", NULL, false);
@@ -41,10 +39,8 @@ void		suite_brace_tokenizer(t_suite *suite)
 {
 	SUITE_ADD_TEST(suite, test_num1);
 	SUITE_ADD_TEST(suite, test_num2);
-	SUITE_ADD_TEST(suite, test_num3);
 	SUITE_ADD_TEST(suite, test_num4);
 	SUITE_ADD_TEST(suite, test_num5);
-	SUITE_ADD_TEST(suite, test_num6);
 	SUITE_ADD_TEST(suite, test_num7);
 	SUITE_ADD_TEST(suite, test_num8);
 	SUITE_ADD_TEST(suite, test_num9);

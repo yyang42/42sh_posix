@@ -19,7 +19,8 @@
 
 typedef struct		s_brace
 {
-	int lol;
+	t_lst			*begin;
+	t_lst			*final;
 }					t_brace;
 
 t_brace				*brace_new(void);
@@ -27,7 +28,6 @@ void				brace_del(t_brace *this);
 
 t_lst				*brace_expand(char *input);
 
-t_lst				*brace_expand_sequence_digit(char *input);
-t_lst				*brace_expand_sequence_alpha(char *input);
+bool				brace_is_expand(t_brace *this);
 
 #endif

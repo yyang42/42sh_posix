@@ -6,7 +6,7 @@ static void test_## test_name(t_test *test)							\
 {																	\
 	t_lst	*list = brace_tokenizer_tokenize(input);				\
 	t_brace_token	*token = twl_lst_get(list, 0);					\
-	mt_assert(token->type == BRACE_LIST);							\
+	mt_assert(token->type != BRACE_IGNORE);							\
 	char	*actual = twl_lst_get(token->brace_list, no_lst);		\
 	if (debug)														\
 	{																\
@@ -28,6 +28,9 @@ mt_brace_brace(num6, "{aa`echo '}'`bb,cc{1..10}dd,}", 2, "", false);
 
 mt_brace_brace(num7, "{,,,}", 3, "", false);
 
+mt_brace_brace(num8, "{1..6..2}", 2, "5", false);
+mt_brace_brace(num9, "{a..z..5}", 2, "k", false);
+
 void		suite_brace_brace(t_suite *suite)
 {
 	SUITE_ADD_TEST(suite, test_num1);
@@ -37,4 +40,6 @@ void		suite_brace_brace(t_suite *suite)
 	SUITE_ADD_TEST(suite, test_num5);
 	SUITE_ADD_TEST(suite, test_num6);
 	SUITE_ADD_TEST(suite, test_num7);
+	SUITE_ADD_TEST(suite, test_num8);
+	SUITE_ADD_TEST(suite, test_num9);
 }
