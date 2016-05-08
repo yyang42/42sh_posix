@@ -17,8 +17,9 @@
 #include "shenv/shenv.h"
 #include "token/token_mgr.h"
 #include "pattern_matching/pattern.h"
+#include "pattern_matching/brace/brace.h"
 
-// TODO: Eventuellement quitter au début des iterations en cas d'erreurs
+// TODO: EVENTUELLEMENT QUITTER AU DÉBUT DES ITERATIONS EN CAS D'ERREURS
 
 static void 	iter_cmd_fn(void *token, void *context)
 {
@@ -134,7 +135,11 @@ static void 	iter_redir_fn(void *data, void *context)
 void			ast_simple_command_expan(t_ast_simple_command *cmd)
 {
 	cmd->cmd_tokens_expanded = twl_lst_new();
-	twl_lst_iter(cmd->cmd_tokens_deep_copy, iter_cmd_fn, cmd);
+	if (!cmd->cmd_tokens_braced)
+	{
+		cmd->cmd_tokens_braced = brace_expand_tokens(cmd->cmd_tokens_deep_copy);
+	}
+	twl_lst_iter(cmd->cmd_tokens_braced, iter_cmd_fn, cmd);
 	twl_lst_iter(cmd->redir_items, iter_redir_fn, cmd);
 	twl_lst_iter(cmd->assignment_items, iter_assign_fn, cmd);
 }

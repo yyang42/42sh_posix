@@ -10,20 +10,22 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_redir.h"
-#include "ast/nodes/ast_assignment.h"
-#include "ast/nodes/ast_simple_command.h"
+#include "pattern_matching/brace/brace.h"
 
-void				ast_simple_command_del(t_ast_simple_command *this)
+static void		iter_fn(void *data, void *ctx)
 {
-	twl_lst_del(this->redir_items, ast_redir_del);
-	twl_lst_del(this->assignment_items, ast_assignment_del);
-	if (this->cmd_tokens_deep_copy)
-		twl_lst_del(this->cmd_tokens_deep_copy, token_del);
-	if (this->cmd_tokens_braced)
-		twl_lst_del(this->cmd_tokens_braced, token_del);
-	if (this->cmd_tokens_expanded)
-		twl_lst_del(this->cmd_tokens_expanded, token_del);
-	twl_lst_del(this->redir_fds, NULL);
-	free(this);
+	t_lst		*tmp;
+
+	tmp = brace_expand_token(data);
+	twl_lst_cat(ctx, tmp);
+	free(tmp);
+}
+
+t_lst			*brace_expand_tokens(t_lst *tokens)
+{
+	t_lst		*ret;
+
+	ret = twl_lst_new();
+	twl_lst_iter(tokens, iter_fn, ret);
+	return (ret);
 }

@@ -27,6 +27,8 @@ t_brace				*brace_new(void);
 void				brace_del(t_brace *this);
 
 t_lst				*brace_expand(char *input);
+t_lst				*brace_expand_token(t_token *token);
+t_lst				*brace_expand_tokens(t_lst *tokens);
 
 void				brace_recurs(t_brace *this, t_lst_elem__ *elem, char *acc);
 void				brace_recurs_ignore(t_brace *this, t_lst_elem__ *elem, 

@@ -38,7 +38,10 @@ static void		lower_than(t_lst *ret, int start, int end, int step)
 
 	while (start <= end)
 	{
-		twl_asprintf(&tmp, "%c", start);
+		if (start == '`')
+			twl_asprintf(&tmp, "\\%c", start);
+		else
+			twl_asprintf(&tmp, "%c", start);
 		twl_lst_push_back(ret, tmp);
 		start += step;
 	}
@@ -50,7 +53,10 @@ static void		greater_than(t_lst *ret, int start, int end, int step)
 
 	while (start >= end)
 	{
-		twl_asprintf(&tmp, "%c", start);
+		if (start == '`')
+			twl_asprintf(&tmp, "\\%c", start);
+		else
+			twl_asprintf(&tmp, "%c", start);
 		twl_lst_push_back(ret, tmp);
 		start -= step;
 	}
