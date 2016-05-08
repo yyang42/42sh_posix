@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdbool.h>
-#include "builtin/cmds/builtin_set.h"
+#include "shenv/shopt_parser.h"
 #include "twl_opt_elem.h"
 
 static bool			find_opt(void *opt_elem_, void *opt_key)

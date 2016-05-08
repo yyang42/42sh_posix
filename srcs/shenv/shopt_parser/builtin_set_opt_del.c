@@ -10,20 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_SET_H
-# define BUILTIN_SET_H
+#include "shenv/shopt_parser.h"
+#include "twl_opt_elem.h"
 
-# include "basics.h"
-# include "builtin/builtin.h"
-# include "shenv/shopt_parser.h"
-# include "twl_opt.h"
-# include "twl_opt_elem.h"
-
-void				builtin_set_exec(t_lst *tokens, t_shenv *env);
-void				builtin_set_print_o_positive(t_shenv *env);
-void				builtin_set_print_o_negative(t_shenv *env);
-int					builtin_set_check_invalid_opts(t_set_opt *opt, char *exe_name,
-																char *flags);
-void				builtin_set_exec_print(t_shenv *this);
-
-#endif
+void				builtin_set_opt_del(t_set_opt *opt)
+{
+	free(opt->valid_opts);
+	twl_lst_del(opt->positive_opts, twl_opt_elem_del);
+	twl_lst_del(opt->negative_opts, twl_opt_elem_del);
+	twl_lst_del(opt->args, free);
+	free(opt);
+}

@@ -10,14 +10,30 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/cmds/builtin_set.h"
-#include "twl_opt_elem.h"
+#ifndef SHOPT_PARSER_H
+# define SHOPT_PARSER_H
 
-void				builtin_set_opt_del(t_set_opt *opt)
+# include "basics.h"
+# include "shenv/shenv.h"
+
+# define SET_OPT_VALID_OPTS "-abCefhmnouvx"
+# define POSITIVE_OPT 1
+# define NEGATIVE_OPT -1
+
+typedef struct		s_set_opt
 {
-	free(opt->valid_opts);
-	twl_lst_del(opt->positive_opts, twl_opt_elem_del);
-	twl_lst_del(opt->negative_opts, twl_opt_elem_del);
-	twl_lst_del(opt->args, free);
-	free(opt);
-}
+	t_lst			*positive_opts;
+	t_lst			*negative_opts;
+	t_lst			*args;
+	char			*valid_opts;
+}					t_set_opt;
+
+t_set_opt			*builtin_set_opt_new(char **argv, char *valid_opts);
+void				builtin_set_opt_del(t_set_opt *xopt);
+char				**builtin_set_opt_new_parse_arg_opt_and_return_non_opt_args__(
+					char **arr_opts, t_set_opt *opt, char *valid_opts);
+char				*builtin_set_opt_check_invalid_opts(t_set_opt *opt);
+int					builtin_set_opt_exist(t_set_opt *twl_opt, char *opt_key);
+void				builtin_set_opt_check_args(t_set_opt *opt, t_shenv *env);
+
+#endif

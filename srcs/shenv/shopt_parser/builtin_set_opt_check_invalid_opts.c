@@ -10,11 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdbool.h>
-#include "builtin/cmds/builtin_set.h"
+#include "shenv/shopt_parser.h"
 #include "twl_opt.h"
 #include "twl_opt_elem.h"
-#include "twl_stdio.h"
 
 static bool			find_fn(void *opt_elem_, void *valid_opts_)
 {

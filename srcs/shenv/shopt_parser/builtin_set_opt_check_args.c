@@ -10,9 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/cmds/builtin_set.h"
-#include "shenv/shenv.h"
-#include "twl_lst.h"
+#include "shenv/shopt_parser.h"
 
 static void			add_pos_param(void *data, void *context)
 {
