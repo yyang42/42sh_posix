@@ -44,7 +44,7 @@ static void			get_flag_verbose(char *key, void *data, void *context)
 	free(space);
 }
 
-void				builtin_set_o_negative(t_shenv *env)
+void				builtin_set_print_o_negative(t_shenv *env)
 {
 	if (env->flag_verbose)
 		twl_dict_iter(env->flag_verbose, get_flag_verbose, env);

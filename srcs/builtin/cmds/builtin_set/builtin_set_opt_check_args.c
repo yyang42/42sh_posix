@@ -58,7 +58,7 @@ static void			add_matching_flag(t_shenv *env, char *arg)
 		twl_dprintf(2, "set: %s: invalid option name\n", arg);
 }
 
-void				builtin_set_check_args(t_set_opt *opt, t_shenv *env)
+void				builtin_set_opt_check_args(t_set_opt *opt, t_shenv *env)
 {
 	int	i;
 

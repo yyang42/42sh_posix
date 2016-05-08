@@ -24,7 +24,7 @@ static void			remove_shell_flags(void *data, void *context, void *args_)
 	if (twl_strcmp(elem->key, "o") != 0)
 		shenv_remove_flag(elem->key, env);
 	else if (twl_lst_len(args) <= 0)
-		builtin_set_o_positive(env);
+		builtin_set_print_o_positive(env);
 }
 
 static void			add_shell_flags(void *data, void *context, void *args_)
@@ -39,7 +39,7 @@ static void			add_shell_flags(void *data, void *context, void *args_)
 	if (twl_strcmp(elem->key, "o") != 0)
 		shenv_add_flag(elem->key, env);
 	else if (twl_lst_len(args) <= 0)
-		builtin_set_o_negative(env);
+		builtin_set_print_o_negative(env);
 }
 
 void				builtin_set_exec_args(t_lst *tokens_copy, t_shenv *env)
@@ -59,7 +59,7 @@ void				builtin_set_exec_args(t_lst *tokens_copy, t_shenv *env)
 		twl_lst_iter2(opt->negative_opts, add_shell_flags, env, opt->args);
 		if (twl_lst_len(opt->args) > 0)
 		{
-			builtin_set_check_args(opt, env);
+			builtin_set_opt_check_args(opt, env);
 		}
 		else if (twl_lst_len(opt->positive_opts) == 0 && opt->negative_opts == 0)
 		{

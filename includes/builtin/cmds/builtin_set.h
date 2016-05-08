@@ -37,9 +37,9 @@ char				**builtin_set_opt_new_parse_arg_opt_and_return_non_opt_args__(
 	char **arr_opts, t_set_opt *opt, char *valid_opts);
 char				*builtin_set_opt_check_invalid_opts(t_set_opt *opt);
 int					builtin_set_opt_exist(t_set_opt *twl_opt, char *opt_key);
-void				builtin_set_o_positive(t_shenv *env);
-void				builtin_set_o_negative(t_shenv *env);
-void				builtin_set_check_args(t_set_opt *opt, t_shenv *env);
+void				builtin_set_print_o_positive(t_shenv *env);
+void				builtin_set_print_o_negative(t_shenv *env);
+void				builtin_set_opt_check_args(t_set_opt *opt, t_shenv *env);
 int					builtin_set_check_invalid_opts(t_set_opt *opt, char *exe_name,
 																char *flags);
 void				builtin_set_exec_print(t_shenv *this);
