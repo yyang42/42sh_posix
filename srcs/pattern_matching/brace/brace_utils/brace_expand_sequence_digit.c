@@ -50,6 +50,11 @@ static void		init_zero(char *input, int *zero)
 	index = 0;
 	if (input[index] == '+' || input[index] == '-')
 		index += 1;
+	if (input[index] != '0')
+	{
+		*zero = 0;
+		return ;
+	}
 	*zero = index;
 	while (twl_isdigit(input[index]))
 	{

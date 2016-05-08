@@ -87,12 +87,14 @@ static void			brace_push_dollar_brace(t_brace_tokenizer *this)
 		else if (this->input[this->index_input] == '"')
 			brace_push_dquote(this);
 		else if (this->input[this->index_input] == '\'')
-			brace_push_dquote(this);
+			brace_push_squote(this);
 		else
 			brace_tokenizer_addone(this);
 	}
 	if (this->input[this->index_input])
+	{
 		brace_tokenizer_addone(this);
+	}
 }
 
 void				brace_push_dollar(t_brace_tokenizer *this)
