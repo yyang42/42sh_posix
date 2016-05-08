@@ -33,7 +33,7 @@ char				*shenv_concat_flags(t_shenv *env)
 	char	*concat;
 
 	concat = twl_strdup("");
-	if (env && env->flags)
-		twl_lst_iter(env->flags, concat_flag, &concat);
+	if (env && env->shenv_set_flags)
+		twl_lst_iter(env->shenv_set_flags, concat_flag, &concat);
 	return (concat);
 }

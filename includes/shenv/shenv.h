@@ -55,7 +55,7 @@ typedef struct				s_shenv
 	t_token					*shenv_cur_token;
 	t_lst					*shvars;
 	t_lst					*pos_params;
-	t_lst					*flags; // TODO: Change flags to htab
+	t_lst					*shenv_set_flags; // TODO: Change flags to htab
 	t_htab					*alias;
 	t_dict					*flag_verbose;
 	t_dict					*shfuncs;

@@ -24,6 +24,6 @@ static void			print_flag(void *data)
 
 void				shenv_print_flags(t_shenv *env)
 {
-	if (env && env->flags)
-		twl_lst_iter0(env->flags, print_flag);
+	if (env && env->shenv_set_flags)
+		twl_lst_iter0(env->shenv_set_flags, print_flag);
 }

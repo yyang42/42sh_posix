@@ -37,5 +37,5 @@ static void			free_opt(void *data)
 
 void				shenv_remove_flag(char *flag, t_shenv *env)
 {
-	twl_lst_remove_if(env->flags, find_opt, flag, free_opt);
+	twl_lst_remove_if(env->shenv_set_flags, find_opt, flag, free_opt);
 }

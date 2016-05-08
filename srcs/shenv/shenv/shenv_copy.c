@@ -47,7 +47,7 @@ t_shenv				*shenv_copy(t_shenv *this)
 	copy->flag_verbose = twl_lst_copy(this->flag_verbose, copy_dict_fn);
 	copy->shfuncs = twl_lst_copy(this->shfuncs, NULL);
 	copy->pos_params = twl_lst_copy(this->pos_params, twl_strdup_void);
-	copy->flags = twl_lst_copy(this->flags, copy_flags_fn);
+	copy->shenv_set_flags = twl_lst_copy(this->shenv_set_flags, copy_flags_fn);
 	copy->function_depth = this->function_depth;
 	copy->info = this->info;
 	if (this->info.name)

@@ -27,5 +27,5 @@ bool				check_flag(void *data, void *context)
 
 int					shenv_flag_exist(t_shenv *this, char *flag)
 {
-	return (twl_lst_find(this->flags, check_flag, flag) ? 1 : 0);
+	return (twl_lst_find(this->shenv_set_flags, check_flag, flag) ? 1 : 0);
 }
