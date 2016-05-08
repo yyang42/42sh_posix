@@ -10,31 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_DIRS_H
-# define BUILTIN_DIRS_H
+#include "builtin/cmds/builtin_dirs.h"
 
-# include "basics.h"
-# include "twl_opt.h"
-# include "argparser_extension.h"
-# include "shenv/shenv.h"
-# include "builtin/builtin.h"
-
-typedef struct			s_builtin_dirs
+void			builtin_dirs_clear(t_builtin_dirs *this)
 {
-	t_argparser_result	*result;
-	t_lst				*token_copy;
-	bool				is_number_set;
-	bool				is_negative;
-	int					number;
-}						t_builtin_dirs;
-
-t_argparser				*builtin_dirs_argparser(void);
-
-t_lst					*builtin_dirs_singleton(void);
-void					builtin_dirs_exec(t_lst *tokens, t_shenv *shenv);
-void					builtin_dirs_clear(t_builtin_dirs *this);
-void					builtin_dirs_new_line(t_builtin_dirs *this);
-void					builtin_dirs_verbose(t_builtin_dirs *this);
-void					builtin_dirs_simple(t_builtin_dirs *this);
-
-#endif
+	twl_lst_clear(builtin_dirs_singleton(), free);
+	(void)this;
+}
