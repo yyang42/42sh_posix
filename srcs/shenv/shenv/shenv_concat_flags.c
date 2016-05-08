@@ -17,14 +17,12 @@
 
 static void			concat_flag(void *data, void *concat_ptr_)
 {
-	t_opt_elem	*elem;
 	char		**concat_ptr;
 
-	elem = data;
 	concat_ptr = concat_ptr_;
-	if (elem && elem->key)
+	if (data)
 	{
-		*concat_ptr = twl_strjoinfree(*concat_ptr, elem->key, 'l');
+		*concat_ptr = twl_strjoinfree(*concat_ptr, data, 'l');
 	}
 }
 

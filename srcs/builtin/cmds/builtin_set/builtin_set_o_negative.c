@@ -36,6 +36,7 @@ static void			get_flag_verbose(char *key, void *data, void *context)
 		twl_memset(space, ' ', space_count);
 		space[space_count] = 0;
 	}
+	LOG_DEBUG("shenv_flag_exist key %s", key);
 	if (shenv_flag_exist(env, key))
 		twl_printf("%s%s\t%s\n", flag, space, "on");
 	else

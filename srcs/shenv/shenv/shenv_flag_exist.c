@@ -15,17 +15,7 @@
 #include "twl_lst.h"
 #include "twl_opt_elem.h"
 
-bool				check_flag(void *data, void *context)
-{
-	char		*flag;
-	t_opt_elem	*elem;
-
-	flag = context;
-	elem = data;
-	return (twl_strcmp(flag, elem->key) == 0);
-}
-
 int					shenv_flag_exist(t_shenv *this, char *flag)
 {
-	return (twl_lst_find(this->shenv_set_flags, check_flag, flag) ? 1 : 0);
+	return ((bool)twl_lst_find(this->shenv_set_flags, twl_strequ_void, flag));
 }

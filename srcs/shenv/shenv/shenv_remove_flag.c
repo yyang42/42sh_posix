@@ -15,27 +15,7 @@
 #include "twl_dict.h"
 #include "twl_opt_elem.h"
 
-static bool			find_opt(void *data, void *key)
-{
-	t_opt_elem *elem;
-
-	elem = data;
-	return (twl_strcmp(elem->key, key) == 0);
-}
-
-static void			free_opt(void *data)
-{
-	t_opt_elem *elem;
-
-	elem = data;
-	if (elem->key)
-		free(elem->key);
-	if (elem->value)
-		free(elem->value);
-	free(data);
-}
-
 void				shenv_remove_flag(char *flag, t_shenv *env)
 {
-	twl_lst_remove_if(env->shenv_set_flags, find_opt, flag, free_opt);
+	twl_lst_remove_if(env->shenv_set_flags, twl_strequ_void, flag, free);
 }
