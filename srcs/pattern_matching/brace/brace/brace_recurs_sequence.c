@@ -21,6 +21,9 @@ void			brace_recurs_sequence(t_brace *this, t_lst_elem__ *elem,
 	copy = twl_lst_copy(token->brace_list, NULL);
 	while ((content = twl_lst_pop_front(copy)))
 	{
-		brace_recurs(this, elem->next, twl_strjoin(acc, content));
+		content = twl_strjoin(acc, content);
+		brace_recurs(this, elem->next, content);
+		free(content);
 	}
+	twl_lst_del(copy, NULL);
 }

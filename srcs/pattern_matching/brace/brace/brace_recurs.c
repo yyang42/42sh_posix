@@ -18,7 +18,7 @@ void				brace_recurs(t_brace *this, t_lst_elem__ *elem, char *acc)
 
 	if (!elem)
 	{
-		twl_lst_push_front(this->final, acc);
+		twl_lst_push_front(this->final, twl_strdup(acc));
 		return ;
 	}
 	token = elem->data;

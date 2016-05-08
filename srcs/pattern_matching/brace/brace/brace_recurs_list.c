@@ -12,21 +12,35 @@
 
 #include "pattern_matching/brace/brace.h"
 
+static void	expand_fn(t_brace *this, t_lst_elem__ *elem,
+						char *content, char *acc)
+{
+	t_lst	*expand;
+	t_lst	*copy;
+	char	*tmp;
+
+	expand = brace_expand(content);
+	copy = twl_lst_copy(expand, NULL);
+	while ((tmp = twl_lst_pop_front(copy)))
+	{
+		tmp = twl_strjoin(acc, tmp);
+		brace_recurs(this, elem->next, tmp);
+		free(tmp);
+	}
+	twl_lst_del(copy, NULL);
+	twl_lst_del(expand, free);
+}
+
 void		brace_recurs_list(t_brace *this, t_lst_elem__ *elem,
 								t_brace_token *token, char *acc)
 {
 	t_lst		*copy;
 	char		*content;
-	t_lst		*expand;
-	char		*c_expand;
 
 	copy = twl_lst_copy(token->brace_list, NULL);
 	while ((content = twl_lst_pop_front(copy)))
 	{
-		expand = brace_expand(content);
-		while ((c_expand = twl_lst_pop_front(expand)))
-		{
-			brace_recurs(this, elem->next, twl_strjoin(acc, c_expand));
-		}
+		expand_fn(this, elem, content, acc);
 	}
+	twl_lst_del(copy, NULL);
 }

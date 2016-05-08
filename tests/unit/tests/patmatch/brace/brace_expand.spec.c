@@ -16,30 +16,30 @@ static void test_## test_name(t_test *test)							\
 	twl_lst_del(list, free);										\
 }
 
-mt_brace_expand(num0, "Bonjour", 0, "Bonjour", true);
-mt_brace_expand(num1, "{1,2,3}", 0, "1", true);
-mt_brace_expand(num2, "{1,2,3}", 1, "2", true);
-mt_brace_expand(num3, "{1,2,3}", 2, "3", true);
-mt_brace_expand(num4, "aa{11,l{a,o,e}l,33}cc", 0, "aa11cc", true);
-mt_brace_expand(num5, "aa{11,l{a,o,e}l,33}cc", 1, "aalalcc", true);
-mt_brace_expand(num6, "aa{11,l{a,o,e}l,33}cc", 2, "aalolcc", true);
-mt_brace_expand(num7, "aa{11,l{a,o,e}l,33}cc", 3, "aalelcc", true);
-mt_brace_expand(num8, "aa{11,l{a,o,e}l,33}cc", 4, "aa33cc", true);
+mt_brace_expand(num0, "Bonjour", 0, "Bonjour", false);
+mt_brace_expand(num1, "{1,2,3}", 0, "1", false);
+mt_brace_expand(num2, "{1,2,3}", 1, "2", false);
+mt_brace_expand(num3, "{1,2,3}", 2, "3", false);
+mt_brace_expand(num4, "aa{11,l{a,o,e}l,33}cc", 0, "aa11cc", false);
+mt_brace_expand(num5, "aa{11,l{a,o,e}l,33}cc", 1, "aalalcc", false);
+mt_brace_expand(num6, "aa{11,l{a,o,e}l,33}cc", 2, "aalolcc", false);
+mt_brace_expand(num7, "aa{11,l{a,o,e}l,33}cc", 3, "aalelcc", false);
+mt_brace_expand(num8, "aa{11,l{a,o,e}l,33}cc", 4, "aa33cc", false);
 
-mt_brace_expand(num10, "aa{bb,cc}dd{ee,ff}gg{hh,ii}jj", 0, "aabbddeegghhjj", true);
-mt_brace_expand(num11, "aa{bb,cc}dd{ee,ff}gg{hh,ii}jj", 1, "aabbddeeggiijj", true);
-mt_brace_expand(num12, "aa{bb,cc}dd{ee,ff}gg{hh,ii}jj", 2, "aabbddffgghhjj", true);
-mt_brace_expand(num13, "aa{bb,cc}dd{ee,ff}gg{hh,ii}jj", 3, "aabbddffggiijj", true);
-mt_brace_expand(num14, "aa{bb,cc}dd{ee,ff}gg{hh,ii}jj", 4, "aaccddeegghhjj", true);
-mt_brace_expand(num15, "aa{bb,cc}dd{ee,ff}gg{hh,ii}jj", 5, "aaccddeeggiijj", true);
-mt_brace_expand(num16, "aa{bb,cc}dd{ee,ff}gg{hh,ii}jj", 6, "aaccddffgghhjj", true);
-mt_brace_expand(num17, "aa{bb,cc}dd{ee,ff}gg{hh,ii}jj", 7, "aaccddffggiijj", true);
+mt_brace_expand(num10, "aa{bb,cc}dd{ee,ff}gg{hh,ii}jj", 0, "aabbddeegghhjj", false);
+mt_brace_expand(num11, "aa{bb,cc}dd{ee,ff}gg{hh,ii}jj", 1, "aabbddeeggiijj", false);
+mt_brace_expand(num12, "aa{bb,cc}dd{ee,ff}gg{hh,ii}jj", 2, "aabbddffgghhjj", false);
+mt_brace_expand(num13, "aa{bb,cc}dd{ee,ff}gg{hh,ii}jj", 3, "aabbddffggiijj", false);
+mt_brace_expand(num14, "aa{bb,cc}dd{ee,ff}gg{hh,ii}jj", 4, "aaccddeegghhjj", false);
+mt_brace_expand(num15, "aa{bb,cc}dd{ee,ff}gg{hh,ii}jj", 5, "aaccddeeggiijj", false);
+mt_brace_expand(num16, "aa{bb,cc}dd{ee,ff}gg{hh,ii}jj", 6, "aaccddffgghhjj", false);
+mt_brace_expand(num17, "aa{bb,cc}dd{ee,ff}gg{hh,ii}jj", 7, "aaccddffggiijj", false);
 
-mt_brace_expand(num20, "lel{{01..02},,{a..z..25}}lel", 0, "lel01lel", true);
-mt_brace_expand(num21, "lel{{01..02},,{a..z..25}}lel", 1, "lel02lel", true);
-mt_brace_expand(num22, "lel{{01..02},,{a..z..25}}lel", 2, "lellel", true);
-mt_brace_expand(num23, "lel{{01..02},,{a..z..25}}lel", 3, "lelalel", true);
-mt_brace_expand(num24, "lel{{01..02},,{a..z..25}}lel", 4, "lelzlel", true);
+mt_brace_expand(num20, "lel{{01..02},,{a..z..25}}lel", 0, "lel01lel", false);
+mt_brace_expand(num21, "lel{{01..02},,{a..z..25}}lel", 1, "lel02lel", false);
+mt_brace_expand(num22, "lel{{01..02},,{a..z..25}}lel", 2, "lellel", false);
+mt_brace_expand(num23, "lel{{01..02},,{a..z..25}}lel", 3, "lelalel", false);
+mt_brace_expand(num24, "lel{{01..02},,{a..z..25}}lel", 4, "lelzlel", false);
 
 void		suite_brace_expand(t_suite *suite)
 {
