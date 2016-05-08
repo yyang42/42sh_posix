@@ -13,7 +13,16 @@
 #include "builtin/cmds/builtin_dirs.h"
 #include "twl_ctype.h"
 
-static bool		set_number(char *text, bool *is_number_set, int *number)
+static void			builtin_dirs_init(t_builtin_dirs *this, t_lst *tokens)
+{
+	this->result = NULL;
+	this->token_copy = twl_lst_copy(tokens, NULL);
+	this->is_number_set = false;
+	this->is_negative = false;
+	this->number = 0;
+}
+
+static bool			set_number(t_builtin_dirs *this, char *text)
 {
 	size_t		index;
 
@@ -26,63 +35,56 @@ static bool		set_number(char *text, bool *is_number_set, int *number)
 			return (false);
 		index += 1;
 	}
-	*is_number_set = true;
-	*number = twl_atoi(text + 1);
+	this->is_number_set = true;
+	this->number = twl_atoi(text + 1);
+	this->is_negative = (*text == '-');
 	return (true);
 }
 
-static void		iter_fn(void *data) { twl_printf("%s\n", data); }
-
-void			builtin_dirs_exec(t_lst *tokens, t_shenv *shenv)
+static bool			builtin_dirs_error(char *text, char *msg)
 {
-	t_lst		*copy;
-	t_token		*token;
-	size_t		index;
-	bool		is_number_set;
-	bool		is_neg;
-	int			number;
-	t_argparser_result	*result;
+	shenv_singl_error(1, "dirs: %s: %s", text, msg);
+	argparser_print_help(builtin_dirs_argparser());
+	return (false);
+}
 
-	copy = twl_lst_copy(tokens, NULL);
+static bool			init_dirs(t_builtin_dirs *this)
+{
+	size_t			index;
+	t_token			*token;
+
 	index = 1;
-	is_number_set = false;
-	while ((token = twl_lst_get(copy, index)))
+	while ((token = twl_lst_get(this->token_copy, index)))
 	{
-		if (*token->text == '-' || *token->text == '+')
-		{
-			if (token->text[0] == '-' && token->text[1] == '-' && !token->text[2])
-				break ;
-			if (set_number(token->text, &is_number_set, &number))
-			{
-				is_neg = (*token->text == '-');
-				twl_lst_popi(copy, index);
-			}
-			else if (*token->text == '+')
-			{
-				shenv_singl_error(1, "dirs: %s: invalid number", token->text);
-				argparser_print_help(builtin_dirs_argparser());
-				return ;
-			}
-			else
-			{
-				index += 1;
-			}
-		}
+		if (*token->text == '-' && token->text[1] == '-' && !token->text[2])
+			break ;
+		else if (*token->text == '-' && set_number(this, token->text))
+			twl_lst_popi(this->token_copy, index);
+		else if (*token->text == '+' && set_number(this, token->text))
+			twl_lst_popi(this->token_copy, index);
+		else if (*token->text == '-')
+			index += 1;
+		else if (*token->text == '+')
+			return (builtin_dirs_error(token->text, "invalid number"));
 		else
-		{
-			shenv_singl_error(1, "dirs: %s: does not take arguments", token->text);
-			argparser_print_help(builtin_dirs_argparser());
-			return ;
-		}
+			return (builtin_dirs_error(token->text, "does not take arguments"));
 	}
-	result = argparser_parse_tokens(builtin_dirs_argparser(), copy);
-	if (result->err_msg)
+	return (true);
+}
+
+void				builtin_dirs_exec(t_lst *tokens, t_shenv *shenv)
+{
+	t_builtin_dirs	this;
+
+	builtin_dirs_init(&this, tokens);
+	if (!init_dirs(&this))
+		return ;
+	this.result = argparser_parse_tokens(builtin_dirs_argparser(), this.token_copy);
+	if (this.result->err_msg)
 	{
-		shenv_singl_error(1, result->err_msg);
+		shenv_singl_error(1, this.result->err_msg);
 		argparser_print_help(builtin_dirs_argparser());
 		return ;
 	}
-	twl_lst_iter0(result->remainders, iter_fn);
-	twl_lst_del(copy, NULL);
 	(void)shenv;
 }

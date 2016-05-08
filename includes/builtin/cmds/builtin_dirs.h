@@ -19,13 +19,22 @@
 # include "shenv/shenv.h"
 # include "builtin/builtin.h"
 
-t_argparser			*builtin_dirs_argparser(void);
+typedef struct			s_builtin_dirs
+{
+	t_argparser_result	*result;
+	t_lst				*token_copy;
+	bool				is_number_set;
+	bool				is_negative;
+	int					number;
+}						t_builtin_dirs;
 
-t_lst				*builtin_dirs_singleton(void);
-void				builtin_dirs_exec(t_lst *tokens, t_shenv *shenv);
-void				builtin_dirs_clear(t_argparser_result *result);
-void				builtin_dirs_verbose(t_argparser_result *result);
-void				builtin_dirs_new_line(t_argparser_result *result);
-void				builtin_dirs_simple(t_argparser_result *result);
+t_argparser				*builtin_dirs_argparser(void);
+
+t_lst					*builtin_dirs_singleton(void);
+void					builtin_dirs_exec(t_lst *tokens, t_shenv *shenv);
+void					builtin_dirs_clear(t_argparser_result *result);
+void					builtin_dirs_verbose(t_argparser_result *result);
+void					builtin_dirs_new_line(t_argparser_result *result);
+void					builtin_dirs_simple(t_argparser_result *result);
 
 #endif
