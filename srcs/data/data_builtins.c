@@ -18,6 +18,7 @@
 #include "builtin/cmds/builtin_colon.h"
 #include "builtin/cmds/builtin_command.h"
 #include "builtin/cmds/builtin_continue.h"
+#include "builtin/cmds/builtin_dirs.h"
 #include "builtin/cmds/builtin_dot.h"
 #include "builtin/cmds/builtin_echo.h"
 #include "builtin/cmds/builtin_env.h"
@@ -61,6 +62,7 @@ t_lst				*data_builtins(void)
 		twl_lst_push_back(builtins, builtin_new("cd", builtin_cd_exec, 0));
 		twl_lst_push_back(builtins, builtin_new("command", builtin_command_exec, 0));
 		twl_lst_push_back(builtins, builtin_new("continue", builtin_continue_exec, BUILTIN_FLAG_SPECIAL_BUILTIN));
+		twl_lst_push_back(builtins, builtin_new("dirs", builtin_dirs_exec, 0));
 		twl_lst_push_back(builtins, builtin_new("echo", builtin_echo_exec, 0));
 		twl_lst_push_back(builtins, builtin_new("env", builtin_env_exec, 0));
 		twl_lst_push_back(builtins, builtin_new("eval", builtin_eval_exec, BUILTIN_FLAG_SPECIAL_BUILTIN));
