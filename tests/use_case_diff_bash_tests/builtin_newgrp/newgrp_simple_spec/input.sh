@@ -1,4 +1,4 @@
-echo aaa
-newgrp abc exit
-echo bbb
-echo $?
+echo start
+id
+echo id | newgrp everyone
+echo end
