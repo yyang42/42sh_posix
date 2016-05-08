@@ -26,7 +26,6 @@
 # include "ast/nodes/ast_redir_mgr.h"
 # include "ast/nodes/ast_redir_fd.h"
 # include "ast/nodes/ast_redir_fd_mgr.h"
-# include "ast/nodes/ast_simple_command_expan.h"
 # include <pwd.h>
 
 typedef struct			s_ast_simple_command

@@ -16,7 +16,5 @@ void					expansion_brace_set_error(t_expansion_brace *this,
 														char *input, char *msg)
 {
 	this->type = BRACE_ERROR;
-	this->error = twl_strjoin("42sh: ", input);
-	this->error = twl_strjoinfree(this->error, ": ", 'l');
-	this->error = twl_strjoinfree(this->error, msg, 'l');
+	twl_asprintf(&this->error, "%s: %s", input, msg);
 }
