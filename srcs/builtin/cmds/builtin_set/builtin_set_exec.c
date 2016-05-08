@@ -48,7 +48,7 @@ void				builtin_set_exec_args(t_lst *tokens_copy, t_shenv *env)
 	char			**arr;
 
 	arr = token_mgr_to_str_arr(tokens_copy);
-	opt = builtin_set_opt_new(arr, SET_OPT_VALID_OPTS);
+	opt = shopt_parser_new(arr, SET_OPT_VALID_OPTS);
 	if (builtin_set_check_invalid_opts(opt, "set", SET_OPT_VALID_OPTS))
 	{
 		exit(2);
@@ -59,14 +59,14 @@ void				builtin_set_exec_args(t_lst *tokens_copy, t_shenv *env)
 		twl_lst_iter2(opt->negative_opts, add_shell_flags, env, opt->args);
 		if (twl_lst_len(opt->args) > 0)
 		{
-			builtin_set_opt_check_args(opt, env);
+			shopt_parser_check_args(opt, env);
 		}
 		else if (twl_lst_len(opt->positive_opts) == 0 && opt->negative_opts == 0)
 		{
 			shenv_print_all(env);
 		}
 	}
-	builtin_set_opt_del(opt);
+	shopt_parser_del(opt);
 	twl_arr_del(arr, NULL);
 }
 

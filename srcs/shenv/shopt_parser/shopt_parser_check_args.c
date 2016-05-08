@@ -56,11 +56,11 @@ static void			add_matching_flag(t_shenv *env, char *arg)
 		twl_dprintf(2, "set: %s: invalid option name\n", arg);
 }
 
-void				builtin_set_opt_check_args(t_set_opt *opt, t_shenv *env)
+void				shopt_parser_check_args(t_set_opt *opt, t_shenv *env)
 {
 	int	i;
 
-	i = builtin_set_opt_exist(opt, "o");
+	i = shopt_parser_exist(opt, "o");
 	if (i == 0)
 	{
 		shenv_remove_all_pos_params(env);

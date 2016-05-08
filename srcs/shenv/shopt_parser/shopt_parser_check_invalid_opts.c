@@ -26,7 +26,7 @@ static bool			find_fn(void *opt_elem_, void *valid_opts_)
 	return (false);
 }
 
-char				*builtin_set_opt_check_invalid_opts(t_set_opt *opt)
+char				*shopt_parser_check_invalid_opts(t_set_opt *opt)
 {
 	t_opt_elem		*opt_elem;
 

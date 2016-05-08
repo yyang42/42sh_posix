@@ -10,24 +10,39 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shenv/shopt_parser.h"
+#include "twl_opt.h"
 #include "twl_opt_elem.h"
+#include "shenv/shopt_parser.h"
 
-static bool			find_opt(void *opt_elem_, void *opt_key)
+static void			push_non_opt_to_lst(void *non_opt_arg,
+														void *non_opt_arg_lst_)
 {
-	t_opt_elem *opt_elem;
+	t_lst			*non_opt_arg_lst;
 
-	opt_elem = opt_elem_;
-	if (twl_strcmp(opt_elem->key, opt_key) == 0)
-		return (true);
-	return (false);
+	non_opt_arg_lst = non_opt_arg_lst_;
+	twl_lst_push_back(non_opt_arg_lst, twl_strdup(non_opt_arg));
 }
 
-int					builtin_set_opt_exist(t_set_opt *twl_opt, char *opt_key)
+static void			parse_argv(char **arr_opts, t_set_opt *opt,
+														char *valid_opts)
 {
-	if (twl_lst_find(twl_opt->positive_opts, find_opt, opt_key))
-		return (POSITIVE_OPT);
-	else if (twl_lst_find(twl_opt->negative_opts, find_opt, opt_key))
-		return (NEGATIVE_OPT);
-	return (0);
+	char			**non_opt_args;
+
+	non_opt_args = shopt_parser_new_parse_arg_opt_and_return_non_opt_args__(
+													arr_opts, opt, valid_opts);
+	opt->args = twl_lst_new();
+	if (non_opt_args)
+		twl_arr_iter(non_opt_args, push_non_opt_to_lst, opt->args);
+}
+
+t_set_opt			*shopt_parser_new(char **argv, char *valid_opts)
+{
+	t_set_opt		*opt;
+
+	opt = malloc(sizeof(t_set_opt));
+	opt->negative_opts = twl_lst_new();
+	opt->positive_opts = twl_lst_new();
+	opt->valid_opts = twl_strdup(valid_opts);
+	parse_argv(argv, opt, valid_opts);
+	return (opt);
 }

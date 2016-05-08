@@ -13,11 +13,21 @@
 #include "shenv/shopt_parser.h"
 #include "twl_opt_elem.h"
 
-void				builtin_set_opt_del(t_set_opt *opt)
+static bool			find_opt(void *opt_elem_, void *opt_key)
 {
-	free(opt->valid_opts);
-	twl_lst_del(opt->positive_opts, twl_opt_elem_del);
-	twl_lst_del(opt->negative_opts, twl_opt_elem_del);
-	twl_lst_del(opt->args, free);
-	free(opt);
+	t_opt_elem *opt_elem;
+
+	opt_elem = opt_elem_;
+	if (twl_strcmp(opt_elem->key, opt_key) == 0)
+		return (true);
+	return (false);
+}
+
+int					shopt_parser_exist(t_set_opt *twl_opt, char *opt_key)
+{
+	if (twl_lst_find(twl_opt->positive_opts, find_opt, opt_key))
+		return (POSITIVE_OPT);
+	else if (twl_lst_find(twl_opt->negative_opts, find_opt, opt_key))
+		return (NEGATIVE_OPT);
+	return (0);
 }

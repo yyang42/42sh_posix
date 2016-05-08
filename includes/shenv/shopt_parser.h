@@ -28,12 +28,12 @@ typedef struct		s_set_opt
 	char			*valid_opts;
 }					t_set_opt;
 
-t_set_opt			*builtin_set_opt_new(char **argv, char *valid_opts);
-void				builtin_set_opt_del(t_set_opt *xopt);
-char				**builtin_set_opt_new_parse_arg_opt_and_return_non_opt_args__(
+t_set_opt			*shopt_parser_new(char **argv, char *valid_opts);
+void				shopt_parser_del(t_set_opt *xopt);
+char				**shopt_parser_new_parse_arg_opt_and_return_non_opt_args__(
 					char **arr_opts, t_set_opt *opt, char *valid_opts);
-char				*builtin_set_opt_check_invalid_opts(t_set_opt *opt);
-int					builtin_set_opt_exist(t_set_opt *twl_opt, char *opt_key);
-void				builtin_set_opt_check_args(t_set_opt *opt, t_shenv *env);
+char				*shopt_parser_check_invalid_opts(t_set_opt *opt);
+int					shopt_parser_exist(t_set_opt *twl_opt, char *opt_key);
+void				shopt_parser_check_args(t_set_opt *opt, t_shenv *env);
 
 #endif

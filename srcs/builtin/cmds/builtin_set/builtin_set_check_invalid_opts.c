@@ -17,7 +17,7 @@ int					builtin_set_check_invalid_opts(t_set_opt *opt, char *exe_name,
 {
 	char				*invalid;
 
-	invalid = builtin_set_opt_check_invalid_opts(opt);
+	invalid = shopt_parser_check_invalid_opts(opt);
 	if (invalid && twl_strlen(invalid) > 0)
 	{
 		twl_dprintf(2, "%s: illegal option -- %s\nusage: set [-%s%s\n",
