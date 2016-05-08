@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdbool.h>
-#include "builtin/cmds/builtin_set.h"
+#include "shenv/shopt_parser.h"
 #include "twl_opt_elem.h"
 
 static bool			find_opt(void *opt_elem_, void *opt_key)
@@ -24,7 +23,7 @@ static bool			find_opt(void *opt_elem_, void *opt_key)
 	return (false);
 }
 
-int					builtin_set_opt_exist(t_set_opt *twl_opt, char *opt_key)
+int					shopt_parser_exist(t_set_opt *twl_opt, char *opt_key)
 {
 	if (twl_lst_find(twl_opt->positive_opts, find_opt, opt_key))
 		return (POSITIVE_OPT);

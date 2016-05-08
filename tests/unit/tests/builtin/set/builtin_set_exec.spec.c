@@ -52,7 +52,7 @@ static void test_wrong_flag(t_test *test)
 	env = shenv_new();
 	shenv_init(env);
 	builtin_set_exec(tokenizer_utils_tokenize("set -a -b"), env);
-	mt_assert(twl_lst_len(env->flags) == 2);
+	mt_assert(twl_lst_len(env->shenv_set_flags) == 2);
 	shenv_del(env);
 }
 

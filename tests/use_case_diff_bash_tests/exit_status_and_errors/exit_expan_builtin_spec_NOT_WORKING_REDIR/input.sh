@@ -1,4 +1,4 @@
-foo() {
+foo() (
 cmd=$1
 echo "=== test $cmd"
 : > /tmp/test_exit_builtin_file
@@ -9,7 +9,9 @@ echo "after"
 EOF
 
 $TESTED_SHELL /tmp/test_exit_builtin_file
-}
+sleep 0.1
+) &>/tmp/test_exit_builtin_file_stderr
+cat /tmp/test_exit_builtin_file_stderr | sed -e 's/.*input\.sh/CMD_PATH/g'
 
 foo .
 foo :

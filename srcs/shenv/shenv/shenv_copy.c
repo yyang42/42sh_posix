@@ -13,18 +13,6 @@
 #include "shenv/shenv.h"
 #include "twl_opt_elem.h"
 
-static void			*copy_flags_fn(void *data_)
-{
-	t_opt_elem *opt_elem;
-	t_opt_elem *data;
-
-	data = data_;
-	opt_elem = twl_malloc_x0(sizeof(t_opt_elem));
-	opt_elem->key = twl_strdup(data->key);
-	opt_elem->value = twl_strdup(data->value);
-	return (opt_elem);
-}
-
 static void			*copy_dict_fn(void *data_)
 {
 	char	*data;
@@ -47,7 +35,7 @@ t_shenv				*shenv_copy(t_shenv *this)
 	copy->flag_verbose = twl_lst_copy(this->flag_verbose, copy_dict_fn);
 	copy->shfuncs = twl_lst_copy(this->shfuncs, NULL);
 	copy->pos_params = twl_lst_copy(this->pos_params, twl_strdup_void);
-	copy->flags = twl_lst_copy(this->flags, copy_flags_fn);
+	copy->shenv_set_flags = twl_lst_copy(this->shenv_set_flags, twl_strdup_void);
 	copy->function_depth = this->function_depth;
 	copy->info = this->info;
 	if (this->info.name)

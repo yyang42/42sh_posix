@@ -10,13 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "twl_stdlib.h"
 #include "twl_opt.h"
-#include "twl_arr.h"
-#include "twl_xstring.h"
-#include "twl_string.h"
 #include "twl_opt_elem.h"
-#include "builtin/cmds/builtin_set.h"
+#include "shenv/shopt_parser.h"
 
 static void			parse_single_arg(char *arg, t_lst *opts)
 {
@@ -56,7 +52,7 @@ t_lst				*get_list(t_set_opt *opt, char c)
 	return (c == '+' ? opt->positive_opts : opt->negative_opts);
 }
 
-char				**builtin_set_opt_new_parse_arg_opt_and_return_non_opt_args__(
+char				**shopt_parser_new_parse_arg_opt_and_return_non_opt_args__(
 							char **opts, t_set_opt *opt, char *valid_opts)
 {
 	char			*opt_wo_hyphen;

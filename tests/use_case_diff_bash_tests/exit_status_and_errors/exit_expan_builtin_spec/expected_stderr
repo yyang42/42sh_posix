@@ -1,1 +1,1 @@
-/home/ubuntu/42sh_posix/tests/use_case_diff_bash_tests//exit_status_and_errors/exit_expan_builtin_spec/input.sh: line 5: ${x!y}: bad substitution
+/tmp/input.sh: line 4: ${x!y}: bad substitution
