@@ -42,20 +42,22 @@ diff_test ()
     testcase_tmp_stderr="$testcase_tmp/actual_stderr"
     testcase_tmp_bash_stdout="$testcase_tmp/expected_stdout"
     testcase_tmp_bash_stderr="$testcase_tmp/expected_stderr"
+    input_file=$testcase_path/input.sh
+    cp $input_file /tmp/input.sh
 
     if ! [ -z ${CI+x} ] && test "${testcase#*_noci_spec}" != "$testcase"; then
-        echo "skip no ci    ./42sh tests/use_case_diff_bash_tests/$testsuite/$testcase/input.sh"
+        echo "skip no ci    $input_file"
         return
     fi
     mkdir -p $testcase_tmp
     rm -f $testcase_tmp/*
     export TESTED_SHELL
     TESTED_SHELL=$RENDU_PATH/42sh
-    $RENDU_PATH/42sh $testcase_path/input.sh > $testcase_tmp_stdout 2> $testcase_tmp_stderr
+    $RENDU_PATH/42sh /tmp/input.sh > $testcase_tmp_stdout 2> $testcase_tmp_stderr
     echo "exit_code: $?" >> $testcase_tmp_stdout
     if [ ! -f $testcase_path/expected_stdout ] || [ ! -f $testcase_path/expected_stderr ]; then
         TESTED_SHELL='bash --posix'
-        bash --posix $testcase_path/input.sh > $testcase_tmp_bash_stdout 2> $testcase_tmp_bash_stderr
+        bash --posix /tmp/input.sh > $testcase_tmp_bash_stdout 2> $testcase_tmp_bash_stderr
         echo "exit_code: $?" >> $testcase_tmp_bash_stdout
     fi
     if [ -f $testcase_path/expected_stdout ]; then
