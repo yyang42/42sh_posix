@@ -31,7 +31,7 @@ static void 	iter_cmd_fn(void *token, void *context)
 	expanded = expansion_get_fields_simple_command(expansion);
 	if (expansion->error)
 	{
-		twl_dprintf(2, "%s\n", expansion->error);
+		shenv_singl_error(0, "%s", expansion->error);
 		expansion_del(expansion);
 		shenv_singleton()->shenv_shall_quit_curr_ast = true;
 		shenv_singleton()->last_exit_code = 1;
@@ -56,7 +56,7 @@ static void 	iter_assign_fn(void *data, void *context)
 	expanded = expansion_get_string_assign(expansion);
 	if (expansion->error)
 	{
-		twl_dprintf(2, "%s\n", expansion->error);
+		shenv_singl_error(0, "%s", expansion->error);
 		expansion_del(expansion);
 		shenv_singleton()->shenv_shall_quit_curr_ast = true;
 		shenv_singleton()->last_exit_code = 1;
@@ -91,7 +91,7 @@ static void		expan_heredoc(t_ast_redir *redir)
 	redir->heredoc_text = expansion_get_string_heredoc(expansion);
 	if (expansion->error)
 	{
-		twl_dprintf(2, "%s\n", expansion->error);
+		shenv_singl_error(0, "%s", expansion->error);
 		expansion_del(expansion);
 		shenv_singleton()->last_exit_code = 1;
 		return ;
@@ -112,14 +112,14 @@ static void 	iter_redir_fn(void *data, void *context)
 	expanded = expansion_get_fields_redir(expansion);
 	if (expansion->error)
 	{
-		twl_dprintf(2, "%s\n", expansion->error);
+		shenv_singl_error(0, "%s", expansion->error);
 		expansion_del(expansion);
 		shenv_singleton()->last_exit_code = 1;
 		return ;
 	}
 	if (twl_lst_len(expanded) != 1)
 	{
-		twl_dprintf(2, "42sh: %s: ambiguous redirect\n", redir->param->text_unexpanded); // TODO: obvious
+		shenv_singl_error(0, "%s: ambiguous redirect", redir->param->text_unexpanded);
 		expansion_del(expansion);
 		shenv_singleton()->last_exit_code = 1;
 		return ;
