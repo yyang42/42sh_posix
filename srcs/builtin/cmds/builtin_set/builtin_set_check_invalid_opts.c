@@ -12,17 +12,16 @@
 
 #include "builtin/cmds/builtin_set.h"
 
-int					builtin_set_check_invalid_opts(t_set_opt *opt, char *exe_name,
-																char *flags)
+int					builtin_set_check_invalid_opts(t_set_opt *opt, char *flags)
 {
 	char				*invalid;
 
 	invalid = shopt_parser_check_invalid_opts(opt);
 	if (invalid && twl_strlen(invalid) > 0)
 	{
-		twl_dprintf(2, "%s: illegal option -- %s\nusage: set [-%s%s\n",
-		exe_name, invalid,
-			flags, "] [arg ...]");
+		shenv_singl_error(2,
+			"set: %s: invalid option\nusage: set [-%s] [-o option] [arg ...]\n",
+			invalid, flags);
 		return (1);
 	}
 	return (0);

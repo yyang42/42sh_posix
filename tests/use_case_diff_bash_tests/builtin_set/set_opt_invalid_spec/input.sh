@@ -1,0 +1,2 @@
+set +z
+set -z

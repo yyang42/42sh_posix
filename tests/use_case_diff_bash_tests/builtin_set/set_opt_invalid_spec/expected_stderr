@@ -1,0 +1,3 @@
+/tmp/input.sh: line 1: set: z: invalid option
+usage: set [--abCefhmnouvx] [-o option] [arg ...]
+
