@@ -43,6 +43,7 @@ diff_test ()
     testcase_tmp_bash_stdout="$testcase_tmp/expected_stdout"
     testcase_tmp_bash_stderr="$testcase_tmp/expected_stderr"
     input_file=$testcase_path/input.sh
+    rm -f /tmp/input.sh
     cp $input_file /tmp/input.sh
 
     if ! [ -z ${CI+x} ] && test "${testcase#*_noci_spec}" != "$testcase"; then
