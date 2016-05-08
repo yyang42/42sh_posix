@@ -17,8 +17,9 @@
 #include "shenv/shenv.h"
 #include "token/token_mgr.h"
 #include "pattern_matching/pattern.h"
+#include "pattern_matching/brace/brace.h"
 
-// TODO: Eventuellement quitter au début des iterations en cas d'erreurs
+// TODO: EVENTUELLEMENT QUITTER AU DÉBUT DES ITERATIONS EN CAS D'ERREURS
 
 static void 	iter_cmd_fn(void *token, void *context)
 {
@@ -31,7 +32,7 @@ static void 	iter_cmd_fn(void *token, void *context)
 	expanded = expansion_get_fields_simple_command(expansion);
 	if (expansion->error)
 	{
-		twl_dprintf(2, "%s\n", expansion->error);
+		shenv_singl_error(0, "%s", expansion->error);
 		expansion_del(expansion);
 		shenv_singleton()->shenv_shall_quit_curr_ast = true;
 		shenv_singleton()->last_exit_code = 1;
@@ -56,7 +57,7 @@ static void 	iter_assign_fn(void *data, void *context)
 	expanded = expansion_get_string_assign(expansion);
 	if (expansion->error)
 	{
-		twl_dprintf(2, "%s\n", expansion->error);
+		shenv_singl_error(0, "%s", expansion->error);
 		expansion_del(expansion);
 		shenv_singleton()->shenv_shall_quit_curr_ast = true;
 		shenv_singleton()->last_exit_code = 1;
@@ -91,7 +92,7 @@ static void		expan_heredoc(t_ast_redir *redir)
 	redir->heredoc_text = expansion_get_string_heredoc(expansion);
 	if (expansion->error)
 	{
-		twl_dprintf(2, "%s\n", expansion->error);
+		shenv_singl_error(0, "%s", expansion->error);
 		expansion_del(expansion);
 		shenv_singleton()->last_exit_code = 1;
 		return ;
@@ -112,14 +113,14 @@ static void 	iter_redir_fn(void *data, void *context)
 	expanded = expansion_get_fields_redir(expansion);
 	if (expansion->error)
 	{
-		twl_dprintf(2, "%s\n", expansion->error);
+		shenv_singl_error(0, "%s", expansion->error);
 		expansion_del(expansion);
 		shenv_singleton()->last_exit_code = 1;
 		return ;
 	}
 	if (twl_lst_len(expanded) != 1)
 	{
-		twl_dprintf(2, "42sh: %s: ambiguous redirect\n", redir->param->text_unexpanded); // TODO: obvious
+		shenv_singl_error(0, "%s: ambiguous redirect", redir->param->text_unexpanded);
 		expansion_del(expansion);
 		shenv_singleton()->last_exit_code = 1;
 		return ;
@@ -134,7 +135,11 @@ static void 	iter_redir_fn(void *data, void *context)
 void			ast_simple_command_expan(t_ast_simple_command *cmd)
 {
 	cmd->cmd_tokens_expanded = twl_lst_new();
-	twl_lst_iter(cmd->cmd_tokens_deep_copy, iter_cmd_fn, cmd);
+	if (!cmd->cmd_tokens_braced)
+	{
+		cmd->cmd_tokens_braced = brace_expand_tokens(cmd->cmd_tokens_deep_copy);
+	}
+	twl_lst_iter(cmd->cmd_tokens_braced, iter_cmd_fn, cmd);
 	twl_lst_iter(cmd->redir_items, iter_redir_fn, cmd);
 	twl_lst_iter(cmd->assignment_items, iter_assign_fn, cmd);
 }

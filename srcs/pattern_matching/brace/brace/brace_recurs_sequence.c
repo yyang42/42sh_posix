@@ -10,11 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "expan/expansion_parameter_brace.h"
+#include "pattern_matching/brace/brace.h"
 
-void					expansion_brace_set_error(t_expansion_brace *this,
-														char *input, char *msg)
+void			brace_recurs_sequence(t_brace *this, t_lst_elem__ *elem,
+										t_brace_token *token, char *acc)
 {
-	this->type = BRACE_ERROR;
-	twl_asprintf(&this->error, "%s: %s", input, msg);
+	t_lst		*copy;
+	char		*content;
+
+	copy = twl_lst_copy(token->brace_list, NULL);
+	while ((content = twl_lst_pop_front(copy)))
+	{
+		content = twl_strjoin(acc, content);
+		brace_recurs(this, elem->next, content);
+		free(content);
+	}
+	twl_lst_del(copy, NULL);
 }

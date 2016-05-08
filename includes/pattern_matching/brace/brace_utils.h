@@ -10,11 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "expan/expansion_parameter_brace.h"
+#ifndef BRACE_UTILS_H
+# define BRACE_UTILS_H
 
-void					expansion_brace_set_error(t_expansion_brace *this,
-														char *input, char *msg)
-{
-	this->type = BRACE_ERROR;
-	twl_asprintf(&this->error, "%s: %s", input, msg);
-}
+# include "basics.h"
+
+t_lst				*brace_expand_sequence_digit(char *input);
+t_lst				*brace_expand_sequence_alpha(char *input);
+
+#endif

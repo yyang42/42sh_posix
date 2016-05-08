@@ -10,11 +10,38 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "expan/expansion_parameter_brace.h"
+#include "pattern_matching/brace/brace_tokenizer.h"
 
-void					expansion_brace_set_error(t_expansion_brace *this,
-														char *input, char *msg)
+t_brace_tokenizer_fn	g_brace_tokenizer_rule_fns[8] =
 {
-	this->type = BRACE_ERROR;
-	twl_asprintf(&this->error, "%s: %s", input, msg);
+	brace_tokenizer_apply_rule01,
+	brace_tokenizer_apply_rule02,
+	brace_tokenizer_apply_rule03,
+	brace_tokenizer_apply_rule04,
+	brace_tokenizer_apply_rule05,
+	brace_tokenizer_apply_rule06,
+	brace_tokenizer_apply_rule07,
+	NULL
+};
+
+t_lst					*brace_tokenizer_tokenize(char *input)
+{
+	t_brace_tokenizer	*this;
+	t_rule_brace_status	type;
+	t_lst				*ret;
+	size_t				index;
+
+	this = brace_tokenizer_new(input);
+	index = 0;
+	while (g_brace_tokenizer_rule_fns[index])
+	{
+		type = g_brace_tokenizer_rule_fns[index](this);
+		if (type == BRACE_STATUS_END_OF_INPUT)
+			break ;
+		index = (type == BRACE_STATUS_APPLIED) ? 0 : index + 1;
+	}
+	ret = this->tokens;
+	this->tokens = NULL;
+	brace_tokenizer_del(this);
+	return (ret);
 }

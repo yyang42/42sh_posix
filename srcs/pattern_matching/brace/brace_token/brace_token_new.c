@@ -10,11 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "expan/expansion_parameter_brace.h"
+#include "pattern_matching/brace/brace_token.h"
 
-void					expansion_brace_set_error(t_expansion_brace *this,
-														char *input, char *msg)
+t_brace_token		*brace_token_new(t_brace_token_type type, void *data)
 {
-	this->type = BRACE_ERROR;
-	twl_asprintf(&this->error, "%s: %s", input, msg);
+	t_brace_token	*this;
+
+	this = twl_malloc_x0(sizeof(t_brace_token));
+	if (type == BRACE_IGNORE)
+		this->text = twl_strdup(data);
+	else
+		this->brace_list = data;
+	this->type = type;
+	return (this);
 }

@@ -10,11 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "expan/expansion_parameter_brace.h"
+#include "pattern_matching/brace/brace.h"
 
-void					expansion_brace_set_error(t_expansion_brace *this,
-														char *input, char *msg)
+t_brace			*brace_new(void)
 {
-	this->type = BRACE_ERROR;
-	twl_asprintf(&this->error, "%s: %s", input, msg);
+	t_brace		*this;
+
+	this = twl_malloc_x0(sizeof(t_brace));
+	this->final = twl_lst_new();
+	return (this);
 }

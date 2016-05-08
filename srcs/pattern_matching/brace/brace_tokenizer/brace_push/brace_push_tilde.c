@@ -10,11 +10,25 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "expan/expansion_parameter_brace.h"
+#include "pattern_matching/brace/brace_tokenizer.h"
 
-void					expansion_brace_set_error(t_expansion_brace *this,
-														char *input, char *msg)
+void				brace_push_tilde(t_brace_tokenizer *this)
 {
-	this->type = BRACE_ERROR;
-	twl_asprintf(&this->error, "%s: %s", input, msg);
+	while (this->input[this->index_input] &&
+			this->input[this->index_input] != ':' &&
+			this->input[this->index_input] != '/')
+	{
+		if (this->input[this->index_input] == '\\')
+			brace_push_escaped(this);
+		else if (this->input[this->index_input] == '$')
+			brace_push_dollar(this);
+		else if (this->input[this->index_input] == '`')
+			brace_push_bquote(this);
+		else if (this->input[this->index_input] == '"')
+			brace_push_dquote(this);
+		else if (this->input[this->index_input] == '\'')
+			brace_push_squote(this);
+		else
+			brace_tokenizer_addone(this);
+	}
 }

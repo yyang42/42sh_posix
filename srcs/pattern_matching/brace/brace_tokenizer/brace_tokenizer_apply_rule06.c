@@ -10,11 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "expan/expansion_parameter_brace.h"
+#include "pattern_matching/brace/brace_tokenizer.h"
 
-void					expansion_brace_set_error(t_expansion_brace *this,
-														char *input, char *msg)
+/*
+** Check for dollar character.
+*/
+
+t_rule_brace_status	brace_tokenizer_apply_rule06(t_brace_tokenizer *this)
 {
-	this->type = BRACE_ERROR;
-	twl_asprintf(&this->error, "%s: %s", input, msg);
+	if (this->input[this->index_input] == '$')
+	{
+		brace_push_dollar(this);
+		return (BRACE_STATUS_APPLIED);
+	}
+	return (BRACE_STATUS_NOT_APPLIED);
 }

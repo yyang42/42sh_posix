@@ -10,11 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "expan/expansion_parameter_brace.h"
+#include "pattern_matching/brace/brace_tokenizer.h"
 
-void					expansion_brace_set_error(t_expansion_brace *this,
-														char *input, char *msg)
+/*
+** Check the end of input.
+*/
+
+t_rule_brace_status	brace_tokenizer_apply_rule01(t_brace_tokenizer *this)
 {
-	this->type = BRACE_ERROR;
-	twl_asprintf(&this->error, "%s: %s", input, msg);
+	if (this->input[this->index_input] == 0)
+	{
+		if (this->index_to_push > 0)
+		{
+			brace_tokenizer_delimit(this, BRACE_IGNORE);
+		}
+		return (BRACE_STATUS_END_OF_INPUT);
+	}
+	return (BRACE_STATUS_NOT_APPLIED);
 }

@@ -10,11 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "expan/expansion_parameter_brace.h"
+#ifndef BRACE_TOKEN_TYPE_H
+# define BRACE_TOKEN_TYPE_H
 
-void					expansion_brace_set_error(t_expansion_brace *this,
-														char *input, char *msg)
+typedef enum			e_brace_token_type
 {
-	this->type = BRACE_ERROR;
-	twl_asprintf(&this->error, "%s: %s", input, msg);
-}
+	BRACE_IGNORE,
+	BRACE_LIST,
+	BRACE_SEQUENCE_DIGIT,
+	BRACE_SEQUENCE_ALPHA
+}						t_brace_token_type;
+
+#endif

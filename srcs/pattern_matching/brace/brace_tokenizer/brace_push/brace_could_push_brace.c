@@ -10,11 +10,27 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "expan/expansion_parameter_brace.h"
+#include "pattern_matching/brace/brace_tokenizer.h"
 
-void					expansion_brace_set_error(t_expansion_brace *this,
-														char *input, char *msg)
+t_brace_token_type		brace_could_push_brace(t_brace_tokenizer *this)
 {
-	this->type = BRACE_ERROR;
-	twl_asprintf(&this->error, "%s: %s", input, msg);
+	t_brace_tokenizer	*copy;
+
+	if (brace_tokenizer_is_sequence_digit(this))
+	{
+		return (BRACE_SEQUENCE_DIGIT);
+	}
+	if (brace_tokenizer_is_sequence_alpha(this))
+	{
+		return (BRACE_SEQUENCE_ALPHA);
+	}
+	copy = brace_tokenizer_copy_current(this);
+	brace_test_push_brace(copy);
+	if (copy->total != 0 && copy->input[copy->index_input] == '}')
+	{
+		brace_tokenizer_del(copy);
+		return (BRACE_LIST);
+	}
+	brace_tokenizer_del(copy);
+	return (BRACE_IGNORE);
 }
