@@ -60,6 +60,7 @@ typedef struct				s_shenv
 	t_lst					*shenv_shvars;
 	t_lst					*shenv_shflags;
 	int						shenv_flags;
+	t_lst					*shenv_argv_remainder;
 	t_lst					*pos_params;
 	t_lst					*shenv_set_flags; // TODO: Change flags to htab
 	t_htab					*alias;

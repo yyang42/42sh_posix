@@ -39,8 +39,7 @@ static void			process_arg(t_prog *prog, char sign, char c, char *optarg)
 void				prog_parse_args(t_prog *prog, char **argv)
 {
 	char			getopt_c;
-	(void)prog;
-	(void)argv;
+
 	g_twl_optsign_active = true;
 	while ((getopt_c = twl_getopt(twl_arr_len(argv), argv, VALID_OPTS)) > 0)
 	{
@@ -53,8 +52,10 @@ void				prog_parse_args(t_prog *prog, char **argv)
 			process_arg(prog, g_twl_optsign, getopt_c, g_twl_optarg);
 		}
 	}
-	// exit(42);
+	if (g_twl_optind < (int)twl_arr_len(argv))
+		shenv_singleton()->shenv_argv_remainder = twl_arr_to_lst(argv + g_twl_optind);
+	else
+		shenv_singleton()->shenv_argv_remainder = twl_lst_new();
 	g_twl_optind = 0;
-	g_twl_optpos = 0;
 	g_twl_optsign_active = false;
 }

@@ -12,32 +12,7 @@
 
 #include "prog.h"
 
-static t_argparser	*init_argparser(void)
-{
-	t_argparser		*argparser;
-
-	argparser = argparser_new(SHENV_DEFAULT_NAME);
-	argparser_add_argument(argparser,
-		argparser_argument_new('c', "command", "Command", ARGP_HAS_OPTION_ARGUMENT));
-	argparser_add_argument(argparser,
-		argparser_argument_new(0, "ast", "Print AST", 0));
-	argparser_add_argument(argparser,
-		argparser_argument_new(0, "arexp", "Print arexp", 0));
-	argparser_add_argument(argparser,
-		argparser_argument_new(0, "gnl", "gnl mode", 0));
-	argparser_add_argument(argparser,
-		argparser_argument_new(0, "posix", "posix mode", 0));
-	return (argparser);
-}
-
 void				prog_init(t_prog *prog, char **argv)
 {
 	prog_parse_args(prog, argv);
-	prog->argparser = init_argparser();
-	prog->argparser_result = argparser_parse_from_arr(prog->argparser, argv);
-	// if (prog->argparser_result->err_msg)
-	// {
-	// 	argparser_result_print_error_with_help(prog->argparser_result);
-	// 	exit(1);
-	// }
 }
