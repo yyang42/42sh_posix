@@ -93,10 +93,10 @@ void				builtin_dirs_exec(t_lst *tokens, t_shenv *shenv)
 		this.print_fn = builtin_dirs_print_normal;
 	if (argparser_result_opt_is_set(this.result, "c"))
 		builtin_dirs_clear();
-//	else if (argparser_result_opt_is_set(this.result, "p"))
-//		builtin_dirs_new_line(&this);
-//	else if (argparser_result_opt_is_set(this.result, "v"))
-//		builtin_dirs_verbose(&this);
+	else if (argparser_result_opt_is_set(this.result, "p"))
+		builtin_dirs_new_line(&this);
+	else if (argparser_result_opt_is_set(this.result, "v"))
+		builtin_dirs_verbose(&this);
 	else
 		builtin_dirs_simple(&this);
 	argparser_result_del(this.result);
