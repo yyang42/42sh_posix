@@ -12,10 +12,13 @@
 
 #include "shenv/shflag.h"
 
-t_shflag			*shflag_new(void)
+t_shflag			*shflag_new(char c, char *long_form)
 {
 	t_shflag		*shflag;
 
 	shflag = twl_malloc_x0(sizeof(t_shflag));
+	shflag->shf_mono = c;
+	shflag->shf_long = long_form;
+	shflag->shf_enabled = false;
 	return (shflag);
 }

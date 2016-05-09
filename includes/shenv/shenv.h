@@ -15,6 +15,7 @@
 
 # include "basics.h"
 # include "shenv/shvar_mgr.h"
+# include "shenv/shflag_mgr.h"
 
 # include "twl_dict.h"
 # include <errno.h>

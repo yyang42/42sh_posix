@@ -32,7 +32,7 @@ t_shenv				*shenv_copy(t_shenv *this)
 	copy->shenv_name = twl_strdup(this->shenv_name);
 	copy->shenv_cur_cmd = twl_strdup(this->shenv_cur_cmd);
 	copy->shenv_shvars = twl_lst_copy(this->shenv_shvars, shvar_copy_void);
-	copy->shenv_shflags = twl_lst_new();
+	copy->shenv_shflags = shflag_mgr_new();
 	copy->flag_verbose = twl_lst_copy(this->flag_verbose, copy_dict_fn);
 	copy->shfuncs = twl_lst_copy(this->shfuncs, NULL);
 	copy->pos_params = twl_lst_copy(this->pos_params, twl_strdup_void);

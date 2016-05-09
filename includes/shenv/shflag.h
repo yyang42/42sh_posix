@@ -17,9 +17,12 @@
 
 typedef struct		s_shflag
 {
+	char			shf_mono;
+	char			*shf_long;
+	bool			shf_enabled;
 }					t_shflag;
 
-t_shflag			*shflag_new(void);
+t_shflag			*shflag_new(char c, char *long_form);
 void				shflag_del(t_shflag *shflag);
 
 #endif

@@ -15,9 +15,11 @@
 static void			print_shflag_fn(void *shflag_)
 {
 	t_shflag	*shflag;
+	char		mono;
 
 	shflag = shflag_;
-	twl_printf("<Object #%p>\n", shflag);
+	mono = shflag->shf_mono ? shflag->shf_mono : '.';
+	twl_printf("%-3c%-15s%-5d\n", mono, shflag->shf_long, shflag->shf_enabled);
 }
 
 void				shflag_mgr_print(t_lst *shflags)
