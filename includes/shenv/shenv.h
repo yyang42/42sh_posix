@@ -53,7 +53,7 @@ typedef struct				s_shenv
 	char					*shenv_name;
 	char					*shenv_cur_cmd;
 	t_token					*shenv_cur_token;
-	t_lst					*shvars;
+	t_lst					*shenv_shvars;
 	t_lst					*pos_params;
 	t_lst					*shenv_set_flags; // TODO: Change flags to htab
 	t_htab					*alias;
@@ -62,15 +62,9 @@ typedef struct				s_shenv
 	int						function_depth;
 	t_shenv_info			info;
 	t_lst					*jobs;
-	t_lst					*traps;
+	t_lst					*shenv_traps;
 	int						last_exit_code;
-	bool					is_interactive_shell;
-
-	pid_t					jc_pgid;
-	struct termios			jc_tmodes;
-	int						jc_terminal;
-	struct s_job			*jc_foreground_job;
-	pid_t					jc_foreground_job_pid;
+	bool					shenv_is_interactive;
 
 	int						shenv_break_counter;
 	int						shenv_continue_counter;

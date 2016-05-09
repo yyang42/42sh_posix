@@ -31,5 +31,5 @@ static void			export_something(void *data)
 
 void				builtin_export_verbose(t_shenv *env)
 {
-	twl_lst_iter0(env->shvars, export_something);
+	twl_lst_iter0(env->shenv_shvars, export_something);
 }

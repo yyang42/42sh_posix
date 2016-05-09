@@ -42,8 +42,8 @@ int					prog_run(t_prog *prog)
 	}
 	else if (twl_lst_len(prog->argparser_result->remainders) == 0)
 	{
-		shenv_singleton()->is_interactive_shell = isatty(0);
-		if (shenv_singleton()->is_interactive_shell)
+		shenv_singleton()->shenv_is_interactive = isatty(0);
+		if (shenv_singleton()->shenv_is_interactive)
 			prog_run_interactive(prog);
 		else
 			prog_run_input_from_stdin(prog);

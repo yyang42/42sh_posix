@@ -25,5 +25,5 @@ static void			print_trap_fn(void *trap_)
 
 void				builtin_trap_print(t_shenv *env)
 {
-	twl_lst_iter0(env->traps, print_trap_fn);
+	twl_lst_iter0(env->shenv_traps, print_trap_fn);
 }

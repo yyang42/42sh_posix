@@ -19,7 +19,7 @@ void				shenv_del(t_shenv *this)
 {
 	if (!this)
 		return ;
-	shvar_mgr_del(this->shvars);
+	shvar_mgr_del(this->shenv_shvars);
 	if (this->flag_verbose)
 		twl_lst_del(this->flag_verbose, NULL);
 	if (this->shfuncs)
@@ -37,7 +37,7 @@ void				shenv_del(t_shenv *this)
 		free(this->shenv_binary_saved_path);
 	if (this->jobs)
 		twl_lst_del(this->jobs, job_del);
-	twl_lst_del(this->traps, trap_del);
+	twl_lst_del(this->shenv_traps, trap_del);
 	if (this->shenv_binary_db)
 		twl_htab_del(this->shenv_binary_db, NULL);
 	free(this);

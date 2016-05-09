@@ -47,7 +47,7 @@ void				builtin_dot_exec_do(char *raw_path)
 	if (!resolved_path)
 	{
 		shenv_singl_error(EXIT_FAILURE, "%s: No such file or directory", raw_path);
-		if (!shenv_singleton()->is_interactive_shell)
+		if (!shenv_singleton()->shenv_is_interactive)
 			exit(EXIT_FAILURE);
 		return ;
 	}

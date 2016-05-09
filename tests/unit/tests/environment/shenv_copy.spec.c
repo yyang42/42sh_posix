@@ -12,7 +12,7 @@ static void	test_copy_shvars(t_test *test)
 	clone = shenv_copy(src);
 
 	mt_assert(strcmp(shenv_shvars_get(src, "mykey")->shvar_value, shenv_shvars_get(clone, "mykey")->shvar_value) == 0);
-	mt_assert(src->shvars != clone->shvars);
+	mt_assert(src->shenv_shvars != clone->shenv_shvars);
 	mt_assert(shenv_shvars_get(src, "mykey")->shvar_value != shenv_shvars_get(clone, "mykey")->shvar_value);
 
 	shenv_del(src);

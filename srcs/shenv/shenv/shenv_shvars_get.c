@@ -14,5 +14,5 @@
 
 t_shvar				*shenv_shvars_get(t_shenv *this, char *shvar_key)
 {
-	return (shvar_mgr_find_by_key(this->shvars, shvar_key));
+	return (shvar_mgr_find_by_key(this->shenv_shvars, shvar_key));
 }

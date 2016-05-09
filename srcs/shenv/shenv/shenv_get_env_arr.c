@@ -31,7 +31,7 @@ void			**shenv_get_env_arr(t_shenv *this)
 {
 	void **arr;
 
-	arr = twl_arr_new(twl_lst_len(this->shvars));
-	twl_lst_iter(this->shvars, push_env_to_arr, arr);
+	arr = twl_arr_new(twl_lst_len(this->shenv_shvars));
+	twl_lst_iter(this->shenv_shvars, push_env_to_arr, arr);
 	return (arr);
 }

@@ -31,5 +31,5 @@ static void			read_something(void *data)
 
 void				builtin_read_verbose(t_shenv *env)
 {
-	twl_lst_iter0(env->shvars, read_something);
+	twl_lst_iter0(env->shenv_shvars, read_something);
 }

@@ -18,7 +18,7 @@ void				prog_handle_exit_signal(t_prog *prog)
 {
 	t_trap			*trap;
 
-	trap = trap_mgr_find_by_signum(shenv_singleton()->traps, TRAP_SIGEXIT);
+	trap = trap_mgr_find_by_signum(shenv_singleton()->shenv_traps, TRAP_SIGEXIT);
 	if (trap)
 	{
 		trap_signal_handler(TRAP_SIGEXIT);

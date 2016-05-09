@@ -19,7 +19,7 @@ t_shenv			*shenv_new(void)
 	t_shenv		*this;
 
 	this = twl_malloc_x0(sizeof(t_shenv));
-	this->shvars = twl_lst_new();
+	this->shenv_shvars = twl_lst_new();
 	/* Note: Changing the content of xopt is dangerous.
 	xopt_get_args(xopt) will return a reference not a copy
 	and changing it may cause problems.
@@ -38,10 +38,10 @@ t_shenv			*shenv_new(void)
 	this->info.name = NULL;
 	this->function_depth = 0;
 	this->jobs = twl_lst_new();
-	this->traps = twl_lst_new();
+	this->shenv_traps = twl_lst_new();
 	this->last_exit_code = EXIT_SUCCESS;
 	this->shenv_cur_token = NULL;
-	this->is_interactive_shell = false;
+	this->shenv_is_interactive = false;
 	this->shenv_break_counter = 0;
 	this->shenv_continue_counter = 0;
 	this->shenv_loop_level = 0;

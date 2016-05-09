@@ -16,7 +16,7 @@
 void				job_print_if_stopped(t_job *job)
 {
 	job_exec_update_status(job);
-	if (!shenv_singleton()->is_interactive_shell)
+	if (!shenv_singleton()->shenv_is_interactive)
 		return ;
 	if (job->job_status == JOB_STOPPED)
 	{

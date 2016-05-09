@@ -35,6 +35,6 @@ static void		print_shvar(void *data)
 
 void			shenv_print_all(t_shenv *this)
 {
-	twl_lst_sort(this->shvars, cmp_vars, NULL);
-	twl_lst_iter0(this->shvars, print_shvar);
+	twl_lst_sort(this->shenv_shvars, cmp_vars, NULL);
+	twl_lst_iter0(this->shenv_shvars, print_shvar);
 }

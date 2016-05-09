@@ -18,7 +18,7 @@ static void copied_env_is_equal_to_environ(t_test *test)
 	env = shenv_new();
 	shenv_init(env);
 	i = 0;
-	temp = env->shvars->head;
+	temp = env->shenv_shvars->head;
 	while (environ[i] != NULL && temp != NULL)
 	{
 		var = (t_shvar*)temp->data;
