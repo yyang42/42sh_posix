@@ -38,6 +38,8 @@
 # define SHENV_DEFAULT_IFS " \t\n"
 # define SHENV_SH_PATH_FALLBACK_WHEN_NO_SHEBANG "/bin/sh"
 # define SHENV_FLAG_AST (1 << 1)
+# define SHENV_FLAG_AREXP (1 << 2)
+# define SHENV_FLAG_GNL (1 << 3)
 
 typedef struct				s_shenv_info
 {

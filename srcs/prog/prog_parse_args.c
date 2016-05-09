@@ -18,13 +18,20 @@
 
 static void			process_arg(t_prog *prog, char sign, char c, char *optarg)
 {
+	t_shenv			*env;
+
+	env = shenv_singleton();
 	LOG_DEBUG("found:     %c%c", sign, c);
 	if (optarg && c != '?')
 	{
 		LOG_DEBUG("           %s", optarg);
 	}
 	if (c == 'A')
-		shenv_singleton()->shenv_flags = shenv_singleton()->shenv_flags | SHENV_FLAG_AST;
+		env->shenv_flags |= SHENV_FLAG_AST;
+	else if (c == 'E')
+		env->shenv_flags |= SHENV_FLAG_AREXP;
+	else if (c == 'G')
+		env->shenv_flags |= SHENV_FLAG_GNL;
 	else if (c == 'c' && optarg)
 		prog->prog_command_arg = twl_strdup(optarg);
 }
