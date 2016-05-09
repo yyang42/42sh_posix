@@ -10,41 +10,30 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/cmds/builtin_set.h"
-#include "shenv/shenv.h"
-#include "twl_opt.h"
-#include "twl_opt_elem.h"
-#include "twl_xstring.h"
+#ifndef SHOPT_PARSER_H
+# define SHOPT_PARSER_H
 
-#define SET_MINUS_O_PADDING 15
+# include "basics.h"
+# include "shenv/shenv.h"
 
-static void			get_flag_verbose(char *key, void *data, void *context)
+# define SET_OPT_VALID_OPTS "-abCefhmnouvx"
+# define POSITIVE_OPT 1
+# define NEGATIVE_OPT -1
+
+typedef struct		s_set_opt
 {
-	t_shenv	*env;
-	char			*flag;
-	int				space_count;
-	char			*space;
+	t_lst			*positive_opts;
+	t_lst			*negative_opts;
+	t_lst			*args;
+	char			*valid_opts;
+}					t_set_opt;
 
-	env = context;
-	flag = data;
-	space_count = SET_MINUS_O_PADDING - (int)twl_strlen(flag);
-	if (space_count < 0)
-		space = twl_strdup("\t");
-	else
-	{
-		space = (char*)malloc(sizeof(char) * (space_count + 1));
-		twl_memset(space, ' ', space_count);
-		space[space_count] = 0;
-	}
-	if (shenv_flag_exist(env, key))
-		twl_printf("%s%s\t%s\n", flag, space, "on");
-	else
-		twl_printf("%s%s\t%s\n", flag, space, "off");
-	free(space);
-}
+t_set_opt			*shopt_parser_new(char **argv, char *valid_opts);
+void				shopt_parser_del(t_set_opt *xopt);
+char				**shopt_parser_new_parse_arg_opt_and_return_non_opt_args__(
+					char **arr_opts, t_set_opt *opt, char *valid_opts);
+char				*shopt_parser_check_invalid_opts(t_set_opt *opt);
+int					shopt_parser_exist(t_set_opt *twl_opt, char *opt_key);
+void				shopt_parser_check_args(t_set_opt *opt, t_shenv *env);
 
-void				builtin_set_o_negative(t_shenv *env)
-{
-	if (env->flag_verbose)
-		twl_dict_iter(env->flag_verbose, get_flag_verbose, env);
-}
+#endif

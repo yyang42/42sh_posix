@@ -10,27 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/cmds/builtin_set.h"
-#include "shenv/shenv.h"
-#include "twl_opt.h"
+#include "shenv/shopt_parser.h"
 #include "twl_opt_elem.h"
-#include "twl_xstring.h"
 
-static void			get_flag_verbose(char *key, void *data, void *context)
+void				shopt_parser_del(t_set_opt *opt)
 {
-	t_shenv	*env;
-	char			*flag;
-
-	env = context;
-	flag = data;
-	if (shenv_flag_exist(env, key))
-		twl_printf("set -o %s\n", flag);
-	else
-		twl_printf("set +o %s\n", flag);
-}
-
-void				builtin_set_o_positive(t_shenv *env)
-{
-	if (env->flag_verbose)
-		twl_dict_iter(env->flag_verbose, get_flag_verbose, env);
+	free(opt->valid_opts);
+	twl_lst_del(opt->positive_opts, twl_opt_elem_del);
+	twl_lst_del(opt->negative_opts, twl_opt_elem_del);
+	twl_lst_del(opt->args, free);
+	free(opt);
 }

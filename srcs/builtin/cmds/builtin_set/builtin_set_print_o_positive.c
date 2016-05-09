@@ -11,18 +11,26 @@
 /* ************************************************************************** */
 
 #include "builtin/cmds/builtin_set.h"
+#include "shenv/shenv.h"
+#include "twl_opt.h"
+#include "twl_opt_elem.h"
+#include "twl_xstring.h"
 
-int					builtin_set_check_invalid_opts(t_set_opt *opt, char *flags)
+static void			get_flag_verbose(char *key, void *data, void *context)
 {
-	char				*invalid;
+	t_shenv	*env;
+	char			*flag;
 
-	invalid = shopt_parser_check_invalid_opts(opt);
-	if (invalid && twl_strlen(invalid) > 0)
-	{
-		shenv_singl_error(2,
-			"set: %s: invalid option\nusage: set [-%s] [-o option] [arg ...]\n",
-			invalid, flags);
-		return (1);
-	}
-	return (0);
+	env = context;
+	flag = data;
+	if (shenv_flag_exist(env, key))
+		twl_printf("set -o %s\n", flag);
+	else
+		twl_printf("set +o %s\n", flag);
+}
+
+void				builtin_set_print_o_positive(t_shenv *env)
+{
+	if (env->flag_verbose)
+		twl_dict_iter(env->flag_verbose, get_flag_verbose, env);
 }
