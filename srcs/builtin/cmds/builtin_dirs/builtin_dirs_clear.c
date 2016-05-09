@@ -12,8 +12,7 @@
 
 #include "builtin/cmds/builtin_dirs.h"
 
-void			builtin_dirs_clear(t_builtin_dirs *this)
+void			builtin_dirs_clear(void)
 {
 	twl_lst_clear(builtin_dirs_singleton(), free);
-	(void)this;
 }

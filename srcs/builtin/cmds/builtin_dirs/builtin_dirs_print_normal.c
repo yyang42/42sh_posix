@@ -10,30 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "builtin/cmds/builtin_dirs.h"
 
-char				*utils_str_unescape_backslash(char *str)
+void			builtin_dirs_print_normal(void *dir, t_shenv *shenv)
 {
-	char			*cpy;
-	char			*cpy_start;
-
-	cpy = twl_strnew(twl_strlen(str));
-	cpy_start = cpy;
-	while (*str)
-	{
-		if (*str == '\\')
-		{
-			str++;
-			if (!*str)
-			{
-				break ;
-			}
-		}
-		*cpy = *str;
-		if (*str == '\0')
-			break ;
-		cpy++;
-		str++;
-	}
-	return (cpy_start);
+	twl_putstr(dir);
+	(void)shenv;
 }

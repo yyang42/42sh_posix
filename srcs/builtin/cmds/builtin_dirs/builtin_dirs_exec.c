@@ -13,10 +13,13 @@
 #include "builtin/cmds/builtin_dirs.h"
 #include "twl_ctype.h"
 
-static void			builtin_dirs_init(t_builtin_dirs *this, t_lst *tokens)
+static void			builtin_dirs_init(t_builtin_dirs *this, t_lst *tokens,
+										t_shenv *shenv)
 {
+	this->shenv = shenv;
 	this->result = NULL;
 	this->token_copy = twl_lst_copy(tokens, NULL);
+	this->print_fn = builtin_dirs_print_home;
 	this->is_number_set = false;
 	this->is_negative = false;
 	this->number = 0;
@@ -36,7 +39,7 @@ static bool			set_number(t_builtin_dirs *this, char *text)
 		index += 1;
 	}
 	this->is_number_set = true;
-	this->number = twl_atoi(text + 1);
+	this->number = (size_t)twl_atoi(text + 1);
 	this->is_negative = (*text == '-');
 	return (true);
 }
@@ -76,7 +79,7 @@ void				builtin_dirs_exec(t_lst *tokens, t_shenv *shenv)
 {
 	t_builtin_dirs	this;
 
-	builtin_dirs_init(&this, tokens);
+	builtin_dirs_init(&this, tokens, shenv);
 	if (!init_dirs(&this))
 		return ;
 	this.result = argparser_parse_tokens(builtin_dirs_argparser(), this.token_copy);
@@ -86,15 +89,16 @@ void				builtin_dirs_exec(t_lst *tokens, t_shenv *shenv)
 		argparser_print_help(builtin_dirs_argparser());
 		return ;
 	}
+	if (argparser_result_opt_is_set(this.result, "l"))
+		this.print_fn = builtin_dirs_print_normal;
 	if (argparser_result_opt_is_set(this.result, "c"))
-		builtin_dirs_clear(&this);
-	else if (argparser_result_opt_is_set(this.result, "p"))
-		builtin_dirs_new_line(&this);
-	else if (argparser_result_opt_is_set(this.result, "v"))
-		builtin_dirs_verbose(&this);
+		builtin_dirs_clear();
+//	else if (argparser_result_opt_is_set(this.result, "p"))
+//		builtin_dirs_new_line(&this);
+//	else if (argparser_result_opt_is_set(this.result, "v"))
+//		builtin_dirs_verbose(&this);
 	else
 		builtin_dirs_simple(&this);
 	argparser_result_del(this.result);
 	twl_lst_del(this.token_copy, NULL);
-	(void)shenv;
 }

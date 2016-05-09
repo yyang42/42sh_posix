@@ -10,30 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "builtin/cmds/builtin_dirs.h"
 
-char				*utils_str_unescape_backslash(char *str)
+bool			builtin_dirs_init_cwd(void)
 {
-	char			*cpy;
-	char			*cpy_start;
+	t_lst		*dirs;
+	char		*cwd;
 
-	cpy = twl_strnew(twl_strlen(str));
-	cpy_start = cpy;
-	while (*str)
+	dirs = builtin_dirs_singleton();
+	cwd = NULL;
+	cwd = getcwd(NULL, 4096);
+	if (cwd == NULL)
 	{
-		if (*str == '\\')
-		{
-			str++;
-			if (!*str)
-			{
-				break ;
-			}
-		}
-		*cpy = *str;
-		if (*str == '\0')
-			break ;
-		cpy++;
-		str++;
+		shenv_singl_error(1, "dirs: getcwd: %s", strerror(errno));
+		return (false);
 	}
-	return (cpy_start);
+	twl_lst_push_front(dirs, cwd);
+	return (true);
 }
