@@ -24,6 +24,8 @@ char				*utils_str_unescape_backslash(char *str)
 		if (*str == '\\')
 			str++;
 		*cpy = *str;
+		if (*str == '\0')
+			break ;
 		cpy++;
 		str++;
 	}
