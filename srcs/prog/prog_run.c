@@ -19,10 +19,10 @@ static char			*prog_run_get_input(t_prog *prog)
 
 	input = NULL;
 	remainders = prog->argparser_result->remainders;
-	if (prog_is_opt_set(prog, "c"))
+	if (prog->prog_command_arg)
 	{
-		LOG_INFO("exec opt -c");
-		input = twl_strdup(argparser_result_opt_get_arg(prog->argparser_result, "c"));
+		LOG_INFO("exec opt -c: %s", prog->prog_command_arg);
+		input = twl_strdup(prog->prog_command_arg);
 	}
 	else if (twl_lst_len(remainders) > 0)
 	{

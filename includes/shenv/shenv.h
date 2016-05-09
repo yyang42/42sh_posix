@@ -37,6 +37,7 @@
 # define EXIT_COMMAND_NOT_FOUND 127
 # define SHENV_DEFAULT_IFS " \t\n"
 # define SHENV_SH_PATH_FALLBACK_WHEN_NO_SHEBANG "/bin/sh"
+# define SHENV_FLAG_AST (1 << 1)
 
 typedef struct				s_shenv_info
 {
@@ -56,6 +57,7 @@ typedef struct				s_shenv
 	t_token					*shenv_cur_token;
 	t_lst					*shenv_shvars;
 	t_lst					*shenv_shflags;
+	int						shenv_flags;
 	t_lst					*pos_params;
 	t_lst					*shenv_set_flags; // TODO: Change flags to htab
 	t_htab					*alias;

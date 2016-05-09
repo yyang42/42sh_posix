@@ -15,7 +15,7 @@
 
 void				prog_run_input(t_prog *prog, char *input)
 {
-	if (prog_is_opt_set(prog, "ast"))
+	if (shenv_singleton()->shenv_flags & SHENV_FLAG_AST)
 	{
 		prog_print_ast(prog, input);
 	}

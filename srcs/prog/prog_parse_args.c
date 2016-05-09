@@ -11,12 +11,43 @@
 /* ************************************************************************** */
 
 #include "prog.h"
+#include "twl_unistd.h"
+#include "twl_arr.h"
 
-t_prog				*prog_new(void)
+#define VALID_OPTS ":c:eA"
+
+static void			process_arg(t_prog *prog, char sign, char c, char *optarg)
 {
-	t_prog			*prog;
+	LOG_DEBUG("found:     %c%c", sign, c);
+	if (optarg && c != '?')
+	{
+		LOG_DEBUG("           %s", optarg);
+	}
+	if (c == 'A')
+		shenv_singleton()->shenv_flags = shenv_singleton()->shenv_flags | SHENV_FLAG_AST;
+	else if (c == 'c' && optarg)
+		prog->prog_command_arg = twl_strdup(optarg);
+}
 
-	prog = twl_malloc_x0(sizeof(t_prog));
-	prog->prog_command_arg = NULL;
-	return (prog);
+void				prog_parse_args(t_prog *prog, char **argv)
+{
+	char			getopt_c;
+	(void)prog;
+	(void)argv;
+	g_twl_optsign_active = true;
+	while ((getopt_c = twl_getopt(twl_arr_len(argv), argv, VALID_OPTS)) > 0)
+	{
+		if (getopt_c == '?')
+		{
+			LOG_DEBUG("not found: %c%c", g_twl_optsign, g_twl_optopt);
+		}
+		else
+		{
+			process_arg(prog, g_twl_optsign, getopt_c, g_twl_optarg);
+		}
+	}
+	// exit(42);
+	g_twl_optind = 0;
+	g_twl_optpos = 0;
+	g_twl_optsign_active = false;
 }

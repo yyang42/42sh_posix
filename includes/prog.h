@@ -22,6 +22,7 @@ typedef struct		s_prog
 {
 	t_argparser			*argparser;
 	t_argparser_result	*argparser_result;
+	char				*prog_command_arg;
 }					t_prog;
 
 t_prog				*prog_new(void);
@@ -40,5 +41,6 @@ char				*prog_line_edit_get_input_gnl(t_prog *prog);
 void				prog_handle_exit_signal(t_prog *prog);
 t_argparser			*prog_argparser(void);
 int					prog_is_opt_set(t_prog *prog, char *opt);
+void				prog_parse_args(t_prog *prog, char **argv);
 
 #endif

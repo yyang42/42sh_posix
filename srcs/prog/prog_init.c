@@ -32,11 +32,12 @@ static t_argparser	*init_argparser(void)
 
 void				prog_init(t_prog *prog, char **argv)
 {
+	prog_parse_args(prog, argv);
 	prog->argparser = init_argparser();
 	prog->argparser_result = argparser_parse_from_arr(prog->argparser, argv);
-	if (prog->argparser_result->err_msg)
-	{
-		argparser_result_print_error_with_help(prog->argparser_result);
-		exit(1);
-	}
+	// if (prog->argparser_result->err_msg)
+	// {
+	// 	argparser_result_print_error_with_help(prog->argparser_result);
+	// 	exit(1);
+	// }
 }
