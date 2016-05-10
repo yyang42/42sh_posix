@@ -21,5 +21,8 @@ void				shflag_mgr_del(t_lst *shflags);
 void				shflag_mgr_add(t_lst *shflags, t_shflag *shflag);
 void				shflag_mgr_remove(t_lst *shflags, t_shflag *shflag);
 void				shflag_mgr_print(t_lst *shflags);
+void				shflag_mgr_print_on_off(t_lst *shflags);
+t_shflag			*shflag_mgr_find_by_mono(t_lst *shflags, char mono);
+void				shflag_mgr_set_state_by_mono(t_lst *shflags, char mono, bool value);
 
 #endif

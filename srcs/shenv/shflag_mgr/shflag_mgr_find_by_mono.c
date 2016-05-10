@@ -12,22 +12,15 @@
 
 #include "shenv/shflag_mgr.h"
 
-t_lst				*shflag_mgr_new(void)
+static bool			find_by_mono(void *shflag_, void *mono_ptr)
 {
-	t_lst			*shflags;
+	t_shflag		*shflag;
 
-	shflags = twl_lst_new();
-	shflag_mgr_add(shflags, shflag_new('a', "allexport"));
-	shflag_mgr_add(shflags, shflag_new('e', "errexit"));
-	shflag_mgr_add(shflags, shflag_new('C', "noclobber"));
-	shflag_mgr_add(shflags, shflag_new('f', "noglob"));
-	shflag_mgr_add(shflags, shflag_new('b', "notify"));
-	shflag_mgr_add(shflags, shflag_new('h', NULL));
-	shflag_mgr_add(shflags, shflag_new(0, "ignoreeof"));
-	shflag_mgr_add(shflags, shflag_new('m', "monitor"));
-	shflag_mgr_add(shflags, shflag_new('n', "noexec"));
-	shflag_mgr_add(shflags, shflag_new('u', "nounset"));
-	shflag_mgr_add(shflags, shflag_new('v', "verbose"));
-	shflag_mgr_add(shflags, shflag_new(0, "vi"));
-	return (shflags);
+	shflag = shflag_;
+	return (shflag->shf_mono == *(char *)mono_ptr);
+}
+
+t_shflag			*shflag_mgr_find_by_mono(t_lst *shflags, char mono)
+{
+	return (twl_lst_find(shflags, find_by_mono, &mono));
 }

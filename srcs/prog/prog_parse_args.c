@@ -14,7 +14,8 @@
 #include "twl_unistd.h"
 #include "twl_arr.h"
 
-#define VALID_OPTS ":c:eA"
+#define VALID_SET_OPTS "abCefhimnuvx"
+#define VALID_OPTS ":c:A"VALID_SET_OPTS
 
 static void			process_arg(t_prog *prog, char sign, char c, char *optarg)
 {
@@ -34,6 +35,10 @@ static void			process_arg(t_prog *prog, char sign, char c, char *optarg)
 		env->shenv_flags |= SHENV_FLAG_GNL;
 	else if (c == 'c' && optarg)
 		prog->prog_command_arg = twl_strdup(optarg);
+	else if (twl_strchr(VALID_SET_OPTS, c))
+	{
+		shflag_mgr_set_state_by_mono(shenv_singleton()->shenv_shflags, c, true);
+	}
 }
 
 static void			print_help(char invalid_opt)
