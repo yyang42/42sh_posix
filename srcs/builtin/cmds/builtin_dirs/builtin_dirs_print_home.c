@@ -21,6 +21,11 @@ void			builtin_dirs_print_home(void *dir, t_shenv *shenv)
 		twl_putstr(dir);
 		return ;
 	}
+	if (home[0] == '/' && home[1] == '\0')
+	{
+		twl_putstr(dir);
+		return ;
+	}
 	if (!twl_strncmp(home, dir, twl_strlen(home)))
 	{
 		twl_putstr("~");

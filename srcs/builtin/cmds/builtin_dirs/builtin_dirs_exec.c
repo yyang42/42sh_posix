@@ -13,7 +13,7 @@
 #include "builtin/cmds/builtin_dirs.h"
 #include "twl_ctype.h"
 
-static void			builtin_dirs_init(t_builtin_dirs *this, t_lst *tokens,
+static void			struct_dirs_init(t_builtin_dirs *this, t_lst *tokens,
 										t_shenv *shenv)
 {
 	this->shenv = shenv;
@@ -51,7 +51,7 @@ static bool			builtin_dirs_error(char *text, char *msg)
 	return (false);
 }
 
-static bool			init_dirs(t_builtin_dirs *this)
+static bool			init_flag(t_builtin_dirs *this)
 {
 	size_t			index;
 	t_token			*token;
@@ -79,8 +79,8 @@ void				builtin_dirs_exec(t_lst *tokens, t_shenv *shenv)
 {
 	t_builtin_dirs	this;
 
-	builtin_dirs_init(&this, tokens, shenv);
-	if (!init_dirs(&this))
+	struct_dirs_init(&this, tokens, shenv);
+	if (!init_flag(&this))
 		return ;
 	this.result = argparser_parse_tokens(builtin_dirs_argparser(), this.token_copy);
 	if (this.result->err_msg)

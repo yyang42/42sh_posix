@@ -33,7 +33,7 @@ typedef struct			s_builtin_dirs
 t_argparser				*builtin_dirs_argparser(void);
 
 t_lst					*builtin_dirs_singleton(void);
-bool					builtin_dirs_init_cwd(void);
+bool					builtin_dirs_init_cwd(char *cmd);
 void					builtin_dirs_exec(t_lst *tokens, t_shenv *shenv);
 void					builtin_dirs_clear(void);
 void					builtin_dirs_new_line(t_builtin_dirs *this);

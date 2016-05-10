@@ -12,7 +12,7 @@
 
 #include "builtin/cmds/builtin_dirs.h"
 
-bool			builtin_dirs_init_cwd(void)
+bool			builtin_dirs_init_cwd(char *cmd)
 {
 	t_lst		*dirs;
 	char		*cwd;
@@ -22,7 +22,7 @@ bool			builtin_dirs_init_cwd(void)
 	cwd = getcwd(NULL, 4096);
 	if (cwd == NULL)
 	{
-		shenv_singl_error(1, "dirs: getcwd: %s", strerror(errno));
+		shenv_singl_error(1, "%s: getcwd: %s", cmd, strerror(errno));
 		return (false);
 	}
 	twl_lst_push_front(dirs, cwd);

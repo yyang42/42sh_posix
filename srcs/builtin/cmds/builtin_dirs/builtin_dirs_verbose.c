@@ -54,7 +54,7 @@ void			builtin_dirs_verbose(t_builtin_dirs *this)
 
 	dirs = builtin_dirs_singleton();
 	len = twl_lst_len(dirs);
-	if (!builtin_dirs_init_cwd())
+	if (!builtin_dirs_init_cwd("dirs"))
 		return ;
 	if (this->is_number_set)
 	{

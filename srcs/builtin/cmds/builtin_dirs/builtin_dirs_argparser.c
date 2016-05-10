@@ -19,7 +19,7 @@ t_argparser				*builtin_dirs_argparser(void)
 	if (argparser == NULL)
 	{
 		argparser = argparser_new("dirs");
-		argparser_set_usage(argparser, "dirs [-clpv] [+N] [-N]");
+		argparser_set_usage(argparser, "[-clpv] [+N] [-N]");
 		argparser_add_argument(argparser, argparser_argument_new('c', NULL,
 			"Clears the directory stack by deleting all of the elements", 0));
 		argparser_add_argument(argparser, argparser_argument_new('l', NULL,

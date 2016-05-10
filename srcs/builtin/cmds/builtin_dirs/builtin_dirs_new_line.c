@@ -22,11 +22,10 @@ static void		bd_error(t_builtin_dirs *this, t_lst *dirs, size_t len)
 	free(twl_lst_pop_front(dirs));
 }
 
-static void		iter_fn(void *data, void *prev, void *ctx)
+static void		iter_fn(void *data, void *ctx)
 {
-	if (prev)
-		twl_putstr("\n");
 	(((t_builtin_dirs *)ctx)->print_fn)(data, ((t_builtin_dirs *)ctx)->shenv);
+	twl_putstr("\n");
 }
 
 void			builtin_dirs_new_line(t_builtin_dirs *this)
@@ -36,7 +35,7 @@ void			builtin_dirs_new_line(t_builtin_dirs *this)
 
 	dirs = builtin_dirs_singleton();
 	len = twl_lst_len(dirs);
-	if (!builtin_dirs_init_cwd())
+	if (!builtin_dirs_init_cwd("dirs"))
 		return ;
 	if (this->is_number_set)
 	{
@@ -50,9 +49,9 @@ void			builtin_dirs_new_line(t_builtin_dirs *this)
 					this->shenv);
 		else
 			this->print_fn(twl_lst_get(dirs, this->number), this->shenv);
+		twl_putstr("\n");
 	}
 	else
-		twl_lst_iterp(dirs, iter_fn, this);
+		twl_lst_iter(dirs, iter_fn, this);
 	free(twl_lst_pop_front(dirs));
-	twl_putstr("\n");
 }
