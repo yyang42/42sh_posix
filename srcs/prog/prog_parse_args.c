@@ -27,7 +27,10 @@ static void			process_arg(t_prog *prog, char sign, char c, char *optarg)
 	else if (c == 'G')
 		env->shenv_flags |= SHENV_FLAG_GNL;
 	else if (c == 'c')
+	{
+		free(prog->prog_command_arg);
 		prog->prog_command_arg = twl_strdup(optarg);
+	}
 	else
 		shflag_utils_process_shopts(sign, c, optarg);
 }
@@ -45,7 +48,7 @@ void				prog_parse_args(t_prog *prog, char **argv)
 	char			getopt_c;
 
 	g_twl_optsign_active = true;
-	while ((getopt_c = twl_getopt(twl_arr_len(argv), argv, FTSH_VALID_OPTS)) > 0)
+	while ((getopt_c = twl_getopt(twl_arr_len(argv), argv, FTSH_VALID_ALL_OPTS)) > 0)
 	{
 		if (getopt_c == '?')
 		{

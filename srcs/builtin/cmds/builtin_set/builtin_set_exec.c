@@ -50,7 +50,7 @@ static void			prog_parse_args(char **argv)
 	char			getopt_c;
 
 	g_twl_optsign_active = true;
-	while ((getopt_c = twl_getopt(twl_arr_len(argv), argv, FTSH_VALID_OPTS)) > 0)
+	while ((getopt_c = twl_getopt(twl_arr_len(argv), argv, FTSH_VALID_ALL_OPTS)) > 0)
 	{
 		if (getopt_c == ':')
 		{

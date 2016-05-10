@@ -42,7 +42,7 @@
 # define SHENV_FLAG_GNL (1 << 3)
 
 # define FTSH_VALID_SET_OPTS "abCefhimnuvx"
-# define FTSH_VALID_OPTS ":c:Ao:"FTSH_VALID_SET_OPTS
+# define FTSH_VALID_ALL_OPTS ":c:Ao:"FTSH_VALID_SET_OPTS
 
 typedef struct				s_shenv_info
 {
