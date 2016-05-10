@@ -22,13 +22,7 @@ char				*utils_str_unescape_backslash(char *str)
 	while (*str)
 	{
 		if (*str == '\\')
-		{
 			str++;
-			if (!*str)
-			{
-				break ;
-			}
-		}
 		*cpy = *str;
 		if (*str == '\0')
 			break ;

@@ -20,7 +20,7 @@
 mt_test_utils_str_unescape_backslash(test, "ab", "ab", false);
 mt_test_utils_str_unescape_backslash(test1, "aa\\bb", "aabb", false);
 mt_test_utils_str_unescape_backslash(test2, "aa\\\\bb", "aa\\bb", false);
-mt_test_utils_str_unescape_backslash(test3, "\\\0Bonjour les petits amis", "", false);
+mt_test_utils_str_unescape_backslash(test3, "\\", "", false);
 mt_test_utils_str_unescape_backslash(test4, "\\\\", "\\", false);
 mt_test_utils_str_unescape_backslash(test5, "", "", false);
 mt_test_utils_str_unescape_backslash(test6, "\\\n", "\n", false);
