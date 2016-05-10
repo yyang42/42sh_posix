@@ -28,7 +28,7 @@ t_shenv			*shenv_new(void)
 	and changing it may cause problems.
 
 	xopt = xopt_singleton();
-	this->pos_params = xopt_get_args(xopt);
+	this->shenv_pos_params = xopt_get_args(xopt);
 	this->flags = xopt_get_opts(xopt);
 	*/
 	this->shenv_name = twl_strdup(SHENV_DEFAULT_NAME);
@@ -36,7 +36,7 @@ t_shenv			*shenv_new(void)
 	this->alias = twl_htab_new();
 	this->flag_verbose = twl_dict_new();
 	this->shfuncs = twl_dict_new();
-	this->pos_params = twl_lst_new();
+	this->shenv_pos_params = twl_lst_new();
 	this->shenv_set_flags = twl_lst_new();
 	this->info.name = NULL;
 	this->function_depth = 0;

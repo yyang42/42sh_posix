@@ -16,8 +16,8 @@
 
 void		shenv_remove_all_pos_params(t_shenv *env)
 {
-	if (env && env->pos_params)
+	if (env && env->shenv_pos_params)
 	{
-		twl_lst_clear(env->pos_params, free);
+		twl_lst_clear(env->shenv_pos_params, free);
 	}
 }

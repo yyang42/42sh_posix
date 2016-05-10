@@ -25,7 +25,7 @@ void				shenv_del(t_shenv *this)
 	if (this->shfuncs)
 		twl_lst_del(this->shfuncs, NULL);
 	twl_lst_del(this->shenv_set_flags, free);
-	twl_lst_del(this->pos_params, free);
+	twl_lst_del(this->shenv_pos_params, free);
 	if (this->alias)
 		twl_htab_del(this->alias, NULL);
 	if (this->info.name)

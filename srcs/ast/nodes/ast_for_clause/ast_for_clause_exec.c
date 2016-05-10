@@ -60,7 +60,7 @@ void				ast_for_clause_exec(t_ast_for_clause *this)
 	}
 	else
 	{
-		wordlist = twl_lst_copy(shenv_singleton()->pos_params, NULL);
+		wordlist = twl_lst_copy(shenv_singleton()->shenv_pos_params, NULL);
 		del = NULL;
 	}
 	twl_lst_iter(wordlist, iter_wordlist_fn, this);

@@ -21,7 +21,7 @@ static void			prep_exec_getopts(char *optstring,
 	if (twl_lst_len(remainders))
 		argv_lst = twl_lst_copy(remainders, NULL);
 	else
-		argv_lst = twl_lst_copy(env->pos_params, NULL);
+		argv_lst = twl_lst_copy(env->shenv_pos_params, NULL);
 	twl_lst_push_front(argv_lst, "getopts");
 	argv = (char **)twl_lst_to_arr(argv_lst);
 	builtin_getopts_exec_getopt(optstring, varname, argv, env);

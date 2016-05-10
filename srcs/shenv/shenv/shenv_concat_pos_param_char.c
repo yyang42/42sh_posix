@@ -41,7 +41,7 @@ char				*shenv_concat_pos_param_char(t_shenv *env,
 	char	*concat;
 
 	concat = twl_strdup("");
-	if (env && env->pos_params)
-		twl_lst_iter2(env->pos_params, concat_pos_param, &concat, sep);
+	if (env && env->shenv_pos_params)
+		twl_lst_iter2(env->shenv_pos_params, concat_pos_param, &concat, sep);
 	return (concat);
 }

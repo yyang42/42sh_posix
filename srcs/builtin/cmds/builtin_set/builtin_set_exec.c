@@ -60,10 +60,11 @@ static void			prog_parse_args(char **argv)
 			process_arg(g_twl_optsign, getopt_c, g_twl_optarg);
 		}
 	}
+	twl_lst_del(shenv_singleton()->shenv_pos_params, free);
 	if (g_twl_optind < (int)twl_arr_len(argv))
-		shenv_singleton()->shenv_argv_remainder = twl_arr_to_lst(argv + g_twl_optind);
+		shenv_singleton()->shenv_pos_params = twl_arr_to_lst(argv + g_twl_optind);
 	else
-		shenv_singleton()->shenv_argv_remainder = twl_lst_new();
+		shenv_singleton()->shenv_pos_params = twl_lst_new();
 	g_twl_optind = 0;
 	g_twl_optsign_active = false;
 }
