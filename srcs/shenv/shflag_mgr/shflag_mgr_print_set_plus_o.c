@@ -10,21 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SHFLAG_H
-# define SHFLAG_H
+#include "shenv/shflag_mgr.h"
 
-# include "basics.h"
-
-typedef struct		s_shflag
+static void			print_shflag_fn(void *shflag_)
 {
-	char			shf_mono;
-	char			*shf_long;
-	bool			shf_enabled;
-}					t_shflag;
+	t_shflag	*shflag;
 
-t_shflag			*shflag_new(char c, char *long_form);
-void				shflag_del(t_shflag *shflag);
-void				shflag_set_state_by_sign(t_shflag *shflag, char sign);
-void				shflag_utils_process_shopts(char sign, char c, char *optarg);
+	shflag = shflag_;
+	if (shflag->shf_long)
+	{
+		twl_printf("set %so %s\n", shflag->shf_enabled ? "-" : "+", shflag->shf_long);
+	}
+}
 
-#endif
+void				shflag_mgr_print_set_plus_o(t_lst *shflags)
+{
+	twl_lst_iter0(shflags, print_shflag_fn);
+}

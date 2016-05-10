@@ -11,62 +11,69 @@
 /* ************************************************************************** */
 
 #include "builtin/cmds/builtin_set.h"
+#include "twl_unistd.h"
+#include "twl_arr.h"
 
-static void			remove_shell_flags(void *data, void *context, void *args_)
+static void			process_arg(char sign, char c, char *optarg)
 {
-	t_opt_elem		*elem;
-	t_shenv	*env;
-	t_lst			*args;
-
-	args = args_;
-	elem = data;
-	env = context;
-	if (twl_strcmp(elem->key, "o") != 0)
-		shenv_remove_flag(elem->key, env);
-	else if (twl_lst_len(args) <= 0)
-		builtin_set_print_o_positive(env);
+	shflag_utils_process_shopts(sign, c, optarg);
 }
 
-static void			add_shell_flags(void *data, void *context, void *args_)
+static void			print_help(char sign, char invalid_opt)
 {
-	t_opt_elem		*elem;
-	t_shenv	*env;
-	t_lst			*args;
-
-	args = args_;
-	elem = data;
-	env = context;
-	if (twl_strcmp(elem->key, "o") != 0)
-		shenv_add_flag(elem->key, env);
-	else if (twl_lst_len(args) <= 0)
-		builtin_set_print_o_negative(env);
+	shenv_singl_error(2, "set: %c%c: invalid option", sign, invalid_opt);
+	twl_dprintf(2, "set: usage: set [--%s] [-o option] [arg ...]\n", FTSH_VALID_SET_OPTS);
 }
 
-void				builtin_set_exec_args(t_lst *tokens_copy, t_shenv *env)
+static void			process_opt_o(char sign)
 {
-	t_set_opt		*opt;
+	if (sign == '-')
+		shflag_mgr_print_on_off(shenv_singleton()->shenv_shflags);
+	else if (sign == '+')
+		shflag_mgr_print_set_plus_o(shenv_singleton()->shenv_shflags);
+	else
+		LOG_ERROR("bad sign: %c", sign);
+
+}
+
+static void			prog_parse_args(char **argv)
+{
+	char			getopt_c;
+
+	g_twl_optsign_active = true;
+	while ((getopt_c = twl_getopt(twl_arr_len(argv), argv, FTSH_VALID_OPTS)) > 0)
+	{
+		if (getopt_c == ':')
+		{
+			if (g_twl_optopt == 'o')
+				process_opt_o(g_twl_optsign);
+			else
+				LOG_ERROR("opt arg required: %c", g_twl_optopt);
+		}
+		else if (getopt_c == '?')
+		{
+			print_help(g_twl_optsign, g_twl_optopt);
+			exit(2);
+		}
+		else
+		{
+			process_arg(g_twl_optsign, getopt_c, g_twl_optarg);
+		}
+	}
+	if (g_twl_optind < (int)twl_arr_len(argv))
+		shenv_singleton()->shenv_argv_remainder = twl_arr_to_lst(argv + g_twl_optind);
+	else
+		shenv_singleton()->shenv_argv_remainder = twl_lst_new();
+	g_twl_optind = 0;
+	g_twl_optsign_active = false;
+}
+
+static void			builtin_set_exec_args(t_lst *tokens_copy)
+{
 	char			**arr;
 
 	arr = token_mgr_to_str_arr(tokens_copy);
-	opt = shopt_parser_new(arr, SET_OPT_VALID_OPTS);
-	if (builtin_set_check_invalid_opts(opt, SET_OPT_VALID_OPTS))
-	{
-		exit(2);
-	}
-	else
-	{
-		twl_lst_iter2(opt->positive_opts, remove_shell_flags, env, opt->args);
-		twl_lst_iter2(opt->negative_opts, add_shell_flags, env, opt->args);
-		if (twl_lst_len(opt->args) > 0)
-		{
-			shopt_parser_check_args(opt, env);
-		}
-		else if (twl_lst_len(opt->positive_opts) == 0 && opt->negative_opts == 0)
-		{
-			shenv_print_all(env);
-		}
-	}
-	shopt_parser_del(opt);
+	prog_parse_args(arr);
 	twl_arr_del(arr, NULL);
 }
 
@@ -92,6 +99,6 @@ void				builtin_set_exec(t_lst *tokens, t_shenv *env)
 			}
 		}
 	}
-	builtin_set_exec_args(tokens_copy, env);
+	builtin_set_exec_args(tokens);
 	twl_lst_del(tokens_copy, NULL);
 }

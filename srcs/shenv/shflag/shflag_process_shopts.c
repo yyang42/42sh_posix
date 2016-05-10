@@ -10,21 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SHFLAG_H
-# define SHFLAG_H
+#include "shenv/shflag_mgr.h"
+#include "shenv/shflag.h"
+#include "shenv/shenv.h"
 
-# include "basics.h"
-
-typedef struct		s_shflag
+void				shflag_utils_process_shopts(char sign, char c, char *optarg)
 {
-	char			shf_mono;
-	char			*shf_long;
-	bool			shf_enabled;
-}					t_shflag;
-
-t_shflag			*shflag_new(char c, char *long_form);
-void				shflag_del(t_shflag *shflag);
-void				shflag_set_state_by_sign(t_shflag *shflag, char sign);
-void				shflag_utils_process_shopts(char sign, char c, char *optarg);
-
-#endif
+	if (c == 'o')
+		shflag_mgr_set_state_by_long_sign(shenv_singleton()->shenv_shflags, optarg, sign);
+	else if (twl_strchr(FTSH_VALID_SET_OPTS, c))
+	{
+		shflag_mgr_set_state_by_mono_sign(shenv_singleton()->shenv_shflags, c, sign);
+	}
+	else
+	{
+		LOG_ERROR("opt not found: %c", c);
+	}
+}

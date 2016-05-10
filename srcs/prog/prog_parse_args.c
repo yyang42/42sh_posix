@@ -14,19 +14,6 @@
 #include "twl_unistd.h"
 #include "twl_arr.h"
 
-static void			process_set_opt(char sign, char c, char *optarg)
-{
-	if (c == 'o')
-		shflag_mgr_set_state_by_long_sign(shenv_singleton()->shenv_shflags, optarg, sign);
-	else if (twl_strchr(FTSH_VALID_SET_OPTS, c))
-	{
-		shflag_mgr_set_state_by_mono_sign(shenv_singleton()->shenv_shflags, c, sign);
-	}
-	else
-	{
-		LOG_ERROR("opt not found: %c", c);
-	}
-}
 
 static void			process_arg(t_prog *prog, char sign, char c, char *optarg)
 {
@@ -42,7 +29,7 @@ static void			process_arg(t_prog *prog, char sign, char c, char *optarg)
 	else if (c == 'c')
 		prog->prog_command_arg = twl_strdup(optarg);
 	else
-		process_set_opt(sign, c, optarg);
+		shflag_utils_process_shopts(sign, c, optarg);
 }
 
 static void			print_help(char invalid_opt)
