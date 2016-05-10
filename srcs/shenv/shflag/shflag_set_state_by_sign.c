@@ -10,20 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SHFLAG_H
-# define SHFLAG_H
+#include "shenv/shflag.h"
 
-# include "basics.h"
-
-typedef struct		s_shflag
+void				shflag_set_state_by_sign(t_shflag *shflag, char sign)
 {
-	char			shf_mono;
-	char			*shf_long;
-	bool			shf_enabled;
-}					t_shflag;
-
-t_shflag			*shflag_new(char c, char *long_form);
-void				shflag_del(t_shflag *shflag);
-void				shflag_set_state_by_sign(t_shflag *shflag, char sign);
-
-#endif
+	if (sign == '+')
+		shflag->shf_enabled = false;
+	else if (sign == '-')
+		shflag->shf_enabled = true;
+	else
+		LOG_ERROR("invalid sign: %c", sign);
+}

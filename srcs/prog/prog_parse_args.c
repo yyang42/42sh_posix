@@ -14,31 +14,35 @@
 #include "twl_unistd.h"
 #include "twl_arr.h"
 
-#define VALID_SET_OPTS "abCefhimnuvx"
-#define VALID_OPTS ":c:A"VALID_SET_OPTS
+static void			process_set_opt(char sign, char c, char *optarg)
+{
+	if (c == 'o')
+		shflag_mgr_set_state_by_long_sign(shenv_singleton()->shenv_shflags, optarg, sign);
+	else if (twl_strchr(FTSH_VALID_SET_OPTS, c))
+	{
+		shflag_mgr_set_state_by_mono_sign(shenv_singleton()->shenv_shflags, c, sign);
+	}
+	else
+	{
+		LOG_ERROR("opt not found: %c", c);
+	}
+}
 
 static void			process_arg(t_prog *prog, char sign, char c, char *optarg)
 {
 	t_shenv			*env;
 
 	env = shenv_singleton();
-	LOG_DEBUG("found:     %c%c", sign, c);
-	if (optarg && c != '?')
-	{
-		LOG_DEBUG("           %s", optarg);
-	}
 	if (c == 'A')
 		env->shenv_flags |= SHENV_FLAG_AST;
 	else if (c == 'E')
 		env->shenv_flags |= SHENV_FLAG_AREXP;
 	else if (c == 'G')
 		env->shenv_flags |= SHENV_FLAG_GNL;
-	else if (c == 'c' && optarg)
+	else if (c == 'c')
 		prog->prog_command_arg = twl_strdup(optarg);
-	else if (twl_strchr(VALID_SET_OPTS, c))
-	{
-		shflag_mgr_set_state_by_mono(shenv_singleton()->shenv_shflags, c, true);
-	}
+	else
+		process_set_opt(sign, c, optarg);
 }
 
 static void			print_help(char invalid_opt)
@@ -47,8 +51,6 @@ static void			print_help(char invalid_opt)
 	twl_dprintf(2, "Usage:	%s [option] [script-file]\n", shenv_singleton()->shenv_name);
 	twl_dprintf(2, "Shell options\n");
 	twl_dprintf(2, "\t-c command\n");
-	// twl_dprintf(2, "\t-abefhkmnptuvxBCHP or -o option\n");
-	exit(2);
 }
 
 void				prog_parse_args(t_prog *prog, char **argv)
@@ -56,13 +58,12 @@ void				prog_parse_args(t_prog *prog, char **argv)
 	char			getopt_c;
 
 	g_twl_optsign_active = true;
-	while ((getopt_c = twl_getopt(twl_arr_len(argv), argv, VALID_OPTS)) > 0)
+	while ((getopt_c = twl_getopt(twl_arr_len(argv), argv, FTSH_VALID_OPTS)) > 0)
 	{
 		if (getopt_c == '?')
 		{
 			print_help(g_twl_optopt);
-			LOG_DEBUG("not found: %c%c", g_twl_optsign, g_twl_optopt);
-			exit(1);
+			exit(2);
 		}
 		else
 		{

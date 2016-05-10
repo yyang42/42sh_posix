@@ -41,6 +41,9 @@
 # define SHENV_FLAG_AREXP (1 << 2)
 # define SHENV_FLAG_GNL (1 << 3)
 
+# define FTSH_VALID_SET_OPTS "abCefhimnuvx"
+# define FTSH_VALID_OPTS ":c:Ao:"FTSH_VALID_SET_OPTS
+
 typedef struct				s_shenv_info
 {
 	int						saved_last_exit;

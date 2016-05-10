@@ -10,20 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SHFLAG_H
-# define SHFLAG_H
+#include "shenv/shflag_mgr.h"
 
-# include "basics.h"
-
-typedef struct		s_shflag
+void				shflag_mgr_set_state_by_mono_sign(t_lst *shflags, char mono, char sign)
 {
-	char			shf_mono;
-	char			*shf_long;
-	bool			shf_enabled;
-}					t_shflag;
+	t_shflag		*shflag;
 
-t_shflag			*shflag_new(char c, char *long_form);
-void				shflag_del(t_shflag *shflag);
-void				shflag_set_state_by_sign(t_shflag *shflag, char sign);
-
-#endif
+	shflag = shflag_mgr_find_by_mono(shflags, mono);
+	if (shflag)
+		shflag_set_state_by_sign(shflag, sign);
+	else
+		LOG_ERROR("shflag not found: %c", mono);
+}

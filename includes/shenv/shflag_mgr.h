@@ -23,6 +23,9 @@ void				shflag_mgr_remove(t_lst *shflags, t_shflag *shflag);
 void				shflag_mgr_print(t_lst *shflags);
 void				shflag_mgr_print_on_off(t_lst *shflags);
 t_shflag			*shflag_mgr_find_by_mono(t_lst *shflags, char mono);
+t_shflag			*shflag_mgr_find_by_long(t_lst *shflags, char *long_form);
 void				shflag_mgr_set_state_by_mono(t_lst *shflags, char mono, bool value);
+void				shflag_mgr_set_state_by_mono_sign(t_lst *shflags, char mono, char sign);
+void				shflag_mgr_set_state_by_long_sign(t_lst *shflags, char *long_form, char sign);
 
 #endif
