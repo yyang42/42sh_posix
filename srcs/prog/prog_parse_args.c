@@ -36,6 +36,16 @@ static void			process_arg(t_prog *prog, char sign, char c, char *optarg)
 		prog->prog_command_arg = twl_strdup(optarg);
 }
 
+static void			print_help(char invalid_opt)
+{
+	twl_dprintf(2, "%s: -%c: invalid option\n", shenv_singleton()->shenv_name, invalid_opt);
+	twl_dprintf(2, "Usage:	%s [option] [script-file]\n", shenv_singleton()->shenv_name);
+	twl_dprintf(2, "Shell options\n");
+	twl_dprintf(2, "\t-c command\n");
+	// twl_dprintf(2, "\t-abefhkmnptuvxBCHP or -o option\n");
+	exit(2);
+}
+
 void				prog_parse_args(t_prog *prog, char **argv)
 {
 	char			getopt_c;
@@ -45,7 +55,9 @@ void				prog_parse_args(t_prog *prog, char **argv)
 	{
 		if (getopt_c == '?')
 		{
+			print_help(g_twl_optopt);
 			LOG_DEBUG("not found: %c%c", g_twl_optsign, g_twl_optopt);
+			exit(1);
 		}
 		else
 		{
