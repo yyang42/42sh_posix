@@ -10,35 +10,27 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shenv/shopt_parser.h"
-#include "twl_opt.h"
-#include "twl_opt_elem.h"
+#include "shenv/shflag_mgr.h"
+#include "shenv/shenv.h"
 
-static bool			find_fn(void *opt_elem_, void *valid_opts_)
+static void			print_shflag_fn(void *shflag_, void *concat_ptr_)
 {
-	t_opt_elem		*opt_elem;
-	char			*valid_opts;
+	t_shflag	*shflag;
+	char		**concat_ptr;
 
-	opt_elem = opt_elem_;
-	valid_opts = valid_opts_;
-	if (!twl_strchr(valid_opts, *opt_elem->key))
-		return (true);
-	return (false);
+	shflag = shflag_;
+	concat_ptr = concat_ptr_;
+	if (shflag->shf_mono && shflag->shf_enabled)
+	{
+		*concat_ptr = twl_strjoinfree(*concat_ptr, (char [2]){shflag->shf_mono, 0}, 'l');
+	}
 }
 
-char				*shopt_parser_check_invalid_opts(t_set_opt *opt)
+char				*shflag_mgr_concat(t_lst *shflags)
 {
-	t_opt_elem		*opt_elem;
+	char			*concat;
 
-	opt_elem = twl_lst_find(opt->positive_opts, find_fn, opt->valid_opts);
-	if (opt_elem)
-	{
-		return (opt_elem->key);
-	}
-	opt_elem = twl_lst_find(opt->negative_opts, find_fn, opt->valid_opts);
-	if (opt_elem)
-	{
-		return (opt_elem->key);
-	}
-	return (NULL);
+	concat = twl_strdup("");
+	twl_lst_iter(shflags, print_shflag_fn, &concat);
+	return (concat);
 }

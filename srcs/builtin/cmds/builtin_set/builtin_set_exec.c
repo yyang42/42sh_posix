@@ -36,6 +36,15 @@ static void			process_opt_o(char sign)
 
 }
 
+static void			copy_pos_params(char **arr)
+{
+	while (*arr)
+	{
+		twl_lst_push_back(shenv_singleton()->shenv_pos_params, twl_strdup(*arr));
+		arr++;
+	}
+}
+
 static void			prog_parse_args(char **argv)
 {
 	char			getopt_c;
@@ -60,11 +69,11 @@ static void			prog_parse_args(char **argv)
 			process_arg(g_twl_optsign, getopt_c, g_twl_optarg);
 		}
 	}
-	twl_lst_del(shenv_singleton()->shenv_pos_params, free);
 	if (g_twl_optind < (int)twl_arr_len(argv))
-		shenv_singleton()->shenv_pos_params = twl_arr_to_lst(argv + g_twl_optind);
-	else
-		shenv_singleton()->shenv_pos_params = twl_lst_new();
+	{
+		shenv_remove_all_pos_params(shenv_singleton());
+		copy_pos_params(argv + g_twl_optind);
+	}
 	g_twl_optind = 0;
 	g_twl_optsign_active = false;
 }

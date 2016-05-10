@@ -32,7 +32,7 @@ t_lst			*expan_get_param_spec(char param)
 	else if (param == '?')
 		twl_lst_push_back(lsparam, twl_itoa(shenv->info.saved_last_exit));
 	else if (param == '-')
-		twl_lst_push_back(lsparam, shenv_concat_flags(shenv));
+		twl_lst_push_back(lsparam, shflag_mgr_concat(shenv->shenv_shflags));
 	else if (param == '$')
 		twl_lst_push_back(lsparam, twl_itoa(getpid()));
 	else if (param == '!' &&

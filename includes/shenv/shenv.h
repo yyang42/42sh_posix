@@ -65,7 +65,6 @@ typedef struct				s_shenv
 	int						shenv_flags;
 	t_lst					*shenv_argv_remainder;
 	t_lst					*shenv_pos_params;
-	t_lst					*shenv_set_flags; // TODO: Change flags to htab
 	t_htab					*alias;
 	t_dict					*flag_verbose;
 	t_dict					*shfuncs;
@@ -110,7 +109,6 @@ void				shenv_unsetenv(t_shenv *this, char *str);
 t_shenv				*shenv_singleton(void);
 t_shenv				*shenv_singleton_setter(t_shenv *src_env);
 int					shenv_flag_exist(t_shenv *this, char *flag);
-char				*shenv_concat_flags(t_shenv *env);
 void				shenv_print_flags(t_shenv *env);
 void				shenv_print_all(t_shenv *this);
 char				**shenv_get_paths(t_shenv *this);

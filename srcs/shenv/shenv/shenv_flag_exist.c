@@ -12,10 +12,21 @@
 
 
 #include "shenv/shenv.h"
+#include "shenv/shflag_mgr.h"
 #include "twl_lst.h"
 #include "twl_opt_elem.h"
 
 int					shenv_flag_exist(t_shenv *this, char *flag)
 {
-	return ((bool)twl_lst_find(this->shenv_set_flags, twl_strequ_void, flag));
+	t_shflag		*shflag;
+
+	if (twl_strlen(flag) == 1)
+		shflag = shflag_mgr_find_by_mono(this->shenv_shflags, *flag);
+	else
+		shflag = shflag_mgr_find_by_long(this->shenv_shflags, flag);
+	if (shflag)
+		return (shflag->shf_enabled);
+	else
+		LOG_ERROR("shflag not found: flag: %s", flag);
+	return (false);
 }

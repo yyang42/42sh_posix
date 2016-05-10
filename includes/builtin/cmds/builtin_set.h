@@ -15,14 +15,12 @@
 
 # include "basics.h"
 # include "builtin/builtin.h"
-# include "shenv/shopt_parser.h"
 # include "twl_opt.h"
 # include "twl_opt_elem.h"
 
 void				builtin_set_exec(t_lst *tokens, t_shenv *env);
 void				builtin_set_print_o_positive(t_shenv *env);
 void				builtin_set_print_o_negative(t_shenv *env);
-int					builtin_set_check_invalid_opts(t_set_opt *opt, char *flags);
 void				builtin_set_exec_print(t_shenv *this);
 
 #endif
