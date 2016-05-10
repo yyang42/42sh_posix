@@ -10,27 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/cmds/builtin_set.h"
-#include "shenv/shenv.h"
-#include "twl_opt.h"
-#include "twl_opt_elem.h"
-#include "twl_xstring.h"
+#include "shenv/shflag_mgr.h"
 
-static void			get_flag_verbose(char *key, void *data, void *context)
+void				shflag_mgr_remove(t_lst *shflags, t_shflag *shflag)
 {
-	t_shenv	*env;
-	char			*flag;
+	int				index;
 
-	env = context;
-	flag = data;
-	if (shenv_flag_exist(env, key))
-		twl_printf("set -o %s\n", flag);
-	else
-		twl_printf("set +o %s\n", flag);
-}
-
-void				builtin_set_print_o_positive(t_shenv *env)
-{
-	if (env->flag_verbose)
-		twl_dict_iter(env->flag_verbose, get_flag_verbose, env);
+	index = twl_lst_indexof(shflags, shflag);
+	if (index == -1)
+	{
+		assert(!"[ERROR] Object not found!");
+	}
+	twl_lst_popi(shflags, index);
+	shflag_del(shflag);
 }

@@ -16,13 +16,13 @@ char		*shenv_get_pos_param_at(t_shenv *env, size_t index)
 {
 	char		*pos_param;
 
-	if (twl_lst_len(env->pos_params) < index)
+	if (twl_lst_len(env->shenv_pos_params) < index)
 	{
 		pos_param = NULL;
 	}
 	else
 	{
-		pos_param = twl_lst_get(env->pos_params, index);
+		pos_param = twl_lst_get(env->shenv_pos_params, index);
 	}
 	return (pos_param);
 }

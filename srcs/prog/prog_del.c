@@ -14,9 +14,5 @@
 
 void				prog_del(t_prog *prog)
 {
-	if (prog->argparser_result)
-		argparser_result_del(prog->argparser_result);
-	if (prog->argparser)
-		argparser_del(prog->argparser);
 	free(prog);
 }

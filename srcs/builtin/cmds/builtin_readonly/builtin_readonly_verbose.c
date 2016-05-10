@@ -31,5 +31,5 @@ static void			readonly_something(void *data)
 
 void				builtin_readonly_verbose(t_shenv *env)
 {
-	twl_lst_iter0(env->shvars, readonly_something);
+	twl_lst_iter0(env->shenv_shvars, readonly_something);
 }

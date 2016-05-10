@@ -10,14 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/cmds/builtin_set.h"
-#include "shenv/shenv.h"
-#include "twl_opt_elem.h"
+#include "shenv/shflag_mgr.h"
 
-void				shenv_add_flag(char *flag, t_shenv *env)
+void				shflag_mgr_set_state_by_mono_sign(t_lst *shflags, char mono, char sign)
 {
-	if (env && env->shenv_set_flags && !shenv_flag_exist(env, flag))
-	{
-		twl_lst_push_back(env->shenv_set_flags, twl_strdup(flag));
-	}
+	t_shflag		*shflag;
+
+	shflag = shflag_mgr_find_by_mono(shflags, mono);
+	if (shflag)
+		shflag_set_state_by_sign(shflag, sign);
+	else
+		LOG_ERROR("shflag not found: %c", mono);
 }

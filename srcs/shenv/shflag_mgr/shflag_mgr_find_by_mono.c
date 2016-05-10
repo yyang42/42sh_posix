@@ -10,12 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/cmds/builtin_set.h"
-#include "shenv/shenv.h"
-#include "twl_dict.h"
-#include "twl_opt_elem.h"
+#include "shenv/shflag_mgr.h"
 
-void				shenv_remove_flag(char *flag, t_shenv *env)
+static bool			find_by_mono(void *shflag_, void *mono_ptr)
 {
-	twl_lst_remove_if(env->shenv_set_flags, twl_strequ_void, flag, free);
+	t_shflag		*shflag;
+
+	shflag = shflag_;
+	return (shflag->shf_mono == *(char *)mono_ptr);
+}
+
+t_shflag			*shflag_mgr_find_by_mono(t_lst *shflags, char mono)
+{
+	return (twl_lst_find(shflags, find_by_mono, &mono));
 }

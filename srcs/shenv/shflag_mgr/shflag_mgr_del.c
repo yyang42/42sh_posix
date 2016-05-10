@@ -10,14 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shenv/shopt_parser.h"
-#include "twl_opt_elem.h"
+#include "shenv/shflag_mgr.h"
 
-void				shopt_parser_del(t_set_opt *opt)
+void				shflag_mgr_del(t_lst *shflags)
 {
-	free(opt->valid_opts);
-	twl_lst_del(opt->positive_opts, twl_opt_elem_del);
-	twl_lst_del(opt->negative_opts, twl_opt_elem_del);
-	twl_lst_del(opt->args, free);
-	free(opt);
+	twl_lst_del(shflags, shflag_del);
 }

@@ -39,5 +39,5 @@ void				shenv_unsetenv(t_shenv *this, char *key)
 		errno = EINVAL;
 		return ;
 	}
-	twl_lst_remove_if(this->shvars, find_env_key, key, clear_environment);
+	twl_lst_remove_if(this->shenv_shvars, find_env_key, key, clear_environment);
 }

@@ -15,6 +15,7 @@
 
 # include "basics.h"
 # include "shenv/shvar_mgr.h"
+# include "shenv/shflag_mgr.h"
 
 # include "twl_dict.h"
 # include <errno.h>
@@ -36,6 +37,12 @@
 # define EXIT_COMMAND_NOT_FOUND 127
 # define SHENV_DEFAULT_IFS " \t\n"
 # define SHENV_SH_PATH_FALLBACK_WHEN_NO_SHEBANG "/bin/sh"
+# define SHENV_FLAG_AST (1 << 1)
+# define SHENV_FLAG_AREXP (1 << 2)
+# define SHENV_FLAG_GNL (1 << 3)
+
+# define FTSH_VALID_SET_OPTS "abCefhimnuvx"
+# define FTSH_VALID_ALL_OPTS ":c:Ao:"FTSH_VALID_SET_OPTS
 
 typedef struct				s_shenv_info
 {
@@ -53,24 +60,20 @@ typedef struct				s_shenv
 	char					*shenv_name;
 	char					*shenv_cur_cmd;
 	t_token					*shenv_cur_token;
-	t_lst					*shvars;
-	t_lst					*pos_params;
-	t_lst					*shenv_set_flags; // TODO: Change flags to htab
+	t_lst					*shenv_shvars;
+	t_lst					*shenv_shflags;
+	int						shenv_flags;
+	t_lst					*shenv_argv_remainder;
+	t_lst					*shenv_pos_params;
 	t_htab					*alias;
 	t_dict					*flag_verbose;
 	t_dict					*shfuncs;
 	int						function_depth;
 	t_shenv_info			info;
 	t_lst					*jobs;
-	t_lst					*traps;
+	t_lst					*shenv_traps;
 	int						last_exit_code;
-	bool					is_interactive_shell;
-
-	pid_t					jc_pgid;
-	struct termios			jc_tmodes;
-	int						jc_terminal;
-	struct s_job			*jc_foreground_job;
-	pid_t					jc_foreground_job_pid;
+	bool					shenv_is_interactive;
 
 	int						shenv_break_counter;
 	int						shenv_continue_counter;
@@ -106,7 +109,6 @@ void				shenv_unsetenv(t_shenv *this, char *str);
 t_shenv				*shenv_singleton(void);
 t_shenv				*shenv_singleton_setter(t_shenv *src_env);
 int					shenv_flag_exist(t_shenv *this, char *flag);
-char				*shenv_concat_flags(t_shenv *env);
 void				shenv_print_flags(t_shenv *env);
 void				shenv_print_all(t_shenv *this);
 char				**shenv_get_paths(t_shenv *this);

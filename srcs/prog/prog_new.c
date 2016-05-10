@@ -17,5 +17,6 @@ t_prog				*prog_new(void)
 	t_prog			*prog;
 
 	prog = twl_malloc_x0(sizeof(t_prog));
+	prog->prog_command_arg = NULL;
 	return (prog);
 }

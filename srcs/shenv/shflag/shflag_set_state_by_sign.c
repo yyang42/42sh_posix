@@ -10,19 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/cmds/builtin_set.h"
+#include "shenv/shflag.h"
 
-int					builtin_set_check_invalid_opts(t_set_opt *opt, char *flags)
+void				shflag_set_state_by_sign(t_shflag *shflag, char sign)
 {
-	char				*invalid;
-
-	invalid = shopt_parser_check_invalid_opts(opt);
-	if (invalid && twl_strlen(invalid) > 0)
-	{
-		shenv_singl_error(2,
-			"set: %s: invalid option\nusage: set [-%s] [-o option] [arg ...]\n",
-			invalid, flags);
-		return (1);
-	}
-	return (0);
+	if (sign == '+')
+		shflag->shf_enabled = false;
+	else if (sign == '-')
+		shflag->shf_enabled = true;
+	else
+		LOG_ERROR("invalid sign: %c", sign);
 }

@@ -10,28 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "shenv/shflag_mgr.h"
+#include "shenv/shflag.h"
 #include "shenv/shenv.h"
-#include "twl_string.h"
-#include "twl_lst.h"
-#include "twl_opt_elem.h"
 
-static void			concat_flag(void *data, void *concat_ptr_)
+void				shflag_utils_process_shopts(char sign, char c, char *optarg)
 {
-	char		**concat_ptr;
-
-	concat_ptr = concat_ptr_;
-	if (data)
+	if (c == 'o')
+		shflag_mgr_set_state_by_long_sign(shenv_singleton()->shenv_shflags, optarg, sign);
+	else if (twl_strchr(FTSH_VALID_SET_OPTS, c))
 	{
-		*concat_ptr = twl_strjoinfree(*concat_ptr, data, 'l');
+		shflag_mgr_set_state_by_mono_sign(shenv_singleton()->shenv_shflags, c, sign);
 	}
-}
-
-char				*shenv_concat_flags(t_shenv *env)
-{
-	char	*concat;
-
-	concat = twl_strdup("");
-	if (env && env->shenv_set_flags)
-		twl_lst_iter(env->shenv_set_flags, concat_flag, &concat);
-	return (concat);
+	else
+	{
+		LOG_ERROR("opt not found: %c", c);
+	}
 }

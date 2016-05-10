@@ -10,42 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/cmds/builtin_set.h"
-#include "shenv/shenv.h"
-#include "twl_opt.h"
-#include "twl_opt_elem.h"
-#include "twl_xstring.h"
+#include "shenv/shflag_mgr.h"
 
-#define SET_MINUS_O_PADDING 15
-
-static void			get_flag_verbose(char *key, void *data, void *context)
+static void			print_shflag_fn(void *shflag_)
 {
-	t_shenv	*env;
-	char			*flag;
-	int				space_count;
-	char			*space;
+	t_shflag	*shflag;
 
-	env = context;
-	flag = data;
-	space_count = SET_MINUS_O_PADDING - (int)twl_strlen(flag);
-	if (space_count < 0)
-		space = twl_strdup("\t");
-	else
+	shflag = shflag_;
+	if (shflag->shf_long)
 	{
-		space = (char*)malloc(sizeof(char) * (space_count + 1));
-		twl_memset(space, ' ', space_count);
-		space[space_count] = 0;
+		twl_printf("set %so %s\n", shflag->shf_enabled ? "-" : "+", shflag->shf_long);
 	}
-	LOG_DEBUG("shenv_flag_exist key %s", key);
-	if (shenv_flag_exist(env, key))
-		twl_printf("%s%s\t%s\n", flag, space, "on");
-	else
-		twl_printf("%s%s\t%s\n", flag, space, "off");
-	free(space);
 }
 
-void				builtin_set_print_o_negative(t_shenv *env)
+void				shflag_mgr_print_set_plus_o(t_lst *shflags)
 {
-	if (env->flag_verbose)
-		twl_dict_iter(env->flag_verbose, get_flag_verbose, env);
+	twl_lst_iter0(shflags, print_shflag_fn);
 }

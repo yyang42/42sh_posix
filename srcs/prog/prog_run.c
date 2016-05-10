@@ -15,18 +15,16 @@
 static char			*prog_run_get_input(t_prog *prog)
 {
 	char			*input;
-	t_lst			*remainders;
 
 	input = NULL;
-	remainders = prog->argparser_result->remainders;
-	if (prog_is_opt_set(prog, "c"))
+	if (prog->prog_command_arg)
 	{
-		LOG_INFO("exec opt -c");
-		input = twl_strdup(argparser_result_opt_get_arg(prog->argparser_result, "c"));
+		LOG_INFO("exec opt -c: %s", prog->prog_command_arg);
+		input = twl_strdup(prog->prog_command_arg);
 	}
-	else if (twl_lst_len(remainders) > 0)
+	else if (twl_lst_len(shenv_singleton()->shenv_argv_remainder) > 0)
 	{
-		input = prog_run_file_to_str(prog, twl_lst_first(remainders));
+		input = prog_run_file_to_str(prog, twl_lst_first(shenv_singleton()->shenv_argv_remainder));
 	}
 	return (input);
 }
@@ -40,10 +38,10 @@ int					prog_run(t_prog *prog)
 	{
 		prog_run_input(prog, input);
 	}
-	else if (twl_lst_len(prog->argparser_result->remainders) == 0)
+	else if (twl_lst_len(shenv_singleton()->shenv_argv_remainder) == 0)
 	{
-		shenv_singleton()->is_interactive_shell = isatty(0);
-		if (shenv_singleton()->is_interactive_shell)
+		shenv_singleton()->shenv_is_interactive = isatty(0);
+		if (shenv_singleton()->shenv_is_interactive)
 			prog_run_interactive(prog);
 		else
 			prog_run_input_from_stdin(prog);

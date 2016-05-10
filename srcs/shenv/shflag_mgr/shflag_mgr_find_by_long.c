@@ -10,35 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shenv/shopt_parser.h"
-#include "twl_opt.h"
-#include "twl_opt_elem.h"
+#include "shenv/shflag_mgr.h"
 
-static bool			find_fn(void *opt_elem_, void *valid_opts_)
+static bool			find_by_mono(void *shflag_, void *long_form)
 {
-	t_opt_elem		*opt_elem;
-	char			*valid_opts;
+	t_shflag		*shflag;
 
-	opt_elem = opt_elem_;
-	valid_opts = valid_opts_;
-	if (!twl_strchr(valid_opts, *opt_elem->key))
-		return (true);
-	return (false);
+	shflag = shflag_;
+	return (twl_strequ(shflag->shf_long, long_form));
 }
 
-char				*shopt_parser_check_invalid_opts(t_set_opt *opt)
+t_shflag			*shflag_mgr_find_by_long(t_lst *shflags, char *long_form)
 {
-	t_opt_elem		*opt_elem;
-
-	opt_elem = twl_lst_find(opt->positive_opts, find_fn, opt->valid_opts);
-	if (opt_elem)
-	{
-		return (opt_elem->key);
-	}
-	opt_elem = twl_lst_find(opt->negative_opts, find_fn, opt->valid_opts);
-	if (opt_elem)
-	{
-		return (opt_elem->key);
-	}
-	return (NULL);
+	return (twl_lst_find(shflags, find_by_mono, long_form));
 }

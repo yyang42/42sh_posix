@@ -10,14 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <fcntl.h>
-#include "prog.h"
-#include "shenv/shenv.h"
-#include "ast/ast.h"
-#include "builtin/cmds/builtin_set.h"
-#include "twl_gnl.h"
+#include "shenv/shflag.h"
 
-int					prog_is_opt_set(t_prog *prog, char *opt)
+t_shflag			*shflag_new(char c, char *long_form)
 {
-	return (argparser_result_opt_is_set(prog->argparser_result, opt));
+	t_shflag		*shflag;
+
+	shflag = twl_malloc_x0(sizeof(t_shflag));
+	shflag->shf_mono = c;
+	shflag->shf_long = long_form;
+	shflag->shf_enabled = false;
+	return (shflag);
 }

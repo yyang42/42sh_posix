@@ -10,14 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/cmds/builtin_set.h"
-#include "shenv/shenv.h"
-#include "twl_opt_elem.h"
+#include "shenv/shflag_mgr.h"
 
-void		shenv_remove_all_pos_params(t_shenv *env)
+static void			print_shflag_fn(void *shflag_)
 {
-	if (env && env->pos_params)
-	{
-		twl_lst_clear(env->pos_params, free);
-	}
+	t_shflag	*shflag;
+	char		mono;
+
+	shflag = shflag_;
+	mono = shflag->shf_mono ? shflag->shf_mono : '.';
+	twl_printf("%-3c%-15s%-5d\n", mono, shflag->shf_long, shflag->shf_enabled);
+}
+
+void				shflag_mgr_print(t_lst *shflags)
+{
+	twl_printf("%s>>>>>>>>>> shflag list%s\n", C_CYAN, C_CLEAR);
+	twl_lst_iter0(shflags, print_shflag_fn);
+	twl_printf("%s-------------------------------------%s\n", C_CYAN, C_CLEAR);
 }

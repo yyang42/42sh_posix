@@ -21,7 +21,7 @@ int main()
 
 	ADD_TESTS
 
-	prog_init(prog_singl(), (char *[]){"prog", "--ast", NULL});
+	prog_init(prog_singl(), (char *[]){"prog", "-A", NULL});
 	int ret = mt_exec(mt);
 	mt_del(mt);
 	return(ret);

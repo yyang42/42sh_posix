@@ -43,7 +43,7 @@ static void			prog_run_interative_loop(t_prog *prog, char *(get_input_fn)(t_prog
 
 static void			prog_run_interactive_sig_wrapper(t_prog *prog)
 {
-	if (prog_is_opt_set(prog, "gnl"))
+	if (shenv_singleton()->shenv_flags & SHENV_FLAG_GNL)
 		prog_run_interative_loop(prog, prog_line_edit_get_input_gnl);
 	else
 		prog_run_interative_loop(prog, prog_line_edit_get_input);

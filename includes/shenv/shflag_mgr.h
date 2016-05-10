@@ -10,30 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SHOPT_PARSER_H
-# define SHOPT_PARSER_H
+#ifndef SHFLAG_MGR_H
+# define SHFLAG_MGR_H
 
 # include "basics.h"
-# include "shenv/shenv.h"
+# include "shenv/shflag.h"
 
-# define SET_OPT_VALID_OPTS "-abCefhmnouvx"
-# define POSITIVE_OPT 1
-# define NEGATIVE_OPT -1
-
-typedef struct		s_set_opt
-{
-	t_lst			*positive_opts;
-	t_lst			*negative_opts;
-	t_lst			*args;
-	char			*valid_opts;
-}					t_set_opt;
-
-t_set_opt			*shopt_parser_new(char **argv, char *valid_opts);
-void				shopt_parser_del(t_set_opt *xopt);
-char				**shopt_parser_new_parse_arg_opt_and_return_non_opt_args__(
-					char **arr_opts, t_set_opt *opt, char *valid_opts);
-char				*shopt_parser_check_invalid_opts(t_set_opt *opt);
-int					shopt_parser_exist(t_set_opt *twl_opt, char *opt_key);
-void				shopt_parser_check_args(t_set_opt *opt, t_shenv *env);
+t_lst				*shflag_mgr_new(void);
+void				shflag_mgr_del(t_lst *shflags);
+void				shflag_mgr_add(t_lst *shflags, t_shflag *shflag);
+void				shflag_mgr_remove(t_lst *shflags, t_shflag *shflag);
+void				shflag_mgr_print(t_lst *shflags);
+void				shflag_mgr_print_on_off(t_lst *shflags);
+void				shflag_mgr_print_set_plus_o(t_lst *shflags);
+t_shflag			*shflag_mgr_find_by_mono(t_lst *shflags, char mono);
+t_shflag			*shflag_mgr_find_by_long(t_lst *shflags, char *long_form);
+void				shflag_mgr_set_state_by_mono(t_lst *shflags, char mono, bool value);
+void				shflag_mgr_set_state_by_mono_sign(t_lst *shflags, char mono, char sign);
+void				shflag_mgr_set_state_by_long_sign(t_lst *shflags, char *long_form, char sign);
+char				*shflag_mgr_concat(t_lst *shflags);
 
 #endif

@@ -10,24 +10,27 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shenv/shopt_parser.h"
-#include "twl_opt_elem.h"
+#include "shenv/shflag_mgr.h"
+#include "shenv/shenv.h"
 
-static bool			find_opt(void *opt_elem_, void *opt_key)
+static void			print_shflag_fn(void *shflag_, void *concat_ptr_)
 {
-	t_opt_elem *opt_elem;
+	t_shflag	*shflag;
+	char		**concat_ptr;
 
-	opt_elem = opt_elem_;
-	if (twl_strcmp(opt_elem->key, opt_key) == 0)
-		return (true);
-	return (false);
+	shflag = shflag_;
+	concat_ptr = concat_ptr_;
+	if (shflag->shf_mono && shflag->shf_enabled)
+	{
+		*concat_ptr = twl_strjoinfree(*concat_ptr, (char [2]){shflag->shf_mono, 0}, 'l');
+	}
 }
 
-int					shopt_parser_exist(t_set_opt *twl_opt, char *opt_key)
+char				*shflag_mgr_concat(t_lst *shflags)
 {
-	if (twl_lst_find(twl_opt->positive_opts, find_opt, opt_key))
-		return (POSITIVE_OPT);
-	else if (twl_lst_find(twl_opt->negative_opts, find_opt, opt_key))
-		return (NEGATIVE_OPT);
-	return (0);
+	char			*concat;
+
+	concat = twl_strdup("");
+	twl_lst_iter(shflags, print_shflag_fn, &concat);
+	return (concat);
 }

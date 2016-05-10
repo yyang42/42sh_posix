@@ -25,7 +25,7 @@ t_shvar				*shenv_shvars_set(t_shenv *shenv, char *key, char *value, char *comma
 			"%s: `%s': %s", command_name, key, "not a valid identifier");
 		return (NULL);
 	}
-	shvar = shvar_mgr_find_or_create(shenv->shvars, key);
+	shvar = shvar_mgr_find_or_create(shenv->shenv_shvars, key);
 	if (value && !shvar_check_is_readonly_and_print(shvar))
 	{
 		shvar_set_value(shvar, value);

@@ -37,20 +37,20 @@ static void			shift_action(t_shenv *env, char *shift_str)
 	shift_nb = get_shift_nb(shift_str);
 	if (shift_nb < 0)
 		return;
-	if ((int)twl_lst_len(env->pos_params) < shift_nb)
+	if ((int)twl_lst_len(env->shenv_pos_params) < shift_nb)
 	{
 		env->last_exit_code = EXIT_FAILURE;
 		return ;
 	}
-	if ((int)twl_lst_len(env->pos_params) < shift_nb)
+	if ((int)twl_lst_len(env->shenv_pos_params) < shift_nb)
 	{
-		twl_lst_clear(env->pos_params, &free);
+		twl_lst_clear(env->shenv_pos_params, &free);
 	}
 	else
 	{
 		while (shift_nb > 0)
 		{
-			free(twl_lst_pop_front(env->pos_params));
+			free(twl_lst_pop_front(env->shenv_pos_params));
 			shift_nb--;
 		}
 	}
