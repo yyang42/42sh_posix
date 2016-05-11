@@ -12,6 +12,20 @@
 
 #include "prog.h"
 
+static void			handle_command_c_args(void)
+{
+	char			*first;
+	t_shenv			*env;
+
+	env = shenv_singleton();
+	shenv_pos_params_copy_deep_from(env, shenv_singleton()->shenv_argv_remainder);
+	first = twl_lst_pop_front(env->shenv_pos_params);
+	if (first)
+	{
+		shenv_set_name(env, first);
+	}
+}
+
 static char			*prog_run_get_input(t_prog *prog)
 {
 	char			*input;
@@ -21,6 +35,7 @@ static char			*prog_run_get_input(t_prog *prog)
 	{
 		LOG_INFO("exec opt -c: %s", prog->prog_command_arg);
 		input = twl_strdup(prog->prog_command_arg);
+		handle_command_c_args();
 	}
 	else if (twl_lst_len(shenv_singleton()->shenv_argv_remainder) > 0)
 	{

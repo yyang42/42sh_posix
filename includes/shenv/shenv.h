@@ -120,6 +120,8 @@ char				*shenv_concat_pos_param_char(t_shenv *env, char *sep);
 t_shvar				*shenv_shvars_get(t_shenv *this, char *key);
 void				**shenv_get_env_arr(t_shenv *this);
 char				*shenv_get_pos_param_at(t_shenv *env, size_t index);
+void				shenv_pos_params_copy_deep_from(t_shenv *env,
+					t_lst *new_pos_params);
 
 void				shenv_set_name(t_shenv *env, char *name);
 void				shenv_set_cur_cmd(t_shenv *env, char *cur_cmd);
