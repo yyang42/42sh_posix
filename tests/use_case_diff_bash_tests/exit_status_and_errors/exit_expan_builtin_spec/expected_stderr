@@ -1,1 +1,1 @@
-/tmp/input.sh: line 4: ${x!y}: bad substitution
+/tmp/input.sh: line 5: ${x!y}: bad substitution
