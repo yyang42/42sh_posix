@@ -1,2 +1,0 @@
-set -u
-echo $myvar
