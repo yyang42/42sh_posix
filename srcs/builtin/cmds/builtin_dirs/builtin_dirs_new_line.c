@@ -17,8 +17,8 @@ static void		bd_error(t_builtin_dirs *this, t_lst *dirs, size_t len)
 	if (len == 0)
 		shenv_singl_error(1, "dirs: directory stack empty");
 	else
-		shenv_singl_error(1, "%i: dirs: directory stack index out of range",
-				this->number);
+		shenv_singl_error(1, "dirs: %c%i: directory stack index out of range",
+				this->is_negative ? '-' : '+', this->number);
 	free(twl_lst_pop_front(dirs));
 }
 
