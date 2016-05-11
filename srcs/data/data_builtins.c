@@ -18,6 +18,7 @@
 #include "builtin/cmds/builtin_colon.h"
 #include "builtin/cmds/builtin_command.h"
 #include "builtin/cmds/builtin_continue.h"
+#include "builtin/cmds/builtin_dirs.h"
 #include "builtin/cmds/builtin_dot.h"
 #include "builtin/cmds/builtin_echo.h"
 #include "builtin/cmds/builtin_env.h"
@@ -30,6 +31,8 @@
 #include "builtin/cmds/builtin_getopts.h"
 #include "builtin/cmds/builtin_jobs.h"
 #include "builtin/cmds/builtin_kill.h"
+#include "builtin/cmds/builtin_popd.h"
+#include "builtin/cmds/builtin_pushd.h"
 #include "builtin/cmds/builtin_read.h"
 #include "builtin/cmds/builtin_readonly.h"
 #include "builtin/cmds/builtin_return.h"
@@ -61,6 +64,7 @@ t_lst				*data_builtins(void)
 		twl_lst_push_back(builtins, builtin_new("cd", builtin_cd_exec, 0));
 		twl_lst_push_back(builtins, builtin_new("command", builtin_command_exec, 0));
 		twl_lst_push_back(builtins, builtin_new("continue", builtin_continue_exec, BUILTIN_FLAG_SPECIAL_BUILTIN));
+		twl_lst_push_back(builtins, builtin_new("dirs", builtin_dirs_exec, 0));
 		twl_lst_push_back(builtins, builtin_new("echo", builtin_echo_exec, 0));
 		twl_lst_push_back(builtins, builtin_new("env", builtin_env_exec, 0));
 		twl_lst_push_back(builtins, builtin_new("eval", builtin_eval_exec, BUILTIN_FLAG_SPECIAL_BUILTIN));
@@ -72,6 +76,8 @@ t_lst				*data_builtins(void)
 		twl_lst_push_back(builtins, builtin_new("getopts", builtin_getopts_exec, 0));
 		twl_lst_push_back(builtins, builtin_new("jobs", builtin_jobs_exec, 0));
 		twl_lst_push_back(builtins, builtin_new("kill", builtin_kill_exec, 0));
+		twl_lst_push_back(builtins, builtin_new("popd", builtin_popd_exec, 0));
+		twl_lst_push_back(builtins, builtin_new("pushd", builtin_pushd_exec, 0));
 		twl_lst_push_back(builtins, builtin_new("read", builtin_read_exec, 0));
 		twl_lst_push_back(builtins, builtin_new("readonly", builtin_readonly_exec, BUILTIN_FLAG_SPECIAL_BUILTIN));
 		twl_lst_push_back(builtins, builtin_new("return", builtin_return_exec, BUILTIN_FLAG_SPECIAL_BUILTIN));
