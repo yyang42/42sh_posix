@@ -42,7 +42,7 @@ static void		expan_param_normal(t_expansion *this, char *normal)
 	{
 		if (shenv_shflag_exist(shenv_singleton(), "nounset"))
 		{
-			shenv_singl_error(EXIT_FAILURE, "%s: unbound variable", normal);
+			shenv_singl_error(EXIT_FAILURE, "%s: unbound variable", normal + 1);
 			shenv_singleton()->shenv_shall_quit_curr_ast = true;
 		}
 		return ;
