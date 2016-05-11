@@ -41,8 +41,8 @@
 # define SHENV_FLAG_AREXP (1 << 2)
 # define SHENV_FLAG_GNL (1 << 3)
 
-# define FTSH_VALID_SET_OPTS "abCefhimnuvx"
-# define FTSH_VALID_ALL_OPTS ":c:Ao:"FTSH_VALID_SET_OPTS
+# define FTSH_VALID_SET_OPTS "abCefhmnuvx"
+# define FTSH_VALID_ALL_OPTS ":Ac:io:"FTSH_VALID_SET_OPTS
 
 typedef struct				s_shenv_info
 {
@@ -74,6 +74,7 @@ typedef struct				s_shenv
 	t_lst					*shenv_traps;
 	int						last_exit_code;
 	bool					shenv_is_interactive;
+	bool					shenv_job_control_enabled;
 
 	int						shenv_break_counter;
 	int						shenv_continue_counter;

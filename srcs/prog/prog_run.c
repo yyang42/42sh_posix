@@ -44,6 +44,20 @@ static char			*prog_run_get_input(t_prog *prog)
 	return (input);
 }
 
+static void			set_interactive_state(void)
+{
+	bool			tty;
+
+	tty = isatty(0);
+
+	shenv_singleton()->shenv_is_interactive |= tty;
+	if (tty)
+		shenv_singleton()->shenv_job_control_enabled = true;
+	// LOG_DEBUG("tty: %d", tty);
+	// if (shenv_singleton()->shenv_is_interactive && !tty)
+	// 	twl_dprintf(2, "%s: no job control in this shell\n", shenv_singleton()->shenv_name);
+}
+
 int					prog_run(t_prog *prog)
 {
 	char			*input;
@@ -51,11 +65,13 @@ int					prog_run(t_prog *prog)
 	input = prog_run_get_input(prog);
 	if (input)
 	{
+		if (shenv_singleton()->shenv_is_interactive)
+			twl_dprintf(2, "%s: no job control in this shell\n", shenv_singleton()->shenv_name);
 		prog_run_input(prog, input);
 	}
-	else if (twl_lst_len(shenv_singleton()->shenv_argv_remainder) == 0)
+	else
 	{
-		shenv_singleton()->shenv_is_interactive = isatty(0);
+		set_interactive_state();
 		if (shenv_singleton()->shenv_is_interactive)
 			prog_run_interactive(prog);
 		else

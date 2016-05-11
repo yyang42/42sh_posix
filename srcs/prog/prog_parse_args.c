@@ -31,6 +31,8 @@ static void			process_arg(t_prog *prog, char sign, char c, char *optarg)
 		env->shenv_prog_flags |= SHENV_FLAG_AREXP;
 	else if (c == 'G')
 		env->shenv_prog_flags |= SHENV_FLAG_GNL;
+	else if (c == 'i')
+		shenv_singleton()->shenv_is_interactive = true;
 	else if (c == 'c')
 		process_command_c(prog, optarg);
 	else

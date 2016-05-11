@@ -1,2 +1,2 @@
 /tmp/input.sh: line 1: set: +z: invalid option
-set: usage: set [--abCefhimnuvx] [-o option] [arg ...]
+set: usage: set [--abCefhmnuvx] [-o option] [arg ...]
