@@ -14,7 +14,7 @@
 
 bool				shenv_loop_should_exec(t_shenv *this)
 {
-	if (shenv_flag_exist(shenv_singleton(), "n"))
+	if (shenv_flag_exist(shenv_singleton(), "noexec"))
 		return (false);
 	if (shenv_singleton()->shenv_return_triggered)
 		return (false);

@@ -62,7 +62,7 @@ typedef struct				s_shenv
 	t_token					*shenv_cur_token;
 	t_lst					*shenv_shvars;
 	t_lst					*shenv_shflags;
-	int						shenv_flags;
+	int						shenv_prog_flags;
 	t_lst					*shenv_argv_remainder;
 	t_lst					*shenv_pos_params;
 	t_htab					*alias;

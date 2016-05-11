@@ -15,11 +15,11 @@
 
 void				prog_run_input(t_prog *prog, char *input)
 {
-	if (shenv_singleton()->shenv_flags & SHENV_FLAG_AST)
+	if (shenv_singleton()->shenv_prog_flags & SHENV_FLAG_AST)
 	{
 		prog_print_ast(prog, input);
 	}
-	else if (shenv_singleton()->shenv_flags & SHENV_FLAG_AREXP)
+	else if (shenv_singleton()->shenv_prog_flags & SHENV_FLAG_AREXP)
 	{
 		prog_print_arexp(prog, input);
 	}

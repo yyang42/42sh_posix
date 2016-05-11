@@ -17,7 +17,7 @@ t_ast				*ast_new(char *input, int flags)
 	t_ast			*ast;
 	t_lst			*tokens;
 
-	if (shenv_flag_exist(shenv_singleton(), "v"))
+	if (shenv_flag_exist(shenv_singleton(), "verbose"))
 		twl_putstr_fd(input, 2);
 	tokens = tokenizer_utils_tokenize(input);
 	ast = ast_new_from_tokens(tokens);
