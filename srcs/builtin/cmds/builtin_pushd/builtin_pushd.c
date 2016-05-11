@@ -17,8 +17,8 @@ static void		bp_error(t_builtin_dirs *this, t_lst *dirs, size_t len)
 	if (len == 0)
 		shenv_singl_error(1, "pushd: directory stack empty");
 	else
-		shenv_singl_error(1, "%i: pushd: directory stack index out of range",
-				this->number);
+		shenv_singl_error(1, "pushd: %c%i: directory stack index out of range",
+				this->is_negative ? '-' : '+', this->number);
 	free(twl_lst_pop_front(dirs));
 }
 
@@ -42,7 +42,6 @@ static void		pushd_number(t_builtin_dirs *this, t_lst *dirs, size_t len)
 		free(new_pwd);
 		return ;
 	}
-	twl_printf("old: %s ; new: %s\n", old_pwd, new_pwd);
 	shenv_shvars_set(shenv_singleton(), "OLDPWD", old_pwd, NULL);
 	shenv_shvars_set(shenv_singleton(), "PWD", new_pwd, NULL);
 	free(new_pwd);
@@ -67,7 +66,7 @@ static void		pushd_no_number(t_builtin_dirs *this, t_lst *dirs, size_t len)
 	}
 	if (chdir(new_pwd) == -1)
 	{
-		shenv_singl_error(1, "%s: %s", new_pwd, strerror(errno));
+		shenv_singl_error(1, "pushd: %s: %s", new_pwd, strerror(errno));
 		free(twl_lst_pop_front(dirs));
 		return ;
 	}
