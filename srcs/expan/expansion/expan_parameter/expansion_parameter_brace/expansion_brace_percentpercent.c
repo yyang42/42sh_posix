@@ -13,6 +13,15 @@
 #include "expan/expansion_parameter_brace.h"
 #include "pattern_matching/substr.h"
 
+static void		set_err_fn(char *text)
+{
+	if (shenv_shflag_exist(shenv_singleton(), "nounset"))
+	{
+		shenv_singl_error(EXIT_FAILURE, "%s: unbound variable", text);
+		shenv_singleton()->shenv_shall_quit_curr_ast = true;
+	}
+}
+
 static void		expan_param_pos(t_expansion *this, t_expansion_brace *eb)
 {
 	char		*param;
@@ -22,7 +31,10 @@ static void		expan_param_pos(t_expansion *this, t_expansion_brace *eb)
 
 	param = expan_get_param_pos(eb->param);
 	if (!param)
+	{
+		set_err_fn(eb->param);
 		return ;
+	}
 	substr = substr_new();
 	match = substr_percentpercent(substr, param, eb->word);
 	if (!*match)
@@ -47,7 +59,10 @@ static void		expan_param_normal(t_expansion *this, t_expansion_brace *eb)
 
 	param = expan_get_param_normal(eb->param);
 	if (!param)
+	{
+		set_err_fn(eb->param);
 		return ;
+	}
 	substr = substr_new();
 	match = substr_percentpercent(substr, param, eb->word);
 	if (!*match)

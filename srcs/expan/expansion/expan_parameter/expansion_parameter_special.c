@@ -55,7 +55,16 @@ static void	expan_param_spec(t_expansion *this, char special)
 
 	ls = expan_get_param_spec(special);
 	if (!ls || twl_lst_len(ls) != 1)
+	{
+		if (ls)
+			twl_lst_del(ls, free);
+		if (shenv_shflag_exist(shenv_singleton(), "nounset"))
+		{
+			shenv_singl_error(EXIT_FAILURE, "$%c: unbound variable", special);
+			shenv_singleton()->shenv_shall_quit_curr_ast = true;
+		}
 		return ;
+	}
 	quote = expan_quote(twl_lst_get(ls, 0), this->quoted);
 	expansion_push_before_split(this, quote, !this->quoted);
 	free(quote);
