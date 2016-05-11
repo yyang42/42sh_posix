@@ -29,17 +29,22 @@ static void			handle_command_c_args(void)
 static char			*prog_run_get_input(t_prog *prog)
 {
 	char			*input;
+	t_lst			*argv_lst;
 
 	input = NULL;
+	argv_lst = shenv_singleton()->shenv_argv_remainder;
 	if (prog->prog_command_arg)
 	{
 		LOG_INFO("exec opt -c: %s", prog->prog_command_arg);
 		input = twl_strdup(prog->prog_command_arg);
 		handle_command_c_args();
 	}
-	else if (twl_lst_len(shenv_singleton()->shenv_argv_remainder) > 0)
+	else if (twl_lst_len(argv_lst) > 0)
 	{
-		input = prog_run_file_to_str(prog, twl_lst_first(shenv_singleton()->shenv_argv_remainder));
+		if (twl_strequ(twl_lst_first(argv_lst), "-"))
+			twl_lst_pop_front(argv_lst);
+		if (twl_lst_len(argv_lst) > 0)
+			input = prog_run_file_to_str(prog, twl_lst_first(argv_lst));
 	}
 	return (input);
 }
