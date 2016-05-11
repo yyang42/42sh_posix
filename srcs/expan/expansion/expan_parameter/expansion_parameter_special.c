@@ -56,6 +56,8 @@ static void	expan_param_spec(t_expansion *this, char special)
 	ls = expan_get_param_spec(special);
 	if (!ls || twl_lst_len(ls) != 1)
 	{
+		if (ls)
+			twl_lst_del(ls, free);
 		if (shenv_shflag_exist(shenv_singleton(), "nounset"))
 		{
 			shenv_singl_error(EXIT_FAILURE, "$%c: unbound variable", normal);
