@@ -12,13 +12,11 @@
 
 #include "shenv/shenv.h"
 
-bool				shenv_loop_should_exec(t_shenv *this)
+bool				shenv_should_continue_exec(t_shenv *this)
 {
-	if (shenv_shflag_exist(shenv_singleton(), "noexec"))
-		return (false);
-	if (shenv_singleton()->shenv_return_triggered)
-		return (false);
-	if (shenv_singleton()->shenv_shall_quit_curr_ast)
+	if (shenv_shflag_exist(shenv_singleton(), "noexec")
+		|| shenv_singleton()->shenv_return_triggered
+		|| shenv_singleton()->shenv_shall_quit_curr_ast)
 		return (false);
 	return (this->shenv_break_counter == 0
 		&& this->shenv_continue_counter == 0);

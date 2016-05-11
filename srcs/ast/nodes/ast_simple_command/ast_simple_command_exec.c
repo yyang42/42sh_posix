@@ -69,7 +69,7 @@ static void			ast_simple_command_exec_with_redirs(t_ast_simple_command *cmd)
 
 void				ast_simple_command_exec(t_ast_simple_command *cmd)
 {
-	if (!shenv_loop_should_exec(shenv_singleton()))
+	if (!shenv_should_continue_exec(shenv_singleton()))
 		return ;
 	shenv_singleton()->info.saved_last_exit = shenv_singleton()->last_exit_code;
 	shenv_singleton()->last_exit_code = EXIT_SUCCESS;
