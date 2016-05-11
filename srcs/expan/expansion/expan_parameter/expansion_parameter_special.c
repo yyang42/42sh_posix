@@ -60,7 +60,7 @@ static void	expan_param_spec(t_expansion *this, char special)
 			twl_lst_del(ls, free);
 		if (shenv_shflag_exist(shenv_singleton(), "nounset"))
 		{
-			shenv_singl_error(EXIT_FAILURE, "$%c: unbound variable", normal);
+			shenv_singl_error(EXIT_FAILURE, "$%c: unbound variable", special);
 			shenv_singleton()->shenv_shall_quit_curr_ast = true;
 		}
 		return ;
