@@ -62,7 +62,7 @@ typedef struct				s_shenv
 	t_token					*shenv_cur_token;
 	t_lst					*shenv_shvars;
 	t_lst					*shenv_shflags;
-	int						shenv_flags;
+	int						shenv_prog_flags;
 	t_lst					*shenv_argv_remainder;
 	t_lst					*shenv_pos_params;
 	t_htab					*alias;
@@ -108,7 +108,7 @@ void				shenv_print(t_shenv *this);
 void				shenv_unsetenv(t_shenv *this, char *str);
 t_shenv				*shenv_singleton(void);
 t_shenv				*shenv_singleton_setter(t_shenv *src_env);
-int					shenv_flag_exist(t_shenv *this, char *flag);
+int					shenv_shflag_exist(t_shenv *this, char *flag);
 void				shenv_print_flags(t_shenv *env);
 void				shenv_print_all(t_shenv *this);
 char				**shenv_get_paths(t_shenv *this);
@@ -154,7 +154,7 @@ void				shenv_loop_level_decr(t_shenv *this);
 void				shenv_break_counter_decr(t_shenv *this);
 void				shenv_continue_counter_decr(t_shenv *this);
 void				shenv_continue_counter_decr_if_one(t_shenv *this);
-bool				shenv_loop_should_exec(t_shenv *this);
+bool				shenv_should_continue_exec(t_shenv *this);
 
 /*
 ** SHELL FUNCTIONS

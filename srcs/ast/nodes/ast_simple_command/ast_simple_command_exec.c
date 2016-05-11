@@ -24,7 +24,7 @@ static void			iter_assign_fn(void *assign_, void *cmd_)
 	assign = assign_;
 	cmd = cmd_;
 	shenv_singleton()->shenv_cur_token = assign->token;
-	if (shenv_flag_exist(shenv_singleton(), "x"))
+	if (shenv_shflag_exist(shenv_singleton(), "xtrace"))
 		twl_dprintf(2, "+ %s=%s\n", assign->key, assign->value);
 	shvar = shvar_mgr_find_or_create(shenv_singleton()->shenv_shvars, assign->key);
 	if (shvar_check_is_readonly_and_print(shvar))
@@ -38,7 +38,7 @@ static void			iter_assign_fn(void *assign_, void *cmd_)
 	{
 		shvar->shvar_assign_value = twl_strdup(assign->value);
 	}
-	if (shenv_flag_exist(shenv_singleton(), "a"))
+	if (shenv_shflag_exist(shenv_singleton(), "allexport"))
 	{
 		shvar->shvar_exported = true;
 	}
@@ -69,7 +69,7 @@ static void			ast_simple_command_exec_with_redirs(t_ast_simple_command *cmd)
 
 void				ast_simple_command_exec(t_ast_simple_command *cmd)
 {
-	if (!shenv_loop_should_exec(shenv_singleton()))
+	if (!shenv_should_continue_exec(shenv_singleton()))
 		return ;
 	shenv_singleton()->info.saved_last_exit = shenv_singleton()->last_exit_code;
 	shenv_singleton()->last_exit_code = EXIT_SUCCESS;
@@ -82,7 +82,7 @@ void				ast_simple_command_exec(t_ast_simple_command *cmd)
 		exit(1);
 		return ;
 	}
-	if (shenv_flag_exist(shenv_singleton(), "x") && twl_lst_len(cmd->cmd_tokens_expanded))
+	if (shenv_shflag_exist(shenv_singleton(), "xtrace") && twl_lst_len(cmd->cmd_tokens_expanded))
 		token_mgr_xtrace_print(cmd->cmd_tokens_expanded);
 	ast_simple_command_exec_with_redirs(cmd);
 	shvar_mgr_clear_assign_value(shenv_singleton()->shenv_shvars);

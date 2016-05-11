@@ -21,16 +21,8 @@ t_shenv			*shenv_new(void)
 	this = twl_malloc_x0(sizeof(t_shenv));
 	this->shenv_shvars = twl_lst_new();
 	this->shenv_shflags = shflag_mgr_new();
-	this->shenv_flags = 0;
+	this->shenv_prog_flags = 0;
 	this->shenv_argv_remainder = NULL;
-	/* Note: Changing the content of xopt is dangerous.
-	xopt_get_args(xopt) will return a reference not a copy
-	and changing it may cause problems.
-
-	xopt = xopt_singleton();
-	this->shenv_pos_params = xopt_get_args(xopt);
-	this->flags = xopt_get_opts(xopt);
-	*/
 	this->shenv_name = twl_strdup(SHENV_DEFAULT_NAME);
 	this->shenv_cur_cmd = twl_strdup(SHENV_DEFAULT_NAME);
 	this->alias = twl_htab_new();

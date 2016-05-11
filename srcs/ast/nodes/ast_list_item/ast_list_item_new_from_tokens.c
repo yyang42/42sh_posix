@@ -49,7 +49,7 @@ static void			ast_list_item_exec_wrapper(t_ast_list_item *this, struct s_ast *as
 	if (ast->error_msg)
 		return ;
 	if (shenv_singleton()->shenv_list_item_level == 1
-		&& !(shenv_singleton()->shenv_flags & SHENV_FLAG_AST))
+		&& !(shenv_singleton()->shenv_prog_flags & SHENV_FLAG_AST))
 	{
 		ast_list_item_exec(this);
 	}

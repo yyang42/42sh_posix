@@ -21,11 +21,11 @@ static void			process_arg(t_prog *prog, char sign, char c, char *optarg)
 
 	env = shenv_singleton();
 	if (c == 'A')
-		env->shenv_flags |= SHENV_FLAG_AST;
+		env->shenv_prog_flags |= SHENV_FLAG_AST;
 	else if (c == 'E')
-		env->shenv_flags |= SHENV_FLAG_AREXP;
+		env->shenv_prog_flags |= SHENV_FLAG_AREXP;
 	else if (c == 'G')
-		env->shenv_flags |= SHENV_FLAG_GNL;
+		env->shenv_prog_flags |= SHENV_FLAG_GNL;
 	else if (c == 'c')
 	{
 		free(prog->prog_command_arg);
