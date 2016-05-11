@@ -29,7 +29,7 @@ static void			print_token_fn(void *token_, void *next, void *ctx)
 void				ast_for_clause_exec_handle_xtrace(t_ast_for_clause *this)
 {
 	;
-	if (shenv_flag_exist(shenv_singleton(), "xtrace"))
+	if (shenv_shflag_exist(shenv_singleton(), "xtrace"))
 	{
 		twl_dprintf(2, "+ for %s in ", this->name);
 		twl_lst_itern(this->wordlist, print_token_fn, NULL);

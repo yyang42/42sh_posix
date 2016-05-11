@@ -35,7 +35,7 @@ bool				job_exec_update_status(t_job *job)
 	free(str_status);
 	if (!shenv_singleton()->shenv_is_interactive)
 		return (false);
-	if (shenv_flag_exist(shenv_singleton(), "notify"))
+	if (shenv_shflag_exist(shenv_singleton(), "notify"))
 	{
 		job_print(job, 0);
 		return (job_has_terminated(job));

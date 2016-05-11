@@ -32,7 +32,7 @@ static char			*get_cmd(void)
 
 void				handle_verbose(char *input)
 {
-	if (shenv_flag_exist(shenv_singleton(), "verbose"))
+	if (shenv_shflag_exist(shenv_singleton(), "verbose"))
 	{
 		twl_putstr_fd(input, 2);
 		twl_putstr_fd("\n", 2);

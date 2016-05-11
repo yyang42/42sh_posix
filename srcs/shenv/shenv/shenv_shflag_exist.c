@@ -16,7 +16,7 @@
 #include "twl_lst.h"
 #include "twl_opt_elem.h"
 
-int					shenv_flag_exist(t_shenv *this, char *flag)
+int					shenv_shflag_exist(t_shenv *this, char *flag)
 {
 	t_shflag		*shflag;
 
