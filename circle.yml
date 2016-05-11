@@ -15,5 +15,5 @@ test:
     - make check_ast
     - make check_use_case
     - make check_exit_code
-    - cat /tmp/.debug.out
+    # - cat /tmp/.debug.out
     - make check_log_error
