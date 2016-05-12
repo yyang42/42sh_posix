@@ -1,1 +1,1 @@
-42sh: line 1: execve: /tmp/test_builtin_exec_not_exist: not found
+/tmp/bin/42sh: line 1: execve: /tmp/test_builtin_exec_not_exist: not found

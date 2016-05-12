@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "shsignal/shsignal.h"
+#include "shenv/shenv.h"
 #include <sys/wait.h>
 #include <sys/types.h>
 
@@ -24,16 +25,16 @@ void			handle_signal(int sig)
 		if (sigo == SIGINT)
 			;
 		else if (sigo == SIGSEGV)
-			twl_dprintf(2, "42sh: Segmentation fault: %d\n", sigo);
+			shenv_singl_error(EXIT_FAILURE, "Segmentation fault: %d\n", sigo);
 		else if (sigo == SIGKILL)
-			twl_dprintf(2, "42sh: Killed: %d\n", sigo);
+			shenv_singl_error(EXIT_FAILURE, "Killed: %d\n", sigo);
 		else if (sigo == SIGABRT)
-			twl_dprintf(2, "42sh: Abort: %d\n", sigo);
+			shenv_singl_error(EXIT_FAILURE, "Abort: %d\n", sigo);
 		else if (sigo == SIGTERM)
-			twl_dprintf(2, "42sh: Terminated: %d\n", sigo);
+			shenv_singl_error(EXIT_FAILURE, "Terminated: %d\n", sigo);
 		else if (sigo == SIGBUS)
-			twl_dprintf(2, "42sh: Bus error: %d\n", sigo);
+			shenv_singl_error(EXIT_FAILURE, "Bus error: %d\n", sigo);
 		else
-			twl_dprintf(2, "42sh: Unkown signal: %d\n", sigo);
+			shenv_singl_error(EXIT_FAILURE, "Unkown signal: %d\n", sigo);
 	}
 }

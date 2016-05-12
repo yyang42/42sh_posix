@@ -1,1 +1,1 @@
-42sh: line 1: -i: command not found
+/tmp/input.sh: line 1: -i: command not found

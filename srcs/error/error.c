@@ -11,18 +11,19 @@
 /* ************************************************************************** */
 
 #include "error.h"
+#include "shenv/shenv.h"
 
 void 	error_permission_denied(char *file)
 {
-	twl_dprintf(2, "42sh: permission denied: %s\n", file);
+	shenv_singl_error(EXIT_FAILURE, "permission denied: %s\n", file);
 }
 
 void 	error_not_directory(char *file)
 {
-	twl_dprintf(2, "42sh: Not a directory: %s\n", file);
+	shenv_singl_error(EXIT_FAILURE, "Not a directory: %s\n", file);
 }
 
 void 	error_command_not_found(char *file)
 {
-	twl_dprintf(2, "42sh: command not found: %s\n", file);
+	shenv_singl_error(EXIT_FAILURE, "command not found: %s\n", file);
 }

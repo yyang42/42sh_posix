@@ -27,7 +27,7 @@ int					ast_redir_fd_utils_get_duplication_fd(t_token *token)
 	}
 	else
 	{
-		twl_dprintf(2, "42sh: %s: ambiguous redirect", token->text);
+		shenv_singl_error(EXIT_FAILURE, "%s: ambiguous redirect", token->text);
 		return (-1);
 	}
 }

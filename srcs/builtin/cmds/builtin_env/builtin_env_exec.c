@@ -52,7 +52,7 @@ static void			exec_remaining_command_in_new_env(
 	env_src = shenv_singleton();
 	env_copy = shenv_copy(env_src);
 	free(env_copy->shenv_name);
-	env_copy->shenv_name = twl_strdup(SHENV_DEFAULT_NAME);
+	env_copy->shenv_name = twl_strdup(shenv_singleton()->shenv_name);
 	env_copy->jobs = env_src->jobs;
 	shenv_singleton_setter(env_copy);
 	exec_remaining_command(argparser_result);

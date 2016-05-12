@@ -19,7 +19,7 @@ static void			init_env_info(t_shenv_info *info)
 	info->cur_shell_pid = getpid();
 	info->parent_shell_pid = -1;
 	info->most_recent_background_command_pid = -1;
-	info->name = twl_strdup("42shPosix");
+	info->name = twl_strdup("SHOULD_NOT_BE_USED");
 }
 
 static void			init_env(void *elem, void *context)

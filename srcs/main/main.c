@@ -14,6 +14,7 @@
 
 #include "prog.h"
 #include "twl_logger.h"
+#include "shenv/shenv.h"
 
 #ifndef __MOULITEST__
 
@@ -22,6 +23,7 @@ int					main(int ac, char **av)
 	t_prog			*prog;
 	int				ret;
 
+	shenv_set_name(shenv_singleton(), av[0]);
 	twl_debug_main_start();
 	prog = prog_singl();
 	prog_init(prog, av);

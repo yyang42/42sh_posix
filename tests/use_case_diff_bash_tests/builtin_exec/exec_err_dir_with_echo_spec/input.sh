@@ -1,1 +1,1 @@
-./42sh -c 'exec /tmp; echo $? abc'
+$TESTED_SHELL -c 'exec /tmp; echo $? abc'
