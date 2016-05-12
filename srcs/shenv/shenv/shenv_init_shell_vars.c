@@ -30,8 +30,19 @@ static void			set_getopt_vars(t_shenv *this)
 	shenv_shvars_set(this, "OPTIND", "1", this->shenv_name);
 }
 
+static void			set_history_file(t_shenv *this)
+{
+	char			*path;
+
+	if (shenv_shvars_get(this, "HISTFILE"))
+		return ;
+	twl_asprintf(&path, "%s/%s", shenv_get_home(this), SHENV_DEFAULT_HISTORY_FILE);
+	shenv_shvars_set(this, "HISTFILE", path, this->shenv_name);
+}
+
 void				shenv_init_shell_vars(t_shenv *this)
 {
 	set_getopt_vars(this);
 	set_ppid(this);
+	set_history_file(this);
 }

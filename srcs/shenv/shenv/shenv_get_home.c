@@ -10,26 +10,29 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "edit/terminal.h"
 #include "shenv/shenv.h"
+#include <pwd.h>
+#include <errno.h>
 
-int					terminal_enable(void)
+char				*shenv_get_home(t_shenv *this)
 {
-	char			*name_term;
-	t_termios		*term;
+	char			*home;
+	struct passwd	*pw;
 
-	term = terminal_singleton();
-	if ((name_term = shenv_shvars_get_value(shenv_singleton(), "TERM")) == NULL)
-		return (-1);
-	if (tgetent(NULL, name_term) == ERR)
-		return (-1);
-	if (tcgetattr(0, term) == -1)
-		return (-1);
-	DISABLE_FLAG(term->c_lflag, ICANON);
-	DISABLE_FLAG(term->c_lflag, ECHO);
-	term->c_cc[VMIN] = 1;
-	term->c_cc[VTIME] = 0;
-	tcsetattr(0, TCSADRAIN, term);
-	tputs(cursor_invisible, 1, twl_putchar);
-	return (0);
+	home = shenv_shvars_get_value(this, "HOME");
+	if (!home)
+	{
+		free(this->shenv_home_pw_dir);
+		if ((pw = getpwuid(geteuid())))
+		{
+			this->shenv_home_pw_dir = twl_strdup(pw->pw_dir);
+		}
+		else
+		{
+			LOG_ERROR("getpwuid: %s", strerror(errno));
+			this->shenv_home_pw_dir = twl_strdup("");
+		}
+		home = this->shenv_home_pw_dir;
+	}
+	return (home);
 }

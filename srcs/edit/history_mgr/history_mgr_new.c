@@ -26,14 +26,10 @@ t_lst				*history_mgr_new(void)
 	char			*filename;
 	int				fd;
 	char			*line;
-	char			*home_path;
 	char			*gnl_remainder;
 
-	home_path = shenv_shvars_get_value(shenv_singleton(), "HOME");
-	if (!home_path || !twl_isdir(home_path))
-		home_path = ".";
 	history = twl_lst_new();
-	filename = twl_joinpath(home_path, HISTORY_FILENAME);
+	filename = shenv_get_home(shenv_singleton());
 	fd = open(filename, O_CREAT | O_RDONLY, 0644);
 	/*
 	** TODO : FD Error handling
@@ -44,7 +40,6 @@ t_lst				*history_mgr_new(void)
 		history_mgr_add(history, line);
 		free(line);
 	}
-	free(filename);
 	free(gnl_remainder);
 	close(fd);
 	return (history);

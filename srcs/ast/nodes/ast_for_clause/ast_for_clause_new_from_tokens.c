@@ -51,6 +51,7 @@ t_ast_for_clause		*ast_for_clause_new_from_tokens(t_lst *tokens,
 		ast_set_error_msg_syntax_error_near(ast, open, "invalid NAME token");
 		return (NULL);
 	}
+	token_mgr_pop_linebreak(tokens);
 	if (token_mgr_first_equ(tokens, "in"))
 	{
 		twl_lst_pop_front(tokens);

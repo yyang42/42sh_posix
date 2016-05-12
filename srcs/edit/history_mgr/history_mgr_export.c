@@ -13,6 +13,7 @@
 #include <fcntl.h>
 
 #include "edit/history_mgr.h"
+#include "shenv/shenv.h"
 
 static void			iter_fn(void *history_line, void *fd_ptr)
 {
@@ -31,10 +32,8 @@ void				history_mgr_export(t_lst *history)
 	char			*filename;
 	int				fd;
 
-
-	filename = twl_joinpath(getenv("HOME"), HISTORY_FILENAME);
+	filename = shenv_get_home(shenv_singleton());
 	fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0666);
 	twl_lst_iter(history, iter_fn, &fd);
-	free(filename);
 	close(fd);
 }

@@ -45,6 +45,8 @@
 # define FTSH_VALID_SET_OPTS "abCefhmnuvx"
 # define FTSH_VALID_ALL_OPTS ":Ac:io:s"FTSH_VALID_SET_OPTS
 
+# define SHENV_DEFAULT_HISTORY_FILE ".sh_history"
+
 typedef struct				s_shenv_info
 {
 	int						saved_last_exit;
@@ -60,6 +62,7 @@ typedef struct				s_shenv
 {
 	char					*shenv_name;
 	char					*shenv_cur_cmd;
+	char					*shenv_home_pw_dir;
 	t_token					*shenv_cur_token;
 	t_lst					*shenv_shvars;
 	t_lst					*shenv_shflags;
@@ -113,7 +116,6 @@ t_shenv				*shenv_singleton_setter(t_shenv *src_env);
 int					shenv_shflag_exist(t_shenv *this, char *flag);
 void				shenv_print_flags(t_shenv *env);
 void				shenv_print_all(t_shenv *this);
-char				**shenv_get_paths(t_shenv *this);
 void				shenv_add_flag(char *flag, t_shenv *env);
 void				shenv_remove_flag(char *flag, t_shenv *env);
 void				shenv_add_pos_param(char *param, t_shenv *env);
@@ -138,11 +140,14 @@ pid_t				shenv_utils_fork(void);
 char				*shenv_find_binary_path(t_shenv *env, char *cmd);
 void				shenv_build_binary_db(t_shenv *env);
 void				shenv_set_binary_saved_path(t_shenv *env, char *path);
-char				*shenv_get_ifs(t_shenv *this);
 int					shenv_set_read_buffer_ptr(t_shenv *env, int fd);
 void				shenv_clear_stdin_read_buffer(t_shenv *env);
 void				shenv_execve(t_shenv *env, char *path, t_lst *argv_lst);
 void				shenv_execve_findpath(t_shenv *env, t_lst *argv_lst);
+
+char				**shenv_get_paths(t_shenv *this);
+char				*shenv_get_ifs(t_shenv *this);
+char				*shenv_get_home(t_shenv *this);
 
 /*
 ** exit
