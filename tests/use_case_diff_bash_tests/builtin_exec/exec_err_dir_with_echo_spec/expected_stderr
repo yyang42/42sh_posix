@@ -1,1 +1,1 @@
-42sh: line 1: execve: /tmp: Permission denied
+/tmp/bin/42sh: line 1: execve: /tmp: Permission denied

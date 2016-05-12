@@ -27,7 +27,7 @@ static void	child_part(t_expansion *this, t_expan_token *token, int fd[2])
 
 	if (dup2(fd[1], 1) == -1)
 	{
-		twl_dprintf(2, "42sh: dup2 error\n");
+		shenv_singl_error(EXIT_FAILURE, "dup2 error\n");
 		exit(-1);
 	}
 	close(fd[0]);
@@ -100,12 +100,12 @@ void		expansion_cmdsbt_bquote(t_expansion *this, t_expan_token *token)
 
 	if (pipe(fd) == -1)
 	{
-		twl_dprintf(2, "42sh: pipe error\n");
+		shenv_singl_error(EXIT_FAILURE, "pipe error\n");
 		exit(-1);
 	}
 	if ((pid = fork()) == -1)
 	{
-		twl_dprintf(2, "42sh: pipe error\n");
+		shenv_singl_error(EXIT_FAILURE, "pipe error\n");
 		exit(-1);
 	}
 	if (pid == 0)

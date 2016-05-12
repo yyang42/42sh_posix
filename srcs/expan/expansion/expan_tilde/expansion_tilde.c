@@ -17,20 +17,11 @@
 static void			get_home(t_expansion *this)
 {
 	char			*home;
-	struct passwd	*pw;
 
-	home = shenv_shvars_get_value(shenv_singleton(), "HOME");
+	home = shenv_get_home(shenv_singleton());
 	if (!home)
-	{
-		if ((pw = getpwuid(geteuid())))
-			expansion_push_before_split(this, pw->pw_dir, false);
-		else
-			expansion_push_before_split(this, "~", false);
-	}
-	else
-	{
-		expansion_push_before_split(this, home, false);
-	}
+		home = "~";
+	expansion_push_before_split(this, home, false);
 }
 
 static bool			check_dirs(t_expansion *this, size_t index, bool is_neg)

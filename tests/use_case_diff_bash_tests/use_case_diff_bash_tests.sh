@@ -13,6 +13,9 @@ count_success=0
 count_failure=0
 
 make
+mkdir -p /tmp/bin
+mv $RENDU_PATH/42sh /tmp/bin/
+cp -f /bin/bash /tmp/bin/bash
 
 if [ "$?" -ne "0" ]; then
     exit 1
@@ -53,14 +56,12 @@ diff_test ()
     mkdir -p $testcase_tmp
     rm -f $testcase_tmp/*
     export TESTED_SHELL
-    TESTED_SHELL=$RENDU_PATH/42sh
-    $RENDU_PATH/42sh /tmp/input.sh > $testcase_tmp_stdout 2> $testcase_tmp_stderr
+    TESTED_SHELL=/tmp/bin/42sh
+    $TESTED_SHELL /tmp/input.sh > $testcase_tmp_stdout 2> $testcase_tmp_stderr
     echo "exit_code: $?" >> $testcase_tmp_stdout
-    if [ ! -f $testcase_path/expected_stdout ] || [ ! -f $testcase_path/expected_stderr ]; then
-        TESTED_SHELL='bash --posix'
-        bash --posix /tmp/input.sh > $testcase_tmp_bash_stdout 2> $testcase_tmp_bash_stderr
-        echo "exit_code: $?" >> $testcase_tmp_bash_stdout
-    fi
+    TESTED_SHELL='/tmp/bin/bash --posix'
+    bash --posix /tmp/input.sh > $testcase_tmp_bash_stdout 2> $testcase_tmp_bash_stderr
+    echo "exit_code: $?" >> $testcase_tmp_bash_stdout
     if [ -f $testcase_path/expected_stdout ]; then
         expected_stdout_file=$testcase_path/expected_stdout
     else
@@ -78,7 +79,7 @@ diff_test ()
 
     print_result "$stdout_res" stdout
     print_result "$stdout_err" stderr
-    echo "./42sh tests/use_case_diff_bash_tests/$testsuite/$testcase/input.sh"
+    echo "/tmp/bin/42sh tests/use_case_diff_bash_tests/$testsuite/$testcase/input.sh"
 }
 
 /usr/bin/printf "============================ START AST DIFF TESTS ==========================\n"

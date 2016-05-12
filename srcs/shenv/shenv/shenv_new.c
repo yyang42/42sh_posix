@@ -23,6 +23,7 @@ t_shenv			*shenv_new(void)
 	this->shenv_shflags = shflag_mgr_new();
 	this->shenv_prog_flags = 0;
 	this->shenv_argv_remainder = NULL;
+	this->shenv_home_pw_dir = NULL;
 	this->shenv_name = twl_strdup(SHENV_DEFAULT_NAME);
 	this->shenv_cur_cmd = twl_strdup(SHENV_DEFAULT_NAME);
 	this->alias = twl_htab_new();
@@ -46,6 +47,7 @@ t_shenv			*shenv_new(void)
 	this->shenv_binary_saved_path = twl_strdup("");
 	this->shenv_read_buffer_db = twl_malloc_x0(sizeof(char *) * getdtablesize());
 	this->shenv_fork_level = 0;
+	this->shenv_job_control_enabled = 0;
 	shenv_set_read_buffer_ptr(this, 0);
 	return (this);
 }

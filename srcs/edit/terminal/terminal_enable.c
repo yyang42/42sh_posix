@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "edit/terminal.h"
+#include "shenv/shenv.h"
 
 int					terminal_enable(void)
 {
@@ -18,7 +19,7 @@ int					terminal_enable(void)
 	t_termios		*term;
 
 	term = terminal_singleton();
-	if ((name_term = getenv("TERM")) == NULL)
+	if ((name_term = shenv_shvars_get_value(shenv_singleton(), "TERM")) == NULL)
 		return (-1);
 	if (tgetent(NULL, name_term) == ERR)
 		return (-1);

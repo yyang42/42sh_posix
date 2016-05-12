@@ -20,7 +20,7 @@ void				shenv_singl_error_simple(int exit_code, char *fmt, ...)
 	pf = pf_create((char *)fmt);
 	va_start(pf->arglist, (char *)fmt);
 	pf_prepare_xprintf__(pf);
-	twl_dprintf(STDERR_FILENO, "%s: ", SHENV_DEFAULT_NAME);
+	twl_dprintf(STDERR_FILENO, "%s: ", shenv_singleton()->shenv_name);
 	pf_print_fd(pf, STDERR_FILENO);
 	twl_dprintf(STDERR_FILENO, "\n");
 	va_end(pf->arglist);

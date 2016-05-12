@@ -39,8 +39,7 @@ t_shenv				*shenv_copy(t_shenv *this)
 	copy->shenv_pos_params = twl_lst_copy(this->shenv_pos_params, twl_strdup_void);
 	copy->function_depth = this->function_depth;
 	copy->info = this->info;
-	if (this->info.name)
-		copy->info.name = twl_strdup(this->info.name);
+	copy->info.name = twl_strdup_or_null(this->info.name);
 	copy->last_exit_code = EXIT_SUCCESS;
 	copy->shenv_traps = twl_lst_new();
 	copy->alias = twl_htab_new();
@@ -56,6 +55,8 @@ t_shenv				*shenv_copy(t_shenv *this)
 	copy->shenv_binary_saved_path = twl_strdup("");
 	copy->shenv_read_buffer_db = twl_malloc_x0(sizeof(char *) * getdtablesize());
 	copy->shenv_fork_level = this->shenv_fork_level;
+	copy->shenv_job_control_enabled = this->shenv_job_control_enabled;
+	copy->shenv_home_pw_dir = twl_strdup_or_null(this->shenv_home_pw_dir);
 	shenv_set_read_buffer_ptr(copy, 0);;
 	return (copy);
 }

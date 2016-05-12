@@ -16,13 +16,12 @@ char				*prog_run_file_to_str(t_prog *prog, char *file)
 {
 	char			*input;
 
-	shenv_set_name(shenv_singleton(), file);
 	LOG_INFO("read file: %s", file);
 	input = twl_file_to_str(file);
 	if (!input)
 	{
-		shenv_singl_error_simple(1, "%s: No such file or directory", file);
-		exit(1);
+		shenv_singl_error_simple(127, "%s: No such file or directory", file);
+		exit(shenv_singleton()->last_exit_code);
 	}
 	return (input);
 	(void)prog;

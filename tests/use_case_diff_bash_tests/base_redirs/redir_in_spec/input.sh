@@ -1,4 +1,4 @@
-echo lol > pouet
-cat < pouet
-cat < pouet < lol
-rm pouet
+echo lol > /tmp/testfile
+cat < /tmp/testfile
+cat < /tmp/testfile < lol
+rm /tmp/testfile

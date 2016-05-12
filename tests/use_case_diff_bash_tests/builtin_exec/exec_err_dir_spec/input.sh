@@ -1,1 +1,1 @@
-./42sh -c 'exec /tmp'
+$TESTED_SHELL -c 'exec /tmp'

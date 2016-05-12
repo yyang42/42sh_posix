@@ -1,8 +1,0 @@
-42sh: -Z: invalid option
-Usage:	42sh [option] [script-file]
-Shell options
-	-c command
-42sh: -Y: invalid option
-Usage:	42sh [option] [script-file]
-Shell options
-	-c command

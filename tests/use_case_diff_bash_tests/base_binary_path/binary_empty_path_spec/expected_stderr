@@ -1,1 +1,1 @@
-42sh: line 1: do_not_exist: command not found
+/tmp/input.sh: line 1: do_not_exist: command not found

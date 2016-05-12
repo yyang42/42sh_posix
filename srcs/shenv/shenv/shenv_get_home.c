@@ -11,16 +11,23 @@
 /* ************************************************************************** */
 
 #include "shenv/shenv.h"
-#include "prog.h"
+#include <pwd.h>
+#include <errno.h>
 
-t_argparser			*prog_argparser(void)
+char				*shenv_get_home(t_shenv *this)
 {
-	static t_argparser		*argparser;
+	char			*home;
+	struct passwd	*pw;
 
-	if (argparser == NULL)
+	home = shenv_shvars_get_value(this, "HOME");
+	if (!home)
 	{
-		argparser = argparser_new(SHENV_DEFAULT_NAME);
-		argparser_set_usage(argparser, "[script-file]");
+		free(this->shenv_home_pw_dir);
+		if ((pw = getpwuid(geteuid())))
+		{
+			this->shenv_home_pw_dir = twl_strdup(pw->pw_dir);
+			home = this->shenv_home_pw_dir;
+		}
 	}
-	return (argparser);
+	return (home);
 }

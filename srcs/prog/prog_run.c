@@ -12,21 +12,53 @@
 
 #include "prog.h"
 
+static void			handle_command_arguments(void)
+{
+	char			*first;
+	t_shenv			*env;
+
+	env = shenv_singleton();
+	shenv_pos_params_copy_deep_from(env, shenv_singleton()->shenv_argv_remainder);
+	first = twl_lst_pop_front(env->shenv_pos_params);
+	if (first)
+	{
+		shenv_set_name(env, first);
+	}
+}
+
 static char			*prog_run_get_input(t_prog *prog)
 {
 	char			*input;
+	t_lst			*argv_lst;
 
 	input = NULL;
+	argv_lst = shenv_singleton()->shenv_argv_remainder;
 	if (prog->prog_command_arg)
 	{
 		LOG_INFO("exec opt -c: %s", prog->prog_command_arg);
 		input = twl_strdup(prog->prog_command_arg);
 	}
-	else if (twl_lst_len(shenv_singleton()->shenv_argv_remainder) > 0)
+	else if (twl_lst_len(argv_lst) > 0)
 	{
-		input = prog_run_file_to_str(prog, twl_lst_first(shenv_singleton()->shenv_argv_remainder));
+		if (twl_strequ(twl_lst_first(argv_lst), "-"))
+			twl_lst_pop_front(argv_lst);
+		if (twl_lst_len(argv_lst) > 0)
+			input = prog_run_file_to_str(prog, twl_lst_first(argv_lst));
 	}
+	handle_command_arguments();
 	return (input);
+}
+
+static void			set_interactive_state(void)
+{
+	bool			tty;
+
+	tty = isatty(0);
+	shenv_singleton()->shenv_is_interactive |= tty;
+	if (tty)
+	{
+		shenv_singleton()->shenv_job_control_enabled = true;
+	}
 }
 
 int					prog_run(t_prog *prog)
@@ -36,11 +68,13 @@ int					prog_run(t_prog *prog)
 	input = prog_run_get_input(prog);
 	if (input)
 	{
+		if (shenv_singleton()->shenv_is_interactive)
+			twl_dprintf(2, "%s: no job control in this shell\n", SHENV_DEFAULT_NAME);
 		prog_run_input(prog, input);
 	}
-	else if (twl_lst_len(shenv_singleton()->shenv_argv_remainder) == 0)
+	else
 	{
-		shenv_singleton()->shenv_is_interactive = isatty(0);
+		set_interactive_state();
 		if (shenv_singleton()->shenv_is_interactive)
 			prog_run_interactive(prog);
 		else

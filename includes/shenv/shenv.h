@@ -40,9 +40,12 @@
 # define SHENV_FLAG_AST (1 << 1)
 # define SHENV_FLAG_AREXP (1 << 2)
 # define SHENV_FLAG_GNL (1 << 3)
+# define SHENV_FLAG_READ_STDIN (1 << 4)
 
-# define FTSH_VALID_SET_OPTS "abCefhimnuvx"
-# define FTSH_VALID_ALL_OPTS ":c:Ao:"FTSH_VALID_SET_OPTS
+# define FTSH_VALID_SET_OPTS "abCefhmnuvx"
+# define FTSH_VALID_ALL_OPTS ":Ac:io:s"FTSH_VALID_SET_OPTS
+
+# define SHENV_DEFAULT_HISTORY_FILE ".sh_history"
 
 typedef struct				s_shenv_info
 {
@@ -59,6 +62,7 @@ typedef struct				s_shenv
 {
 	char					*shenv_name;
 	char					*shenv_cur_cmd;
+	char					*shenv_home_pw_dir;
 	t_token					*shenv_cur_token;
 	t_lst					*shenv_shvars;
 	t_lst					*shenv_shflags;
@@ -74,6 +78,7 @@ typedef struct				s_shenv
 	t_lst					*shenv_traps;
 	int						last_exit_code;
 	bool					shenv_is_interactive;
+	bool					shenv_job_control_enabled;
 
 	int						shenv_break_counter;
 	int						shenv_continue_counter;
@@ -111,7 +116,6 @@ t_shenv				*shenv_singleton_setter(t_shenv *src_env);
 int					shenv_shflag_exist(t_shenv *this, char *flag);
 void				shenv_print_flags(t_shenv *env);
 void				shenv_print_all(t_shenv *this);
-char				**shenv_get_paths(t_shenv *this);
 void				shenv_add_flag(char *flag, t_shenv *env);
 void				shenv_remove_flag(char *flag, t_shenv *env);
 void				shenv_add_pos_param(char *param, t_shenv *env);
@@ -120,6 +124,8 @@ char				*shenv_concat_pos_param_char(t_shenv *env, char *sep);
 t_shvar				*shenv_shvars_get(t_shenv *this, char *key);
 void				**shenv_get_env_arr(t_shenv *this);
 char				*shenv_get_pos_param_at(t_shenv *env, size_t index);
+void				shenv_pos_params_copy_deep_from(t_shenv *env,
+					t_lst *new_pos_params);
 
 void				shenv_set_name(t_shenv *env, char *name);
 void				shenv_set_cur_cmd(t_shenv *env, char *cur_cmd);
@@ -134,11 +140,14 @@ pid_t				shenv_utils_fork(void);
 char				*shenv_find_binary_path(t_shenv *env, char *cmd);
 void				shenv_build_binary_db(t_shenv *env);
 void				shenv_set_binary_saved_path(t_shenv *env, char *path);
-char				*shenv_get_ifs(t_shenv *this);
 int					shenv_set_read_buffer_ptr(t_shenv *env, int fd);
 void				shenv_clear_stdin_read_buffer(t_shenv *env);
 void				shenv_execve(t_shenv *env, char *path, t_lst *argv_lst);
 void				shenv_execve_findpath(t_shenv *env, t_lst *argv_lst);
+
+char				**shenv_get_paths(t_shenv *this);
+char				*shenv_get_ifs(t_shenv *this);
+char				*shenv_get_home(t_shenv *this);
 
 /*
 ** exit

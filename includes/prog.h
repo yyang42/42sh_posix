@@ -37,7 +37,6 @@ int					prog_print_arexp(t_prog *prog, char *input);
 char				*prog_line_edit_get_input(t_prog *prog);
 char				*prog_line_edit_get_input_gnl(t_prog *prog);
 void				prog_handle_exit_signal(t_prog *prog);
-t_argparser			*prog_argparser(void);
 void				prog_parse_args(t_prog *prog, char **argv);
 
 #endif

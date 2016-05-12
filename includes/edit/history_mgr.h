@@ -15,8 +15,6 @@
 
 # include "basics.h"
 
-# define HISTORY_FILENAME ".42sh_history"
-
 t_lst				*history_mgr_new(void);
 void				history_mgr_del(t_lst *history);
 void				history_mgr_add(t_lst *history, char *line);
