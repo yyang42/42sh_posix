@@ -23,7 +23,6 @@ char				*prog_run_file_to_str(t_prog *prog, char *file)
 		shenv_singl_error_simple(127, "%s: No such file or directory", file);
 		exit(shenv_singleton()->last_exit_code);
 	}
-	shenv_set_name(shenv_singleton(), file);
 	return (input);
 	(void)prog;
 }

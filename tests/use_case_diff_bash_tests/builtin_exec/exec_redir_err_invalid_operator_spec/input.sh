@@ -1,5 +1,5 @@
 (
-	exec 4>|5
+	exec 4>|/tmp/file5
 	echo 'should not exec'
 ) &> /tmp/builtin_exec_stdrr
 echo exit_code: $?

@@ -1,7 +1,7 @@
-cat gnuk 2> pouet
-cat pouet
+cat gnuk 2> /tmp/testfile
+cat /tmp/testfile
 cat gnuk 2>&1 | cat -e
-rm pouet
-cat bouh &> pouet
-cat -e pouet
-rm pouet
+rm /tmp/testfile
+cat bouh &> /tmp/testfile
+cat -e /tmp/testfile
+rm /tmp/testfile
