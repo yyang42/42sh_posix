@@ -12,7 +12,7 @@
 
 #include "prog.h"
 
-static void			handle_command_c_args(void)
+static void			handle_command_arguments(void)
 {
 	char			*first;
 	t_shenv			*env;
@@ -33,11 +33,11 @@ static char			*prog_run_get_input(t_prog *prog)
 
 	input = NULL;
 	argv_lst = shenv_singleton()->shenv_argv_remainder;
+	handle_command_arguments();
 	if (prog->prog_command_arg)
 	{
 		LOG_INFO("exec opt -c: %s", prog->prog_command_arg);
 		input = twl_strdup(prog->prog_command_arg);
-		handle_command_c_args();
 	}
 	else if (twl_lst_len(argv_lst) > 0)
 	{
