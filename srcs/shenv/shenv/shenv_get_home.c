@@ -26,13 +26,8 @@ char				*shenv_get_home(t_shenv *this)
 		if ((pw = getpwuid(geteuid())))
 		{
 			this->shenv_home_pw_dir = twl_strdup(pw->pw_dir);
+			home = this->shenv_home_pw_dir;
 		}
-		else
-		{
-			LOG_ERROR("getpwuid: %s", strerror(errno));
-			this->shenv_home_pw_dir = twl_strdup("");
-		}
-		home = this->shenv_home_pw_dir;
 	}
 	return (home);
 }
