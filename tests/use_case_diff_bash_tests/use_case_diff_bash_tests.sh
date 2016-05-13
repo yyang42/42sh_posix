@@ -14,7 +14,7 @@ count_failure=0
 
 make
 mkdir -p /tmp/bin
-mv $RENDU_PATH/42sh /tmp/bin/
+cp $RENDU_PATH/42sh /tmp/bin/
 cp -f /bin/bash /tmp/bin/bash
 
 if [ "$?" -ne "0" ]; then
