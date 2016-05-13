@@ -20,7 +20,7 @@ t_ast				*ast_new_from_string(char *input, int flags)
 	if (shenv_shflag_exist(shenv_singleton(), "verbose"))
 		twl_putstr_fd(input, 2);
 	tokens = tokenizer_utils_tokenize(input);
-	ast = ast_new_from_tokens(tokens, flags);
+	ast = ast_new(tokens, flags);
 	token_mgr_del(tokens);
 	return (ast);
 }

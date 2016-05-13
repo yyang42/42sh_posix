@@ -38,7 +38,7 @@ typedef struct		s_ast
 }					t_ast;
 
 t_ast				*ast_new_from_string(char *input, int flags);
-t_ast				*ast_new_from_tokens(t_lst *src_tokens, int flags);
+t_ast				*ast_new(t_lst *src_tokens, int flags);
 void				ast_del(t_ast *this);
 
 void				ast_print_tokens(t_ast *ast);
