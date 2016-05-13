@@ -40,10 +40,18 @@ static void			set_history_file(t_shenv *this)
 	shenv_shvars_set(this, "HISTFILE", path, this->shenv_name);
 }
 
+static void			set_ifs(t_shenv *this)
+{
+	if (shenv_shvars_get(this, "IFS"))
+		return ;
+	shenv_shvars_set(this, "IFS", SHENV_DEFAULT_IFS, this->shenv_name);
+}
+
 void				shenv_init_shell_vars(t_shenv *this)
 {
 	set_getopt_vars(this);
 	set_ppid(this);
+	set_ifs(this);
 	// TODO: INTERACTIVE ONLY
 	// set_history_file(this);
 	(void)set_history_file;
