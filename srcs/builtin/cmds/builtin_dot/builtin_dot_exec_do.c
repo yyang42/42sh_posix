@@ -52,7 +52,7 @@ void				builtin_dot_exec_do(char *raw_path)
 		return ;
 	}
 	shenv_singleton()->shenv_is_function_or_script = true;
-	ast = ast_new(twl_file_to_str(resolved_path), 0);
+	ast = ast_new_from_string(twl_file_to_str(resolved_path), 0);
 	shenv_singleton()->shenv_is_function_or_script = false;
 	if (ast->error_msg)
 	{

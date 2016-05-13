@@ -10,21 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "prog.h"
 #include "ast/ast.h"
 
-void				prog_run_input(t_prog *prog, char *input)
+t_ast				*ast_new_from_string(char *input, int flags)
 {
-	if (shenv_singleton()->shenv_prog_flags & SHENV_FLAG_AST)
-	{
-		prog_print_ast(prog, input);
-	}
-	else if (shenv_singleton()->shenv_prog_flags & SHENV_FLAG_AREXP)
-	{
-		prog_print_arexp(prog, input);
-	}
-	else
-	{
-		ast_utils_exec_string(input);
-	}
+	t_ast			*ast;
+	t_lst			*tokens;
+
+	if (shenv_shflag_exist(shenv_singleton(), "verbose"))
+		twl_putstr_fd(input, 2);
+	tokens = tokenizer_utils_tokenize(input);
+	ast = ast_new_from_tokens(tokens, flags);
+	token_mgr_del(tokens);
+	return (ast);
 }

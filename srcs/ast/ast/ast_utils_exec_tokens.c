@@ -12,11 +12,11 @@
 
 #include "ast/ast.h"
 
-void				ast_exec_tokens(t_lst *tokens)
+void				ast_utils_exec_tokens(t_lst *tokens)
 {
 	t_ast			*ast;
 
-	ast = ast_new_from_tokens(tokens);
+	ast = ast_new_from_tokens(tokens, 0);
 	if (ast->error_msg)
 	{
 		twl_dprintf(2, "%s\n", ast->error_msg);

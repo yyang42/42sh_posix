@@ -21,8 +21,6 @@
 # include "token/token_mgr.h"
 # include "token/tokenizer.h"
 
-# define AST_FLAG_EXEC_AST (1 << 1)
-
 typedef enum		e_ast_type
 {
 	AST_TYPE_LIST_ITEM = 0,
@@ -39,8 +37,8 @@ typedef struct		s_ast
 	int							flags;
 }					t_ast;
 
-t_ast				*ast_new(char *input, int flags);
-t_ast				*ast_new_from_tokens(t_lst *src_tokens);
+t_ast				*ast_new_from_string(char *input, int flags);
+t_ast				*ast_new_from_tokens(t_lst *src_tokens, int flags);
 void				ast_del(t_ast *this);
 
 void				ast_print_tokens(t_ast *ast);
@@ -56,7 +54,7 @@ bool				ast_has_error(t_ast *this);
 
 int					ast_expan(t_ast *ast);
 
-void				ast_exec_string(char *input);
-void				ast_exec_tokens(t_lst *tokens);
+void				ast_utils_exec_string(char *input);
+void				ast_utils_exec_tokens(t_lst *tokens);
 
 #endif

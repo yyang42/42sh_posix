@@ -82,7 +82,7 @@ static void test_## name(t_test *test)										\
 	static void test_## test_name(t_test *test) \
 	{ \
 		t_ast			*ast; \
-		ast = ast_new(input, AST_FLAG_EXEC_AST); \
+		ast = ast_new_from_string(input, 0); \
 		if (debug) \
 		{ \
 			twl_printf("input    : %s\n", input); \

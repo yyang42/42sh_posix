@@ -20,6 +20,7 @@ t_openclose_matcher			*openclose_matcher_new()
 
 	this = twl_malloc_x0(sizeof(t_openclose_matcher));
 	this->oc_pairs = twl_lst_new();
+	this->oc_open_stack = twl_lst_new();
 	this->err_msg = NULL;
 	return (this);
 }

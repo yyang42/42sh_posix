@@ -10,18 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/ast.h"
+#include "openclose/openclose_matcher.h"
+#include "openclose/openclose_mgr.h"
 
-t_ast				*ast_new(char *input, int flags)
+t_lst				*openclose_matcher_find_matching_stack(
+										t_openclose_matcher *matcher, char *s)
 {
-	t_ast			*ast;
-	t_lst			*tokens;
+	t_lst			*stack;
 
-	if (shenv_shflag_exist(shenv_singleton(), "verbose"))
-		twl_putstr_fd(input, 2);
-	tokens = tokenizer_utils_tokenize(input);
-	ast = ast_new_from_tokens(tokens);
-	ast->flags = flags;
-	token_mgr_del(tokens);
-	return (ast);
+	stack = twl_lst_new();
+	openclose_matcher_find_matching_base(matcher, s, stack);
+	return (stack);
 }

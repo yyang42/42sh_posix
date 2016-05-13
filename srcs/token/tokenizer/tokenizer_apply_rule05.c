@@ -14,6 +14,7 @@
 #include "shenv/shenv.h"
 #include "twl_xstring.h"
 #include "openclose/openclose_matcher.h"
+#include "openclose/openclose_mgr.h"
 
 /*
 ** Rule 5
@@ -40,6 +41,14 @@ static bool			is_start_candidate(char c)
 	return (twl_strchr("$`\"\'", c));
 }
 
+static void			push_to_open_stack(void *oc_, void *target_open_stack)
+{
+	t_openclose		*oc;
+
+	oc = oc_;
+	twl_lst_push_back(target_open_stack, twl_strdup(oc->open));
+}
+
 static char			*match_fn(t_tokenizer *t, char *input)
 {
 	t_openclose_matcher		*matcher;
@@ -54,6 +63,8 @@ static char			*match_fn(t_tokenizer *t, char *input)
 	openclose_matcher_add(matcher, "\'", "\'");
 	openclose_matcher_add(matcher, "(", ")");
 	match = openclose_matcher_find_matching(matcher, input);
+	twl_lst_clear(t->tok_open_stack, free);
+	twl_lst_iter(matcher->oc_open_stack, push_to_open_stack, t->tok_open_stack);
 	if (matcher->err_msg)
 	{
 		twl_asprintf(&t->err_msg, "SyntaxError %d : %s", t->cur_line, matcher->err_msg);

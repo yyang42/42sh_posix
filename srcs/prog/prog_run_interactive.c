@@ -29,7 +29,7 @@ static void			prog_run_interative_loop_sig_wrapper(t_prog *prog, char *(get_inpu
 	if (sigaction(SIGTSTP, &sa_old, NULL) != 0)
 		LOG_ERROR("sigaction: %s", strerror(errno));
 	LOG_INFO("exit line edit");
-	ast_exec_string(input);
+	ast_utils_exec_string(input);
 	free(input);
 }
 
