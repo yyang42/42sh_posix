@@ -10,36 +10,32 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EDIT_H
-# define EDIT_H
+#include "edit/edit.h"
 
-# include <stdlib.h>
-# include <sys/ioctl.h>
-# include <sys/termios.h>
-# include <term.h>
-# include <termcap.h>
-# include <termios.h>
-
-# include "basics.h"
-# include "shenv/shenv.h"
-# include "edit/line.h"
-
-typedef struct			s_edit
+void			edit_terminal_init(t_edit *this)
 {
-	t_line				*current;
-	struct termios		term;
-	struct termios		save;
-}						t_edit;
+	char		*term;
 
-t_edit					*edit_new(void);
-void					edit_del(t_edit *this);
-
-t_edit					*edit_singleton(void);
-
-void					edit_terminal_init(t_edit *this);
-void					edit_terminal_enable(t_edit *this);
-void					edit_terminal_disable(t_edit *this);
-
-char					*edit_get_line(t_edit *this);
-
-#endif
+	term = shenv_shvars_get_value(shenv_singleton(), "TERM");
+	if (tgetent(NULL, term) == -1)
+	{
+		if (tgetent(NULL, "dumb") == -1)
+		{
+			twl_dprintf(2, "tgetent: %s\n", strerror(errno));
+			exit(-1);
+		}
+	}
+	if (tcgetattr(0, &this->term))
+	{
+		twl_dprintf(2, "tcgetattr: %s\n", strerror(errno));
+		exit(-1);
+	}
+	if (tcgetattr(0, &this->save))
+	{
+		twl_dprintf(2, "tcgetattr: %s\n", strerror(errno));
+		exit(-1);
+	}
+	this->term.c_lflag &= ~(ICANON | ECHO);
+	this->term.c_cc[VMIN] = 1;
+	this->term.c_cc[VTIME] = 0;
+}

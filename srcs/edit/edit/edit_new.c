@@ -17,5 +17,6 @@ t_edit				*edit_new(void)
 	t_edit			*this;
 
 	this = twl_malloc_x0(sizeof(t_edit));
+	edit_terminal_init(this);
 	return (this);
 }

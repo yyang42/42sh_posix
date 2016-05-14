@@ -20,6 +20,7 @@
 typedef struct			s_line
 {
 	char				*line;
+	size_t				index;
 	size_t				total;
 	size_t				size;
 }						t_line;

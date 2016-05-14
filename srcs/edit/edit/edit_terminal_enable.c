@@ -10,36 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EDIT_H
-# define EDIT_H
+#include "edit/edit.h"
 
-# include <stdlib.h>
-# include <sys/ioctl.h>
-# include <sys/termios.h>
-# include <term.h>
-# include <termcap.h>
-# include <termios.h>
-
-# include "basics.h"
-# include "shenv/shenv.h"
-# include "edit/line.h"
-
-typedef struct			s_edit
+void				edit_terminal_enable(t_edit *this)
 {
-	t_line				*current;
-	struct termios		term;
-	struct termios		save;
-}						t_edit;
-
-t_edit					*edit_new(void);
-void					edit_del(t_edit *this);
-
-t_edit					*edit_singleton(void);
-
-void					edit_terminal_init(t_edit *this);
-void					edit_terminal_enable(t_edit *this);
-void					edit_terminal_disable(t_edit *this);
-
-char					*edit_get_line(t_edit *this);
-
-#endif
+	if (tcsetattr(0, TCSADRAIN, &this->term) == -1)
+	{
+		twl_dprintf(2, "tcsetattr: %s\n", strerror(errno));
+		exit(-1);
+	}
+}

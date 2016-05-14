@@ -10,36 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EDIT_H
-# define EDIT_H
+#include "edit/edit.h"
 
-# include <stdlib.h>
-# include <sys/ioctl.h>
-# include <sys/termios.h>
-# include <term.h>
-# include <termcap.h>
-# include <termios.h>
-
-# include "basics.h"
-# include "shenv/shenv.h"
-# include "edit/line.h"
-
-typedef struct			s_edit
+char				*edit_get_line(t_edit *this)
 {
-	t_line				*current;
-	struct termios		term;
-	struct termios		save;
-}						t_edit;
+	char			*ret;
 
-t_edit					*edit_new(void);
-void					edit_del(t_edit *this);
-
-t_edit					*edit_singleton(void);
-
-void					edit_terminal_init(t_edit *this);
-void					edit_terminal_enable(t_edit *this);
-void					edit_terminal_disable(t_edit *this);
-
-char					*edit_get_line(t_edit *this);
-
-#endif
+	edit_terminal_enable(this);
+	this->current = line_new();
+	ret = line_get(this->current);
+	line_del(this->current);
+	edit_terminal_disable(this);
+	return (twl_strdup("echo lel"));
+	(void)this;
+}

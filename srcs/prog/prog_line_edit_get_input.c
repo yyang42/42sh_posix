@@ -51,6 +51,7 @@
 
 #include "prog.h"
 #include "job_control/job_mgr.h"
+#include "edit/edit.h"
 
 char				*prog_line_edit_get_input(t_prog *prog)
 {
@@ -60,6 +61,6 @@ char				*prog_line_edit_get_input(t_prog *prog)
 //	handle_verbose(input);
 //	return (input);
 //	(void)prog;
-	return (NULL);
+	return (edit_get_line(edit_singleton()));
 	(void)prog;
 }
