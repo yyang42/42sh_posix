@@ -14,6 +14,7 @@
 # define LINE_H
 
 # include "basics.h"
+# include "shenv/shenv.h"
 
 # define DFL_LINE_SIZE 64
 

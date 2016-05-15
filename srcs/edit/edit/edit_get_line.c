@@ -21,6 +21,6 @@ char				*edit_get_line(t_edit *this)
 	ret = line_get(this->current);
 	line_del(this->current);
 	edit_terminal_disable(this);
-	return (twl_strdup("echo lel"));
+	return (ret ? twl_strdup(ret) : twl_strdup("echo lel"));
 	(void)this;
 }
