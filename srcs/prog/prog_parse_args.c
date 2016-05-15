@@ -30,7 +30,7 @@ static void			process_arg(t_prog *prog, char sign, char c, char *optarg)
 	else if (c == 'E')
 		env->shenv_prog_flags |= SHENV_FLAG_AREXP;
 	else if (c == 'G')
-		env->shenv_prog_flags |= SHENV_FLAG_AREXP;
+		env->shenv_prog_flags |= SHENV_FLAG_GNL;
 	else if (c == 's')
 		env->shenv_prog_flags |= SHENV_FLAG_READ_STDIN;
 	else if (c == 'i')
