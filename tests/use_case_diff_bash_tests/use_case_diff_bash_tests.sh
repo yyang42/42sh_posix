@@ -15,7 +15,7 @@ count_failure=0
 make
 mkdir -p /tmp/bin
 cp $RENDU_PATH/42sh /tmp/bin/
-cp -f /usr/local/bin/bash /tmp/bin/bash
+cp -f `which bash` /tmp/bin/bash
 
 if [ "$?" -ne "0" ]; then
     exit 1
