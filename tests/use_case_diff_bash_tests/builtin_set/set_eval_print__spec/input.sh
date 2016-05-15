@@ -1,6 +1,6 @@
 test_var1='echo abc'
 test_var2='abc'
-test_var3="'"
+test_var4="a'b"
 set | grep test_var | grep -v _= > /tmp/builtin_set_stdout
 
 echo "/tmp/builtin_set_stdout content:"

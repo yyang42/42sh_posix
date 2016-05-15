@@ -2,7 +2,7 @@ echo ~~~~~~~~~~~~~~~~~~~~
 echo "~~~~~~~~~~~~~~~~~~~~"
 
 HOME=lel
-echo ~:::~
+echo :::~
 echo "~:::~"
 
 unset HOME
