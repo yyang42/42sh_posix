@@ -12,6 +12,8 @@ mt_test_ast_open_stack(07, "$( \"$(", "$(_\"_$(", false);
 mt_test_ast_open_stack(101, "((", "(", false);
 mt_test_ast_open_stack(102, "(", "(", false);
 mt_test_ast_open_stack(103, "{", "{", false);
+mt_test_ast_open_stack(104, "{ $(", "$(", false);
+// mt_test_ast_open_stack(105, "{ $( {", "{", true); // not handled yet
 
 void	suite_ast_syntax_error_open_stack(t_suite *suite)
 {
@@ -25,4 +27,6 @@ void	suite_ast_syntax_error_open_stack(t_suite *suite)
 	SUITE_ADD_TEST(suite, test_101);
 	SUITE_ADD_TEST(suite, test_102);
 	SUITE_ADD_TEST(suite, test_103);
+	SUITE_ADD_TEST(suite, test_104);
+	// SUITE_ADD_TEST(suite, test_105);
 }
