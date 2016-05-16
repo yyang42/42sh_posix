@@ -30,8 +30,13 @@ static void			exec_remaining_command(t_argparser_result *argparser_result)
 	{
 		shvar = shenv_shvars_set_split_by_equal(shenv_singleton(),
 				twl_lst_pop_front(remainders_copy), "env");
-		shvar->shvar_exported = true;
+		if (shvar)
+		{
+			shvar->shvar_exported = true;
+		}
 	}
+	if (shenv_singleton()->last_exit_code != 0)
+		return ;
 	if (twl_lst_len(remainders_copy) == 0)
 	{
 		shenv_print(shenv_singleton());
