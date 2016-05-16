@@ -13,7 +13,7 @@ mt_test_ast_open_stack(101, "((", "(", false);
 mt_test_ast_open_stack(102, "(", "(", false);
 mt_test_ast_open_stack(103, "{", "{", false);
 mt_test_ast_open_stack(104, "{ $(", "$(", false);
-// mt_test_ast_open_stack(105, "{ $( {", "{", true); // not handled yet
+// mt_test_ast_open_stack(105, "{ ( echo abc; {", "{", true); // not handled yet
 
 void	suite_ast_syntax_error_open_stack(t_suite *suite)
 {
