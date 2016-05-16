@@ -35,7 +35,7 @@ t_ast_compound_list	*ast_compound_list_new_from_tokens_wrap(t_lst *tokens,
 	{
 		if (twl_lst_len(tokens) == 0)
 		{
-			twl_lst_push_back(ast->ast_open_stack, twl_strdup("do"));
+			ast_add_to_open_stack(ast, "do");
 		}
 		return (NULL);
 	}

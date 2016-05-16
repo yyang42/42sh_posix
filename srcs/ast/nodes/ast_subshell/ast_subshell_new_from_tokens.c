@@ -31,7 +31,7 @@ t_ast_subshell	*ast_subshell_new_from_tokens(t_lst *tokens, struct s_ast *ast)
 	}
 	if (token_mgr_first_equ(tokens, ")") == false)
 	{
-		twl_lst_push_back(ast->ast_open_stack, twl_strdup("("));
+		ast_add_to_open_stack(ast, "(");
 		ast_set_error_msg_syntax_error_near(ast, open, NULL);
 		return NULL;
 	}

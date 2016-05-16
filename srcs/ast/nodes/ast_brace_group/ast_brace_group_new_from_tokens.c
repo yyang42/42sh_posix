@@ -28,7 +28,7 @@ t_ast_brace_group	*ast_brace_group_new_from_tokens(t_lst *tokens,
 		return (NULL);
 	if (token_mgr_first_equ(tokens, "}") == false)
 	{
-		twl_lst_push_back(ast->ast_open_stack, twl_strdup("{"));
+		ast_add_to_open_stack(ast, "{");
 		ast_set_error_msg_syntax_error_near(ast, open, NULL);
 		return NULL;
 	}

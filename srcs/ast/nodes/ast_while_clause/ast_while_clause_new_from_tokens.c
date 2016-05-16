@@ -32,7 +32,7 @@ t_ast_while_clause		*ast_while_clause_new_from_tokens(t_lst *tokens,
 	if (this->cond_compound == NULL
 		|| twl_lst_len(this->cond_compound->ast_list_items) == 0)
 	{
-		twl_lst_push_back(ast->ast_open_stack, twl_strdup("while"));
+		ast_add_to_open_stack(ast, "while");
 		ast_set_error_msg_syntax_error_near(ast, open, "Missing condition");
 		return (NULL);
 	}
@@ -40,7 +40,7 @@ t_ast_while_clause		*ast_while_clause_new_from_tokens(t_lst *tokens,
 		return (NULL);
 	if (twl_lst_len(tokens) == 0)
 	{
-		twl_lst_push_back(ast->ast_open_stack, twl_strdup("while"));
+		ast_add_to_open_stack(ast, "while");
 		ast_set_error_msg_syntax_error_near(ast, open, "Missing while body");
 		return (NULL);
 	}

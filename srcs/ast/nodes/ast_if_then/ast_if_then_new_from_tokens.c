@@ -25,7 +25,7 @@ t_ast_if_then	*ast_if_then_new_from_tokens(t_lst *tokens, struct s_ast *ast)
 	if (twl_lst_len(tokens) == 0)
 	{
 		ast_set_error_msg_syntax_error_missing(ast, open, "if body");
-		twl_lst_push_back(ast->ast_open_stack, twl_strdup("if"));
+		ast_add_to_open_stack(ast, "if");
 		return (NULL);
 	}
 	ast_if_then->cond_compound = ast_compound_list_new_from_tokens(tokens, ast);
@@ -33,14 +33,14 @@ t_ast_if_then	*ast_if_then_new_from_tokens(t_lst *tokens, struct s_ast *ast)
 		return (NULL);
 	if (!token_mgr_first_equ(tokens, "then"))
 	{
-		twl_lst_push_back(ast->ast_open_stack, twl_strdup("if"));
+		ast_add_to_open_stack(ast, "if");
 		ast_set_error_msg_syntax_error_missing(ast, open, "then");
 		return (NULL);
 	}
 	token_then = twl_lst_pop_front(tokens);
 	if (twl_lst_len(tokens) == 0)
 	{
-		twl_lst_push_back(ast->ast_open_stack, twl_strdup("then"));
+		ast_add_to_open_stack(ast, "then");
 		ast_set_error_msg_syntax_error_missing(ast, token_then, "then body");
 		return (NULL);
 	}
