@@ -12,11 +12,23 @@
 
 #include "ast/ast.h"
 
+static int			build_flags(void)
+{
+	int				flags;
+
+	flags = 0;
+	if (shenv_singleton()->shenv_prog_flags & SHENV_FLAG_AST)
+	{
+		flags |= AST_FLAG_NO_EXEC;
+	}
+	return (flags);
+}
+
 void				ast_utils_exec_string(char *input)
 {
 	t_ast			*ast;
 
-	ast = ast_new_from_string(input, 0);
+	ast = ast_new_from_string(input, build_flags());
 	ast_print_error(ast);
 	ast_del(ast);
 }
