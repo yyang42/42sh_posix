@@ -12,7 +12,7 @@
 
 #include "ast/ast.h"
 
-char				*ast_check_open(char *input)
+char				*ast_utils_check_open(char *input)
 {
 	t_ast			*ast;
 	char			*open;

@@ -54,8 +54,9 @@ bool				ast_has_error(t_ast *this);
 
 int					ast_expan(t_ast *ast);
 void				ast_add_to_open_stack(t_ast *this, char *str);
-char				*ast_check_open(char *input);
-bool				ast_check_has_open(char *input);
+
+char				*ast_utils_check_open(char *input);
+bool				ast_utils_check_has_open(char *input);
 
 void				ast_utils_exec_string(char *input);
 void				ast_utils_exec_tokens(t_lst *tokens);
