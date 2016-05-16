@@ -65,6 +65,8 @@ void					ast_simple_command_exec_tokens(
 void					ast_simple_command_exec_function(t_lst *tokens,
 								struct s_ast_compound_command *compound_cmd);
 bool					ast_simple_command_is_special_builtin(
-													t_ast_simple_command *this);
+						t_ast_simple_command *this);
+void					ast_simple_command_exec_assign(
+						t_ast_simple_command *cmd);
 
 #endif

@@ -20,6 +20,7 @@
 typedef struct		s_openclose_matcher
 {
 	t_lst			*oc_pairs;
+	t_lst			*oc_open_stack;
 	char			*err_msg;
 }					t_openclose_matcher;
 

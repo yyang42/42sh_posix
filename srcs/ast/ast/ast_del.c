@@ -20,5 +20,6 @@ void				ast_del(t_ast *this)
 		ast_compound_list_del(this->compound_list);
 	if (this->error_msg)
 		free(this->error_msg);
+	twl_lst_del(this->ast_open_stack, free);
 	free(this);
 }

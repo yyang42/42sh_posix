@@ -50,6 +50,7 @@ t_ast_if_clause		*ast_if_clause_new_from_tokens(t_lst *tokens,
 	}
 	if (!token_mgr_first_equ(tokens, "fi"))
 	{
+		ast_add_to_open_stack(ast, "fi");
 		ast_set_error_msg_syntax_error_missing(ast, open, "fi");
 		return (NULL);
 	}

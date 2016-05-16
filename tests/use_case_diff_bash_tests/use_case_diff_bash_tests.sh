@@ -14,8 +14,8 @@ count_failure=0
 
 make
 mkdir -p /tmp/bin
-mv $RENDU_PATH/42sh /tmp/bin/
-cp -f /bin/bash /tmp/bin/bash
+cp $RENDU_PATH/42sh /tmp/bin/
+cp -f `which bash` /tmp/bin/bash
 
 if [ "$?" -ne "0" ]; then
     exit 1
@@ -60,7 +60,7 @@ diff_test ()
     $TESTED_SHELL /tmp/input.sh > $testcase_tmp_stdout 2> $testcase_tmp_stderr
     echo "exit_code: $?" >> $testcase_tmp_stdout
     TESTED_SHELL='/tmp/bin/bash --posix'
-    bash --posix /tmp/input.sh > $testcase_tmp_bash_stdout 2> $testcase_tmp_bash_stderr
+    $TESTED_SHELL /tmp/input.sh > $testcase_tmp_bash_stdout 2> $testcase_tmp_bash_stderr
     echo "exit_code: $?" >> $testcase_tmp_bash_stdout
     if [ -f $testcase_path/expected_stdout ]; then
         expected_stdout_file=$testcase_path/expected_stdout

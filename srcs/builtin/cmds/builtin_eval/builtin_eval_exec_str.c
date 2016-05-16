@@ -20,7 +20,7 @@ void				builtin_eval_exec_str(char *str)
 
 	if (twl_strlen(str) == 0)
 		return ;
-	ast = ast_new(str, 0);
+	ast = ast_new_from_string(str);
 	if (ast->error_msg)
 	{
 		twl_dprintf(2, "%s\n", ast->error_msg);

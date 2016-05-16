@@ -10,17 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/ast.h"
+#include "openclose/openclose_matcher.h"
+#include "openclose/openclose_mgr.h"
 
-void				ast_exec_tokens(t_lst *tokens)
+t_lst				*openclose_matcher_find_matching_stack(
+										t_openclose_matcher *matcher, char *s)
 {
-	t_ast			*ast;
+	t_lst			*stack;
 
-	ast = ast_new_from_tokens(tokens);
-	if (ast->error_msg)
-	{
-		twl_dprintf(2, "%s\n", ast->error_msg);
-		shenv_singleton()->last_exit_code = 2;
-	}
-	ast_del(ast);
+	stack = twl_lst_new();
+	openclose_matcher_find_matching_base(matcher, s, stack);
+	return (stack);
 }

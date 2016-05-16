@@ -17,6 +17,9 @@ mt_test_ast_error(04, "ls; while true; do ; done",
 mt_test_ast_error(05, "echo abc; while true; do ; do",
 	"SyntaxError 1 : Syntax error near ';' : Empty simple command", false);
 
+mt_test_ast_error(06, "echo abc; while true;",
+	"SyntaxError 1 : Syntax error near 'while' : Missing while body", false);
+
 void	suite_ast_syntax_error_while_clause(t_suite *suite)
 {
 	SUITE_ADD_TEST(suite, test_01);
@@ -24,4 +27,5 @@ void	suite_ast_syntax_error_while_clause(t_suite *suite)
 	SUITE_ADD_TEST(suite, test_03);
 	SUITE_ADD_TEST(suite, test_04);
 	SUITE_ADD_TEST(suite, test_05);
+	SUITE_ADD_TEST(suite, test_06);
 }

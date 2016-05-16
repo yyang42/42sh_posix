@@ -25,6 +25,6 @@ void				prog_run_input(t_prog *prog, char *input)
 	}
 	else
 	{
-		ast_exec_string(input);
+		ast_utils_exec_string(input);
 	}
 }

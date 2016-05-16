@@ -19,19 +19,14 @@
 #include "ast/nodes/ast_compound_list.h"
 #include "ast/nodes/ast_if_then.h"
 
-static void			handle_cases(t_ast_case_clause *this, t_token *open,
+static void			handle_cases(t_ast_case_clause *this,
 	t_lst *tokens, struct s_ast *ast)
 {
 	while (true)
 	{
 		token_mgr_pop_linebreak(tokens);
-		if (token_mgr_first_equ(tokens, "esac"))
+		if (token_mgr_first_equ(tokens, "esac") || twl_lst_len(tokens) == 0)
 			break ;
-		if (twl_lst_len(tokens) == 0)
-		{
-			ast_set_error_msg_syntax_error_near(ast, open, NULL);
-			return ;
-		}
 		t_ast_case_item *case_item;
 		case_item = ast_case_item_new_from_tokens(tokens, ast);
 		if (ast_has_error(ast))
@@ -40,11 +35,11 @@ static void			handle_cases(t_ast_case_clause *this, t_token *open,
 		if (token_mgr_first_equ(tokens, ";;"))
 		{
 			twl_lst_pop_front(tokens);
-			continue;
+			continue ;
 		}
 		else
 		{
-			break;
+			break ;
 		}
 	}
 }
@@ -58,6 +53,7 @@ t_ast_case_clause		*ast_case_clause_new_from_tokens(t_lst *tokens,
 	open = twl_lst_pop_front(tokens);
 	if (twl_lst_len(tokens) == 0)
 	{
+		ast_add_to_open_stack(ast, "case");
 		ast_set_error_msg_syntax_error_near(ast, open, NULL);
 		return (NULL);
 	}
@@ -65,15 +61,17 @@ t_ast_case_clause		*ast_case_clause_new_from_tokens(t_lst *tokens,
 	this->needle_token = twl_lst_pop_front(tokens);
 	if (!token_mgr_first_equ(tokens, "in"))
 	{
+		ast_add_to_open_stack(ast, "case");
 		ast_set_error_msg_syntax_error_missing(ast, open, "in");
 		return (NULL);
 	}
 	twl_lst_pop_front(tokens);
-	handle_cases(this, open, tokens, ast);
+	handle_cases(this, tokens, ast);
 	if (ast_has_error(ast))
 		return (NULL);
 	if (!token_mgr_first_equ(tokens, "esac"))
 	{
+		ast_add_to_open_stack(ast, "case");
 		ast_set_error_msg_syntax_error_missing(ast, open, "esac");
 		return (NULL);
 	}

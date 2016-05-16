@@ -43,13 +43,18 @@ static void			ast_list_item_exec_check_error(t_ast_list_item *this, struct s_ast
 	free(cmd);
 }
 
+static bool			should_exec(void)
+{
+	return (shenv_singleton()->shenv_list_item_level == 1
+			&& !(shenv_singleton()->shenv_prog_flags & SHENV_FLAG_AST));
+}
+
 static void			ast_list_item_exec_wrapper(t_ast_list_item *this, struct s_ast *ast)
 {
 	ast_list_item_exec_check_error(this, ast);
 	if (ast->error_msg)
 		return ;
-	if (shenv_singleton()->shenv_list_item_level == 1
-		&& !(shenv_singleton()->shenv_prog_flags & SHENV_FLAG_AST))
+	if (should_exec())
 	{
 		ast_list_item_exec(this);
 	}

@@ -16,30 +16,18 @@
 char				*openclose_matcher_find_matching(
 										t_openclose_matcher *matcher, char *s)
 {
-	t_lst			*stack;
 	char			*ret;
 	t_openclose		*oc;
 
-	stack = twl_lst_new();
+	twl_lst_clear(matcher->oc_open_stack, NULL);
 	if (twl_strlen(s) == 0)
 		twl_asprintf(&matcher->err_msg, "nothing to match");
-	ret = openclose_matcher_find_matching_base(matcher, s, stack);
-	if (twl_lst_len(stack) > 0)
+	ret = openclose_matcher_find_matching_base(matcher, s, matcher->oc_open_stack);
+	if (twl_lst_len(matcher->oc_open_stack) > 0)
 	{
-		oc = twl_lst_first(stack);
+		oc = twl_lst_first(matcher->oc_open_stack);
 		twl_asprintf(&matcher->err_msg, "looking for matching `%s'",
 			oc->close);
 	}
-	twl_lst_del(stack, NULL);
 	return (ret);
-}
-
-t_lst				*openclose_matcher_find_matching_stack(
-										t_openclose_matcher *matcher, char *s)
-{
-	t_lst			*stack;
-
-	stack = twl_lst_new();
-	openclose_matcher_find_matching_base(matcher, s, stack);
-	return (stack);
 }

@@ -82,7 +82,7 @@ static void test_## name(t_test *test)										\
 	static void test_## test_name(t_test *test) \
 	{ \
 		t_ast			*ast; \
-		ast = ast_new(input, AST_FLAG_EXEC_AST); \
+		ast = ast_new_from_string(input); \
 		if (debug) \
 		{ \
 			twl_printf("input    : %s\n", input); \
@@ -90,6 +90,24 @@ static void test_## name(t_test *test)										\
 			twl_printf("expected : %s\n", expected); \
 		} \
 		mt_assert(ast->error_msg && strcmp(ast->error_msg, expected) == 0); \
+		ast_del(ast); \
+	}
+
+# define mt_test_ast_open_stack(test_name, input, expected_stack, debug) \
+	static void test_## test_name(t_test *test) \
+	{ \
+		t_ast			*ast; \
+		char			*actual_stack; \
+		ast = ast_new_from_string(input); \
+		actual_stack = twl_lst_strjoin(ast->ast_open_stack, "_"); \
+		if (debug) \
+		{ \
+			twl_printf("=========input : %s\n", input); \
+			twl_printf("actual         : %s\n", ast->error_msg); \
+			twl_printf("actual stack   : %s\n", actual_stack); \
+			twl_printf("expected stack : %s\n", expected_stack); \
+		} \
+		mt_assert(strcmp(actual_stack, expected_stack) == 0); \
 		ast_del(ast); \
 	}
 

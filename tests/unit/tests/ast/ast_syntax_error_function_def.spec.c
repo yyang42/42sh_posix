@@ -6,7 +6,7 @@ mt_test_ast_error(01, "abc ()",
 	"SyntaxError 1 : Syntax error near 'abc' : Missing compound command", false);
 
 mt_test_ast_error(02, "abc () {",
-	"SyntaxError 1 : Syntax error near '{' : Brace group missing compound list", false);
+	"SyntaxError 1 : Syntax error near '{'", false);
 
 void	suite_ast_syntax_error_function_def(t_suite *suite)
 {
