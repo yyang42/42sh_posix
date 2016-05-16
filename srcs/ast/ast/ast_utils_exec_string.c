@@ -14,12 +14,9 @@
 
 void				ast_utils_exec_string(char *input)
 {
-	t_lst			*tokens;
-	t_tokenizer		*tokenizer;
+	t_ast			*ast;
 
-	tokenizer = tokenizer_new(input);
-	tokens = tokenizer_tokenize(tokenizer);
-	ast_utils_exec_tokens(tokens);
-	tokenizer_del(tokenizer);
-	token_mgr_del(tokens);
+	ast = ast_new_from_string(input, 0);
+	ast_print_error(ast);
+	ast_del(ast);
 }

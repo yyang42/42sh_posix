@@ -11,18 +11,13 @@
 /* ************************************************************************** */
 
 #include "ast/ast.h"
+#include "token/token_mgr.h"
 
-char				*ast_utils_check_open(char *input)
+void				ast_print_error(t_ast *ast)
 {
-	t_ast			*ast;
-	char			*open;
-
-	ast = ast_new_from_string(input, 0);
-	open = NULL;
-	if (twl_lst_len(ast->ast_open_stack) > 0)
+	if (ast->error_msg)
 	{
-		open = twl_strdup(twl_lst_last(ast->ast_open_stack));
+		twl_dprintf(2, "%s\n", ast->error_msg);
+		shenv_singleton()->last_exit_code = 2;
 	}
-	ast_del(ast);
-	return (open);
 }
