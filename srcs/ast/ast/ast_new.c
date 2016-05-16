@@ -34,6 +34,7 @@ t_ast				*ast_new(t_lst *src_tokens, int flags)
 	ast = twl_malloc_x0(sizeof(t_ast));
 	ast->tokens_ref_tracker = twl_lst_copy(src_tokens, token_copy_void);
 	ast->flags = flags;
+	ast->ast_open_stack = twl_lst_new();
 	shenv_singleton()->shenv_shall_quit_curr_ast = false;
 	saved_level = shenv_singleton()->shenv_list_item_level;
 	shenv_singleton()->shenv_list_item_level = 0; // REFACTOR NOT RELIABLE

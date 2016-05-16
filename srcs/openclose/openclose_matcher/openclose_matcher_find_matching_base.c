@@ -13,22 +13,16 @@
 #include "openclose/openclose_matcher.h"
 #include "openclose/openclose_mgr.h"
 
-static bool			match_stack_fn(void *oc_, void *searched)
-{
-	t_openclose		*oc;
-
-	oc = oc_;
-	return (twl_strequ(searched, oc->open));
-}
-
 static bool			find_open_start_handle_arith_expan_parent_fn(void *oc_, void *stack, void *pos)
 {
 	t_openclose		*oc;
+	t_openclose		*oc_last;
 
 	oc = oc_;
+	oc_last = twl_lst_last(stack);
 	if (twl_strequ(oc->open, "("))
 	{
-		if (!twl_lst_find(stack, match_stack_fn, "$(("))
+		if (oc_last && twl_strequ(oc_last->open, "\""))
 			return (false);
 	}
 	return (twl_str_starts_with(pos, oc->open));
@@ -43,6 +37,8 @@ static void			resolve(t_openclose_matcher *matcher, t_lst *stack,
 
 	pos = *s_ptr;
 	oc = twl_lst_last(stack);
+	// openclose_mgr_print(stack);
+	// twl_printf("pos %s\n", pos);
 	open_pos = twl_lst_find2(matcher->oc_pairs, find_open_start_handle_arith_expan_parent_fn, stack, pos);
 	if (oc && twl_str_starts_with(pos, oc->close))
 	{
@@ -52,10 +48,10 @@ static void			resolve(t_openclose_matcher *matcher, t_lst *stack,
 	}
 	else if (open_pos)
 	{
+		// twl_printf("open_pos %s\n", open_pos->open);
 		twl_lst_push_back(stack, open_pos);
 		*s_ptr += twl_strlen(open_pos->open);
-		if (**s_ptr && *open_pos->open == '\''
-			&& twl_strchr(*s_ptr, '\''))
+		if (**s_ptr && *open_pos->open == '\'' && twl_strchr(*s_ptr, '\''))
 		{
 			*s_ptr = twl_strchr(*s_ptr, '\'');
 		}

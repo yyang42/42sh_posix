@@ -65,6 +65,7 @@ static char			*match_fn(t_tokenizer *t, char *input)
 	match = openclose_matcher_find_matching(matcher, input);
 	twl_lst_clear(t->tok_open_stack, free);
 	twl_lst_iter(matcher->oc_open_stack, push_to_open_stack, t->tok_open_stack);
+	// twl_printf("len %d\n", twl_lst_len(t->tok_open_stack));
 	if (matcher->err_msg)
 	{
 		twl_asprintf(&t->err_msg, "SyntaxError %d : %s", t->cur_line, matcher->err_msg);

@@ -35,6 +35,7 @@ typedef struct		s_ast
 	t_ast_compound_list			*compound_list;
 	char						*error_msg;
 	int							flags;
+	t_lst						*ast_open_stack;
 }					t_ast;
 
 t_ast				*ast_new_from_string(char *input, int flags);
@@ -53,6 +54,7 @@ void				ast_set_error_msg_syntax_error_unexpected(t_ast *ast, t_token *token);
 bool				ast_has_error(t_ast *this);
 
 int					ast_expan(t_ast *ast);
+void				ast_add_to_open_stack(t_ast *this, char *str);
 
 void				ast_utils_exec_string(char *input);
 void				ast_utils_exec_tokens(t_lst *tokens);

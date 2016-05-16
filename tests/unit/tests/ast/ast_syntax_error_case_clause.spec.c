@@ -7,7 +7,7 @@ mt_test_ast_error(01, "ls; case",
 mt_test_ast_error(02, "ls; case $abc",
 	"SyntaxError 1 : Syntax error near 'case' : Missing 'in'", false);
 mt_test_ast_error(03, "ls; case $abc in",
-	"SyntaxError 1 : Syntax error near 'case'", false);
+	"SyntaxError 1 : Syntax error near 'case' : Missing 'esac'", false);
 mt_test_ast_error(04, "ls; case $abc in\n1\necho abc",
 	"SyntaxError 2 : Syntax error near '1' : Missing ')'", false);
 mt_test_ast_error(05, "ls; case $abc in\n1)\necho abc",

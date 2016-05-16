@@ -20,12 +20,17 @@
 
 static void			pop_word_list(t_ast_for_clause *this, t_lst *tokens)
 {
-	while (true)
+	t_token			*first;
+
+	while (twl_lst_len(tokens))
 	{
 		if (token_mgr_first_equ(tokens, ";")
 			|| token_mgr_first_equ(tokens, "\n"))
 			break;
-		twl_lst_push_back(this->wordlist, twl_lst_pop_front(tokens));
+		first = twl_lst_pop_front(tokens);
+		if (!first)
+			break ;
+		twl_lst_push_back(this->wordlist, first);
 	}
 }
 
@@ -41,6 +46,7 @@ t_ast_for_clause		*ast_for_clause_new_from_tokens(t_lst *tokens,
 	open = twl_lst_pop_front(tokens);
 	if (twl_lst_len(tokens) == 0)
 	{
+		twl_lst_push_back(ast->ast_open_stack, twl_strdup("for"));
 		ast_set_error_msg_syntax_error_missing(ast, open, "NAME token");
 		return (NULL);
 	}
@@ -55,9 +61,17 @@ t_ast_for_clause		*ast_for_clause_new_from_tokens(t_lst *tokens,
 	if (token_mgr_first_equ(tokens, "in"))
 	{
 		twl_lst_pop_front(tokens);
+		if (twl_lst_len(tokens) == 0)
+		{
+			twl_lst_push_back(ast->ast_open_stack, twl_strdup("for"));
+			ast_set_error_msg_syntax_error_missing(ast, open, "in arguments");
+			return (NULL);
+		}
 		pop_word_list(this, tokens);
 	}
 	token_mgr_pop_linebreak_colon_linebreak(tokens);
+	if (twl_lst_len(tokens) == 0)
+		twl_lst_push_back(ast->ast_open_stack, twl_strdup("for"));
 	this->do_group = ast_compound_list_new_from_tokens_wrap(tokens,
 		"do", "done", ast);
 	if (ast_has_error(ast) || this->do_group == NULL)

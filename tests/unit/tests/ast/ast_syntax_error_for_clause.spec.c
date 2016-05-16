@@ -14,6 +14,8 @@ mt_test_ast_error(05, "echo abc; for hello do ls; donex",
 	"SyntaxError 1 : Syntax error near 'for'", false);
 mt_test_ast_error(06, "echo abc; for in hello do ls; donex",
 	"SyntaxError 1 : Syntax error near 'for'", false);
+mt_test_ast_error(07, "echo abc; for i in",
+	"SyntaxError 1 : Syntax error near 'for' : Missing 'in arguments'", false);
 
 void	suite_ast_syntax_error_for_clause(t_suite *suite)
 {
@@ -23,4 +25,5 @@ void	suite_ast_syntax_error_for_clause(t_suite *suite)
 	SUITE_ADD_TEST(suite, test_04);
 	SUITE_ADD_TEST(suite, test_05);
 	SUITE_ADD_TEST(suite, test_06);
+	SUITE_ADD_TEST(suite, test_07);
 }

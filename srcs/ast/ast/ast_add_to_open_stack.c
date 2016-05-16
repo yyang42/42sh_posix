@@ -12,26 +12,7 @@
 
 #include "ast/ast.h"
 
-static void			push_to_ast_open_stack(void *elem, void *ast_open_stack)
+void				ast_add_to_open_stack(t_ast *this, char *str)
 {
-	// twl_printf("elem %s\n", elem);
-	twl_lst_push_back(ast_open_stack, twl_strdup(elem));
-}
-
-t_ast				*ast_new_from_string(char *input, int flags)
-{
-	t_ast			*ast;
-	t_lst			*tokens;
-	t_tokenizer		*tokenizer;
-
-	if (shenv_shflag_exist(shenv_singleton(), "verbose"))
-		twl_putstr_fd(input, 2);
-	tokenizer = tokenizer_new(input);
-	tokens = tokenizer_tokenize(tokenizer);
-	ast = ast_new(tokens, flags);
-	twl_lst_iter(tokenizer->tok_open_stack,
-		push_to_ast_open_stack, ast->ast_open_stack);
-	tokenizer_del(tokenizer);
-	token_mgr_del(tokens);
-	return (ast);
+	twl_lst_push_back(this->ast_open_stack, twl_strdup(str));
 }
