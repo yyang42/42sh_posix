@@ -26,14 +26,13 @@ void				ast_new_from_tokens_build_exec(t_ast *ast)
 	token_mgr_del_shallow(tokens_copy);
 }
 
-t_ast				*ast_new(t_lst *src_tokens, int flags)
+t_ast				*ast_new(t_lst *src_tokens)
 {
 	int				saved_level;
 	t_ast			*ast;
 
 	ast = twl_malloc_x0(sizeof(t_ast));
 	ast->tokens_ref_tracker = twl_lst_copy(src_tokens, token_copy_void);
-	ast->flags = flags;
 	ast->ast_open_stack = twl_lst_new();
 	shenv_singleton()->shenv_shall_quit_curr_ast = false;
 	saved_level = shenv_singleton()->shenv_list_item_level;

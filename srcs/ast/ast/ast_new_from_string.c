@@ -18,7 +18,7 @@ static void			push_to_ast_open_stack(void *elem, void *ast_open_stack)
 	twl_lst_push_back(ast_open_stack, twl_strdup(elem));
 }
 
-t_ast				*ast_new_from_string(char *input, int flags)
+t_ast				*ast_new_from_string(char *input)
 {
 	t_ast			*ast;
 	t_lst			*tokens;
@@ -28,7 +28,7 @@ t_ast				*ast_new_from_string(char *input, int flags)
 		twl_putstr_fd(input, 2);
 	tokenizer = tokenizer_new(input);
 	tokens = tokenizer_tokenize(tokenizer);
-	ast = ast_new(tokens, flags);
+	ast = ast_new(tokens);
 	twl_lst_iter(tokenizer->tok_open_stack,
 		push_to_ast_open_stack, ast->ast_open_stack);
 	tokenizer_del(tokenizer);

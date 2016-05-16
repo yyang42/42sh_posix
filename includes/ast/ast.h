@@ -34,12 +34,11 @@ typedef struct		s_ast
 	t_lst						*tokens_ref_tracker;
 	t_ast_compound_list			*compound_list;
 	char						*error_msg;
-	int							flags;
 	t_lst						*ast_open_stack;
 }					t_ast;
 
-t_ast				*ast_new_from_string(char *input, int flags);
-t_ast				*ast_new(t_lst *src_tokens, int flags);
+t_ast				*ast_new_from_string(char *input);
+t_ast				*ast_new(t_lst *src_tokens);
 void				ast_del(t_ast *this);
 
 void				ast_print_tokens(t_ast *ast);

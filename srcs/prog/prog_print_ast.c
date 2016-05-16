@@ -19,7 +19,7 @@ int					prog_print_ast(t_prog *prog, char *input)
 {
 	t_ast			*ast;
 
-	ast = ast_new_from_string(input, 0);
+	ast = ast_new_from_string(input);
 	if (ast->error_msg)
 	{
 		twl_dprintf(2, "%s\n", ast->error_msg);
