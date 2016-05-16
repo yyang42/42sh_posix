@@ -10,19 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_PWD_H
-# define BUILTIN_PWD_H
+#include "builtin/cmds/builtin_cd.h"
 
-# include "basics.h"
-# include "twl_opt.h"
-# include "argparser_extension.h"
-# include "shenv/shenv.h"
-# include "builtin/builtin.h"
-
-t_argparser				*builtin_pwd_argparser(void);
-
-void					builtin_pwd_exec(t_lst *tokens, t_shenv *shenv);
-void					builtin_pwd_exec_logical(void);
-void					builtin_pwd_exec_physical(void);
-
-#endif
+void			builtin_cd_phypath_del(t_builtin_cd_phypath *this)
+{
+	if (!this)
+		return ;
+	if (this->path)
+		free(this->path);
+	if (this->ret)
+		free(this->ret);
+	free(this);
+}

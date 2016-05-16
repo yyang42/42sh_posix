@@ -94,6 +94,8 @@ typedef struct				s_shenv
 	char					**shenv_read_buffer_ptr;
 	char					**shenv_read_buffer_db;
 	int						shenv_fork_level;
+
+	char					*shenv_current_directory;
 }							t_shenv;
 
 t_shenv				*shenv_new(void);
@@ -148,6 +150,8 @@ void				shenv_execve_findpath(t_shenv *env, t_lst *argv_lst);
 char				**shenv_get_paths(t_shenv *this);
 char				*shenv_get_ifs(t_shenv *this);
 char				*shenv_get_home(t_shenv *this);
+
+void				shenv_set_current_directory(t_shenv *this, char *from_whom);
 
 /*
 ** exit

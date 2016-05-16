@@ -10,19 +10,28 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_PWD_H
-# define BUILTIN_PWD_H
+#include "builtin/cmds/builtin_pwd.h"
 
-# include "basics.h"
-# include "twl_opt.h"
-# include "argparser_extension.h"
-# include "shenv/shenv.h"
-# include "builtin/builtin.h"
+void			builtin_pwd_exec(t_lst *tokens, t_shenv *shenv)
+{
+	t_argparser_result	*result;
 
-t_argparser				*builtin_pwd_argparser(void);
-
-void					builtin_pwd_exec(t_lst *tokens, t_shenv *shenv);
-void					builtin_pwd_exec_logical(void);
-void					builtin_pwd_exec_physical(void);
-
-#endif
+	result = argparser_parse_tokens(builtin_pwd_argparser(), tokens);
+	if (result->err_msg)
+	{
+		shenv_singl_error(1, result->err_msg);
+		argparser_print_help(builtin_pwd_argparser());
+		return ;
+	}
+	twl_printf("%s\n", shenv->shenv_current_directory);
+	//if (argparser_result_opt_is_set(result, "P"))
+	//{
+	//	builtin_pwd_exec_physical();
+	//}
+	//else
+	//{
+	//	builtin_pwd_exec_logical();
+	//}
+	//argparser_result_del(result);
+	(void)shenv;
+}

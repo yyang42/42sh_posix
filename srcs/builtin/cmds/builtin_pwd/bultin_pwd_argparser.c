@@ -10,19 +10,22 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_PWD_H
-# define BUILTIN_PWD_H
+#include "builtin/cmds/builtin_pwd.h"
 
-# include "basics.h"
-# include "twl_opt.h"
-# include "argparser_extension.h"
-# include "shenv/shenv.h"
-# include "builtin/builtin.h"
+t_argparser			*builtin_pwd_argparser(void)
+{
+	static t_argparser	*argparser = NULL;
 
-t_argparser				*builtin_pwd_argparser(void);
-
-void					builtin_pwd_exec(t_lst *tokens, t_shenv *shenv);
-void					builtin_pwd_exec_logical(void);
-void					builtin_pwd_exec_physical(void);
-
-#endif
+	if (argparser == NULL)
+	{
+		argparser = argparser_new("pwd");
+		argparser_set_usage(argparser, "[ -L | -P ]\n"\
+			"If no options are specified, the -L option is assumed");
+		argparser_add_argument(argparser, argparser_argument_new('P', NULL,
+			"Display the physical current working directory "\
+			"(all symbolic links resolved)", 0));
+		argparser_add_argument(argparser, argparser_argument_new('L', NULL,
+			"Display the logical current working directory", 0));
+	}
+	return (argparser);
+}

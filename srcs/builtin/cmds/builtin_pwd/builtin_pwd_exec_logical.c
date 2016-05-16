@@ -10,19 +10,26 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_PWD_H
-# define BUILTIN_PWD_H
+#include "builtin/cmds/builtin_pwd.h"
 
-# include "basics.h"
-# include "twl_opt.h"
-# include "argparser_extension.h"
-# include "shenv/shenv.h"
-# include "builtin/builtin.h"
-
-t_argparser				*builtin_pwd_argparser(void);
-
-void					builtin_pwd_exec(t_lst *tokens, t_shenv *shenv);
-void					builtin_pwd_exec_logical(void);
-void					builtin_pwd_exec_physical(void);
-
-#endif
+void			builtin_pwd_exec_logical(void)
+{
+//	struct stat	logic;
+//	struct stat	physic;
+//	char		*pwd;
+//
+//	/*
+//	 * Check that $PWD is an absolute logical pathname referring to
+//	 * the current working directory.
+//	 */
+//	pwd = shenv_shvars_get(shenv_singleton(), "PWD");
+//	if ((pwd = getenv("PWD")) != NULL && *pwd == '/') {
+//		if (stat(pwd, &lg) == -1 || stat(".", &phy) == -1)
+//			return (NULL);
+//		if (lg.st_dev == phy.st_dev && lg.st_ino == phy.st_ino)
+//			return (pwd);
+//	}
+//
+//	errno = ENOENT;
+//	return (NULL);
+}

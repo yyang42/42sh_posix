@@ -10,19 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_PWD_H
-# define BUILTIN_PWD_H
+#include "builtin/cmds/builtin_pwd.h"
 
-# include "basics.h"
-# include "twl_opt.h"
-# include "argparser_extension.h"
-# include "shenv/shenv.h"
-# include "builtin/builtin.h"
-
-t_argparser				*builtin_pwd_argparser(void);
-
-void					builtin_pwd_exec(t_lst *tokens, t_shenv *shenv);
-void					builtin_pwd_exec_logical(void);
-void					builtin_pwd_exec_physical(void);
-
-#endif
+void			builtin_pwd_exec_physical(void)
+{
+//	char		*cwd;
+//
+//	cwd = getcwd(NULL, 0);
+//	if (cwd == NULL)
+//	{
+//		shenv_singl_error(1, "%s: getcwd: %s", cmd, strerror(errno));
+//		return ;
+//	}
+//	else
+//	{
+//		twl_printf("%s\n", cwd);
+//		free(cwd);
+//	}
+}

@@ -10,19 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_PWD_H
-# define BUILTIN_PWD_H
+#include "shenv/shenv.h"
 
-# include "basics.h"
-# include "twl_opt.h"
-# include "argparser_extension.h"
-# include "shenv/shenv.h"
-# include "builtin/builtin.h"
+void			shenv_set_current_directory(t_shenv *this, char *from_whom)
+{
+	char		*cwd;
 
-t_argparser				*builtin_pwd_argparser(void);
-
-void					builtin_pwd_exec(t_lst *tokens, t_shenv *shenv);
-void					builtin_pwd_exec_logical(void);
-void					builtin_pwd_exec_physical(void);
-
-#endif
+	cwd = getcwd(NULL, 0);
+	if (cwd == NULL)
+	{
+		twl_dprintf(2, "%s: error retrieving current directory: getcwd: %s\n",
+				from_whom, strerror(errno));
+		this->shenv_current_directory = NULL;
+	}
+	else
+	{
+		this->shenv_current_directory = cwd;
+	}
+}

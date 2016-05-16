@@ -79,7 +79,7 @@ t_lst				*data_builtins(void)
 		twl_lst_push_back(builtins, builtin_new("kill", builtin_kill_exec, 0));
 		twl_lst_push_back(builtins, builtin_new("popd", builtin_popd_exec, 0));
 		twl_lst_push_back(builtins, builtin_new("pushd", builtin_pushd_exec, 0));
-		twl_lst_push_back(builtins, builtin_new("pwd", builtin_pushd_exec, 0));
+		twl_lst_push_back(builtins, builtin_new("pwd", builtin_pwd_exec, 0));
 		twl_lst_push_back(builtins, builtin_new("read", builtin_read_exec, 0));
 		twl_lst_push_back(builtins, builtin_new("readonly", builtin_readonly_exec, BUILTIN_FLAG_SPECIAL_BUILTIN));
 		twl_lst_push_back(builtins, builtin_new("return", builtin_return_exec, BUILTIN_FLAG_SPECIAL_BUILTIN));

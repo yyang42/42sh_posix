@@ -10,19 +10,30 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_PWD_H
-# define BUILTIN_PWD_H
+#include "builtin/cmds/builtin_cd.h"
 
-# include "basics.h"
-# include "twl_opt.h"
-# include "argparser_extension.h"
-# include "shenv/shenv.h"
-# include "builtin/builtin.h"
+t_builtin_cd_phypath		*builtin_cd_phypath_new(char *path)
+{
+	t_builtin_cd_phypath	*this;
 
-t_argparser				*builtin_pwd_argparser(void);
-
-void					builtin_pwd_exec(t_lst *tokens, t_shenv *shenv);
-void					builtin_pwd_exec_logical(void);
-void					builtin_pwd_exec_physical(void);
-
-#endif
+	this = twl_malloc_x0(sizeof(t_builtin_cd_phypath));
+	this->path = twl_strnew(CD_PATHMAX);
+	this->path = twl_strcat(this->path, path);
+	this->ret = twl_strnew(CD_PATHMAX);
+	if (CD_DOUBLESLASH(this->path))
+	{
+		twl_strcat(this->ret, "//");
+		this->index_ret = 2;
+		this->base = 2;
+	}
+	else
+	{
+		twl_strcat(this->ret, "/");
+		this->index_ret = 1;
+		this->base = 1;
+	}
+	this->index_path = 0;
+	this->num_symlink = 0;
+	this->error = 0;
+	return (this);
+}
