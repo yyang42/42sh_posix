@@ -1,0 +1,6 @@
+/tmp/input.sh: line 1: env: `42SHTESTS1': not a valid identifier
+/tmp/input.sh: line 1: env: `42SHTESTS2': not a valid identifier
+/tmp/input.sh: line 1: env: `42SHTESTS3': not a valid identifier
+/tmp/input.sh: line 1: env: `': not a valid identifier
+/tmp/input.sh: line 1: env: `': not a valid identifier
+/tmp/input.sh: line 1: env: `0': not a valid identifier

@@ -12,14 +12,23 @@
 
 #include "ast/ast.h"
 
+static int			build_flags(void)
+{
+	int				flags;
+
+	flags = 0;
+	if (shenv_singleton()->shenv_prog_flags & SHENV_FLAG_AST)
+	{
+		flags |= AST_FLAG_NO_EXEC;
+	}
+	return (flags);
+}
+
 void				ast_utils_exec_string(char *input)
 {
-	t_lst			*tokens;
-	t_tokenizer		*tokenizer;
+	t_ast			*ast;
 
-	tokenizer = tokenizer_new(input);
-	tokens = tokenizer_tokenize(tokenizer);
-	ast_utils_exec_tokens(tokens);
-	tokenizer_del(tokenizer);
-	token_mgr_del(tokens);
+	ast = ast_new_from_string(input, build_flags());
+	ast_print_error(ast);
+	ast_del(ast);
 }

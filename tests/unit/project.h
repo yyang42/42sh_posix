@@ -82,7 +82,7 @@ static void test_## name(t_test *test)										\
 	static void test_## test_name(t_test *test) \
 	{ \
 		t_ast			*ast; \
-		ast = ast_new_from_string(input); \
+		ast = ast_new_from_string(input, AST_FLAG_NO_EXEC); \
 		if (debug) \
 		{ \
 			twl_printf("input    : %s\n", input); \
@@ -98,7 +98,7 @@ static void test_## name(t_test *test)										\
 	{ \
 		t_ast			*ast; \
 		char			*actual_stack; \
-		ast = ast_new_from_string(input); \
+		ast = ast_new_from_string(input, AST_FLAG_NO_EXEC); \
 		actual_stack = twl_lst_strjoin(ast->ast_open_stack, "_"); \
 		if (debug) \
 		{ \

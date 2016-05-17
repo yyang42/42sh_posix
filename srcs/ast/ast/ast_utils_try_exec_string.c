@@ -12,15 +12,21 @@
 
 #include "ast/ast.h"
 
-void				ast_utils_exec_tokens(t_lst *tokens)
+int					ast_utils_try_exec_string(char *input)
 {
 	t_ast			*ast;
+	int				ret;
 
-	ast = ast_new(tokens);
-	if (ast->error_msg)
+	ast = ast_new_from_string(input, 0);
+	ret = 0;
+	if (twl_lst_len(ast->ast_open_stack) == 0)
 	{
-		twl_dprintf(2, "%s\n", ast->error_msg);
-		shenv_singleton()->last_exit_code = 2;
+		ast_print_error(ast);
+	}
+	else
+	{
+		ret = -1;
 	}
 	ast_del(ast);
+	return (ret);
 }
