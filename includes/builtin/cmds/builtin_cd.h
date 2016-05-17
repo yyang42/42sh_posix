@@ -51,6 +51,10 @@ typedef struct			s_builtin_cd_phypath
 	size_t				error;
 }						t_builtin_cd_phypath;
 
+typedef struct			s_builtin_cd_logpath
+{
+}						t_builtin_cd_logpath;
+
 void					builtin_cd_exec_do(char *path, char *original_path, int no_symlinks, t_shenv *this);
 void					builtin_cd_exec(t_lst *tokens, t_shenv *this);
 char					*join_paths(char *path, char *dirname);
@@ -69,5 +73,9 @@ void					builtin_cd_phypath_del(t_builtin_cd_phypath *this);
 void					builtin_cd_phypath_rewind(t_builtin_cd_phypath *this);
 void					builtin_cd_phypath_add_path(t_builtin_cd_phypath *this);
 bool					builtin_cd_phypath_is_end(t_builtin_cd_phypath *this);
+
+char					*builtin_cd_logpath(char *path);
+
+char					*builtin_cd_make_path_from_dir(char *dir);
 
 #endif

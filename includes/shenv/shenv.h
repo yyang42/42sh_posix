@@ -151,7 +151,8 @@ char				**shenv_get_paths(t_shenv *this);
 char				*shenv_get_ifs(t_shenv *this);
 char				*shenv_get_home(t_shenv *this);
 
-void				shenv_set_current_directory(t_shenv *this, char *from_whom);
+void				shenv_set_current_directory(t_shenv *this, char *fm_whom);
+char				*shenv_get_current_directory(t_shenv *this, char *fm_whom);
 
 /*
 ** exit
