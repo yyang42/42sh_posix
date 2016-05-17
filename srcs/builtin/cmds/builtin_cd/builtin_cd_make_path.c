@@ -12,17 +12,15 @@
 
 #include "builtin/cmds/builtin_cd.h"
 
-char			*builtin_cd_make_path_from_dir(char *dir)
+char			*builtin_cd_make_path_from_dir(char *path, char *dir)
 {
-	char		*path;
 	char		*ret;
 	char		*tret;
 
-	path = shenv_get_current_directory(shenv_singleton(), "cd");
-	if (!path)
-		return (NULL);
 	if (CD_ROOTEDPATH(dir))
 		return (twl_strdup(dir));
+	if (!path)
+		return (NULL);
 	ret = twl_strnew(twl_strlen(dir) + twl_strlen(path) + 2);
 	tret = ret;
 	while (*path)

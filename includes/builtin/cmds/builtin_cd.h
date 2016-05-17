@@ -51,19 +51,8 @@ typedef struct			s_builtin_cd_phypath
 	size_t				error;
 }						t_builtin_cd_phypath;
 
-typedef struct			s_builtin_cd_logpath
-{
-}						t_builtin_cd_logpath;
-
-void					builtin_cd_exec_do(char *path, char *original_path, int no_symlinks, t_shenv *this);
 void					builtin_cd_exec(t_lst *tokens, t_shenv *this);
-char					*join_paths(char *path, char *dirname);
-char					*builtin_cd_get_path(char *dirname, t_shenv *this);
-char					*join_pwd_to_path(char *dirname);
-char					*set_canonical_form(char *path);
 
-void					builtin_cd_utils_get_flags(t_opt *opt, int *no_symlinks);
-int						builtin_cd_utils_free_all(char *dirname, char **args, t_opt *opt);
 t_argparser				*builtin_cd_argparser(void);
 
 char					*builtin_cd_phypath(char *path);
@@ -76,6 +65,10 @@ bool					builtin_cd_phypath_is_end(t_builtin_cd_phypath *this);
 
 char					*builtin_cd_logpath(char *path);
 
-char					*builtin_cd_make_path_from_dir(char *dir);
+char					*builtin_cd_make_path_from_dir(char *path, char *dir);
+
+t_lst					*builtin_cd_get_directories(char *dir);
+void					builtin_cd_follow_symlinks(char *dir);
+void					builtin_cd_unfollow_symlinks(char *dir);
 
 #endif

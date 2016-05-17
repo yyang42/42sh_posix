@@ -10,29 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/cmds/builtin_cd.h"
+#include "shenv/shenv.h"
 
-char		*join_pwd_to_path(char *dirname)
+void			shenv_reset_current_directory(t_shenv *this, char *new_dir)
 {
-	char	buf[MAX_SIZE];
-
-	twl_bzero(buf, MAX_SIZE);
-	if (!getcwd(buf, MAX_SIZE))
+	if (this->shenv_current_directory != NULL)
 	{
-		shenv_singl_error(1, "cd: %s", strerror(errno));
-		return (NULL);
+		free(this->shenv_current_directory);
 	}
-	return (join_paths(buf, dirname));
-}
-
-char		*join_paths(char *path, char *dirname)
-{
-	char *full_path;
-
-	full_path = NULL;
-	if (path && twl_strlen(path) > 0 && path[twl_strlen(path) - 1] == '/')
-		full_path = twl_strjoin(path, dirname);
-	else
-		full_path = twl_joinpath(path, dirname);
-	return (full_path);
+	this->shenv_current_directory = twl_strdup(new_dir);
 }
