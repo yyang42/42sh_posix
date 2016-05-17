@@ -17,7 +17,7 @@ char				*ast_utils_check_open(char *input)
 	t_ast			*ast;
 	char			*open;
 
-	ast = ast_new_from_string(input, 0);
+	ast = ast_new_from_string(input, 0, 1);
 	open = NULL;
 	if (twl_lst_len(ast->ast_open_stack) > 0)
 	{

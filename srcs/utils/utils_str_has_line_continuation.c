@@ -12,7 +12,7 @@
 
 #include "utils.h"
 
-bool				utils_has_line_continuation(char *str)
+bool				utils_str_has_line_continuation(char *str)
 {
 	while (*str)
 	{

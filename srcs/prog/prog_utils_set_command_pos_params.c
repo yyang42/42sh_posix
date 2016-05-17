@@ -12,16 +12,16 @@
 
 #include "prog.h"
 
-void				prog_run_input_from_stdin(t_prog *prog)
+void				prog_utils_set_command_pos_params(void)
 {
-	char			*input;
+	char			*first;
+	t_shenv			*env;
 
-	input = twl_fd_to_str(STDIN_FILENO);
-	if (!input)
+	env = shenv_singleton();
+	shenv_pos_params_copy_deep_from(env, shenv_singleton()->shenv_argv_remainder);
+	first = twl_lst_pop_front(env->shenv_pos_params);
+	if (first)
 	{
-		shenv_singl_error_simple(1, "Can't read from stdin");
-		exit(1);
+		shenv_set_name(env, first);
 	}
-	prog_run_input(prog, input);
-	free(input);
 }

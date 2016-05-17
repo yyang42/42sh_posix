@@ -50,7 +50,7 @@ void				builtin_read_exec_readline(t_argparser_result *arg_res)
 			accumulator = twl_strjoinfree(accumulator, line, 'l');
 			free(line);
 			if (!argparser_result_opt_is_set(arg_res, "r")
-				&& utils_has_line_continuation(accumulator))
+				&& utils_str_has_line_continuation(accumulator))
 				continue ;
 			break ;
 		}

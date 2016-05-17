@@ -32,7 +32,7 @@ void				signal_handle_sigwinch(void);
 void				disable_all_signals(void);
 char				*str_unescape_backslash(char *str);
 char				*utils_str_unescape_backslash(char *str);
-bool				utils_has_line_continuation(char *str);
+bool				utils_str_has_line_continuation(char *str);
 char				*utils_strchr_multi_skip_escaped(char *str, char *needles);
 void				utils_log_signal(int signum);
 void				utils_log_errno(char *name, int error_code);

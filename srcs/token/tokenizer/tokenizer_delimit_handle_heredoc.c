@@ -51,6 +51,11 @@ static char			*get_heredoc_start_pos(t_tokenizer *t)
 	return (pos);
 }
 
+static void			push_to_open_stack(t_tokenizer *t, char *delimiter)
+{
+	twl_lst_push_back(t->tok_open_stack, twl_strtrim(delimiter));
+}
+
 static void			build_heredoc(t_tokenizer *t, t_token *new_token, char *pos,
 	bool skip_leading_tabs)
 {
@@ -81,9 +86,14 @@ static void			build_heredoc(t_tokenizer *t, t_token *new_token, char *pos,
 	}
 	new_token->heredoc_text = twl_strdup(heredoc_text);
 	if (delimiter_found)
+	{
 		t->heredoc_pos = pos + twl_strlen(delimiter);
+	}
 	else
+	{
+		push_to_open_stack(t, delimiter);
 		t->heredoc_pos = pos;
+	}
 	free(heredoc_text);
 	free(delimiter);
 }

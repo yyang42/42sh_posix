@@ -15,3 +15,15 @@ cc
 echo "====== test 4"
 echo 'aa\
 bb'
+
+echo "====== test 5"
+echo 'aa\\
+bb'
+
+echo "====== test 6"
+echo 'aa\\\
+bb'
+
+# echo "====== test 7"
+# echo \''aa\\\
+# bb'\'

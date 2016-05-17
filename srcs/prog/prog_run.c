@@ -12,43 +12,6 @@
 
 #include "prog.h"
 
-static void			handle_command_arguments(void)
-{
-	char			*first;
-	t_shenv			*env;
-
-	env = shenv_singleton();
-	shenv_pos_params_copy_deep_from(env, shenv_singleton()->shenv_argv_remainder);
-	first = twl_lst_pop_front(env->shenv_pos_params);
-	if (first)
-	{
-		shenv_set_name(env, first);
-	}
-}
-
-static char			*prog_run_get_input(t_prog *prog)
-{
-	char			*input;
-	t_lst			*argv_lst;
-
-	input = NULL;
-	argv_lst = shenv_singleton()->shenv_argv_remainder;
-	if (prog->prog_command_arg)
-	{
-		LOG_INFO("exec opt -c: %s", prog->prog_command_arg);
-		input = twl_strdup(prog->prog_command_arg);
-	}
-	else if (twl_lst_len(argv_lst) > 0)
-	{
-		if (twl_strequ(twl_lst_first(argv_lst), "-"))
-			twl_lst_pop_front(argv_lst);
-		if (twl_lst_len(argv_lst) > 0)
-			input = prog_run_file_to_str(prog, twl_lst_first(argv_lst));
-	}
-	handle_command_arguments();
-	return (input);
-}
-
 static void			set_interactive_state(void)
 {
 	bool			tty;
@@ -63,23 +26,36 @@ static void			set_interactive_state(void)
 
 int					prog_run(t_prog *prog)
 {
-	char			*input;
+	t_shenv			*env;
 
-	input = prog_run_get_input(prog);
-	if (input)
+		// if (shenv_singleton()->shenv_is_interactive)
+		// {
+		// 	twl_dprintf(2, "%s: no job control in this shell\n", SHENV_DEFAULT_NAME);
+		// }
+		// prog_run_input(prog, input, line);
+	env = shenv_singleton();
+	if (prog->prog_command_arg)
 	{
-		if (shenv_singleton()->shenv_is_interactive)
-			twl_dprintf(2, "%s: no job control in this shell\n", SHENV_DEFAULT_NAME);
-		prog_run_input(prog, input);
+		LOG_INFO("exec opt -c: %s", prog->prog_command_arg);
+		prog_utils_set_command_pos_params();
+		prog_run_input(prog, prog->prog_command_arg, 1);
+	}
+	else if (twl_lst_len(env->shenv_argv_remainder) > 0)
+	{
+		if (twl_strequ(twl_lst_first(env->shenv_argv_remainder), "-"))
+			twl_lst_pop_front(env->shenv_argv_remainder);
+		if (twl_lst_len(env->shenv_argv_remainder) > 0)
+		{
+			prog_run_file(prog, twl_lst_first(env->shenv_argv_remainder));
+		}
 	}
 	else
 	{
 		set_interactive_state();
-		if (shenv_singleton()->shenv_is_interactive)
+		if (env->shenv_is_interactive)
 			prog_run_interactive(prog);
 		else
-			prog_run_input_from_stdin(prog);
+			prog_run_fd(prog, STDIN_FILENO);
 	}
-	free(input);
-	return (shenv_singleton()->last_exit_code);
+	return (env->last_exit_code);
 }

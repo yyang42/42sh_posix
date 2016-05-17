@@ -17,7 +17,7 @@ int					ast_utils_try_exec_string(char *input)
 	t_ast			*ast;
 	int				ret;
 
-	ast = ast_new_from_string(input, 0);
+	ast = ast_new_from_string(input, 0, 1);
 	ret = 0;
 	if (twl_lst_len(ast->ast_open_stack) == 0)
 	{

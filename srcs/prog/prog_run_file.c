@@ -11,18 +11,19 @@
 /* ************************************************************************** */
 
 #include "prog.h"
+#include <fcntl.h>
 
-char				*prog_run_file_to_str(t_prog *prog, char *file)
+void				prog_run_file(t_prog *prog, char *file)
 {
-	char			*input;
+	int				fd;
 
-	LOG_INFO("read file: %s", file);
-	input = twl_file_to_str(file);
-	if (!input)
+	fd = open(file, O_RDONLY);
+	LOG_INFO("run file: %s", file);
+	if (fd < 0)
 	{
 		shenv_singl_error_simple(127, "%s: No such file or directory", file);
 		exit(shenv_singleton()->last_exit_code);
 	}
-	return (input);
-	(void)prog;
+	prog_utils_set_command_pos_params();
+	prog_run_fd(prog, fd);
 }

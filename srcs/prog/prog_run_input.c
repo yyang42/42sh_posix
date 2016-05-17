@@ -13,7 +13,7 @@
 #include "prog.h"
 #include "ast/ast.h"
 
-void				prog_run_input(t_prog *prog, char *input)
+void				prog_run_input(t_prog *prog, char *input, int line)
 {
 	if (shenv_singleton()->shenv_prog_flags & SHENV_FLAG_AST)
 	{
@@ -25,6 +25,6 @@ void				prog_run_input(t_prog *prog, char *input)
 	}
 	else
 	{
-		ast_utils_exec_string(input);
+		ast_utils_exec_string(input, line);
 	}
 }

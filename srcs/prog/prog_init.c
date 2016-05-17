@@ -14,5 +14,6 @@
 
 void				prog_init(t_prog *prog, char **argv)
 {
+	prog->argv0 = twl_strdup(argv[0]);
 	prog_parse_args(prog, argv);
 }

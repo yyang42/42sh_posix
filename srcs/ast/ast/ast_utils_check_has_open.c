@@ -17,7 +17,7 @@ bool				ast_utils_check_has_open(char *input)
 	t_ast			*ast;
 	bool			has_open;
 
-	ast = ast_new_from_string(input, 0);
+	ast = ast_new_from_string(input, AST_FLAG_NO_EXEC, 1);
 	has_open = (twl_lst_len(ast->ast_open_stack) > 0);
 	ast_del(ast);
 	return (has_open);

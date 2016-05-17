@@ -24,11 +24,11 @@ static int			build_flags(void)
 	return (flags);
 }
 
-void				ast_utils_exec_string(char *input)
+void				ast_utils_exec_string(char *input, int line)
 {
 	t_ast			*ast;
 
-	ast = ast_new_from_string(input, build_flags());
+	ast = ast_new_from_string(input, build_flags(), line);
 	ast_print_error(ast);
 	ast_del(ast);
 }

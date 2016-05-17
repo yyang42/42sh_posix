@@ -22,7 +22,7 @@ void				builtin_read_verbose(t_shenv *env);
 void				builtin_read_add(t_shenv *env, t_lst *opt);
 t_argparser			*builtin_read_argparser(void);
 void				builtin_read_exec_readline(t_argparser_result *arg_res);
-bool				builtin_read_utils_has_line_continuation(char *str);
+bool				builtin_read_utils_str_has_line_continuation(char *str);
 void				builtin_read_exec_build_vars_from_line(t_argparser_result *arg_res, char *line, char *ifs);
 
 #endif
