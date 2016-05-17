@@ -12,38 +12,26 @@
 
 #include "builtin/cmds/builtin_cd.h"
 
-char			*builtin_cd_phypath(char *path)
+char			*builtin_cd_make_path_from_dir(char *dir)
 {
-	t_builtin_cd_phypath	*this;
-	char					*ret;
+	char		*path;
+	char		*ret;
+	char		*tret;
 
-	this = builtin_cd_phypath_new(path);
-	ret = NULL;
-	while (true)
+	path = shenv_get_current_directory(shenv_singleton(), "cd");
+	if (!path)
+		return (NULL);
+	if (CD_ROOTEDPATH(dir))
+		return (twl_strdup(dir));
+	ret = twl_strnew(twl_strlen(dir) + twl_strlen(path) + 2);
+	tret = ret;
+	while (*path)
 	{
-		if (CD_ISDIRSEP(this->path[this->index_path]))
-			this->index_path += 1;
-		else if (this->path[this->index_path] == '.' &&
-				CD_PATHSEP(this->path[this->index_path + 1]))
-			this->index_path += 1;
-		else if (this->path[this->index_path] == '.' &&
-				this->path[this->index_path + 1] == '.' &&
-				CD_PATHSEP(this->path[this->index_path + 2]))
-			builtin_cd_phypath_rewind(this);
-		else
-			builtin_cd_phypath_add_path(this);
-		if (builtin_cd_phypath_is_end(this))
-			break ;
+		*tret = *path;
+		tret += 1;
+		path += 1;
 	}
-	if (this->error)
-	{
-		shenv_singl_error(1, "cd: %s: %s", path, strerror(this->error));
-	}
-	else
-	{
-		ret = this->ret;
-		this->ret = NULL;
-	}
-	builtin_cd_phypath_del(this);
+	*tret = CD_DIRSEP;
+	twl_strcpy(tret + 1, dir);
 	return (ret);
 }

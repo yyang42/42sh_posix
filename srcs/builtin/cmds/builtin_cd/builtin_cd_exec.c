@@ -138,7 +138,7 @@ void				builtin_cd_exec(t_lst *tokens, t_shenv *env)
 	}
 	else
 	{
-		twl_printf("%s\n", builtin_cd_phypath(twl_lst_first(argparser_result->remainders)));
+		twl_printf("%s\n", builtin_cd_make_path_from_dir(twl_lst_first(argparser_result->remainders)));
 		//builtin_cd_exec_exec(argparser_result, should_follow_symlinks(tokens), env);
 	}
 }
