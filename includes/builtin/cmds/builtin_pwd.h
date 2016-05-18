@@ -10,15 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/cmds/builtin_cd.h"
+#ifndef BUILTIN_PWD_H
+# define BUILTIN_PWD_H
 
-int					builtin_cd_utils_free_all(char *dirname, char **args, t_opt *opt)
-{
-	if (dirname)
-		free(dirname);
-	if (args)
-		twl_arr_del(args, NULL);
-	if (opt)
-		twl_opt_del(opt);
-	return (0);
-}
+# include "basics.h"
+# include "twl_opt.h"
+# include "argparser_extension.h"
+# include "shenv/shenv.h"
+# include "builtin/builtin.h"
+
+t_argparser				*builtin_pwd_argparser(void);
+
+void					builtin_pwd_exec(t_lst *tokens, t_shenv *shenv);
+void					builtin_pwd_exec_logical(void);
+void					builtin_pwd_exec_physical(void);
+
+#endif

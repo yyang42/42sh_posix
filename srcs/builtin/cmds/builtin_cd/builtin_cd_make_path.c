@@ -12,10 +12,31 @@
 
 #include "builtin/cmds/builtin_cd.h"
 
-void				builtin_cd_utils_get_flags(t_opt *opt, int *no_symlinks)
+char			*builtin_cd_make_path_from_dir(char *path, char *dir)
 {
-	if (twl_opt_exist(opt, "P"))
-		*no_symlinks = 1;
-	if (twl_opt_exist(opt, "L"))
-		*no_symlinks = 0;
+	char		*ret;
+	char		*tret;
+	bool		is_last_sep;
+
+	if (CD_ROOTEDPATH(dir))
+		return (twl_strdup(dir));
+	if (!path)
+		return (NULL);
+	ret = twl_strnew(twl_strlen(dir) + twl_strlen(path) + 2);
+	tret = ret;
+	is_last_sep = false;
+	while (*path)
+	{
+		*tret = *path;
+		is_last_sep = (*tret == CD_DIRSEP);
+		tret += 1;
+		path += 1;
+	}
+	if (!is_last_sep)
+	{
+		*tret = CD_DIRSEP;
+		tret += 1;
+	}
+	twl_strcpy(tret, dir);
+	return (ret);
 }

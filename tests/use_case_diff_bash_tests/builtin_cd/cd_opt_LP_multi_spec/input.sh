@@ -8,7 +8,6 @@ echo "cd -LP /tmp/test_cd_builtin/mydir_sym"
 cd /tmp/test_cd_builtin && cd -LP /tmp/test_cd_builtin/mydir_sym
 pwd
 
-
 echo
 echo "cd -LPLP /tmp/test_cd_builtin/mydir_sym"
 cd /tmp/test_cd_builtin && cd -LPLP /tmp/test_cd_builtin/mydir_sym

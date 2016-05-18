@@ -10,36 +10,36 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/cmds/builtin_dirs.h"
+#include "builtin/cmds/builtin_pwd.h"
+#include "builtin/cmds/builtin_cd.h"
 
-bool			builtin_dirs_init_cwd(char *cmd)
+void			builtin_pwd_exec(t_lst *tokens, t_shenv *shenv)
 {
-	t_lst		*dirs;
-	char		*cwd;
+	t_argparser_result	*result;
+	char				*path;
 
-	dirs = builtin_dirs_singleton();
-	cwd = shenv_get_current_directory(shenv_singleton(), cmd);
-	if (!cwd)
+	result = argparser_parse_tokens(builtin_pwd_argparser(), tokens);
+	if (result->err_msg)
 	{
-		return (false);
+		shenv_singl_error(1, result->err_msg);
+		argparser_print_help(builtin_pwd_argparser());
+		return ;
 	}
-	twl_lst_push_front(dirs, twl_strdup(cwd));
-	return (true);
+	path = shenv_get_current_directory(shenv_singleton(), "pwd");
+	if (!path)
+		;
+	else if (argparser_result_opt_is_set(result, "P"))
+	{
+		if ((path = builtin_cd_phypath(path)))
+		{
+			twl_printf("%s\n", path);
+			free(path);
+		}
+	}
+	else
+	{
+		twl_printf("%s\n", path);
+	}
+	argparser_result_del(result);
+	(void)shenv;
 }
-//
-//bool			builtin_dirs_init_cwd(char *cmd)
-//{
-//	t_lst		*dirs;
-//	char		*cwd;
-//
-//	dirs = builtin_dirs_singleton();
-//	cwd = NULL;
-//	cwd = getcwd(NULL, 4096);
-//	if (cwd == NULL)
-//	{
-//		shenv_singl_error(1, "%s: getcwd: %s", cmd, strerror(errno));
-//		return (false);
-//	}
-//	twl_lst_push_front(dirs, cwd);
-//	return (true);
-//}

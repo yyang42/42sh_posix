@@ -10,36 +10,22 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/cmds/builtin_dirs.h"
+#include "builtin/cmds/builtin_pwd.h"
 
-bool			builtin_dirs_init_cwd(char *cmd)
+t_argparser			*builtin_pwd_argparser(void)
 {
-	t_lst		*dirs;
-	char		*cwd;
+	static t_argparser	*argparser = NULL;
 
-	dirs = builtin_dirs_singleton();
-	cwd = shenv_get_current_directory(shenv_singleton(), cmd);
-	if (!cwd)
+	if (argparser == NULL)
 	{
-		return (false);
+		argparser = argparser_new("pwd");
+		argparser_set_usage(argparser, "[ -L | -P ]\n"\
+			"If no options are specified, the -L option is assumed");
+		argparser_add_argument(argparser, argparser_argument_new('P', NULL,
+			"Display the physical current working directory "\
+			"(all symbolic links resolved)", 0));
+		argparser_add_argument(argparser, argparser_argument_new('L', NULL,
+			"Display the logical current working directory", 0));
 	}
-	twl_lst_push_front(dirs, twl_strdup(cwd));
-	return (true);
+	return (argparser);
 }
-//
-//bool			builtin_dirs_init_cwd(char *cmd)
-//{
-//	t_lst		*dirs;
-//	char		*cwd;
-//
-//	dirs = builtin_dirs_singleton();
-//	cwd = NULL;
-//	cwd = getcwd(NULL, 4096);
-//	if (cwd == NULL)
-//	{
-//		shenv_singl_error(1, "%s: getcwd: %s", cmd, strerror(errno));
-//		return (false);
-//	}
-//	twl_lst_push_front(dirs, cwd);
-//	return (true);
-//}

@@ -10,36 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/cmds/builtin_dirs.h"
+#include "builtin/cmds/builtin_cd.h"
 
-bool			builtin_dirs_init_cwd(char *cmd)
+void			builtin_cd_phypath_del(t_builtin_cd_phypath *this)
 {
-	t_lst		*dirs;
-	char		*cwd;
-
-	dirs = builtin_dirs_singleton();
-	cwd = shenv_get_current_directory(shenv_singleton(), cmd);
-	if (!cwd)
-	{
-		return (false);
-	}
-	twl_lst_push_front(dirs, twl_strdup(cwd));
-	return (true);
+	if (!this)
+		return ;
+	if (this->path)
+		free(this->path);
+	if (this->ret)
+		free(this->ret);
+	free(this);
 }
-//
-//bool			builtin_dirs_init_cwd(char *cmd)
-//{
-//	t_lst		*dirs;
-//	char		*cwd;
-//
-//	dirs = builtin_dirs_singleton();
-//	cwd = NULL;
-//	cwd = getcwd(NULL, 4096);
-//	if (cwd == NULL)
-//	{
-//		shenv_singl_error(1, "%s: getcwd: %s", cmd, strerror(errno));
-//		return (false);
-//	}
-//	twl_lst_push_front(dirs, cwd);
-//	return (true);
-//}

@@ -10,36 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/cmds/builtin_dirs.h"
+#include "shenv/shenv.h"
 
-bool			builtin_dirs_init_cwd(char *cmd)
+void			shenv_set_current_directory(t_shenv *this, char *from_whom)
 {
-	t_lst		*dirs;
 	char		*cwd;
 
-	dirs = builtin_dirs_singleton();
-	cwd = shenv_get_current_directory(shenv_singleton(), cmd);
-	if (!cwd)
+	cwd = getcwd(NULL, 0);
+	if (cwd == NULL)
 	{
-		return (false);
+		twl_dprintf(2, "%s: error retrieving current directory: getcwd: %s\n",
+				from_whom, strerror(errno));
+		this->shenv_current_directory = NULL;
 	}
-	twl_lst_push_front(dirs, twl_strdup(cwd));
-	return (true);
+	else
+	{
+		this->shenv_current_directory = cwd;
+	}
 }
-//
-//bool			builtin_dirs_init_cwd(char *cmd)
-//{
-//	t_lst		*dirs;
-//	char		*cwd;
-//
-//	dirs = builtin_dirs_singleton();
-//	cwd = NULL;
-//	cwd = getcwd(NULL, 4096);
-//	if (cwd == NULL)
-//	{
-//		shenv_singl_error(1, "%s: getcwd: %s", cmd, strerror(errno));
-//		return (false);
-//	}
-//	twl_lst_push_front(dirs, cwd);
-//	return (true);
-//}
