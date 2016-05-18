@@ -12,13 +12,13 @@
 
 #include "builtin/cmds/builtin_cd.h"
 
-static void			from_current_directory(char *dir, bool *done)
+static void			from_current_directory(t_builtin_cd *dir, bool *done)
 {
 	char			*uncomplete_path;
 	char			*path;
 
 	if (!(uncomplete_path = builtin_cd_make_path_from_dir(
-					shenv_singleton()->shenv_current_directory, dir)))
+					shenv_singleton()->shenv_current_directory, dir->path)))
 		return ;
 	if (!(path = builtin_cd_phypath(uncomplete_path)))
 	{
@@ -32,6 +32,8 @@ static void			from_current_directory(char *dir, bool *done)
 		free(path);
 		return ;
 	}
+	if (dir->to_print)
+		twl_printf("%s\n", path);
 	*done = true;
 	shenv_shvars_set(shenv_singleton(), "OLDPWD",
 			shenv_singleton()->shenv_current_directory, NULL);
@@ -50,7 +52,8 @@ static void			iter_fn(void *data, void *ctx1, void *ctx2)
 	if (*((bool *)ctx2))
 		return ;
 	if (!(dumb_path = builtin_cd_make_path_from_dir(
-					shenv_singleton()->shenv_current_directory, data)))
+					shenv_singleton()->shenv_current_directory,
+					((t_builtin_cd *)data)->path)))
 		return ;
 	if (!(uncomplete_path = builtin_cd_make_path_from_dir(dumb_path, ctx1)))
 	{
@@ -65,11 +68,12 @@ static void			iter_fn(void *data, void *ctx1, void *ctx2)
 	}
 	if (chdir(path) == -1)
 	{
-		//shenv_singl_error(1, "cd: %s: %s", dir, strerror(errno));
 		free(uncomplete_path);
 		free(path);
 		return ;
 	}
+	if (((t_builtin_cd *)data)->to_print)
+		twl_printf("%s\n", path);
 	*((bool *)ctx2) = true;
 	shenv_shvars_set(shenv_singleton(), "OLDPWD",
 			shenv_singleton()->shenv_current_directory, NULL);
@@ -89,11 +93,13 @@ void				builtin_cd_unfollow_symlinks(char *dir)
 	done = false;
 	if (twl_lst_first(dirs) == NULL)
 	{
-		twl_lst_del(dirs, free);
+		twl_lst_del(dirs, builtin_cd_del);
 		return ;
 	}
 	if (twl_lst_len(dirs) == 1)
+	{
 		from_current_directory(twl_lst_first(dirs), &done);
+	}
 	else
 		twl_lst_iter2(dirs, iter_fn, dir, &done);
 	if (!done)

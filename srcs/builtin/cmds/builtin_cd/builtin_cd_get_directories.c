@@ -25,7 +25,7 @@ static void			get_cdpath(t_lst *ret)
 	while (paths[index])
 	{
 		if (*paths[index])
-			twl_lst_push_back(ret, paths[index]);
+			twl_lst_push_back(ret, builtin_cd_new(paths[index], true));
 		else
 			free(paths[index]);
 		index += 1;
@@ -47,7 +47,7 @@ t_lst				*builtin_cd_get_directories(char *dir)
 			shenv_singl_error(EXIT_FAILURE, "cd: HOME not set");
 			return (ret);
 		}
-		twl_lst_push_back(ret, twl_strdup(tmp));
+		twl_lst_push_back(ret, builtin_cd_new(twl_strdup(tmp), false));
 	}
 	else if (dir[0] == '-' && dir[1] == '\0')
 	{
@@ -57,21 +57,21 @@ t_lst				*builtin_cd_get_directories(char *dir)
 			shenv_singl_error(EXIT_FAILURE, "cd: OLDPWD not set");
 			return (ret);
 		}
-		twl_lst_push_back(ret, twl_strdup(tmp));
+		twl_lst_push_back(ret, builtin_cd_new(twl_strdup(tmp), true));
 	}
 	else if (dir[0] == '/')
-		twl_lst_push_back(ret, twl_strdup(dir));
+		twl_lst_push_back(ret, builtin_cd_new(twl_strdup(dir), false));
 	else if (dir[0] == '.' && dir[1] == '/')
-		twl_lst_push_back(ret, twl_strdup(dir));
+		twl_lst_push_back(ret, builtin_cd_new(twl_strdup(dir), false));
 	else if (dir[0] == '.' && dir[1] == '.' && dir[2] == '/')
-		twl_lst_push_back(ret, twl_strdup(dir));
+		twl_lst_push_back(ret, builtin_cd_new(twl_strdup(dir), false));
 	else
 	{
 		get_cdpath(ret);
-		if (!twl_lst_len(ret))
-			twl_lst_push_back(ret, twl_strdup(dir));
+		if (!twl_lst_first(ret))
+			twl_lst_push_back(ret, builtin_cd_new(twl_strdup(dir), false));
 		else
-			twl_lst_push_back(ret, twl_strdup("."));
+			twl_lst_push_back(ret, builtin_cd_new(twl_strdup("."), false));
 	}
 	return (ret);
 }

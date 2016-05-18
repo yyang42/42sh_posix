@@ -51,6 +51,15 @@ typedef struct			s_builtin_cd_phypath
 	size_t				error;
 }						t_builtin_cd_phypath;
 
+typedef struct			s_builtin_cd
+{
+	char				*path;
+	bool				to_print;
+}						t_builtin_cd;
+
+t_builtin_cd			*builtin_cd_new(char *path, bool to_print);
+void					builtin_cd_del(t_builtin_cd *this);
+
 void					builtin_cd_exec(t_lst *tokens, t_shenv *this);
 
 t_argparser				*builtin_cd_argparser(void);

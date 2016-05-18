@@ -11,10 +11,12 @@
 /* ************************************************************************** */
 
 #include "builtin/cmds/builtin_pwd.h"
+#include "builtin/cmds/builtin_cd.h"
 
 void			builtin_pwd_exec(t_lst *tokens, t_shenv *shenv)
 {
 	t_argparser_result	*result;
+	char				*path;
 
 	result = argparser_parse_tokens(builtin_pwd_argparser(), tokens);
 	if (result->err_msg)
@@ -23,15 +25,21 @@ void			builtin_pwd_exec(t_lst *tokens, t_shenv *shenv)
 		argparser_print_help(builtin_pwd_argparser());
 		return ;
 	}
-	twl_printf("%s\n", shenv->shenv_current_directory);
-	//if (argparser_result_opt_is_set(result, "P"))
-	//{
-	//	builtin_pwd_exec_physical();
-	//}
-	//else
-	//{
-	//	builtin_pwd_exec_logical();
-	//}
-	//argparser_result_del(result);
+	path = shenv_get_current_directory(shenv_singleton(), "pwd");
+	if (!path)
+		;
+	else if (argparser_result_opt_is_set(result, "P"))
+	{
+		if ((path = builtin_cd_phypath(path)))
+		{
+			twl_printf("%s\n", path);
+			free(path);
+		}
+	}
+	else
+	{
+		twl_printf("%s\n", path);
+	}
+	argparser_result_del(result);
 	(void)shenv;
 }

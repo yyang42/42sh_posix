@@ -12,13 +12,11 @@
 
 #include "builtin/cmds/builtin_cd.h"
 
-int					builtin_cd_utils_free_all(char *dirname, char **args, t_opt *opt)
+void			builtin_cd_del(t_builtin_cd *this)
 {
-	if (dirname)
-		free(dirname);
-	if (args)
-		twl_arr_del(args, NULL);
-	if (opt)
-		twl_opt_del(opt);
-	return (0);
+	if (!this)
+		return ;
+	if (this->path)
+		free(this->path);
+	free(this);
 }

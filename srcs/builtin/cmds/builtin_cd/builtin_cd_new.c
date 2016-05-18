@@ -12,10 +12,12 @@
 
 #include "builtin/cmds/builtin_cd.h"
 
-void				builtin_cd_utils_get_flags(t_opt *opt, int *no_symlinks)
+t_builtin_cd		*builtin_cd_new(char *path, bool to_print)
 {
-	if (twl_opt_exist(opt, "P"))
-		*no_symlinks = 1;
-	if (twl_opt_exist(opt, "L"))
-		*no_symlinks = 0;
+	t_builtin_cd	*this;
+
+	this = twl_malloc_x0(sizeof(t_builtin_cd));
+	this->path = path;
+	this->to_print = to_print;
+	return (this);
 }
