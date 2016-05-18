@@ -75,7 +75,6 @@ void			builtin_cd_phypath_add_path(t_builtin_cd_phypath *this)
 		return ;
 	}
 	buf[linklen] = 0;
-	LOG_DEBUG("%s %s %i", this->ret, buf, linklen)
 	this->num_symlink += 1;
 	if (this->num_symlink > CD_MAXSYMLINKS)
 		this->error = ELOOP;

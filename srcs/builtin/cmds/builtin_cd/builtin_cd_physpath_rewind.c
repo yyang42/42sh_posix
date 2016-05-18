@@ -19,12 +19,20 @@ void			builtin_cd_phypath_rewind(t_builtin_cd_phypath *this)
 	{
 		return ;
 	}
-	this->index_ret -= 1;
 	this->ret[this->index_ret] = 0;
+	this->index_ret -= 1;
 	while (this->index_ret > this->base &&
 			CD_ISDIRSEP(this->ret[this->index_ret]) == 0)
 	{
+		this->ret[this->index_ret] = 0;
 		this->index_ret -= 1;
+	}
+	if (this->index_ret <= this->base)
+	{
+		this->index_ret += 1;
+	}
+	else
+	{
 		this->ret[this->index_ret] = 0;
 	}
 }
