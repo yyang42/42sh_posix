@@ -12,21 +12,29 @@
 
 #include "twl_xstdio.h"
 
-#include "ast/ast.h"
+#include "arexp/arexp.h"
 #include "prog.h"
+#include "shenv/shenv.h"
 
-int					prog_print_ast(t_prog *prog, char *input)
+int					prog_utils_print_arexp(char *input)
 {
-	t_ast			*ast;
+	t_arexp			*arexp;
+	long long		lol;
 
-	ast = ast_new_from_string(input, AST_FLAG_NO_EXEC, 1);
-	if (ast->error_msg)
+	arexp = arexp_new(input);
+	if (arexp->error_msg)
 	{
-		twl_dprintf(2, "%s\n", ast->error_msg);
+		twl_dprintf(2, "%s\n", arexp->error_msg);
 		return (1);
 	}
-	ast_print_rec(ast);
-	ast_del(ast);
+	arexp_print_rec(arexp);
+	lol = arexp_eval(arexp);
+	if (arexp->error_msg)
+	{
+		twl_dprintf(2, "%s\n", arexp->error_msg);
+		return (1);
+	}
+	twl_printf("Result = %lli\n", lol);
+	arexp_del(arexp);
 	return (0);
-	(void)prog;
 }

@@ -25,5 +25,6 @@ void				prog_run_file(t_prog *prog, char *file)
 		exit(shenv_singleton()->last_exit_code);
 	}
 	prog_utils_set_command_pos_params();
-	prog_run_fd(prog, fd);
+	prog_utils_run_fd(fd);
+	(void)prog;
 }

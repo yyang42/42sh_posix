@@ -32,13 +32,13 @@ int					prog_run(t_prog *prog)
 		// {
 		// 	twl_dprintf(2, "%s: no job control in this shell\n", SHENV_DEFAULT_NAME);
 		// }
-		// prog_run_input(prog, input, line);
+		// prog_utils_run_input(input, line);
 	env = shenv_singleton();
 	if (prog->prog_command_arg)
 	{
 		LOG_INFO("exec opt -c: %s", prog->prog_command_arg);
 		prog_utils_set_command_pos_params();
-		prog_run_input(prog, prog->prog_command_arg, 1);
+		prog_utils_run_input(prog->prog_command_arg, 1);
 	}
 	else if (twl_lst_len(env->shenv_argv_remainder) > 0)
 	{
@@ -55,7 +55,7 @@ int					prog_run(t_prog *prog)
 		if (env->shenv_is_interactive)
 			prog_run_interactive(prog);
 		else
-			prog_run_fd(prog, STDIN_FILENO);
+			prog_utils_run_fd(STDIN_FILENO);
 	}
 	return (env->last_exit_code);
 }

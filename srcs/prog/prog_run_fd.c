@@ -68,7 +68,7 @@ static char			*read_gnl(int fd, char **gnl_remainder_ptr, int *line_ptr)
 	return (accumulator);
 }
 
-void				prog_run_fd(t_prog *prog, int fd)
+void				prog_utils_run_fd(int fd)
 {
 	char			*input;
 	char			*gnl_remainder;
@@ -81,7 +81,7 @@ void				prog_run_fd(t_prog *prog, int fd)
 	while ((input = read_gnl(fd, &gnl_remainder, &line)))
 	{
 		// twl_printf("=========\n");
-		prog_run_input(prog, input, line_prev + 1);
+		prog_utils_run_input(input, line_prev + 1);
 		line_prev = line;
 	}
 	free(input);

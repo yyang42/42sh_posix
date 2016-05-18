@@ -10,21 +10,22 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "prog.h"
-#include "ast/ast.h"
+#include "twl_xstdio.h"
 
-void				prog_run_input(t_prog *prog, char *input, int line)
+#include "ast/ast.h"
+#include "prog.h"
+
+int					prog_utils_print_ast(char *input)
 {
-	if (shenv_singleton()->shenv_prog_flags & SHENV_FLAG_AST)
+	t_ast			*ast;
+
+	ast = ast_new_from_string(input, AST_FLAG_NO_EXEC, 1);
+	if (ast->error_msg)
 	{
-		prog_print_ast(prog, input);
+		twl_dprintf(2, "%s\n", ast->error_msg);
+		return (1);
 	}
-	else if (shenv_singleton()->shenv_prog_flags & SHENV_FLAG_AREXP)
-	{
-		prog_print_arexp(prog, input);
-	}
-	else
-	{
-		ast_utils_exec_string(input, line);
-	}
+	ast_print_rec(ast);
+	ast_del(ast);
+	return (0);
 }
