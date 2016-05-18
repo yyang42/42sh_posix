@@ -13,7 +13,7 @@
 #include "prog.h"
 #include <fcntl.h>
 
-void				prog_run_file(t_prog *prog, char *file)
+void				prog_utils_run_file(char *file)
 {
 	int				fd;
 
@@ -26,5 +26,4 @@ void				prog_run_file(t_prog *prog, char *file)
 	}
 	prog_utils_set_command_pos_params();
 	prog_utils_run_fd(fd);
-	(void)prog;
 }

@@ -46,7 +46,7 @@ int					prog_run(t_prog *prog)
 			twl_lst_pop_front(env->shenv_argv_remainder);
 		if (twl_lst_len(env->shenv_argv_remainder) > 0)
 		{
-			prog_run_file(prog, twl_lst_first(env->shenv_argv_remainder));
+			prog_utils_run_file(twl_lst_first(env->shenv_argv_remainder));
 		}
 	}
 	else

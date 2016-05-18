@@ -80,7 +80,6 @@ void				prog_utils_run_fd(int fd)
 	line_prev = 0;
 	while ((input = read_gnl(fd, &gnl_remainder, &line)))
 	{
-		// twl_printf("=========\n");
 		prog_utils_run_input(input, line_prev + 1);
 		line_prev = line;
 	}

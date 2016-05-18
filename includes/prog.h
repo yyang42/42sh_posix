@@ -32,7 +32,7 @@ int					prog_run(t_prog *prog);
 void				prog_run_interactive(t_prog *prog);
 void				prog_utils_run_input(char *input, int line);
 void				prog_utils_run_fd(int fd);
-void				prog_run_file(t_prog *prog, char *file);
+void				prog_utils_run_file(char *file);
 int					prog_utils_print_ast(char *input);
 int					prog_utils_print_arexp(char *input);
 char				*prog_line_edit_get_input(t_prog *prog);
