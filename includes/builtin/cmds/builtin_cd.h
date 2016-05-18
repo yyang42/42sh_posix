@@ -77,7 +77,7 @@ char					*builtin_cd_logpath(char *path);
 char					*builtin_cd_make_path_from_dir(char *path, char *dir);
 
 t_lst					*builtin_cd_get_directories(char *dir);
-void					builtin_cd_follow_symlinks(char *dir);
+bool					builtin_cd_follow_symlinks(char *dir, char *from_whom);
 void					builtin_cd_unfollow_symlinks(char *dir);
 
 #endif

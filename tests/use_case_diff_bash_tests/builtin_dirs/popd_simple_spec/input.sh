@@ -2,9 +2,9 @@ cd /
 popd
 push_mult_file ()
 {
-	for dir in $@
+	for dir
 	do
-		pushd -n +0 $dir
+		pushd -n $dir
 	done
 }
 

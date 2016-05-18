@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "builtin/cmds/builtin_pushd.h"
+#include "builtin/cmds/builtin_cd.h"
 
 static void		bp_error(t_builtin_dirs *this, t_lst *dirs, size_t len)
 {
@@ -25,35 +26,25 @@ static void		bp_error(t_builtin_dirs *this, t_lst *dirs, size_t len)
 static void		pushd_number(t_builtin_dirs *this, t_lst *dirs, size_t len)
 {
 	size_t		index;
-	char		*old_pwd;
 	char		*new_pwd;
 
 	this->is_number_set = false;
 	index = (this->is_negative) ? len - this->number : this->number;
-	old_pwd = twl_lst_first(dirs);
 	while (index != 0)
 	{
 		twl_lst_push_back(dirs, twl_lst_pop_front(dirs));
 		index -= 1;
 	}
-	if (chdir((new_pwd = twl_lst_pop_front(dirs))) == -1)
-	{
-		shenv_singl_error(1, "%s: %s", new_pwd, strerror(errno));
-		free(new_pwd);
-		return ;
-	}
-	shenv_shvars_set(shenv_singleton(), "OLDPWD", old_pwd, NULL);
-	shenv_shvars_set(shenv_singleton(), "PWD", new_pwd, NULL);
+	new_pwd = twl_lst_pop_front(dirs);
+	if (builtin_cd_follow_symlinks(new_pwd, "pushd"))
+		builtin_dirs_simple(this);
 	free(new_pwd);
-	builtin_dirs_simple(this);
 }
 
 static void		pushd_no_number(t_builtin_dirs *this, t_lst *dirs, size_t len)
 {
-	char		*old_pwd;
 	char		*new_pwd;
 
-	old_pwd = twl_lst_first(dirs);
 	new_pwd = twl_lst_first(this->result->remainders);
 	if (!new_pwd && !len)
 	{
@@ -64,15 +55,10 @@ static void		pushd_no_number(t_builtin_dirs *this, t_lst *dirs, size_t len)
 	{
 		new_pwd = twl_lst_popi(dirs, 1);
 	}
-	if (chdir(new_pwd) == -1)
-	{
-		shenv_singl_error(1, "pushd: %s: %s", new_pwd, strerror(errno));
+	if (builtin_cd_follow_symlinks(new_pwd, "pushd"))
+		builtin_dirs_simple(this);
+	else
 		free(twl_lst_pop_front(dirs));
-		return ;
-	}
-	shenv_shvars_set(shenv_singleton(), "OLDPWD", old_pwd, NULL);
-	shenv_shvars_set(shenv_singleton(), "PWD", new_pwd, NULL);
-	builtin_dirs_simple(this);
 }
 
 void			builtin_pushd(t_builtin_dirs *this)

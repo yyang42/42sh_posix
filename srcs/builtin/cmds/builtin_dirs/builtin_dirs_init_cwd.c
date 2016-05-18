@@ -18,13 +18,28 @@ bool			builtin_dirs_init_cwd(char *cmd)
 	char		*cwd;
 
 	dirs = builtin_dirs_singleton();
-	cwd = NULL;
-	cwd = getcwd(NULL, 4096);
-	if (cwd == NULL)
+	cwd = shenv_get_current_directory(shenv_singleton(), cmd);
+	if (!cwd)
 	{
-		shenv_singl_error(1, "%s: getcwd: %s", cmd, strerror(errno));
 		return (false);
 	}
-	twl_lst_push_front(dirs, cwd);
+	twl_lst_push_front(dirs, twl_strdup(cwd));
 	return (true);
 }
+//
+//bool			builtin_dirs_init_cwd(char *cmd)
+//{
+//	t_lst		*dirs;
+//	char		*cwd;
+//
+//	dirs = builtin_dirs_singleton();
+//	cwd = NULL;
+//	cwd = getcwd(NULL, 4096);
+//	if (cwd == NULL)
+//	{
+//		shenv_singl_error(1, "%s: getcwd: %s", cmd, strerror(errno));
+//		return (false);
+//	}
+//	twl_lst_push_front(dirs, cwd);
+//	return (true);
+//}

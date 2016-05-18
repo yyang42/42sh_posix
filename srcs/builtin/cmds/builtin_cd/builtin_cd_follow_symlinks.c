@@ -84,7 +84,7 @@ static void			iter_fn(void *data, void *ctx1, void *ctx2)
 
 }
 
-void				builtin_cd_follow_symlinks(char *dir)
+bool				builtin_cd_follow_symlinks(char *dir, char *from_whom)
 {
 	t_lst			*dirs;
 	bool			done;
@@ -94,7 +94,7 @@ void				builtin_cd_follow_symlinks(char *dir)
 	if (twl_lst_first(dirs) == NULL)
 	{
 		twl_lst_del(dirs, builtin_cd_del);
-		return ;
+		return (done);
 	}
 	if (twl_lst_len(dirs) == 1)
 	{
@@ -106,11 +106,12 @@ void				builtin_cd_follow_symlinks(char *dir)
 	{
 		if (errno)
 		{
-			shenv_singl_error(1, "cd: %s: %s", dir, strerror(errno));
+			shenv_singl_error(1, "%s: %s: %s", from_whom, dir, strerror(errno));
 			errno = 0;
 		}
 		else if (!shenv_singleton()->shenv_current_directory)
-			shenv_get_current_directory(shenv_singleton(), "cd");
+			shenv_get_current_directory(shenv_singleton(), from_whom);
 	}
 	twl_lst_del(dirs, free);
+	return (done);
 }

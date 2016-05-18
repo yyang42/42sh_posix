@@ -53,7 +53,7 @@ void				builtin_cd_exec(t_lst *tokens, t_shenv *env)
 	}
 	else if (should_follow_symlinks(tokens))
 	{
-		builtin_cd_follow_symlinks(twl_lst_first(result->remainders));
+		builtin_cd_follow_symlinks(twl_lst_first(result->remainders), "cd");
 	}
 	else
 	{
