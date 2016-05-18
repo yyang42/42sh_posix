@@ -11,18 +11,20 @@
 /* ************************************************************************** */
 
 #include "prog.h"
+#include "ast/ast.h"
 
-char				*prog_run_file_to_str(t_prog *prog, char *file)
+void				prog_utils_run_input(char *input, int line)
 {
-	char			*input;
-
-	LOG_INFO("read file: %s", file);
-	input = twl_file_to_str(file);
-	if (!input)
+	if (shenv_singleton()->shenv_prog_flags & SHENV_FLAG_AST)
 	{
-		shenv_singl_error_simple(127, "%s: No such file or directory", file);
-		exit(shenv_singleton()->last_exit_code);
+		prog_utils_print_ast(input);
 	}
-	return (input);
-	(void)prog;
+	else if (shenv_singleton()->shenv_prog_flags & SHENV_FLAG_AREXP)
+	{
+		prog_utils_print_arexp(input);
+	}
+	else
+	{
+		ast_utils_exec_string(input, line);
+	}
 }

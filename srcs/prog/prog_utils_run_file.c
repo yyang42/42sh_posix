@@ -10,32 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "twl_xstdio.h"
-
-#include "arexp/arexp.h"
 #include "prog.h"
-#include "shenv/shenv.h"
+#include <fcntl.h>
 
-int					prog_print_arexp(t_prog *prog, char *input)
+void				prog_utils_run_file(char *file)
 {
-	t_arexp			*arexp;
-	long long		lol;
+	int				fd;
 
-	arexp = arexp_new(input);
-	if (arexp->error_msg)
+	fd = open(file, O_RDONLY);
+	LOG_INFO("run file: %s", file);
+	if (fd < 0)
 	{
-		twl_dprintf(2, "%s\n", arexp->error_msg);
-		return (1);
+		shenv_singl_error_simple(127, "%s: No such file or directory", file);
+		exit(shenv_singleton()->last_exit_code);
 	}
-	arexp_print_rec(arexp);
-	lol = arexp_eval(arexp);
-	if (arexp->error_msg)
-	{
-		twl_dprintf(2, "%s\n", arexp->error_msg);
-		return (1);
-	}
-	twl_printf("Result = %lli\n", lol);
-	arexp_del(arexp);
-	return (0);
-	(void)prog;
+	prog_utils_set_command_pos_params();
+	prog_utils_run_fd(fd);
 }

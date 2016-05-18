@@ -60,7 +60,6 @@ t_lst				*ast_lap_build_items(t_lst *tokens,
 	{
 		token_mgr_pop_linebreak(tokens);
 		alias_mgr_expan_tokens(shenv_singleton()->alias, tokens, ast);
-		// token_mgr_print(tokens);
 		if (twl_lst_len(tokens) == 0 || is_reserved_word_delimiter(tokens))
 			break ;
 		if (is_list_sep_followed_by_closing_parenthesis(tokens, type, last_sep))
@@ -77,11 +76,13 @@ t_lst				*ast_lap_build_items(t_lst *tokens,
 	}
 	if (token_mgr_first_equ(tokens, "("))
 	{
+		ast_add_to_open_stack(ast, "(");
 		ast_set_error_msg_syntax_error_near(ast, token_mgr_first(tokens), NULL);
 		return (NULL);
 	}
 	if (is_last_sep_that_require_more_tokens(last_sep))
 	{
+		ast_add_to_open_stack(ast, last_sep->text);
 		ast_set_error_msg_syntax_error_near(ast, last_sep, NULL);
 		return (NULL);
 	}

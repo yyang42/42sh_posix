@@ -40,7 +40,7 @@ typedef struct		s_ast
 	int							ast_flags;
 }					t_ast;
 
-t_ast				*ast_new_from_string(char *input, int ast_flags);
+t_ast				*ast_new_from_string(char *input, int ast_flags, int line);
 t_ast				*ast_new(t_lst *src_tokens, int ast_flags);
 void				ast_del(t_ast *this);
 
@@ -61,8 +61,7 @@ void				ast_add_to_open_stack(t_ast *this, char *str);
 char				*ast_utils_check_open(char *input);
 bool				ast_utils_check_has_open(char *input);
 
-void				ast_utils_exec_string(char *input);
-int					ast_utils_try_exec_string(char *input);
+void				ast_utils_exec_string(char *input, int line);
 void				ast_print_error(t_ast *ast);
 
 #endif

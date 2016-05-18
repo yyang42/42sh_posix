@@ -30,7 +30,7 @@ static void	child_part(t_expansion *this, t_expan_token *token, int fd[2])
 	}
 	close(fd[0]);
 	cmd = twl_strndup(token->text + 2, twl_strlen(token->text + 3));
-    ast_utils_exec_string(cmd);
+    ast_utils_exec_string(cmd, 1);
 	free(cmd);
 	exit(-1);
 	(void)this;

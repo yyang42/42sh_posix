@@ -10,21 +10,31 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "prog.h"
-#include "ast/ast.h"
+#include "twl_xstdio.h"
 
-void				prog_run_input(t_prog *prog, char *input)
+#include "arexp/arexp.h"
+#include "prog.h"
+#include "shenv/shenv.h"
+
+int					prog_utils_print_arexp(char *input)
 {
-	if (shenv_singleton()->shenv_prog_flags & SHENV_FLAG_AST)
+	t_arexp			*arexp;
+	long long		lol;
+
+	arexp = arexp_new(input);
+	if (arexp->error_msg)
 	{
-		prog_print_ast(prog, input);
+		twl_dprintf(2, "%s\n", arexp->error_msg);
+		return (1);
 	}
-	else if (shenv_singleton()->shenv_prog_flags & SHENV_FLAG_AREXP)
+	arexp_print_rec(arexp);
+	lol = arexp_eval(arexp);
+	if (arexp->error_msg)
 	{
-		prog_print_arexp(prog, input);
+		twl_dprintf(2, "%s\n", arexp->error_msg);
+		return (1);
 	}
-	else
-	{
-		ast_utils_exec_string(input);
-	}
+	twl_printf("Result = %lli\n", lol);
+	arexp_del(arexp);
+	return (0);
 }

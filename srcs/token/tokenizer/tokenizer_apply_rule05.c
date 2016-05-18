@@ -63,7 +63,6 @@ static char			*match_fn(t_tokenizer *t, char *input)
 	openclose_matcher_add(matcher, "\'", "\'");
 	openclose_matcher_add(matcher, "(", ")");
 	match = openclose_matcher_find_matching(matcher, input);
-	twl_lst_clear(t->tok_open_stack, free);
 	twl_lst_iter(matcher->oc_open_stack, push_to_open_stack, t->tok_open_stack);
 	if (matcher->err_msg)
 	{

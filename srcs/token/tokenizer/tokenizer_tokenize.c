@@ -65,6 +65,7 @@ t_lst				*tokenizer_tokenize(t_tokenizer *this)
 {
 	t_lst			*tokens;
 
+	twl_lst_clear(this->tok_open_stack, free);
 	this->tokens = twl_lst_new();
 	while (true)
 	{

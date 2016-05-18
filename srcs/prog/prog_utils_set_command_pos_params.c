@@ -10,23 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "twl_xstdio.h"
-
-#include "ast/ast.h"
 #include "prog.h"
 
-int					prog_print_ast(t_prog *prog, char *input)
+void				prog_utils_set_command_pos_params(void)
 {
-	t_ast			*ast;
+	char			*first;
+	t_shenv			*env;
 
-	ast = ast_new_from_string(input, AST_FLAG_NO_EXEC);
-	if (ast->error_msg)
+	env = shenv_singleton();
+	shenv_pos_params_copy_deep_from(env, shenv_singleton()->shenv_argv_remainder);
+	first = twl_lst_pop_front(env->shenv_pos_params);
+	if (first)
 	{
-		twl_dprintf(2, "%s\n", ast->error_msg);
-		return (1);
+		shenv_set_name(env, first);
 	}
-	ast_print_rec(ast);
-	ast_del(ast);
-	return (0);
-	(void)prog;
 }

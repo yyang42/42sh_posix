@@ -21,6 +21,7 @@
 typedef struct		s_prog
 {
 	char			*prog_command_arg;
+	char			*argv0;
 }					t_prog;
 
 t_prog				*prog_new(void);
@@ -29,14 +30,15 @@ void				prog_init(t_prog *prog, char **argv);
 void				prog_del(t_prog *prog);
 int					prog_run(t_prog *prog);
 void				prog_run_interactive(t_prog *prog);
-void				prog_run_input(t_prog *prog, char *input);
-void				prog_run_input_from_stdin(t_prog *prog);
-char				*prog_run_file_to_str(t_prog *prog, char *file);
-int					prog_print_ast(t_prog *prog, char *input);
-int					prog_print_arexp(t_prog *prog, char *input);
+void				prog_utils_run_input(char *input, int line);
+void				prog_utils_run_fd(int fd);
+void				prog_utils_run_file(char *file);
+int					prog_utils_print_ast(char *input);
+int					prog_utils_print_arexp(char *input);
 char				*prog_line_edit_get_input(t_prog *prog);
 char				*prog_line_edit_get_input_gnl(t_prog *prog);
 void				prog_handle_exit_signal(t_prog *prog);
 void				prog_parse_args(t_prog *prog, char **argv);
+void				prog_utils_set_command_pos_params(void);
 
 #endif

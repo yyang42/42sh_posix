@@ -32,11 +32,18 @@ t_ast_until_clause		*ast_until_clause_new_from_tokens(t_lst *tokens,
 	if (this->cond_compound == NULL
 		|| twl_lst_len(this->cond_compound->ast_list_items) == 0)
 	{
+		ast_add_to_open_stack(ast, "until");
 		ast_set_error_msg_syntax_error_near(ast, open, "Missing condition");
 		return (NULL);
 	}
 	if (ast_has_error(ast))
 		return (NULL);
+	if (twl_lst_len(tokens) == 0)
+	{
+		ast_add_to_open_stack(ast, "until");
+		ast_set_error_msg_syntax_error_near(ast, open, "Missing until body");
+		return (NULL);
+	}
 	this->do_group = ast_compound_list_new_from_tokens_wrap(tokens, "do", "done", ast);
 	if (ast_has_error(ast))
 		return (NULL);

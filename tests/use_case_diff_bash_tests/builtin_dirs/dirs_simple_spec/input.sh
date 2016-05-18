@@ -1,6 +1,6 @@
 for file in /*;
 do
-	if [ -d $file ]
+	if [ -d "$file" ]
 	then
 		pushd $file
 	fi

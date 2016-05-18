@@ -10,23 +10,22 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/ast.h"
+#include "twl_xstdio.h"
 
-int					ast_utils_try_exec_string(char *input)
+#include "ast/ast.h"
+#include "prog.h"
+
+int					prog_utils_print_ast(char *input)
 {
 	t_ast			*ast;
-	int				ret;
 
-	ast = ast_new_from_string(input, 0);
-	ret = 0;
-	if (twl_lst_len(ast->ast_open_stack) == 0)
+	ast = ast_new_from_string(input, AST_FLAG_NO_EXEC, 1);
+	if (ast->error_msg)
 	{
-		ast_print_error(ast);
+		twl_dprintf(2, "%s\n", ast->error_msg);
+		return (1);
 	}
-	else
-	{
-		ret = -1;
-	}
+	ast_print_rec(ast);
 	ast_del(ast);
-	return (ret);
+	return (0);
 }
