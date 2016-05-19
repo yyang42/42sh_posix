@@ -64,7 +64,7 @@ static char         *read_gnl(int fd, char **gnl_remainder_ptr, int *line_ptr)
 	}
 	if (gnl_ret == GNL_ERR_BINARY_FILE)
 	{
-		shenv_singl_error(1, "cannot execute binary file");
+		shenv_singl_error(126, "cannot execute binary file");
 		free(accumulator);
 		return (NULL);
 	}
