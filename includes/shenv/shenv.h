@@ -96,6 +96,7 @@ typedef struct				s_shenv
 	char					**shenv_read_buffer_db;
 	int						shenv_fork_level;
 	char					*shenv_current_directory;
+	bool					shenv_has_syntax_error;
 }							t_shenv;
 
 t_shenv				*shenv_new(void);

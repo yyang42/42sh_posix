@@ -12,11 +12,24 @@
 
 #include "prog.h"
 #include "twl_gnl.h"
+#include "twl_ctype.h"
 #include "ast/ast.h"
+#include "shenv/shenv.h"
 
-static int			count_single_quote(char *str)
+bool                is_binary(char *str)
 {
-	int				count;
+	while (*str)
+	{
+		if (!twl_isascii(*str))
+			return (true);
+		str++;
+	}
+	return (false);
+}
+
+static int          count_single_quote(char *str)
+{
+	int             count;
 
 	count = 0;
 	while (*str)
@@ -35,10 +48,10 @@ static int			count_single_quote(char *str)
 	return (count);
 }
 
-static char			*read_gnl(int fd, char **gnl_remainder_ptr, int *line_ptr)
+static char         *read_gnl(int fd, char **gnl_remainder_ptr, int *line_ptr)
 {
-	char			*line;
-	char			*accumulator;
+	char            *line;
+	char            *accumulator;
 
 	accumulator = twl_strdup("");
 	while (twl_gnl(fd, &line, gnl_remainder_ptr) > 0)
@@ -57,8 +70,10 @@ static char			*read_gnl(int fd, char **gnl_remainder_ptr, int *line_ptr)
 		}
 		accumulator = twl_strjoinfree(accumulator, "\n", 'l');
 		free(line);
+		if (is_binary(accumulator))
+			break ;
 		if (!ast_utils_check_has_open(accumulator))
-			break;
+			break ;
 	}
 	if (twl_strlen(accumulator) == 0)
 	{
@@ -68,12 +83,12 @@ static char			*read_gnl(int fd, char **gnl_remainder_ptr, int *line_ptr)
 	return (accumulator);
 }
 
-void				prog_utils_run_fd(int fd)
+void                prog_utils_run_fd(int fd)
 {
-	char			*input;
-	char			*gnl_remainder;
-	int				line;
-	int				line_prev;
+	char            *input;
+	char            *gnl_remainder;
+	int             line;
+	int             line_prev;
 
 	gnl_remainder = NULL;
 	line = 0;
@@ -81,6 +96,8 @@ void				prog_utils_run_fd(int fd)
 	while ((input = read_gnl(fd, &gnl_remainder, &line)))
 	{
 		prog_utils_run_input(input, line_prev + 1);
+		if (shenv_singleton()->shenv_has_syntax_error)
+			break ;
 		line_prev = line;
 	}
 	free(input);
