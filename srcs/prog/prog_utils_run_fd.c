@@ -12,20 +12,8 @@
 
 #include "prog.h"
 #include "twl_gnl.h"
-#include "twl_ctype.h"
 #include "ast/ast.h"
 #include "shenv/shenv.h"
-
-bool                is_binary(char *str)
-{
-	while (*str)
-	{
-		if (!twl_isascii(*str))
-			return (true);
-		str++;
-	}
-	return (false);
-}
 
 static int          count_single_quote(char *str)
 {
@@ -52,9 +40,10 @@ static char         *read_gnl(int fd, char **gnl_remainder_ptr, int *line_ptr)
 {
 	char            *line;
 	char            *accumulator;
+	int				gnl_ret;
 
 	accumulator = twl_strdup("");
-	while (twl_gnl(fd, &line, gnl_remainder_ptr) > 0)
+	while ((gnl_ret = twl_gnl(fd, &line, gnl_remainder_ptr)) > 0)
 	{
 		*line_ptr += 1;
 		accumulator = twl_strjoinfree(accumulator, line, 'l');
@@ -70,10 +59,14 @@ static char         *read_gnl(int fd, char **gnl_remainder_ptr, int *line_ptr)
 		}
 		accumulator = twl_strjoinfree(accumulator, "\n", 'l');
 		free(line);
-		if (is_binary(accumulator))
-			break ;
 		if (!ast_utils_check_has_open(accumulator))
 			break ;
+	}
+	if (gnl_ret == GNL_ERR_BINARY_FILE)
+	{
+		shenv_singl_error(1, "cannot execute binary file");
+		free(accumulator);
+		return (NULL);
 	}
 	if (twl_strlen(accumulator) == 0)
 	{
