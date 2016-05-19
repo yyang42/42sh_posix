@@ -19,5 +19,7 @@ void				ast_print_error(t_ast *ast)
 	{
 		twl_dprintf(2, "%s\n", ast->error_msg);
 		shenv_singleton()->last_exit_code = 2;
+		if (shenv_singleton()->shenv_prog_flags & SHENV_FLAG_EXIT_ON_AST_ERROR)
+			exit(2);
 	}
 }

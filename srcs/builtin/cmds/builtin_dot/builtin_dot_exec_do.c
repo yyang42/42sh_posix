@@ -13,6 +13,7 @@
 #include "builtin/cmds/builtin_dot.h"
 #include "ast/ast.h"
 #include "ast/nodes/ast_compound_list.h"
+#include "prog.h"
 
 static char			*get_file(char *raw_path, t_shenv *this)
 {
@@ -41,8 +42,11 @@ static char			*get_file(char *raw_path, t_shenv *this)
 void				builtin_dot_exec_do(char *raw_path)
 {
 	char			*resolved_path;
-	t_ast			*ast;
+	t_shenv			*env;
+	int				flags_save;
+	// t_ast			*ast;
 
+	env = shenv_singleton();
 	resolved_path = get_file(raw_path, shenv_singleton());
 	if (!resolved_path)
 	{
@@ -51,13 +55,11 @@ void				builtin_dot_exec_do(char *raw_path)
 			exit(EXIT_FAILURE);
 		return ;
 	}
-	shenv_singleton()->shenv_is_function_or_script = true;
-	ast = ast_new_from_string(twl_file_to_str(resolved_path), 0, 1);
-	shenv_singleton()->shenv_is_function_or_script = false;
-	if (ast->error_msg)
-	{
-		shenv_singl_error(EXIT_FAILURE, "ast: %s", ast->error_msg);
-	}
-	ast_del(ast);
+	env->shenv_is_function_or_script = true;
+	flags_save = env->shenv_prog_flags;
+	env->shenv_prog_flags |= SHENV_FLAG_EXIT_ON_AST_ERROR;
+	prog_utils_run_file(resolved_path);
+	env->shenv_is_function_or_script = false;
+	env->shenv_prog_flags = flags_save;
 	free(resolved_path);
 }

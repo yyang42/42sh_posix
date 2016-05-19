@@ -41,6 +41,7 @@
 # define SHENV_FLAG_AREXP (1 << 2)
 # define SHENV_FLAG_GNL (1 << 3)
 # define SHENV_FLAG_READ_STDIN (1 << 4)
+# define SHENV_FLAG_EXIT_ON_AST_ERROR (1 << 5)
 
 # define FTSH_VALID_SET_OPTS "abCefhmnuvx"
 # define FTSH_VALID_ALL_OPTS ":Ac:io:s"FTSH_VALID_SET_OPTS
@@ -94,7 +95,6 @@ typedef struct				s_shenv
 	char					**shenv_read_buffer_ptr;
 	char					**shenv_read_buffer_db;
 	int						shenv_fork_level;
-
 	char					*shenv_current_directory;
 }							t_shenv;
 
