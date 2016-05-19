@@ -1,3 +1,0 @@
-dot_status_code 1
-CMD_PATH: line 6: ast: SyntaxError 1 : Syntax error near ')' : Empty simple command
-exit_code: 0

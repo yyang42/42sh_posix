@@ -12,6 +12,14 @@
 
 #include "ast/ast.h"
 
+static void			print_if_verbose(char *input, int ast_flags)
+{
+	if (ast_flags & AST_FLAG_NO_EXEC)
+		return ;
+	if (shenv_shflag_exist(shenv_singleton(), "verbose"))
+		twl_putstr_fd(input, 2);
+}
+
 static void			push_to_ast_open_stack(void *elem, void *ast_open_stack)
 {
 	twl_lst_push_back(ast_open_stack, twl_strdup(elem));
@@ -23,8 +31,7 @@ t_ast				*ast_new_from_string(char *input, int ast_flags, int line)
 	t_lst			*tokens;
 	t_tokenizer		*tokenizer;
 
-	if (shenv_shflag_exist(shenv_singleton(), "verbose"))
-		twl_putstr_fd(input, 2);
+	print_if_verbose(input, ast_flags);
 	tokenizer = tokenizer_new(input);
 	tokenizer->cur_line = line;
 	tokens = tokenizer_tokenize(tokenizer);

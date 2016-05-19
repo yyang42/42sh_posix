@@ -24,6 +24,6 @@ echo "====== test 6"
 echo 'aa\\\
 bb'
 
-# echo "====== test 7"
-# echo \''aa\\\
-# bb'\'
+echo "====== test 7"
+echo \''aa\\\
+bb'\'
