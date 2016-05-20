@@ -18,11 +18,27 @@
 **  the current token shall be delimited.
 */
 
+static void			handle_heredoc(t_tokenizer *t)
+{
+	t_token			*token;
+
+	while ((token = twl_lst_first(t->open_heredoc_tokens)))
+	{
+		twl_lst_pop_front(t->open_heredoc_tokens);
+		if (twl_strequ(twl_lst_first(t->tok_open_stack), twl_strdup(token->text)))
+		{
+			twl_lst_pop_front(t->tok_open_stack);
+			tokenizer_record_heredoc(t, token);
+		}
+	}
+}
+
 t_rule_status		tokenizer_apply_rule07(t_tokenizer *t)
 {
 	if (!t->cur_is_quoted && *t->curpos == '\n')
 	{
 		tokenizer_delimit(t);
+		handle_heredoc(t);
 		tokenizer_append_to_curtoken(t, 1);
 		t->curpos++;
 		tokenizer_delimit(t);

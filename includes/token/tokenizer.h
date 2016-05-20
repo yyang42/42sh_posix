@@ -38,6 +38,7 @@ typedef struct		s_tokenizer
 	char			*heredoc_pos;
 	char			*err_msg;
 	t_lst			*tok_open_stack;
+	t_lst			*open_heredoc_tokens;
 }					t_tokenizer;
 
 t_lst				*tokenizer_tokenize(t_tokenizer *this);
@@ -57,6 +58,7 @@ void				tokenizer_delimit_handle_heredoc(t_tokenizer *this,
 														t_token *new_token);
 void				tokenizer_remove_line_continuation(t_tokenizer *t);
 void				tokenizer_utils_remove_line_continuation(char *str);
+void				tokenizer_record_heredoc(t_tokenizer *t, t_token *new_token);
 
 /*
 **	Tokenizer rules

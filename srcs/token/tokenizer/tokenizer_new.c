@@ -29,5 +29,6 @@ t_tokenizer			*tokenizer_new(char *input)
 	t->heredoc_pos = NULL;
 	t->err_msg = NULL;
 	t->tok_open_stack = twl_lst_new();
+	t->open_heredoc_tokens = twl_lst_new();
 	return (t);
 }
