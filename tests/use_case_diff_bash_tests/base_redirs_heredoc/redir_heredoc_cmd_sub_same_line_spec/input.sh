@@ -1,4 +1,7 @@
-cat << EOF1; echo $( cat << EOF2
+cat << EOF1; echo $( cat << EOF2; echo $( cat << EOF3;
+hello
+EOF3
+)
 hello
 EOF2
 )

@@ -19,6 +19,10 @@ bool				ast_utils_check_has_open(char *input)
 
 	ast = ast_new_from_string(input, AST_FLAG_NO_EXEC, 1);
 	has_open = (twl_lst_len(ast->ast_open_stack) > 0);
+	if (has_open)
+	{
+		LOG_INFO("heredoc still open: %s", twl_lst_first(ast->ast_open_stack));
+	}
 	ast_del(ast);
 	return (has_open);
 }
