@@ -25,6 +25,7 @@ typedef struct		s_token
 	int				line;
 	int				col;
 	char			*heredoc_text;
+	char			*heredoc_operator;
 	t_lst			*source_alias_expans;
 }					t_token;
 

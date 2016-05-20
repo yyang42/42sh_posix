@@ -76,6 +76,8 @@ t_rule_status		tokenizer_apply_rule05(t_tokenizer *t)
 {
 	char			*found;
 
+	// twl_printf("tokenizer_apply_rule05\n");
+	// twl_printf("tokenizer_apply_rule05 open_stack2: [%s]\n", twl_lst_strjoin(t->tok_open_stack, "_"));
 	if (!t->cur_is_quoted
 		&& is_start_candidate(*t->curpos))
 	{

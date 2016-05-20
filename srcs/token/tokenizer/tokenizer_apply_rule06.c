@@ -22,6 +22,7 @@
 
 t_rule_status		tokenizer_apply_rule06(t_tokenizer *t)
 {
+	// twl_printf("tokenizer_apply_rule06\n");
 	if (!t->cur_is_quoted
 		&& tokenizer_utils_is_start_of_op(t, *t->curpos))
 	{

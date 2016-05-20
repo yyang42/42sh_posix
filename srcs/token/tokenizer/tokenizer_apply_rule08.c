@@ -23,6 +23,7 @@
 
 t_rule_status		tokenizer_apply_rule08(t_tokenizer *t)
 {
+	// twl_printf("tokenizer_apply_rule08\n");
 	if (!t->cur_is_quoted && twl_isblank(*t->curpos))
 	{
 		tokenizer_delimit(t);

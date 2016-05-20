@@ -41,6 +41,7 @@ static char         *read_gnl(int fd, char **gnl_remainder_ptr, int *line_ptr)
 	char            *line;
 	char            *accumulator;
 	int				gnl_ret;
+	int				has_open;
 
 	accumulator = twl_strdup("");
 	while ((gnl_ret = twl_gnl(fd, &line, gnl_remainder_ptr)) > 0)
@@ -59,7 +60,10 @@ static char         *read_gnl(int fd, char **gnl_remainder_ptr, int *line_ptr)
 		}
 		accumulator = twl_strjoinfree(accumulator, "\n", 'l');
 		free(line);
-		if (!ast_utils_check_has_open(accumulator))
+		// twl_printf("=============> accumulator {%s}\n", accumulator);
+		has_open = ast_utils_check_has_open(accumulator);
+		// twl_printf("               has_open {%d}\n", has_open);
+		if (!has_open)
 			break ;
 	}
 	if (gnl_ret == GNL_ERR_BINARY_FILE)
