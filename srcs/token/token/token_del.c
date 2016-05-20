@@ -22,5 +22,6 @@ void				token_del(t_token *this)
 		free(this->heredoc_text);
 	if (this->source_alias_expans)
 		twl_lst_del(this->source_alias_expans, NULL);
+	free(this->heredoc_operator);
 	free(this);
 }

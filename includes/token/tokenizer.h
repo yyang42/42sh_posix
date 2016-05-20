@@ -38,7 +38,7 @@ typedef struct		s_tokenizer
 	char			*heredoc_pos;
 	char			*err_msg;
 	t_lst			*tok_open_stack;
-	t_lst			*open_heredocs;
+	t_lst			*open_heredoc_tokens;
 }					t_tokenizer;
 
 t_lst				*tokenizer_tokenize(t_tokenizer *this);

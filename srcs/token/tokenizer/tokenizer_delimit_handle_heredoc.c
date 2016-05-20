@@ -23,7 +23,7 @@ void				tokenizer_delimit_handle_heredoc(t_tokenizer *t,
 	if (last_token && ast_redir_utils_is_heredoc(last_token->text))
 	{
 		new_token->heredoc_operator = twl_strdup(last_token->text);
-		twl_lst_push_back(t->open_heredocs, new_token);
-		twl_lst_push_back(t->tok_open_stack, new_token->text);
+		twl_lst_push_back(t->open_heredoc_tokens, new_token);
+		twl_lst_push_back(t->tok_open_stack, twl_strdup(new_token->text));
 	}
 }

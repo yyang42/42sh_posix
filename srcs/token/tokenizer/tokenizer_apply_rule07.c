@@ -22,10 +22,10 @@ static void			handle_heredoc(t_tokenizer *t)
 {
 	t_token			*token;
 
-	while ((token = twl_lst_first(t->open_heredocs)))
+	while ((token = twl_lst_first(t->open_heredoc_tokens)))
 	{
-		twl_lst_pop_front(t->open_heredocs);
-		if (twl_strequ(twl_lst_first(t->tok_open_stack), token->text))
+		twl_lst_pop_front(t->open_heredoc_tokens);
+		if (twl_strequ(twl_lst_first(t->tok_open_stack), twl_strdup(token->text)))
 		{
 			twl_lst_pop_front(t->tok_open_stack);
 			tokenizer_record_heredoc(t, token);
