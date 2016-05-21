@@ -42,7 +42,6 @@ t_shenv				*shenv_copy(t_shenv *this)
 	copy->shenv_binary_saved_path = twl_strdup("");
 	copy->shenv_read_buffer_db = twl_malloc_x0(sizeof(char *) * getdtablesize());
 	copy->shenv_fork_level = this->shenv_fork_level;
-	copy->shenv_job_control_enabled = this->shenv_job_control_enabled;
 	copy->shenv_home_pw_dir = twl_strdup_or_null(this->shenv_home_pw_dir);
 	copy->shenv_has_syntax_error = 0;
 	shenv_set_read_buffer_ptr(copy, 0);;

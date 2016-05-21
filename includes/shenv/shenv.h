@@ -77,7 +77,6 @@ typedef struct				s_shenv
 	t_lst					*jobs;
 	t_lst					*shenv_traps;
 	int						last_exit_code;
-	bool					shenv_job_control_enabled;
 
 	int						shenv_break_counter;
 	int						shenv_continue_counter;

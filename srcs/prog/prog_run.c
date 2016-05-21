@@ -19,7 +19,6 @@ static void			set_interactive_state(void)
 	tty = isatty(0);
 	if (tty)
 	{
-		shenv_singleton()->shenv_job_control_enabled = true;
 		shenv_shflag_set(shenv_singleton(), 'i', true);
 		shenv_shflag_set(shenv_singleton(), 'm', true);
 	}
@@ -29,11 +28,11 @@ int					prog_run(t_prog *prog)
 {
 	t_shenv			*env;
 
-		// if (shenv_shflag_enabled(shenv_singleton(), "i"))
-		// {
-		// 	twl_dprintf(2, "%s: no job control in this shell\n", SHENV_DEFAULT_NAME);
-		// }
-		// prog_utils_run_input(input, line);
+	// if (shenv_shflag_enabled(shenv_singleton(), "i"))
+	// {
+	// 	twl_dprintf(2, "%s: no job control in this shell\n", SHENV_DEFAULT_NAME);
+	// }
+	// prog_utils_run_input(input, line);
 	env = shenv_singleton();
 	if (prog->prog_command_arg)
 	{

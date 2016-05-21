@@ -21,11 +21,6 @@ static void			process_command_c(t_prog *prog, char *optarg)
 	shenv_shflag_set(shenv_singleton(), 'c', true);
 }
 
-static void			process_i_interactive(void)
-{
-
-}
-
 static void			process_arg(t_prog *prog, char sign, char c, char *optarg)
 {
 	t_shenv			*env;
@@ -39,8 +34,6 @@ static void			process_arg(t_prog *prog, char sign, char c, char *optarg)
 		env->shenv_prog_flags |= SHENV_FLAG_GNL;
 	else if (c == 's')
 		env->shenv_prog_flags |= SHENV_FLAG_READ_STDIN;
-	else if (c == 'i')
-		process_i_interactive();
 	else if (c == 'c')
 		process_command_c(prog, optarg);
 	else
