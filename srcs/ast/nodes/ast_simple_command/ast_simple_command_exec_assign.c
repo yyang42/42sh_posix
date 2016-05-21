@@ -15,7 +15,8 @@
 
 static void			print_assign_xtrace(t_ast_assignment *assign)
 {
-	twl_dprintf(2, "+ %s=%s\n", assign->key, assign->value);
+	shenv_print_ps4(shenv_singleton());
+	twl_dprintf(2, "%s=%s\n", assign->key, assign->value);
 }
 
 static void			iter_assign_fn(void *assign_, void *cmd_)

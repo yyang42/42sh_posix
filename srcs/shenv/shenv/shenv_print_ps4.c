@@ -10,29 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_if_then.h"
-#include "ast/nodes/ast_for_clause.h"
+#include "shenv/shenv.h"
 
-static void			print_token_fn(void *token_, void *next, void *ctx)
+void				shenv_print_ps4(t_shenv *this)
 {
-	t_token	*token;
+	char			*ps4_val;
 
-	token = token_;
-	twl_putstr_fd(token->text, 2);
-	if (next)
+	ps4_val = shenv_shvars_get_value(this, "PS4");
+	if (ps4_val)
 	{
-		twl_putstr_fd(" ", 2);
-	}
-	(void)ctx;
-}
-
-void				ast_for_clause_exec_handle_xtrace(t_ast_for_clause *this)
-{
-	if (shenv_shflag_exist(shenv_singleton(), "xtrace"))
-	{
-		shenv_print_ps4(shenv_singleton());
-		twl_dprintf(2, "for %s in ", this->name);
-		twl_lst_itern(this->wordlist, print_token_fn, NULL);
-		twl_putstr_fd("\n", 2);
+		twl_putstr_fd(ps4_val, 2);
 	}
 }

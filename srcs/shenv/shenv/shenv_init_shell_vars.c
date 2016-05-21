@@ -25,9 +25,10 @@ static void			set_ppid(t_shenv *this)
 	var->shvar_read_only = true;
 }
 
-static void			set_getopt_vars(t_shenv *this)
+static void			set_default_vars(t_shenv *this)
 {
 	shenv_shvars_set(this, "OPTIND", "1", this->shenv_name);
+	shenv_shvars_set(this, "PS4", "+ ", this->shenv_name);
 }
 
 static void			set_history_file(t_shenv *this)
@@ -49,7 +50,7 @@ static void			set_ifs(t_shenv *this)
 
 void				shenv_init_shell_vars(t_shenv *this)
 {
-	set_getopt_vars(this);
+	set_default_vars(this);
 	set_ppid(this);
 	set_ifs(this);
 	// TODO: INTERACTIVE ONLY
