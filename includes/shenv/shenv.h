@@ -71,7 +71,6 @@ typedef struct				s_shenv
 	t_lst					*shenv_argv_remainder;
 	t_lst					*shenv_pos_params;
 	t_htab					*alias;
-	t_dict					*flag_verbose;
 	t_dict					*shfuncs;
 	int						function_depth;
 	t_shenv_info			info;

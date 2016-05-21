@@ -27,7 +27,6 @@ t_shenv			*shenv_new(void)
 	this->shenv_name = twl_strdup(SHENV_DEFAULT_NAME);
 	this->shenv_cur_cmd = twl_strdup(SHENV_DEFAULT_NAME);
 	this->alias = twl_htab_new();
-	this->flag_verbose = twl_dict_new();
 	this->shfuncs = twl_dict_new();
 	this->shenv_pos_params = twl_lst_new();
 	this->info.name = NULL;
