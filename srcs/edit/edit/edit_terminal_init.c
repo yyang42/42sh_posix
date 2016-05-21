@@ -12,6 +12,28 @@
 
 #include "edit/edit.h"
 
+static void		init_term(t_edit *this)
+{
+	if (tcgetattr(0, &this->term))
+	{
+		if (errno == EINTR)
+		{
+			twl_dprintf(2, "tcgetattr: %s\n", strerror(errno));
+			exit(-1);
+		}
+		this->echoing = true;
+	}
+	if (tcgetattr(0, &this->save))
+	{
+		if (errno == EINTR)
+		{
+			twl_dprintf(2, "tcgetattr: %s\n", strerror(errno));
+			exit(-1);
+		}
+		this->echoing = true;
+	}
+}
+
 void			edit_terminal_init(t_edit *this)
 {
 	char		*term;
@@ -25,16 +47,9 @@ void			edit_terminal_init(t_edit *this)
 			exit(-1);
 		}
 	}
-	if (tcgetattr(0, &this->term))
-	{
-		twl_dprintf(2, "tcgetattr: %s\n", strerror(errno));
-		exit(-1);
-	}
-	if (tcgetattr(0, &this->save))
-	{
-		twl_dprintf(2, "tcgetattr: %s\n", strerror(errno));
-		exit(-1);
-	}
+	init_term(this);
+	if (this->echoing)
+		return ;
 	this->term.c_lflag &= ~(ICANON | ECHO | ISIG);
 	this->term.c_oflag &= ~(ONLCR | OPOST);
 	this->term.c_cc[VMIN] = 1;

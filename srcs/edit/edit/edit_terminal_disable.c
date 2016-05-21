@@ -14,6 +14,8 @@
 
 void				edit_terminal_disable(t_edit *this)
 {
+	if (this->echoing)
+		return ;
 	if (tcsetattr(0, TCSADRAIN, &this->save) == -1)
 	{
 		twl_dprintf(2, "tcsetattr: %s\n", strerror(errno));

@@ -48,7 +48,7 @@ char			*line_get(t_line *this)
 		twl_memset(to_print, 0, sizeof(to_print));
 		log_it(output, buffer, to_print);
 		LOG_DEBUG("%s", to_print);
-		if (*buffer == 0x04)
+		if (*buffer == 0x04 || !output)
 			return ("exit");
 		twl_memset(buffer, 0, sizeof(buffer));
 	}

@@ -29,6 +29,7 @@ typedef struct			s_edit
 	t_line				*current;
 	struct termios		term;
 	struct termios		save;
+	bool				echoing;
 }						t_edit;
 
 t_edit					*edit_new(void);

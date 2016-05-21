@@ -91,6 +91,9 @@ check_libtowel:
 check_unit:
 	make -C tests/unit
 
+check_line_edition:
+	sh tests/line_edition_tests/line_edition_tests.sh
+
 check_use_case:
 	sh tests/use_case_diff_bash_tests/use_case_diff_bash_tests.sh
 
