@@ -10,27 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LINE_H
-# define LINE_H
+#include "edit/edit.h"
 
-# include "basics.h"
-# include "shenv/shenv.h"
-
-# define DFL_LINE_SIZE 64
-
-typedef struct			s_line
+void			edit_new_last_line(t_edit *this)
 {
-	char				*line;
-	char				*copy;
-	size_t				total;
-	size_t				size;
-}						t_line;
-
-t_line					*line_new(void);
-void					line_del(t_line *this);
-
-char					*line_get(t_line *this);
-
-void					line_realloc(t_line *this);
-
-#endif
+	this->last = line_new();
+	this->current = this->last;
+}

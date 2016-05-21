@@ -50,7 +50,7 @@ void			edit_terminal_init(t_edit *this)
 	init_term(this);
 	if (this->echoing)
 		return ;
-	this->term.c_lflag &= ~(ICANON | ECHO | ISIG);
+	this->term.c_lflag &= ~(ICANON | ECHO);
 	this->term.c_oflag &= ~(ONLCR | OPOST);
 	this->term.c_cc[VMIN] = 1;
 	this->term.c_cc[VTIME] = 0;

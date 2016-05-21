@@ -10,27 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LINE_H
-# define LINE_H
+#include "data.h"
+#include "edit/escaped_sequence.h"
 
-# include "basics.h"
-# include "shenv/shenv.h"
-
-# define DFL_LINE_SIZE 64
-
-typedef struct			s_line
+t_lst				*data_escaped_sequence(void)
 {
-	char				*line;
-	char				*copy;
-	size_t				total;
-	size_t				size;
-}						t_line;
+	t_lst			*data = NULL;
 
-t_line					*line_new(void);
-void					line_del(t_line *this);
-
-char					*line_get(t_line *this);
-
-void					line_realloc(t_line *this);
-
-#endif
+	if (!data)
+	{
+		data = twl_lst_new();
+		twl_lst_push_front(data, escaped_sequence_new("\033[C", edit_move_right));
+		twl_lst_push_front(data, escaped_sequence_new("\033[D", edit_move_left));
+	}
+	return (data);
+}

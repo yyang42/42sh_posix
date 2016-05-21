@@ -10,27 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LINE_H
-# define LINE_H
+#ifndef ESCAPED_SEQUENCE_H
+# define ESCAPED_SEQUENCE_H
 
-# include "basics.h"
-# include "shenv/shenv.h"
+# include "edit/edit.h"
 
-# define DFL_LINE_SIZE 64
-
-typedef struct			s_line
+typedef struct		s_escaped_sequence
 {
-	char				*line;
-	char				*copy;
-	size_t				total;
-	size_t				size;
-}						t_line;
+	char			*sequence;
+	void			(*apply_fn)(t_edit *);
+}					t_escaped_sequence;
 
-t_line					*line_new(void);
-void					line_del(t_line *this);
-
-char					*line_get(t_line *this);
-
-void					line_realloc(t_line *this);
+t_escaped_sequence	*escaped_sequence_new(char *sequence, void (*fn)(t_edit *));
+void				escaped_sequence_del(t_escaped_sequence *this);
 
 #endif

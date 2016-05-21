@@ -10,27 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LINE_H
-# define LINE_H
+#include "edit/edit.h"
+#include "edit/escaped_sequence.h"
+#include "data.h"
 
-# include "basics.h"
-# include "shenv/shenv.h"
-
-# define DFL_LINE_SIZE 64
-
-typedef struct			s_line
+static bool		find_fn(void *data, void *ctx)
 {
-	char				*line;
-	char				*copy;
-	size_t				total;
-	size_t				size;
-}						t_line;
+	return (twl_strcmp(((t_escaped_sequence *)data)->sequence, ctx) == 0);
+}
 
-t_line					*line_new(void);
-void					line_del(t_line *this);
+t_edit_fn		edit_utils_buffer_match_sequence(t_edit *this)
+{
+	t_escaped_sequence	*esc;
 
-char					*line_get(t_line *this);
-
-void					line_realloc(t_line *this);
-
-#endif
+	esc = twl_lst_find(data_escaped_sequence(), find_fn, this->buffer);
+	if (esc == NULL)
+	{
+		return (NULL);
+	}
+	return (esc->apply_fn);
+}

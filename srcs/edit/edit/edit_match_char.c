@@ -10,27 +10,36 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LINE_H
-# define LINE_H
+#include "edit/edit.h"
+#include "twl_ctype.h"
 
-# include "basics.h"
-# include "shenv/shenv.h"
-
-# define DFL_LINE_SIZE 64
-
-typedef struct			s_line
+void				edit_match_escaped(t_edit *this, unsigned char buf)
 {
-	char				*line;
-	char				*copy;
-	size_t				total;
-	size_t				size;
-}						t_line;
+	size_t			index;
+	void			(*edit_fn)(t_edit *);
 
-t_line					*line_new(void);
-void					line_del(t_line *this);
+	index = 0;
+	while (this->buffer[index])
+		index += 1;
+	this->buffer[index] = buf;
+	if (!edit_utils_can_buffer_form_sequence(this))
+	{
+		twl_bzero(this->buffer, sizeof(this->buffer));
+		return ;
+	}
+	if ((edit_fn = edit_utils_buffer_match_sequence(this)))
+	{
+		edit_fn(this);
+		twl_bzero(this->buffer, sizeof(this->buffer));
+	}
+}
 
-char					*line_get(t_line *this);
-
-void					line_realloc(t_line *this);
-
-#endif
+void				edit_match_char(t_edit *this, unsigned char buf)
+{
+	if (this->buffer[0] ^ (buf == '\033'))
+		edit_match_escaped(this, buf);
+	else if (buf == '\t')
+		;
+	else if (twl_isprint(buf))
+		edit_place_letter(this, buf);
+}

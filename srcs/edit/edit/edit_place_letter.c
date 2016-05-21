@@ -10,27 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LINE_H
-# define LINE_H
+#include "edit/edit.h"
 
-# include "basics.h"
-# include "shenv/shenv.h"
-
-# define DFL_LINE_SIZE 64
-
-typedef struct			s_line
+void			edit_place_letter(t_edit *this, unsigned char buf)
 {
-	char				*line;
-	char				*copy;
-	size_t				total;
-	size_t				size;
-}						t_line;
-
-t_line					*line_new(void);
-void					line_del(t_line *this);
-
-char					*line_get(t_line *this);
-
-void					line_realloc(t_line *this);
-
-#endif
+	twl_memmove(this->current->line + this->pos_cursor + 1,
+				this->current->line + this->pos_cursor,
+				this->current->size - this->pos_cursor); // XXX Warning
+	this->current->line[this->pos_cursor] = buf;
+	this->putc(buf);
+//	if ((this->pos_cursor + this->base_x) % this->winsize_x == 0)
+//	{
+//		tputs(tgoto(tgetstr("do", NULL), 0, 0), 1, this->putc);
+//	}
+	line_realloc(this->current);
+}

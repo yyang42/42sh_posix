@@ -12,15 +12,36 @@
 
 #include "edit/edit.h"
 
+void				edit_print_prompt(t_edit *this)
+{
+	this->puts(PS1);
+	this->base_x = twl_strlen(PS1) % this->winsize_x;
+}
+
+static void			init_fn(t_edit *this)
+{
+	edit_terminal_enable(this);
+	edit_print_prompt(this);
+	edit_new_last_line(this);
+	this->pos_cursor = 0;
+}
+
+static char			*end_fn(t_edit *this)
+{
+	edit_terminal_enable(this);
+	return (twl_strdup(this->current->line));
+}
+
 char				*edit_get_line(t_edit *this)
 {
-	char			*ret;
+	unsigned char	buf;
 
-	edit_terminal_enable(this);
-	this->current = line_new();
-	ret = line_get(this->current);
-	line_del(this->current);
-	edit_terminal_disable(this);
-	return (ret ? twl_strdup(ret) : twl_strdup("echo lel"));
-	(void)this;
+	init_fn(this);
+	while (1)
+	{
+		if (read(0, &buf, sizeof(buf)) == -1)
+			break ;
+		edit_match_char(this, buf);
+	}
+	return (end_fn(this));
 }
