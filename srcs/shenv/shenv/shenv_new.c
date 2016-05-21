@@ -35,7 +35,6 @@ t_shenv			*shenv_new(void)
 	this->shenv_traps = twl_lst_new();
 	this->last_exit_code = EXIT_SUCCESS;
 	this->shenv_cur_token = NULL;
-	this->shenv_is_interactive = false;
 	this->shenv_break_counter = 0;
 	this->shenv_continue_counter = 0;
 	this->shenv_loop_level = 0;

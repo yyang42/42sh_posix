@@ -15,7 +15,7 @@
 
 void				builtin_exec_exit(int exit_code)
 {
-	if (shenv_singleton()->shenv_is_interactive)
+	if (shenv_shflag_enabled(shenv_singleton(), "i"))
 	{
 		shenv_singleton()->last_exit_code = exit_code;
 	}

@@ -23,7 +23,7 @@ static void			process_command_c(t_prog *prog, char *optarg)
 
 static void			process_i_interactive(void)
 {
-	shenv_singleton()->shenv_is_interactive = true;
+
 }
 
 static void			process_arg(t_prog *prog, char sign, char c, char *optarg)

@@ -33,7 +33,7 @@ bool				job_exec_update_status(t_job *job)
 	str_status = job_status_str_long(job, true);
 	LOG_INFO("job %d status: %s ", job->job_id, str_status);
 	free(str_status);
-	if (!shenv_singleton()->shenv_is_interactive)
+	if (!shenv_shflag_enabled(shenv_singleton(), "i"))
 		return (false);
 	if (shenv_shflag_enabled(shenv_singleton(), "notify"))
 	{
