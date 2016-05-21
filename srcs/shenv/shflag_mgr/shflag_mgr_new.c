@@ -31,5 +31,7 @@ t_lst				*shflag_mgr_new(void)
 	shflag_mgr_add(shflags, shflag_new('x', "xtrace"));
 	shflag_mgr_add(shflags, shflag_new(0, "vi"));
 	shflag_mgr_add(shflags, shflag_new(0, "nolog"));
+	shflag_mgr_add(shflags, shflag_new('i', NULL));
+	shflag_mgr_add(shflags, shflag_new('c', NULL));
 	return (shflags);
 }

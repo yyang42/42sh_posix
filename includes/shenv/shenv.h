@@ -43,8 +43,8 @@
 # define SHENV_FLAG_READ_STDIN (1 << 4)
 # define SHENV_FLAG_EXIT_ON_AST_ERROR (1 << 5)
 
-# define FTSH_VALID_SET_OPTS "abCefhmnuvx"
-# define FTSH_VALID_ALL_OPTS ":Ac:io:s"FTSH_VALID_SET_OPTS
+# define FTSH_VALID_SET_OPTS "abc:Cefhimnuvx"
+# define FTSH_VALID_ALL_OPTS ":Ao:s"FTSH_VALID_SET_OPTS
 
 # define SHENV_DEFAULT_HISTORY_FILE ".sh_history"
 
@@ -116,6 +116,7 @@ void				shenv_unsetenv(t_shenv *this, char *str);
 t_shenv				*shenv_singleton(void);
 t_shenv				*shenv_singleton_setter(t_shenv *src_env);
 int					shenv_shflag_exist(t_shenv *this, char *flag);
+void				shenv_shflag_set(t_shenv *this, char mono, bool enabled);
 void				shenv_print_flags(t_shenv *env);
 void				shenv_print_all(t_shenv *this);
 void				shenv_add_flag(char *flag, t_shenv *env);

@@ -12,40 +12,17 @@
 
 
 #include "shenv/shenv.h"
-#include "twl_arr.h"
+#include "shenv/shflag_mgr.h"
+#include "twl_lst.h"
+#include "twl_opt_elem.h"
 
-static void			init_env_info(t_shenv_info *info)
+void				shenv_shflag_set(t_shenv *this, char mono, bool enabled)
 {
-	info->cur_shell_pid = getpid();
-	info->parent_shell_pid = -1;
-	info->most_recent_background_command_pid = -1;
-	info->name = twl_strdup("SHOULD_NOT_BE_USED");
-}
+	t_shflag		*shflag;
 
-static void			init_env(void *elem, void *context)
-{
-	char			*environ_elem;
-	t_shenv			*this;
-	t_shvar			*shvar;
-
-	environ_elem = elem;
-	this = context;
-	shvar = shenv_shvars_set_split_by_equal(this, environ_elem, NULL);
-	shvar->shvar_exported = true;
-}
-
-void				shenv_init_shflags(t_shenv *this)
-{
-	shenv_shflag_set(this, 'h', true);
-}
-
-void				shenv_init(t_shenv *this)
-{
-	extern char **environ;
-
-	twl_arr_iter(environ, init_env, this);
-	init_env_info(&this->info);
-	shenv_init_shell_vars(this);
-	shenv_init_shflags(this);
-	shenv_build_binary_db(this);
+	shflag = shflag_mgr_find_by_mono(this->shenv_shflags, mono);
+	if (shflag)
+		shflag->shf_enabled = enabled;
+	else
+		LOG_ERROR("shflag not found: %c", mono);
 }

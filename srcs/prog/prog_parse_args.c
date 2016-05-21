@@ -18,6 +18,12 @@ static void			process_command_c(t_prog *prog, char *optarg)
 {
 	free(prog->prog_command_arg);
 	prog->prog_command_arg = twl_strdup(optarg);
+	shenv_shflag_set(shenv_singleton(), 'c', true);
+}
+
+static void			process_i_interactive(void)
+{
+	shenv_singleton()->shenv_is_interactive = true;
 }
 
 static void			process_arg(t_prog *prog, char sign, char c, char *optarg)
@@ -34,7 +40,7 @@ static void			process_arg(t_prog *prog, char sign, char c, char *optarg)
 	else if (c == 's')
 		env->shenv_prog_flags |= SHENV_FLAG_READ_STDIN;
 	else if (c == 'i')
-		shenv_singleton()->shenv_is_interactive = true;
+		process_i_interactive();
 	else if (c == 'c')
 		process_command_c(prog, optarg);
 	else
