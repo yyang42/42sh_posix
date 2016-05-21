@@ -29,7 +29,7 @@ t_edit				*edit_new(void)
 
 	this = twl_malloc_x0(sizeof(t_edit));
 	edit_terminal_init(this);
-	if (ioctl(0, TIOCGWINSZ, &ws) == -1)
+	if (ioctl(2, TIOCGWINSZ, &ws) == -1)
 	{
 		if (errno == EINTR)
 		{

@@ -14,6 +14,18 @@
 
 void				edit_move_left(t_edit *this)
 {
-	LOG_DEBUG("Coucou left");
-	(void)this;
+	if (this->pos_cursor == 0)
+	{
+		return ;
+	}
+	if ((this->pos_cursor + this->base_x) % this->winsize_x == 0)
+	{
+		tputs(tgoto(tgetstr("up", NULL), 0, 0), 1, this->putc);
+		tputs(tgoto(tgetstr("RI", NULL), 0, this->winsize_x), 1, this->putc);
+	}
+	else
+	{
+		tputs(tgoto(tgetstr("le", NULL), 0, 0), 1, this->putc);
+	}
+	this->pos_cursor -= 1;
 }

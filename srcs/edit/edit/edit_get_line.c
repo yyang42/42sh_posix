@@ -28,7 +28,8 @@ static void			init_fn(t_edit *this)
 
 static char			*end_fn(t_edit *this)
 {
-	edit_terminal_enable(this);
+	edit_terminal_disable(this);
+	this->putc('\n');
 	return (twl_strdup(this->current->line));
 }
 
@@ -40,6 +41,8 @@ char				*edit_get_line(t_edit *this)
 	while (1)
 	{
 		if (read(0, &buf, sizeof(buf)) == -1)
+			break ;
+		if (!*this->buffer && buf == '\n')
 			break ;
 		edit_match_char(this, buf);
 	}

@@ -11,23 +11,33 @@
 /* ************************************************************************** */
 
 #include "edit/edit.h"
-#include <string.h>
 
-void			edit_place_letter(t_edit *this, unsigned char buf)
+void			edit_padding(t_edit *this)
 {
-	memmove(this->current->line + this->pos_cursor + 1,
-				this->current->line + this->pos_cursor,
-				this->current->size - this->pos_cursor);
-	this->current->line[this->pos_cursor] = buf;
-	this->pos_cursor += 1;
-	this->current->size += 1;
-	this->putc(buf);
-	if ((this->pos_cursor + this->base_x) % this->winsize_x == 0)
+	int			index;
+	int			diff;
+	int			tmp;
+
+	index = (int)this->current->size;
+	diff = index - (int)this->pos_cursor;
+	write(2, this->current->line + this->pos_cursor, diff);
+	if (diff != 0)
 	{
-		tputs(tgoto(tgetstr("do", NULL), 0, 0), 1, this->putc);
-		tputs(tgoto(tgetstr("LE", NULL), 0, this->winsize_x), 1, this->putc);
+		tmp = (diff < ((int)this->base_x + index) % (int)this->winsize_x) ?
+			diff : ((int)this->base_x + index) % (int)this->winsize_x;
+		if (!((this->base_x + index) % this->winsize_x))
+			tputs(tgoto(tgetstr("do", NULL), 0, 0), 1, this->putc);
+		tputs(tgoto(tgetstr("LE", NULL), 0, tmp), 1, this->putc);
+		index -= tmp;
+		diff -= tmp;
+		while (diff > 0)
+		{
+			tputs(tgoto(tgetstr("up", NULL), 0, 0), 1, this->putc);
+			tputs(tgoto(tgetstr("LE", NULL), 0, this->winsize_x), 1, this->putc);
+			index -= this->winsize_x;
+			diff -= this->winsize_x;
+		}
+		if (diff < 0)
+			tputs(tgoto(tgetstr("RI", NULL), 0, -diff), 1, this->putc);
 	}
-	line_realloc(this->current);
-	if (this->echoing)
-		edit_padding(this);
 }
