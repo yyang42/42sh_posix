@@ -57,6 +57,12 @@ static void				build_redir_tokens(t_lst *redir_items,
 	token_list_mgr_del_shallow(redir_tokens_groups);
 }
 
+static bool				is_operator(t_token *token)
+{
+	return (token_is_control_operators_nl(token)
+		|| twl_strequ(token->text, "}"));
+}
+
 static void				new_compound_command_do(t_ast_compound_command *this,
 	t_lst *tokens, struct s_ast *ast)
 {
@@ -65,8 +71,7 @@ static void				new_compound_command_do(t_ast_compound_command *this,
 	if (ast_has_error(ast))
 		return ;
 	redir_tokens = twl_lst_new();
-	while (twl_lst_len(tokens)
-		&& !token_is_control_operators_nl(token_mgr_first(tokens)))
+	while (twl_lst_len(tokens) && !is_operator(token_mgr_first(tokens)))
 	{
 		twl_lst_push_back(redir_tokens, twl_lst_pop_front(tokens));
 	}

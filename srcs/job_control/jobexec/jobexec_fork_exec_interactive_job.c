@@ -12,7 +12,6 @@
 
 #include "job_control/jobexec.h"
 #include "utils.h"
-#include <setjmp.h>
 
 void				jobexec_fork_exec_interactive_job(t_jobexec *je)
 {

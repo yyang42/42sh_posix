@@ -12,7 +12,6 @@
 
 #include "job_control/jobexec.h"
 #include "utils.h"
-#include <setjmp.h>
 
 t_lst               *data_tmp_jobs(void)
 {
