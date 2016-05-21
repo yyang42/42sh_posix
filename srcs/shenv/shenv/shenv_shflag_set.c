@@ -16,17 +16,13 @@
 #include "twl_lst.h"
 #include "twl_opt_elem.h"
 
-int					shenv_shflag_exist(t_shenv *this, char *flag)
+void				shenv_shflag_set(t_shenv *this, char mono, bool enabled)
 {
 	t_shflag		*shflag;
 
-	if (twl_strlen(flag) == 1)
-		shflag = shflag_mgr_find_by_mono(this->shenv_shflags, *flag);
-	else
-		shflag = shflag_mgr_find_by_long(this->shenv_shflags, flag);
+	shflag = shflag_mgr_find_by_mono(this->shenv_shflags, mono);
 	if (shflag)
-		return (shflag->shf_enabled);
+		shflag->shf_enabled = enabled;
 	else
-		LOG_ERROR("shflag not found: flag: %s", flag);
-	return (false);
+		LOG_ERROR("shflag not found: %c", mono);
 }

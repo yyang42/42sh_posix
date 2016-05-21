@@ -20,8 +20,6 @@ void				shenv_del(t_shenv *this)
 	if (!this)
 		return ;
 	shvar_mgr_del(this->shenv_shvars);
-	if (this->flag_verbose)
-		twl_lst_del(this->flag_verbose, NULL);
 	if (this->shfuncs)
 		twl_lst_del(this->shfuncs, NULL);
 	twl_lst_del(this->shenv_pos_params, free);

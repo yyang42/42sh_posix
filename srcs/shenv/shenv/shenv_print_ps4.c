@@ -12,12 +12,13 @@
 
 #include "shenv/shenv.h"
 
-bool				shenv_should_continue_exec(t_shenv *this)
+void				shenv_print_ps4(t_shenv *this)
 {
-	if (shenv_shflag_enabled(shenv_singleton(), "noexec")
-		|| shenv_singleton()->shenv_return_triggered
-		|| shenv_singleton()->shenv_shall_quit_curr_ast)
-		return (false);
-	return (this->shenv_break_counter == 0
-		&& this->shenv_continue_counter == 0);
+	char			*ps4_val;
+
+	ps4_val = shenv_shvars_get_value(this, "PS4");
+	if (ps4_val)
+	{
+		twl_putstr_fd(ps4_val, 2);
+	}
 }

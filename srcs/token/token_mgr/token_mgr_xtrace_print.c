@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "token/token_mgr.h"
+#include "shenv/shenv.h"
 
 static void			print_token_fn(void *token_, void *next, void *ctx)
 {
@@ -25,7 +26,7 @@ static void			print_token_fn(void *token_, void *next, void *ctx)
 
 void				token_mgr_xtrace_print(t_lst *tokens)
 {
-	twl_putstr_fd("+ ", 2);
+	shenv_print_ps4(shenv_singleton());
 	twl_lst_itern(tokens, print_token_fn, NULL);
 	twl_putstr_fd("\n", 2);
 }

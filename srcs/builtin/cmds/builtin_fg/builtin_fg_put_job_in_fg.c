@@ -13,7 +13,6 @@
 #include "builtin/cmds/builtin_fg.h"
 #include "shsignal/shsignal_mgr.h"
 #include "data.h"
-#include <setjmp.h>
 #include <sys/wait.h>
 
 void                builtin_fg_put_job_in_fg(t_job *job)

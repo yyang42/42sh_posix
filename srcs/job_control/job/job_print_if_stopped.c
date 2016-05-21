@@ -16,7 +16,7 @@
 void				job_print_if_stopped(t_job *job)
 {
 	job_exec_update_status(job);
-	if (!shenv_singleton()->shenv_is_interactive)
+	if (!shenv_shflag_enabled(shenv_singleton(), "i"))
 		return ;
 	if (job->job_status == JOB_STOPPED)
 	{

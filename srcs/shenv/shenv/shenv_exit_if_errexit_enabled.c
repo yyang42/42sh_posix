@@ -15,7 +15,7 @@
 void				shenv_exit_if_errexit_enabled(t_shenv *env)
 {
 	if (!env->shenv_ignore_errexit
-		&& shenv_shflag_exist(env, "e")
+		&& shenv_shflag_enabled(env, "e")
 		&& (env->last_exit_code != 0))
 	{
 		exit(env->last_exit_code);

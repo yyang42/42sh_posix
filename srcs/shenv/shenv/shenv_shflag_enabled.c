@@ -10,14 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shenv/shenv.h"
 
-bool				shenv_should_continue_exec(t_shenv *this)
+#include "shenv/shenv.h"
+#include "shenv/shflag_mgr.h"
+#include "twl_lst.h"
+#include "twl_opt_elem.h"
+
+int					shenv_shflag_enabled(t_shenv *this, char *flag)
 {
-	if (shenv_shflag_enabled(shenv_singleton(), "noexec")
-		|| shenv_singleton()->shenv_return_triggered
-		|| shenv_singleton()->shenv_shall_quit_curr_ast)
-		return (false);
-	return (this->shenv_break_counter == 0
-		&& this->shenv_continue_counter == 0);
+	t_shflag		*shflag;
+
+	if (twl_strlen(flag) == 1)
+		shflag = shflag_mgr_find_by_mono(this->shenv_shflags, *flag);
+	else
+		shflag = shflag_mgr_find_by_long(this->shenv_shflags, flag);
+	if (shflag)
+		return (shflag->shf_enabled);
+	else
+		LOG_ERROR("shflag not found: flag: %s", flag);
+	return (false);
 }

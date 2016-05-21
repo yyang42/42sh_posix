@@ -13,17 +13,6 @@
 #include "shenv/shenv.h"
 #include "twl_opt_elem.h"
 
-static void			*copy_dict_fn(void *data_)
-{
-	char	*data;
-
-	data = data_;
-	if (data)
-		return (twl_strdup(data));
-	else
-		return (NULL);
-}
-
 t_shenv				*shenv_copy(t_shenv *this)
 {
 	t_shenv *copy;
@@ -34,7 +23,6 @@ t_shenv				*shenv_copy(t_shenv *this)
 	copy->shenv_shvars = twl_lst_copy(this->shenv_shvars, shvar_copy_void);
 	copy->shenv_shflags = shflag_mgr_new();
 	copy->shenv_prog_flags = this->shenv_prog_flags;
-	copy->flag_verbose = twl_lst_copy(this->flag_verbose, copy_dict_fn);
 	copy->shfuncs = twl_lst_copy(this->shfuncs, NULL);
 	copy->shenv_pos_params = twl_lst_copy(this->shenv_pos_params, twl_strdup_void);
 	copy->function_depth = this->function_depth;
@@ -50,12 +38,10 @@ t_shenv				*shenv_copy(t_shenv *this)
 	copy->shenv_is_function_or_script = this->shenv_is_function_or_script;
 	copy->shenv_ignore_errexit = this->shenv_ignore_errexit;
 	copy->shenv_is_inside_job_control = this->shenv_is_inside_job_control;
-	copy->shenv_is_interactive = this->shenv_is_interactive;
 	copy->shenv_binary_db = NULL;
 	copy->shenv_binary_saved_path = twl_strdup("");
 	copy->shenv_read_buffer_db = twl_malloc_x0(sizeof(char *) * getdtablesize());
 	copy->shenv_fork_level = this->shenv_fork_level;
-	copy->shenv_job_control_enabled = this->shenv_job_control_enabled;
 	copy->shenv_home_pw_dir = twl_strdup_or_null(this->shenv_home_pw_dir);
 	copy->shenv_has_syntax_error = 0;
 	shenv_set_read_buffer_ptr(copy, 0);;

@@ -43,8 +43,8 @@
 # define SHENV_FLAG_READ_STDIN (1 << 4)
 # define SHENV_FLAG_EXIT_ON_AST_ERROR (1 << 5)
 
-# define FTSH_VALID_SET_OPTS "abCefhmnuvx"
-# define FTSH_VALID_ALL_OPTS ":Ac:io:s"FTSH_VALID_SET_OPTS
+# define FTSH_VALID_SET_OPTS "abc:Cefhimnuvx"
+# define FTSH_VALID_ALL_OPTS ":Ao:s"FTSH_VALID_SET_OPTS
 
 # define SHENV_DEFAULT_HISTORY_FILE ".sh_history"
 
@@ -71,15 +71,12 @@ typedef struct				s_shenv
 	t_lst					*shenv_argv_remainder;
 	t_lst					*shenv_pos_params;
 	t_htab					*alias;
-	t_dict					*flag_verbose;
 	t_dict					*shfuncs;
 	int						function_depth;
 	t_shenv_info			info;
 	t_lst					*jobs;
 	t_lst					*shenv_traps;
 	int						last_exit_code;
-	bool					shenv_is_interactive;
-	bool					shenv_job_control_enabled;
 
 	int						shenv_break_counter;
 	int						shenv_continue_counter;
@@ -116,7 +113,8 @@ void				shenv_print(t_shenv *this);
 void				shenv_unsetenv(t_shenv *this, char *str);
 t_shenv				*shenv_singleton(void);
 t_shenv				*shenv_singleton_setter(t_shenv *src_env);
-int					shenv_shflag_exist(t_shenv *this, char *flag);
+int					shenv_shflag_enabled(t_shenv *this, char *flag);
+void				shenv_shflag_set(t_shenv *this, char mono, bool enabled);
 void				shenv_print_flags(t_shenv *env);
 void				shenv_print_all(t_shenv *this);
 void				shenv_add_flag(char *flag, t_shenv *env);
@@ -155,6 +153,7 @@ char				*shenv_get_home(t_shenv *this);
 void				shenv_set_current_directory(t_shenv *this, char *fm_whom);
 void				shenv_reset_current_directory(t_shenv *this, char *new_dir);
 char				*shenv_get_current_directory(t_shenv *this, char *fm_whom);
+void				shenv_print_ps4(t_shenv *this);
 
 /*
 ** exit

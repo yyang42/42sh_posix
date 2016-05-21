@@ -15,7 +15,7 @@
 
 static void		set_err_fn(char *text)
 {
-	if (shenv_shflag_exist(shenv_singleton(), "nounset"))
+	if (shenv_shflag_enabled(shenv_singleton(), "nounset"))
 	{
 		shenv_singl_error(EXIT_FAILURE, "%s: unbound variable", text);
 		shenv_singleton()->shenv_shall_quit_curr_ast = true;
