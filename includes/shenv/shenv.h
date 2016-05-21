@@ -115,7 +115,7 @@ void				shenv_print(t_shenv *this);
 void				shenv_unsetenv(t_shenv *this, char *str);
 t_shenv				*shenv_singleton(void);
 t_shenv				*shenv_singleton_setter(t_shenv *src_env);
-int					shenv_shflag_exist(t_shenv *this, char *flag);
+int					shenv_shflag_enabled(t_shenv *this, char *flag);
 void				shenv_shflag_set(t_shenv *this, char mono, bool enabled);
 void				shenv_print_flags(t_shenv *env);
 void				shenv_print_all(t_shenv *this);

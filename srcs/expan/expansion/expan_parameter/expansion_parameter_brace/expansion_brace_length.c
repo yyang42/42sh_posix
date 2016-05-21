@@ -46,7 +46,7 @@ static void		expan_param_pos(t_expansion *this, char *pos)
 		expansion_push_before_split(this, to_push, !this->quoted);
 		free(to_push);
 	}
-	else if (shenv_shflag_exist(shenv_singleton(), "nounset"))
+	else if (shenv_shflag_enabled(shenv_singleton(), "nounset"))
 	{
 		shenv_singl_error(EXIT_FAILURE, "%s: unbound variable", pos);
 		shenv_singleton()->shenv_shall_quit_curr_ast = true;
@@ -69,7 +69,7 @@ static void		expan_param_normal(t_expansion *this, char *normal)
 		expansion_push_before_split(this, to_push, !this->quoted);
 		free(to_push);
 	}
-	else if (shenv_shflag_exist(shenv_singleton(), "nounset"))
+	else if (shenv_shflag_enabled(shenv_singleton(), "nounset"))
 	{
 		shenv_singl_error(EXIT_FAILURE, "%s: unbound variable", normal);
 		shenv_singleton()->shenv_shall_quit_curr_ast = true;

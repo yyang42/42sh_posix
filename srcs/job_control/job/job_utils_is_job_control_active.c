@@ -17,5 +17,5 @@
 bool				job_utils_is_job_control_active(void)
 {
 	return (shenv_singleton()->shenv_job_control_enabled
-		|| shenv_shflag_exist(shenv_singleton(), "monitor"));
+		|| shenv_shflag_enabled(shenv_singleton(), "monitor"));
 }

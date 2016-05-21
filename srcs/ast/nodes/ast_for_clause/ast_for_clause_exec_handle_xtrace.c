@@ -28,7 +28,7 @@ static void			print_token_fn(void *token_, void *next, void *ctx)
 
 void				ast_for_clause_exec_handle_xtrace(t_ast_for_clause *this)
 {
-	if (shenv_shflag_exist(shenv_singleton(), "xtrace"))
+	if (shenv_shflag_enabled(shenv_singleton(), "xtrace"))
 	{
 		shenv_print_ps4(shenv_singleton());
 		twl_dprintf(2, "for %s in ", this->name);

@@ -52,7 +52,7 @@ void				ast_simple_command_exec(t_ast_simple_command *cmd)
 		exit(1);
 		return ;
 	}
-	if (shenv_shflag_exist(shenv_singleton(), "xtrace") && twl_lst_len(cmd->cmd_tokens_expanded))
+	if (shenv_shflag_enabled(shenv_singleton(), "xtrace") && twl_lst_len(cmd->cmd_tokens_expanded))
 		token_mgr_xtrace_print(cmd->cmd_tokens_expanded);
 	ast_simple_command_exec_with_redirs(cmd);
 	shvar_mgr_clear_assign_value(shenv_singleton()->shenv_shvars);

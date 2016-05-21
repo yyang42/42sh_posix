@@ -38,7 +38,7 @@ static void		getname_iter_fn(void *data, void *context)
 
 void			expansion_patmatch(t_expansion *this)
 {
-	if (shenv_shflag_exist(shenv_singleton(), "noglob"))
+	if (shenv_shflag_enabled(shenv_singleton(), "noglob"))
 		twl_lst_iter(this->after_split, getname_iter_fn, this);
 	else
 		twl_lst_iter(this->after_split, patmatch_iter_fn, this);

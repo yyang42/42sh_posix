@@ -16,7 +16,7 @@ static void			print_if_verbose(char *input, int ast_flags)
 {
 	if (ast_flags & AST_FLAG_NO_EXEC)
 		return ;
-	if (shenv_shflag_exist(shenv_singleton(), "verbose"))
+	if (shenv_shflag_enabled(shenv_singleton(), "verbose"))
 		twl_putstr_fd(input, 2);
 }
 

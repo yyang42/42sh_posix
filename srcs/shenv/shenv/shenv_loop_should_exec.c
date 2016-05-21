@@ -14,7 +14,7 @@
 
 bool				shenv_should_continue_exec(t_shenv *this)
 {
-	if (shenv_shflag_exist(shenv_singleton(), "noexec")
+	if (shenv_shflag_enabled(shenv_singleton(), "noexec")
 		|| shenv_singleton()->shenv_return_triggered
 		|| shenv_singleton()->shenv_shall_quit_curr_ast)
 		return (false);

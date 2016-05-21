@@ -28,7 +28,7 @@ static void			iter_assign_fn(void *assign_, void *cmd_)
 	assign = assign_;
 	cmd = cmd_;
 	shenv_set_cur_token(shenv_singleton(), assign->token);
-	if (shenv_shflag_exist(shenv_singleton(), "xtrace"))
+	if (shenv_shflag_enabled(shenv_singleton(), "xtrace"))
 		print_assign_xtrace(assign);
 	shvar = shvar_mgr_find_or_create(shenv_singleton()->shenv_shvars, assign->key);
 	if (shvar_check_is_readonly_and_print(shvar))
@@ -42,7 +42,7 @@ static void			iter_assign_fn(void *assign_, void *cmd_)
 	{
 		shvar->shvar_assign_value = twl_strdup(assign->value);
 	}
-	if (shenv_shflag_exist(shenv_singleton(), "allexport"))
+	if (shenv_shflag_enabled(shenv_singleton(), "allexport"))
 	{
 		shvar->shvar_exported = true;
 	}
