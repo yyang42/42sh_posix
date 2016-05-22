@@ -39,6 +39,7 @@ void			edit_terminal_init(t_edit *this)
 	char		*term;
 
 	term = shenv_shvars_get_value(shenv_singleton(), "TERM");
+	this->dumb = false;
 	if (tgetent(NULL, term) == -1)
 	{
 		if (tgetent(NULL, "dumb") == -1)
@@ -46,6 +47,7 @@ void			edit_terminal_init(t_edit *this)
 			twl_dprintf(2, "tgetent: %s\n", strerror(errno));
 			exit(-1);
 		}
+		this->dumb = true;
 	}
 	init_term(this);
 	if (this->echoing)

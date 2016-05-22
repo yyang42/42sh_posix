@@ -10,21 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "data.h"
-#include "edit/escaped_sequence.h"
+#include "edit/simple_char.h"
 
-t_lst				*data_escaped_sequence(void)
+t_simple_char			*simple_char_new(unsigned char simple,
+							void (*fn)(t_edit *))
 {
-	t_lst			*data = NULL;
+	t_simple_char		*this;
 
-	if (!data)
-	{
-		data = twl_lst_new();
-		twl_lst_push_front(data, escaped_sequence_new("\033[C", edit_move_right));
-		twl_lst_push_front(data, escaped_sequence_new("\033[D", edit_move_left));
-		twl_lst_push_front(data, escaped_sequence_new("\033[H", edit_move_home));
-		twl_lst_push_front(data, escaped_sequence_new("\033[F", edit_move_end));
-		twl_lst_push_front(data, escaped_sequence_new("\033[3~", edit_del_right));
-	}
-	return (data);
+	this = twl_malloc_x0(sizeof(t_simple_char));
+	this->simple = simple;
+	this->apply_fn = fn;
+	return (this);
 }

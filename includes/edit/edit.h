@@ -39,6 +39,7 @@ typedef struct			s_edit
 	struct termios		term;
 	struct termios		save;
 	bool				echoing;
+	bool				dumb;
 	int					(*putc)(int);
 	int					(*puts)(char *);
 }						t_edit;
@@ -62,10 +63,20 @@ void					edit_match_char(t_edit *this, unsigned char buf);
 void					edit_place_letter(t_edit *this, unsigned char buf);
 void					edit_padding(t_edit *this);
 
+void					edit_move_goto_pos_cursor(t_edit *this, size_t pos);
+
 void					edit_move_right(t_edit *this);
 void					edit_move_left(t_edit *this);
 
+void					edit_move_home(t_edit *this);
+void					edit_move_end(t_edit *this);
+
+void					edit_del_left(t_edit *this);
+void					edit_del_right(t_edit *this);
+
 bool					edit_utils_can_buffer_form_sequence(t_edit *this);
 t_edit_fn				edit_utils_buffer_match_sequence(t_edit *this);
+t_edit_fn				edit_utils_buf_match_simple(t_edit *this,
+							unsigned char buf);
 
 #endif

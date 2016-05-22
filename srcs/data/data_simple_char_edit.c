@@ -11,20 +11,19 @@
 /* ************************************************************************** */
 
 #include "data.h"
-#include "edit/escaped_sequence.h"
+#include "edit/edit.h"
+#include "edit/simple_char.h"
 
-t_lst				*data_escaped_sequence(void)
+t_lst				*data_simple_char_edit(void)
 {
-	t_lst			*data = NULL;
+	static t_lst	*data = NULL;
 
 	if (!data)
 	{
 		data = twl_lst_new();
-		twl_lst_push_front(data, escaped_sequence_new("\033[C", edit_move_right));
-		twl_lst_push_front(data, escaped_sequence_new("\033[D", edit_move_left));
-		twl_lst_push_front(data, escaped_sequence_new("\033[H", edit_move_home));
-		twl_lst_push_front(data, escaped_sequence_new("\033[F", edit_move_end));
-		twl_lst_push_front(data, escaped_sequence_new("\033[3~", edit_del_right));
+		twl_lst_push_front(data, simple_char_new('\001', edit_move_home));
+		twl_lst_push_front(data, simple_char_new('\005', edit_move_end));
+		twl_lst_push_front(data, simple_char_new('\177', edit_del_left));
 	}
 	return (data);
 }

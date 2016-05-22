@@ -10,21 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "edit/edit.h"
+#include "edit/simple_char.h"
 #include "data.h"
-#include "edit/escaped_sequence.h"
 
-t_lst				*data_escaped_sequence(void)
+static bool		find_fn(void *data, void *ctx)
 {
-	t_lst			*data = NULL;
+	return (((t_simple_char *)data)->simple == *((unsigned char *)ctx));
+}
 
-	if (!data)
+t_edit_fn		edit_utils_buf_match_simple(t_edit *this, unsigned char buf)
+{
+	t_simple_char	*esc;
+
+	esc = twl_lst_find(data_simple_char_edit(), find_fn, &buf);
+	if (esc == NULL)
 	{
-		data = twl_lst_new();
-		twl_lst_push_front(data, escaped_sequence_new("\033[C", edit_move_right));
-		twl_lst_push_front(data, escaped_sequence_new("\033[D", edit_move_left));
-		twl_lst_push_front(data, escaped_sequence_new("\033[H", edit_move_home));
-		twl_lst_push_front(data, escaped_sequence_new("\033[F", edit_move_end));
-		twl_lst_push_front(data, escaped_sequence_new("\033[3~", edit_del_right));
+		return (NULL);
 	}
-	return (data);
+	return (esc->apply_fn);
+	(void)this;
 }

@@ -18,6 +18,8 @@ void				edit_match_escaped(t_edit *this, unsigned char buf)
 	size_t			index;
 	void			(*edit_fn)(t_edit *);
 
+	if (this->dumb)
+		return ;
 	index = 0;
 	while (this->buffer[index])
 		index += 1;
@@ -36,10 +38,15 @@ void				edit_match_escaped(t_edit *this, unsigned char buf)
 
 void				edit_match_char(t_edit *this, unsigned char buf)
 {
-	if (this->buffer[0] ^ (buf == '\033'))
+	LOG_DEBUG(twl_isprint(buf) ? "%hhx (%c)" : "%hhx", buf, buf);
+	void			(*edit_fn)(t_edit *);
+
+	if (this->buffer[0] || buf == '\033')
 		edit_match_escaped(this, buf);
 	else if (buf == '\t')
 		;
 	else if (twl_isprint(buf))
 		edit_place_letter(this, buf);
+	else if ((edit_fn = edit_utils_buf_match_simple(this, buf)) && !this->dumb)
+		edit_fn(this);
 }
