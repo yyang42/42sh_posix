@@ -14,5 +14,5 @@
 
 void				ast_list_item_set_separator(t_ast_list_item *this, t_token *token)
 {
-	this->separator = token;
+	this->separator = token_copy(token);
 }

@@ -14,5 +14,5 @@
 
 bool				ast_list_item_is_async(t_ast_list_item *ast_list_item)
 {
-	return (token_mgr_last_equ(ast_list_item->list_item_tokens, "&"));
+	return (token_mgr_last_equ(ast_list_item->list_item_tokens_deep, "&"));
 }

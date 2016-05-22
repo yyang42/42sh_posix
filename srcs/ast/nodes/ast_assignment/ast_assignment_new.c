@@ -17,7 +17,7 @@ t_ast_assignment	*ast_assignment_new(t_token *token, char *key, char *value)
 	t_ast_assignment		*ast_assignment;
 
 	ast_assignment = twl_malloc_x0(sizeof(t_ast_assignment));
-	ast_assignment->token = token;
+	ast_assignment->token = token_copy(token);
 	ast_assignment->key = twl_strdup(key);
 	ast_assignment->key_unexpanded = twl_strdup(key);
 	ast_assignment->value = value ? twl_strdup(value) : NULL;

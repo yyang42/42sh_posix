@@ -31,7 +31,7 @@ static void			wait_fn(int pid, int *res, void *this_)
 
 	this = this_;
 	LOG_INFO("ast_list_item_exec_async: wait_fn");
-	str_tokens = token_mgr_to_lst(this->list_item_tokens);
+	str_tokens = token_mgr_to_lst(this->list_item_tokens_deep);
 	job = job_new(pid, str_tokens);
 	job_mgr_env_push(job);
 	shenv_singleton()->info.most_recent_background_command_pid = pid;
@@ -45,7 +45,7 @@ void				ast_list_item_exec_async(t_ast_list_item *this)
 {
 	t_jobexec		je;
 
-	je.all_tokens = this->list_item_tokens;
+	je.je_all_tokens = this->list_item_tokens_deep;
 	je.exec_ctx = this;
 	je.wait_fn = wait_fn;
 	je.execve_fn = job_execve_fn;

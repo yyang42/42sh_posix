@@ -34,7 +34,7 @@ void				ast_andor_item_exec_pipes_wrapper(t_ast_andor_item *this)
 	t_lst			*str_tokens;
 
 	str_tokens = token_mgr_to_lst(this->andor_all_tokens);
-	je.all_tokens = str_tokens;
+	je.je_all_tokens = str_tokens;
 	je.exec_ctx = this;
 	je.wait_fn = wait_fn;
 	je.execve_fn = job_execve_fn;

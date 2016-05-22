@@ -24,7 +24,7 @@ static void			ast_list_item_exec_check_error(t_ast_list_item *this, struct s_ast
 	char			*cmd;
 	t_lst			*tokens;
 
-	cmd = token_mgr_strjoin(this->list_item_tokens, " ");
+	cmd = token_mgr_strjoin(this->list_item_tokens_deep, " ");
 	tokenizer = tokenizer_new(cmd);
 	tokens = tokenizer_tokenize(tokenizer);
 	if (tokenizer->err_msg)
@@ -63,9 +63,9 @@ t_ast_list_item		*ast_list_item_new_from_tokens(t_lst *tokens, struct s_ast *ast
 	this->ast_andor_items = ast_lap_build_items(tokens, AST_TYPE_ANDOR_ITEM, ast);
 	if (!ast->error_msg)
 	{
-		this->list_item_tokens = twl_lst_copy_until(tmp_tokens, NULL, twl_lst_first(tokens));
+		this->list_item_tokens_deep = twl_lst_copy_until(tmp_tokens, token_copy_void, twl_lst_first(tokens));
 		if (twl_lst_first(tokens) && ast_list_item_is_delimiter(twl_lst_first(tokens)))
-				twl_lst_push_back(this->list_item_tokens, twl_lst_first(tokens));
+				twl_lst_push_back(this->list_item_tokens_deep, token_copy(twl_lst_first(tokens)));
 		ast_list_item_exec_wrapper(this, ast);
 	}
 	shenv_singleton()->shenv_list_item_level--;

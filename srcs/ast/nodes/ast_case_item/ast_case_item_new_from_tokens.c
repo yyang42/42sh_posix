@@ -24,13 +24,13 @@ static void			build_pattern_tokens(t_ast_case_item *this, t_lst *tokens)
 {
 	// t_token			*token;
 
-	twl_lst_push_back(this->pattern_tokens, twl_lst_pop_front(tokens));
+	twl_lst_push_back(this->pattern_tokens, token_copy(twl_lst_pop_front(tokens)));
 	while (true)
 	{
 		if (!token_mgr_first_equ(tokens, "|"))
 			break ;
 		twl_lst_pop_front(tokens);
-		twl_lst_push_back(this->pattern_tokens, twl_lst_pop_front(tokens));
+		twl_lst_push_back(this->pattern_tokens, token_copy(twl_lst_pop_front(tokens)));
 	}
 }
 
