@@ -27,7 +27,7 @@ void			handle_signal(int sig)
 		else if (sigo == SIGSEGV)
 			shenv_singl_error(EXIT_FAILURE, "Segmentation fault: %d\n", sigo);
 		else if (sigo == SIGKILL)
-			shenv_singl_error(EXIT_FAILURE, "Killed: %d\n", sigo);
+			shenv_singl_error(137, "Killed: %d\n", sigo);
 		else if (sigo == SIGABRT)
 			shenv_singl_error(EXIT_FAILURE, "Abort: %d\n", sigo);
 		else if (sigo == SIGTERM)
