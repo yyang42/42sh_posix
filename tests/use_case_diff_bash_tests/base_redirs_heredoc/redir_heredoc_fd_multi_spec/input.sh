@@ -1,4 +1,5 @@
 # https://circleci.com/gh/yyang42/42sh_posix/1353
+# Strange chars on CI
 (
 	read var1 var2 <&5
 	echo "$var1-$var2"

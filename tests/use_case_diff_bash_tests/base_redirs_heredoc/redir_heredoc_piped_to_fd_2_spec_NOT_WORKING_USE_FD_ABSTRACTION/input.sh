@@ -1,3 +1,4 @@
+#_NOT_WORKING_USE_FD_ABSTRACTION
 exec 4>/tmp/redir_heredoc_test_file
 cat << EOF >/tmp/redir_heredoc_test_file
 AAA
