@@ -9,9 +9,9 @@ RENDU_PATH="`pwd`"
 TESTS_ROOT="${RENDU_PATH}/tests/line_edition_tests"
 PRINT="/usr/bin/printf"
 
-make &&
-mkdir -p /tmp/bin &&
-cp -f ${RENDU_PATH}/42sh /tmp/bin/ &&
+make
+mkdir -p /tmp/bin
+cp -f ${RENDU_PATH}/42sh /tmp/bin/
 cp -f `command -v bash` /tmp/bin/bash
 
 exit_status=0

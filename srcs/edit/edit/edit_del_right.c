@@ -10,21 +10,29 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "data.h"
-#include "edit/escaped_sequence.h"
+#include "edit/edit.h"
 
-t_lst				*data_escaped_sequence(void)
+void			edit_del_right(t_edit *this)
 {
-	t_lst			*data = NULL;
+	size_t		pos_save;
 
-	if (!data)
+	if (this->pos_cursor == this->current->size)
+		return ;
+	twl_memmove(this->current->line + this->pos_cursor,
+			this->current->line + this->pos_cursor + 1,
+			this->current->size - this->pos_cursor);
+	pos_save = this->pos_cursor;
+	this->puts(this->current->line + this->pos_cursor);
+	if ((this->current->size + this->base_x) % this->winsize_x == 0)
 	{
-		data = twl_lst_new();
-		twl_lst_push_front(data, escaped_sequence_new("\033[C", edit_move_right));
-		twl_lst_push_front(data, escaped_sequence_new("\033[D", edit_move_left));
-		twl_lst_push_front(data, escaped_sequence_new("\033[H", edit_move_home));
-		twl_lst_push_front(data, escaped_sequence_new("\033[F", edit_move_end));
-		twl_lst_push_front(data, escaped_sequence_new("\033[3~", edit_del_right));
+		this->puts("  ");
+		this->pos_cursor = this->current->size + 1;
 	}
-	return (data);
+	else
+	{
+		this->puts(" ");
+		this->pos_cursor = this->current->size;
+	}
+	edit_move_goto_pos_cursor(this, pos_save);
+	this->current->size -= 1;
 }
