@@ -42,8 +42,8 @@
 # define SHENV_FLAG_GNL (1 << 3)
 # define SHENV_FLAG_EXIT_ON_AST_ERROR (1 << 4)
 
-# define FTSH_VALID_SET_OPTS "abc:Cefhimnsuvx"
-# define FTSH_VALID_ALL_OPTS ":AGo:"FTSH_VALID_SET_OPTS
+# define FTSH_VALID_SET_OPTS "abc:Cefhimnuvx"
+# define FTSH_VALID_ALL_OPTS ":AGo:s"FTSH_VALID_SET_OPTS
 
 # define SHENV_DEFAULT_HISTORY_FILE ".sh_history"
 
