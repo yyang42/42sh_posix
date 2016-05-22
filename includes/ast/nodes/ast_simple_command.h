@@ -30,7 +30,6 @@
 
 typedef struct			s_ast_simple_command
 {
-	t_lst				*all_tokens;
 	t_lst				*cmd_tokens_deep_copy;
 	t_lst				*cmd_tokens_braced;
 	t_lst				*cmd_tokens_expanded;

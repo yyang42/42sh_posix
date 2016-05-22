@@ -58,7 +58,7 @@ t_ast_case_clause		*ast_case_clause_new_from_tokens(t_lst *tokens,
 		return (NULL);
 	}
 	this = ast_case_clause_new();
-	this->needle_token = twl_lst_pop_front(tokens);
+	this->needle_token = token_copy(twl_lst_pop_front(tokens));
 	if (!token_mgr_first_equ(tokens, "in"))
 	{
 		ast_add_to_open_stack(ast, "case");

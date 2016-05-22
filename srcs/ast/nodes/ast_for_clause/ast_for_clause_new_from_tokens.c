@@ -30,7 +30,7 @@ static void			pop_word_list(t_ast_for_clause *this, t_lst *tokens)
 		first = twl_lst_pop_front(tokens);
 		if (!first)
 			break ;
-		twl_lst_push_back(this->wordlist, first);
+		twl_lst_push_back(this->wordlist, token_copy(first));
 	}
 }
 
@@ -40,8 +40,6 @@ t_ast_for_clause		*ast_for_clause_new_from_tokens(t_lst *tokens,
 	t_ast_for_clause		*this;
 	t_token				*open;
 
-	// twl_printf("======= for clause =======\n");
-	// token_mgr_print(tokens);
 	this = ast_for_clause_new();
 	open = twl_lst_pop_front(tokens);
 	if (twl_lst_len(tokens) == 0)

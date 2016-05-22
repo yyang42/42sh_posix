@@ -21,7 +21,7 @@ typedef void (t_je_execve_fn)(void *ctx);
 
 typedef struct		s_jobexec
 {
-	t_lst			*all_tokens;
+	t_lst			*je_all_tokens;
 	void			*exec_ctx;
 	t_je_wait_fn	*wait_fn;
 	t_je_execve_fn	*execve_fn;

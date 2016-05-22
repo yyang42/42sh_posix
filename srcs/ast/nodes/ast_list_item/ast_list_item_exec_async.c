@@ -16,6 +16,7 @@
 #include "job_control/jobexec.h"
 #include "twl_logger.h"
 #include <signal.h>
+#include "builtin/cmds/builtin_jobs.h"
 
 static void			job_execve_fn(void *this)
 {
@@ -30,13 +31,13 @@ static void			wait_fn(int pid, int *res, void *this_)
 
 	this = this_;
 	LOG_INFO("ast_list_item_exec_async: wait_fn");
-	str_tokens = token_mgr_to_lst(this->list_item_tokens);
+	str_tokens = token_mgr_to_lst(this->list_item_tokens_deep);
 	job = job_new(pid, str_tokens);
 	job_mgr_env_push(job);
 	shenv_singleton()->info.most_recent_background_command_pid = pid;
 	twl_lst_del(str_tokens, NULL);
 	if (shenv_shflag_enabled(shenv_singleton(), "i"))
-		job_print(job, 0);
+		job_print(job, BUILTIN_JOBS_FLAG_ASYNC_MSG);
 	(void)res;
 }
 
@@ -44,7 +45,7 @@ void				ast_list_item_exec_async(t_ast_list_item *this)
 {
 	t_jobexec		je;
 
-	je.all_tokens = this->list_item_tokens;
+	je.je_all_tokens = this->list_item_tokens_deep;
 	je.exec_ctx = this;
 	je.wait_fn = wait_fn;
 	je.execve_fn = job_execve_fn;

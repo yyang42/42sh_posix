@@ -21,6 +21,7 @@
 
 # define BUILTIN_JOBS_FLAG_OPT_L 0x01
 # define BUILTIN_JOBS_FLAG_OPT_P 0x02
+# define BUILTIN_JOBS_FLAG_ASYNC_MSG 0x04
 
 void				builtin_jobs_exec(t_lst *tokens, t_shenv *this);
 void				builtin_jobs_exec_print(t_lst *jobs, int flags);

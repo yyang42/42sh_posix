@@ -19,13 +19,13 @@
 static void			ast_simple_command_execve_wrapper(t_ast_simple_command *cmd)
 {
 	t_lst			*cmd_tokens;
-	t_lst			*all_tokens;
+	t_lst			*all_simple_command_tokens;
 
 	cmd_tokens = token_mgr_to_lst(cmd->cmd_tokens_expanded);
-	all_tokens = token_mgr_to_lst(cmd->all_tokens);
-	ast_simple_command_execve(cmd_tokens, all_tokens);
+	all_simple_command_tokens = token_mgr_to_lst(cmd->cmd_tokens_deep_copy);
+	ast_simple_command_execve(cmd_tokens, all_simple_command_tokens);
 	twl_lst_del(cmd_tokens, NULL);
-	twl_lst_del(all_tokens, NULL);
+	twl_lst_del(all_simple_command_tokens, NULL);
 }
 
 void				ast_simple_command_exec_tokens(t_ast_simple_command *cmd)

@@ -16,7 +16,5 @@ void				ast_pipe_item_del(t_ast_pipe_item *this)
 {
 	if (this->ast_command)
 		ast_command_del(this->ast_command);
-	if (this->tokens)
-		twl_lst_del(this->tokens, NULL);
 	free(this);
 }

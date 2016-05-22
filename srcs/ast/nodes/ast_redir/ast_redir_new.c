@@ -18,6 +18,6 @@ t_ast_redir			*ast_redir_new(t_lst *tokens)
 
 	ast_redir = twl_malloc_x0(sizeof(t_ast_redir));
 	ast_redir->io_number = IO_NUMBER_NOT_DEFINED;
-	ast_redir->redir_tokens = twl_lst_copy(tokens, NULL);
+	ast_redir->redir_tokens = twl_lst_copy(tokens, token_copy_void);
 	return (ast_redir);
 }
