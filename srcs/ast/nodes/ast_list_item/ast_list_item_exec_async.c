@@ -16,6 +16,7 @@
 #include "job_control/jobexec.h"
 #include "twl_logger.h"
 #include <signal.h>
+#include "builtin/cmds/builtin_jobs.h"
 
 static void			job_execve_fn(void *this)
 {
@@ -36,7 +37,7 @@ static void			wait_fn(int pid, int *res, void *this_)
 	shenv_singleton()->info.most_recent_background_command_pid = pid;
 	twl_lst_del(str_tokens, NULL);
 	if (shenv_shflag_enabled(shenv_singleton(), "i"))
-		job_print(job, 0);
+		job_print(job, BUILTIN_JOBS_FLAG_ASYNC_MSG);
 	(void)res;
 }
 

@@ -19,7 +19,11 @@ void				job_print(t_job *this, int flags)
 {
 	char			*full_status;
 
-	if (flags & BUILTIN_JOBS_FLAG_OPT_P)
+	if (flags & BUILTIN_JOBS_FLAG_ASYNC_MSG)
+	{
+		twl_printf("[%lld] %d\n", this->job_id, this->pid);
+	}
+	else if (flags & BUILTIN_JOBS_FLAG_OPT_P)
 	{
 		twl_printf("%d\n", this->pid);
 	}
