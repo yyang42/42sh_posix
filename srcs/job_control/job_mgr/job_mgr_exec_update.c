@@ -29,7 +29,7 @@ static bool			iter_job_fn(void *job_, void *ctx)
 	if (job->end_pid == job->pid)
 	{
 		job_exec_update_status(job);
-		if (shenv_shflag_enabled(shenv_singleton(), "i"))
+		if (!shenv_shflag_enabled(shenv_singleton(), "i"))
 			return (false);
 		if (job_has_terminated(job))
 			job_print(job, 0);
