@@ -28,7 +28,12 @@ static bool			iter_job_fn(void *job_, void *ctx)
 		job->pid, job->end_pid, errno_ret, ECHILD);
 	if (job->end_pid == job->pid)
 	{
-		return (job_exec_update_status(job));
+		job_exec_update_status(job);
+		if (shenv_shflag_enabled(shenv_singleton(), "i"))
+			return (false);
+		if (job_has_terminated(job))
+			job_print(job, 0);
+		return (job_has_terminated(job));
 	}
 	else if (job->end_pid == 0 || errno_ret == ECHILD)
 	{

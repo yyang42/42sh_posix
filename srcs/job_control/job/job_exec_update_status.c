@@ -13,7 +13,7 @@
 #include "job_control/job.h"
 #include "shenv/shenv.h"
 
-bool				job_exec_update_status(t_job *job)
+void				job_exec_update_status(t_job *job)
 {
 	char	*str_status;
 
@@ -33,12 +33,4 @@ bool				job_exec_update_status(t_job *job)
 	str_status = job_status_str_long(job, true);
 	LOG_INFO("job %d status: %s ", job->job_id, str_status);
 	free(str_status);
-	if (!shenv_shflag_enabled(shenv_singleton(), "i"))
-		return (false);
-	if (shenv_shflag_enabled(shenv_singleton(), "notify"))
-	{
-		job_print(job, 0);
-		return (job_has_terminated(job));
-	}
-	return (false);
 }
