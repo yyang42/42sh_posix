@@ -33,5 +33,6 @@ t_lst				*shflag_mgr_new(void)
 	shflag_mgr_add(shflags, shflag_new(0, "nolog"));
 	shflag_mgr_add(shflags, shflag_new('i', NULL));
 	shflag_mgr_add(shflags, shflag_new('c', NULL));
+	shflag_mgr_add(shflags, shflag_new('s', NULL));
 	return (shflags);
 }
