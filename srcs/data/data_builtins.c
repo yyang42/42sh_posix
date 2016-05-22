@@ -27,6 +27,7 @@
 #include "builtin/cmds/builtin_exit.h"
 #include "builtin/cmds/builtin_export.h"
 #include "builtin/cmds/builtin_false.h"
+#include "builtin/cmds/builtin_fc.h"
 #include "builtin/cmds/builtin_fg.h"
 #include "builtin/cmds/builtin_getopts.h"
 #include "builtin/cmds/builtin_jobs.h"
@@ -73,6 +74,7 @@ t_lst				*data_builtins(void)
 		twl_lst_push_back(builtins, builtin_new("exit", builtin_exit_exec, BUILTIN_FLAG_SPECIAL_BUILTIN));
 		twl_lst_push_back(builtins, builtin_new("export", builtin_export_exec, BUILTIN_FLAG_SPECIAL_BUILTIN));
 		twl_lst_push_back(builtins, builtin_new("false", builtin_false_exec, 0));
+		twl_lst_push_back(builtins, builtin_new("fc", builtin_fc_exec, 0));
 		twl_lst_push_back(builtins, builtin_new("fg", builtin_fg_exec, 0));
 		twl_lst_push_back(builtins, builtin_new("getopts", builtin_getopts_exec, 0));
 		twl_lst_push_back(builtins, builtin_new("jobs", builtin_jobs_exec, 0));
