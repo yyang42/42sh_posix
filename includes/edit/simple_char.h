@@ -10,20 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "data.h"
-#include "edit/escaped_sequence.h"
+#ifndef SIMPLE_CHAR_H
+# define SIMPLE_CHAR_H
 
-t_lst				*data_escaped_sequence(void)
+# include "edit/edit.h"
+
+typedef struct		s_simple_char
 {
-	t_lst			*data = NULL;
+	unsigned char	simple;
+	void			(*apply_fn)(t_edit *);
+}					t_simple_char;
 
-	if (!data)
-	{
-		data = twl_lst_new();
-		twl_lst_push_front(data, escaped_sequence_new("\033[C", edit_move_right));
-		twl_lst_push_front(data, escaped_sequence_new("\033[D", edit_move_left));
-		twl_lst_push_front(data, escaped_sequence_new("\033[H", edit_move_home));
-		twl_lst_push_front(data, escaped_sequence_new("\033[F", edit_move_end));
-	}
-	return (data);
-}
+t_simple_char		*simple_char_new(unsigned char simple,
+						void (*fn)(t_edit *));
+void				simple_char_del(t_simple_char *this);
+
+#endif

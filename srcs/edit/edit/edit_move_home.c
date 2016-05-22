@@ -11,42 +11,24 @@
 /* ************************************************************************** */
 
 #include "edit/edit.h"
-#include "twl_ctype.h"
 
-void				edit_match_escaped(t_edit *this, unsigned char buf)
+void			edit_move_home(t_edit *this)
 {
-	size_t			index;
-	void			(*edit_fn)(t_edit *);
+	int			val;
 
-	if (this->dumb)
+	if (this->pos_cursor == 0)
 		return ;
-	index = 0;
-	while (this->buffer[index])
-		index += 1;
-	this->buffer[index] = buf;
-	if (!edit_utils_can_buffer_form_sequence(this))
+	if (this->pos_cursor + this->base_x < this->winsize_x)
 	{
-		twl_bzero(this->buffer, sizeof(this->buffer));
-		return ;
+		tputs(tgoto(tgetstr("LE", NULL), 0, this->pos_cursor), 1, this->putc);
 	}
-	if ((edit_fn = edit_utils_buffer_match_sequence(this)))
+	else
 	{
-		edit_fn(this);
-		twl_bzero(this->buffer, sizeof(this->buffer));
+		tputs(tgoto(tgetstr("cr", NULL), 0, 0), 1, this->putc);
+		val = (this->pos_cursor + this->base_x) / this->winsize_x;
+		tputs(tgoto(tgetstr("UP", NULL), 0, val), 1, this->putc);
+		tputs(tgoto(tgetstr("RI", NULL), 0, this->base_x), 1, this->putc);
+
 	}
-}
-
-void				edit_match_char(t_edit *this, unsigned char buf)
-{
-	LOG_DEBUG(twl_isprint(buf) ? "%hhx (%c)" : "%hhx", buf, buf);
-	void			(*edit_fn)(t_edit *);
-
-	if (this->buffer[0] || buf == '\033')
-		edit_match_escaped(this, buf);
-	else if (buf == '\t')
-		;
-	else if (twl_isprint(buf))
-		edit_place_letter(this, buf);
-	else if ((edit_fn = edit_utils_buf_match_simple(this, buf)) && !this->dumb)
-		edit_fn(this);
+	this->pos_cursor = 0;
 }
