@@ -11,25 +11,33 @@
 /* ************************************************************************** */
 
 #include "edit/edit.h"
+#include <limits.h>
 
-static int			puts_fn(char *s)
+static bool		get_size(t_edit *this, int term)
 {
-	return (write(2, s, twl_strlen(s)));
+	struct winsize	ws;
+
+	if (ioctl(term, TIOCGWINSZ, &ws) == -1)
+	{
+		if (errno == EINTR)
+		{
+			twl_dprintf(2, "ioctl: %s\n", strerror(errno));
+			exit(-1);
+		}
+		return (false);
+	}
+	this->winsize_x = ws.ws_col;
+	return (true);
 }
 
-static int			putc_fn(int c)
+void			edit_get_winsize(t_edit *this)
 {
-	return (write(2, &c, 1));
-}
-
-t_edit				*edit_new(void)
-{
-	t_edit			*this;
-
-	this = twl_malloc_x0(sizeof(t_edit));
-	edit_terminal_init(this);
-	edit_get_winsize(this);
-	this->putc = putc_fn;
-	this->puts = puts_fn;
-	return (this);
+	if (get_size(this, 0) || get_size(this, 1) || get_size(this, 2))
+	{
+		;
+	}
+	else
+	{
+		this->winsize_x = INT_MAX;
+	}
 }

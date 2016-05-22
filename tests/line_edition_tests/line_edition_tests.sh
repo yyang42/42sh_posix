@@ -28,7 +28,7 @@ print_result () {
 		count_success=$((count_success+1))
 	else
 		${PRINT} "${C_RED}${2}${C_CLEAR} "
-		count_failure=$((count_success+1))
+		count_failure=$((count_failure+1))
 		exit_status=1
 	fi
 }
@@ -40,9 +40,9 @@ diff_test () {
 	testcase_tmp_bash_stdout="${1}/.tmp/expected_stdout"
 	testcase_tmp_bash_stderr="${1}/.tmp/expected_stderr"
 	mkdir -p $testcase_tmp
-	cat ${1}/input | /tmp/bin/bash -i > ${testcase_tmp_bash_stdout} 2> /dev/null
+	${PRINT} "`cat ${1}/input`" | /tmp/bin/bash -i > ${testcase_tmp_bash_stdout} 2> /dev/null
 	echo "exit status: $?" >> ${testcase_tmp_bash_stdout}
-	cat ${1}/input | /tmp/bin/42sh -i > ${testcase_tmp_stdout} 2> /dev/null
+	${PRINT} "`cat ${1}/input`" | /tmp/bin/42sh -i > ${testcase_tmp_stdout} 2> /dev/null
 	echo "exit status: $?" >> ${testcase_tmp_stdout}
 
 	diff $testcase_tmp_bash_stdout $testcase_tmp_stdout

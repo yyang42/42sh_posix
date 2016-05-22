@@ -28,6 +28,5 @@ void			edit_place_letter(t_edit *this, unsigned char buf)
 		tputs(tgoto(tgetstr("LE", NULL), 0, this->winsize_x), 1, this->putc);
 	}
 	line_realloc(this->current);
-	if (this->echoing)
-		edit_padding(this);
+	edit_padding(this);
 }
