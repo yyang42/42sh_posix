@@ -10,30 +10,26 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <fcntl.h>
-
-#include "twl_gnl.h"
-#include "twl_xstdlib.h"
-
 #include "edit/edit.h"
 
-#include "edit/cursor.h"
+static int			puts_fn(char *s)
+{
+	return (write(2, s, twl_strlen(s)));
+}
+
+static int			putc_fn(int c)
+{
+	return (write(2, &c, 1));
+}
 
 t_edit				*edit_new(void)
 {
 	t_edit			*this;
 
 	this = twl_malloc_x0(sizeof(t_edit));
-	this->index = 0;
-	this->letters = letter_mgr_new();
-	this->edit_keys = edit_key_mgr_new();
-	this->return_cmd = false;
-	this->history = history_new();
-	this->copast = NULL;
-	this->state = NORMAL;
-	cursor_reset_pos();
-
-	signal_handle_ctrl_c();
-	signal_handle_sigwinch();
+	edit_terminal_init(this);
+	edit_get_winsize(this);
+	this->putc = putc_fn;
+	this->puts = puts_fn;
 	return (this);
 }

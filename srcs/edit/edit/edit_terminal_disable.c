@@ -10,20 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include <signal.h>
-//
-//#include "edit/cursor.h"
-//#include "utils.h"
-//
-//
-//static void			sig_handler(int signum)
-//{
-//	LOG_INFO("SIGWINCH handler called: %d", signum);
-//	cursor_reset_screen_width();
-//	(void)signum;
-//}
-//
-//void				signal_handle_sigwinch(void)
-//{
-//	signal(SIGWINCH, sig_handler);
-//}
+#include "edit/edit.h"
+
+void				edit_terminal_disable(t_edit *this)
+{
+	if (this->echoing)
+		return ;
+	if (tcsetattr(0, TCSADRAIN, &this->save) == -1)
+	{
+		twl_dprintf(2, "tcsetattr: %s\n", strerror(errno));
+		exit(-1);
+	}
+}

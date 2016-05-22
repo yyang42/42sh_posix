@@ -10,20 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include <signal.h>
-//
-//#include "edit/cursor.h"
-//#include "utils.h"
-//
-//
-//static void			sig_handler(int signum)
-//{
-//	LOG_INFO("SIGWINCH handler called: %d", signum);
-//	cursor_reset_screen_width();
-//	(void)signum;
-//}
-//
-//void				signal_handle_sigwinch(void)
-//{
-//	signal(SIGWINCH, sig_handler);
-//}
+#include "edit/line.h"
+
+void				line_del(t_line *this)
+{
+	if (!this)
+		return ;
+	if (this->line)
+		free(this->line);
+	free(this);
+}

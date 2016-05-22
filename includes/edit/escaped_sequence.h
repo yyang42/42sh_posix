@@ -10,20 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include <signal.h>
-//
-//#include "edit/cursor.h"
-//#include "utils.h"
-//
-//
-//static void			sig_handler(int signum)
-//{
-//	LOG_INFO("SIGWINCH handler called: %d", signum);
-//	cursor_reset_screen_width();
-//	(void)signum;
-//}
-//
-//void				signal_handle_sigwinch(void)
-//{
-//	signal(SIGWINCH, sig_handler);
-//}
+#ifndef ESCAPED_SEQUENCE_H
+# define ESCAPED_SEQUENCE_H
+
+# include "edit/edit.h"
+
+typedef struct		s_escaped_sequence
+{
+	char			*sequence;
+	void			(*apply_fn)(t_edit *);
+}					t_escaped_sequence;
+
+t_escaped_sequence	*escaped_sequence_new(char *sequence, void (*fn)(t_edit *));
+void				escaped_sequence_del(t_escaped_sequence *this);
+
+#endif

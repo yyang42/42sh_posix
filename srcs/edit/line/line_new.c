@@ -10,20 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include <signal.h>
-//
-//#include "edit/cursor.h"
-//#include "utils.h"
-//
-//
-//static void			sig_handler(int signum)
-//{
-//	LOG_INFO("SIGWINCH handler called: %d", signum);
-//	cursor_reset_screen_width();
-//	(void)signum;
-//}
-//
-//void				signal_handle_sigwinch(void)
-//{
-//	signal(SIGWINCH, sig_handler);
-//}
+#include "edit/line.h"
+
+t_line				*line_new(void)
+{
+	t_line			*this;
+
+	this = twl_malloc_x0(sizeof(t_line));
+	this->line = twl_strnew(DFL_LINE_SIZE);
+	this->total = DFL_LINE_SIZE;
+	this->size = 0;
+	return (this);
+}

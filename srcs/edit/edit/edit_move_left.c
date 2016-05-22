@@ -10,20 +10,22 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include <signal.h>
-//
-//#include "edit/cursor.h"
-//#include "utils.h"
-//
-//
-//static void			sig_handler(int signum)
-//{
-//	LOG_INFO("SIGWINCH handler called: %d", signum);
-//	cursor_reset_screen_width();
-//	(void)signum;
-//}
-//
-//void				signal_handle_sigwinch(void)
-//{
-//	signal(SIGWINCH, sig_handler);
-//}
+#include "edit/edit.h"
+
+void				edit_move_left(t_edit *this)
+{
+	if (this->pos_cursor == 0)
+	{
+		return ;
+	}
+	if ((this->pos_cursor + this->base_x) % this->winsize_x == 0)
+	{
+		tputs(tgoto(tgetstr("up", NULL), 0, 0), 1, this->putc);
+		tputs(tgoto(tgetstr("RI", NULL), 0, this->winsize_x), 1, this->putc);
+	}
+	else
+	{
+		tputs(tgoto(tgetstr("le", NULL), 0, 0), 1, this->putc);
+	}
+	this->pos_cursor -= 1;
+}

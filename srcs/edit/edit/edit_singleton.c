@@ -10,20 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include <signal.h>
-//
-//#include "edit/cursor.h"
-//#include "utils.h"
-//
-//
-//static void			sig_handler(int signum)
-//{
-//	LOG_INFO("SIGWINCH handler called: %d", signum);
-//	cursor_reset_screen_width();
-//	(void)signum;
-//}
-//
-//void				signal_handle_sigwinch(void)
-//{
-//	signal(SIGWINCH, sig_handler);
-//}
+#include "edit/edit.h"
+
+t_edit				*edit_singleton(void)
+{
+	static t_edit	*this = NULL;
+
+	if (!this)
+	{
+		this = edit_new();
+	}
+	return (this);
+}

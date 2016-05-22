@@ -10,20 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include <signal.h>
-//
-//#include "edit/cursor.h"
-//#include "utils.h"
-//
-//
-//static void			sig_handler(int signum)
-//{
-//	LOG_INFO("SIGWINCH handler called: %d", signum);
-//	cursor_reset_screen_width();
-//	(void)signum;
-//}
-//
-//void				signal_handle_sigwinch(void)
-//{
-//	signal(SIGWINCH, sig_handler);
-//}
+#include "data.h"
+#include "edit/escaped_sequence.h"
+
+t_lst				*data_escaped_sequence(void)
+{
+	t_lst			*data = NULL;
+
+	if (!data)
+	{
+		data = twl_lst_new();
+		twl_lst_push_front(data, escaped_sequence_new("\033[C", edit_move_right));
+		twl_lst_push_front(data, escaped_sequence_new("\033[D", edit_move_left));
+	}
+	return (data);
+}

@@ -10,20 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include <signal.h>
-//
-//#include "edit/cursor.h"
-//#include "utils.h"
-//
-//
-//static void			sig_handler(int signum)
-//{
-//	LOG_INFO("SIGWINCH handler called: %d", signum);
-//	cursor_reset_screen_width();
-//	(void)signum;
-//}
-//
-//void				signal_handle_sigwinch(void)
-//{
-//	signal(SIGWINCH, sig_handler);
-//}
+#include "edit/edit.h"
+#include "edit/escaped_sequence.h"
+#include "data.h"
+
+static bool		find_fn(void *data, void *ctx)
+{
+	return (twl_strcmp(((t_escaped_sequence *)data)->sequence, ctx) == 0);
+}
+
+t_edit_fn		edit_utils_buffer_match_sequence(t_edit *this)
+{
+	t_escaped_sequence	*esc;
+
+	esc = twl_lst_find(data_escaped_sequence(), find_fn, this->buffer);
+	if (esc == NULL)
+	{
+		return (NULL);
+	}
+	return (esc->apply_fn);
+}

@@ -10,14 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "edit/edit.h"
 
 void				edit_del(t_edit *this)
 {
-	letter_mgr_del(this->letters);
-	edit_key_mgr_del(this->edit_keys);
-	if (this->history)
-		history_del(this->history);
+	if (!this)
+		return ;
+	if (this->current)
+		line_del(this->current);
 	free(this);
 }

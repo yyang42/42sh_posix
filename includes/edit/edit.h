@@ -13,56 +13,59 @@
 #ifndef EDIT_H
 # define EDIT_H
 
-# include "twl_lst.h"
+# include <stdlib.h>
+# include <sys/ioctl.h>
+# include <sys/termios.h>
+# include <term.h>
+# include <termcap.h>
+# include <termios.h>
 
 # include "basics.h"
-# include "edit/edit_key_mgr.h"
-# include "edit/letter_mgr.h"
-# include "edit/history_mgr.h"
-# include "edit/copast.h"
-# include "edit/history.h"
-# include "utils.h"
+# include "shenv/shenv.h"
+# include "edit/line.h"
 
-typedef enum		e_state
+# define PS1 "$ "
+# define PS2 "> "
+
+typedef struct			s_edit
 {
-	NORMAL,
-	SEARCH,
-}					t_state;
+	t_lst				*history;
+	t_line				*current;
+	t_line				*last;
+	unsigned char		buffer[8];
+	size_t				pos_cursor;
+	size_t				winsize_x;
+	size_t				base_x;
+	struct termios		term;
+	struct termios		save;
+	bool				echoing;
+	int					(*putc)(int);
+	int					(*puts)(char *);
+}						t_edit;
 
-typedef struct		s_edit
-{
-	t_lst			*letters;
-	t_lst			*edit_keys;
-	int				index;
-	bool			return_cmd;
-	t_history		*history;
-	t_copast		*copast;
-	t_state			state;
-}					t_edit;
+typedef void			(*t_edit_fn)(t_edit *);
 
-t_edit				*edit_new(void);
-t_edit				*edit_new_min(void);
+t_edit					*edit_new(void);
+void					edit_del(t_edit *this);
 
-void				edit_debug_print(t_edit *this);
+t_edit					*edit_singleton(void);
 
-void				edit_del(t_edit *this);
-char				*edit_loop(t_edit *this);
+void					edit_get_winsize(t_edit *this);
+void					edit_terminal_init(t_edit *this);
+void					edit_terminal_enable(t_edit *this);
+void					edit_terminal_disable(t_edit *this);
 
-int					edit_advance_getch(t_edit *edit);
-int					edit_getch_next_line(t_edit *this);
+char					*edit_get_line(t_edit *this);
+void					edit_new_last_line(t_edit *this);
 
-char				*edit_handle_one_input(t_edit *this, int key);
-char				*edit_handle_string(t_edit *this, char *str);
+void					edit_match_char(t_edit *this, unsigned char buf);
+void					edit_place_letter(t_edit *this, unsigned char buf);
+void					edit_padding(t_edit *this);
 
-void				edit_handle_printable(t_edit *this, int key);
-void				edit_handle_move(t_edit *this);
-void				edit_print_letters(t_edit *this);
-char				*edit_return_cmd(t_edit *this);
+void					edit_move_right(t_edit *this);
+void					edit_move_left(t_edit *this);
 
-void				edit_clear_line(t_edit *this);
-
-char				*edit_match_valide_cmd(char *cmd);
-
-void				edit_out_of_search(t_edit *this);
+bool					edit_utils_can_buffer_form_sequence(t_edit *this);
+t_edit_fn				edit_utils_buffer_match_sequence(t_edit *this);
 
 #endif
