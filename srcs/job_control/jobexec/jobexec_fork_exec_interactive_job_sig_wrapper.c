@@ -74,6 +74,7 @@ static void			sigstp_catcher(int signum, siginfo_t *info, void *vp)
         LOG_INFO("pid not found: %d", info->si_pid);
     }
     (void)vp;
+    (void)signum;
 }
 
 static void			sig_handler_init(int signum, struct sigaction *sa, struct sigaction *oldsa)
@@ -86,7 +87,9 @@ static void			sig_handler_init(int signum, struct sigaction *sa, struct sigactio
         int errnum = errno;
         LOG_ERROR("Failed to set signal handler (%d: %s)\n", errnum, strerror(errnum));
         exit(1);
+        (void)errnum;
     }
+    (void)signum;
 }
 
 void				jobexec_fork_exec_interactive_job_sig_wrapper(t_job *job, void *ctx,
