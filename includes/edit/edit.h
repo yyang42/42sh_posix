@@ -38,6 +38,7 @@ typedef struct			s_edit
 	size_t				base_x;
 	struct termios		term;
 	struct termios		save;
+	char				*copy_buffer;
 	bool				echoing;
 	bool				dumb;
 	int					(*putc)(int);
@@ -73,6 +74,8 @@ void					edit_move_end(t_edit *this);
 
 void					edit_del_left(t_edit *this);
 void					edit_del_right(t_edit *this);
+
+void					edit_del_all_right(t_edit *this);
 
 bool					edit_utils_can_buffer_form_sequence(t_edit *this);
 t_edit_fn				edit_utils_buffer_match_sequence(t_edit *this);
