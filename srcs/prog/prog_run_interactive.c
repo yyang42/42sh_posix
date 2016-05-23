@@ -12,8 +12,11 @@
 
 #include "prog.h"
 #include "ast/ast.h"
+#include "edit/edit.h"
+#include "trap/trap.h"
+#include "trap/trap_mgr.h"
 
-static void			prog_run_interative_loop_sig_wrapper(t_prog *prog, char *(get_input_fn)(t_prog *prog))
+static void			prog_run_interative_loop_sigtstp_wrapper(t_prog *prog, char *(get_input_fn)(t_prog *prog))
 {
 	struct sigaction	sa_new;
 	struct sigaction	sa_old;
@@ -33,11 +36,41 @@ static void			prog_run_interative_loop_sig_wrapper(t_prog *prog, char *(get_inpu
 	free(input);
 }
 
+static void			signint_handler(int sig)
+{
+	LOG_INFO("signint_handler called: sig: %d", sig);
+	if (trap_mgr_find_by_signum(shenv_singleton()->shenv_traps, sig))
+	{
+		trap_signal_handler(sig);
+	}
+	if (sig == SIGINT)
+	{
+		twl_putstr(PS1);
+	}
+	else if (sig == SIGWINCH)
+	{
+		LOG_INFO("SIGWINCH handler here");
+	}
+	(void)sig;
+}
+
+static void			prog_run_interative_loop_sigint_winch_wrapper(t_prog *prog, char *(get_input_fn)(t_prog *prog))
+{
+	sig_t			save_sigint;
+	sig_t			save_sigwinch;
+
+	save_sigint = signal(SIGINT, signint_handler);
+	save_sigwinch = signal(SIGWINCH, signint_handler);
+	prog_run_interative_loop_sigtstp_wrapper(prog, get_input_fn);
+	signal(SIGWINCH, save_sigwinch);
+	signal(SIGINT, save_sigint);
+}
+
 static void			prog_run_interative_loop(t_prog *prog, char *(get_input_fn)(t_prog *prog))
 {
 	while (true)
 	{
-		prog_run_interative_loop_sig_wrapper(prog, get_input_fn);
+		prog_run_interative_loop_sigint_winch_wrapper(prog, get_input_fn);
 	}
 }
 
