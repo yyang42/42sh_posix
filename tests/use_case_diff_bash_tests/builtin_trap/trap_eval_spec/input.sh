@@ -1,10 +1,10 @@
 trap "uname" HUP
 echo "===1"
-trap
+trap | sort
 save_traps=$(trap)
 trap - HUP
 echo "===2"
-trap
+trap | sort
 eval $save_traps
 echo "===3"
-trap
+trap | sort

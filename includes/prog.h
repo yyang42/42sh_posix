@@ -40,5 +40,6 @@ char				*prog_line_edit_get_input_gnl(t_prog *prog);
 void				prog_handle_exit_signal(t_prog *prog);
 void				prog_parse_args(t_prog *prog, char **argv);
 void				prog_utils_set_command_pos_params(void);
+void				prog_prepare_signals(t_prog *prog);
 
 #endif

@@ -1,0 +1,6 @@
+=== test echo
+CMD_PATH: line 5: echo "before"
+$cmd ${x!y}
+echo "after"
+: bad substitution
+exit_code: 0

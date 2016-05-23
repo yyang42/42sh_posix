@@ -19,6 +19,7 @@ static void     intercept_logger_handler(int sig)
 {
 	LOG_DEBUG("Signal received %s(%d)",
   	shsignal_mgr_get_signame(data_signals(), sig), sig);
+  	(void)sig;
 }
 
 void				utils_log_signal(int signum)
