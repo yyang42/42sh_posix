@@ -11,27 +11,6 @@
 /* ************************************************************************** */
 
 #include "edit/edit.h"
-	//size_t		pos_save;
-
-	//if (this->pos_cursor == this->current->size)
-	//	return ;
-	//twl_memmove(this->current->line + this->pos_cursor,
-	//		this->current->line + this->pos_cursor + 1,
-	//		this->current->size - this->pos_cursor);
-	//pos_save = this->pos_cursor;
-	//this->puts(this->current->line + this->pos_cursor);
-	//if ((this->current->size + this->base_x) % this->winsize_x == 0)
-	//{
-	//	this->puts("  ");
-	//	this->pos_cursor = this->current->size + 1;
-	//}
-	//else
-	//{
-	//	this->puts(" ");
-	//	this->pos_cursor = this->current->size;
-	//}
-	//edit_move_goto_pos_cursor(this, pos_save);
-	//this->current->size -= 1;
 
 void			edit_del_all_right(t_edit *this)
 {

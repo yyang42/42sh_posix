@@ -40,7 +40,7 @@ diff_test () {
 	testcase_tmp_bash_stdout="${1}/.tmp/expected_stdout"
 	testcase_tmp_bash_stderr="${1}/.tmp/expected_stderr"
 	mkdir -p $testcase_tmp
-	${PRINT} "`cat ${1}/input`" | /tmp/bin/bash -i > ${testcase_tmp_bash_stdout} 2> /dev/null
+	${PRINT} "`cat ${1}/input`" | /tmp/bin/bash --posix -i > ${testcase_tmp_bash_stdout} 2> /dev/null
 	echo "exit status: $?" >> ${testcase_tmp_bash_stdout}
 	${PRINT} "`cat ${1}/input`" | /tmp/bin/42sh -i > ${testcase_tmp_stdout} 2> /dev/null
 	echo "exit status: $?" >> ${testcase_tmp_stdout}
