@@ -12,9 +12,14 @@
 
 #include "prog.h"
 
-void				prog_init(t_prog *prog, char **argv)
+static void			sig_handler(int sig)
 {
-	prog->argv0 = twl_strdup(argv[0]);
-	prog_parse_args(prog, argv);
-	prog_prepare_signals(prog);
+	LOG_INFO("sigint triggered");
+	(void)sig;
+}
+
+void				prog_prepare_signals(t_prog *prog)
+{
+	signal(SIGINT, sig_handler);
+	(void)prog;
 }
