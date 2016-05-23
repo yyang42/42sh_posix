@@ -15,6 +15,7 @@
 static void			sig_handler(int sig)
 {
 	LOG_INFO("sigint triggered");
+	exit(130);
 	(void)sig;
 }
 */

@@ -34,6 +34,8 @@ void			handle_signal(int sig)
 			shenv_singl_error(EXIT_FAILURE, "Terminated: %d\n", sigo);
 		else if (sigo == SIGBUS)
 			shenv_singl_error(EXIT_FAILURE, "Bus error: %d\n", sigo);
+		else if (sigo == SIGQUIT)
+			shenv_singl_error(EXIT_FAILURE, "Quit: %d\n", sigo);
 		else
 			shenv_singl_error(EXIT_FAILURE, "Unkown signal: %d\n", sigo);
 	}
