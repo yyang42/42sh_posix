@@ -11,15 +11,15 @@
 /* ************************************************************************** */
 
 #include "prog.h"
-
+/*
 static void			sig_handler(int sig)
 {
 	LOG_INFO("sigint triggered");
 	(void)sig;
 }
-
+*/
 void				prog_prepare_signals(t_prog *prog)
 {
-	signal(SIGINT, sig_handler);
+	// signal(SIGINT, sig_handler);
 	(void)prog;
 }
