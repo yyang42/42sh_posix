@@ -14,29 +14,39 @@
 #include "shenv/shenv.h"
 #include <sys/wait.h>
 #include <sys/types.h>
+#include <signal.h>
 
-void			handle_signal(int sig)
+char * strsignal(int sig);
+
+#define SIG_EXIT_CODE_MIN 128
+
+static int			get_exit_code(int sig)
 {
-	int			sigo;
+	return (SIG_EXIT_CODE_MIN + sig);
+}
 
-	if (WIFSIGNALED(sig) && !WIFEXITED(sig))
+static void			print_error_msg(int sig)
+{
+	char		*msg;
+
+	msg = strsignal(sig);
+	if (!msg)
 	{
-		sigo = WTERMSIG(sig);
-		if (sigo == SIGINT)
-			;
-		else if (sigo == SIGSEGV)
-			shenv_singl_error(EXIT_FAILURE, "Segmentation fault: %d\n", sigo);
-		else if (sigo == SIGKILL)
-			shenv_singl_error(137, "Killed: %d\n", sigo);
-		else if (sigo == SIGABRT)
-			shenv_singl_error(EXIT_FAILURE, "Abort: %d\n", sigo);
-		else if (sigo == SIGTERM)
-			shenv_singl_error(EXIT_FAILURE, "Terminated: %d\n", sigo);
-		else if (sigo == SIGBUS)
-			shenv_singl_error(EXIT_FAILURE, "Bus error: %d\n", sigo);
-		else if (sigo == SIGQUIT)
-			shenv_singl_error(EXIT_FAILURE, "Quit: %d\n", sigo);
-		else
-			shenv_singl_error(EXIT_FAILURE, "Unkown signal: %d\n", sigo);
+		LOG_ERROR("strsignal: %s", strerror(errno));
 	}
+	else
+	{
+		if (shenv_shflag_enabled(shenv_singleton(), "i"))
+			twl_dprintf(2, "%s\n", msg);
+		else
+			shenv_singl_error(get_exit_code(sig), "%s", msg);
+	}
+}
+
+void				handle_signal(int sig)
+{
+	shenv_singleton()->last_exit_code = get_exit_code(sig);
+	if (sig == SIGINT)
+		return ;
+	print_error_msg(sig);
 }

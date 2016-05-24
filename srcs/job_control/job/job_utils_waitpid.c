@@ -14,11 +14,14 @@
 #include "shenv/shenv.h"
 #include "shsignal/shsignal.h"
 
-static void sigint_handler(void)
+static void sig_received(void)
 {
-	LOG_INFO("sigint_handler trigged");
-	twl_printf("\n");
-	if (!shenv_shflag_enabled(shenv_singleton(), "i"))
+	LOG_INFO("sig_received trigged");
+	if (shenv_shflag_enabled(shenv_singleton(), "i"))
+	{
+		twl_printf("\n");
+	}
+	else if (shenv_shflag_enabled(shenv_singleton(), "i"))
 	{
 		exit(130);
 	}
@@ -40,7 +43,6 @@ void				job_utils_waitpid(pid_t pid, int *res_ptr)
  	}
  	else if (waitpid_ret == pid)
  	{
-        handle_signal(res);
         if (WIFEXITED(res))
         {
 			shenv_singleton()->last_exit_code = WEXITSTATUS(res);
@@ -56,10 +58,11 @@ void				job_utils_waitpid(pid_t pid, int *res_ptr)
 		}
 		else if (WIFSIGNALED(res))
 		{
+        	handle_signal(WTERMSIG(res));
 			LOG_INFO("WIFSIGNALED: %d", WTERMSIG(res));
 			if (WTERMSIG(res) == SIGINT)
 			{
-				sigint_handler();
+				sig_received();
 			}
 		}
 		else if (WIFSTOPPED(res))
