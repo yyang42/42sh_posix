@@ -86,4 +86,6 @@ t_edit_fn				edit_utils_buffer_match_sequence(t_edit *this);
 t_edit_fn				edit_utils_buf_match_simple(t_edit *this,
 							unsigned char buf);
 
+void					edit_completion(t_edit *this);
+
 #endif

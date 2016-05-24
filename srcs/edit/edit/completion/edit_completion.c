@@ -11,40 +11,39 @@
 /* ************************************************************************** */
 
 #include "edit/edit.h"
-#include "twl_ctype.h"
 
-void				edit_match_escaped(t_edit *this, unsigned char buf)
+static bool		completion_is_separator(char c)
 {
-	size_t			index;
-	void			(*edit_fn)(t_edit *);
-
-	if (this->dumb)
-		return ;
-	index = 0;
-	while (this->buffer[index])
-		index += 1;
-	this->buffer[index] = buf;
-	if (!edit_utils_can_buffer_form_sequence(this))
-	{
-		twl_bzero(this->buffer, sizeof(this->buffer));
-		return ;
-	}
-	if ((edit_fn = edit_utils_buffer_match_sequence(this)))
-	{
-		edit_fn(this);
-		twl_bzero(this->buffer, sizeof(this->buffer));
-	}
+	return (c == ' ' || c == '"' || c == '\t' || c == '\n' || c == '|' ||
+			c == '&' || c == '`' || c == '(' || c == ';' ||
+			c == '<' || c == '>');
 }
 
-void				edit_match_char(t_edit *this, unsigned char buf)
+static char		*get_current_word(t_edit *this)
 {
-	LOG_DEBUG(twl_isprint(buf) ? "%hhx (%c)" : "%hhx", buf, buf);
-	void			(*edit_fn)(t_edit *);
+	char		*ret;
+	char		*current;
+	size_t		index;
 
-	if (this->buffer[0] || buf == '\033')
-		edit_match_escaped(this, buf);
-	else if (twl_isprint(buf))
-		edit_place_letter(this, buf);
-	else if ((edit_fn = edit_utils_buf_match_simple(this, buf)) && !this->dumb)
-		edit_fn(this);
+	ret = twl_strnew(this->pos_cursor);
+	current = this->current->line;
+	index = this->pos_cursor ? this->pos_cursor - 1 : this->pos_cursor;
+	while (index && !completion_is_separator(current[index]))
+	{
+		index -= 1;
+	}
+	twl_strncpy(ret, current + index, this->pos_cursor - index);
+	return (ret);
+}
+
+void			edit_completion(t_edit *this)
+{
+	char		*current_word;
+
+	if (this->current->size == 0)
+		return ;
+	current_word = get_current_word(this);
+	LOG_DEBUG("%s", current_word);
+	free(current_word);
+	(void)this;
 }
