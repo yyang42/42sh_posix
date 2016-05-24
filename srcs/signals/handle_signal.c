@@ -18,28 +18,30 @@
 
 char * strsignal(int sig);
 
-void			handle_signal(int sig)
+static void		print_error_msg(int sig)
 {
-	int			sigo;
 	char		*msg;
 
-	if (WIFSIGNALED(sig) && !WIFEXITED(sig))
+	msg = strsignal(sig);
+	if (!msg)
 	{
-		sigo = WTERMSIG(sig);
-		if (sigo == SIGINT)
-			;
-		else
-		{
-			msg = strsignal(sigo);
-			if (!msg)
-			{
-				LOG_ERROR("strsignal: %s", strerror(errno));
-			}
-			else
-			{
-				twl_dprintf(2, "%s\n", msg);
-				shenv_singleton()->last_exit_code = 1;
-			}
-		}
+		LOG_ERROR("strsignal: %s", strerror(errno));
 	}
+	else
+	{
+		if (shenv_shflag_enabled(shenv_singleton(), "i"))
+			twl_dprintf(2, "%s\n", msg);
+		else
+			shenv_singl_error(42, "%s", msg);
+	}
+}
+
+void			handle_signal(int sig)
+{
+	if (sig == SIGINT)
+		return ;
+	print_error_msg(sig);
+	shenv_singleton()->last_exit_code = 1;
+	if (sig == SIGKILL)
+		shenv_singleton()->last_exit_code = 137;
 }

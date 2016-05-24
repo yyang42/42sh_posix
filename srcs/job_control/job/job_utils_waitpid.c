@@ -40,7 +40,6 @@ void				job_utils_waitpid(pid_t pid, int *res_ptr)
  	}
  	else if (waitpid_ret == pid)
  	{
-        handle_signal(res);
         if (WIFEXITED(res))
         {
 			shenv_singleton()->last_exit_code = WEXITSTATUS(res);
@@ -56,6 +55,7 @@ void				job_utils_waitpid(pid_t pid, int *res_ptr)
 		}
 		else if (WIFSIGNALED(res))
 		{
+        	handle_signal(WTERMSIG(res));
 			LOG_INFO("WIFSIGNALED: %d", WTERMSIG(res));
 			if (WTERMSIG(res) == SIGINT)
 			{
