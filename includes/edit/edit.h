@@ -51,6 +51,7 @@ t_edit					*edit_new(void);
 void					edit_del(t_edit *this);
 
 t_edit					*edit_singleton(void);
+void					edit_clear_line(t_edit *this);
 
 void					edit_get_winsize(t_edit *this);
 void					edit_terminal_init(t_edit *this);
