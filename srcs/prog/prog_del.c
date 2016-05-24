@@ -14,5 +14,7 @@
 
 void				prog_del(t_prog *prog)
 {
+	free(prog->argv0);
+	free(prog->prog_command_arg);
 	free(prog);
 }
