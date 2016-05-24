@@ -22,9 +22,9 @@ void				ast_simple_command_del(t_ast_simple_command *this)
 	if (this->cmd_tokens_deep_copy)
 		token_mgr_del(this->cmd_tokens_deep_copy);
 	if (this->cmd_tokens_braced) // SE
-		twl_lst_del(this->cmd_tokens_braced, token_del); // RI
-//	if (this->cmd_tokens_expanded) // OUS
-//		twl_lst_del(this->cmd_tokens_expanded, token_del); // LY
+		token_mgr_del(this->cmd_tokens_braced); // RI
+	if (this->cmd_tokens_expanded) // OUS
+		token_mgr_del(this->cmd_tokens_expanded); // LY
 	twl_lst_del(this->redir_fds, NULL);
 	free(this);
 }
