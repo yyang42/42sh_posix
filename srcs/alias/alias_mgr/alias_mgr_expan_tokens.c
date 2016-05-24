@@ -121,4 +121,5 @@ void				alias_mgr_expan_tokens(t_htab *aliases, t_lst *tokens,
 	p.prev_processed = token_mgr_first(tokens)->source_alias_expans;
 	while (alias_mgr_expan_tokens_inner(&p))
 		;
+	twl_lst_del(processed, NULL);
 }

@@ -1,0 +1,123 @@
+{
+   localtime1
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:client_registration_create
+   fun:notify_register_check
+   fun:notify_register_tz
+   fun:tzsetwall_basic
+   fun:localtime
+   fun:twl_logger_printf
+   fun:shenv_build_binary_db
+   fun:shvar_set_value
+   fun:shenv_shvars_set
+   fun:shenv_shvars_set_split_by_equal
+   fun:init_env
+}
+
+
+{
+   localtime2
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:name_node_for_name
+   fun:client_registration_create
+   fun:notify_register_check
+   fun:notify_register_tz
+   fun:tzsetwall_basic
+   fun:localtime
+   fun:twl_logger_printf
+   fun:shenv_build_binary_db
+   fun:shvar_set_value
+   fun:shenv_shvars_set
+   fun:shenv_shvars_set_split_by_equal
+}
+
+{
+   localtime3
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:_nc_table_new
+   fun:_notify_init_globals
+   fun:_os_once
+   fun:_os_alloc_once
+   fun:notify_register_check
+   fun:notify_register_tz
+   fun:tzsetwall_basic
+   fun:localtime
+   fun:twl_logger_printf
+   fun:shenv_build_binary_db
+   fun:shvar_set_value
+}
+{
+   localtime4
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:_nc_table_new
+   fun:_notify_init_globals
+   fun:_os_once
+   fun:_os_alloc_once
+   fun:notify_register_check
+   fun:notify_register_tz
+   fun:tzsetwall_basic
+   fun:localtime
+   fun:twl_logger_printf
+   fun:shenv_build_binary_db
+   fun:shvar_set_value
+}
+
+{
+   localtime5
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:malloc
+   fun:localtime
+   fun:twl_logger_printf
+   fun:shenv_build_binary_db
+   fun:shvar_set_value
+   fun:shenv_shvars_set
+   fun:shenv_shvars_set_split_by_equal
+   fun:init_env
+   fun:twl_arr_iter
+   fun:shenv_init
+   fun:shenv_singleton_setter
+   fun:shenv_singleton
+}
+{
+   localtime6
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:tzsetwall_basic
+   fun:localtime
+   fun:twl_logger_printf
+   fun:shenv_build_binary_db
+   fun:shvar_set_value
+   fun:shenv_shvars_set
+   fun:shenv_shvars_set_split_by_equal
+   fun:init_env
+   fun:twl_arr_iter
+   fun:shenv_init
+   fun:shenv_singleton_setter
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:malloc_zone_malloc
+   fun:_objc_copyClassNamesForImage
+   fun:_ZL9protocolsv
+   fun:_Z9readClassP10objc_classbb
+   fun:gc_init
+   fun:_ZL33objc_initializeClassPair_internalP10objc_classPKcS0_S0_
+   fun:layout_string_create
+   fun:_ZL12realizeClassP10objc_class
+   fun:_ZL22copySwiftV1MangledNamePKcb
+   fun:_ZL22copySwiftV1MangledNamePKcb
+   fun:_ZL22copySwiftV1MangledNamePKcb
+   fun:_ZL22copySwiftV1MangledNamePKcb
+}

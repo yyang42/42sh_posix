@@ -14,6 +14,8 @@
 
 void				token_del(t_token *this)
 {
+	if (!this)
+		return ;
 	if (this->text)
 		free(this->text);
 	if (this->text_unexpanded)

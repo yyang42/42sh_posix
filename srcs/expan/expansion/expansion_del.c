@@ -36,5 +36,6 @@ void			expansion_del(t_expansion *this)
 		twl_lst_del(this->patmatch, free);
 	if (this->error)
 		free(this->error);
+	free(this->to_push_as);
 	free(this);
 }
