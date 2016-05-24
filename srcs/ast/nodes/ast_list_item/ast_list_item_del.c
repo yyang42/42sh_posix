@@ -15,5 +15,7 @@
 void				ast_list_item_del(t_ast_list_item *ast_list_item)
 {
 	twl_lst_del(ast_list_item->ast_andor_items, ast_andor_item_del);
+	if (ast_list_item->list_item_tokens_deep)
+		token_mgr_del(ast_list_item->list_item_tokens_deep);
 	free(ast_list_item);
 }

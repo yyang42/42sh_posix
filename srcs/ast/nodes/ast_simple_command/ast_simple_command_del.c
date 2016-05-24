@@ -21,8 +21,8 @@ void				ast_simple_command_del(t_ast_simple_command *this)
 		twl_lst_del(this->assignment_items, ast_assignment_del);
 	if (this->cmd_tokens_deep_copy)
 		token_mgr_del(this->cmd_tokens_deep_copy);
-//	if (this->cmd_tokens_braced) // SE
-//		twl_lst_del(this->cmd_tokens_braced, token_del); // RI
+	if (this->cmd_tokens_braced) // SE
+		twl_lst_del(this->cmd_tokens_braced, token_del); // RI
 //	if (this->cmd_tokens_expanded) // OUS
 //		twl_lst_del(this->cmd_tokens_expanded, token_del); // LY
 	twl_lst_del(this->redir_fds, NULL);
