@@ -90,6 +90,7 @@ t_ast_simple_command	*ast_simple_command_new_from_tokens(t_lst *tokens, struct s
 		return (NULL);
 	}
 	build_tokens(this, tokens_tmp, ast);
+	twl_lst_del(tokens_tmp, NULL);
 	if (ast_has_error(ast))
 		return (NULL);
 	return (this);
