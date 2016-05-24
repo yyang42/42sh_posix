@@ -75,6 +75,7 @@ void					edit_move_end(t_edit *this);
 void					edit_del_left(t_edit *this);
 void					edit_del_right(t_edit *this);
 
+void					edit_del_all_left(t_edit *this);
 void					edit_del_all_right(t_edit *this);
 
 bool					edit_utils_can_buffer_form_sequence(t_edit *this);

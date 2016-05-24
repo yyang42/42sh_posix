@@ -10,23 +10,26 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "data.h"
 #include "edit/edit.h"
-#include "edit/simple_char.h"
 
-t_lst				*data_simple_char_edit(void)
+void			edit_del_all_left(t_edit *this)
 {
-	static t_lst	*data = NULL;
+	size_t		start;
+	size_t		end;
 
-	if (!data)
-	{
-		data = twl_lst_new();
-		twl_lst_push_front(data, simple_char_new('\001', edit_move_home));
-		twl_lst_push_front(data, simple_char_new('\005', edit_move_end));
-		twl_lst_push_front(data, simple_char_new('\004', edit_del_right));
-		twl_lst_push_front(data, simple_char_new('\177', edit_del_left));
-		twl_lst_push_front(data, simple_char_new('\013', edit_del_all_right));
-		twl_lst_push_front(data, simple_char_new('\025', edit_del_all_left));
-	}
-	return (data);
+	if (this->pos_cursor == 0)
+		return ;
+	if (!this->copy_buffer)
+		twl_strdel(&this->copy_buffer);
+	start = this->pos_cursor;
+	end = this->current->size - this->pos_cursor;
+	this->copy_buffer = twl_strndup(this->current->line, start);
+	twl_memmove(this->current->line, this->current->line + start, end);
+	twl_memset(this->current->line + end, ' ', start);
+	edit_move_home(this);
+	this->puts(this->current->line);
+	this->pos_cursor = this->current->size;
+	edit_move_home(this);
+	twl_bzero(this->current->line + end, start);
+	this->current->size = end;
 }
