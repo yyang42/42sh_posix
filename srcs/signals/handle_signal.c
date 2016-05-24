@@ -14,29 +14,32 @@
 #include "shenv/shenv.h"
 #include <sys/wait.h>
 #include <sys/types.h>
+#include <signal.h>
+
+char * strsignal(int sig);
 
 void			handle_signal(int sig)
 {
 	int			sigo;
+	char		*msg;
 
 	if (WIFSIGNALED(sig) && !WIFEXITED(sig))
 	{
 		sigo = WTERMSIG(sig);
 		if (sigo == SIGINT)
 			;
-		else if (sigo == SIGSEGV)
-			shenv_singl_error(EXIT_FAILURE, "Segmentation fault: %d\n", sigo);
-		else if (sigo == SIGKILL)
-			shenv_singl_error(137, "Killed: %d\n", sigo);
-		else if (sigo == SIGABRT)
-			shenv_singl_error(EXIT_FAILURE, "Abort: %d\n", sigo);
-		else if (sigo == SIGTERM)
-			shenv_singl_error(EXIT_FAILURE, "Terminated: %d\n", sigo);
-		else if (sigo == SIGBUS)
-			shenv_singl_error(EXIT_FAILURE, "Bus error: %d\n", sigo);
-		else if (sigo == SIGQUIT)
-			shenv_singl_error(EXIT_FAILURE, "Quit: %d\n", sigo);
 		else
-			shenv_singl_error(EXIT_FAILURE, "Unkown signal: %d\n", sigo);
+		{
+			msg = strsignal(sigo);
+			if (!msg)
+			{
+				LOG_ERROR("strsignal: %s", strerror(errno));
+			}
+			else
+			{
+				twl_dprintf(2, "%s\n", msg);
+				shenv_singleton()->last_exit_code = 1;
+			}
+		}
 	}
 }
