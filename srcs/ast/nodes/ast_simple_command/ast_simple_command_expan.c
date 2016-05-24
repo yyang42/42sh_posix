@@ -26,6 +26,7 @@ static void 	iter_cmd_fn(void *token, void *context)
 	t_expansion				*expansion;
 	t_ast_simple_command	*cmd;
 	t_lst					*expanded;
+	t_lst					*token_expanded_sequel;
 
 	cmd = context;
 	expansion = expansion_new_from_token(token);
@@ -38,8 +39,10 @@ static void 	iter_cmd_fn(void *token, void *context)
 		shenv_singleton()->last_exit_code = 1;
 		return ;
 	}
-	twl_lst_cat(cmd->cmd_tokens_expanded,
-				token_mgr_new_from_string_list(token, expanded));
+	token_expanded_sequel = token_mgr_new_from_string_list(token, expanded);
+	twl_lst_cat(cmd->cmd_tokens_expanded, token_expanded_sequel);
+	token_expanded_sequel->head = NULL;
+	twl_lst_del(token_expanded_sequel, NULL);
 	twl_lst_del(expanded, free);
 	expansion_del(expansion);
 }

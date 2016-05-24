@@ -18,11 +18,15 @@ static void		patmatch_iter_fn(void *data, void *context)
 {
 	t_expansion	*this;
 	t_patmatch	*patmatch;
+	t_lst		*patmatches;
 
 	this = context;
 	patmatch = patmatch_new();
-	twl_lst_cat(this->patmatch, patmatch_match(patmatch, data));
+	patmatches = patmatch_match(patmatch, data);
+	twl_lst_cat(this->patmatch, patmatches);
 	patmatch_del(patmatch);
+	patmatches->head = NULL;
+	twl_lst_del(patmatches, NULL);
 }
 
 static void		getname_iter_fn(void *data, void *context)

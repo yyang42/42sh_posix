@@ -22,5 +22,6 @@ t_expansion			*expansion_new(void)
 	this->patmatch = twl_lst_new();
 	this->quoted = false;
 	this->error = NULL;
+	this->to_push_as = NULL;
 	return (this);
 }
