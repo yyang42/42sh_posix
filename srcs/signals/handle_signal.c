@@ -18,7 +18,14 @@
 
 char * strsignal(int sig);
 
-static void		print_error_msg(int sig)
+#define SIG_EXIT_CODE_MIN 128
+
+static int			get_exit_code(int sig)
+{
+	return (SIG_EXIT_CODE_MIN + sig);
+}
+
+static void			print_error_msg(int sig)
 {
 	char		*msg;
 
@@ -32,16 +39,14 @@ static void		print_error_msg(int sig)
 		if (shenv_shflag_enabled(shenv_singleton(), "i"))
 			twl_dprintf(2, "%s\n", msg);
 		else
-			shenv_singl_error(42, "%s", msg);
+			shenv_singl_error(get_exit_code(sig), "%s", msg);
 	}
 }
 
-void			handle_signal(int sig)
+void				handle_signal(int sig)
 {
+	shenv_singleton()->last_exit_code = get_exit_code(sig);
 	if (sig == SIGINT)
 		return ;
 	print_error_msg(sig);
-	shenv_singleton()->last_exit_code = 1;
-	if (sig == SIGKILL)
-		shenv_singleton()->last_exit_code = 137;
 }

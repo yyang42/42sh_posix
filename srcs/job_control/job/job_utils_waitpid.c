@@ -17,8 +17,11 @@
 static void sig_received(void)
 {
 	LOG_INFO("sig_received trigged");
-	twl_printf("\n");
-	if (!shenv_shflag_enabled(shenv_singleton(), "i"))
+	if (shenv_shflag_enabled(shenv_singleton(), "i"))
+	{
+		twl_printf("\n");
+	}
+	else if (shenv_shflag_enabled(shenv_singleton(), "i"))
 	{
 		exit(130);
 	}

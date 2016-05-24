@@ -1,0 +1,20 @@
+/tmp/input.sh: line 8: Hangup: 1
+/tmp/input.sh: line 8: Quit: 3
+/tmp/input.sh: line 8: Illegal instruction: 4
+/tmp/input.sh: line 8: Trace/BPT trap: 5
+/tmp/input.sh: line 8: Abort trap: 6
+/tmp/input.sh: line 8: EMT trap: 7
+/tmp/input.sh: line 8: Floating point exception: 8
+/tmp/input.sh: line 8: Killed: 9
+/tmp/input.sh: line 8: Bus error: 10
+/tmp/input.sh: line 8: Segmentation fault: 11
+/tmp/input.sh: line 8: Bad system call: 12
+/tmp/input.sh: line 8: Broken pipe: 13
+/tmp/input.sh: line 8: Alarm clock: 14
+/tmp/input.sh: line 8: Terminated: 15
+/tmp/input.sh: line 8: Cputime limit exceeded: 24
+/tmp/input.sh: line 8: Filesize limit exceeded: 25
+/tmp/input.sh: line 8: Virtual timer expired: 26
+/tmp/input.sh: line 8: Profiling timer expired: 27
+/tmp/input.sh: line 8: User defined signal 1: 30
+/tmp/input.sh: line 8: User defined signal 2: 31
