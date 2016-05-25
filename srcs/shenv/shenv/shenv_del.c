@@ -36,7 +36,7 @@ void				shenv_del(t_shenv *this)
 		twl_lst_del(this->jobs, job_del);
 	twl_lst_del(this->shenv_traps, trap_del);
 	if (this->shenv_binary_db)
-		twl_htab_del(this->shenv_binary_db, NULL);
+		twl_htab_del(this->shenv_binary_db, free);
 	free(this->shenv_current_directory);
 	free(this->shenv_argv_remainder);
 	shflag_mgr_del(this->shenv_shflags);

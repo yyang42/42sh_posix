@@ -22,9 +22,14 @@ t_shenv				*shenv_singleton_setter(t_shenv *src_env)
 	}
 	if (!env)
 	{
+		LOG_INFO("=====================2 1");
 		env = shenv_new();
+		LOG_INFO("=====================2 2");
 		shenv_init(env);
+		LOG_INFO("=====================2 3");
 		shenv_increase_shlvl(env);
+
+		LOG_INFO("=====================2 4");
 	}
 	return (env);
 }
