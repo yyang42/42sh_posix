@@ -11,15 +11,24 @@
 /* ************************************************************************** */
 
 #include "edit/edit.h"
-#include "edit/completion.h"
 
-void			edit_completion(t_edit *this)
+void			edit_place_string(t_edit *this, char *string)
 {
-	t_completion	*completion;
+	size_t		len;
 
-	completion = completion_new(this);
-	LOG_DEBUG("%i: '%s'", completion->type, completion->current_word);
-	if (completion->type == COMPLETION_VARIABLE)
-		completion_variable(completion);
-	completion_del(completion);
+	len = twl_strlen(string);
+	twl_memmove(this->current->line + this->pos_cursor + len, // WTF NOOO TODO
+				this->current->line + this->pos_cursor,       // WTF NOOO TODO
+				this->current->size - this->pos_cursor);      // WTF NOOO TODO
+	twl_memcpy(this->current->line + this->pos_cursor, string, len - 1);
+	this->pos_cursor += len;
+	this->current->size += len;
+	this->puts(string);
+	if ((this->pos_cursor + this->base_x) % this->winsize_x == 0)
+	{
+		tputs(tgoto(tgetstr("do", NULL), 0, 0), 1, this->putc);
+		tputs(tgoto(tgetstr("LE", NULL), 0, this->winsize_x), 1, this->putc);
+	}
+	line_realloc(this->current);
+	edit_padding(this);
 }

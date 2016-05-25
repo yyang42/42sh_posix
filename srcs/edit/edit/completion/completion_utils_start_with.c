@@ -10,16 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "edit/edit.h"
 #include "edit/completion.h"
 
-void			edit_completion(t_edit *this)
-{
-	t_completion	*completion;
+/*
+** Because the libtowel one is awful
+*/
 
-	completion = completion_new(this);
-	LOG_DEBUG("%i: '%s'", completion->type, completion->current_word);
-	if (completion->type == COMPLETION_VARIABLE)
-		completion_variable(completion);
-	completion_del(completion);
+bool			completion_utils_start_with(char *base, char *prefix)
+{
+	while (true)
+	{
+		if (!*prefix)
+			return (true);
+		if (!*base)
+			return (false);
+		if (*base != *prefix)
+			return (false);
+		base += 1;
+		prefix += 1;
+	}
+	return (false);
 }

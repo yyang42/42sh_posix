@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_norris_loves_the_norminette.c                :+:      :+:    :+:   */
+/*   check_norris_loves_the_norminette.h                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chuck <chuck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,16 +10,35 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "edit/edit.h"
-#include "edit/completion.h"
+#ifndef COMPLETION_H
+# define COMPLETION_H
 
-void			edit_completion(t_edit *this)
+# include "basics.h"
+# include "edit/edit.h"
+
+typedef enum			e_completion_type
 {
-	t_completion	*completion;
+	COMPLETION_DIRS,
+	COMPLETION_EXEC,
+	COMPLETION_VARIABLE,
+	COMPLETION_BRACE_VARIABLE
+}						t_completion_type;
 
-	completion = completion_new(this);
-	LOG_DEBUG("%i: '%s'", completion->type, completion->current_word);
-	if (completion->type == COMPLETION_VARIABLE)
-		completion_variable(completion);
-	completion_del(completion);
-}
+typedef struct			s_completion
+{
+	t_completion_type	type;
+	char				*current_word;
+	t_edit				*edit;
+}						t_completion;
+
+t_completion			*completion_new(t_edit *edit);
+void					completion_del(t_completion *this);
+
+void					completion_dirs(t_completion *this);
+void					completion_exec(t_completion *this);
+void					completion_variable(t_completion *this);
+void					completion_brace_variable(t_completion *this);
+
+bool					completion_utils_start_with(char *base, char *prefix);
+
+#endif

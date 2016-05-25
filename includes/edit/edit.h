@@ -65,6 +65,7 @@ void					edit_new_last_line(t_edit *this);
 
 void					edit_match_char(t_edit *this, unsigned char buf);
 void					edit_place_letter(t_edit *this, unsigned char buf);
+void					edit_place_string(t_edit *this, char *string);
 void					edit_padding(t_edit *this);
 
 void					edit_move_goto_pos_cursor(t_edit *this, size_t pos);

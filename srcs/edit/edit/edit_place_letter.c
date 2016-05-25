@@ -11,11 +11,10 @@
 /* ************************************************************************** */
 
 #include "edit/edit.h"
-#include <string.h>
 
 void			edit_place_letter(t_edit *this, unsigned char buf)
 {
-	memmove(this->current->line + this->pos_cursor + 1,
+	twl_memmove(this->current->line + this->pos_cursor + 1,
 				this->current->line + this->pos_cursor,
 				this->current->size - this->pos_cursor);
 	this->current->line[this->pos_cursor] = buf;

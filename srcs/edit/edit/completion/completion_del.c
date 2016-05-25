@@ -10,16 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "edit/edit.h"
 #include "edit/completion.h"
 
-void			edit_completion(t_edit *this)
+void			completion_del(t_completion *this)
 {
-	t_completion	*completion;
-
-	completion = completion_new(this);
-	LOG_DEBUG("%i: '%s'", completion->type, completion->current_word);
-	if (completion->type == COMPLETION_VARIABLE)
-		completion_variable(completion);
-	completion_del(completion);
+	if (!this)
+		return ;
+	if (this->current_word)
+		free(this->current_word);
+	free(this);
 }
