@@ -37,5 +37,6 @@ void				shenv_del(t_shenv *this)
 	twl_lst_del(this->shenv_traps, trap_del);
 	if (this->shenv_binary_db)
 		twl_htab_del(this->shenv_binary_db, NULL);
+	free(this->shenv_current_directory);
 	free(this);
 }
