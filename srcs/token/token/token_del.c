@@ -23,7 +23,7 @@ void				token_del(t_token *this)
 	if (this->heredoc_text)
 		free(this->heredoc_text);
 	if (this->source_alias_expans)
-		twl_lst_del(this->source_alias_expans, NULL);
+		twl_lst_del(this->source_alias_expans, free);
 	free(this->heredoc_operator);
 	free(this);
 }

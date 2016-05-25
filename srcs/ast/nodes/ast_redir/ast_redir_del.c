@@ -18,5 +18,7 @@ void				ast_redir_del(t_ast_redir *this)
 		free(this->operator);
 	if (this->heredoc_text)
 		free(this->heredoc_text);
+	token_mgr_del(this->redir_tokens);
+	token_del(this->param);
 	free(this);
 }

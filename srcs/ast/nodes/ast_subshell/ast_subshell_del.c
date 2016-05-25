@@ -18,5 +18,6 @@ void				ast_subshell_del(t_ast_subshell *this)
 {
 	if (this->ast_compound_list)
 		ast_compound_list_del(this->ast_compound_list);
+	token_mgr_del(this->tokens);
 	free(this);
 }

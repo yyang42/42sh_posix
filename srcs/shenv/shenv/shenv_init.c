@@ -43,9 +43,9 @@ void				shenv_init(t_shenv *this)
 {
 	extern char **environ;
 
+	shenv_build_binary_db(this);
 	twl_arr_iter(environ, init_env, this);
 	init_env_info(&this->info);
 	shenv_init_shell_vars(this);
 	shenv_init_shflags(this);
-	shenv_build_binary_db(this);
 }

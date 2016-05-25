@@ -121,3 +121,324 @@
    fun:_ZL22copySwiftV1MangledNamePKcb
    fun:_ZL22copySwiftV1MangledNamePKcb
 }
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:tzsetwall_basic
+   fun:localtime
+   fun:twl_logger_printf
+   fun:twl_debug_main_start
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:_nc_table_new
+   fun:_notify_init_globals
+   fun:_os_once
+   fun:_os_alloc_once
+   fun:notify_register_check
+   fun:notify_register_tz
+   fun:tzsetwall_basic
+   fun:localtime
+   fun:twl_logger_printf
+   fun:twl_debug_main_start
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:calloc
+   fun:call_load_methods
+   fun:call_load_methods
+   fun:prepare_load_methods
+   fun:class_createInstance
+   fun:class_createInstance
+   fun:class_createInstance
+   fun:NXMapRemove
+   fun:objc_msgSend
+   fun:xpc_pipe_routine
+   fun:_xpc_interface_routine
+   fun:bootstrap_look_up3
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:malloc
+   fun:_ZL23_collecting_in_criticalv
+   fun:lookUpImpOrForward
+   fun:lookUpImpOrForward
+   fun:-[OS_xpc_object _xref_dispose]
+   fun:xpc_pipe_routine
+   fun:_xpc_interface_routine
+   fun:bootstrap_look_up3
+   fun:bootstrap_look_up2
+   fun:___notify_lib_init_block_invoke
+   fun:_dispatch_client_callout
+   fun:dispatch_once_f
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:realloc
+   fun:reallocf
+   fun:_Read_RuneMagi
+   fun:__setrunelocale
+   fun:__wrap_setrunelocale
+   fun:loadlocale
+   fun:setlocale
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:__collate_load_tables
+   fun:loadlocale
+   fun:setlocale
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:__time_load_locale
+   fun:loadlocale
+   fun:setlocale
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:__part_load_locale
+   fun:__time_load_locale
+   fun:loadlocale
+   fun:setlocale
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:__part_load_locale
+   fun:__numeric_load_locale
+   fun:loadlocale
+   fun:setlocale
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:__part_load_locale
+   fun:__messages_load_locale
+   fun:loadlocale
+   fun:setlocale
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:__part_load_locale
+   fun:__monetary_load_locale
+   fun:loadlocale
+   fun:setlocale
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:__numeric_load_locale
+   fun:loadlocale
+   fun:setlocale
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:__messages_load_locale
+   fun:loadlocale
+   fun:setlocale
+   fun:main
+}
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:__monetary_load_locale
+   fun:loadlocale
+   fun:setlocale
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:malloc
+   fun:currentlocale
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:malloc
+   fun:localtime
+   fun:twl_logger_printf
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:malloc
+   fun:localtime
+   fun:twl_logger_printf
+   fun:shenv_singleton_setter
+   fun:shenv_singleton
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:malloc
+   fun:_nc_table_new
+   fun:_notify_init_globals
+   fun:_os_once
+   fun:_os_alloc_once
+   fun:notify_register_check
+   fun:notify_register_tz
+   fun:tzsetwall_basic
+   fun:localtime
+   fun:twl_logger_printf
+   fun:shenv_singleton_setter
+   fun:shenv_singleton
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:malloc
+   fun:_nc_table_new
+   fun:_notify_init_globals
+   fun:_os_once
+   fun:_os_alloc_once
+   fun:notify_register_check
+   fun:notify_register_tz
+   fun:tzsetwall_basic
+   fun:localtime
+   fun:twl_logger_printf
+   fun:shenv_singleton_setter
+   fun:shenv_singleton
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:malloc
+   fun:_nc_table_new
+   fun:_notify_init_globals
+   fun:_notify_fork_child
+   fun:libSystem_atfork_child
+   fun:fork
+   fun:shenv_utils_fork
+   fun:jobexec_fork_exec_non_interactive_do
+   fun:jobexec_fork_exec_non_interactive
+   fun:jobexec_fork_exec
+   fun:ast_andor_item_exec_pipes_wrapper
+   fun:ast_andor_item_exec
+   fun:iter_fn
+   fun:twl_lst_iterp
+   fun:ast_list_item_exec_non_async
+   fun:ast_list_item_exec
+   fun:ast_list_item_exec_wrapper
+   fun:ast_list_item_new_from_tokens
+   fun:ast_list_item_new_from_tokens_void
+   fun:ast_lap_build_items
+   fun:ast_compound_list_new_from_tokens
+   fun:ast_new_from_tokens_build_exec
+   fun:ast_new
+   fun:ast_new_from_string
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:malloc
+   fun:_nc_table_new
+   fun:_notify_init_globals
+   fun:_notify_fork_child
+   fun:libSystem_atfork_child
+   fun:fork
+   fun:shenv_utils_fork
+   fun:jobexec_fork_exec_non_interactive_do
+   fun:jobexec_fork_exec_non_interactive
+   fun:jobexec_fork_exec
+   fun:ast_andor_item_exec_pipes_wrapper
+   fun:ast_andor_item_exec
+   fun:iter_fn
+   fun:twl_lst_iterp
+   fun:ast_list_item_exec_non_async
+   fun:ast_list_item_exec
+   fun:ast_list_item_exec_wrapper
+   fun:ast_list_item_new_from_tokens
+   fun:ast_list_item_new_from_tokens_void
+   fun:ast_lap_build_items
+   fun:ast_compound_list_new_from_tokens
+   fun:ast_new_from_tokens_build_exec
+   fun:ast_new
+   fun:ast_new_from_string
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:calloc
+   fun:_ZL12realizeClassP10objc_class
+   fun:_os_object_alloc_realized
+   fun:_xpc_pipe_create
+   fun:xpc_atfork_child
+   fun:libSystem_atfork_child
+   fun:fork
+   fun:shenv_utils_fork
+   fun:jobexec_fork_exec_non_interactive_do
+   fun:jobexec_fork_exec_non_interactive
+   fun:jobexec_fork_exec
+   fun:ast_andor_item_exec_pipes_wrapper
+   fun:ast_andor_item_exec
+   fun:iter_fn
+   fun:twl_lst_iterp
+   fun:ast_list_item_exec_non_async
+   fun:ast_list_item_exec
+   fun:ast_list_item_exec_wrapper
+   fun:ast_list_item_new_from_tokens
+   fun:ast_list_item_new_from_tokens_void
+   fun:ast_lap_build_items
+   fun:ast_compound_list_new_from_tokens
+   fun:ast_new_from_tokens_build_exec
+   fun:ast_new
+}

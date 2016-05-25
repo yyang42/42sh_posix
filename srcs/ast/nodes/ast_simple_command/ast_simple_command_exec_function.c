@@ -32,14 +32,14 @@ void				ast_simple_command_exec_function(t_lst *tokens,
 
 	env = shenv_singleton();
 	env->shenv_is_function_or_script = true;
-	tokens_str_lst = token_mgr_to_lst(tokens);
+	tokens_str_lst = token_mgr_to_lst_deepcopy(tokens);
 	twl_lst_pop_front(tokens_str_lst);
 	pos_params_original = env->shenv_pos_params;
 	env->shenv_pos_params = tokens_str_lst;
 	env->function_depth++;
 	exit_if_function_max_depth_reached(env, tokens);
 	ast_compound_command_exec(compound_cmd);
-	twl_lst_del(tokens_str_lst, NULL);
+	twl_lst_del(tokens_str_lst, free);
 	env->shenv_pos_params = pos_params_original;
 	env->shenv_return_triggered = false;
 	env->shenv_is_function_or_script = false;

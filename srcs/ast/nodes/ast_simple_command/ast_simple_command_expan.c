@@ -121,11 +121,12 @@ static void 	iter_redir_fn(void *data, void *context)
 		shenv_singleton()->last_exit_code = 1;
 		return ;
 	}
+	expansion_del(expansion);
 	if (twl_lst_len(expanded) != 1)
 	{
 		shenv_singl_error(0, "%s: ambiguous redirect", redir->param->text_unexpanded);
-		expansion_del(expansion);
 		shenv_singleton()->last_exit_code = 1;
+		twl_lst_del(expanded, free);
 		return ;
 	}
 	token_set_text(redir->param, twl_lst_first(expanded));

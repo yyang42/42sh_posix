@@ -10,35 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shenv/shenv.h"
-#include "twl_opt_elem.h"
-#include "job_control/job.h"
-#include "trap/trap.h"
+#include "token/token_mgr.h"
 
-void				shenv_del(t_shenv *this)
+static void			print_token_fn(void *token_, void *segs)
 {
-	if (!this)
-		return ;
-	shvar_mgr_del(this->shenv_shvars);
-	if (this->shfuncs)
-		twl_lst_del(this->shfuncs, NULL);
-	twl_lst_del(this->shenv_pos_params, free);
-	if (this->alias)
-		twl_htab_del(this->alias, NULL);
-	if (this->info.name)
-		free(this->info.name);
-	free(this->shenv_name);
-	free(this->shenv_cur_cmd);
-	free(this->shenv_read_buffer_db);
-	if (this->shenv_binary_saved_path)
-		free(this->shenv_binary_saved_path);
-	if (this->jobs)
-		twl_lst_del(this->jobs, job_del);
-	twl_lst_del(this->shenv_traps, trap_del);
-	if (this->shenv_binary_db)
-		twl_htab_del(this->shenv_binary_db, free);
-	free(this->shenv_current_directory);
-	twl_lst_del(this->shenv_argv_remainder, NULL);
-	shflag_mgr_del(this->shenv_shflags);
-	free(this);
+	t_token	*token;
+
+	token = token_;
+	twl_lst_push_back(segs, twl_strdup(token->text));
+}
+
+t_lst				*token_mgr_to_lst_deepcopy(t_lst *tokens)
+{
+	t_lst			*segs;
+
+	segs = twl_lst_new();
+	twl_lst_iter(tokens, print_token_fn, segs);
+	return (segs);
 }

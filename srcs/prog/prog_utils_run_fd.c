@@ -91,10 +91,10 @@ void                prog_utils_run_fd(int fd)
 	while ((input = read_gnl(fd, &gnl_remainder, &line)))
 	{
 		prog_utils_run_input(input, line_prev + 1);
+		free(input);
 		if (shenv_singleton()->shenv_has_syntax_error)
 			break ;
 		line_prev = line;
 	}
-	free(input);
 	free(gnl_remainder);
 }

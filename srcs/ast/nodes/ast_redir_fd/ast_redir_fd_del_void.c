@@ -10,35 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shenv/shenv.h"
-#include "twl_opt_elem.h"
-#include "job_control/job.h"
-#include "trap/trap.h"
+#include "ast/nodes/ast_redir_fd.h"
 
-void				shenv_del(t_shenv *this)
+void				ast_redir_fd_del_void(t_ast_redir_fd *ast_redir_fd)
 {
-	if (!this)
-		return ;
-	shvar_mgr_del(this->shenv_shvars);
-	if (this->shfuncs)
-		twl_lst_del(this->shfuncs, NULL);
-	twl_lst_del(this->shenv_pos_params, free);
-	if (this->alias)
-		twl_htab_del(this->alias, NULL);
-	if (this->info.name)
-		free(this->info.name);
-	free(this->shenv_name);
-	free(this->shenv_cur_cmd);
-	free(this->shenv_read_buffer_db);
-	if (this->shenv_binary_saved_path)
-		free(this->shenv_binary_saved_path);
-	if (this->jobs)
-		twl_lst_del(this->jobs, job_del);
-	twl_lst_del(this->shenv_traps, trap_del);
-	if (this->shenv_binary_db)
-		twl_htab_del(this->shenv_binary_db, free);
-	free(this->shenv_current_directory);
-	twl_lst_del(this->shenv_argv_remainder, NULL);
-	shflag_mgr_del(this->shenv_shflags);
-	free(this);
+	ast_redir_fd_del(ast_redir_fd);
 }

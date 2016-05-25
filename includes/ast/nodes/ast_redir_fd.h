@@ -28,6 +28,7 @@ typedef struct		s_ast_redir_fd
 
 t_ast_redir_fd		*ast_redir_fd_new(void);
 void				ast_redir_fd_del(t_ast_redir_fd *ast_redir_fd);
+void				ast_redir_fd_del_void(t_ast_redir_fd *ast_redir_fd);
 void				ast_redir_fd_handle_duplication(t_ast_redir_fd *redir_fd, t_ast_redir *redir, int default_fd);
 int					ast_redir_fd_utils_heredoc_to_fd(t_ast_redir *redir);
 void				ast_redir_fd_handle_input(t_ast_redir_fd *redir_fd, t_ast_redir *redir);
