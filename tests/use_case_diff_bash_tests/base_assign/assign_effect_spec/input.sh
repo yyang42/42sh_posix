@@ -20,11 +20,11 @@ foo return -1
 foo set -o
 foo shift 1
 foo times
-# foo trap
-# foo true
-# foo umask
-# foo wait
-# foo date
+foo trap
+foo true
+foo umask
+foo wait
+foo date
 
 # not testable
 # foo break 1
