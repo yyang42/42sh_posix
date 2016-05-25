@@ -23,9 +23,9 @@ t_lst				*data_simple_char_edit(void)
 		data = twl_lst_new();
 		twl_lst_push_front(data, simple_char_new('\001', edit_move_home));
 		twl_lst_push_front(data, simple_char_new('\002', edit_move_left));
+		twl_lst_push_front(data, simple_char_new('\004', edit_del_right));
 		twl_lst_push_front(data, simple_char_new('\005', edit_move_end));
 		twl_lst_push_front(data, simple_char_new('\006', edit_move_right));
-		twl_lst_push_front(data, simple_char_new('\004', edit_del_right));
 		twl_lst_push_front(data, simple_char_new('\011', edit_completion));
 		twl_lst_push_front(data, simple_char_new('\013', edit_del_all_right));
 		twl_lst_push_front(data, simple_char_new('\014', edit_clear_screen));
