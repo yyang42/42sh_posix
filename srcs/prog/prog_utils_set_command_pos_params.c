@@ -24,4 +24,5 @@ void				prog_utils_set_command_pos_params(void)
 	{
 		shenv_set_name(env, first);
 	}
+	free(first);
 }

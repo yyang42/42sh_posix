@@ -42,7 +42,7 @@ static void	expan_param_at(t_expansion *this)
 
 	this->is_at_present = true;
 	lsat = expan_get_param_spec('@');
-	if (!lsat || twl_lst_len(lsat) == 0)
+	if (!lsat)
 		return ;
 	expansion_push_raw_lst(this, lsat);
 	twl_lst_del(lsat, NULL);
