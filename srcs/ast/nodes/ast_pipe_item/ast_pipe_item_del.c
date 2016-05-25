@@ -16,5 +16,6 @@ void				ast_pipe_item_del(t_ast_pipe_item *this)
 {
 	if (this->ast_command)
 		ast_command_del(this->ast_command);
+	token_del(this->separator);
 	free(this);
 }
