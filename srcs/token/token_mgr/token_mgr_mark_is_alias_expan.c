@@ -12,12 +12,17 @@
 
 #include "token/token_mgr.h"
 
+static void			push_fn(void *str, void *lst)
+{
+	twl_lst_push_back(lst, twl_strdup(str));
+}
+
 static void			mark_is_alias_expan_fn(void *token_, void *source_alias_expans)
 {
 	t_token	*token;
 
 	token = token_;
-	twl_lst_extend(token->source_alias_expans, source_alias_expans);
+	twl_lst_iter(source_alias_expans, push_fn, token->source_alias_expans);
 }
 
 void				token_mgr_mark_is_alias_expan(t_lst *tokens, t_lst *source_alias_expans)

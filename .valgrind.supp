@@ -308,3 +308,14 @@
    fun:twl_logger_printf
    fun:main
 }
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:malloc
+   fun:localtime
+   fun:twl_logger_printf
+   fun:shenv_singleton_setter
+   fun:shenv_singleton
+   fun:main
+}

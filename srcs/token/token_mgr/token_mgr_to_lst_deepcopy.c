@@ -10,20 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "token/token.h"
+#include "token/token_mgr.h"
 
-void				token_del(t_token *this)
+static void			print_token_fn(void *token_, void *segs)
 {
-	if (!this)
-		return ;
-	if (this->text)
-		free(this->text);
-	if (this->text_unexpanded)
-		free(this->text_unexpanded);
-	if (this->heredoc_text)
-		free(this->heredoc_text);
-	if (this->source_alias_expans)
-		twl_lst_del(this->source_alias_expans, free);
-	free(this->heredoc_operator);
-	free(this);
+	t_token	*token;
+
+	token = token_;
+	twl_lst_push_back(segs, twl_strdup(token->text));
+}
+
+t_lst				*token_mgr_to_lst_deepcopy(t_lst *tokens)
+{
+	t_lst			*segs;
+
+	segs = twl_lst_new();
+	twl_lst_iter(tokens, print_token_fn, segs);
+	return (segs);
 }

@@ -60,6 +60,7 @@ void				token_mgr_pop_linebreak_colon_linebreak(t_lst *tokens);
 
 char				**token_mgr_to_str_arr(t_lst *tokens);
 t_lst				*token_mgr_to_lst(t_lst *tokens);
+t_lst				*token_mgr_to_lst_deepcopy(t_lst *tokens);
 
 t_token				**token_mgr_arexp_extract_assign(t_lst *tokens);
 void				token_mgr_xtrace_print(t_lst *tokens);
