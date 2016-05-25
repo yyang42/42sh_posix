@@ -32,9 +32,8 @@ static void				push_redir_fn(void *one_redir_tokens, void *redir_items,
 	if (ast_has_error(ast))
 		return ;
 	ast_redir = ast_redir_new_from_tokens(one_redir_tokens, ast);
-	if (ast_has_error(ast))
-		return ;
-	twl_lst_push_back(redir_items, ast_redir);
+	if (ast_redir)
+		twl_lst_push_back(redir_items, ast_redir);
 }
 
 static bool			should_not_build_redirs_for_exec_cmd(t_lst *orig_tokens)
