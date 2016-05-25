@@ -10,14 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_compound_list.h"
+#include "ast/nodes/ast_redir_fd.h"
 
-#include "ast/nodes/ast_subshell.h"
-
-void				ast_subshell_del(t_ast_subshell *this)
+void				ast_redir_fd_del_void(t_ast_redir_fd *ast_redir_fd)
 {
-	if (this->ast_compound_list)
-		ast_compound_list_del(this->ast_compound_list);
-	token_mgr_del(this->tokens);
-	free(this);
+	ast_redir_fd_del(ast_redir_fd);
 }

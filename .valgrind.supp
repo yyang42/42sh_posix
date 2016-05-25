@@ -319,3 +319,39 @@
    fun:shenv_singleton
    fun:main
 }
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:malloc
+   fun:_nc_table_new
+   fun:_notify_init_globals
+   fun:_os_once
+   fun:_os_alloc_once
+   fun:notify_register_check
+   fun:notify_register_tz
+   fun:tzsetwall_basic
+   fun:localtime
+   fun:twl_logger_printf
+   fun:shenv_singleton_setter
+   fun:shenv_singleton
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:malloc
+   fun:_nc_table_new
+   fun:_notify_init_globals
+   fun:_os_once
+   fun:_os_alloc_once
+   fun:notify_register_check
+   fun:notify_register_tz
+   fun:tzsetwall_basic
+   fun:localtime
+   fun:twl_logger_printf
+   fun:shenv_singleton_setter
+   fun:shenv_singleton
+   fun:main
+}

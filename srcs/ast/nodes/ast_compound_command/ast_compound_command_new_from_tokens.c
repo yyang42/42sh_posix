@@ -55,6 +55,7 @@ static void				build_redir_tokens(t_lst *redir_items,
 		ast_set_error_msg_syntax_error_unexpected(ast, twl_lst_first(redir_tokens));
 	}
 	token_list_mgr_del_shallow(redir_tokens_groups);
+	twl_lst_del(redir_tokens, NULL);
 }
 
 static bool				is_operator(t_token *token)

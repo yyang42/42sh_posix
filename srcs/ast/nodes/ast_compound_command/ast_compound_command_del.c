@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "ast/nodes/ast_compound_command.h"
+#include "ast/nodes/ast_redir_fd.h"
 
 static t_compound_command_print_del_fn	*get_print_del_fns(void)
 {
@@ -39,5 +40,6 @@ void									ast_compound_command_del(
 			get_print_del_fns()[this->command_type](this->command);
 		twl_lst_del(this->redir_items, ast_redir_del_void);
 	}
+	twl_lst_del(this->redir_fds, ast_redir_fd_del_void);
 	free(this);
 }
