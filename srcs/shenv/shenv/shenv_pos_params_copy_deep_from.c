@@ -16,7 +16,7 @@
 
 static void			push_fn(void *param, void *shenv_pos_params)
 {
-	twl_lst_push_back(shenv_pos_params, param);
+	twl_lst_push_back(shenv_pos_params, twl_strdup(param));
 }
 
 void				shenv_pos_params_copy_deep_from(t_shenv *env,

@@ -31,6 +31,7 @@ int					main(int ac, char **av)
 	prog_handle_exit_signal(prog);
 	prog_del(prog);
 	twl_debug_main_end();
+	shenv_del(shenv_singleton());
 	return (ret);
 	(void)ac;
 }

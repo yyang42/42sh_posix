@@ -149,3 +149,153 @@
    fun:twl_debug_main_start
    fun:main
 }
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:calloc
+   fun:call_load_methods
+   fun:call_load_methods
+   fun:prepare_load_methods
+   fun:class_createInstance
+   fun:class_createInstance
+   fun:class_createInstance
+   fun:NXMapRemove
+   fun:objc_msgSend
+   fun:xpc_pipe_routine
+   fun:_xpc_interface_routine
+   fun:bootstrap_look_up3
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:malloc
+   fun:_ZL23_collecting_in_criticalv
+   fun:lookUpImpOrForward
+   fun:lookUpImpOrForward
+   fun:-[OS_xpc_object _xref_dispose]
+   fun:xpc_pipe_routine
+   fun:_xpc_interface_routine
+   fun:bootstrap_look_up3
+   fun:bootstrap_look_up2
+   fun:___notify_lib_init_block_invoke
+   fun:_dispatch_client_callout
+   fun:dispatch_once_f
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:realloc
+   fun:reallocf
+   fun:_Read_RuneMagi
+   fun:__setrunelocale
+   fun:__wrap_setrunelocale
+   fun:loadlocale
+   fun:setlocale
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:__collate_load_tables
+   fun:loadlocale
+   fun:setlocale
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:__time_load_locale
+   fun:loadlocale
+   fun:setlocale
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:__part_load_locale
+   fun:__time_load_locale
+   fun:loadlocale
+   fun:setlocale
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:__part_load_locale
+   fun:__numeric_load_locale
+   fun:loadlocale
+   fun:setlocale
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:__part_load_locale
+   fun:__messages_load_locale
+   fun:loadlocale
+   fun:setlocale
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:__part_load_locale
+   fun:__monetary_load_locale
+   fun:loadlocale
+   fun:setlocale
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:__numeric_load_locale
+   fun:loadlocale
+   fun:setlocale
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:__messages_load_locale
+   fun:loadlocale
+   fun:setlocale
+   fun:main
+}
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:__monetary_load_locale
+   fun:loadlocale
+   fun:setlocale
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:malloc
+   fun:currentlocale
+   fun:main
+}
