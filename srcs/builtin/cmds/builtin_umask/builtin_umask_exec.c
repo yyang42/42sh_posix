@@ -112,4 +112,5 @@ void				builtin_umask_exec(t_lst *tokens, t_shenv *env)
 		}
 	}
 	env->last_exit_code = flag;
+	argparser_result_del(argparser_result);
 }

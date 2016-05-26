@@ -17,6 +17,8 @@ void				shenv_singl_error(int exit_code, char *fmt, ...)
 {
 	t_pf	*pf;
 
+	if (shenv_is_dryrun(shenv_singleton()))
+		return ;
 	pf = pf_create((char *)fmt);
 	va_start(pf->arglist, (char *)fmt);
 	pf_prepare_xprintf__(pf);

@@ -35,4 +35,5 @@ void				builtin_readonly_exec(t_lst *tokens, t_shenv *env)
 			builtin_readonly_verbose(env);
 		}
 	}
+	argparser_result_del(argparser_result);
 }

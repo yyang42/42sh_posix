@@ -27,4 +27,5 @@ void				builtin_dot_exec(t_lst *tokens, t_shenv *env)
 	{
 		builtin_dot_exec_do(twl_lst_first(argparser_result->remainders));
 	}
+	argparser_result_del(argparser_result);
 }

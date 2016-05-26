@@ -67,4 +67,5 @@ void				builtin_trap_exec(t_lst *tokens, t_shenv *env)
 			LOG_ERROR("Should run")
 		}
 	}
+	argparser_result_del(argparser_result);
 }

@@ -81,4 +81,5 @@ void				builtin_env_exec(t_lst *tokens, t_shenv *shenv)
 	{
 		exec_remaining_command_in_new_env(argparser_result);
 	}
+	argparser_result_del(argparser_result);
 }

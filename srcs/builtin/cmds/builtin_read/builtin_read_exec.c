@@ -26,4 +26,5 @@ void				builtin_read_exec(t_lst *tokens, t_shenv *env)
 	{
 		builtin_read_exec_readline(argparser_result);
 	}
+	argparser_result_del(argparser_result);
 }

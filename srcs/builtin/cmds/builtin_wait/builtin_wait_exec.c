@@ -47,4 +47,5 @@ void                builtin_wait_exec(t_lst *tokens, t_shenv *shenv)
         }
         signal(SIGINT, SIG_IGN);
     }
+    argparser_result_del(argparser_result);
 }

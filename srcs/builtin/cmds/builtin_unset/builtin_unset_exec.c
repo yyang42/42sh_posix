@@ -59,4 +59,5 @@ void				builtin_unset_exec(t_lst *tokens, t_shenv *env)
 			check_flags(env, argparser_result);
 		}
 	}
+	argparser_result_del(argparser_result);
 }
