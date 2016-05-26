@@ -33,6 +33,7 @@ typedef struct		s_ast_pipe_item
 
 t_ast_pipe_item		*ast_pipe_item_new(void);
 void				ast_pipe_item_del(t_ast_pipe_item *ast_pipe_item);
+void				ast_pipe_item_del_void(void *this);
 
 t_ast_pipe_item		*ast_pipe_item_new_from_tokens(t_lst *tokens,
 															struct s_ast *ast);

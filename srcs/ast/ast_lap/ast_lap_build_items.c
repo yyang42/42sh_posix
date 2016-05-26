@@ -67,7 +67,9 @@ t_lst				*ast_lap_build_items(t_lst *tokens,
 		last_sep = NULL;
 		item = ast_lap_new_from_tokens_fns()[type](tokens, ast);
 		if (ast_has_error(ast))
+		{
 			return (NULL);
+		}
 		twl_lst_push_back(container, item);
 		if (!is_type_separator(type, token_mgr_first(tokens)))
 			break ;

@@ -26,9 +26,11 @@ t_ast_compound_list	*ast_compound_list_new_from_tokens(t_lst *tokens,
 	this = ast_compound_list_new();
 	twl_lst_del(this->ast_list_items, NULL); // LEAKS it's reallocate juste above
 	token_mgr_pop_linebreak(tokens);
-
 	this->ast_list_items = ast_lap_build_items(tokens, AST_TYPE_LIST_ITEM, ast);
 	if (ast_has_error(ast))
+	{
+		ast_compound_list_del(this);
 		return (NULL);
+	}
 	return this;
 }

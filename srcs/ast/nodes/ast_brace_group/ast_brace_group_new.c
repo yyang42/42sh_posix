@@ -17,5 +17,6 @@ t_ast_brace_group			*ast_brace_group_new(void)
 	t_ast_brace_group		*ast_brace_group;
 
 	ast_brace_group = twl_malloc_x0(sizeof(t_ast_brace_group));
+	ast_brace_group->ast_compound_list = NULL;
 	return (ast_brace_group);
 }
