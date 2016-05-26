@@ -25,7 +25,6 @@ typedef struct						s_ast_function_def
 {
 	void							*name;
 	struct s_ast_compound_command	*compound_command;
-	t_lst							*redir_items;
 }									t_ast_function_def;
 
 t_ast_function_def					*ast_function_def_new(void);

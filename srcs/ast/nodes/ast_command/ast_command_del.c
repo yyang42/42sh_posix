@@ -21,7 +21,9 @@ void				ast_command_del(t_ast_command *ast_command)
 		else if (ast_command->command_type == COMMAND_SIMPLE_COMMAND)
 			ast_simple_command_del(ast_command->command);
 		else if (ast_command->command_type == COMMAND_FUNCTION_DEF)
-			ast_function_def_del(ast_command->command);
+		{
+			// Functions should not be deleted
+		}
 	}
 	free(ast_command);
 }
