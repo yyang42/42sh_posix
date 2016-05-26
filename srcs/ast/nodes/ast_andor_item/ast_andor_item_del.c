@@ -16,5 +16,6 @@ void				ast_andor_item_del(t_ast_andor_item *ast_andor_item)
 {
 	twl_lst_del(ast_andor_item->ast_pipe_items, ast_pipe_item_del);
 	token_mgr_del(ast_andor_item->andor_all_tokens);
+	token_del(ast_andor_item->separator);
 	free(ast_andor_item);
 }
