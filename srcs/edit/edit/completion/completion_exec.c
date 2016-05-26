@@ -11,41 +11,56 @@
 /* ************************************************************************** */
 
 #include "edit/completion.h"
-#include "shenv/shenv.h"
 
-static void		iter_fn(void *data, void *ctx)
+bool			completion_utils_exec_absolute_path(t_completion *this)
 {
-	if (completion_utils_start_with(((t_shvar *)data)->shvar_key,
-				((t_completion *)ctx)->current_word))
+	char		*path;
+
+	path = this->current_word;
+	if (path[0] == '/')
+		return (true);
+	if (path[0] == '.' && (!path[1] || path[1] == '/'))
+		return (true);
+	if ((path[0] == '.' && path[1] == '.') && (!path[2] || path[2] == '/'))
+		return (true);
+	while (*path)
 	{
-		twl_lst_push_front(((t_completion *)ctx)->all,
-				((t_shvar *)data)->shvar_key);
+		if (*path == '/')
+			return (true);
+		path += 1;
 	}
+	return (false);
 }
 
-void			completion_variable(t_completion *this)
+void			completion_exec_from_root(t_completion *this)
 {
-	char		*tmp;
+	LOG_DEBUG("From root");
+	(void)this;
+}
 
-	this->all = twl_lst_new();
-	twl_lst_iter(shenv_singleton()->shenv_shvars, iter_fn, this);
-	if (!twl_lst_first(this->all))
-		;
-	else if (twl_lst_len(this->all) == 1)
+void			completion_exec_from_cwd(t_completion *this)
+{
+	LOG_DEBUG("From cwd");
+	(void)this;
+}
+
+void			completion_exec_from_shenv(t_completion *this)
+{
+	LOG_DEBUG("From shenv");
+	(void)this;
+}
+
+void			completion_exec(t_completion *this)
+{
+	if (completion_utils_exec_absolute_path(this))
 	{
-		tmp = twl_strjoin(twl_lst_first(this->all) + twl_strlen(this->current_word), " ");
-		edit_place_string(this->edit, tmp);
-		free(tmp);
-	}
-	else if ((tmp = completion_utils_get_begin_list(this)))
-	{
-		edit_place_string(this->edit, tmp);
-		free(tmp);
+		if (this->current_word[0] == '/')
+			completion_exec_from_root(this);
+		else
+			completion_exec_from_cwd(this);
 	}
 	else
 	{
-		if (this->edit->is_last_tab)
-			completion_utils_print_lst(this);
-		this->edit->is_last_tab = 2;
+		completion_exec_from_shenv(this);
 	}
 }

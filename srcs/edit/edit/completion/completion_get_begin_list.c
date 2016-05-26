@@ -24,13 +24,13 @@ static void		iter_fn(void *data, void *ctx)
 	*(char *)ctx = 0;
 }
 
-char			*completion_utils_get_begin_list(t_completion *this, t_lst *all)
+char			*completion_utils_get_begin_list(t_completion *this)
 {
 	char		*first;
 	char		*ret;
 
-	first = twl_strdup(twl_lst_first(all));
-	twl_lst_iter(all, iter_fn, first);
+	first = twl_strdup(twl_lst_first(this->all));
+	twl_lst_iter(this->all, iter_fn, first);
 	if (!*first || this->current_len == twl_strlen(first))
 	{
 		free(first);

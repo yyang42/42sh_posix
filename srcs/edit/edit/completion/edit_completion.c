@@ -21,7 +21,9 @@ void			edit_completion(t_edit *this)
 	LOG_DEBUG("%i: '%s'", completion->type, completion->current_word);
 	if (completion->type == COMPLETION_VARIABLE)
 		completion_variable(completion);
-	if (completion->type == COMPLETION_BRACE_VARIABLE)
+	else if (completion->type == COMPLETION_BRACE_VARIABLE)
 		completion_brace_variable(completion);
+	else if (completion->type == COMPLETION_EXEC)
+		completion_exec(completion);
 	completion_del(completion);
 }

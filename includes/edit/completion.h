@@ -30,6 +30,7 @@ typedef struct			s_completion
 	char				*current_word;
 	size_t				current_len;
 	t_edit				*edit;
+	t_lst				*all;
 }						t_completion;
 
 t_completion			*completion_new(t_edit *edit);
@@ -41,9 +42,8 @@ void					completion_variable(t_completion *this);
 void					completion_brace_variable(t_completion *this);
 
 bool					completion_utils_start_with(char *base, char *prefix);
-char					*completion_utils_get_begin_list(t_completion *this,
-							t_lst *all);
-void					completion_utils_print_lst(t_completion *this,
-							t_lst *all);
+char					*completion_utils_get_begin_list(t_completion *this);
+void					completion_utils_print_lst(t_completion *this);
+bool					completion_utils_exec_absolute_path(t_completion *this);
 
 #endif

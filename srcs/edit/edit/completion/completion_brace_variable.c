@@ -13,31 +13,31 @@
 #include "edit/completion.h"
 #include "shenv/shenv.h"
 
-static void		iter_fn(void *data, void *ctx1, void *ctx2)
+static void		iter_fn(void *data, void *ctx)
 {
-	if (completion_utils_start_with(((t_shvar *)data)->shvar_key, ctx1))
+	if (completion_utils_start_with(((t_shvar *)data)->shvar_key,
+				((t_completion *)ctx)->current_word))
 	{
-		twl_lst_push_front(ctx2, ((t_shvar *)data)->shvar_key);
+		twl_lst_push_front(((t_completion *)ctx)->all,
+				((t_shvar *)data)->shvar_key);
 	}
 }
 
 void			completion_brace_variable(t_completion *this)
 {
-	t_lst		*all;
 	char		*tmp;
 
-	all = twl_lst_new();
-	twl_lst_iter2(shenv_singleton()->shenv_shvars, iter_fn,
-				this->current_word, all);
-	if (!twl_lst_first(all))
+	this->all = twl_lst_new();
+	twl_lst_iter(shenv_singleton()->shenv_shvars, iter_fn, this);
+	if (!twl_lst_first(this->all))
 		;
-	else if (twl_lst_len(all) == 1)
+	else if (twl_lst_len(this->all) == 1)
 	{
-		tmp = twl_strjoin(twl_lst_first(all) + twl_strlen(this->current_word), "} ");
+		tmp = twl_strjoin(twl_lst_first(this->all) + twl_strlen(this->current_word), "} ");
 		edit_place_string(this->edit, tmp);
 		free(tmp);
 	}
-	else if ((tmp = completion_utils_get_begin_list(this, all)))
+	else if ((tmp = completion_utils_get_begin_list(this)))
 	{
 		edit_place_string(this->edit, tmp);
 		free(tmp);
@@ -45,8 +45,7 @@ void			completion_brace_variable(t_completion *this)
 	else
 	{
 		if (this->edit->is_last_tab)
-			completion_utils_print_lst(this, all);
+			completion_utils_print_lst(this);
 		this->edit->is_last_tab = 2;
 	}
-	twl_lst_del(all, NULL);
 }
