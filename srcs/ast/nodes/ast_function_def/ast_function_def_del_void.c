@@ -11,10 +11,9 @@
 /* ************************************************************************** */
 
 #include "ast/nodes/ast_function_def.h"
-#include "shenv/shenv.h"
+#include "ast/nodes/ast_compound_command.h"
 
-void				ast_function_def_exec(t_ast_function_def *this)
+void				ast_function_def_del_void(void *this)
 {
-	shenv_add_shell_func(shenv_singleton(), this->name,
-												this);
+	ast_function_def_del(this);
 }

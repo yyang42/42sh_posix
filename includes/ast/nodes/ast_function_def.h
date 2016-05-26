@@ -30,7 +30,7 @@ typedef struct						s_ast_function_def
 t_ast_function_def					*ast_function_def_new(void);
 void								ast_function_def_del(
 										t_ast_function_def *ast_function_def);
-
+void								ast_function_def_del_void(void *this);
 t_ast_function_def					*ast_function_def_new_from_tokens(
 										t_lst *tokens, struct s_ast *ast);
 void								ast_function_def_print_rec(

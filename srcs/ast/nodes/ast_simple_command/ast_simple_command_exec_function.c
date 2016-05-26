@@ -12,6 +12,7 @@
 
 #include "ast/nodes/ast_simple_command.h"
 #include "ast/nodes/ast_compound_command.h"
+#include "ast/nodes/ast_function_def.h"
 
 static void			exit_if_function_max_depth_reached(t_shenv *env,
 	t_lst *tokens)
@@ -24,7 +25,7 @@ static void			exit_if_function_max_depth_reached(t_shenv *env,
 }
 
 void				ast_simple_command_exec_function(t_lst *tokens,
-									struct s_ast_compound_command *compound_cmd)
+									struct s_ast_function_def *function_def)
 {
 	t_lst			*pos_params_original;
 	t_lst			*tokens_str_lst;
@@ -38,7 +39,7 @@ void				ast_simple_command_exec_function(t_lst *tokens,
 	env->shenv_pos_params = tokens_str_lst;
 	env->function_depth++;
 	exit_if_function_max_depth_reached(env, tokens);
-	ast_compound_command_exec(compound_cmd);
+	ast_compound_command_exec(function_def->compound_command);
 	twl_lst_del(tokens_str_lst, free);
 	env->shenv_pos_params = pos_params_original;
 	env->shenv_return_triggered = false;

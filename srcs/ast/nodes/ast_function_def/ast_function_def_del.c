@@ -17,10 +17,6 @@ void									ast_function_def_del(
 	t_ast_function_def *this)
 {
 	ast_compound_command_del(this->compound_command);
-	// void							*name;
-	// struct s_ast_compound_command	*compound_command;
-	// t_lst							*redir_items;
-
 	free(this->name);
 	free(this);
 }

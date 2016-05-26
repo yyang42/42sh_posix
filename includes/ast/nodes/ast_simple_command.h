@@ -62,7 +62,7 @@ void					ast_simple_command_exec_tokens(
 											t_ast_simple_command *ast_s_cmd);
 
 void					ast_simple_command_exec_function(t_lst *tokens,
-								struct s_ast_compound_command *compound_cmd);
+								struct s_ast_function_def *compound_cmd);
 bool					ast_simple_command_is_special_builtin(
 						t_ast_simple_command *this);
 void					ast_simple_command_exec_assign(

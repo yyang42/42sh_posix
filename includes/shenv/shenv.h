@@ -174,10 +174,10 @@ bool				shenv_should_continue_exec(t_shenv *this);
 /*
 ** SHELL FUNCTIONS
 */
-struct s_ast_compound_command;
+struct s_ast_function_def;
 
 void				shenv_remove_shell_func(t_shenv *env, char *key);
-void				shenv_add_shell_func(t_shenv *env, char *key, struct s_ast_compound_command *data);
-struct s_ast_compound_command	*shenv_shfuncs_get(t_shenv *env, char *key);
+void				shenv_add_shell_func(t_shenv *env, char *key, struct s_ast_function_def *data);
+struct s_ast_function_def	*shenv_shfuncs_get(t_shenv *env, char *key);
 
 #endif
