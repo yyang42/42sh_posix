@@ -34,7 +34,7 @@ void				ast_simple_command_exec_function(t_lst *tokens,
 	env = shenv_singleton();
 	env->shenv_is_function_or_script = true;
 	tokens_str_lst = token_mgr_to_lst_deepcopy(tokens);
-	twl_lst_pop_front(tokens_str_lst);
+	free(twl_lst_pop_front(tokens_str_lst));
 	pos_params_original = env->shenv_pos_params;
 	env->shenv_pos_params = tokens_str_lst;
 	env->function_depth++;
