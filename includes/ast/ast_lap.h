@@ -35,6 +35,7 @@ typedef void (*t_ast_lap_del_fn)(void *this);
 
 t_ast_lap_set_separator_fn		*ast_lap_set_separator_fns(void);
 t_ast_lap_new_from_tokens_fn	*ast_lap_new_from_tokens_fns(void);
+t_ast_lap_del_fn				*ast_lap_del_fns(void);
 t_lst							**ast_lap_get_seps_list(void);
 
 #endif

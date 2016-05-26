@@ -17,6 +17,6 @@ t_ast_compound_list			*ast_compound_list_new(void)
 	t_ast_compound_list		*ast_compound_list;
 
 	ast_compound_list = twl_malloc_x0(sizeof(t_ast_compound_list));
-	ast_compound_list->ast_list_items = twl_lst_new(); // LEAKS cause of realloc in ast_compound_list_new_from_tokens
+	ast_compound_list->ast_list_items = NULL;
 	return (ast_compound_list);
 }
