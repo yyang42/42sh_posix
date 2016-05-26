@@ -30,6 +30,7 @@ t_lst				*data_simple_char_edit(void)
 		twl_lst_push_front(data, simple_char_new('\013', edit_del_all_right));
 		twl_lst_push_front(data, simple_char_new('\014', edit_clear_screen));
 		twl_lst_push_front(data, simple_char_new('\025', edit_del_all_left));
+		twl_lst_push_front(data, simple_char_new('\031', edit_paste));
 		twl_lst_push_front(data, simple_char_new('\177', edit_del_left));
 	}
 	return (data);

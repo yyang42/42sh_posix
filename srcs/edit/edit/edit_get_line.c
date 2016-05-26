@@ -64,6 +64,8 @@ char				*edit_get_line(t_edit *this)
 			twl_dprintf(2, "read: %s\n", strerror(errno));
 			exit(-1);
 		}
+		if (this->is_last_tab)
+			this->is_last_tab -= 1;
 		if (read_return == 0 && !*this->current->line)
 			return (end_exit_fn(this));
 		if (read_return == 0)

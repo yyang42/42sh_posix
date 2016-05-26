@@ -10,26 +10,33 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "edit/edit.h"
+#include "edit/completion.h"
 
-void			edit_place_string(t_edit *this, char *string)
+static void		iter_fn(void *data, void *ctx)
 {
-	size_t		len;
-
-	len = twl_strlen(string);
-	line_realloc_from_size(this->current, twl_strlen(string));
-	twl_memmove(this->current->line + this->pos_cursor + len,
-				this->current->line + this->pos_cursor,
-				this->current->size - this->pos_cursor);
-	twl_memcpy(this->current->line + this->pos_cursor, string, len);
-	this->pos_cursor += len;
-	this->current->size += len;
-	this->puts(string);
-	if ((this->pos_cursor + this->base_x) % this->winsize_x == 0)
+	if (!*(char *)ctx)
+		return ;
+	while (*(char *)ctx && *(char *)data == *(char *)ctx)
 	{
-		tputs(tgoto(tgetstr("do", NULL), 0, 0), 1, this->putc);
-		tputs(tgoto(tgetstr("LE", NULL), 0, this->winsize_x), 1, this->putc);
+		data += 1;
+		ctx += 1;
 	}
-	line_realloc(this->current);
-	edit_padding(this);
+	*(char *)ctx = 0;
+}
+
+char			*completion_utils_get_begin_list(t_completion *this, t_lst *all)
+{
+	char		*first;
+	char		*ret;
+
+	first = twl_strdup(twl_lst_first(all));
+	twl_lst_iter(all, iter_fn, first);
+	if (!*first || this->current_len == twl_strlen(first))
+	{
+		free(first);
+		return (NULL);
+	}
+	ret = twl_strdup(first + this->current_len);
+	free(first);
+	return (ret);
 }

@@ -10,26 +10,31 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "edit/edit.h"
+#include "edit/completion.h"
 
-void			edit_place_string(t_edit *this, char *string)
+static void		iter_fn_(void *data, void *ctx)
 {
-	size_t		len;
+	((t_edit *)ctx)->puts(data);
+	((t_edit *)ctx)->puts("\n");
+}
 
-	len = twl_strlen(string);
-	line_realloc_from_size(this->current, twl_strlen(string));
-	twl_memmove(this->current->line + this->pos_cursor + len,
-				this->current->line + this->pos_cursor,
-				this->current->size - this->pos_cursor);
-	twl_memcpy(this->current->line + this->pos_cursor, string, len);
-	this->pos_cursor += len;
-	this->current->size += len;
-	this->puts(string);
-	if ((this->pos_cursor + this->base_x) % this->winsize_x == 0)
-	{
-		tputs(tgoto(tgetstr("do", NULL), 0, 0), 1, this->putc);
-		tputs(tgoto(tgetstr("LE", NULL), 0, this->winsize_x), 1, this->putc);
-	}
-	line_realloc(this->current);
-	edit_padding(this);
+static bool		sort_fn(void *ctx1, void *ctx2)
+{
+	return (twl_strcmp(ctx1, ctx2) < 0);
+}
+
+void			completion_utils_print_lst(t_completion *this, t_lst *all)
+{
+	size_t		last_pos;
+
+	last_pos = this->edit->pos_cursor;
+	edit_move_end(this->edit);
+	twl_lst_qsort(all, sort_fn);
+	edit_terminal_disable(this->edit);
+	this->edit->putc('\n');
+	twl_lst_iter(all, iter_fn_, this->edit);
+	this->edit->puts(PS1);
+	this->edit->puts(this->edit->current->line);
+	edit_terminal_enable(this->edit);
+	edit_move_goto_pos_cursor(this->edit, last_pos);
 }

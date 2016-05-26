@@ -41,6 +41,7 @@ typedef struct			s_edit
 	char				*copy_buffer;
 	bool				echoing;
 	bool				dumb;
+	char				is_last_tab;
 	int					(*putc)(int);
 	int					(*puts)(char *);
 }						t_edit;
@@ -81,6 +82,7 @@ void					edit_del_right(t_edit *this);
 
 void					edit_del_all_left(t_edit *this);
 void					edit_del_all_right(t_edit *this);
+void					edit_paste(t_edit *this);
 
 bool					edit_utils_can_buffer_form_sequence(t_edit *this);
 t_edit_fn				edit_utils_buffer_match_sequence(t_edit *this);

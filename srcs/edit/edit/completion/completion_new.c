@@ -72,6 +72,7 @@ t_completion		*completion_new(t_edit *edit)
 
 	this = twl_malloc_x0(sizeof(t_completion));
 	completion_init(this, edit);
+	this->current_len = twl_strlen(this->current_word);
 	this->edit = edit;
 	return (this);
 }

@@ -12,24 +12,10 @@
 
 #include "edit/edit.h"
 
-void			edit_place_string(t_edit *this, char *string)
+void			edit_paste(t_edit *this)
 {
-	size_t		len;
-
-	len = twl_strlen(string);
-	line_realloc_from_size(this->current, twl_strlen(string));
-	twl_memmove(this->current->line + this->pos_cursor + len,
-				this->current->line + this->pos_cursor,
-				this->current->size - this->pos_cursor);
-	twl_memcpy(this->current->line + this->pos_cursor, string, len);
-	this->pos_cursor += len;
-	this->current->size += len;
-	this->puts(string);
-	if ((this->pos_cursor + this->base_x) % this->winsize_x == 0)
+	if (this->copy_buffer)
 	{
-		tputs(tgoto(tgetstr("do", NULL), 0, 0), 1, this->putc);
-		tputs(tgoto(tgetstr("LE", NULL), 0, this->winsize_x), 1, this->putc);
+		edit_place_string(this, this->copy_buffer);
 	}
-	line_realloc(this->current);
-	edit_padding(this);
 }
