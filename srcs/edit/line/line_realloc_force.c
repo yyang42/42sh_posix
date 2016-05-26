@@ -10,30 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "edit/completion.h"
-#include "shenv/shenv.h"
+#include "edit/line.h"
 
-static void		iter_fn(void *data, void *ctx1, void *ctx2)
+void			line_realloc_force(t_line *this)
 {
-	if (completion_utils_start_with(((t_shvar *)data)->shvar_key, ctx1))
-	{
-		LOG_DEBUG("%s", ((t_shvar *)data)->shvar_key);
-		twl_lst_push_front(ctx2, ((t_shvar *)data)->shvar_key);
-	}
-}
+	char			*tmp;
 
-void			completion_variable(t_completion *this)
-{
-	t_lst		*all;
-	char		*tmp;
-
-	all = twl_lst_new();
-	twl_lst_iter2(shenv_singleton()->shenv_shvars, iter_fn,
-				this->current_word, all);
-	if (twl_lst_len(all) == 1)
-	{
-		tmp = twl_strjoin(twl_lst_first(all) + twl_strlen(this->current_word), " ");
-		edit_place_string(this->edit, tmp);
-		free(tmp);
-	}
+	tmp = twl_strnew(this->total << 1);
+	twl_strcpy(tmp, this->line);
+	free(this->line);
+	this->line = tmp;
+	this->total <<= 1;
 }

@@ -12,15 +12,24 @@
 
 #include "edit/edit.h"
 
+static void		edit_realloc_size(t_line *line, size_t to_add)
+{
+	while (line->size + to_add > line->total)
+	{
+		line_realloc_force(line);
+	}
+}
+
 void			edit_place_string(t_edit *this, char *string)
 {
 	size_t		len;
 
 	len = twl_strlen(string);
-	twl_memmove(this->current->line + this->pos_cursor + len, // WTF NOOO TODO
-				this->current->line + this->pos_cursor,       // WTF NOOO TODO
-				this->current->size - this->pos_cursor);      // WTF NOOO TODO
-	twl_memcpy(this->current->line + this->pos_cursor, string, len - 1);
+	edit_realloc_size(this->current, twl_strlen(string));
+	twl_memmove(this->current->line + this->pos_cursor + len,
+				this->current->line + this->pos_cursor,
+				this->current->size - this->pos_cursor);
+	twl_memcpy(this->current->line + this->pos_cursor, string, len);
 	this->pos_cursor += len;
 	this->current->size += len;
 	this->puts(string);
