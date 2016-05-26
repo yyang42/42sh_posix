@@ -14,14 +14,10 @@
 #include "shenv/shenv.h"
 #include "twl_dict.h"
 #include "twl_opt_elem.h"
-
-static void			free_func(void *data)
-{
-	(void)data;
-}
+#include "ast/nodes/ast_function_def.h"
 
 void				shenv_remove_shell_func(t_shenv *env, char *key)
 {
 	if (twl_dict_key_exist(env->shfuncs, key))
-		twl_dict_delone(env->shfuncs, key, free_func);
+		twl_dict_delone(env->shfuncs, key, ast_function_def_del_void);
 }

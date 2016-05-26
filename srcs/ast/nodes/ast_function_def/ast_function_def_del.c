@@ -16,6 +16,8 @@
 void									ast_function_def_del(
 	t_ast_function_def *this)
 {
+	if (!this)
+		return ;
 	ast_compound_command_del(this->compound_command);
 	free(this->name);
 	free(this);
