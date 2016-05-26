@@ -23,7 +23,7 @@ t_shenv				*shenv_copy(t_shenv *this)
 	copy->shenv_shvars = twl_lst_copy(this->shenv_shvars, shvar_copy_void);
 	copy->shenv_shflags = shflag_mgr_new();
 	copy->shenv_prog_flags = this->shenv_prog_flags;
-	copy->shfuncs = twl_lst_copy(this->shfuncs, NULL);
+	copy->shfuncs = twl_lst_new();
 	copy->shenv_pos_params = twl_lst_copy(this->shenv_pos_params, twl_strdup_void);
 	copy->function_depth = this->function_depth;
 	copy->info = this->info;
