@@ -12,7 +12,7 @@
 
 #include "shenv/shvar.h"
 
-void				shvar_del_void(t_shvar *shvar)
+void				shvar_del_void(void *shvar)
 {
 	shvar_del(shvar);
 }

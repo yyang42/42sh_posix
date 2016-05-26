@@ -10,25 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/cmds/builtin_setenv.h"
-#include "builtin/cmds/builtin_export.h"
+#include "shenv/shenv.h"
 
-void				builtin_setenv_exec(t_lst *tokens, t_shenv *shenv)
+bool				shenv_is_dryrun(t_shenv *this)
 {
-	t_argparser_result *argparser_result;
-
-	argparser_result = argparser_parse_tokens(builtin_setenv_argparser(), tokens);
-	if (argparser_result->err_msg)
-	{
-		argparser_result_print_error_with_help(argparser_result);
-	}
-	else if (twl_lst_len(argparser_result->remainders) == 0)
-	{
-		shenv_print(shenv);
-	}
-	else
-	{
-		builtin_export_exec_export_tokens(argparser_result, shenv);
-	}
-	argparser_result_del(argparser_result);
+	return (this->shenv_prog_flags & SHENV_FLAG_AST
+		|| this->shenv_prog_flags & SHENV_FLAG_AREXP);
 }

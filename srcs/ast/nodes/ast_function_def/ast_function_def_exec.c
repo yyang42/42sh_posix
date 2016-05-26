@@ -16,5 +16,5 @@
 void				ast_function_def_exec(t_ast_function_def *this)
 {
 	shenv_add_shell_func(shenv_singleton(), this->name,
-												this->compound_command);
+												this);
 }

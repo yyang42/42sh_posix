@@ -26,7 +26,7 @@ typedef struct				s_shvar
 
 t_shvar				*shvar_new(char *key, char *value, bool exported);
 void				shvar_del(t_shvar *shvar);
-void				shvar_del_void(t_shvar *shvar);
+void				shvar_del_void(void *shvar);
 t_shvar				*shvar_copy(t_shvar *src);
 void				*shvar_copy_void(void *src);
 

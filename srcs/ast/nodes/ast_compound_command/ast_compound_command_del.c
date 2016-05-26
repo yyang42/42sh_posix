@@ -34,6 +34,8 @@ static t_compound_command_print_del_fn	*get_print_del_fns(void)
 void									ast_compound_command_del(
 	t_ast_compound_command *this)
 {
+	if (!this)
+		return ;
 	if (this->command_type != COMPOUND_COMMAND_NONE)
 	{
 		if (this->command)

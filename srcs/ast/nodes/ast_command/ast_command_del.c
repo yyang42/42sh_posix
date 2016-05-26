@@ -14,6 +14,8 @@
 
 void				ast_command_del(t_ast_command *ast_command)
 {
+	if (!ast_command)
+		return ;
 	if (ast_command->command)
 	{
 		if (ast_command->command_type == COMMAND_COMPOUND_COMMAND)

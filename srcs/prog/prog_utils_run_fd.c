@@ -51,11 +51,13 @@ static char         *read_gnl(int fd, char **gnl_remainder_ptr, int *line_ptr)
 		if (count_single_quote(accumulator) % 2)
 		{
 			accumulator = twl_strjoinfree(accumulator, "\n", 'l');
+			free(line);
 			continue ;
 		}
 		if (utils_str_has_line_continuation(accumulator))
 		{
 			accumulator[twl_strlen(accumulator) - 1] = '\0';
+			free(line);
 			continue ;
 		}
 		accumulator = twl_strjoinfree(accumulator, "\n", 'l');

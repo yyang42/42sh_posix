@@ -18,5 +18,6 @@ void				ast_assignment_del(t_ast_assignment *this)
 	free(this->key_unexpanded);
 	free(this->value);
 	free(this->value_unexpanded);
+	token_del(this->token);
 	free(this);
 }

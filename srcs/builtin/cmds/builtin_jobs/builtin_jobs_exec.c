@@ -41,4 +41,5 @@ void				builtin_jobs_exec(t_lst *tokens, t_shenv *shenv)
 	{
 		builtin_jobs_exec_do(argparser_result);
 	}
+	argparser_result_del(argparser_result);
 }

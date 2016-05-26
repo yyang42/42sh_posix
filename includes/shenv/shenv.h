@@ -153,6 +153,7 @@ void				shenv_set_current_directory(t_shenv *this, char *fm_whom);
 void				shenv_reset_current_directory(t_shenv *this, char *new_dir);
 char				*shenv_get_current_directory(t_shenv *this, char *fm_whom);
 void				shenv_print_ps4(t_shenv *this);
+bool				shenv_is_dryrun(t_shenv *this);
 
 /*
 ** exit
@@ -173,10 +174,10 @@ bool				shenv_should_continue_exec(t_shenv *this);
 /*
 ** SHELL FUNCTIONS
 */
-struct s_ast_compound_command;
+struct s_ast_function_def;
 
 void				shenv_remove_shell_func(t_shenv *env, char *key);
-void				shenv_add_shell_func(t_shenv *env, char *key, struct s_ast_compound_command *data);
-struct s_ast_compound_command	*shenv_shfuncs_get(t_shenv *env, char *key);
+void				shenv_add_shell_func(t_shenv *env, char *key, struct s_ast_function_def *data);
+struct s_ast_function_def	*shenv_shfuncs_get(t_shenv *env, char *key);
 
 #endif

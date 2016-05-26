@@ -17,6 +17,6 @@ t_ast_list_item			*ast_list_item_new(void)
 	t_ast_list_item		*this;
 
 	this = twl_malloc_x0(sizeof(t_ast_list_item));
-	this->ast_andor_items = twl_lst_new();
+	this->ast_andor_items = NULL;
 	return (this);
 }

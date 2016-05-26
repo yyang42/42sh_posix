@@ -50,4 +50,5 @@ void				builtin_getopts_exec(t_lst *tokens, t_shenv *env)
 		prep_exec_getopts(optstring, varname, remainders_copy, env);
 		twl_lst_del(remainders_copy, NULL);
 	}
+	argparser_result_del(argparser_result);
 }

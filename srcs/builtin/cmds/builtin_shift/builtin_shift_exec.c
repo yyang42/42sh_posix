@@ -80,4 +80,5 @@ void				builtin_shift_exec(t_lst *tokens, t_shenv *env)
 			shift_action(env, twl_lst_first(argparser_result->remainders));
 		}
 	}
+	argparser_result_del(argparser_result);
 }

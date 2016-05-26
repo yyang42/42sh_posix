@@ -49,4 +49,5 @@ void				builtin_alias_exec(t_lst *tokens, t_shenv *env)
 		else
 			twl_lst_iter(argparser_result->remainders, iter_alias_fn, env);
 	}
+	argparser_result_del(argparser_result);
 }

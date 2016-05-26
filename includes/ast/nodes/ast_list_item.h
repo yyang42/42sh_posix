@@ -32,6 +32,7 @@ typedef struct		s_ast_list_item
 
 t_ast_list_item		*ast_list_item_new(void);
 void				ast_list_item_del(t_ast_list_item *ast_list_item);
+void				ast_list_item_del_void(void *ast_list_item);
 
 t_ast_list_item		*ast_list_item_new_from_tokens(t_lst *tokens,
 															struct s_ast *ast);

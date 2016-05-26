@@ -30,10 +30,14 @@ t_ast_function_def	*ast_function_def_new_from_tokens(t_lst *tokens,
 	{
 		ast_add_to_open_stack(ast, this->name);
 		ast_set_error_msg_syntax_error_near(ast, name_token, "Missing compound command");
+		ast_function_def_del(this);
 		return (NULL);
 	}
 	this->compound_command = ast_compound_command_new_from_tokens(tokens, ast);
 	if (ast_has_error(ast))
+	{
+		ast_function_def_del(this);
 		return (NULL);
+	}
 	return (this);
 }

@@ -14,5 +14,6 @@
 
 void				job_del(t_job *job)
 {
+	free(job->cmd_str);
 	free(job);
 }

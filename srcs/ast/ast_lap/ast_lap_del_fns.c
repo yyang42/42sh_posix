@@ -10,25 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin/cmds/builtin_setenv.h"
-#include "builtin/cmds/builtin_export.h"
+#include "ast/ast_lap.h"
 
-void				builtin_setenv_exec(t_lst *tokens, t_shenv *shenv)
+t_ast_lap_del_fn	*ast_lap_del_fns(void)
 {
-	t_argparser_result *argparser_result;
+	static t_ast_lap_del_fn	fns[AST_TYPE_NBR];
+	static bool									is_loaded = false;
 
-	argparser_result = argparser_parse_tokens(builtin_setenv_argparser(), tokens);
-	if (argparser_result->err_msg)
+	if (is_loaded == false)
 	{
-		argparser_result_print_error_with_help(argparser_result);
+		fns[AST_TYPE_LIST_ITEM] = ast_list_item_del_void;
+		fns[AST_TYPE_ANDOR_ITEM] = ast_andor_item_del_void;
+		fns[AST_TYPE_PIPE_ITEM] = ast_pipe_item_del_void;
 	}
-	else if (twl_lst_len(argparser_result->remainders) == 0)
-	{
-		shenv_print(shenv);
-	}
-	else
-	{
-		builtin_export_exec_export_tokens(argparser_result, shenv);
-	}
-	argparser_result_del(argparser_result);
+	return (fns);
 }

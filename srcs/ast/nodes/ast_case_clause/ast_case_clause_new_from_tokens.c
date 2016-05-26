@@ -47,7 +47,7 @@ static void			handle_cases(t_ast_case_clause *this,
 t_ast_case_clause		*ast_case_clause_new_from_tokens(t_lst *tokens,
 	struct s_ast *ast)
 {
-	t_ast_case_clause		*this;
+	t_ast_case_clause	*this;
 	t_token				*open;
 
 	open = twl_lst_pop_front(tokens);
@@ -63,16 +63,21 @@ t_ast_case_clause		*ast_case_clause_new_from_tokens(t_lst *tokens,
 	{
 		ast_add_to_open_stack(ast, "case");
 		ast_set_error_msg_syntax_error_missing(ast, open, "in");
+		ast_case_clause_del(this);
 		return (NULL);
 	}
 	twl_lst_pop_front(tokens);
 	handle_cases(this, tokens, ast);
 	if (ast_has_error(ast))
+	{
+		ast_case_clause_del(this);
 		return (NULL);
+	}
 	if (!token_mgr_first_equ(tokens, "esac"))
 	{
 		ast_add_to_open_stack(ast, "case");
 		ast_set_error_msg_syntax_error_missing(ast, open, "esac");
+		ast_case_clause_del(this);
 		return (NULL);
 	}
 	twl_lst_pop_front(tokens);

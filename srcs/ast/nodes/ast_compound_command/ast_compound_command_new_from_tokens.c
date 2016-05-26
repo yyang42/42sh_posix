@@ -88,7 +88,10 @@ t_ast_compound_command	*ast_compound_command_new_from_tokens(t_lst *tokens,
 	this = ast_compound_command_new();
 	this->command_type = ast_compound_command_get_type_from_tokens(tokens);
 	if (this->command_type == COMPOUND_COMMAND_NONE)
+	{
+		ast_compound_command_del(this);
 		return (NULL);
+	}
 	new_compound_command_do(this, tokens, ast);
 	if (ast_has_error(ast))
 	{

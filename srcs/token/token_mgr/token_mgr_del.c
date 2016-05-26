@@ -14,5 +14,7 @@
 
 void				token_mgr_del(t_lst *tokens)
 {
+	if (!tokens)
+		return ;
 	twl_lst_del(tokens, token_del);
 }

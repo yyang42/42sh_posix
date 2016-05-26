@@ -15,7 +15,7 @@
 #include "twl_opt_elem.h"
 
 void				shenv_add_shell_func(t_shenv *env,
-							char *key, struct s_ast_compound_command *data)
+							char *key, struct s_ast_function_def *data)
 {
 	if (key)
 	{

@@ -23,15 +23,19 @@
 # include "data.h"
 # include "data_utils.h"
 # include "ast/nodes/ast_pipe_item.h"
+# include "ast/nodes/ast_andor_item.h"
+# include "ast/nodes/ast_list_item.h"
 
 t_lst							*ast_lap_build_items(t_lst *tokens,
 										t_ast_type type, struct s_ast *ast);
 
 typedef void *(*t_ast_lap_new_from_tokens_fn)(t_lst *tokens, struct s_ast *ast);
 typedef void (*t_ast_lap_set_separator_fn)(void *item, t_token *token);
+typedef void (*t_ast_lap_del_fn)(void *this);
 
 t_ast_lap_set_separator_fn		*ast_lap_set_separator_fns(void);
 t_ast_lap_new_from_tokens_fn	*ast_lap_new_from_tokens_fns(void);
+t_ast_lap_del_fn				*ast_lap_del_fns(void);
 t_lst							**ast_lap_get_seps_list(void);
 
 #endif

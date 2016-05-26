@@ -25,6 +25,7 @@ void				ast_command_exec(t_ast_command *this)
 	else if (this->command_type == COMMAND_FUNCTION_DEF)
 	{
 		ast_function_def_exec(this->command);
+		this->command = NULL;
 	}
 	else
 	{

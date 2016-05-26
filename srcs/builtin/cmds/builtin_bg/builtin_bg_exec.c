@@ -32,4 +32,5 @@ void				builtin_bg_exec(t_lst *tokens, t_shenv *shenv)
 	{
 		builtin_bg_exec_segs(argparser_result);
 	}
+	argparser_result_del(argparser_result);
 }

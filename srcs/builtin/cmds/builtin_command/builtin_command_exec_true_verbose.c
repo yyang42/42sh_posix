@@ -16,6 +16,7 @@
 #include "data.h"
 #include "shenv/shenv.h"
 #include "ast/nodes/ast_compound_command.h"
+#include "ast/nodes/ast_function_def.h"
 
 static bool		is_an_alias(char *cmd_name, t_shenv *shenv)
 {
@@ -31,12 +32,12 @@ static bool		is_an_alias(char *cmd_name, t_shenv *shenv)
 
 static bool		is_a_function(char *cmd_name, t_shenv *shenv)
 {
-	t_ast_compound_command	*astcc;
+	t_ast_function_def	*func_def;
 
-	if ((astcc = shenv_shfuncs_get(shenv, cmd_name)))
+	if ((func_def = shenv_shfuncs_get(shenv, cmd_name)))
 	{
 		twl_printf("%s is a function\n%s () \n", cmd_name, cmd_name);
-		ast_compound_command_print_function(astcc, 0);
+		ast_compound_command_print_function(func_def->compound_command, 0);
 		twl_putchar('\n');
 		return (true);
 	}

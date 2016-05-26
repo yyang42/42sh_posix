@@ -67,7 +67,11 @@ t_lst				*ast_lap_build_items(t_lst *tokens,
 		last_sep = NULL;
 		item = ast_lap_new_from_tokens_fns()[type](tokens, ast);
 		if (ast_has_error(ast))
+		{
+			ast_lap_del_fns()[type](item);
+			twl_lst_del(container, ast_lap_del_fns()[type]);
 			return (NULL);
+		}
 		twl_lst_push_back(container, item);
 		if (!is_type_separator(type, token_mgr_first(tokens)))
 			break ;
@@ -78,12 +82,14 @@ t_lst				*ast_lap_build_items(t_lst *tokens,
 	{
 		ast_add_to_open_stack(ast, "(");
 		ast_set_error_msg_syntax_error_near(ast, token_mgr_first(tokens), NULL);
+		twl_lst_del(container, ast_lap_del_fns()[type]);
 		return (NULL);
 	}
 	if (is_last_sep_that_require_more_tokens(last_sep))
 	{
 		ast_add_to_open_stack(ast, last_sep->text);
 		ast_set_error_msg_syntax_error_near(ast, last_sep, NULL);
+		twl_lst_del(container, ast_lap_del_fns()[type]);
 		return (NULL);
 	}
 	return (container);
