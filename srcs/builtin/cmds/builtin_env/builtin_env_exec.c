@@ -22,6 +22,7 @@ static void			exec_remaining_command(t_argparser_result *argparser_result)
 
 	if (argparser_result_opt_is_set(argparser_result, "i"))
 	{
+		twl_lst_del(shenv_singleton()->shenv_shvars, shvar_del_void);
 		shenv_singleton()->shenv_shvars = twl_lst_new();
 	}
 	remainders_copy = twl_lst_copy(argparser_result->remainders, NULL);

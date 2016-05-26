@@ -14,5 +14,5 @@
 
 void				shvar_mgr_del(t_lst *shvars)
 {
-	twl_lst_del(shvars, shvar_del);
+	twl_lst_del(shvars, shvar_del_void);
 }

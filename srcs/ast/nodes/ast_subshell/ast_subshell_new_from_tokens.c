@@ -33,6 +33,7 @@ t_ast_subshell	*ast_subshell_new_from_tokens(t_lst *tokens, struct s_ast *ast)
 	{
 		ast_add_to_open_stack(ast, "(");
 		ast_set_error_msg_syntax_error_near(ast, open, NULL);
+		ast_subshell_del(ast_subshell);
 		return NULL;
 	}
 	twl_lst_pop_front(tokens);
