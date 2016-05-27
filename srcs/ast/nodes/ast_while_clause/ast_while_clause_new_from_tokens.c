@@ -28,28 +28,40 @@ t_ast_while_clause		*ast_while_clause_new_from_tokens(t_lst *tokens,
 	open = twl_lst_pop_front(tokens);
 	this->cond_compound = ast_compound_list_new_from_tokens(tokens, ast);
 	if (ast_has_error(ast))
+	{
+		ast_while_clause_del(this);
 		return (NULL);
+	}
 	if (this->cond_compound == NULL
 		|| twl_lst_len(this->cond_compound->ast_list_items) == 0)
 	{
 		ast_add_to_open_stack(ast, "while");
 		ast_set_error_msg_syntax_error_near(ast, open, "Missing condition");
+		ast_while_clause_del(this);
 		return (NULL);
 	}
 	if (ast_has_error(ast))
+	{
+		ast_while_clause_del(this);
 		return (NULL);
+	}
 	if (twl_lst_len(tokens) == 0)
 	{
 		ast_add_to_open_stack(ast, "while");
 		ast_set_error_msg_syntax_error_near(ast, open, "Missing while body");
+		ast_while_clause_del(this);
 		return (NULL);
 	}
 	this->do_group = ast_compound_list_new_from_tokens_wrap(tokens, "do", "done", ast);
 	if (ast_has_error(ast))
+	{
+		ast_while_clause_del(this);
 		return (NULL);
+	}
 	if (this->do_group == NULL)
 	{
 		ast_set_error_msg_syntax_error_near(ast, open, NULL);
+		ast_while_clause_del(this);
 		return (NULL);
 	}
 	return (this);

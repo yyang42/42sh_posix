@@ -12,8 +12,11 @@
 
 #include "ast/nodes/ast_if_then.h"
 #include "ast/nodes/ast_while_clause.h"
+#include "ast/nodes/ast_compound_list.h"
 
 void				ast_while_clause_del(t_ast_while_clause *this)
 {
+	ast_compound_list_del(this->cond_compound);
+	ast_compound_list_del(this->do_group);
 	free(this);
 }
