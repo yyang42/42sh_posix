@@ -24,6 +24,7 @@ static char			*get_delimiter(char *str)
 	tmp = pattern_new(str);
 	actual = pattern_to_string(tmp);
 	twl_asprintf(&delimiter, "%s\n", actual);
+	free(actual);
 	pattern_del(tmp);
 	return (delimiter);
 }
