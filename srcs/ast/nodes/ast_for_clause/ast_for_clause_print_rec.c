@@ -24,6 +24,7 @@ void				ast_for_clause_print_rec(t_ast_for_clause *this,
 	{
 		char *joined_wordlist = token_mgr_strjoin(this->wordlist, " ");
 		twl_printf(", wordlist=`%s`", joined_wordlist);
+		free(joined_wordlist);
 	}
 	twl_printf(")\n");
 	depth++;

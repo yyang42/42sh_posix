@@ -12,8 +12,12 @@
 
 #include "ast/nodes/ast_if_then.h"
 #include "ast/nodes/ast_for_clause.h"
+#include "ast/nodes/ast_compound_list.h"
 
 void				ast_for_clause_del(t_ast_for_clause *this)
 {
+	free(this->name);
+	token_mgr_del(this->wordlist);
+	ast_compound_list_del(this->do_group);
 	free(this);
 }
