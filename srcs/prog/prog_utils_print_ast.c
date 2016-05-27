@@ -23,6 +23,7 @@ int					prog_utils_print_ast(char *input)
 	if (ast->error_msg)
 	{
 		twl_dprintf(2, "%s\n", ast->error_msg);
+		ast_del(ast);
 		return (1);
 	}
 	ast_print_rec(ast);
