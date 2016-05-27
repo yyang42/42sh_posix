@@ -17,5 +17,6 @@ void				ast_case_item_del(t_ast_case_item *this)
 {
 	if (this->compound_list)
 		ast_compound_list_del(this->compound_list);
+	token_mgr_del(this->pattern_tokens);
 	free(this);
 }

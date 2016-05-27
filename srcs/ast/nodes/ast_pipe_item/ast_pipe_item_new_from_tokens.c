@@ -22,6 +22,4 @@ t_ast_pipe_item	*ast_pipe_item_new_from_tokens(t_lst *tokens, struct s_ast *ast)
 	ast_pipe_item = ast_pipe_item_new();
 	ast_pipe_item->ast_command = ast_command_new_from_tokens(tokens, ast);
 	return (ast_pipe_item);
-	(void)ast;
-	(void)tokens;
 }

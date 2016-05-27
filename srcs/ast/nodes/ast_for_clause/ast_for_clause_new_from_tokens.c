@@ -46,6 +46,7 @@ t_ast_for_clause		*ast_for_clause_new_from_tokens(t_lst *tokens,
 	{
 		ast_add_to_open_stack(ast, "for");
 		ast_set_error_msg_syntax_error_missing(ast, open, "NAME token");
+		ast_for_clause_del(this);
 		return (NULL);
 	}
 	this->name = twl_strdup(token_mgr_first(tokens)->text);
@@ -53,6 +54,7 @@ t_ast_for_clause		*ast_for_clause_new_from_tokens(t_lst *tokens,
 	if (!token_utils_is_valid_name(this->name))
 	{
 		ast_set_error_msg_syntax_error_near(ast, open, "invalid NAME token");
+		ast_for_clause_del(this);
 		return (NULL);
 	}
 	token_mgr_pop_linebreak(tokens);
@@ -63,6 +65,7 @@ t_ast_for_clause		*ast_for_clause_new_from_tokens(t_lst *tokens,
 		{
 			ast_add_to_open_stack(ast, "for");
 			ast_set_error_msg_syntax_error_missing(ast, open, "in arguments");
+			ast_for_clause_del(this);
 			return (NULL);
 		}
 		pop_word_list(this, tokens);
@@ -75,6 +78,7 @@ t_ast_for_clause		*ast_for_clause_new_from_tokens(t_lst *tokens,
 	if (ast_has_error(ast) || this->do_group == NULL)
 	{
 		ast_set_error_msg_syntax_error_near(ast, open, NULL);
+		ast_for_clause_del(this);
 		return (NULL);
 	}
 	return (this);
