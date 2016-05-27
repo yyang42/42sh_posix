@@ -22,8 +22,6 @@ static void			skip_first_optional_open_parenthesis(t_lst *tokens)
 
 static void			build_pattern_tokens(t_ast_case_item *this, t_lst *tokens)
 {
-	// t_token			*token;
-
 	twl_lst_push_back(this->pattern_tokens, token_copy(twl_lst_pop_front(tokens)));
 	while (true)
 	{

@@ -16,7 +16,6 @@
 void				ast_if_clause_del(t_ast_if_clause *this)
 {
 	twl_lst_del(this->if_then_list, ast_if_then_del_void);
-	if (this->else_body)
-		ast_compound_list_del(this->else_body);
+	ast_compound_list_del(this->else_body);
 	free(this);
 }

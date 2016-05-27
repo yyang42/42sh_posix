@@ -19,5 +19,6 @@ void				tokenizer_del(t_tokenizer *this)
 	free(this->curtokenplus);
 	twl_lst_del(this->open_heredoc_tokens, NULL);
 	twl_lst_del(this->tok_open_stack, free);
+	free(this->err_msg);
 	free(this);
 }

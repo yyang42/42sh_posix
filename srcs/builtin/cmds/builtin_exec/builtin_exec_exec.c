@@ -14,7 +14,12 @@
 #include "file.h"
 #include "twl_logger.h"
 
-void				builtin_exec_exec_do(t_lst *tokens)
+static void			del_token_group_fn(void *token_group)
+{
+	twl_lst_del(token_group, NULL);
+}
+
+static void			builtin_exec_exec_do(t_lst *tokens)
 {
 	t_argparser_result	*argparser_result;
 
@@ -30,6 +35,7 @@ void				builtin_exec_exec_do(t_lst *tokens)
 			shenv_execve_findpath(shenv_singleton(), argparser_result->remainders);
 		}
 	}
+	argparser_result_del(argparser_result);
 }
 
 void				builtin_exec_exec(t_lst *tokens, t_shenv *env)
@@ -42,4 +48,6 @@ void				builtin_exec_exec(t_lst *tokens, t_shenv *env)
 	redir_tokens_groups = token_mgr_extract_redir(tokens, remaining_of_redir_tokens);
 	builtin_exec_redir_handler(redir_tokens_groups);
 	builtin_exec_exec_do(remaining_of_redir_tokens);
+	twl_lst_iter0(redir_tokens_groups, del_token_group_fn);
+	twl_lst_del(redir_tokens_groups, NULL);
 }

@@ -52,6 +52,7 @@ t_ast_if_clause		*ast_if_clause_new_from_tokens(t_lst *tokens,
 	{
 		ast_add_to_open_stack(ast, "fi");
 		ast_set_error_msg_syntax_error_missing(ast, open, "fi");
+		ast_if_clause_del(this);
 		return (NULL);
 	}
 	twl_lst_pop_front(tokens);

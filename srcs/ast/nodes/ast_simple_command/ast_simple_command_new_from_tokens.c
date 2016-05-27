@@ -83,14 +83,18 @@ t_ast_simple_command	*ast_simple_command_new_from_tokens(t_lst *tokens, struct s
 	}
 	if (twl_lst_len(tokens_tmp) == 0)
 	{
-		ast_simple_command_del(this);
 		ast_set_error_msg_syntax_error_near(ast,
 			token_mgr_first(tokens), "Empty simple command");
+		ast_simple_command_del(this);
+		twl_lst_del(tokens_tmp, NULL);
 		return (NULL);
 	}
 	build_tokens(this, tokens_tmp, ast);
 	twl_lst_del(tokens_tmp, NULL);
 	if (ast_has_error(ast))
+	{
+		ast_simple_command_del(this);
 		return (NULL);
+	}
 	return (this);
 }

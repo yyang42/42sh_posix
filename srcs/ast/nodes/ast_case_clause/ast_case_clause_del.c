@@ -12,8 +12,12 @@
 
 #include "ast/nodes/ast_if_then.h"
 #include "ast/nodes/ast_case_clause.h"
+#include "ast/nodes/ast_case_item.h"
 
 void				ast_case_clause_del(t_ast_case_clause *this)
 {
+	token_del(this->needle_token);
+	token_del(this->needle_expanded);
+	twl_lst_del(this->case_list, ast_case_item_del);
 	free(this);
 }
