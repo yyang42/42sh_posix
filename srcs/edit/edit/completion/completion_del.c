@@ -18,5 +18,7 @@ void			completion_del(t_completion *this)
 		return ;
 	if (this->current_word)
 		free(this->current_word);
+	if (this->all)
+		twl_lst_del(this->all, NULL);
 	free(this);
 }

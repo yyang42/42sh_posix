@@ -59,7 +59,7 @@ static void		completion_init(t_completion *this, t_edit *edit)
 	}
 	if (completion_is_separator(current[index]))
 		twl_strncpy(this->current_word, current + index + 1,
-				edit->pos_cursor - index - 1);
+		(edit->pos_cursor ? edit->pos_cursor - 1 : edit->pos_cursor) - index);
 	else
 		twl_strncpy(this->current_word, current + index,
 				edit->pos_cursor - index);
@@ -74,5 +74,6 @@ t_completion		*completion_new(t_edit *edit)
 	completion_init(this, edit);
 	this->current_len = twl_strlen(this->current_word);
 	this->edit = edit;
+	this->all = twl_lst_new();
 	return (this);
 }

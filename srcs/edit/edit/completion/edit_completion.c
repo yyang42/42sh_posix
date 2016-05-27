@@ -17,6 +17,8 @@ void			edit_completion(t_edit *this)
 {
 	t_completion	*completion;
 
+	if (this->current->size == 0)
+		return ;
 	completion = completion_new(this);
 	LOG_DEBUG("%i: '%s'", completion->type, completion->current_word);
 	if (completion->type == COMPLETION_VARIABLE)

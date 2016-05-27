@@ -27,7 +27,6 @@ void			completion_variable(t_completion *this)
 {
 	char		*tmp;
 
-	this->all = twl_lst_new();
 	twl_lst_iter(shenv_singleton()->shenv_shvars, iter_fn, this);
 	if (!twl_lst_first(this->all))
 		;
