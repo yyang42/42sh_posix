@@ -16,6 +16,21 @@
 #include "trap/trap.h"
 #include "ast/nodes/ast_function_def.h"
 
+static void			del_shenv_read_buffer_db(char **shenv_read_buffer_db)
+{
+	int				size;
+	int				i;
+
+	size = getdtablesize();
+	i = 0;
+	while (i < size)
+	{
+		free(shenv_read_buffer_db[i]);
+		i++;
+	}
+	free(shenv_read_buffer_db);
+}
+
 void				shenv_del(t_shenv *this)
 {
 	if (!this)
@@ -29,7 +44,7 @@ void				shenv_del(t_shenv *this)
 		free(this->info.name);
 	free(this->shenv_name);
 	free(this->shenv_cur_cmd);
-	free(this->shenv_read_buffer_db);
+	del_shenv_read_buffer_db(this->shenv_read_buffer_db);
 	if (this->shenv_binary_saved_path)
 		free(this->shenv_binary_saved_path);
 	twl_lst_del(this->jobs, job_del_void);

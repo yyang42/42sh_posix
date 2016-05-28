@@ -44,6 +44,7 @@ t_shenv				*shenv_copy(t_shenv *this)
 	copy->shenv_fork_level = this->shenv_fork_level;
 	copy->shenv_home_pw_dir = twl_strdup_or_null(this->shenv_home_pw_dir);
 	copy->shenv_has_syntax_error = 0;
+	copy->shenv_read_remainder_ptr = NULL;
 	shenv_set_read_buffer_ptr(copy, 0);;
 	return (copy);
 }

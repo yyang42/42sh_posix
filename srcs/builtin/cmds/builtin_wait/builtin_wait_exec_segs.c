@@ -40,4 +40,5 @@ void				builtin_wait_exec_segs(t_argparser_result *argparser_result)
 	if (twl_lst_len(segs) == 0)
 		builtin_wait_exec_wait_all();
 	twl_lst_iter0(segs, iter_str_token_fn);
+	twl_lst_del(segs, NULL);
 }
