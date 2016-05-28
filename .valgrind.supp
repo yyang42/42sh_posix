@@ -1105,3 +1105,32 @@
    fun:ast_compound_command_exec_with_redirs
    fun:ast_compound_command_exec
 }
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:malloc
+   fun:twl_strdup
+   fun:builtin_cd_get_directories
+   fun:builtin_cd_unfollow_symlinks
+   fun:builtin_cd_exec
+   fun:ast_simple_command_exec_tokens
+   fun:ast_simple_command_exec_with_redirs
+   fun:ast_simple_command_exec
+   fun:ast_command_exec
+   fun:ast_pipe_item_exec
+   fun:ast_andor_item_exec
+   fun:iter_fn
+   fun:twl_lst_iterp
+   fun:ast_list_item_exec_non_async
+   fun:ast_list_item_exec
+   fun:ast_list_item_exec_wrapper
+   fun:ast_list_item_new_from_tokens
+   fun:ast_list_item_new_from_tokens_void
+   fun:ast_lap_build_items
+   fun:ast_compound_list_new_from_tokens
+   fun:ast_new_from_tokens_build_exec
+   fun:ast_new
+   fun:ast_new_from_string
+   fun:ast_utils_exec_string
+}

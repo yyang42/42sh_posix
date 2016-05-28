@@ -68,6 +68,7 @@ static void			iter_fn(void *data, void *ctx1, void *ctx2)
 	}
 	if (chdir(path) == -1)
 	{
+		free(dumb_path);
 		free(uncomplete_path);
 		free(path);
 		return ;
@@ -80,6 +81,7 @@ static void			iter_fn(void *data, void *ctx1, void *ctx2)
 	shenv_reset_current_directory(shenv_singleton(), path);
 	shenv_shvars_set(shenv_singleton(), "PWD", path, NULL);
 	free(uncomplete_path);
+	free(dumb_path);
 	free(path);
 
 }
