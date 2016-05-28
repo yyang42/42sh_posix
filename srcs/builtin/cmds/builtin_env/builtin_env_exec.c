@@ -37,7 +37,10 @@ static void			exec_remaining_command(t_argparser_result *argparser_result)
 		}
 	}
 	if (shenv_singleton()->last_exit_code != 0)
+	{
+		twl_lst_del(remainders_copy, NULL);
 		return ;
+	}
 	if (twl_lst_len(remainders_copy) == 0)
 	{
 		shenv_print(shenv_singleton());
