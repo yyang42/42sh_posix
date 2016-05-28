@@ -53,6 +53,7 @@ void					completion_variable(t_completion *this);
 void					completion_brace_variable(t_completion *this);
 
 bool					completion_utils_start_with(char *base, char *prefix);
+void					completion_utils_lst_uniq(t_completion *this);
 char					*completion_utils_get_begin_list(t_completion *this);
 void					completion_utils_print_lst(t_completion *this);
 bool					completion_utils_exec_absolute_path(t_completion *this);

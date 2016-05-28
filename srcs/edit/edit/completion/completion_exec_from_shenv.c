@@ -50,6 +50,7 @@ void			completion_exec_from_shenv(t_completion *this)
 	twl_htab_iter(shenv_singleton()->shenv_binary_db, htab_iter_fn, this);
 	twl_dict_iter(shenv_singleton()->shfuncs, funcs_iter_fn, this);
 	twl_lst_iter(data_builtins(), builtin_iter_fn, this);
+	completion_utils_lst_uniq(this);
 	if (!twl_lst_first(this->all))
 		;
 	else if (twl_lst_len(this->all) == 1)
