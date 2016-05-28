@@ -112,5 +112,5 @@ void				builtin_cd_unfollow_symlinks(char *dir)
 		else if (!shenv_singleton()->shenv_current_directory)
 			shenv_get_current_directory(shenv_singleton(), "cd");
 	}
-	twl_lst_del(dirs, free);
+	twl_lst_del(dirs, builtin_cd_del);
 }
