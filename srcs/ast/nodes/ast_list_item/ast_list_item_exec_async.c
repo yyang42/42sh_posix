@@ -33,7 +33,10 @@ static void			wait_fn(int pid, int *res, void *this_)
 	LOG_INFO("ast_list_item_exec_async: wait_fn");
 	str_tokens = token_mgr_to_lst(this->list_item_tokens_deep);
 	job = job_new(pid, str_tokens);
-	job_mgr_env_push(job);
+	if (job_mgr_env_push(job) == -1)
+	{
+		LOG_INFO("fail to push job in env: %d", job->pid);
+	}
 	shenv_singleton()->info.most_recent_background_command_pid = pid;
 	twl_lst_del(str_tokens, NULL);
 	if (shenv_shflag_enabled(shenv_singleton(), "i"))

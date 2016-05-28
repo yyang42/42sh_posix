@@ -12,7 +12,7 @@
 
 #include "job_control/job_mgr.h"
 
-void				job_mgr_env_push(t_job *job)
+int					job_mgr_env_push(t_job *job)
 {
 	static long long int	job_id = 1;
 	t_lst					*jobs;
@@ -22,7 +22,7 @@ void				job_mgr_env_push(t_job *job)
 	if (job_mgr_find_by_pid(jobs, job->pid))
 	{
 		LOG_INFO("job already in list: %d", job->pid);
-		return ;
+		return (-1);
 	}
 	if (job->job_id == 0)
 	{
@@ -34,4 +34,5 @@ void				job_mgr_env_push(t_job *job)
 	{
 		twl_lst_push_back(jobs, job);
 	}
+	return (0);
 }

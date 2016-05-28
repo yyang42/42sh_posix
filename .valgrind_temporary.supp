@@ -1274,3 +1274,32 @@
    fun:iter_fn
    fun:twl_lst_iter0
 }
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:malloc
+   fun:twl_lst_new
+   fun:expansion_new
+   fun:expansion_new_from_text_remove_squote
+   fun:expansion_dquote_wrap
+   fun:iter_fn
+   fun:twl_lst_iterp
+   fun:expansion_get_fields_simple_command
+   fun:iter_cmd_fn
+   fun:twl_lst_iter
+   fun:ast_simple_command_expan
+   fun:ast_simple_command_exec
+   fun:ast_command_exec
+   fun:ast_pipe_item_exec
+   fun:ast_andor_item_exec
+   fun:iter_fn
+   fun:twl_lst_iterp
+   fun:ast_list_item_exec_non_async
+   fun:job_execve_fn
+   fun:jobexec_fork_exec_execve_fn
+   fun:jobexec_fork_exec_non_interactive_do
+   fun:jobexec_fork_exec_non_interactive
+   fun:jobexec_fork_exec
+   fun:ast_list_item_exec_async
+}

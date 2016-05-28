@@ -40,4 +40,5 @@ static void         job_exec_fn(t_job *job, void *ctx)
 void	         	job_put_in_fg(t_job *job)
 {
     jobexec_fork_exec_interactive_job_sig_wrapper(job, NULL, job_exec_fn);
+    job_del(job);
 }
