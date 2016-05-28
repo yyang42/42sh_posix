@@ -30,7 +30,7 @@ t_shenv				*shenv_copy(t_shenv *this)
 	copy->info.name = twl_strdup_or_null(this->info.name);
 	copy->last_exit_code = EXIT_SUCCESS;
 	copy->shenv_traps = twl_lst_new();
-	copy->alias = twl_htab_new();
+	copy->shenv_alias = twl_htab_new();
 	copy->shenv_break_counter = this->shenv_break_counter;
 	copy->shenv_continue_counter = this->shenv_continue_counter;
 	copy->shenv_loop_level = this->shenv_loop_level;

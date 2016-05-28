@@ -59,7 +59,7 @@ t_lst				*ast_lap_build_items(t_lst *tokens,
 	while (42)
 	{
 		token_mgr_pop_linebreak(tokens);
-		alias_mgr_expan_tokens(shenv_singleton()->alias, tokens, ast);
+		alias_mgr_expan_tokens(shenv_singleton()->shenv_alias, tokens, ast);
 		if (twl_lst_len(tokens) == 0 || is_reserved_word_delimiter(tokens))
 			break ;
 		if (is_list_sep_followed_by_closing_parenthesis(tokens, type, last_sep))

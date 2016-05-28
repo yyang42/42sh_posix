@@ -69,7 +69,7 @@ typedef struct				s_shenv
 	int						shenv_prog_flags;
 	t_lst					*shenv_argv_remainder;
 	t_lst					*shenv_pos_params;
-	t_htab					*alias;
+	t_htab					*shenv_alias;
 	t_dict					*shfuncs;
 	int						function_depth;
 	t_shenv_info			info;

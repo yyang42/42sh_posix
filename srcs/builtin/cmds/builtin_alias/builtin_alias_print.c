@@ -20,5 +20,5 @@ static void			print_key_value(void *key, void *value, void *context_)
 
 void				builtin_alias_print(t_shenv *env)
 {
-	twl_htab_iter(env->alias, print_key_value, NULL);
+	twl_htab_iter(env->shenv_alias, print_key_value, NULL);
 }
