@@ -3,7 +3,7 @@
 logfile=valgrind.log
 rm $logfile
 
-for file in `find ./tests/use_case_diff_bash_tests/builtin_fg -name 'input.sh'`;
+for file in `find ./tests/use_case_diff_bash_tests/builtin_getopts -name 'input.sh'`;
 do
 	echo "====================================================================="
 	echo "====================================================================="

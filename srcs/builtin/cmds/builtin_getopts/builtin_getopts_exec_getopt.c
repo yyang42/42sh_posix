@@ -97,6 +97,7 @@ void				builtin_getopts_exec_getopt(char *original_optstring,
 	optstring_with_colon = builtin_getopt_string(original_optstring);
 	init_getopts(env);
 	getopt_c = twl_getopt(twl_arr_len(argv), argv, optstring_with_colon);
+	free(optstring_with_colon);
 	set_optind(argv, env);
 	if (getopt_c == -1)
 	{
