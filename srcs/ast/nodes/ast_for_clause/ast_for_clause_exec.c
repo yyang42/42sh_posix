@@ -27,14 +27,15 @@ static void			iter_wordlist_fn(void *word_token, void *this_)
 	shenv_continue_counter_decr_if_one(shenv_singleton());
 }
 
-static void			iter_expan_fn(void *data, void *ctx)
+static void			iter_expan_fn(void *data, void *expanded)
 {
 	t_expansion		*expansion;
 	t_lst			*link;
 
 	expansion = expansion_new_from_token(data);
 	link = expansion_get_fields_for_clause(expansion);
-	twl_lst_cat(ctx, link); // TODO: Leaks ?
+	twl_lst_extend(expanded, link);
+	twl_lst_del(link, NULL);
 	expansion_del(expansion);
 }
 

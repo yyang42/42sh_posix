@@ -40,6 +40,5 @@ void				ast_andor_item_exec_pipes_wrapper(t_ast_andor_item *this)
 	je.execve_fn = job_execve_fn;
 	je.is_bg_job = false;
 	jobexec_fork_exec(&je);
-	// ast_andor_item_exec_pipes(this);
 	twl_lst_del(str_tokens, NULL);
 }

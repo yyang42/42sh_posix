@@ -34,14 +34,14 @@ static void 	iter_cmd_fn(void *token, void *context)
 	if (expansion->error)
 	{
 		shenv_singl_error(0, "%s", expansion->error);
-		expansion_del(expansion);
 		shenv_singleton()->shenv_shall_quit_curr_ast = true;
 		shenv_singleton()->last_exit_code = 1;
+		expansion_del(expansion);
+		twl_lst_del(expanded, free);
 		return ;
 	}
 	token_expanded_sequel = token_mgr_new_from_string_list(token, expanded);
-	twl_lst_cat(cmd->cmd_tokens_expanded, token_expanded_sequel);
-	token_expanded_sequel->head = NULL;
+	twl_lst_extend(cmd->cmd_tokens_expanded, token_expanded_sequel);
 	twl_lst_del(token_expanded_sequel, NULL);
 	twl_lst_del(expanded, free);
 	expansion_del(expansion);

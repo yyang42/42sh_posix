@@ -1,3 +1,4 @@
 --memcheck:leak-check=full
 --suppressions=.valgrind.supp
---suppressions=.valgrind_temporary.supp
+--suppressions=.valgrind_IGNORED_NEED_FIX.supp
+--gen-suppressions=all

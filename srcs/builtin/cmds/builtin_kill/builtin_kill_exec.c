@@ -129,6 +129,7 @@ void				builtin_kill_exec(t_lst *tokens, t_shenv *env)
 		if (token_mgr_first_equ(tokens_copy, "-l"))
 		{
 			builtin_kill_print_signals();
+			twl_lst_del(tokens_copy, NULL);
 			return ;
 		}
 		if (token_mgr_first_equ(tokens_copy, "-s"))
@@ -153,4 +154,5 @@ void				builtin_kill_exec(t_lst *tokens, t_shenv *env)
 			builtin_kill_exec_sigstr(sigstr, tokens_copy, env);
 		}
 	}
+	twl_lst_del(tokens_copy, NULL);
 }

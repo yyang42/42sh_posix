@@ -52,7 +52,7 @@ void				builtin_read_exec_build_vars_from_line(t_argparser_result *arg_res, char
 	tmp = line;
 	while ((var = twl_lst_pop_front(vars_copy)))
 	{
-		if (twl_strchr(ifs, *tmp))
+		if (*tmp && twl_strchr(ifs, *tmp))
 			tmp++;
 		tmp_end = strchr_mult(tmp, ifs, arg_res);
 		if (twl_lst_len(vars_copy) == 0)
@@ -70,6 +70,7 @@ void				builtin_read_exec_build_vars_from_line(t_argparser_result *arg_res, char
 		}
 		tmp += twl_strlen(value);
 		set_env_var(var, value, arg_res);
+		free(value);
 		if (!tmp_end)
 			break ;
 	}

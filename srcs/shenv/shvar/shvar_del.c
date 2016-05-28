@@ -16,5 +16,6 @@ void				shvar_del(t_shvar *shvar)
 {
 	free(shvar->shvar_key);
 	free(shvar->shvar_value);
+	free(shvar->shvar_assign_value);
 	free(shvar);
 }

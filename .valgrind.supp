@@ -930,3 +930,207 @@
    fun:ast_list_item_exec_wrapper
    fun:ast_list_item_new_from_tokens
 }
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:calloc
+   fun:_ZL12realizeClassP10objc_class
+   fun:_os_object_alloc_realized
+   fun:_xpc_pipe_create
+   fun:xpc_pipe_create
+   fun:_od_xpc_pipe
+   fun:_od_running
+   fun:ds_user_byname
+   fun:search_item_byname
+   fun:getpwnam
+   fun:expansion_tilde
+   fun:iter_fn
+   fun:twl_lst_iterp
+   fun:expansion_get_fields_simple_command
+   fun:iter_cmd_fn
+   fun:twl_lst_iter
+   fun:ast_simple_command_expan
+   fun:ast_simple_command_exec
+   fun:ast_command_exec
+   fun:ast_pipe_item_exec
+   fun:ast_andor_item_exec
+   fun:iter_fn
+   fun:twl_lst_iterp
+   fun:ast_list_item_exec_non_async
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:calloc
+   fun:LI_get_thread_info
+   fun:LI_set_thread_item
+   fun:getpwnam
+   fun:expansion_tilde
+   fun:iter_fn
+   fun:twl_lst_iterp
+   fun:expansion_get_fields_simple_command
+   fun:iter_cmd_fn
+   fun:twl_lst_iter
+   fun:ast_simple_command_expan
+   fun:ast_simple_command_exec
+   fun:ast_command_exec
+   fun:ast_pipe_item_exec
+   fun:ast_andor_item_exec
+   fun:iter_fn
+   fun:twl_lst_iterp
+   fun:ast_list_item_exec_non_async
+   fun:ast_list_item_exec
+   fun:ast_list_item_exec_wrapper
+   fun:ast_list_item_new_from_tokens
+   fun:ast_list_item_new_from_tokens_void
+   fun:ast_lap_build_items
+   fun:ast_compound_list_new_from_tokens
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:_nc_table_new
+   fun:_notify_init_globals
+   fun:_os_once
+   fun:_os_alloc_once
+   fun:notify_register_check
+   fun:notify_register_tz
+   fun:tzsetwall_basic
+   fun:localtime
+   fun:twl_logger_printf
+   fun:shenv_singleton_setter
+   fun:shenv_singleton
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:tzsetwall_basic
+   fun:localtime
+   fun:twl_logger_printf
+   fun:shenv_singleton_setter
+   fun:shenv_singleton
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: indirect
+   fun:calloc
+   fun:call_load_methods
+   fun:prepare_load_methods
+   fun:class_createInstance
+   fun:class_createInstance
+   fun:class_createInstance
+   fun:NXMapRemove
+   fun:objc_msgSend
+   fun:xpc_pipe_routine
+   fun:_xpc_interface_routine
+   fun:bootstrap_look_up3
+   fun:bootstrap_look_up2
+   fun:___notify_lib_init_block_invoke
+   fun:_dispatch_client_callout
+   fun:dispatch_once_f
+   fun:_notify_lib_init
+   fun:notify_register_check
+   fun:notify_register_tz
+   fun:tzsetwall_basic
+   fun:localtime
+   fun:twl_logger_printf
+   fun:shenv_singleton_setter
+   fun:shenv_singleton
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:malloc
+   fun:_nc_table_new
+   fun:_notify_init_globals
+   fun:_notify_fork_child
+   fun:libSystem_atfork_child
+   fun:fork
+   fun:shenv_utils_fork
+   fun:jobexec_fork_exec_non_interactive_do
+   fun:jobexec_fork_exec_non_interactive
+   fun:jobexec_fork_exec
+   fun:ast_andor_item_exec_pipes_wrapper
+   fun:ast_andor_item_exec
+   fun:iter_fn
+   fun:twl_lst_iterp
+   fun:ast_list_item_exec_non_async
+   fun:ast_list_item_exec
+   fun:iter_fn
+   fun:twl_lst_iter0
+   fun:ast_compound_list_exec
+   fun:ast_while_clause_exec
+   fun:ast_while_clause_exec_void
+   fun:ast_compound_command_exec_with_redirs
+   fun:ast_compound_command_exec
+   fun:ast_command_exec
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:calloc
+   fun:_ZL12realizeClassP10objc_class
+   fun:_os_object_alloc_realized
+   fun:_xpc_pipe_create
+   fun:xpc_atfork_child
+   fun:libSystem_atfork_child
+   fun:fork
+   fun:shenv_utils_fork
+   fun:jobexec_fork_exec_non_interactive_do
+   fun:jobexec_fork_exec_non_interactive
+   fun:jobexec_fork_exec
+   fun:ast_andor_item_exec_pipes_wrapper
+   fun:ast_andor_item_exec
+   fun:iter_fn
+   fun:twl_lst_iterp
+   fun:ast_list_item_exec_non_async
+   fun:ast_list_item_exec
+   fun:iter_fn
+   fun:twl_lst_iter0
+   fun:ast_compound_list_exec
+   fun:ast_while_clause_exec
+   fun:ast_while_clause_exec_void
+   fun:ast_compound_command_exec_with_redirs
+   fun:ast_compound_command_exec
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:malloc
+   fun:twl_strdup
+   fun:builtin_cd_get_directories
+   fun:builtin_cd_unfollow_symlinks
+   fun:builtin_cd_exec
+   fun:ast_simple_command_exec_tokens
+   fun:ast_simple_command_exec_with_redirs
+   fun:ast_simple_command_exec
+   fun:ast_command_exec
+   fun:ast_pipe_item_exec
+   fun:ast_andor_item_exec
+   fun:iter_fn
+   fun:twl_lst_iterp
+   fun:ast_list_item_exec_non_async
+   fun:ast_list_item_exec
+   fun:ast_list_item_exec_wrapper
+   fun:ast_list_item_new_from_tokens
+   fun:ast_list_item_new_from_tokens_void
+   fun:ast_lap_build_items
+   fun:ast_compound_list_new_from_tokens
+   fun:ast_new_from_tokens_build_exec
+   fun:ast_new
+   fun:ast_new_from_string
+   fun:ast_utils_exec_string
+}

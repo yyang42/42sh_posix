@@ -16,7 +16,7 @@ int					shenv_set_read_buffer_ptr(t_shenv *env, int fd)
 {
 	if (fd >= 0 && fd < getdtablesize())
 	{
-		env->shenv_read_buffer_ptr = &(env->shenv_read_buffer_db[fd]);
+		env->shenv_read_remainder_ptr = &(env->shenv_read_buffer_db[fd]);
 		return (0);
 	}
 	return (-1);

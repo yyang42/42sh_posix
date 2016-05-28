@@ -21,7 +21,7 @@ void				builtin_alias_set(char *str, t_shenv *env)
 	key = twl_strsub(str, 0, twl_strlen(str) - twl_strlen(value));
 	if (alias_utils_is_valid_name(key))
 	{
-		twl_htab_set(env->alias, key, twl_strdup(value + 1), free);
+		twl_htab_set(env->shenv_alias, key, twl_strdup(value + 1), free);
 	}
 	else
 	{

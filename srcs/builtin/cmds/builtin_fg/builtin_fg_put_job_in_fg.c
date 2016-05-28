@@ -20,6 +20,7 @@ void                builtin_fg_put_job_in_fg(t_job *job)
     if (job_has_terminated(job))
     {
         shenv_singl_error(EXIT_FAILURE, "fg: job has terminated");
+        job_mgr_remove(shenv_singleton()->jobs, job);
         return ;
     }
     if (job_mgr_pop(shenv_singleton()->jobs, job) == NULL)

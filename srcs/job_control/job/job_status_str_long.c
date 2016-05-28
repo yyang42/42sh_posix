@@ -18,6 +18,7 @@ char				*job_status_str_long(t_job *this, bool incl_pid)
 {
 	char			*str;
 	char			*pid_str;
+	char			*job_status;
 
 	pid_str = twl_strdup("");
 	if (incl_pid)
@@ -25,7 +26,9 @@ char				*job_status_str_long(t_job *this, bool incl_pid)
 		free(pid_str);
 		twl_asprintf(&pid_str, "%d ", this->pid);
 	}
-	twl_asprintf(&str, "%s%-23s %s", pid_str, job_status_str(this), this->cmd_str);
+	job_status = job_status_str(this);
+	twl_asprintf(&str, "%s%-23s %s", pid_str, job_status, this->cmd_str);
 	free(pid_str);
+	free(job_status);
 	return (str);
 }

@@ -68,6 +68,7 @@ static void			iter_fn(void *data, void *ctx1, void *ctx2)
 	}
 	if (chdir(path) == -1)
 	{
+		free(dumb_path);
 		free(uncomplete_path);
 		free(path);
 		return ;
@@ -80,6 +81,7 @@ static void			iter_fn(void *data, void *ctx1, void *ctx2)
 	shenv_reset_current_directory(shenv_singleton(), path);
 	shenv_shvars_set(shenv_singleton(), "PWD", path, NULL);
 	free(uncomplete_path);
+	free(dumb_path);
 	free(path);
 
 }
@@ -112,6 +114,6 @@ bool				builtin_cd_follow_symlinks(char *dir, char *from_whom)
 		else if (!shenv_singleton()->shenv_current_directory)
 			shenv_get_current_directory(shenv_singleton(), from_whom);
 	}
-	twl_lst_del(dirs, free);
+	twl_lst_del(dirs, builtin_cd_del);
 	return (done);
 }

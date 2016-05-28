@@ -14,5 +14,4 @@
 /CMakeLists.txt
 *.out
 *.DS_Store
-/tmp.log
-/.valgrind_temporary.supp
+/valgrind.log*

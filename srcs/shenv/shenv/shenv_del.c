@@ -12,9 +12,24 @@
 
 #include "shenv/shenv.h"
 #include "twl_opt_elem.h"
-#include "job_control/job.h"
+#include "job_control/job_mgr.h"
 #include "trap/trap.h"
 #include "ast/nodes/ast_function_def.h"
+
+static void			del_shenv_read_buffer_db(char **shenv_read_buffer_db)
+{
+	int				size;
+	int				i;
+
+	size = getdtablesize();
+	i = 0;
+	while (i < size)
+	{
+		free(shenv_read_buffer_db[i]);
+		i++;
+	}
+	free(shenv_read_buffer_db);
+}
 
 void				shenv_del(t_shenv *this)
 {
@@ -23,19 +38,15 @@ void				shenv_del(t_shenv *this)
 	shvar_mgr_del(this->shenv_shvars);
 	twl_lst_del(this->shfuncs, ast_function_def_del_void);
 	twl_lst_del(this->shenv_pos_params, free);
-	if (this->alias)
-		twl_htab_del(this->alias, NULL);
-	if (this->info.name)
-		free(this->info.name);
+	twl_htab_del(this->shenv_alias, free);
+	free(this->info.name);
 	free(this->shenv_name);
 	free(this->shenv_cur_cmd);
-	free(this->shenv_read_buffer_db);
-	if (this->shenv_binary_saved_path)
-		free(this->shenv_binary_saved_path);
-	twl_lst_del(this->jobs, job_del_void);
+	del_shenv_read_buffer_db(this->shenv_read_buffer_db);
+	free(this->shenv_binary_saved_path);
+	job_mgr_del(this->jobs);
 	twl_lst_del(this->shenv_traps, trap_del);
-	if (this->shenv_binary_db)
-		twl_htab_del(this->shenv_binary_db, free);
+	twl_htab_del(this->shenv_binary_db, free);
 	free(this->shenv_current_directory);
 	twl_lst_del(this->shenv_argv_remainder, NULL);
 	shflag_mgr_del(this->shenv_shflags);

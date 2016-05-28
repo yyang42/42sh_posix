@@ -16,6 +16,6 @@ char				*builtin_alias_get(char *key, t_shenv *this)
 {
 	char			*value;
 
-	value = twl_htab_get(this->alias, key);
+	value = twl_htab_get(this->shenv_alias, key);
 	return (value);
 }

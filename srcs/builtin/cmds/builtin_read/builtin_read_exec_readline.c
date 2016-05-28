@@ -44,7 +44,7 @@ void				builtin_read_exec_readline(t_argparser_result *arg_res)
 	accumulator = twl_strdup("");
 	while (true)
 	{
-		line = builtin_read_gnl(shenv_singleton()->shenv_read_buffer_ptr);
+		line = builtin_read_gnl(shenv_singleton()->shenv_read_remainder_ptr);
 		if (line)
 		{
 			accumulator = twl_strjoinfree(accumulator, line, 'l');

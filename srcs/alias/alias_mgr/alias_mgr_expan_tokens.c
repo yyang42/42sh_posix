@@ -91,7 +91,11 @@ bool				alias_mgr_expan_tokens_inner(t_alias_processor *p)
 		{
 			has_expan = true;
 			if (twl_lst_find(p->prev_processed, find_fn, token->text))
+			{
+				twl_lst_del(copy_tokens, NULL);
+				free(accumulator);
 				return (NULL);
+			}
 			twl_lst_pop_front(p->tokens); // LEAKS !!!!
 			if (twl_str_ends_with(alias, " ") && twl_lst_len(copy_tokens))
 				continue ;

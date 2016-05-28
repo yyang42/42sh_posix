@@ -69,7 +69,7 @@ typedef struct				s_shenv
 	int						shenv_prog_flags;
 	t_lst					*shenv_argv_remainder;
 	t_lst					*shenv_pos_params;
-	t_htab					*alias;
+	t_htab					*shenv_alias;
 	t_dict					*shfuncs;
 	int						function_depth;
 	t_shenv_info			info;
@@ -88,7 +88,7 @@ typedef struct				s_shenv
 	t_htab					*shenv_binary_db;
 	char					*shenv_binary_saved_path;
 	int						shenv_list_item_level;
-	char					**shenv_read_buffer_ptr;
+	char					**shenv_read_remainder_ptr;
 	char					**shenv_read_buffer_db;
 	int						shenv_fork_level;
 	char					*shenv_current_directory;

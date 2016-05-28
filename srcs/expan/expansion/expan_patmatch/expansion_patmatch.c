@@ -23,9 +23,8 @@ static void		patmatch_iter_fn(void *data, void *context)
 	this = context;
 	patmatch = patmatch_new();
 	patmatches = patmatch_match(patmatch, data);
-	twl_lst_cat(this->patmatch, patmatches);
+	twl_lst_extend(this->patmatch, patmatches);
 	patmatch_del(patmatch);
-	patmatches->head = NULL;
 	twl_lst_del(patmatches, NULL);
 }
 
