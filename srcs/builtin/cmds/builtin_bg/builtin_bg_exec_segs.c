@@ -50,4 +50,5 @@ void				builtin_bg_exec_segs(t_argparser_result *argparser_result)
 			twl_lst_push_back(segs, "+");
 	}
 	twl_lst_iter0(segs, iter_str_token_fn);
+	twl_lst_del(segs, NULL);
 }

@@ -79,6 +79,7 @@ void				expansion_tilde(t_expansion *this, t_expan_token *token)
 {
 	struct passwd	*pw;
 
+	pw = NULL;
 	if (this->error)
 		return ;
 	if (!token->text[1])

@@ -12,7 +12,7 @@
 
 #include "shenv/shenv.h"
 #include "twl_opt_elem.h"
-#include "job_control/job.h"
+#include "job_control/job_mgr.h"
 #include "trap/trap.h"
 #include "ast/nodes/ast_function_def.h"
 
@@ -44,7 +44,7 @@ void				shenv_del(t_shenv *this)
 	free(this->shenv_cur_cmd);
 	del_shenv_read_buffer_db(this->shenv_read_buffer_db);
 	free(this->shenv_binary_saved_path);
-	twl_lst_del(this->jobs, job_del_void);
+	job_mgr_del(this->jobs);
 	twl_lst_del(this->shenv_traps, trap_del);
 	twl_htab_del(this->shenv_binary_db, free);
 	free(this->shenv_current_directory);

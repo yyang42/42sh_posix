@@ -14,6 +14,7 @@
 #include "twl_opt_elem.h"
 
 #include "shenv/shenv.h"
+#include "job_control/job.h"
 
 pid_t					shenv_utils_fork(void)
 {
@@ -24,7 +25,7 @@ pid_t					shenv_utils_fork(void)
 	errno_save = errno;
 	if (pid == 0)
 	{
-		twl_lst_clear(shenv_singleton()->jobs, NULL);
+		twl_lst_clear(shenv_singleton()->jobs, job_del_void);
 	}
 	else if (pid == -1)
 	{

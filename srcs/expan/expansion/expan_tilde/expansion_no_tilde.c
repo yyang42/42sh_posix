@@ -44,4 +44,5 @@ void			expansion_no_tilde(t_expansion *this, t_expan_token *token)
 	tokens = expan_tokenizer_tokenize(token->text + 1);
 	expansion_push_before_split(this, "~", false);
 	twl_lst_iter(tokens, iter_fn, this);
+	twl_lst_del(tokens, expan_token_del);
 }
