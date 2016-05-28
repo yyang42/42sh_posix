@@ -12,12 +12,6 @@
 
 #include "expan/expansion.h"
 
-/*
-** TODO: Créer un deuxième expansion_dquote pour enlever le wrapper dans les
-**       cas fumeux.
-**       "$((1+"1"))" par exemple doit donner 1+"1" et non 1+1
-*/
-
 static void			iter_fn(void *data, void *this)
 {
 	t_expan_token	*token;
