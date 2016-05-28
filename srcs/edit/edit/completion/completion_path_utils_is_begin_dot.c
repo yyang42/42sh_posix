@@ -12,17 +12,7 @@
 
 #include "edit/completion.h"
 
-void			completion_exec(t_completion *this)
+bool			completion_path_utils_is_begin_dot(char *p)
 {
-	if (completion_utils_exec_absolute_path(this))
-	{
-		if (this->current_word[0] == '/')
-			completion_exec_from_root(this);
-		else
-			completion_exec_from_cwd(this);
-	}
-	else
-	{
-		completion_exec_from_shenv(this);
-	}
+	return (p[0] == '.' && (p[1] == '\0' || (p[1] == '.' && p[2] == '\0')));
 }

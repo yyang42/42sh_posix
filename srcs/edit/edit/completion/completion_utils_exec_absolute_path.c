@@ -12,17 +12,22 @@
 
 #include "edit/completion.h"
 
-void			completion_exec(t_completion *this)
+bool			completion_utils_exec_absolute_path(t_completion *this)
 {
-	if (completion_utils_exec_absolute_path(this))
+	char		*path;
+
+	path = this->current_word;
+	if (path[0] == '/')
+		return (true);
+	if (path[0] == '.' && (!path[1] || path[1] == '/'))
+		return (true);
+	if ((path[0] == '.' && path[1] == '.') && (!path[2] || path[2] == '/'))
+		return (true);
+	while (*path)
 	{
-		if (this->current_word[0] == '/')
-			completion_exec_from_root(this);
-		else
-			completion_exec_from_cwd(this);
+		if (*path == '/')
+			return (true);
+		path += 1;
 	}
-	else
-	{
-		completion_exec_from_shenv(this);
-	}
+	return (false);
 }

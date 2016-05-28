@@ -12,17 +12,30 @@
 
 #include "edit/completion.h"
 
-void			completion_exec(t_completion *this)
+char			*completion_path_utils_join_path(char *begin, char *end)
 {
-	if (completion_utils_exec_absolute_path(this))
+	char		*ret;
+	char		*tmp;
+
+	ret = twl_strnew(twl_strlen(begin) + twl_strlen(end) + 1);
+	tmp = ret;
+	while (*begin)
 	{
-		if (this->current_word[0] == '/')
-			completion_exec_from_root(this);
-		else
-			completion_exec_from_cwd(this);
+		*tmp = *begin;
+		tmp += 1;
+		begin += 1;
 	}
-	else
+	if (tmp != ret && tmp[-1] != '/')
 	{
-		completion_exec_from_shenv(this);
+		*tmp = '/';
+		tmp += 1;	
 	}
+	while (*end)
+	{
+		*tmp = *end;
+		tmp += 1;
+		end += 1;
+	}
+	*tmp = '\0';
+	return (ret);
 }

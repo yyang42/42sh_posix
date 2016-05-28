@@ -12,17 +12,32 @@
 
 #include "edit/completion.h"
 
-void			completion_exec(t_completion *this)
+static void		iter_fn(void *data, void *ctx)
 {
-	if (completion_utils_exec_absolute_path(this))
+	if (!*(char *)ctx)
+		return ;
+	while (*(char *)ctx && *(char *)data == *(char *)ctx)
 	{
-		if (this->current_word[0] == '/')
-			completion_exec_from_root(this);
-		else
-			completion_exec_from_cwd(this);
+		data += 1;
+		ctx += 1;
 	}
-	else
+	*(char *)ctx = 0;
+}
+
+char			*completion_path_utils_get_begin_list(t_completion *this,
+						t_completion_path *path)
+{
+	char		*first;
+	char		*ret;
+
+	first = twl_strdup(twl_lst_first(this->all));
+	twl_lst_iter(this->all, iter_fn, first);
+	if (!*first || twl_strlen(path->end) == twl_strlen(first))
 	{
-		completion_exec_from_shenv(this);
+		free(first);
+		return (NULL);
 	}
+	ret = twl_strdup(first + twl_strlen(path->end));
+	free(first);
+	return (ret);
 }

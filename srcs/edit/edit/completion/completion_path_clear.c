@@ -12,17 +12,10 @@
 
 #include "edit/completion.h"
 
-void			completion_exec(t_completion *this)
+void			completion_path_clear(t_completion_path *this)
 {
-	if (completion_utils_exec_absolute_path(this))
-	{
-		if (this->current_word[0] == '/')
-			completion_exec_from_root(this);
-		else
-			completion_exec_from_cwd(this);
-	}
-	else
-	{
-		completion_exec_from_shenv(this);
-	}
+	if (this->begin)
+		free(this->begin);
+	if (this->end)
+		free(this->end);
 }

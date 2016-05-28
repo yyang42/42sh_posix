@@ -12,17 +12,21 @@
 
 #include "edit/completion.h"
 
-void			completion_exec(t_completion *this)
+void			completion_path_init(t_completion_path *this,
+					t_completion *completion)
 {
-	if (completion_utils_exec_absolute_path(this))
+	char		*path;
+
+	path = twl_strrchr(completion->current_word, '/');
+	if (!path)
 	{
-		if (this->current_word[0] == '/')
-			completion_exec_from_root(this);
-		else
-			completion_exec_from_cwd(this);
+		this->begin = twl_strdup(completion->current_word);
+		this->end = twl_strdup("");
 	}
 	else
 	{
-		completion_exec_from_shenv(this);
+		this->begin = twl_strndup(completion->current_word,
+				path - completion->current_word + 1);
+		this->end = twl_strdup(path + 1);
 	}
 }

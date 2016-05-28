@@ -12,17 +12,38 @@
 
 #include "edit/completion.h"
 
-void			completion_exec(t_completion *this)
+void			completion_exec_from_cwd(t_completion *this)
 {
-	if (completion_utils_exec_absolute_path(this))
+	t_completion_path	path;
+	char				*tmp;
+	LOG_DEBUG("From cwd");
+
+	completion_path_init(&path, this);
+	if (!*path.end && completion_path_utils_is_begin_dot(path.begin))
 	{
-		if (this->current_word[0] == '/')
-			completion_exec_from_root(this);
-		else
-			completion_exec_from_cwd(this);
+		edit_place_letter(this->edit, '/');
 	}
 	else
 	{
-		completion_exec_from_shenv(this);
+		completion_path_exec_readfile(this, &path);
+		if (!twl_lst_first(this->all))
+			;
+		else if (twl_lst_len(this->all) == 1)
+		{
+			edit_place_string(this->edit, twl_lst_first(this->all) + twl_strlen(path.end));
+		}
+		else if ((tmp = completion_path_utils_get_begin_list(this, &path)))
+		{
+			edit_place_string(this->edit, tmp);
+			free(tmp);
+		}
+		else
+		{
+			if (this->edit->is_last_tab)
+				completion_utils_print_lst(this);
+			this->edit->is_last_tab = 2;
+		}
 	}
+	twl_lst_clear(this->all, free);
+	completion_path_clear(&path);
 }
