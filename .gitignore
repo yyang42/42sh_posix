@@ -15,4 +15,3 @@
 *.out
 *.DS_Store
 /valgrind.log*
-/.valgrind_temporary.supp
