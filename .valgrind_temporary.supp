@@ -1158,3 +1158,119 @@
    fun:iter_fn
    fun:twl_lst_iterp
 }
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:malloc
+   fun:twl_xmalloc
+   fun:twl_malloc_x0
+   fun:expansion_new
+   fun:expansion_new_from_text
+   fun:expansion_arithmetic
+   fun:iter_fn
+   fun:twl_lst_iterp
+   fun:expansion_get_fields_simple_command
+   fun:iter_cmd_fn
+   fun:twl_lst_iter
+   fun:ast_simple_command_expan
+   fun:ast_simple_command_exec
+   fun:ast_command_exec
+   fun:ast_pipe_item_exec
+   fun:ast_andor_item_exec
+   fun:iter_fn
+   fun:twl_lst_iterp
+   fun:ast_list_item_exec_non_async
+   fun:ast_list_item_exec
+   fun:iter_fn
+   fun:twl_lst_iter0
+   fun:ast_compound_list_exec
+   fun:ast_brace_group_exec
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:malloc
+   fun:twl_lst_new
+   fun:expansion_new
+   fun:expansion_new_from_text
+   fun:expansion_arithmetic
+   fun:iter_fn
+   fun:twl_lst_iterp
+   fun:expansion_get_fields_simple_command
+   fun:iter_cmd_fn
+   fun:twl_lst_iter
+   fun:ast_simple_command_expan
+   fun:ast_simple_command_exec
+   fun:ast_command_exec
+   fun:ast_pipe_item_exec
+   fun:ast_andor_item_exec
+   fun:iter_fn
+   fun:twl_lst_iterp
+   fun:ast_list_item_exec_non_async
+   fun:ast_list_item_exec
+   fun:iter_fn
+   fun:twl_lst_iter0
+   fun:ast_compound_list_exec
+   fun:ast_brace_group_exec
+   fun:ast_brace_group_exec_void
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:malloc
+   fun:twl_strnew
+   fun:twl_strndup
+   fun:expansion_arithmetic
+   fun:iter_fn
+   fun:twl_lst_iterp
+   fun:expansion_get_fields_simple_command
+   fun:iter_cmd_fn
+   fun:twl_lst_iter
+   fun:ast_simple_command_expan
+   fun:ast_simple_command_exec
+   fun:ast_command_exec
+   fun:ast_pipe_item_exec
+   fun:ast_andor_item_exec
+   fun:iter_fn
+   fun:twl_lst_iterp
+   fun:ast_list_item_exec_non_async
+   fun:ast_list_item_exec
+   fun:iter_fn
+   fun:twl_lst_iter0
+   fun:ast_compound_list_exec
+   fun:ast_brace_group_exec
+   fun:ast_brace_group_exec_void
+   fun:ast_compound_command_exec_with_redirs
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:malloc
+   fun:twl_strjoin
+   fun:twl_strjoinfree
+   fun:iter_inner_fn
+   fun:twl_lst_iter
+   fun:iter_fn
+   fun:twl_lst_itern
+   fun:expansion_arithmetic
+   fun:iter_fn
+   fun:twl_lst_iterp
+   fun:expansion_get_fields_simple_command
+   fun:iter_cmd_fn
+   fun:twl_lst_iter
+   fun:ast_simple_command_expan
+   fun:ast_simple_command_exec
+   fun:ast_command_exec
+   fun:ast_pipe_item_exec
+   fun:ast_andor_item_exec
+   fun:iter_fn
+   fun:twl_lst_iterp
+   fun:ast_list_item_exec_non_async
+   fun:ast_list_item_exec
+   fun:iter_fn
+   fun:twl_lst_iter0
+}
