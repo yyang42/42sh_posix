@@ -15,9 +15,9 @@
 
 void				shenv_clear_stdin_read_buffer(t_shenv *env)
 {
-	if (env->shenv_read_buffer_ptr
-		&& env->shenv_read_buffer_ptr[STDIN_FILENO])
+	if (env->shenv_read_remainder_ptr
+		&& env->shenv_read_remainder_ptr[STDIN_FILENO])
 	{
-		*(env->shenv_read_buffer_ptr[STDIN_FILENO]) = '\0';
+		*(env->shenv_read_remainder_ptr[STDIN_FILENO]) = '\0';
 	}
 }

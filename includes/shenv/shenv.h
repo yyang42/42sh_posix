@@ -88,7 +88,7 @@ typedef struct				s_shenv
 	t_htab					*shenv_binary_db;
 	char					*shenv_binary_saved_path;
 	int						shenv_list_item_level;
-	char					**shenv_read_buffer_ptr;
+	char					**shenv_read_remainder_ptr;
 	char					**shenv_read_buffer_db;
 	int						shenv_fork_level;
 	char					*shenv_current_directory;
