@@ -44,9 +44,12 @@ static void			iter_fn(void *data, void *prev, void *this)
 static void			*map_fn(void *data)
 {
 	t_pattern		*pattern;
+	char			*str;
 
 	pattern = pattern_new(data);
-	return (pattern_to_string(pattern));
+	str = pattern_to_string(pattern);
+	pattern_del(pattern);
+	return (str);
 }
 
 t_lst				*expansion_get_fields_for_clause(t_expansion *this)

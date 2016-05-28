@@ -50,4 +50,5 @@ void				builtin_exec_exec(t_lst *tokens, t_shenv *env)
 	builtin_exec_exec_do(remaining_of_redir_tokens);
 	twl_lst_iter0(redir_tokens_groups, del_token_group_fn);
 	twl_lst_del(redir_tokens_groups, NULL);
+	twl_lst_del(remaining_of_redir_tokens, NULL);
 }
