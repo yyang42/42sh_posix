@@ -43,6 +43,8 @@ t_completion			*completion_new(t_edit *edit);
 void					completion_del(t_completion *this);
 
 void					completion_dirs(t_completion *this);
+void					completion_dirs_from_cwd(t_completion *this);
+void					completion_dirs_from_root(t_completion *this);
 void					completion_exec(t_completion *this);
 void					completion_exec_from_cwd(t_completion *this);
 void					completion_exec_from_root(t_completion *this);
@@ -60,6 +62,8 @@ void					completion_path_init(t_completion_path *this,
 void					completion_path_clear(t_completion_path *this);
 
 void					completion_path_exec_readfile(t_completion *this,
+							t_completion_path *path);
+void					completion_path_dirs_readfile(t_completion *this,
 							t_completion_path *path);
 
 bool					completion_path_utils_is_begin_dot(char *p);

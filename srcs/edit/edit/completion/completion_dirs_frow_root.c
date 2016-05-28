@@ -10,24 +10,33 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "edit/edit.h"
 #include "edit/completion.h"
 
-void			edit_completion(t_edit *this)
+void			completion_dirs_from_root(t_completion *this)
 {
-	t_completion	*completion;
+	t_completion_path	path;
+	char				*tmp;
+	LOG_DEBUG("From root");
 
-	if (this->current->size == 0)
-		return ;
-	completion = completion_new(this);
-	LOG_DEBUG("%i: '%s'", completion->type, completion->current_word);
-	if (completion->type == COMPLETION_VARIABLE)
-		completion_variable(completion);
-	else if (completion->type == COMPLETION_BRACE_VARIABLE)
-		completion_brace_variable(completion);
-	else if (completion->type == COMPLETION_EXEC)
-		completion_exec(completion);
+	completion_path_init(&path, this);
+	completion_path_dirs_readfile(this, &path);
+	if (!twl_lst_first(this->all))
+		;
+	else if (twl_lst_len(this->all) == 1)
+	{
+		edit_place_string(this->edit, twl_lst_first(this->all) + twl_strlen(path.end));
+	}
+	else if ((tmp = completion_path_utils_get_begin_list(this, &path)))
+	{
+		edit_place_string(this->edit, tmp);
+		free(tmp);
+	}
 	else
-		completion_dirs(completion);
-	completion_del(completion);
+	{
+		if (this->edit->is_last_tab)
+			completion_utils_print_lst(this);
+		this->edit->is_last_tab = 2;
+	}
+	twl_lst_clear(this->all, free);
+	completion_path_clear(&path);
 }

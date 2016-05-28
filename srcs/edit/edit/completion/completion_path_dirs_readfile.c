@@ -10,24 +10,36 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "edit/edit.h"
 #include "edit/completion.h"
+#include <dirent.h>
+#include <sys/stat.h>
 
-void			edit_completion(t_edit *this)
+void				completion_path_dirs_readfile(t_completion *this,
+						t_completion_path *path)
 {
-	t_completion	*completion;
+	DIR				*dir;
+	struct dirent	*dirfile;
+	char			*join_path;
+	struct stat		sb;
 
-	if (this->current->size == 0)
+	if (!(dir = opendir(path->begin)))
 		return ;
-	completion = completion_new(this);
-	LOG_DEBUG("%i: '%s'", completion->type, completion->current_word);
-	if (completion->type == COMPLETION_VARIABLE)
-		completion_variable(completion);
-	else if (completion->type == COMPLETION_BRACE_VARIABLE)
-		completion_brace_variable(completion);
-	else if (completion->type == COMPLETION_EXEC)
-		completion_exec(completion);
-	else
-		completion_dirs(completion);
-	completion_del(completion);
+	while ((dirfile = readdir(dir)))
+	{
+		if (!*path->end && completion_path_utils_is_begin_dot(dirfile->d_name))
+			continue ;
+		if (!completion_utils_start_with(dirfile->d_name, path->end))
+			continue ;
+		join_path = completion_path_utils_join_path(path->begin, dirfile->d_name);
+		if (lstat(join_path, &sb))
+		{
+			free(join_path);
+			continue ;
+		}
+		if (S_ISDIR(sb.st_mode))
+			twl_lst_push_front(this->all, twl_strjoin(dirfile->d_name, "/"));
+		else
+			twl_lst_push_front(this->all, twl_strjoin(dirfile->d_name, " "));
+		free(join_path);
+	}
 }
