@@ -14,13 +14,6 @@
 #include "utils.h"
 
 
-static void			utils_tcsetpgrp_for_tty_012_wrapper(t_jobexec *je)
-{
-	if (!jobexec_fork_exec_should_tcset(je))
-		return ;
-	utils_tcsetpgrp_for_tty_012();
-}
-
 void				jobexec_fork_exec_interactive(t_job *job, t_jobexec *je)
 {
 	pid_t			pid;
@@ -34,7 +27,7 @@ void				jobexec_fork_exec_interactive(t_job *job, t_jobexec *je)
 		LOG_INFO("setpgid and tcsetpgrp");
 		if (setpgid(0, 0) < 0)
 			LOG_ERROR("setpgid: %s", strerror(errno));
-		utils_tcsetpgrp_for_tty_012_wrapper(je);
+		utils_tcsetpgrp_for_tty_012(getpid());
 		jobexec_fork_exec_execve_fn(je);
 		exit(shenv_singleton()->last_exit_code);
 	}
@@ -44,6 +37,6 @@ void				jobexec_fork_exec_interactive(t_job *job, t_jobexec *je)
 		jobexec_fork_exec_wait_fn(je, pid, &job->status);
 		job_print_if_stopped(job);
 		LOG_INFO("after wait_fn");
-		utils_tcsetpgrp_for_tty_012_wrapper(je);
+		utils_tcsetpgrp_for_tty_012(getpid());
 	}
 }
