@@ -57,4 +57,6 @@ void			edit_terminal_init(t_edit *this)
 	this->term.c_iflag &= ~(ICRNL | INLCR);
 	this->term.c_cc[VMIN] = 1;
 	this->term.c_cc[VTIME] = 0;
+	this->term.c_cc[VSTART] = 0;
+	this->term.c_cc[VSTOP] = 0;
 }
