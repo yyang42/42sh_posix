@@ -1200,3 +1200,61 @@
    fun:shenv_singleton
    fun:main
 }
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:malloc
+   fun:_nc_table_new
+   fun:_notify_init_globals
+   fun:_notify_fork_child
+   fun:libSystem_atfork_child
+   fun:fork
+   fun:shenv_utils_fork
+   fun:jobexec_fork_exec_non_interactive_do
+   fun:jobexec_fork_exec_non_interactive
+   fun:jobexec_fork_exec
+   fun:ast_andor_item_exec_pipes_wrapper
+   fun:ast_andor_item_exec
+   fun:iter_fn
+   fun:twl_lst_iterp
+   fun:ast_list_item_exec_non_async
+   fun:ast_list_item_exec
+   fun:iter_fn
+   fun:twl_lst_iter0
+   fun:ast_compound_list_exec
+   fun:iter_wordlist_fn
+   fun:twl_lst_iter
+   fun:ast_for_clause_exec
+   fun:ast_for_clause_exec_void
+   fun:ast_compound_command_exec_with_redirs
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:calloc
+   fun:_ZL12realizeClassP10objc_class
+   fun:_os_object_alloc_realized
+   fun:_xpc_pipe_create
+   fun:xpc_atfork_child
+   fun:libSystem_atfork_child
+   fun:fork
+   fun:shenv_utils_fork
+   fun:jobexec_fork_exec_non_interactive_do
+   fun:jobexec_fork_exec_non_interactive
+   fun:jobexec_fork_exec
+   fun:ast_andor_item_exec_pipes_wrapper
+   fun:ast_andor_item_exec
+   fun:iter_fn
+   fun:twl_lst_iterp
+   fun:ast_list_item_exec_non_async
+   fun:ast_list_item_exec
+   fun:iter_fn
+   fun:twl_lst_iter0
+   fun:ast_compound_list_exec
+   fun:iter_wordlist_fn
+   fun:twl_lst_iter
+   fun:ast_for_clause_exec
+   fun:ast_for_clause_exec_void
+}
