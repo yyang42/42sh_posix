@@ -25,6 +25,6 @@ typedef struct		s_shsignal
 t_shsignal			*shsignal_new(int signum, char *signame);
 void				shsignal_del(t_shsignal *shsignal);
 
-void				handle_signal(int signal);
+void				handle_exec_signal(int signal);
 
 #endif

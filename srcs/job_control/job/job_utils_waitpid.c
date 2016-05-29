@@ -46,7 +46,7 @@ void				job_utils_waitpid(pid_t pid, int *res_ptr)
 		else if (WIFSIGNALED(res))
 		{
 			LOG_INFO("WIFSIGNALED: %d", WTERMSIG(res));
-        	handle_signal(WTERMSIG(res));
+        	handle_exec_signal(WTERMSIG(res));
 		}
 		else if (WIFSTOPPED(res))
 		{
