@@ -14,16 +14,6 @@
 #include "shenv/shenv.h"
 #include "shsignal/shsignal.h"
 
-static void sig_received(void)
-{
-	LOG_INFO("sig_received trigged");
-	if (shenv_shflag_enabled(shenv_singleton(), "i"))
-	{
-		twl_printf("\n");
-	}
-	exit(130);
-}
-
 void				job_utils_waitpid(pid_t pid, int *res_ptr)
 {
 	int				res;
@@ -55,12 +45,8 @@ void				job_utils_waitpid(pid_t pid, int *res_ptr)
 		}
 		else if (WIFSIGNALED(res))
 		{
-        	handle_signal(WTERMSIG(res));
 			LOG_INFO("WIFSIGNALED: %d", WTERMSIG(res));
-			if (WTERMSIG(res) == SIGINT)
-			{
-				sig_received();
-			}
+        	handle_signal(WTERMSIG(res));
 		}
 		else if (WIFSTOPPED(res))
 		{

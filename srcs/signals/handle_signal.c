@@ -47,6 +47,11 @@ void				handle_signal(int sig)
 {
 	shenv_singleton()->last_exit_code = get_exit_code(sig);
 	if (sig == SIGINT)
-		return ;
-	print_error_msg(sig);
+	{
+		twl_putchar('\n');
+	}
+	else
+	{
+		print_error_msg(sig);
+	}
 }
