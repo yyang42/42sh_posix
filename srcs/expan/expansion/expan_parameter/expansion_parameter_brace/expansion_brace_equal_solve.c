@@ -29,6 +29,11 @@ static void		iter_fn(void *data, void *next, void *context)
 		twl_strjoinfree(*implode, " ", 'l');
 }
 
+static void		iter_del_fn(void *data)
+{
+	twl_lst_del(data, expan_before_split_del);
+}
+
 void			expansion_brace_equal_solve(t_expansion *this,
 											t_expansion_brace *eb)
 {
@@ -43,10 +48,16 @@ void			expansion_brace_equal_solve(t_expansion *this,
 	inner->error = NULL;
 	expansion_del(inner);
 	if (this->error)
+	{
+		if (lst_inner)
+			twl_lst_del(lst_inner, iter_del_fn);
 		return ;
+	}
 	implode = twl_strnew(0);
 	g_before_split_dquoted = false;
 	twl_lst_itern(lst_inner, iter_fn, &implode);
 	shenv_shvars_set(shenv_singleton(), eb->param, implode, NULL);
 	expansion_push_before_split(this, implode, !this->quoted);
+	free(implode);
+	twl_lst_del(lst_inner, iter_del_fn);
 }

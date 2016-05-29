@@ -50,4 +50,5 @@ void			expansion_parameter_brace(t_expansion *this,
 		return ;
 	}
 	g_expbrace_fns[eb->type](this, eb);
+	expansion_brace_del(eb);
 }

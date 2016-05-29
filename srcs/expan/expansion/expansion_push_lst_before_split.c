@@ -15,12 +15,17 @@
 static void		iter_fn(void *data, void *next, void *context)
 {
 	t_expansion	*this;
+	void		*cnt;
 
 	this = context;
 	if (!this->to_push_bs)
-		this->to_push_bs = data;
-	else
-		twl_lst_cat(this->to_push_bs, data);
+	{
+		this->to_push_bs = twl_lst_new();
+	}
+	while ((cnt = twl_lst_pop_front(data)))
+	{
+		twl_lst_push_back(this->to_push_bs, cnt);
+	}
 	if (next)
 	{
 		twl_lst_push_back(this->before_split, this->to_push_bs);
