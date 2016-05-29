@@ -46,7 +46,7 @@ void			completion_exec_from_shenv(t_completion *this)
 {
 	char		*tmp;
 	LOG_DEBUG("From shenv");
-	twl_htab_iter(shenv_singleton()->alias, htab_iter_fn, this);
+	twl_htab_iter(shenv_singleton()->shenv_alias, htab_iter_fn, this);
 	twl_htab_iter(shenv_singleton()->shenv_binary_db, htab_iter_fn, this);
 	twl_dict_iter(shenv_singleton()->shfuncs, funcs_iter_fn, this);
 	twl_lst_iter(data_builtins(), builtin_iter_fn, this);
