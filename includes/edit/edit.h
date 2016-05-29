@@ -73,6 +73,8 @@ void					edit_move_goto_pos_cursor(t_edit *this, size_t pos);
 
 void					edit_move_right(t_edit *this);
 void					edit_move_left(t_edit *this);
+void					edit_move_up(t_edit *this);
+void					edit_move_down(t_edit *this);
 void					edit_move_word_right(t_edit *this);
 void					edit_move_word_left(t_edit *this);
 void					edit_move_home(t_edit *this);

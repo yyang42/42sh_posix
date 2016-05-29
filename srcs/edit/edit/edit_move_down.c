@@ -10,24 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "data.h"
-#include "edit/escaped_sequence.h"
+#include "edit/edit.h"
 
-t_lst				*data_escaped_sequence(void)
+void				edit_move_down(t_edit *this)
 {
-	t_lst			*data = NULL;
-
-	if (!data)
+	if (this->current->size - this->pos_cursor < this->winsize_x)
 	{
-		data = twl_lst_new();
-		twl_lst_push_front(data, escaped_sequence_new("\033[C", edit_move_right));
-		twl_lst_push_front(data, escaped_sequence_new("\033[D", edit_move_left));
-		twl_lst_push_front(data, escaped_sequence_new("\033[H", edit_move_home));
-		twl_lst_push_front(data, escaped_sequence_new("\033[F", edit_move_end));
-		twl_lst_push_front(data, escaped_sequence_new("\033[3~", edit_del_right));
-		twl_lst_push_front(data, escaped_sequence_new("\033[3~", edit_del_right));
-		twl_lst_push_front(data, escaped_sequence_new("\033[5~", edit_move_up));
-		twl_lst_push_front(data, escaped_sequence_new("\033[6~", edit_move_down));
+		edit_move_end(this);
+		return ;
 	}
-	return (data);
+	edit_move_goto_pos_cursor(this, this->pos_cursor + this->winsize_x);
 }
