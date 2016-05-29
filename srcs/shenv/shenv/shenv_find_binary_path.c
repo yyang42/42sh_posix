@@ -30,7 +30,13 @@ static void			update_binary_db_on_path_change(t_shenv *env)
 
 static bool			is_absolute_or_relative_path(char *cmd)
 {
-	return (cmd && (cmd[0] == '/' || twl_strncmp(cmd, "./", 2) == 0));
+	if (!cmd)
+		return (false);
+	return (
+		   (cmd[0] == '/')
+		|| (twl_strncmp(cmd, "./", 2) == 0)
+		|| (twl_strncmp(cmd, "../", 3) == 0)
+	);
 }
 
 char				*shenv_find_binary_path(t_shenv *env, char *cmd)
