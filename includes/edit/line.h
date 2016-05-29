@@ -32,5 +32,7 @@ void					line_del(t_line *this);
 char					*line_get(t_line *this);
 
 void					line_realloc(t_line *this);
+void					line_realloc_force(t_line *this);
+void					line_realloc_from_size(t_line *this, size_t to_add);
 
 #endif

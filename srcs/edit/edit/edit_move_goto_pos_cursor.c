@@ -29,7 +29,7 @@ static void		rewind_fn(t_edit *this, size_t pos)
 	if (tmp_cursor < (int)pos)
 		tputs(tgoto(tgetstr("RI", NULL),
 					0, (int)pos - tmp_cursor), 1, this->putc);
-	else
+	else if ((tmp_cursor - (int)pos) != 0)
 		tputs(tgoto(tgetstr("LE", NULL),
 					0, tmp_cursor - (int)pos), 1, this->putc);
 	this->pos_cursor = pos;
@@ -52,7 +52,7 @@ static void		forward_fn(t_edit *this, size_t pos)
 	if (tmp_cursor < (int)pos)
 		tputs(tgoto(tgetstr("RI", NULL),
 					0, (int)pos - tmp_cursor), 1, this->putc);
-	else
+	else if ((tmp_cursor - (int)pos) != 0)
 		tputs(tgoto(tgetstr("LE", NULL),
 					0, tmp_cursor - (int)pos), 1, this->putc);
 	this->pos_cursor = pos;

@@ -11,40 +11,15 @@
 /* ************************************************************************** */
 
 #include "edit/edit.h"
-#include "twl_ctype.h"
 
-void				edit_match_escaped(t_edit *this, unsigned char buf)
+void			edit_clear_line(t_edit *this)
 {
-	size_t			index;
-	void			(*edit_fn)(t_edit *);
-
-	if (this->dumb)
-		return ;
-	index = 0;
-	while (this->buffer[index])
-		index += 1;
-	this->buffer[index] = buf;
-	if (!edit_utils_can_buffer_form_sequence(this))
-	{
-		twl_bzero(this->buffer, sizeof(this->buffer));
-		return ;
-	}
-	if ((edit_fn = edit_utils_buffer_match_sequence(this)))
-	{
-		edit_fn(this);
-		twl_bzero(this->buffer, sizeof(this->buffer));
-	}
-}
-
-void				edit_match_char(t_edit *this, unsigned char buf)
-{
-	LOG_DEBUG(twl_isprint(buf) ? "%hhx (%c)" : "%hhx", buf, buf);
-	void			(*edit_fn)(t_edit *);
-
-	if (this->buffer[0] || buf == '\033')
-		edit_match_escaped(this, buf);
-	else if (twl_isprint(buf))
-		edit_place_letter(this, buf);
-	else if ((edit_fn = edit_utils_buf_match_simple(this, buf)) && !this->dumb)
-		edit_fn(this);
+	edit_move_end(this);
+	line_del(this->last);
+	this->last = line_new();
+	this->current = this->last;
+	this->pos_cursor = 0;
+	tputs(tgoto(tgetstr("cr", NULL), 0, 0), 1, this->putc);
+	tputs(tgoto(tgetstr("do", NULL), 0, 0), 1, this->putc);
+	this->puts(PS1);
 }

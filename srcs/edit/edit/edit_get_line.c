@@ -40,6 +40,17 @@ static char			*end_exit_fn(t_edit *this)
 	return (twl_strdup("exit\n"));
 }
 
+static bool			is_ignoreeof_set(t_edit *this)
+{
+	if (!shenv_shflag_enabled(shenv_singleton(), "ignoreeof"))
+		return (false);
+	this->puts("Use \"exit\" to leave the shell.");
+	tputs(tgoto(tgetstr("cr", NULL), 0, 0), 1, this->putc);
+	tputs(tgoto(tgetstr("do", NULL), 0, 0), 1, this->putc);
+	this->puts(PS1);
+	return (true);
+}
+
 char				*edit_get_line(t_edit *this)
 {
 	unsigned char	buf;
@@ -53,13 +64,18 @@ char				*edit_get_line(t_edit *this)
 			twl_dprintf(2, "read: %s\n", strerror(errno));
 			exit(-1);
 		}
+		if (this->is_last_tab)
+			this->is_last_tab -= 1;
 		if (read_return == 0 && !*this->current->line)
 			return (end_exit_fn(this));
 		if (read_return == 0)
 			break ;
-		if (buf == '\n' && !*this->buffer)
+		if ((buf == '\x0d' || buf == '\n') && !*this->buffer)
+		{
+			edit_move_end(this);
 			break ;
-		if (buf == '\x04' && !*this->current->line)
+		}
+		if (buf == '\x04' && !*this->current->line && !is_ignoreeof_set(this))
 			return (end_exit_fn(this));
 		edit_match_char(this, buf);
 	}

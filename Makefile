@@ -83,7 +83,6 @@ check:
 	make check_ast
 	make check_exit_code
 	make check_use_case
-	make check_line_edition
 	make check_log_error
 
 check_libtowel:

@@ -10,41 +10,33 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "edit/edit.h"
-#include "twl_ctype.h"
+#include "edit/completion.h"
 
-void				edit_match_escaped(t_edit *this, unsigned char buf)
+void			completion_exec_from_root(t_completion *this)
 {
-	size_t			index;
-	void			(*edit_fn)(t_edit *);
+	t_completion_path	path;
+	char				*tmp;
+	LOG_DEBUG("From root");
 
-	if (this->dumb)
-		return ;
-	index = 0;
-	while (this->buffer[index])
-		index += 1;
-	this->buffer[index] = buf;
-	if (!edit_utils_can_buffer_form_sequence(this))
+	completion_path_init(&path, this);
+	completion_path_exec_readfile(this, &path);
+	if (!twl_lst_first(this->all))
+		;
+	else if (this->all_len == 1)
 	{
-		twl_bzero(this->buffer, sizeof(this->buffer));
-		return ;
+		edit_place_string(this->edit, twl_lst_first(this->all) + twl_strlen(path.end));
 	}
-	if ((edit_fn = edit_utils_buffer_match_sequence(this)))
+	else if ((tmp = completion_path_utils_get_begin_list(this, &path)))
 	{
-		edit_fn(this);
-		twl_bzero(this->buffer, sizeof(this->buffer));
+		edit_place_string(this->edit, tmp);
+		free(tmp);
 	}
-}
-
-void				edit_match_char(t_edit *this, unsigned char buf)
-{
-	LOG_DEBUG(twl_isprint(buf) ? "%hhx (%c)" : "%hhx", buf, buf);
-	void			(*edit_fn)(t_edit *);
-
-	if (this->buffer[0] || buf == '\033')
-		edit_match_escaped(this, buf);
-	else if (twl_isprint(buf))
-		edit_place_letter(this, buf);
-	else if ((edit_fn = edit_utils_buf_match_simple(this, buf)) && !this->dumb)
-		edit_fn(this);
+	else
+	{
+		if (this->edit->is_last_tab)
+			completion_utils_print_lst(this);
+		this->edit->is_last_tab = 2;
+	}
+	twl_lst_clear(this->all, free);
+	completion_path_clear(&path);
 }

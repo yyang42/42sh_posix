@@ -10,41 +10,37 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "edit/edit.h"
-#include "twl_ctype.h"
+#include "edit/completion.h"
+#include <dirent.h>
+#include <sys/stat.h>
 
-void				edit_match_escaped(t_edit *this, unsigned char buf)
+void				completion_path_dirs_readfile(t_completion *this,
+						t_completion_path *path)
 {
-	size_t			index;
-	void			(*edit_fn)(t_edit *);
+	DIR				*dir;
+	struct dirent	*dirfile;
+	char			*join_path;
+	struct stat		sb;
 
-	if (this->dumb)
+	if (!(dir = opendir(path->begin)))
 		return ;
-	index = 0;
-	while (this->buffer[index])
-		index += 1;
-	this->buffer[index] = buf;
-	if (!edit_utils_can_buffer_form_sequence(this))
+	while ((dirfile = readdir(dir)))
 	{
-		twl_bzero(this->buffer, sizeof(this->buffer));
-		return ;
+		if (!*path->end && completion_path_utils_is_begin_dot(dirfile->d_name))
+			continue ;
+		if (!completion_utils_start_with(dirfile->d_name, path->end))
+			continue ;
+		join_path = completion_path_utils_join_path(path->begin, dirfile->d_name);
+		if (lstat(join_path, &sb))
+		{
+			free(join_path);
+			continue ;
+		}
+		if (S_ISDIR(sb.st_mode))
+			twl_lst_push_front(this->all, twl_strjoin(dirfile->d_name, "/"));
+		else
+			twl_lst_push_front(this->all, twl_strjoin(dirfile->d_name, " "));
+		this->all_len += 1;
+		free(join_path);
 	}
-	if ((edit_fn = edit_utils_buffer_match_sequence(this)))
-	{
-		edit_fn(this);
-		twl_bzero(this->buffer, sizeof(this->buffer));
-	}
-}
-
-void				edit_match_char(t_edit *this, unsigned char buf)
-{
-	LOG_DEBUG(twl_isprint(buf) ? "%hhx (%c)" : "%hhx", buf, buf);
-	void			(*edit_fn)(t_edit *);
-
-	if (this->buffer[0] || buf == '\033')
-		edit_match_escaped(this, buf);
-	else if (twl_isprint(buf))
-		edit_place_letter(this, buf);
-	else if ((edit_fn = edit_utils_buf_match_simple(this, buf)) && !this->dumb)
-		edit_fn(this);
 }

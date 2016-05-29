@@ -10,41 +10,34 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "edit/edit.h"
-#include "twl_ctype.h"
+#include "edit/completion.h"
 
-void				edit_match_escaped(t_edit *this, unsigned char buf)
+static void		iter_fn(void *data, void *ctx)
 {
-	size_t			index;
-	void			(*edit_fn)(t_edit *);
-
-	if (this->dumb)
+	if (!*(char *)ctx)
 		return ;
-	index = 0;
-	while (this->buffer[index])
-		index += 1;
-	this->buffer[index] = buf;
-	if (!edit_utils_can_buffer_form_sequence(this))
+	while (*(char *)ctx && *(char *)data == *(char *)ctx)
 	{
-		twl_bzero(this->buffer, sizeof(this->buffer));
-		return ;
+		data += 1;
+		ctx += 1;
 	}
-	if ((edit_fn = edit_utils_buffer_match_sequence(this)))
-	{
-		edit_fn(this);
-		twl_bzero(this->buffer, sizeof(this->buffer));
-	}
+	*(char *)ctx = 0;
 }
 
-void				edit_match_char(t_edit *this, unsigned char buf)
+char			*completion_path_utils_get_begin_list(t_completion *this,
+						t_completion_path *path)
 {
-	LOG_DEBUG(twl_isprint(buf) ? "%hhx (%c)" : "%hhx", buf, buf);
-	void			(*edit_fn)(t_edit *);
+	char		*first;
+	char		*ret;
 
-	if (this->buffer[0] || buf == '\033')
-		edit_match_escaped(this, buf);
-	else if (twl_isprint(buf))
-		edit_place_letter(this, buf);
-	else if ((edit_fn = edit_utils_buf_match_simple(this, buf)) && !this->dumb)
-		edit_fn(this);
+	first = twl_strdup(twl_lst_first(this->all));
+	twl_lst_iter(this->all, iter_fn, first);
+	if (!*first || twl_strlen(path->end) == twl_strlen(first))
+	{
+		free(first);
+		return (NULL);
+	}
+	ret = twl_strdup(first + twl_strlen(path->end));
+	free(first);
+	return (ret);
 }

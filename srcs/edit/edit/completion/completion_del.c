@@ -10,41 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "edit/edit.h"
-#include "twl_ctype.h"
+#include "edit/completion.h"
 
-void				edit_match_escaped(t_edit *this, unsigned char buf)
+void			completion_del(t_completion *this)
 {
-	size_t			index;
-	void			(*edit_fn)(t_edit *);
-
-	if (this->dumb)
+	if (!this)
 		return ;
-	index = 0;
-	while (this->buffer[index])
-		index += 1;
-	this->buffer[index] = buf;
-	if (!edit_utils_can_buffer_form_sequence(this))
-	{
-		twl_bzero(this->buffer, sizeof(this->buffer));
-		return ;
-	}
-	if ((edit_fn = edit_utils_buffer_match_sequence(this)))
-	{
-		edit_fn(this);
-		twl_bzero(this->buffer, sizeof(this->buffer));
-	}
-}
-
-void				edit_match_char(t_edit *this, unsigned char buf)
-{
-	LOG_DEBUG(twl_isprint(buf) ? "%hhx (%c)" : "%hhx", buf, buf);
-	void			(*edit_fn)(t_edit *);
-
-	if (this->buffer[0] || buf == '\033')
-		edit_match_escaped(this, buf);
-	else if (twl_isprint(buf))
-		edit_place_letter(this, buf);
-	else if ((edit_fn = edit_utils_buf_match_simple(this, buf)) && !this->dumb)
-		edit_fn(this);
+	if (this->current_word)
+		free(this->current_word);
+	if (this->all)
+		twl_lst_del(this->all, NULL);
+	free(this);
 }

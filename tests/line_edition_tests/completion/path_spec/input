@@ -1,0 +1,10 @@
+mkdir /tmp/tmp_binary_path
+PATH=/tmp/tmp_binary_path
+echo 'echo aa bb cc' > $PATH/ls
+echo 'echo dd ee ff' > $PATH/mkdir
+echo 'echo gg hh ii' > $PATH/jambon
+
+j\t
+l\t
+m\t
+\004

@@ -11,40 +11,31 @@
 /* ************************************************************************** */
 
 #include "edit/edit.h"
-#include "twl_ctype.h"
 
-void				edit_match_escaped(t_edit *this, unsigned char buf)
+void			edit_del_all_right(t_edit *this)
 {
-	size_t			index;
-	void			(*edit_fn)(t_edit *);
+	int			pos_save;
 
-	if (this->dumb)
+	if (this->pos_cursor == this->current->size)
 		return ;
-	index = 0;
-	while (this->buffer[index])
-		index += 1;
-	this->buffer[index] = buf;
-	if (!edit_utils_can_buffer_form_sequence(this))
+	if (this->copy_buffer)
+		twl_strdel(&this->copy_buffer);
+	this->copy_buffer = twl_strdup(this->current->line + this->pos_cursor);
+	twl_memset(this->current->line + this->pos_cursor, ' ',
+			this->current->size - this->pos_cursor);
+	this->puts(this->current->line + this->pos_cursor);
+	pos_save = this->pos_cursor;
+	if ((this->current->size + this->base_x) % this->winsize_x == 0)
 	{
-		twl_bzero(this->buffer, sizeof(this->buffer));
-		return ;
+		this->puts(" ");
+		this->pos_cursor = this->current->size + 1;
 	}
-	if ((edit_fn = edit_utils_buffer_match_sequence(this)))
+	else
 	{
-		edit_fn(this);
-		twl_bzero(this->buffer, sizeof(this->buffer));
+		this->pos_cursor = this->current->size;
 	}
-}
-
-void				edit_match_char(t_edit *this, unsigned char buf)
-{
-	LOG_DEBUG(twl_isprint(buf) ? "%hhx (%c)" : "%hhx", buf, buf);
-	void			(*edit_fn)(t_edit *);
-
-	if (this->buffer[0] || buf == '\033')
-		edit_match_escaped(this, buf);
-	else if (twl_isprint(buf))
-		edit_place_letter(this, buf);
-	else if ((edit_fn = edit_utils_buf_match_simple(this, buf)) && !this->dumb)
-		edit_fn(this);
+	edit_move_goto_pos_cursor(this, pos_save);
+	twl_bzero(this->current->line + this->pos_cursor,
+			this->current->size - this->pos_cursor);
+	this->current->size = this->pos_cursor;
 }

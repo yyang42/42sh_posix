@@ -45,7 +45,7 @@ static void			signint_handler(int sig)
 	}
 	if (sig == SIGINT)
 	{
-		twl_putstr(PS1);
+		edit_clear_line(edit_singleton());
 	}
 	else if (sig == SIGWINCH)
 	{

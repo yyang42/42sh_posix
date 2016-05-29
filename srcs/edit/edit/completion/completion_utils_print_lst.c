@@ -10,41 +10,31 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "edit/edit.h"
-#include "twl_ctype.h"
+#include "edit/completion.h"
 
-void				edit_match_escaped(t_edit *this, unsigned char buf)
+static void		iter_fn(void *data, void *ctx)
 {
-	size_t			index;
-	void			(*edit_fn)(t_edit *);
-
-	if (this->dumb)
-		return ;
-	index = 0;
-	while (this->buffer[index])
-		index += 1;
-	this->buffer[index] = buf;
-	if (!edit_utils_can_buffer_form_sequence(this))
-	{
-		twl_bzero(this->buffer, sizeof(this->buffer));
-		return ;
-	}
-	if ((edit_fn = edit_utils_buffer_match_sequence(this)))
-	{
-		edit_fn(this);
-		twl_bzero(this->buffer, sizeof(this->buffer));
-	}
+	((t_edit *)ctx)->puts(data);
+	((t_edit *)ctx)->puts("\n");
 }
 
-void				edit_match_char(t_edit *this, unsigned char buf)
+static bool		sort_fn(void *ctx1, void *ctx2)
 {
-	LOG_DEBUG(twl_isprint(buf) ? "%hhx (%c)" : "%hhx", buf, buf);
-	void			(*edit_fn)(t_edit *);
+	return (twl_strcmp(ctx1, ctx2) < 0);
+}
 
-	if (this->buffer[0] || buf == '\033')
-		edit_match_escaped(this, buf);
-	else if (twl_isprint(buf))
-		edit_place_letter(this, buf);
-	else if ((edit_fn = edit_utils_buf_match_simple(this, buf)) && !this->dumb)
-		edit_fn(this);
+void			completion_utils_print_lst(t_completion *this)
+{
+	size_t		last_pos;
+
+	last_pos = this->edit->pos_cursor;
+	edit_move_end(this->edit);
+	twl_lst_qsort(this->all, sort_fn);
+	edit_terminal_disable(this->edit);
+	this->edit->putc('\n');
+	twl_lst_iter(this->all, iter_fn, this->edit);
+	this->edit->puts(PS1);
+	this->edit->puts(this->edit->current->line);
+	edit_terminal_enable(this->edit);
+	edit_move_goto_pos_cursor(this->edit, last_pos);
 }
