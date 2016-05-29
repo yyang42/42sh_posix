@@ -17,6 +17,6 @@ void				ast_compound_list_del(
 {
 	if (!ast_compound_list)
 		return ;
-	twl_lst_del(ast_compound_list->ast_list_items, ast_list_item_del);
+	twl_lst_del(ast_compound_list->ast_list_items, ast_list_item_del_void);
 	free(ast_compound_list);
 }

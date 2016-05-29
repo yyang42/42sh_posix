@@ -14,5 +14,6 @@
 
 void				trap_del(t_trap *trap)
 {
+	free(trap->trap_action);
 	free(trap);
 }

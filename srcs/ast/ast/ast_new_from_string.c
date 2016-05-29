@@ -35,8 +35,6 @@ t_ast				*ast_new_from_string(char *input, int ast_flags, int line)
 	tokenizer = tokenizer_new(input);
 	tokenizer->cur_line = line;
 	tokens = tokenizer_tokenize(tokenizer);
-	// token_mgr_print(tokens);
-	// twl_printf("tokenizer->tok_open_stack: %s\n", twl_lst_strjoin(tokenizer->tok_open_stack, "_"));
 	ast = ast_new(tokens, ast_flags);
 	twl_lst_iter(tokenizer->tok_open_stack,
 		push_to_ast_open_stack, ast->ast_open_stack);

@@ -14,13 +14,9 @@
 
 void				ast_del(t_ast *this)
 {
-	/* Del tokens, but keep for functions */
-	if (this->tokens_ref_tracker)
-		token_mgr_del(this->tokens_ref_tracker); // LEAKS
-	if (this->compound_list)
-		ast_compound_list_del(this->compound_list);
-	if (this->error_msg)
-		free(this->error_msg);
+	token_mgr_del(this->tokens_ref_tracker);
+	ast_compound_list_del(this->compound_list);
+	free(this->error_msg);
 	twl_lst_del(this->ast_open_stack, free);
 	free(this);
 }
