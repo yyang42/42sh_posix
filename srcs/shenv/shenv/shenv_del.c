@@ -42,6 +42,7 @@ void				shenv_del(t_shenv *this)
 	free(this->info.name);
 	free(this->shenv_name);
 	free(this->shenv_cur_cmd);
+	free(this->shenv_home_pw_dir);
 	del_shenv_read_buffer_db(this->shenv_read_buffer_db);
 	free(this->shenv_binary_saved_path);
 	job_mgr_del(this->jobs);
