@@ -48,6 +48,11 @@ static void			expan_arexp_exec(t_expansion *this, char *arexp)
 	arexp_del(ar);
 }
 
+static void			iter_del_fn(void *data)
+{
+	twl_lst_del(data, expan_before_split_del);
+}
+
 void				expansion_arithmetic(t_expansion *this, t_expan_token *token)
 {
 	char			*arexp_bef_expan;
@@ -62,4 +67,8 @@ void				expansion_arithmetic(t_expansion *this, t_expan_token *token)
 	arexp = twl_strnew(0);
 	twl_lst_itern(lst, iter_fn, &arexp);
 	expan_arexp_exec(this, arexp);
+	free(arexp_bef_expan);
+	free(arexp);
+	expansion_del(inner);
+	twl_lst_del(lst, iter_del_fn);
 }
