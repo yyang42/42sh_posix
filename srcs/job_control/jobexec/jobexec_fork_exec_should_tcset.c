@@ -15,6 +15,6 @@
 bool				jobexec_fork_exec_should_tcset(t_jobexec *je)
 {
 	return ((shenv_singleton()->shenv_fork_level == 0)
-		&& isatty(0)
+		&& (isatty(0) || isatty(1) || isatty(2))
 		&& !je->is_bg_job);
 }

@@ -21,10 +21,7 @@ static void sig_received(void)
 	{
 		twl_printf("\n");
 	}
-	else if (shenv_shflag_enabled(shenv_singleton(), "i"))
-	{
-		exit(130);
-	}
+	exit(130);
 }
 
 void				job_utils_waitpid(pid_t pid, int *res_ptr)

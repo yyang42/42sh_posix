@@ -24,16 +24,14 @@ static void			set_interactive_state(void)
 	}
 }
 
+
+
 int					prog_run(t_prog *prog)
 {
 	t_shenv			*env;
 
-	// if (shenv_shflag_enabled(shenv_singleton(), "i"))
-	// {
-	// 	twl_dprintf(2, "%s: no job control in this shell\n", SHENV_DEFAULT_NAME);
-	// }
-	// prog_utils_run_input(input, line);
 	env = shenv_singleton();
+	LOG_INFO("isatty(0): %d", isatty(0));
 	if (prog->prog_command_arg)
 	{
 		LOG_INFO("exec opt -c: %s", prog->prog_command_arg);
@@ -53,9 +51,15 @@ int					prog_run(t_prog *prog)
 	{
 		set_interactive_state();
 		if (shenv_shflag_enabled(shenv_singleton(), "i"))
+		{
+			LOG_INFO("run interactive");
 			prog_run_interactive(prog);
+		}
 		else
+		{
+			LOG_INFO("run stdin");
 			prog_utils_run_fd(STDIN_FILENO);
+		}
 	}
 	return (env->last_exit_code);
 }
