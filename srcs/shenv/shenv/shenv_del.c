@@ -50,5 +50,6 @@ void				shenv_del(t_shenv *this)
 	free(this->shenv_current_directory);
 	twl_lst_del(this->shenv_argv_remainder, NULL);
 	shflag_mgr_del(this->shenv_shflags);
+	free(this->shenv_home_pw_dir);
 	free(this);
 }
