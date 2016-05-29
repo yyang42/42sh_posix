@@ -58,5 +58,4 @@ void			expansion_dquote_wrap(t_expansion *this, t_expan_token *token)
 		push_quote(lst_inner);
 	this->is_at_present = false;
 	expansion_push_lst_before_split(this, lst_inner);
-	twl_lst_del(lst_inner, NULL);
 }
