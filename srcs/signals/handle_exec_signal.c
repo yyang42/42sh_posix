@@ -10,24 +10,49 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "job_control/jobexec.h"
+#include "shsignal/shsignal.h"
+#include "shenv/shenv.h"
+#include "utils.h"
+#include <sys/wait.h>
+#include <sys/types.h>
+#include <signal.h>
 
-void				jobexec_fork_exec(t_jobexec *je)
+char * strsignal(int sig);
+
+#define SIG_EXIT_CODE_MIN 128
+
+static int			get_exit_code(int sig)
 {
-	signal(SIGTTIN, SIG_IGN);
-	signal(SIGTTOU, SIG_IGN);
-	LOG_INFO("jobexec_fork_exec: fork level: %d", shenv_singleton()->shenv_fork_level);
-	if (shenv_singleton()->shenv_fork_level == 0)
+	return (SIG_EXIT_CODE_MIN + sig);
+}
+
+static void			print_error_msg(int sig)
+{
+	char		*msg;
+
+	msg = strsignal(sig);
+	if (!msg)
 	{
-		if (setpgid(0, 0) < 0)
-			LOG_ERROR("setpgid: %s", strerror(errno));
-	}
-	if (shenv_shflag_enabled(shenv_singleton(), "i") && (shenv_singleton()->shenv_fork_level == 0))
-	{
-		jobexec_fork_exec_interactive_job(je);
+		LOG_ERROR("strsignal: %s", strerror(errno));
 	}
 	else
 	{
-		jobexec_fork_exec_non_interactive(je);
+		if (shenv_shflag_enabled(shenv_singleton(), "i"))
+			twl_dprintf(2, "%s\n", msg);
+		else
+			shenv_singl_error(get_exit_code(sig), "%s", msg);
+	}
+}
+
+void				handle_exec_signal(int sig)
+{
+	shenv_singleton()->last_exit_code = get_exit_code(sig);
+	if (sig == SIGINT)
+	{
+		exit(get_exit_code(sig));
+	}
+	else
+	{
+		print_error_msg(sig);
 	}
 }

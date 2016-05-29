@@ -23,6 +23,7 @@ char				*shenv_get_home(t_shenv *this)
 	if (!home)
 	{
 		free(this->shenv_home_pw_dir);
+		this->shenv_home_pw_dir = NULL;
 		if ((pw = getpwuid(geteuid())))
 		{
 			this->shenv_home_pw_dir = twl_strdup(pw->pw_dir);

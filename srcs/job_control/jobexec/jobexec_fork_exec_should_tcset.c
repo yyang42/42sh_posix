@@ -11,10 +11,11 @@
 /* ************************************************************************** */
 
 #include "job_control/jobexec.h"
+#include "utils.h"
 
 bool				jobexec_fork_exec_should_tcset(t_jobexec *je)
 {
 	return ((shenv_singleton()->shenv_fork_level == 0)
-		&& isatty(0)
+		&& (utils_get_current_tty() > -1)
 		&& !je->is_bg_job);
 }

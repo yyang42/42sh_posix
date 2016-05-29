@@ -36,5 +36,6 @@ bool				utils_str_has_line_continuation(char *str);
 char				*utils_strchr_multi_skip_escaped(char *str, char *needles);
 void				utils_log_signal(int signum);
 void				utils_log_errno(char *name, int error_code);
+int					utils_get_current_tty(void);
 
 #endif

@@ -10,43 +10,26 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shsignal/shsignal.h"
-#include "shenv/shenv.h"
-#include <sys/wait.h>
-#include <sys/types.h>
-#include <signal.h>
+#include "job_control/jobexec.h"
 
-char * strsignal(int sig);
-
-#define SIG_EXIT_CODE_MIN 128
-
-static int			get_exit_code(int sig)
+void				jobexec_tcsetpgrp_tty(t_jobexec *je)
 {
-	return (SIG_EXIT_CODE_MIN + sig);
-}
-
-static void			print_error_msg(int sig)
-{
-	char		*msg;
-
-	msg = strsignal(sig);
-	if (!msg)
+	if (!jobexec_fork_exec_should_tcset(je))
+		return ;
+	if (tcsetpgrp(0, getpid()) >= 0)
 	{
-		LOG_ERROR("strsignal: %s", strerror(errno));
+		LOG_INFO("tcsetpgrp fileno: 0");
+	}
+	else if (tcsetpgrp(1, getpid()) >= 0)
+	{
+		LOG_INFO("tcsetpgrp fileno: 1");
+	}
+	else if (tcsetpgrp(2, getpid())  >= 0)
+	{
+		LOG_INFO("tcsetpgrp fileno: 2");
 	}
 	else
 	{
-		if (shenv_shflag_enabled(shenv_singleton(), "i"))
-			twl_dprintf(2, "%s\n", msg);
-		else
-			shenv_singl_error(get_exit_code(sig), "%s", msg);
+		LOG_ERROR("tcsetpgrp: %s", strerror(errno));
 	}
-}
-
-void				handle_signal(int sig)
-{
-	shenv_singleton()->last_exit_code = get_exit_code(sig);
-	if (sig == SIGINT)
-		return ;
-	print_error_msg(sig);
 }
