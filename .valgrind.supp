@@ -1134,3 +1134,69 @@
    fun:ast_new_from_string
    fun:ast_utils_exec_string
 }
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: indirect
+   fun:malloc
+   fun:_nc_table_insert_type
+   fun:name_node_for_name
+   fun:client_registration_create
+   fun:notify_register_check
+   fun:notify_register_tz
+   fun:tzsetwall_basic
+   fun:localtime
+   fun:twl_logger_printf
+   fun:shenv_singleton_setter
+   fun:shenv_singleton
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: indirect
+   fun:malloc
+   fun:_nc_table_insert_64
+   fun:client_registration_create
+   fun:notify_register_check
+   fun:notify_register_tz
+   fun:tzsetwall_basic
+   fun:localtime
+   fun:twl_logger_printf
+   fun:shenv_singleton_setter
+   fun:shenv_singleton
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: indirect
+   fun:malloc
+   fun:strdup
+   fun:name_node_for_name
+   fun:client_registration_create
+   fun:notify_register_check
+   fun:notify_register_tz
+   fun:tzsetwall_basic
+   fun:localtime
+   fun:twl_logger_printf
+   fun:shenv_singleton_setter
+   fun:shenv_singleton
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: indirect
+   fun:calloc
+   fun:name_node_for_name
+   fun:client_registration_create
+   fun:notify_register_check
+   fun:notify_register_tz
+   fun:tzsetwall_basic
+   fun:localtime
+   fun:twl_logger_printf
+   fun:shenv_singleton_setter
+   fun:shenv_singleton
+   fun:main
+}
