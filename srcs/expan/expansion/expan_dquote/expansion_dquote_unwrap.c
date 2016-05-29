@@ -12,11 +12,6 @@
 
 #include "expan/expansion.h"
 
-/*
-** TODO: cf TODO expansion_get_fields_dquote.c
-** TODO: Rafistolage vraiment crade, à modifier
-*/
-
 static void		push_quote(t_lst *lst_inner)
 {
 	t_lst					*quote;
@@ -28,6 +23,11 @@ static void		push_quote(t_lst *lst_inner)
 	ebs = expan_before_split_new("\"", false);
 	twl_lst_push_front(quote, ebs);
 	twl_lst_push_back(lst_inner, quote);
+}
+
+static void		iter_del_fn(void *data)
+{
+	twl_lst_del(data, NULL);
 }
 
 void			expansion_dquote_unwrap(t_expansion *this, t_expan_token *token)
@@ -50,4 +50,5 @@ void			expansion_dquote_unwrap(t_expansion *this, t_expan_token *token)
 	if (twl_lst_len(lst_inner) == 0)
 		push_quote(lst_inner);
 	expansion_push_lst_before_split(this, lst_inner);
+	twl_lst_del(lst_inner, iter_del_fn);
 }
