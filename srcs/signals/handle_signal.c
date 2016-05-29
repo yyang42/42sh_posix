@@ -49,6 +49,7 @@ void				handle_signal(int sig)
 	if (sig == SIGINT)
 	{
 		twl_putchar('\n');
+		exit(get_exit_code(sig));
 	}
 	else
 	{
