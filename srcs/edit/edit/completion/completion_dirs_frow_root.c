@@ -22,7 +22,7 @@ void			completion_dirs_from_root(t_completion *this)
 	completion_path_dirs_readfile(this, &path);
 	if (!twl_lst_first(this->all))
 		;
-	else if (twl_lst_len(this->all) == 1)
+	else if (this->all_len == 1)
 	{
 		edit_place_string(this->edit, twl_lst_first(this->all) + twl_strlen(path.end));
 	}

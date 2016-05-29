@@ -20,6 +20,7 @@ static void		iter_fn(void *data, void *ctx)
 	{
 		twl_lst_push_front(((t_completion *)ctx)->all,
 				((t_shvar *)data)->shvar_key);
+		((t_completion *)ctx)->all_len += 1;
 	}
 }
 
@@ -30,7 +31,7 @@ void			completion_variable(t_completion *this)
 	twl_lst_iter(shenv_singleton()->shenv_shvars, iter_fn, this);
 	if (!twl_lst_first(this->all))
 		;
-	else if (twl_lst_len(this->all) == 1)
+	else if (this->all_len == 1)
 	{
 		tmp = twl_strjoin(twl_lst_first(this->all) + twl_strlen(this->current_word), " ");
 		edit_place_string(this->edit, tmp);

@@ -40,6 +40,7 @@ void				completion_path_dirs_readfile(t_completion *this,
 			twl_lst_push_front(this->all, twl_strjoin(dirfile->d_name, "/"));
 		else
 			twl_lst_push_front(this->all, twl_strjoin(dirfile->d_name, " "));
+		this->all_len += 1;
 		free(join_path);
 	}
 }

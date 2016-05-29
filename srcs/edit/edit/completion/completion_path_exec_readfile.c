@@ -37,9 +37,15 @@ void				completion_path_exec_readfile(t_completion *this,
 			continue ;
 		}
 		if (S_ISDIR(sb.st_mode))
+		{
 			twl_lst_push_front(this->all, twl_strjoin(dirfile->d_name, "/"));
+			this->all_len += 1;
+		}
 		else if (S_ISLNK(sb.st_mode) || sb.st_mode & S_IXUSR)
+		{
 			twl_lst_push_front(this->all, twl_strjoin(dirfile->d_name, " "));
+			this->all_len += 1;
+		}
 		free(join_path);
 	}
 }

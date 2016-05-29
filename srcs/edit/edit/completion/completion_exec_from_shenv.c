@@ -19,6 +19,7 @@ static void		htab_iter_fn(void *key, void *value, void *ctx)
 	if (completion_utils_start_with(key, ((t_completion *)ctx)->current_word))
 	{
 		twl_lst_push_front(((t_completion *)ctx)->all, key);
+		((t_completion *)ctx)->all_len += 1;
 	}
 	(void)value;
 }
@@ -28,6 +29,7 @@ static void		funcs_iter_fn(char *key, void *data, void *ctx)
 	if (completion_utils_start_with(key, ((t_completion *)ctx)->current_word))
 	{
 		twl_lst_push_front(((t_completion *)ctx)->all, key);
+		((t_completion *)ctx)->all_len += 1;
 	}
 	(void)data;
 }
@@ -39,6 +41,7 @@ static void		builtin_iter_fn(void *data, void *ctx)
 	{
 		twl_lst_push_front(((t_completion *)ctx)->all,
 				((t_builtin *)data)->builtin_name);
+		((t_completion *)ctx)->all_len += 1;
 	}
 }
 
@@ -53,7 +56,7 @@ void			completion_exec_from_shenv(t_completion *this)
 	completion_utils_lst_uniq(this);
 	if (!twl_lst_first(this->all))
 		;
-	else if (twl_lst_len(this->all) == 1)
+	else if (this->all_len == 1)
 	{
 		tmp = twl_strjoin(twl_lst_first(this->all) + twl_strlen(this->current_word), " ");
 		edit_place_string(this->edit, tmp);

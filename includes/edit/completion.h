@@ -31,6 +31,7 @@ typedef struct			s_completion
 	size_t				current_len;
 	t_edit				*edit;
 	t_lst				*all;
+	size_t				all_len;
 }						t_completion;
 
 typedef struct			s_completion_path

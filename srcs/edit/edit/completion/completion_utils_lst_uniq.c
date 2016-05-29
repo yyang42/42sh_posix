@@ -26,10 +26,14 @@ void			completion_utils_lst_uniq(t_completion *this)
 	twl_lst_qsort(this->all, cmp_fn);
 	cpy = twl_lst_new();
 	last = NULL;
+	this->all_len = 0;
 	while ((current = twl_lst_pop_front(this->all)))
 	{
 		if (!last || twl_strcmp(last, current))
+		{
 			twl_lst_push_front(cpy, current);
+			this->all_len += 1;
+		}
 		last = current;
 	}
 	twl_lst_del(this->all, NULL);
