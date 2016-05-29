@@ -34,6 +34,11 @@ static void		qmark_error(t_expansion *this, char *param, char *msg)
 												param, msg);
 }
 
+static void		iter_del_fn(void *data)
+{
+	twl_lst_del(data, expan_before_split_del);
+}
+
 void			expansion_brace_qmark_solve(t_expansion *this,
 											t_expansion_brace *eb)
 {
@@ -53,10 +58,15 @@ void			expansion_brace_qmark_solve(t_expansion *this,
 	inner->error = NULL;
 	expansion_del(inner);
 	if (this->error)
+	{
+		if (lst_inner)
+			twl_lst_del(lst_inner, iter_del_fn);
 		return ;
+	}
 	implode = twl_strnew(0);
 	g_before_split_dquoted = false;
 	twl_lst_itern(lst_inner, iter_fn, &implode);
 	qmark_error(this, eb->param, implode);
+	twl_lst_del(lst_inner, iter_del_fn);
 	free(implode);
 }
