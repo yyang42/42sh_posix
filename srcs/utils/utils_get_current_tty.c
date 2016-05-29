@@ -10,49 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shsignal/shsignal.h"
-#include "shenv/shenv.h"
 #include "utils.h"
-#include <sys/wait.h>
-#include <sys/types.h>
-#include <signal.h>
 
-char * strsignal(int sig);
-
-#define SIG_EXIT_CODE_MIN 128
-
-static int			get_exit_code(int sig)
+int					utils_get_current_tty(void)
 {
-	return (SIG_EXIT_CODE_MIN + sig);
-}
-
-static void			print_error_msg(int sig)
-{
-	char		*msg;
-
-	msg = strsignal(sig);
-	if (!msg)
-	{
-		LOG_ERROR("strsignal: %s", strerror(errno));
-	}
-	else
-	{
-		if (shenv_shflag_enabled(shenv_singleton(), "i"))
-			twl_dprintf(2, "%s\n", msg);
-		else
-			shenv_singl_error(get_exit_code(sig), "%s", msg);
-	}
-}
-
-void				handle_signal(int sig)
-{
-	shenv_singleton()->last_exit_code = get_exit_code(sig);
-	if (sig == SIGINT)
-	{
-		exit(get_exit_code(sig));
-	}
-	else
-	{
-		print_error_msg(sig);
-	}
+	if (isatty(0))
+		return (0);
+	else if (isatty(1))
+		return (1);
+	else if (isatty(2))
+		return (2);
+	return (-1);
 }
