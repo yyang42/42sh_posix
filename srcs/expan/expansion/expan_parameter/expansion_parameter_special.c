@@ -20,7 +20,11 @@ static void	expan_param_asterisk(t_expansion *this)
 
 	lsast = expan_get_param_spec('*');
 	if (!lsast || twl_lst_len(lsast) == 0)
+	{
+		if (lsast)
+			twl_lst_del(lsast, NULL);
 		return ;
+	}
 	if (this->quoted)
 	{
 		join = expan_get_asterisk_quoted(lsast);
