@@ -82,6 +82,7 @@ void					edit_del_right(t_edit *this);
 
 void					edit_del_all_left(t_edit *this);
 void					edit_del_all_right(t_edit *this);
+void					edit_del_previous_word(t_edit *this);
 void					edit_paste(t_edit *this);
 
 bool					edit_utils_can_buffer_form_sequence(t_edit *this);
