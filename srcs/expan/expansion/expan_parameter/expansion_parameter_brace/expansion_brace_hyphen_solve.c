@@ -12,6 +12,16 @@
 
 #include "expan/expansion_parameter_brace.h"
 
+static void		error_del_fn(void *data)
+{
+	twl_lst_del(data, expan_before_split_del);
+}
+
+static void		iter_del_fn(void *data)
+{
+	twl_lst_del(data, NULL);
+}
+
 void			expansion_brace_hyphen_solve(t_expansion *this, char *word)
 {
 	t_expansion	*inner;
@@ -24,6 +34,11 @@ void			expansion_brace_hyphen_solve(t_expansion *this, char *word)
 	inner->error = NULL;
 	expansion_del(inner);
 	if (this->error)
+	{
+		if (lst_inner)
+			twl_lst_del(lst_inner, error_del_fn);
 		return ;
+	}
 	expansion_push_lst_before_split(this, lst_inner);
+	twl_lst_del(lst_inner, iter_del_fn);
 }
