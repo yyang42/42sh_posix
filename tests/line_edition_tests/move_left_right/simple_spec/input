@@ -1,2 +1,2 @@
-echo aaa\033[D\033[D\033[DAAA\n
+echo aaa\033[D\033[D\033[DAAA
 \004
