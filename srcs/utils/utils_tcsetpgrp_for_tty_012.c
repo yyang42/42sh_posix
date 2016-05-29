@@ -10,12 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "job_control/jobexec.h"
+#include "utils.h"
+#include <errno.h>
 
-void				jobexec_tcsetpgrp_tty(t_jobexec *je)
+void				utils_tcsetpgrp_for_tty_012()
 {
-	if (!jobexec_fork_exec_should_tcset(je))
-		return ;
 	if (tcsetpgrp(0, getpid()) >= 0)
 	{
 		LOG_INFO("tcsetpgrp fileno: 0");

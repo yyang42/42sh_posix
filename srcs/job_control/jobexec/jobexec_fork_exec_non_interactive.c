@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "job_control/jobexec.h"
+#include "utils.h"
 
 static void			jobexec_fork_exec_non_interactive_do(t_jobexec *je)
 {
@@ -27,14 +28,14 @@ static void			jobexec_fork_exec_non_interactive_do(t_jobexec *je)
 			if (setpgid(0, 0) < 0)
 				LOG_ERROR("setpgid: %s", strerror(errno));
 		}
-		jobexec_tcsetpgrp_tty(je);
+		utils_tcsetpgrp_for_tty_012();
 		shenv_singleton()->shenv_fork_level++;
 		jobexec_fork_exec_execve_fn(je);
 		exit(shenv_singleton()->last_exit_code);
 	}
 	else
 	{
-		jobexec_tcsetpgrp_tty(je);
+		utils_tcsetpgrp_for_tty_012();
 		jobexec_fork_exec_wait_fn(je, pid, NULL);
 	}
 }
