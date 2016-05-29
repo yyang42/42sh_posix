@@ -70,7 +70,7 @@ char				*edit_get_line(t_edit *this)
 			return (end_exit_fn(this));
 		if (read_return == 0)
 			break ;
-		if (buf == '\n' && !*this->buffer)
+		if (buf == '\x0d' && !*this->buffer)
 		{
 			edit_move_end(this);
 			break ;

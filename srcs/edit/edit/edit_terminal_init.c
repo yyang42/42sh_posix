@@ -39,7 +39,7 @@ void			edit_terminal_init(t_edit *this)
 	char		*term;
 
 	term = shenv_shvars_get_value(shenv_singleton(), "TERM");
-	this->dumb = false;
+	this->dumb = term == NULL ? true : false;
 	if (tgetent(NULL, term) == -1)
 	{
 		if (tgetent(NULL, "dumb") == -1)
@@ -53,7 +53,8 @@ void			edit_terminal_init(t_edit *this)
 	if (this->echoing)
 		return ;
 	this->term.c_lflag &= ~(ICANON | ECHO | IEXTEN);
-	this->term.c_oflag &= ~(ONLCR | OPOST);
+	this->term.c_oflag |= ONLCR | OPOST;
+	this->term.c_iflag &= ~(ICRNL | INLCR);
 	this->term.c_cc[VMIN] = 1;
 	this->term.c_cc[VTIME] = 0;
 }
