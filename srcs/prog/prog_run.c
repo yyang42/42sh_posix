@@ -50,7 +50,7 @@ int					prog_run(t_prog *prog)
 	else
 	{
 		set_interactive_state();
-		if (shenv_shflag_enabled(shenv_singleton(), "i"))
+		if (shenv_is_interactive(shenv_singleton()))
 		{
 			LOG_INFO("run interactive");
 			prog_run_interactive(prog);

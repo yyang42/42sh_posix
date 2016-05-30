@@ -39,7 +39,7 @@ static void			wait_fn(int pid, int *res, void *this_)
 	}
 	shenv_singleton()->info.most_recent_background_command_pid = pid;
 	twl_lst_del(str_tokens, NULL);
-	if (shenv_shflag_enabled(shenv_singleton(), "i"))
+	if (shenv_is_interactive(shenv_singleton()))
 		job_print(job, BUILTIN_JOBS_FLAG_ASYNC_MSG);
 	(void)res;
 }

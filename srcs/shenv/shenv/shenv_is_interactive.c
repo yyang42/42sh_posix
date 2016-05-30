@@ -10,18 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "job_control/job.h"
 #include "shenv/shenv.h"
 
-void				job_print_if_stopped(t_job *job)
+bool				shenv_is_interactive(t_shenv *this)
 {
-	job_exec_update_status(job);
-	if (!shenv_is_interactive(shenv_singleton()))
-		return ;
-	if (job->job_status == JOB_STOPPED)
-	{
-		job->sign = '+';
-	    twl_putchar('\n');
-	    job_print(job, 0);
-	}
+	if (shenv_shflag_enabled(this, "c")
+		|| (twl_lst_len(this->shenv_argv_remainder) > 0))
+		return (false);
+	return (shenv_shflag_enabled(this, "i"));
 }

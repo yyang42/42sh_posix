@@ -22,7 +22,9 @@ void				jobexec_fork_exec(t_jobexec *je)
 		if (setpgid(0, 0) < 0)
 			LOG_ERROR("setpgid: %s", strerror(errno));
 	}
-	if (shenv_shflag_enabled(shenv_singleton(), "i") && (shenv_singleton()->shenv_fork_level == 0))
+	if (shenv_is_interactive(shenv_singleton())
+		&& (shenv_singleton()->shenv_fork_level == 0)
+		&& isatty(0))
 	{
 		jobexec_fork_exec_interactive_job(je);
 	}

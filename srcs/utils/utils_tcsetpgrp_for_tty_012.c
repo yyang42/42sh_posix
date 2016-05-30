@@ -15,19 +15,11 @@
 
 void				utils_tcsetpgrp_for_tty_012(pid_t gid)
 {
-	if (tcsetpgrp(0, gid) >= 0)
-	{
-		LOG_INFO("tcsetpgrp fileno: 0");
-	}
-	else if (tcsetpgrp(1, gid) >= 0)
-	{
-		LOG_INFO("tcsetpgrp fileno: 1");
-	}
-	else if (tcsetpgrp(2, gid)  >= 0)
-	{
-		LOG_INFO("tcsetpgrp fileno: 2");
-	}
-	else
+	int tty;
+
+	tty = isatty(0) ? 0 : 1;
+	LOG_INFO("tcsetpgrp fileno: %d", tty);
+	if (tcsetpgrp(tty, gid) < 0)
 	{
 		LOG_ERROR("tcsetpgrp: %s", strerror(errno));
 	}
