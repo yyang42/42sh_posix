@@ -27,8 +27,7 @@ static void         handle_job(int si_code, t_job *job)
 {
     if (si_code == CLD_STOPPED)
     {
-        if(tcsetpgrp(0, getpid()) < 0)
-            LOG_ERROR("tcsetpgrp: %s", strerror(errno));
+        utils_tcsetpgrp_for_tty_012(getpid());
         if(kill(job_get_kill_pid(job), SIGTSTP) < 0)
             LOG_ERROR("kill: %s", strerror(errno));
         job_mgr_env_push(job);
@@ -77,31 +76,50 @@ static void			sigstp_catcher(int signum, siginfo_t *info, void *vp)
     (void)signum;
 }
 
-static void			sig_handler_init(int signum, struct sigaction *sa, struct sigaction *oldsa)
+static void         block_sigchld(void)
 {
-    sa->sa_flags = SA_SIGINFO | SA_RESTART;
-    sa->sa_sigaction = sigstp_catcher;
-    sigemptyset(&sa->sa_mask);
-    if (sigaction(signum, sa, oldsa) != 0)
+    sigset_t        blockMask;
+
+    sigemptyset(&blockMask);
+    sigaddset(&blockMask, SIGCHLD);
+    if (sigprocmask(SIG_SETMASK, &blockMask, NULL) == -1)
+        LOG_ERROR("sigprocmask");
+
+}
+
+static void         sig_handler_init(void)
+{
+    struct sigaction sa;
+    struct sigaction oldsa;
+    static bool     signal_initialized = false;
+
+    if (signal_initialized)
+        return ;
+    block_sigchld();
+    signal_initialized = true;
+    sa.sa_flags = SA_SIGINFO | SA_RESTART;
+    sa.sa_sigaction = sigstp_catcher;
+    sigemptyset(&sa.sa_mask);
+    LOG_INFO("set sig_handler_init");
+    if (sigaction(SIGCHLD, &sa, &oldsa) != 0)
     {
         int errnum = errno;
         LOG_ERROR("Failed to set signal handler (%d: %s)\n", errnum, strerror(errnum));
         exit(1);
         (void)errnum;
     }
-    (void)signum;
 }
 
 void				jobexec_fork_exec_interactive_job_sig_wrapper(t_job *job, void *ctx,
 					void (exec_interactive_fn)(t_job *job, void *ctx))
 {
-	struct sigaction sa;
-	struct sigaction oldsa;
+
+
 
     LOG_INFO("jobexec_fork_exec_interactive_job_sig_wrapper");
     LOG_INFO("tmp jobs len: %d: job->pid: %d (before exec)",
         twl_lst_len(data_tmp_jobs()), job->pid);
-    sig_handler_init(SIGCHLD, &sa, &oldsa);
+    sig_handler_init();
     twl_lst_push_back(data_tmp_jobs(), job);
     exec_interactive_fn(job, ctx);
     LOG_INFO("tmp jobs len: %d: job->pid: %d (after exec)",
