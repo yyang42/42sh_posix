@@ -1,1 +1,1 @@
-echo "echo a1 & echo a2 & sleep 0.1 && echo a3 & echo a4 & echo a5 & echo a6 & wait" | $TESTED_SHELL | sort
+echo "sleep 0.1 && echo a1 & sleep 0.15 && echo a2 & sleep 0.2 && echo a3 & wait" | $TESTED_SHELL | sort
