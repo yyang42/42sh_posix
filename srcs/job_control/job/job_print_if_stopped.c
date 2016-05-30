@@ -16,12 +16,12 @@
 void				job_print_if_stopped(t_job *job)
 {
 	job_exec_update_status(job);
-	if (!shenv_shflag_enabled(shenv_singleton(), "i"))
+	if (!shenv_is_interactive(shenv_singleton()))
 		return ;
 	if (job->job_status == JOB_STOPPED)
 	{
 		job->sign = '+';
 	    twl_putchar('\n');
-	    job_print(job, 0);
+	    job_print(job, 0, STDERR_FILENO);
 	}
 }

@@ -10,33 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "job_control/jobexec.h"
 #include "utils.h"
+#include <errno.h>
 
-
-void				jobexec_fork_exec_interactive(t_job *job, t_jobexec *je)
+void				utils_tcsetpgrp_for_tty_012(pid_t gid)
 {
-	pid_t			pid;
+	int tty;
 
-	LOG_INFO("jobexec_fork_exec_interactive");
-	pid = shenv_utils_fork();
-	job->pid = pid;
-	if (pid == 0)
+	tty = isatty(0) ? 0 : 1;
+	LOG_INFO("tcsetpgrp fileno: %d: gid; %d", tty, gid);
+	if (tcsetpgrp(tty, gid) < 0)
 	{
-		shenv_singleton()->shenv_fork_level++;
-		LOG_INFO("setpgid and tcsetpgrp");
-		if (setpgid(0, 0) < 0)
-			LOG_ERROR("setpgid: %s", strerror(errno));
-		utils_tcsetpgrp_for_tty_012(getpid());
-		jobexec_fork_exec_execve_fn(je);
-		exit(shenv_singleton()->last_exit_code);
-	}
-	else
-	{
-		LOG_INFO("before wait_fn");
-		jobexec_fork_exec_wait_fn(je, pid, &job->status);
-		job_print_if_stopped(job);
-		LOG_INFO("after wait_fn");
-		utils_tcsetpgrp_for_tty_012(getpid());
+		LOG_ERROR("tcsetpgrp: %s", strerror(errno));
 	}
 }

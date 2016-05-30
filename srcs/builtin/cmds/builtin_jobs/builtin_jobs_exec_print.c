@@ -23,7 +23,7 @@ void				builtin_jobs_exec_print(t_lst *jobs, int flags)
 	jobs_copy = twl_lst_copy(jobs, NULL);
 	while ((job = twl_lst_pop_front(jobs_copy)))
 	{
-		job_print(job, flags);
+		job_print(job, flags, STDOUT_FILENO);
 		if (job_has_terminated(job))
 			job_mgr_remove(jobs, job);
 	}

@@ -37,7 +37,7 @@ static void			print_error_msg(int sig)
 	}
 	else
 	{
-		if (shenv_shflag_enabled(shenv_singleton(), "i"))
+		if (shenv_is_interactive(shenv_singleton()))
 			twl_dprintf(2, "%s\n", msg);
 		else
 			shenv_singl_error(get_exit_code(sig), "%s", msg);

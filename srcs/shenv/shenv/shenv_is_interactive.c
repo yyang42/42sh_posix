@@ -10,26 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "job_control/jobexec.h"
+#include "shenv/shenv.h"
 
-void				jobexec_tcsetpgrp_tty(t_jobexec *je)
+bool				shenv_is_interactive(t_shenv *this)
 {
-	if (!jobexec_fork_exec_should_tcset(je))
-		return ;
-	if (tcsetpgrp(0, getpid()) >= 0)
-	{
-		LOG_INFO("tcsetpgrp fileno: 0");
-	}
-	else if (tcsetpgrp(1, getpid()) >= 0)
-	{
-		LOG_INFO("tcsetpgrp fileno: 1");
-	}
-	else if (tcsetpgrp(2, getpid())  >= 0)
-	{
-		LOG_INFO("tcsetpgrp fileno: 2");
-	}
-	else
-	{
-		LOG_ERROR("tcsetpgrp: %s", strerror(errno));
-	}
+	if (shenv_shflag_enabled(this, "c"))
+		return (false);
+	if (this->shenv_argv_remainder && (twl_lst_len(this->shenv_argv_remainder) > 0))
+		return (false);
+	return (shenv_shflag_enabled(this, "i"));
 }
