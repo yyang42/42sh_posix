@@ -32,7 +32,7 @@ static bool			iter_job_fn(void *job_, void *ctx)
 		if (!shenv_is_interactive(shenv_singleton()))
 			return (false);
 		if (job_has_terminated(job))
-			job_print(job, 0);
+			job_print(job, 0, STDERR_FILENO);
 		return (job_has_terminated(job));
 	}
 	else if (job->end_pid == 0 || errno_ret == ECHILD)

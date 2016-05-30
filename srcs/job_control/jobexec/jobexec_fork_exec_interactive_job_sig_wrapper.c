@@ -39,7 +39,7 @@ static void         handle_job(int si_code, t_job *job)
             || si_code == CLD_KILLED)
         {
             LOG_INFO("si_code=CLD_EXITED, job->id=%d", job->pid);
-            job_print(job, 0);
+            job_print(job, 0, STDERR_FILENO);
             job_mgr_remove(shenv_singleton()->jobs, job);
         }
     }
