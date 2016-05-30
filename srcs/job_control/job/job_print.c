@@ -21,19 +21,19 @@ void				job_print(t_job *this, int flags)
 
 	if (flags & BUILTIN_JOBS_FLAG_ASYNC_MSG)
 	{
-		twl_printf("[%lld] %d\n", this->job_id, this->pid);
+		twl_dprintf(2, "[%lld] %d\n", this->job_id, this->pid);
 	}
 	else if (flags & BUILTIN_JOBS_FLAG_OPT_P)
 	{
-		twl_printf("%d\n", this->pid);
+		twl_dprintf(2, "%d\n", this->pid);
 	}
 	else
 	{
-		twl_printf("[%lld]%c ", this->job_id, this->sign);
+		twl_dprintf(2, "[%lld]%c ", this->job_id, this->sign);
 		if (!flags & BUILTIN_JOBS_FLAG_OPT_L)
-			twl_printf(" ");
+			twl_dprintf(2, " ");
 		full_status = job_status_str_long(this, flags & BUILTIN_JOBS_FLAG_OPT_L);
-		twl_printf("%s\n", full_status);
+		twl_dprintf(2, "%s\n", full_status);
 		free(full_status);
 	}
 }
