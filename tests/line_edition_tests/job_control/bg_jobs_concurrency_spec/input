@@ -1,1 +1,7 @@
-echo a1 & echo a2 & sleep 0.2 && echo a3 & echo a4 & echo a5 & echo a6 & wait
+sleep 0.01 && echo a1 &
+sleep 0.02 && echo a2 &
+sleep 0.03 && echo a3 &
+sleep 0.04 && echo a4 &
+sleep 0.05 && echo a5 &
+sleep 0.06 && echo a6 &
+wait
