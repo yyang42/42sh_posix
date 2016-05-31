@@ -36,20 +36,21 @@ print_result () {
 diff_test () {
 	testcase_tmp="${1}/.tmp"
 	testcase_tmp_stdout="${1}/.tmp/actual_stdout"
-	testcase_tmp_stderr="${1}/.tmp/actual_stderr"
 	testcase_tmp_bash_stdout="${1}/.tmp/expected_stdout"
-	testcase_tmp_bash_stderr="${1}/.tmp/expected_stderr"
 	mkdir -p $testcase_tmp
 	${PRINT} "`cat ${1}/input`" | /tmp/bin/bash --posix -i > ${testcase_tmp_bash_stdout} 2> /dev/null
 	echo "exit status: $?" >> ${testcase_tmp_bash_stdout}
 	${PRINT} "`cat ${1}/input`" | /tmp/bin/42sh -i > ${testcase_tmp_stdout} 2> /dev/null
 	echo "exit status: $?" >> ${testcase_tmp_stdout}
 
+	if [ -f "${1}/expected_stdout" ]; then
+		testcase_tmp_bash_stdout="${1}/expected_stdout"
+	fi
 	diff $testcase_tmp_bash_stdout $testcase_tmp_stdout
 	stdout_res="$?"
 
 	print_result "$stdout_res" stdout
-	${PRINT} "test/line_edition_tests/%s/%s/input\n" `basename $CASE_PATH` `basename $TEST_PATH`
+	${PRINT} "tests/line_edition_tests/%s/%s/input\n" `basename $CASE_PATH` `basename $TEST_PATH`
 }
 
 ${PRINT} "=========================== START LINE EDITION TESTS ===========================\n"

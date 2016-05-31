@@ -14,6 +14,9 @@
 
 void			line_clear_line(t_line *this)
 {
+	LOG_DEBUG("Coucou0");
 	twl_strncpy(this->line, this->copy, this->total);
+	LOG_DEBUG("Coucou1");
 	this->size = twl_strlen(this->line);
+	LOG_DEBUG("Coucou2");
 }

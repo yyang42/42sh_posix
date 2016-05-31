@@ -12,15 +12,29 @@
 
 #include "edit/edit.h"
 
+static bool		is_same_last(t_edit *this)
+{
+	t_line		*data;
+
+	if (this->current != (data = twl_lst_first(this->history)))
+		return (true);
+	if (twl_strcmp(data->line, data->copy))
+		return (true);
+	return (false);
+}
+
 void			edit_history_push_flush(t_edit *this)
 {
 	t_line		*copy;
 
-	copy = line_copy(this->current);
-	twl_lst_push_front(this->history, copy);
-	this->size_history += 1;
+	if (is_same_last(this))
+	{
+		copy = line_copy(this->current);
+		twl_lst_push_front(this->history, copy);
+		this->size_history += 1;
+	}
 	this->index_history = 0;
-	line_del(this->last);
 	line_clear_line(this->current);
+	line_del(this->last);
 	this->last = NULL;
 }

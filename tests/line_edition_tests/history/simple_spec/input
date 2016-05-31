@@ -1,0 +1,3 @@
+echo aa bb cc
+\033[A
+\004

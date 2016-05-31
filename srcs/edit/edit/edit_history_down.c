@@ -22,7 +22,6 @@ void			edit_history_down(t_edit *this)
 	space_str = twl_strnewc(this->current->size, ' ');
 	this->puts(space_str);
 	free(space_str);
-	LOG_DEBUG("avant: %zu", this->current->size);
 	this->pos_cursor = this->current->size;
 	edit_move_home(this);
 	this->index_history -= 1;
@@ -30,7 +29,6 @@ void			edit_history_down(t_edit *this)
 		this->current = this->last;
 	else
 		this->current = twl_lst_get(this->history, this->index_history - 1);
-	LOG_DEBUG("apres: %zu", this->current->size);
 	this->pos_cursor = this->current->size;
 	this->puts(this->current->line);
 }
