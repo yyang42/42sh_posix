@@ -32,6 +32,8 @@ typedef struct			s_edit
 	t_lst				*history;
 	t_line				*current;
 	t_line				*last;
+	size_t				index_history;
+	size_t				size_history;
 	unsigned char		buffer[8];
 	size_t				pos_cursor;
 	size_t				winsize_x;
@@ -79,6 +81,10 @@ void					edit_move_word_right(t_edit *this);
 void					edit_move_word_left(t_edit *this);
 void					edit_move_home(t_edit *this);
 void					edit_move_end(t_edit *this);
+
+void					edit_history_up(t_edit *this);
+void					edit_history_down(t_edit *this);
+void					edit_history_push_flush(t_edit *this);
 
 void					edit_del_left(t_edit *this);
 void					edit_del_right(t_edit *this);
