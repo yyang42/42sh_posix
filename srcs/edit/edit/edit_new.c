@@ -29,6 +29,9 @@ t_edit				*edit_new(void)
 	this = twl_malloc_x0(sizeof(t_edit));
 	edit_terminal_init(this);
 	edit_get_winsize(this);
+	this->history = twl_lst_new();
+	this->index_history = 0;
+	this->size_history = 0;
 	this->putc = putc_fn;
 	this->puts = puts_fn;
 	return (this);

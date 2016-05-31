@@ -1,0 +1,9 @@
+mkdir -p /tmp/completion_cwd
+cd /tmp/completion_cwd
+echo "aa bb cc" > test1
+echo "dd ee ff" > test2
+echo "gg hh ii" > test3
+echo "jj kk ll" > test4
+echo "lel" > JAMBON
+cat t\t1 t\t2 J\t t\t3 t\t4
+\004

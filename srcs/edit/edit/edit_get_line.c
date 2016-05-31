@@ -28,9 +28,12 @@ static void			init_fn(t_edit *this)
 
 static char			*end_fn(t_edit *this)
 {
+	char			*ret;
 	edit_terminal_disable(this);
 	this->putc('\n');
-	return (twl_strdup(this->current->line));
+	ret = twl_strdup(this->current->line);
+	edit_history_push_flush(this);
+	return (ret);
 }
 
 static char			*end_exit_fn(t_edit *this)

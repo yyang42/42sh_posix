@@ -18,6 +18,7 @@ void			edit_clear_line(t_edit *this)
 	line_del(this->last);
 	this->last = line_new();
 	this->current = this->last;
+	this->index_history = 0;
 	this->pos_cursor = 0;
 	tputs(tgoto(tgetstr("cr", NULL), 0, 0), 1, this->putc);
 	tputs(tgoto(tgetstr("do", NULL), 0, 0), 1, this->putc);

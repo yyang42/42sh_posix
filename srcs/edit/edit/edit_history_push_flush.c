@@ -10,33 +10,31 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LINE_H
-# define LINE_H
+#include "edit/edit.h"
 
-# include "basics.h"
-# include "shenv/shenv.h"
-
-# define DFL_LINE_SIZE 64
-
-typedef struct			s_line
+static bool		is_same_last(t_edit *this)
 {
-	char				*line;
-	char				*copy;
-	size_t				total;
-	size_t				size;
-}						t_line;
+	t_line		*data;
 
-t_line					*line_new(void);
-void					line_del(t_line *this);
+	if (this->current != (data = twl_lst_first(this->history)))
+		return (true);
+	if (twl_strcmp(data->line, data->copy))
+		return (true);
+	return (false);
+}
 
-t_line					*line_copy(t_line *this);
+void			edit_history_push_flush(t_edit *this)
+{
+	t_line		*copy;
 
-char					*line_get(t_line *this);
-
-void					line_realloc(t_line *this);
-void					line_realloc_force(t_line *this);
-void					line_realloc_from_size(t_line *this, size_t to_add);
-
-void					line_clear_line(t_line *this);
-
-#endif
+	if (is_same_last(this))
+	{
+		copy = line_copy(this->current);
+		twl_lst_push_front(this->history, copy);
+		this->size_history += 1;
+	}
+	this->index_history = 0;
+	line_clear_line(this->current);
+	line_del(this->last);
+	this->last = NULL;
+}
