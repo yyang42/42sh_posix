@@ -1,0 +1,10 @@
+mkdir -p /tmp/completion_root
+cd /tmp\tcompletion_root\t
+echo "echo aa bb cc" > exec1
+echo "echo dd ee ff" > exec2
+echo "pouet" > pouf
+chmod 777 *
+/tmp/completion_root/e\t1
+/tmp/completion_root/e\t2
+cat /tmp/completion_root/p\t
+\004
