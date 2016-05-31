@@ -122,7 +122,9 @@ void				jobexec_fork_exec_interactive_job_sig_wrapper(t_job *job, void *ctx,
     sig_handler_init();
     twl_lst_push_back(data_tmp_jobs(), job);
     exec_interactive_fn(job, ctx);
+    job_mgr_pop(data_tmp_jobs(), job);
     LOG_INFO("tmp jobs len: %d: job->pid: %d (after exec)",
         twl_lst_len(data_tmp_jobs()), job->pid);
-    job_mgr_remove(shenv_singleton()->jobs, job);
+    if (job_mgr_find_by_pid(data_tmp_jobs(), job->pid))
+        job_del(job);
 }
