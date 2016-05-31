@@ -15,40 +15,13 @@
 #include "token/token_mgr.h"
 #include "twl_logger.h"
 
-static bool			iter_job_fn(void *job_, void *ctx)
+static bool			iter_job_fn(void *job, void *ctx)
 {
-	t_job	*job;
-	int		errno_ret;
-
-	job = job_;
-	errno = 0;
-	job->end_pid = waitpid(job->pid, &job->status, WNOHANG | WUNTRACED);
-	errno_ret = errno;
-	LOG_INFO("job waitpid (pid=%d, endpid=%d, errno_ret=%d, ECHILD=%d",
-		job->pid, job->end_pid, errno_ret, ECHILD);
-	if (job->end_pid == job->pid)
-	{
-		job_exec_update_status(job);
-		if (!shenv_is_interactive(shenv_singleton()))
-			return (false);
-		if (job_has_terminated(job))
-			job_print(job, 0, STDERR_FILENO);
-		return (job_has_terminated(job));
-	}
-	else if (job->end_pid == 0 || errno_ret == ECHILD)
-	{
-		;
-	}
-	else
-	{
-        twl_dprintf(2, "waitpid error: %d\n", job->pid);
-		exit(EXIT_FAILURE);
-	}
-	return (false);
+	return (job_wait_update(job));
 	(void)ctx;
 }
 
-void				job_mgr_exec_update(t_lst *jobs)
+void				job_mgr_wait_update(t_lst *jobs)
 {
 	job_mgr_update_sign(jobs);
 	twl_lst_remove_if(jobs, iter_job_fn, NULL, job_del_void);

@@ -10,29 +10,35 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef JOB_CONTROL_JOB_MGR_H
-# define JOB_CONTROL_JOB_MGR_H
+#include "job_control/job.h"
+#include "shenv/shenv.h"
 
-# include "basics.h"
-# include "job_control/job.h"
-# include "shenv/shenv.h"
+bool				job_wait_update(t_job *job)
+{
+	int		errno_ret;
 
-t_lst				*job_mgr_new(void);
-void				job_mgr_del(t_lst *jobs);
-void				job_mgr_add(t_lst *jobs, t_job *job);
-t_job				*job_mgr_pop(t_lst *jobs, t_job *job);
-int					job_mgr_remove(t_lst *jobs, t_job *job);
-void				job_mgr_print(t_lst *jobs);
-
-int					job_mgr_env_push(t_job *job);
-void				job_mgr_wait_update(t_lst *jobs);
-
-t_job 				*job_mgr_find_by_job_id(t_lst *jobs, char *job_str_id);
-t_job 				*job_mgr_find_by_pid(t_lst *jobs, int pid);
-t_job 				*job_mgr_find_by_str_pid(t_lst *jobs, char *str_pid);
-t_job 				*job_mgr_find_by_pid_perc_job_id(t_lst *jobs, char *str);
-void				job_mgr_update_sign(t_lst *jobs);
-void				job_mgr_sort_by_id(t_lst *jobs);
-void				job_mgr_sort_by_status(t_lst *jobs);
-
-#endif
+	errno = 0;
+	job->end_pid = waitpid(job->pid, &job->status, WNOHANG | WUNTRACED);
+	errno_ret = errno;
+	LOG_INFO("job waitpid (pid=%d, endpid=%d, errno_ret=%d, ECHILD=%d",
+		job->pid, job->end_pid, errno_ret, ECHILD);
+	if (job->end_pid == job->pid)
+	{
+		job_exec_update_status(job);
+		if (!shenv_is_interactive(shenv_singleton()))
+			return (false);
+		if (job_has_terminated(job))
+			job_print(job, 0, STDERR_FILENO);
+		return (job_has_terminated(job));
+	}
+	else if (job->end_pid == 0 || errno_ret == ECHILD)
+	{
+		;
+	}
+	else
+	{
+        twl_dprintf(2, "waitpid error: %d\n", job->pid);
+		exit(EXIT_FAILURE);
+	}
+	return (false);
+}
