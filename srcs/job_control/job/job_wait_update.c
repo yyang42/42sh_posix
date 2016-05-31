@@ -12,6 +12,7 @@
 
 #include "job_control/job.h"
 #include "shenv/shenv.h"
+#include <sys/wait.h>
 
 bool				job_wait_update(t_job *job)
 {
