@@ -1,4 +1,5 @@
 alias lolilol='echo bonjour et lol; echo pouf'
 loli\t
 echo aa; loli\t|cat -e
+loli\t
 \004
