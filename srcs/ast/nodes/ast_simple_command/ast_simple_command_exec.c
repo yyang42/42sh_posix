@@ -45,7 +45,7 @@ void				ast_simple_command_exec(t_ast_simple_command *cmd)
 	shenv_singleton()->last_exit_code = EXIT_SUCCESS;
 	shenv_set_cur_token(shenv_singleton(), token_mgr_first(cmd->cmd_tokens_deep_copy));
 	ast_simple_command_expan(cmd);
-	job_mgr_exec_update(shenv_singleton()->jobs);
+	job_mgr_wait_update(shenv_singleton()->jobs);
 	ast_simple_command_exec_assign(cmd);
 	if (shenv_singleton()->last_exit_code != 0 && twl_lst_len(cmd->cmd_tokens_deep_copy) == 0)
 	{

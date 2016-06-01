@@ -25,7 +25,7 @@ int					job_mgr_remove(t_lst *jobs, t_job *job);
 void				job_mgr_print(t_lst *jobs);
 
 int					job_mgr_env_push(t_job *job);
-void				job_mgr_exec_update(t_lst *jobs);
+void				job_mgr_wait_update(t_lst *jobs);
 
 t_job 				*job_mgr_find_by_job_id(t_lst *jobs, char *job_str_id);
 t_job 				*job_mgr_find_by_pid(t_lst *jobs, int pid);
