@@ -44,7 +44,7 @@ static void			sigstp_catcher(int signum, siginfo_t *info, void *vp)
     pid_t           gid;
  //    pid_t			pid;
 
-    // twl_printf("======================================****************************");
+    LOG_DEBUG("================== HANDLE SIGNAL HERE =========================");
     return ;
 	// while ((pid = waitpid(-1, 0, WNOHANG)) > 0)
 	// {
