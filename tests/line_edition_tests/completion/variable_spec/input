@@ -1,0 +1,9 @@
+aaaa=Bonjour
+aaae='Au revoir'
+ddeeff=pouet
+lolololol='echo aa bb cc'
+echo $aa\ta\t$aa\te\t${aa\ta\t${aa\te\t
+echo $ddee\t
+$lololol\t
+${lolol\t
+\004
