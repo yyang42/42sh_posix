@@ -40,11 +40,9 @@ diff_test () {
 	testcase_tmp_bash_stdout="${1}/.tmp/expected_stdout"
 	testcase_tmp_bash_stderr="${1}/.tmp/.expected_stderr"
 	mkdir -p $testcase_tmp
-	export __STDERR_FILE__=${testcase_tmp_bash_stderr}
-	${PRINT} "`cat ${1}/input`" | /tmp/bin/bash --posix -i > ${testcase_tmp_bash_stdout} 2> ${testcase_tmp_bash_stderr}
+	${PRINT} "`cat ${1}/input`" | /tmp/bin/bash --posix -i > ${testcase_tmp_bash_stdout} 2> /tmp/bash_error_line_edition
 	echo "exit status: $?" >> ${testcase_tmp_bash_stdout}
-	export __STDERR_FILE__=${testcase_tmp_stderr}
-	${PRINT} "`cat ${1}/input`" | /tmp/bin/42sh -i > ${testcase_tmp_stdout} 2> ${testcase_tmp_stderr}
+	${PRINT} "`cat ${1}/input`" | /tmp/bin/42sh -i > ${testcase_tmp_stdout} 2> /tmp/42sh_error_line_edition
 	echo "exit status: $?" >> ${testcase_tmp_stdout}
 
 	if [ -f "${1}/expected_stdout" ]; then
@@ -52,6 +50,20 @@ diff_test () {
 	fi
 	diff $testcase_tmp_bash_stdout $testcase_tmp_stdout
 	stdout_res="$?"
+	if [ $stdout_res -ne "0" ]; then
+		echo "================"
+		echo "Actual:"
+		echo "stdout"
+		cat $testcase_tmp_stdout
+		echo "stderr"
+		cat /tmp/42sh_error_line_edition
+		echo "Expected:"
+		echo "stdout"
+		cat $testcase_tmp_bash_stdout
+		echo "stderr"
+		cat /tmp/bash_error_line_edition
+		echo "================"
+	fi
 
 	print_result "$stdout_res" stdout
 	${PRINT} "tests/line_edition_tests/%s/%s/input\n" `basename $CASE_PATH` `basename $TEST_PATH`
