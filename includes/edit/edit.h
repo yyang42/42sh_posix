@@ -70,6 +70,7 @@ void					edit_match_char(t_edit *this, unsigned char buf);
 void					edit_place_letter(t_edit *this, unsigned char buf);
 void					edit_place_string(t_edit *this, char *string);
 void					edit_padding(t_edit *this);
+void					edit_print_current_char_and_move(t_edit *this);
 
 void					edit_move_goto_pos_cursor(t_edit *this, size_t pos);
 
@@ -81,6 +82,8 @@ void					edit_move_word_right(t_edit *this);
 void					edit_move_word_left(t_edit *this);
 void					edit_move_home(t_edit *this);
 void					edit_move_end(t_edit *this);
+
+void					edit_drag_char_before_cursor(t_edit *this);
 
 void					edit_history_up(t_edit *this);
 void					edit_history_down(t_edit *this);
