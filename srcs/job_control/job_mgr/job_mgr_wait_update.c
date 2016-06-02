@@ -10,21 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "job_control/jobexec.h"
-#include "utils.h"
-#include "data.h"
+#include <sys/wait.h>
+#include "job_control/job_mgr.h"
+#include "token/token_mgr.h"
+#include "twl_logger.h"
 
-void				jobexec_fork_exec_interactive_job_sig_wrapper(t_job *job, void *ctx,
-					void (exec_interactive_fn)(t_job *job, void *ctx))
+static bool			iter_job_fn(void *job, void *ctx)
 {
-    LOG_INFO("jobexec_fork_exec_interactive_job_sig_wrapper");
-    LOG_INFO("tmp jobs len: %d: job->pid: %d (before exec)",
-        twl_lst_len(data_tmp_jobs()), job->pid);
-    twl_lst_push_back(data_tmp_jobs(), job);
-    exec_interactive_fn(job, ctx);
-    job_mgr_pop(data_tmp_jobs(), job);
-    LOG_INFO("tmp jobs len: %d: job->pid: %d (after exec)",
-        twl_lst_len(data_tmp_jobs()), job->pid);
-    if (job_mgr_find_by_pid(data_tmp_jobs(), job->pid))
-        job_del(job);
+	return (job_wait_update(job));
+	(void)ctx;
+}
+
+void				job_mgr_wait_update(t_lst *jobs)
+{
+	job_mgr_update_sign(jobs);
+	twl_lst_remove_if(jobs, iter_job_fn, NULL, job_del_void);
 }

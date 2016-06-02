@@ -10,21 +10,25 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "job_control/jobexec.h"
-#include "utils.h"
-#include "data.h"
+#include "ast/ast.h"
+#include "token/token_mgr.h"
 
-void				jobexec_fork_exec_interactive_job_sig_wrapper(t_job *job, void *ctx,
-					void (exec_interactive_fn)(t_job *job, void *ctx))
+static int			build_flags(void)
 {
-    LOG_INFO("jobexec_fork_exec_interactive_job_sig_wrapper");
-    LOG_INFO("tmp jobs len: %d: job->pid: %d (before exec)",
-        twl_lst_len(data_tmp_jobs()), job->pid);
-    twl_lst_push_back(data_tmp_jobs(), job);
-    exec_interactive_fn(job, ctx);
-    job_mgr_pop(data_tmp_jobs(), job);
-    LOG_INFO("tmp jobs len: %d: job->pid: %d (after exec)",
-        twl_lst_len(data_tmp_jobs()), job->pid);
-    if (job_mgr_find_by_pid(data_tmp_jobs(), job->pid))
-        job_del(job);
+	int				flags;
+
+	flags = 0;
+	if (shenv_singleton()->shenv_prog_flags & SHENV_FLAG_AST)
+	{
+		flags |= AST_FLAG_NO_EXEC;
+	}
+	return (flags);
+}
+
+void				ast_utils_exec_string_inner(char *input, int line)
+{
+	t_ast			*ast;
+	ast = ast_new_from_string(input, build_flags(), line);
+	ast_print_error(ast);
+	ast_del(ast);
 }

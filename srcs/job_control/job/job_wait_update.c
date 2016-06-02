@@ -10,17 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "job_control/job.h"
+#include "shenv/shenv.h"
 #include <sys/wait.h>
-#include "job_control/job_mgr.h"
-#include "token/token_mgr.h"
-#include "twl_logger.h"
 
-static bool			iter_job_fn(void *job_, void *ctx)
+bool				job_wait_update(t_job *job)
 {
-	t_job	*job;
 	int		errno_ret;
 
-	job = job_;
 	errno = 0;
 	job->end_pid = waitpid(job->pid, &job->status, WNOHANG | WUNTRACED);
 	errno_ret = errno;
@@ -45,11 +42,4 @@ static bool			iter_job_fn(void *job_, void *ctx)
 		exit(EXIT_FAILURE);
 	}
 	return (false);
-	(void)ctx;
-}
-
-void				job_mgr_exec_update(t_lst *jobs)
-{
-	job_mgr_update_sign(jobs);
-	twl_lst_remove_if(jobs, iter_job_fn, NULL, job_del_void);
 }
