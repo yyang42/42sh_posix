@@ -137,14 +137,16 @@ void				ast_utils_exec_string(char *input, int line)
 {
 	t_ast			*ast;
 
-	// twl_printf("=================\n");
-	// return ;
-	block_sigchld();
-	// sig_handler_init();
-	// block_sigchld();
-	sig_handler_init();
+    if (!shenv_singleton()->shenv_is_function_or_script)
+    {
+        block_sigchld();
+        sig_handler_init();
+    }
 	ast = ast_new_from_string(input, build_flags(), line);
 	ast_print_error(ast);
 	ast_del(ast);
-	unblock_sigchld();
+    if (!shenv_singleton()->shenv_is_function_or_script)
+    {
+        unblock_sigchld();
+    }
 }
