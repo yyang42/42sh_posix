@@ -14,12 +14,27 @@
 #include "token/token_mgr.h"
 #include "job_control/jobexec.h"
 
-static void         sigprocmask_wrapper(int how, const sigset_t *restrict set)
+
+static void         block_sigchld(void)
 {
-    if (sigprocmask(how, set, NULL) == -1)
-    {
+    sigset_t        blockMask;
+
+    sigemptyset(&blockMask);
+    sigaddset(&blockMask, SIGCHLD);
+    if (sigprocmask(SIG_BLOCK, &blockMask, NULL) == -1)
         LOG_ERROR("sigprocmask");
-    }
+
+}
+
+static void         unblock_sigchld(void)
+{
+    sigset_t        blockMask;
+
+    sigemptyset(&blockMask);
+    sigaddset(&blockMask, SIGCHLD);
+    if (sigprocmask(SIG_UNBLOCK, &blockMask, NULL) == -1)
+        LOG_ERROR("sigprocmask");
+
 }
 
 static void         ast_utils_exec_string_with_sig_handling(char *input, int line)
@@ -28,10 +43,10 @@ static void         ast_utils_exec_string_with_sig_handling(char *input, int lin
 
     sigemptyset(&blockMask);
     sigaddset(&blockMask, SIGCHLD);
-    sigprocmask_wrapper(SIG_BLOCK, &blockMask);
+    block_sigchld();
     jobexec_fork_utils_init_sigchld_handler();
     ast_utils_exec_string_inner(input, line);;
-    sigprocmask_wrapper(SIG_UNBLOCK, &blockMask);
+    unblock_sigchld();
 }
 
 void                ast_utils_exec_string(char *input, int line)

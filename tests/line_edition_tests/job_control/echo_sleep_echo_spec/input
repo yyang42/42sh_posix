@@ -1,0 +1,4 @@
+echo aaa && sleep 0.2 && echo bbb &
+sleep 0.1
+echo ccc
+wait
