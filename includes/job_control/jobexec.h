@@ -38,5 +38,6 @@ void				jobexec_fork_exec_interactive_job_sig_wrapper(t_job *job, void *ctx,
 void				jobexec_fork_exec_execve_fn(t_jobexec *je);
 void				jobexec_fork_exec_wait_fn(t_jobexec *je, pid_t pid, int *res);
 bool				jobexec_fork_exec_should_tcset(t_jobexec *je);
+void		        jobexec_fork_utils_init_sigchld_handler(void);
 
 #endif

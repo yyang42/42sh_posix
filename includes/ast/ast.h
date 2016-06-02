@@ -62,6 +62,7 @@ char				*ast_utils_check_open(char *input);
 bool				ast_utils_check_has_open(char *input);
 
 void				ast_utils_exec_string(char *input, int line);
+void				ast_utils_exec_string_inner(char *input, int line);
 void				ast_print_error(t_ast *ast);
 
 #endif

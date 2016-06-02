@@ -12,32 +12,23 @@
 
 #include "ast/ast.h"
 #include "token/token_mgr.h"
-#include "job_control/jobexec.h"
 
-static void         sigprocmask_wrapper(int how, const sigset_t *restrict set)
+static int			build_flags(void)
 {
-    if (sigprocmask(how, set, NULL) == -1)
-    {
-        LOG_ERROR("sigprocmask");
-    }
+	int				flags;
+
+	flags = 0;
+	if (shenv_singleton()->shenv_prog_flags & SHENV_FLAG_AST)
+	{
+		flags |= AST_FLAG_NO_EXEC;
+	}
+	return (flags);
 }
 
-static void         ast_utils_exec_string_with_sig_handling(char *input, int line)
+void				ast_utils_exec_string_inner(char *input, int line)
 {
-    sigset_t        blockMask;
-
-    sigemptyset(&blockMask);
-    sigaddset(&blockMask, SIGCHLD);
-    sigprocmask_wrapper(SIG_BLOCK, &blockMask);
-    jobexec_fork_utils_init_sigchld_handler();
-    ast_utils_exec_string_inner(input, line);;
-    sigprocmask_wrapper(SIG_UNBLOCK, &blockMask);
-}
-
-void                ast_utils_exec_string(char *input, int line)
-{
-    if (shenv_singleton()->shenv_is_function_or_script)
-        ast_utils_exec_string_inner(input, line);
-    else
-        ast_utils_exec_string_with_sig_handling(input, line);
+	t_ast			*ast;
+	ast = ast_new_from_string(input, build_flags(), line);
+	ast_print_error(ast);
+	ast_del(ast);
 }
