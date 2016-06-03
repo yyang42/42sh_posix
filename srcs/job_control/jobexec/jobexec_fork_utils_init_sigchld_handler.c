@@ -43,33 +43,52 @@ static void			sigstp_catcher(int signum, siginfo_t *info, void *vp)
 {
     t_job           *job;
     pid_t           gid;
- //    pid_t			pid;
 
     LOG_DEBUG("================== HANDLE SIGNAL HERE =========================");
-    return ;
+    LOG_INFO("tmp jobs len: %d", twl_lst_len(data_tmp_jobs()));
     gid = getpgid(info->si_pid);
     LOG_INFO("signum: %d, Signal %d from PID %d, code: %d, value: %d: gid: %d",
 	signum, info->si_signo, (int)info->si_pid, info->si_code, info->si_value, gid);
     LOG_INFO("child stopped: %d", info->si_pid);
     LOG_INFO("data_tmp_jobs() len: %d", twl_lst_len(data_tmp_jobs()));
-    job = job_mgr_find_by_pid(data_tmp_jobs(), info->si_pid);
-    if (!job)
+
+
+    if (shenv_singleton()->shenv_foreground_job && info->si_code == CLD_STOPPED)
     {
-        LOG_INFO("search in shenv->jobs");
-        job = job_mgr_find_by_pid(shenv_singleton()->jobs, info->si_pid);
+        job = shenv_singleton()->shenv_foreground_job;
+        job_mgr_env_push(job);
     }
-    if (job)
-    {
-        LOG_DEBUG("info->si_pid: %d", info->si_pid);
-        LOG_DEBUG("job->pid: %d", job->pid);
-        handle_job(info->si_code, job);
-    }
-    else
-    {
-        LOG_INFO("pid not found: %d", info->si_pid);
-    }
+
+    // if (shenv_singleton()->shenv_foreground_job)
+    // {
+    //     LOG_INFO("shenv_singleton()->shenv_foreground_job: %d", shenv_singleton()->shenv_foreground_job->pid);
+    //     job = shenv_singleton()->shenv_foreground_job;
+    //     shenv_singleton()->shenv_foreground_job = NULL;
+    // }
+    // else
+    // {
+    //     LOG_INFO("search in shenv->jobs");
+    //     job = job_mgr_find_by_pid(shenv_singleton()->jobs, info->si_pid);
+    // }
+
+    // // job = job_mgr_find_by_pid(data_tmp_jobs(), info->si_pid);
+    // // if (!job)
+    // // {
+    // //     job = job_mgr_find_by_pid(shenv_singleton()->jobs, info->si_pid);
+    // // }
+    // if (job)
+    // {
+    //     LOG_DEBUG("info->si_pid: %d", info->si_pid);
+    //     LOG_DEBUG("job->pid: %d", job->pid);
+    //     handle_job(info->si_code, job);
+    // }
+    // else
+    // {
+    //     LOG_INFO("pid not found: %d", info->si_pid);
+    // }
     (void)vp;
     (void)signum;
+    (void)handle_job;
 }
 
 void				jobexec_fork_utils_init_sigchld_handler(void)

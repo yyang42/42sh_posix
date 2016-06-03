@@ -17,13 +17,14 @@
 void				jobexec_fork_exec_interactive_job_sig_wrapper(t_job *job, void *ctx,
 					void (exec_interactive_fn)(t_job *job, void *ctx))
 {
-    LOG_INFO("jobexec_fork_exec_interactive_job_sig_wrapper");
-    LOG_INFO("tmp jobs len: %d: job->pid: %d (before exec)", twl_lst_len(data_tmp_jobs()), job->pid);
-    twl_lst_push_back(data_tmp_jobs(), job);
-    LOG_INFO("tmp jobs len: %d: job->pid: %d (before 2 exec)", twl_lst_len(data_tmp_jobs()), job->pid);
+    // LOG_INFO("jobexec_fork_exec_interactive_job_sig_wrapper");
+    // LOG_INFO("tmp jobs len: %d: job->pid: %d (before exec)", twl_lst_len(data_tmp_jobs()), job->pid);
+    // twl_lst_push_back(data_tmp_jobs(), job);
+    shenv_singleton()->shenv_foreground_job = job;
+    LOG_INFO("push job to data_tmp_jobs: %d", job->pid);
     exec_interactive_fn(job, ctx);
-    job_mgr_pop(data_tmp_jobs(), job);
-    LOG_INFO("tmp jobs len: %d: job->pid: %d (after exec)", twl_lst_len(data_tmp_jobs()), job->pid);
-    if (job_mgr_find_by_pid(data_tmp_jobs(), job->pid))
-        job_del(job);
+    // job_mgr_pop(data_tmp_jobs(), job);
+    // LOG_INFO("tmp jobs len: %d: job->pid: %d (after exec)", twl_lst_len(data_tmp_jobs()), job->pid);
+    // if (job_mgr_find_by_pid(data_tmp_jobs(), job->pid))
+    //     job_del(job);
 }

@@ -93,6 +93,7 @@ typedef struct				s_shenv
 	int						shenv_fork_level;
 	char					*shenv_current_directory;
 	bool					shenv_has_syntax_error;
+	struct s_job			*shenv_foreground_job;
 }							t_shenv;
 
 t_shenv				*shenv_new(void);

@@ -21,6 +21,6 @@ void				utils_tcsetpgrp_for_tty_012(pid_t gid)
 	LOG_INFO("tcsetpgrp fileno: %d: gid; %d", tty, gid);
 	if (tcsetpgrp(tty, gid) < 0)
 	{
-		LOG_ERROR("tcsetpgrp: %s (tty=%d, gid=%d)", strerror(errno), tty, gid);
+		LOG_WARN("tcsetpgrp: %s (tty=%d, gid=%d)", strerror(errno), tty, gid);
 	}
 }

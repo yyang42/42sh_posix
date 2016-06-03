@@ -47,6 +47,7 @@ t_shenv			*shenv_new(void)
 	this->shenv_fork_level = 0;
 	this->shenv_has_syntax_error = 0;
 	this->shenv_read_remainder_ptr = NULL;
+	this->shenv_foreground_job = NULL;
 	shenv_set_read_buffer_ptr(this, 0);
 	shenv_set_current_directory(this, "shell-init");
 	return (this);

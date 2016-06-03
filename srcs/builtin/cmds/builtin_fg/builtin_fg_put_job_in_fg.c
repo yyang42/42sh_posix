@@ -23,7 +23,12 @@ void                builtin_fg_put_job_in_fg(t_job *job)
         job_mgr_remove(shenv_singleton()->jobs, job);
         return ;
     }
-    if (job_mgr_pop(shenv_singleton()->jobs, job) == NULL)
+    if (job_mgr_pop(shenv_singleton()->jobs, job))
+    {
+        // twl_lst_push_back(data_tmp_jobs(), job);
+        shenv_singleton()->shenv_foreground_job = job;
+    }
+    else
     {
         shenv_singl_error(EXIT_FAILURE,
             "fg: fail to pop job from jobs (pid=%d)", job->pid);
