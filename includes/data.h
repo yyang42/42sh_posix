@@ -43,6 +43,5 @@ t_lst				*data_signals_with_exit(void);
 
 t_lst				*data_escaped_sequence(void);
 t_lst				*data_simple_char_edit(void);
-t_lst				*data_tmp_jobs(void);
 
 #endif

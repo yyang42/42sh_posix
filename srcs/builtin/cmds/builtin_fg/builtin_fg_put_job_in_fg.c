@@ -25,7 +25,6 @@ void                builtin_fg_put_job_in_fg(t_job *job)
     }
     if (job_mgr_pop(shenv_singleton()->jobs, job))
     {
-        // twl_lst_push_back(data_tmp_jobs(), job);
         shenv_singleton()->shenv_foreground_job = job;
     }
     else

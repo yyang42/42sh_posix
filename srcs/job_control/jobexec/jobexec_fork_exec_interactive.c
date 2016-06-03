@@ -21,7 +21,6 @@ void				jobexec_fork_exec_interactive(t_job *job, t_jobexec *je)
 	LOG_INFO("jobexec_fork_exec_interactive");
 	pid = shenv_utils_fork();
 	job->pid = pid;
-	LOG_INFO("tmp jobs len: %d: job->pid: %d (after exec)", twl_lst_len(data_tmp_jobs()), job->pid);
 	if (pid == 0)
 	{
 		shenv_singleton()->shenv_fork_level++;
