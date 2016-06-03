@@ -19,6 +19,8 @@ t_lst               *data_tmp_jobs(void)
     static t_lst    *jobs = NULL;
 
     if (jobs == NULL)
+    {
         jobs = twl_lst_new();
+    }
     return (jobs);
 }

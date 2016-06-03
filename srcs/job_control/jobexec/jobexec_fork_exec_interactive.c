@@ -12,7 +12,7 @@
 
 #include "job_control/jobexec.h"
 #include "utils.h"
-
+#include "data.h"
 
 void				jobexec_fork_exec_interactive(t_job *job, t_jobexec *je)
 {
@@ -21,6 +21,7 @@ void				jobexec_fork_exec_interactive(t_job *job, t_jobexec *je)
 	LOG_INFO("jobexec_fork_exec_interactive");
 	pid = shenv_utils_fork();
 	job->pid = pid;
+
 	if (pid == 0)
 	{
 		shenv_singleton()->shenv_fork_level++;
@@ -34,6 +35,7 @@ void				jobexec_fork_exec_interactive(t_job *job, t_jobexec *je)
 	else
 	{
 		LOG_INFO("before wait_fn");
+		LOG_DEBUG("111tmp jobs len: %d: job->pid: %d (before 2 exec)", twl_lst_len(data_tmp_jobs()), job->pid);
 		jobexec_fork_exec_wait_fn(je, pid, &job->status);
 		job_print_if_stopped(job);
 		LOG_INFO("after wait_fn");

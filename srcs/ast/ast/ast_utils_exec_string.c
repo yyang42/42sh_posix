@@ -19,6 +19,7 @@ static void         block_sigchld(void)
 {
     sigset_t        blockMask;
 
+    LOG_DEBUG("block SIGCHLD");
     sigemptyset(&blockMask);
     sigaddset(&blockMask, SIGCHLD);
     if (sigprocmask(SIG_BLOCK, &blockMask, NULL) == -1)
@@ -30,6 +31,7 @@ static void         unblock_sigchld(void)
 {
     sigset_t        blockMask;
 
+    LOG_DEBUG("unblock SIGCHLD");
     sigemptyset(&blockMask);
     sigaddset(&blockMask, SIGCHLD);
     if (sigprocmask(SIG_UNBLOCK, &blockMask, NULL) == -1)
@@ -51,6 +53,8 @@ static void         ast_utils_exec_string_with_sig_handling(char *input, int lin
 
 void                ast_utils_exec_string(char *input, int line)
 {
+    LOG_DEBUG("ast_utils_exec_string");
+    // signal(SIGCHLD, SIG_IGN);
     if (shenv_singleton()->shenv_is_function_or_script)
         ast_utils_exec_string_inner(input, line);
     else
