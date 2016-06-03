@@ -48,13 +48,13 @@ static void         ast_utils_exec_string_with_sig_handling(char *input, int lin
     block_sigchld();
     jobexec_fork_utils_init_sigchld_handler();
     ast_utils_exec_string_inner(input, line);;
+    signal(SIGCHLD, SIG_IGN);
     unblock_sigchld();
 }
 
 void                ast_utils_exec_string(char *input, int line)
 {
     LOG_DEBUG("ast_utils_exec_string");
-    // signal(SIGCHLD, SIG_IGN);
     if (shenv_singleton()->shenv_is_function_or_script)
         ast_utils_exec_string_inner(input, line);
     else

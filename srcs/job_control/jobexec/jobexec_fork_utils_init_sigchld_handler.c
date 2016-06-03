@@ -76,11 +76,12 @@ void				jobexec_fork_utils_init_sigchld_handler(void)
 {
     struct sigaction sa;
     struct sigaction oldsa;
-    static bool     signal_initialized = false;
 
-    if (signal_initialized)
-        return ;
-    signal_initialized = true;
+    // static bool     signal_initialized = false;
+    // if (signal_initialized)
+    //     return ;
+    // signal_initialized = true;
+
     sa.sa_flags = SA_SIGINFO;
     sa.sa_sigaction = sigstp_catcher;
     sigemptyset(&sa.sa_mask);
