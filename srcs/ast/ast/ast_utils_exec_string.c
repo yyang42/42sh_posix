@@ -48,8 +48,8 @@ static void         ast_utils_exec_string_with_sig_handling(char *input, int lin
     block_sigchld();
     jobexec_fork_utils_init_sigchld_handler();
     ast_utils_exec_string_inner(input, line);;
-    signal(SIGCHLD, SIG_IGN);
     unblock_sigchld();
+    signal(SIGCHLD, SIG_IGN);
 }
 
 void                ast_utils_exec_string(char *input, int line)
