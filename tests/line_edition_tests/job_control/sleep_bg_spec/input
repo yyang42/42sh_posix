@@ -1,0 +1,5 @@
+sleep 0.1 && echo abc &
+echo aaa
+bg
+sleep 0.1
+echo bbb
