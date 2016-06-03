@@ -20,6 +20,9 @@ static void			set_interactive_state(void)
 	if (tty)
 	{
 		shenv_shflag_set(shenv_singleton(), 'i', true);
+	}
+	if (shenv_shflag_enabled(shenv_singleton(), "i"))
+	{
 		shenv_shflag_set(shenv_singleton(), 'm', true);
 	}
 }

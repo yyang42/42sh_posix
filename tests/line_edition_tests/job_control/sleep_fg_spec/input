@@ -1,0 +1,3 @@
+sleep 0.1 && echo abc
+fg
+exit 42
