@@ -14,6 +14,8 @@
 
 void			edit_move_end(t_edit *this)
 {
+	if (!this->current)
+		return ;
 	if (this->pos_cursor == this->current->size)
 		return ;
 	edit_move_goto_pos_cursor(this, this->current->size);
