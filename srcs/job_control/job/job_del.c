@@ -14,6 +14,7 @@
 
 void				job_del(t_job *job)
 {
+	LOG_INFO("del job: %d", job->pid);
 	free(job->cmd_str);
 	free(job);
 }

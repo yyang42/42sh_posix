@@ -33,4 +33,5 @@ void				job_exec_update_status(t_job *job)
 	str_status = job_status_str_long(job, true);
 	LOG_INFO("job %d status: %s ", job->job_id, str_status);
 	free(str_status);
+	job_remove_ending_ampersand(job);
 }

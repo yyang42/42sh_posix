@@ -1,1 +1,0 @@
-/tmp/bin/42sh: line 1: execve: /tmp/test_builtin_exec_file: Permission denied

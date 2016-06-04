@@ -64,6 +64,11 @@ char				*edit_get_line(t_edit *this)
 	{
 		if ((read_return = read(0, &buf, sizeof(buf))) == -1)
 		{
+		    if (errno == EINTR)
+		    {
+		    	LOG_INFO("read: System interrup received: ignore and continue");
+		    	continue;
+		    }
 			twl_dprintf(2, "read: %s\n", strerror(errno));
 			exit(-1);
 		}

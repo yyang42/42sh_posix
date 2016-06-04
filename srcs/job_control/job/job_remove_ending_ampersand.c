@@ -10,17 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
-#include <errno.h>
+#include "job_control/job.h"
 
-void				utils_tcsetpgrp_for_tty_012(pid_t gid)
+void				job_remove_ending_ampersand(t_job *job)
 {
-	int tty;
-
-	tty = isatty(0) ? 0 : 1;
-	LOG_INFO("tcsetpgrp fileno: %d: gid; %d", tty, gid);
-	if (tcsetpgrp(tty, gid) < 0)
+	if (twl_str_ends_with(job->cmd_str, " &"))
 	{
-		LOG_ERROR("tcsetpgrp: %s (tty=%d, gid=%d)", strerror(errno), tty, gid);
+		job->cmd_str[twl_strlen(job->cmd_str) - 2] = 0;
 	}
 }

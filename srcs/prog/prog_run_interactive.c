@@ -15,6 +15,7 @@
 #include "edit/edit.h"
 #include "trap/trap.h"
 #include "trap/trap_mgr.h"
+#include "job_control/job_mgr.h"
 
 static void			prog_run_interative_loop_sigtstp_wrapper(t_prog *prog, char *(get_input_fn)(t_prog *prog))
 {
@@ -71,6 +72,7 @@ static void			prog_run_interative_loop(t_prog *prog, char *(get_input_fn)(t_prog
 	while (true)
 	{
 		prog_run_interative_loop_sigint_winch_wrapper(prog, get_input_fn);
+		job_mgr_wait_update(shenv_singleton()->jobs);
 	}
 }
 

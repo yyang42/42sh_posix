@@ -10,15 +10,25 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "twl_lst.h"
+#include "utils.h"
+#include "shenv/shenv.h"
+#include <errno.h>
 
-#include "data.h"
-
-t_lst               *data_tmp_jobs(void)
+void				utils_tcsetpgrp_for_tty_01(pid_t gid)
 {
-    static t_lst    *jobs = NULL;
+	int tty;
 
-    if (jobs == NULL)
-        jobs = twl_lst_new();
-    return (jobs);
+	tty = isatty(0) ? 0 : 1;
+	LOG_INFO("tcsetpgrp fileno: %d: gid; %d", tty, gid);
+	if (tcsetpgrp(tty, gid) < 0)
+	{
+		if (shenv_is_interactive(shenv_singleton()))
+		{
+			LOG_WARN("tcsetpgrp: %s (tty=%d, gid=%d)", strerror(errno), tty, gid);
+		}
+		else
+		{
+			LOG_ERROR("tcsetpgrp: %s (tty=%d, gid=%d)", strerror(errno), tty, gid);
+		}
+	}
 }
