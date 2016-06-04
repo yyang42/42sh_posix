@@ -50,6 +50,7 @@ static void         ast_utils_exec_string_with_sig_handling(char *input, int lin
     ast_utils_exec_string_inner(input, line);;
     unblock_sigchld(); /* TODO: Find a better way */
     block_sigchld(); /* TODO: Find a better way */
+    // signal(SIGCHLD, SIG_IGN);
 }
 
 void                ast_utils_exec_string(char *input, int line)
@@ -59,5 +60,4 @@ void                ast_utils_exec_string(char *input, int line)
         ast_utils_exec_string_inner(input, line);
     else
         ast_utils_exec_string_with_sig_handling(input, line);
-    job_mgr_wait_update(shenv_singleton()->jobs);
 }
