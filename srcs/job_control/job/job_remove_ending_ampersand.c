@@ -11,27 +11,11 @@
 /* ************************************************************************** */
 
 #include "job_control/job.h"
-#include "shenv/shenv.h"
 
-void				job_exec_update_status(t_job *job)
+void				job_remove_ending_ampersand(t_job *job)
 {
-	char	*str_status;
-
-	if (WIFSTOPPED(job->status))
+	if (twl_str_ends_with(job->cmd_str, " &"))
 	{
-		job->stopped_signal = WSTOPSIG(job->status);
-		job->job_status = JOB_STOPPED;
+		job->cmd_str[twl_strlen(job->cmd_str) - 2] = 0;
 	}
-	else if (WIFCONTINUED(job->status))
-		job->job_status = JOB_RUNNING;
-	else if (WIFEXITED(job->status))
-		job->job_status = JOB_DONE;
-	else if (WIFSIGNALED(job->status))
-		job->job_status = JOB_TERMINATED;
-	else
-		job->job_status = -1;
-	str_status = job_status_str_long(job, true);
-	LOG_INFO("job %d status: %s ", job->job_id, str_status);
-	free(str_status);
-	job_remove_ending_ampersand(job);
 }

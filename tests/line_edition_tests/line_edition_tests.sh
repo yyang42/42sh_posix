@@ -36,11 +36,15 @@ print_result () {
 diff_test () {
 	testcase_tmp="${1}/.tmp"
 	testcase_tmp_stdout="${1}/.tmp/actual_stdout"
+	testcase_tmp_stderr="${1}/.tmp/.actual_stderr"
 	testcase_tmp_bash_stdout="${1}/.tmp/expected_stdout"
+	testcase_tmp_bash_stderr="${1}/.tmp/.expected_stderr"
 	mkdir -p $testcase_tmp
-	${PRINT} "`cat ${1}/input`" | /tmp/bin/bash --posix -i > ${testcase_tmp_bash_stdout} 2> /dev/null
+	export __STDERR_FILE__=${testcase_tmp_bash_stderr}
+	${PRINT} "`cat ${1}/input`" | /tmp/bin/bash --posix -i > ${testcase_tmp_bash_stdout} 2> ${testcase_tmp_bash_stderr}
 	echo "exit status: $?" >> ${testcase_tmp_bash_stdout}
-	${PRINT} "`cat ${1}/input`" | /tmp/bin/42sh -i > ${testcase_tmp_stdout} 2> /dev/null
+	export __STDERR_FILE__=${testcase_tmp_stderr}
+	${PRINT} "`cat ${1}/input`" | /tmp/bin/42sh -i > ${testcase_tmp_stdout} 2> ${testcase_tmp_stderr}
 	echo "exit status: $?" >> ${testcase_tmp_stdout}
 
 	if [ -f "${1}/expected_stdout" ]; then
