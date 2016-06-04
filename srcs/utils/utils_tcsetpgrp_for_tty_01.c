@@ -22,7 +22,7 @@ void				utils_tcsetpgrp_for_tty_01(pid_t gid)
 	LOG_INFO("tcsetpgrp fileno: %d: gid; %d", tty, gid);
 	if (tcsetpgrp(tty, gid) < 0)
 	{
-		if (shenv_shflag_enabled(shenv_singleton(), "i"))
+		if (shenv_is_interactive(shenv_singleton()))
 		{
 			LOG_WARN("tcsetpgrp: %s (tty=%d, gid=%d)", strerror(errno), tty, gid);
 		}
