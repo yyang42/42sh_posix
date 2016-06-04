@@ -13,6 +13,7 @@
 #include "ast/nodes/ast_simple_command.h"
 #include "ast/nodes/ast_redir.h"
 #include "job_control/job_mgr.h"
+#include "job_control/jobexec.h"
 
 static void			ast_simple_command_exec_print_log(t_ast_simple_command *cmd)
 {
@@ -37,7 +38,7 @@ static void			ast_simple_command_exec_with_redirs(t_ast_simple_command *cmd)
 	ast_redir_fd_mgr_close_clear(cmd->redir_fds);
 }
 
-void				ast_simple_command_exec(t_ast_simple_command *cmd)
+void				ast_simple_command_exec_inner(t_ast_simple_command *cmd)
 {
 	if (!shenv_should_continue_exec(shenv_singleton()))
 		return ;
@@ -58,4 +59,52 @@ void				ast_simple_command_exec(t_ast_simple_command *cmd)
 	shvar_mgr_clear_assign_value(shenv_singleton()->shenv_shvars);
 	token_mgr_del(cmd->cmd_tokens_expanded);
 	cmd->cmd_tokens_expanded = NULL;
+}
+
+
+
+
+static void         block_sigchld(void)
+{
+    sigset_t        blockMask;
+
+    LOG_DEBUG("block SIGCHLD");
+    sigemptyset(&blockMask);
+    sigaddset(&blockMask, SIGCHLD);
+    if (sigprocmask(SIG_BLOCK, &blockMask, NULL) == -1)
+        LOG_ERROR("sigprocmask");
+
+}
+
+static void         unblock_sigchld(void)
+{
+    sigset_t        blockMask;
+
+    LOG_DEBUG("unblock SIGCHLD");
+    sigemptyset(&blockMask);
+    sigaddset(&blockMask, SIGCHLD);
+    if (sigprocmask(SIG_UNBLOCK, &blockMask, NULL) == -1)
+        LOG_ERROR("sigprocmask");
+
+}
+
+static void         ast_utils_exec_string_with_sig_handling(t_ast_simple_command *cmd)
+{
+    block_sigchld();
+    jobexec_fork_utils_init_sigchld_handler();
+    ast_simple_command_exec_inner(cmd);;
+    unblock_sigchld(); /* TODO: Find a better way */
+    block_sigchld(); /* TODO: Find a better way */
+    return ;
+    // signal(SIGCHLD, SIG_IGN);
+}
+
+void				ast_simple_command_exec(t_ast_simple_command *cmd)
+{
+
+    LOG_DEBUG("ast_simple_command_exec");
+    if (shenv_singleton()->shenv_is_function_or_script)
+		ast_simple_command_exec_inner(cmd);
+    else
+        ast_utils_exec_string_with_sig_handling(cmd);
 }
