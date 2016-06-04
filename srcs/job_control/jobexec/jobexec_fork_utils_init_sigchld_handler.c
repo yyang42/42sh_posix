@@ -20,7 +20,7 @@ static void         handle_job(int si_code, t_job *job)
 {
     if (si_code == CLD_STOPPED)
     {
-        utils_tcsetpgrp_for_tty_012(getpid());
+        utils_tcsetpgrp_for_tty_01(getpid());
         if(kill(job_get_kill_pid(job), SIGTSTP) < 0)
             LOG_ERROR("kill: %s", strerror(errno));
         job_mgr_env_push(job);

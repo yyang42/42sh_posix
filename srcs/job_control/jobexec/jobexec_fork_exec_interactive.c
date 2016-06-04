@@ -27,7 +27,7 @@ void				jobexec_fork_exec_interactive(t_job *job, t_jobexec *je)
 		LOG_INFO("setpgid and tcsetpgrp");
 		if (setpgid(0, 0) < 0)
 			LOG_ERROR("setpgid: %s", strerror(errno));
-		utils_tcsetpgrp_for_tty_012(getpid());
+		utils_tcsetpgrp_for_tty_01(getpid());
 		jobexec_fork_exec_execve_fn(je);
 		exit(shenv_singleton()->last_exit_code);
 	}
@@ -37,6 +37,6 @@ void				jobexec_fork_exec_interactive(t_job *job, t_jobexec *je)
 		jobexec_fork_exec_wait_fn(je, pid, &job->status);
 		LOG_INFO("after wait_fn");
 		// job_print_if_stopped(job);
-		utils_tcsetpgrp_for_tty_012(getpid());
+		utils_tcsetpgrp_for_tty_01(getpid());
 	}
 }

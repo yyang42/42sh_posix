@@ -11,9 +11,10 @@
 /* ************************************************************************** */
 
 #include "utils.h"
+#include "shenv/shenv.h"
 #include <errno.h>
 
-void				utils_tcsetpgrp_for_tty_012(pid_t gid)
+void				utils_tcsetpgrp_for_tty_01(pid_t gid)
 {
 	int tty;
 
@@ -21,6 +22,13 @@ void				utils_tcsetpgrp_for_tty_012(pid_t gid)
 	LOG_INFO("tcsetpgrp fileno: %d: gid; %d", tty, gid);
 	if (tcsetpgrp(tty, gid) < 0)
 	{
-		LOG_WARN("tcsetpgrp: %s (tty=%d, gid=%d)", strerror(errno), tty, gid);
+		if (shenv_shflag_enabled(shenv_singleton(), "i"))
+		{
+			LOG_WARN("tcsetpgrp: %s (tty=%d, gid=%d)", strerror(errno), tty, gid);
+		}
+		else
+		{
+			LOG_ERROR("tcsetpgrp: %s (tty=%d, gid=%d)", strerror(errno), tty, gid);
+		}
 	}
 }
