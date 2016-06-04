@@ -1,5 +1,5 @@
 sleep 0.1 &
 echo 1111
-sleep 0.2
+sleep 0.2 && echo abc
 cat $__STDERR_FILE__ | grep Done | grep sleep | grep -v grep
 exit
