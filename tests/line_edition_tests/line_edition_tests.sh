@@ -52,6 +52,20 @@ diff_test () {
 	fi
 	diff $testcase_tmp_bash_stdout $testcase_tmp_stdout
 	stdout_res="$?"
+	if [ $stdout_res -ne "0" ]; then
+		echo "================"
+		printf ${C_CYAN}"Actual:\n"${C_CLEAR}
+		printf ${C_GREEN}"stdout\n"${C_CLEAR}
+		cat ${testcase_tmp_stdout}
+		printf ${C_RED}"stderr\n"${C_CLEAR}
+		cat ${testcase_tmp_bash_stdout}
+		printf ${C_CYAN}"Expected:\n"${C_CLEAR}
+		printf ${C_GREEN}"stdout\n"${C_CLEAR}
+		cat ${testcase_tmp_bash_stdout}
+		printf ${C_RED}"stderr\n"${C_CLEAR}
+		cat ${testcase_tmp_bash_stderr}
+		echo "================"
+	fi
 
 	print_result "$stdout_res" stdout
 	${PRINT} "tests/line_edition_tests/%s/%s/input\n" `basename $CASE_PATH` `basename $TEST_PATH`

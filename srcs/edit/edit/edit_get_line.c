@@ -12,26 +12,49 @@
 
 #include "edit/edit.h"
 
-void				edit_print_prompt(t_edit *this)
+void				edit_print_prompt(t_edit *this, t_edit_type type)
 {
-	this->puts(PS1);
-	this->base_x = twl_strlen(PS1) % this->winsize_x;
+	if (type == edit_type_ps1)
+	{
+		this->puts(PS1);
+		this->base_x = twl_strlen(PS1) % this->winsize_x;
+	}
+	else
+	{
+		this->puts(PS2);
+		this->base_x = twl_strlen(PS2) % this->winsize_x;
+	}
 }
 
-static void			init_fn(t_edit *this)
+static void			init_fn(t_edit *this, t_edit_type type)
 {
 	edit_terminal_enable(this);
-	edit_print_prompt(this);
+	edit_print_prompt(this, type);
 	edit_new_last_line(this);
+	if (type == edit_type_ps1)
+	{
+		if (this->last_ps1)
+			twl_strdel(&this->last_ps1);
+	}
 	this->pos_cursor = 0;
 }
 
-static char			*end_fn(t_edit *this)
+static char			*end_fn(t_edit *this, t_edit_type type)
 {
 	char			*ret;
+
 	edit_terminal_disable(this);
 	this->putc('\n');
-	ret = twl_strdup(this->current->line);
+	if (type == edit_type_ps1)
+	{
+		ret = twl_strdup(this->current->line);
+		this->last_ps1 = twl_strjoin(ret, "\n");
+	}
+	else
+	{
+		ret = twl_strjoin(this->last_ps1, this->current->line);
+		this->last_ps1 = twl_strjoin(ret, "\n");
+	}
 	edit_history_push_flush(this);
 	return (ret);
 }
@@ -54,12 +77,12 @@ static bool			is_ignoreeof_set(t_edit *this)
 	return (true);
 }
 
-char				*edit_get_line(t_edit *this)
+char				*edit_get_line(t_edit *this, t_edit_type type)
 {
 	unsigned char	buf;
 	int				read_return;
 
-	init_fn(this);
+	init_fn(this, type);
 	while (1)
 	{
 		if ((read_return = read(0, &buf, sizeof(buf))) == -1)
@@ -87,5 +110,5 @@ char				*edit_get_line(t_edit *this)
 			return (end_exit_fn(this));
 		edit_match_char(this, buf);
 	}
-	return (end_fn(this));
+	return (end_fn(this, type));
 }

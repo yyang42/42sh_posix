@@ -27,11 +27,18 @@
 # define PS1 "$ "
 # define PS2 "> "
 
+typedef enum			e_edit_type
+{
+	edit_type_ps1,
+	edit_type_ps2
+}						t_edit_type;
+
 typedef struct			s_edit
 {
 	t_lst				*history;
 	t_line				*current;
 	t_line				*last;
+	char				*last_ps1;
 	size_t				index_history;
 	size_t				size_history;
 	unsigned char		buffer[8];
@@ -63,13 +70,14 @@ void					edit_terminal_init(t_edit *this);
 void					edit_terminal_enable(t_edit *this);
 void					edit_terminal_disable(t_edit *this);
 
-char					*edit_get_line(t_edit *this);
+char					*edit_get_line(t_edit *this, t_edit_type type);
 void					edit_new_last_line(t_edit *this);
 
 void					edit_match_char(t_edit *this, unsigned char buf);
 void					edit_place_letter(t_edit *this, unsigned char buf);
 void					edit_place_string(t_edit *this, char *string);
 void					edit_padding(t_edit *this);
+void					edit_print_current_char_and_move(t_edit *this);
 
 void					edit_move_goto_pos_cursor(t_edit *this, size_t pos);
 
@@ -81,6 +89,8 @@ void					edit_move_word_right(t_edit *this);
 void					edit_move_word_left(t_edit *this);
 void					edit_move_home(t_edit *this);
 void					edit_move_end(t_edit *this);
+
+void					edit_drag_char_before_cursor(t_edit *this);
 
 void					edit_history_up(t_edit *this);
 void					edit_history_down(t_edit *this);

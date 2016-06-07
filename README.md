@@ -63,23 +63,39 @@ The AST is not finished. It currently implements (see also diff tests):
 	- until_clause
 
 ## Command Line
-- Arrow left / right :  Move 1 char left or right
-- ctrl + a : begin of the line
-- ctrl + e : end of line
-- delete : remove previous char
-- ctrl + t : on word after
-- ctrl + u : on word before
-- ctrl + w : remove prev word
-- arrow up / down : navigate on history
-- history cmd : print history
-- multiline
-- ctrl + i : start + stop copy
-- ctrl + p : paste clip
+- ctrl + a : move to the begin of the line
+- ctrl + b / arrow left : move one char left
+- ctrl + c : send SIGINT / clear current line
+- ctrl + d : leave shell in case of empty line
+- ctrl + e : move to the end of the line 
+- ctrl + f / arrow right : move one char right
+- ctrl + g : nothing
+- ctrl + h : nothing
+- ctrl + i : nothing
+- ctrl + j / enter : validate current line
+- ctrl + k : kill (copy) the text from the cursor to the end of the line
+- ctrl + l : clear the screen
+- ctrl + m / enter : validate current line
+- ctrl + n / arrow down : move down through the history list
+- ctrl + o : nothing
+- ctrl + p / arrow up : move up through the history list
+- ctrl + q : move one word backward
+- ctrl + r : nothing
+- ctrl + s : move one word forward
+- ctrl + t : drag the character before the cursor position
+- ctrl + u : kill (copy) the text from the cursor to the begin of the line
+- ctrl + v : nothing
+- ctrl + w : kill (copy) the word behind the cursor
+- ctrl + y : Yank the most recently killed text back
+- ctrl + z : send SIGTSTP (ignored)
+- delete : remove the character on the left
+- suppr / ctrl + d : remove the character on the right
+- tabulation : completion of the current word
 
 ### Not implemented yet
-- copy / paste
-- search in history
--
+- ctrl + r : search backward in the history
+- ctrl + i : start and end copy mode
+- ! : check the last
 
 ## Testing Job Control
 Test 1:
