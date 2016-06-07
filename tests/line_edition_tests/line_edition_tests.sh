@@ -40,9 +40,11 @@ diff_test () {
 	testcase_tmp_bash_stdout="${1}/.tmp/expected_stdout"
 	testcase_tmp_bash_stderr="${1}/.tmp/.expected_stderr"
 	mkdir -p $testcase_tmp
-	${PRINT} "`cat ${1}/input`" | /tmp/bin/bash --posix -i > ${testcase_tmp_bash_stdout} 2> /tmp/bash_error_line_edition
+	export __STDERR_FILE__=${testcase_tmp_bash_stderr}
+	${PRINT} "`cat ${1}/input`" | /tmp/bin/bash --posix -i > ${testcase_tmp_bash_stdout} 2> ${testcase_tmp_bash_stderr}
 	echo "exit status: $?" >> ${testcase_tmp_bash_stdout}
-	${PRINT} "`cat ${1}/input`" | /tmp/bin/42sh -i > ${testcase_tmp_stdout} 2> /tmp/42sh_error_line_edition
+	export __STDERR_FILE__=${testcase_tmp_stderr}
+	${PRINT} "`cat ${1}/input`" | /tmp/bin/42sh -i > ${testcase_tmp_stdout} 2> ${testcase_tmp_stderr}
 	echo "exit status: $?" >> ${testcase_tmp_stdout}
 
 	if [ -f "${1}/expected_stdout" ]; then
@@ -54,14 +56,14 @@ diff_test () {
 		echo "================"
 		printf ${C_CYAN}"Actual:\n"${C_CLEAR}
 		printf ${C_GREEN}"stdout\n"${C_CLEAR}
-		cat $testcase_tmp_stdout
+		cat ${testcase_tmp_stdout}
 		printf ${C_RED}"stderr\n"${C_CLEAR}
-		cat /tmp/42sh_error_line_edition
+		cat ${testcase_tmp_bash_stdout}
 		printf ${C_CYAN}"Expected:\n"${C_CLEAR}
 		printf ${C_GREEN}"stdout\n"${C_CLEAR}
-		cat $testcase_tmp_bash_stdout
+		cat ${testcase_tmp_bash_stdout}
 		printf ${C_RED}"stderr\n"${C_CLEAR}
-		cat /tmp/bash_error_line_edition
+		cat ${testcase_tmp_bash_stderr}
 		echo "================"
 	fi
 
