@@ -27,11 +27,18 @@
 # define PS1 "$ "
 # define PS2 "> "
 
+typedef enum			e_edit_type
+{
+	edit_type_ps1,
+	edit_type_ps2
+}						t_edit_type;
+
 typedef struct			s_edit
 {
 	t_lst				*history;
 	t_line				*current;
 	t_line				*last;
+	char				*last_ps1;
 	size_t				index_history;
 	size_t				size_history;
 	unsigned char		buffer[8];
@@ -63,7 +70,7 @@ void					edit_terminal_init(t_edit *this);
 void					edit_terminal_enable(t_edit *this);
 void					edit_terminal_disable(t_edit *this);
 
-char					*edit_get_line(t_edit *this);
+char					*edit_get_line(t_edit *this, t_edit_type type);
 void					edit_new_last_line(t_edit *this);
 
 void					edit_match_char(t_edit *this, unsigned char buf);
