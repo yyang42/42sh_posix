@@ -52,15 +52,15 @@ diff_test () {
 	stdout_res="$?"
 	if [ $stdout_res -ne "0" ]; then
 		echo "================"
-		echo "Actual:"
-		echo "stdout"
+		printf ${C_CYAN}"Actual:\n"${C_CLEAR}
+		printf ${C_GREEN}"stdout\n"${C_CLEAR}
 		cat $testcase_tmp_stdout
-		echo "stderr"
+		printf ${C_RED}"stderr\n"${C_CLEAR}
 		cat /tmp/42sh_error_line_edition
-		echo "Expected:"
-		echo "stdout"
+		printf ${C_CYAN}"Expected:\n"${C_CLEAR}
+		printf ${C_GREEN}"stdout\n"${C_CLEAR}
 		cat $testcase_tmp_bash_stdout
-		echo "stderr"
+		printf ${C_RED}"stderr\n"${C_CLEAR}
 		cat /tmp/bash_error_line_edition
 		echo "================"
 	fi
