@@ -28,6 +28,10 @@ static void			build_iter_fn(void *data, void *this)
 		expansion_cmdsbt_bquote(this, token);
 	else if (token->type == EXPAN_ARITHMETIC)
 		expansion_arithmetic(this, token);
+	else if (token->type == EXPAN_PROMPT)
+		expansion_prompt(this, token);
+//	else if (token->type == EXPAN_PROMPT_NUMBER)
+//		expansion_prompt(this, token);
 	else
 		expansion_push_before_split(this, token->text, false);
 }
@@ -43,19 +47,15 @@ static void			stringify_inner_iter_fn(void *data, void *context)
 static void			stringify_iter_fn(void *data, void *next, void *context)
 {
 	char			*tmp;
-	t_pattern		*pat;
 
 	tmp = twl_strnew(0);
 	twl_lst_iter(data, stringify_inner_iter_fn, &tmp);
-	pat = pattern_new(tmp);
-	*((char **)context) = twl_strjoinfree(*((char **)context),
-												pattern_to_string(pat), 'b');
+	*((char **)context) = twl_strjoinfree(*((char **)context), tmp, 'l');
 	if (next)
 	{
 		*((char **)context) = twl_strjoinfree(*((char **)context), " ", 'l');
 	}
 	free(tmp);
-	pattern_del(pat);
 }
 
 char				*expansion_get_string_prompt(t_expansion *this)

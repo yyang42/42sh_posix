@@ -10,21 +10,35 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXPAN_TOKEN_TYPE_H
-# define EXPAN_TOKEN_TYPE_H
+#include "expan/expansion.h"
+#include "expan/expan_prompt.h"
 
-typedef enum		e_expan_token_type
+t_expan_prompt		g_expan_prompt_map_fn[14] =
 {
-	EXPAN_TILDE,
-	EXPAN_PARAMETER,
-	EXPAN_CMDSBT_DOLLAR,
-	EXPAN_CMDSBT_BQUOTE,
-	EXPAN_ARITHMETIC,
-	EXPAN_SQUOTE,
-	EXPAN_DQUOTE,
-	EXPAN_PROMPT,
-	EXPAN_PROMPT_NUMBER,
-	EXPAN_NONE
-}					t_expan_token_type;
+	{ 'a', expansion_prompt_ring_bell },
+	{ 'd', expansion_prompt_ddate },
+	{ 'e', expansion_prompt_escape },
+	{ 'h', expansion_prompt_simple_hostname },
+	{ 'H', expansion_prompt_hostname },
+	{ 'j', expansion_prompt_number_jobs },
+	{ 'n', expansion_prompt_new_line },
+	{ 'r', expansion_prompt_carriage_return },
+	{ '\0', NULL }
+};
 
-#endif
+void				expansion_prompt(t_expansion *this, t_expan_token *token)
+{
+	char			c;
+	size_t			index;
+
+	c = token->text[1];
+	index = 0;
+	while (g_expan_prompt_map_fn[index].key)
+	{
+		if (g_expan_prompt_map_fn[index].key == c)
+			break ;
+		index += 1;
+	}
+	if (g_expan_prompt_map_fn[index].expan_prompt_fn)
+		g_expan_prompt_map_fn[index].expan_prompt_fn(this);
+}

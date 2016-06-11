@@ -10,21 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXPAN_TOKEN_TYPE_H
-# define EXPAN_TOKEN_TYPE_H
+#include "expan/expansion.h"
 
-typedef enum		e_expan_token_type
+void			expansion_prompt_simple_hostname(t_expansion *this)
 {
-	EXPAN_TILDE,
-	EXPAN_PARAMETER,
-	EXPAN_CMDSBT_DOLLAR,
-	EXPAN_CMDSBT_BQUOTE,
-	EXPAN_ARITHMETIC,
-	EXPAN_SQUOTE,
-	EXPAN_DQUOTE,
-	EXPAN_PROMPT,
-	EXPAN_PROMPT_NUMBER,
-	EXPAN_NONE
-}					t_expan_token_type;
+	char		buf[256];
+	size_t		index;
 
-#endif
+	if (gethostname(buf, 256) == -1)
+	{
+		expansion_push_before_split(this, "\\h", false);
+	}
+	else
+	{
+		index = 0;
+		while (buf[index] && buf[index] != '.')
+			index += 1;
+		buf[index] = 0;
+		expansion_push_before_split(this, buf, false);
+	}
+}

@@ -17,6 +17,7 @@ t_expan_tokenizer_fn	g_expan_tokenizer_rule_prompt_fns[8] =
 	expan_tokenizer_apply_rule01,
 	expan_tokenizer_apply_rule04,
 	expan_tokenizer_apply_rule06,
+	expan_tokenizer_apply_rule_prompt,
 	expan_tokenizer_apply_rule07,
 	NULL
 };

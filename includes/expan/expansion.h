@@ -78,6 +78,7 @@ void				expansion_dquote_wrap(t_expansion *this,
 											t_expan_token *token);
 void				expansion_dquote_unwrap(t_expansion *this,
 											t_expan_token *token);
+void				expansion_prompt(t_expansion *this, t_expan_token *token);
 
 void				expansion_push_before_split(t_expansion *this,
 												char *text, bool split);

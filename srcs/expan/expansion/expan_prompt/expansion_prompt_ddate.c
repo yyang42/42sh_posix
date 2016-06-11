@@ -10,21 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXPAN_TOKEN_TYPE_H
-# define EXPAN_TOKEN_TYPE_H
+#include "expan/expansion.h"
+#include <time.h>
 
-typedef enum		e_expan_token_type
+void			expansion_prompt_ddate(t_expansion *this)
 {
-	EXPAN_TILDE,
-	EXPAN_PARAMETER,
-	EXPAN_CMDSBT_DOLLAR,
-	EXPAN_CMDSBT_BQUOTE,
-	EXPAN_ARITHMETIC,
-	EXPAN_SQUOTE,
-	EXPAN_DQUOTE,
-	EXPAN_PROMPT,
-	EXPAN_PROMPT_NUMBER,
-	EXPAN_NONE
-}					t_expan_token_type;
+	time_t		timer;
+	struct tm	*tm_info;
+	char		time_buffer[16];
 
-#endif
+	time(&timer);
+	tm_info = localtime(&timer);
+	strftime(time_buffer, 16, "%a %b %d", tm_info);
+	expansion_push_before_split(this, time_buffer, false);
+}

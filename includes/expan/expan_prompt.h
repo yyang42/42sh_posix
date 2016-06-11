@@ -10,21 +10,25 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXPAN_TOKEN_TYPE_H
-# define EXPAN_TOKEN_TYPE_H
+#ifndef EXPAN_PROMPT_H
+# define EXPAN_PROMPT_H
 
-typedef enum		e_expan_token_type
+# include "expan/expansion.h"
+# include "basics.h"
+
+typedef struct			s_expan_prompt
 {
-	EXPAN_TILDE,
-	EXPAN_PARAMETER,
-	EXPAN_CMDSBT_DOLLAR,
-	EXPAN_CMDSBT_BQUOTE,
-	EXPAN_ARITHMETIC,
-	EXPAN_SQUOTE,
-	EXPAN_DQUOTE,
-	EXPAN_PROMPT,
-	EXPAN_PROMPT_NUMBER,
-	EXPAN_NONE
-}					t_expan_token_type;
+	char				key;
+	void				(*expan_prompt_fn)(t_expansion *this);
+}						t_expan_prompt;
+
+void					expansion_prompt_ring_bell(t_expansion *this);
+void					expansion_prompt_ddate(t_expansion *this);
+void					expansion_prompt_escape(t_expansion *this);
+void					expansion_prompt_simple_hostname(t_expansion *this);
+void					expansion_prompt_hostname(t_expansion *this);
+void					expansion_prompt_number_jobs(t_expansion *this);
+void					expansion_prompt_new_line(t_expansion *this);
+void					expansion_prompt_carriage_return(t_expansion *this);
 
 #endif
