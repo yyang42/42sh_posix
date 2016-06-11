@@ -10,32 +10,34 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "edit/completion.h"
+#include "edit/edit.h"
+#include "expan/expansion.h"
 
-static void		iter_fn(void *data, void *ctx)
+static char		*get_prompt_fn(char *ps)
 {
-	((t_edit *)ctx)->puts(data);
-	((t_edit *)ctx)->puts("\n");
+	t_expansion	*expansion;
+	char		*prompt_tmp;
+
+	expansion = expansion_new_from_text_prompt(ps);
+	prompt_tmp = expansion_get_string_prompt(expansion);
+	if (!prompt_tmp)
+		prompt_tmp = twl_strdup(ps);
+	expansion_del(expansion);
+	return (prompt_tmp);
 }
 
-static bool		sort_fn(void *ctx1, void *ctx2)
+void			edit_prompt_print(t_edit *this, t_edit_type type)
 {
-	return (twl_strcmp(ctx1, ctx2) < 0);
-}
+	char		*ps;
+	char		*prompt;
 
-void			completion_utils_print_lst(t_completion *this)
-{
-	size_t		last_pos;
-
-	last_pos = this->edit->pos_cursor;
-	edit_move_end(this->edit);
-	twl_lst_qsort(this->all, sort_fn);
-	edit_terminal_disable(this->edit);
-	this->edit->putc('\n');
-	twl_lst_iter(this->all, iter_fn, this->edit);
-	edit_prompt_print(this->edit, this->edit->last_ps1 ?
-			edit_type_ps2 : edit_type_ps1);
-	this->edit->puts(this->edit->current->line);
-	edit_terminal_enable(this->edit);
-	edit_move_goto_pos_cursor(this->edit, last_pos);
+	ps = (type == edit_type_ps1) ?
+		shenv_shvars_get_value(shenv_singleton(), "PS1") :
+		shenv_shvars_get_value(shenv_singleton(), "PS2");
+	if (!ps)
+		ps = "";
+	prompt = get_prompt_fn(ps);
+	this->puts(prompt);
+	this->base_x = twl_strlen(prompt) % this->winsize_x;
+	free(prompt);
 }

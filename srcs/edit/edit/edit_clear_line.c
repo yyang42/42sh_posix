@@ -22,5 +22,5 @@ void			edit_clear_line(t_edit *this)
 	this->pos_cursor = 0;
 	tputs(tgoto(tgetstr("cr", NULL), 0, 0), 1, this->putc);
 	tputs(tgoto(tgetstr("do", NULL), 0, 0), 1, this->putc);
-	this->puts(PS1);
+	edit_prompt_print(this, edit_type_ps1);
 }

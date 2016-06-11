@@ -55,6 +55,8 @@ int					prog_run(t_prog *prog)
 		set_interactive_state();
 		if (shenv_is_interactive(shenv_singleton()))
 		{
+			shenv_shvars_set(env, "PS1", "$ ", env->shenv_name);
+			shenv_shvars_set(env, "PS2", "> ", env->shenv_name);
 			LOG_INFO("run interactive");
 			prog_run_interactive(prog);
 		}

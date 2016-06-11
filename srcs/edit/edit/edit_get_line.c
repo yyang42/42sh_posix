@@ -13,25 +13,11 @@
 #include "edit/edit.h"
 #include "utils.h"
 
-void				edit_print_prompt(t_edit *this, t_edit_type type)
-{
-	if (type == edit_type_ps1)
-	{
-		this->puts(PS1);
-		this->base_x = twl_strlen(PS1) % this->winsize_x;
-	}
-	else
-	{
-		this->puts(PS2);
-		this->base_x = twl_strlen(PS2) % this->winsize_x;
-	}
-}
-
 static void			init_fn(t_edit *this, t_edit_type type)
 {
 	utils_tcsetpgrp_for_tty_01(getpid());
 	edit_terminal_enable(this);
-	edit_print_prompt(this, type);
+	edit_prompt_print(this, type);
 	edit_new_last_line(this);
 	if (type == edit_type_ps1)
 	{
@@ -75,7 +61,7 @@ static bool			is_ignoreeof_set(t_edit *this)
 	this->puts("Use \"exit\" to leave the shell.");
 	tputs(tgoto(tgetstr("cr", NULL), 0, 0), 1, this->putc);
 	tputs(tgoto(tgetstr("do", NULL), 0, 0), 1, this->putc);
-	this->puts(PS1);
+	edit_prompt_print(this, this->last_ps1 ? edit_type_ps2 : edit_type_ps1);
 	return (true);
 }
 

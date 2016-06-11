@@ -111,4 +111,7 @@ t_edit_fn				edit_utils_buf_match_simple(t_edit *this,
 
 void					edit_completion(t_edit *this);
 
+void					edit_prompt_print(t_edit *this, t_edit_type type);
+size_t					edit_prompt_len(t_edit *this, char *prompt);
+
 #endif
