@@ -15,7 +15,6 @@
 static void			init_fn(t_edit *this, t_edit_type type)
 {
 	utils_tcsetpgrp_for_tty_01(getpid());
-	edit_terminal_enable(this);
 	edit_prompt_print(this, type);
 	edit_terminal_enable(this);
 	edit_new_last_line(this);
