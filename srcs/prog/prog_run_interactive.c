@@ -17,29 +17,15 @@
 #include "trap/trap_mgr.h"
 #include "job_control/job_mgr.h"
 
-static void			prog_run_interative_loop_sigtstp_wrapper(t_prog *prog, char *(get_input_fn)(t_prog *prog))
+static void			signint_handler_quit_ast(int sig)
 {
-	struct sigaction	sa_new;
-	struct sigaction	sa_old;
-	char				*input;
-
-	LOG_INFO("enter line edit");
-	twl_memset(&sa_new, 0, sizeof(sa_new));
-	sigemptyset(&sa_new.sa_mask);
-    sa_new.sa_handler = SIG_IGN;
-    if (sigaction(SIGTSTP, &sa_new, &sa_old) != 0)
-		LOG_ERROR("sigaction: %s", strerror(errno));
-	input = get_input_fn(prog);
-	if (sigaction(SIGTSTP, &sa_old, NULL) != 0)
-		LOG_ERROR("sigaction: %s", strerror(errno));
-	LOG_INFO("exit line edit");
-	ast_utils_exec_string(input, 1);
-	free(input);
+	shenv_singleton()->shenv_shall_quit_curr_ast = true;
+	(void)sig;
 }
 
-static void			signint_handler(int sig)
+static void			sig_int_winch_handler(int sig)
 {
-	LOG_INFO("signint_handler called: sig: %d", sig);
+	LOG_INFO("sig_int_winch_handler called: sig: %d", sig);
 	if (trap_mgr_find_by_signum(shenv_singleton()->shenv_traps, sig))
 	{
 		trap_signal_handler(sig);
@@ -55,23 +41,46 @@ static void			signint_handler(int sig)
 	(void)sig;
 }
 
-static void			prog_run_interative_loop_sigint_winch_wrapper(t_prog *prog, char *(get_input_fn)(t_prog *prog))
+static char			*get_input_fn_sigint_winch_wrapper(t_prog *prog, char *(get_input_fn)(t_prog *prog))
 {
 	sig_t			save_sigint;
 	sig_t			save_sigwinch;
+	char			*input;
 
-	save_sigint = signal(SIGINT, signint_handler);
-	save_sigwinch = signal(SIGWINCH, signint_handler);
-	prog_run_interative_loop_sigtstp_wrapper(prog, get_input_fn);
-	signal(SIGWINCH, save_sigwinch);
-	signal(SIGINT, save_sigint);
+	save_sigint = signal(SIGINT, sig_int_winch_handler);
+	save_sigwinch = signal(SIGWINCH, sig_int_winch_handler);
+	input = get_input_fn(prog);
+	signal(SIGWINCH, SIG_IGN);
+	signal(SIGINT, SIG_IGN);
+	signal(SIGINT, signint_handler_quit_ast);
+	return (input);
+}
+
+static void			prog_run_interative_loop_sigtstp_wrapper(t_prog *prog, char *(get_input_fn)(t_prog *prog))
+{
+	struct sigaction	sa_new;
+	struct sigaction	sa_old;
+	char				*input;
+
+	LOG_INFO("enter line edit");
+	twl_memset(&sa_new, 0, sizeof(sa_new));
+	sigemptyset(&sa_new.sa_mask);
+    sa_new.sa_handler = SIG_IGN;
+    if (sigaction(SIGTSTP, &sa_new, &sa_old) != 0)
+		LOG_ERROR("sigaction: %s", strerror(errno));
+	input = get_input_fn_sigint_winch_wrapper(prog, get_input_fn);
+	if (sigaction(SIGTSTP, &sa_old, NULL) != 0)
+		LOG_ERROR("sigaction: %s", strerror(errno));
+	LOG_INFO("exit line edit");
+	ast_utils_exec_string(input, 1);
+	free(input);
 }
 
 static void			prog_run_interative_loop(t_prog *prog, char *(get_input_fn)(t_prog *prog))
 {
 	while (true)
 	{
-		prog_run_interative_loop_sigint_winch_wrapper(prog, get_input_fn);
+		prog_run_interative_loop_sigtstp_wrapper(prog, get_input_fn);
 		job_mgr_wait_update(shenv_singleton()->jobs);
 	}
 }
