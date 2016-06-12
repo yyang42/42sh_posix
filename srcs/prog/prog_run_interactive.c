@@ -51,8 +51,9 @@ static char			*get_input_fn_sigint_winch_wrapper(t_prog *prog, char *(get_input_
 	save_sigwinch = signal(SIGWINCH, sig_int_winch_handler);
 	input = get_input_fn(prog);
 	signal(SIGWINCH, SIG_IGN);
-	signal(SIGINT, SIG_IGN);
 	signal(SIGINT, signint_handler_quit_ast);
+	(void)save_sigint;
+	(void)save_sigwinch;
 	return (input);
 }
 
