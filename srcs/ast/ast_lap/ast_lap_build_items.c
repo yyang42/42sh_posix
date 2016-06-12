@@ -80,7 +80,6 @@ t_lst				*ast_lap_build_items(t_lst *tokens,
 	}
 	if (token_mgr_first_equ(tokens, "("))
 	{
-		ast_add_to_open_stack(ast, "(");
 		ast_set_error_msg_syntax_error_near(ast, token_mgr_first(tokens), NULL);
 		twl_lst_del(container, ast_lap_del_fns()[type]);
 		return (NULL);
