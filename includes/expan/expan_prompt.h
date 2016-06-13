@@ -30,5 +30,13 @@ void					expansion_prompt_hostname(t_expansion *this);
 void					expansion_prompt_number_jobs(t_expansion *this);
 void					expansion_prompt_new_line(t_expansion *this);
 void					expansion_prompt_carriage_return(t_expansion *this);
+void					expansion_prompt_date_hhmmss24(t_expansion *this);
+void					expansion_prompt_date_hhmmss12(t_expansion *this);
+void					expansion_prompt_date_ampm(t_expansion *this);
+void					expansion_prompt_date_hhmm24(t_expansion *this);
+void					expansion_prompt_username(t_expansion *this);
+void					expansion_prompt_current_directory(t_expansion *this);
+void					expansion_prompt_current_basename(t_expansion *this);
+void					expansion_prompt_backslash(t_expansion *this);
 
 #endif

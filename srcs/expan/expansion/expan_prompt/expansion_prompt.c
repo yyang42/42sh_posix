@@ -13,7 +13,7 @@
 #include "expan/expansion.h"
 #include "expan/expan_prompt.h"
 
-t_expan_prompt		g_expan_prompt_map_fn[14] =
+t_expan_prompt		g_expan_prompt_map_fn[17] =
 {
 	{ 'a', expansion_prompt_ring_bell },
 	{ 'd', expansion_prompt_ddate },
@@ -23,6 +23,14 @@ t_expan_prompt		g_expan_prompt_map_fn[14] =
 	{ 'j', expansion_prompt_number_jobs },
 	{ 'n', expansion_prompt_new_line },
 	{ 'r', expansion_prompt_carriage_return },
+	{ 't', expansion_prompt_date_hhmmss24 },
+	{ 'T', expansion_prompt_date_hhmmss12 },
+	{ '@', expansion_prompt_date_ampm },
+	{ 'A', expansion_prompt_date_hhmm24 },
+	{ 'u', expansion_prompt_username },
+	{ 'w', expansion_prompt_current_directory },
+	{ 'W', expansion_prompt_current_basename },
+	{ '\\', expansion_prompt_backslash },
 	{ '\0', NULL }
 };
 
