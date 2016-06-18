@@ -11,25 +11,29 @@
 /* ************************************************************************** */
 
 #include "edit/edit.h"
+#include "edit/prompt_info.h"
 #include "expan/expansion.h"
 
-static char		*get_prompt_fn(char *ps)
+static t_prompt_info	get_prompt_fn(char *ps)
 {
-	t_expansion	*expansion;
-	char		*prompt_tmp;
+	t_expansion			*expansion;
+	t_prompt_info		prompt;
 
 	expansion = expansion_new_from_text_prompt(ps);
-	prompt_tmp = expansion_get_string_prompt(expansion);
-	if (!prompt_tmp)
-		prompt_tmp = twl_strdup(ps);
+	prompt = expansion_get_prompt_info(expansion);
+	if (!prompt.prompt_expanded)
+	{
+		prompt.prompt_expanded = twl_strdup(ps);
+		prompt.length = twl_strlen(ps);
+	}
 	expansion_del(expansion);
-	return (prompt_tmp);
+	return (prompt);
 }
 
-void			edit_prompt_print(t_edit *this, t_edit_type type)
+void					edit_prompt_print(t_edit *this, t_edit_type type)
 {
-	char		*ps;
-	char		*prompt;
+	char				*ps;
+	t_prompt_info		prompt;
 
 	ps = (type == edit_type_ps1) ?
 		shenv_shvars_get_value(shenv_singleton(), "PS1") :
@@ -37,7 +41,8 @@ void			edit_prompt_print(t_edit *this, t_edit_type type)
 	if (!ps)
 		ps = "";
 	prompt = get_prompt_fn(ps);
-	this->puts(prompt);
-	this->base_x = twl_strlen(prompt) % this->winsize_x;
-	free(prompt);
+	this->puts(prompt.prompt_expanded);
+	this->base_x = prompt.length % this->winsize_x;
+	LOG_DEBUG("%zu", this->base_x);
+	free(prompt.prompt_expanded);
 }

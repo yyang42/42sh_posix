@@ -38,5 +38,7 @@ void					expansion_prompt_username(t_expansion *this);
 void					expansion_prompt_current_directory(t_expansion *this);
 void					expansion_prompt_current_basename(t_expansion *this);
 void					expansion_prompt_backslash(t_expansion *this);
+void					expansion_prompt_open_brace(t_expansion *this);
+void					expansion_prompt_close_brace(t_expansion *this);
 
 #endif

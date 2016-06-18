@@ -58,21 +58,26 @@ static void			stringify_iter_fn(void *data, void *next, void *context)
 	free(tmp);
 }
 
-char				*expansion_get_string_prompt(t_expansion *this)
+t_prompt_info		expansion_get_prompt_info(t_expansion *this)
 {
-	char			*ret;
+	t_prompt_info	ret;
 
+	ret.prompt_expanded = NULL;
+	this->flag_prompt = true;
+	this->flag_prompt_open_close = false;
+	this->size_prompt = 0;
 	if (this->error)
-		return (NULL);
+		return (ret);
 	twl_lst_iter(this->tokens, build_iter_fn, this);
 	if (this->error)
-		return (NULL);
+		return (ret);
 	if (this->to_push_bs)
 	{
 		twl_lst_push_back(this->before_split, this->to_push_bs);
 		this->to_push_bs = NULL;
 	}
-	ret = twl_strnew(0);
-	twl_lst_itern(this->before_split, stringify_iter_fn, &ret);
+	ret.prompt_expanded = twl_strnew(0);
+	twl_lst_itern(this->before_split, stringify_iter_fn, &ret.prompt_expanded);
+	ret.length = this->size_prompt;
 	return (ret);
 }

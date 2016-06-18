@@ -13,7 +13,7 @@
 #include "expan/expansion.h"
 #include "expan/expan_prompt.h"
 
-t_expan_prompt		g_expan_prompt_map_fn[17] =
+t_expan_prompt		g_expan_prompt_map_fn[19] =
 {
 	{ 'a', expansion_prompt_ring_bell },
 	{ 'd', expansion_prompt_ddate },
@@ -31,6 +31,8 @@ t_expan_prompt		g_expan_prompt_map_fn[17] =
 	{ 'w', expansion_prompt_current_directory },
 	{ 'W', expansion_prompt_current_basename },
 	{ '\\', expansion_prompt_backslash },
+	{ '[', expansion_prompt_open_brace },
+	{ ']', expansion_prompt_close_brace },
 	{ '\0', NULL }
 };
 

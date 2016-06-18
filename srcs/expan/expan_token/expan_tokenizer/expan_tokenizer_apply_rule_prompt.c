@@ -73,7 +73,7 @@ t_rule_expan_status	expan_tokenizer_apply_rule_prompt(t_expan_tokenizer *this)
 		if (c == 'a' || c == 'd' || c == 'e' || c == 'h' || c == 'H' ||
 				c == 'j' || c == 'n' || c == 'r' || c == 't' || c == 'T' ||
 				c == '@' || c == 'A' || c == 'u' || c == 'U' || c == 'w' ||
-				c == 'W' || c == '\\')
+				c == 'W' || c == '\\' || c == '[' || c == ']')
 		{
 			simple_char_fn(this);
 			return (EXPAN_STATUS_APPLIED);

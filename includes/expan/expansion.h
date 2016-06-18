@@ -19,6 +19,7 @@
 # include "expan/expan_before_split.h"
 # include "expan/expan_utils.h"
 # include "twl_ctype.h"
+# include "edit/prompt_info.h"
 
 typedef struct		s_expansion
 {
@@ -32,6 +33,9 @@ typedef struct		s_expansion
 	char			*error;
 	bool			quoted;
 	bool			is_at_present;
+	bool			flag_prompt;
+	bool			flag_prompt_open_close;
+	size_t			size_prompt;
 }					t_expansion;
 
 t_expansion			*expansion_new(void);
@@ -53,7 +57,7 @@ char				*expansion_get_string_needle_case(t_expansion *this);
 char				*expansion_get_string_pattern_case(t_expansion *this);
 char				*expansion_get_string_assign(t_expansion *this);
 char				*expansion_get_string_heredoc(t_expansion *this);
-char				*expansion_get_string_prompt(t_expansion *this);
+t_prompt_info		expansion_get_prompt_info(t_expansion *this);
 
 void				expansion_tilde(t_expansion *this,
 											t_expan_token *token);

@@ -10,21 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "expan/expansion.h"
+#ifndef PROMPT_INFO_H
+# define PROMPT_INFO_H
 
-t_expansion			*expansion_new(void)
+typedef struct		s_prompt_info
 {
-	t_expansion		*this;
+	char			*prompt_expanded;
+	size_t			length;
+}					t_prompt_info;
 
-	this = twl_malloc_x0(sizeof(t_expansion));
-	this->before_split = twl_lst_new();
-	this->after_split = twl_lst_new();
-	this->patmatch = twl_lst_new();
-	this->quoted = false;
-	this->error = NULL;
-	this->to_push_as = NULL;
-	this->flag_prompt = false;
-	this->flag_prompt_open_close = false;
-	this->size_prompt = 0;
-	return (this);
-}
+#endif
