@@ -1,0 +1,1 @@
+echo $(/bin/echo abc)
