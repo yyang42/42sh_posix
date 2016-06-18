@@ -23,8 +23,9 @@ void			edit_place_letter(t_edit *this, unsigned char buf)
 	this->putc(buf);
 	if ((this->pos_cursor + this->base_x) % this->winsize_x == 0)
 	{
-		tputs(tgoto(tgetstr("do", NULL), 0, 0), 1, this->putc);
-		tputs(tgoto(tgetstr("LE", NULL), 0, this->winsize_x), 1, this->putc);
+		this->puts(" \r");
+		//tputs(tgoto(tgetstr("do", NULL), 0, 0), 1, this->putc);
+		//tputs(tgoto(tgetstr("LE", NULL), 0, this->winsize_x), 1, this->putc);
 	}
 	line_realloc(this->current);
 	edit_padding(this);
