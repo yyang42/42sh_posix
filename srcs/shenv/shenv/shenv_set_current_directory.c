@@ -11,12 +11,16 @@
 /* ************************************************************************** */
 
 #include "shenv/shenv.h"
+#include "builtin/cmds/builtin_cd.h"
 
 void			shenv_set_current_directory(t_shenv *this, char *from_whom)
 {
 	char		*cwd;
+	char		*shvar_pwd;
+	char		*phypath_pwd;
 
 	cwd = getcwd(NULL, 0);
+	shvar_pwd = shenv_shvars_get_value(this, "PWD");
 	if (cwd == NULL)
 	{
 		twl_dprintf(2, "%s: error retrieving current directory: getcwd: %s\n",
@@ -25,6 +29,22 @@ void			shenv_set_current_directory(t_shenv *this, char *from_whom)
 	}
 	else
 	{
-		this->shenv_current_directory = cwd;
+		if (!shvar_pwd || !twl_strcmp(shvar_pwd, cwd))
+			this->shenv_current_directory = cwd;
+		else if (shvar_pwd)
+		{
+			phypath_pwd = builtin_cd_phypath(shvar_pwd);
+			if (phypath_pwd && !twl_strcmp(cwd, phypath_pwd))
+			{
+				this->shenv_current_directory = twl_strdup(shvar_pwd);
+				free(cwd);
+			}
+			else
+			{
+				this->shenv_current_directory = cwd;
+			}
+			if (phypath_pwd)
+				free(phypath_pwd);
+		}
 	}
 }
