@@ -37,10 +37,10 @@ static bool			check_dirs(t_expansion *this, size_t index, bool is_neg)
 	index = (is_neg) ? len - index : index;
 	if (index == 0)
 	{
-		if (!(cwd = getcwd(NULL, 4096)))
+		if (!(cwd = shenv_get_current_directory(shenv_singleton(),
+						"tilde-expansion")))
 			return (false);
 		expansion_push_before_split(this, cwd, false);
-		free(cwd);
 	}
 	else
 	{
