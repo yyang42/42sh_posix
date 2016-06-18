@@ -18,6 +18,8 @@ void				utils_tcsetpgrp_for_tty_01(pid_t gid)
 {
 	int tty;
 
+	if (shenv_singleton()->shenv_is_inside_job_control)
+		return ;
 	tty = isatty(0) ? 0 : 1;
 	LOG_INFO("tcsetpgrp fileno: %d: gid; %d", tty, gid);
 	if (tcsetpgrp(tty, gid) < 0)

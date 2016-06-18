@@ -92,6 +92,7 @@ char				*edit_get_line(t_edit *this, t_edit_type type)
 		    	LOG_INFO("read: System interrup received: ignore and continue");
 		    	continue;
 		    }
+		    LOG_ERROR("read: %s\n", strerror(errno));
 			twl_dprintf(2, "read: %s\n", strerror(errno));
 			exit(-1);
 		}
