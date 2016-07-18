@@ -43,6 +43,5 @@ void					edit_prompt_print(t_edit *this, t_edit_type type)
 	prompt = get_prompt_fn(ps);
 	this->puts(prompt.prompt_expanded);
 	this->base_x = prompt.length % this->winsize_x;
-	LOG_DEBUG("%zu", this->base_x);
 	free(prompt.prompt_expanded);
 }
