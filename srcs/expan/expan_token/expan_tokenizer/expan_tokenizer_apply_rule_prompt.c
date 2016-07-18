@@ -78,11 +78,12 @@ t_rule_expan_status	expan_tokenizer_apply_rule_prompt(t_expan_tokenizer *this)
 			simple_char_fn(this);
 			return (EXPAN_STATUS_APPLIED);
 		}
-		if ((c == '0' && isodigit_fn(this->input[this->input_index + 2]) &&
-					isodigit_fn(this->input[this->input_index + 3])) ||
-				((c == 'x' || c == 'X') &&
-				 twl_isxdigit(this->input[this->input_index + 2]) &&
-					twl_isxdigit(this->input[this->input_index + 3])))
+		if ((isodigit_fn(c) &&
+				isodigit_fn(this->input[this->input_index + 2]) &&
+				isodigit_fn(this->input[this->input_index + 3])) ||
+			((c == 'x' || c == 'X') &&
+				twl_isxdigit(this->input[this->input_index + 2]) &&
+				twl_isxdigit(this->input[this->input_index + 3])))
 		{
 			number_fn(this);
 			return (EXPAN_STATUS_APPLIED);

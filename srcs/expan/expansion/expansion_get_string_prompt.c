@@ -30,8 +30,8 @@ static void			build_iter_fn(void *data, void *this)
 		expansion_arithmetic(this, token);
 	else if (token->type == EXPAN_PROMPT)
 		expansion_prompt(this, token);
-//	else if (token->type == EXPAN_PROMPT_NUMBER)
-//		expansion_prompt(this, token);
+	else if (token->type == EXPAN_PROMPT_NUMBER)
+		expansion_prompt_number(this, token);
 	else
 		expansion_push_before_split(this, token->text, false);
 }
