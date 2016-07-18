@@ -32,6 +32,7 @@ t_lst				*data_simple_char_edit(void)
 		twl_lst_push_front(data, simple_char_new('\016', edit_history_down));
 		twl_lst_push_front(data, simple_char_new('\020', edit_history_up));
 		twl_lst_push_front(data, simple_char_new('\021', edit_move_word_left));
+		twl_lst_push_front(data, simple_char_new('\022', edit_research));
 		twl_lst_push_front(data, simple_char_new('\023', edit_move_word_right));
 		twl_lst_push_front(data, simple_char_new('\024', edit_drag_char_before_cursor));
 		twl_lst_push_front(data, simple_char_new('\025', edit_del_all_left));

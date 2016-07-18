@@ -10,39 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "edit/edit.h"
-#include "edit/prompt_info.h"
-#include "expan/expansion.h"
+#include "edit/research.h"
 
-static t_prompt_info	get_prompt_fn(char *ps)
+void			research_clear_line(t_edit *this)
 {
-	t_expansion			*expansion;
-	t_prompt_info		prompt;
+	size_t		tmp_pos_cursor;
+	char		*tmp;
 
-	expansion = expansion_new_from_text_prompt(ps);
-	prompt = expansion_get_prompt_info(expansion);
-	if (!prompt.prompt_expanded)
-	{
-		prompt.prompt_expanded = twl_strdup(ps);
-		prompt.length = twl_strlen(ps);
-	}
-	expansion_del(expansion);
-	return (prompt);
-}
-
-void					edit_prompt_print(t_edit *this, t_edit_type type)
-{
-	char				*ps;
-	t_prompt_info		prompt;
-
-	ps = (type == edit_type_ps1) ?
-		shenv_shvars_get_value(shenv_singleton(), "PS1") :
-		shenv_shvars_get_value(shenv_singleton(), "PS2");
-	if (!ps)
-		ps = "";
-	prompt = get_prompt_fn(ps);
-	this->puts(prompt.prompt_expanded);
-	this->base_x = prompt.length % this->winsize_x;
-	this->prompt_size = prompt.length;
-	free(prompt.prompt_expanded);
+	tmp_pos_cursor = this->pos_cursor;
+	edit_move_home(this);
+	tmp = twl_strnewc(this->current->size, ' ');
+	this->puts(tmp);
+	free(tmp);
+	this->pos_cursor = this->current->size;
+	edit_move_home(this);
+	this->pos_cursor = tmp_pos_cursor;
 }

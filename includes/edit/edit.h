@@ -24,9 +24,6 @@
 # include "shenv/shenv.h"
 # include "edit/line.h"
 
-# define PS1 "$ "
-# define PS2 "> "
-
 typedef enum			e_edit_type
 {
 	edit_type_ps1,
@@ -44,6 +41,7 @@ typedef struct			s_edit
 	unsigned char		buffer[8];
 	size_t				pos_cursor;
 	size_t				winsize_x;
+	size_t				prompt_size;
 	size_t				base_x;
 	struct termios		term;
 	struct termios		save;
@@ -113,5 +111,7 @@ void					edit_completion(t_edit *this);
 
 void					edit_prompt_print(t_edit *this, t_edit_type type);
 size_t					edit_prompt_len(t_edit *this, char *prompt);
+
+void					edit_research(t_edit *this);
 
 #endif
