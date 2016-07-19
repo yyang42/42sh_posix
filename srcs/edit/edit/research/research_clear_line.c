@@ -21,6 +21,8 @@ void			research_clear_line(t_edit *this)
 	edit_move_home(this);
 	tmp = twl_strnewc(this->current->size, ' ');
 	this->puts(tmp);
+	if ((this->base_x + this->current->size) % this->winsize_x == 0)
+		this->puts("\n\r");
 	free(tmp);
 	this->pos_cursor = this->current->size;
 	edit_move_home(this);

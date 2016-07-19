@@ -10,22 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "edit/edit.h"
 #include "edit/research.h"
 
-/*
-** "(reverse-i-search)`': "
-** "(failed reverse-i-search)`': "
-** TODO:
-**   Terminer cette partie... En cas de mode déjà activé... chercher plus haut
-**   dans l'historique.
-*/
-
-void			edit_research(t_edit *this)
+void			research_print_line(t_edit *this)
 {
-	this->research_mode = true;
-	this->research = research_new();
-	research_clear(this);
-	research_print_prompt(this);
-	research_print_line(this);
+	size_t		tmp_pos_cursor;
+	
+	tmp_pos_cursor = this->pos_cursor;
+	this->puts(this->current->line);
+	this->pos_cursor = this->current->size;
+	if ((this->base_x + this->current->size) % this->winsize_x == 0)
+		this->puts("\n\r");
+	edit_move_goto_pos_cursor(this, tmp_pos_cursor);
 }

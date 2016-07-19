@@ -16,9 +16,21 @@ void			research_clear_prompt(t_edit *this)
 {
 	char		*tmp;
 
+	if (this->base_x < this->prompt_size)
+	{
+		tputs(tgoto(tgetstr("UP", NULL), 0,
+					this->prompt_size / this->winsize_x), 1, this->putc);
+	}
 	this->putc('\r');
-	tmp = twl_strnewc(this->base_x, ' ');
+	tmp = twl_strnewc(this->prompt_size, ' ');
 	this->puts(tmp);
+	if (this->base_x == 0)
+		this->puts("\n\r");
 	free(tmp);
+	if (this->base_x < this->prompt_size)
+	{
+		tputs(tgoto(tgetstr("UP", NULL), 0,
+					this->prompt_size / this->winsize_x), 1, this->putc);
+	}
 	this->putc('\r');
 }

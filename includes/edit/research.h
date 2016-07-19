@@ -16,8 +16,30 @@
 # include "basics.h"
 # include "edit/edit.h"
 
+# define DFL_RESEARCH_SIZE 64
+
+typedef struct		s_research
+{
+	char			*search;
+	size_t			size;
+	size_t			total;
+	bool			found;
+}					t_research;
+
+t_research			*research_new(void);
+void				research_del(t_research *this);
+void				research_realloc(t_research *this);
+
 void				research_clear(t_edit *this);
-void				research_clear_line(t_edit *this);
 void				research_clear_prompt(t_edit *this);
+void				research_clear_line(t_edit *this);
+
+void				research_add_and_find(t_edit *this, unsigned char buf);
+void				research_rem_and_find(t_edit *this);
+void				research_place_letter(t_edit *this, unsigned char buf);
+void				research_delete_letter(t_edit *this);
+
+void				research_print_prompt(t_edit *this);
+void				research_print_line(t_edit *this);
 
 #endif

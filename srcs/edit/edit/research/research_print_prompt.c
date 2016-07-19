@@ -10,22 +10,27 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "edit/edit.h"
 #include "edit/research.h"
 
 /*
-** "(reverse-i-search)`': "
-** "(failed reverse-i-search)`': "
-** TODO:
-**   Terminer cette partie... En cas de mode déjà activé... chercher plus haut
-**   dans l'historique.
+** "(reverse-i-search)`': ": length == 22
+** "(failed reverse-i-search)`': ": length == 29
 */
 
-void			edit_research(t_edit *this)
+void			research_print_prompt(t_edit *this)
 {
-	this->research_mode = true;
-	this->research = research_new();
-	research_clear(this);
-	research_print_prompt(this);
-	research_print_line(this);
+	char		*prompt;
+
+	if (this->research->found)
+	{
+		prompt = twl_strjoin("(reverse-i-search)`", this->research->search);
+	}
+	else
+	{
+		prompt = twl_strjoin("(failed reverse-i-search)`",
+				this->research->search);
+	}
+	prompt = twl_strjoinfree(prompt, "': ", 'l');
+	edit_prompt_print_string(this, prompt);
+	free(prompt);
 }

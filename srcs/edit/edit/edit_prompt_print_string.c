@@ -11,21 +11,14 @@
 /* ************************************************************************** */
 
 #include "edit/edit.h"
-#include "edit/research.h"
 
-/*
-** "(reverse-i-search)`': "
-** "(failed reverse-i-search)`': "
-** TODO:
-**   Terminer cette partie... En cas de mode déjà activé... chercher plus haut
-**   dans l'historique.
-*/
-
-void			edit_research(t_edit *this)
+void					edit_prompt_print_string(t_edit *this, char *prompt)
 {
-	this->research_mode = true;
-	this->research = research_new();
-	research_clear(this);
-	research_print_prompt(this);
-	research_print_line(this);
+	if (!prompt)
+		prompt = "";
+	this->puts(prompt);
+	this->prompt_size = twl_strlen(prompt);
+	this->base_x = this->prompt_size % this->winsize_x;
+	if (this->base_x == 0 && this->prompt_size)
+		this->puts("\n\r");
 }

@@ -49,7 +49,7 @@ static char			*end_fn(t_edit *this, t_edit_type type)
 static char			*end_exit_fn(t_edit *this)
 {
 	edit_terminal_disable(this);
-	this->putc('\n');
+	this->puts("\n\r");
 	return (twl_strdup("exit\n"));
 }
 
@@ -58,8 +58,7 @@ static bool			is_ignoreeof_set(t_edit *this)
 	if (!shenv_shflag_enabled(shenv_singleton(), "ignoreeof"))
 		return (false);
 	this->puts("Use \"exit\" to leave the shell.");
-	tputs(tgoto(tgetstr("cr", NULL), 0, 0), 1, this->putc);
-	tputs(tgoto(tgetstr("do", NULL), 0, 0), 1, this->putc);
+	this->puts("\n\r");
 	edit_prompt_print(this, this->last_ps1 ? edit_type_ps2 : edit_type_ps1);
 	return (true);
 }
@@ -76,7 +75,7 @@ char				*edit_get_line(t_edit *this, t_edit_type type)
 		{
 		    if (errno == EINTR)
 		    {
-		    	LOG_INFO("read: System interrup received: ignore and continue");
+		    	LOG_INFO("read: System interrupt received: ignore and continue");
 		    	continue;
 		    }
 		    LOG_ERROR("read: %s\n", strerror(errno));

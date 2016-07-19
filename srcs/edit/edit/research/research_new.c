@@ -10,9 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "edit/edit.h"
+#include "edit/research.h"
 
-char			*edit_prompt_expan(char *prompt)
+t_research			*research_new(void)
 {
-	return (prompt);
+	t_research		*this;
+
+	this = twl_malloc_x0(sizeof(t_research));
+	this->search = twl_strnew(DFL_RESEARCH_SIZE);
+	this->size = 0;
+	this->total = DFL_RESEARCH_SIZE;
+	this->found = true;
+	return (this);
 }

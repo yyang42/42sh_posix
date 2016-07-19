@@ -10,22 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "edit/edit.h"
 #include "edit/research.h"
 
-/*
-** "(reverse-i-search)`': "
-** "(failed reverse-i-search)`': "
-** TODO:
-**   Terminer cette partie... En cas de mode déjà activé... chercher plus haut
-**   dans l'historique.
-*/
-
-void			edit_research(t_edit *this)
+void			research_rem_and_find(t_edit *this)
 {
-	this->research_mode = true;
-	this->research = research_new();
 	research_clear(this);
+	research_delete_letter(this);
+	// find
 	research_print_prompt(this);
 	research_print_line(this);
 }

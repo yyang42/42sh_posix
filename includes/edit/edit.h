@@ -24,6 +24,8 @@
 # include "shenv/shenv.h"
 # include "edit/line.h"
 
+typedef struct s_research	t_research;
+
 typedef enum			e_edit_type
 {
 	edit_type_ps1,
@@ -48,6 +50,8 @@ typedef struct			s_edit
 	char				*copy_buffer;
 	bool				echoing;
 	bool				dumb;
+	bool				research_mode;
+	t_research			*research;
 	char				is_last_tab;
 	int					(*putc)(int);
 	int					(*puts)(char *);
@@ -110,7 +114,7 @@ t_edit_fn				edit_utils_buf_match_simple(t_edit *this,
 void					edit_completion(t_edit *this);
 
 void					edit_prompt_print(t_edit *this, t_edit_type type);
-size_t					edit_prompt_len(t_edit *this, char *prompt);
+void					edit_prompt_print_string(t_edit *this, char *prompt);
 
 void					edit_research(t_edit *this);
 
