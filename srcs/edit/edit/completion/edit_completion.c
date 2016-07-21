@@ -17,7 +17,7 @@ void			edit_completion(t_edit *this)
 {
 	t_completion	*completion;
 
-	if (this->current->size == 0)
+	if (this->current->size == 0 || edit_is_quoted(this))
 		return ;
 	completion = completion_new(this);
 	LOG_DEBUG("%i: '%s'", completion->type, completion->current_word);

@@ -11,22 +11,34 @@
 /* ************************************************************************** */
 
 #include "edit/edit.h"
-#include "edit/research.h"
 
-void			edit_clear_line(t_edit *this)
+bool			edit_is_quoted(t_edit *this)
 {
-	edit_move_end(this);
-	this->research_mode = false;
-	this->research = NULL;
-	research_del(this->research);
-	line_del(this->last);
-	this->last = line_new();
-	this->current = this->last;
-	this->index_history = 0;
-	this->pos_cursor = 0;
-	this->puts("\n\r");
+	char		*command;
+	size_t		cursor;
+	size_t		index;
+	bool		quoted;
+
 	if (this->last_ps1)
-		free(this->last_ps1);
-	this->last_ps1 = NULL;
-	edit_prompt_print(this, edit_type_ps1);
+	{
+		command = twl_strjoin(this->last_ps1, this->current->line);
+		cursor = twl_strlen(this->last_ps1) + this->pos_cursor;
+	}
+	else
+	{
+		command = twl_strdup(this->current->line);
+		cursor = this->pos_cursor;
+	}
+	index = 0;
+	quoted = false;
+	while (command[index] && index < cursor)
+	{
+		if (command[index] == '\\' && command[index + 1] && !quoted)
+			index += 1;
+		else if (command[index] == '\'')
+			quoted = !quoted;
+		index += 1;
+	}
+	free(command);
+	return (quoted);
 }

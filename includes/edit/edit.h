@@ -112,6 +112,7 @@ t_edit_fn				edit_utils_buf_match_simple(t_edit *this,
 							unsigned char buf);
 
 void					edit_completion(t_edit *this);
+bool					edit_is_quoted(t_edit *this);
 
 void					edit_prompt_print(t_edit *this, t_edit_type type);
 void					edit_prompt_print_string(t_edit *this, char *prompt);
