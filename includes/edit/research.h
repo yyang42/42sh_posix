@@ -43,9 +43,12 @@ void				research_print_prompt(t_edit *this);
 void				research_print_line(t_edit *this);
 
 void				research_find(t_edit *this);
+void				research_find_further(t_edit *this);
 void				research_rewind_string(t_edit *this,
 						t_line *search, int pos_cursor);
 bool				research_compare(t_edit *this,
 						t_line *search, int pos_cursor);
+
+void				research_end(t_edit *this);
 
 #endif

@@ -19,6 +19,7 @@ void				edit_match_escaped(t_edit *this, unsigned char buf)
 	size_t			index;
 	void			(*edit_fn)(t_edit *);
 
+	research_end(this);
 	if (this->dumb)
 		return ;
 	index = 0;
@@ -42,13 +43,12 @@ void				edit_match_char(t_edit *this, unsigned char buf)
 	LOG_DEBUG(twl_isprint(buf) ? "%#hhx (%c)" : "%#hhx", buf, buf);
 	void			(*edit_fn)(t_edit *);
 
-	if (this->research_mode)
-	{
-		if (twl_isprint(buf))
-			research_add_and_find(this, buf);
-		else if (buf == 0x7F)
-			research_rem_and_find(this);
-	}
+	if (this->research_mode && twl_isprint(buf))
+		research_add_and_find(this, buf);
+	else if (this->research_mode && buf == 0x7F)
+		research_rem_and_find(this);
+	else if (this->research_mode && buf == '\022')
+		research_find_further(this);
 	else if (this->buffer[0] || buf == '\033')
 		edit_match_escaped(this, buf);
 	else if (twl_isprint(buf))

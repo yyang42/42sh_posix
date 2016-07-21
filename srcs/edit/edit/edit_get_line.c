@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "edit/edit.h"
+#include "edit/research.h"
 
 static void			init_fn(t_edit *this, t_edit_type type)
 {
@@ -48,6 +49,7 @@ static char			*end_fn(t_edit *this, t_edit_type type)
 
 static char			*end_exit_fn(t_edit *this)
 {
+	research_end(this);
 	edit_terminal_disable(this);
 	this->puts("\n\r");
 	return (twl_strdup("exit\n"));
@@ -55,6 +57,7 @@ static char			*end_exit_fn(t_edit *this)
 
 static bool			is_ignoreeof_set(t_edit *this)
 {
+	research_end(this);
 	if (!shenv_shflag_enabled(shenv_singleton(), "ignoreeof"))
 		return (false);
 	this->puts("Use \"exit\" to leave the shell.");
@@ -75,8 +78,8 @@ char				*edit_get_line(t_edit *this, t_edit_type type)
 		{
 		    if (errno == EINTR)
 		    {
-		    	LOG_INFO("read: System interrupt received: ignore and continue");
-		    	continue;
+		    	LOG_ERROR("read: System interrupt received: ignore and continue");
+		    	continue ;
 		    }
 		    LOG_ERROR("read: %s\n", strerror(errno));
 			twl_dprintf(2, "read: %s\n", strerror(errno));
@@ -90,6 +93,7 @@ char				*edit_get_line(t_edit *this, t_edit_type type)
 			break ;
 		if ((buf == '\x0d' || buf == '\n') && !*this->buffer)
 		{
+			research_end(this);
 			edit_move_end(this);
 			break ;
 		}

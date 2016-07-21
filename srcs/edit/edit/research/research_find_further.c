@@ -12,11 +12,32 @@
 
 #include "edit/research.h"
 
-void			research_rem_and_find(t_edit *this)
+static void		iter_fn(void *data, int index, void *context)
 {
+	t_edit		*this;
+	
+	this = context;
+	if (this->research->found == true)
+		return ;
+	research_rewind_string(this, data, ((t_line *)data)->size);
+	if (this->research->found == true)
+	{
+		this->index_history += index + 1;
+	}
+}
+
+void			research_find_further(t_edit *this)
+{
+	t_lst		*slice;
+
 	research_clear(this);
-	research_delete_letter(this);
-	research_find(this);
+	this->research->found = false;
+	if (this->pos_cursor != 0)
+		research_rewind_string(this, this->current, this->pos_cursor - 1);
+	slice = twl_lst_slice(this->history, this->index_history,
+			this->size_history);
+	twl_lst_iteri(slice, iter_fn, this);
+	twl_lst_del(slice, NULL);
 	research_print_prompt(this);
 	research_print_line(this);
 }

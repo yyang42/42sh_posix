@@ -12,11 +12,17 @@
 
 #include "edit/research.h"
 
-void			research_rem_and_find(t_edit *this)
+void			research_end(t_edit *this)
 {
+	int			tmp_pos_cursor;
+
+	if (!this->research_mode)
+		return ;
+	this->research_mode = false;
 	research_clear(this);
-	research_delete_letter(this);
-	research_find(this);
-	research_print_prompt(this);
-	research_print_line(this);
+	edit_prompt_print(this, this->last_ps1 ? edit_type_ps2 : edit_type_ps1);
+	tmp_pos_cursor = this->pos_cursor;
+	this->puts(this->current->line);
+	this->pos_cursor = this->current->size;
+	edit_move_goto_pos_cursor(this, tmp_pos_cursor);
 }
