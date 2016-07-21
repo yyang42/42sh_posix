@@ -12,11 +12,24 @@
 
 #include "edit/research.h"
 
-void			research_add_and_find(t_edit *this, unsigned char buf)
+void		research_rewind_string(t_edit *this, t_line *search, int pos_cursor)
 {
-	research_place_letter(this, buf);
-	research_clear(this);
-	research_find(this);
-	research_print_prompt(this);
-	research_print_line(this);
+	if (research_compare(this, search, pos_cursor))
+	{
+		this->research->found = true;
+		return ;
+	}
+	while (true)
+	{
+		if (pos_cursor == 0)
+			break ;
+		pos_cursor -= 1;
+		if (research_compare(this, search, pos_cursor))
+		{
+			this->research->found = true;
+			this->pos_cursor = pos_cursor;
+			this->current = search;
+			return ;
+		}
+	}
 }

@@ -12,11 +12,8 @@
 
 #include "edit/research.h"
 
-void			research_add_and_find(t_edit *this, unsigned char buf)
+bool			research_compare(t_edit *this, t_line *search, int pos_cursor)
 {
-	research_place_letter(this, buf);
-	research_clear(this);
-	research_find(this);
-	research_print_prompt(this);
-	research_print_line(this);
+	return (!twl_strncmp(search->line + pos_cursor,
+				this->research->search, this->research->size));
 }
