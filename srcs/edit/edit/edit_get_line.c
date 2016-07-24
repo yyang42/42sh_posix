@@ -36,13 +36,12 @@ static char			*end_fn(t_edit *this, t_edit_type type)
 	if (type == edit_type_ps1 || !this->last_ps1)
 	{
 		ret = twl_strdup(this->current->line);
-		this->last_ps1 = twl_strjoin(ret, "\n");
 	}
 	else
 	{
 		ret = twl_strjoin(this->last_ps1, this->current->line);
-		this->last_ps1 = twl_strjoin(ret, "\n");
 	}
+	this->last_ps1 = twl_strjoin(ret, "\n");
 	edit_history_push_flush(this);
 	return (ret);
 }
