@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "edit/edit.h"
+#include "utils.h"
 
 void				edit_print_prompt(t_edit *this, t_edit_type type)
 {
@@ -28,6 +29,7 @@ void				edit_print_prompt(t_edit *this, t_edit_type type)
 
 static void			init_fn(t_edit *this, t_edit_type type)
 {
+	utils_tcsetpgrp_for_tty_01(getpid());
 	edit_terminal_enable(this);
 	edit_print_prompt(this, type);
 	edit_new_last_line(this);
@@ -92,6 +94,7 @@ char				*edit_get_line(t_edit *this, t_edit_type type)
 		    	LOG_INFO("read: System interrup received: ignore and continue");
 		    	continue;
 		    }
+		    LOG_ERROR("read: %s\n", strerror(errno));
 			twl_dprintf(2, "read: %s\n", strerror(errno));
 			exit(-1);
 		}
