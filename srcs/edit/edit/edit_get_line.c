@@ -12,6 +12,7 @@
 
 #include "edit/edit.h"
 #include "edit/research.h"
+#include "utils.h"
 
 static void			init_fn(t_edit *this, t_edit_type type)
 {
