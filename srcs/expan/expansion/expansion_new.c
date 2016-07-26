@@ -23,5 +23,8 @@ t_expansion			*expansion_new(void)
 	this->quoted = false;
 	this->error = NULL;
 	this->to_push_as = NULL;
+	this->flag_prompt = false;
+	this->flag_prompt_open_close = false;
+	this->size_prompt = 0;
 	return (this);
 }

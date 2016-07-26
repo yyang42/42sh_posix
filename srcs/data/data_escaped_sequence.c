@@ -20,6 +20,10 @@ t_lst				*data_escaped_sequence(void)
 	if (!data)
 	{
 		data = twl_lst_new();
+		twl_lst_push_front(data, escaped_sequence_new("\033b", edit_move_word_left));
+		twl_lst_push_front(data, escaped_sequence_new("\033B", edit_move_word_left));
+		twl_lst_push_front(data, escaped_sequence_new("\033f", edit_move_word_right));
+		twl_lst_push_front(data, escaped_sequence_new("\033F", edit_move_word_right));
 		twl_lst_push_front(data, escaped_sequence_new("\033[A", edit_history_up));
 		twl_lst_push_front(data, escaped_sequence_new("\033[B", edit_history_down));
 		twl_lst_push_front(data, escaped_sequence_new("\033[C", edit_move_right));

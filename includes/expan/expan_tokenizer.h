@@ -41,6 +41,7 @@ void						expan_tokenizer_del(t_expan_tokenizer *this);
 t_lst						*expan_tokenizer_tokenize(char *input);
 t_lst						*expan_tokenizer_tokenize_remove_squote(
 																char *input);
+t_lst						*expan_tokenizer_tokenize_prompt(char *input);
 
 t_rule_expan_status			expan_tokenizer_apply_rule01(t_expan_tokenizer *this);
 t_rule_expan_status			expan_tokenizer_apply_rule02(t_expan_tokenizer *this);
@@ -49,6 +50,7 @@ t_rule_expan_status			expan_tokenizer_apply_rule04(t_expan_tokenizer *this);
 t_rule_expan_status			expan_tokenizer_apply_rule05(t_expan_tokenizer *this);
 t_rule_expan_status			expan_tokenizer_apply_rule06(t_expan_tokenizer *this);
 t_rule_expan_status			expan_tokenizer_apply_rule07(t_expan_tokenizer *this);
+t_rule_expan_status			expan_tokenizer_apply_rule_prompt(t_expan_tokenizer *this);
 
 void						expan_tokenizer_delimit(t_expan_tokenizer *this,
 													t_expan_token_type type);

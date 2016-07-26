@@ -48,4 +48,5 @@ void				shenv_init(t_shenv *this)
 	init_env_info(&this->info);
 	shenv_init_shell_vars(this);
 	shenv_init_shflags(this);
+	shenv_set_current_directory(this, "shell-init");
 }

@@ -22,6 +22,8 @@ typedef enum		e_expan_token_type
 	EXPAN_ARITHMETIC,
 	EXPAN_SQUOTE,
 	EXPAN_DQUOTE,
+	EXPAN_PROMPT,
+	EXPAN_PROMPT_NUMBER,
 	EXPAN_NONE
 }					t_expan_token_type;
 

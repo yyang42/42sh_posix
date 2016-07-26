@@ -21,6 +21,8 @@ void			expansion_push_before_split(t_expansion *this,
 	if (!text)
 		return ;
 	ebs = expan_before_split_new(text, quoted);
+	if (this->flag_prompt && !this->flag_prompt_open_close)
+		this->size_prompt += twl_strlen(text);
 	if (!this->to_push_bs)
 		this->to_push_bs = twl_lst_new();
 	twl_lst_push_back(this->to_push_bs, ebs);

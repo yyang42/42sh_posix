@@ -37,6 +37,7 @@ static void			sig_int_winch_handler(int sig)
 	else if (sig == SIGWINCH)
 	{
 		LOG_INFO("SIGWINCH handler here");
+		edit_get_winsize(edit_singleton());
 	}
 	(void)sig;
 }

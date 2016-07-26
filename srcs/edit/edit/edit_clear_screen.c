@@ -15,7 +15,7 @@
 void			edit_clear_screen(t_edit *this)
 {
 	tputs(tgoto(tgetstr("cl", NULL), 0, this->winsize_x), 1, this->putc);
-	this->puts(PS1);
+	edit_prompt_print(this, this->last_ps1 ? edit_type_ps2 : edit_type_ps1);
 	this->puts(this->current->line);
 	this->pos_cursor = this->current->size;
 }

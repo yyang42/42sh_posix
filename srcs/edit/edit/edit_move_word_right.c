@@ -17,7 +17,6 @@ void			edit_move_word_right(t_edit *this)
 	size_t		new_pos;
 	bool		not_space_only;
 
-	LOG_DEBUG("Coucou");
 	if (this->pos_cursor == this->current->size)
 		return ;
 	new_pos = this->pos_cursor;

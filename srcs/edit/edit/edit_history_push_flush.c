@@ -16,11 +16,10 @@ static bool		is_same_last(t_edit *this)
 {
 	t_line		*data;
 
-	if (this->current != (data = twl_lst_first(this->history)))
-		return (true);
-	if (twl_strcmp(data->line, data->copy))
-		return (true);
-	return (false);
+	if (!*this->current->line)
+		return (false);
+	data = twl_lst_first(this->history);
+	return (!data || twl_strcmp(this->current->line, data->copy));
 }
 
 void			edit_history_push_flush(t_edit *this)

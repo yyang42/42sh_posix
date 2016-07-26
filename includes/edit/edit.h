@@ -24,8 +24,7 @@
 # include "shenv/shenv.h"
 # include "edit/line.h"
 
-# define PS1 "$ "
-# define PS2 "> "
+typedef struct s_research	t_research;
 
 typedef enum			e_edit_type
 {
@@ -44,12 +43,15 @@ typedef struct			s_edit
 	unsigned char		buffer[8];
 	size_t				pos_cursor;
 	size_t				winsize_x;
+	size_t				prompt_size;
 	size_t				base_x;
 	struct termios		term;
 	struct termios		save;
 	char				*copy_buffer;
 	bool				echoing;
 	bool				dumb;
+	bool				research_mode;
+	t_research			*research;
 	char				is_last_tab;
 	int					(*putc)(int);
 	int					(*puts)(char *);
@@ -110,5 +112,11 @@ t_edit_fn				edit_utils_buf_match_simple(t_edit *this,
 							unsigned char buf);
 
 void					edit_completion(t_edit *this);
+bool					edit_is_quoted(t_edit *this);
+
+void					edit_prompt_print(t_edit *this, t_edit_type type);
+void					edit_prompt_print_string(t_edit *this, char *prompt);
+
+void					edit_research(t_edit *this);
 
 #endif

@@ -33,7 +33,8 @@ void			completion_utils_print_lst(t_completion *this)
 	edit_terminal_disable(this->edit);
 	this->edit->putc('\n');
 	twl_lst_iter(this->all, iter_fn, this->edit);
-	this->edit->puts(PS1);
+	edit_prompt_print(this->edit, this->edit->last_ps1 ?
+			edit_type_ps2 : edit_type_ps1);
 	this->edit->puts(this->edit->current->line);
 	edit_terminal_enable(this->edit);
 	edit_move_goto_pos_cursor(this->edit, last_pos);

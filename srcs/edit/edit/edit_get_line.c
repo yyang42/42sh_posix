@@ -11,27 +11,14 @@
 /* ************************************************************************** */
 
 #include "edit/edit.h"
+#include "edit/research.h"
 #include "utils.h"
-
-void				edit_print_prompt(t_edit *this, t_edit_type type)
-{
-	if (type == edit_type_ps1)
-	{
-		this->puts(PS1);
-		this->base_x = twl_strlen(PS1) % this->winsize_x;
-	}
-	else
-	{
-		this->puts(PS2);
-		this->base_x = twl_strlen(PS2) % this->winsize_x;
-	}
-}
 
 static void			init_fn(t_edit *this, t_edit_type type)
 {
 	utils_tcsetpgrp_for_tty_01(getpid());
+	edit_prompt_print(this, type);
 	edit_terminal_enable(this);
-	edit_print_prompt(this, type);
 	edit_new_last_line(this);
 	if (type == edit_type_ps1)
 	{
@@ -47,35 +34,35 @@ static char			*end_fn(t_edit *this, t_edit_type type)
 
 	edit_terminal_disable(this);
 	this->putc('\n');
-	if (type == edit_type_ps1)
+	if (type == edit_type_ps1 || !this->last_ps1)
 	{
 		ret = twl_strdup(this->current->line);
-		this->last_ps1 = twl_strjoin(ret, "\n");
 	}
 	else
 	{
 		ret = twl_strjoin(this->last_ps1, this->current->line);
-		this->last_ps1 = twl_strjoin(ret, "\n");
 	}
+	this->last_ps1 = twl_strjoin(ret, "\n");
 	edit_history_push_flush(this);
 	return (ret);
 }
 
 static char			*end_exit_fn(t_edit *this)
 {
+	research_end(this);
 	edit_terminal_disable(this);
-	this->putc('\n');
+	this->puts("\n\r");
 	return (twl_strdup("exit\n"));
 }
 
 static bool			is_ignoreeof_set(t_edit *this)
 {
+	research_end(this);
 	if (!shenv_shflag_enabled(shenv_singleton(), "ignoreeof"))
 		return (false);
 	this->puts("Use \"exit\" to leave the shell.");
-	tputs(tgoto(tgetstr("cr", NULL), 0, 0), 1, this->putc);
-	tputs(tgoto(tgetstr("do", NULL), 0, 0), 1, this->putc);
-	this->puts(PS1);
+	this->puts("\n\r");
+	edit_prompt_print(this, this->last_ps1 ? edit_type_ps2 : edit_type_ps1);
 	return (true);
 }
 
@@ -91,8 +78,8 @@ char				*edit_get_line(t_edit *this, t_edit_type type)
 		{
 		    if (errno == EINTR)
 		    {
-		    	LOG_INFO("read: System interrup received: ignore and continue");
-		    	continue;
+		    	LOG_ERROR("read: System interrupt received: ignore and continue");
+		    	continue ;
 		    }
 		    LOG_ERROR("read: %s\n", strerror(errno));
 			twl_dprintf(2, "read: %s\n", strerror(errno));
@@ -106,6 +93,7 @@ char				*edit_get_line(t_edit *this, t_edit_type type)
 			break ;
 		if ((buf == '\x0d' || buf == '\n') && !*this->buffer)
 		{
+			research_end(this);
 			edit_move_end(this);
 			break ;
 		}
