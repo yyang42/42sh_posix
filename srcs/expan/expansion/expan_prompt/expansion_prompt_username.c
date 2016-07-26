@@ -12,10 +12,12 @@
 
 #include "expan/expansion.h"
 
-void			expansion_prompt_username(t_expansion *this)
+void				expansion_prompt_username(t_expansion *this)
 {
-	char		buf[256];
+	char			buf[256];
+	struct passwd	*pw;
 
 	getlogin_r(buf, 256);
-	expansion_push_before_split(this, buf, false);
+	pw = getpwuid(geteuid());
+	expansion_push_before_split(this, pw->pw_name, false);
 }
