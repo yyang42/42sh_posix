@@ -20,8 +20,8 @@
 
 typedef enum			e_event_token_type
 {
-	EVENT_COMMAND_LINE,
-	EVENT_CURRENT_COMMAND_MINUS,
+	EVENT_NUMBER_LINE,
+	EVENT_NUMBER_LINE_MINUS,
 	EVENT_LAST_COMMAND,
 	EVENT_COMMAND_START,
 	EVENT_COMMAND_CONTAIN,
@@ -67,6 +67,12 @@ t_rule_event_status		event_tokenizer_apply_rule04(t_event_tokenizer *this);
 
 void					event_tokenizer_delimit(t_event_tokenizer *this, t_event_token_type type);
 void					event_tokenizer_addone(t_event_tokenizer *this);
+void					event_tokenizer_number_line(t_event_tokenizer *this);
+void					event_tokenizer_number_line_minus(t_event_tokenizer *this);
+void					event_tokenizer_last_command(t_event_tokenizer *this);
+void					event_tokenizer_command_start(t_event_tokenizer *this);
+void					event_tokenizer_command_contain(t_event_tokenizer *this);
+void					event_tokenizer_current_line(t_event_tokenizer *this);
 
 typedef t_rule_event_status	(*t_event_tokenizer_fn)(t_event_tokenizer *);
 
