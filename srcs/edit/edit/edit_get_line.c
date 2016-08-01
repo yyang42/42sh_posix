@@ -28,13 +28,13 @@ static void			init_fn(t_edit *this)
 	this->pos_cursor = 0;
 }
 
-static char			*end_fn(t_edit *this, t_edit_type type)
+static char			*end_fn(t_edit *this)
 {
 	char			*ret;
 
 	edit_terminal_disable(this);
 	this->putc('\n');
-	if (type == edit_type_ps1 || !this->last_ps1)
+	if (this->type == edit_type_ps1)
 	{
 		ret = twl_strdup(this->current->line);
 	}
@@ -102,5 +102,5 @@ char				*edit_get_line(t_edit *this, t_edit_type type)
 			return (end_exit_fn(this));
 		edit_match_char(this, buf);
 	}
-	return (end_fn(this, type));
+	return (end_fn(this));
 }
