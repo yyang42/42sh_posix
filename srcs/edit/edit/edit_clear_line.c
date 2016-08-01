@@ -28,5 +28,6 @@ void			edit_clear_line(t_edit *this)
 	if (this->last_ps1)
 		free(this->last_ps1);
 	this->last_ps1 = NULL;
-	edit_prompt_print(this, edit_type_ps1);
+	this->type = edit_type_ps1;
+	edit_prompt_print(this);
 }

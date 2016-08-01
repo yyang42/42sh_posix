@@ -14,13 +14,13 @@
 #include "edit/research.h"
 #include "utils.h"
 
-static void			init_fn(t_edit *this, t_edit_type type)
+static void			init_fn(t_edit *this)
 {
 	utils_tcsetpgrp_for_tty_01(getpid());
-	edit_prompt_print(this, type);
+	edit_prompt_print(this);
 	edit_terminal_enable(this);
 	edit_new_last_line(this);
-	if (type == edit_type_ps1)
+	if (this->type == edit_type_ps1)
 	{
 		if (this->last_ps1)
 			twl_strdel(&this->last_ps1);
@@ -62,7 +62,7 @@ static bool			is_ignoreeof_set(t_edit *this)
 		return (false);
 	this->puts("Use \"exit\" to leave the shell.");
 	this->puts("\n\r");
-	edit_prompt_print(this, this->last_ps1 ? edit_type_ps2 : edit_type_ps1);
+	edit_prompt_print(this);
 	return (true);
 }
 
@@ -71,7 +71,8 @@ char				*edit_get_line(t_edit *this, t_edit_type type)
 	unsigned char	buf;
 	int				read_return;
 
-	init_fn(this, type);
+	this->type = type;
+	init_fn(this);
 	while (1)
 	{
 		if ((read_return = read(0, &buf, sizeof(buf))) == -1)

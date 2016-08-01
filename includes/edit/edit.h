@@ -37,6 +37,7 @@ typedef struct			s_edit
 	t_lst				*history;
 	t_line				*current;
 	t_line				*last;
+	t_edit_type			type;
 	char				*last_ps1;
 	size_t				index_history;
 	size_t				size_history;
@@ -115,7 +116,7 @@ void					edit_completion(t_edit *this);
 bool					edit_is_quoted(t_edit *this);
 bool					edit_is_quoted_pos(t_edit *this, size_t pos);
 
-void					edit_prompt_print(t_edit *this, t_edit_type type);
+void					edit_prompt_print(t_edit *this);
 void					edit_prompt_print_string(t_edit *this, char *prompt);
 
 void					edit_research(t_edit *this);
