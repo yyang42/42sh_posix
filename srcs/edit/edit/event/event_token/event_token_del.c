@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "edit/event.h"
+#include "edit/event_token.h"
 
 void				event_token_del(t_event_token *this)
 {

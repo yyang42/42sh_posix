@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "edit/event.h"
+#include "edit/event_tokenizer.h"
 
 void				event_tokenizer_last_command(t_event_tokenizer *this)
 {

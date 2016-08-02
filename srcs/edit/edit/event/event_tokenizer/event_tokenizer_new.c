@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "edit/event.h"
+#include "edit/event_tokenizer.h"
 
 t_event_tokenizer		*event_tokenizer_new(t_edit *edit)
 {

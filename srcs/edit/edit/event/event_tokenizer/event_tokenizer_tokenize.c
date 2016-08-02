@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "edit/event.h"
+#include "edit/event_tokenizer.h"
 
 t_event_tokenizer_fn	g_event_tokenizer_rule_fns[5] =
 {

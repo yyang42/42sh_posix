@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "edit/event.h"
+#include "edit/event_tokenizer.h"
 
 /*
 ** (...) except when followed by a blank, newline, carriage return, = or (
@@ -20,18 +20,6 @@ static bool			is_valid_fn(char c)
 {
 	return (c && !twl_isblank(c)  && c != '=' && c != '(');
 }
-
-//static bool			is_number_except_zero(char *str)
-//{
-//	int				i;
-//
-//	if (twl_isdigit(*str) || *str == '-')
-//	{
-//		i = twl_atoi(str);
-//		return (i != 0);
-//	}
-//	return (false);
-//}
 
 t_rule_event_status	event_tokenizer_apply_rule03(t_event_tokenizer *this)
 {

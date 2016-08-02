@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "edit/event.h"
+#include "edit/event_tokenizer.h"
 
 void				event_tokenizer_delimit(t_event_tokenizer *this,
 						t_event_token_type type)

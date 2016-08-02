@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "edit/event.h"
+#include "edit/event_tokenizer.h"
 
 t_rule_event_status	event_tokenizer_apply_rule01(t_event_tokenizer *this)
 {

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "edit/event.h"
+#include "edit/event_token.h"
 
 t_event_token			*event_token_new(char *input, t_event_token_type type)
 {

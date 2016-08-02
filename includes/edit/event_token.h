@@ -10,10 +10,32 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "edit/event_tokenizer.h"
+#ifndef EVENT_TOKEN_H
+# define EVENT_TOKEN_H
 
-t_rule_event_status	event_tokenizer_apply_rule04(t_event_tokenizer *this)
+# include "utils.h"
+# include "edit/edit.h"
+# include "twl_ctype.h"
+# include "twl_stdlib.h"
+
+typedef enum			e_event_token_type
 {
-	(void)this;
-	return (EVENT_STATUS_NOT_APPLIED);
-}
+	EVENT_NUMBER_LINE,
+	EVENT_NUMBER_LINE_MINUS,
+	EVENT_LAST_COMMAND,
+	EVENT_COMMAND_START,
+	EVENT_COMMAND_CONTAIN,
+	EVENT_CURRENT_LINE,
+	EVENT_NONE
+}						t_event_token_type;
+
+typedef struct			s_event_token
+{
+	char				*token;
+	t_event_token_type	type;
+}						t_event_token;
+
+t_event_token			*event_token_new(char *input, t_event_token_type type);
+void					event_token_del(t_event_token *this);
+
+#endif
