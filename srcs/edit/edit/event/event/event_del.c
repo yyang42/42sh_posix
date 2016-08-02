@@ -12,12 +12,11 @@
 
 #include "edit/event.h"
 
-t_event			*event_new(t_edit *edit)
+void			event_del(t_event *this)
 {
-	t_event		*this;
-
-	this = twl_malloc_x0(sizeof(t_event));
-	this->edit = edit;
-	this->tokens = event_tokenizer_tokenize(edit);
-	return (this);
+	if (!this)
+		return ;
+	if (this->tokens)
+		twl_lst_del(this->tokens, event_token_del);
+	free(this);
 }

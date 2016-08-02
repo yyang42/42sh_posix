@@ -20,15 +20,31 @@
 # include "twl_ctype.h"
 # include "twl_stdlib.h"
 
-typedef struct			s_event
+typedef struct	s_event
 {
-	t_edit				*edit;
-	t_lst				*tokens;
-}						t_event;
+	t_edit		*edit;
+	t_lst		*tokens;
+	char		*ret;
+	bool		error;
+	bool		expand;
+}				t_event;
 
-t_event					*event_new(t_edit *edit);
-void					event_del(t_event *this);
+t_event			*event_new(t_edit *edit);
+void			event_del(t_event *this);
 
-char					*event_expand(t_edit *edit);
+char			*event_expand(t_edit *edit);
+
+void			event_concat_token(t_event *this, t_event_token *token);
+void			event_concat_string(t_event *this, char *str);
+void			event_expand_number_line(t_event *this, t_event_token *token);
+void			event_expand_number_line_minus(t_event *this,
+					t_event_token *token);
+void			event_expand_last_command(t_event *this, t_event_token *token);
+void			event_expand_command_start(t_event *this, t_event_token *token);
+void			event_expand_command_contain(t_event *this,
+					t_event_token *token);
+void			event_expand_current_line(t_event *this, t_event_token *token);
+
+void			event_print_error(t_event *this, t_event_token *token);
 
 #endif

@@ -29,13 +29,64 @@ static void			init_fn(t_edit *this)
 	this->pos_cursor = 0;
 }
 
+size_t		upper_power_of_two(size_t v)
+{
+	v -= 1;
+	v |= v >> 1;
+	v |= v >> 2;
+	v |= v >> 4;
+	v |= v >> 8;
+	v |= v >> 16;
+	v += 1;
+	return (v);
+}
+
+
+static bool			is_end_fn(t_edit *this)
+{
+	char			*expand;
+	char			*tmp;
+	size_t			len;
+	size_t			tot;
+
+	expand = event_expand(this);
+	if (!expand)
+	{
+		this->research_mode = false;
+		research_del(this->research);
+		this->research = NULL;
+		line_del(this->last);
+		this->last = line_new();
+		this->current = this->last;
+		this->index_history = 0;
+		this->pos_cursor = 0;
+		this->type = edit_type_ps1;
+		edit_prompt_print(this);
+		return (false);
+	}
+	len = twl_strlen(expand);
+	if (len % 2 == 0)
+	{
+		tot = len << 1;
+	}
+	else
+	{
+		tot = upper_power_of_two(len);
+	}
+	tmp = twl_strnew(tot);
+	twl_strcpy(tmp, expand);
+	free(this->current->line);
+	this->current->line = tmp;
+	this->current->size = len;
+	this->current->total = tot;
+	return (true);
+}
+
 static char			*end_fn(t_edit *this)
 {
 	char			*ret;
 
 	edit_terminal_disable(this);
-	this->putc('\n');
-	event_expand(this);
 	if (this->type == edit_type_ps1)
 	{
 		ret = twl_strdup(this->current->line);
@@ -86,19 +137,20 @@ char				*edit_get_line(t_edit *this, t_edit_type type)
 		    }
 		    LOG_ERROR("read: %s\n", strerror(errno));
 			twl_dprintf(2, "read: %s\n", strerror(errno));
+			edit_terminal_disable(this);
 			exit(-1);
 		}
 		if (this->is_last_tab)
 			this->is_last_tab -= 1;
 		if (read_return == 0 && !*this->current->line)
 			return (end_exit_fn(this));
-		if (read_return == 0)
-			break ;
-		if ((buf == '\x0d' || buf == '\n') && !*this->buffer)
+		if (((buf == '\x0d' || buf == '\n') && !*this->buffer) ||
+				read_return == 0)
 		{
-			research_end(this);
-			edit_move_end(this);
-			break ;
+			this->puts("\n\r");
+			if (is_end_fn(this))
+				break ;
+			continue ;
 		}
 		if (buf == '\x04' && !*this->current->line && !is_ignoreeof_set(this))
 			return (end_exit_fn(this));
