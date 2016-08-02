@@ -18,7 +18,7 @@
 
 t_rule_expan_status	expan_tokenizer_apply_rule07(t_expan_tokenizer *this)
 {
-	this->is_last_colon = (this->input[this->input_index] == ':') ? true : false;
+	this->is_last_colon = (this->input[this->input_index] == ':');
 	if (this->input[this->input_index] == '\\' &&
 			this->input[this->input_index + 1])
 		expan_tokenizer_addone(this);
