@@ -15,6 +15,8 @@
 
 # include "utils.h"
 # include "edit/edit.h"
+# include "edit/event_token.h"
+# include "edit/event_tokenizer.h"
 # include "twl_ctype.h"
 # include "twl_stdlib.h"
 

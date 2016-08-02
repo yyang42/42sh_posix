@@ -10,14 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "edit/event.h"
+#include "edit/event_token.h"
 
-t_event			*event_new(t_edit *edit)
+const char			*event_token_type_to_string(t_event_token_type type)
 {
-	t_event		*this;
-
-	this = twl_malloc_x0(sizeof(t_event));
-	this->edit = edit;
-	this->tokens = event_tokenizer_tokenize(edit);
-	return (this);
+	if (type == EVENT_NUMBER_LINE)
+		return ("Number line");
+	if (type == EVENT_NUMBER_LINE_MINUS)
+		return ("Number line minus");
+	if (type == EVENT_LAST_COMMAND)
+		return ("Last command");
+	if (type == EVENT_COMMAND_START)
+		return ("Command start with");
+	if (type == EVENT_COMMAND_CONTAIN)
+		return ("Command contain");
+	if (type == EVENT_CURRENT_LINE)
+		return ("Current line");
+	return ("None");
 }

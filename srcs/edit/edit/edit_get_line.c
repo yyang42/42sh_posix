@@ -12,6 +12,7 @@
 
 #include "edit/edit.h"
 #include "edit/research.h"
+#include "edit/event.h"
 #include "utils.h"
 
 static void			init_fn(t_edit *this)
@@ -34,6 +35,7 @@ static char			*end_fn(t_edit *this)
 
 	edit_terminal_disable(this);
 	this->putc('\n');
+	event_expand(this);
 	if (this->type == edit_type_ps1)
 	{
 		ret = twl_strdup(this->current->line);

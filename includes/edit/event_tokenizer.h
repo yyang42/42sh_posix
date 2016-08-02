@@ -47,7 +47,8 @@ t_rule_event_status		event_tokenizer_apply_rule02(t_event_tokenizer *this);
 t_rule_event_status		event_tokenizer_apply_rule03(t_event_tokenizer *this);
 t_rule_event_status		event_tokenizer_apply_rule04(t_event_tokenizer *this);
 
-void					event_tokenizer_delimit(t_event_tokenizer *this, t_event_token_type type);
+void					event_tokenizer_delimit(t_event_tokenizer *this,
+							t_event_token_type type);
 void					event_tokenizer_addone(t_event_tokenizer *this);
 void					event_tokenizer_number_line(t_event_tokenizer *this);
 void					event_tokenizer_number_line_minus(t_event_tokenizer *this);

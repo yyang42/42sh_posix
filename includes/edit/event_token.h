@@ -37,5 +37,6 @@ typedef struct			s_event_token
 
 t_event_token			*event_token_new(char *input, t_event_token_type type);
 void					event_token_del(t_event_token *this);
+const char				*event_token_type_to_string(t_event_token_type type);
 
 #endif

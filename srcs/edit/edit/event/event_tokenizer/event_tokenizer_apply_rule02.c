@@ -19,7 +19,6 @@ t_rule_event_status	event_tokenizer_apply_rule02(t_event_tokenizer *this)
 		event_tokenizer_addone(this);
 		if (this->input[this->input_index - 1] == '\'')
 		{
-			event_tokenizer_delimit(this, EVENT_NONE);
 			this->quoted = false;
 		}
 		return (EVENT_STATUS_APPLIED);

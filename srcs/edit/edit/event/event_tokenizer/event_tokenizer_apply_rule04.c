@@ -14,6 +14,14 @@
 
 t_rule_event_status	event_tokenizer_apply_rule04(t_event_tokenizer *this)
 {
-	(void)this;
-	return (EVENT_STATUS_NOT_APPLIED);
+	if (this->input[this->input_index] == '\\')
+	{
+		event_tokenizer_addone(this);
+	}
+	else if (this->input[this->input_index] == '\'')
+	{
+		this->quoted = true;
+	}
+	event_tokenizer_addone(this);
+	return (EVENT_STATUS_APPLIED);
 }

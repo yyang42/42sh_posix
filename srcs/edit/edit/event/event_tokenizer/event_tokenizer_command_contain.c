@@ -22,5 +22,8 @@ void				event_tokenizer_command_contain(t_event_tokenizer *this)
 	if (twl_isblank(this->input[this->input_index]))
 		event_tokenizer_delimit(this, EVENT_COMMAND_START);
 	else
+	{
+		event_tokenizer_addone(this);
 		event_tokenizer_delimit(this, EVENT_COMMAND_CONTAIN);
+	}
 }
