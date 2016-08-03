@@ -14,6 +14,7 @@
 
 void			event_expand_current_line(t_event *this, t_event_token *token)
 {
-	(void)this;
+	this->expand = true;
+	this->ret = twl_strjoinfree(this->ret, this->ret, 'l');
 	(void)token;
 }
