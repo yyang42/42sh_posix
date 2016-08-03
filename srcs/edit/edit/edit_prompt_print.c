@@ -30,12 +30,12 @@ static t_prompt_info	get_prompt_fn(char *ps)
 	return (prompt);
 }
 
-void					edit_prompt_print(t_edit *this, t_edit_type type)
+void					edit_prompt_print(t_edit *this)
 {
 	char				*ps;
 	t_prompt_info		prompt;
 
-	ps = (type == edit_type_ps1) ?
+	ps = (this->type == edit_type_ps1) ?
 		shenv_shvars_get_value(shenv_singleton(), "PS1") :
 		shenv_shvars_get_value(shenv_singleton(), "PS2");
 	if (!ps)

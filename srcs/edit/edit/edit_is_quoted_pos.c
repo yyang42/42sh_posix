@@ -11,23 +11,17 @@
 /* ************************************************************************** */
 
 #include "edit/edit.h"
-#include "edit/research.h"
 
-void			edit_clear_line(t_edit *this)
+bool				edit_is_quoted_pos(t_edit *this, size_t pos)
 {
-	edit_move_end(this);
-	this->research_mode = false;
-	research_del(this->research);
-	this->research = NULL;
-	line_del(this->last);
-	this->last = line_new();
-	this->current = this->last;
-	this->index_history = 0;
-	this->pos_cursor = 0;
-	this->puts("\n\r");
-	if (this->last_ps1)
-		free(this->last_ps1);
-	this->last_ps1 = NULL;
-	this->type = edit_type_ps1;
-	edit_prompt_print(this);
+	size_t			tmp_pos;
+	bool			ret;
+
+	if (pos > this->current->size)
+		return (true);
+	tmp_pos = this->pos_cursor;
+	this->pos_cursor = pos;
+	ret = edit_is_quoted(this);
+	this->pos_cursor = tmp_pos;
+	return (ret);
 }

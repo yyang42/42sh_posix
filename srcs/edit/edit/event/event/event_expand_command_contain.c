@@ -10,24 +10,52 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "edit/edit.h"
-#include "edit/research.h"
+#include "edit/event.h"
 
-void			edit_clear_line(t_edit *this)
+static char		*get_string_fn(char *token)
 {
-	edit_move_end(this);
-	this->research_mode = false;
-	research_del(this->research);
-	this->research = NULL;
-	line_del(this->last);
-	this->last = line_new();
-	this->current = this->last;
-	this->index_history = 0;
-	this->pos_cursor = 0;
-	this->puts("\n\r");
-	if (this->last_ps1)
-		free(this->last_ps1);
-	this->last_ps1 = NULL;
-	this->type = edit_type_ps1;
-	edit_prompt_print(this);
+	char		*ret;
+	size_t		index;
+
+	ret = twl_strnew(twl_strlen(token));
+	index = 0;
+	while (*token && *token != '?')
+	{
+		ret[index] = *token;
+		index += 1;
+		token += 1;
+	}
+	ret[index] = 0;
+	return (ret);
+}
+
+static bool		find_fn(void *data, void *ctx)
+{
+	char		*haystack;
+	char		*needle;
+
+	haystack = ((t_line *)data)->copy;
+	needle = ctx;
+	return (twl_strstr(haystack, needle));
+}
+
+void			event_expand_command_contain(t_event *this,
+					t_event_token *token)
+{
+	t_line		*line;
+	char		*tok;
+
+	this->expand = true;
+	tok = get_string_fn(token->token + 2);
+	if (*tok == 0)
+		event_print_error(this, token);
+	else
+	{
+		line = twl_lst_find(this->edit->history, find_fn, tok);
+		if (!line)
+			event_print_error(this, token);
+		else
+			event_concat_string(this, line->copy);
+	}
+	free(tok);
 }

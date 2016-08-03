@@ -10,24 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "edit/edit.h"
-#include "edit/research.h"
+#include "edit/event.h"
 
-void			edit_clear_line(t_edit *this)
+void			event_expand_last_command(t_event *this, t_event_token *token)
 {
-	edit_move_end(this);
-	this->research_mode = false;
-	research_del(this->research);
-	this->research = NULL;
-	line_del(this->last);
-	this->last = line_new();
-	this->current = this->last;
-	this->index_history = 0;
-	this->pos_cursor = 0;
-	this->puts("\n\r");
-	if (this->last_ps1)
-		free(this->last_ps1);
-	this->last_ps1 = NULL;
-	this->type = edit_type_ps1;
-	edit_prompt_print(this);
+	this->expand = true;
+	if (this->edit->size_history == 0)
+	{
+		event_print_error(this, token);
+		return ;
+	}
+	event_concat_string(this,
+			((t_line *)twl_lst_first(this->edit->history))->copy);
 }

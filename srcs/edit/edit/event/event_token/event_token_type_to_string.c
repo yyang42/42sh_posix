@@ -10,24 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "edit/edit.h"
-#include "edit/research.h"
+#include "edit/event_token.h"
 
-void			edit_clear_line(t_edit *this)
+const char			*event_token_type_to_string(t_event_token_type type)
 {
-	edit_move_end(this);
-	this->research_mode = false;
-	research_del(this->research);
-	this->research = NULL;
-	line_del(this->last);
-	this->last = line_new();
-	this->current = this->last;
-	this->index_history = 0;
-	this->pos_cursor = 0;
-	this->puts("\n\r");
-	if (this->last_ps1)
-		free(this->last_ps1);
-	this->last_ps1 = NULL;
-	this->type = edit_type_ps1;
-	edit_prompt_print(this);
+	if (type == EVENT_NUMBER_LINE)
+		return ("Number line");
+	if (type == EVENT_NUMBER_LINE_MINUS)
+		return ("Number line minus");
+	if (type == EVENT_LAST_COMMAND)
+		return ("Last command");
+	if (type == EVENT_COMMAND_START)
+		return ("Command start with");
+	if (type == EVENT_COMMAND_CONTAIN)
+		return ("Command contain");
+	if (type == EVENT_CURRENT_LINE)
+		return ("Current line");
+	return ("None");
 }

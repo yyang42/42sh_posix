@@ -10,24 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "edit/edit.h"
-#include "edit/research.h"
+#include "edit/event.h"
 
-void			edit_clear_line(t_edit *this)
+t_event			*event_new(t_edit *edit)
 {
-	edit_move_end(this);
-	this->research_mode = false;
-	research_del(this->research);
-	this->research = NULL;
-	line_del(this->last);
-	this->last = line_new();
-	this->current = this->last;
-	this->index_history = 0;
-	this->pos_cursor = 0;
-	this->puts("\n\r");
-	if (this->last_ps1)
-		free(this->last_ps1);
-	this->last_ps1 = NULL;
-	this->type = edit_type_ps1;
-	edit_prompt_print(this);
+	t_event		*this;
+
+	this = twl_malloc_x0(sizeof(t_event));
+	this->edit = edit;
+	this->tokens = event_tokenizer_tokenize(edit);
+	this->ret = twl_strnew(0);
+	this->error = false;
+	this->expand = false;
+	return (this);
 }

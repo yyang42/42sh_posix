@@ -10,24 +10,28 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "edit/edit.h"
-#include "edit/research.h"
+#include "edit/event.h"
 
-void			edit_clear_line(t_edit *this)
+static bool		find_fn(void *data, void *ctx1, void *ctx2)
 {
-	edit_move_end(this);
-	this->research_mode = false;
-	research_del(this->research);
-	this->research = NULL;
-	line_del(this->last);
-	this->last = line_new();
-	this->current = this->last;
-	this->index_history = 0;
-	this->pos_cursor = 0;
-	this->puts("\n\r");
-	if (this->last_ps1)
-		free(this->last_ps1);
-	this->last_ps1 = NULL;
-	this->type = edit_type_ps1;
-	edit_prompt_print(this);
+	t_line		*line;
+	size_t		*len;
+
+	line = data;
+	len = ctx2;
+	return (twl_strncmp(line->copy, ctx1, *len) == 0);
+}
+
+void			event_expand_command_start(t_event *this, t_event_token *token)
+{
+	t_line		*line;
+	size_t		len;
+
+	this->expand = true;
+	len = twl_strlen(token->token + 1);
+	line = twl_lst_find2(this->edit->history, find_fn, token->token + 1, &len);
+	if (!line)
+		event_print_error(this, token);
+	else
+		event_concat_string(this, line->copy);
 }

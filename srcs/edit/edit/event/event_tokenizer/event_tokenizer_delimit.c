@@ -10,24 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "edit/edit.h"
-#include "edit/research.h"
+#include "edit/event_tokenizer.h"
 
-void			edit_clear_line(t_edit *this)
+void				event_tokenizer_delimit(t_event_tokenizer *this,
+						t_event_token_type type)
 {
-	edit_move_end(this);
-	this->research_mode = false;
-	research_del(this->research);
-	this->research = NULL;
-	line_del(this->last);
-	this->last = line_new();
-	this->current = this->last;
-	this->index_history = 0;
-	this->pos_cursor = 0;
-	this->puts("\n\r");
-	if (this->last_ps1)
-		free(this->last_ps1);
-	this->last_ps1 = NULL;
-	this->type = edit_type_ps1;
-	edit_prompt_print(this);
+	t_event_token	*token;
+
+	if (!*this->to_push)
+		return ;
+	token = event_token_new(this->to_push, type);
+	twl_lst_push_back(this->tokens, token);
+	twl_bzero(this->to_push, this->input_length);
+	this->to_push_index = 0;
 }

@@ -10,24 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "edit/edit.h"
-#include "edit/research.h"
+#include "edit/event_tokenizer.h"
 
-void			edit_clear_line(t_edit *this)
+t_rule_event_status	event_tokenizer_apply_rule02(t_event_tokenizer *this)
 {
-	edit_move_end(this);
-	this->research_mode = false;
-	research_del(this->research);
-	this->research = NULL;
-	line_del(this->last);
-	this->last = line_new();
-	this->current = this->last;
-	this->index_history = 0;
-	this->pos_cursor = 0;
-	this->puts("\n\r");
-	if (this->last_ps1)
-		free(this->last_ps1);
-	this->last_ps1 = NULL;
-	this->type = edit_type_ps1;
-	edit_prompt_print(this);
+	if (this->quoted)
+	{
+		event_tokenizer_addone(this);
+		if (this->input[this->input_index - 1] == '\'')
+		{
+			this->quoted = false;
+		}
+		return (EVENT_STATUS_APPLIED);
+	}
+	return (EVENT_STATUS_NOT_APPLIED);
 }
