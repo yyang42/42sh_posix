@@ -58,7 +58,7 @@ diff_test () {
 		printf ${C_GREEN}"stdout\n"${C_CLEAR}
 		cat ${testcase_tmp_stdout}
 		printf ${C_RED}"stderr\n"${C_CLEAR}
-		cat ${testcase_tmp_bash_stdout}
+		cat ${testcase_tmp_stderr}
 		printf ${C_CYAN}"Expected:\n"${C_CLEAR}
 		printf ${C_GREEN}"stdout\n"${C_CLEAR}
 		cat ${testcase_tmp_bash_stdout}
