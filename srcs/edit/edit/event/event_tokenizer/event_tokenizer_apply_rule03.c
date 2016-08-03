@@ -26,7 +26,6 @@ t_rule_event_status	event_tokenizer_apply_rule03(t_event_tokenizer *this)
 	if (this->input[this->input_index] == '!' &&
 			is_valid_fn(this->input[this->input_index + 1]))
 	{
-	LOG_DEBUG("%c", this->input[this->input_index]);
 		event_tokenizer_delimit(this, EVENT_NONE);
 		event_tokenizer_addone(this);
 		if (this->input[this->input_index] == '!')
