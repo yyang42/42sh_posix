@@ -14,6 +14,12 @@
 
 void			event_expand_last_command(t_event *this, t_event_token *token)
 {
-	(void)this;
-	(void)token;
+	this->expand = true;
+	if (this->edit->size_history == 0)
+	{
+		event_print_error(this, token);
+		return ;
+	}
+	this->ret = twl_strjoinfree(this->ret,
+			((t_line *)twl_lst_first(this->edit->history))->copy, 'l');
 }
