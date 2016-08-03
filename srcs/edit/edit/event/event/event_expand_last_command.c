@@ -20,6 +20,6 @@ void			event_expand_last_command(t_event *this, t_event_token *token)
 		event_print_error(this, token);
 		return ;
 	}
-	this->ret = twl_strjoinfree(this->ret,
-			((t_line *)twl_lst_first(this->edit->history))->copy, 'l');
+	event_concat_string(this,
+			((t_line *)twl_lst_first(this->edit->history))->copy);
 }

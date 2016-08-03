@@ -15,6 +15,6 @@
 void			event_expand_current_line(t_event *this, t_event_token *token)
 {
 	this->expand = true;
-	this->ret = twl_strjoinfree(this->ret, this->ret, 'l');
+	event_concat_string(this, this->ret);
 	(void)token;
 }

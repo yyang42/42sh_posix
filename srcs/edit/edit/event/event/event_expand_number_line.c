@@ -14,6 +14,20 @@
 
 void			event_expand_number_line(t_event *this, t_event_token *token)
 {
-	(void)this;
-	(void)token;
+	t_line		*line;
+	int			pos;
+
+	this->expand = true;
+	pos = twl_atoi(token->token + 1);
+	pos = ((int)this->edit->size_history) - pos;
+	if (pos < 0)
+		event_print_error(this, token);
+	else
+	{
+		line = twl_lst_get(this->edit->history, pos);
+		if (!line)
+			event_print_error(this, token);
+		else
+			event_concat_string(this, line->copy);
+	}
 }
