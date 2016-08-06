@@ -43,10 +43,8 @@ static int		get_fd(void)
 	fd = (is_regular_file(path) ? open(path, O_RDWR) : -1);
 	if (should_free)
 		free(path);
-	LOG_DEBUG("PATH: %s (%i)", path, fd);
 	return (fd);
 }
-
 
 void			history_read_file(t_history *this)
 {
