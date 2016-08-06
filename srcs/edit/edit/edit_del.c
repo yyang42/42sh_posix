@@ -17,7 +17,7 @@ void				edit_del(t_edit *this)
 	if (!this)
 		return ;
 	if (this->history)
-		twl_lst_del(this->history, line_del);
+		history_del(this->history);
 	if (this->current)
 		line_del(this->current);
 	if (this->last_ps1)

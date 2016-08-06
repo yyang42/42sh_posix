@@ -29,19 +29,6 @@ static void			init_fn(t_edit *this)
 	this->pos_cursor = 0;
 }
 
-size_t		upper_power_of_two(size_t v)
-{
-	v -= 1;
-	v |= v >> 1;
-	v |= v >> 2;
-	v |= v >> 4;
-	v |= v >> 8;
-	v |= v >> 16;
-	v += 1;
-	return (v);
-}
-
-
 static bool			is_end_fn(t_edit *this)
 {
 	char			*expand;
@@ -58,21 +45,15 @@ static bool			is_end_fn(t_edit *this)
 		line_del(this->last);
 		this->last = line_new();
 		this->current = this->last;
-		this->index_history = 0;
+		//this->index_history = 0;
+		history_reset_current(this->history);
 		this->pos_cursor = 0;
 		this->type = edit_type_ps1;
 		edit_prompt_print(this);
 		return (false);
 	}
 	len = twl_strlen(expand);
-	if (len % 2 == 0)
-	{
-		tot = len << 1;
-	}
-	else
-	{
-		tot = upper_power_of_two(len);
-	}
+	tot = utils_upper_power_of_two(len);
 	tmp = twl_strnew(tot);
 	twl_strcpy(tmp, expand);
 	free(this->current->line);

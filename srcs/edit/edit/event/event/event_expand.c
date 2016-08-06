@@ -12,14 +12,6 @@
 
 #include "edit/event.h"
 
-static void		iter_fn(void *data)
-{
-	t_event_token	*token;
-
-	token = data;
-	LOG_DEBUG("%s >%s<", event_token_type_to_string(token->type), token->token);
-}
-
 static void		iter_expan_fn(void *data, void *ctx)
 {
 	t_event_token	*token;
@@ -51,7 +43,6 @@ char			*event_expand(t_edit *edit)
 	char		*ret;
 
 	this = event_new(edit);
-	twl_lst_iter0(this->tokens, iter_fn);
 	twl_lst_iter(this->tokens, iter_expan_fn, this);
 	ret = this->ret;
 	if (this->expand && !this->error)

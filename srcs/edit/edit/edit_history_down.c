@@ -16,7 +16,7 @@ void			edit_history_down(t_edit *this)
 {
 	char		*space_str;
 
-	if (this->index_history == 0)
+	if (history_is_current_last(this->history) && this->current == this->last)
 		return ;
 	edit_move_home(this);
 	space_str = twl_strnewc(this->current->size, ' ');
@@ -24,11 +24,14 @@ void			edit_history_down(t_edit *this)
 	free(space_str);
 	this->pos_cursor = this->current->size;
 	edit_move_home(this);
-	this->index_history -= 1;
-	if (this->index_history == 0)
+	//this->index_history -= 1;
+	if (history_is_current_last(this->history))
 		this->current = this->last;
 	else
-		this->current = twl_lst_get(this->history, this->index_history - 1);
+	{
+		history_down(this->history);
+		this->current = history_get_current(this->history);
+	}
 	this->pos_cursor = this->current->size;
 	this->puts(this->current->line);
 }

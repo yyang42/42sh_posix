@@ -18,7 +18,7 @@ static bool		is_same_last(t_edit *this)
 
 	if (!*this->current->line)
 		return (false);
-	data = twl_lst_first(this->history);
+	data = this->history->last->line;
 	return (!data || twl_strcmp(this->current->line, data->copy));
 }
 
@@ -29,10 +29,9 @@ void			edit_history_push_flush(t_edit *this)
 	if (is_same_last(this))
 	{
 		copy = line_copy(this->current);
-		twl_lst_push_front(this->history, copy);
-		this->size_history += 1;
+		history_push(this->history, copy);
 	}
-	this->index_history = 0;
+	history_reset_current(this->history);
 	line_clear_line(this->current);
 	line_del(this->last);
 	this->last = NULL;

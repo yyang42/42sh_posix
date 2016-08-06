@@ -29,7 +29,7 @@ void			event_expand_command_start(t_event *this, t_event_token *token)
 
 	this->expand = true;
 	len = twl_strlen(token->token + 1);
-	line = twl_lst_find2(this->edit->history, find_fn, token->token + 1, &len);
+	line = history_find2(this->edit->history, find_fn, token->token + 1, &len);
 	if (!line)
 		event_print_error(this, token);
 	else

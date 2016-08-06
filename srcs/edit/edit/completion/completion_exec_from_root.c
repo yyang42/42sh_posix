@@ -16,7 +16,6 @@ void			completion_exec_from_root(t_completion *this)
 {
 	t_completion_path	path;
 	char				*tmp;
-	LOG_DEBUG("From root");
 
 	completion_path_init(&path, this);
 	completion_path_exec_readfile(this, &path);

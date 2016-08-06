@@ -12,7 +12,7 @@
 
 #include "edit/research.h"
 
-static void		iter_fn(void *data, int index, void *context)
+static void		iter_fn(void *data, void *context)
 {
 	t_edit		*this;
 	
@@ -22,18 +22,13 @@ static void		iter_fn(void *data, int index, void *context)
 	research_rewind_string(this, data, ((t_line *)data)->size);
 	if (this->research->found == true)
 	{
-		this->index_history += index + 1;
+		history_set_current(this->history, this->current);
 	}
 }
 
 void			research_find(t_edit *this)
 {
-	t_lst		*slice;
-
 	this->research->found = false;
 	research_rewind_string(this, this->current, this->pos_cursor);
-	slice = twl_lst_slice(this->history, this->index_history,
-			this->size_history);
-	twl_lst_iteri(slice, iter_fn, this);
-	twl_lst_del(slice, NULL);
+	history_iter_from_current_to_first(this->history, iter_fn, this);
 }

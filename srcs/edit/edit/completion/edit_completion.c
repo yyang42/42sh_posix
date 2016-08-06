@@ -20,7 +20,6 @@ void			edit_completion(t_edit *this)
 	if (this->current->size == 0 || edit_is_quoted(this))
 		return ;
 	completion = completion_new(this);
-	LOG_DEBUG("%i: '%s'", completion->type, completion->current_word);
 	if (completion->type == COMPLETION_VARIABLE)
 		completion_variable(completion);
 	else if (completion->type == COMPLETION_BRACE_VARIABLE)

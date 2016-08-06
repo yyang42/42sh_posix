@@ -25,7 +25,7 @@ void			event_expand_number_line_minus(t_event *this,
 		event_print_error(this, token);
 	else
 	{
-		line = twl_lst_get(this->edit->history, pos);
+		line = history_get_from_last(this->edit->history, pos);
 		if (!line)
 			event_print_error(this, token);
 		else

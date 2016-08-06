@@ -35,7 +35,6 @@ void			completion_dirs_from_cwd(t_completion *this)
 {
 	t_completion_path	path;
 	char				*tmp;
-	LOG_DEBUG("From cwd");
 
 	completion_path_init_fn(&path, this);
 	if (!*path.end && completion_path_utils_is_begin_dot(path.begin))
@@ -45,7 +44,6 @@ void			completion_dirs_from_cwd(t_completion *this)
 	else
 	{
 		path.begin = twl_strjoinfree("./", path.begin, 'r');
-		LOG_DEBUG("%s", path.begin);
 		completion_path_dirs_readfile(this, &path);
 		if (!twl_lst_first(this->all))
 			;

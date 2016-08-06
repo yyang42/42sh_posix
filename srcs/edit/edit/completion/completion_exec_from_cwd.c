@@ -16,7 +16,6 @@ void			completion_exec_from_cwd(t_completion *this)
 {
 	t_completion_path	path;
 	char				*tmp;
-	LOG_DEBUG("From cwd");
 
 	completion_path_init(&path, this);
 	if (!*path.end && completion_path_utils_is_begin_dot(path.begin))

@@ -51,7 +51,7 @@ void			event_expand_command_contain(t_event *this,
 		event_print_error(this, token);
 	else
 	{
-		line = twl_lst_find(this->edit->history, find_fn, tok);
+		line = history_find(this->edit->history, find_fn, tok);
 		if (!line)
 			event_print_error(this, token);
 		else
