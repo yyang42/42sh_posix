@@ -10,35 +10,22 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LINE_H
-# define LINE_H
+#include "edit/line.h"
+#include "utils.h"
 
-# include "basics.h"
-# include "shenv/shenv.h"
-
-# define DFL_LINE_SIZE 64
-
-typedef struct			s_line
+t_line			*line_new_from_string(char *str)
 {
-	char				*line;
-	char				*copy;
-	size_t				total;
-	size_t				size;
-}						t_line;
+	t_line		*this;
+	size_t		len;
+	size_t		tot;
 
-t_line					*line_new(void);
-t_line					*line_new_from_string(char *str);
-void					line_del(t_line *this);
-
-
-t_line					*line_copy(t_line *this);
-
-char					*line_get(t_line *this);
-
-void					line_realloc(t_line *this);
-void					line_realloc_force(t_line *this);
-void					line_realloc_from_size(t_line *this, size_t to_add);
-
-void					line_clear_line(t_line *this);
-
-#endif
+	len = twl_strlen(str);
+	tot = utils_upper_power_of_two(len);
+	this = line_new();
+	this->copy = twl_strdup(str);
+	this->line = twl_strnew(tot);
+	twl_strcpy(this->line, str);
+	this->total = tot;
+	this->size = len;
+	return (this);
+}
