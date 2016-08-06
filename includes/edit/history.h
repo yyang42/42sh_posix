@@ -18,7 +18,6 @@
 # include "shenv/shenv.h"
 
 # define DFL_HISTSIZE 128
-# define DFL_HISTFILE ".sh_history"
 
 typedef struct			s_histlist
 {
@@ -57,5 +56,8 @@ bool					history_is_current_first(t_history *this);
 bool					history_is_current_last(t_history *this);
 
 void					history_reset_current(t_history *this);
+void					history_reset_numbers(t_history *this);
+
+void					history_dump(t_history *this);
 
 #endif
