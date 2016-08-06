@@ -46,8 +46,11 @@ void					history_read_file(t_history *this);
 void					history_push(t_history *this, t_line *line);
 void					history_pop(t_history *this);
 
-t_line					*history_get(t_history *this, size_t index);
+t_line					*history_get_from_number(t_history *this, size_t index);
+t_line					*history_get_from_last(t_history *this, size_t index);
 t_line					*history_get_current(t_history *this);
+
+void					history_set_current(t_history *this, t_line *new_line);
 
 void					history_up(t_history *this);
 void					history_down(t_history *this);
@@ -57,6 +60,14 @@ bool					history_is_current_last(t_history *this);
 
 void					history_reset_current(t_history *this);
 void					history_reset_numbers(t_history *this);
+
+t_line					*history_find(t_history *this,
+							bool (*fn)(void *, void *), void *context);
+t_line					*history_find2(t_history *this,
+							bool (*fn)(void *, void *, void *),
+							void *ctx1, void *ctx2);
+void					history_iter_from_current_to_first(t_history *this,
+							void (*fn)(void *, void *), void *ctx);
 
 void					history_dump(t_history *this);
 
