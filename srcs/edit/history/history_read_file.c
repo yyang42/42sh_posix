@@ -70,4 +70,5 @@ void			history_read_file(t_history *this)
 		free(str);
 	}
 	history_reset_numbers(this);
+	close(fd);
 }
