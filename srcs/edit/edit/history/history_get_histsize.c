@@ -32,7 +32,11 @@ void				history_get_histsize(t_history *this)
 
 	shvar = shenv_shvars_get_value(shenv_singleton(), "HISTSIZE");
 	if (!shvar)
+	{
 		this->total = DFL_HISTSIZE;
+		shenv_shvars_set_int(shenv_singleton(), "HISTSIZE",
+				DFL_HISTSIZE, NULL);
+	}
 	else if (!*shvar || is_shvar_number(shvar))
 		return ;
 	else
