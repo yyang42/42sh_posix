@@ -48,7 +48,7 @@ void				builtin_exit_exec(t_lst *tokens, t_shenv *this)
 {
 	if (twl_lst_len(tokens) == 1)
 	{
-		exec_exit(0);
+		exec_exit(this->info.saved_last_exit);
 	}
 	else if (twl_lst_len(tokens) == 2)
 	{
