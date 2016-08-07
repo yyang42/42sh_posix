@@ -20,7 +20,7 @@ t_line			*history_find2(t_history *this,
 	tmp = this->last;
 	while (tmp)
 	{
-		if (fn(tmp, ctx1, ctx2))
+		if (fn(tmp->line, ctx1, ctx2))
 			break ;
 		tmp = tmp->prev;
 	}

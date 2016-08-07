@@ -39,5 +39,6 @@ t_lst					*event_tokenizer_tokenize(t_edit *edit)
 	}
 	ret = this->tokens;
 	this->tokens = NULL;
+	event_tokenizer_del(this);
 	return (ret);
 }

@@ -37,7 +37,7 @@ void				history_get_histsize(t_history *this)
 		shenv_shvars_set_int(shenv_singleton(), "HISTSIZE",
 				DFL_HISTSIZE, NULL);
 	}
-	else if (!*shvar || is_shvar_number(shvar))
+	else if (!*shvar || !is_shvar_number(shvar))
 		return ;
 	else
 		this->total = (size_t)twl_atoi(shvar);

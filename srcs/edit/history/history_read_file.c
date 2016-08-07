@@ -67,6 +67,7 @@ void			history_read_file(t_history *this)
 		history_push(this, line_new_from_string(str));
 		free(str);
 	}
+	free(rem);
 	history_reset_numbers(this);
 	close(fd);
 }

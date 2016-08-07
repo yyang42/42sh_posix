@@ -56,6 +56,7 @@ static bool			is_end_fn(t_edit *this)
 	tot = utils_upper_power_of_two(len);
 	tmp = twl_strnew(tot);
 	twl_strcpy(tmp, expand);
+	free(expand);
 	free(this->current->line);
 	this->current->line = tmp;
 	this->current->size = len;
@@ -105,6 +106,7 @@ char				*edit_get_line(t_edit *this, t_edit_type type)
 	unsigned char	buf;
 	int				read_return;
 
+	history_clear(this->history);
 	this->type = type;
 	init_fn(this);
 	while (1)

@@ -21,7 +21,7 @@ t_line			*line_new_from_string(char *str)
 
 	len = twl_strlen(str);
 	tot = utils_upper_power_of_two(len);
-	this = line_new();
+	this = twl_malloc_x0(sizeof(t_line));
 	this->copy = twl_strdup(str);
 	this->line = twl_strnew(tot);
 	twl_strcpy(this->line, str);

@@ -20,7 +20,7 @@ t_line			*history_get_from_last(t_history *this, size_t index)
 	while (tmp && index)
 	{
 		index -= 1;
-		tmp = tmp->next;
+		tmp = tmp->prev;
 	}
 	return (tmp == NULL ? NULL : tmp->line);
 }

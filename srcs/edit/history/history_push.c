@@ -16,11 +16,11 @@ void				history_push(t_history *this, t_line *line)
 {
 	t_histlist		*lst;
 
-	if (this->total == 0)
-	{
-		line_del(line);
-		return ;
-	}
+//	if (this->total == 0)
+//	{
+//		line_del(line);
+//		return ;
+//	}
 	lst = twl_malloc_x0(sizeof(t_histlist));
 	lst->line = line;
 	if (this->last)

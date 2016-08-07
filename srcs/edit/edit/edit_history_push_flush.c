@@ -16,6 +16,8 @@ static bool		is_same_last(t_edit *this)
 {
 	t_line		*data;
 
+	if (!this->history->last)
+		return (true);
 	if (!*this->current->line)
 		return (false);
 	data = this->history->last->line;
