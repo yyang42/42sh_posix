@@ -24,7 +24,6 @@ void			edit_history_down(t_edit *this)
 	free(space_str);
 	this->pos_cursor = this->current->size;
 	edit_move_home(this);
-	//this->index_history -= 1;
 	if (history_is_current_last(this->history))
 		this->current = this->last;
 	else

@@ -24,9 +24,9 @@ void			edit_history_up(t_edit *this)
 	free(space_str);
 	this->pos_cursor = this->current->size;
 	edit_move_home(this);
+	if (this->current != this->last)
+		history_up(this->history);
 	this->current = history_get_current(this->history);
-	history_up(this->history);
-//	this->index_history += 1;
 	this->pos_cursor = this->current->size;
 	this->puts(this->current->line);
 }
