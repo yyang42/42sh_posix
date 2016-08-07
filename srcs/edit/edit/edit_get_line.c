@@ -106,7 +106,6 @@ char				*edit_get_line(t_edit *this, t_edit_type type)
 	unsigned char	buf;
 	int				read_return;
 
-	history_clear(this->history);
 	this->type = type;
 	init_fn(this);
 	while (1)

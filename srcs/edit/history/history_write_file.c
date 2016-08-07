@@ -69,7 +69,6 @@ void			history_write_file(t_history *this)
 	t_histlist	*tmp;
 
 	fd = get_fd();
-	LOG_DEBUG("Je suis ici %i\n", fd);
 	if (fd == -1)
 		return ;
 	histfilesize = history_get_histfilesize(this);
