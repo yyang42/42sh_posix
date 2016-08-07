@@ -18,6 +18,7 @@
 # include "shenv/shenv.h"
 
 # define DFL_HISTSIZE 128
+# define DFL_HISTFILESIZE 128ul
 
 typedef struct			s_histlist
 {
@@ -40,8 +41,10 @@ t_history				*history_new(void);
 void					history_del(t_history *this);
 
 void					history_get_histsize(t_history *this);
+size_t					history_get_histfilesize(t_history *this);
 
 void					history_read_file(t_history *this);
+void					history_write_file(t_history *this);
 
 void					history_push(t_history *this, t_line *line);
 void					history_pop(t_history *this);

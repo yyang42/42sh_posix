@@ -11,22 +11,31 @@
 /* ************************************************************************** */
 
 #include "edit/history.h"
+#include "twl_stdlib.h"
 
-void			history_del(t_history *this)
+static bool			is_shvar_number(char *shvar)
 {
-	t_histlist	*cur;
-	t_histlist	*next;
+	while (*shvar == ' ' || *shvar == '\t' || *shvar == '\n')
+		shvar += 1;
+	if (!*shvar)
+		return (false);
+	while (*shvar >= '0' && *shvar <= '9')
+		shvar += 1;
+	while (*shvar == ' ' || *shvar == '\t' || *shvar == '\n')
+		shvar += 1;
+	return (*shvar == '\0');
+}
 
-	history_write_file(this);
-	if (!this)
-		return ;
-	cur = this->first;
-	while (cur)
-	{
-		next = cur->next;
-		line_del(cur->line);
-		free(cur);
-		cur = next;
-	}
-	free(this);
+size_t				history_get_histfilesize(t_history *this)
+{
+	char			*shvar;
+
+	shvar = shenv_shvars_get_value(shenv_singleton(), "HISTFILESIZE");
+	if (!shvar)
+		return (DFL_HISTFILESIZE);
+	else if (!*shvar || is_shvar_number(shvar))
+		return (DFL_HISTFILESIZE);
+	else
+		return ((size_t)twl_atoi(shvar));
+	(void)this;
 }

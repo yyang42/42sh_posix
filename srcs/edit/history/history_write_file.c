@@ -37,36 +37,47 @@ static int		get_fd(void)
 	{
 		home = shenv_get_home(shenv_singleton());
 		path = twl_joinpath(home, SHENV_DEFAULT_HISTORY_FILE);
-		shenv_shvars_set(shenv_singleton(), "HISTFILE", path, NULL);
 		should_free = true;
 	}
-	fd = (is_regular_file(path) ? open(path, O_RDONLY) : -1);
+	fd = (is_regular_file(path) ?
+			open(path, O_WRONLY | O_TRUNC | O_CREAT) : -1);
 	if (should_free)
 		free(path);
 	return (fd);
 }
 
-void			history_read_file(t_history *this)
+static t_histlist	*get_histlist_first(t_history *this, size_t histfilesize)
+{
+	t_histlist		*tmp;
+
+	if (histfilesize > this->length)
+		return (this->first);
+	tmp = this->last;
+	while (tmp && tmp->prev && histfilesize)
+	{
+		histfilesize -= 1;
+		tmp = tmp->prev;
+	}
+	return (tmp);
+
+}
+
+void			history_write_file(t_history *this)
 {
 	int			fd;
-	char		*str;
-	char		*rem;
+	size_t		histfilesize;
+	t_histlist	*tmp;
 
 	fd = get_fd();
+	LOG_DEBUG("Je suis ici %i\n", fd);
 	if (fd == -1)
 		return ;
-	str = NULL;
-	rem = NULL;
-	while (twl_gnl(fd, &str, &rem))
+	histfilesize = history_get_histfilesize(this);
+	tmp = get_histlist_first(this, histfilesize);
+	while (tmp)
 	{
-		if (!*str)
-		{
-			free(str);
-			continue ;
-		}
-		history_push(this, line_new_from_string(str));
-		free(str);
+		twl_dprintf(fd, "%s\n", tmp->line->copy);
+		tmp = tmp->next;
 	}
-	history_reset_numbers(this);
 	close(fd);
 }

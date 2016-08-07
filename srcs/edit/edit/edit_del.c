@@ -18,8 +18,8 @@ void				edit_del(t_edit *this)
 		return ;
 	if (this->history)
 		history_del(this->history);
-	if (this->current)
-		line_del(this->current);
+	if (this->last)
+		line_del(this->last);
 	if (this->last_ps1)
 		free(this->last_ps1);
 	if (this->research)
