@@ -15,10 +15,10 @@
 void			event_expand_last_command(t_event *this, t_event_token *token)
 {
 	this->expand = true;
-	if (!this->edit->history->first)
+	if (!this->edit->history->last)
 	{
 		event_print_error(this, token);
 		return ;
 	}
-	event_concat_string(this, this->edit->history->first->line->copy);
+	event_concat_string(this, this->edit->history->last->line->copy);
 }
