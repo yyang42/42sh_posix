@@ -45,9 +45,23 @@ static void		builtin_iter_fn(void *data, void *ctx)
 	}
 }
 
+static void			update_binary_db_on_path_change(t_shenv *env)
+{
+	char			*path_var;
+
+	path_var = shenv_shvars_get_value(env, "PATH");
+	if (path_var)
+	{
+		shenv_build_binary_db(env);
+		shenv_set_binary_saved_path(env, path_var);
+	}
+}
+
 void			completion_exec_from_shenv(t_completion *this)
 {
 	char		*tmp;
+
+	update_binary_db_on_path_change(shenv_singleton());
 	twl_htab_iter(shenv_singleton()->shenv_alias, htab_iter_fn, this);
 	twl_htab_iter(shenv_singleton()->shenv_binary_db, htab_iter_fn, this);
 	twl_dict_iter(shenv_singleton()->shfuncs, funcs_iter_fn, this);
