@@ -12,35 +12,15 @@
 
 #include "builtin/cmds/builtin_history.h"
 
-static void 		iter_fn(void *token_, void *next, void *ctx)
+void				builtin_history_exec(t_lst *tokens, t_shenv *env)
 {
-	t_token			*token;
+	t_argparser_result	*result;
 
-	token = token_;
-	twl_putstr(token->text);
-	if (next)
-		twl_putstr(" ");
-	(void)ctx;
-}
-
-void				builtin_echo_exec(t_lst *tokens, t_shenv *this)
-{
-	t_lst			*tokens_copy;
-	bool			print_newline;
-
-	print_newline = true;
-	tokens_copy = twl_lst_copy(tokens, NULL);
-	twl_lst_pop_front(tokens_copy);
-	if (token_mgr_first_equ(tokens_copy, "-n"))
+	result = argparser_parse_tokens(builtin_history_argparser(), tokens);
+	if (result->err_msg)
 	{
-		print_newline = false;
-		twl_lst_pop_front(tokens_copy);
+		argparser_result_print_error_with_help(result);
+		env->last_exit_code = EXIT_FAILURE;
 	}
-	twl_lst_itern(tokens_copy, iter_fn, NULL);
-	if (print_newline)
-	{
-		twl_putstr("\n");
-	}
-	twl_lst_del(tokens_copy, NULL);
-	(void)this;
+	argparser_result_del(result);
 }
