@@ -16,7 +16,8 @@ void			edit_history_up(t_edit *this)
 {
 	char		*space_str;
 
-	if (history_is_current_first(this->history))
+	if (!history_get_first(this->history) ||
+			this->current == history_get_first(this->history))
 		return ;
 	edit_move_home(this);
 	space_str = twl_strnewc(this->current->size, ' ');

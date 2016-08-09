@@ -24,7 +24,8 @@ t_argparser				*builtin_history_argparser(void)
 		argparser_add_argument(argparser, argparser_argument_new('c', NULL,
 			"Clear the history list", 0));
 		argparser_add_argument(argparser, argparser_argument_new('d', NULL,
-			"Delete the history entry at position offset", 1));
+			"Delete the history entry at position offset",
+			ARGP_HAS_OPTION_ARGUMENT));
 		argparser_add_argument(argparser, argparser_argument_new('a', NULL,
 			"Append the new history lines to the history file", 0));
 		argparser_add_argument(argparser, argparser_argument_new('n', NULL,

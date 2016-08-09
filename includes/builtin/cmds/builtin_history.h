@@ -19,7 +19,7 @@
 
 t_argparser			*builtin_history_argparser(void);
 void				builtin_history_exec(t_lst *tokens, t_shenv *this);
-//void				builtin_getopts_exec_getopt(char *optstring,
-//					char *varname, char **argv, t_shenv *env);
+
+void				builtin_history_clear(void);
 
 #endif
