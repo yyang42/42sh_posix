@@ -24,5 +24,9 @@ void				builtin_history_exec(t_lst *tokens, t_shenv *env)
 	}
 	else if (argparser_result_opt_is_set(result, "c"))
 		builtin_history_clear();
+	else if (argparser_result_opt_is_set(result, "d"))
+		builtin_history_del_offset(result);
+	else
+		builtin_history_dump();
 	argparser_result_del(result);
 }

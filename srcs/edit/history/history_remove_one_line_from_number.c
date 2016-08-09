@@ -10,19 +10,38 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_HISTORY_H
-# define BUILTIN_HISTORY_H
+#include "edit/history.h"
 
-# include "basics.h"
-# include "builtin/builtin.h"
-# include "argparser_extension.h"
+void			history_remove_one_line_from_number(t_history *this, size_t pos)
+{
+	t_histlist	*tmp;
+	t_histlist	*next;
 
-t_argparser			*builtin_history_argparser(void);
-void				builtin_history_exec(t_lst *tokens, t_shenv *this);
-
-void				builtin_history_clear(void);
-void				builtin_history_del_offset(t_argparser_result *this);
-
-void				builtin_history_dump(void);
-
-#endif
+	tmp = this->first;
+	while (tmp)
+	{
+		if (tmp->number == pos)
+		{
+			if (tmp->prev)
+				tmp->prev->next = tmp->next;
+			if (tmp->next)
+				tmp->next->prev = tmp->prev;
+			if (this->first == tmp)
+				this->first = tmp->next;
+			if (this->last == tmp)
+				this->last = tmp->prev;
+			next = tmp->next;
+			line_del(tmp->line);
+			free(tmp);
+			tmp = next;
+			break ;
+		}
+		tmp = tmp->next;
+	}
+	this->current = this->last;
+	while (tmp)
+	{
+		tmp->number -= 1;
+		tmp = tmp->next;
+	}
+}

@@ -10,19 +10,28 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_HISTORY_H
-# define BUILTIN_HISTORY_H
+#include "builtin/cmds/builtin_history.h"
+#include "edit/edit.h"
+#include "edit/history.h"
 
-# include "basics.h"
-# include "builtin/builtin.h"
-# include "argparser_extension.h"
+void			builtin_history_del_offset(t_argparser_result *result)
+{
+	char		*pos_str;
+	size_t		pos;
 
-t_argparser			*builtin_history_argparser(void);
-void				builtin_history_exec(t_lst *tokens, t_shenv *this);
-
-void				builtin_history_clear(void);
-void				builtin_history_del_offset(t_argparser_result *this);
-
-void				builtin_history_dump(void);
-
-#endif
+	pos_str = argparser_result_opt_get_arg(result, "d");
+	if (!twl_str_is_int(pos_str))
+	{
+		shenv_singl_error(1, "history: %s: history "\
+				"position out of range", pos_str);
+		return ;
+	}
+	pos = (size_t)twl_atoi(pos_str);
+	if (!history_get_from_number(edit_singleton()->history, pos))
+	{
+		shenv_singl_error(1, "history: %s: history "\
+				"position out of range", pos_str);
+		return ;
+	}
+	history_remove_one_line_from_number(edit_singleton()->history, pos);
+}

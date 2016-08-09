@@ -10,19 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_HISTORY_H
-# define BUILTIN_HISTORY_H
+#include "builtin/cmds/builtin_history.h"
+#include "edit/edit.h"
+#include "edit/history.h"
 
-# include "basics.h"
-# include "builtin/builtin.h"
-# include "argparser_extension.h"
-
-t_argparser			*builtin_history_argparser(void);
-void				builtin_history_exec(t_lst *tokens, t_shenv *this);
-
-void				builtin_history_clear(void);
-void				builtin_history_del_offset(t_argparser_result *this);
-
-void				builtin_history_dump(void);
-
-#endif
+void			builtin_history_dump(void)
+{
+	history_dump(edit_singleton()->history);
+}

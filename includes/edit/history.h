@@ -41,6 +41,8 @@ t_history				*history_new(void);
 void					history_del(t_history *this);
 
 void					history_clear(t_history *this);
+void					history_remove_one_line_from_number(t_history *this,
+							size_t pos);
 
 void					history_get_histsize(t_history *this);
 size_t					history_get_histfilesize(t_history *this);
