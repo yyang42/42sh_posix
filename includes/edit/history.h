@@ -24,6 +24,7 @@ typedef struct			s_histlist
 {
 	t_line				*line;
 	size_t				number;
+	bool				limit;
 	struct s_histlist	*next;
 	struct s_histlist	*prev;
 }						t_histlist;
@@ -33,8 +34,10 @@ typedef struct			s_history
 	t_histlist			*first;
 	t_histlist			*current;
 	t_histlist			*last;
+	t_lst				*save;
 	size_t				length;
 	size_t				total;
+	bool				is_break;
 }						t_history;
 
 t_history				*history_new(void);
@@ -49,6 +52,10 @@ size_t					history_get_histfilesize(t_history *this);
 
 void					history_read_file(t_history *this);
 void					history_write_file(t_history *this);
+void					history_append_list_to_file(t_history *this,
+							char *path);
+void					history_append_file_to_list(t_history *this,
+							char *path);
 
 void					history_push(t_history *this, t_line *line);
 void					history_pop(t_history *this);

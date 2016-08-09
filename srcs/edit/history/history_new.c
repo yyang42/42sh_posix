@@ -12,6 +12,19 @@
 
 #include "edit/history.h"
 
+static void			create_lst(t_history *this)
+{
+	t_histlist		*tmp;
+
+	tmp = this->last;
+	this->save = twl_lst_new();
+	while (tmp)
+	{
+		twl_lst_push_front(this->save, twl_strdup(tmp->line->copy));
+		tmp = tmp->prev;
+	}
+}
+
 t_history			*history_new(void)
 {
 	t_history		*this;
@@ -20,5 +33,7 @@ t_history			*history_new(void)
 	this->total = DFL_HISTSIZE;
 	history_get_histsize(this);
 	history_read_file(this);
+	create_lst(this);
+	this->last->limit = true;
 	return (this);
 }

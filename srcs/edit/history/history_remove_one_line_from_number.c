@@ -22,6 +22,11 @@ void			history_remove_one_line_from_number(t_history *this, size_t pos)
 	{
 		if (tmp->number == pos)
 		{
+			if (tmp->limit)
+			{
+				if (tmp->prev)
+					tmp->prev->limit = true;
+			}
 			if (tmp->prev)
 				tmp->prev->next = tmp->next;
 			if (tmp->next)
