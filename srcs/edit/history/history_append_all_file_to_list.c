@@ -10,24 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_HISTORY_H
-# define BUILTIN_HISTORY_H
+#include "edit/history.h"
 
-# include "basics.h"
-# include "builtin/builtin.h"
-# include "argparser_extension.h"
+static void		iter_fn(void *data, void *ctx)
+{
+	history_push(ctx, line_new_from_string(data));
+}
 
-t_argparser			*builtin_history_argparser(void);
-void				builtin_history_exec(t_lst *tokens, t_shenv *this);
+void			history_append_all_file_to_list(t_history *this, char *path)
+{
+	t_lst		*content;
 
-void				builtin_history_clear(void);
-void				builtin_history_del_offset(t_argparser_result *this);
-
-void				builtin_history_dump(void);
-
-void				builtin_history_append_file(t_argparser_result *this);
-void				builtin_history_append_list(t_argparser_result *this);
-void				builtin_history_append_all_file(t_argparser_result *this);
-void				builtin_history_append_all_list(t_argparser_result *this);
-
-#endif
+	if (!(content = history_utils_get_histfile(path)))
+		return ;
+	twl_lst_iter(content, iter_fn, this);
+	twl_lst_del(this->save, free);
+	this->save = content;
+}

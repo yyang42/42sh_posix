@@ -56,6 +56,10 @@ void					history_append_list_to_file(t_history *this,
 							char *path);
 void					history_append_file_to_list(t_history *this,
 							char *path);
+void					history_append_all_file_to_list(t_history *this,
+							char *path);
+void					history_append_all_list_to_file(t_history *this,
+							char *path);
 
 void					history_push(t_history *this, t_line *line);
 void					history_pop(t_history *this);

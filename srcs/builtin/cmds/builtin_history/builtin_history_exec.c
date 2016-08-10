@@ -30,6 +30,10 @@ void				builtin_history_exec(t_lst *tokens, t_shenv *env)
 		builtin_history_append_file(result);
 	else if (argparser_result_opt_is_set(result, "n"))
 		builtin_history_append_list(result);
+	else if (argparser_result_opt_is_set(result, "r"))
+		builtin_history_append_all_file(result);
+	else if (argparser_result_opt_is_set(result, "w"))
+		builtin_history_append_all_list(result);
 	else
 		builtin_history_dump();
 	argparser_result_del(result);
