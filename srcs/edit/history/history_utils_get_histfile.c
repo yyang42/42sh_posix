@@ -15,44 +15,6 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-//static bool		is_regular_file(char *path)
-//{
-//	struct stat	buf;
-//
-//	if (stat(path, &buf) == -1)
-//		return (false);
-//	return (S_ISREG(buf.st_mode));
-//}
-//
-//static int		get_fd(char *p)
-//{
-//	char		*home;
-//	char		*path;
-//	int			fd;
-//	bool		should_free;
-//
-//	path = p ? p : shenv_shvars_get_value(shenv_singleton(), "HISTFILE");
-//	should_free = false;
-//	if (!path)
-//	{
-//		home = shenv_get_home(shenv_singleton());
-//		path = twl_joinpath(home, SHENV_DEFAULT_HISTORY_FILE);
-//		shenv_shvars_set(shenv_singleton(), "HISTFILE", path, NULL);
-//		should_free = true;
-//	}
-//	if (!is_regular_file(path))
-//	{
-//		shenv_singl_error(1, "%s: not a regular file", path, strerror(errno));
-//		return (-1);
-//	}
-//	fd = open(path, ) : -1;
-//	if (should_free)
-//		free(path);
-//	if (fd == -1)
-//		shenv_singl_error(1, "%s: cannot access: %s", path, strerror(errno));
-//	return (fd);
-//}
-
 t_lst			*history_utils_get_histfile(char *path)
 {
 	int			fd;
