@@ -11,70 +11,6 @@
 /* ************************************************************************** */
 
 #include "edit/history.h"
-#include "twl_gnl.h"
-#include <sys/stat.h>
-#include <fcntl.h>
-
-static bool		is_regular_file(char *path)
-{
-	struct stat	buf;
-
-	if (stat(path, &buf) == -1)
-		return (false);
-	return (S_ISREG(buf.st_mode));
-}
-
-static int		get_fd(char *p)
-{
-	char		*home;
-	char		*path;
-	int			fd;
-	bool		should_free;
-
-	path = p ? p : shenv_shvars_get_value(shenv_singleton(), "HISTFILE");
-	should_free = false;
-	if (!path)
-	{
-		home = shenv_get_home(shenv_singleton());
-		path = twl_joinpath(home, SHENV_DEFAULT_HISTORY_FILE);
-		shenv_shvars_set(shenv_singleton(), "HISTFILE", path, NULL);
-		should_free = true;
-	}
-	fd = (is_regular_file(path) ? open(path, O_RDONLY) : -1);
-	if (should_free)
-		free(path);
-	if (fd == -1)
-		shenv_singl_error(1, "%s: cannot access: %s", path, strerror(errno));
-	return (fd);
-}
-
-static t_lst	*get_lst(char *path)
-{
-	int			fd;
-	char		*str;
-	char		*rem;
-	t_lst		*lst;
-
-	fd = get_fd(path);
-	if (fd == -1)
-		return (NULL);
-	str = NULL;
-	rem = NULL;
-	lst = twl_lst_new();
-	while (twl_gnl(fd, &str, &rem))
-	{
-		if (!*str)
-		{
-			free(str);
-			continue ;
-		}
-		twl_lst_push_front(lst, str);
-	}
-	free(rem);
-	close(fd);
-	twl_lst_rev(lst);
-	return (lst);
-}
 
 static void		iter_fn(void *data, void *ctx1, void *ctx2)
 {
@@ -126,7 +62,7 @@ void			history_append_file_to_list(t_history *this, char *path)
 {
 	t_lst		*content;
 
-	if (!(content = get_lst(path)))
+	if (!(content = history_utils_get_histfile(path)))
 		return ;
 	find_and_slice(this, content);
 	twl_lst_del(this->save, free);

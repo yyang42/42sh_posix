@@ -86,4 +86,7 @@ void					history_iter_from_current_to_first(t_history *this,
 
 void					history_dump(t_history *this);
 
+t_lst					*history_utils_get_histfile(char *path);
+int						history_utils_get_fd_histfile(char *path, int opt);
+
 #endif

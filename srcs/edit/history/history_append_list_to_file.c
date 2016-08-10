@@ -11,74 +11,64 @@
 /* ************************************************************************** */
 
 #include "edit/history.h"
-#include "shenv/shenv.h"
-#include <sys/stat.h>
 #include <fcntl.h>
 
-static bool		is_regular_file(char *path)
+static void		get_hist_to_append(t_history *this, t_lst *histfile)
 {
-	struct stat	buf;
+	t_histlist	*tmp;
 
-	if (stat(path, &buf) == -1)
-		return (false);
-	return (S_ISREG(buf.st_mode));
-}
-
-static int		get_fd(char *p)
-{
-	char		*home;
-	char		*path;
-	int			fd;
-	bool		should_free;
-
-	path = p ? p : shenv_shvars_get_value(shenv_singleton(), "HISTFILE");
-	should_free = false;
-	if (!path)
-	{
-		home = shenv_get_home(shenv_singleton());
-		path = twl_joinpath(home, SHENV_DEFAULT_HISTORY_FILE);
-		should_free = true;
-	}
-	fd = (is_regular_file(path) ?
-			open(path, O_WRONLY | O_TRUNC | O_CREAT) : -1);
-	if (should_free)
-		free(path);
-	if (fd == -1)
-		shenv_singl_error(1, "%s: cannot access: %s", path, strerror(errno));
-	return (fd);
-}
-
-static t_histlist	*get_histlist_first(t_history *this, size_t histfilesize)
-{
-	t_histlist		*tmp;
-
-	if (histfilesize > this->length)
-		return (this->first);
 	tmp = this->last;
-	while (tmp && tmp->prev && histfilesize)
-	{
-		histfilesize -= 1;
+	twl_lst_rev(histfile);
+	while (tmp && tmp->limit == false && tmp->prev && tmp->prev->limit == false)
 		tmp = tmp->prev;
+	if (tmp && tmp->limit == true && !tmp->next)
+	{
+		twl_lst_rev(histfile);
+		return ;
 	}
-	return (tmp);
+	if (tmp)
+		tmp->limit = false;
+	if (tmp && tmp->prev)
+		tmp->prev->limit = false;
+	if (this->last)
+		this->last->limit = true;
+	while (tmp)
+	{
+		twl_lst_push_front(histfile, twl_strdup(tmp->line->copy));
+		tmp = tmp->next;
+	}
+	twl_lst_rev(histfile);
+}
 
+static void		iter_fn(void *data, void *ctx)
+{
+	twl_dprintf(*(int *)ctx, "%s\n", data);
 }
 
 void			history_append_list_to_file(t_history *this, char *path)
 {
-	int			fd;
+	t_lst		*histfile;
 	size_t		histfilesize;
-	t_histlist	*tmp;
+	size_t		newhistfilesize;
+	int			fd;
 
-	fd = get_fd(path);
-	if (fd == -1)
+	if (!(histfile = history_utils_get_histfile(path)))
 		return ;
+	get_hist_to_append(this, histfile);
 	histfilesize = history_get_histfilesize(this);
-	tmp = get_histlist_first(this, histfilesize);
-	while (tmp)
+	newhistfilesize = twl_lst_len(histfile);
+	while (newhistfilesize > histfilesize)
 	{
-		twl_dprintf(fd, "%s\n", tmp->line->copy);
-		tmp = tmp->next;
+		free(twl_lst_pop_front(histfile));
+		newhistfilesize -= 1;
 	}
-	close(fd);
+	fd = history_utils_get_fd_histfile(path, O_WRONLY | O_TRUNC | O_CREAT);
+	if (fd == -1)
+	{
+		twl_lst_del(histfile, free);
+		return ;
+	}
+	twl_lst_iter(histfile, iter_fn, &fd);
+	twl_lst_del(this->save, free);
+	this->save = histfile;
 }
