@@ -63,6 +63,7 @@ void					history_append_all_list_to_file(t_history *this,
 
 void					history_push(t_history *this, t_line *line);
 void					history_pop(t_history *this);
+void					history_pop_last(t_history *this);
 
 t_line					*history_get_from_number(t_history *this, size_t index);
 t_line					*history_get_from_last(t_history *this, size_t index);
