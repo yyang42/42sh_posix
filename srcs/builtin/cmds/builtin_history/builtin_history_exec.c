@@ -26,6 +26,10 @@ static void			inner_history_fn(t_argparser_result *result)
 		builtin_history_append_all_file(result);
 	else if (argparser_result_opt_is_set(result, "w"))
 		builtin_history_append_all_list(result);
+	else if (argparser_result_opt_is_set(result, "s"))
+		builtin_history_append_args_to_list(result);
+	else if (argparser_result_opt_is_set(result, "p"))
+		builtin_history_perform_substitution(result);
 }
 
 void				builtin_history_exec(t_lst *tokens, t_shenv *env)

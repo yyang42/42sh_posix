@@ -10,27 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_HISTORY_H
-# define BUILTIN_HISTORY_H
+#include "builtin/cmds/builtin_history.h"
+#include "edit/event.h"
 
-# include "basics.h"
-# include "builtin/builtin.h"
-# include "argparser_extension.h"
+static void		iter_fn(void *data)
+{
+	char		*expand;
 
-t_argparser		*builtin_history_argparser(void);
-void			builtin_history_exec(t_lst *tokens, t_shenv *this);
+	expand = event_expand_history_string(data);
+	if (expand)
+	{
+		twl_printf("%s\n", expand);
+		free(expand);
+	}
+}
 
-void			builtin_history_clear(void);
-void			builtin_history_del_offset(t_argparser_result *this);
-
-void			builtin_history_dump(void);
-
-void			builtin_history_perform_substitution(t_argparser_result *this);
-
-void			builtin_history_append_file(t_argparser_result *this);
-void			builtin_history_append_list(t_argparser_result *this);
-void			builtin_history_append_all_file(t_argparser_result *this);
-void			builtin_history_append_all_list(t_argparser_result *this);
-void			builtin_history_append_args_to_list(t_argparser_result *this);
-
-#endif
+void			builtin_history_perform_substitution(t_argparser_result *result)
+{
+	history_pop_last(edit_singleton()->history);
+	twl_lst_iter0(result->remainders, iter_fn);
+}

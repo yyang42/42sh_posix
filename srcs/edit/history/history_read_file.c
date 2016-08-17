@@ -49,6 +49,7 @@ static int		get_fd(void)
 void			history_read_file(t_history *this)
 {
 	int			fd;
+	int			gnl_ret;
 	char		*str;
 	char		*rem;
 
@@ -57,8 +58,9 @@ void			history_read_file(t_history *this)
 		return ;
 	str = NULL;
 	rem = NULL;
-	while (twl_gnl(fd, &str, &rem) > 0)
+	while ((gnl_ret = twl_gnl(fd, &str, &rem)) > 0)
 	{
+		LOG_DEBUG("%i: %s", gnl_ret, str);
 		if (!*str)
 		{
 			free(str);

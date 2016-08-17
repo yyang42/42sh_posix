@@ -10,27 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_HISTORY_H
-# define BUILTIN_HISTORY_H
+#include "builtin/cmds/builtin_history.h"
+#include "edit/history.h"
 
-# include "basics.h"
-# include "builtin/builtin.h"
-# include "argparser_extension.h"
+void			builtin_history_append_args_to_list(t_argparser_result *result)
+{
+	char		*to_push;
 
-t_argparser		*builtin_history_argparser(void);
-void			builtin_history_exec(t_lst *tokens, t_shenv *this);
-
-void			builtin_history_clear(void);
-void			builtin_history_del_offset(t_argparser_result *this);
-
-void			builtin_history_dump(void);
-
-void			builtin_history_perform_substitution(t_argparser_result *this);
-
-void			builtin_history_append_file(t_argparser_result *this);
-void			builtin_history_append_list(t_argparser_result *this);
-void			builtin_history_append_all_file(t_argparser_result *this);
-void			builtin_history_append_all_list(t_argparser_result *this);
-void			builtin_history_append_args_to_list(t_argparser_result *this);
-
-#endif
+	if (twl_lst_first(result->remainders))
+	{
+		to_push = twl_lst_strjoin(result->remainders, " ");
+		history_pop_last(edit_singleton()->history);
+		history_push(edit_singleton()->history, line_new_from_string(to_push));
+		free(to_push);
+	}
+}
