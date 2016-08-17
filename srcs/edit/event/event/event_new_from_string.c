@@ -12,17 +12,15 @@
 
 #include "edit/event.h"
 
-void			event_print_error(t_event *this, t_event_token *token)
+t_event			*event_new_from_string(char *string)
 {
-	if (this->ret)
-		free(this->ret);
-	this->ret = NULL;
-	if (this->error)
-		return ;
-	this->error = true;
-	if (this->from_history)
-		twl_dprintf(2, "42sh: history: %s: history expansion failed\n",
-				token->token);
-	else
-		twl_dprintf(2, "42sh: %s: event not found\n", token->token);
+	t_event		*this;
+
+	this = twl_malloc_x0(sizeof(t_event));
+	this->edit = edit_singleton();
+	this->tokens = event_tokenizer_tokenize_from_string(string);
+	this->ret = twl_strnew(0);
+	this->error = false;
+	this->expand = false;
+	return (this);
 }

@@ -22,5 +22,6 @@ t_event			*event_new(t_edit *edit)
 	this->ret = twl_strnew(0);
 	this->error = false;
 	this->expand = false;
+	this->from_history = false;
 	return (this);
 }

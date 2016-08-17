@@ -10,19 +10,35 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "edit/event.h"
+#include "edit/event_tokenizer.h"
 
-void			event_print_error(t_event *this, t_event_token *token)
+t_event_tokenizer_fn	g_event_tokenizer_fs_rule_fns[5] =
 {
-	if (this->ret)
-		free(this->ret);
-	this->ret = NULL;
-	if (this->error)
-		return ;
-	this->error = true;
-	if (this->from_history)
-		twl_dprintf(2, "42sh: history: %s: history expansion failed\n",
-				token->token);
-	else
-		twl_dprintf(2, "42sh: %s: event not found\n", token->token);
+	event_tokenizer_apply_rule01,
+	event_tokenizer_apply_rule02,
+	event_tokenizer_apply_rule03,
+	event_tokenizer_apply_rule04,
+	NULL
+};
+
+t_lst					*event_tokenizer_tokenize_from_string(char *string)
+{
+	t_event_tokenizer	*this;
+	t_rule_event_status	status;
+	size_t				index;
+	t_lst				*ret;
+
+	this = event_tokenizer_new_from_string(string);
+	index = 0;
+	while (g_event_tokenizer_fs_rule_fns[index])
+	{
+		status = g_event_tokenizer_fs_rule_fns[index](this);
+		if (status == EVENT_STATUS_END_OF_INPUT)
+			break ;
+		index = status == EVENT_STATUS_APPLIED ? 0 : index + 1;
+	}
+	ret = this->tokens;
+	this->tokens = NULL;
+	event_tokenizer_del(this);
+	return (ret);
 }

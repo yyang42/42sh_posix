@@ -39,9 +39,11 @@ typedef	struct			s_event_tokenizer
 }						t_event_tokenizer;
 
 t_event_tokenizer		*event_tokenizer_new(t_edit *edit);
+t_event_tokenizer		*event_tokenizer_new_from_string(char *string);
 void					event_tokenizer_del(t_event_tokenizer *this);
 
 t_lst					*event_tokenizer_tokenize(t_edit *edit);
+t_lst					*event_tokenizer_tokenize_from_string(char *string);
 t_rule_event_status		event_tokenizer_apply_rule01(t_event_tokenizer *this);
 t_rule_event_status		event_tokenizer_apply_rule02(t_event_tokenizer *this);
 t_rule_event_status		event_tokenizer_apply_rule03(t_event_tokenizer *this);
