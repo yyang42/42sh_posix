@@ -34,6 +34,7 @@ t_history			*history_new(void)
 	history_get_histsize(this);
 	history_read_file(this);
 	create_lst(this);
-	this->last->limit = true;
+	if (this->last)
+		this->last->limit = true;
 	return (this);
 }
