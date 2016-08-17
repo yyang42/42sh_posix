@@ -48,7 +48,7 @@ void				builtin_history_exec(t_lst *tokens, t_shenv *env)
 	}
 	else
 	{
-		builtin_history_dump();
+		builtin_history_dump(result);
 	}
 	argparser_result_del(result);
 }

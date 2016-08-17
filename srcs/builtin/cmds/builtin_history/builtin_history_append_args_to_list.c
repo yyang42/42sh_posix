@@ -12,6 +12,7 @@
 
 #include "builtin/cmds/builtin_history.h"
 #include "edit/history.h"
+#include "edit/edit.h"
 
 void			builtin_history_append_args_to_list(t_argparser_result *result)
 {
