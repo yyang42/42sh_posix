@@ -16,6 +16,9 @@
 
 void			builtin_history_append_all_list(t_argparser_result *result)
 {
+	if (argparser_result_opt_is_set(result, "a") ||
+		argparser_result_opt_is_set(result, "n") ||
+		argparser_result_opt_is_set(result, "r"))
 	history_append_all_list_to_file(edit_singleton()->history,
 			twl_lst_first(result->remainders));
 }

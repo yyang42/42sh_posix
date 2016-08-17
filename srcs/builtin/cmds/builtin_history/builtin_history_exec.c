@@ -18,7 +18,7 @@ static void			inner_history_fn(t_argparser_result *result)
 		builtin_history_clear();
 	if (argparser_result_opt_is_set(result, "d"))
 		builtin_history_del_offset(result);
-	else if (argparser_result_opt_is_set(result, "a"))
+	if (argparser_result_opt_is_set(result, "a"))
 		builtin_history_append_file(result);
 	else if (argparser_result_opt_is_set(result, "n"))
 		builtin_history_append_list(result);

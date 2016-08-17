@@ -57,7 +57,7 @@ void			history_read_file(t_history *this)
 		return ;
 	str = NULL;
 	rem = NULL;
-	while (twl_gnl(fd, &str, &rem))
+	while (twl_gnl(fd, &str, &rem) > 0)
 	{
 		if (!*str)
 		{
