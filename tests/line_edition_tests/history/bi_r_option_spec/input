@@ -1,0 +1,8 @@
+history -c
+history -w
+echo "echo abc" >> $HISTFILE
+echo "echo 123" >> $HISTFILE
+history -r
+\033[A\033[A
+\033[A\033[A
+\004
