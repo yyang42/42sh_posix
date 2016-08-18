@@ -14,7 +14,7 @@
 
 static void			inner_history_fn(t_argparser_result *result)
 {
-	if (shenv_is_interactive(shenv_singleton()))
+	if (!shenv_is_interactive(shenv_singleton()))
 		return ;
 	if (argparser_result_opt_is_set(result, "c"))
 		builtin_history_clear();
