@@ -30,7 +30,6 @@ void			edit_history_push_flush(t_edit *this)
 
 	if (is_same_last(this))
 	{
-		LOG_DEBUG("Allo ?");
 		copy = line_copy(this->current);
 		history_push(this->history, copy);
 	}
