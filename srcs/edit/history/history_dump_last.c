@@ -19,14 +19,20 @@ void			history_dump_last(t_history *this, int index_)
 
 	index = index_ < 0 ? -((long)index_) : (long)index_;
 	if (index > (long)this->length)
+	{
 		history_dump(this);
+		return ;
+	}
 	tmp = this->last;
 	while (--index > 0 && tmp)
 	{
 		tmp = tmp->prev;
 	}
 	if (!tmp)
+	{
 		history_dump(this);
+		return ;
+	}
 	while (tmp)
 	{
 		twl_printf("%5zu  %s\n", tmp->number, tmp->line->copy);
