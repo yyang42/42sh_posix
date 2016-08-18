@@ -17,8 +17,10 @@ static void		iter_fn(void *data, void *ctx1, void *ctx2)
 	char		*ctx_first;
 	t_history	*this;
 
-	ctx_first = twl_lst_pop_front(ctx1);
 	this = ctx2;
+	if (this->is_break)
+		return ;
+	ctx_first = twl_lst_pop_front(ctx1);
 	if (!this->is_break && !ctx_first)
 	{
 		history_push(ctx2, line_new_from_string(data));
@@ -39,22 +41,31 @@ static void		find_and_slice(t_history *this, t_lst *content)
 	t_lst		*copy_copy;
 	char		*copy_first;
 	char		*content_first;
+	bool		done;
 
-	copy = twl_lst_copy(this->save, NULL);
-	content_first = twl_lst_first(content);
-	while ((copy_first = twl_lst_first(copy)))
+	done = false;
+	while (!done && (content_first = twl_lst_first(content)))
 	{
-		if (twl_strcmp(copy_first, content_first))
+		copy = twl_lst_copy(this->save, NULL);
+		while ((copy_first = twl_lst_first(copy)))
 		{
+			if (twl_strcmp(copy_first, content_first))
+			{
+				twl_lst_pop_front(copy);
+				continue ;
+			}
+			this->is_break = false;
+			copy_copy = twl_lst_copy(copy, NULL);
+			twl_lst_iter2(content, iter_fn, copy_copy, this);
+			if (!twl_lst_first(copy_copy))
+			{
+				done = true;
+				break ;
+			}
 			twl_lst_pop_front(copy);
-			continue ;
 		}
-		this->is_break = false;
-		copy_copy = twl_lst_copy(copy, NULL);
-		twl_lst_iter2(content, iter_fn, copy_copy, this);
-		if (!twl_lst_first(copy_copy))
-			break ;
-		twl_lst_pop_front(copy);
+		twl_lst_del(copy, NULL);
+		free(twl_lst_pop_front(content));
 	}
 }
 
