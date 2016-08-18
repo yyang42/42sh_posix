@@ -29,6 +29,18 @@ static char			*get_delimiter(char *str)
 	return (delimiter);
 }
 
+static bool			is_delimiter(char *pos, char *delimiter)
+{
+	size_t			delimiter_real_len;
+
+	if (twl_str_starts_with(pos, delimiter))
+		return (true);
+	delimiter_real_len = twl_strlen(delimiter) - 1;
+	if (twl_strlen(pos) == delimiter_real_len)
+		return twl_strnequ(pos, delimiter, delimiter_real_len);
+	return (false);
+}
+
 static char			*get_heredoc_start_pos(t_tokenizer *t)
 {
 	char			*pos;
@@ -76,7 +88,7 @@ static void			build_heredoc(t_tokenizer *t, t_token *new_token, char *pos,
 			while (*pos == '\t')
 				pos++;
 		}
-		if (is_prev_newline && twl_str_starts_with(pos, delimiter))
+		if (is_prev_newline && is_delimiter(pos, delimiter))
 		{
 			delimiter_found = true;
 			break ;
