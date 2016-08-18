@@ -1,0 +1,5 @@
+echo 'echo salut !' >> "$HISTFILE"
+echo 'ls -la' >> "$HISTFILE"
+history -n
+\033[A\033[A
+\004
