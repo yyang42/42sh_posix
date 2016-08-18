@@ -17,7 +17,7 @@ void			history_del(t_history *this)
 	t_histlist	*cur;
 	t_histlist	*next;
 
-	history_write_file(this);
+	history_append_list_to_file(this, NULL);
 	if (!this)
 		return ;
 	cur = this->first;
