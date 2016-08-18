@@ -15,37 +15,6 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-static bool		is_regular_file(char *path)
-{
-	struct stat	buf;
-
-	if (stat(path, &buf) == -1)
-		return (false);
-	return (S_ISREG(buf.st_mode));
-}
-
-static int		get_fd(void)
-{
-	char		*home;
-	char		*path;
-	int			fd;
-	bool		should_free;
-
-	path = shenv_shvars_get_value(shenv_singleton(), "HISTFILE");
-	should_free = false;
-	if (!path)
-	{
-		home = shenv_get_home(shenv_singleton());
-		path = twl_joinpath(home, SHENV_DEFAULT_HISTORY_FILE);
-		should_free = true;
-	}
-	fd = (is_regular_file(path) ?
-			open(path, O_WRONLY | O_TRUNC | O_CREAT) : -1);
-	if (should_free)
-		free(path);
-	return (fd);
-}
-
 static t_histlist	*get_histlist_first(t_history *this, size_t histfilesize)
 {
 	t_histlist		*tmp;
@@ -62,13 +31,13 @@ static t_histlist	*get_histlist_first(t_history *this, size_t histfilesize)
 
 }
 
-void			history_write_file(t_history *this)
+void			history_write_file(t_history *this, char *path)
 {
 	int			fd;
 	size_t		histfilesize;
 	t_histlist	*tmp;
 
-	fd = get_fd();
+	fd = history_utils_get_fd_histfile(path, O_WRONLY | O_TRUNC | O_CREAT);
 	if (fd == -1)
 		return ;
 	histfilesize = history_get_histfilesize(this);

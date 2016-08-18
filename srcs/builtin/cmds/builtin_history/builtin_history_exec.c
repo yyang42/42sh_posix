@@ -20,18 +20,18 @@ static void			inner_history_fn(t_argparser_result *result)
 		builtin_history_clear();
 	if (argparser_result_opt_is_set(result, "d"))
 		builtin_history_del_offset(result);
-	if (argparser_result_opt_is_set(result, "a"))
+	if (argparser_result_opt_is_set(result, "s"))
+		builtin_history_append_args_to_list(result);
+	else if (argparser_result_opt_is_set(result, "p"))
+		builtin_history_perform_substitution(result);
+	else if (argparser_result_opt_is_set(result, "a"))
 		builtin_history_append_file(result);
 	else if (argparser_result_opt_is_set(result, "n"))
 		builtin_history_append_list(result);
 	else if (argparser_result_opt_is_set(result, "r"))
 		builtin_history_append_all_file(result);
 	else if (argparser_result_opt_is_set(result, "w"))
-		builtin_history_append_all_list(result);
-	else if (argparser_result_opt_is_set(result, "s"))
-		builtin_history_append_args_to_list(result);
-	else if (argparser_result_opt_is_set(result, "p"))
-		builtin_history_perform_substitution(result);
+		builtin_history_write_all_list(result);
 }
 
 void				builtin_history_exec(t_lst *tokens, t_shenv *env)

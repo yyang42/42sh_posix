@@ -51,7 +51,7 @@ void					history_get_histsize(t_history *this);
 size_t					history_get_histfilesize(t_history *this);
 
 void					history_read_file(t_history *this);
-void					history_write_file(t_history *this);
+void					history_write_file(t_history *this, char *path);
 void					history_append_list_to_file(t_history *this,
 							char *path);
 void					history_append_file_to_list(t_history *this,

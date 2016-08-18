@@ -30,7 +30,7 @@ void			builtin_history_perform_substitution(t_argparser_result *this);
 void			builtin_history_append_file(t_argparser_result *this);
 void			builtin_history_append_list(t_argparser_result *this);
 void			builtin_history_append_all_file(t_argparser_result *this);
-void			builtin_history_append_all_list(t_argparser_result *this);
+void			builtin_history_write_all_list(t_argparser_result *this);
 void			builtin_history_append_args_to_list(t_argparser_result *this);
 
 #endif
