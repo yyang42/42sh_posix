@@ -39,4 +39,7 @@ void				utils_log_errno(char *name, int error_code);
 int					utils_get_current_tty(void);
 void				utils_tcsetpgrp_for_tty_01(pid_t pid);
 
+bool				utils_is_power_of_two(size_t num);
+size_t				utils_upper_power_of_two(size_t num);
+
 #endif

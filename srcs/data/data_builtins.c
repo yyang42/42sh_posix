@@ -29,6 +29,7 @@
 #include "builtin/cmds/builtin_false.h"
 #include "builtin/cmds/builtin_fg.h"
 #include "builtin/cmds/builtin_getopts.h"
+#include "builtin/cmds/builtin_history.h"
 #include "builtin/cmds/builtin_jobs.h"
 #include "builtin/cmds/builtin_kill.h"
 #include "builtin/cmds/builtin_popd.h"
@@ -75,6 +76,7 @@ t_lst				*data_builtins(void)
 		twl_lst_push_back(builtins, builtin_new("false", builtin_false_exec, 0));
 		twl_lst_push_back(builtins, builtin_new("fg", builtin_fg_exec, 0));
 		twl_lst_push_back(builtins, builtin_new("getopts", builtin_getopts_exec, 0));
+		twl_lst_push_back(builtins, builtin_new("history", builtin_history_exec, 0));
 		twl_lst_push_back(builtins, builtin_new("jobs", builtin_jobs_exec, 0));
 		twl_lst_push_back(builtins, builtin_new("kill", builtin_kill_exec, 0));
 		twl_lst_push_back(builtins, builtin_new("popd", builtin_popd_exec, 0));

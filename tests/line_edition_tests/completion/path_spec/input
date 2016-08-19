@@ -1,10 +1,11 @@
-mkdir /tmp/tmp_binary_path
+rm -rf /tmp/tmp_binary_path
+mkdir -p /tmp/tmp_binary_path
 PATH=/tmp/tmp_binary_path
-echo 'echo aa bb cc' > $PATH/ls
-echo 'echo dd ee ff' > $PATH/mkdir
-echo 'echo gg hh ii' > $PATH/jambon
+echo 'echo aa bb cc' > $PATH/laaas && /bin/chmod 755 $PATH/laaas
+echo 'echo dd ee ff' > $PATH/maaaar && /bin/chmod 755 $PATH/maaaar
+echo 'echo gg hh ii' > $PATH/jaamabon && /bin/chmod 755 $PATH/jaamabon
 
-j\t
-l\t
-m\t
+jaa\t
+laa\t
+maa\t
 \004

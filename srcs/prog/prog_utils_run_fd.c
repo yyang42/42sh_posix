@@ -46,6 +46,7 @@ static char         *read_gnl(int fd, char **gnl_remainder_ptr, int *line_ptr)
 	accumulator = twl_strdup("");
 	while ((gnl_ret = twl_gnl(fd, &line, gnl_remainder_ptr)) > 0)
 	{
+		LOG_DEBUG("%i: <%s> <%s>", gnl_ret, line, gnl_remainder_ptr);
 		*line_ptr += 1;
 		accumulator = twl_strjoinfree(accumulator, line, 'l');
 		if (count_single_quote(accumulator) % 2)
@@ -62,6 +63,7 @@ static char         *read_gnl(int fd, char **gnl_remainder_ptr, int *line_ptr)
 		}
 		accumulator = twl_strjoinfree(accumulator, "\n", 'l');
 		free(line);
+		line = NULL;
 		has_open = ast_utils_check_has_open(accumulator);
 		if (!has_open)
 			break ;

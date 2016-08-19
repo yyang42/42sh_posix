@@ -15,10 +15,15 @@
 #include "builtin/cmds/builtin_exit.h"
 #include "token/token_mgr.h"
 #include "builtin/builtin.h"
+#include "edit/edit.h"
 
 static void			exec_exit(int status)
 {
 	LOG_INFO("exit(%d)", status);
+	if (shenv_is_interactive(shenv_singleton()))
+	{
+		edit_del(edit_singleton());
+	}
 	exit(status);
 }
 
@@ -43,7 +48,7 @@ void				builtin_exit_exec(t_lst *tokens, t_shenv *this)
 {
 	if (twl_lst_len(tokens) == 1)
 	{
-		exec_exit(0);
+		exec_exit(this->info.saved_last_exit);
 	}
 	else if (twl_lst_len(tokens) == 2)
 	{

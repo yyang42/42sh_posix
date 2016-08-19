@@ -1,0 +1,7 @@
+echo pouet
+history -s echo lol et lol num1
+history -s echo lol et lol num2
+\033[A\033[A\033[A
+\033[A\033[A\033[A
+\033[A\033[A\033[A
+\004

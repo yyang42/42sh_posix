@@ -23,6 +23,7 @@
 # include "basics.h"
 # include "shenv/shenv.h"
 # include "edit/line.h"
+# include "edit/history.h"
 
 typedef struct s_research	t_research;
 
@@ -34,13 +35,11 @@ typedef enum			e_edit_type
 
 typedef struct			s_edit
 {
-	t_lst				*history;
+	t_history			*history;
 	t_line				*current;
 	t_line				*last;
 	t_edit_type			type;
 	char				*last_ps1;
-	size_t				index_history;
-	size_t				size_history;
 	unsigned char		buffer[8];
 	size_t				pos_cursor;
 	size_t				winsize_x;

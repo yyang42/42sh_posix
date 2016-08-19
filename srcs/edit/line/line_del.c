@@ -18,5 +18,7 @@ void				line_del(t_line *this)
 		return ;
 	if (this->line)
 		free(this->line);
+	if (this->copy)
+		free(this->copy);
 	free(this);
 }

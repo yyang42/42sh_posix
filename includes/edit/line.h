@@ -27,7 +27,9 @@ typedef struct			s_line
 }						t_line;
 
 t_line					*line_new(void);
+t_line					*line_new_from_string(char *str);
 void					line_del(t_line *this);
+
 
 t_line					*line_copy(t_line *this);
 

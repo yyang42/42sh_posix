@@ -1,0 +1,6 @@
+history -c
+\033[A
+echo abc
+\033[A\033[Alol
+history
+\004
