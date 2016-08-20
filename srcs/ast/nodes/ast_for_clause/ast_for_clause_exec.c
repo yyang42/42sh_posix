@@ -13,6 +13,7 @@
 #include "ast/nodes/ast_if_then.h"
 #include "ast/nodes/ast_for_clause.h"
 #include "expan/expansion.h"
+#include "pattern_matching/brace/brace.h"
 
 static void			iter_wordlist_fn(void *word_token, void *this_)
 {
@@ -42,9 +43,12 @@ static void			iter_expan_fn(void *data, void *expanded)
 static t_lst		*expan_wordlist(t_lst *wordlist)
 {
 	t_lst			*expanded;
+	t_lst			*brace;
 
 	expanded = twl_lst_new();
-	twl_lst_iter(wordlist, iter_expan_fn, expanded);
+	brace = brace_expand_tokens(wordlist);
+	twl_lst_iter(brace, iter_expan_fn, expanded);
+	token_mgr_del(brace);
 	return (expanded);
 }
 
