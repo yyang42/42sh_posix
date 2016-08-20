@@ -10,21 +10,27 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXPAN_UTILS_H
-# define EXPAN_UTILS_H
+#include "expan/expan_utils.h"
 
-# include "basics.h"
+void				expan_escape_dollar_bslash_bquote(char *ret)
+{
+	char			*tmp;
+	char			*start;
+	size_t			index;
 
-bool				expan_is_special_parameter(char c);
-bool				expan_is_begin_of_brace_type(char c);
-
-t_lst				*expan_get_param_spec(char param);
-char				*expan_get_param_pos(char *param);
-char				*expan_get_param_normal(char *param);
-
-char				*expan_quote(char *param, bool quoted);
-
-char				*expan_get_asterisk_quoted(t_lst *lsast);
-void				expan_escape_dollar_bslash_bquote(char *str);
-
-#endif
+	tmp = twl_strnew(twl_strlen(ret));
+	start = ret;
+	index = 0;
+	while (*ret)
+	{
+		if (*ret == '\\' && (ret[1] == '`' || ret[1] == '$' || ret[1] == '\\'))
+		{
+			ret += 1;
+		}
+		tmp[index] = *ret;
+		ret += 1;
+		index += 1;
+	}
+	twl_strcpy(start, tmp);
+	free(tmp);
+}
