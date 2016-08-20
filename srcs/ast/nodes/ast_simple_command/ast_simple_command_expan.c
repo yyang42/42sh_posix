@@ -79,7 +79,7 @@ static void		expan_heredoc(t_ast_redir *redir)
 	t_pattern	*pattern_test;
 	char		*pattern_unquoted;
 
-	pattern_test = pattern_new(redir->param->text);
+	pattern_test = pattern_new(redir->param->text_unexpanded);
 	pattern_unquoted = pattern_to_string(pattern_test);
 	pattern_del(pattern_test);
 	if (twl_strcmp(pattern_unquoted, redir->param->text))
@@ -91,7 +91,7 @@ static void		expan_heredoc(t_ast_redir *redir)
 	if (redir->heredoc_text)
 		free(redir->heredoc_text);
 	expansion = expansion_new_from_text_remove_squote(
-												redir->heredoc_text_unexpanded);
+			redir->heredoc_text_unexpanded);
 	redir->heredoc_text = expansion_get_string_heredoc(expansion);
 	if (expansion->error)
 	{
@@ -112,6 +112,11 @@ static void 	iter_redir_fn(void *data, void *context)
 
 	redir = data;
 	cmd = context;
+	if (redir->heredoc_text)
+	{
+		expan_heredoc(redir);
+		return ;
+	}
 	expansion = expansion_new_from_token(redir->param);
 	expanded = expansion_get_fields_redir(expansion);
 	if (expansion->error)
@@ -131,8 +136,6 @@ static void 	iter_redir_fn(void *data, void *context)
 	}
 	token_set_text(redir->param, twl_lst_first(expanded));
 	twl_lst_del(expanded, free);
-	if (redir->heredoc_text)
-		expan_heredoc(redir);
 	(void)cmd;
 }
 

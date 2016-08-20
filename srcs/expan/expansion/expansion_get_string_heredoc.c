@@ -72,5 +72,6 @@ char				*expansion_get_string_heredoc(t_expansion *this)
 	}
 	ret = twl_strnew(0);
 	twl_lst_itern(this->before_split, stringify_iter_fn, &ret);
+	expan_escape_dollar_bslash_bquote(ret);
 	return (ret);
 }
