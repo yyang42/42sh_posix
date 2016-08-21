@@ -46,14 +46,15 @@ static void			sigstp_catcher(int signum, siginfo_t *info, void *vp)
 
     LOG_DEBUG("================== HANDLE SIGNAL HERE =========================");
     gid = getpgid(info->si_pid);
-    LOG_INFO("signum: %d, Signal %d from PID %d, code: %d, value: %d: gid: %d",
-	signum, info->si_signo, (int)info->si_pid, info->si_code, info->si_value, gid);
+    LOG_INFO("signum: %d, Signal %d from PID %d, code: %d, value: %d, si_status: %d, gid: %d",
+	signum, info->si_signo, (int)info->si_pid, info->si_code, info->si_value, info->si_status, gid);
     LOG_INFO("child stopped: %d", info->si_pid);
-
 
     if (shenv_singleton()->shenv_foreground_job && info->si_code == CLD_STOPPED)
     {
         job = shenv_singleton()->shenv_foreground_job;
+        job->job_status = JOB_STOPPED;
+        job->stopped_signal = SIGTSTP;
         job_mgr_env_push(job);
     }
 
