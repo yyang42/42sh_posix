@@ -16,11 +16,17 @@
 #include "trap/trap.h"
 #include "trap/trap_mgr.h"
 #include "job_control/job_mgr.h"
+#include <setjmp.h>
+
+static jmp_buf jump_buf;
+
+#define INTERRUPT_EXIT_CODE 130
 
 static void			signint_handler_quit_ast(int sig)
 {
-	shenv_singleton()->shenv_shall_quit_curr_ast = true;
-	(void)sig;
+	LOG_INFO("signint_handler_quit_ast called: sig: %d", sig);
+	twl_putchar('\n');
+	longjmp(jump_buf, 1);
 }
 
 static void			sig_int_winch_handler(int sig)
@@ -67,14 +73,21 @@ static void			prog_run_interative_loop_sigtstp_wrapper(t_prog *prog, char *(get_
 	LOG_INFO("enter line edit");
 	twl_memset(&sa_new, 0, sizeof(sa_new));
 	sigemptyset(&sa_new.sa_mask);
-    sa_new.sa_handler = SIG_IGN;
-    if (sigaction(SIGTSTP, &sa_new, &sa_old) != 0)
+	sa_new.sa_handler = SIG_IGN;
+	if (sigaction(SIGTSTP, &sa_new, &sa_old) != 0)
 		LOG_ERROR("sigaction: %s", strerror(errno));
 	input = get_input_fn_sigint_winch_wrapper(prog, get_input_fn);
 	if (sigaction(SIGTSTP, &sa_old, NULL) != 0)
 		LOG_ERROR("sigaction: %s", strerror(errno));
 	LOG_INFO("exit line edit");
-	ast_utils_exec_string(input, 1);
+	if (setjmp(jump_buf) == 0)
+	{
+		ast_utils_exec_string(input, 1);
+	}
+	else
+	{
+		shenv_singleton()->last_exit_code = INTERRUPT_EXIT_CODE;
+	}
 	free(input);
 }
 
