@@ -15,6 +15,7 @@
 void				builtin_read_exec(t_lst *tokens, t_shenv *env)
 {
 	t_argparser_result	*argparser_result;
+	void				*old_sigstp_handler;
 
 	env->shenv_cur_token = token_mgr_first(tokens);
 	argparser_result = argparser_parse_tokens(builtin_read_argparser(), tokens);
@@ -24,7 +25,9 @@ void				builtin_read_exec(t_lst *tokens, t_shenv *env)
 	}
 	else
 	{
+		old_sigstp_handler = signal(SIGTSTP, SIG_IGN);
 		builtin_read_exec_readline(argparser_result);
+		signal(SIGTSTP, old_sigstp_handler);
 	}
 	argparser_result_del(argparser_result);
 }
