@@ -1,0 +1,12 @@
+cat << EOF1; echo $(cat << EOF2; echo abc
+def
+ghi
+EOF2
+); echo `cat << EOF3
+jkl
+EOF3
+`
+mno
+pqr
+EOF1
+echo stu
