@@ -66,23 +66,14 @@ static char			*get_input_fn_sigint_winch_wrapper(t_prog *prog, char *(get_input_
 
 static void			prog_run_interative_loop_sigtstp_wrapper(t_prog *prog, char *(get_input_fn)(t_prog *prog))
 {
-	struct sigaction	sa_new;
-	struct sigaction	sa_old;
 	char				*input;
 
 	LOG_INFO("enter line edit");
-	twl_memset(&sa_new, 0, sizeof(sa_new));
-	sigemptyset(&sa_new.sa_mask);
-	sa_new.sa_handler = SIG_DFL;
 	input = get_input_fn_sigint_winch_wrapper(prog, get_input_fn);
 	LOG_INFO("exit line edit");
 	if (setjmp(jump_buf) == 0)
 	{
-		if (sigaction(SIGTSTP, &sa_new, &sa_old) != 0)
-			LOG_ERROR("sigaction: %s", strerror(errno));
-		ast_utils_exec_string(input, 1);
-		if (sigaction(SIGTSTP, &sa_old, NULL) != 0)
-			LOG_ERROR("sigaction: %s", strerror(errno));
+		prog_run_interactive_exec_string(prog, input);
 	}
 	else
 	{
