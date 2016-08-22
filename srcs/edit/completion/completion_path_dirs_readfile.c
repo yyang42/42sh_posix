@@ -13,6 +13,7 @@
 #include "edit/completion.h"
 #include <dirent.h>
 #include <sys/stat.h>
+#include "twl_xsys/stat.h"
 
 void				completion_path_dirs_readfile(t_completion *this,
 						t_completion_path *path)
@@ -36,7 +37,7 @@ void				completion_path_dirs_readfile(t_completion *this,
 			free(join_path);
 			continue ;
 		}
-		if (S_ISDIR(sb.st_mode))
+		if (S_ISDIR(sb.st_mode) || twl_isdirl(join_path))
 			twl_lst_push_front(this->all, twl_strjoin(dirfile->d_name, "/"));
 		else
 			twl_lst_push_front(this->all, twl_strjoin(dirfile->d_name, " "));
