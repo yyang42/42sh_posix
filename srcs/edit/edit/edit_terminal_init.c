@@ -59,4 +59,5 @@ void			edit_terminal_init(t_edit *this)
 	this->term.c_cc[VTIME] = 0;
 	this->term.c_cc[VSTART] = 0;
 	this->term.c_cc[VSTOP] = 0;
+	this->term.c_cc[VQUIT] = 0;
 }
