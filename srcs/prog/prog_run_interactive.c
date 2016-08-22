@@ -110,7 +110,6 @@ static void			prog_run_interactive_sig_wrapper(t_prog *prog)
 
 void				prog_run_interactive(t_prog *prog)
 {
-	signal(SIGTTOU, SIG_IGN);
-	signal(SIGTTIN, SIG_IGN);
+	prog_prepare_traps(prog);
 	prog_run_interactive_sig_wrapper(prog);
 }
