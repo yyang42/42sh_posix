@@ -11,11 +11,14 @@
 /* ************************************************************************** */
 
 #include "prog.h"
+#include "shenv/shenv.h"
+#include "trap/trap_mgr.h"
+#include <signal.h>
 
-void				prog_init(t_prog *prog, char **argv)
+void				prog_prepare_traps(t_prog *prog)
 {
-	prog->argv0 = twl_strdup(argv[0]);
-	prog_parse_args(prog, argv);
-	prog_prepare_signals(prog);
-	prog_prepare_traps(prog);
+	trap_mgr_add(shenv_singleton()->shenv_traps, "", SIGTSTP);
+	trap_mgr_add(shenv_singleton()->shenv_traps, "", SIGTTIN);
+	trap_mgr_add(shenv_singleton()->shenv_traps, "", SIGTTOU);
+	(void)prog;
 }
