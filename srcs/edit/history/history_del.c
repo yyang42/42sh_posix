@@ -28,5 +28,7 @@ void			history_del(t_history *this)
 		free(cur);
 		cur = next;
 	}
+	if (this->save)
+		twl_lst_del(this->save, free);
 	free(this);
 }
