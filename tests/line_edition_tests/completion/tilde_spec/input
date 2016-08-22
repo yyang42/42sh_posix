@@ -1,0 +1,10 @@
+mkdir -p /tmp/tmp_home_42
+HOME=/tmp/tmp_home_42
+touch ${HOME}/{aa,bb,cc,dd,ee,ff,gg,hh,aabb,aacc}
+echo ~/g\t
+echo ~/a\tc\t
+echo "echo lol" > ~/a\tc\t\177pouet
+ls ~
+chmod 755 ~/*pouet
+~/a\t
+rm -rf /tmp/tmp_home_42	
