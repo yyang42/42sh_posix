@@ -30,6 +30,7 @@ void				prog_init(t_prog *prog, char **argv);
 void				prog_del(t_prog *prog);
 int					prog_run(t_prog *prog);
 void				prog_run_interactive(t_prog *prog);
+void				prog_run_interactive_exec_string(t_prog *prog, char *input);
 void				prog_utils_run_input(char *input, int line);
 void				prog_utils_run_fd(int fd);
 void				prog_utils_run_file(char *file);
@@ -41,5 +42,6 @@ void				prog_handle_exit_signal(t_prog *prog);
 void				prog_parse_args(t_prog *prog, char **argv);
 void				prog_utils_set_command_pos_params(void);
 void				prog_prepare_signals(t_prog *prog);
+void				prog_prepare_traps(t_prog *prog);
 
 #endif

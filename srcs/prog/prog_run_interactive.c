@@ -66,23 +66,14 @@ static char			*get_input_fn_sigint_winch_wrapper(t_prog *prog, char *(get_input_
 
 static void			prog_run_interative_loop_sigtstp_wrapper(t_prog *prog, char *(get_input_fn)(t_prog *prog))
 {
-	struct sigaction	sa_new;
-	struct sigaction	sa_old;
 	char				*input;
 
 	LOG_INFO("enter line edit");
-	twl_memset(&sa_new, 0, sizeof(sa_new));
-	sigemptyset(&sa_new.sa_mask);
-	sa_new.sa_handler = SIG_IGN;
-	if (sigaction(SIGTSTP, &sa_new, &sa_old) != 0)
-		LOG_ERROR("sigaction: %s", strerror(errno));
 	input = get_input_fn_sigint_winch_wrapper(prog, get_input_fn);
-	if (sigaction(SIGTSTP, &sa_old, NULL) != 0)
-		LOG_ERROR("sigaction: %s", strerror(errno));
 	LOG_INFO("exit line edit");
 	if (setjmp(jump_buf) == 0)
 	{
-		ast_utils_exec_string(input, 1);
+		prog_run_interactive_exec_string(prog, input);
 	}
 	else
 	{
@@ -110,7 +101,6 @@ static void			prog_run_interactive_sig_wrapper(t_prog *prog)
 
 void				prog_run_interactive(t_prog *prog)
 {
-	signal(SIGTTOU, SIG_IGN);
-	signal(SIGTTIN, SIG_IGN);
+	prog_prepare_traps(prog);
 	prog_run_interactive_sig_wrapper(prog);
 }
