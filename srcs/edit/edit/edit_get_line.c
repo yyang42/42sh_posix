@@ -129,6 +129,7 @@ char				*edit_get_line(t_edit *this, t_edit_type type)
 		if (((buf == '\x0d' || buf == '\n') && !*this->buffer) ||
 				read_return == 0)
 		{
+			research_end(this);
 			this->puts("\r\n");
 			if (is_end_fn(this))
 				break ;

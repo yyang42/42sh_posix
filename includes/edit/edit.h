@@ -116,6 +116,7 @@ bool					edit_is_quoted(t_edit *this);
 bool					edit_is_quoted_pos(t_edit *this, size_t pos);
 
 void					edit_prompt_print(t_edit *this);
+void					edit_prompt_print_last_line(t_edit *this);
 void					edit_prompt_print_string(t_edit *this, char *prompt);
 
 void					edit_research(t_edit *this);
