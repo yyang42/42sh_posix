@@ -26,6 +26,8 @@ typedef struct		s_alias_processor
 	int				line;
 	t_lst			*processed;
 	t_lst			*prev_processed;
+	char			*accumulator;
+	t_lst			*copy_tokens;
 }					t_alias_processor;
 
 bool				alias_utils_is_valid_name(char *str);
