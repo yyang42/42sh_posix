@@ -64,7 +64,8 @@ t_lst				*token_mgr_to_lst_deepcopy(t_lst *tokens);
 
 t_token				**token_mgr_arexp_extract_assign(t_lst *tokens);
 void				token_mgr_xtrace_print(t_lst *tokens);
-void				token_mgr_mark_is_alias_expan(t_lst *tokens, t_lst *source_alias_expans);
+void				token_mgr_mark_is_alias_expan(t_lst *tokens,
+		t_lst *source_alias_expans);
 t_lst				*token_mgr_copy_until(t_lst *tokens, t_token *token);
 
 #endif

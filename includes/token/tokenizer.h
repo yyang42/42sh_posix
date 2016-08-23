@@ -58,7 +58,8 @@ void				tokenizer_delimit_handle_heredoc(t_tokenizer *this,
 														t_token *new_token);
 void				tokenizer_remove_line_continuation(t_tokenizer *t);
 void				tokenizer_utils_remove_line_continuation(char *str);
-void				tokenizer_record_heredoc(t_tokenizer *t, t_token *new_token);
+void				tokenizer_record_heredoc(t_tokenizer *t,
+		t_token *new_token);
 
 /*
 **	Tokenizer rules
@@ -82,9 +83,9 @@ t_rule_status		tokenizer_apply_rule11(t_tokenizer *this);
 
 t_lst				*tokenizer_arexp_tokenize(char *input);
 bool				tokenizer_arexp_utils_is_start_of_op(t_tokenizer *this,
-																		char c);
+		char c);
 bool				tokenizer_arexp_utils_can_form_operator(t_tokenizer *this,
-															char *candidate);
+		char *candidate);
 void				tokenizer_arexp_delimit(t_tokenizer *this);
 t_rule_status		tokenizer_arexp_apply_rule01(t_tokenizer *this);
 t_rule_status		tokenizer_arexp_apply_rule02(t_tokenizer *this);
