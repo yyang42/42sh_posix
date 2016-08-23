@@ -16,8 +16,8 @@
 # include "basics.h"
 # include "job_control/job_mgr.h"
 
-typedef void (t_je_wait_fn)(int pid, int *res, void *ctx);
-typedef void (t_je_execve_fn)(void *ctx);
+typedef void	(t_je_wait_fn)(int pid, int *res, void *ctx);
+typedef void	(t_je_execve_fn)(void *ctx);
 
 typedef struct		s_jobexec
 {
@@ -26,18 +26,19 @@ typedef struct		s_jobexec
 	t_je_wait_fn	*wait_fn;
 	t_je_execve_fn	*execve_fn;
 	bool			is_bg_job;
-} 					t_jobexec;
+}					t_jobexec;
 
 void				jobexec_fork_exec(t_jobexec *je);
 void				jobexec_fork_exec_non_interactive(t_jobexec *je);
 void				jobexec_fork_exec_interactive(t_job *job, t_jobexec *je);
 void				jobexec_fork_exec_interactive_void(t_job *job, void *je);
 void				jobexec_fork_exec_interactive_job(t_jobexec *je);
-void				jobexec_fork_exec_interactive_job_sig_wrapper(t_job *job, void *ctx,
-					void (exec_interactive_fn)(t_job *job, void *ctx));
+void				jobexec_fork_exec_interactive_job_sig_wrapper(t_job *job,
+		void *ctx, void (exec_interactive_fn)(t_job *job, void *ctx));
 void				jobexec_fork_exec_execve_fn(t_jobexec *je);
-void				jobexec_fork_exec_wait_fn(t_jobexec *je, pid_t pid, int *res);
+void				jobexec_fork_exec_wait_fn(t_jobexec *je,
+		pid_t pid, int *res);
 bool				jobexec_fork_exec_should_tcset(t_jobexec *je);
-void		        jobexec_fork_utils_init_sigchld_handler(void);
+void				jobexec_fork_utils_init_sigchld_handler(void);
 
 #endif
