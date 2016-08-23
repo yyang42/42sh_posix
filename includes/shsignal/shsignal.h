@@ -13,8 +13,8 @@
 #ifndef SHSIGNAL_H
 # define SHSIGNAL_H
 
-#include "basics.h"
-#include <signal.h>
+# include "basics.h"
+# include <signal.h>
 
 typedef struct		s_shsignal
 {
