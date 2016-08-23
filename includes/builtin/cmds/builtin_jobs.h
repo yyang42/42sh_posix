@@ -28,5 +28,4 @@ void				builtin_jobs_exec_print(t_lst *jobs, int flags);
 
 t_argparser			*builtin_jobs_argparser(void);
 
-
 #endif
