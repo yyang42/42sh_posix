@@ -1,0 +1,2721 @@
+Norme: ./srcs/alias/alias/alias_utils_is_valid_name.c
+Norme: ./srcs/alias/alias/alias_utils_starts_with.c
+Norme: ./srcs/alias/alias_mgr/alias_mgr_expan_tokens.c
+Norme: ./srcs/arexp/arexp/arexp_atoll_from_string.c
+Norme: ./srcs/arexp/arexp/arexp_del.c
+Norme: ./srcs/arexp/arexp/arexp_eval.c
+Norme: ./srcs/arexp/arexp/arexp_has_error.c
+Norme: ./srcs/arexp/arexp/arexp_print_indent.c
+Norme: ./srcs/arexp/arexp/arexp_print_rec.c
+Norme: ./srcs/arexp/arexp/arexp_set_error_msg.c
+Norme: ./srcs/arexp/arexp/arexp_new.c
+Norme: ./srcs/arexp/arexp/arexp_atoll.c
+Norme: ./srcs/arexp/arexp/arexp_atoll_base.c
+Norme: ./srcs/arexp/arexp/arexp_singleton.c
+Norme: ./srcs/arexp/nodes/arexp_additive/arexp_additive_del.c
+Norme: ./srcs/arexp/nodes/arexp_additive/arexp_additive_new.c
+Norme: ./srcs/arexp/nodes/arexp_additive/arexp_additive_print_rec.c
+Norme: ./srcs/arexp/nodes/arexp_additive/arexp_additive_eval.c
+Norme: ./srcs/arexp/nodes/arexp_additive/arexp_additive_new_from_tokens.c
+Norme: ./srcs/arexp/nodes/arexp_and/arexp_and_del.c
+Norme: ./srcs/arexp/nodes/arexp_and/arexp_and_new.c
+Norme: ./srcs/arexp/nodes/arexp_and/arexp_and_print_rec.c
+Norme: ./srcs/arexp/nodes/arexp_and/arexp_and_eval.c
+Norme: ./srcs/arexp/nodes/arexp_and/arexp_and_new_from_tokens.c
+Norme: ./srcs/arexp/nodes/arexp_assignment/arexp_assignment_del.c
+Norme: ./srcs/arexp/nodes/arexp_assignment/arexp_assignment_new.c
+Norme: ./srcs/arexp/nodes/arexp_assignment/arexp_assignment_print_rec.c
+Norme: ./srcs/arexp/nodes/arexp_assignment/arexp_assignment_new_from_tokens.c
+Norme: ./srcs/arexp/nodes/arexp_assignment/arexp_assignment_eval.c
+Norme: ./srcs/arexp/nodes/arexp_condition/arexp_condition_del.c
+Norme: ./srcs/arexp/nodes/arexp_condition/arexp_condition_new.c
+Norme: ./srcs/arexp/nodes/arexp_condition/arexp_condition_eval.c
+Norme: ./srcs/arexp/nodes/arexp_condition/arexp_condition_print_rec.c
+Norme: ./srcs/arexp/nodes/arexp_condition/arexp_condition_new_from_tokens.c
+Norme: ./srcs/arexp/nodes/arexp_equality/arexp_equality_del.c
+Norme: ./srcs/arexp/nodes/arexp_equality/arexp_equality_new.c
+Norme: ./srcs/arexp/nodes/arexp_equality/arexp_equality_print_rec.c
+Norme: ./srcs/arexp/nodes/arexp_equality/arexp_equality_eval.c
+Norme: ./srcs/arexp/nodes/arexp_equality/arexp_equality_new_from_tokens.c
+Norme: ./srcs/arexp/nodes/arexp_exclusive_or/arexp_exclusive_or_del.c
+Norme: ./srcs/arexp/nodes/arexp_exclusive_or/arexp_exclusive_or_new.c
+Norme: ./srcs/arexp/nodes/arexp_exclusive_or/arexp_exclusive_or_eval.c
+Norme: ./srcs/arexp/nodes/arexp_exclusive_or/arexp_exclusive_or_print_rec.c
+Norme: ./srcs/arexp/nodes/arexp_exclusive_or/arexp_exclusive_or_new_from_tokens.c
+Norme: ./srcs/arexp/nodes/arexp_expression/arexp_expression_del.c
+Norme: ./srcs/arexp/nodes/arexp_expression/arexp_expression_new.c
+Norme: ./srcs/arexp/nodes/arexp_expression/arexp_expression_print_rec.c
+Norme: ./srcs/arexp/nodes/arexp_expression/arexp_expression_eval.c
+Norme: ./srcs/arexp/nodes/arexp_expression/arexp_expression_new_from_tokens.c
+Norme: ./srcs/arexp/nodes/arexp_inclusive_or/arexp_inclusive_or_del.c
+Norme: ./srcs/arexp/nodes/arexp_inclusive_or/arexp_inclusive_or_new.c
+Norme: ./srcs/arexp/nodes/arexp_inclusive_or/arexp_inclusive_or_print_rec.c
+Norme: ./srcs/arexp/nodes/arexp_inclusive_or/arexp_inclusive_or_eval.c
+Norme: ./srcs/arexp/nodes/arexp_inclusive_or/arexp_inclusive_or_new_from_tokens.c
+Norme: ./srcs/arexp/nodes/arexp_logical_and/arexp_logical_and_del.c
+Norme: ./srcs/arexp/nodes/arexp_logical_and/arexp_logical_and_new.c
+Norme: ./srcs/arexp/nodes/arexp_logical_and/arexp_logical_and_print_rec.c
+Norme: ./srcs/arexp/nodes/arexp_logical_and/arexp_logical_and_eval.c
+Norme: ./srcs/arexp/nodes/arexp_logical_and/arexp_logical_and_new_from_tokens.c
+Norme: ./srcs/arexp/nodes/arexp_logical_or/arexp_logical_or_del.c
+Norme: ./srcs/arexp/nodes/arexp_logical_or/arexp_logical_or_new.c
+Norme: ./srcs/arexp/nodes/arexp_logical_or/arexp_logical_or_print_rec.c
+Norme: ./srcs/arexp/nodes/arexp_logical_or/arexp_logical_or_eval.c
+Norme: ./srcs/arexp/nodes/arexp_logical_or/arexp_logical_or_new_from_tokens.c
+Norme: ./srcs/arexp/nodes/arexp_multiplicative/arexp_multiplicative_del.c
+Norme: ./srcs/arexp/nodes/arexp_multiplicative/arexp_multiplicative_new.c
+Norme: ./srcs/arexp/nodes/arexp_multiplicative/arexp_multiplicative_print_rec.c
+Norme: ./srcs/arexp/nodes/arexp_multiplicative/arexp_multiplicative_eval.c
+Norme: ./srcs/arexp/nodes/arexp_multiplicative/arexp_multiplicative_new_from_tokens.c
+Norme: ./srcs/arexp/nodes/arexp_relational/arexp_relational_del.c
+Norme: ./srcs/arexp/nodes/arexp_relational/arexp_relational_new.c
+Norme: ./srcs/arexp/nodes/arexp_relational/arexp_relational_print_rec.c
+Norme: ./srcs/arexp/nodes/arexp_relational/arexp_relational_new_from_tokens.c
+Norme: ./srcs/arexp/nodes/arexp_relational/arexp_relational_eval.c
+Norme: ./srcs/arexp/nodes/arexp_shift/arexp_shift_del.c
+Norme: ./srcs/arexp/nodes/arexp_shift/arexp_shift_new.c
+Norme: ./srcs/arexp/nodes/arexp_shift/arexp_shift_print_rec.c
+Norme: ./srcs/arexp/nodes/arexp_shift/arexp_shift_eval.c
+Norme: ./srcs/arexp/nodes/arexp_shift/arexp_shift_new_from_tokens.c
+Norme: ./srcs/arexp/nodes/arexp_unary/arexp_unary_del.c
+Norme: ./srcs/arexp/nodes/arexp_unary/arexp_unary_new.c
+Norme: ./srcs/arexp/nodes/arexp_unary/arexp_unary_print_rec.c
+Norme: ./srcs/arexp/nodes/arexp_unary/arexp_unary_eval.c
+Norme: ./srcs/arexp/nodes/arexp_unary/arexp_unary_new_from_tokens.c
+Norme: ./srcs/argparser_extension/argparser_parse_tokens.c
+Norme: ./srcs/argparser_extension/argparser_result_print_usage_exit_status.c
+Norme: ./srcs/ast/ast/ast_add_to_open_stack.c
+Norme: ./srcs/ast/ast/ast_has_error.c
+Norme: ./srcs/ast/ast/ast_del.c
+Norme: ./srcs/ast/ast/ast_print_rec.c
+Norme: ./srcs/ast/ast/ast_print_error.c
+Norme: ./srcs/ast/ast/ast_print_tokens.c
+Norme: ./srcs/ast/ast/ast_new_from_string.c
+Norme: ./srcs/ast/ast/ast_set_error_msg_format.c
+Norme: ./srcs/ast/ast/ast_new.c
+Norme: ./srcs/ast/ast/ast_set_error_msg_format_token.c
+Norme: ./srcs/ast/ast/ast_set_error_msg_syntax_error_unexpected.c
+Norme: ./srcs/ast/ast/ast_set_error_msg_syntax_error_missing.c
+Norme: ./srcs/ast/ast/ast_set_error_msg_syntax_error_near.c
+Norme: ./srcs/ast/ast/ast_utils_exec_string.c
+Norme: ./srcs/ast/ast/ast_utils_check_has_open.c
+Norme: ./srcs/ast/ast/ast_utils_check_open.c
+Norme: ./srcs/ast/ast/ast_utils_exec_string_inner.c
+Norme: ./srcs/ast/ast_lap/ast_lap_new_from_tokens_fns.c
+Norme: ./srcs/ast/ast_lap/ast_lap_del_fns.c
+Norme: ./srcs/ast/ast_lap/ast_lap_get_seps_list.c
+Norme: ./srcs/ast/ast_lap/ast_lap_set_separator_fns.c
+Norme: ./srcs/ast/ast_lap/ast_lap_build_items.c
+Error (line 48): function ast_lap_build_items has 41 lines
+Error (line 48): declarations must be followed by one empty line in ast_lap_build_items
+Error (line 52): C++ comment
+Error (line 53): C++ comment
+Error (line 54): C++ comment
+Error (line 55): Empty line
+Norme: ./srcs/ast/nodes/ast_andor_item/ast_andor_item_del.c
+Norme: ./srcs/ast/nodes/ast_andor_item/ast_andor_item_del_void.c
+Norme: ./srcs/ast/nodes/ast_andor_item/ast_andor_item_exec.c
+Norme: ./srcs/ast/nodes/ast_andor_item/ast_andor_item_is_delimiter.c
+Norme: ./srcs/ast/nodes/ast_andor_item/ast_andor_item_new.c
+Norme: ./srcs/ast/nodes/ast_andor_item/ast_andor_item_exec_pipes_wrapper.c
+Norme: ./srcs/ast/nodes/ast_andor_item/ast_andor_item_new_from_tokens_void.c
+Error (line 20): line has 91 characters
+Norme: ./srcs/ast/nodes/ast_andor_item/ast_andor_item_new_from_tokens.c
+Error: file must end with a single empty line
+Error (line 21): line has 90 characters
+Error (line 34): line has 101 characters
+Error (line 39): multiple empty lines
+Norme: ./srcs/ast/nodes/ast_andor_item/ast_andor_item_set_separator.c
+Error (line 15): line has 89 characters
+Norme: ./srcs/ast/nodes/ast_andor_item/ast_andor_item_set_separator_void.c
+Error (line 15): line has 82 characters
+Norme: ./srcs/ast/nodes/ast_andor_item/ast_andor_item_print_function.c
+Norme: ./srcs/ast/nodes/ast_andor_item/ast_andor_item_print_rec.c
+Error (line 27, col 2): space before )
+Norme: ./srcs/ast/nodes/ast_andor_item/ast_andor_item_exec_pipes.c
+Error (line 22): function andor_fn_2 has 28 lines
+Error (line 59): 2 instructions
+Error (line 59, col 54): bad character after ;
+Error (line 60): 2 instructions
+Error (line 60, col 56): bad character after ;
+Norme: ./srcs/ast/nodes/ast_assignment/ast_assignment_del.c
+Norme: ./srcs/ast/nodes/ast_assignment/ast_assignment_print_function.c
+Norme: ./srcs/ast/nodes/ast_assignment/ast_assignment_print_rec.c
+Norme: ./srcs/ast/nodes/ast_assignment/ast_assignment_print_rec_list.c
+Norme: ./srcs/ast/nodes/ast_assignment/ast_assignment_new.c
+Norme: ./srcs/ast/nodes/ast_brace_group/ast_brace_group_del.c
+Norme: ./srcs/ast/nodes/ast_brace_group/ast_brace_group_exec_void.c
+Norme: ./srcs/ast/nodes/ast_brace_group/ast_brace_group_exec.c
+Norme: ./srcs/ast/nodes/ast_brace_group/ast_brace_group_del_void.c
+Norme: ./srcs/ast/nodes/ast_brace_group/ast_brace_group_new.c
+Norme: ./srcs/ast/nodes/ast_brace_group/ast_brace_group_new_from_tokens_void.c
+Norme: ./srcs/ast/nodes/ast_brace_group/ast_brace_group_print_function_void.c
+Norme: ./srcs/ast/nodes/ast_brace_group/ast_brace_group_print_function.c
+Norme: ./srcs/ast/nodes/ast_brace_group/ast_brace_group_print_rec.c
+Norme: ./srcs/ast/nodes/ast_brace_group/ast_brace_group_print_rec_void.c
+Norme: ./srcs/ast/nodes/ast_brace_group/ast_brace_group_new_from_tokens.c
+Error (line 17): function ast_brace_group_new_from_tokens has 33 lines
+Error (line 25): line has 89 characters
+Error (line 36, col 9): missing parentheses in return statement
+Norme: ./srcs/ast/nodes/ast_case_clause/ast_case_clause_del.c
+Norme: ./srcs/ast/nodes/ast_case_clause/ast_case_clause_del_void.c
+Norme: ./srcs/ast/nodes/ast_case_clause/ast_case_clause_exec_void.c
+Norme: ./srcs/ast/nodes/ast_case_clause/ast_case_clause_new.c
+Norme: ./srcs/ast/nodes/ast_case_clause/ast_case_clause_new_from_tokens_void.c
+Norme: ./srcs/ast/nodes/ast_case_clause/ast_case_clause_expan_needle.c
+Norme: ./srcs/ast/nodes/ast_case_clause/ast_case_clause_print_function_void.c
+Norme: ./srcs/ast/nodes/ast_case_clause/ast_case_clause_print_function.c
+Norme: ./srcs/ast/nodes/ast_case_clause/ast_case_clause_print_rec_void.c
+Error (line 15): line has 85 characters
+Norme: ./srcs/ast/nodes/ast_case_clause/ast_case_clause_print_rec.c
+Norme: ./srcs/ast/nodes/ast_case_clause/ast_case_clause_new_from_tokens.c
+Error: global scope bad aligned
+Error (line 22): declarations in handle_cases must be at the top of the function
+Error (line 22): declarations must be followed by one empty line in handle_cases
+Error (line 47): function ast_case_clause_new_from_tokens has 35 lines
+Norme: ./srcs/ast/nodes/ast_case_clause/ast_case_clause_exec.c
+Error (line 39, col 4): bad spacing
+Norme: ./srcs/ast/nodes/ast_case_item/ast_case_item_del.c
+Norme: ./srcs/ast/nodes/ast_case_item/ast_case_item_del_void.c
+Norme: ./srcs/ast/nodes/ast_case_item/ast_case_item_new.c
+Norme: ./srcs/ast/nodes/ast_case_item/ast_case_item_print_function.c
+Norme: ./srcs/ast/nodes/ast_case_item/ast_case_item_print_rec.c
+Norme: ./srcs/ast/nodes/ast_case_item/ast_case_item_new_from_tokens.c
+Error: global scope bad aligned
+Error (line 25): line has 84 characters
+Error (line 31): line has 88 characters
+Error (line 50): line has 97 characters
+Norme: ./srcs/ast/nodes/ast_command/ast_command_del.c
+Norme: ./srcs/ast/nodes/ast_command/ast_command_new.c
+Norme: ./srcs/ast/nodes/ast_command/ast_command_print_function.c
+Norme: ./srcs/ast/nodes/ast_command/ast_command_exec.c
+Norme: ./srcs/ast/nodes/ast_command/ast_command_print_rec.c
+Norme: ./srcs/ast/nodes/ast_command/ast_command_new_from_tokens.c
+Error (line 21): function ast_command_new_from_tokens has 26 lines
+Error (line 31): line has 82 characters
+Norme: ./srcs/ast/nodes/ast_command/ast_command_utils_get_command_type.c
+Error (line 23, col 2): space before )
+Error (line 30): line has 84 characters
+Norme: ./srcs/ast/nodes/ast_compound_command/ast_compound_command_del.c
+Norme: ./srcs/ast/nodes/ast_compound_command/ast_compound_command_new.c
+Norme: ./srcs/ast/nodes/ast_compound_command/ast_compound_command_new_from_token_fns.c
+Error (line 23): line has 82 characters
+Error (line 26): line has 82 characters
+Error (line 28): line has 84 characters
+Error (line 29): line has 84 characters
+Norme: ./srcs/ast/nodes/ast_compound_command/ast_compound_command_get_type_from_tokens.c
+Norme: ./srcs/ast/nodes/ast_compound_command/ast_compound_command_exec.c
+Error: global scope bad aligned
+Error (line 17): declarations in get_exec_fns are bad aligned
+Error (line 35): line has 88 characters
+Norme: ./srcs/ast/nodes/ast_compound_command/ast_compound_command_print_function.c
+Error: global scope bad aligned
+Norme: ./srcs/ast/nodes/ast_compound_command/ast_compound_command_print_rec.c
+Norme: ./srcs/ast/nodes/ast_compound_command/ast_compound_command_new_from_tokens.c
+Error (line 55): line has 85 characters
+Error (line 67): declarations must be followed by one empty line in new_compound_command_do
+Error (line 71): line has 88 characters
+Norme: ./srcs/ast/nodes/ast_compound_list/ast_compound_list_del.c
+Norme: ./srcs/ast/nodes/ast_compound_list/ast_compound_list_del_void.c
+Norme: ./srcs/ast/nodes/ast_compound_list/ast_compound_list_exec_ignore_errexit.c
+Error (line 15): line has 98 characters
+Norme: ./srcs/ast/nodes/ast_compound_list/ast_compound_list_new.c
+Norme: ./srcs/ast/nodes/ast_compound_list/ast_compound_list_exec.c
+Error: global scope bad aligned
+Error (line 20): line has 83 characters
+Norme: ./srcs/ast/nodes/ast_compound_list/ast_compound_list_new_from_tokens.c
+Error (line 34, col 8): missing parentheses in return statement
+Norme: ./srcs/ast/nodes/ast_compound_list/ast_compound_list_print_function.c
+Norme: ./srcs/ast/nodes/ast_compound_list/ast_compound_list_print_function_seplast.c
+Norme: ./srcs/ast/nodes/ast_compound_list/ast_compound_list_print_function_unfirst.c
+Norme: ./srcs/ast/nodes/ast_compound_list/ast_compound_list_print_function_seplast_unfirst.c
+Error (line 15): spaces at the end of line
+Norme: ./srcs/ast/nodes/ast_compound_list/ast_compound_list_new_from_tokens_wrap.c
+Norme: ./srcs/ast/nodes/ast_compound_list/ast_compound_list_print_rec.c
+Norme: ./srcs/ast/nodes/ast_for_clause/ast_for_clause_del.c
+Norme: ./srcs/ast/nodes/ast_for_clause/ast_for_clause_exec_void.c
+Norme: ./srcs/ast/nodes/ast_for_clause/ast_for_clause_del_void.c
+Norme: ./srcs/ast/nodes/ast_for_clause/ast_for_clause_new.c
+Norme: ./srcs/ast/nodes/ast_for_clause/ast_for_clause_new_from_tokens_void.c
+Norme: ./srcs/ast/nodes/ast_for_clause/ast_for_clause_exec_handle_xtrace.c
+Norme: ./srcs/ast/nodes/ast_for_clause/ast_for_clause_print_function_void.c
+Norme: ./srcs/ast/nodes/ast_for_clause/ast_for_clause_print_function.c
+Norme: ./srcs/ast/nodes/ast_for_clause/ast_for_clause_print_rec_void.c
+Error (line 15): line has 83 characters
+Norme: ./srcs/ast/nodes/ast_for_clause/ast_for_clause_print_rec.c
+Error (line 17): declarations in ast_for_clause_print_rec must be at the top of the function
+Error (line 17): declarations must be followed by one empty line in ast_for_clause_print_rec
+Error (line 25, col 8): joined_wordlist is instanciated during declaration
+Norme: ./srcs/ast/nodes/ast_for_clause/ast_for_clause_exec.c
+Norme: ./srcs/ast/nodes/ast_for_clause/ast_for_clause_new_from_tokens.c
+Error: global scope bad aligned
+Error (line 29, col 3): missing space after break
+Error (line 37): declarations in ast_for_clause_new_from_tokens are bad aligned
+Error (line 37): function ast_for_clause_new_from_tokens has 45 lines
+Norme: ./srcs/ast/nodes/ast_function_def/ast_function_def_del.c
+Norme: ./srcs/ast/nodes/ast_function_def/ast_function_def_del_void.c
+Norme: ./srcs/ast/nodes/ast_function_def/ast_function_def_exec_void.c
+Norme: ./srcs/ast/nodes/ast_function_def/ast_function_def_exec.c
+Norme: ./srcs/ast/nodes/ast_function_def/ast_function_def_new.c
+Norme: ./srcs/ast/nodes/ast_function_def/ast_function_def_print_rec.c
+Norme: ./srcs/ast/nodes/ast_function_def/ast_function_def_print_function.c
+Norme: ./srcs/ast/nodes/ast_function_def/ast_function_def_new_from_tokens.c
+Error (line 32): line has 90 characters
+Norme: ./srcs/ast/nodes/ast_if_clause/ast_if_clause_del.c
+Norme: ./srcs/ast/nodes/ast_if_clause/ast_if_clause_del_void.c
+Norme: ./srcs/ast/nodes/ast_if_clause/ast_if_clause_exec_void.c
+Norme: ./srcs/ast/nodes/ast_if_clause/ast_if_clause_new.c
+Norme: ./srcs/ast/nodes/ast_if_clause/ast_if_clause_new_from_tokens_void.c
+Norme: ./srcs/ast/nodes/ast_if_clause/ast_if_clause_print_function_void.c
+Norme: ./srcs/ast/nodes/ast_if_clause/ast_if_clause_exec.c
+Norme: ./srcs/ast/nodes/ast_if_clause/ast_if_clause_print_rec_void.c
+Norme: ./srcs/ast/nodes/ast_if_clause/ast_if_clause_print_rec.c
+Norme: ./srcs/ast/nodes/ast_if_clause/ast_if_clause_new_from_tokens.c
+Error (line 20): function ast_if_clause_new_from_tokens has 42 lines
+Error (line 25, col 14): bad spacing
+Norme: ./srcs/ast/nodes/ast_if_clause/ast_if_clause_print_function.c
+Norme: ./srcs/ast/nodes/ast_if_then/ast_if_then_del.c
+Norme: ./srcs/ast/nodes/ast_if_then/ast_if_then_del_void.c
+Norme: ./srcs/ast/nodes/ast_if_then/ast_if_then_new.c
+Norme: ./srcs/ast/nodes/ast_if_then/ast_if_then_print_function.c
+Norme: ./srcs/ast/nodes/ast_if_then/ast_if_then_print_rec.c
+Norme: ./srcs/ast/nodes/ast_if_then/ast_if_then_new_from_tokens.c
+Error (line 17): function ast_if_then_new_from_tokens has 41 lines
+Norme: ./srcs/ast/nodes/ast_list_item/ast_list_item_del.c
+Norme: ./srcs/ast/nodes/ast_list_item/ast_list_item_del_void.c
+Norme: ./srcs/ast/nodes/ast_list_item/ast_list_item_exec.c
+Norme: ./srcs/ast/nodes/ast_list_item/ast_list_item_is_async.c
+Norme: ./srcs/ast/nodes/ast_list_item/ast_list_item_is_delimiter.c
+Norme: ./srcs/ast/nodes/ast_list_item/ast_list_item_new.c
+Norme: ./srcs/ast/nodes/ast_list_item/ast_list_item_new_from_tokens_void.c
+Error (line 20): line has 90 characters
+Error (line 22): 2 instructions
+Error (line 22, col 52): bad character after ;
+Norme: ./srcs/ast/nodes/ast_list_item/ast_list_item_exec_non_async.c
+Norme: ./srcs/ast/nodes/ast_list_item/ast_list_item_exec_async.c
+Norme: ./srcs/ast/nodes/ast_list_item/ast_list_item_print_function.c
+Norme: ./srcs/ast/nodes/ast_list_item/ast_list_item_print_function_unfirst.c
+Norme: ./srcs/ast/nodes/ast_list_item/ast_list_item_set_separator.c
+Error (line 15): line has 87 characters
+Norme: ./srcs/ast/nodes/ast_list_item/ast_list_item_print_rec.c
+Norme: ./srcs/ast/nodes/ast_list_item/ast_list_item_set_separator_void.c
+Norme: ./srcs/ast/nodes/ast_list_item/ast_list_item_new_from_tokens.c
+Error (line 21): line has 93 characters
+Error (line 43): line has 89 characters
+Error (line 54): line has 85 characters
+Error (line 62): line has 83 characters
+Error (line 65): line has 110 characters
+Error (line 66): line has 88 characters
+Error (line 67): bad indentation
+Error (line 67): line has 99 characters
+Norme: ./srcs/ast/nodes/ast_pipe_item/ast_pipe_item_del.c
+Norme: ./srcs/ast/nodes/ast_pipe_item/ast_pipe_item_del_void.c
+Norme: ./srcs/ast/nodes/ast_pipe_item/ast_pipe_item_is_delimiter.c
+Norme: ./srcs/ast/nodes/ast_pipe_item/ast_pipe_item_exec.c
+Norme: ./srcs/ast/nodes/ast_pipe_item/ast_pipe_item_new_from_tokens_void.c
+Error (line 17): line has 90 characters
+Norme: ./srcs/ast/nodes/ast_pipe_item/ast_pipe_item_new.c
+Norme: ./srcs/ast/nodes/ast_pipe_item/ast_pipe_item_new_from_tokens.c
+Norme: ./srcs/ast/nodes/ast_pipe_item/ast_pipe_item_print_function.c
+Norme: ./srcs/ast/nodes/ast_pipe_item/ast_pipe_item_set_separator.c
+Error (line 15): line has 87 characters
+Norme: ./srcs/ast/nodes/ast_pipe_item/ast_pipe_item_set_separator_void.c
+Norme: ./srcs/ast/nodes/ast_pipe_item/ast_pipe_item_print_rec.c
+Norme: ./srcs/ast/nodes/ast_redir/ast_redir_del.c
+Norme: ./srcs/ast/nodes/ast_redir/ast_redir_del_void.c
+Norme: ./srcs/ast/nodes/ast_redir/ast_redir_new.c
+Norme: ./srcs/ast/nodes/ast_redir/ast_redir_print_rec_list.c
+Norme: ./srcs/ast/nodes/ast_redir/ast_redir_print_rec.c
+Norme: ./srcs/ast/nodes/ast_redir/ast_redir_utils_is_heredoc.c
+Norme: ./srcs/ast/nodes/ast_redir/ast_redir_new_from_tokens.c
+Error (line 19): function ast_redir_new_from_tokens has 27 lines
+Norme: ./srcs/ast/nodes/ast_redir/ast_redir_print_function_list.c
+Norme: ./srcs/ast/nodes/ast_redir_fd/ast_redir_fd_del.c
+Norme: ./srcs/ast/nodes/ast_redir_fd/ast_redir_fd_del_void.c
+Norme: ./srcs/ast/nodes/ast_redir_fd/ast_redir_fd_handle_input.c
+Error (line 16): line has 92 characters
+Norme: ./srcs/ast/nodes/ast_redir_fd/ast_redir_fd_handle_output.c
+Error (line 16): line has 93 characters
+Norme: ./srcs/ast/nodes/ast_redir_fd/ast_redir_fd_handle_agregation.c
+Error (line 15): line has 91 characters
+Error (line 25): line has 115 characters
+Norme: ./srcs/ast/nodes/ast_redir_fd/ast_redir_fd_handle_duplication.c
+Error (line 16): line has 114 characters
+Norme: ./srcs/ast/nodes/ast_redir_fd/ast_redir_fd_new.c
+Norme: ./srcs/ast/nodes/ast_redir_fd/ast_redir_fd_utils_dup_fds.c
+Norme: ./srcs/ast/nodes/ast_redir_fd/ast_redir_fd_utils_get_duplication_fd.c
+Norme: ./srcs/ast/nodes/ast_redir_fd/ast_redir_fd_utils_is_valid_duplicate_fd.c
+Norme: ./srcs/ast/nodes/ast_redir_fd/ast_redir_fd_init_save_origin.c
+Error (line 16): line has 112 characters
+Error (line 18): line has 82 characters
+Error (line 19): line has 125 characters
+Norme: ./srcs/ast/nodes/ast_redir_fd/ast_redir_fd_utils_heredoc_to_fd.c
+Error (line 23): function ast_redir_fd_utils_heredoc_to_fd has 28 lines
+Norme: ./srcs/ast/nodes/ast_redir_fd_mgr_init/ast_redir_fd_mgr_close_clear.c
+Error: global scope bad aligned
+Error (line 24): line has 84 characters
+Norme: ./srcs/ast/nodes/ast_redir_fd_mgr_init/ast_redir_fd_mgr_init.c
+Error (line 16): line has 83 characters
+Error (line 38): Empty line
+Error (line 39, col 0): no empty line before block
+Error (line 55): line has 88 characters
+Norme: ./srcs/ast/nodes/ast_simple_command/ast_simple_command_del.c
+Norme: ./srcs/ast/nodes/ast_simple_command/ast_simple_command_exec_function.c
+Error (line 22): line has 102 characters
+Norme: ./srcs/ast/nodes/ast_simple_command/ast_simple_command_exec_tokens.c
+Error (line 48): line has 91 characters
+Norme: ./srcs/ast/nodes/ast_simple_command/ast_simple_command_exec_assign.c
+Error (line 25, col 21): bad spacing
+Error (line 33): line has 84 characters
+Norme: ./srcs/ast/nodes/ast_simple_command/ast_simple_command_is_special_builtin.c
+Error (line 17): line has 86 characters
+Norme: ./srcs/ast/nodes/ast_simple_command/ast_simple_command_new.c
+Norme: ./srcs/ast/nodes/ast_simple_command/ast_simple_command_execve.c
+Error (line 35): line has 87 characters
+Error (line 47): line has 87 characters
+Norme: ./srcs/ast/nodes/ast_simple_command/ast_simple_command_exec.c
+Error: 7 functions in the file
+Error (line 27): line has 83 characters
+Error (line 41): bad spacing after ast_simple_command_exec_inner
+Error (line 47): line has 88 characters
+Error (line 51): line has 95 characters
+Error (line 56): line has 100 characters
+Error (line 64): multiple empty lines
+Error (line 65): multiple empty lines
+Error (line 66): multiple empty lines
+Error (line 67): Space before function name
+Error (line 67): Space before function name
+Error (line 67): Space before function name
+Error (line 67): Space before function name
+Error (line 67): Space before function name
+Error (line 67): Space before function name
+Error (line 67): Space before function name
+Error (line 67): Space before function name
+Error (line 67): Space before function name
+Error (line 67): bad spacing before block_sigchld
+Error (line 67, col 11): bad spacing
+Error (line 69): bad indentation
+Error (line 69): must begin only by tabulations
+Error (line 69, col 12): bad spacing
+Error (line 69, col 20): blockMask not unixcase
+Error (line 71): bad indentation
+Error (line 71): must begin only by tabulations
+Error (line 72): bad indentation
+Error (line 72): must begin only by tabulations
+Error (line 73): bad indentation
+Error (line 73): must begin only by tabulations
+Error (line 74): bad indentation
+Error (line 74): must begin only by tabulations
+Error (line 75): bad indentation
+Error (line 75): must begin only by tabulations
+Error (line 76): Empty line
+Error (line 77, col 0): no empty line before block
+Error (line 79): Space before function name
+Error (line 79): Space before function name
+Error (line 79): Space before function name
+Error (line 79): Space before function name
+Error (line 79): Space before function name
+Error (line 79): Space before function name
+Error (line 79): Space before function name
+Error (line 79): Space before function name
+Error (line 79): Space before function name
+Error (line 79, col 11): bad spacing
+Error (line 81): bad indentation
+Error (line 81): must begin only by tabulations
+Error (line 81, col 12): bad spacing
+Error (line 81, col 20): blockMask not unixcase
+Error (line 83): bad indentation
+Error (line 83): must begin only by tabulations
+Error (line 84): bad indentation
+Error (line 84): must begin only by tabulations
+Error (line 85): bad indentation
+Error (line 85): must begin only by tabulations
+Error (line 86): bad indentation
+Error (line 86): must begin only by tabulations
+Error (line 87): bad indentation
+Error (line 87): must begin only by tabulations
+Error (line 88): Empty line
+Error (line 89, col 0): no empty line before block
+Error (line 91): Space before function name
+Error (line 91): Space before function name
+Error (line 91): Space before function name
+Error (line 91): Space before function name
+Error (line 91): Space before function name
+Error (line 91): Space before function name
+Error (line 91): Space before function name
+Error (line 91): Space before function name
+Error (line 91): Space before function name
+Error (line 91): line has 87 characters
+Error (line 91, col 11): bad spacing
+Error (line 93): bad indentation
+Error (line 93): must begin only by tabulations
+Error (line 94): bad indentation
+Error (line 94): must begin only by tabulations
+Error (line 95): 2 instructions
+Error (line 95): bad indentation
+Error (line 95): must begin only by tabulations
+Error (line 95, col 38): bad character after ;
+Error (line 96): comment not well formatted
+Error (line 96): bad indentation
+Error (line 96): must begin only by tabulations
+Error (line 96): comment not well placed
+Error (line 97): comment not well formatted
+Error (line 97): bad indentation
+Error (line 97): must begin only by tabulations
+Error (line 97): comment not well placed
+Error (line 98): bad indentation
+Error (line 98): must begin only by tabulations
+Error (line 99): bad indentation
+Error (line 99): must begin only by tabulations
+Error (line 99): C++ comment
+Error (line 104): Empty line
+Error (line 105): bad indentation
+Error (line 105): must begin only by tabulations
+Error (line 106): bad indentation
+Error (line 106): must begin only by tabulations
+Error (line 108): bad indentation
+Error (line 108): must begin only by tabulations
+Error (line 109): bad indentation
+Error (line 109): must begin only by tabulations
+Norme: ./srcs/ast/nodes/ast_simple_command/ast_simple_command_print_function.c
+Norme: ./srcs/ast/nodes/ast_simple_command/ast_simple_command_print_rec.c
+Norme: ./srcs/ast/nodes/ast_simple_command/ast_simple_command_new_from_tokens.c
+Error: global scope bad aligned
+Error (line 63): line has 85 characters
+Error (line 65): line has 92 characters
+Error (line 72): function ast_simple_command_new_from_tokens has 26 lines
+Error (line 72): line has 94 characters
+Norme: ./srcs/ast/nodes/ast_simple_command/ast_simple_command_expan.c
+Error (line 22): C++ comment
+Error (line 24): Space before function name
+Error (line 24, col 11): bad spacing
+Error (line 50): Space before function name
+Error (line 50, col 11): bad spacing
+Error (line 76): function expan_heredoc has 26 lines
+Error (line 106): Space before function name
+Error (line 106): function iter_redir_fn has 32 lines
+Error (line 106, col 11): bad spacing
+Error (line 132): line has 87 characters
+Norme: ./srcs/ast/nodes/ast_subshell/ast_subshell_del.c
+Norme: ./srcs/ast/nodes/ast_subshell/ast_subshell_del_void.c
+Norme: ./srcs/ast/nodes/ast_subshell/ast_subshell_exec_void.c
+Norme: ./srcs/ast/nodes/ast_subshell/ast_subshell_new.c
+Norme: ./srcs/ast/nodes/ast_subshell/ast_subshell_new_from_tokens_void.c
+Norme: ./srcs/ast/nodes/ast_subshell/ast_subshell_print_function_void.c
+Norme: ./srcs/ast/nodes/ast_subshell/ast_subshell_print_function.c
+Norme: ./srcs/ast/nodes/ast_subshell/ast_subshell_print_rec.c
+Norme: ./srcs/ast/nodes/ast_subshell/ast_subshell_print_rec_void.c
+Norme: ./srcs/ast/nodes/ast_subshell/ast_subshell_new_from_tokens.c
+Error (line 17): declarations in ast_subshell_new_from_tokens are bad aligned
+Norme: ./srcs/ast/nodes/ast_subshell/ast_subshell_exec.c
+Error (line 16): multiple empty lines
+Error (line 17): multiple empty lines
+Error (line 18): bad spacing before ast_subshell_fork_exec
+Error (line 36): bad indentation
+Error (line 36): must begin only by tabulations
+Error (line 37): bad indentation
+Error (line 37): must begin only by tabulations
+Error (line 39): bad indentation
+Error (line 39): must begin only by tabulations
+Norme: ./srcs/ast/nodes/ast_until_clause/ast_until_clause_del.c
+Norme: ./srcs/ast/nodes/ast_until_clause/ast_until_clause_del_void.c
+Norme: ./srcs/ast/nodes/ast_until_clause/ast_until_clause_exec_void.c
+Norme: ./srcs/ast/nodes/ast_until_clause/ast_until_clause_new.c
+Norme: ./srcs/ast/nodes/ast_until_clause/ast_until_clause_new_from_tokens_void.c
+Norme: ./srcs/ast/nodes/ast_until_clause/ast_until_clause_print_function_void.c
+Norme: ./srcs/ast/nodes/ast_until_clause/ast_until_clause_print_function.c
+Norme: ./srcs/ast/nodes/ast_until_clause/ast_until_clause_exec.c
+Norme: ./srcs/ast/nodes/ast_until_clause/ast_until_clause_print_rec_void.c
+Error (line 15): line has 87 characters
+Norme: ./srcs/ast/nodes/ast_until_clause/ast_until_clause_print_rec.c
+Norme: ./srcs/ast/nodes/ast_until_clause/ast_until_clause_new_from_tokens.c
+Error (line 21): declarations in ast_until_clause_new_from_tokens are bad aligned
+Error (line 21): function ast_until_clause_new_from_tokens has 44 lines
+Error (line 55): line has 88 characters
+Norme: ./srcs/ast/nodes/ast_while_clause/ast_while_clause_del.c
+Norme: ./srcs/ast/nodes/ast_while_clause/ast_while_clause_exec_void.c
+Norme: ./srcs/ast/nodes/ast_while_clause/ast_while_clause_del_void.c
+Norme: ./srcs/ast/nodes/ast_while_clause/ast_while_clause_new.c
+Norme: ./srcs/ast/nodes/ast_while_clause/ast_while_clause_new_from_tokens_void.c
+Norme: ./srcs/ast/nodes/ast_while_clause/ast_while_clause_print_function_void.c
+Norme: ./srcs/ast/nodes/ast_while_clause/ast_while_clause_print_function.c
+Norme: ./srcs/ast/nodes/ast_while_clause/ast_while_clause_exec.c
+Norme: ./srcs/ast/nodes/ast_while_clause/ast_while_clause_print_rec_void.c
+Error (line 15): line has 87 characters
+Norme: ./srcs/ast/nodes/ast_while_clause/ast_while_clause_print_rec.c
+Norme: ./srcs/ast/nodes/ast_while_clause/ast_while_clause_new_from_tokens.c
+Error (line 21): declarations in ast_while_clause_new_from_tokens are bad aligned
+Error (line 21): function ast_while_clause_new_from_tokens has 44 lines
+Error (line 55): line has 88 characters
+Norme: ./srcs/ast/utils/ast_print_indent.c
+Norme: ./srcs/builtin/builtin/builtin_del.c
+Norme: ./srcs/builtin/builtin/builtin_new.c
+Error (line 15): line has 82 characters
+Norme: ./srcs/builtin/builtin_mgr/builtin_mgr_add.c
+Norme: ./srcs/builtin/builtin_mgr/builtin_mgr_del.c
+Norme: ./srcs/builtin/builtin_mgr/builtin_mgr_new.c
+Norme: ./srcs/builtin/builtin_mgr/builtin_mgr_find_by_name.c
+Norme: ./srcs/builtin/builtin_mgr/builtin_mgr_is_special_builtin.c
+Norme: ./srcs/builtin/builtin_mgr/builtin_mgr_print.c
+Norme: ./srcs/builtin/builtin_mgr/builtin_mgr_remove.c
+Norme: ./srcs/builtin/cmds/builtin_alias/builtin_alias_argparser.c
+Norme: ./srcs/builtin/cmds/builtin_alias/builtin_alias_get.c
+Norme: ./srcs/builtin/cmds/builtin_alias/builtin_alias_print.c
+Norme: ./srcs/builtin/cmds/builtin_alias/builtin_alias_set.c
+Norme: ./srcs/builtin/cmds/builtin_alias/builtin_alias_exec.c
+Error: global scope bad aligned
+Error (line 39): line has 82 characters
+Norme: ./srcs/builtin/cmds/builtin_bg/builtin_bg_argparser.c
+Norme: ./srcs/builtin/cmds/builtin_bg/builtin_bg_exec.c
+Norme: ./srcs/builtin/cmds/builtin_bg/builtin_bg_put_job_in_bg.c
+Error (line 16): Space before function name
+Error (line 16): Space before function name
+Error (line 16): Space before function name
+Error (line 16): Space before function name
+Error (line 16): Space before function name
+Error (line 16): Space before function name
+Error (line 16): Space before function name
+Error (line 16): Space before function name
+Error (line 16): Space before function name
+Error (line 16, col 11): bad spacing
+Error (line 18): bad indentation
+Error (line 18): must begin only by tabulations
+Error (line 18, col 7): bad spacing
+Error (line 20): bad indentation
+Error (line 20): must begin only by tabulations
+Error (line 21): bad indentation
+Error (line 21): must begin only by tabulations
+Error (line 22): bad indentation
+Error (line 22): must begin only by tabulations
+Error (line 23): bad indentation
+Error (line 23): must begin only by tabulations
+Error (line 24): bad indentation
+Error (line 24): must begin only by tabulations
+Error (line 25): bad indentation
+Error (line 25): must begin only by tabulations
+Error (line 26): bad indentation
+Error (line 26): must begin only by tabulations
+Error (line 27): must begin only by tabulations
+Error (line 28): bad indentation
+Error (line 28): must begin only by tabulations
+Error (line 29): bad indentation
+Error (line 29): must begin only by tabulations
+Error (line 30): bad indentation
+Error (line 30): must begin only by tabulations
+Error (line 31): bad indentation
+Error (line 31): must begin only by tabulations
+Error (line 32): bad indentation
+Error (line 32): must begin only by tabulations
+Error (line 33): must begin only by tabulations
+Error (line 34): bad indentation
+Error (line 34): must begin only by tabulations
+Error (line 35): bad indentation
+Error (line 35): must begin only by tabulations
+Error (line 36): bad indentation
+Error (line 36): must begin only by tabulations
+Error (line 37): bad indentation
+Error (line 37): must begin only by tabulations
+Error (line 38): bad indentation
+Error (line 38): must begin only by tabulations
+Error (line 41): Space before function name
+Error (line 41): Space before function name
+Error (line 41): Space before function name
+Error (line 41): Space before function name
+Error (line 41): Space before function name
+Error (line 41): Space before function name
+Error (line 41): Space before function name
+Error (line 41): Space before function name
+Error (line 41): Space before function name
+Error (line 41): Space before function name
+Error (line 41): Space before function name
+Error (line 41): Space before function name
+Error (line 41): Space before function name
+Error (line 41): Space before function name
+Error (line 41): Space before function name
+Error (line 41): Space before function name
+Error (line 41, col 4): bad spacing
+Error (line 43): bad indentation
+Error (line 43): must begin only by tabulations
+Error (line 44): bad indentation
+Error (line 44): must begin only by tabulations
+Error (line 45): bad indentation
+Error (line 45): must begin only by tabulations
+Norme: ./srcs/builtin/cmds/builtin_bg/builtin_bg_exec_segs.c
+Norme: ./srcs/builtin/cmds/builtin_break/builtin_break_exec.c
+Error (line 29): line has 96 characters
+Error (line 35): line has 85 characters
+Norme: ./srcs/builtin/cmds/builtin_cd/builtin_cd_argparser.c
+Norme: ./srcs/builtin/cmds/builtin_cd/builtin_cd_del.c
+Norme: ./srcs/builtin/cmds/builtin_cd/builtin_cd_exec.c
+Norme: ./srcs/builtin/cmds/builtin_cd/builtin_cd_make_path.c
+Norme: ./srcs/builtin/cmds/builtin_cd/builtin_cd_get_directories.c
+Error (line 36): function builtin_cd_get_directories has 39 lines
+Norme: ./srcs/builtin/cmds/builtin_cd/builtin_cd_new.c
+Norme: ./srcs/builtin/cmds/builtin_cd/builtin_cd_logpath.c
+Error (line 87): Empty line
+Error (line 88, col 1): no empty line before block
+Norme: ./srcs/builtin/cmds/builtin_cd/builtin_cd_physpath_del.c
+Norme: ./srcs/builtin/cmds/builtin_cd/builtin_cd_physpath_is_end.c
+Norme: ./srcs/builtin/cmds/builtin_cd/builtin_cd_physpath.c
+Error (line 15): function builtin_cd_phypath has 32 lines
+Norme: ./srcs/builtin/cmds/builtin_cd/builtin_cd_follow_symlinks.c
+Error (line 15): function from_current_directory has 27 lines
+Error (line 30): bad indentation
+Error (line 30): C++ comment
+Error (line 46): function iter_fn has 39 lines
+Error (line 86): Empty line
+Error (line 87, col 0): no empty line before block
+Error (line 89): function builtin_cd_follow_symlinks has 28 lines
+Norme: ./srcs/builtin/cmds/builtin_cd/builtin_cd_physpath_new.c
+Norme: ./srcs/builtin/cmds/builtin_cd/builtin_cd_physpath_renew.c
+Norme: ./srcs/builtin/cmds/builtin_cd/builtin_cd_physpath_rewind.c
+Norme: ./srcs/builtin/cmds/builtin_cd/builtin_cd_physpath_add_path.c
+Norme: ./srcs/builtin/cmds/builtin_cd/builtin_cd_unfollow_symlinks.c
+Error (line 15): function from_current_directory has 27 lines
+Error (line 30): bad indentation
+Error (line 30): C++ comment
+Error (line 46): function iter_fn has 37 lines
+Error (line 84): Empty line
+Error (line 85, col 0): no empty line before block
+Error (line 87): function builtin_cd_unfollow_symlinks has 27 lines
+Norme: ./srcs/builtin/cmds/builtin_colon/builtin_colon_exec.c
+Norme: ./srcs/builtin/cmds/builtin_command/builtin_command_argparser.c
+Norme: ./srcs/builtin/cmds/builtin_command/builtin_command_exec.c
+Norme: ./srcs/builtin/cmds/builtin_command/builtin_command_exec_command.c
+Norme: ./srcs/builtin/cmds/builtin_command/builtin_command_exec_verbose.c
+Norme: ./srcs/builtin/cmds/builtin_command/builtin_command_exec_true_verbose.c
+Norme: ./srcs/builtin/cmds/builtin_continue/builtin_continue_exec.c
+Error (line 30): line has 99 characters
+Error (line 36): line has 88 characters
+Norme: ./srcs/builtin/cmds/builtin_dirs/builtin_dirs_argparser.c
+Norme: ./srcs/builtin/cmds/builtin_dirs/builtin_dirs_clear.c
+Norme: ./srcs/builtin/cmds/builtin_dirs/builtin_dirs_init_cwd.c
+Error (line 29): C++ comment
+Error (line 30): C++ comment
+Error (line 31): C++ comment
+Error (line 32): C++ comment
+Error (line 33): C++ comment
+Error (line 34): C++ comment
+Error (line 35): C++ comment
+Error (line 36): C++ comment
+Error (line 37): C++ comment
+Error (line 38): C++ comment
+Error (line 39): C++ comment
+Error (line 40): C++ comment
+Error (line 41): C++ comment
+Error (line 42): C++ comment
+Error (line 43): C++ comment
+Error (line 44): C++ comment
+Error (line 45): C++ comment
+Norme: ./srcs/builtin/cmds/builtin_dirs/builtin_dirs_print_normal.c
+Norme: ./srcs/builtin/cmds/builtin_dirs/builtin_dirs_print_home.c
+Norme: ./srcs/builtin/cmds/builtin_dirs/builtin_dirs_singleton.c
+Norme: ./srcs/builtin/cmds/builtin_dirs/builtin_dirs_new_line.c
+Norme: ./srcs/builtin/cmds/builtin_dirs/builtin_dirs_simple.c
+Norme: ./srcs/builtin/cmds/builtin_dirs/builtin_dirs_verbose.c
+Norme: ./srcs/builtin/cmds/builtin_dirs/builtin_dirs_exec.c
+Error (line 85): line has 85 characters
+Norme: ./srcs/builtin/cmds/builtin_dot/builtin_dot_argparser.c
+Norme: ./srcs/builtin/cmds/builtin_dot/builtin_dot_exec.c
+Error (line 20): line has 85 characters
+Norme: ./srcs/builtin/cmds/builtin_dot/builtin_dot_exec_do.c
+Error (line 42): declarations must be followed by one empty line in builtin_dot_exec_do
+Error (line 47): C++ comment
+Error (line 48): Empty line
+Error (line 53): line has 84 characters
+Norme: ./srcs/builtin/cmds/builtin_echo/builtin_echo_exec.c
+Error (line 15): Space before function name
+Error (line 15, col 11): bad spacing
+Norme: ./srcs/builtin/cmds/builtin_env/builtin_env_argparser.c
+Norme: ./srcs/builtin/cmds/builtin_env/builtin_env_exec.c
+Error (line 17): function exec_remaining_command has 34 lines
+Error (line 17): declarations must be followed by one empty line in exec_remaining_command
+Error (line 22): multiple empty lines
+Error (line 22): Empty line
+Error (line 58, col 8): bad spacing
+Error (line 59, col 8): bad spacing
+Norme: ./srcs/builtin/cmds/builtin_eval/builtin_eval_exec.c
+Norme: ./srcs/builtin/cmds/builtin_eval/builtin_eval_exec_str.c
+Norme: ./srcs/builtin/cmds/builtin_exec/builtin_exec_argparser.c
+Norme: ./srcs/builtin/cmds/builtin_exec/builtin_exec_exit.c
+Norme: ./srcs/builtin/cmds/builtin_exec/builtin_exec_exec.c
+Error (line 35): line has 84 characters
+Error (line 48): line has 86 characters
+Norme: ./srcs/builtin/cmds/builtin_exec/builtin_exec_redir_handler.c
+Norme: ./srcs/builtin/cmds/builtin_exec/builtin_exec_redir_exec.c
+Error (line 54): line has 96 characters
+Error (line 58): line has 88 characters
+Error (line 63): Empty line
+Error (line 80): line has 83 characters
+Norme: ./srcs/builtin/cmds/builtin_exit/exit_builtin_exec.c
+Norme: ./srcs/builtin/cmds/builtin_export/builtin_export_argparser.c
+Error (line 23): line has 113 characters
+Norme: ./srcs/builtin/cmds/builtin_export/builtin_export_exec_export_tokens.c
+Norme: ./srcs/builtin/cmds/builtin_export/builtin_export_verbose.c
+Error (line 26): line has 110 characters
+Norme: ./srcs/builtin/cmds/builtin_export/builtin_export_exec.c
+Error (line 19): line has 83 characters
+Norme: ./srcs/builtin/cmds/builtin_false/builtin_false_exec.c
+Norme: ./srcs/builtin/cmds/builtin_fg/builtin_fg_exec.c
+Error (line 31): function builtin_fg_exec_do has 26 lines
+Norme: ./srcs/builtin/cmds/builtin_fg/builtin_fg_invalid_opt_print_usage.c
+Norme: ./srcs/builtin/cmds/builtin_fg/builtin_fg_put_job_in_fg.c
+Error (line 18): Space before function name
+Error (line 18): Space before function name
+Error (line 18): Space before function name
+Error (line 18): Space before function name
+Error (line 18): Space before function name
+Error (line 18): Space before function name
+Error (line 18): Space before function name
+Error (line 18): Space before function name
+Error (line 18): Space before function name
+Error (line 18): Space before function name
+Error (line 18): Space before function name
+Error (line 18): Space before function name
+Error (line 18): Space before function name
+Error (line 18): Space before function name
+Error (line 18): Space before function name
+Error (line 18): Space before function name
+Error (line 18, col 4): bad spacing
+Error (line 20): bad indentation
+Error (line 20): must begin only by tabulations
+Error (line 21): bad indentation
+Error (line 21): must begin only by tabulations
+Error (line 22): bad indentation
+Error (line 22): must begin only by tabulations
+Error (line 23): bad indentation
+Error (line 23): must begin only by tabulations
+Error (line 24): bad indentation
+Error (line 24): must begin only by tabulations
+Error (line 25): bad indentation
+Error (line 25): must begin only by tabulations
+Error (line 26): bad indentation
+Error (line 26): must begin only by tabulations
+Error (line 27): bad indentation
+Error (line 27): must begin only by tabulations
+Error (line 28): bad indentation
+Error (line 28): must begin only by tabulations
+Error (line 29): bad indentation
+Error (line 29): must begin only by tabulations
+Error (line 30): bad indentation
+Error (line 30): must begin only by tabulations
+Error (line 31): bad indentation
+Error (line 31): must begin only by tabulations
+Error (line 32): bad indentation
+Error (line 32): must begin only by tabulations
+Error (line 33): must begin only by tabulations
+Error (line 34): bad indentation
+Error (line 34): must begin only by tabulations
+Error (line 35): bad indentation
+Error (line 35): must begin only by tabulations
+Error (line 36): bad indentation
+Error (line 36): must begin only by tabulations
+Error (line 37): bad indentation
+Error (line 37): must begin only by tabulations
+Norme: ./srcs/builtin/cmds/builtin_getopts/builtin_getopts_argparser.c
+Norme: ./srcs/builtin/cmds/builtin_getopts/builtin_getopts_exec.c
+Error (line 39): line has 84 characters
+Error (line 40): line has 84 characters
+Norme: ./srcs/builtin/cmds/builtin_getopts/builtin_getopts_exec_getopt.c
+Error (line 54): function process_getopt has 27 lines
+Error (line 54): line has 91 characters
+Error (line 66, col 24): space before [
+Error (line 71): line has 116 characters
+Error (line 76): line has 99 characters
+Norme: ./srcs/builtin/cmds/builtin_history/builtin_history_append_all_file.c
+Norme: ./srcs/builtin/cmds/builtin_history/builtin_history_append_file.c
+Norme: ./srcs/builtin/cmds/builtin_history/builtin_history_append_list.c
+Norme: ./srcs/builtin/cmds/builtin_history/builtin_history_clear.c
+Norme: ./srcs/builtin/cmds/builtin_history/builtin_history_append_args_to_list.c
+Norme: ./srcs/builtin/cmds/builtin_history/builtin_history_del_offset.c
+Norme: ./srcs/builtin/cmds/builtin_history/builtin_history_argparser.c
+Error (line 15): function builtin_history_argparser has 31 lines
+Norme: ./srcs/builtin/cmds/builtin_history/builtin_history_perform_substitution.c
+Norme: ./srcs/builtin/cmds/builtin_history/builtin_history_write_all_list.c
+Norme: ./srcs/builtin/cmds/builtin_history/builtin_history_dump.c
+Error (line 34): declarations must be followed by one empty line in builtin_history_dump
+Error (line 37): spaces at the end of line
+Norme: ./srcs/builtin/cmds/builtin_history/builtin_history_exec.c
+Norme: ./srcs/builtin/cmds/builtin_jobs/builtin_jobs_argparser.c
+Error (line 22): line has 84 characters
+Error (line 23): line has 132 characters
+Error (line 24): line has 113 characters
+Norme: ./srcs/builtin/cmds/builtin_jobs/builtin_jobs_exec_print.c
+Norme: ./srcs/builtin/cmds/builtin_jobs/builtin_jobs_exec.c
+Norme: ./srcs/builtin/cmds/builtin_kill/builtin_kill_print_usage.c
+Error (line 22, col 1): space before )
+Norme: ./srcs/builtin/cmds/builtin_kill/builtin_kill_update_job.c
+Norme: ./srcs/builtin/cmds/builtin_kill/builtin_kill_print_signals.c
+Norme: ./srcs/builtin/cmds/builtin_kill/builtin_kill_exec.c
+Error (line 42): bad spacing after get_job_by_id
+Error (line 50): multiple empty lines
+Error (line 51): function iter_pids_fn has 34 lines
+Error (line 51): bad spacing before iter_pids_fn
+Error (line 114): function builtin_kill_exec has 42 lines
+Norme: ./srcs/builtin/cmds/builtin_popd/builtin_popd.c
+Norme: ./srcs/builtin/cmds/builtin_popd/builtin_popd_argparser.c
+Norme: ./srcs/builtin/cmds/builtin_popd/builtin_popd_without_cd.c
+Norme: ./srcs/builtin/cmds/builtin_popd/builtin_popd_exec.c
+Error (line 85): line has 85 characters
+Norme: ./srcs/builtin/cmds/builtin_pushd/builtin_pushd_argparser.c
+Norme: ./srcs/builtin/cmds/builtin_pushd/builtin_pushd.c
+Norme: ./srcs/builtin/cmds/builtin_pushd/builtin_pushd_without_cd.c
+Norme: ./srcs/builtin/cmds/builtin_pushd/builtin_pushd_exec.c
+Error (line 85): line has 86 characters
+Norme: ./srcs/builtin/cmds/builtin_pwd/builtin_pwd_exec.c
+Error (line 16): function builtin_pwd_exec has 27 lines
+Norme: ./srcs/builtin/cmds/builtin_pwd/bultin_pwd_argparser.c
+Norme: ./srcs/builtin/cmds/builtin_read/builtin_read_add.c
+Norme: ./srcs/builtin/cmds/builtin_read/builtin_read_argparser.c
+Norme: ./srcs/builtin/cmds/builtin_read/builtin_read_verbose.c
+Error (line 26): line has 108 characters
+Norme: ./srcs/builtin/cmds/builtin_read/builtin_read_exec.c
+Norme: ./srcs/builtin/cmds/builtin_read/builtin_read_exec_readline.c
+Norme: ./srcs/builtin/cmds/builtin_read/builtin_read_exec_build_vars_from_line.c
+Error (line 17): line has 85 characters
+Error (line 31): line has 88 characters
+Error (line 43): function builtin_read_exec_build_vars_from_line has 35 lines
+Error (line 43): line has 111 characters
+Norme: ./srcs/builtin/cmds/builtin_readonly/builtin_readonly_add.c
+Norme: ./srcs/builtin/cmds/builtin_readonly/builtin_readonly_argparser.c
+Error (line 25): line has 83 characters
+Norme: ./srcs/builtin/cmds/builtin_readonly/builtin_readonly_verbose.c
+Error (line 26): line has 112 characters
+Norme: ./srcs/builtin/cmds/builtin_readonly/builtin_readonly_exec.c
+Error (line 21): line has 85 characters
+Norme: ./srcs/builtin/cmds/builtin_return/builtin_return_exec.c
+Error (line 28): line has 97 characters
+Error (line 33): line has 86 characters
+Error (line 41): line has 104 characters
+Norme: ./srcs/builtin/cmds/builtin_set/builtin_set_exec.c
+Error: 7 functions in the file
+Error (line 25): line has 91 characters
+Error (line 36): Empty line
+Error (line 37, col 0): no empty line before block
+Error (line 43): line has 82 characters
+Error (line 48): function prog_parse_args has 29 lines
+Error (line 53): line has 86 characters
+Norme: ./srcs/builtin/cmds/builtin_set/builtin_set_exec_print.c
+Norme: ./srcs/builtin/cmds/builtin_setenv/builtin_setenv_argparser.c
+Norme: ./srcs/builtin/cmds/builtin_setenv/builtin_setenv_exec.c
+Error (line 20): line has 83 characters
+Norme: ./srcs/builtin/cmds/builtin_shift/builtin_shift_argparser.c
+Norme: ./srcs/builtin/cmds/builtin_shift/builtin_shift_exec.c
+Error: global scope bad aligned
+Error (line 27): line has 92 characters
+Error (line 39, col 2): missing space after return
+Error (line 63): line has 82 characters
+Norme: ./srcs/builtin/cmds/builtin_times/builtin_times_exec.c
+Norme: ./srcs/builtin/cmds/builtin_trap/builtin_trap_argparser.c
+Norme: ./srcs/builtin/cmds/builtin_trap/builtin_trap_get_signame.c
+Norme: ./srcs/builtin/cmds/builtin_trap/builtin_trap_exec.c
+Warning: /private/tmp/42sh/42sh_posix/srcs/builtin/cmds/builtin_trap/builtin_trap_exec.c may not compile or is invalid for some reasons.
+Norme: ./srcs/builtin/cmds/builtin_trap/builtin_trap_print_invalid_sig_error.c
+Norme: ./srcs/builtin/cmds/builtin_trap/builtin_trap_print.c
+Error (line 23): line has 101 characters
+Norme: ./srcs/builtin/cmds/builtin_trap/builtin_trap_exec_unset.c
+Error (line 22): line has 89 characters
+Error (line 25): line has 90 characters
+Error (line 28): line has 111 characters
+Norme: ./srcs/builtin/cmds/builtin_trap/builtin_trap_exec_set.c
+Error (line 32): line has 89 characters
+Error (line 35): line has 86 characters
+Error (line 38): line has 84 characters
+Norme: ./srcs/builtin/cmds/builtin_true/builtin_true_exec.c
+Norme: ./srcs/builtin/cmds/builtin_umask/builtin_umask_argparser.c
+Norme: ./srcs/builtin/cmds/builtin_umask/builtin_umask_print_symbolic.c
+Norme: ./srcs/builtin/cmds/builtin_umask/builtin_umask_exec.c
+Error (line 48): line has 82 characters
+Error (line 58): line has 90 characters
+Error (line 91): declarations in builtin_umask_exec are bad aligned
+Error (line 96): line has 82 characters
+Error (line 111): line has 104 characters
+Norme: ./srcs/builtin/cmds/builtin_umask/builtin_umask_parse_symbolic_mode.c
+Error: global scope bad aligned
+Error (line 101): line has 88 characters
+Error (line 107): line has 84 characters
+Error (line 123): line has 90 characters
+Norme: ./srcs/builtin/cmds/builtin_unset/builtin_unset_argparser.c
+Norme: ./srcs/builtin/cmds/builtin_unset/builtin_unset_function.c
+Error (line 17): declarations in unset_something are bad aligned
+Norme: ./srcs/builtin/cmds/builtin_unset/builtin_unset_variable.c
+Error (line 17): declarations in unset_something are bad aligned
+Error (line 38): line has 100 characters
+Norme: ./srcs/builtin/cmds/builtin_unset/builtin_unset_exec.c
+Error (line 15): line has 84 characters
+Error (line 42): line has 89 characters
+Error (line 44): line has 86 characters
+Norme: ./srcs/builtin/cmds/builtin_unsetenv/builtin_unsetenv_argparser.c
+Norme: ./srcs/builtin/cmds/builtin_unsetenv/builtin_unsetenv_exec.c
+Norme: ./srcs/builtin/cmds/builtin_wait/builtin_wait_argparser.c
+Norme: ./srcs/builtin/cmds/builtin_wait/builtin_wait_exec_wait_all.c
+Norme: ./srcs/builtin/cmds/builtin_wait/builtin_wait_exec.c
+Error (line 16, col 15): global named jump_buf is not well prefixed
+Error (line 18): Space before function name
+Error (line 18): Space before function name
+Error (line 18): Space before function name
+Error (line 18): Space before function name
+Error (line 18): Space before function name
+Error (line 18): Space before function name
+Error (line 18): Space before function name
+Error (line 18): Space before function name
+Error (line 18): Space before function name
+Error (line 18, col 11): bad spacing
+Error (line 20): bad indentation
+Error (line 20): must begin only by tabulations
+Error (line 21): bad indentation
+Error (line 21): must begin only by tabulations
+Error (line 22): bad indentation
+Error (line 22): must begin only by tabulations
+Error (line 25): Space before function name
+Error (line 25): Space before function name
+Error (line 25): Space before function name
+Error (line 25): Space before function name
+Error (line 25): Space before function name
+Error (line 25): Space before function name
+Error (line 25): Space before function name
+Error (line 25): Space before function name
+Error (line 25): Space before function name
+Error (line 25): Space before function name
+Error (line 25): Space before function name
+Error (line 25): Space before function name
+Error (line 25): Space before function name
+Error (line 25): Space before function name
+Error (line 25): Space before function name
+Error (line 25): Space before function name
+Error (line 25, col 4): bad spacing
+Error (line 27): bad indentation
+Error (line 27): must begin only by tabulations
+Error (line 29): bad indentation
+Error (line 29): must begin only by tabulations
+Error (line 30): bad indentation
+Error (line 30): must begin only by tabulations
+Error (line 31): bad indentation
+Error (line 31): must begin only by tabulations
+Error (line 32): bad indentation
+Error (line 32): must begin only by tabulations
+Error (line 33): bad indentation
+Error (line 33): must begin only by tabulations
+Error (line 34): bad indentation
+Error (line 34): must begin only by tabulations
+Error (line 35): bad indentation
+Error (line 35): must begin only by tabulations
+Error (line 36): bad indentation
+Error (line 36): must begin only by tabulations
+Error (line 37): bad indentation
+Error (line 37): must begin only by tabulations
+Error (line 38): bad indentation
+Error (line 38): must begin only by tabulations
+Error (line 39): bad indentation
+Error (line 39): must begin only by tabulations
+Error (line 39): C++ comment
+Error (line 40): bad indentation
+Error (line 40): must begin only by tabulations
+Error (line 41): bad indentation
+Error (line 41): must begin only by tabulations
+Error (line 42): bad indentation
+Error (line 42): must begin only by tabulations
+Error (line 43): bad indentation
+Error (line 43): must begin only by tabulations
+Error (line 44): bad indentation
+Error (line 44): must begin only by tabulations
+Error (line 45): bad indentation
+Error (line 45): must begin only by tabulations
+Error (line 46): bad indentation
+Error (line 46): must begin only by tabulations
+Error (line 47): bad indentation
+Error (line 47): must begin only by tabulations
+Error (line 48): bad indentation
+Error (line 48): must begin only by tabulations
+Error (line 49): bad indentation
+Error (line 49): must begin only by tabulations
+Error (line 50): bad indentation
+Error (line 50): must begin only by tabulations
+Norme: ./srcs/builtin/cmds/builtin_wait/builtin_wait_exec_segs.c
+Norme: ./srcs/builtin/cmds/builtin_wait/builtin_wait_put_job_in_wait.c
+Error (line 16): Space before function name
+Error (line 16): Space before function name
+Error (line 16): Space before function name
+Error (line 16): Space before function name
+Error (line 16): Space before function name
+Error (line 16): Space before function name
+Error (line 16): Space before function name
+Error (line 16): Space before function name
+Error (line 16): Space before function name
+Error (line 16): function put_in_wait has 31 lines
+Error (line 16, col 11): bad spacing
+Error (line 18): bad indentation
+Error (line 18): must begin only by tabulations
+Error (line 18, col 9): bad spacing
+Error (line 19): bad indentation
+Error (line 19): must begin only by tabulations
+Error (line 19, col 9): bad spacing
+Error (line 20): bad indentation
+Error (line 20): must begin only by tabulations
+Error (line 20, col 7): bad spacing
+Error (line 22): bad indentation
+Error (line 22): must begin only by tabulations
+Error (line 22, col 10): space after negative
+Error (line 23): bad indentation
+Error (line 23): must begin only by tabulations
+Error (line 24): bad indentation
+Error (line 24): must begin only by tabulations
+Error (line 25): bad indentation
+Error (line 25): must begin only by tabulations
+Error (line 26): bad indentation
+Error (line 26): must begin only by tabulations
+Error (line 27): bad indentation
+Error (line 27): must begin only by tabulations
+Error (line 28): bad indentation
+Error (line 28): must begin only by tabulations
+Error (line 29): bad indentation
+Error (line 29): must begin only by tabulations
+Error (line 30): bad indentation
+Error (line 30): must begin only by tabulations
+Error (line 31): must begin only by tabulations
+Error (line 32): bad indentation
+Error (line 32): must begin only by tabulations
+Error (line 33): bad indentation
+Error (line 33): must begin only by tabulations
+Error (line 34): bad indentation
+Error (line 34): must begin only by tabulations
+Error (line 35): bad indentation
+Error (line 35): must begin only by tabulations
+Error (line 36): bad indentation
+Error (line 36): must begin only by tabulations
+Error (line 37): bad indentation
+Error (line 37): must begin only by tabulations
+Error (line 38): bad indentation
+Error (line 38): must begin only by tabulations
+Error (line 39): bad indentation
+Error (line 39): must begin only by tabulations
+Error (line 40): bad indentation
+Error (line 40): must begin only by tabulations
+Error (line 41): bad indentation
+Error (line 41): must begin only by tabulations
+Error (line 42): must begin only by tabulations
+Error (line 43): bad indentation
+Error (line 43): must begin only by tabulations
+Error (line 44): bad indentation
+Error (line 44): must begin only by tabulations
+Error (line 45): bad indentation
+Error (line 45): must begin only by tabulations
+Error (line 46): bad indentation
+Error (line 46): must begin only by tabulations
+Error (line 47): bad indentation
+Error (line 47): must begin only by tabulations
+Error (line 47): line has 82 characters
+Error (line 48): bad indentation
+Error (line 48): must begin only by tabulations
+Error (line 51): Space before function name
+Error (line 51): Space before function name
+Error (line 51): Space before function name
+Error (line 51): Space before function name
+Error (line 51): Space before function name
+Error (line 51): Space before function name
+Error (line 51): Space before function name
+Error (line 51): Space before function name
+Error (line 51): Space before function name
+Error (line 51): Space before function name
+Error (line 51): Space before function name
+Error (line 51): Space before function name
+Error (line 51): Space before function name
+Error (line 51): Space before function name
+Error (line 51): Space before function name
+Error (line 51): Space before function name
+Error (line 51, col 4): bad spacing
+Error (line 53): bad indentation
+Error (line 53): must begin only by tabulations
+Norme: ./srcs/data/data_all_operators.c
+Norme: ./srcs/data/data_all_separators.c
+Norme: ./srcs/data/data_andor_separators.c
+Norme: ./srcs/data/data_all_arexp_operators.c
+Error (line 16): function data_all_arexp_operators has 43 lines
+Norme: ./srcs/data/data_arexp_comma.c
+Norme: ./srcs/data/data_arexp_parenthesis.c
+Norme: ./srcs/data/data_arexp_ternary.c
+Norme: ./srcs/data/data_arexp_assignment.c
+Norme: ./srcs/data/data_arexp_unary_operators.c
+Norme: ./srcs/data/data_compound_commands.c
+Norme: ./srcs/data/data_control_operators_nl.c
+Norme: ./srcs/data/data_control_operators.c
+Error (line 34): C++ comment
+Norme: ./srcs/data/data_list_separators.c
+Norme: ./srcs/data/data_pipe_separators.c
+Norme: ./srcs/data/data_redir_operators.c
+Norme: ./srcs/data/data_escaped_sequence.c
+Error (line 23): line has 86 characters
+Error (line 24): line has 86 characters
+Error (line 25): line has 87 characters
+Error (line 26): line has 87 characters
+Error (line 27): line has 83 characters
+Error (line 28): line has 85 characters
+Error (line 29): line has 83 characters
+Error (line 30): line has 82 characters
+Error (line 31): line has 82 characters
+Error (line 33): line has 83 characters
+Error (line 35): line has 83 characters
+Norme: ./srcs/data/data_reserved_words.c
+Norme: ./srcs/data/data_reserved_words_middle_end.c
+Norme: ./srcs/data/data_signals_with_exit.c
+Error (line 22): bad indentation
+Error (line 22): must begin only by tabulations
+Error (line 32): bad indentation
+Error (line 32): must begin only by tabulations
+Error (line 33): bad indentation
+Error (line 33): must begin only by tabulations
+Norme: ./srcs/data/data_simple_char_edit.c
+Error (line 37): line has 89 characters
+Error (line 39): line has 83 characters
+Norme: ./srcs/data/data_builtins.c
+Error (line 53): multiple empty lines
+Error (line 54): function data_builtins has 44 lines
+Error (line 54): bad spacing before data_builtins
+Error (line 61): line has 103 characters
+Error (line 62): line has 105 characters
+Error (line 63): line has 82 characters
+Error (line 65): line has 109 characters
+Error (line 67): line has 86 characters
+Error (line 68): line has 115 characters
+Error (line 72): line has 107 characters
+Error (line 73): line has 107 characters
+Error (line 74): line has 107 characters
+Error (line 75): line has 111 characters
+Error (line 76): line has 82 characters
+Error (line 78): line has 86 characters
+Error (line 79): line has 86 characters
+Error (line 83): line has 82 characters
+Error (line 86): line has 115 characters
+Error (line 87): line has 111 characters
+Error (line 88): line has 105 characters
+Error (line 89): line has 84 characters
+Error (line 90): line has 109 characters
+Error (line 91): line has 109 characters
+Error (line 92): line has 107 characters
+Error (line 94): line has 82 characters
+Error (line 95): line has 109 characters
+Error (line 96): line has 88 characters
+Norme: ./srcs/data/data_token_arexp_type_dict.c
+Error: file must end with a single empty line
+Error (line 18): function data_token_arexp_item_list has 43 lines
+Norme: ./srcs/data/data_signals.c
+Error (line 17): function data_signals has 38 lines
+Error (line 24): bad indentation
+Error (line 24): must begin only by tabulations
+Error (line 25): bad indentation
+Error (line 25): must begin only by tabulations
+Error (line 26): bad indentation
+Error (line 26): must begin only by tabulations
+Error (line 27): bad indentation
+Error (line 27): must begin only by tabulations
+Error (line 28): bad indentation
+Error (line 28): must begin only by tabulations
+Error (line 29): bad indentation
+Error (line 29): must begin only by tabulations
+Error (line 30): bad indentation
+Error (line 30): must begin only by tabulations
+Error (line 31): bad indentation
+Error (line 31): must begin only by tabulations
+Error (line 32): bad indentation
+Error (line 32): must begin only by tabulations
+Norme: ./srcs/data/data_token_type_dict.c
+Error (line 18): function data_token_item_list has 34 lines
+Norme: ./srcs/data_utils/data_utils_arexp_is_assign.c
+Norme: ./srcs/data_utils/data_utils_arexp_is_unary_operator.c
+Norme: ./srcs/data_utils/data_utils_is_control_operators_nl.c
+Norme: ./srcs/data_utils/data_utils_is_reserved_word_middle_end.c
+Error (line 17): line has 83 characters
+Norme: ./srcs/data_utils/data_utils_is_reserved_word.c
+Norme: ./srcs/edit/completion/completion_brace_variable.c
+Error (line 36): line has 92 characters
+Norme: ./srcs/edit/completion/completion_del.c
+Norme: ./srcs/edit/completion/completion_dirs.c
+Norme: ./srcs/edit/completion/completion_dirs_from_root.c
+Error (line 26): line has 88 characters
+Norme: ./srcs/edit/completion/completion_exec_from_root.c
+Error (line 26): line has 88 characters
+Norme: ./srcs/edit/completion/completion_exec.c
+Norme: ./srcs/edit/completion/completion_dirs_from_cwd.c
+Error (line 34): function completion_dirs_from_cwd has 32 lines
+Error (line 52): line has 92 characters
+Norme: ./srcs/edit/completion/completion_exec_from_cwd.c
+Error (line 15): function completion_exec_from_cwd has 31 lines
+Error (line 32): line has 92 characters
+Norme: ./srcs/edit/completion/completion_path_clear.c
+Norme: ./srcs/edit/completion/completion_path_dirs_readfile.c
+Error (line 18): function completion_path_dirs_readfile has 26 lines
+Error (line 34): line has 83 characters
+Norme: ./srcs/edit/completion/completion_path_exec_readfile.c
+Error (line 17): function completion_path_exec_readfile has 31 lines
+Error (line 33): line has 83 characters
+Norme: ./srcs/edit/completion/completion_path_init.c
+Norme: ./srcs/edit/completion/completion_path_utils_is_begin_dot.c
+Norme: ./srcs/edit/completion/completion_path_utils_get_begin_list.c
+Norme: ./srcs/edit/completion/completion_path_utils_join_path.c
+Error (line 31): spaces at the end of line
+Error (line 31, col 10): bad character after ;
+Norme: ./srcs/edit/completion/completion_utils_exec_absolute_path.c
+Norme: ./srcs/edit/completion/completion_new.c
+Error: global scope bad aligned
+Norme: ./srcs/edit/completion/completion_exec_from_shenv.c
+Error: global scope bad aligned
+Error (line 60): function completion_exec_from_shenv has 27 lines
+Error (line 74): line has 91 characters
+Norme: ./srcs/edit/completion/completion_utils_get_begin_list.c
+Norme: ./srcs/edit/completion/completion_utils_lst_uniq.c
+Norme: ./srcs/edit/completion/completion_utils_start_with.c
+Norme: ./srcs/edit/completion/completion_utils_print_lst.c
+Norme: ./srcs/edit/completion/edit_completion.c
+Norme: ./srcs/edit/completion/completion_variable.c
+Error (line 36): line has 91 characters
+Norme: ./srcs/edit/edit/edit_clear_line.c
+Error (line 25): C++ comment
+Norme: ./srcs/edit/edit/edit_clear_screen.c
+Norme: ./srcs/edit/edit/edit_del.c
+Norme: ./srcs/edit/edit/edit_del_all_left.c
+Norme: ./srcs/edit/edit/edit_del_left.c
+Norme: ./srcs/edit/edit/edit_del_all_right.c
+Norme: ./srcs/edit/edit/edit_del_right.c
+Norme: ./srcs/edit/edit/edit_drag_char_before_cursor.c
+Norme: ./srcs/edit/edit/edit_del_previous_word.c
+Error (line 15): function edit_del_previous_word has 33 lines
+Error (line 39): line has 82 characters
+Error (line 43): line has 87 characters
+Norme: ./srcs/edit/edit/edit_get_winsize.c
+Norme: ./srcs/edit/edit/edit_history_down.c
+Norme: ./srcs/edit/edit/edit_history_push_flush.c
+Norme: ./srcs/edit/edit/edit_is_quoted_pos.c
+Norme: ./srcs/edit/edit/edit_history_up.c
+Norme: ./srcs/edit/edit/edit_move_down.c
+Norme: ./srcs/edit/edit/edit_is_quoted.c
+Error (line 15): function edit_is_quoted has 27 lines
+Norme: ./srcs/edit/edit/edit_move_end.c
+Norme: ./srcs/edit/edit/edit_move_home.c
+Norme: ./srcs/edit/edit/edit_match_char.c
+Error (line 41): declarations in edit_match_char must be at the top of the function
+Norme: ./srcs/edit/edit/edit_move_left.c
+Norme: ./srcs/edit/edit/edit_move_right.c
+Error (line 24): C++ comment
+Error (line 25): C++ comment
+Norme: ./srcs/edit/edit/edit_move_up.c
+Norme: ./srcs/edit/edit/edit_move_word_left.c
+Norme: ./srcs/edit/edit/edit_move_word_right.c
+Norme: ./srcs/edit/edit/edit_new_last_line.c
+Norme: ./srcs/edit/edit/edit_new.c
+Error (line 33): C++ comment
+Norme: ./srcs/edit/edit/edit_move_goto_pos_cursor.c
+Norme: ./srcs/edit/edit/edit_paste.c
+Norme: ./srcs/edit/edit/edit_place_letter.c
+Error (line 27): C++ comment
+Error (line 28): C++ comment
+Norme: ./srcs/edit/edit/edit_padding.c
+Error (line 15): function edit_padding has 33 lines
+Error (line 33): C++ comment
+Error (line 34): C++ comment
+Error (line 35): C++ comment
+Error (line 36): C++ comment
+Error (line 37): C++ comment
+Error (line 38): C++ comment
+Error (line 39): C++ comment
+Error (line 40): C++ comment
+Error (line 41): C++ comment
+Error (line 42): C++ comment
+Error (line 43): C++ comment
+Error (line 43): line has 82 characters
+Error (line 44): C++ comment
+Error (line 45): C++ comment
+Error (line 46): C++ comment
+Error (line 47): C++ comment
+Error (line 48): C++ comment
+Error (line 49, col 1): no empty line before block
+Norme: ./srcs/edit/edit/edit_print_current_char_and_move.c
+Norme: ./srcs/edit/edit/edit_place_string.c
+Norme: ./srcs/edit/edit/edit_get_line.c
+Error: 6 functions in the file
+Error (line 32): function is_end_fn has 31 lines
+Error (line 48): C++ comment
+Error (line 104): function edit_get_line has 37 lines
+Error (line 115): bad indentation
+Error (line 115): must begin only by tabulations
+Error (line 116): bad indentation
+Error (line 116): must begin only by tabulations
+Error (line 117): bad indentation
+Error (line 117): must begin only by tabulations
+Error (line 117): line has 83 characters
+Error (line 118): bad indentation
+Error (line 118): must begin only by tabulations
+Error (line 119): bad indentation
+Error (line 119): must begin only by tabulations
+Error (line 120): bad indentation
+Error (line 120): must begin only by tabulations
+Norme: ./srcs/edit/edit/edit_research.c
+Norme: ./srcs/edit/edit/edit_prompt_print_string.c
+Norme: ./srcs/edit/edit/edit_singleton.c
+Norme: ./srcs/edit/edit/edit_prompt_print.c
+Norme: ./srcs/edit/edit/edit_terminal_disable.c
+Norme: ./srcs/edit/edit/edit_terminal_enable.c
+Norme: ./srcs/edit/edit/edit_utils_buf_match_simple.c
+Norme: ./srcs/edit/edit/edit_prompt_print_last_line.c
+Norme: ./srcs/edit/edit/edit_utils_can_buffer_form_sequence.c
+Norme: ./srcs/edit/edit/edit_utils_buffer_match_sequence.c
+Norme: ./srcs/edit/edit/edit_terminal_init.c
+Norme: ./srcs/edit/edit/research/research_add_and_find.c
+Norme: ./srcs/edit/edit/research/research_clear.c
+Norme: ./srcs/edit/edit/research/research_compare.c
+Norme: ./srcs/edit/edit/research/research_del.c
+Norme: ./srcs/edit/edit/research/research_delete_letter.c
+Norme: ./srcs/edit/edit/research/research_clear_line.c
+Norme: ./srcs/edit/edit/research/research_clear_prompt.c
+Norme: ./srcs/edit/edit/research/research_end.c
+Norme: ./srcs/edit/edit/research/research_find.c
+Error (line 15): declarations must be followed by one empty line in iter_fn
+Error (line 18): spaces at the end of line
+Norme: ./srcs/edit/edit/research/research_new.c
+Norme: ./srcs/edit/edit/research/research_place_letter.c
+Norme: ./srcs/edit/edit/research/research_find_further.c
+Error (line 15): declarations must be followed by one empty line in iter_fn
+Error (line 18): spaces at the end of line
+Norme: ./srcs/edit/edit/research/research_realloc.c
+Norme: ./srcs/edit/edit/research/research_print_line.c
+Error (line 15): declarations must be followed by one empty line in research_print_line
+Error (line 18): spaces at the end of line
+Norme: ./srcs/edit/edit/research/research_rem_and_find.c
+Norme: ./srcs/edit/edit/research/research_print_prompt.c
+Norme: ./srcs/edit/edit/research/research_rewind_string.c
+Norme: ./srcs/edit/escaped_sequence/escaped_sequence_del.c
+Norme: ./srcs/edit/escaped_sequence/escaped_sequence_new.c
+Norme: ./srcs/edit/event/event/event_concat_string.c
+Norme: ./srcs/edit/event/event/event_del.c
+Norme: ./srcs/edit/event/event/event_concat_token.c
+Norme: ./srcs/edit/event/event/event_expand_current_line.c
+Norme: ./srcs/edit/event/event/event_expand_command_start.c
+Norme: ./srcs/edit/event/event/event_expand_last_command.c
+Norme: ./srcs/edit/event/event/event_expand_command_contain.c
+Norme: ./srcs/edit/event/event/event_expand_history_string.c
+Norme: ./srcs/edit/event/event/event_expand.c
+Norme: ./srcs/edit/event/event/event_new.c
+Norme: ./srcs/edit/event/event/event_expand_number_line.c
+Norme: ./srcs/edit/event/event/event_new_from_string.c
+Norme: ./srcs/edit/event/event/event_expand_number_line_minus.c
+Norme: ./srcs/edit/event/event/event_set_error.c
+Norme: ./srcs/edit/event/event_token/event_token_del.c
+Norme: ./srcs/edit/event/event_token/event_token_new.c
+Norme: ./srcs/edit/event/event_token/event_token_type_to_string.c
+Norme: ./srcs/edit/event/event_tokenizer/event_tokenizer_addone.c
+Norme: ./srcs/edit/event/event_tokenizer/event_tokenizer_apply_rule01.c
+Norme: ./srcs/edit/event/event_tokenizer/event_tokenizer_apply_rule02.c
+Norme: ./srcs/edit/event/event_tokenizer/event_tokenizer_apply_rule04.c
+Norme: ./srcs/edit/event/event_tokenizer/event_tokenizer_current_line.c
+Norme: ./srcs/edit/event/event_tokenizer/event_tokenizer_command_start.c
+Norme: ./srcs/edit/event/event_tokenizer/event_tokenizer_del.c
+Norme: ./srcs/edit/event/event_tokenizer/event_tokenizer_command_contain.c
+Norme: ./srcs/edit/event/event_tokenizer/event_tokenizer_delimit.c
+Norme: ./srcs/edit/event/event_tokenizer/event_tokenizer_last_command.c
+Norme: ./srcs/edit/event/event_tokenizer/event_tokenizer_new_from_string.c
+Norme: ./srcs/edit/event/event_tokenizer/event_tokenizer_number_line.c
+Norme: ./srcs/edit/event/event_tokenizer/event_tokenizer_apply_rule03.c
+Error (line 21, col 29): bad spacing
+Norme: ./srcs/edit/event/event_tokenizer/event_tokenizer_new.c
+Norme: ./srcs/edit/event/event_tokenizer/event_tokenizer_number_line_minus.c
+Norme: ./srcs/edit/event/event_tokenizer/event_tokenizer_tokenize.c
+Norme: ./srcs/edit/event/event_tokenizer/event_tokenizer_tokenize_from_string.c
+Norme: ./srcs/edit/history/history_append_all_file_to_list.c
+Norme: ./srcs/edit/history/history_clear.c
+Norme: ./srcs/edit/history/history_del.c
+Norme: ./srcs/edit/history/history_down.c
+Norme: ./srcs/edit/history/history_dump.c
+Norme: ./srcs/edit/history/history_append_all_list_to_file.c
+Norme: ./srcs/edit/history/history_find.c
+Norme: ./srcs/edit/history/history_append_list_to_file.c
+Norme: ./srcs/edit/history/history_dump_last.c
+Norme: ./srcs/edit/history/history_get_current.c
+Norme: ./srcs/edit/history/history_append_file_to_list.c
+Error (line 38): function find_and_slice has 30 lines
+Norme: ./srcs/edit/history/history_get_first.c
+Norme: ./srcs/edit/history/history_find2.c
+Norme: ./srcs/edit/history/history_get_from_last.c
+Norme: ./srcs/edit/history/history_is_current_first.c
+Norme: ./srcs/edit/history/history_get_from_number.c
+Norme: ./srcs/edit/history/history_is_current_last.c
+Norme: ./srcs/edit/history/history_iter_from_current_to_first.c
+Norme: ./srcs/edit/history/history_get_histfilesize.c
+Norme: ./srcs/edit/history/history_get_histsize.c
+Norme: ./srcs/edit/history/history_new.c
+Norme: ./srcs/edit/history/history_pop.c
+Norme: ./srcs/edit/history/history_pop_last.c
+Norme: ./srcs/edit/history/history_reset_current.c
+Norme: ./srcs/edit/history/history_push.c
+Norme: ./srcs/edit/history/history_reset_numbers.c
+Norme: ./srcs/edit/history/history_up.c
+Norme: ./srcs/edit/history/history_set_current.c
+Norme: ./srcs/edit/history/history_remove_one_line_from_number.c
+Error (line 15): function history_remove_one_line_from_number has 35 lines
+Norme: ./srcs/edit/history/history_utils_get_histfile.c
+Norme: ./srcs/edit/history/history_utils_get_fd_histfile.c
+Norme: ./srcs/edit/history/history_read_file.c
+Norme: ./srcs/edit/history/history_write_file.c
+Error: global scope bad aligned
+Error (line 31): Empty line
+Error (line 32, col 0): no empty line before block
+Norme: ./srcs/edit/line/line_clear_line.c
+Norme: ./srcs/edit/line/line_new.c
+Norme: ./srcs/edit/line/line_del.c
+Norme: ./srcs/edit/line/line_copy.c
+Norme: ./srcs/edit/line/line_realloc_force.c
+Norme: ./srcs/edit/line/line_realloc.c
+Norme: ./srcs/edit/line/line_new_from_string.c
+Norme: ./srcs/edit/line/line_realloc_from_size.c
+Norme: ./srcs/edit/line/line_get.c
+Error (line 21): line has 92 characters
+Error (line 34): line has 82 characters
+Norme: ./srcs/edit/simple_char/simple_char_del.c
+Norme: ./srcs/edit/simple_char/simple_char_new.c
+Norme: ./srcs/error/error.c
+Error (line 16): Space before function name
+Error (line 16, col 4): bad spacing
+Error (line 21): Space before function name
+Error (line 21, col 4): bad spacing
+Error (line 26): Space before function name
+Error (line 26, col 4): bad spacing
+Norme: ./srcs/expan/expan_token/expan_token/expan_token_del.c
+Norme: ./srcs/expan/expan_token/expan_token/expan_token_new.c
+Norme: ./srcs/expan/expan_token/expan_tokenizer/expan_tokenizer_addone.c
+Norme: ./srcs/expan/expan_token/expan_tokenizer/expan_tokenizer_apply_rule01.c
+Norme: ./srcs/expan/expan_token/expan_tokenizer/expan_tokenizer_apply_rule04.c
+Norme: ./srcs/expan/expan_token/expan_tokenizer/expan_tokenizer_apply_rule03.c
+Norme: ./srcs/expan/expan_token/expan_tokenizer/expan_tokenizer_apply_rule02.c
+Norme: ./srcs/expan/expan_token/expan_tokenizer/expan_tokenizer_apply_rule05.c
+Norme: ./srcs/expan/expan_token/expan_tokenizer/expan_tokenizer_apply_rule07.c
+Norme: ./srcs/expan/expan_token/expan_tokenizer/expan_tokenizer_del.c
+Norme: ./srcs/expan/expan_token/expan_tokenizer/expan_tokenizer_apply_rule06.c
+Norme: ./srcs/expan/expan_token/expan_tokenizer/expan_tokenizer_delimit.c
+Norme: ./srcs/expan/expan_token/expan_tokenizer/expan_tokenizer_is_special_parameter.c
+Error (line 15): line has 82 characters
+Norme: ./srcs/expan/expan_token/expan_tokenizer/expan_tokenizer_new.c
+Norme: ./srcs/expan/expan_token/expan_tokenizer/expan_tokenizer_tokenize_prompt.c
+Norme: ./srcs/expan/expan_token/expan_tokenizer/expan_tokenizer_tokenize.c
+Norme: ./srcs/expan/expan_token/expan_tokenizer/expan_tokenizer_tokenize_remove_squote.c
+Norme: ./srcs/expan/expan_token/expan_tokenizer/expan_tokenizer_apply_rule_prompt.c
+Norme: ./srcs/expan/expan_token/expan_tokenizer/expan_push/expan_push_bquote.c
+Norme: ./srcs/expan/expan_token/expan_tokenizer/expan_push/expan_push_escaped.c
+Norme: ./srcs/expan/expan_token/expan_tokenizer/expan_push/expan_push_squote.c
+Norme: ./srcs/expan/expan_token/expan_tokenizer/expan_push/expan_push_dquote.c
+Error (line 17): Empty line
+Norme: ./srcs/expan/expan_token/expan_tokenizer/expan_push/expan_push_tilde.c
+Norme: ./srcs/expan/expan_token/expan_tokenizer/expan_push/expan_push_dollar.c
+Norme: ./srcs/expan/expan_utils/expan_escape_dollar_bslash_bquote.c
+Norme: ./srcs/expan/expan_utils/expan_get_param_normal.c
+Norme: ./srcs/expan/expan_utils/expan_get_param_pos.c
+Norme: ./srcs/expan/expan_utils/expan_is_begin_of_brace_type.c
+Norme: ./srcs/expan/expan_utils/expan_is_special_parameter.c
+Norme: ./srcs/expan/expan_utils/expan_get_asterisk_quoted.c
+Norme: ./srcs/expan/expan_utils/expan_get_param_spec.c
+Error (line 31): line has 84 characters
+Norme: ./srcs/expan/expan_utils/expan_quote.c
+Error (line 29): must begin only by tabulations
+Norme: ./srcs/expan/expansion/expansion_del.c
+Norme: ./srcs/expan/expansion/expansion_get_fields_redir.c
+Norme: ./srcs/expan/expansion/expansion_get_fields_arexp.c
+Norme: ./srcs/expan/expansion/expansion_get_fields_dquote.c
+Norme: ./srcs/expan/expansion/expansion_get_fields_simple_command.c
+Norme: ./srcs/expan/expansion/expansion_get_fields_for_clause.c
+Norme: ./srcs/expan/expansion/expansion_get_string_heredoc.c
+Norme: ./srcs/expan/expansion/expansion_get_string_assign.c
+Norme: ./srcs/expan/expansion/expansion_get_fields_word.c
+Norme: ./srcs/expan/expansion/expansion_get_prompt_info.c
+Norme: ./srcs/expan/expansion/expansion_new.c
+Norme: ./srcs/expan/expansion/expansion_new_from_text.c
+Norme: ./srcs/expan/expansion/expansion_new_from_text_prompt.c
+Norme: ./srcs/expan/expansion/expansion_new_from_text_remove_squote.c
+Norme: ./srcs/expan/expansion/expansion_new_from_tokens.c
+Norme: ./srcs/expan/expansion/expansion_push_before_split.c
+Norme: ./srcs/expan/expansion/expansion_push_before_split_s.c
+Norme: ./srcs/expan/expansion/expansion_push_lst_before_split.c
+Norme: ./srcs/expan/expansion/expansion_push_quoted_lst.c
+Norme: ./srcs/expan/expansion/expansion_get_string_pattern_case.c
+Norme: ./srcs/expan/expansion/expansion_push_raw_lst.c
+Norme: ./srcs/expan/expansion/expansion_get_string_needle_case.c
+Norme: ./srcs/expan/expansion/expan_arithmetic/expansion_arithmetic.c
+Error (line 56): line has 82 characters
+Norme: ./srcs/expan/expansion/expan_before_split/expan_before_split_del.c
+Norme: ./srcs/expan/expansion/expan_before_split/expan_before_split_new.c
+Norme: ./srcs/expan/expansion/expan_before_split/expan_before_split_unquote.c
+Norme: ./srcs/expan/expansion/expan_cmdsbt_bquote/expansion_cmdsbt_bquote_getstring.c
+Norme: ./srcs/expan/expansion/expan_cmdsbt_bquote/expansion_cmdsbt_bquote.c
+Error (line 35): bad indentation
+Error (line 35): must begin only by tabulations
+Error (line 73): Space before function name
+Error (line 76, col 5): bad spacing
+Error (line 77, col 4): bad spacing
+Error (line 92): C++ comment
+Norme: ./srcs/expan/expansion/expan_cmdsbt_dollar/expansion_cmdsbt_dollar.c
+Error (line 33): bad indentation
+Error (line 33): must begin only by tabulations
+Error (line 70): Space before function name
+Error (line 73, col 5): bad spacing
+Error (line 74, col 4): bad spacing
+Error (line 89): C++ comment
+Norme: ./srcs/expan/expansion/expan_dquote/expansion_dquote_unwrap.c
+Norme: ./srcs/expan/expansion/expan_dquote/expansion_dquote_wrap.c
+Norme: ./srcs/expan/expansion/expan_field_split/expansion_field_splitting.c
+Norme: ./srcs/expan/expansion/expan_field_split/expansion_splitting.c
+Error (line 75): function expansion_splitting has 42 lines
+Error (line 75): declarations must be followed by one empty line in expansion_splitting
+Error (line 80): spaces at the end of line
+Error (line 109): line has 83 characters
+Norme: ./srcs/expan/expansion/expan_parameter/expansion_parameter.c
+Norme: ./srcs/expan/expansion/expan_parameter/expansion_parameter_brace.c
+Norme: ./srcs/expan/expansion/expan_parameter/expansion_parameter_special.c
+Norme: ./srcs/expan/expansion/expan_parameter/expansion_parameter_brace/expansion_brace_colon_equal.c
+Norme: ./srcs/expan/expansion/expan_parameter/expansion_parameter_brace/expansion_brace_del.c
+Norme: ./srcs/expan/expansion/expan_parameter/expansion_parameter_brace/expansion_brace_colon_plus.c
+Norme: ./srcs/expan/expansion/expan_parameter/expansion_parameter_brace/expansion_brace_equal.c
+Norme: ./srcs/expan/expansion/expan_parameter/expansion_parameter_brace/expansion_brace_colon_qmark.c
+Norme: ./srcs/expan/expansion/expan_parameter/expansion_parameter_brace/expansion_brace_colon_hyphen.c
+Norme: ./srcs/expan/expansion/expan_parameter/expansion_parameter_brace/expansion_brace_flush_before.c
+Norme: ./srcs/expan/expansion/expan_parameter/expansion_parameter_brace/expansion_brace_hyphen_solve.c
+Norme: ./srcs/expan/expansion/expan_parameter/expansion_parameter_brace/expansion_brace_equal_solve.c
+Norme: ./srcs/expan/expansion/expan_parameter/expansion_parameter_brace/expansion_brace_hyphen.c
+Norme: ./srcs/expan/expansion/expan_parameter/expansion_parameter_brace/expansion_brace_flush_token.c
+Error (line 53): line has 90 characters
+Norme: ./srcs/expan/expansion/expan_parameter/expansion_parameter_brace/expansion_brace_new.c
+Error (line 29, col 45): space after arrow
+Norme: ./srcs/expan/expansion/expan_parameter/expansion_parameter_brace/expansion_brace_length_case_applied.c
+Norme: ./srcs/expan/expansion/expan_parameter/expansion_parameter_brace/expansion_brace_none.c
+Norme: ./srcs/expan/expansion/expan_parameter/expansion_parameter_brace/expansion_brace_length.c
+Norme: ./srcs/expan/expansion/expan_parameter/expansion_parameter_brace/expansion_brace_plus.c
+Norme: ./srcs/expan/expansion/expan_parameter/expansion_parameter_brace/expansion_brace_percent.c
+Error (line 81): line has 82 characters
+Norme: ./srcs/expan/expansion/expan_parameter/expansion_parameter_brace/expansion_brace_plus_solve.c
+Norme: ./srcs/expan/expansion/expan_parameter/expansion_parameter_brace/expansion_brace_set_error.c
+Norme: ./srcs/expan/expansion/expan_parameter/expansion_parameter_brace/expansion_brace_qmark.c
+Norme: ./srcs/expan/expansion/expan_parameter/expansion_parameter_brace/expansion_brace_percentpercent.c
+Norme: ./srcs/expan/expansion/expan_parameter/expansion_parameter_brace/expansion_brace_qmark_solve.c
+Error (line 42): function expansion_brace_qmark_solve has 27 lines
+Norme: ./srcs/expan/expansion/expan_parameter/expansion_parameter_brace/expansion_brace_sharp.c
+Norme: ./srcs/expan/expansion/expan_parameter/expansion_parameter_brace/expansion_brace_sharpsharp.c
+Error (line 81): line has 85 characters
+Norme: ./srcs/expan/expansion/expan_parameter/expansion_parameter_brace/expbrace_colon_hyphen_special.c
+Error: global scope bad aligned
+Error (line 83, col 22): bad spacing
+Norme: ./srcs/expan/expansion/expan_parameter/expansion_parameter_brace/expbrace_colon_plus_special.c
+Error: global scope bad aligned
+Error (line 71, col 22): bad spacing
+Norme: ./srcs/expan/expansion/expan_parameter/expansion_parameter_brace/expbrace_hyphen_special.c
+Error: global scope bad aligned
+Error (line 81, col 22): bad spacing
+Norme: ./srcs/expan/expansion/expan_parameter/expansion_parameter_brace/expbrace_none_special.c
+Error (line 87, col 22): bad spacing
+Norme: ./srcs/expan/expansion/expan_parameter/expansion_parameter_brace/expbrace_colon_qmark_special.c
+Error: global scope bad aligned
+Error (line 83, col 22): bad spacing
+Norme: ./srcs/expan/expansion/expan_parameter/expansion_parameter_brace/expbrace_plus_special.c
+Error (line 68, col 22): bad spacing
+Norme: ./srcs/expan/expansion/expan_parameter/expansion_parameter_brace/expbrace_percent_special.c
+Error (line 32): function expan_param_asterisk has 28 lines
+Error (line 117, col 22): bad spacing
+Norme: ./srcs/expan/expansion/expan_parameter/expansion_parameter_brace/expbrace_qmark_special.c
+Error: global scope bad aligned
+Error (line 81, col 22): bad spacing
+Norme: ./srcs/expan/expansion/expan_parameter/expansion_parameter_brace/expbrace_percentpercent_special.c
+Error (line 32): function expan_param_asterisk has 28 lines
+Error (line 117, col 22): bad spacing
+Norme: ./srcs/expan/expansion/expan_parameter/expansion_parameter_brace/expbrace_sharpsharp_special.c
+Error (line 32): function expan_param_asterisk has 28 lines
+Error (line 117, col 22): bad spacing
+Norme: ./srcs/expan/expansion/expan_parameter/expansion_parameter_brace/expbrace_sharp_special.c
+Error (line 32): function expan_param_asterisk has 28 lines
+Error (line 117, col 22): bad spacing
+Norme: ./srcs/expan/expansion/expan_patmatch/expansion_patmatch.c
+Norme: ./srcs/expan/expansion/expan_prompt/expansion_prompt.c
+Norme: ./srcs/expan/expansion/expan_prompt/expansion_prompt_close_brace.c
+Norme: ./srcs/expan/expansion/expan_prompt/expansion_prompt_backslash.c
+Norme: ./srcs/expan/expansion/expan_prompt/expansion_prompt_carriage_return.c
+Norme: ./srcs/expan/expansion/expan_prompt/expansion_prompt_date_hhmm24.c
+Norme: ./srcs/expan/expansion/expan_prompt/expansion_prompt_date_ampm.c
+Norme: ./srcs/expan/expansion/expan_prompt/expansion_prompt_current_basename.c
+Norme: ./srcs/expan/expansion/expan_prompt/expansion_prompt_current_directory.c
+Norme: ./srcs/expan/expansion/expan_prompt/expansion_prompt_date_hhmmss24.c
+Norme: ./srcs/expan/expansion/expan_prompt/expansion_prompt_date_hhmmss12.c
+Norme: ./srcs/expan/expansion/expan_prompt/expansion_prompt_escape.c
+Norme: ./srcs/expan/expansion/expan_prompt/expansion_prompt_new_line.c
+Norme: ./srcs/expan/expansion/expan_prompt/expansion_prompt_ddate.c
+Norme: ./srcs/expan/expansion/expan_prompt/expansion_prompt_hostname.c
+Norme: ./srcs/expan/expansion/expan_prompt/expansion_prompt_open_brace.c
+Norme: ./srcs/expan/expansion/expan_prompt/expansion_prompt_number_jobs.c
+Norme: ./srcs/expan/expansion/expan_prompt/expansion_prompt_ring_bell.c
+Norme: ./srcs/expan/expansion/expan_prompt/expansion_prompt_username.c
+Norme: ./srcs/expan/expansion/expan_prompt/expansion_prompt_simple_hostname.c
+Norme: ./srcs/expan/expansion/expan_prompt/expansion_prompt_number.c
+Norme: ./srcs/expan/expansion/expan_tilde/expansion_no_tilde.c
+Error: global scope bad aligned
+Norme: ./srcs/expan/expansion/expan_tilde/expansion_no_tilde_split.c
+Error: global scope bad aligned
+Norme: ./srcs/expan/expansion/expan_tilde/expansion_tilde.c
+Norme: ./srcs/expan/expansion/expan_tilde/expansion_tilde_split.c
+Norme: ./srcs/files/file_check_exists.c
+Error (line 15): Space before function name
+Error (line 15, col 3): bad spacing
+Norme: ./srcs/files/file_check_isexecutable.c
+Norme: ./srcs/files/file_check_isdir.c
+Error (line 15): Space before function name
+Error (line 15, col 3): bad spacing
+Error (line 21, col 15): Spacing after call to stat
+Norme: ./srcs/files/file_close.c
+Norme: ./srcs/files/file_create_handle_noclobber.c
+Error (line 20): line has 96 characters
+Error (line 22): line has 98 characters
+Norme: ./srcs/files/file_open_append.c
+Error (line 18): line has 96 characters
+Norme: ./srcs/files/file_open_read.c
+Error (line 15): Space before function name
+Error (line 15, col 3): bad spacing
+Norme: ./srcs/files/file_open_read_write.c
+Error (line 18): line has 83 characters
+Norme: ./srcs/files/file_open_write_trunc.c
+Error (line 18): line has 95 characters
+Norme: ./srcs/files/file_open_and_hand_error.c
+Error (line 30, col 25): bad spacing
+Norme: ./srcs/job_control/job/job_del.c
+Norme: ./srcs/job_control/job/job_del_void.c
+Norme: ./srcs/job_control/job/job_has_terminated.c
+Norme: ./srcs/job_control/job/job_get_kill_pid.c
+Error (line 19, col 6): bad spacing
+Error (line 21): bad indentation
+Error (line 21): must begin only by tabulations
+Error (line 22): bad indentation
+Error (line 22): must begin only by tabulations
+Norme: ./srcs/job_control/job/job_new.c
+Norme: ./srcs/job_control/job/job_new_from_tokens.c
+Norme: ./srcs/job_control/job/job_exec_update_status.c
+Norme: ./srcs/job_control/job/job_print_if_stopped.c
+Error (line 24): bad indentation
+Error (line 24): must begin only by tabulations
+Error (line 25): bad indentation
+Error (line 25): must begin only by tabulations
+Norme: ./srcs/job_control/job/job_print.c
+Error (line 35): line has 82 characters
+Norme: ./srcs/job_control/job/job_remove_ending_ampersand.c
+Norme: ./srcs/job_control/job/job_put_in_fg.c
+Error (line 17): Space before function name
+Error (line 17): Space before function name
+Error (line 17): Space before function name
+Error (line 17): Space before function name
+Error (line 17): Space before function name
+Error (line 17): Space before function name
+Error (line 17): Space before function name
+Error (line 17): Space before function name
+Error (line 17): Space before function name
+Error (line 17, col 11): bad spacing
+Error (line 19): bad indentation
+Error (line 19): must begin only by tabulations
+Error (line 19, col 7): bad spacing
+Error (line 21): bad indentation
+Error (line 21): must begin only by tabulations
+Error (line 22): bad indentation
+Error (line 22): must begin only by tabulations
+Error (line 23): bad indentation
+Error (line 23): must begin only by tabulations
+Error (line 24): bad indentation
+Error (line 24): must begin only by tabulations
+Error (line 25): bad indentation
+Error (line 25): must begin only by tabulations
+Error (line 26): bad indentation
+Error (line 26): must begin only by tabulations
+Error (line 27): bad indentation
+Error (line 27): must begin only by tabulations
+Error (line 28): bad indentation
+Error (line 28): must begin only by tabulations
+Error (line 29): bad indentation
+Error (line 29): must begin only by tabulations
+Error (line 30): bad indentation
+Error (line 30): must begin only by tabulations
+Error (line 31): bad indentation
+Error (line 31): must begin only by tabulations
+Error (line 32): bad indentation
+Error (line 32): must begin only by tabulations
+Error (line 33): bad indentation
+Error (line 33): must begin only by tabulations
+Error (line 34): bad indentation
+Error (line 34): must begin only by tabulations
+Error (line 35): bad indentation
+Error (line 35): must begin only by tabulations
+Error (line 35, col 4): missing space after if
+Error (line 36): bad indentation
+Error (line 36): must begin only by tabulations
+Error (line 37): bad indentation
+Error (line 37): must begin only by tabulations
+Error (line 40): Space before function name
+Error (line 40): Space before function name
+Error (line 40): Space before function name
+Error (line 40): Space before function name
+Error (line 40): Space before function name
+Error (line 40): Space before function name
+Error (line 40): Space before function name
+Error (line 40): Space before function name
+Error (line 40): Space before function name
+Error (line 40, col 4): bad spacing
+Error (line 42): bad indentation
+Error (line 42): must begin only by tabulations
+Error (line 43): bad indentation
+Error (line 43): must begin only by tabulations
+Error (line 44): bad indentation
+Error (line 44): must begin only by tabulations
+Error (line 44): C++ comment
+Norme: ./srcs/job_control/job/job_status_str_long.c
+Norme: ./srcs/job_control/job/job_utils_is_job_control_active.c
+Norme: ./srcs/job_control/job/job_utils_get_signum.c
+Norme: ./srcs/job_control/job/job_status_str.c
+Error (line 19): function job_status_str has 26 lines
+Norme: ./srcs/job_control/job/job_wait_update.c
+Error (line 17): function job_wait_update has 26 lines
+Error (line 41): bad indentation
+Error (line 41): must begin only by tabulations
+Norme: ./srcs/job_control/job/job_utils_waitpid.c
+Error (line 17): function job_utils_waitpid has 51 lines
+Error (line 23): bad indentation
+Error (line 23): must begin only by tabulations
+Error (line 26): bad indentation
+Error (line 26): must begin only by tabulations
+Error (line 27): bad indentation
+Error (line 27): must begin only by tabulations
+Error (line 28): bad indentation
+Error (line 28): must begin only by tabulations
+Error (line 30): bad indentation
+Error (line 30): must begin only by tabulations
+Error (line 31): bad indentation
+Error (line 31): must begin only by tabulations
+Error (line 32): bad indentation
+Error (line 32): must begin only by tabulations
+Error (line 33): bad indentation
+Error (line 33): must begin only by tabulations
+Error (line 34): bad indentation
+Error (line 34): must begin only by tabulations
+Error (line 37): bad indentation
+Error (line 37): must begin only by tabulations
+Error (line 38): bad indentation
+Error (line 38): must begin only by tabulations
+Error (line 39): bad indentation
+Error (line 39): must begin only by tabulations
+Error (line 40): bad indentation
+Error (line 40): must begin only by tabulations
+Error (line 41): bad indentation
+Error (line 41): must begin only by tabulations
+Error (line 49): bad indentation
+Error (line 49): must begin only by tabulations
+Error (line 63): bad indentation
+Error (line 63): must begin only by tabulations
+Error (line 64): bad indentation
+Error (line 64): must begin only by tabulations
+Error (line 65): bad indentation
+Error (line 65): must begin only by tabulations
+Error (line 66): bad indentation
+Error (line 66): must begin only by tabulations
+Error (line 67): bad indentation
+Error (line 67): must begin only by tabulations
+Error (line 68): bad indentation
+Error (line 68): must begin only by tabulations
+Error (line 69): bad indentation
+Error (line 69): must begin only by tabulations
+Norme: ./srcs/job_control/job_mgr/job_mgr_add.c
+Norme: ./srcs/job_control/job_mgr/job_mgr_del.c
+Norme: ./srcs/job_control/job_mgr/job_mgr_find_by_pid.c
+Error (line 26): Space before function name
+Error (line 26, col 5): bad spacing
+Norme: ./srcs/job_control/job_mgr/job_mgr_find_by_pid_or_perc_job_id.c
+Error (line 16): Space before function name
+Error (line 16, col 5): bad spacing
+Norme: ./srcs/job_control/job_mgr/job_mgr_env_push.c
+Norme: ./srcs/job_control/job_mgr/job_mgr_find_by_str_pid.c
+Error (line 16): Space before function name
+Error (line 16, col 5): bad spacing
+Norme: ./srcs/job_control/job_mgr/job_mgr_new.c
+Norme: ./srcs/job_control/job_mgr/job_mgr_find_by_job_id.c
+Error (line 26): Space before function name
+Error (line 26, col 5): bad spacing
+Norme: ./srcs/job_control/job_mgr/job_mgr_pop.c
+Norme: ./srcs/job_control/job_mgr/job_mgr_remove.c
+Norme: ./srcs/job_control/job_mgr/job_mgr_print.c
+Norme: ./srcs/job_control/job_mgr/job_mgr_sort_by_id.c
+Norme: ./srcs/job_control/job_mgr/job_mgr_sort_by_status.c
+Norme: ./srcs/job_control/job_mgr/job_mgr_wait_update.c
+Norme: ./srcs/job_control/job_mgr/job_mgr_update_sign.c
+Norme: ./srcs/job_control/jobexec/jobexec_fork_exec.c
+Error (line 19): line has 88 characters
+Norme: ./srcs/job_control/jobexec/jobexec_fork_exec_execve_fn.c
+Norme: ./srcs/job_control/jobexec/jobexec_fork_exec_interactive_job.c
+Error (line 18, col 6): bad spacing
+Error (line 21): bad indentation
+Error (line 21): must begin only by tabulations
+Error (line 21): line has 96 characters
+Norme: ./srcs/job_control/jobexec/jobexec_fork_exec_interactive_void.c
+Norme: ./srcs/job_control/jobexec/jobexec_fork_exec_interactive_job_sig_wrapper.c
+Error (line 17): line has 89 characters
+Error (line 20): bad indentation
+Error (line 20): must begin only by tabulations
+Error (line 21): bad indentation
+Error (line 21): must begin only by tabulations
+Error (line 22): bad indentation
+Error (line 22): must begin only by tabulations
+Norme: ./srcs/job_control/jobexec/jobexec_fork_exec_should_tcset.c
+Norme: ./srcs/job_control/jobexec/jobexec_fork_exec_wait_fn.c
+Error (line 15): line has 82 characters
+Norme: ./srcs/job_control/jobexec/jobexec_fork_exec_interactive.c
+Error (line 39): C++ comment
+Norme: ./srcs/job_control/jobexec/jobexec_fork_exec_non_interactive.c
+Error (line 27): line has 92 characters
+Norme: ./srcs/job_control/jobexec/jobexec_fork_utils_init_sigchld_handler.c
+Error (line 19): Space before function name
+Error (line 19): Space before function name
+Error (line 19): Space before function name
+Error (line 19): Space before function name
+Error (line 19): Space before function name
+Error (line 19): Space before function name
+Error (line 19): Space before function name
+Error (line 19): Space before function name
+Error (line 19): Space before function name
+Error (line 19): bad spacing after handle_job
+Error (line 19, col 11): bad spacing
+Error (line 21): bad indentation
+Error (line 21): must begin only by tabulations
+Error (line 22): bad indentation
+Error (line 22): must begin only by tabulations
+Error (line 23): bad indentation
+Error (line 23): must begin only by tabulations
+Error (line 24): bad indentation
+Error (line 24): must begin only by tabulations
+Error (line 24, col 8): missing space after if
+Error (line 25): bad indentation
+Error (line 25): must begin only by tabulations
+Error (line 26): bad indentation
+Error (line 26): must begin only by tabulations
+Error (line 27): bad indentation
+Error (line 27): must begin only by tabulations
+Error (line 28): bad indentation
+Error (line 28): must begin only by tabulations
+Error (line 29): must begin only by tabulations
+Error (line 30): bad indentation
+Error (line 30): must begin only by tabulations
+Error (line 31): bad indentation
+Error (line 31): must begin only by tabulations
+Error (line 32): must begin only by tabulations
+Error (line 33): bad indentation
+Error (line 33): must begin only by tabulations
+Error (line 34): bad indentation
+Error (line 34): must begin only by tabulations
+Error (line 35): bad indentation
+Error (line 35): must begin only by tabulations
+Error (line 36): bad indentation
+Error (line 36): must begin only by tabulations
+Error (line 37): bad indentation
+Error (line 37): must begin only by tabulations
+Error (line 38): bad indentation
+Error (line 38): must begin only by tabulations
+Error (line 41): multiple empty lines
+Error (line 42): function sigstp_catcher has 47 lines
+Error (line 42): bad spacing before sigstp_catcher
+Error (line 44): bad indentation
+Error (line 44): must begin only by tabulations
+Error (line 44, col 9): bad spacing
+Error (line 45): bad indentation
+Error (line 45): must begin only by tabulations
+Error (line 45, col 9): bad spacing
+Error (line 47): bad indentation
+Error (line 47): must begin only by tabulations
+Error (line 47): line has 82 characters
+Error (line 48): bad indentation
+Error (line 48): must begin only by tabulations
+Error (line 49): bad indentation
+Error (line 49): must begin only by tabulations
+Error (line 49): line has 95 characters
+Error (line 50): line has 101 characters
+Error (line 51): bad indentation
+Error (line 51): must begin only by tabulations
+Error (line 52): Empty line
+Error (line 53): bad indentation
+Error (line 53): must begin only by tabulations
+Error (line 54): bad indentation
+Error (line 54): must begin only by tabulations
+Error (line 55): bad indentation
+Error (line 55): must begin only by tabulations
+Error (line 56): bad indentation
+Error (line 56): must begin only by tabulations
+Error (line 57): bad indentation
+Error (line 57): must begin only by tabulations
+Error (line 58): bad indentation
+Error (line 58): must begin only by tabulations
+Error (line 59): bad indentation
+Error (line 59): must begin only by tabulations
+Error (line 60): Empty line
+Error (line 61): bad indentation
+Error (line 61): must begin only by tabulations
+Error (line 61): C++ comment
+Error (line 62): bad indentation
+Error (line 62): must begin only by tabulations
+Error (line 62): C++ comment
+Error (line 63): bad indentation
+Error (line 63): must begin only by tabulations
+Error (line 63): C++ comment
+Error (line 63): line has 114 characters
+Error (line 64): bad indentation
+Error (line 64): must begin only by tabulations
+Error (line 64): C++ comment
+Error (line 65): bad indentation
+Error (line 65): must begin only by tabulations
+Error (line 65): C++ comment
+Error (line 66): bad indentation
+Error (line 66): must begin only by tabulations
+Error (line 66): C++ comment
+Error (line 67): bad indentation
+Error (line 67): must begin only by tabulations
+Error (line 67): C++ comment
+Error (line 68): bad indentation
+Error (line 68): must begin only by tabulations
+Error (line 68): C++ comment
+Error (line 69): bad indentation
+Error (line 69): must begin only by tabulations
+Error (line 69): C++ comment
+Error (line 70): bad indentation
+Error (line 70): must begin only by tabulations
+Error (line 70): C++ comment
+Error (line 71): bad indentation
+Error (line 71): must begin only by tabulations
+Error (line 71): C++ comment
+Error (line 72): Empty line
+Error (line 73): bad indentation
+Error (line 73): must begin only by tabulations
+Error (line 73): C++ comment
+Error (line 74): bad indentation
+Error (line 74): must begin only by tabulations
+Error (line 74): C++ comment
+Error (line 75): bad indentation
+Error (line 75): must begin only by tabulations
+Error (line 75): C++ comment
+Error (line 76): bad indentation
+Error (line 76): must begin only by tabulations
+Error (line 76): C++ comment
+Error (line 77): bad indentation
+Error (line 77): must begin only by tabulations
+Error (line 77): C++ comment
+Error (line 78): bad indentation
+Error (line 78): must begin only by tabulations
+Error (line 78): C++ comment
+Error (line 79): bad indentation
+Error (line 79): must begin only by tabulations
+Error (line 79): C++ comment
+Error (line 80): bad indentation
+Error (line 80): must begin only by tabulations
+Error (line 80): C++ comment
+Error (line 81): bad indentation
+Error (line 81): must begin only by tabulations
+Error (line 81): C++ comment
+Error (line 82): bad indentation
+Error (line 82): must begin only by tabulations
+Error (line 82): C++ comment
+Error (line 83): bad indentation
+Error (line 83): must begin only by tabulations
+Error (line 83): C++ comment
+Error (line 84): bad indentation
+Error (line 84): must begin only by tabulations
+Error (line 84): C++ comment
+Error (line 85): bad indentation
+Error (line 85): must begin only by tabulations
+Error (line 85): C++ comment
+Error (line 86): bad indentation
+Error (line 86): must begin only by tabulations
+Error (line 86): C++ comment
+Error (line 87): bad indentation
+Error (line 87): must begin only by tabulations
+Error (line 87): C++ comment
+Error (line 88): bad indentation
+Error (line 88): must begin only by tabulations
+Error (line 89): bad indentation
+Error (line 89): must begin only by tabulations
+Error (line 90): bad indentation
+Error (line 90): must begin only by tabulations
+Error (line 93): declarations in jobexec_fork_utils_init_sigchld_handler must be at the top of the function
+Error (line 93): declarations must be followed by one empty line in jobexec_fork_utils_init_sigchld_handler
+Error (line 95): bad indentation
+Error (line 95): must begin only by tabulations
+Error (line 96): bad indentation
+Error (line 96): must begin only by tabulations
+Error (line 98): bad indentation
+Error (line 98): must begin only by tabulations
+Error (line 98): C++ comment
+Error (line 99): bad indentation
+Error (line 99): must begin only by tabulations
+Error (line 99): C++ comment
+Error (line 100): bad indentation
+Error (line 100): must begin only by tabulations
+Error (line 100): C++ comment
+Error (line 101): bad indentation
+Error (line 101): must begin only by tabulations
+Error (line 101): C++ comment
+Error (line 103): bad indentation
+Error (line 103): must begin only by tabulations
+Error (line 104): bad indentation
+Error (line 104): must begin only by tabulations
+Error (line 105): bad indentation
+Error (line 105): must begin only by tabulations
+Error (line 106): bad indentation
+Error (line 106): must begin only by tabulations
+Error (line 107): bad indentation
+Error (line 107): must begin only by tabulations
+Error (line 108): bad indentation
+Error (line 108): must begin only by tabulations
+Error (line 109): bad indentation
+Error (line 109): must begin only by tabulations
+Error (line 109, col 12): errnum is instanciated during declaration
+Error (line 110): bad indentation
+Error (line 110): must begin only by tabulations
+Error (line 110): line has 88 characters
+Error (line 111): bad indentation
+Error (line 111): must begin only by tabulations
+Error (line 112): bad indentation
+Error (line 112): must begin only by tabulations
+Error (line 113): bad indentation
+Error (line 113): must begin only by tabulations
+Norme: ./srcs/main/main.c
+Norme: ./srcs/openclose/openclose/openclose_del.c
+Norme: ./srcs/openclose/openclose/openclose_new.c
+Norme: ./srcs/openclose/openclose_matcher/openclose_matcher_add.c
+Norme: ./srcs/openclose/openclose_matcher/openclose_matcher_del.c
+Norme: ./srcs/openclose/openclose_matcher/openclose_matcher_debug_print.c
+Norme: ./srcs/openclose/openclose_matcher/openclose_matcher_arexp_singleton_parser.c
+Norme: ./srcs/openclose/openclose_matcher/openclose_matcher_find_matching_stack.c
+Norme: ./srcs/openclose/openclose_matcher/openclose_matcher_find_matching.c
+Error (line 25): line has 84 characters
+Norme: ./srcs/openclose/openclose_matcher/openclose_matcher_is_open.c
+Norme: ./srcs/openclose/openclose_matcher/openclose_matcher_new.c
+Error (line 17): missing void in function openclose_matcher_new
+Norme: ./srcs/openclose/openclose_matcher/openclose_matcher_singleton_parser.c
+Norme: ./srcs/openclose/openclose_matcher/openclose_matcher_print.c
+Norme: ./srcs/openclose/openclose_matcher/openclose_matcher_token_find_matching_opened.c
+Norme: ./srcs/openclose/openclose_matcher/openclose_matcher_token_find_matching.c
+Norme: ./srcs/openclose/openclose_matcher/openclose_matcher_find_matching_base.c
+Error (line 16): line has 100 characters
+Error (line 31): function resolve has 29 lines
+Error (line 40): C++ comment
+Error (line 41): C++ comment
+Error (line 42): line has 107 characters
+Error (line 51): bad indentation
+Error (line 51): C++ comment
+Norme: ./srcs/openclose/openclose_mgr/openclose_mgr_del.c
+Norme: ./srcs/openclose/openclose_mgr/openclose_mgr_last.c
+Norme: ./srcs/openclose/openclose_mgr/openclose_mgr_first.c
+Norme: ./srcs/openclose/openclose_mgr/openclose_mgr_new.c
+Norme: ./srcs/openclose/openclose_mgr/openclose_mgr_print.c
+Norme: ./srcs/openclose/openclose_mgr/openclose_mgr_remove.c
+Norme: ./srcs/pattern_matching/brace/brace/brace_del.c
+Norme: ./srcs/pattern_matching/brace/brace/brace_new.c
+Norme: ./srcs/pattern_matching/brace/brace/brace_expand_tokens.c
+Norme: ./srcs/pattern_matching/brace/brace/brace_expand.c
+Norme: ./srcs/pattern_matching/brace/brace/brace_expand_token.c
+Norme: ./srcs/pattern_matching/brace/brace/brace_recurs_ignore.c
+Error (line 13): multiple empty lines
+Norme: ./srcs/pattern_matching/brace/brace/brace_recurs.c
+Norme: ./srcs/pattern_matching/brace/brace/brace_recurs_sequence.c
+Norme: ./srcs/pattern_matching/brace/brace/brace_recurs_list.c
+Norme: ./srcs/pattern_matching/brace/brace_token/brace_token_del.c
+Norme: ./srcs/pattern_matching/brace/brace_token/brace_token_new.c
+Norme: ./srcs/pattern_matching/brace/brace_tokenizer/brace_tokenizer_addone.c
+Norme: ./srcs/pattern_matching/brace/brace_tokenizer/brace_tokenizer_apply_rule04.c
+Norme: ./srcs/pattern_matching/brace/brace_tokenizer/brace_tokenizer_apply_rule03.c
+Norme: ./srcs/pattern_matching/brace/brace_tokenizer/brace_tokenizer_apply_rule01.c
+Norme: ./srcs/pattern_matching/brace/brace_tokenizer/brace_tokenizer_apply_rule05.c
+Norme: ./srcs/pattern_matching/brace/brace_tokenizer/brace_tokenizer_apply_rule06.c
+Norme: ./srcs/pattern_matching/brace/brace_tokenizer/brace_tokenizer_copy_current.c
+Norme: ./srcs/pattern_matching/brace/brace_tokenizer/brace_tokenizer_apply_rule07.c
+Norme: ./srcs/pattern_matching/brace/brace_tokenizer/brace_tokenizer_del.c
+Norme: ./srcs/pattern_matching/brace/brace_tokenizer/brace_tokenizer_delimit.c
+Norme: ./srcs/pattern_matching/brace/brace_tokenizer/brace_tokenizer_apply_rule02.c
+Norme: ./srcs/pattern_matching/brace/brace_tokenizer/brace_tokenizer_new.c
+Norme: ./srcs/pattern_matching/brace/brace_tokenizer/brace_tokenizer_tokenize.c
+Norme: ./srcs/pattern_matching/brace/brace_tokenizer/brace_tokenizer_is_sequence_digit.c
+Norme: ./srcs/pattern_matching/brace/brace_tokenizer/brace_tokenizer_is_sequence_alpha.c
+Error: global scope bad aligned
+Norme: ./srcs/pattern_matching/brace/brace_tokenizer/brace_push/brace_could_push_brace.c
+Norme: ./srcs/pattern_matching/brace/brace_tokenizer/brace_push/brace_push_bquote.c
+Norme: ./srcs/pattern_matching/brace/brace_tokenizer/brace_push/brace_push_dquote.c
+Error (line 17): Empty line
+Norme: ./srcs/pattern_matching/brace/brace_tokenizer/brace_push/brace_push_escaped.c
+Norme: ./srcs/pattern_matching/brace/brace_tokenizer/brace_push/brace_push_sequence.c
+Norme: ./srcs/pattern_matching/brace/brace_tokenizer/brace_push/brace_push_squote.c
+Norme: ./srcs/pattern_matching/brace/brace_tokenizer/brace_push/brace_push_tilde.c
+Norme: ./srcs/pattern_matching/brace/brace_tokenizer/brace_push/brace_push_brace.c
+Error (line 23): function brace_push_brace has 36 lines
+Error (line 23): declarations must be followed by one empty line in brace_push_brace
+Error (line 26): spaces at the end of line
+Norme: ./srcs/pattern_matching/brace/brace_tokenizer/brace_push/brace_test_push_brace.c
+Error (line 15): function brace_test_push_brace has 38 lines
+Error (line 15): declarations must be followed by one empty line in brace_test_push_brace
+Error (line 18): spaces at the end of line
+Norme: ./srcs/pattern_matching/brace/brace_tokenizer/brace_push/brace_push_dollar.c
+Norme: ./srcs/pattern_matching/brace/brace_utils/brace_expand_sequence_alpha.c
+Norme: ./srcs/pattern_matching/brace/brace_utils/brace_expand_sequence_digit.c
+Error (line 32): function init_zero has 30 lines
+Norme: ./srcs/pattern_matching/bracket_expression/bracket_expr_add.c
+Norme: ./srcs/pattern_matching/bracket_expression/bracket_expr_del.c
+Norme: ./srcs/pattern_matching/bracket_expression/bracket_expr_get.c
+Norme: ./srcs/pattern_matching/bracket_expression/bracket_expr_find_hyphen_.c
+Norme: ./srcs/pattern_matching/bracket_expression/bracket_expr_singleton.c
+Norme: ./srcs/pattern_matching/bracket_expression/bracket_expr_new.c
+Norme: ./srcs/pattern_matching/bracket_expression/bracket_expr_find_bracket_.c
+Norme: ./srcs/pattern_matching/bracket_expression/bracket_expr_find_.c
+Norme: ./srcs/pattern_matching/patmatch/patmatch_asterisk__.c
+Norme: ./srcs/pattern_matching/patmatch/patmatch_del.c
+Norme: ./srcs/pattern_matching/patmatch/patmatch_new.c
+Norme: ./srcs/pattern_matching/patmatch/patmatch_fixed__.c
+Norme: ./srcs/pattern_matching/patmatch/patmatch_bracket__.c
+Norme: ./srcs/pattern_matching/patmatch/patmatch_question_mark__.c
+Norme: ./srcs/pattern_matching/patmatch/patmatch_supervisor__.c
+Norme: ./srcs/pattern_matching/patmatch/patmatch_match.c
+Norme: ./srcs/pattern_matching/patmatch/patmatch_recurs__.c
+Norme: ./srcs/pattern_matching/pattern/pattern_build_.c
+Norme: ./srcs/pattern_matching/pattern/pattern_build_escaped_.c
+Norme: ./srcs/pattern_matching/pattern/pattern_build_data_.c
+Norme: ./srcs/pattern_matching/pattern/pattern_build_finish_.c
+Norme: ./srcs/pattern_matching/pattern/pattern_build_double_quote_.c
+Norme: ./srcs/pattern_matching/pattern/pattern_build_normal_char_.c
+Norme: ./srcs/pattern_matching/pattern/pattern_build_push_.c
+Norme: ./srcs/pattern_matching/pattern/pattern_build_simple_quote_.c
+Norme: ./srcs/pattern_matching/pattern/pattern_build_special_.c
+Norme: ./srcs/pattern_matching/pattern/pattern_get_begin_file.c
+Norme: ./srcs/pattern_matching/pattern/pattern_get_depth.c
+Norme: ./srcs/pattern_matching/pattern/pattern_del.c
+Norme: ./srcs/pattern_matching/pattern/pattern_get_pattern.c
+Norme: ./srcs/pattern_matching/pattern/pattern_is_all_fixed.c
+Norme: ./srcs/pattern_matching/pattern/pattern_is_directory.c
+Norme: ./srcs/pattern_matching/pattern/pattern_new.c
+Norme: ./srcs/pattern_matching/pattern/pattern_to_string.c
+Norme: ./srcs/pattern_matching/pattern/pattern_build_harmonize_.c
+Norme: ./srcs/pattern_matching/pattern/pattern_build_bracket_.c
+Norme: ./srcs/pattern_matching/substr/substr_del.c
+Norme: ./srcs/pattern_matching/substr/substr_new.c
+Norme: ./srcs/pattern_matching/substr/substr_sharp.c
+Norme: ./srcs/pattern_matching/substr/substr_percentpercent.c
+Norme: ./srcs/pattern_matching/substr/substr_percent.c
+Norme: ./srcs/pattern_matching/substr/substr_sharpsharp.c
+Norme: ./srcs/pattern_matching/substr/substr_sharp_supervisor.c
+Norme: ./srcs/pattern_matching/substr/substr_sharpsharp_supervisor.c
+Norme: ./srcs/pattern_matching/substr/substr_pattern/pattern_substr_build_.c
+Norme: ./srcs/pattern_matching/substr/substr_pattern/pattern_substr_build_escaped_.c
+Norme: ./srcs/pattern_matching/substr/substr_pattern/pattern_substr_build_data_.c
+Norme: ./srcs/pattern_matching/substr/substr_pattern/pattern_substr_build_normal_char_.c
+Norme: ./srcs/pattern_matching/substr/substr_pattern/pattern_substr_build_push_.c
+Norme: ./srcs/pattern_matching/substr/substr_pattern/pattern_substr_build_double_quote_.c
+Norme: ./srcs/pattern_matching/substr/substr_pattern/pattern_substr_build_special_.c
+Norme: ./srcs/pattern_matching/substr/substr_pattern/pattern_substr_build_simple_quote_.c
+Norme: ./srcs/pattern_matching/substr/substr_pattern/pattern_substr_get_data.c
+Norme: ./srcs/pattern_matching/substr/substr_pattern/pattern_substr_del.c
+Norme: ./srcs/pattern_matching/substr/substr_pattern/pattern_substr_new.c
+Norme: ./srcs/pattern_matching/substr/substr_pattern/pattern_substr_rev.c
+Norme: ./srcs/pattern_matching/substr/substr_pattern/pattern_substr_build_bracket_.c
+Norme: ./srcs/prog/prog_del.c
+Norme: ./srcs/prog/prog_init.c
+Norme: ./srcs/prog/prog_handle_exit_signal.c
+Error (line 21): line has 82 characters
+Norme: ./srcs/prog/prog_line_edit_get_input.c
+Norme: ./srcs/prog/prog_new.c
+Norme: ./srcs/prog/prog_prepare_signals.c
+Error (line 13): preprocessor block must be followed by one empty line
+Error (line 14): comment not well formatted
+Error (line 22): bad spacing before prog_prepare_signals
+Error (line 24): bad indentation
+Error (line 24): C++ comment
+Norme: ./srcs/prog/prog_prepare_traps.c
+Norme: ./srcs/prog/prog_line_edit_get_input_gnl.c
+Norme: ./srcs/prog/prog_run_interactive_exec_string.c
+Norme: ./srcs/prog/prog_singl.c
+Norme: ./srcs/prog/prog_utils_print_arexp.c
+Norme: ./srcs/prog/prog_parse_args.c
+Error (line 45): line has 93 characters
+Error (line 46): line has 90 characters
+Error (line 56): line has 86 characters
+Error (line 69): line has 87 characters
+Norme: ./srcs/prog/prog_utils_print_ast.c
+Norme: ./srcs/prog/prog_utils_run_file.c
+Norme: ./srcs/prog/prog_utils_run_input.c
+Norme: ./srcs/prog/prog_run_interactive.c
+Error: 7 functions in the file
+Error (line 21, col 15): global named jump_buf is not well prefixed
+Error (line 51): line has 105 characters
+Error (line 67): line has 111 characters
+Error (line 85): line has 95 characters
+Norme: ./srcs/prog/prog_run.c
+Error (line 15): bad spacing after set_interactive_state
+Error (line 30): multiple empty lines
+Error (line 31): multiple empty lines
+Error (line 32): function prog_run has 36 lines
+Error (line 32): bad spacing before prog_run
+Norme: ./srcs/prog/prog_utils_set_command_pos_params.c
+Error (line 21): line has 83 characters
+Norme: ./srcs/prog/prog_utils_run_fd.c
+Error (line 18): Space before function name
+Error (line 18): Space before function name
+Error (line 18): Space before function name
+Error (line 18): Space before function name
+Error (line 18): Space before function name
+Error (line 18): Space before function name
+Error (line 18): Space before function name
+Error (line 18): Space before function name
+Error (line 18): Space before function name
+Error (line 18): Space before function name
+Error (line 18, col 10): bad spacing
+Error (line 20, col 4): bad spacing
+Error (line 39): Space before function name
+Error (line 39): Space before function name
+Error (line 39): Space before function name
+Error (line 39): Space before function name
+Error (line 39): Space before function name
+Error (line 39): Space before function name
+Error (line 39): Space before function name
+Error (line 39): Space before function name
+Error (line 39): Space before function name
+Error (line 39): function read_gnl has 42 lines
+Error (line 39, col 11): bad spacing
+Error (line 41, col 5): bad spacing
+Error (line 42, col 5): bad spacing
+Error (line 85): Space before function name
+Error (line 85): Space before function name
+Error (line 85): Space before function name
+Error (line 85): Space before function name
+Error (line 85): Space before function name
+Error (line 85): Space before function name
+Error (line 85): Space before function name
+Error (line 85): Space before function name
+Error (line 85): Space before function name
+Error (line 85): Space before function name
+Error (line 85): Space before function name
+Error (line 85): Space before function name
+Error (line 85): Space before function name
+Error (line 85): Space before function name
+Error (line 85): Space before function name
+Error (line 85): Space before function name
+Error (line 85, col 4): bad spacing
+Error (line 87, col 5): bad spacing
+Error (line 88, col 5): bad spacing
+Error (line 89, col 4): bad spacing
+Error (line 90, col 4): bad spacing
+Norme: ./srcs/shenv/shenv/shenv_add_pos_param.c
+Norme: ./srcs/shenv/shenv/shenv_add_shell_func.c
+Norme: ./srcs/shenv/shenv/shenv_clear_stdin_read_buffer.c
+Norme: ./srcs/shenv/shenv/shenv_break_counter_decr.c
+Norme: ./srcs/shenv/shenv/shenv_continue_counter_decr.c
+Norme: ./srcs/shenv/shenv/shenv_continue_counter_decr_if_one.c
+Norme: ./srcs/shenv/shenv/shenv_cpy_flags_args_from_xopt.c
+Error (line 17): C++ comment
+Error (line 18): C++ comment
+Error (line 19): C++ comment
+Error (line 20): C++ comment
+Error (line 22): C++ comment
+Error (line 23): C++ comment
+Error (line 24): C++ comment
+Error (line 25): C++ comment
+Error (line 26): C++ comment
+Error (line 28): C++ comment
+Error (line 29): C++ comment
+Error (line 30): C++ comment
+Error (line 31): C++ comment
+Error (line 33): C++ comment
+Error (line 34): C++ comment
+Error (line 35): C++ comment
+Error (line 36): C++ comment
+Error (line 37): C++ comment
+Error (line 41): bad indentation
+Error (line 41): C++ comment
+Error (line 42): Empty line
+Error (line 43): bad indentation
+Error (line 43): C++ comment
+Error (line 44): bad indentation
+Error (line 44): C++ comment
+Error (line 45): bad indentation
+Error (line 45): C++ comment
+Error (line 46): bad indentation
+Error (line 46): C++ comment
+Error (line 47): bad indentation
+Error (line 47): C++ comment
+Error (line 48): bad indentation
+Error (line 48): C++ comment
+Error (line 49): bad indentation
+Error (line 49): C++ comment
+Error (line 50): bad indentation
+Error (line 50): C++ comment
+Error (line 51): bad indentation
+Error (line 51): C++ comment
+Error (line 52): bad indentation
+Error (line 52): C++ comment
+Error (line 53): bad indentation
+Error (line 53): C++ comment
+Error (line 54): bad indentation
+Error (line 54): C++ comment
+Norme: ./srcs/shenv/shenv/shenv_concat_pos_param_char.c
+Norme: ./srcs/shenv/shenv/shenv_build_binary_db.c
+Error (line 17): declarations must be followed by one empty line in htab_push_path
+Error (line 27): line has 83 characters
+Error (line 32): missing newline after if
+Error (line 32, col 40): no newline before block
+Error (line 33, col 24): Spacing after call to readdir
+Error (line 37, col 11): Spacing after call to closedir
+Error (line 68): line has 86 characters
+Norme: ./srcs/shenv/shenv/shenv_del.c
+Norme: ./srcs/shenv/shenv/shenv_execve_findpath.c
+Error (line 21): line has 82 characters
+Norme: ./srcs/shenv/shenv/shenv_copy.c
+Error (line 16): function shenv_copy has 33 lines
+Error (line 27): line has 84 characters
+Error (line 43): line has 82 characters
+Error (line 49): 2 instructions
+Error (line 49, col 35): bad character after ;
+Norme: ./srcs/shenv/shenv/shenv_exit_if_errexit_enabled.c
+Norme: ./srcs/shenv/shenv/shenv_get_cur_line.c
+Error (line 16): missing void in function shenv_get_cur_line
+Norme: ./srcs/shenv/shenv/shenv_get_current_directory.c
+Norme: ./srcs/shenv/shenv/shenv_execve.c
+Error (line 15): line has 90 characters
+Error (line 28): line has 86 characters
+Error (line 39): line has 96 characters
+Norme: ./srcs/shenv/shenv/shenv_find_binary_path.c
+Error (line 36): must begin only by tabulations
+Error (line 39, col 1): space before )
+Norme: ./srcs/shenv/shenv/shenv_get_home.c
+Norme: ./srcs/shenv/shenv/shenv_get_ifs.c
+Norme: ./srcs/shenv/shenv/shenv_get_env_arr.c
+Error (line 16): declarations in push_env_to_arr are bad aligned
+Norme: ./srcs/shenv/shenv/shenv_get_pos_param_at.c
+Norme: ./srcs/shenv/shenv/shenv_get_paths.c
+Norme: ./srcs/shenv/shenv/shenv_increase_shlvl.c
+Error (line 13): multiple empty lines
+Norme: ./srcs/shenv/shenv/shenv_is_dryrun.c
+Norme: ./srcs/shenv/shenv/shenv_loop_level_decr.c
+Norme: ./srcs/shenv/shenv/shenv_is_interactive.c
+Error (line 19): line has 85 characters
+Norme: ./srcs/shenv/shenv/shenv_loop_level_incr.c
+Norme: ./srcs/shenv/shenv/shenv_pos_params_copy_deep_from.c
+Norme: ./srcs/shenv/shenv/shenv_init.c
+Error (line 13): multiple empty lines
+Norme: ./srcs/shenv/shenv/shenv_init_shell_vars.c
+Error (line 13): multiple empty lines
+Error (line 16): declarations must be followed by one empty line in set_ppid
+Error (line 21): multiple empty lines
+Error (line 21): Empty line
+Error (line 24): line has 82 characters
+Error (line 40): line has 84 characters
+Error (line 56): C++ comment
+Error (line 57): C++ comment
+Norme: ./srcs/shenv/shenv/shenv_print.c
+Norme: ./srcs/shenv/shenv/shenv_print_error_printf.c
+Error (line 16): line has 86 characters
+Norme: ./srcs/shenv/shenv/shenv_print_ps4.c
+Norme: ./srcs/shenv/shenv/shenv_new.c
+Error (line 17): function shenv_new has 34 lines
+Error (line 46): line has 82 characters
+Norme: ./srcs/shenv/shenv/shenv_remove_all_pos_params.c
+Norme: ./srcs/shenv/shenv/shenv_print_all.c
+Error (line 26): bad spacing after print_shvar
+Error (line 31): line has 85 characters
+Error (line 34): multiple empty lines
+Error (line 35): multiple empty lines
+Error (line 36): bad spacing before shenv_print_all
+Norme: ./srcs/shenv/shenv/shenv_remove_shell_func.c
+Norme: ./srcs/shenv/shenv/shenv_reset_current_directory.c
+Norme: ./srcs/shenv/shenv/shenv_set_cur_token.c
+Norme: ./srcs/shenv/shenv/shenv_set_cur_cmd.c
+Norme: ./srcs/shenv/shenv/shenv_set_binary_saved_path.c
+Norme: ./srcs/shenv/shenv/shenv_set_name.c
+Norme: ./srcs/shenv/shenv/shenv_set_read_buffer_ptr.c
+Norme: ./srcs/shenv/shenv/shenv_shflag_enabled.c
+Error (line 13): multiple empty lines
+Norme: ./srcs/shenv/shenv/shenv_shfuncs_get.c
+Norme: ./srcs/shenv/shenv/shenv_shflag_set.c
+Error (line 13): multiple empty lines
+Norme: ./srcs/shenv/shenv/shenv_shvars_get.c
+Norme: ./srcs/shenv/shenv/shenv_should_continue_exec.c
+Norme: ./srcs/shenv/shenv/shenv_set_current_directory.c
+Error (line 16): function shenv_set_current_directory has 32 lines
+Norme: ./srcs/shenv/shenv/shenv_shvars_get_value.c
+Norme: ./srcs/shenv/shenv/shenv_shvars_set.c
+Error (line 18): line has 98 characters
+Norme: ./srcs/shenv/shenv/shenv_shvars_set_int.c
+Norme: ./srcs/shenv/shenv/shenv_singleton.c
+Norme: ./srcs/shenv/shenv/shenv_singl_error_simple.c
+Norme: ./srcs/shenv/shenv/shenv_singl_error.c
+Norme: ./srcs/shenv/shenv/shenv_shvars_set_split_by_equal.c
+Norme: ./srcs/shenv/shenv/shenv_singleton_setter.c
+Error (line 31): Empty line
+Norme: ./srcs/shenv/shenv/shenv_utils_fork.c
+Error (line 13): multiple empty lines
+Error (line 28): bad indentation
+Error (line 28): C++ comment
+Error (line 28): line has 99 characters
+Norme: ./srcs/shenv/shenv/shenv_unsetsenv.c
+Error (line 15): declarations in find_env_key are bad aligned
+Norme: ./srcs/shenv/shflag/shflag_del.c
+Norme: ./srcs/shenv/shflag/shflag_new.c
+Norme: ./srcs/shenv/shflag/shflag_set_state_by_sign.c
+Norme: ./srcs/shenv/shflag/shflag_process_shopts.c
+Error (line 20): line has 91 characters
+Error (line 23): line has 86 characters
+Norme: ./srcs/shenv/shflag_mgr/shflag_mgr_add.c
+Norme: ./srcs/shenv/shflag_mgr/shflag_mgr_del.c
+Norme: ./srcs/shenv/shflag_mgr/shflag_mgr_find_by_long.c
+Norme: ./srcs/shenv/shflag_mgr/shflag_mgr_find_by_mono.c
+Norme: ./srcs/shenv/shflag_mgr/shflag_mgr_concat.c
+Error (line 25): line has 90 characters
+Error (line 25, col 51): space before [
+Norme: ./srcs/shenv/shflag_mgr/shflag_mgr_print_on_off.c
+Error (line 22): line has 89 characters
+Norme: ./srcs/shenv/shflag_mgr/shflag_mgr_print_set_plus_o.c
+Error (line 22): line has 87 characters
+Norme: ./srcs/shenv/shflag_mgr/shflag_mgr_print.c
+Norme: ./srcs/shenv/shflag_mgr/shflag_mgr_set_state_by_long_sign.c
+Error (line 15): line has 98 characters
+Norme: ./srcs/shenv/shflag_mgr/shflag_mgr_remove.c
+Norme: ./srcs/shenv/shflag_mgr/shflag_mgr_set_state_by_mono.c
+Error (line 15): line has 88 characters
+Norme: ./srcs/shenv/shflag_mgr/shflag_mgr_new.c
+Norme: ./srcs/shenv/shflag_mgr/shflag_mgr_set_state_by_mono_sign.c
+Error (line 15): line has 92 characters
+Norme: ./srcs/shenv/shvar/shvar_check_is_readonly_and_print.c
+Error (line 20): line has 83 characters
+Norme: ./srcs/shenv/shvar/shvar_copy_void.c
+Error (line 16): Bad spacing for argument src
+Norme: ./srcs/shenv/shvar/shvar_del_void.c
+Norme: ./srcs/shenv/shvar/shvar_del.c
+Norme: ./srcs/shenv/shvar/shvar_get_visible_value.c
+Norme: ./srcs/shenv/shvar/shvar_get_visible_export_value.c
+Norme: ./srcs/shenv/shvar/shvar_copy.c
+Error (line 16): Bad spacing for argument src
+Norme: ./srcs/shenv/shvar/shvar_utils_split_by_equal.c
+Norme: ./srcs/shenv/shvar/shvar_new.c
+Norme: ./srcs/shenv/shvar/shvar_set_value.c
+Norme: ./srcs/shenv/shvar_mgr/shvar_mgr_add.c
+Norme: ./srcs/shenv/shvar_mgr/shvar_mgr_del.c
+Norme: ./srcs/shenv/shvar_mgr/shvar_mgr_find_or_create.c
+Norme: ./srcs/shenv/shvar_mgr/shvar_mgr_clear_assign_value.c
+Norme: ./srcs/shenv/shvar_mgr/shvar_mgr_new.c
+Norme: ./srcs/shenv/shvar_mgr/shvar_mgr_find_by_key.c
+Norme: ./srcs/shenv/shvar_mgr/shvar_mgr_remove.c
+Norme: ./srcs/shenv/shvar_mgr/shvar_mgr_print.c
+Norme: ./srcs/shsignal/shsignal/shsignal_del.c
+Norme: ./srcs/shsignal/shsignal/shsignal_new.c
+Norme: ./srcs/shsignal/shsignal_mgr/shsignal_mgr_add.c
+Norme: ./srcs/shsignal/shsignal_mgr/shsignal_mgr_del.c
+Norme: ./srcs/shsignal/shsignal_mgr/shsignal_mgr_find_by_signame_or_signum.c
+Error (line 17): line has 92 characters
+Norme: ./srcs/shsignal/shsignal_mgr/shsignal_mgr_find_by_signum.c
+Error (line 23): Space before function name
+Error (line 23, col 10): bad spacing
+Norme: ./srcs/shsignal/shsignal_mgr/shsignal_mgr_get_signame.c
+Error (line 15): Space before function name
+Error (line 15, col 4): bad spacing
+Norme: ./srcs/shsignal/shsignal_mgr/shsignal_mgr_find_by_signame.c
+Error (line 23): Space before function name
+Error (line 23): line has 83 characters
+Error (line 23, col 10): bad spacing
+Norme: ./srcs/shsignal/shsignal_mgr/shsignal_mgr_new.c
+Norme: ./srcs/shsignal/shsignal_mgr/shsignal_mgr_print.c
+Norme: ./srcs/shsignal/shsignal_mgr/shsignal_mgr_remove.c
+Norme: ./srcs/signals/handle_exec_signal.c
+Error: global scope bad aligned
+Error (line 20): declaration of strsignal forbidden in .c
+Error (line 20, col 5): space after pointer
+Norme: ./srcs/token/token/token_arexp.c
+Norme: ./srcs/token/token/token_copy_void.c
+Norme: ./srcs/token/token/token_is_control_operators_nl.c
+Norme: ./srcs/token/token/token_is_reserved_word.c
+Norme: ./srcs/token/token/token_del.c
+Norme: ./srcs/token/token/token_set_text.c
+Norme: ./srcs/token/token/token_new.c
+Norme: ./srcs/token/token/token_copy.c
+Error: file must end with a single empty line
+Error (line 32): line has 89 characters
+Norme: ./srcs/token/token_list_mgr/token_list_mgr_add.c
+Norme: ./srcs/token/token_list_mgr/token_list_mgr_del_shallow.c
+Norme: ./srcs/token/token_list_mgr/token_list_mgr_new.c
+Norme: ./srcs/token/token_list_mgr/token_list_mgr_print.c
+Norme: ./srcs/token/token_list_mgr/token_list_mgr_remove.c
+Norme: ./srcs/token/token_list_mgr/token_list_mgr_new_from_string_list.c
+Error (line 24): line has 85 characters
+Norme: ./srcs/token/token_list_mgr/token_list_mgr_strjoin.c
+Norme: ./srcs/token/token_mgr/token_mgr_add.c
+Norme: ./srcs/token/token_mgr/token_mgr_del_shallow_void.c
+Norme: ./srcs/token/token_mgr/token_mgr_del_shallow.c
+Norme: ./srcs/token/token_mgr/token_mgr_del.c
+Norme: ./srcs/token/token_mgr/token_mgr_extract_assignment_join.c
+Norme: ./srcs/token/token_mgr/token_mgr_first.c
+Norme: ./srcs/token/token_mgr/token_mgr_first_equ.c
+Norme: ./srcs/token/token_mgr/token_mgr_get.c
+Norme: ./srcs/token/token_mgr/token_mgr_last.c
+Norme: ./srcs/token/token_mgr/token_mgr_last_equ.c
+Norme: ./srcs/token/token_mgr/token_mgr_arexp_extract_assign.c
+Norme: ./srcs/token/token_mgr/token_mgr_extract_redir.c
+Norme: ./srcs/token/token_mgr/token_mgr_new.c
+Norme: ./srcs/token/token_mgr/token_mgr_mark_is_alias_expan.c
+Error (line 20): line has 84 characters
+Error (line 28): line has 93 characters
+Norme: ./srcs/token/token_mgr/token_mgr_pop_linebreak.c
+Norme: ./srcs/token/token_mgr/token_mgr_pop_linebreak_colon_linebreak.c
+Norme: ./srcs/token/token_mgr/token_mgr_extract_assignment.c
+Error: global scope bad aligned
+Error (line 41): declarations in build_assign are bad aligned
+Error (line 47): line has 84 characters
+Norme: ./srcs/token/token_mgr/token_mgr_print.c
+Norme: ./srcs/token/token_mgr/token_mgr_print_token_text_by_index.c
+Norme: ./srcs/token/token_mgr/token_mgr_print_sep.c
+Norme: ./srcs/token/token_mgr/token_mgr_remove.c
+Norme: ./srcs/token/token_mgr/token_mgr_split_arexp.c
+Norme: ./srcs/token/token_mgr/token_mgr_split_ast.c
+Norme: ./srcs/token/token_mgr/token_mgr_split_by_one_sep.c
+Norme: ./srcs/token/token_mgr/token_mgr_strjoin_print.c
+Norme: ./srcs/token/token_mgr/token_mgr_strjoin.c
+Norme: ./srcs/token/token_mgr/token_mgr_strjoin_with_num.c
+Norme: ./srcs/token/token_mgr/token_mgr_to_lst.c
+Norme: ./srcs/token/token_mgr/token_mgr_to_lst_deepcopy.c
+Norme: ./srcs/token/token_mgr/token_mgr_to_str_arr.c
+Norme: ./srcs/token/token_mgr/token_mgr_xtrace_print.c
+Norme: ./srcs/token/token_mgr/token_mgr_split_base.c
+Norme: ./srcs/token/token_type/token_arexp_type_from_str.c
+Norme: ./srcs/token/token_type/token_type_from_str.c
+Norme: ./srcs/token/token_type/token_type_to_str.c
+Norme: ./srcs/token/token_type_item/token_type_item_del.c
+Norme: ./srcs/token/token_type_item/token_type_item_new.c
+Norme: ./srcs/token/token_type_item_mgr/token_type_item_mgr_add.c
+Norme: ./srcs/token/token_type_item_mgr/token_type_item_mgr_del.c
+Norme: ./srcs/token/token_type_item_mgr/token_type_item_mgr_new.c
+Norme: ./srcs/token/token_type_item_mgr/token_type_item_mgr_get_by_text.c
+Norme: ./srcs/token/token_type_item_mgr/token_type_item_mgr_remove.c
+Norme: ./srcs/token/token_type_item_mgr/token_type_item_mgr_print.c
+Norme: ./srcs/token/token_type_item_mgr/token_type_item_mgr_get_by_type.c
+Norme: ./srcs/token/token_utils/token_utils_is_valid_name.c
+Norme: ./srcs/token/tokenizer/tokenizer_append_to_curtoken.c
+Norme: ./srcs/token/tokenizer/tokenizer_apply_rule03.c
+Norme: ./srcs/token/tokenizer/tokenizer_apply_rule04.c
+Norme: ./srcs/token/tokenizer/tokenizer_apply_rule01.c
+Norme: ./srcs/token/tokenizer/tokenizer_apply_rule02.c
+Norme: ./srcs/token/tokenizer/tokenizer_apply_rule06.c
+Norme: ./srcs/token/tokenizer/tokenizer_apply_rule08.c
+Norme: ./srcs/token/tokenizer/tokenizer_apply_rule09.c
+Norme: ./srcs/token/tokenizer/tokenizer_apply_rule11.c
+Norme: ./srcs/token/tokenizer/tokenizer_apply_rule10.c
+Norme: ./srcs/token/tokenizer/tokenizer_apply_rule07.c
+Norme: ./srcs/token/tokenizer/tokenizer_del.c
+Norme: ./srcs/token/tokenizer/tokenizer_apply_rule05.c
+Error (line 69): line has 89 characters
+Norme: ./srcs/token/tokenizer/tokenizer_delimit_handle_heredoc.c
+Norme: ./srcs/token/tokenizer/tokenizer_new.c
+Norme: ./srcs/token/tokenizer/tokenizer_remove_line_continuation.c
+Norme: ./srcs/token/tokenizer/tokenizer_delimit.c
+Norme: ./srcs/token/tokenizer/tokenizer_utils_can_form_operator.c
+Norme: ./srcs/token/tokenizer/tokenizer_utils_is_start_of_op.c
+Norme: ./srcs/token/tokenizer/tokenizer_tokenize.c
+Norme: ./srcs/token/tokenizer/tokenizer_utils_tokenize.c
+Norme: ./srcs/token/tokenizer/tokenizer_utils_remove_line_continuation.c
+Error (line 18): multiple empty lines
+Error (line 19): bad spacing before copy_move_one
+Error (line 43): bad spacing after handle_single_quote
+Error (line 43): line has 82 characters
+Error (line 59): multiple empty lines
+Error (line 60): function tokenizer_utils_remove_line_continuation has 26 lines
+Error (line 60): bad spacing before tokenizer_utils_remove_line_continuation
+Norme: ./srcs/token/tokenizer/tokenizer_record_heredoc.c
+Error: 6 functions in the file
+Error (line 40, col 9): missing parentheses in return statement
+Error (line 72): function build_heredoc has 37 lines
+Error (line 72): bad spacing after build_heredoc
+Error (line 114): multiple empty lines
+Error (line 115): multiple empty lines
+Error (line 116): bad spacing before tokenizer_record_heredoc
+Norme: ./srcs/token/tokenizer_arexp/tokenizer_arexp_apply_rule01.c
+Norme: ./srcs/token/tokenizer_arexp/tokenizer_arexp_apply_rule03.c
+Norme: ./srcs/token/tokenizer_arexp/tokenizer_arexp_apply_rule02.c
+Norme: ./srcs/token/tokenizer_arexp/tokenizer_arexp_apply_rule04.c
+Norme: ./srcs/token/tokenizer_arexp/tokenizer_arexp_apply_rule05.c
+Norme: ./srcs/token/tokenizer_arexp/tokenizer_arexp_apply_rule06.c
+Norme: ./srcs/token/tokenizer_arexp/tokenizer_arexp_delimit.c
+Norme: ./srcs/token/tokenizer_arexp/tokenizer_arexp_utils_can_form_operator.c
+Norme: ./srcs/token/tokenizer_arexp/tokenizer_arexp_utils_is_start_of_op.c
+Norme: ./srcs/token/tokenizer_arexp/tokenizer_arexp_tokenize.c
+Norme: ./srcs/trap/trap/trap_del.c
+Norme: ./srcs/trap/trap/trap_new.c
+Norme: ./srcs/trap/trap/trap_set_action.c
+Norme: ./srcs/trap/trap/trap_signal_handler.c
+Norme: ./srcs/trap/trap_mgr/trap_mgr_add.c
+Error (line 15): line has 84 characters
+Norme: ./srcs/trap/trap_mgr/trap_mgr_del.c
+Norme: ./srcs/trap/trap_mgr/trap_mgr_new.c
+Norme: ./srcs/trap/trap_mgr/trap_mgr_print.c
+Norme: ./srcs/trap/trap_mgr/trap_mgr_find_by_signum.c
+Norme: ./srcs/trap/trap_mgr/trap_mgr_remove.c
+Norme: ./srcs/utils/build_ast_line.c
+Error (line 17): declarations must be followed by one empty line in build_ast_line
+Norme: ./srcs/utils/get_prompt.c
+Norme: ./srcs/utils/disable_all_signals.c
+Error (line 23): bad indentation
+Error (line 23): must begin only by tabulations
+Error (line 24): must begin only by tabulations
+Error (line 25): bad indentation
+Error (line 25): must begin only by tabulations
+Norme: ./srcs/utils/get_search_prompt.c
+Norme: ./srcs/utils/signal_handle_ctrl_c.c
+Error (line 13): C++ comment
+Error (line 14): C++ comment
+Error (line 15): C++ comment
+Error (line 16): C++ comment
+Error (line 17): C++ comment
+Error (line 18): C++ comment
+Error (line 19): C++ comment
+Error (line 20): C++ comment
+Error (line 21): C++ comment
+Error (line 22): C++ comment
+Error (line 23): C++ comment
+Error (line 24): C++ comment
+Error (line 25): C++ comment
+Error (line 26): C++ comment
+Error (line 27): C++ comment
+Error (line 28): C++ comment
+Error (line 29): C++ comment
+Norme: ./srcs/utils/get_last_part_of_path.c
+Norme: ./srcs/utils/signal_handle_sigwinch.c
+Error (line 13): C++ comment
+Error (line 14): C++ comment
+Error (line 15): C++ comment
+Error (line 16): C++ comment
+Error (line 17): C++ comment
+Error (line 18): C++ comment
+Error (line 19): C++ comment
+Error (line 20): C++ comment
+Error (line 21): C++ comment
+Error (line 22): C++ comment
+Error (line 23): C++ comment
+Error (line 24): C++ comment
+Error (line 25): C++ comment
+Error (line 26): C++ comment
+Error (line 27): C++ comment
+Error (line 28): C++ comment
+Error (line 29): C++ comment
+Norme: ./srcs/utils/str_is_redir_operator.c
+Norme: ./srcs/utils/get_path_of_file.c
+Error (line 18): function get_path_of_file has 26 lines
+Norme: ./srcs/utils/read_directory.c
+Norme: ./srcs/utils/utils_get_current_tty.c
+Norme: ./srcs/utils/utils_log_signal.c
+Error: global scope bad aligned
+Error (line 18): Space before function name
+Error (line 18): Space before function name
+Error (line 18): Space before function name
+Error (line 18): Space before function name
+Error (line 18): Space before function name
+Error (line 18, col 11): bad spacing
+Error (line 21): must begin only by tabulations
+Error (line 22): bad indentation
+Error (line 22): must begin only by tabulations
+Norme: ./srcs/utils/utils_is_power_of_two.c
+Norme: ./srcs/utils/utils_log_errno.c
+Norme: ./srcs/utils/utils_str_has_line_continuation.c
+Norme: ./srcs/utils/utils_str_unescape_backslash.c
+Norme: ./srcs/utils/utils_strchr_multi_skip_escaped.c
+Norme: ./srcs/utils/utils_tcsetpgrp_for_tty_01.c
+Error (line 29): line has 83 characters
+Error (line 33): line has 84 characters
+Norme: ./srcs/utils/utils_upper_power_of_two.c
