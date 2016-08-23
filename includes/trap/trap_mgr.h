@@ -18,7 +18,8 @@
 
 t_lst				*trap_mgr_new(void);
 void				trap_mgr_del(t_lst *traps);
-t_trap				*trap_mgr_add(t_lst *traps, char *trap_action, int trap_signum);
+t_trap				*trap_mgr_add(t_lst *traps,
+		char *trap_action, int trap_signum);
 void				trap_mgr_remove(t_lst *traps, t_trap *trap);
 void				trap_mgr_print(t_lst *traps);
 
