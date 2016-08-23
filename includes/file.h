@@ -23,15 +23,15 @@
 
 # define FILE_DEFAULT_PERM 0666
 
-int					file_exists (char *fn);
-int					file_isdir (char *fn);
-int					file_isexecutable(char *fn);
-int					file_open_append(t_token *token);
-int 				file_open_read(t_token *token);
-int					file_open_write_trunc(t_token *token);
-int					file_create_handle_noclobber(t_token *param_token);
-int					file_close(int fd);
-int					file_open_read_write(t_token *token);
-int					file_open_and_hand_error(t_token *token, int flags, int mod);
+int				file_exists(char *fn);
+int				file_isdir(char *fn);
+int				file_isexecutable(char *fn);
+int				file_open_append(t_token *token);
+int				file_open_read(t_token *token);
+int				file_open_write_trunc(t_token *token);
+int				file_create_handle_noclobber(t_token *param_token);
+int				file_close(int fd);
+int				file_open_read_write(t_token *token);
+int				file_open_and_hand_error(t_token *token, int flags, int mod);
 
 #endif
