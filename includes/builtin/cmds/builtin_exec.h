@@ -20,10 +20,10 @@
 
 void				builtin_exec_exec(t_lst *tokens, t_shenv *env);
 void				builtin_exec_redir_handler(t_lst *redir_tokens_groups);
-void				builtin_exec_redir_exec(int io_number, char *operator, char *param);
+void				builtin_exec_redir_exec(int io_number,
+		char *operator, char *param);
 void				builtin_exec_exit(int exit_code);
 
 t_argparser			*builtin_exec_argparser(void);
-
 
 #endif

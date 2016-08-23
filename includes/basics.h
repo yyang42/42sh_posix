@@ -25,6 +25,6 @@
 # include "twl_color.h"
 # include "twl_logger.h"
 
-char * strerror(int errnum);
+char	*strerror(int errnum);
 
 #endif

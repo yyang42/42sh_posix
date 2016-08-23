@@ -29,9 +29,10 @@
 t_lst							*ast_lap_build_items(t_lst *tokens,
 										t_ast_type type, struct s_ast *ast);
 
-typedef void *(*t_ast_lap_new_from_tokens_fn)(t_lst *tokens, struct s_ast *ast);
-typedef void (*t_ast_lap_set_separator_fn)(void *item, t_token *token);
-typedef void (*t_ast_lap_del_fn)(void *this);
+typedef void	*(*t_ast_lap_new_from_tokens_fn)(t_lst *tokens,
+		struct s_ast *ast);
+typedef void	(*t_ast_lap_set_separator_fn)(void *item, t_token *token);
+typedef void	(*t_ast_lap_del_fn)(void *this);
 
 t_ast_lap_set_separator_fn		*ast_lap_set_separator_fns(void);
 t_ast_lap_new_from_tokens_fn	*ast_lap_new_from_tokens_fns(void);

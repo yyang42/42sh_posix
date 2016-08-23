@@ -93,7 +93,8 @@ void				expansion_push_before_split_s(t_expansion *this,
 void				expansion_push_raw_lst(t_expansion *this, t_lst *lst);
 void				expansion_push_quoted_lst(t_expansion *this, t_lst *lst);
 
-void				expansion_push_lst_before_split(t_expansion *this, t_lst *lst);
+void				expansion_push_lst_before_split(t_expansion *this,
+		t_lst *lst);
 
 void				expansion_parameter_brace(t_expansion *expansion,
 												t_expan_token *token);

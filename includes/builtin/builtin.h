@@ -21,7 +21,7 @@
 
 # define BUILTIN_FLAG_SPECIAL_BUILTIN (1 << 1)
 
-typedef void (t_builtin_fn)(t_lst *tokens, t_shenv *this);
+typedef void	(t_builtin_fn)(t_lst *tokens, t_shenv *this);
 
 typedef struct		s_builtin
 {
@@ -30,7 +30,8 @@ typedef struct		s_builtin
 	int				builtin_flags;
 }					t_builtin;
 
-t_builtin			*builtin_new(char *name, t_builtin_fn *builtin_fn, int flags);
+t_builtin			*builtin_new(char *name,
+		t_builtin_fn *builtin_fn, int flags);
 void				builtin_del(t_builtin *builtin);
 
 #endif

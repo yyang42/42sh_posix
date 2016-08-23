@@ -13,10 +13,11 @@
 #ifndef ALIAS_MGR_H
 # define ALIAS_MGR_H
 
-#include "twl_htab.h"
-#include "ast/ast.h"
-#include "alias/alias.h"
+# include "twl_htab.h"
+# include "ast/ast.h"
+# include "alias/alias.h"
 
-void				alias_mgr_expan_tokens(t_htab *aliases, t_lst *tokens, t_ast *ast);
+void				alias_mgr_expan_tokens(t_htab *aliases,
+		t_lst *tokens, t_ast *ast);
 
 #endif

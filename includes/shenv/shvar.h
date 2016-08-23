@@ -15,14 +15,14 @@
 
 # include "basics.h"
 
-typedef struct				s_shvar
+typedef struct		s_shvar
 {
-	char					*shvar_key;
-	char					*shvar_value;
-	char					*shvar_assign_value;
-	int						shvar_read_only;
-	bool					shvar_exported;
-}							t_shvar;
+	char			*shvar_key;
+	char			*shvar_value;
+	char			*shvar_assign_value;
+	int				shvar_read_only;
+	bool			shvar_exported;
+}					t_shvar;
 
 t_shvar				*shvar_new(char *key, char *value, bool exported);
 void				shvar_del(t_shvar *shvar);

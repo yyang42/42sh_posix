@@ -16,14 +16,14 @@
 # include "basics.h"
 # include <termios.h>
 
-typedef enum s_job_status
+typedef enum		e_job_status
 {
 	JOB_STOPPED,
 	JOB_RUNNING,
 	JOB_DONE,
 	JOB_CONTINUED,
 	JOB_TERMINATED,
-} t_job_status;
+}					t_job_status;
 
 typedef struct		s_job
 {
@@ -35,7 +35,7 @@ typedef struct		s_job
 	char			*cmd_str;
 	int				end_pid;
 	int				stopped_signal;
-  	struct termios	tmodes;      /* saved terminal modes */
+	struct termios	tmodes;
 }					t_job;
 
 t_job				*job_new(pid_t pid, t_lst *str_tokens);
@@ -55,7 +55,7 @@ bool				job_utils_is_job_control_active(void);
 
 void				job_exec_update_status(t_job *job);
 pid_t				job_get_kill_pid(t_job *job);
-void	         	job_put_in_fg(t_job *job);
+void				job_put_in_fg(t_job *job);
 void				job_print_if_stopped(t_job *job);
 bool				job_wait_update(t_job *job);
 void				job_remove_ending_ampersand(t_job *job);

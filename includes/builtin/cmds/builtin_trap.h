@@ -19,7 +19,6 @@
 # include "builtin/builtin.h"
 # include "trap/trap_mgr.h"
 
-
 void				builtin_trap_exec(t_lst *tokens, t_shenv *env);
 void				builtin_trap_print(t_shenv *env);
 

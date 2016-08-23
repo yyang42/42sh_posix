@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_AND_OR_SEQ_H
-# define AST_AND_OR_SEQ_H
+#ifndef AST_LIST_ITEM_H
+# define AST_LIST_ITEM_H
 
 # include "basics.h"
 
