@@ -25,6 +25,7 @@ typedef struct		s_shflag
 t_shflag			*shflag_new(char c, char *long_form);
 void				shflag_del(t_shflag *shflag);
 void				shflag_set_state_by_sign(t_shflag *shflag, char sign);
-void				shflag_utils_process_shopts(char sign, char c, char *optarg);
+void				shflag_utils_process_shopts(char sign,
+		char c, char *optarg);
 
 #endif
