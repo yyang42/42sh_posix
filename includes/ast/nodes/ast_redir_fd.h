@@ -29,14 +29,19 @@ typedef struct		s_ast_redir_fd
 t_ast_redir_fd		*ast_redir_fd_new(void);
 void				ast_redir_fd_del(t_ast_redir_fd *ast_redir_fd);
 void				ast_redir_fd_del_void(t_ast_redir_fd *ast_redir_fd);
-void				ast_redir_fd_handle_duplication(t_ast_redir_fd *redir_fd, t_ast_redir *redir, int default_fd);
+void				ast_redir_fd_handle_duplication(t_ast_redir_fd *redir_fd,
+		t_ast_redir *redir, int default_fd);
 int					ast_redir_fd_utils_heredoc_to_fd(t_ast_redir *redir);
-void				ast_redir_fd_handle_input(t_ast_redir_fd *redir_fd, t_ast_redir *redir);
-void				ast_redir_fd_handle_output(t_ast_redir_fd *redir_fd, t_ast_redir *redir);
-void				ast_redir_fd_handle_agregation(t_ast_redir_fd *redir_fd, t_ast_redir *redir, t_lst *redir_fds);
-void 				ast_redir_fd_utils_dup_fds(int fd1, int fd2);
+void				ast_redir_fd_handle_input(t_ast_redir_fd *redir_fd,
+		t_ast_redir *redir);
+void				ast_redir_fd_handle_output(t_ast_redir_fd *redir_fd,
+		t_ast_redir *redir);
+void				ast_redir_fd_handle_agregation(t_ast_redir_fd *redir_fd,
+		t_ast_redir *redir, t_lst *redir_fds);
+void				ast_redir_fd_utils_dup_fds(int fd1, int fd2);
 int					ast_redir_fd_utils_get_duplication_fd(t_token *token);
 bool				ast_redir_fd_utils_is_valid_duplicate_fd(int fd);
-void				ast_redir_fd_init_save_origin(t_ast_redir_fd *redir_fd, t_ast_redir *redir, int default_fd);
+void				ast_redir_fd_init_save_origin(t_ast_redir_fd *redir_fd,
+		t_ast_redir *redir, int default_fd);
 
 #endif

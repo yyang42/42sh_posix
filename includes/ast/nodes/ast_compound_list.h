@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_COMPLETE_COMMAND_H
-# define AST_COMPLETE_COMMAND_H
+#ifndef AST_COMPOUND_LIST_H
+# define AST_COMPOUND_LIST_H
 
 # include "basics.h"
 

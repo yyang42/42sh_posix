@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_CMD_SEQ_H
-# define AST_CMD_SEQ_H
+#ifndef AST_PIPE_ITEM_H
+# define AST_PIPE_ITEM_H
 
 # include "basics.h"
 

@@ -29,7 +29,7 @@
 # include "ast/nodes/ast_while_clause.h"
 # include "ast/nodes/ast_until_clause.h"
 
-typedef enum		s_compound_command_type
+typedef enum				e_compound_command_type
 {
 	COMPOUND_COMMAND_NONE = 0,
 	COMPOUND_COMMAND_SUBSHELL,
@@ -40,43 +40,44 @@ typedef enum		s_compound_command_type
 	COMPOUND_COMMAND_UNTIL_CLAUSE,
 	COMPOUND_COMMAND_BRACE_GROUP,
 	COMPOUND_COMMAND_NBR
-}					t_compound_command_type;
+}							t_compound_command_type;
 
-typedef struct		s_ast_compound_command
+typedef struct				s_ast_compound_command
 {
-	t_compound_command_type		command_type;
-	void						*command;
-	t_lst						*redir_items;
-	t_lst						*redir_fds;
-}					t_ast_compound_command;
+	t_compound_command_type	command_type;
+	void					*command;
+	t_lst					*redir_items;
+	t_lst					*redir_fds;
+}							t_ast_compound_command;
 
 t_ast_compound_command		*ast_compound_command_new(void);
 void						ast_compound_command_del(
-								t_ast_compound_command *ast_compound_command);
+		t_ast_compound_command *ast_compound_command);
 
-t_ast_compound_command		*ast_compound_command_new_from_tokens(t_lst *tokens,
-															struct s_ast *ast);
+t_ast_compound_command		*ast_compound_command_new_from_tokens(
+		t_lst *tokens, struct s_ast *ast);
 void						ast_compound_command_print_rec(
-								t_ast_compound_command *ast_compound_command,
-								int depth);
+		t_ast_compound_command *ast_compound_command, int depth);
 void						ast_compound_command_print_function(
-								t_ast_compound_command *ast_compound_command,
-								int depth);
+		t_ast_compound_command *ast_compound_command, int depth);
 
-bool						ast_compound_command_is_own_type(t_lst *tokens);
+bool						ast_compound_command_is_own_type(
+		t_lst *tokens);
 
-typedef void *(*t_compound_command_new_from_token_fn)(t_lst *tokens,
-															struct s_ast *ast);
-typedef void (*t_compound_command_print_rec_fn)(void *command, int depth);
-typedef void (*t_compound_command_print_del_fn)(void *command);
-typedef void (*t_compound_command_exec_fn)(void *command);
+typedef void	*(*t_compound_command_new_fn)(t_lst *tokens,
+		struct s_ast *ast);
+typedef void	(*t_compound_command_print_rec_fn)(void *command, int depth);
+typedef void	(*t_compound_command_print_del_fn)(void *command);
+typedef void	(*t_compound_command_exec_fn)(void *command);
 
-typedef void (*t_compound_command_print_function_fn)(void *command, int depth);
+typedef void	(*t_compound_command_print_function_fn)(void *command,
+		int depth);
 
-t_compound_command_new_from_token_fn *compound_command_from_token_fns(void);
+t_compound_command_new_fn	*compound_command_from_token_fns(void);
 t_compound_command_type		ast_compound_command_get_type_from_tokens(
-																t_lst *tokens);
+		t_lst *tokens);
 
-void				ast_compound_command_exec(t_ast_compound_command *this);
+void						ast_compound_command_exec(
+		t_ast_compound_command *this);
 
 #endif
