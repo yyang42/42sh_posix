@@ -14,13 +14,15 @@
 #include "token/token_mgr.h"
 #include "twl_printf.h"
 
-void				ast_set_error_msg_syntax_error_near(t_ast *ast, t_token *token, char *msg)
+void				ast_set_error_msg_syntax_error_near(t_ast *ast,
+		t_token *token, char *msg)
 {
 	char			*error_msg;
 
 	if (ast->error_msg)
 		return ;
-	ast_set_error_msg_format_token(ast, token, "Syntax error near '%s'", token->text);
+	ast_set_error_msg_format_token(ast, token, "Syntax error near '%s'",
+			token->text);
 	if (msg)
 	{
 		twl_asprintf(&error_msg, "%s : %s", ast->error_msg, msg);
