@@ -18,7 +18,7 @@
 # include "ast/ast.h"
 # include "twl_ctype.h"
 
-typedef struct 		s_alias_processor
+typedef struct		s_alias_processor
 {
 	t_htab			*aliases;
 	t_lst			*tokens;
