@@ -53,10 +53,12 @@ void					event_tokenizer_delimit(t_event_tokenizer *this,
 							t_event_token_type type);
 void					event_tokenizer_addone(t_event_tokenizer *this);
 void					event_tokenizer_number_line(t_event_tokenizer *this);
-void					event_tokenizer_number_line_minus(t_event_tokenizer *this);
+void					event_tokenizer_number_line_minus(
+		t_event_tokenizer *this);
 void					event_tokenizer_last_command(t_event_tokenizer *this);
 void					event_tokenizer_command_start(t_event_tokenizer *this);
-void					event_tokenizer_command_contain(t_event_tokenizer *this);
+void					event_tokenizer_command_contain(
+		t_event_tokenizer *this);
 void					event_tokenizer_current_line(t_event_tokenizer *this);
 
 typedef t_rule_event_status	(*t_event_tokenizer_fn)(t_event_tokenizer *);
