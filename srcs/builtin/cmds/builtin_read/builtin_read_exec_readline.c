@@ -42,6 +42,7 @@ void				builtin_read_exec_readline(t_argparser_result *arg_res)
 	char			*accumulator;
 
 	accumulator = twl_strdup("");
+	utils_tcsetpgrp_for_tty_01(getpid());
 	while (true)
 	{
 		line = builtin_read_gnl(shenv_singleton()->shenv_read_remainder_ptr);
