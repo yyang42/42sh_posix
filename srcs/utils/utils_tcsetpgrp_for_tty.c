@@ -14,12 +14,20 @@
 #include "shenv/shenv.h"
 #include <errno.h>
 
-void				utils_tcsetpgrp_for_tty_01(pid_t gid)
+void				utils_tcsetpgrp_for_tty(pid_t gid, int tty)
 {
-	int tty;
-
 	if (shenv_singleton()->shenv_is_inside_job_control)
 		return ;
-	tty = isatty(0) ? 0 : 1;
-	utils_tcsetpgrp_for_tty(gid, tty);
+	LOG_INFO("tcsetpgrp fileno: %d: gid; %d", tty, gid);
+	if (tcsetpgrp(tty, gid) < 0)
+	{
+		if (shenv_is_interactive(shenv_singleton()))
+		{
+			LOG_WARN("tcsetpgrp: %s (tty=%d, gid=%d)", strerror(errno), tty, gid);
+		}
+		else
+		{
+			LOG_ERROR("tcsetpgrp: %s (tty=%d, gid=%d)", strerror(errno), tty, gid);
+		}
+	}
 }
