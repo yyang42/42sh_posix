@@ -21,9 +21,7 @@ char				*get_path_of_file(char *str)
 	char			*path;
 
 	if (twl_isdir(str))
-	{
 		return (twl_strdup(str));
-	}
 	else
 	{
 		path_lst = twl_str_split_to_lst(str, "/");
