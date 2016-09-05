@@ -13,17 +13,17 @@
 #include "error.h"
 #include "shenv/shenv.h"
 
-void 	error_permission_denied(char *file)
+void	error_permission_denied(char *file)
 {
 	shenv_singl_error(EXIT_FAILURE, "permission denied: %s\n", file);
 }
 
-void 	error_not_directory(char *file)
+void	error_not_directory(char *file)
 {
 	shenv_singl_error(EXIT_FAILURE, "Not a directory: %s\n", file);
 }
 
-void 	error_command_not_found(char *file)
+void	error_command_not_found(char *file)
 {
 	shenv_singl_error(EXIT_FAILURE, "command not found: %s\n", file);
 }
