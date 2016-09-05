@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "shenv/shenv.h"
 #include "shenv/shflag_mgr.h"
 #include "twl_lst.h"

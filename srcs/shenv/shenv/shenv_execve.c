@@ -12,7 +12,8 @@
 
 #include "shenv/shenv.h"
 
-static int			execve_base(char *path, t_lst *argv_lst, char **envp, int *errno_ptr)
+static int			execve_base(char *path, t_lst *argv_lst, char **envp,
+	int *errno_ptr)
 {
 	char			**argv;
 	int				ret;
@@ -25,7 +26,8 @@ static int			execve_base(char *path, t_lst *argv_lst, char **envp, int *errno_pt
 	return (ret);
 }
 
-static void			execve_fallback_wrapper(char *path, t_lst *argv_lst, char **envp)
+static void			execve_fallback_wrapper(char *path, t_lst *argv_lst,
+	char **envp)
 {
 	int				errno_save;
 	int				ret;
@@ -36,7 +38,8 @@ static void			execve_fallback_wrapper(char *path, t_lst *argv_lst, char **envp)
 		twl_lst_pop_front(argv_lst);
 		twl_lst_push_front(argv_lst, path);
 		twl_lst_push_front(argv_lst, SHENV_SH_PATH_FALLBACK_WHEN_NO_SHEBANG);
-		ret = execve_base(SHENV_SH_PATH_FALLBACK_WHEN_NO_SHEBANG, argv_lst, envp, &errno_save);
+		ret = execve_base(SHENV_SH_PATH_FALLBACK_WHEN_NO_SHEBANG, argv_lst,
+			envp, &errno_save);
 	}
 	if (ret == -1)
 	{

@@ -19,7 +19,8 @@ static void			print_shflag_fn(void *shflag_)
 	shflag = shflag_;
 	if (shflag->shf_long)
 	{
-		twl_printf("%-15s\t%s\n", shflag->shf_long, shflag->shf_enabled ? "on" : "off");
+		twl_printf("%-15s\t%s\n", shflag->shf_long,
+			shflag->shf_enabled ? "on" : "off");
 	}
 }
 

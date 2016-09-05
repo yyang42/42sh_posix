@@ -17,10 +17,12 @@
 void				shflag_utils_process_shopts(char sign, char c, char *optarg)
 {
 	if (c == 'o')
-		shflag_mgr_set_state_by_long_sign(shenv_singleton()->shenv_shflags, optarg, sign);
+		shflag_mgr_set_state_by_long_sign(shenv_singleton()->shenv_shflags,
+			optarg, sign);
 	else if (twl_strchr(FTSH_VALID_SET_OPTS, c))
 	{
-		shflag_mgr_set_state_by_mono_sign(shenv_singleton()->shenv_shflags, c, sign);
+		shflag_mgr_set_state_by_mono_sign(shenv_singleton()->shenv_shflags,
+			c, sign);
 	}
 	else
 	{

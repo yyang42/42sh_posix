@@ -12,7 +12,8 @@
 
 #include "shenv/shflag_mgr.h"
 
-void				shflag_mgr_set_state_by_long_sign(t_lst *shflags, char *long_form, char sign)
+void				shflag_mgr_set_state_by_long_sign(t_lst *shflags,
+	char *long_form, char sign)
 {
 	t_shflag		*shflag;
 

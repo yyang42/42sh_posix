@@ -19,7 +19,8 @@ static void			print_shflag_fn(void *shflag_)
 	shflag = shflag_;
 	if (shflag->shf_long)
 	{
-		twl_printf("set %so %s\n", shflag->shf_enabled ? "-" : "+", shflag->shf_long);
+		twl_printf("set %so %s\n", shflag->shf_enabled ? "-" : "+",
+			shflag->shf_long);
 	}
 }
 

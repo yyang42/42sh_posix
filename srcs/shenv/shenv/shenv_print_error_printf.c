@@ -13,7 +13,8 @@
 #include "shenv/shenv.h"
 #include "twl_printf.h"
 
-int					shenv_print_error_printf(t_shenv *this, int line, char *fmt, ...)
+int					shenv_print_error_printf(t_shenv *this, int line,
+	char *fmt, ...)
 {
 	t_pf	*pf;
 	size_t	len;

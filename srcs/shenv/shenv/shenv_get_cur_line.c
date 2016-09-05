@@ -13,7 +13,7 @@
 #include "twl_xstdlib.h"
 #include "shenv/shenv.h"
 
-int					shenv_get_cur_line()
+int					shenv_get_cur_line(void)
 {
 	if (!shenv_singleton()->shenv_cur_token)
 		return (1);

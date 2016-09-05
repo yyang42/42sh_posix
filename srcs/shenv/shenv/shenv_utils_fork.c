@@ -10,9 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "twl_opt_elem.h"
-
 #include "shenv/shenv.h"
 #include "job_control/job.h"
 

@@ -17,6 +17,7 @@
 static void			htab_push_path(t_htab *htab, char *dirpath, char *filename)
 {
 	char			*full_path;
+
 	if (!twl_htab_get(htab, filename))
 	{
 		full_path = twl_joinpath(dirpath, filename);
@@ -24,17 +25,19 @@ static void			htab_push_path(t_htab *htab, char *dirpath, char *filename)
 	}
 }
 
-static void			shenv_build_binary_db_travel_dir(t_htab *htab, char *dir_path)
+static void			shenv_build_binary_db_travel_dir(t_htab *htab,
+	char *dir_path)
 {
 	DIR				*dir;
 	struct dirent	*ent;
 
-	if ((dir = opendir(dir_path)) != NULL) {
-		while ((ent = readdir (dir)) != NULL)
+	if ((dir = opendir(dir_path)) != NULL)
+	{
+		while ((ent = readdir(dir)) != NULL)
 		{
 			htab_push_path(htab, dir_path, ent->d_name);
 		}
-		closedir (dir);
+		closedir(dir);
 	}
 }
 
@@ -65,5 +68,6 @@ void				shenv_build_binary_db(t_shenv *env)
 		twl_htab_del(env->shenv_binary_db, free);
 	}
 	env->shenv_binary_db = shenv_build_htab(env);
-	LOG_INFO("Build binary db done! count: %zu", twl_htab_len(env->shenv_binary_db));
+	LOG_INFO("Build binary db done! count: %zu",
+		twl_htab_len(env->shenv_binary_db));
 }
