@@ -17,7 +17,7 @@
 #include "token/token_utils.h"
 #include "utils.h"
 
-static bool			is_assignment_from_lst(t_lst *segs, char *str)
+static bool				is_assignment_from_lst(t_lst *segs, char *str)
 {
 	if (!token_utils_is_valid_name(twl_lst_first(segs)))
 		return (false);
@@ -27,7 +27,7 @@ static bool			is_assignment_from_lst(t_lst *segs, char *str)
 	return (false);
 }
 
-static bool			is_assignment(char *str)
+static bool				is_assignment(char *str)
 {
 	t_lst			*segs;
 	bool			is_assign;
@@ -38,18 +38,19 @@ static bool			is_assignment(char *str)
 	return (is_assign);
 }
 
-static t_ast_assignment		*build_assign(t_token *token)
+static t_ast_assignment	*build_assign(t_token *token)
 {
-	t_lst			*segs;
-	t_ast_assignment *assign;
+	t_lst				*segs;
+	t_ast_assignment	*assign;
 
 	segs = twl_str_split_once_to_lst(token->text, "=");
-	assign = ast_assignment_new(token, twl_lst_get(segs, 0), twl_lst_get(segs, 1));
+	assign = ast_assignment_new(token, twl_lst_get(segs, 0),
+		twl_lst_get(segs, 1));
 	twl_lst_del(segs, free);
 	return (assign);
 }
 
-static void			do_extract(t_lst *tokens, t_lst *assign_list,
+static void				do_extract(t_lst *tokens, t_lst *assign_list,
 													t_lst *remaining_tokens)
 {
 	t_token			*token;
@@ -72,7 +73,7 @@ static void			do_extract(t_lst *tokens, t_lst *assign_list,
 	}
 }
 
-t_lst				*token_mgr_extract_assignment(t_lst *tokens,
+t_lst					*token_mgr_extract_assignment(t_lst *tokens,
 														t_lst *remaining_tokens)
 {
 	t_lst			*assign_list;

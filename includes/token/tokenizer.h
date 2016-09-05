@@ -61,6 +61,11 @@ void				tokenizer_utils_remove_line_continuation(char *str);
 void				tokenizer_record_heredoc(t_tokenizer *t,
 		t_token *new_token);
 
+void				tokenizer_build_heredoc(t_tokenizer *t, t_token *new_token,
+	char *pos, bool skip_leading_tabs);
+char				*tokenizer_get_delimiter(char *str);
+bool				tokenizer_is_delimiter(char *pos, char *delimiter);
+
 /*
 **	Tokenizer rules
 */
