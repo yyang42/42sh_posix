@@ -15,7 +15,7 @@
 
 static void		push_env_to_arr(void *data, void *arr)
 {
-	t_shvar	*var;
+	t_shvar				*var;
 	char				*str;
 
 	var = data;

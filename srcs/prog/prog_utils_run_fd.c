@@ -15,9 +15,9 @@
 #include "ast/ast.h"
 #include "shenv/shenv.h"
 
-static int          count_single_quote(char *str)
+static int			count_single_quote(char *str)
 {
-	int             count;
+	int		count;
 
 	count = 0;
 	while (*str)
@@ -36,10 +36,10 @@ static int          count_single_quote(char *str)
 	return (count);
 }
 
-static char         *read_gnl(int fd, char **gnl_remainder_ptr, int *line_ptr)
+static char			*read_gnl(int fd, char **gnl_remainder_ptr, int *line_ptr)
 {
-	char            *line;
-	char            *accumulator;
+	char			*line;
+	char			*accumulator;
 	int				gnl_ret;
 	int				has_open;
 
@@ -82,12 +82,12 @@ static char         *read_gnl(int fd, char **gnl_remainder_ptr, int *line_ptr)
 	return (accumulator);
 }
 
-void                prog_utils_run_fd(int fd)
+void				prog_utils_run_fd(int fd)
 {
-	char            *input;
-	char            *gnl_remainder;
-	int             line;
-	int             line_prev;
+	char			*input;
+	char			*gnl_remainder;
+	int				line;
+	int				line_prev;
 
 	gnl_remainder = NULL;
 	line = 0;

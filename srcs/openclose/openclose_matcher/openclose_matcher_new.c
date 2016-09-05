@@ -14,7 +14,7 @@
 
 #include "openclose/openclose_matcher.h"
 
-t_openclose_matcher			*openclose_matcher_new()
+t_openclose_matcher			*openclose_matcher_new(void)
 {
 	t_openclose_matcher		*this;
 

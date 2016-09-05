@@ -17,8 +17,6 @@
 #include <sys/types.h>
 #include <signal.h>
 
-char * strsignal(int sig);
-
 #define SIG_EXIT_CODE_MIN 128
 
 static int			get_exit_code(int sig)

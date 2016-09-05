@@ -27,7 +27,22 @@ static void			set_interactive_state(void)
 	}
 }
 
-
+static void			prog_run2(t_prog *prog, t_shenv *env)
+{
+	set_interactive_state();
+	if (shenv_is_interactive(shenv_singleton()))
+	{
+		shenv_shvars_set(env, "PS1", "$ ", env->shenv_name);
+		shenv_shvars_set(env, "PS2", "> ", env->shenv_name);
+		LOG_INFO("run interactive");
+		prog_run_interactive(prog);
+	}
+	else
+	{
+		LOG_INFO("run stdin");
+		prog_utils_run_fd(STDIN_FILENO);
+	}
+}
 
 int					prog_run(t_prog *prog)
 {
@@ -51,20 +66,6 @@ int					prog_run(t_prog *prog)
 		}
 	}
 	else
-	{
-		set_interactive_state();
-		if (shenv_is_interactive(shenv_singleton()))
-		{
-			shenv_shvars_set(env, "PS1", "$ ", env->shenv_name);
-			shenv_shvars_set(env, "PS2", "> ", env->shenv_name);
-			LOG_INFO("run interactive");
-			prog_run_interactive(prog);
-		}
-		else
-		{
-			LOG_INFO("run stdin");
-			prog_utils_run_fd(STDIN_FILENO);
-		}
-	}
+		prog_run2(prog, env);
 	return (env->last_exit_code);
 }

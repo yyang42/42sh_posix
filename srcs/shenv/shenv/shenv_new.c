@@ -14,6 +14,28 @@
 
 #include "shenv/shenv.h"
 
+void			shenv_new2(t_shenv *this)
+{
+	this->jobs = twl_lst_new();
+	this->shenv_traps = twl_lst_new();
+	this->last_exit_code = EXIT_SUCCESS;
+	this->shenv_cur_token = NULL;
+	this->shenv_break_counter = 0;
+	this->shenv_continue_counter = 0;
+	this->shenv_loop_level = 0;
+	this->shenv_return_triggered = 0;
+	this->shenv_is_function_or_script = 0;
+	this->shenv_ignore_errexit = false;
+	this->shenv_is_inside_job_control = false;
+	this->shenv_binary_saved_path = twl_strdup("");
+	this->shenv_read_buffer_db = twl_malloc_x0(sizeof(char *)
+		* getdtablesize());
+	this->shenv_fork_level = 0;
+	this->shenv_has_syntax_error = 0;
+	this->shenv_read_remainder_ptr = NULL;
+	this->shenv_foreground_job = NULL;
+}
+
 t_shenv			*shenv_new(void)
 {
 	t_shenv		*this;
@@ -31,23 +53,7 @@ t_shenv			*shenv_new(void)
 	this->shenv_pos_params = twl_lst_new();
 	this->info.name = NULL;
 	this->function_depth = 0;
-	this->jobs = twl_lst_new();
-	this->shenv_traps = twl_lst_new();
-	this->last_exit_code = EXIT_SUCCESS;
-	this->shenv_cur_token = NULL;
-	this->shenv_break_counter = 0;
-	this->shenv_continue_counter = 0;
-	this->shenv_loop_level = 0;
-	this->shenv_return_triggered = 0;
-	this->shenv_is_function_or_script = 0;
-	this->shenv_ignore_errexit = false;
-	this->shenv_is_inside_job_control = false;
-	this->shenv_binary_saved_path = twl_strdup("");
-	this->shenv_read_buffer_db = twl_malloc_x0(sizeof(char *) * getdtablesize());
-	this->shenv_fork_level = 0;
-	this->shenv_has_syntax_error = 0;
-	this->shenv_read_remainder_ptr = NULL;
-	this->shenv_foreground_job = NULL;
+	shenv_new2(this);
 	shenv_set_read_buffer_ptr(this, 0);
 	return (this);
 }

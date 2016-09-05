@@ -11,18 +11,17 @@
 /* ************************************************************************** */
 
 #include "shsignal/shsignal_mgr.h"
-
 #include "utils.h"
 #include "data.h"
 
-static void     intercept_logger_handler(int sig)
+static void				intercept_logger_handler(int sig)
 {
 	LOG_DEBUG("Signal received %s(%d)",
-  	shsignal_mgr_get_signame(data_signals(), sig), sig);
-  	(void)sig;
+	shsignal_mgr_get_signame(data_signals(), sig), sig);
+	(void)sig;
 }
 
-void				utils_log_signal(int signum)
+void					utils_log_signal(int signum)
 {
 	signal(signum, intercept_logger_handler);
 }

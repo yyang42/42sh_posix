@@ -20,7 +20,7 @@ static bool			find_by_signame_fn(void *shsignal_, void *signum_ptr)
 	return (shsignal->signum == *(int *)signum_ptr);
 }
 
-t_shsignal 			*shsignal_mgr_find_by_signum(t_lst *shsignals, int signum)
+t_shsignal			*shsignal_mgr_find_by_signum(t_lst *shsignals, int signum)
 {
 	return (twl_lst_find(shsignals, find_by_signame_fn, &signum));
 }

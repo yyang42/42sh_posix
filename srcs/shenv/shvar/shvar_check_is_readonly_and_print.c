@@ -17,7 +17,8 @@ bool				shvar_check_is_readonly_and_print(t_shvar *this)
 {
 	if (this->shvar_read_only)
 	{
-		shenv_singl_error(EXIT_FAILURE, "%s: readonly variable", this->shvar_key);
+		shenv_singl_error(EXIT_FAILURE, "%s: readonly variable",
+			this->shvar_key);
 	}
 	return (this->shvar_read_only);
 }

@@ -28,6 +28,7 @@ static int			build_flags(void)
 void				ast_utils_exec_string_inner(char *input, int line)
 {
 	t_ast			*ast;
+
 	ast = ast_new_from_string(input, build_flags(), line);
 	ast_print_error(ast);
 	ast_del(ast);

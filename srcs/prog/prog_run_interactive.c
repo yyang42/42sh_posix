@@ -48,7 +48,8 @@ static void			sig_int_winch_handler(int sig)
 	(void)sig;
 }
 
-static char			*get_input_fn_sigint_winch_wrapper(t_prog *prog, char *(get_input_fn)(t_prog *prog))
+static char			*get_input_fn_sigint_winch_wrapper(t_prog *prog,
+	char *(get_input_fn)(t_prog *prog))
 {
 	sig_t			save_sigint;
 	sig_t			save_sigwinch;
@@ -64,7 +65,8 @@ static char			*get_input_fn_sigint_winch_wrapper(t_prog *prog, char *(get_input_
 	return (input);
 }
 
-static void			prog_run_interative_loop_sigtstp_wrapper(t_prog *prog, char *(get_input_fn)(t_prog *prog))
+static void			prog_run_interative_loop_sigtstp_wrapper(t_prog *prog,
+	char *(get_input_fn)(t_prog *prog))
 {
 	char				*input;
 
@@ -82,7 +84,8 @@ static void			prog_run_interative_loop_sigtstp_wrapper(t_prog *prog, char *(get_
 	free(input);
 }
 
-static void			prog_run_interative_loop(t_prog *prog, char *(get_input_fn)(t_prog *prog))
+static void			prog_run_interative_loop(t_prog *prog,
+	char *(get_input_fn)(t_prog *prog))
 {
 	while (true)
 	{

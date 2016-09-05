@@ -12,11 +12,11 @@
 
 #include "file.h"
 
-int 				file_isdir(char *file)
+int				file_isdir(char *file)
 {
 	struct stat sb;
 
 	if (!file)
 		return (false);
-	return ((stat (file, &sb) == 0) && S_ISDIR(sb.st_mode));
+	return ((stat(file, &sb) == 0) && S_ISDIR(sb.st_mode));
 }

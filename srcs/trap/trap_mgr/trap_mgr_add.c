@@ -12,7 +12,7 @@
 
 #include "trap/trap_mgr.h"
 
-t_trap				*trap_mgr_add(t_lst *traps, char *trap_action, int trap_signum)
+t_trap		*trap_mgr_add(t_lst *traps, char *trap_action, int trap_signum)
 {
 	t_trap			*trap;
 

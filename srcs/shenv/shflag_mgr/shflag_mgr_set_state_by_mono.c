@@ -12,7 +12,8 @@
 
 #include "shenv/shflag_mgr.h"
 
-void				shflag_mgr_set_state_by_mono(t_lst *shflags, char mono, bool value)
+void				shflag_mgr_set_state_by_mono(t_lst *shflags, char mono,
+	bool value)
 {
 	t_shflag		*shflag;
 

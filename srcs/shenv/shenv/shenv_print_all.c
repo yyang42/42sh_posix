@@ -28,10 +28,9 @@ static void		print_shvar(void *data)
 	t_shvar	*var;
 
 	var = data;
-	twl_printf("%s=%s\n", var->shvar_key, var->shvar_value ? var->shvar_value : "");
+	twl_printf("%s=%s\n", var->shvar_key, var->shvar_value
+		? var->shvar_value : "");
 }
-
-
 
 void			shenv_print_all(t_shenv *this)
 {

@@ -13,7 +13,7 @@
 #include "ast/ast.h"
 #include "token/token_mgr.h"
 
-void                ast_utils_exec_string(char *input, int line)
+void	ast_utils_exec_string(char *input, int line)
 {
-    ast_utils_exec_string_inner(input, line);
+	ast_utils_exec_string_inner(input, line);
 }

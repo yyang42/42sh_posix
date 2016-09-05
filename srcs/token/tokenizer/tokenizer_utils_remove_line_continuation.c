@@ -15,7 +15,6 @@
 #include "twl_xstring.h"
 #include "openclose/openclose_matcher.h"
 
-
 static void			copy_move_one(char **forward_ptr, char **final_str)
 {
 	**final_str = **forward_ptr;
@@ -40,22 +39,21 @@ static bool			is_escaped_handle(char **forward_ptr, char **final_str)
 	return (0);
 }
 
-static bool			handle_single_quote(char **forward_ptr, char **final_str_ptr)
+static bool			handle_single_quote(char **fwd_ptr, char **final_str_ptr)
 {
-	if (**forward_ptr == '\'')
+	if (**fwd_ptr == '\'')
 	{
-		copy_move_one(forward_ptr, final_str_ptr);
-		while (**forward_ptr)
+		copy_move_one(fwd_ptr, final_str_ptr);
+		while (**fwd_ptr)
 		{
-			copy_move_one(forward_ptr, final_str_ptr);
-			if (**forward_ptr == '\'')
+			copy_move_one(fwd_ptr, final_str_ptr);
+			if (**fwd_ptr == '\'')
 				break ;
 		}
 		return (1);
 	}
 	return (0);
 }
-
 
 void				tokenizer_utils_remove_line_continuation(char *str)
 {
@@ -78,10 +76,8 @@ void				tokenizer_utils_remove_line_continuation(char *str)
 		if (is_escaped_handle(&forward, &final_str))
 			continue;
 		if (!is_double_quote_active)
-		{
 			if (handle_single_quote(&forward, &final_str))
 				continue;
-		}
 		copy_move_one(&forward, &final_str);
 	}
 	*final_str = 0;

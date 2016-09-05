@@ -14,7 +14,7 @@
 
 static bool			find_env_key(void *data, void *context)
 {
-	t_shvar	*var;
+	t_shvar				*var;
 	char				*str;
 
 	var = data;

@@ -33,10 +33,9 @@ static bool			is_absolute_or_relative_path(char *cmd)
 	if (!cmd)
 		return (false);
 	return (
-		   (cmd[0] == '/')
+		(cmd[0] == '/')
 		|| (twl_strncmp(cmd, "./", 2) == 0)
-		|| (twl_strncmp(cmd, "../", 3) == 0)
-	);
+		|| (twl_strncmp(cmd, "../", 3) == 0));
 }
 
 char				*shenv_find_binary_path(t_shenv *env, char *cmd)

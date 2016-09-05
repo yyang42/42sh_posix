@@ -22,6 +22,7 @@ typedef struct		s_shsignal
 	char			*signame;
 }					t_shsignal;
 
+char				*strsignal(int sig);
 t_shsignal			*shsignal_new(int signum, char *signame);
 void				shsignal_del(t_shsignal *shsignal);
 

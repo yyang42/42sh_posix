@@ -12,7 +12,7 @@
 
 #include "token/token_mgr.h"
 
-static void		iter_fn(void *str, void *new_list, void *orig_token)
+static void	iter_fn(void *str, void *new_list, void *orig_token)
 {
 	t_token		*new_token;
 
@@ -21,7 +21,7 @@ static void		iter_fn(void *str, void *new_list, void *orig_token)
 	twl_lst_push_back(new_list, new_token);
 }
 
-t_lst			*token_mgr_new_from_string_list(t_token *orig_token, t_lst *str_lst)
+t_lst		*token_mgr_new_from_string_list(t_token *orig_token, t_lst *str_lst)
 {
 	t_lst		*new_list;
 

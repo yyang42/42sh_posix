@@ -13,7 +13,7 @@
 #include <errno.h>
 #include "shenv/shvar.h"
 
-void				*shvar_copy_void(void	*src)
+void				*shvar_copy_void(void *src)
 {
 	return (shvar_copy(src));
 }

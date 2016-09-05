@@ -16,7 +16,8 @@ bool				shenv_is_interactive(t_shenv *this)
 {
 	if (shenv_shflag_enabled(this, "c"))
 		return (false);
-	if (this->shenv_argv_remainder && (twl_lst_len(this->shenv_argv_remainder) > 0))
+	if (this->shenv_argv_remainder &&
+		(twl_lst_len(this->shenv_argv_remainder) > 0))
 		return (false);
 	return (shenv_shflag_enabled(this, "i"));
 }

@@ -12,10 +12,10 @@
 
 #include "builtin/builtin.h"
 #include "token/token_utils.h"
-
 #include "shenv/shenv.h"
 
-t_shvar				*shenv_shvars_set(t_shenv *shenv, char *key, char *value, char *command_name)
+t_shvar				*shenv_shvars_set(t_shenv *shenv, char *key, char *value,
+	char *command_name)
 {
 	t_shvar			*shvar;
 

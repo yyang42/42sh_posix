@@ -14,7 +14,6 @@
 
 void				brace_push_dquote(t_brace_tokenizer *this)
 {
-
 	brace_tokenizer_addone(this);
 	while (this->input[this->index_input] &&
 			this->input[this->index_input] != '"')

@@ -14,7 +14,8 @@
 #include "token/token_mgr.h"
 #include "twl_printf.h"
 
-void				ast_set_error_msg_syntax_error_missing(t_ast *ast, t_token *token, char *msg)
+void				ast_set_error_msg_syntax_error_missing(t_ast *ast,
+		t_token *token, char *msg)
 {
 	char			*missing_msg;
 

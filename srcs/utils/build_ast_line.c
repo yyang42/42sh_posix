@@ -17,6 +17,7 @@
 char				*build_ast_line(int depth, char *s1, char *s2)
 {
 	char			*tmp;
+
 	twl_asprintf(&tmp, "%*s%s %s\n", depth * AST_TAB_WIDTH, "", s1, s2);
 	return (tmp);
 }

@@ -18,7 +18,8 @@ void				shenv_execve_findpath(t_shenv *env, t_lst *argv_lst)
 
 	path = shenv_find_binary_path(env, twl_lst_first(argv_lst));
 	if (!path)
-		shenv_singl_error(127, "execve: %s: not found", twl_lst_first(argv_lst));
+		shenv_singl_error(127, "execve: %s: not found",
+			twl_lst_first(argv_lst));
 	else
 		shenv_execve(env, path, argv_lst);
 }

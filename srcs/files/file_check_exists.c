@@ -12,7 +12,7 @@
 
 #include "file.h"
 
-int 				file_exists(char *file)
+int				file_exists(char *file)
 {
 	struct stat sb;
 

@@ -22,7 +22,8 @@ static void			print_shflag_fn(void *shflag_, void *concat_ptr_)
 	concat_ptr = concat_ptr_;
 	if (shflag->shf_mono && shflag->shf_enabled)
 	{
-		*concat_ptr = twl_strjoinfree(*concat_ptr, (char [2]){shflag->shf_mono, 0}, 'l');
+		*concat_ptr = twl_strjoinfree(*concat_ptr,
+			(char[2]){shflag->shf_mono, 0}, 'l');
 	}
 }
 

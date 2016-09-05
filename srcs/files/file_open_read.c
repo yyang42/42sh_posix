@@ -12,7 +12,7 @@
 
 #include "file.h"
 
-int 				file_open_read(t_token *token)
+int				file_open_read(t_token *token)
 {
 	LOG_INFO("file_open_read: %s", token->text);
 	return (file_open_and_hand_error(token, O_RDONLY, FILE_DEFAULT_PERM));
