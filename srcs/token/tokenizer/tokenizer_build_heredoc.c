@@ -23,7 +23,7 @@ static void			push_to_open_stack(t_tokenizer *t, char *delimiter)
 static bool			build_init(char **delimiter, t_token *new_token,
 		t_tokenizer *t, char **heredoc_text)
 {
-	*delimiter = get_delimiter(new_token->text);
+	*delimiter = tokenizer_get_delimiter(new_token->text);
 	*heredoc_text = twl_strnew(twl_strlen(t->curpos));
 	return (false);
 }
@@ -52,7 +52,7 @@ void				tokenizer_build_heredoc(t_tokenizer *t, t_token *new_token,
 		if (skip_leading_tabs && is_prev_newline)
 			while (*pos == '\t')
 				pos++;
-		if (is_prev_newline && is_delimiter(pos, delimiter))
+		if (is_prev_newline && tokenizer_is_delimiter(pos, delimiter))
 		{
 			delimiter_found = true;
 			break ;
