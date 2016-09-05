@@ -12,7 +12,7 @@
 
 #include "shsignal/shsignal_mgr.h"
 
-char	 			*shsignal_mgr_get_signame(t_lst *shsignals, int signum)
+char			*shsignal_mgr_get_signame(t_lst *shsignals, int signum)
 {
 	t_shsignal		*sig;
 

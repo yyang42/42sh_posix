@@ -14,7 +14,8 @@
 #include "data.h"
 #include "twl_stdlib.h"
 
-t_shsignal			*shsignal_mgr_find_by_signame_or_signum(t_lst *shsignals, char *sigstr)
+t_shsignal			*shsignal_mgr_find_by_signame_or_signum(t_lst *shsignals,
+	char *sigstr)
 {
 	t_shsignal		*shsignal;
 
