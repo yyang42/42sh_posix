@@ -17,9 +17,11 @@ int					file_create_handle_noclobber(t_token *param_token)
 {
 	int				fd;
 
-	if (shenv_shflag_enabled(shenv_singleton(), "noclobber") && file_exists(param_token->text))
+	if (shenv_shflag_enabled(shenv_singleton(), "noclobber") &&
+		file_exists(param_token->text))
 	{
-		shenv_singl_error(EXIT_FAILURE, "%s: cannot overwrite existing file", param_token->text);
+		shenv_singl_error(EXIT_FAILURE, "%s: cannot overwrite existing file",
+			param_token->text);
 		fd = -1;
 	}
 	else

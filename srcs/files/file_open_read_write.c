@@ -15,5 +15,6 @@
 int					file_open_read_write(t_token *token)
 {
 	LOG_INFO("file_open_read_write: %s", token->text);
-	return (file_open_and_hand_error(token, O_CREAT | O_RDWR, FILE_DEFAULT_PERM));
+	return (file_open_and_hand_error(token, O_CREAT | O_RDWR,
+		FILE_DEFAULT_PERM));
 }

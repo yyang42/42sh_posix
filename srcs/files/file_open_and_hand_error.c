@@ -27,7 +27,7 @@ int					file_open_and_hand_error(t_token *token, int flags, int mod)
 	if (fd == -1)
 	{
 		shenv_singl_error(EXIT_FAILURE,
-			"%s: %s", token->text,  strerror(errno));
+			"%s: %s", token->text, strerror(errno));
 		return (-1);
 	}
 	return (fd);
