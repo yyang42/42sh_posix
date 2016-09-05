@@ -18,7 +18,8 @@ void				prog_utils_set_command_pos_params(void)
 	t_shenv			*env;
 
 	env = shenv_singleton();
-	shenv_pos_params_copy_deep_from(env, shenv_singleton()->shenv_argv_remainder);
+	shenv_pos_params_copy_deep_from(env,
+		shenv_singleton()->shenv_argv_remainder);
 	first = twl_lst_pop_front(env->shenv_pos_params);
 	if (first)
 	{

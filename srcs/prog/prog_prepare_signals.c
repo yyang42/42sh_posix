@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "prog.h"
+
 /*
 static void			sig_handler(int sig)
 {
@@ -19,6 +20,7 @@ static void			sig_handler(int sig)
 	(void)sig;
 }
 */
+
 void				prog_prepare_signals(t_prog *prog)
 {
 	// signal(SIGINT, sig_handler);

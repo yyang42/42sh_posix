@@ -42,8 +42,10 @@ static void			process_arg(t_prog *prog, char sign, char c, char *optarg)
 
 static void			print_help(char invalid_opt)
 {
-	twl_dprintf(2, "%s: -%c: invalid option\n", shenv_singleton()->shenv_name, invalid_opt);
-	twl_dprintf(2, "Usage:	%s [option] [script-file]\n", shenv_singleton()->shenv_name);
+	twl_dprintf(2, "%s: -%c: invalid option\n",
+		shenv_singleton()->shenv_name, invalid_opt);
+	twl_dprintf(2, "Usage:	%s [option] [script-file]\n",
+		shenv_singleton()->shenv_name);
 	twl_dprintf(2, "Shell options\n");
 	twl_dprintf(2, "\t-c command\n");
 }
@@ -53,7 +55,8 @@ void				prog_parse_args(t_prog *prog, char **argv)
 	char			getopt_c;
 
 	g_twl_optsign_active = true;
-	while ((getopt_c = twl_getopt(twl_arr_len(argv), argv, FTSH_VALID_ALL_OPTS)) > 0)
+	while ((getopt_c = twl_getopt(twl_arr_len(argv), argv,
+		FTSH_VALID_ALL_OPTS)) > 0)
 	{
 		if (getopt_c == '?')
 		{
@@ -66,7 +69,8 @@ void				prog_parse_args(t_prog *prog, char **argv)
 		}
 	}
 	if (g_twl_optind < (int)twl_arr_len(argv))
-		shenv_singleton()->shenv_argv_remainder = twl_arr_to_lst(argv + g_twl_optind);
+		shenv_singleton()->shenv_argv_remainder = twl_arr_to_lst(argv
+			+ g_twl_optind);
 	else
 		shenv_singleton()->shenv_argv_remainder = twl_lst_new();
 	g_twl_optind = 0;
