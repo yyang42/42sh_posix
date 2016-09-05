@@ -14,7 +14,9 @@
 #include "token/token_mgr.h"
 #include "twl_printf.h"
 
-void				ast_set_error_msg_syntax_error_unexpected(t_ast *ast, t_token *token)
+void				ast_set_error_msg_syntax_error_unexpected(t_ast *ast,
+		t_token *token)
 {
-	ast_set_error_msg_format_token(ast, token, "Unexpected token near '%s'", token->text);
+	ast_set_error_msg_format_token(ast, token,
+			"Unexpected token near '%s'", token->text);
 }

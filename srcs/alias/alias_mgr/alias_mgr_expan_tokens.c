@@ -16,12 +16,6 @@
 #include "token/token_mgr.h"
 #include "token/tokenizer.h"
 
-static bool			alias_is_command_separator(char *str)
-{
-	return (data_utils_is_control_operators_nl(str)
-			|| data_utils_is_reserved_word(str));
-}
-
 static bool			find_fn(void *processed_item, void *found)
 {
 	return (alias_utils_starts_with(found, processed_item));
@@ -54,7 +48,7 @@ static void			extend_tokens(t_alias_processor *p, char **accumulator)
 		*accumulator = twl_strjoinfree(*accumulator, "  ", 'l');
 		*accumulator = twl_strjoinfree(*accumulator,
 				token_mgr_first(p->tokens)->text, 'l');
-		twl_lst_pop_front(p->tokens); // LEAKS !!!!
+		twl_lst_pop_front(p->tokens);
 	}
 	tokenizer = tokenizer_new(*accumulator);
 	tokenizer->cur_line = p->line;
@@ -72,44 +66,35 @@ static void			extend_tokens(t_alias_processor *p, char **accumulator)
 
 bool				alias_mgr_expan_tokens_inner(t_alias_processor *p)
 {
-	t_lst			*copy_tokens;
 	t_token			*token;
 	char			*alias;
-	char			*accumulator;
 	bool			has_expan;
 
-	copy_tokens = twl_lst_copy(p->tokens, NULL);
-	accumulator = twl_strdup("");
 	has_expan = false;
-	while (true)
+	while ((token = twl_lst_pop_front(p->copy_tokens)) &&
+			!(data_utils_is_control_operators_nl(token->text)
+			|| data_utils_is_reserved_word(token->text)))
 	{
-		token = twl_lst_pop_front(copy_tokens);
-		if (!token || alias_is_command_separator(token->text))
-			break ;
-		alias = expan_token(token, &accumulator, p);
+		alias = expan_token(token, &(p->accumulator), p);
 		if (alias)
 		{
 			has_expan = true;
 			if (twl_lst_find(p->prev_processed, find_fn, token->text))
 			{
-				twl_lst_del(copy_tokens, NULL);
-				free(accumulator);
 				return (NULL);
 			}
-			twl_lst_pop_front(p->tokens); // LEAKS !!!!
-			if (twl_str_ends_with(alias, " ") && twl_lst_len(copy_tokens))
+			twl_lst_pop_front(p->tokens);
+			if (twl_str_ends_with(alias, " ") && twl_lst_first(p->copy_tokens))
 				continue ;
 		}
 		break ;
 	}
-	extend_tokens(p, &accumulator);
-	twl_lst_del(copy_tokens, NULL);
-	free(accumulator);
+	extend_tokens(p, &(p->accumulator));
 	return (has_expan);
 }
 
 void				alias_mgr_expan_tokens(t_htab *aliases, t_lst *tokens,
-																	t_ast *ast)
+		t_ast *ast)
 {
 	t_alias_processor	p;
 	t_lst				*processed;
@@ -123,7 +108,16 @@ void				alias_mgr_expan_tokens(t_htab *aliases, t_lst *tokens,
 	p.ast = ast;
 	p.processed = processed;
 	p.prev_processed = token_mgr_first(tokens)->source_alias_expans;
+	p.accumulator = twl_strnew(0);
+	p.copy_tokens = twl_lst_copy(p.tokens, NULL);
 	while (alias_mgr_expan_tokens_inner(&p))
-		;
+	{
+		free(p.accumulator);
+		twl_lst_del(p.copy_tokens, NULL);
+		p.accumulator = twl_strnew(0);
+		p.copy_tokens = twl_lst_copy(p.tokens, NULL);
+	}
+	free(p.accumulator);
+	twl_lst_del(p.copy_tokens, NULL);
 	twl_lst_del(processed, NULL);
 }

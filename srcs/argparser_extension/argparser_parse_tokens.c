@@ -13,7 +13,8 @@
 #include "argparser_extension.h"
 #include "token/token_mgr.h"
 
-t_argparser_result	*argparser_parse_tokens(t_argparser *this, t_lst *ast_tokens)
+t_argparser_result	*argparser_parse_tokens(t_argparser *this,
+		t_lst *ast_tokens)
 {
 	t_argparser_result	*result;
 	t_lst				*str_tokens;
