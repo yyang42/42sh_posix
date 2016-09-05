@@ -22,7 +22,8 @@ char				*openclose_matcher_find_matching(
 	twl_lst_clear(matcher->oc_open_stack, NULL);
 	if (twl_strlen(s) == 0)
 		twl_asprintf(&matcher->err_msg, "nothing to match");
-	ret = openclose_matcher_find_matching_base(matcher, s, matcher->oc_open_stack);
+	ret = openclose_matcher_find_matching_base(matcher, s,
+		matcher->oc_open_stack);
 	if (twl_lst_len(matcher->oc_open_stack) > 0)
 	{
 		oc = twl_lst_first(matcher->oc_open_stack);

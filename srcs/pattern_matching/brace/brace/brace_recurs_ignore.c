@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "pattern_matching/brace/brace.h"
 
 void			brace_recurs_ignore(t_brace *this, t_lst_elem__ *elem,
