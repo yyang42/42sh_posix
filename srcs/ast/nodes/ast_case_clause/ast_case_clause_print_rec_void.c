@@ -12,7 +12,7 @@
 
 #include "ast/nodes/ast_case_clause.h"
 
-void				ast_case_clause_print_rec_void(void *ast_case_clause, int depth)
+void		ast_case_clause_print_rec_void(void *ast_case_clause, int depth)
 {
 	ast_case_clause_print_rec(ast_case_clause, depth);
 }

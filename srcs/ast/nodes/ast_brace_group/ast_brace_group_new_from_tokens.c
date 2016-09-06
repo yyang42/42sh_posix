@@ -32,7 +32,7 @@ static inline t_ast_brace_group	*ast_brace_group_new_from_tokens_init(
 }
 
 static inline t_ast_brace_group	*ast_brace_group_new_from_tokens_end(
-		t_lst *tokens, t_ast_brace_groupe *abg)
+		t_lst *tokens, t_ast_brace_group *abg)
 {
 	if (abg->ast_compound_list == NULL)
 	{
