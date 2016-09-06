@@ -13,8 +13,6 @@
 #include "ast/nodes/ast_subshell.h"
 #include "ast/nodes/ast_compound_list.h"
 
-
-
 static void			ast_subshell_fork_exec(t_ast_subshell *this)
 {
 	int				pid;
@@ -33,10 +31,10 @@ static void			ast_subshell_fork_exec(t_ast_subshell *this)
 	else
 	{
 		waitpid(pid, &res, 0);
-    	if (WIFEXITED(res))
-    	{
+		if (WIFEXITED(res))
+		{
 			shenv_singleton()->last_exit_code = WEXITSTATUS(res);
-    	}
+		}
 		else if (WIFSIGNALED(res))
 		{
 			shenv_singl_error(143, "%d Terminated: %d", pid, WTERMSIG(res));
