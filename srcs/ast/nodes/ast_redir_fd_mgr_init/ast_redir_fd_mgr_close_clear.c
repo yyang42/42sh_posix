@@ -21,10 +21,11 @@ static void	iter_redir_fds_fn(void *redir_fd_)
 	if (redir_fd->fd_file >= 0)
 		file_close(redir_fd->fd_file);
 	if (redir_fd->fd_saved_std_fd != -1)
-		ast_redir_fd_utils_dup_fds(redir_fd->fd_saved_std_fd, redir_fd->fd_origin);
+		ast_redir_fd_utils_dup_fds(redir_fd->fd_saved_std_fd,
+				redir_fd->fd_origin);
 }
 
-void				ast_redir_fd_mgr_close_clear(t_lst *redir_fds)
+void		ast_redir_fd_mgr_close_clear(t_lst *redir_fds)
 {
 	twl_lst_iter0(redir_fds, iter_redir_fds_fn);
 	twl_lst_clear(redir_fds, ast_redir_fd_del);
