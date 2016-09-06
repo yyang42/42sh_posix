@@ -19,7 +19,7 @@
 #include "ast/nodes/ast_compound_list.h"
 #include "ast/nodes/ast_if_then.h"
 
-static void			handle_cases(t_ast_case_clause *this,
+static void					handle_cases(t_ast_case_clause *this,
 	t_lst *tokens, struct s_ast *ast)
 {
 	t_ast_case_item *case_item;
@@ -66,7 +66,7 @@ static t_ast_case_clause	*ast_case_clause_new_from_tokens_end(t_lst *tokens,
 	return (this);
 }
 
-t_ast_case_clause	*ast_case_clause_new_from_tokens(t_lst *tokens,
+t_ast_case_clause			*ast_case_clause_new_from_tokens(t_lst *tokens,
 	struct s_ast *ast)
 {
 	t_ast_case_clause	*this;
