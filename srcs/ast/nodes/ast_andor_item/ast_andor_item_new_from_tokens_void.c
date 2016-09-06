@@ -17,7 +17,7 @@
 #include "ast/nodes/ast_andor_item.h"
 #include "ast/nodes/ast_list_item.h"
 
-void				*ast_andor_item_new_from_tokens_void(t_lst *tokens, struct s_ast *ast)
+void	*ast_andor_item_new_from_tokens_void(t_lst *tokens, struct s_ast *ast)
 {
 	return (ast_andor_item_new_from_tokens(tokens, ast));
 }

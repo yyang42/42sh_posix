@@ -17,14 +17,12 @@ static void			iter_fn(void *ast_pipe_item, void *depth_ptr)
 	ast_pipe_item_print_rec(ast_pipe_item, *(int *)depth_ptr);
 }
 
-void				ast_andor_item_print_rec(t_ast_andor_item *this,
-	int depth)
+void				ast_andor_item_print_rec(t_ast_andor_item *this, int depth)
 {
 	ast_print_indent(depth);
 	twl_printf("ast_andor_item (negate=%s, sep=%s)",
 		this->negate ? "true" : "false",
-		this->separator ? this->separator->text : "none"
-		);
+		this->separator ? this->separator->text : "none");
 	twl_putstr("\n");
 	depth++;
 	twl_lst_iter(this->ast_pipe_items, iter_fn, &depth);
