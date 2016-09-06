@@ -17,7 +17,8 @@ void				builtin_dot_exec(t_lst *tokens, t_shenv *env)
 	t_argparser_result	*argparser_result;
 
 	argparser_result = argparser_parse_tokens(builtin_dot_argparser(), tokens);
-	if (argparser_result->err_msg || twl_lst_len(argparser_result->remainders) == 0)
+	if (argparser_result->err_msg ||
+			twl_lst_len(argparser_result->remainders) == 0)
 	{
 		argparser_result_print_error_with_help(argparser_result);
 		env->last_exit_code = 2;

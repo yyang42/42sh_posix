@@ -14,11 +14,19 @@
 #include "ast/ast.h"
 #include "ast/nodes/ast_simple_command.h"
 
+static void			exec_remaining_command_end(t_lst *remainders_copy)
+{
+	if (twl_lst_len(remainders_copy) == 0)
+		shenv_print(shenv_singleton());
+	else
+		ast_simple_command_execve(remainders_copy, remainders_copy);
+	twl_lst_del(remainders_copy, NULL);
+}
+
 static void			exec_remaining_command(t_argparser_result *argparser_result)
 {
 	t_shvar			*shvar;
 	t_lst			*remainders_copy;
-
 
 	if (argparser_result_opt_is_set(argparser_result, "i"))
 	{
@@ -32,31 +40,21 @@ static void			exec_remaining_command(t_argparser_result *argparser_result)
 		shvar = shenv_shvars_set_split_by_equal(shenv_singleton(),
 				twl_lst_pop_front(remainders_copy), "env");
 		if (shvar)
-		{
 			shvar->shvar_exported = true;
-		}
 	}
 	if (shenv_singleton()->last_exit_code != 0)
 	{
 		twl_lst_del(remainders_copy, NULL);
 		return ;
 	}
-	if (twl_lst_len(remainders_copy) == 0)
-	{
-		shenv_print(shenv_singleton());
-	}
-	else
-	{
-		ast_simple_command_execve(remainders_copy, remainders_copy);
-	}
-	twl_lst_del(remainders_copy, NULL);
+	exec_remaining_command_end(remainders_copy);
 }
 
 static void			exec_remaining_command_in_new_env(
-										t_argparser_result *argparser_result)
+		t_argparser_result *argparser_result)
 {
-	t_shenv 		*env_copy;
-	t_shenv 		*env_src;
+	t_shenv	*env_copy;
+	t_shenv	*env_src;
 
 	env_src = shenv_singleton();
 	env_copy = shenv_copy(env_src);

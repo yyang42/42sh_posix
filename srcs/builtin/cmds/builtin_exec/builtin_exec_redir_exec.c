@@ -51,16 +51,17 @@ static void			copy_fd(int target_fd, char *param)
 	LOG_INFO("exec: copy: dup2(%d, %d)", source_fd, target_fd);
 	if (dup2(source_fd, target_fd) == -1)
 	{
-		shenv_singl_error(EXIT_FAILURE, "%d or %d: %s", source_fd, target_fd, strerror(errno));
+		shenv_singl_error(EXIT_FAILURE, "%d or %d: %s", source_fd, target_fd,
+				strerror(errno));
 	}
 }
 
-void				builtin_exec_redir_exec(int io_number, char *operator, char *param)
+void				builtin_exec_redir_exec(int io_number, char *operator,
+		char *param)
 {
 	if (twl_strequ(operator, "<&") && twl_strequ(param, "-"))
 	{
 		LOG_INFO("exec: close fd: %d", io_number);
-
 		if (close(io_number) == -1)
 		{
 			LOG_INFO("exec: close error: %s", strerror(errno));
@@ -77,5 +78,6 @@ void				builtin_exec_redir_exec(int io_number, char *operator, char *param)
 	else if (twl_strequ(operator, "<&") || twl_strequ(operator, ">&"))
 		copy_fd(io_number, param);
 	else
-		shenv_singl_error(EXIT_FAILURE, "exec: invalid redir operator", operator);
+		shenv_singl_error(EXIT_FAILURE, "exec: invalid redir operator",
+				operator);
 }

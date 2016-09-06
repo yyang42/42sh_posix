@@ -32,11 +32,12 @@ static void		iter_alias_fn(void *str_, void *env)
 	}
 }
 
-void				builtin_alias_exec(t_lst *tokens, t_shenv *env)
+void			builtin_alias_exec(t_lst *tokens, t_shenv *env)
 {
 	t_argparser_result	*argparser_result;
 
-	argparser_result = argparser_parse_tokens(builtin_alias_argparser(), tokens);
+	argparser_result = argparser_parse_tokens(
+			builtin_alias_argparser(), tokens);
 	if (argparser_result->err_msg)
 	{
 		argparser_result_print_error_with_help(argparser_result);

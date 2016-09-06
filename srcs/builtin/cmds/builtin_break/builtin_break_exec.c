@@ -26,13 +26,15 @@ static void			builtin_break_exec_one_arg(char *str_counter)
 		else
 		{
 			shenv_singleton()->shenv_break_counter = -1;
-			shenv_singl_error(EXIT_FAILURE, "break: %s: loop count out of range", str_counter);
+			shenv_singl_error(EXIT_FAILURE,
+					"break: %s: loop count out of range", str_counter);
 		}
 	}
 	else
 	{
 		shenv_singleton()->shenv_break_counter = -1;
-		shenv_singl_error(128, "break: %s: numeric argument required", str_counter);
+		shenv_singl_error(128,
+				"break: %s: numeric argument required", str_counter);
 		exit(shenv_singleton()->last_exit_code);
 	}
 }

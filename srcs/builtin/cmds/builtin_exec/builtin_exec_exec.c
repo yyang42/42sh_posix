@@ -32,7 +32,8 @@ static void			builtin_exec_exec_do(t_lst *tokens)
 	{
 		if (twl_lst_len(argparser_result->remainders))
 		{
-			shenv_execve_findpath(shenv_singleton(), argparser_result->remainders);
+			shenv_execve_findpath(shenv_singleton(),
+					argparser_result->remainders);
 		}
 	}
 	argparser_result_del(argparser_result);
@@ -45,7 +46,8 @@ void				builtin_exec_exec(t_lst *tokens, t_shenv *env)
 
 	env->shenv_cur_token = token_mgr_first(tokens);
 	remaining_of_redir_tokens = twl_lst_new();
-	redir_tokens_groups = token_mgr_extract_redir(tokens, remaining_of_redir_tokens);
+	redir_tokens_groups = token_mgr_extract_redir(tokens,
+			remaining_of_redir_tokens);
 	builtin_exec_redir_handler(redir_tokens_groups);
 	builtin_exec_exec_do(remaining_of_redir_tokens);
 	twl_lst_iter0(redir_tokens_groups, del_token_group_fn);

@@ -84,7 +84,6 @@ char			*builtin_cd_logpath(char *path)
 			logpath_rewind(path, ret, &index_path, &index_ret);
 		else
 			logpath_normal(path, ret, &index_path, &index_ret);
-
 	}
 	return (ret);
 }
