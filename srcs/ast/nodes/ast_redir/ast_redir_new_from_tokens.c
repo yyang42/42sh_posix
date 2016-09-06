@@ -23,9 +23,7 @@ t_ast_redir	*ast_redir_new_from_tokens(t_lst *tokens, struct s_ast *ast)
 
 	this = ast_redir_new(tokens);
 	if (twl_lst_len(tokens) == 3)
-	{
 		this->io_number = twl_atoi(token_mgr_get(tokens, 0)->text);
-	}
 	if (twl_lst_len(tokens) >= 2)
 	{
 		this->operator = twl_strdup(token_mgr_get(tokens, -2)->text);
