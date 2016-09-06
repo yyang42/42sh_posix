@@ -55,8 +55,7 @@ void					ast_simple_command_print_function(
 bool					ast_simple_command_is_own_type(t_lst *tokens);
 void					ast_simple_command_exec(t_ast_simple_command *cmd);
 void					ast_simple_command_expan(t_ast_simple_command *cmd);
-void					ast_simple_command_expan_heredoc(
-							t_ast_simple_command *cmd);
+void					ast_simple_command_expan_heredoc(t_ast_redir *redir);
 
 void					ast_simple_command_execve(t_lst *cmd_tokens,
 															t_lst *all_tokens);
