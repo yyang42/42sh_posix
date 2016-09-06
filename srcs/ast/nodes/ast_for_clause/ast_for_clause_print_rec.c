@@ -14,15 +14,15 @@
 #include "ast/nodes/ast_compound_list.h"
 #include "ast/nodes/ast_if_then.h"
 
-void				ast_for_clause_print_rec(t_ast_for_clause *this,
-	int depth)
+void				ast_for_clause_print_rec(t_ast_for_clause *this, int depth)
 {
+	char			*joined_wordlist;
+
 	ast_print_indent(depth);
 	twl_printf("ast_for_clause (name=%s", this->name);
-
 	if (twl_lst_len(this->wordlist))
 	{
-		char *joined_wordlist = token_mgr_strjoin(this->wordlist, " ");
+		joined_wordlist = token_mgr_strjoin(this->wordlist, " ");
 		twl_printf(", wordlist=`%s`", joined_wordlist);
 		free(joined_wordlist);
 	}

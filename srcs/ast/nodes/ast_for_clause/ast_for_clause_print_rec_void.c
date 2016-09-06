@@ -12,7 +12,8 @@
 
 #include "ast/nodes/ast_for_clause.h"
 
-void				ast_for_clause_print_rec_void(void *ast_for_clause, int depth)
+void				ast_for_clause_print_rec_void(void *ast_for_clause,
+		int depth)
 {
 	ast_for_clause_print_rec(ast_for_clause, depth);
 }
