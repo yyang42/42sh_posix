@@ -12,7 +12,7 @@
 
 #include "ast/nodes/ast_pipe_item.h"
 
-void				ast_pipe_item_set_separator(t_ast_pipe_item *this, t_token *token)
+void		ast_pipe_item_set_separator(t_ast_pipe_item *this, t_token *token)
 {
 	this->separator = token_copy(token);
 }
