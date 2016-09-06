@@ -18,7 +18,19 @@
 #include "ast/nodes/ast_compound_command.h"
 #include "ast/nodes/ast_function_def.h"
 
-t_ast_command	*ast_command_new_from_tokens(t_lst *tokens, struct s_ast *ast)
+static t_ast_command	*ast_command_new_from_tokens_end(struct s_ast *ast,
+		t_ast_command *ast_command)
+{
+	if (ast_has_error(ast))
+	{
+		ast_command_del(ast_command);
+		return (NULL);
+	}
+	return (ast_command);
+}
+
+t_ast_command			*ast_command_new_from_tokens(t_lst *tokens,
+		struct s_ast *ast)
 {
 	t_ast_command		*ast_command;
 	t_command_type		type;
@@ -28,7 +40,8 @@ t_ast_command	*ast_command_new_from_tokens(t_lst *tokens, struct s_ast *ast)
 	if (type == COMMAND_COMPOUND_COMMAND)
 	{
 		ast_command->command_type = COMMAND_COMPOUND_COMMAND;
-		ast_command->command = ast_compound_command_new_from_tokens(tokens, ast);
+		ast_command->command = ast_compound_command_new_from_tokens(tokens,
+				ast);
 	}
 	else if (type == COMMAND_FUNCTION_DEF)
 	{
@@ -40,10 +53,5 @@ t_ast_command	*ast_command_new_from_tokens(t_lst *tokens, struct s_ast *ast)
 		ast_command->command_type = COMMAND_SIMPLE_COMMAND;
 		ast_command->command = ast_simple_command_new_from_tokens(tokens, ast);
 	}
-	if (ast_has_error(ast))
-	{
-		ast_command_del(ast_command);
-		return (NULL);
-	}
-	return (ast_command);
+	return (ast_command_new_from_tokens_end(ast, ast_command));
 }

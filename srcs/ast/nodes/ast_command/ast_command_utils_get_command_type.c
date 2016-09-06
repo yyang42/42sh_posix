@@ -19,15 +19,15 @@ static bool			is_function(t_lst *tokens)
 	return (twl_lst_len(tokens) >= 3
 		&& token_utils_is_valid_name(token_mgr_get(tokens, 0)->text)
 		&& twl_strequ(token_mgr_get(tokens, 1)->text, "(")
-		&& twl_strequ(token_mgr_get(tokens, 2)->text, ")")
-		);
+		&& twl_strequ(token_mgr_get(tokens, 2)->text, ")"));
 }
 
 t_command_type		ast_command_utils_get_command_type(t_lst *tokens)
 {
 	if (is_function(tokens))
 		return (COMMAND_FUNCTION_DEF);
-	if (ast_compound_command_get_type_from_tokens(tokens) != COMPOUND_COMMAND_NONE)
+	if (ast_compound_command_get_type_from_tokens(tokens) !=
+			COMPOUND_COMMAND_NONE)
 		return (COMMAND_COMPOUND_COMMAND);
 	return (COMMAND_SIMPLE_COMMAND);
 }

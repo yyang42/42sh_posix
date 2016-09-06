@@ -14,13 +14,14 @@
 #include "ast/ast.h"
 #include "ast/nodes/ast_case_item.h"
 
-static void		skip_first_optional_open_parenthesis(t_lst *tokens)
+static void				skip_first_optional_open_parenthesis(t_lst *tokens)
 {
 	if (token_mgr_first_equ(tokens, "("))
 		twl_lst_pop_front(tokens);
 }
 
-static void		build_pattern_tokens(t_ast_case_item *this, t_lst *tokens)
+static void				build_pattern_tokens(t_ast_case_item *this,
+		t_lst *tokens)
 {
 	twl_lst_push_back(this->pattern_tokens,
 			token_copy(twl_lst_pop_front(tokens)));
@@ -34,8 +35,8 @@ static void		build_pattern_tokens(t_ast_case_item *this, t_lst *tokens)
 	}
 }
 
-t_ast_case_item	*ast_case_item_new_from_tokens_end(t_ast_case_item *this,
-		t_lst *tokens, struct s_ast *ast)
+static t_ast_case_item	*ast_case_item_new_from_tokens_end(
+		t_ast_case_item *this, t_lst *tokens, struct s_ast *ast)
 {
 	twl_lst_pop_front(tokens);
 	this->compound_list = ast_compound_list_new_from_tokens(tokens, ast);
@@ -47,7 +48,8 @@ t_ast_case_item	*ast_case_item_new_from_tokens_end(t_ast_case_item *this,
 	return (this);
 }
 
-t_ast_case_item	*ast_case_item_new_from_tokens(t_lst *tokens, struct s_ast *ast)
+t_ast_case_item			*ast_case_item_new_from_tokens(t_lst *tokens,
+		struct s_ast *ast)
 {
 	t_ast_case_item		*this;
 
