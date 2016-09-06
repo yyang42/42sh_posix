@@ -13,7 +13,7 @@
 #include "ast/ast_lap.h"
 #include "alias/alias_mgr.h"
 
-static bool	is_last_sep_that_require_more_tokens(t_token *token)
+static bool		is_last_sep_that_require_more_tokens(t_token *token)
 {
 	return (token
 		&& (twl_strequ(token->text, "&&")
@@ -21,14 +21,15 @@ static bool	is_last_sep_that_require_more_tokens(t_token *token)
 			|| twl_strequ(token->text, "|")));
 }
 
-static bool	is_type_separator(t_ast_type type, t_token *token)
+static bool		is_type_separator(t_ast_type type, t_token *token)
 {
 	return (token
 		&& twl_lst_find(ast_lap_get_seps_list()[type],
 			twl_strequ_void, token->text));
 }
 
-static bool	should_break_fn(t_lst *tokens, t_ast_type type, t_token *last_sep)
+static bool		should_break_fn(t_lst *tokens, t_ast_type type,
+		t_token *last_sep)
 {
 	if (!twl_lst_first(tokens))
 		return (true);
@@ -60,7 +61,7 @@ static t_lst	*ast_lap_build_items_end_fn(t_lst *tokens, t_ast_type type,
 	return (l->container);
 }
 
-t_lst		*ast_lap_build_items(t_lst *tokens,
+t_lst			*ast_lap_build_items(t_lst *tokens,
 							t_ast_type type, struct s_ast *ast)
 {
 	t_ast_lap		l;
