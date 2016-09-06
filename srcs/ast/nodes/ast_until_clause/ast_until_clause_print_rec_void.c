@@ -12,7 +12,7 @@
 
 #include "ast/nodes/ast_until_clause.h"
 
-void				ast_until_clause_print_rec_void(void *ast_until_clause, int depth)
+void		ast_until_clause_print_rec_void(void *ast_until_clause, int depth)
 {
 	ast_until_clause_print_rec(ast_until_clause, depth);
 }
