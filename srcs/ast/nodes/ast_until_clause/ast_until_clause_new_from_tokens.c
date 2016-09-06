@@ -18,7 +18,7 @@
 #include "ast/nodes/ast_compound_list.h"
 #include "ast/nodes/ast_if_then.h"
 
-static bool					*ast_until_clause_has_error_fn(
+static bool					ast_until_clause_has_error_fn(
 		t_ast_until_clause *this, struct s_ast *ast)
 {
 	if (ast_has_error(ast))
@@ -30,7 +30,7 @@ static bool					*ast_until_clause_has_error_fn(
 }
 
 static t_ast_until_clause	*ast_until_clause_new_from_tokens_init(
-		t_lst *tokens, struct s_ast, t_token **open)
+		t_lst *tokens, struct s_ast *ast, t_token **open)
 {
 	t_ast_until_clause	*this;
 

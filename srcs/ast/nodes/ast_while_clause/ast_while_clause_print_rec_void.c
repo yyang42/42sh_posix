@@ -12,7 +12,7 @@
 
 #include "ast/nodes/ast_while_clause.h"
 
-void				ast_while_clause_print_rec_void(void *ast_while_clause, int depth)
+void		ast_while_clause_print_rec_void(void *ast_while_clause, int depth)
 {
 	ast_while_clause_print_rec(ast_while_clause, depth);
 }

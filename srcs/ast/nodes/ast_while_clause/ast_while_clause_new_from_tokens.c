@@ -18,33 +18,48 @@
 #include "ast/nodes/ast_compound_list.h"
 #include "ast/nodes/ast_if_then.h"
 
-t_ast_while_clause		*ast_while_clause_new_from_tokens(t_lst *tokens,
-	struct s_ast *ast)
+static bool					ast_while_clause_has_error_fn(
+		t_ast_while_clause *this, struct s_ast *ast)
 {
-	t_ast_while_clause		*this;
-	t_token				*open;
-
-	this = ast_while_clause_new();
-	open = twl_lst_pop_front(tokens);
-	this->cond_compound = ast_compound_list_new_from_tokens(tokens, ast);
 	if (ast_has_error(ast))
 	{
 		ast_while_clause_del(this);
-		return (NULL);
+		return (true);
 	}
+	return (false);
+}
+
+static t_ast_while_clause	*ast_while_clause_new_from_tokens_init(
+		t_lst *tokens, struct s_ast *ast, t_token **open)
+{
+	t_ast_while_clause	*this;
+
+	this = ast_while_clause_new();
+	*open = twl_lst_pop_front(tokens);
+	this->cond_compound = ast_compound_list_new_from_tokens(tokens, ast);
+	if (ast_while_clause_has_error_fn(this, ast))
+		return (NULL);
 	if (this->cond_compound == NULL
 		|| twl_lst_len(this->cond_compound->ast_list_items) == 0)
 	{
 		ast_add_to_open_stack(ast, "while");
-		ast_set_error_msg_syntax_error_near(ast, open, "Missing condition");
+		ast_set_error_msg_syntax_error_near(ast, *open, "Missing condition");
 		ast_while_clause_del(this);
 		return (NULL);
 	}
-	if (ast_has_error(ast))
-	{
-		ast_while_clause_del(this);
+	return (this);
+}
+
+t_ast_while_clause			*ast_while_clause_new_from_tokens(t_lst *tokens,
+	struct s_ast *ast)
+{
+	t_ast_while_clause	*this;
+	t_token				*open;
+
+	if (!(this = ast_while_clause_new_from_tokens_init(tokens, ast, &open)))
 		return (NULL);
-	}
+	if (ast_while_clause_has_error_fn(this, ast))
+		return (NULL);
 	if (twl_lst_len(tokens) == 0)
 	{
 		ast_add_to_open_stack(ast, "while");
@@ -52,12 +67,10 @@ t_ast_while_clause		*ast_while_clause_new_from_tokens(t_lst *tokens,
 		ast_while_clause_del(this);
 		return (NULL);
 	}
-	this->do_group = ast_compound_list_new_from_tokens_wrap(tokens, "do", "done", ast);
-	if (ast_has_error(ast))
-	{
-		ast_while_clause_del(this);
+	this->do_group = ast_compound_list_new_from_tokens_wrap(tokens,
+			"do", "done", ast);
+	if (ast_while_clause_has_error_fn(this, ast))
 		return (NULL);
-	}
 	if (this->do_group == NULL)
 	{
 		ast_set_error_msg_syntax_error_near(ast, open, NULL);
