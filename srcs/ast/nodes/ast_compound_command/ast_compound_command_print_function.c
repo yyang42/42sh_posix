@@ -14,7 +14,7 @@
 
 #include "ast/nodes/ast_compound_command.h"
 
-static t_compound_command_print_function_fn		*get_print_function_fns(void)
+static t_compound_command_print_function_fn	*get_print_function_fns(void)
 {
 	static t_compound_command_print_function_fn	fns[COMPOUND_COMMAND_NBR];
 	static bool									already_loaded = false;
@@ -35,7 +35,7 @@ static t_compound_command_print_function_fn		*get_print_function_fns(void)
 	return (fns);
 }
 
-void									ast_compound_command_print_function(
+void										ast_compound_command_print_function(
 						t_ast_compound_command *this, int depth)
 {
 	if (this->command_type != COMPOUND_COMMAND_NONE)

@@ -52,7 +52,8 @@ static void				build_redir_tokens(t_lst *redir_items,
 	twl_lst_iter2(redir_tokens_groups, build_redir_fn, redir_items, ast);
 	if (twl_lst_len(redir_tokens) > 0)
 	{
-		ast_set_error_msg_syntax_error_unexpected(ast, twl_lst_first(redir_tokens));
+		ast_set_error_msg_syntax_error_unexpected(ast,
+				twl_lst_first(redir_tokens));
 	}
 	token_list_mgr_del_shallow(redir_tokens_groups);
 	twl_lst_del(redir_tokens, NULL);
@@ -68,7 +69,9 @@ static void				new_compound_command_do(t_ast_compound_command *this,
 	t_lst *tokens, struct s_ast *ast)
 {
 	t_lst					*redir_tokens;
-	this->command = compound_command_from_token_fns()[this->command_type](tokens, ast);
+
+	this->command =
+		compound_command_from_token_fns()[this->command_type](tokens, ast);
 	if (ast_has_error(ast))
 		return ;
 	redir_tokens = twl_lst_new();

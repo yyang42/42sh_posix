@@ -17,7 +17,7 @@
 static t_compound_command_exec_fn	*get_exec_fns(void)
 {
 	static t_compound_command_exec_fn	fns[COMPOUND_COMMAND_NBR];
-	static bool								already_loaded = false;
+	static bool							already_loaded = false;
 
 	if (already_loaded == false)
 	{
@@ -28,11 +28,13 @@ static t_compound_command_exec_fn	*get_exec_fns(void)
 		fns[COMPOUND_COMMAND_IF_CLAUSE] = ast_if_clause_exec_void;
 		fns[COMPOUND_COMMAND_WHILE_CLAUSE] = ast_while_clause_exec_void;
 		fns[COMPOUND_COMMAND_UNTIL_CLAUSE] = ast_until_clause_exec_void;
+		already_loaded = true;
 	}
 	return (fns);
 }
 
-void				ast_compound_command_exec_with_redirs(t_ast_compound_command *this)
+static void							ast_compound_command_exec_with_redirs(
+		t_ast_compound_command *this)
 {
 	t_compound_command_exec_fn compond_exec_fn;
 
@@ -49,7 +51,8 @@ void				ast_compound_command_exec_with_redirs(t_ast_compound_command *this)
 	ast_redir_fd_mgr_close_clear(this->redir_fds);
 }
 
-void				ast_compound_command_exec(t_ast_compound_command *this)
+void								ast_compound_command_exec(
+		t_ast_compound_command *this)
 {
 	if (this->command_type == COMPOUND_COMMAND_NONE)
 		return ;
