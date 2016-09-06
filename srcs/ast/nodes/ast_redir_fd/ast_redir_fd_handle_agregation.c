@@ -12,7 +12,8 @@
 
 #include "ast/nodes/ast_redir_fd.h"
 
-static void			handle_redir_stderr(int file_fd, t_ast_redir *redir, t_lst *redir_fds)
+static void			handle_redir_stderr(int file_fd, t_ast_redir *redir,
+		t_lst *redir_fds)
 {
 	t_ast_redir_fd *redir_fd;
 
@@ -22,7 +23,8 @@ static void			handle_redir_stderr(int file_fd, t_ast_redir *redir, t_lst *redir_
 	twl_lst_push_front(redir_fds, redir_fd);
 }
 
-void				ast_redir_fd_handle_agregation(t_ast_redir_fd *redir_fd, t_ast_redir *redir, t_lst *redir_fds)
+void				ast_redir_fd_handle_agregation(t_ast_redir_fd *redir_fd,
+		t_ast_redir *redir, t_lst *redir_fds)
 {
 	ast_redir_fd_init_save_origin(redir_fd, redir, STDOUT_FILENO);
 	redir_fd->fd_file = file_open_write_trunc(redir->param);

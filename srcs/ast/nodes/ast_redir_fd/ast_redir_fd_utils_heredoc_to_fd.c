@@ -20,24 +20,33 @@ static char			*build_tmp_file_name(int io_number)
 	return (file_path);
 }
 
-int					ast_redir_fd_utils_heredoc_to_fd(t_ast_redir *redir)
+static bool			ast_redir_fd_utils_heredoc_init(t_ast_redir *redir, int *fd,
+		t_token **token)
 {
 	char			*tmp_file;
-	int				fd;
-	t_token			*token;
 
 	if (!redir->heredoc_text)
-		return (REDIR_FD_FILE_FD_ERROR);
+		return (false);
 	tmp_file = build_tmp_file_name(redir->io_number);
 	if (tmp_file == NULL)
 	{
 		LOG_ERROR("error creating file for io_number %d", redir->io_number);
-		return (REDIR_FD_FILE_FD_ERROR);
+		return (false);
 	}
 	LOG_INFO("create tmp heredoc file for io_number %d", redir->io_number);
-	token = token_new(tmp_file, redir->param->line, redir->param->col);
+	*token = token_new(tmp_file, redir->param->line, redir->param->col);
 	free(tmp_file);
-	fd = file_open_write_trunc(token);
+	*fd = file_open_write_trunc(*token);
+	return (true);
+}
+
+int					ast_redir_fd_utils_heredoc_to_fd(t_ast_redir *redir)
+{
+	int				fd;
+	t_token			*token;
+
+	if (!ast_redir_fd_utils_heredoc_init(redir, &fd, &token))
+		return (REDIR_FD_FILE_FD_ERROR);
 	if (fd == -1)
 	{
 		LOG_ERROR("fail to create file %s", token->text);

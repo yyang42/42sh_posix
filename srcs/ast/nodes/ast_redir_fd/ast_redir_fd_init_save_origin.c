@@ -13,10 +13,14 @@
 #include "ast/nodes/ast_redir_fd.h"
 #include "shenv/shenv.h"
 
-void				ast_redir_fd_init_save_origin(t_ast_redir_fd *redir_fd, t_ast_redir *redir, int default_fd)
+void				ast_redir_fd_init_save_origin(t_ast_redir_fd *redir_fd,
+		t_ast_redir *redir, int default_fd)
 {
-	redir_fd->fd_origin = redir->io_number == -1 ? default_fd : redir->io_number;
-	if (redir_fd->fd_origin == STDIN_FILENO || redir_fd->fd_origin == STDOUT_FILENO || redir_fd->fd_origin == STDERR_FILENO)
+	redir_fd->fd_origin = redir->io_number == -1 ?
+		default_fd : redir->io_number;
+	if (redir_fd->fd_origin == STDIN_FILENO ||
+			redir_fd->fd_origin == STDOUT_FILENO ||
+			redir_fd->fd_origin == STDERR_FILENO)
 	{
 		redir_fd->fd_saved_std_fd = dup(redir_fd->fd_origin);
 		if (redir_fd->fd_saved_std_fd == -1)
