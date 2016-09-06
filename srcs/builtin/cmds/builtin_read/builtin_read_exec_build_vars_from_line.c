@@ -14,7 +14,8 @@
 #include "twl_gnl.h"
 #include "utils.h"
 
-static void			set_env_var(char *var, char *value, t_argparser_result *arg_res)
+static void			set_env_var(char *var,
+		char *value, t_argparser_result *arg_res)
 {
 	char			*tmp;
 
@@ -28,7 +29,8 @@ static void			set_env_var(char *var, char *value, t_argparser_result *arg_res)
 	free(tmp);
 }
 
-static char			*strchr_mult(char *str, char *needles, t_argparser_result *arg_res)
+static char			*strchr_mult(char *str,
+		char *needles, t_argparser_result *arg_res)
 {
 	char			*found;
 
@@ -40,7 +42,8 @@ static char			*strchr_mult(char *str, char *needles, t_argparser_result *arg_res
 	(void)arg_res;
 }
 
-void				builtin_read_exec_build_vars_from_line(t_argparser_result *arg_res, char *line, char *ifs)
+void				builtin_read_exec_build_vars_from_line(
+		t_argparser_result *arg_res, char *line, char *ifs)
 {
 	t_lst			*vars_copy;
 	char			*var;
@@ -56,18 +59,14 @@ void				builtin_read_exec_build_vars_from_line(t_argparser_result *arg_res, char
 			tmp++;
 		tmp_end = strchr_mult(tmp, ifs, arg_res);
 		if (twl_lst_len(vars_copy) == 0)
-		{
 			value = twl_strdup(tmp);
-		}
 		else if (tmp_end)
 		{
 			value = twl_strnew(tmp_end - tmp);
 			twl_strncpy(value, tmp, tmp_end - tmp);
 		}
 		else
-		{
 			value = twl_strdup(tmp);
-		}
 		tmp += twl_strlen(value);
 		set_env_var(var, value, arg_res);
 		free(value);

@@ -23,7 +23,8 @@ static void			read_something(void *data)
 	if (shvar->shvar_read_only)
 	{
 		if (shvar->shvar_value)
-			twl_printf("read %s=\"%s\"\n", shvar->shvar_key, shvar->shvar_value ? shvar->shvar_value : "");
+			twl_printf("read %s=\"%s\"\n",
+				shvar->shvar_key, shvar->shvar_value ? shvar->shvar_value : "");
 		else
 			twl_printf("read %s\n", shvar->shvar_key);
 	}

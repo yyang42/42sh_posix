@@ -51,7 +51,8 @@ static void			set_optind(char **argv, t_shenv *env)
 	shenv_shvars_set_int(env, "OPTIND", ind, "getopts");
 }
 
-static void			process_getopt(char getopt_c, char *original_optstring, char *varname)
+static void			process_getopt(char getopt_c,
+		char *original_optstring, char *varname)
 {
 	char			*optarg_value;
 	char			opt_value[2];
@@ -62,24 +63,20 @@ static void			process_getopt(char getopt_c, char *original_optstring, char *varn
 	if (getopt_c == ':')
 	{
 		if (*original_optstring == ':')
-		{
-			optarg_value = (char [2]){g_twl_optopt, 0};
-		}
+			optarg_value = (char[2]){g_twl_optopt, 0};
 		else
 		{
 			*opt_value = '?';
-			twl_dprintf(2, "%s: option requires an argument -- %c\n", shenv_singleton()->shenv_name, g_twl_optopt);
+			twl_dprintf(2, "%s: option requires an argument -- %c\n",
+					shenv_singleton()->shenv_name, g_twl_optopt);
 		}
 	}
 	else if (getopt_c == '?')
-	{
-		twl_dprintf(2, "%s: illegal option -- %c\n", shenv_singleton()->shenv_name, g_twl_optopt);
-	}
+		twl_dprintf(2, "%s: illegal option -- %c\n",
+				shenv_singleton()->shenv_name, g_twl_optopt);
 	shenv_shvars_set(shenv_singleton(), varname, opt_value, "getopts");
 	if (optarg_value)
-	{
 		shenv_shvars_set(shenv_singleton(), "OPTARG", optarg_value, "getopts");
-	}
 }
 
 void				builtin_getopts_exec_getopt(char *original_optstring,

@@ -18,6 +18,5 @@ void				builtin_kill_print_usage(void)
 {
 	twl_dprintf(2,
 		"kill: usage: kill [-s sigspec | -n signum | -sigspec] "
-		"pid | jobspec ... or kill -l [sigspec]\n"
-	);
+		"pid | jobspec ... or kill -l [sigspec]\n");
 }

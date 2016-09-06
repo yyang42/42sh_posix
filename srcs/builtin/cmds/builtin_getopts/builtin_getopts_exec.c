@@ -36,8 +36,10 @@ void				builtin_getopts_exec(t_lst *tokens, t_shenv *env)
 	char				*varname;
 	t_lst				*remainders_copy;
 
-	argparser_result = argparser_parse_tokens(builtin_getopts_argparser(), tokens);
-	if (argparser_result->err_msg || twl_lst_len(argparser_result->remainders) < 2)
+	argparser_result = argparser_parse_tokens(
+			builtin_getopts_argparser(), tokens);
+	if (argparser_result->err_msg ||
+			twl_lst_len(argparser_result->remainders) < 2)
 	{
 		argparser_result_print_error_with_help(argparser_result);
 		env->last_exit_code = 2;

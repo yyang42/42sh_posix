@@ -34,7 +34,7 @@ static bool		is_numeric(char *s)
 void			builtin_history_dump(t_argparser_result *result)
 {
 	char		*first;
-	
+
 	first = twl_lst_first(result->remainders);
 	if (!first)
 	{

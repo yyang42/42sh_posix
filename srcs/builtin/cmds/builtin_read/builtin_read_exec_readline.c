@@ -56,12 +56,8 @@ void				builtin_read_exec_readline(t_argparser_result *arg_res)
 			if (!argparser_result_opt_is_set(arg_res, "r")
 				&& utils_str_has_line_continuation(accumulator))
 				continue ;
-			break ;
 		}
-		else
-		{
-			break ;
-		}
+		break ;
 	}
 	builtin_read_exec_build_vars_from_line(
 		arg_res, accumulator, shenv_get_ifs(shenv_singleton()));
