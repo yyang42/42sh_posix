@@ -12,7 +12,8 @@
 
 #include "ast/nodes/ast_list_item.h"
 
-void				ast_list_item_set_separator(t_ast_list_item *this, t_token *token)
+void				ast_list_item_set_separator(t_ast_list_item *this,
+		t_token *token)
 {
 	this->separator = token_copy(token);
 }

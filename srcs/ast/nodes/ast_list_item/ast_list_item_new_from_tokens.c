@@ -18,7 +18,8 @@
 #include "data.h"
 #include "prog.h"
 
-static void			ast_list_item_exec_check_error(t_ast_list_item *this, struct s_ast *ast)
+static void			ast_list_item_exec_check_error(t_ast_list_item *this,
+		struct s_ast *ast)
 {
 	t_tokenizer		*tokenizer;
 	char			*cmd;
@@ -40,7 +41,8 @@ static bool			should_exec(struct s_ast *ast)
 			&& !(ast->ast_flags & AST_FLAG_NO_EXEC));
 }
 
-static void			ast_list_item_exec_wrapper(t_ast_list_item *this, struct s_ast *ast)
+static void			ast_list_item_exec_wrapper(t_ast_list_item *this,
+		struct s_ast *ast)
 {
 	ast_list_item_exec_check_error(this, ast);
 	if (ast->error_msg)
@@ -51,7 +53,8 @@ static void			ast_list_item_exec_wrapper(t_ast_list_item *this, struct s_ast *as
 	}
 }
 
-t_ast_list_item		*ast_list_item_new_from_tokens(t_lst *tokens, struct s_ast *ast)
+t_ast_list_item		*ast_list_item_new_from_tokens(t_lst *tokens,
+		struct s_ast *ast)
 {
 	t_ast_list_item				*this;
 	t_lst						*tmp_tokens;
@@ -59,12 +62,16 @@ t_ast_list_item		*ast_list_item_new_from_tokens(t_lst *tokens, struct s_ast *ast
 	shenv_singleton()->shenv_list_item_level++;
 	tmp_tokens = twl_lst_copy(tokens, NULL);
 	this = ast_list_item_new();
-	this->ast_andor_items = ast_lap_build_items(tokens, AST_TYPE_ANDOR_ITEM, ast);
+	this->ast_andor_items = ast_lap_build_items(tokens,
+			AST_TYPE_ANDOR_ITEM, ast);
 	if (!ast->error_msg)
 	{
-		this->list_item_tokens_deep = twl_lst_copy_until(tmp_tokens, token_copy_void, twl_lst_first(tokens));
-		if (twl_lst_first(tokens) && ast_list_item_is_delimiter(twl_lst_first(tokens)))
-				twl_lst_push_back(this->list_item_tokens_deep, token_copy(twl_lst_first(tokens)));
+		this->list_item_tokens_deep =
+		twl_lst_copy_until(tmp_tokens, token_copy_void, twl_lst_first(tokens));
+		if (twl_lst_first(tokens) &&
+				ast_list_item_is_delimiter(twl_lst_first(tokens)))
+			twl_lst_push_back(this->list_item_tokens_deep,
+					token_copy(twl_lst_first(tokens)));
 		ast_list_item_exec_wrapper(this, ast);
 	}
 	shenv_singleton()->shenv_list_item_level--;
