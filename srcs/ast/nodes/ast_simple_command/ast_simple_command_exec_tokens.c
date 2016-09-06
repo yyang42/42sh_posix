@@ -45,7 +45,8 @@ void				ast_simple_command_exec_tokens(t_ast_simple_command *cmd)
 	else if (builtin)
 	{
 		shenv_set_cur_cmd(shenv_singleton(), cmd_name);
-		shenv_set_cur_token(shenv_singleton(), token_mgr_first(cmd->cmd_tokens_expanded));
+		shenv_set_cur_token(shenv_singleton(),
+				token_mgr_first(cmd->cmd_tokens_expanded));
 		builtin->builtin_fn(cmd->cmd_tokens_expanded, shenv_singleton());
 	}
 	else

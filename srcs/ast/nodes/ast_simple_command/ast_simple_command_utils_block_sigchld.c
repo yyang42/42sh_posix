@@ -11,16 +11,17 @@
 /* ************************************************************************** */
 
 #include "ast/nodes/ast_simple_command.h"
-#include "builtin/builtin_mgr.h"
-#include "data.h"
+#include "ast/nodes/ast_redir.h"
+#include "job_control/job_mgr.h"
+#include "job_control/jobexec.h"
 
-bool				ast_simple_command_is_special_builtin(
-		t_ast_simple_command *this)
+void				ast_simple_command_utils_block_sigchld(void)
 {
-	t_token			*first;
+	sigset_t		block_mask;
 
-	first = token_mgr_first(this->cmd_tokens_expanded);
-	if (!first)
-		return (false);
-	return (builtin_mgr_is_special_builtin(data_builtins(), first->text));
+	LOG_DEBUG("block SIGCHLD");
+	sigemptyset(&block_mask);
+	sigaddset(&block_mask, SIGCHLD);
+	if (sigprocmask(SIG_BLOCK, &block_mask, NULL) == -1)
+		LOG_ERROR("sigprocmask");
 }

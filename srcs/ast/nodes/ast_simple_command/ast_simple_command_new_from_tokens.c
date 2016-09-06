@@ -36,7 +36,7 @@ static void				push_redir_fn(void *one_redir_tokens, void *redir_items,
 		twl_lst_push_back(redir_items, ast_redir);
 }
 
-static bool			should_not_build_redirs_for_exec_cmd(t_lst *orig_tokens)
+static bool				should_not_build_redirs_for_exec_cmd(t_lst *orig_tokens)
 {
 	return (token_mgr_first_equ(orig_tokens, "exec"));
 }
@@ -60,16 +60,18 @@ static void				build_tokens(t_ast_simple_command *this,
 			remaining_of_redir_tokens);
 	}
 	remaining_of_assign_tokens = twl_lst_new();
-	this->assignment_items = token_mgr_extract_assignment(remaining_of_redir_tokens,
-		remaining_of_assign_tokens);
-	this->cmd_tokens_deep_copy = twl_lst_copy(remaining_of_assign_tokens, token_copy_void);
+	this->assignment_items = token_mgr_extract_assignment(
+			remaining_of_redir_tokens, remaining_of_assign_tokens);
+	this->cmd_tokens_deep_copy = twl_lst_copy(
+			remaining_of_assign_tokens, token_copy_void);
 	twl_lst_iter2(redir_tokens_groups, push_redir_fn, this->redir_items, ast);
 	twl_lst_del(remaining_of_redir_tokens, NULL);
 	twl_lst_del(remaining_of_assign_tokens, NULL);
 	token_list_mgr_del_shallow(redir_tokens_groups);
 }
 
-t_ast_simple_command	*ast_simple_command_new_from_tokens(t_lst *tokens, struct s_ast *ast)
+t_ast_simple_command	*ast_simple_command_new_from_tokens(t_lst *tokens,
+		struct s_ast *ast)
 {
 	t_ast_simple_command		*this;
 	t_lst						*tokens_tmp;
@@ -77,10 +79,8 @@ t_ast_simple_command	*ast_simple_command_new_from_tokens(t_lst *tokens, struct s
 	this = ast_simple_command_new();
 	tokens_tmp = twl_lst_new();
 	while (token_mgr_first(tokens)
-		&& !token_is_control_operators_nl(token_mgr_first(tokens)))
-	{
+			&& !token_is_control_operators_nl(token_mgr_first(tokens)))
 		twl_lst_push_back(tokens_tmp, twl_lst_pop_front(tokens));
-	}
 	if (twl_lst_len(tokens_tmp) == 0)
 	{
 		ast_set_error_msg_syntax_error_near(ast,

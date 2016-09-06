@@ -24,7 +24,8 @@ static void			ast_simple_command_exec_print_log(t_ast_simple_command *cmd)
 	free(cmd_str);
 }
 
-static void			ast_simple_command_exec_with_redirs(t_ast_simple_command *cmd)
+static void			ast_simple_command_exec_with_redirs(
+		t_ast_simple_command *cmd)
 {
 	ast_simple_command_exec_print_log(cmd);
 	ast_redir_fd_mgr_init(cmd->redir_fds, cmd->redir_items);
@@ -44,16 +45,19 @@ void				ast_simple_command_exec_inner(t_ast_simple_command *cmd)
 		return ;
 	shenv_singleton()->info.saved_last_exit = shenv_singleton()->last_exit_code;
 	shenv_singleton()->last_exit_code = EXIT_SUCCESS;
-	shenv_set_cur_token(shenv_singleton(), token_mgr_first(cmd->cmd_tokens_deep_copy));
+	shenv_set_cur_token(shenv_singleton(),
+			token_mgr_first(cmd->cmd_tokens_deep_copy));
 	ast_simple_command_expan(cmd);
 	job_mgr_wait_update(shenv_singleton()->jobs);
 	ast_simple_command_exec_assign(cmd);
-	if (shenv_singleton()->last_exit_code != 0 && twl_lst_len(cmd->cmd_tokens_deep_copy) == 0)
+	if (shenv_singleton()->last_exit_code != 0 &&
+			twl_lst_len(cmd->cmd_tokens_deep_copy) == 0)
 	{
 		exit(1);
 		return ;
 	}
-	if (shenv_shflag_enabled(shenv_singleton(), "xtrace") && twl_lst_len(cmd->cmd_tokens_expanded))
+	if (shenv_shflag_enabled(shenv_singleton(), "xtrace") &&
+			twl_lst_len(cmd->cmd_tokens_expanded))
 		token_mgr_xtrace_print(cmd->cmd_tokens_expanded);
 	ast_simple_command_exec_with_redirs(cmd);
 	shvar_mgr_clear_assign_value(shenv_singleton()->shenv_shvars);
@@ -61,50 +65,26 @@ void				ast_simple_command_exec_inner(t_ast_simple_command *cmd)
 	cmd->cmd_tokens_expanded = NULL;
 }
 
+/*
+** TODO: Find a better way
+*/
 
-
-
-static void         block_sigchld(void)
+static void			ast_utils_exec_string_with_sig_handling(
+		t_ast_simple_command *cmd)
 {
-    sigset_t        blockMask;
-
-    LOG_DEBUG("block SIGCHLD");
-    sigemptyset(&blockMask);
-    sigaddset(&blockMask, SIGCHLD);
-    if (sigprocmask(SIG_BLOCK, &blockMask, NULL) == -1)
-        LOG_ERROR("sigprocmask");
-
-}
-
-static void         unblock_sigchld(void)
-{
-    sigset_t        blockMask;
-
-    LOG_DEBUG("unblock SIGCHLD");
-    sigemptyset(&blockMask);
-    sigaddset(&blockMask, SIGCHLD);
-    if (sigprocmask(SIG_UNBLOCK, &blockMask, NULL) == -1)
-        LOG_ERROR("sigprocmask");
-
-}
-
-static void         ast_utils_exec_string_with_sig_handling(t_ast_simple_command *cmd)
-{
-    block_sigchld();
-    jobexec_fork_utils_init_sigchld_handler();
-    ast_simple_command_exec_inner(cmd);;
-    unblock_sigchld(); /* TODO: Find a better way */
-    block_sigchld(); /* TODO: Find a better way */
-    return ;
-    // signal(SIGCHLD, SIG_IGN);
+	ast_simple_command_utils_block_sigchld();
+	jobexec_fork_utils_init_sigchld_handler();
+	ast_simple_command_exec_inner(cmd);
+	ast_simple_command_utils_unblock_sigchld();
+	ast_simple_command_utils_block_sigchld();
+	return ;
 }
 
 void				ast_simple_command_exec(t_ast_simple_command *cmd)
 {
-
-    LOG_DEBUG("ast_simple_command_exec");
-    if (shenv_singleton()->shenv_is_function_or_script)
+	LOG_DEBUG("ast_simple_command_exec");
+	if (shenv_singleton()->shenv_is_function_or_script)
 		ast_simple_command_exec_inner(cmd);
-    else
-        ast_utils_exec_string_with_sig_handling(cmd);
+	else
+		ast_utils_exec_string_with_sig_handling(cmd);
 }
