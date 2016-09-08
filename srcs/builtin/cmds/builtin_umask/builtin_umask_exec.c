@@ -98,6 +98,7 @@ void				builtin_umask_exec(t_lst *tokens, t_shenv *env)
 	if (argparser_result->err_msg)
 	{
 		argparser_result_print_usage_exit_status(argparser_result, 2);
+		argparser_result_del(argparser_result);
 		return ;
 	}
 	else
