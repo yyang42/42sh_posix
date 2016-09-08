@@ -13,12 +13,13 @@
 #include "builtin/cmds/builtin_set.h"
 #include "shenv/shenv.h"
 #include "twl_opt_elem.h"
+#include "ast/nodes/ast_function_def.h"
 
 void				shenv_add_shell_func(t_shenv *env,
 							char *key, struct s_ast_function_def *data)
 {
 	if (key)
 	{
-		twl_dict_set(env->shfuncs, key, data, NULL);
+		twl_dict_set(env->shfuncs, key, data, ast_function_def_del);
 	}
 }

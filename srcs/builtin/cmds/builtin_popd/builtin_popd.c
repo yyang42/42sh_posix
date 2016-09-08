@@ -49,7 +49,11 @@ static void		popd_no_number(t_builtin_dirs *this, t_lst *dirs, size_t len)
 
 	new_pwd = twl_lst_popi(dirs, 1);
 	if (!builtin_cd_follow_symlinks(new_pwd, "popd"))
+	{
+		free(new_pwd);
 		return ;
+	}
+	free(new_pwd);
 	free(twl_lst_pop_front(dirs));
 	builtin_dirs_simple(this);
 	(void)len;

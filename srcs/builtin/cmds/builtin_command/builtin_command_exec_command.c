@@ -24,8 +24,7 @@ static void		wrapper_iter_fn(void *data, void *ctx1, void *ctx2)
 }
 
 void			builtin_command_exec_command(t_lst *tokens,
-												t_argparser_result *result,
-												t_shenv *shenv)
+					t_argparser_result *result, t_shenv *shenv)
 {
 	t_builtin	*builtin;
 	char		*cmd_name;
@@ -37,8 +36,9 @@ void			builtin_command_exec_command(t_lst *tokens,
 	{
 		wrapper = twl_lst_new();
 		twl_lst_iter2(result->remainders, wrapper_iter_fn, wrapper,
-														twl_lst_first(tokens));
+				twl_lst_first(tokens));
 		builtin->builtin_fn(wrapper, shenv);
+		twl_lst_del(wrapper, token_del);
 	}
 	else
 	{
