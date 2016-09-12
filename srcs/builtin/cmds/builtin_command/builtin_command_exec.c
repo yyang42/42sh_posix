@@ -18,7 +18,7 @@ static void				set_usual_path_command(t_lst *tokens,
 {
 	char				*save_path;
 
-	save_path = shenv_shvars_get_value(shenv, "PATH");
+	save_path = twl_strdup(shenv_shvars_get_value(shenv, "PATH"));
 	shenv_shvars_set(shenv, "PATH", BUILTIN_COMMAND_USUAL_PATHS, NULL);
 	if (argparser_result_opt_is_set(result, "V"))
 		builtin_command_exec_true_verbose(result, shenv);
@@ -27,6 +27,7 @@ static void				set_usual_path_command(t_lst *tokens,
 	else
 		builtin_command_exec_command(tokens, result, shenv);
 	shenv_shvars_set(shenv, "PATH", save_path, NULL);
+	free(save_path);
 }
 
 void					builtin_command_exec(t_lst *tokens, t_shenv *shenv)
