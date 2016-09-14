@@ -72,10 +72,12 @@ static char			*end_fn(t_edit *this)
 	if (this->type == edit_type_ps1)
 	{
 		ret = twl_strdup(this->current->line);
+		if (this->last_ps1)
+			free(this->last_ps1);
 	}
 	else
 	{
-		ret = twl_strjoin(this->last_ps1, this->current->line);
+		ret = twl_strjoinfree(this->last_ps1, this->current->line, 'l');
 	}
 	this->last_ps1 = twl_strjoin(ret, "\n");
 	edit_history_push_flush(this);
