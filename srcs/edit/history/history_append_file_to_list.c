@@ -59,9 +59,11 @@ static void		find_and_slice(t_history *this, t_lst *content)
 			twl_lst_iter2(content, iter_fn, copy_copy, this);
 			if (!twl_lst_first(copy_copy))
 			{
+				twl_lst_del(copy_copy, NULL);
 				done = true;
 				break ;
 			}
+			twl_lst_del(copy_copy, NULL);
 			twl_lst_pop_front(copy);
 		}
 		twl_lst_del(copy, NULL);
