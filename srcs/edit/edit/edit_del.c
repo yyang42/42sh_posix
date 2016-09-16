@@ -24,5 +24,7 @@ void				edit_del(t_edit *this)
 		free(this->last_ps1);
 	if (this->research)
 		free(this->research);
+	if (this->copy_buffer)
+		free(this->copy_buffer);
 	free(this);
 }

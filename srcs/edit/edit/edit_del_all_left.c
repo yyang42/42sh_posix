@@ -19,7 +19,7 @@ void			edit_del_all_left(t_edit *this)
 
 	if (this->pos_cursor == 0)
 		return ;
-	if (!this->copy_buffer)
+	if (this->copy_buffer)
 		twl_strdel(&this->copy_buffer);
 	start = this->pos_cursor;
 	end = this->current->size - this->pos_cursor;

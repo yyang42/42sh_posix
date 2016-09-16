@@ -30,6 +30,10 @@ t_lst			*history_utils_get_histfile(char *path)
 	lst = twl_lst_new();
 	while (twl_gnl(fd, &str, &rem))
 	{
+		if (str == NULL)
+		{
+			continue ;
+		}
 		if (!*str)
 		{
 			free(str);

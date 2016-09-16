@@ -48,4 +48,5 @@ void				completion_path_exec_readfile(t_completion *this,
 		}
 		free(join_path);
 	}
+	closedir(dir);
 }

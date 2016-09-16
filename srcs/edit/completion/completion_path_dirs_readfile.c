@@ -44,4 +44,5 @@ void				completion_path_dirs_readfile(t_completion *this,
 		this->all_len += 1;
 		free(join_path);
 	}
+	closedir(dir);
 }
