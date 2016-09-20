@@ -24,6 +24,15 @@ static bool		is_regular_file(char *path)
 	return (S_ISREG(buf.st_mode));
 }
 
+static void		create_file(char *path)
+{
+	int			fd;
+	
+	fd = open(path, O_RDWR | O_CREAT, 0644);
+	if (fd >= 0)
+		close(fd);
+}
+
 int				history_utils_get_fd_histfile(char *p, int opt)
 {
 	char		*home;
@@ -32,6 +41,7 @@ int				history_utils_get_fd_histfile(char *p, int opt)
 	bool		should_free;
 
 	path = p ? p : shenv_shvars_get_value(shenv_singleton(), "HISTFILE");
+	create_file(path);
 	should_free = false;
 	if (!path)
 	{
