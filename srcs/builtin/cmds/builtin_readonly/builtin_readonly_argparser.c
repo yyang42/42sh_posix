@@ -22,7 +22,8 @@ t_argparser			*builtin_readonly_argparser(void)
 		argparser_set_usage(argparser,
 			"[-p] name[=word]...");
 		argparser_add_argument(argparser,
-			argparser_argument_new('p', NULL, "Print all readonly variables", 0));
+			argparser_argument_new('p', NULL,
+				"Print all readonly variables", 0));
 	}
 	return (argparser);
 }
