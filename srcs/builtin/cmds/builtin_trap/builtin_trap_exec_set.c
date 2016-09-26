@@ -29,13 +29,16 @@ static void			iter_trap_fn(void *sigstr, void *action)
 {
 	t_shsignal		*shsignal;
 
-	shsignal = shsignal_mgr_find_by_signame_or_signum(data_signals_with_exit(), sigstr);
+	shsignal = shsignal_mgr_find_by_signame_or_signum(
+			data_signals_with_exit(), sigstr);
 	if (shsignal)
 	{
-		if (trap_mgr_find_by_signum(shenv_singleton()->shenv_traps, shsignal->signum)
+		if (trap_mgr_find_by_signum(
+					shenv_singleton()->shenv_traps, shsignal->signum)
 			|| !is_sig_ignored(shsignal->signum))
 		{
-			trap_mgr_add(shenv_singleton()->shenv_traps, action, shsignal->signum);
+			trap_mgr_add(shenv_singleton()->shenv_traps,
+				action, shsignal->signum);
 		}
 		else
 		{
