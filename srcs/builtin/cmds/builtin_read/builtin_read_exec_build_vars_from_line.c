@@ -42,6 +42,20 @@ static char			*strchr_mult(char *str,
 	(void)arg_res;
 }
 
+static void			builtin_read_loop_content(t_lst *vars_copy, char **value,
+		char *tmp, char *tmp_end)
+{
+	if (twl_lst_len(vars_copy) == 0)
+		*value = twl_strdup(tmp);
+	else if (tmp_end)
+	{
+		*value = twl_strnew(tmp_end - tmp);
+		twl_strncpy(*value, tmp, tmp_end - tmp);
+	}
+	else
+		*value = twl_strdup(tmp);
+}
+
 void				builtin_read_exec_build_vars_from_line(
 		t_argparser_result *arg_res, char *line, char *ifs)
 {
@@ -58,15 +72,7 @@ void				builtin_read_exec_build_vars_from_line(
 		if (*tmp && twl_strchr(ifs, *tmp))
 			tmp++;
 		tmp_end = strchr_mult(tmp, ifs, arg_res);
-		if (twl_lst_len(vars_copy) == 0)
-			value = twl_strdup(tmp);
-		else if (tmp_end)
-		{
-			value = twl_strnew(tmp_end - tmp);
-			twl_strncpy(value, tmp, tmp_end - tmp);
-		}
-		else
-			value = twl_strdup(tmp);
+		builtin_read_loop_content(vars_copy, &value, tmp, tmp_end);
 		tmp += twl_strlen(value);
 		set_env_var(var, value, arg_res);
 		free(value);
