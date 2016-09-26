@@ -17,7 +17,8 @@ void				builtin_setenv_exec(t_lst *tokens, t_shenv *shenv)
 {
 	t_argparser_result *argparser_result;
 
-	argparser_result = argparser_parse_tokens(builtin_setenv_argparser(), tokens);
+	argparser_result = argparser_parse_tokens(
+			builtin_setenv_argparser(), tokens);
 	if (argparser_result->err_msg)
 	{
 		argparser_result_print_error_with_help(argparser_result);
