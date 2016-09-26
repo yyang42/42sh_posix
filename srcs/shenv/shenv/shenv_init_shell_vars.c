@@ -53,7 +53,5 @@ void				shenv_init_shell_vars(t_shenv *this)
 	set_default_vars(this);
 	set_ppid(this);
 	set_ifs(this);
-	// TODO: INTERACTIVE ONLY
-	// set_history_file(this);
 	(void)set_history_file;
 }
