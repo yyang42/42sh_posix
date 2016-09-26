@@ -20,6 +20,29 @@ static void		push_brace(t_brace_tokenizer *this)
 	this->index_to_push = 0;
 }
 
+static bool		try_push01(t_brace_tokenizer *this, char c, size_t *depth)
+{
+	bool		ret;
+
+	ret = false;
+	if (c == '$' && (ret = true))
+		brace_push_dollar(this);
+	else if (c == '`' && (ret = true))
+		brace_push_bquote(this);
+	else if (c == '\'' && (ret = true))
+		brace_push_squote(this);
+	else if (c == '"' && (ret = true))
+		brace_push_dquote(this);
+	else if (c == '\\' && (ret = true))
+		brace_push_escaped(this);
+	else if (this->input[this->index_input] == '{' && (ret = true))
+	{
+		*depth += 1;
+		brace_tokenizer_addone(this);
+	}
+	return (ret);
+}
+
 void			brace_push_brace(t_brace_tokenizer *this)
 {
 	size_t		depth;
@@ -27,26 +50,11 @@ void			brace_push_brace(t_brace_tokenizer *this)
 	depth = 0;
 	this->index_input += 1;
 	this->total = 0;
-	while (true)
+	while (!(this->input[this->index_input] == 0 ||
+				(depth == 0 && this->input[this->index_input] == '}')))
 	{
-		if (this->input[this->index_input] == 0 ||
-				(depth == 0 && this->input[this->index_input] == '}'))
-			break ;
-		if (this->input[this->index_input] == '$')
-			brace_push_dollar(this);
-		else if (this->input[this->index_input] == '`')
-			brace_push_bquote(this);
-		else if (this->input[this->index_input] == '\'')
-			brace_push_squote(this);
-		else if (this->input[this->index_input] == '"')
-			brace_push_dquote(this);
-		else if (this->input[this->index_input] == '\\')
-			brace_push_escaped(this);
-		else if (this->input[this->index_input] == '{')
-		{
-			depth += 1;
-			brace_tokenizer_addone(this);
-		}
+		if (try_push01(this, this->input[this->index_input], &depth))
+			;
 		else if (this->input[this->index_input] == '}')
 		{
 			depth -= 1;
