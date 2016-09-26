@@ -19,7 +19,7 @@ static void			push_standard_signals_fn(void *shsignal_, void *data)
 	t_shsignal		*shsignal;
 
 	shsignal = shsignal_;
- 	twl_lst_push_back(data, shsignal_new(shsignal->signum, shsignal->signame));
+	twl_lst_push_back(data, shsignal_new(shsignal->signum, shsignal->signame));
 }
 
 t_lst				*data_signals_with_exit(void)
@@ -29,8 +29,8 @@ t_lst				*data_signals_with_exit(void)
 	if (data == NULL)
 	{
 		data = twl_lst_new();
- 		twl_lst_push_back(data, shsignal_new(0, "EXIT"));
- 		twl_lst_iter(data_signals(), push_standard_signals_fn, data);
+		twl_lst_push_back(data, shsignal_new(0, "EXIT"));
+		twl_lst_iter(data_signals(), push_standard_signals_fn, data);
 	}
 	return (data);
 }

@@ -13,26 +13,31 @@
 #include "data.h"
 #include "edit/escaped_sequence.h"
 
-t_lst				*data_escaped_sequence(void)
+static t_escaped_sequence	*es_new(char *str, void (*fn)(t_edit *))
 {
-	static t_lst	*data = NULL;
+	return (escaped_sequence_new(str, fn));
+}
+
+t_lst						*data_escaped_sequence(void)
+{
+	static t_lst			*data = NULL;
 
 	if (!data)
 	{
 		data = twl_lst_new();
-		twl_lst_push_front(data, escaped_sequence_new("\033b", edit_move_word_left));
-		twl_lst_push_front(data, escaped_sequence_new("\033B", edit_move_word_left));
-		twl_lst_push_front(data, escaped_sequence_new("\033f", edit_move_word_right));
-		twl_lst_push_front(data, escaped_sequence_new("\033F", edit_move_word_right));
-		twl_lst_push_front(data, escaped_sequence_new("\033[A", edit_history_up));
-		twl_lst_push_front(data, escaped_sequence_new("\033[B", edit_history_down));
-		twl_lst_push_front(data, escaped_sequence_new("\033[C", edit_move_right));
-		twl_lst_push_front(data, escaped_sequence_new("\033[D", edit_move_left));
-		twl_lst_push_front(data, escaped_sequence_new("\033[H", edit_move_home));
-		twl_lst_push_front(data, escaped_sequence_new("\033[F", edit_move_end));
-		twl_lst_push_front(data, escaped_sequence_new("\033[3~", edit_del_right));
-		twl_lst_push_front(data, escaped_sequence_new("\033[5~", edit_move_up));
-		twl_lst_push_front(data, escaped_sequence_new("\033[6~", edit_move_down));
+		twl_lst_push_front(data, es_new("\033b", edit_move_word_left));
+		twl_lst_push_front(data, es_new("\033B", edit_move_word_left));
+		twl_lst_push_front(data, es_new("\033f", edit_move_word_right));
+		twl_lst_push_front(data, es_new("\033F", edit_move_word_right));
+		twl_lst_push_front(data, es_new("\033[A", edit_history_up));
+		twl_lst_push_front(data, es_new("\033[B", edit_history_down));
+		twl_lst_push_front(data, es_new("\033[C", edit_move_right));
+		twl_lst_push_front(data, es_new("\033[D", edit_move_left));
+		twl_lst_push_front(data, es_new("\033[H", edit_move_home));
+		twl_lst_push_front(data, es_new("\033[F", edit_move_end));
+		twl_lst_push_front(data, es_new("\033[3~", edit_del_right));
+		twl_lst_push_front(data, es_new("\033[5~", edit_move_up));
+		twl_lst_push_front(data, es_new("\033[6~", edit_move_down));
 	}
 	return (data);
 }
