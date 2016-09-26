@@ -75,6 +75,7 @@ void				builtin_set_exec_args(t_lst *tokens_copy)
 
 	arr = token_mgr_to_str_arr(tokens_copy);
 	g_twl_optsign_active = true;
+	getopt_c = 0;
 	prog_parse_args(arr, getopt_c);
 	g_twl_optind = 0;
 	g_twl_optsign_active = false;
