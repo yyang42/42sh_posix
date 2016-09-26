@@ -12,7 +12,7 @@
 
 #include "builtin/cmds/builtin_umask.h"
 
-void		agou_loop(t_parse_mask *pm)
+static void	agou_loop(t_parse_mask *pm)
 {
 	while (twl_strpos("agou", *pm->s) > -1 && (pm->c = *pm->s++))
 	{
@@ -98,13 +98,14 @@ static int	parse_symbolic_mode_2(t_parse_mask *pm)
 	}
 	else
 	{
-		shenv_singl_error(139, "umask: `%c': invalid symbolic mode character", *pm->s);
+		shenv_singl_error(139, "umask: `%c': %s", *pm->s, UMASK_INVALID_MSG);
 		return (false);
 	}
 	return (2);
 }
 
-int					builtin_umask_parse_symbolic_mode(char *mode, int initial_bits)
+int			builtin_umask_parse_symbolic_mode(
+		char *mode, int initial_bits)
 {
 	t_parse_mask	pm;
 	int				flag;
@@ -120,7 +121,7 @@ int					builtin_umask_parse_symbolic_mode(char *mode, int initial_bits)
 		pm.op = *pm.s++;
 		if (!pm.op || !twl_strchr("+-=", pm.op))
 		{
-			shenv_singl_error(139, "umask: `%c': invalid symbolic mode operator", pm.op);
+			shenv_singl_error(139, "umask: `%c': %s", pm.op, UMASK_INVALID_MSG);
 			return (-1);
 		}
 		rwx_loop(&pm);
