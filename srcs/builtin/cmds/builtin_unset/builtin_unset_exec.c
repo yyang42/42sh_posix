@@ -12,7 +12,8 @@
 
 #include "builtin/cmds/builtin_unset.h"
 
-static int			check_flags(t_shenv *env, t_argparser_result *argparser_result)
+static int			check_flags(
+		t_shenv *env, t_argparser_result *argparser_result)
 {
 	int	ret;
 
@@ -39,13 +40,13 @@ void				builtin_unset_exec(t_lst *tokens, t_shenv *env)
 	t_argparser_result *argparser_result;
 
 	if (twl_strequ(token_mgr_first(tokens)->text, "unsetenv"))
-		argparser_result = argparser_parse_tokens(builtin_unsetenv_argparser(), tokens);
+		argparser_result = argparser_parse_tokens(
+				builtin_unsetenv_argparser(), tokens);
 	else
-		argparser_result = argparser_parse_tokens(builtin_unset_argparser(), tokens);
+		argparser_result = argparser_parse_tokens(
+				builtin_unset_argparser(), tokens);
 	if (argparser_result->err_msg)
-	{
 		argparser_result_print_usage_exit_status(argparser_result, 2);
-	}
 	else
 	{
 		if (argparser_result_opt_is_set(argparser_result, "v")
