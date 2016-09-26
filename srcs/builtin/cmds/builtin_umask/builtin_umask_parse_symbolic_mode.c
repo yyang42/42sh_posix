@@ -98,7 +98,8 @@ static int	parse_symbolic_mode_2(t_parse_mask *pm)
 	}
 	else
 	{
-		shenv_singl_error(139, "umask: `%c': %s", *pm->s, UMASK_INVALID_MSG);
+		shenv_singl_error(139, "umask: `%c': invalid symbolic mode character",
+				*pm->s);
 		return (false);
 	}
 	return (2);
