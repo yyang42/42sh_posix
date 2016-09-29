@@ -84,7 +84,7 @@ void		expbrace_none_special(t_expansion *this,
 {
 	if (eb->param[0] == '*')
 		expan_param_asterisk(this);
-	else if (eb->param[0]  == '@')
+	else if (eb->param[0] == '@')
 		expan_param_at(this);
 	else
 		expan_param_spec(this, eb->param[0]);

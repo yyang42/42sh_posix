@@ -10,30 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "expan/expansion_parameter_brace.h"
+#include "expan/expansion.h"
 
-t_expansion_brace			*expansion_brace_new(char *input)
+void		expansion_splitting_push(t_expansion *this,
+		char *text, size_t *index)
 {
-	t_expansion_brace	*this;
-
-	this = twl_malloc_x0(sizeof(t_expansion_brace));
-	this->type = BRACE_NOT_APPLIED;
-	if (input[2] == '#' && expansion_brace_length_case_applied(this, input))
-		return (this);
-	expansion_brace_flush_before(this, input);
-	if (this->type != BRACE_NOT_APPLIED)
-		return (this);
-	expansion_brace_flush_token(this, input);
-	if (this->type == BRACE_ERROR)
-		return (this);
-	if ((this->type == BRACE_COLON_EQUAL || this->type == BRACE_EQUAL) &&
-			(twl_isdigit(*this->param) ||
-				expan_is_special_parameter(*this->param)))
-	{
-		expansion_brace_set_error(this, input, "cannot assign in this way");
-		return (this);
-	}
-	this->word = twl_strndup(input + this->index,
-										twl_strlen(input) - this->index - 1);
-	return (this);
+	this->to_push_as[index[0]] = text[index[1]];
+	index[0] += 1;
+	index[1] += 1;
 }

@@ -53,7 +53,8 @@ static void			iter_del_fn(void *data)
 	twl_lst_del(data, expan_before_split_del);
 }
 
-void				expansion_arithmetic(t_expansion *this, t_expan_token *token)
+void				expansion_arithmetic(t_expansion *this,
+		t_expan_token *token)
 {
 	char			*arexp_bef_expan;
 	char			*arexp;
