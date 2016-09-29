@@ -28,7 +28,8 @@ t_lst			*expan_get_param_spec(char param)
 	if (param == '*' || param == '@')
 		twl_lst_iter(shenv->shenv_pos_params, iter_fn, lsparam);
 	else if (param == '#')
-		twl_lst_push_back(lsparam, twl_itoa(twl_lst_len(shenv->shenv_pos_params)));
+		twl_lst_push_back(lsparam,
+				twl_itoa(twl_lst_len(shenv->shenv_pos_params)));
 	else if (param == '?')
 		twl_lst_push_back(lsparam, twl_itoa(shenv->info.saved_last_exit));
 	else if (param == '-')

@@ -26,7 +26,7 @@ char			*expan_quote(char *param, bool quoted)
 	{
 		if ((quoted && (param[ind_par] == '\\' || param[ind_par] == '"')) ||
 			(!quoted && (param[ind_par] == '\\' || param[ind_par] == '"' ||
-						 param[ind_par] == '\'')))
+						param[ind_par] == '\'')))
 		{
 			cpy[ind_cpy] = '\\';
 			ind_cpy += 1;
