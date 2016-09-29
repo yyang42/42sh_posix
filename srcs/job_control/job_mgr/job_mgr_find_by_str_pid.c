@@ -13,7 +13,7 @@
 #include "job_control/job_mgr.h"
 #include "twl_stdlib.h"
 
-t_job 				*job_mgr_find_by_str_pid(t_lst *jobs, char *str_pid)
+t_job				*job_mgr_find_by_str_pid(t_lst *jobs, char *str_pid)
 {
 	if (twl_str_is_num(str_pid))
 		return (job_mgr_find_by_pid(jobs, twl_atoi(str_pid)));
