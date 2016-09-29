@@ -14,10 +14,11 @@
 #include "utils.h"
 #include "data.h"
 
-void				jobexec_fork_exec_interactive_job_sig_wrapper(t_job *job, void *ctx,
-					void (exec_interactive_fn)(t_job *job, void *ctx))
+void				jobexec_fork_exec_interactive_job_sig_wrapper(
+						t_job *job, void *ctx,
+						void (exec_interactive_fn)(t_job *job, void *ctx))
 {
-    LOG_INFO("jobexec_fork_exec_interactive_job_sig_wrapper");
-    shenv_singleton()->shenv_foreground_job = job;
-    exec_interactive_fn(job, ctx);
+	LOG_INFO("jobexec_fork_exec_interactive_job_sig_wrapper");
+	shenv_singleton()->shenv_foreground_job = job;
+	exec_interactive_fn(job, ctx);
 }

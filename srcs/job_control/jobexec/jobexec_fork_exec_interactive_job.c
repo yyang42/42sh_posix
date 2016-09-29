@@ -15,8 +15,9 @@
 
 void				jobexec_fork_exec_interactive_job(t_jobexec *je)
 {
-	t_job           *job;
+	t_job			*job;
 
 	job = job_new(0, je->je_all_tokens);
-    jobexec_fork_exec_interactive_job_sig_wrapper(job, je, jobexec_fork_exec_interactive_void);
+	jobexec_fork_exec_interactive_job_sig_wrapper(job, je,
+			jobexec_fork_exec_interactive_void);
 }
