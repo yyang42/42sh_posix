@@ -45,7 +45,8 @@ static int			symbolic_umask(char *arg)
 	return (um);
 }
 
-static int			modify_umask(t_argparser_result *argparser_result, char *arg)
+static int			modify_umask(
+		t_argparser_result *argparser_result, char *arg)
 {
 	int		umask_value;
 	mode_t	umask_arg;
@@ -55,7 +56,8 @@ static int			modify_umask(t_argparser_result *argparser_result, char *arg)
 		umask_value = read_octal(arg);
 		if (umask_value == -1)
 		{
-			shenv_singl_error(EXIT_FAILURE, "umask: %s: octal number out of range", arg);
+			shenv_singl_error(EXIT_FAILURE,
+					"umask: %s: octal number out of range", arg);
 			return (EXIT_FAILURE);
 		}
 	}
@@ -90,10 +92,11 @@ static void			builtin_umask_2(t_argparser_result *argparser_result)
 
 void				builtin_umask_exec(t_lst *tokens, t_shenv *env)
 {
-	t_argparser_result *argparser_result;
-	int				flag;
+	t_argparser_result	*argparser_result;
+	int					flag;
 
-	argparser_result = argparser_parse_tokens(builtin_umask_argparser(), tokens);
+	argparser_result = argparser_parse_tokens(
+			builtin_umask_argparser(), tokens);
 	flag = EXIT_SUCCESS;
 	if (argparser_result->err_msg)
 	{
@@ -104,13 +107,10 @@ void				builtin_umask_exec(t_lst *tokens, t_shenv *env)
 	else
 	{
 		if (twl_lst_len(argparser_result->remainders) == 0)
-		{
 			builtin_umask_2(argparser_result);
-		}
 		else
-		{
-			flag = modify_umask(argparser_result, (char *)twl_lst_first(argparser_result->remainders));
-		}
+			flag = modify_umask(argparser_result,
+					(char *)twl_lst_first(argparser_result->remainders));
 	}
 	env->last_exit_code = flag;
 	argparser_result_del(argparser_result);

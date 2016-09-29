@@ -12,6 +12,22 @@
 
 #include "builtin/cmds/builtin_cd.h"
 
+static char		*cd_phypath_end_fn(char *path,
+		t_builtin_cd_phypath *this, char *ret)
+{
+	if (this->error)
+	{
+		shenv_singl_error(1, "cd: %s: %s", path, strerror(this->error));
+	}
+	else
+	{
+		ret = this->ret;
+		this->ret = NULL;
+	}
+	builtin_cd_phypath_del(this);
+	return (ret);
+}
+
 char			*builtin_cd_phypath(char *path)
 {
 	t_builtin_cd_phypath	*this;
@@ -35,15 +51,5 @@ char			*builtin_cd_phypath(char *path)
 		if (builtin_cd_phypath_is_end(this))
 			break ;
 	}
-	if (this->error)
-	{
-		shenv_singl_error(1, "cd: %s: %s", path, strerror(this->error));
-	}
-	else
-	{
-		ret = this->ret;
-		this->ret = NULL;
-	}
-	builtin_cd_phypath_del(this);
-	return (ret);
+	return (cd_phypath_end_fn(path, this, ret));
 }

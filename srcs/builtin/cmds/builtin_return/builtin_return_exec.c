@@ -25,12 +25,14 @@ static void			builtin_return_exec_one_arg(char *str_counter)
 		}
 		else
 		{
-			shenv_singl_error(EXIT_FAILURE, "return: %s: loop count out of range", str_counter);
+			shenv_singl_error(EXIT_FAILURE,
+					"return: %s: loop count out of range", str_counter);
 		}
 	}
 	else
 	{
-		shenv_singl_error(255, "return: %s: numeric argument required", str_counter);
+		shenv_singl_error(255,
+				"return: %s: numeric argument required", str_counter);
 	}
 }
 
@@ -38,7 +40,8 @@ void				builtin_return_exec(t_lst *tokens, t_shenv *env)
 {
 	if (!shenv_singleton()->shenv_is_function_or_script)
 	{
-		shenv_singl_error(EXIT_FAILURE, "return: can only `return' from a function or sourced script");
+		shenv_singl_error(EXIT_FAILURE,
+				"return: can only `return' from a function or sourced script");
 		return ;
 	}
 	env->shenv_cur_token = token_mgr_first(tokens);

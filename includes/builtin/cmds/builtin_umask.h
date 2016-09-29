@@ -29,6 +29,8 @@
 # define S_IWUGO         (S_IWUSR|S_IWGRP|S_IWOTH)
 # define S_IXUGO         (S_IXUSR|S_IXGRP|S_IXOTH)
 
+# define UMASK_INVALID_MSG "invalid symbolic mode operator"
+
 typedef struct	s_mask
 {
 	char ubits[4];

@@ -36,7 +36,7 @@ static bool			match_found(char *needle_text, char *pattern_text)
 	t_substr		*tmp;
 	char			*actual;
 
-	tmp  = substr_new();
+	tmp = substr_new();
 	actual = substr_sharpsharp(tmp, needle_text, pattern_text);
 	matched = (twl_strlen(actual) == 0);
 	free(actual);

@@ -24,4 +24,6 @@ void				builtin_kill_print_signals(void);
 void				builtin_kill_print_usage(void);
 void				builtin_kill_update_job(t_job *job, int signum);
 
+void				builtin_kill_iter_pids_fn(void *token, void *signum);
+
 #endif

@@ -16,10 +16,10 @@
 
 static void			unset_something(void *data, void *context, void *ret_)
 {
-	t_shenv		*env;
-	char				*arg;
-	int					*ret;
-	t_shvar	*var;
+	t_shenv			*env;
+	char			*arg;
+	int				*ret;
+	t_shvar			*var;
 
 	arg = data;
 	env = context;
@@ -35,7 +35,8 @@ static void			unset_something(void *data, void *context, void *ret_)
 			}
 			else
 			{
-				shenv_singl_error(EXIT_FAILURE, "unset: %s: cannot unset: readonly variable", arg);
+				shenv_singl_error(EXIT_FAILURE,
+						"unset: %s: cannot unset: readonly variable", arg);
 				*ret = EXIT_FAILURE;
 			}
 		}

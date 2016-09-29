@@ -19,6 +19,7 @@
 # include "twl_opt_elem.h"
 
 void				builtin_set_exec(t_lst *tokens, t_shenv *env);
+void				builtin_set_exec_args(t_lst *tokens_copy);
 void				builtin_set_print_o_positive(t_shenv *env);
 void				builtin_set_print_o_negative(t_shenv *env);
 void				builtin_set_exec_print(t_shenv *this);

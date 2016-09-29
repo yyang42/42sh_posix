@@ -19,10 +19,10 @@ static void		test_## num(t_test *test)						\
 	line_del(line);												\
 }
 
-mt_line_new_test(num01, "ls", 4ul, true);
-mt_line_new_test(num02, "ls -la", 8ul, true);
-mt_line_new_test(num03, "echo abc", 16ul, true);
-mt_line_new_test(num04, "echo abc echo abcd", 32ul, true);
+mt_line_new_test(num01, "ls", 4ul, false);
+mt_line_new_test(num02, "ls -la", 8ul, false);
+mt_line_new_test(num03, "echo abc", 16ul, false);
+mt_line_new_test(num04, "echo abc echo abcd", 32ul, false);
 
 void suite_line_new_from_string(t_suite *suite)
 {

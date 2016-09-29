@@ -101,6 +101,9 @@ void				expansion_parameter_brace(t_expansion *expansion,
 
 void				expansion_field_splitting(t_expansion *this);
 void				expansion_splitting(t_expansion *this, char *text);
+void				expansion_splitting_push(t_expansion *this,
+		char *text, size_t *index);
+void				expansion_splitting_split(t_expansion *this, size_t *index);
 
 void				expansion_patmatch(t_expansion *this);
 

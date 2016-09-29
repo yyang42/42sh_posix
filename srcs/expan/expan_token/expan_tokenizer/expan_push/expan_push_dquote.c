@@ -14,7 +14,6 @@
 
 void				expan_push_dquote(t_expan_tokenizer *this)
 {
-
 	expan_tokenizer_addone(this);
 	while (this->input[this->input_index] &&
 			this->input[this->input_index] != '"')

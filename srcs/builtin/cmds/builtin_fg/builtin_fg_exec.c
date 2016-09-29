@@ -40,7 +40,7 @@ void				builtin_fg_exec_do(t_lst *tokens)
 			shenv_singl_error(1, "fg: current: no such job");
 			return ;
 		}
-		job_str_id = "+";
+		exec_job_str_id("+");
 	}
 	else
 	{
@@ -52,10 +52,8 @@ void				builtin_fg_exec_do(t_lst *tokens)
 			shenv_singleton()->last_exit_code = EXIT_FAILURE;
 			return ;
 		}
-		if (*job_str_id == '%')
-			job_str_id++;
+		exec_job_str_id(*job_str_id == '%' ? job_str_id + 1 : job_str_id);
 	}
-	exec_job_str_id(job_str_id);
 }
 
 void				builtin_fg_exec(t_lst *tokens, t_shenv *shenv)

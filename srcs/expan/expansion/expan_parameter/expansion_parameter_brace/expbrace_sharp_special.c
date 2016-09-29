@@ -15,7 +15,6 @@
 
 /*
 ** TODO: remplacer le iter2 par un iter et juste faire un strcpy du to_push
-** TODO: enlever le if (!lsast)...
 */
 
 static void	iter_fn(void *data, void *word, void *new)
@@ -37,10 +36,9 @@ static void	expan_param_asterisk(t_expansion *this, char *word)
 	char	*quoted;
 
 	lsast = expan_get_param_spec('*');
-	if (!lsast || twl_lst_len(lsast) == 0)
+	if (twl_lst_len(lsast) == 0)
 	{
-		if (lsast)
-			twl_lst_del(lsast, NULL);
+		twl_lst_del(lsast, NULL);
 		return ;
 	}
 	new = twl_lst_new();
@@ -54,9 +52,7 @@ static void	expan_param_asterisk(t_expansion *this, char *word)
 		free(join);
 	}
 	else
-	{
 		expansion_push_raw_lst(this, new);
-	}
 	twl_lst_del(lsast, NULL);
 	twl_lst_del(new, free);
 }
@@ -114,7 +110,7 @@ void		expbrace_sharp_special(t_expansion *this,
 {
 	if (eb->param[0] == '*')
 		expan_param_asterisk(this, eb->word);
-	else if (eb->param[0]  == '@')
+	else if (eb->param[0] == '@')
 		expan_param_at(this, eb->word);
 	else
 		expan_param_spec(this, eb->param[0], eb->word);

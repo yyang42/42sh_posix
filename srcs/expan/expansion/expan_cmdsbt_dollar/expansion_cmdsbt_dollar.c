@@ -30,7 +30,7 @@ static void	child_part(t_expansion *this, t_expan_token *token, int fd[2])
 	}
 	close(fd[0]);
 	cmd = twl_strndup(token->text + 2, twl_strlen(token->text + 3));
-    ast_utils_exec_string(cmd, 1);
+	ast_utils_exec_string(cmd, 1);
 	free(cmd);
 	exit(-1);
 	(void)this;
@@ -67,11 +67,16 @@ static void	push_before_split_fn(void *data, void *context)
 								!((t_expansion *)context)->quoted);
 }
 
-static void parent_part(t_expansion *this, t_expan_token *token, int fd[2])
+/*
+** TODO: message d'erreur toussa
+** (wait)
+*/
+
+static void	parent_part(t_expansion *this, t_expan_token *token, int fd[2])
 {
 	t_lst	*lst;
-	char    buf[128];
-	int     size;
+	char	buf[128];
+	int		size;
 	bool	check;
 
 	close(fd[1]);
@@ -86,7 +91,7 @@ static void parent_part(t_expansion *this, t_expan_token *token, int fd[2])
 	twl_lst_iter(lst, push_before_split_fn, this);
 	twl_lst_del(lst, free);
 	close(fd[0]);
-	wait(&size); // TODO: message d'erreur toussa...
+	wait(&size);
 	(void)token;
 }
 

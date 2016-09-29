@@ -18,7 +18,8 @@
 #include "ast/nodes/ast_list_item.h"
 #include "ast/ast_lap.h"
 
-t_ast_andor_item		*ast_andor_item_new_from_tokens(t_lst *tokens, struct s_ast *ast)
+t_ast_andor_item		*ast_andor_item_new_from_tokens(t_lst *tokens,
+		struct s_ast *ast)
 {
 	t_ast_andor_item			*this;
 	t_lst						*tmp_tokens;
@@ -31,9 +32,8 @@ t_ast_andor_item		*ast_andor_item_new_from_tokens(t_lst *tokens, struct s_ast *a
 		twl_lst_pop_front(tokens);
 	}
 	this->ast_pipe_items = ast_lap_build_items(tokens, AST_TYPE_PIPE_ITEM, ast);
-	this->andor_all_tokens = twl_lst_copy_until(tmp_tokens, token_copy_void, twl_lst_first(tokens));
+	this->andor_all_tokens = twl_lst_copy_until(tmp_tokens, token_copy_void,
+			twl_lst_first(tokens));
 	twl_lst_del(tmp_tokens, NULL);
 	return (this);
 }
-
-

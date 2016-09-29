@@ -32,7 +32,8 @@ static void			wait_fn(int pid, int *res, void *ctx)
 	(void)ctx;
 }
 
-static void			jobexec_fork_exec_wrapper(t_lst *je_all_tokens, t_lst *cmd_tokens)
+static void			jobexec_fork_exec_wrapper(t_lst *je_all_tokens,
+		t_lst *cmd_tokens)
 {
 	t_jobexec		je;
 
@@ -44,7 +45,8 @@ static void			jobexec_fork_exec_wrapper(t_lst *je_all_tokens, t_lst *cmd_tokens)
 	jobexec_fork_exec(&je);
 }
 
-void				ast_simple_command_execve(t_lst *cmd_tokens, t_lst *je_all_tokens)
+void				ast_simple_command_execve(t_lst *cmd_tokens,
+		t_lst *je_all_tokens)
 {
 	char			*path;
 	char			*cmd_name;

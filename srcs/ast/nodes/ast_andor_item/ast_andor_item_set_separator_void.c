@@ -12,7 +12,7 @@
 
 #include "ast/nodes/ast_andor_item.h"
 
-void				ast_andor_item_set_separator_void(void *this, t_token *token)
+void		ast_andor_item_set_separator_void(void *this, t_token *token)
 {
 	ast_andor_item_set_separator(this, token);
 }

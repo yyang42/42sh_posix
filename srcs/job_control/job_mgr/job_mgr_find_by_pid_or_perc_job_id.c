@@ -13,7 +13,7 @@
 #include "job_control/job_mgr.h"
 #include "twl_stdlib.h"
 
-t_job 				*job_mgr_find_by_pid_perc_job_id(t_lst *jobs, char *str)
+t_job				*job_mgr_find_by_pid_perc_job_id(t_lst *jobs, char *str)
 {
 	t_job			*job;
 

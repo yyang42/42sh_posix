@@ -12,7 +12,7 @@
 
 #include "expan/expansion_parameter_brace.h"
 
-static void		expan_param_asterisk(t_expansion *this, t_expansion_brace *eb)
+static void	expan_param_asterisk(t_expansion *this, t_expansion_brace *eb)
 {
 	t_lst	*lsast;
 
@@ -29,7 +29,7 @@ static void		expan_param_asterisk(t_expansion *this, t_expansion_brace *eb)
 	twl_lst_del(lsast, NULL);
 }
 
-static void		expan_param_at(t_expansion *this, t_expansion_brace *eb)
+static void	expan_param_at(t_expansion *this, t_expansion_brace *eb)
 {
 	t_lst	*lsat;
 
@@ -63,12 +63,12 @@ static void	expan_param_spec(t_expansion *this, t_expansion_brace *eb)
 	twl_lst_del(ls, free);
 }
 
-void			expbrace_colon_plus_special(t_expansion *this,
+void		expbrace_colon_plus_special(t_expansion *this,
 												t_expansion_brace *eb)
 {
 	if (eb->param[0] == '*')
 		expan_param_asterisk(this, eb);
-	else if (eb->param[0]  == '@')
+	else if (eb->param[0] == '@')
 		expan_param_at(this, eb);
 	else
 		expan_param_spec(this, eb);

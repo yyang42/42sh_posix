@@ -12,7 +12,7 @@
 
 #include "expan/expansion.h"
 
-static void			iter_fn(void *data, void *this)
+static void		iter_fn(void *data, void *this)
 {
 	t_expan_token	*token;
 

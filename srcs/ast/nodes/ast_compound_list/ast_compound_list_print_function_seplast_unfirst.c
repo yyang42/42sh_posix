@@ -12,7 +12,7 @@
 
 #include "ast/nodes/ast_compound_list.h"
 
-static void			iter_fn(void *ast_list_item, void *prev, 
+static void			iter_fn(void *ast_list_item, void *prev,
 							void *next, void *depth_ptr)
 {
 	t_ast_list_item	*this;

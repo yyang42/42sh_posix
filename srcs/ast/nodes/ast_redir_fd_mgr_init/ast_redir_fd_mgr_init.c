@@ -13,7 +13,8 @@
 #include "ast/nodes/ast_redir.h"
 #include "ast/nodes/ast_simple_command.h"
 
-static t_ast_redir_fd		*create_redir_fd(t_ast_redir *redir, t_lst *redir_fds)
+static t_ast_redir_fd		*create_redir_fd(t_ast_redir *redir,
+		t_lst *redir_fds)
 {
 	t_ast_redir_fd			*redir_fd;
 
@@ -35,7 +36,6 @@ static t_ast_redir_fd		*create_redir_fd(t_ast_redir *redir, t_lst *redir_fds)
 	else
 		LOG_ERROR("Operator not found %s", redir->operator);
 	return (redir_fd);
-
 }
 
 static void					iter_redir_fn(void *redir, void *redir_fds)
@@ -52,7 +52,8 @@ static void					iter_redir_fn(void *redir, void *redir_fds)
 	twl_lst_push_front(redir_fds, redir_fd);
 }
 
-void						ast_redir_fd_mgr_init(t_lst *redir_fds, t_lst *redir_items)
+void						ast_redir_fd_mgr_init(t_lst *redir_fds,
+		t_lst *redir_items)
 {
 	twl_lst_iter(redir_items, iter_redir_fn, redir_fds);
 }

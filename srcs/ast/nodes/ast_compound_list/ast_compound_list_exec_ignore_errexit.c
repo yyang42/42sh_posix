@@ -12,7 +12,8 @@
 
 #include "ast/nodes/ast_compound_list.h"
 
-void				ast_compound_list_exec_ignore_errexit(t_ast_compound_list *ast_compound_list)
+void				ast_compound_list_exec_ignore_errexit(
+		t_ast_compound_list *ast_compound_list)
 {
 	shenv_singleton()->shenv_ignore_errexit = true;
 	ast_compound_list_exec(ast_compound_list);

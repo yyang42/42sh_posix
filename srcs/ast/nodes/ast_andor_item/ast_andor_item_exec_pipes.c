@@ -23,30 +23,26 @@ static void			andor_fn_2(t_ast_pipe_item *pi)
 {
 	if (pi->pipe_child_pid == 0)
 	{
-		if (pi->pipe_write_end != -1)
+		if (pi->pipe_write_end != -1 && dup2(pi->pipe_write_end, 1) < 0)
 		{
-			if (dup2(pi->pipe_write_end, 1) < 0)
-				LOG_ERROR("dup2: %s", strerror(errno));
+			LOG_ERROR("dup2: %s", strerror(errno));
 		}
-		if (pi->pipe_read_end != -1)
+		if (pi->pipe_read_end != -1 && dup2(pi->pipe_read_end, 0) < 0)
 		{
-			if (dup2(pi->pipe_read_end, 0) < 0)
-				LOG_ERROR("dup2: %s", strerror(errno));
+			LOG_ERROR("dup2: %s", strerror(errno));
 		}
 		ast_pipe_item_exec(pi);
 		exit(shenv_singleton()->last_exit_code);
 	}
 	else
 	{
-		if (pi->pipe_read_end != -1)
+		if (pi->pipe_read_end != -1 && close(pi->pipe_read_end) < 0)
 		{
-			if (close(pi->pipe_read_end) < 0)
-				LOG_ERROR("close: %s", strerror(errno));
+			LOG_ERROR("close: %s", strerror(errno));
 		}
-		if (pi->pipe_write_end != -1)
+		if (pi->pipe_write_end != -1 && close(pi->pipe_write_end) < 0)
 		{
-			if (close(pi->pipe_write_end) < 0)
-				LOG_ERROR("close: %s", strerror(errno));
+			LOG_ERROR("close: %s", strerror(errno));
 		}
 	}
 }
@@ -56,8 +52,8 @@ static void			iter_andor_fn(void *pi_)
 	t_ast_pipe_item	*pi;
 
 	pi = pi_;
-	LOG_DEBUG("pi->pipe_read_end: %d", pi->pipe_read_end);;
-	LOG_DEBUG("pi->pipe_write_end: %d", pi->pipe_write_end);;
+	LOG_DEBUG("pi->pipe_read_end: %d", pi->pipe_read_end);
+	LOG_DEBUG("pi->pipe_write_end: %d", pi->pipe_write_end);
 	pi->pipe_child_pid = shenv_utils_fork();
 	if (pi->pipe_child_pid == -1)
 	{

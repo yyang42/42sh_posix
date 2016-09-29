@@ -78,7 +78,8 @@ static void		expan_param_normal(t_expansion *this, t_expansion_brace *eb)
 	substr_del(substr);
 }
 
-void			expansion_brace_percent(t_expansion *this, t_expansion_brace *eb)
+void			expansion_brace_percent(
+		t_expansion *this, t_expansion_brace *eb)
 {
 	char		c;
 

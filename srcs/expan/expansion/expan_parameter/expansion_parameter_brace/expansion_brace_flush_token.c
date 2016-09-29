@@ -50,7 +50,8 @@ static void				flush_two(t_expansion_brace *this, char *input)
 		this->type = BRACE_PERCENT_PERCENT;
 }
 
-void					expansion_brace_flush_token(t_expansion_brace *this, char *input)
+void					expansion_brace_flush_token(
+		t_expansion_brace *this, char *input)
 {
 	const char			c = input[this->index];
 	const char			d = input[this->index + 1];

@@ -17,7 +17,7 @@
 #include "ast/ast.h"
 #include "data.h"
 
-void				*ast_list_item_new_from_tokens_void(t_lst *tokens, struct s_ast *ast)
+void	*ast_list_item_new_from_tokens_void(t_lst *tokens, struct s_ast *ast)
 {
-	return (ast_list_item_new_from_tokens(tokens, ast));;
+	return (ast_list_item_new_from_tokens(tokens, ast));
 }

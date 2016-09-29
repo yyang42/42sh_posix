@@ -17,7 +17,7 @@ static void		iter_fn(void *ast_list_item)
 	ast_list_item_exec(ast_list_item);
 }
 
-void				ast_compound_list_exec(t_ast_compound_list *ast_compound_list)
+void			ast_compound_list_exec(t_ast_compound_list *ast_compound_list)
 {
 	twl_lst_iter0(ast_compound_list->ast_list_items, &iter_fn);
 }

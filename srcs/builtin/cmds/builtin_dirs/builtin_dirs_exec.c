@@ -82,7 +82,8 @@ void				builtin_dirs_exec(t_lst *tokens, t_shenv *shenv)
 	struct_dirs_init(&this, tokens, shenv);
 	if (!init_flag(&this))
 		return ;
-	this.result = argparser_parse_tokens(builtin_dirs_argparser(), this.token_copy);
+	this.result = argparser_parse_tokens(builtin_dirs_argparser(),
+			this.token_copy);
 	if (this.result->err_msg)
 	{
 		shenv_singl_error(1, this.result->err_msg);

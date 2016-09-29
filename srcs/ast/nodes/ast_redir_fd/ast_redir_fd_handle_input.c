@@ -13,7 +13,8 @@
 #include "ast/nodes/ast_redir_fd.h"
 #include "shenv/shenv.h"
 
-void				ast_redir_fd_handle_input(t_ast_redir_fd *redir_fd, t_ast_redir *redir)
+void				ast_redir_fd_handle_input(t_ast_redir_fd *redir_fd,
+		t_ast_redir *redir)
 {
 	ast_redir_fd_init_save_origin(redir_fd, redir, STDIN_FILENO);
 	if (twl_strequ("<", redir->operator))

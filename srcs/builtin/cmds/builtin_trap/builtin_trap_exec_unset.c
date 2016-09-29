@@ -19,13 +19,16 @@ static void			unset_fn(void *sigstr)
 	t_shsignal		*shsignal;
 	t_trap			*trap;
 
-	shsignal = shsignal_mgr_find_by_signame_or_signum(data_signals_with_exit(), sigstr);
+	shsignal = shsignal_mgr_find_by_signame_or_signum(
+			data_signals_with_exit(), sigstr);
 	if (shsignal)
 	{
-		trap = trap_mgr_find_by_signum(shenv_singleton()->shenv_traps, shsignal->signum);
+		trap = trap_mgr_find_by_signum(
+				shenv_singleton()->shenv_traps, shsignal->signum);
 		if (trap)
 		{
-			LOG_INFO("unset trap -- '%s' %s", trap->trap_action, builtin_trap_get_signame(trap->trap_signum));
+			LOG_INFO("unset trap -- '%s' %s", trap->trap_action,
+					builtin_trap_get_signame(trap->trap_signum));
 			trap_mgr_remove(shenv_singleton()->shenv_traps, trap);
 		}
 		else

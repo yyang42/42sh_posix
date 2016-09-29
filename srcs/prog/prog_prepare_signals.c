@@ -13,16 +13,16 @@
 #include "prog.h"
 
 /*
-static void			sig_handler(int sig)
-{
-	LOG_INFO("sigint triggered");
-	exit(130);
-	(void)sig;
-}
+** static void			sig_handler(int sig)
+** {
+** 	LOG_INFO("sigint triggered");
+** 	exit(130);
+** 	(void)sig;
+** }
+** signal(SIGINT, sig_handler);
 */
 
 void				prog_prepare_signals(t_prog *prog)
 {
-	// signal(SIGINT, sig_handler);
 	(void)prog;
 }

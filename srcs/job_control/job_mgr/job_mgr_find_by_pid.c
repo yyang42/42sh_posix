@@ -23,7 +23,7 @@ static bool			find_by_pid_fn(void *job_, void *pid_ptr)
 	return (job->pid == pid);
 }
 
-t_job 				*job_mgr_find_by_pid(t_lst *jobs, int pid)
+t_job				*job_mgr_find_by_pid(t_lst *jobs, int pid)
 {
 	return (twl_lst_find(jobs, find_by_pid_fn, &pid));
 }

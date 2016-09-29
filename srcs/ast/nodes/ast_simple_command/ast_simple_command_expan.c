@@ -19,9 +19,7 @@
 #include "pattern_matching/pattern.h"
 #include "pattern_matching/brace/brace.h"
 
-// TODO: EVENTUELLEMENT QUITTER AU DÉBUT DES ITERATIONS EN CAS D'ERREURS
-
-static void 	iter_cmd_fn(void *token, void *context)
+static void		iter_cmd_fn(void *token, void *context)
 {
 	t_expansion				*expansion;
 	t_ast_simple_command	*cmd;
@@ -47,7 +45,7 @@ static void 	iter_cmd_fn(void *token, void *context)
 	expansion_del(expansion);
 }
 
-static void 	iter_assign_fn(void *data, void *context)
+static void		iter_assign_fn(void *data, void *context)
 {
 	t_expansion				*expansion;
 	t_ast_simple_command	*cmd;
@@ -73,48 +71,32 @@ static void 	iter_assign_fn(void *data, void *context)
 	(void)cmd;
 }
 
-static void		expan_heredoc(t_ast_redir *redir)
+static void		iter_redir_fn_end(t_expansion *expansion, t_ast_redir *redir,
+		t_lst *expanded)
 {
-	t_expansion	*expansion;
-	t_pattern	*pattern_test;
-	char		*pattern_unquoted;
-
-	pattern_test = pattern_new(redir->param->text_unexpanded);
-	pattern_unquoted = pattern_to_string(pattern_test);
-	pattern_del(pattern_test);
-	if (twl_strcmp(pattern_unquoted, redir->param->text))
-	{
-		free(pattern_unquoted);
-		return ;
-	}
-	free(pattern_unquoted);
-	if (redir->heredoc_text)
-		free(redir->heredoc_text);
-	expansion = expansion_new_from_text_remove_squote(
-			redir->heredoc_text_unexpanded);
-	redir->heredoc_text = expansion_get_string_heredoc(expansion);
-	if (expansion->error)
-	{
-		shenv_singl_error(0, "%s", expansion->error);
-		expansion_del(expansion);
-		shenv_singleton()->last_exit_code = 1;
-		return ;
-	}
 	expansion_del(expansion);
+	if (twl_lst_len(expanded) != 1)
+	{
+		shenv_singl_error(0, "%s: ambiguous redirect",
+				redir->param->text_unexpanded);
+		shenv_singleton()->last_exit_code = 1;
+		twl_lst_del(expanded, free);
+		return ;
+	}
+	token_set_text(redir->param, twl_lst_first(expanded));
+	twl_lst_del(expanded, free);
 }
 
-static void 	iter_redir_fn(void *data, void *context)
+static void		iter_redir_fn(void *data)
 {
 	t_expansion				*expansion;
-	t_ast_simple_command	*cmd;
 	t_ast_redir				*redir;
 	t_lst					*expanded;
 
 	redir = data;
-	cmd = context;
 	if (redir->heredoc_text)
 	{
-		expan_heredoc(redir);
+		ast_simple_command_expan_heredoc(redir);
 		return ;
 	}
 	expansion = expansion_new_from_token(redir->param);
@@ -126,17 +108,7 @@ static void 	iter_redir_fn(void *data, void *context)
 		shenv_singleton()->last_exit_code = 1;
 		return ;
 	}
-	expansion_del(expansion);
-	if (twl_lst_len(expanded) != 1)
-	{
-		shenv_singl_error(0, "%s: ambiguous redirect", redir->param->text_unexpanded);
-		shenv_singleton()->last_exit_code = 1;
-		twl_lst_del(expanded, free);
-		return ;
-	}
-	token_set_text(redir->param, twl_lst_first(expanded));
-	twl_lst_del(expanded, free);
-	(void)cmd;
+	iter_redir_fn_end(expansion, redir, expanded);
 }
 
 void			ast_simple_command_expan(t_ast_simple_command *cmd)
@@ -147,6 +119,6 @@ void			ast_simple_command_expan(t_ast_simple_command *cmd)
 		cmd->cmd_tokens_braced = brace_expand_tokens(cmd->cmd_tokens_deep_copy);
 	}
 	twl_lst_iter(cmd->cmd_tokens_braced, iter_cmd_fn, cmd);
-	twl_lst_iter(cmd->redir_items, iter_redir_fn, cmd);
+	twl_lst_iter0(cmd->redir_items, iter_redir_fn);
 	twl_lst_iter(cmd->assignment_items, iter_assign_fn, cmd);
 }

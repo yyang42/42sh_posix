@@ -37,9 +37,7 @@ void			builtin_pwd_exec(t_lst *tokens, t_shenv *shenv)
 		}
 	}
 	else
-	{
 		twl_printf("%s\n", path);
-	}
 	argparser_result_del(result);
 	(void)shenv;
 }

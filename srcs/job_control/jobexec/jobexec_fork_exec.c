@@ -16,7 +16,8 @@ void				jobexec_fork_exec(t_jobexec *je)
 {
 	signal(SIGTTIN, SIG_IGN);
 	signal(SIGTTOU, SIG_IGN);
-	LOG_INFO("jobexec_fork_exec: fork level: %d", shenv_singleton()->shenv_fork_level);
+	LOG_INFO("jobexec_fork_exec: fork level: %d",
+			shenv_singleton()->shenv_fork_level);
 	if (shenv_singleton()->shenv_fork_level == 0)
 	{
 		if (setpgid(0, 0) < 0)

@@ -12,7 +12,8 @@
 
 #include "builtin/builtin.h"
 
-t_builtin			*builtin_new(char *name, t_builtin_fn *builtin_fn, int flags)
+t_builtin			*builtin_new(char *name,
+		t_builtin_fn *builtin_fn, int flags)
 {
 	t_builtin		*this;
 

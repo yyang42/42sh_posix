@@ -17,7 +17,7 @@
 t_ast_subshell	*ast_subshell_new_from_tokens(t_lst *tokens, struct s_ast *ast)
 {
 	t_ast_subshell		*ast_subshell;
-	t_token					*open;
+	t_token				*open;
 
 	ast_subshell = ast_subshell_new();
 	ast_subshell->tokens = twl_lst_copy(tokens, token_copy_void);

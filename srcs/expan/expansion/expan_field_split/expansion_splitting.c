@@ -12,10 +12,6 @@
 
 #include "expan/expansion.h"
 
-/*
-** TODO: Norme :3
-*/
-
 static size_t	set_new_to_push_as(t_expansion *this, char *text)
 {
 	char		*new;
@@ -34,86 +30,75 @@ static size_t	set_new_to_push_as(t_expansion *this, char *text)
 	return (ret);
 }
 
-static void		push_split(t_expansion *this, size_t *index_tp)
-{
-	twl_lst_push_back(this->after_split, twl_strdup(this->to_push_as));
-	twl_strclr(this->to_push_as);
-	*index_tp = 0;
-}
-
-static void		push(t_expansion *this, char *text,
-						size_t *index_tp, size_t *index_txt)
-{
-	this->to_push_as[*index_tp] = text[*index_txt];
-	*index_tp += 1;
-	*index_txt += 1;
-}
-
-static void		split_quoted(t_expansion *this, char *text, size_t *index_tp,
-								size_t *index_txt)
+static void		split_quoted(t_expansion *this, char *text, size_t *index)
 {
 	char		*match;
 
-	if (text[*index_txt + 1] == 0)
+	if (text[index[1] + 1] == 0)
 	{
-		push(this, text, index_tp, index_txt);
+		expansion_splitting_push(this, text, index);
 		return ;
 	}
-	match = twl_strchr(this->ifs, text[*index_txt + 1]);
+	match = twl_strchr(this->ifs, text[index[1] + 1]);
 	if (!match)
 	{
-		push(this, text, index_tp, index_txt);
-		push(this, text, index_tp, index_txt);
+		expansion_splitting_push(this, text, index);
+		expansion_splitting_push(this, text, index);
 	}
 	else
 	{
-		*index_txt += 2;
-		push_split(this, index_tp);
+		index[1] += 2;
+		expansion_splitting_split(this, index);
+	}
+}
+
+static void		expansion_splitting_else_fn(t_expansion *this, char *text,
+		size_t *index)
+{
+	char		*match;
+
+	if (*this->to_push_as != 0 || index[1] == 0)
+	{
+		expansion_splitting_split(this, index);
+		index[1] += 1;
+	}
+	else
+	{
+		match = twl_strchr(this->ifs, text[index[1] - 1]);
+		if (!match || (*match != ' ' && *match != '\t' && *match != '\n'))
+		{
+			expansion_splitting_split(this, index);
+			index[1] += 1;
+		}
+		else
+			index[1] += 1;
 	}
 }
 
 void			expansion_splitting(t_expansion *this, char *text)
 {
-	size_t		index_tp;
-	size_t		index_txt;
+	size_t		index[2];
 	char		*match;
-	
-	index_tp = set_new_to_push_as(this, text);
-	index_txt = 0;
-	while (text[index_txt])
+
+	index[0] = set_new_to_push_as(this, text);
+	index[1] = 0;
+	while (text[index[1]])
 	{
-		if (text[index_txt] == '\\')
+		if (text[index[1]] == '\\')
 		{
-			split_quoted(this, text, &index_tp, &index_txt);
+			split_quoted(this, text, index);
 			continue ;
 		}
-		match = twl_strchr(this->ifs, text[index_txt]);
+		match = twl_strchr(this->ifs, text[index[1]]);
 		if (!match)
-			push(this, text, &index_tp, &index_txt);
+			expansion_splitting_push(this, text, index);
 		else if (*match == ' ' || *match == '\t' || *match == '\n')
 		{
 			if (*this->to_push_as != 0)
-				push_split(this, &index_tp);
-			index_txt += 1;
+				expansion_splitting_split(this, index);
+			index[1] += 1;
 		}
 		else
-		{
-			if (*this->to_push_as != 0 || index_txt == 0)
-			{
-				push_split(this, &index_tp);
-				index_txt += 1;
-			}
-			else
-			{
-				match = twl_strchr(this->ifs, text[index_txt - 1]);
-				if (!match || (*match != ' ' && *match != '\t' && *match != '\n'))
-				{
-					push_split(this, &index_tp);
-					index_txt += 1;
-				}
-				else
-					index_txt += 1;
-			}
-		}
+			expansion_splitting_else_fn(this, text, index);
 	}
 }

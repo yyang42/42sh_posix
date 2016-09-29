@@ -27,13 +27,15 @@ static void			builtin_continue_exec_one_arg(char *str_counter)
 		else
 		{
 			shenv_singleton()->shenv_continue_counter = -1;
-			shenv_singl_error(EXIT_FAILURE, "continue: %s: loop count out of range", str_counter);
+			shenv_singl_error(EXIT_FAILURE,
+					"continue: %s: loop count out of range", str_counter);
 		}
 	}
 	else
 	{
 		shenv_singleton()->shenv_continue_counter = -1;
-		shenv_singl_error(128, "continue: %s: numeric argument required", str_counter);
+		shenv_singl_error(128,
+				"continue: %s: numeric argument required", str_counter);
 		exit(shenv_singleton()->last_exit_code);
 	}
 }

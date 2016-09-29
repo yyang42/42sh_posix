@@ -19,7 +19,8 @@ static void			exit_if_function_max_depth_reached(t_shenv *env,
 {
 	if (env->function_depth > DEFAULT_FUNCTION_MAX_RECURSION_DEPTH)
 	{
-		twl_dprintf(2, "%s: maximum nested function level reached\n", token_mgr_first(tokens)->text);
+		twl_dprintf(2, "%s: maximum nested function level reached\n",
+				token_mgr_first(tokens)->text);
 		exit(1);
 	}
 }

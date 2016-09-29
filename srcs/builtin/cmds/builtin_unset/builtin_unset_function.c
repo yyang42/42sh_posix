@@ -16,9 +16,9 @@
 
 static void			unset_something(void *data, void *context, void *ret_)
 {
-	t_shenv		*env;
-	char				*arg;
-	int					*ret;
+	t_shenv			*env;
+	char			*arg;
+	int				*ret;
 
 	arg = data;
 	env = context;

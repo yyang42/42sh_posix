@@ -31,5 +31,5 @@ t_ast_compound_list	*ast_compound_list_new_from_tokens(t_lst *tokens,
 		ast_compound_list_del(this);
 		return (NULL);
 	}
-	return this;
+	return (this);
 }

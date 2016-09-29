@@ -44,13 +44,13 @@ void				builtin_dot_exec_do(char *raw_path)
 	char			*resolved_path;
 	t_shenv			*env;
 	int				flags_save;
-	// t_ast			*ast;
 
 	env = shenv_singleton();
 	resolved_path = get_file(raw_path, shenv_singleton());
 	if (!resolved_path)
 	{
-		shenv_singl_error(EXIT_FAILURE, "%s: No such file or directory", raw_path);
+		shenv_singl_error(EXIT_FAILURE, "%s: No such file or directory",
+				raw_path);
 		if (!shenv_is_interactive(shenv_singleton()))
 			exit(EXIT_FAILURE);
 		return ;

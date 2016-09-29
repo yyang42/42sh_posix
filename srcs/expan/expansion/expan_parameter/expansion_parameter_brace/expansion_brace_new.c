@@ -26,7 +26,7 @@ t_expansion_brace			*expansion_brace_new(char *input)
 	expansion_brace_flush_token(this, input);
 	if (this->type == BRACE_ERROR)
 		return (this);
-	if ((this->type == BRACE_COLON_EQUAL || this-> type == BRACE_EQUAL) &&
+	if ((this->type == BRACE_COLON_EQUAL || this->type == BRACE_EQUAL) &&
 			(twl_isdigit(*this->param) ||
 				expan_is_special_parameter(*this->param)))
 	{

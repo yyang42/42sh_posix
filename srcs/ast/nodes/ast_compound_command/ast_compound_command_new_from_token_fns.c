@@ -20,13 +20,17 @@ t_compound_command_new_fn	*compound_command_from_token_fns(void)
 
 	if (is_loaded == false)
 	{
-		fns[COMPOUND_COMMAND_BRACE_GROUP] = ast_brace_group_new_from_tokens_void;
+		fns[COMPOUND_COMMAND_BRACE_GROUP] =
+			ast_brace_group_new_from_tokens_void;
 		fns[COMPOUND_COMMAND_SUBSHELL] = ast_subshell_new_from_tokens_void;
 		fns[COMPOUND_COMMAND_FOR_CLAUSE] = ast_for_clause_new_from_tokens_void;
-		fns[COMPOUND_COMMAND_CASE_CLAUSE] = ast_case_clause_new_from_tokens_void;
+		fns[COMPOUND_COMMAND_CASE_CLAUSE] =
+			ast_case_clause_new_from_tokens_void;
 		fns[COMPOUND_COMMAND_IF_CLAUSE] = ast_if_clause_new_from_tokens_void;
-		fns[COMPOUND_COMMAND_WHILE_CLAUSE] = ast_while_clause_new_from_tokens_void;
-		fns[COMPOUND_COMMAND_UNTIL_CLAUSE] = ast_until_clause_new_from_tokens_void;
+		fns[COMPOUND_COMMAND_WHILE_CLAUSE] =
+			ast_while_clause_new_from_tokens_void;
+		fns[COMPOUND_COMMAND_UNTIL_CLAUSE] =
+			ast_until_clause_new_from_tokens_void;
 		is_loaded = true;
 	}
 	return (fns);

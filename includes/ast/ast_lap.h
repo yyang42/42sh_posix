@@ -26,6 +26,13 @@
 # include "ast/nodes/ast_andor_item.h"
 # include "ast/nodes/ast_list_item.h"
 
+typedef struct					s_ast_lap
+{
+	void						*item;
+	t_lst						*container;
+	t_token						*last_sep;
+}								t_ast_lap;
+
 t_lst							*ast_lap_build_items(t_lst *tokens,
 										t_ast_type type, struct s_ast *ast);
 

@@ -14,5 +14,6 @@
 
 bool				data_utils_is_reserved_word_middle_end(char *str)
 {
-	return (twl_lst_find(data_reserved_words_middle_end(), twl_strequ_void, str));
+	return (twl_lst_find(data_reserved_words_middle_end(),
+				twl_strequ_void, str));
 }

@@ -21,7 +21,7 @@ void				job_print_if_stopped(t_job *job)
 	if (job->job_status == JOB_STOPPED)
 	{
 		job->sign = '+';
-	    twl_putchar('\n');
-	    job_print(job, 0, STDERR_FILENO);
+		twl_putchar('\n');
+		job_print(job, 0, STDERR_FILENO);
 	}
 }

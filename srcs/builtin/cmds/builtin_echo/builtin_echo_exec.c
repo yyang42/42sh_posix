@@ -12,7 +12,7 @@
 
 #include "builtin/cmds/builtin_echo.h"
 
-static void 		iter_fn(void *token_, void *next, void *ctx)
+static void			iter_fn(void *token_, void *next, void *ctx)
 {
 	t_token			*token;
 

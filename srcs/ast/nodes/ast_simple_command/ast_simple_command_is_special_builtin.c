@@ -14,7 +14,8 @@
 #include "builtin/builtin_mgr.h"
 #include "data.h"
 
-bool				ast_simple_command_is_special_builtin(t_ast_simple_command *this)
+bool				ast_simple_command_is_special_builtin(
+		t_ast_simple_command *this)
 {
 	t_token			*first;
 

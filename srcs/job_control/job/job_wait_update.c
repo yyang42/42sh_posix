@@ -22,7 +22,7 @@ bool				job_wait_update(t_job *job)
 	job->end_pid = waitpid(job->pid, &job->status, WNOHANG | WUNTRACED);
 	errno_ret = errno;
 	LOG_INFO("job waitpid (pid=%d, endpid=%d, errno_ret=%d, ECHILD=%d",
-		job->pid, job->end_pid, errno_ret, ECHILD);
+			job->pid, job->end_pid, errno_ret, ECHILD);
 	if (job->end_pid == job->pid)
 	{
 		job_exec_update_status(job);
@@ -33,12 +33,10 @@ bool				job_wait_update(t_job *job)
 		return (job_has_terminated(job));
 	}
 	else if (job->end_pid == 0 || errno_ret == ECHILD)
-	{
 		;
-	}
 	else
 	{
-        twl_dprintf(2, "waitpid error: %d\n", job->pid);
+		twl_dprintf(2, "waitpid error: %d\n", job->pid);
 		exit(EXIT_FAILURE);
 	}
 	return (false);

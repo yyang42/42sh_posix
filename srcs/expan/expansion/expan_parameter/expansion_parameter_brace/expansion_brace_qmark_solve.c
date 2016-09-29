@@ -28,35 +28,16 @@ static void		iter_fn(void *data, void *next, void *context)
 		twl_strjoinfree(*implode, " ", 'l');
 }
 
-static void		qmark_error(t_expansion *this, char *param, char *msg)
-{
-	twl_asprintf(&this->error, "%s: %s: %s", shenv_singleton()->shenv_name,
-												param, msg);
-}
-
 static void		iter_del_fn(void *data)
 {
 	twl_lst_del(data, expan_before_split_del);
 }
 
-void			expansion_brace_qmark_solve(t_expansion *this,
-											t_expansion_brace *eb)
+static void		qmark_end_fn(t_expansion *this, t_expansion_brace *eb,
+		t_lst *lst_inner)
 {
-	t_expansion	*inner;
-	t_lst		*lst_inner;
 	char		*implode;
 
-	if (eb->word[0] == 0)
-	{
-		qmark_error(this, eb->param, "parameter null or not set");
-		return ;
-	}
-	inner = expansion_new_from_text(eb->word);
-	inner->quoted = this->quoted;
-	lst_inner = expansion_get_fields_word(inner);
-	this->error = inner->error;
-	inner->error = NULL;
-	expansion_del(inner);
 	if (this->error)
 	{
 		if (lst_inner)
@@ -66,7 +47,29 @@ void			expansion_brace_qmark_solve(t_expansion *this,
 	implode = twl_strnew(0);
 	g_before_split_dquoted = false;
 	twl_lst_itern(lst_inner, iter_fn, &implode);
-	qmark_error(this, eb->param, implode);
+	twl_asprintf(&this->error, "%s: %s: %s", shenv_singleton()->shenv_name,
+			eb->param, implode);
 	twl_lst_del(lst_inner, iter_del_fn);
 	free(implode);
+}
+
+void			expansion_brace_qmark_solve(t_expansion *this,
+											t_expansion_brace *eb)
+{
+	t_expansion	*inner;
+	t_lst		*lst_inner;
+
+	if (eb->word[0] == 0)
+	{
+		twl_asprintf(&this->error, "%s: %s: %s", shenv_singleton()->shenv_name,
+				eb->param, "parameter null or not set");
+		return ;
+	}
+	inner = expansion_new_from_text(eb->word);
+	inner->quoted = this->quoted;
+	lst_inner = expansion_get_fields_word(inner);
+	this->error = inner->error;
+	inner->error = NULL;
+	expansion_del(inner);
+	qmark_end_fn(this, eb, lst_inner);
 }

@@ -23,7 +23,7 @@ static bool			find_by_id_fn(void *job_, void *job_id_ptr)
 	return (job->job_id == job_id);
 }
 
-t_job 				*job_mgr_find_by_job_id(t_lst *jobs, char *job_str_id)
+t_job				*job_mgr_find_by_job_id(t_lst *jobs, char *job_str_id)
 {
 	int				job_id;
 

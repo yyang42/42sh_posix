@@ -14,7 +14,7 @@
 #include "builtin/cmds/builtin_umask.h"
 #include "twl_stdlib.h"
 
-static int				get_shift_nb(char *shift_str)
+static int			get_shift_nb(char *shift_str)
 {
 	int		shift_nb;
 
@@ -24,7 +24,8 @@ static int				get_shift_nb(char *shift_str)
 	}
 	else
 	{
-		shenv_singl_error(EXIT_FAILURE, "shift: %s: numeric argument required", shift_str);
+		shenv_singl_error(EXIT_FAILURE,
+				"shift: %s: numeric argument required", shift_str);
 		shift_nb = -1;
 	}
 	return (shift_nb);
@@ -36,7 +37,7 @@ static void			shift_action(t_shenv *env, char *shift_str)
 
 	shift_nb = get_shift_nb(shift_str);
 	if (shift_nb < 0)
-		return;
+		return ;
 	if ((int)twl_lst_len(env->shenv_pos_params) < shift_nb)
 	{
 		env->last_exit_code = EXIT_FAILURE;
@@ -60,7 +61,8 @@ void				builtin_shift_exec(t_lst *tokens, t_shenv *env)
 {
 	t_argparser_result	*argparser_result;
 
-	argparser_result = argparser_parse_tokens(builtin_shift_argparser(), tokens);
+	argparser_result = argparser_parse_tokens(
+			builtin_shift_argparser(), tokens);
 	if (argparser_result->err_msg)
 	{
 		argparser_result_print_usage_exit_status(argparser_result, 2);
