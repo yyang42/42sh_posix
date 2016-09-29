@@ -12,9 +12,9 @@
 
 #include "expan/expan_tokenizer.h"
 
-bool				expan_tokenizer_is_special_parameter(t_expan_tokenizer *this)
+bool			expan_tokenizer_is_special_parameter(t_expan_tokenizer *this)
 {
-	const char		c = this->input[this->input_index];
+	const char	c = this->input[this->input_index];
 
 	return (c == '@' ||
 			c == '*' ||
