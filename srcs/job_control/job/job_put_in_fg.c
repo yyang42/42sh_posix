@@ -14,32 +14,38 @@
 #include "job_control/jobexec.h"
 #include "utils.h"
 
-static void         job_exec_fn(t_job *job, void *ctx)
+static void		job_exec_fn(t_job *job, void *ctx)
 {
-    int             kill_ret;
+	int			kill_ret;
 
-    LOG_INFO("job_put_in_fg: job_exec_fn: pid: %d", job->pid);
-    kill_ret = kill(job_get_kill_pid(job), SIGCONT);
-    if (kill_ret == 0)
-    {
-        if (tcsetpgrp(STDIN_FILENO, job->pid) < 0)
-            LOG_ERROR("tcsetpgrp: %s", strerror(errno));
-    }
-    else if (kill_ret < 0)
-    {
-        LOG_ERROR("kill: %s, %d", strerror(errno), job_get_kill_pid(job));
-        shenv_singleton()->last_exit_code = EXIT_FAILURE;
-    }
-    job_utils_waitpid(job->pid, &job->status);
-    job_print_if_stopped(job);
-    if(tcsetpgrp(STDIN_FILENO, getpid()) < 0)
-        LOG_ERROR("tcsetpgrp: %s", strerror(errno));
-    (void)ctx;
+	LOG_INFO("job_put_in_fg: job_exec_fn: pid: %d", job->pid);
+	kill_ret = kill(job_get_kill_pid(job), SIGCONT);
+	if (kill_ret == 0)
+	{
+		if (tcsetpgrp(STDIN_FILENO, job->pid) < 0)
+			LOG_ERROR("tcsetpgrp: %s", strerror(errno));
+	}
+	else if (kill_ret < 0)
+	{
+		LOG_ERROR("kill: %s, %d", strerror(errno), job_get_kill_pid(job));
+		shenv_singleton()->last_exit_code = EXIT_FAILURE;
+	}
+	job_utils_waitpid(job->pid, &job->status);
+	job_print_if_stopped(job);
+	if (tcsetpgrp(STDIN_FILENO, getpid()) < 0)
+		LOG_ERROR("tcsetpgrp: %s", strerror(errno));
+	(void)ctx;
 }
 
-void	         	job_put_in_fg(t_job *job)
+/*
+** TODO @yyang42
+** job_del(job);
+** il y avait ça commenté à la fin de la fonction job_put_in_fg, une idée de
+** ce à quoi ça pouvait servir
+*/
+
+void			job_put_in_fg(t_job *job)
 {
-    LOG_INFO("job_put_in_fg: %d", job->pid);
-    jobexec_fork_exec_interactive_job_sig_wrapper(job, NULL, job_exec_fn);
-    // job_del(job);
+	LOG_INFO("job_put_in_fg: %d", job->pid);
+	jobexec_fork_exec_interactive_job_sig_wrapper(job, NULL, job_exec_fn);
 }

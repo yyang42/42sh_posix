@@ -32,7 +32,8 @@ void				job_print(t_job *this, int flags, int fd)
 		twl_dprintf(fd, "[%lld]%c ", this->job_id, this->sign);
 		if (!flags & BUILTIN_JOBS_FLAG_OPT_L)
 			twl_dprintf(fd, " ");
-		full_status = job_status_str_long(this, flags & BUILTIN_JOBS_FLAG_OPT_L);
+		full_status = job_status_str_long(this,
+				flags & BUILTIN_JOBS_FLAG_OPT_L);
 		twl_dprintf(fd, "%s\n", full_status);
 		free(full_status);
 	}

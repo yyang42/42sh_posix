@@ -40,8 +40,6 @@ char				*job_status_str(t_job *job)
 			shsignal_mgr_get_signame(data_signals(), job->stopped_signal));
 	}
 	else
-	{
 		str_status = twl_strdup("Unknown");
-	}
 	return (str_status);
 }
