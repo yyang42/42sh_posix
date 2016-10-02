@@ -15,6 +15,7 @@
 #include "ast/nodes/ast_redir.h"
 #include "builtin/builtin_mgr.h"
 #include "data.h"
+#include "utils.h"
 
 static void			ast_simple_command_execve_wrapper(t_ast_simple_command *cmd)
 {
@@ -44,6 +45,8 @@ void				ast_simple_command_exec_tokens(t_ast_simple_command *cmd)
 	}
 	else if (builtin)
 	{
+		if (isatty(1))
+			utils_tcsetpgrp_for_tty(getpid(), 1);
 		shenv_set_cur_cmd(shenv_singleton(), cmd_name);
 		shenv_set_cur_token(shenv_singleton(),
 				token_mgr_first(cmd->cmd_tokens_expanded));
