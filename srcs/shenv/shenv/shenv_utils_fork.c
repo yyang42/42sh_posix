@@ -14,13 +14,6 @@
 #include "shenv/shenv.h"
 #include "job_control/job.h"
 
-/*
-** TODO: @yyang42
-** twl_lst_clear(shenv_singleton()->jobs, job_del_void);
-** cause read: input/outpur error
-** in the if (pid == 0) condition
-*/
-
 pid_t					shenv_utils_fork(void)
 {
 	pid_t			pid;

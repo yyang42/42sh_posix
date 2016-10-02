@@ -37,13 +37,6 @@ static void		job_exec_fn(t_job *job, void *ctx)
 	(void)ctx;
 }
 
-/*
-** TODO @yyang42
-** job_del(job);
-** il y avait ça commenté à la fin de la fonction job_put_in_fg, une idée de
-** ce à quoi ça pouvait servir
-*/
-
 void			job_put_in_fg(t_job *job)
 {
 	LOG_INFO("job_put_in_fg: %d", job->pid);
