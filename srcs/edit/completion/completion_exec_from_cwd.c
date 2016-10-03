@@ -12,10 +12,35 @@
 
 #include "edit/completion.h"
 
+static void		completion_exec_from_cwd_else_fn(t_completion *this,
+		t_completion_path *path)
+{
+	char				*tmp;
+
+	completion_path_exec_readfile(this, path);
+	if (!twl_lst_first(this->all))
+		;
+	else if (this->all_len == 1)
+	{
+		edit_place_string(this->edit, twl_lst_first(this->all) +
+				twl_strlen(path->end));
+	}
+	else if ((tmp = completion_path_utils_get_begin_list(this, path)))
+	{
+		edit_place_string(this->edit, tmp);
+		free(tmp);
+	}
+	else
+	{
+		if (this->edit->is_last_tab)
+			completion_utils_print_lst(this);
+		this->edit->is_last_tab = 2;
+	}
+}
+
 void			completion_exec_from_cwd(t_completion *this)
 {
 	t_completion_path	path;
-	char				*tmp;
 
 	completion_path_init(&path, this);
 	if (!*path.end && completion_path_utils_is_begin_dot(path.begin))
@@ -24,24 +49,7 @@ void			completion_exec_from_cwd(t_completion *this)
 	}
 	else
 	{
-		completion_path_exec_readfile(this, &path);
-		if (!twl_lst_first(this->all))
-			;
-		else if (this->all_len == 1)
-		{
-			edit_place_string(this->edit, twl_lst_first(this->all) + twl_strlen(path.end));
-		}
-		else if ((tmp = completion_path_utils_get_begin_list(this, &path)))
-		{
-			edit_place_string(this->edit, tmp);
-			free(tmp);
-		}
-		else
-		{
-			if (this->edit->is_last_tab)
-				completion_utils_print_lst(this);
-			this->edit->is_last_tab = 2;
-		}
+		completion_exec_from_cwd_else_fn(this, &path);
 	}
 	twl_lst_clear(this->all, free);
 	completion_path_clear(&path);

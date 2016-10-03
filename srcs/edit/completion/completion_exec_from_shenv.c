@@ -45,7 +45,8 @@ static void		builtin_iter_fn(void *data, void *ctx)
 	}
 }
 
-static void			update_binary_db_on_path_change(t_shenv *env)
+static void		update_binary_db_on_path_change_and_init(t_shenv *env,
+		t_completion *this)
 {
 	char			*path_var;
 
@@ -55,23 +56,24 @@ static void			update_binary_db_on_path_change(t_shenv *env)
 		shenv_build_binary_db(env);
 		shenv_set_binary_saved_path(env, path_var);
 	}
+	twl_htab_iter(shenv_singleton()->shenv_alias, htab_iter_fn, this);
+	twl_htab_iter(shenv_singleton()->shenv_binary_db, htab_iter_fn, this);
+	twl_dict_iter(shenv_singleton()->shfuncs, funcs_iter_fn, this);
+	twl_lst_iter(data_builtins(), builtin_iter_fn, this);
+	completion_utils_lst_uniq(this);
 }
 
 void			completion_exec_from_shenv(t_completion *this)
 {
 	char		*tmp;
 
-	update_binary_db_on_path_change(shenv_singleton());
-	twl_htab_iter(shenv_singleton()->shenv_alias, htab_iter_fn, this);
-	twl_htab_iter(shenv_singleton()->shenv_binary_db, htab_iter_fn, this);
-	twl_dict_iter(shenv_singleton()->shfuncs, funcs_iter_fn, this);
-	twl_lst_iter(data_builtins(), builtin_iter_fn, this);
-	completion_utils_lst_uniq(this);
+	update_binary_db_on_path_change_and_init(shenv_singleton(), this);
 	if (!twl_lst_first(this->all))
 		;
 	else if (this->all_len == 1)
 	{
-		tmp = twl_strjoin(twl_lst_first(this->all) + twl_strlen(this->current_word), " ");
+		tmp = twl_strjoin(twl_lst_first(this->all) +
+				twl_strlen(this->current_word), " ");
 		edit_place_string(this->edit, tmp);
 		free(tmp);
 	}

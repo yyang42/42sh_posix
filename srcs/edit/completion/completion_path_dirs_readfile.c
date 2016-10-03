@@ -15,12 +15,24 @@
 #include <sys/stat.h>
 #include "twl_xsys/stat.h"
 
+static void			completion_path_dirs_readfile_end_loop_fn(
+		t_completion *this, struct stat *sb,
+		struct dirent *dirfile, char *joinpath)
+{
+	if (S_ISDIR(sb->st_mode) || twl_isdirl(joinpath))
+		twl_lst_push_front(this->all, twl_strjoin(dirfile->d_name, "/"));
+	else
+		twl_lst_push_front(this->all, twl_strjoin(dirfile->d_name, " "));
+	this->all_len += 1;
+	free(joinpath);
+}
+
 void				completion_path_dirs_readfile(t_completion *this,
 						t_completion_path *path)
 {
 	DIR				*dir;
 	struct dirent	*dirfile;
-	char			*join_path;
+	char			*joinpath;
 	struct stat		sb;
 
 	if (!(dir = opendir(path->begin)))
@@ -31,18 +43,14 @@ void				completion_path_dirs_readfile(t_completion *this,
 			continue ;
 		if (!completion_utils_start_with(dirfile->d_name, path->end))
 			continue ;
-		join_path = completion_path_utils_join_path(path->begin, dirfile->d_name);
-		if (lstat(join_path, &sb))
+		joinpath = completion_path_utils_join_path(
+				path->begin, dirfile->d_name);
+		if (lstat(joinpath, &sb))
 		{
-			free(join_path);
+			free(joinpath);
 			continue ;
 		}
-		if (S_ISDIR(sb.st_mode) || twl_isdirl(join_path))
-			twl_lst_push_front(this->all, twl_strjoin(dirfile->d_name, "/"));
-		else
-			twl_lst_push_front(this->all, twl_strjoin(dirfile->d_name, " "));
-		this->all_len += 1;
-		free(join_path);
+		completion_path_dirs_readfile_end_loop_fn(this, &sb, dirfile, joinpath);
 	}
 	closedir(dir);
 }

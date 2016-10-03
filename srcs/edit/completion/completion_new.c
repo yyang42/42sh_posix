@@ -12,7 +12,7 @@
 
 #include "edit/completion.h"
 
-static bool		completion_is_separator(char c)
+static bool					completion_is_separator(char c)
 {
 	return (c == ' ' || c == '\t' || c == '\n' ||
 			c == '|' || c == '&' || c == ';' ||
@@ -45,7 +45,7 @@ static t_completion_type	completion_get_type(char *current, size_t index)
 	return (COMPLETION_DIRS);
 }
 
-static void		completion_init(t_completion *this, t_edit *edit)
+static void					completion_init(t_completion *this, t_edit *edit)
 {
 	char		*current;
 	size_t		index;
@@ -66,7 +66,7 @@ static void		completion_init(t_completion *this, t_edit *edit)
 	this->type = completion_get_type(current, index);
 }
 
-t_completion		*completion_new(t_edit *edit)
+t_completion				*completion_new(t_edit *edit)
 {
 	t_completion	*this;
 

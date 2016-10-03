@@ -28,7 +28,7 @@ char			*completion_path_utils_join_path(char *begin, char *end)
 	if (tmp != ret && tmp[-1] != '/')
 	{
 		*tmp = '/';
-		tmp += 1;	
+		tmp += 1;
 	}
 	while (*end)
 	{
