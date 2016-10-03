@@ -11,20 +11,44 @@
 /* ************************************************************************** */
 
 #include "edit/edit.h"
+#include "edit/research.h"
+#include "edit/event.h"
+#include "utils.h"
 
-void				edit_move_right(t_edit *this)
+static bool		edit_get_line_not_end(t_edit *this)
 {
-	if (this->pos_cursor == this->current->size)
+	this->research_mode = false;
+	research_del(this->research);
+	this->research = NULL;
+	line_del(this->last);
+	this->last = line_new();
+	this->current = this->last;
+	history_reset_current(this->history);
+	this->pos_cursor = 0;
+	this->type = edit_type_ps1;
+	return (false);
+}
+
+bool			edit_get_line_is_end(t_edit *this)
+{
+	char		*expand;
+	char		*tmp;
+	size_t		len;
+	size_t		tot;
+
+	expand = event_expand(this);
+	if (!expand)
 	{
-		return ;
+		return (edit_get_line_not_end(this));
 	}
-	if ((this->pos_cursor + this->base_x + 1) % this->winsize_x == 0)
-	{
-		this->puts("\n\r");
-	}
-	else
-	{
-		tputs(tgoto(tgetstr("nd", NULL), 0, 0), 1, this->putc);
-	}
-	this->pos_cursor += 1;
+	len = twl_strlen(expand);
+	tot = utils_upper_power_of_two(len);
+	tmp = twl_strnew(tot);
+	twl_strcpy(tmp, expand);
+	free(expand);
+	free(this->current->line);
+	this->current->line = tmp;
+	this->current->size = len;
+	this->current->total = tot;
+	return (true);
 }

@@ -30,7 +30,6 @@ t_edit				*edit_new(void)
 	edit_terminal_init(this);
 	edit_get_winsize(this);
 	this->history = history_new();
-	//this->index_history = 0;
 	this->putc = putc_fn;
 	this->puts = puts_fn;
 	return (this);

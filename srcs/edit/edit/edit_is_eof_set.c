@@ -11,20 +11,17 @@
 /* ************************************************************************** */
 
 #include "edit/edit.h"
+#include "edit/research.h"
+#include "edit/event.h"
+#include "utils.h"
 
-void				edit_move_right(t_edit *this)
+bool			edit_is_eof_set(t_edit *this)
 {
-	if (this->pos_cursor == this->current->size)
-	{
-		return ;
-	}
-	if ((this->pos_cursor + this->base_x + 1) % this->winsize_x == 0)
-	{
-		this->puts("\n\r");
-	}
-	else
-	{
-		tputs(tgoto(tgetstr("nd", NULL), 0, 0), 1, this->putc);
-	}
-	this->pos_cursor += 1;
+	research_end(this);
+	if (!shenv_shflag_enabled(shenv_singleton(), "ignoreeof"))
+		return (true);
+	this->puts("Use \"exit\" to leave the shell.");
+	this->puts("\n\r");
+	edit_prompt_print(this);
+	return (false);
 }

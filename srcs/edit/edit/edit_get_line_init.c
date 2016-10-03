@@ -11,20 +11,21 @@
 /* ************************************************************************** */
 
 #include "edit/edit.h"
+#include "edit/research.h"
+#include "edit/event.h"
+#include "utils.h"
 
-void				edit_move_right(t_edit *this)
+void			edit_get_line_init(t_edit *this, t_edit_type type)
 {
-	if (this->pos_cursor == this->current->size)
+	this->type = type;
+	edit_prompt_print(this);
+	utils_tcsetpgrp_for_tty_01(getpid());
+	edit_terminal_enable(this);
+	edit_new_last_line(this);
+	if (this->type == edit_type_ps1)
 	{
-		return ;
+		if (this->last_ps1)
+			twl_strdel(&this->last_ps1);
 	}
-	if ((this->pos_cursor + this->base_x + 1) % this->winsize_x == 0)
-	{
-		this->puts("\n\r");
-	}
-	else
-	{
-		tputs(tgoto(tgetstr("nd", NULL), 0, 0), 1, this->putc);
-	}
-	this->pos_cursor += 1;
+	this->pos_cursor = 0;
 }
