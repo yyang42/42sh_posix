@@ -28,10 +28,9 @@ static t_histlist	*get_histlist_first(t_history *this, size_t histfilesize)
 		tmp = tmp->prev;
 	}
 	return (tmp);
-
 }
 
-void			history_write_file(t_history *this, char *path)
+void				history_write_file(t_history *this, char *path)
 {
 	int			fd;
 	size_t		histfilesize;

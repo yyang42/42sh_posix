@@ -24,13 +24,16 @@ static bool		is_regular_file(char *path)
 	return (S_ISREG(buf.st_mode));
 }
 
-static void		create_file(char *path)
+static void		history_utils_get_fd_histfile_init(char *p,
+		char **path, bool *should_free)
 {
 	int			fd;
-	
-	fd = open(path, O_RDWR | O_CREAT, 0644);
+
+	*path = p ? p : shenv_shvars_get_value(shenv_singleton(), "HISTFILE");
+	fd = open(*path, O_RDWR | O_CREAT, 0644);
 	if (fd >= 0)
 		close(fd);
+	*should_free = false;
 }
 
 int				history_utils_get_fd_histfile(char *p, int opt)
@@ -40,9 +43,7 @@ int				history_utils_get_fd_histfile(char *p, int opt)
 	int			fd;
 	bool		should_free;
 
-	path = p ? p : shenv_shvars_get_value(shenv_singleton(), "HISTFILE");
-	create_file(path);
-	should_free = false;
+	history_utils_get_fd_histfile_init(p, &path, &should_free);
 	if (!path)
 	{
 		home = shenv_get_home(shenv_singleton());
