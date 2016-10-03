@@ -15,7 +15,7 @@
 void			research_print_line(t_edit *this)
 {
 	size_t		tmp_pos_cursor;
-	
+
 	tmp_pos_cursor = this->pos_cursor;
 	this->puts(this->current->line);
 	this->pos_cursor = this->current->size;

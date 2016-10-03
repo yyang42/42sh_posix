@@ -15,7 +15,7 @@
 static void		iter_fn(void *data, void *context)
 {
 	t_edit		*this;
-	
+
 	this = context;
 	if (this->research->found == true)
 		return ;
