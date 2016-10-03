@@ -18,7 +18,7 @@
 
 static bool			is_valid_fn(char c)
 {
-	return (c && !twl_isblank(c)  && c != '=' && c != '(');
+	return (c && !twl_isblank(c) && c != '=' && c != '(');
 }
 
 t_rule_event_status	event_tokenizer_apply_rule03(t_event_tokenizer *this)
