@@ -15,6 +15,10 @@
 #include "ast/ast.h"
 #include "shenv/shenv.h"
 
+/*
+** Meh
+*/
+
 static int			count_single_quote(char *str)
 {
 	int		count;
@@ -36,38 +40,22 @@ static int			count_single_quote(char *str)
 	return (count);
 }
 
-static char			*read_gnl(int fd, char **gnl_remainder_ptr, int *line_ptr)
+static bool			read_gnl_begin_loop(char **accumulator,
+		int *line_ptr, char *line)
 {
-	char			*line;
-	char			*accumulator;
-	int				gnl_ret;
-	int				has_open;
-
-	accumulator = twl_strdup("");
-	while ((gnl_ret = twl_gnl(fd, &line, gnl_remainder_ptr)) > 0)
+	*line_ptr += 1;
+	*accumulator = twl_strjoinfree(*accumulator, line, 'l');
+	if (count_single_quote(*accumulator) % 2)
 	{
-		LOG_DEBUG("%i: <%s> <%s>", gnl_ret, line, *gnl_remainder_ptr);
-		*line_ptr += 1;
-		accumulator = twl_strjoinfree(accumulator, line, 'l');
-		if (count_single_quote(accumulator) % 2)
-		{
-			accumulator = twl_strjoinfree(accumulator, "\n", 'l');
-			free(line);
-			continue ;
-		}
-		if (utils_str_has_line_continuation(accumulator))
-		{
-			accumulator[twl_strlen(accumulator) - 1] = '\0';
-			free(line);
-			continue ;
-		}
-		accumulator = twl_strjoinfree(accumulator, "\n", 'l');
+		*accumulator = twl_strjoinfree(*accumulator, "\n", 'l');
 		free(line);
-		line = NULL;
-		has_open = ast_utils_check_has_open(accumulator);
-		if (!has_open)
-			break ;
+		return (true);
 	}
+	return (false);
+}
+
+static char			*read_gnl_end(int gnl_ret, char *accumulator)
+{
 	if (gnl_ret == GNL_ERR_BINARY_FILE)
 	{
 		shenv_singl_error(126, "cannot execute binary file");
@@ -80,6 +68,33 @@ static char			*read_gnl(int fd, char **gnl_remainder_ptr, int *line_ptr)
 		return (NULL);
 	}
 	return (accumulator);
+}
+
+static char			*read_gnl(int fd, char **gnl_remainder_ptr, int *line_ptr)
+{
+	char			*line;
+	char			*accumulator;
+	int				gnl_ret;
+	int				has_open;
+
+	accumulator = twl_strdup("");
+	while ((gnl_ret = twl_gnl(fd, &line, gnl_remainder_ptr)) > 0)
+	{
+		if (read_gnl_begin_loop(&accumulator, line_ptr, line))
+			continue ;
+		if (utils_str_has_line_continuation(accumulator))
+		{
+			accumulator[twl_strlen(accumulator) - 1] = '\0';
+			free(line);
+			continue ;
+		}
+		accumulator = twl_strjoinfree(accumulator, "\n", 'l');
+		twl_strdel(&line);
+		has_open = ast_utils_check_has_open(accumulator);
+		if (!has_open)
+			break ;
+	}
+	return (read_gnl_end(gnl_ret, accumulator));
 }
 
 void				prog_utils_run_fd(int fd)
