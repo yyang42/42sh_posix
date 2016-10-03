@@ -29,13 +29,8 @@ static void		init_val(char *input, int *start_end_step)
 		-(start_end_step[2]) : start_end_step[2];
 }
 
-static void		init_zero(char *input, int *zero)
+static void		init_zero(char *input, int *zero, int index)
 {
-	int			index;
-
-	index = 0;
-	if (input[index] == '+' || input[index] == '-')
-		index += 1;
 	if (input[index] == '0')
 	{
 		*zero = index;
@@ -90,10 +85,14 @@ static void		greater_than(t_lst *ret, int *sesz)
 t_lst			*brace_expand_sequence_digit(char *input)
 {
 	int			start_end_step_zero[4];
+	int			index;
 	t_lst		*ret;
 
 	init_val(input, start_end_step_zero);
-	init_zero(input, &start_end_step_zero[3]);
+	index = 0;
+	if (input[index] == '+' || input[index] == '-')
+		index += 1;
+	init_zero(input, &start_end_step_zero[3], index);
 	ret = twl_lst_new();
 	if (start_end_step_zero[0] < start_end_step_zero[1])
 		lower_than(ret, start_end_step_zero);

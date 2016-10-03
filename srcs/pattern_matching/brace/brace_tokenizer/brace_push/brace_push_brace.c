@@ -46,7 +46,7 @@ static bool		try_push01(t_brace_tokenizer *this, char c, size_t *depth)
 void			brace_push_brace(t_brace_tokenizer *this)
 {
 	size_t		depth;
-	
+
 	depth = 0;
 	this->index_input += 1;
 	this->total = 0;

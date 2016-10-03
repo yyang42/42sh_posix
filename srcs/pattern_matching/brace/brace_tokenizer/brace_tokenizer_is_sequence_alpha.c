@@ -27,7 +27,7 @@ static bool			skip_sequence_digit(t_brace_tokenizer *this, size_t *index)
 	return (true);
 }
 
-bool			brace_tokenizer_is_sequence_alpha(t_brace_tokenizer *this)
+bool				brace_tokenizer_is_sequence_alpha(t_brace_tokenizer *this)
 {
 	size_t			index;
 

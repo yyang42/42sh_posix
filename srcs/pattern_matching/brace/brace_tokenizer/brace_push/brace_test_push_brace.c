@@ -12,10 +12,32 @@
 
 #include "pattern_matching/brace/brace_tokenizer.h"
 
+static void		brace_test_push_brace_end_loop_fn(t_brace_tokenizer *this,
+		size_t *depth)
+{
+	if (this->input[this->index_input] == '{')
+	{
+		*depth += 1;
+		this->index_input += 1;
+	}
+	else if (this->input[this->index_input] == '}')
+	{
+		*depth -= 1;
+		this->index_input += 1;
+	}
+	else if (this->input[this->index_input] == ',' && *depth == 0)
+	{
+		this->total += 1;
+		this->index_input += 1;
+	}
+	else
+		brace_tokenizer_addone(this);
+}
+
 void			brace_test_push_brace(t_brace_tokenizer *this)
 {
 	size_t		depth;
-	
+
 	depth = 0;
 	this->index_input += 1;
 	this->total = 0;
@@ -34,22 +56,7 @@ void			brace_test_push_brace(t_brace_tokenizer *this)
 			brace_push_dquote(this);
 		else if (this->input[this->index_input] == '\\')
 			brace_push_escaped(this);
-		else if (this->input[this->index_input] == '{')
-		{
-			depth += 1;
-			this->index_input += 1;
-		}
-		else if (this->input[this->index_input] == '}')
-		{
-			depth -= 1;
-			this->index_input += 1;
-		}
-		else if (this->input[this->index_input] == ',' && depth == 0)
-		{
-			this->total += 1;
-			this->index_input += 1;
-		}
 		else
-			brace_tokenizer_addone(this);
+			brace_test_push_brace_end_loop_fn(this, &depth);
 	}
 }
