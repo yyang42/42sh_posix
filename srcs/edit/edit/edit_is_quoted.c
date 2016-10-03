@@ -12,6 +12,21 @@
 
 #include "edit/edit.h"
 
+static void		edit_is_quoted_init(t_edit *this,
+		char **command, size_t *cursor)
+{
+	if (this->last_ps1)
+	{
+		*command = twl_strjoin(this->last_ps1, this->current->line);
+		*cursor = twl_strlen(this->last_ps1) + this->pos_cursor;
+	}
+	else
+	{
+		*command = twl_strdup(this->current->line);
+		*cursor = this->pos_cursor;
+	}
+}
+
 bool			edit_is_quoted(t_edit *this)
 {
 	char		*command;
@@ -19,16 +34,7 @@ bool			edit_is_quoted(t_edit *this)
 	size_t		index;
 	bool		quoted;
 
-	if (this->last_ps1)
-	{
-		command = twl_strjoin(this->last_ps1, this->current->line);
-		cursor = twl_strlen(this->last_ps1) + this->pos_cursor;
-	}
-	else
-	{
-		command = twl_strdup(this->current->line);
-		cursor = this->pos_cursor;
-	}
+	edit_is_quoted_init(this, &command, &cursor);
 	index = 0;
 	quoted = false;
 	while (command[index] && index < cursor)

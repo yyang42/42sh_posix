@@ -18,7 +18,8 @@ static void		log_it(int output, char *buffer, char *to_print)
 	int			ind_buf;
 	int			index;
 
-	index = twl_sprintf(to_print, "twl_strlen(%03zu): %03i: ", twl_strlen(buffer), output);
+	index = twl_sprintf(to_print, "twl_strlen(%03zu): %03i: ",
+			twl_strlen(buffer), output);
 	ind_buf = 0;
 	while (buffer[ind_buf])
 	{
@@ -31,7 +32,8 @@ static void		log_it(int output, char *buffer, char *to_print)
 		else if (twl_isprint(buffer[ind_buf]))
 			index += twl_sprintf(to_print + index, "%c", buffer[ind_buf]);
 		else
-			index += twl_sprintf(to_print + index, "\\x%02hhx", buffer[ind_buf]);
+			index += twl_sprintf(
+					to_print + index, "\\x%02hhx", buffer[ind_buf]);
 		ind_buf += 1;
 	}
 }

@@ -31,37 +31,41 @@ static void		completion_path_init_fn(t_completion_path *this,
 	}
 }
 
-void			completion_dirs_from_cwd(t_completion *this)
+static void		completion_dirs_from_cwd_else_fn(t_completion *this,
+		t_completion_path *path)
 {
-	t_completion_path	path;
 	char				*tmp;
 
-	completion_path_init_fn(&path, this);
-	if (!*path.end && completion_path_utils_is_begin_dot(path.begin))
+	path->begin = twl_strjoinfree("./", path->begin, 'r');
+	completion_path_dirs_readfile(this, path);
+	if (!twl_lst_first(this->all))
+		;
+	else if (this->all_len == 1)
+		edit_place_string(this->edit, twl_lst_first(this->all) +
+				twl_strlen(path->end));
+	else if ((tmp = completion_path_utils_get_begin_list(this, path)))
 	{
-		edit_place_letter(this->edit, '/');
+		edit_place_string(this->edit, tmp);
+		free(tmp);
 	}
 	else
 	{
-		path.begin = twl_strjoinfree("./", path.begin, 'r');
-		completion_path_dirs_readfile(this, &path);
-		if (!twl_lst_first(this->all))
-			;
-		else if (this->all_len == 1)
-		{
-			edit_place_string(this->edit, twl_lst_first(this->all) + twl_strlen(path.end));
-		}
-		else if ((tmp = completion_path_utils_get_begin_list(this, &path)))
-		{
-			edit_place_string(this->edit, tmp);
-			free(tmp);
-		}
-		else
-		{
-			if (this->edit->is_last_tab)
-				completion_utils_print_lst(this);
-			this->edit->is_last_tab = 2;
-		}
+		if (this->edit->is_last_tab)
+			completion_utils_print_lst(this);
+		this->edit->is_last_tab = 2;
+	}
+}
+
+void			completion_dirs_from_cwd(t_completion *this)
+{
+	t_completion_path	path;
+
+	completion_path_init_fn(&path, this);
+	if (!*path.end && completion_path_utils_is_begin_dot(path.begin))
+		edit_place_letter(this->edit, '/');
+	else
+	{
+		completion_dirs_from_cwd_else_fn(this, &path);
 	}
 	twl_lst_clear(this->all, free);
 	completion_path_clear(&path);

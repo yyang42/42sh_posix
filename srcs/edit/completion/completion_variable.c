@@ -33,7 +33,8 @@ void			completion_variable(t_completion *this)
 		;
 	else if (this->all_len == 1)
 	{
-		tmp = twl_strjoin(twl_lst_first(this->all) + twl_strlen(this->current_word), " ");
+		tmp = twl_strjoin(twl_lst_first(this->all) +
+				twl_strlen(this->current_word), " ");
 		edit_place_string(this->edit, tmp);
 		free(tmp);
 	}

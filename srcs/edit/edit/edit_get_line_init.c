@@ -10,25 +10,22 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "edit/edit.h"
 #include "edit/research.h"
+#include "edit/event.h"
+#include "utils.h"
 
-static void		iter_fn(void *data, void *context)
+void			edit_get_line_init(t_edit *this, t_edit_type type)
 {
-	t_edit		*this;
-
-	this = context;
-	if (this->research->found == true)
-		return ;
-	research_rewind_string(this, data, ((t_line *)data)->size);
-	if (this->research->found == true)
+	this->type = type;
+	edit_prompt_print(this);
+	utils_tcsetpgrp_for_tty_01(getpid());
+	edit_terminal_enable(this);
+	edit_new_last_line(this);
+	if (this->type == edit_type_ps1)
 	{
-		history_set_current(this->history, this->current);
+		if (this->last_ps1)
+			twl_strdel(&this->last_ps1);
 	}
-}
-
-void			research_find(t_edit *this)
-{
-	this->research->found = false;
-	research_rewind_string(this, this->current, this->pos_cursor);
-	history_iter_from_current_to_first(this->history, iter_fn, this);
+	this->pos_cursor = 0;
 }

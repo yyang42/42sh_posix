@@ -73,6 +73,9 @@ void					edit_terminal_enable(t_edit *this);
 void					edit_terminal_disable(t_edit *this);
 
 char					*edit_get_line(t_edit *this, t_edit_type type);
+void					edit_get_line_init(t_edit *this, t_edit_type type);
+bool					edit_get_line_is_end(t_edit *this);
+bool					edit_is_eof_set(t_edit *this);
 void					edit_new_last_line(t_edit *this);
 
 void					edit_match_char(t_edit *this, unsigned char buf);

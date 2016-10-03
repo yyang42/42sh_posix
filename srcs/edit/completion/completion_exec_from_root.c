@@ -23,7 +23,8 @@ void			completion_exec_from_root(t_completion *this)
 		;
 	else if (this->all_len == 1)
 	{
-		edit_place_string(this->edit, twl_lst_first(this->all) + twl_strlen(path.end));
+		edit_place_string(this->edit, twl_lst_first(this->all) +
+				twl_strlen(path.end));
 	}
 	else if ((tmp = completion_path_utils_get_begin_list(this, &path)))
 	{

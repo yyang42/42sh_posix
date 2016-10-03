@@ -15,6 +15,10 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
+/*
+** TODO: check les leaks ici
+*/
+
 t_lst			*history_utils_get_histfile(char *path)
 {
 	int			fd;
@@ -30,13 +34,10 @@ t_lst			*history_utils_get_histfile(char *path)
 	lst = twl_lst_new();
 	while (twl_gnl(fd, &str, &rem))
 	{
-		if (str == NULL)
+		if (str == NULL || !*str)
 		{
-			continue ;
-		}
-		if (!*str)
-		{
-			free(str);
+			if (!*str)
+				free(str);
 			continue ;
 		}
 		twl_lst_push_front(lst, str);

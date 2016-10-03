@@ -10,25 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "edit/edit.h"
 #include "edit/research.h"
+#include "edit/event.h"
+#include "utils.h"
 
-static void		iter_fn(void *data, void *context)
+bool			edit_is_eof_set(t_edit *this)
 {
-	t_edit		*this;
-
-	this = context;
-	if (this->research->found == true)
-		return ;
-	research_rewind_string(this, data, ((t_line *)data)->size);
-	if (this->research->found == true)
-	{
-		history_set_current(this->history, this->current);
-	}
-}
-
-void			research_find(t_edit *this)
-{
-	this->research->found = false;
-	research_rewind_string(this, this->current, this->pos_cursor);
-	history_iter_from_current_to_first(this->history, iter_fn, this);
+	research_end(this);
+	if (!shenv_shflag_enabled(shenv_singleton(), "ignoreeof"))
+		return (true);
+	this->puts("Use \"exit\" to leave the shell.");
+	this->puts("\n\r");
+	edit_prompt_print(this);
+	return (false);
 }

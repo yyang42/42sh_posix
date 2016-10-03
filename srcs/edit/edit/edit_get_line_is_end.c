@@ -10,25 +10,45 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "edit/edit.h"
 #include "edit/research.h"
+#include "edit/event.h"
+#include "utils.h"
 
-static void		iter_fn(void *data, void *context)
+static bool		edit_get_line_not_end(t_edit *this)
 {
-	t_edit		*this;
-
-	this = context;
-	if (this->research->found == true)
-		return ;
-	research_rewind_string(this, data, ((t_line *)data)->size);
-	if (this->research->found == true)
-	{
-		history_set_current(this->history, this->current);
-	}
+	this->research_mode = false;
+	research_del(this->research);
+	this->research = NULL;
+	line_del(this->last);
+	this->last = line_new();
+	this->current = this->last;
+	history_reset_current(this->history);
+	this->pos_cursor = 0;
+	this->type = edit_type_ps1;
+	return (false);
 }
 
-void			research_find(t_edit *this)
+bool			edit_get_line_is_end(t_edit *this)
 {
-	this->research->found = false;
-	research_rewind_string(this, this->current, this->pos_cursor);
-	history_iter_from_current_to_first(this->history, iter_fn, this);
+	char		*expand;
+	char		*tmp;
+	size_t		len;
+	size_t		tot;
+
+	expand = event_expand(this);
+	if (!expand)
+	{
+		return (edit_get_line_not_end(this));
+	}
+	len = twl_strlen(expand);
+	tot = utils_upper_power_of_two(len);
+	tmp = twl_strnew(tot);
+	twl_strcpy(tmp, expand);
+	free(expand);
+	free(this->current->line);
+	this->current->line = tmp;
+	this->current->size = len;
+	this->current->total = tot;
+	return (true);
 }

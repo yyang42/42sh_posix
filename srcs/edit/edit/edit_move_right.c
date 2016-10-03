@@ -21,8 +21,6 @@ void				edit_move_right(t_edit *this)
 	if ((this->pos_cursor + this->base_x + 1) % this->winsize_x == 0)
 	{
 		this->puts("\n\r");
-		//tputs(tgoto(tgetstr("do", NULL), 0, 0), 1, this->putc);
-		//tputs(tgoto(tgetstr("LE", NULL), 0, this->winsize_x), 1, this->putc);
 	}
 	else
 	{
