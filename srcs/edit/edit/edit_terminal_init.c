@@ -40,7 +40,7 @@ void			edit_terminal_init(t_edit *this)
 
 	term = shenv_shvars_get_value(shenv_singleton(), "TERM");
 	this->dumb = term == NULL ? true : false;
-	if (tgetent(NULL, term) == -1)
+	if (tgetent(NULL, term) == -1 || !twl_strcmp(term, "dumb"))
 	{
 		if (tgetent(NULL, "dumb") == -1)
 		{

@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "twl_gnl.h"
 #include "prog.h"
 #include "ast/ast.h"
 #include "edit/edit.h"
@@ -18,26 +19,24 @@
 #include "job_control/job_mgr.h"
 #include <setjmp.h>
 
-static void			prog_run_interactive_loop(t_prog *prog,
-	char *(get_input_fn)(t_prog *prog))
+char				*prog_get_next_line(t_prog *prog)
 {
-	while (true)
-	{
-		prog_run_interactive_loop_sigtstp_wrapper(prog, get_input_fn);
-		job_mgr_wait_update(shenv_singleton()->jobs);
-	}
-}
+	char			*remainders;
+	char			*line;
+	int				has_open;
 
-void				prog_run_interactive(t_prog *prog)
-{
-	prog_prepare_traps(prog);
-	if (shenv_singleton()->shenv_prog_flags & SHENV_FLAG_GNL)
-		prog_run_interactive_loop(prog, prog_line_edit_get_input_gnl);
-	else
+	remainders = NULL;
+	line = edit_get_line_without_termcap(edit_singleton(),
+			&remainders, edit_type_ps1);
+	has_open = ast_utils_check_has_open(line);
+	while (has_open)
 	{
-		if (edit_singleton()->dumb)
-			prog_run_interactive_loop(prog, prog_get_next_line);
-		else
-			prog_run_interactive_loop(prog, prog_line_edit_get_input);
+		free(line);
+		line = edit_get_line_without_termcap(edit_singleton(),
+				&remainders, edit_type_ps2);
+		has_open = ast_utils_check_has_open(line);
 	}
+	free(remainders);
+	return (line);
+	(void)prog;
 }

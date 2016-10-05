@@ -31,6 +31,8 @@ void				prog_del(t_prog *prog);
 int					prog_run(t_prog *prog);
 void				prog_run_interactive(t_prog *prog);
 void				prog_run_interactive_exec_string(t_prog *prog, char *input);
+void				prog_run_interactive_loop_sigtstp_wrapper(t_prog *prog,
+		char *(get_input_fn)(t_prog *prog));
 void				prog_utils_run_input(char *input, int line);
 void				prog_utils_run_fd(int fd);
 void				prog_utils_run_file(char *file);
@@ -38,6 +40,7 @@ int					prog_utils_print_ast(char *input);
 int					prog_utils_print_arexp(char *input);
 char				*prog_line_edit_get_input(t_prog *prog);
 char				*prog_line_edit_get_input_gnl(t_prog *prog);
+char				*prog_get_next_line(t_prog *prog);
 void				prog_handle_exit_signal(t_prog *prog);
 void				prog_parse_args(t_prog *prog, char **argv);
 void				prog_utils_set_command_pos_params(void);

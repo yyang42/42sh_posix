@@ -10,34 +10,50 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "prog.h"
-#include "ast/ast.h"
+#include "twl_gnl.h"
 #include "edit/edit.h"
-#include "trap/trap.h"
-#include "trap/trap_mgr.h"
-#include "job_control/job_mgr.h"
-#include <setjmp.h>
+#include "edit/research.h"
+#include "edit/event.h"
+#include "utils.h"
 
-static void			prog_run_interactive_loop(t_prog *prog,
-	char *(get_input_fn)(t_prog *prog))
+static char			*get_line(t_edit *this, char **remainders)
 {
-	while (true)
+	char			*line;
+	int				gnl_return;
+
+	line = NULL;
+	gnl_return = twl_gnl(0, &line, remainders);
+	if ((!line && edit_is_eof_set(this)) || gnl_return < 0)
 	{
-		prog_run_interactive_loop_sigtstp_wrapper(prog, get_input_fn);
-		job_mgr_wait_update(shenv_singleton()->jobs);
+		this->puts("\n\r");
+		return (twl_strdup("exit"));
 	}
+	return (line);
 }
 
-void				prog_run_interactive(t_prog *prog)
+char				*edit_get_line_without_termcap(t_edit *this,
+		char **remainders, t_edit_type type)
 {
-	prog_prepare_traps(prog);
-	if (shenv_singleton()->shenv_prog_flags & SHENV_FLAG_GNL)
-		prog_run_interactive_loop(prog, prog_line_edit_get_input_gnl);
+	char			*line;
+	char			*ret;
+
+	this->type = type;
+	if (this->type == edit_type_ps1 && this->last_ps1)
+		twl_strdel(&this->last_ps1);
+	edit_prompt_print(this);
+	line = NULL;
+	while (!(line = get_line(this, remainders)))
+		;
+	if (this->last_ps1)
+	{
+		ret = twl_strjoin(this->last_ps1, line);
+		free(this->last_ps1);
+	}
 	else
 	{
-		if (edit_singleton()->dumb)
-			prog_run_interactive_loop(prog, prog_get_next_line);
-		else
-			prog_run_interactive_loop(prog, prog_line_edit_get_input);
+		ret = twl_strdup(line);
 	}
+	this->last_ps1 = twl_strjoin(ret, "\n");
+	free(line);
+	return (ret);
 }
