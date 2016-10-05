@@ -56,7 +56,8 @@ static void			prog_parse_args(char **argv, char getopt_c)
 		else if (getopt_c == '?')
 		{
 			print_help(g_twl_optsign, g_twl_optopt);
-			exit(2);
+			if (!shenv_is_interactive(shenv_singleton()))
+				exit(2);
 		}
 		else
 			shflag_utils_process_shopts(g_twl_optsign, getopt_c, g_twl_optarg);
