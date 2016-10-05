@@ -73,6 +73,8 @@ void					edit_terminal_enable(t_edit *this);
 void					edit_terminal_disable(t_edit *this);
 
 char					*edit_get_line(t_edit *this, t_edit_type type);
+char					*edit_get_line_without_termcap(t_edit *this,
+		char **remainders, t_edit_type type);
 void					edit_get_line_init(t_edit *this, t_edit_type type);
 bool					edit_get_line_is_end(t_edit *this);
 bool					edit_is_eof_set(t_edit *this);
