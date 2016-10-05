@@ -14,7 +14,8 @@
 
 t_rule_event_status	event_tokenizer_apply_rule04(t_event_tokenizer *this)
 {
-	if (this->input[this->input_index] == '\\')
+	if (this->input[this->input_index] == '\\' &&
+			this->input[this->input_index + 1])
 	{
 		event_tokenizer_addone(this);
 	}
