@@ -60,6 +60,7 @@ void				builtin_dot_exec_do(char *raw_path)
 	env->shenv_prog_flags |= SHENV_FLAG_EXIT_ON_AST_ERROR;
 	prog_utils_run_file(resolved_path);
 	env->shenv_is_function_or_script = false;
+	shenv_singleton()->shenv_return_triggered = false;
 	env->shenv_prog_flags = flags_save;
 	free(resolved_path);
 }
