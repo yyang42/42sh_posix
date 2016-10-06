@@ -72,12 +72,13 @@ void				ast_simple_command_exec_inner(t_ast_simple_command *cmd)
 static void			ast_utils_exec_string_with_sig_handling(
 		t_ast_simple_command *cmd)
 {
+	ast_simple_command_utils_block_sigint();
 	ast_simple_command_utils_block_sigchld();
 	jobexec_fork_utils_init_sigchld_handler();
 	ast_simple_command_exec_inner(cmd);
 	ast_simple_command_utils_unblock_sigchld();
 	ast_simple_command_utils_block_sigchld();
-	return ;
+	ast_simple_command_utils_blockunblock_sigint();
 }
 
 void				ast_simple_command_exec(t_ast_simple_command *cmd)

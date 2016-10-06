@@ -19,7 +19,6 @@ void				ast_simple_command_utils_block_sigchld(void)
 {
 	sigset_t		block_mask;
 
-	LOG_DEBUG("block SIGCHLD");
 	sigemptyset(&block_mask);
 	sigaddset(&block_mask, SIGCHLD);
 	if (sigprocmask(SIG_BLOCK, &block_mask, NULL) == -1)

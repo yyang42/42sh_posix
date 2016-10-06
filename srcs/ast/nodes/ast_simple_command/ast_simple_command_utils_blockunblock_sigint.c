@@ -15,12 +15,14 @@
 #include "job_control/job_mgr.h"
 #include "job_control/jobexec.h"
 
-void				ast_simple_command_utils_unblock_sigchld(void)
+void				ast_simple_command_utils_blockunblock_sigint(void)
 {
 	sigset_t		block_mask;
 
 	sigemptyset(&block_mask);
-	sigaddset(&block_mask, SIGCHLD);
+	sigaddset(&block_mask, SIGINT);
 	if (sigprocmask(SIG_UNBLOCK, &block_mask, NULL) == -1)
+		LOG_ERROR("sigprocmask");
+	if (sigprocmask(SIG_BLOCK, &block_mask, NULL) == -1)
 		LOG_ERROR("sigprocmask");
 }

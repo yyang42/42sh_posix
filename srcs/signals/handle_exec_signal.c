@@ -47,6 +47,7 @@ void				handle_exec_signal(int sig)
 	shenv_singleton()->last_exit_code = get_exit_code(sig);
 	if (sig == SIGINT)
 	{
+		LOG_INFO("SIGINT received");
 		shenv_singleton()->shenv_shall_quit_curr_ast = true;
 		shenv_singleton()->last_exit_code = get_exit_code(sig);
 		if (shenv_is_interactive(shenv_singleton()))
