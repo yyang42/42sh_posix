@@ -19,6 +19,7 @@ void				ast_simple_command_utils_unblock_block_sigint(void)
 {
 	sigset_t		block_mask;
 
+	LOG_DEBUG("ast_simple_command_utils_unblock_block_sigint");
 	sigemptyset(&block_mask);
 	sigaddset(&block_mask, SIGINT);
 	if (sigprocmask(SIG_UNBLOCK, &block_mask, NULL) == -1)
