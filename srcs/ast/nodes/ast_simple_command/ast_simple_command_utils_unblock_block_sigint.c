@@ -15,7 +15,7 @@
 #include "job_control/job_mgr.h"
 #include "job_control/jobexec.h"
 
-void				ast_simple_command_utils_blockunblock_sigint(void)
+void				ast_simple_command_utils_unblock_block_sigint(void)
 {
 	sigset_t		block_mask;
 

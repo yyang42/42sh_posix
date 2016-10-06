@@ -74,6 +74,6 @@ void					ast_simple_command_utils_unblock_sigchld(void);
 
 void					ast_simple_command_utils_block_sigint(void);
 void					ast_simple_command_utils_unblock_sigint(void);
-void					ast_simple_command_utils_blockunblock_sigint(void);
+void					ast_simple_command_utils_unblock_block_sigint(void);
 
 #endif
