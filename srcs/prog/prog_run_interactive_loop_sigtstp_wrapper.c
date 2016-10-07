@@ -57,7 +57,9 @@ static char			*get_input_fn_sigint_winch_wrapper(t_prog *prog,
 
 	save_sigint = signal(SIGINT, sig_int_winch_handler);
 	save_sigwinch = signal(SIGWINCH, sig_int_winch_handler);
+	ast_simple_command_utils_unblock_sigint();
 	input = get_input_fn(prog);
+	ast_simple_command_utils_block_sigint();
 	signal(SIGWINCH, SIG_IGN);
 	signal(SIGINT, signint_handler_quit_ast);
 	(void)save_sigint;
