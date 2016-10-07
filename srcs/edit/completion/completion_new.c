@@ -23,8 +23,10 @@ static bool					completion_is_separator(char c)
 static t_completion_type	completion_get_type(char *current, size_t index)
 {
 	char					c;
+	bool					is_there_space;
 
 	c = current[index];
+	is_there_space = false;
 	if (c == '|' || c == '&' || c == ';' || c == '`' || c == '(')
 		return (COMPLETION_EXEC);
 	if (c == '>' || c == '<')
@@ -36,11 +38,13 @@ static t_completion_type	completion_get_type(char *current, size_t index)
 	while (true)
 	{
 		c = current[index];
+		is_there_space |= (c == ' ' || c == '\t' || c == '\n');
 		if (index == 0 || (c != ' ' && c != '\t' && c != '\n'))
 			break ;
 		index -= 1;
 	}
-	if (index == 0 || c == '|' || c == '&' || c == ';' || c == '`' || c == '(')
+	if ((index == 0 && !is_there_space) || c == '|' || c == '&' ||
+			c == ';' || c == '`' || c == '(')
 		return (COMPLETION_EXEC);
 	return (COMPLETION_DIRS);
 }
