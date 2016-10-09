@@ -10,16 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "job_control/jobexec.h"
-#include "utils.h"
+#include "job_control/job_mgr.h"
+#include "twl_stdlib.h"
 
-void				jobexec_fork_exec_interactive_job(t_jobexec *je)
+static bool			find_by_memid_fn(void *job, void *memid)
 {
-	t_job			*job;
+	return (job == memid);
+}
 
-	job = job_new(0, je->je_all_tokens);
-	twl_lst_push_back(shenv_singleton()->jobs_allocated, job);
-	LOG_DEBUG("job new\n");
-	jobexec_fork_exec_interactive_job_sig_wrapper(job, je,
-			jobexec_fork_exec_interactive_void);
+t_job				*job_mgr_find_by_memid(t_lst *jobs, void *memid)
+{
+	return (twl_lst_find(jobs, find_by_memid_fn, memid));
 }
