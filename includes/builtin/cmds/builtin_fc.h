@@ -14,8 +14,14 @@
 # define BUILTIN_FC_H
 
 # include "basics.h"
-# include "builtin/builtin.h"
+# include "shenv/shenv.h"
+# include "job_control/job_mgr.h"
+# include "token/token_mgr.h"
+# include "argparser_extension.h"
+# include "edit/history.h"
 
 void				builtin_fc_exec(t_lst *tokens, t_shenv *env);
+
+t_argparser			*builtin_fc_argparser(void);
 
 #endif
