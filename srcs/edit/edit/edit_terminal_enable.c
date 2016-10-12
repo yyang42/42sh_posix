@@ -18,7 +18,7 @@ void				edit_terminal_enable(t_edit *this)
 		return ;
 	if (tcsetattr(0, TCSADRAIN, &this->term) == -1)
 	{
-		twl_dprintf(2, "tcsetattr: %s\n", strerror(errno));
+		twl_dprintf(2, "tcsetattr: %s\n", twl_strerror(errno));
 		exit(-1);
 	}
 }

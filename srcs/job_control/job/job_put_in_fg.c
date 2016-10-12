@@ -23,17 +23,17 @@ static void		job_exec_fn(t_job *job, void *ctx)
 	if (kill_ret == 0)
 	{
 		if (tcsetpgrp(STDIN_FILENO, job->pid) < 0)
-			LOG_ERROR("tcsetpgrp: %s", strerror(errno));
+			LOG_ERROR("tcsetpgrp: %s", twl_strerror(errno));
 	}
 	else if (kill_ret < 0)
 	{
-		LOG_ERROR("kill: %s, %d", strerror(errno), job_get_kill_pid(job));
+		LOG_ERROR("kill: %s, %d", twl_strerror(errno), job_get_kill_pid(job));
 		shenv_singleton()->last_exit_code = EXIT_FAILURE;
 	}
 	job_utils_waitpid(job->pid, &job->status);
 	job_print_if_stopped(job);
 	if (tcsetpgrp(STDIN_FILENO, getpid()) < 0)
-		LOG_ERROR("tcsetpgrp: %s", strerror(errno));
+		LOG_ERROR("tcsetpgrp: %s", twl_strerror(errno));
 	(void)ctx;
 }
 

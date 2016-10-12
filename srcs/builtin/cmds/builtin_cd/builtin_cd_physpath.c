@@ -17,7 +17,7 @@ static char		*cd_phypath_end_fn(char *path,
 {
 	if (this->error)
 	{
-		shenv_singl_error(1, "cd: %s: %s", path, strerror(this->error));
+		shenv_singl_error(1, "cd: %s: %s", path, twl_strerror(this->error));
 	}
 	else
 	{

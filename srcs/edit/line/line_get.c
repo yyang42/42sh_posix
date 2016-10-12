@@ -56,7 +56,7 @@ char			*line_get(t_line *this)
 	}
 	twl_memset(to_print, 0, sizeof(to_print));
 	log_it(output, buffer, to_print);
-	LOG_DEBUG("%s %s", to_print, strerror(errno));
+	LOG_DEBUG("%s %s", to_print, twl_strerror(errno));
 	return (NULL);
 	(void)this;
 }

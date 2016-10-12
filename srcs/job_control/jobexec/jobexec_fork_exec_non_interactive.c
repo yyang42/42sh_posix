@@ -34,7 +34,7 @@ static void			jobexec_fork_exec_non_interactive_do(t_jobexec *je)
 		if (shenv_singleton()->shenv_fork_level == 0)
 		{
 			if (setpgid(0, 0) < 0)
-				LOG_ERROR("setpgid: %s", strerror(errno));
+				LOG_ERROR("setpgid: %s", twl_strerror(errno));
 		}
 		utils_tcsetpgrp_for_tty_01_wrapper(je);
 		shenv_singleton()->shenv_fork_level++;

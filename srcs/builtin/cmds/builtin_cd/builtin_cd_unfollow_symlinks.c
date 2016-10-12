@@ -112,7 +112,7 @@ void				builtin_cd_unfollow_symlinks(char *dir)
 	{
 		if (errno)
 		{
-			shenv_singl_error(1, "cd: %s: %s", dir, strerror(errno));
+			shenv_singl_error(1, "cd: %s: %s", dir, twl_strerror(errno));
 			errno = 0;
 		}
 		else if (!shenv_singleton()->shenv_current_directory)

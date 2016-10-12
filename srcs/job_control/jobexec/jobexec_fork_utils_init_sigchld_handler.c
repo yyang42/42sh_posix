@@ -22,7 +22,7 @@ static void			handle_job(int si_code, t_job *job)
 	{
 		utils_tcsetpgrp_for_tty_01(getpid());
 		if (kill(job_get_kill_pid(job), SIGTSTP) < 0)
-			LOG_ERROR("kill: %s", strerror(errno));
+			LOG_ERROR("kill: %s", twl_strerror(errno));
 		job_mgr_env_push(job);
 	}
 	if (job_mgr_find_by_pid(shenv_singleton()->jobs, job->pid)
@@ -114,7 +114,7 @@ void				jobexec_fork_utils_init_sigchld_handler(void)
 	{
 		errnum = errno;
 		LOG_ERROR("Failed to set signal handler (%d: %s)\n",
-				errnum, strerror(errnum));
+				errnum, twl_strerror(errnum));
 		exit(1);
 		(void)errnum;
 	}

@@ -53,8 +53,8 @@ static bool			init_loop(t_edit *this,
 			LOG_ERROR("read: System interrupt received: ignore and continue");
 			return (false);
 		}
-		LOG_ERROR("read: %s\n", strerror(errno));
-		twl_dprintf(2, "read: %s\n", strerror(errno));
+		LOG_ERROR("read: %s\n", twl_strerror(errno));
+		twl_dprintf(2, "read: %s\n", twl_strerror(errno));
 		edit_terminal_disable(this);
 		exit(-1);
 	}

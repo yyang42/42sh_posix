@@ -25,11 +25,11 @@ static void			andor_fn_2(t_ast_pipe_item *pi)
 	{
 		if (pi->pipe_write_end != -1 && dup2(pi->pipe_write_end, 1) < 0)
 		{
-			LOG_ERROR("dup2: %s", strerror(errno));
+			LOG_ERROR("dup2: %s", twl_strerror(errno));
 		}
 		if (pi->pipe_read_end != -1 && dup2(pi->pipe_read_end, 0) < 0)
 		{
-			LOG_ERROR("dup2: %s", strerror(errno));
+			LOG_ERROR("dup2: %s", twl_strerror(errno));
 		}
 		ast_pipe_item_exec(pi);
 		exit(shenv_singleton()->last_exit_code);
@@ -38,11 +38,11 @@ static void			andor_fn_2(t_ast_pipe_item *pi)
 	{
 		if (pi->pipe_read_end != -1 && close(pi->pipe_read_end) < 0)
 		{
-			LOG_ERROR("close: %s", strerror(errno));
+			LOG_ERROR("close: %s", twl_strerror(errno));
 		}
 		if (pi->pipe_write_end != -1 && close(pi->pipe_write_end) < 0)
 		{
-			LOG_ERROR("close: %s", strerror(errno));
+			LOG_ERROR("close: %s", twl_strerror(errno));
 		}
 	}
 }
@@ -57,16 +57,16 @@ static void			iter_andor_fn(void *pi_)
 	pi->pipe_child_pid = shenv_utils_fork();
 	if (pi->pipe_child_pid == -1)
 	{
-		LOG_ERROR("fork: %s", strerror(errno));
+		LOG_ERROR("fork: %s", twl_strerror(errno));
 		if (pi->pipe_read_end != -1)
 		{
 			if (close(pi->pipe_read_end) < 0)
-				LOG_ERROR("close: %s", strerror(errno));
+				LOG_ERROR("close: %s", twl_strerror(errno));
 		}
 		if (pi->pipe_write_end != -1)
 		{
 			if (close(pi->pipe_write_end) < 0)
-				LOG_ERROR("close: %s", strerror(errno));
+				LOG_ERROR("close: %s", twl_strerror(errno));
 		}
 	}
 	else
@@ -82,7 +82,7 @@ static void			iter_fds_fn(void *pi_, void *pi_next_, void *ctx)
 	int				fds[2];
 
 	if (pipe(fds) < 0)
-		LOG_ERROR("pipe: %s", strerror(errno));
+		LOG_ERROR("pipe: %s", twl_strerror(errno));
 	pi = pi_;
 	pi_next = pi_next_;
 	if (pi_next)

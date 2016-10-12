@@ -26,7 +26,7 @@ void				jobexec_fork_exec_interactive(t_job *job, t_jobexec *je)
 		shenv_singleton()->shenv_fork_level++;
 		LOG_INFO("setpgid and tcsetpgrp");
 		if (setpgid(0, 0) < 0)
-			LOG_ERROR("setpgid: %s", strerror(errno));
+			LOG_ERROR("setpgid: %s", twl_strerror(errno));
 		utils_tcsetpgrp_for_tty_01(getpid());
 		jobexec_fork_exec_execve_fn(je);
 		exit(shenv_singleton()->last_exit_code);

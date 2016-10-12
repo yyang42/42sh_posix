@@ -36,11 +36,24 @@ static void		history_utils_get_fd_histfile_init(char *p,
 	*should_free = false;
 }
 
+static int		history_utils_get_fd_histfile_end(char *path,
+		bool should_free, int opt)
+{
+	int			fd;
+
+	fd = open(path, opt);
+	if (should_free)
+		free(path);
+	if (fd == -1)
+		shenv_singl_error(1, "%s: cannot access: %s",
+				path, twl_strerror(errno));
+	return (fd);
+}
+
 int				history_utils_get_fd_histfile(char *p, int opt)
 {
 	char		*home;
 	char		*path;
-	int			fd;
 	bool		should_free;
 
 	history_utils_get_fd_histfile_init(p, &path, &should_free);
@@ -53,13 +66,9 @@ int				history_utils_get_fd_histfile(char *p, int opt)
 	}
 	if (!is_regular_file(path))
 	{
-		shenv_singl_error(1, "%s: not a regular file", path, strerror(errno));
+		shenv_singl_error(1, "%s: not a regular file",
+				path, twl_strerror(errno));
 		return (-1);
 	}
-	fd = open(path, opt);
-	if (should_free)
-		free(path);
-	if (fd == -1)
-		shenv_singl_error(1, "%s: cannot access: %s", path, strerror(errno));
-	return (fd);
+	return (history_utils_get_fd_histfile_end(path, should_free, opt));
 }

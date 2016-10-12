@@ -44,7 +44,7 @@ void			shenv_set_current_directory(t_shenv *this, char *from_whom)
 	if (cwd == NULL)
 	{
 		twl_dprintf(2, "%s: error retrieving current directory: getcwd: %s\n",
-				from_whom, strerror(errno));
+				from_whom, twl_strerror(errno));
 		this->shenv_current_directory = NULL;
 	}
 	else

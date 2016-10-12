@@ -24,12 +24,12 @@ void				utils_tcsetpgrp_for_tty(pid_t gid, int tty)
 		if (shenv_is_interactive(shenv_singleton()))
 		{
 			LOG_WARN("tcsetpgrp: %s (tty=%d, gid=%d)",
-			strerror(errno), tty, gid);
+			twl_strerror(errno), tty, gid);
 		}
 		else
 		{
 			LOG_ERROR("tcsetpgrp: %s (tty=%d, gid=%d)",
-			strerror(errno), tty, gid);
+			twl_strerror(errno), tty, gid);
 		}
 	}
 }

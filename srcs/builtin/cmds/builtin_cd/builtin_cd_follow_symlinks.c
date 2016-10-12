@@ -111,7 +111,8 @@ bool				builtin_cd_follow_symlinks(char *dir, char *from_whom)
 	if (!done)
 	{
 		if (errno)
-			shenv_singl_error(1, "%s: %s: %s", from_whom, dir, strerror(errno));
+			shenv_singl_error(1, "%s: %s: %s",
+					from_whom, dir, twl_strerror(errno));
 		else if (!shenv_singleton()->shenv_current_directory)
 			shenv_get_current_directory(shenv_singleton(), from_whom);
 		errno = 0;

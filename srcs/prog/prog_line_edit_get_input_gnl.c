@@ -27,7 +27,7 @@ char				*prog_line_edit_get_input_gnl(t_prog *prog)
 	twl_printf("ret %d\n", ret);
 	if (ret < 0)
 	{
-		twl_dprintf(2, "[error] %s\n", strerror(errno_save));
+		twl_dprintf(2, "[error] %s\n", twl_strerror(errno_save));
 		exit(1);
 	}
 	else if (ret == 0)
