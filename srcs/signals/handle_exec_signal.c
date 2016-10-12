@@ -31,7 +31,7 @@ static void			print_error_msg(int sig)
 	msg = strsignal(sig);
 	if (!msg)
 	{
-		LOG_ERROR("strsignal: %s", strerror(errno));
+		LOG_ERROR("strsignal: %s", twl_strerror(errno));
 	}
 	else
 	{

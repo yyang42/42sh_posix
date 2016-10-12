@@ -24,7 +24,7 @@ static void		put_in_bg(t_job *job)
 		{
 			errno_saved = errno;
 			shenv_singl_error(EXIT_FAILURE,
-				"wait: error: %s", strerror(errno_saved));
+				"wait: error: %s", twl_strerror(errno_saved));
 		}
 	}
 	else if (job->job_status == JOB_RUNNING)

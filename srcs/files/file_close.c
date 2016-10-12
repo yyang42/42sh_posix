@@ -21,7 +21,7 @@ int					file_close(int fd)
 	ret = close(fd);
 	if (ret == -1)
 	{
-		shenv_singl_error(1, "close: %s", strerror(errno));
+		shenv_singl_error(1, "close: %s", twl_strerror(errno));
 		LOG_ERROR("Fail to close file: %d", fd);
 	}
 	return (ret);

@@ -22,9 +22,9 @@ void				prog_run_interactive_exec_string(t_prog *prog, char *input)
 	sigemptyset(&sa_new.sa_mask);
 	sa_new.sa_handler = SIG_DFL;
 	if (sigaction(SIGTSTP, &sa_new, &sa_old) != 0)
-		LOG_ERROR("sigaction: %s", strerror(errno));
+		LOG_ERROR("sigaction: %s", twl_strerror(errno));
 	ast_utils_exec_string(input, 1);
 	if (sigaction(SIGTSTP, &sa_old, NULL) != 0)
-		LOG_ERROR("sigaction: %s", strerror(errno));
+		LOG_ERROR("sigaction: %s", twl_strerror(errno));
 	(void)prog;
 }

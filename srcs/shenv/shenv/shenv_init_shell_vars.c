@@ -18,7 +18,7 @@ static void			set_ppid(t_shenv *this)
 	t_shvar			*var;
 
 	if ((pid = getppid()) < 0)
-		LOG_ERROR("getppid: %s", strerror(errno));
+		LOG_ERROR("getppid: %s", twl_strerror(errno));
 	var = shenv_shvars_set_int(this, "PPID", pid,
 		shenv_singleton()->shenv_name);
 	var->shvar_read_only = true;

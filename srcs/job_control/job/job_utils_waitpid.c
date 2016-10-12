@@ -53,8 +53,8 @@ void				job_utils_waitpid(pid_t pid, int *res_ptr)
 	LOG_INFO("waitpid(%d) end ; waitpid ret: %d", pid, waitpid_ret);
 	if (waitpid_ret == -1)
 	{
-		shenv_singl_error(1, "waitpid: %s", strerror(errno));
-		LOG_ERROR("waitpid error: pid: %d: %s", pid, strerror(errno));
+		shenv_singl_error(1, "waitpid: %s", twl_strerror(errno));
+		LOG_ERROR("waitpid error: pid: %d: %s", pid, twl_strerror(errno));
 	}
 	else if (waitpid_ret == pid)
 	{

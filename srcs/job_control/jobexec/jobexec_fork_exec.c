@@ -21,7 +21,7 @@ void				jobexec_fork_exec(t_jobexec *je)
 	if (shenv_singleton()->shenv_fork_level == 0)
 	{
 		if (setpgid(0, 0) < 0)
-			LOG_ERROR("setpgid: %s", strerror(errno));
+			LOG_ERROR("setpgid: %s", twl_strerror(errno));
 	}
 	if (shenv_is_interactive(shenv_singleton())
 		&& (shenv_singleton()->shenv_fork_level == 0))

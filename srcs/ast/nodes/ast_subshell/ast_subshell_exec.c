@@ -21,7 +21,7 @@ static void			ast_subshell_fork_exec(t_ast_subshell *this)
 	pid = shenv_utils_fork();
 	if (pid == -1)
 	{
-		twl_dprintf(2, "cannot fork: %s", strerror(errno));
+		twl_dprintf(2, "cannot fork: %s", twl_strerror(errno));
 	}
 	else if (pid == 0)
 	{

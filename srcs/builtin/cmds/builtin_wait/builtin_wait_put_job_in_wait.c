@@ -26,7 +26,7 @@ static void		put_in_wait(t_job *job)
 		if (waitpid_ret < 0)
 		{
 			shenv_singl_error(EXIT_FAILURE,
-				"wait: error: %s", strerror(errno));
+				"wait: error: %s", twl_strerror(errno));
 		}
 		else if (waitpid_ret > 0 && WIFEXITED(job->status))
 			job->job_status = JOB_DONE;

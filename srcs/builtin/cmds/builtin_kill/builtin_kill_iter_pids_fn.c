@@ -64,5 +64,5 @@ void				builtin_kill_iter_pids_fn(void *token, void *signum)
 	LOG_INFO("kill: %s(%d), pid=%d", shsignal_mgr_get_signame(data_signals(),
 				*(int *)signum), *(int *)signum, pid);
 	if (kill(pid, *(int *)signum) == -1)
-		shenv_singl_error(1, "kill: %s", strerror(errno));
+		shenv_singl_error(1, "kill: %s", twl_strerror(errno));
 }

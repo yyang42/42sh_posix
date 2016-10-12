@@ -27,8 +27,8 @@ pid_t					shenv_utils_fork(void)
 	}
 	else if (pid == -1)
 	{
-		shenv_singl_error(2, "cannot fork: %s", strerror(errno_save));
-		LOG_ERROR("cannot fork: %s", strerror(errno_save));
+		shenv_singl_error(2, "cannot fork: %s", twl_strerror(errno_save));
+		LOG_ERROR("cannot fork: %s", twl_strerror(errno_save));
 	}
 	errno = errno_save;
 	return (pid);
