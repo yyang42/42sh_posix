@@ -24,6 +24,9 @@
 
 void				prog_prepare_signals(t_prog *prog)
 {
-	signal(SIGQUIT, SIG_IGN);
+	if (shenv_is_interactive(shenv_singleton()))
+	{
+		signal(SIGQUIT, SIG_IGN);
+	}
 	(void)prog;
 }
