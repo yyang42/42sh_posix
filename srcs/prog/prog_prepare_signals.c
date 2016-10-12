@@ -24,5 +24,6 @@
 
 void				prog_prepare_signals(t_prog *prog)
 {
+	signal(SIGQUIT, SIG_IGN);
 	(void)prog;
 }
