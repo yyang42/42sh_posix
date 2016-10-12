@@ -73,16 +73,15 @@ bool				alias_mgr_expan_tokens_inner(t_alias_processor *p)
 	has_expan = false;
 	while ((token = twl_lst_pop_front(p->copy_tokens)) &&
 			!(data_utils_is_control_operators_nl(token->text)
-			|| data_utils_is_reserved_word(token->text)))
+				|| (data_utils_is_reserved_word(token->text)
+					&& *p->accumulator == 0)))
 	{
 		alias = expan_token(token, &(p->accumulator), p);
 		if (alias)
 		{
 			has_expan = true;
 			if (twl_lst_find(p->prev_processed, find_fn, token->text))
-			{
 				return (NULL);
-			}
 			twl_lst_pop_front(p->tokens);
 			if (twl_str_ends_with(alias, " ") && twl_lst_first(p->copy_tokens))
 				continue ;
