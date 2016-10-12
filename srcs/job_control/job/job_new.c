@@ -17,6 +17,7 @@ t_job				*job_new(pid_t pid, t_lst *str_tokens)
 {
 	t_job					*this;
 
+	LOG_INFO("create job: %d\n", pid);
 	this = twl_malloc_x0(sizeof(t_job));
 	this->job_id = 0;
 	this->pid = pid;

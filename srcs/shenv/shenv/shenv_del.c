@@ -45,6 +45,7 @@ void				shenv_del(t_shenv *this)
 	del_shenv_read_buffer_db(this->shenv_read_buffer_db);
 	free(this->shenv_binary_saved_path);
 	job_mgr_del(this->jobs);
+	twl_lst_del(this->jobs_allocated, NULL);
 	twl_lst_del(this->shenv_traps, trap_del);
 	twl_htab_del(this->shenv_binary_db, free);
 	free(this->shenv_current_directory);

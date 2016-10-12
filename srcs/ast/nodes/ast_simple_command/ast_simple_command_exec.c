@@ -76,8 +76,7 @@ static void			ast_utils_exec_string_with_sig_handling(
 	ast_simple_command_utils_block_sigchld();
 	jobexec_fork_utils_init_sigchld_handler();
 	ast_simple_command_exec_inner(cmd);
-	ast_simple_command_utils_unblock_sigchld();
-	ast_simple_command_utils_block_sigchld();
+	ast_simple_command_utils_unblock_block_sigchld();
 	ast_simple_command_utils_unblock_block_sigint();
 }
 

@@ -17,6 +17,7 @@
 void			shenv_new2(t_shenv *this)
 {
 	this->jobs = twl_lst_new();
+	this->jobs_allocated = twl_lst_new();
 	this->shenv_traps = twl_lst_new();
 	this->last_exit_code = EXIT_SUCCESS;
 	this->shenv_cur_token = NULL;

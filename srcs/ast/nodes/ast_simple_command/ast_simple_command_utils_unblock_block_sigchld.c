@@ -10,16 +10,39 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ast/nodes/ast_simple_command.h"
+#include "ast/nodes/ast_redir.h"
+#include "job_control/job_mgr.h"
 #include "job_control/jobexec.h"
-#include "utils.h"
 
-void				jobexec_fork_exec_interactive_job(t_jobexec *je)
+static void clean_allocated_fn(void *job, void *jobs)
 {
-	t_job			*job;
+	bool		is_saved_job;
 
-	job = job_new(0, je->je_all_tokens);
-	twl_lst_push_back(shenv_singleton()->jobs_allocated, job);
-	LOG_DEBUG("job new\n");
-	jobexec_fork_exec_interactive_job_sig_wrapper(job, je,
-			jobexec_fork_exec_interactive_void);
+	is_saved_job = twl_lst_indexof(jobs, job) > -1;
+	if (!is_saved_job)
+	{
+		job_del(job);
+	}
+}
+
+static void clean_jobs_allocated(void)
+{
+	twl_lst_iter(shenv_singleton()->jobs_allocated, clean_allocated_fn, shenv_singleton()->jobs);
+	twl_lst_clear(shenv_singleton()->jobs_allocated, NULL);
+}
+
+void				ast_simple_command_utils_unblock_block_sigchld(void)
+{
+	sigset_t		block_mask;
+
+	LOG_DEBUG("ast_simple_command_utils_unblock_block_sigchld");
+	sigemptyset(&block_mask);
+	sigaddset(&block_mask, SIGCHLD);
+	if (sigprocmask(SIG_UNBLOCK, &block_mask, NULL) == -1)
+		LOG_ERROR("sigprocmask");
+
+	if (sigprocmask(SIG_BLOCK, &block_mask, NULL) == -1)
+		LOG_ERROR("sigprocmask");
+	clean_jobs_allocated();
 }
