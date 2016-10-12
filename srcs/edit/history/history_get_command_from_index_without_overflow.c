@@ -15,9 +15,9 @@
 char			*history_get_command_from_index_without_overflow(
 		t_history *this, int index)
 {
-	if (index > 0 && this->first->number > index)
+	if (index > 0 && this->first->number > (size_t)index)
 		return (this->first->line->line);
-	if (index > 0 && this->last->number < index)
+	if (index > 0 && this->last->number < (size_t)index)
 		return (this->last->line->line);
 	if (index > 0)
 		return (history_get_from_number(this, (size_t)index)->line);
@@ -25,5 +25,5 @@ char			*history_get_command_from_index_without_overflow(
 		return (this->last->line->line);
 	if ((size_t)(-index) > this->length)
 		return (this->first->line->line);
-	return (history_get_from_last(this, (size_t)(-index)));
+	return (history_get_from_last(this, (size_t)(-index) - 1)->line);
 }

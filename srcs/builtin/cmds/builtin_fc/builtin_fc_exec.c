@@ -11,20 +11,62 @@
 /* ************************************************************************** */
 
 #include "builtin/cmds/builtin_fc.h"
+#include "edit/history.h"
+#include "edit/edit.h"
+#include "twl_stdlib.h"
 
-static bool		str_is_number(char *str)
+static char	*get_first_occurence(char *str, char *old, size_t *size_old)
 {
-	if (*str == '+' || *str == '-')
-		str += 1;
-	if (!*str)
-		return (false);
-	while (!*str)
+	size_t	index;
+
+	index = 0;
+	while (str[index])
 	{
-		if (*str < '0' || *str > '9')
-			return (false);
-		str += 1;
+		*size_old = 0;
+		while (str[index + *size_old] == old[*size_old] && old[*size_old])
+			*size_old += 1;
+		if (!old[*size_old])
+			break ;
+		index += 1;
 	}
-	return (true);
+	if (!str[index])
+		return (NULL);
+	return (str + index);
+}
+
+char		*twl_strreplace_first(char *str, char *old, char *new)
+{
+	size_t	size_old;
+	char	*first_occurence;
+	char	*ret;
+
+	first_occurence = get_first_occurence(str, old, &size_old);
+	if (!first_occurence)
+		return (twl_strdup(str));
+	ret = twl_strnew(twl_strlen(str) - size_old + twl_strlen(new));
+	twl_strncpy(ret, str, first_occurence - str);
+	twl_strcat(ret, new);
+	twl_strcat(ret, first_occurence + size_old);
+	return (ret);
+}
+
+char		*builtin_fc_replace_pattern(char *command, char *pattern)
+{
+	char		*old;
+	char		*new;
+	char		*ret;
+	size_t		index;
+
+	if (!pattern)
+		return (twl_strdup(command));
+	index = 0;
+	while (pattern[index] && pattern[index] != '=')
+		index += 1;
+	old = twl_strndup(pattern, index);
+	new = pattern[index] ? pattern + index + 1 : pattern + index;
+	ret = twl_strreplace_first(command, old, new);
+	free(old);
+	return (ret);
 }
 
 static char		*get_command_from_index(int index, char *pattern)
@@ -33,6 +75,7 @@ static char		*get_command_from_index(int index, char *pattern)
 
 	command = history_get_command_from_index_without_overflow(
 			edit_singleton()->history, index);
+	return (builtin_fc_replace_pattern(command, pattern));
 }
 
 static char		*get_line_to_execute(t_argparser_result *result)
@@ -53,15 +96,20 @@ static char		*get_line_to_execute(t_argparser_result *result)
 	}
 	if (!command_index)
 		return (get_command_from_index(-1, pattern));
-	else if (str_is_number(command_index))
+	else if (twl_str_is_num(command_index))
 		return (get_command_from_index(twl_atoi(command_index), pattern));
-	else
-		return (get_command_from_command_start(command_index, pattern));
+	return (NULL);
+	(void)result;
+(void)pattern;
+(void)command_index;//	else
+(void)command;      //		return (get_command_from_command_start(command_index, pattern));
 }
 
 void			builtin_fc_reexecute(t_argparser_result *result)
 {
 	history_pop_last(edit_singleton()->history);
+	twl_printf("%s\n", get_line_to_execute(result));
+	(void)result;
 }
 
 void			builtin_fc_exec(t_lst *tokens, t_shenv *env)

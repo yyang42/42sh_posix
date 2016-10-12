@@ -69,6 +69,8 @@ t_line					*history_get_from_number(t_history *this, size_t index);
 t_line					*history_get_from_last(t_history *this, size_t index);
 t_line					*history_get_current(t_history *this);
 t_line					*history_get_first(t_history *this);
+char					*history_get_command_from_index_without_overflow(
+		t_history *this, int index);
 
 void					history_set_current(t_history *this, t_line *new_line);
 
