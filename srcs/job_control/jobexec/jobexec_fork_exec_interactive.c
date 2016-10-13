@@ -23,6 +23,7 @@ void				jobexec_fork_exec_interactive(t_job *job, t_jobexec *je)
 	job->pid = pid;
 	if (pid == 0)
 	{
+		signal_handle_ctrl_c_for_async();
 		shenv_singleton()->shenv_fork_level++;
 		LOG_INFO("setpgid and tcsetpgrp");
 		if (setpgid(0, 0) < 0)

@@ -24,7 +24,10 @@ void				ast_while_clause_exec(t_ast_while_clause *this)
 		ast_compound_list_exec_ignore_errexit(this->cond_compound);
 		if (shenv_singleton()->last_exit_code != 0)
 			break ;
+		shenv_singleton()->shenv_sigtstp_trigerred = false;
 		ast_compound_list_exec(this->do_group);
+		if (shenv_singleton()->shenv_sigtstp_trigerred)
+			break ;
 		shenv_continue_counter_decr_if_one(shenv_singleton());
 		saved_exit_code = shenv_singleton()->last_exit_code;
 	}

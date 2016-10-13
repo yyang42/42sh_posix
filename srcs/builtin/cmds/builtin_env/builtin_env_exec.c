@@ -47,6 +47,7 @@ static void			exec_remaining_command(t_argparser_result *argparser_result)
 		twl_lst_del(remainders_copy, NULL);
 		return ;
 	}
+	shenv_init_shell_vars(shenv_singleton());
 	exec_remaining_command_end(remainders_copy);
 }
 

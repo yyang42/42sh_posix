@@ -10,19 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-/*
-** #include <signal.h>
-** #include "edit/terminal.h"
-** #include "utils.h"
-** #include "twl_logger.h"
-** static void			sig_handler_prompt(int signum)
-** {
-** 	LOG_INFO("SIGINT: CTRL+C");
-** 	terminal_send_veol();
-** 	(void)signum;
-** }
-** void				signal_handle_ctrl_c(void)
-** {
-** 	signal(SIGINT, sig_handler_prompt);
-** }
-*/
+
+#include <signal.h>
+#include "utils.h"
+#include "twl_logger.h"
+
+
+static void			signint_handler_quit_ast_async(int sig)
+{
+	LOG_INFO("signint_handler_quit_ast_async called: sig: %d", sig);
+	twl_putchar('\n');
+	exit(1);
+}
+
+void				signal_handle_ctrl_c_for_async(void)
+{
+	signal(SIGINT, signint_handler_quit_ast_async);
+}
+
