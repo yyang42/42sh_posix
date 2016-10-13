@@ -15,6 +15,7 @@
 #include "job_control/job.h"
 #include "job_control/jobexec.h"
 #include "twl_logger.h"
+#include "utils.h"
 #include <signal.h>
 #include "builtin/cmds/builtin_jobs.h"
 
