@@ -22,7 +22,9 @@ static int			execve_base(char *path, t_lst *argv_lst, char **envp,
 	argv = (char **)twl_lst_to_arr(argv_lst);
 	LOG_INFO("execve: path: %s", path);
 	ast_simple_command_utils_unblock_sigint();
+	signal(SIGTSTP, SIG_DFL);
 	ret = execve(path, argv, envp);
+	signal(SIGTSTP, SIG_IGN);
 	ast_simple_command_utils_block_sigint();
 	*errno_ptr = errno;
 	twl_arr_del(argv, NULL);
