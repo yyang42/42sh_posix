@@ -13,6 +13,7 @@
 #include "ast/nodes/ast_compound_command.h"
 #include "ast/nodes/ast_redir_mgr.h"
 #include "ast/nodes/ast_redir_fd_mgr.h"
+#include "shenv/shenv.h"
 
 static t_compound_command_exec_fn	*get_exec_fns(void)
 {
@@ -56,5 +57,6 @@ void								ast_compound_command_exec(
 {
 	if (this->command_type == COMPOUND_COMMAND_NONE)
 		return ;
+	shenv_singleton()->shenv_break_counter = 0;
 	ast_compound_command_exec_with_redirs(this);
 }
