@@ -17,6 +17,8 @@ static void			set_ppid(t_shenv *this)
 	int				pid;
 	t_shvar			*var;
 
+	if (shenv_shvars_get(this, "PPID"))
+		return ;
 	if ((pid = getppid()) < 0)
 		LOG_ERROR("getppid: %s", twl_strerror(errno));
 	var = shenv_shvars_set_int(this, "PPID", pid,
