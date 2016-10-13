@@ -35,7 +35,5 @@ char				**shenv_get_paths(t_shenv *this)
 	char			**paths;
 
 	paths = shenv_get_paths_from_env(this);
-	if (!paths)
-		paths = split_path("/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:.");
 	return (paths);
 }

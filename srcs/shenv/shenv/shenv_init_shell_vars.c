@@ -43,9 +43,14 @@ static void			set_history_file(t_shenv *this)
 
 static void			set_ifs(t_shenv *this)
 {
-	if (shenv_shvars_get(this, "IFS"))
-		return ;
-	shenv_shvars_set(this, "IFS", SHENV_DEFAULT_IFS, this->shenv_name);
+	if (!shenv_shvars_get(this, "IFS"))
+	{
+		shenv_shvars_set(this, "IFS", SHENV_DEFAULT_IFS, this->shenv_name);
+	}
+	if (!shenv_shvars_get(this, "PATH"))
+	{
+		shenv_shvars_set(this, "PATH", "/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:.", this->shenv_name);
+	}
 }
 
 void				shenv_init_shell_vars(t_shenv *this)
