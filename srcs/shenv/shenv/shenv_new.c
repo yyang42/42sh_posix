@@ -35,6 +35,7 @@ void			shenv_new2(t_shenv *this)
 	this->shenv_has_syntax_error = 0;
 	this->shenv_read_remainder_ptr = NULL;
 	this->shenv_foreground_job = NULL;
+	this->shenv_sigtstp_trigerred = false;
 }
 
 t_shenv			*shenv_new(void)
