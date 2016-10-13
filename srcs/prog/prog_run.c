@@ -35,6 +35,8 @@ static void			prog_run2(t_prog *prog, t_shenv *env)
 		shenv_shvars_set(env, "PS1", "$ ", env->shenv_name);
 		shenv_shvars_set(env, "PS2", "> ", env->shenv_name);
 		shenv_shflag_set(shenv_singleton(), 'n', false);
+		signal(SIGQUIT, SIG_IGN);
+		signal(SIGTSTP, SIG_IGN);
 		LOG_INFO("run interactive");
 		prog_run_interactive(prog);
 	}

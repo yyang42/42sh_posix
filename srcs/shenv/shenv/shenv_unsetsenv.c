@@ -24,12 +24,7 @@ static bool			find_env_key(void *data, void *context)
 
 static void			clear_environment(void *data)
 {
-	t_shvar	*var;
-
-	var = data;
-	twl_strdel(&var->shvar_key);
-	twl_strdel(&var->shvar_value);
-	free(data);
+	shvar_del(data);
 }
 
 void				shenv_unsetenv(t_shenv *this, char *key)

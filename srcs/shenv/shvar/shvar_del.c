@@ -11,9 +11,13 @@
 /* ************************************************************************** */
 
 #include "shenv/shvar.h"
+#include "shenv/shenv.h"
+#include "twl_unistd.h"
 
 void				shvar_del(t_shvar *shvar)
 {
+	if (twl_strequ(shvar->shvar_key, "PATH"))
+		shenv_build_binary_db(shenv_singleton());
 	free(shvar->shvar_key);
 	free(shvar->shvar_value);
 	free(shvar->shvar_assign_value);

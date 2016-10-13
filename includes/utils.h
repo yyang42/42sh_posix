@@ -43,4 +43,6 @@ void				utils_tcsetpgrp_for_tty_01(pid_t pid);
 bool				utils_is_power_of_two(size_t num);
 size_t				utils_upper_power_of_two(size_t num);
 
+void				signal_handle_ctrl_c_for_async(void);
+
 #endif
