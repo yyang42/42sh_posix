@@ -19,6 +19,5 @@ bool				shenv_should_continue_exec(t_shenv *this)
 		|| shenv_singleton()->shenv_shall_quit_curr_ast)
 		return (false);
 	return (this->shenv_break_counter == 0
-		&& this->shenv_continue_counter == 0
-		&& this->shenv_sigtstp_trigerred == false);
+		&& this->shenv_continue_counter == 0);
 }
