@@ -57,6 +57,6 @@ void								ast_compound_command_exec(
 {
 	if (this->command_type == COMPOUND_COMMAND_NONE)
 		return ;
-	shenv_singleton()->shenv_break_counter = 0;
+	shenv_singleton()->shenv_sigtstp_trigerred = false;
 	ast_compound_command_exec_with_redirs(this);
 }
