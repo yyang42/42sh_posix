@@ -88,7 +88,7 @@ static void			sigstp_catcher(int signum, siginfo_t *info, void *vp)
 		job->stopped_signal = SIGTSTP;
 		job_mgr_env_push(job);
 	}
-	shenv_singleton()->shenv_shall_quit_curr_ast = true;
+	// shenv_singleton()->shenv_shall_quit_curr_ast = true;
 	(void)vp;
 	(void)signum;
 	(void)handle_job;
