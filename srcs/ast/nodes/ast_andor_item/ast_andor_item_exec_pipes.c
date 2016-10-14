@@ -32,7 +32,7 @@ static void			andor_fn_2(t_ast_pipe_item *pi)
 			LOG_ERROR("dup2: %s", twl_strerror(errno));
 		}
 		ast_pipe_item_exec(pi);
-		exit(shenv_singleton()->last_exit_code);
+		shenv_utils_exit(shenv_singleton()->last_exit_code);
 	}
 	else
 	{

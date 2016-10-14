@@ -13,6 +13,7 @@
 
 #include <signal.h>
 #include "utils.h"
+#include "shenv/shenv.h"
 #include "twl_logger.h"
 
 
@@ -20,7 +21,7 @@ static void			signint_handler_quit_ast_async(int sig)
 {
 	LOG_INFO("signint_handler_quit_ast_async called: sig: %d", sig);
 	twl_putchar('\n');
-	exit(1);
+	shenv_utils_exit(1);
 }
 
 void				signal_handle_ctrl_c_for_async(void)

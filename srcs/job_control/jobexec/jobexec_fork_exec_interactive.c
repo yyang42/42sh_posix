@@ -30,7 +30,7 @@ void				jobexec_fork_exec_interactive(t_job *job, t_jobexec *je)
 			LOG_ERROR("setpgid: %s", twl_strerror(errno));
 		utils_tcsetpgrp_for_tty_01(getpid());
 		jobexec_fork_exec_execve_fn(je);
-		exit(shenv_singleton()->last_exit_code);
+		shenv_utils_exit(shenv_singleton()->last_exit_code);
 	}
 	else
 	{

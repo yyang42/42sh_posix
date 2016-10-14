@@ -22,7 +22,7 @@ void				builtin_dot_exec(t_lst *tokens, t_shenv *env)
 	{
 		argparser_result_print_error_with_help(argparser_result);
 		env->last_exit_code = 2;
-		exit(2);
+		shenv_utils_exit(2);
 	}
 	else
 	{

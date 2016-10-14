@@ -22,7 +22,7 @@ static bool		get_size(t_edit *this, int term)
 		if (errno == EINTR)
 		{
 			twl_dprintf(2, "ioctl: %s\n", twl_strerror(errno));
-			exit(-1);
+			shenv_utils_exit(-1);
 		}
 		return (false);
 	}

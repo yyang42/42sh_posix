@@ -109,7 +109,7 @@ void				jobexec_fork_utils_init_sigchld_handler(void)
 		errnum = errno;
 		LOG_ERROR("Failed to set signal handler (%d: %s)\n",
 				errnum, twl_strerror(errnum));
-		exit(1);
+		shenv_utils_exit(1);
 		(void)errnum;
 	}
 }

@@ -18,15 +18,14 @@
 #include "job_control/job_mgr.h"
 #include <setjmp.h>
 
-static jmp_buf g_jump_buf;
-
 #define INTERRUPT_EXIT_CODE 130
 
 static void			signint_handler_quit_ast(int sig)
 {
 	LOG_INFO("signint_handler_quit_ast called: sig: %d", sig);
 	twl_putchar('\n');
-	longjmp(g_jump_buf, 1);
+	shenv_singleton()->last_exit_code = INTERRUPT_EXIT_CODE;
+	shenv_singleton()->shenv_shall_quit_curr_ast = true;
 }
 
 static void			sig_int_winch_handler(int sig)
@@ -75,13 +74,6 @@ void				prog_run_interactive_loop_sigtstp_wrapper(t_prog *prog,
 	LOG_INFO("enter line edit");
 	input = get_input_fn_sigint_winch_wrapper(prog, get_input_fn);
 	LOG_INFO("exit line edit");
-	if (setjmp(g_jump_buf) == 0)
-	{
-		prog_run_interactive_exec_string(prog, input);
-	}
-	else
-	{
-		shenv_singleton()->last_exit_code = INTERRUPT_EXIT_CODE;
-	}
+	prog_run_interactive_exec_string(prog, input);
 	free(input);
 }

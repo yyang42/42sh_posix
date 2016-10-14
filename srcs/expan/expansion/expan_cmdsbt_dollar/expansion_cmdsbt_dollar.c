@@ -26,13 +26,13 @@ static void	child_part(t_expansion *this, t_expan_token *token, int fd[2])
 	if (dup2(fd[1], 1) == -1)
 	{
 		shenv_singl_error(EXIT_FAILURE, "dup2 error\n");
-		exit(-1);
+		shenv_utils_exit(-1);
 	}
 	close(fd[0]);
 	cmd = twl_strndup(token->text + 2, twl_strlen(token->text + 3));
 	ast_utils_exec_string(cmd, 1);
 	free(cmd);
-	exit(-1);
+	shenv_utils_exit(-1);
 	(void)this;
 }
 
@@ -103,12 +103,12 @@ void		expansion_cmdsbt_dollar(t_expansion *this, t_expan_token *token)
 	if (pipe(fd) == -1)
 	{
 		shenv_singl_error(EXIT_FAILURE, "pipe error\n");
-		exit(-1);
+		shenv_utils_exit(-1);
 	}
 	if ((pid = fork()) == -1)
 	{
 		shenv_singl_error(EXIT_FAILURE, "pipe error\n");
-		exit(-1);
+		shenv_utils_exit(-1);
 	}
 	if (pid == 0)
 	{
