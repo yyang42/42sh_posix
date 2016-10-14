@@ -21,6 +21,6 @@ void				builtin_exec_exit(int exit_code)
 	}
 	else
 	{
-		exit(exit_code);
+		shenv_utils_exit(exit_code);
 	}
 }

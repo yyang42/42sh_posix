@@ -103,7 +103,7 @@ void				handle_exec_signal(int sig)
 		}
 		else
 		{
-			exit(get_exit_code(sig));
+			shenv_utils_exit(get_exit_code(sig));
 		}
 	}
 	else

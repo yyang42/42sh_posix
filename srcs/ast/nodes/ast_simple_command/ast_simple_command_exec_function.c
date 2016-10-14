@@ -21,7 +21,7 @@ static void			exit_if_function_max_depth_reached(t_shenv *env,
 	{
 		twl_dprintf(2, "%s: maximum nested function level reached\n",
 				token_mgr_first(tokens)->text);
-		exit(1);
+		shenv_utils_exit(1);
 	}
 }
 

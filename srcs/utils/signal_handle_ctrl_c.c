@@ -10,40 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast/nodes/ast_subshell.h"
-#include "ast/nodes/ast_compound_list.h"
-
-static void			ast_subshell_fork_exec(t_ast_subshell *this)
-{
-	int				pid;
-	int				res;
-
-	pid = shenv_utils_fork();
-	if (pid == -1)
-	{
-		twl_dprintf(2, "cannot fork: %s", twl_strerror(errno));
-	}
-	else if (pid == 0)
-	{
-		ast_compound_list_exec(this->ast_compound_list);
-		shenv_utils_exit(shenv_singleton()->last_exit_code);
-	}
-	else
-	{
-		waitpid(pid, &res, 0);
-		if (WIFEXITED(res))
-		{
-			shenv_singleton()->last_exit_code = WEXITSTATUS(res);
-		}
-		else if (WIFSIGNALED(res))
-		{
-			shenv_singl_error(143, "%d Terminated: %d", pid, WTERMSIG(res));
-		}
-	}
-}
-
-void				ast_subshell_exec(t_ast_subshell *this)
-{
-	shenv_set_cur_token(shenv_singleton(), token_mgr_first(this->tokens));
-	ast_subshell_fork_exec(this);
-}
+/*
+** #include <signal.h>
+** #include "edit/terminal.h"
+** #include "utils.h"
+** #include "twl_logger.h"
+** static void			sig_handler_prompt(int signum)
+** {
+** 	LOG_INFO("SIGINT: CTRL+C");
+** 	terminal_send_veol();
+** 	(void)signum;
+** }
+** void				signal_handle_ctrl_c(void)
+** {
+** 	signal(SIGINT, sig_handler_prompt);
+** }
+*/

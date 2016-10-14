@@ -29,7 +29,9 @@ void				ast_utils_exec_string_inner(char *input, int line)
 {
 	t_ast			*ast;
 
+	// twl_printf("ast_new\n");
 	ast = ast_new_from_string(input, build_flags(), line);
 	ast_print_error(ast);
+	// twl_printf("ast_del\n");
 	ast_del(ast);
 }

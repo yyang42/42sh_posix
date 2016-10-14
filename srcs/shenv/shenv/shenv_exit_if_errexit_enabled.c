@@ -18,6 +18,6 @@ void				shenv_exit_if_errexit_enabled(t_shenv *env)
 		&& shenv_shflag_enabled(env, "e")
 		&& (env->last_exit_code != 0))
 	{
-		exit(env->last_exit_code);
+		shenv_utils_exit(env->last_exit_code);
 	}
 }

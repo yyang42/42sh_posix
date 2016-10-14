@@ -39,7 +39,7 @@ static void			jobexec_fork_exec_non_interactive_do(t_jobexec *je)
 		utils_tcsetpgrp_for_tty_01_wrapper(je);
 		shenv_singleton()->shenv_fork_level++;
 		jobexec_fork_exec_execve_fn(je);
-		exit(shenv_singleton()->last_exit_code);
+		shenv_utils_exit(shenv_singleton()->last_exit_code);
 	}
 	else
 	{
