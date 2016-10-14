@@ -12,6 +12,11 @@
 
 #include "builtin/cmds/builtin_fc.h"
 
+void			builtin_fc_list(t_argparser_result *result)
+{
+	(void)result;
+}
+
 void			builtin_fc_exec(t_lst *tokens, t_shenv *env)
 {
 	t_argparser_result	*result;
@@ -24,6 +29,8 @@ void			builtin_fc_exec(t_lst *tokens, t_shenv *env)
 	}
 	else if (argparser_result_opt_is_set(result, "s"))
 		builtin_fc_reexecute(result);
+	else if (argparser_result_opt_is_set(result, "l"))
+		builtin_fc_list(result);
 	argparser_result_del(result);
 	(void)env;
 }
