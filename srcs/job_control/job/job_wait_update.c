@@ -37,7 +37,7 @@ bool				job_wait_update(t_job *job)
 	else
 	{
 		twl_dprintf(2, "waitpid error: %d\n", job->pid);
-		exit(EXIT_FAILURE);
+		shenv_utils_exit(EXIT_FAILURE);
 	}
 	return (false);
 }

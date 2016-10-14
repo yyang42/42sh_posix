@@ -22,7 +22,7 @@ void				prog_utils_run_file(char *file)
 	if (fd < 0)
 	{
 		shenv_singl_error_simple(127, "%s: No such file or directory", file);
-		exit(shenv_singleton()->last_exit_code);
+		shenv_utils_exit(shenv_singleton()->last_exit_code);
 	}
 	prog_utils_set_command_pos_params();
 	prog_utils_run_fd(fd);

@@ -173,6 +173,7 @@ bool						shenv_is_interactive(t_shenv *this);
 ** exit
 */
 void						shenv_exit_if_errexit_enabled(t_shenv *env);
+void						shenv_utils_exit(int status);
 
 /*
 ** loops

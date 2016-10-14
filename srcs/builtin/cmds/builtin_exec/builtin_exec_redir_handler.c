@@ -31,7 +31,7 @@ static void			iter_redir_fn(void *tokens)
 	else
 	{
 		shenv_singl_error(1, "exec: redir error");
-		exit(1);
+		shenv_utils_exit(1);
 	}
 }
 

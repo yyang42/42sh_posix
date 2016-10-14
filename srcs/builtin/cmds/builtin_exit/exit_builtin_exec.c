@@ -19,12 +19,12 @@
 
 static void			exec_exit(int status)
 {
-	LOG_INFO("exit(%d)", status);
+	LOG_INFO("shenv_utils_exit(%d)", status);
 	if (shenv_is_interactive(shenv_singleton()))
 	{
 		edit_del(edit_singleton());
 	}
-	exit(status);
+	shenv_utils_exit(status);
 }
 
 static void			one_argument_case(t_lst *tokens)

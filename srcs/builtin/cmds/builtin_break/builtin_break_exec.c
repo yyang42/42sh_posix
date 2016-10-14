@@ -35,7 +35,7 @@ static void			builtin_break_exec_one_arg(char *str_counter)
 		shenv_singleton()->shenv_break_counter = -1;
 		shenv_singl_error(128,
 				"break: %s: numeric argument required", str_counter);
-		exit(shenv_singleton()->last_exit_code);
+		shenv_utils_exit(shenv_singleton()->last_exit_code);
 	}
 }
 

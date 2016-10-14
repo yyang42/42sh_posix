@@ -28,7 +28,7 @@ char				*prog_line_edit_get_input_gnl(t_prog *prog)
 	if (ret < 0)
 	{
 		twl_dprintf(2, "[error] %s\n", twl_strerror(errno_save));
-		exit(1);
+		shenv_utils_exit(1);
 	}
 	else if (ret == 0)
 	{

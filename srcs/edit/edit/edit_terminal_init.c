@@ -19,7 +19,7 @@ static void		init_term(t_edit *this)
 		if (errno == EINTR)
 		{
 			twl_dprintf(2, "tcgetattr: %s\n", twl_strerror(errno));
-			exit(-1);
+			shenv_utils_exit(-1);
 		}
 		this->echoing = true;
 	}
@@ -28,7 +28,7 @@ static void		init_term(t_edit *this)
 		if (errno == EINTR)
 		{
 			twl_dprintf(2, "tcgetattr: %s\n", twl_strerror(errno));
-			exit(-1);
+			shenv_utils_exit(-1);
 		}
 		this->echoing = true;
 	}
@@ -45,7 +45,7 @@ void			edit_terminal_init(t_edit *this)
 		if (tgetent(NULL, "dumb") == -1)
 		{
 			twl_dprintf(2, "tgetent: %s\n", twl_strerror(errno));
-			exit(-1);
+			shenv_utils_exit(-1);
 		}
 		this->dumb = true;
 	}
