@@ -10,22 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_FC_H
-# define BUILTIN_FC_H
+#include "builtin/cmds/builtin_fc.h"
 
-# include "basics.h"
-# include "shenv/shenv.h"
-# include "job_control/job_mgr.h"
-# include "token/token_mgr.h"
-# include "argparser_extension.h"
-# include "edit/history.h"
+char		*builtin_fc_replace_pattern(char *command, char *pattern)
+{
+	char		*old;
+	char		*new;
+	char		*ret;
+	size_t		index;
 
-void				builtin_fc_exec(t_lst *tokens, t_shenv *env);
-
-void				builtin_fc_reexecute(t_argparser_result *result);
-
-char				*builtin_fc_replace_pattern(char *command, char *pattern);
-
-t_argparser			*builtin_fc_argparser(void);
-
-#endif
+	if (!pattern)
+		return (twl_strdup(command));
+	index = 0;
+	while (pattern[index] && pattern[index] != '=')
+		index += 1;
+	old = twl_strndup(pattern, index);
+	new = pattern[index] ? pattern + index + 1 : pattern + index;
+	ret = twl_str_replace_first(command, old, new);
+	free(old);
+	return (ret);
+}
