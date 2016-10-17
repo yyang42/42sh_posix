@@ -36,6 +36,7 @@ static void			shenv_copy2(t_shenv *copy, t_shenv *this)
 	copy->shenv_read_remainder_ptr = NULL;
 	copy->shenv_foreground_job = NULL;
 	copy->shenv_sigtstp_trigerred = false;
+	copy->shenv_is_input_from_stdin = false;
 }
 
 t_shenv				*shenv_copy(t_shenv *this)
