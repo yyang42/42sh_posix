@@ -27,6 +27,12 @@ static void			set_interactive_state(void)
 	}
 }
 
+static bool			is_args_a_single_dash(t_lst *argv_remainder)
+{
+	return (twl_lst_len(argv_remainder) == 1
+			&& twl_strequ(twl_lst_first(argv_remainder), "-"));
+}
+
 static void			prog_run2(t_prog *prog, t_shenv *env)
 {
 	set_interactive_state();
@@ -53,7 +59,9 @@ int					prog_run(t_prog *prog)
 
 	env = shenv_singleton();
 	LOG_INFO("isatty(0): %d", isatty(0));
-	if (prog->prog_command_arg)
+	if (is_args_a_single_dash(env->shenv_argv_remainder))
+		prog_run2(prog, env);
+	else if (prog->prog_command_arg)
 	{
 		LOG_INFO("exec opt -c: %s", prog->prog_command_arg);
 		prog_utils_set_command_pos_params();
