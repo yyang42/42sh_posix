@@ -13,13 +13,44 @@
 #include "builtin/cmds/builtin_read.h"
 #include "twl_gnl.h"
 #include "utils.h"
+#include <setjmp.h>
+
+static jmp_buf		g_jump_buf;
+
+static void			sigint_handler(int sig)
+{
+	LOG_INFO("SIGINT handler: %d", sig);
+	twl_putchar('\n');
+	longjmp(g_jump_buf, 1);
+	(void)sig;
+}
+
+static int			gnl_wrapper(int const fd, char **line, char **remainder)
+{
+	int				ret;
+	void			*old_sig;
+
+	old_sig = signal(SIGINT, sigint_handler);
+	ast_simple_command_utils_unblock_sigint();
+	if (setjmp(g_jump_buf) == 0)
+	{
+		ret = twl_gnl(fd, line, remainder);
+	}
+	else
+	{
+		return (0);
+	}
+	ast_simple_command_utils_block_sigint();
+	signal(SIGINT, old_sig);
+	return (ret);
+}
 
 char				*builtin_read_gnl(char **remainder_ptr)
 {
 	int				ret;
 	char			*line;
 
-	ret = twl_gnl(0, &line, remainder_ptr);
+	ret = gnl_wrapper(0, &line, remainder_ptr);
 	if (ret == -1)
 	{
 		LOG_ERROR("read: ret: %d", ret);
@@ -33,6 +64,7 @@ char				*builtin_read_gnl(char **remainder_ptr)
 	{
 		return (line);
 	}
+	free(line);
 	return (NULL);
 }
 
