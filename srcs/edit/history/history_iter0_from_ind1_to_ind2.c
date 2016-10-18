@@ -12,20 +12,30 @@
 
 #include "edit/history.h"
 
-char			*history_get_command_from_index_without_overflow(
-		t_history *this, int index)
+void			history_iter0_from_ind1_to_ind2(t_history *this,
+					void (*fn)(void *), size_t ind1, size_t ind2)
 {
+	t_histlist	*tmp;
+
 	if (!this->first)
-		return (NULL);
-	if (index > 0 && this->first->number > (size_t)index)
-		return (this->first->line->line);
-	if (index > 0 && this->last->number < (size_t)index)
-		return (this->last->line->line);
-	if (index > 0)
-		return (history_get_from_number(this, (size_t)index)->line);
-	if (index == 0)
-		return (this->last->line->line);
-	if ((size_t)(-index) > this->length)
-		return (this->first->line->line);
-	return (history_get_from_last(this, (size_t)(-index) - 1)->line);
+		return ;
+	tmp = this->first;
+	while (tmp && tmp->number != ind1)
+		tmp = tmp->next;
+	if (ind1 > ind2)
+	{
+		while (tmp && tmp->number >= ind2)
+		{
+			fn(tmp);
+			tmp = tmp->prev;
+		}
+	}
+	else
+	{
+		while (tmp && tmp->number <= ind2)
+		{
+			fn(tmp);
+			tmp = tmp->next;
+		}
+	}
 }

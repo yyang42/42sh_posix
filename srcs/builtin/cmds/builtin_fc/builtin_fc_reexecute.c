@@ -22,6 +22,8 @@ static char		*get_command_from_index(int index, char *pattern)
 
 	command = history_get_command_from_index_without_overflow(
 			edit_singleton()->history, index);
+	if (!command)
+		return (NULL);
 	return (builtin_fc_replace_pattern(command, pattern));
 }
 
@@ -83,13 +85,16 @@ void			builtin_fc_reexecute(t_argparser_result *result)
 	t_line		*save;
 	char		*command;
 
-	save = line_copy(history_get_from_last(edit_singleton()->history, 0));
+	save = NULL;
+	if (history_get_first(edit_singleton()->history))
+		save = line_copy(history_get_from_last(edit_singleton()->history, 0));
 	history_pop_last(edit_singleton()->history);
 	command = get_line_to_execute(result);
 	if (command == NULL)
 	{
 		shenv_singl_error(1, "fc: no command found");
-		history_push(edit_singleton()->history, save);
+		if (save)
+			history_push(edit_singleton()->history, save);
 		return ;
 	}
 	twl_printf("%s\n", command);

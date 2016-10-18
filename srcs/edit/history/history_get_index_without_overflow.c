@@ -12,20 +12,19 @@
 
 #include "edit/history.h"
 
-char			*history_get_command_from_index_without_overflow(
-		t_history *this, int index)
+int			history_get_index_without_overflow(t_history *this, int index)
 {
 	if (!this->first)
-		return (NULL);
+		return (0);
 	if (index > 0 && this->first->number > (size_t)index)
-		return (this->first->line->line);
+		return (this->first->number);
 	if (index > 0 && this->last->number < (size_t)index)
-		return (this->last->line->line);
+		return (this->last->number);
 	if (index > 0)
-		return (history_get_from_number(this, (size_t)index)->line);
+		return ((size_t)index);
 	if (index == 0)
-		return (this->last->line->line);
+		return (this->last->number);
 	if ((size_t)(-index) > this->length)
-		return (this->first->line->line);
-	return (history_get_from_last(this, (size_t)(-index) - 1)->line);
+		return (this->first->number);
+	return (this->last->number + index);
 }

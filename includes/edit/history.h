@@ -72,6 +72,8 @@ t_line					*history_get_current(t_history *this);
 t_line					*history_get_first(t_history *this);
 char					*history_get_command_from_index_without_overflow(
 		t_history *this, int index);
+int						history_get_index_without_overflow(t_history *this,
+		int index);
 
 void					history_set_current(t_history *this, t_line *new_line);
 
@@ -89,8 +91,12 @@ t_line					*history_find(t_history *this,
 t_line					*history_find2(t_history *this,
 							bool (*fn)(void *, void *, void *),
 							void *ctx1, void *ctx2);
+int						history_find_index(t_history *this,
+							bool (*fn)(void *, void *), void *context);
 void					history_iter_from_current_to_first(t_history *this,
 							void (*fn)(void *, void *), void *ctx);
+void					history_iter0_from_ind1_to_ind2(t_history *this,
+							void (*fn)(void *), size_t ind1, size_t ind2);
 
 void					history_dump(t_history *this);
 void					history_dump_last(t_history *this, int index);
