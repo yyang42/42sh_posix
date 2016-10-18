@@ -49,6 +49,7 @@ static void			prog_run2(t_prog *prog, t_shenv *env)
 	else
 	{
 		LOG_INFO("run stdin");
+		env->shenv_is_input_from_stdin = true;
 		prog_utils_run_fd(STDIN_FILENO);
 	}
 }
