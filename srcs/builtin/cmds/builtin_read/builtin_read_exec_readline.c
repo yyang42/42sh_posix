@@ -31,16 +31,16 @@ static int			gnl_wrapper(int const fd, char **line, char **remainder)
 	void			*old_sig;
 
 	old_sig = signal(SIGINT, sigint_handler);
-	ast_simple_command_utils_unblock_sigint();
 	if (setjmp(g_jump_buf) == 0)
 	{
+		ast_simple_command_utils_unblock_sigint();
 		ret = twl_gnl(fd, line, remainder);
+		ast_simple_command_utils_block_sigint();
 	}
 	else
 	{
-		return (0);
+		ret = 0;
 	}
-	ast_simple_command_utils_block_sigint();
 	signal(SIGINT, old_sig);
 	return (ret);
 }
