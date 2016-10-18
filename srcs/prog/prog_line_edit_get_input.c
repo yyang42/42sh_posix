@@ -15,14 +15,32 @@
 #include "edit/edit.h"
 #include "ast/ast.h"
 
-char				*prog_line_edit_get_input(t_prog *prog)
+static bool		is_last_escaped(char *input)
 {
-	char			*input;
-	bool			has_open;
+	size_t		index;
+
+	index = 0;
+	while (input[index])
+	{
+		if (input[index] == '\\')
+		{
+			if (input[index + 1] == 0)
+				return (true);
+			index += 1;
+		}
+		index += 1;
+	}
+	return (false);
+}
+
+char			*prog_line_edit_get_input(t_prog *prog)
+{
+	char		*input;
+	bool		has_open;
 
 	input = edit_get_line(edit_singleton(), edit_type_ps1);
 	has_open = ast_utils_check_has_open(input);
-	while (has_open)
+	while (is_last_escaped(input) || has_open)
 	{
 		free(input);
 		input = edit_get_line(edit_singleton(), edit_type_ps2);
