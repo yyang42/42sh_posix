@@ -1,0 +1,6 @@
+echo aa bb cc\
+echo dd ee ff
+echo \\\\\
+\\\\\
+\\a\\b\\c\\d\\\\
+\004

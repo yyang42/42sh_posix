@@ -27,6 +27,8 @@ static bool		get_size(t_edit *this, int term)
 		return (false);
 	}
 	this->winsize_x = ws.ws_col;
+	if (this->winsize_x == 0)
+		this->winsize_x = INT_MAX;
 	return (true);
 }
 
