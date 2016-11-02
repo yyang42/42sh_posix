@@ -15,7 +15,7 @@
 #include "job_control/job_mgr.h"
 #include "job_control/jobexec.h"
 
-static void clean_allocated_fn(void *job, void *jobs)
+static void	clean_allocated_fn(void *job, void *jobs)
 {
 	bool		is_saved_job;
 
@@ -26,13 +26,14 @@ static void clean_allocated_fn(void *job, void *jobs)
 	}
 }
 
-static void clean_jobs_allocated(void)
+static void	clean_jobs_allocated(void)
 {
-	twl_lst_iter(shenv_singleton()->jobs_allocated, clean_allocated_fn, shenv_singleton()->jobs);
+	twl_lst_iter(shenv_singleton()->jobs_allocated,
+			clean_allocated_fn, shenv_singleton()->jobs);
 	twl_lst_clear(shenv_singleton()->jobs_allocated, NULL);
 }
 
-void				ast_simple_command_utils_unblock_block_sigchld(void)
+void		ast_simple_command_utils_unblock_block_sigchld(void)
 {
 	sigset_t		block_mask;
 
@@ -41,7 +42,6 @@ void				ast_simple_command_utils_unblock_block_sigchld(void)
 	sigaddset(&block_mask, SIGCHLD);
 	if (sigprocmask(SIG_UNBLOCK, &block_mask, NULL) == -1)
 		LOG_ERROR("sigprocmask");
-
 	if (sigprocmask(SIG_BLOCK, &block_mask, NULL) == -1)
 		LOG_ERROR("sigprocmask");
 	clean_jobs_allocated();

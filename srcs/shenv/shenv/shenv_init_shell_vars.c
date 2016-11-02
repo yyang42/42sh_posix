@@ -51,7 +51,9 @@ static void			set_ifs(t_shenv *this)
 	}
 	if (!shenv_shvars_get(this, "PATH"))
 	{
-		shenv_shvars_set(this, "PATH", "/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:.", this->shenv_name);
+		shenv_shvars_set(this, "PATH",
+				"/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:.",
+				this->shenv_name);
 	}
 }
 
