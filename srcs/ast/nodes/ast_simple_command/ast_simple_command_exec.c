@@ -32,7 +32,7 @@ static void			ast_simple_command_exec_with_redirs(
 	if (shenv_singleton()->last_exit_code != 0)
 	{
 		if (ast_simple_command_is_special_builtin(cmd))
-			exit(1);
+			shenv_utils_exit(1);
 		return ;
 	}
 	ast_simple_command_exec_tokens(cmd);
@@ -53,7 +53,7 @@ void				ast_simple_command_exec_inner(t_ast_simple_command *cmd)
 	if (shenv_singleton()->last_exit_code != 0 &&
 			twl_lst_len(cmd->cmd_tokens_deep_copy) == 0)
 	{
-		exit(1);
+		shenv_utils_exit(1);
 		return ;
 	}
 	if (shenv_shflag_enabled(shenv_singleton(), "xtrace") &&

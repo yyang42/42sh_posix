@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "utils.h"
+#include "shenv/shenv.h"
 #include <errno.h>
 
 void				utils_log_errno(char *name, int error_code)
@@ -24,6 +25,6 @@ void				utils_log_errno(char *name, int error_code)
 		twl_asprintf(&msg, "%s: %s", name, twl_strerror(errno_save));
 		LOG_ERROR(msg);
 		twl_dprintf(2, msg);
-		exit(1);
+		shenv_utils_exit(1);
 	}
 }

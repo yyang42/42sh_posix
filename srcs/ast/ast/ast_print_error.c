@@ -21,6 +21,6 @@ void				ast_print_error(t_ast *ast)
 		shenv_singleton()->last_exit_code = 2;
 		shenv_singleton()->shenv_has_syntax_error = true;
 		if (shenv_singleton()->shenv_prog_flags & SHENV_FLAG_EXIT_ON_AST_ERROR)
-			exit(2);
+			shenv_utils_exit(2);
 	}
 }
