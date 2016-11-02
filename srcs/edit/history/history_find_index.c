@@ -24,5 +24,5 @@ int				history_find_index(t_history *this, bool (*fn)(void *, void *),
 			break ;
 		tmp = tmp->prev;
 	}
-	return (tmp == NULL ? -1 : tmp->number);
+	return (tmp == NULL ? -1 : (int)(tmp->number));
 }

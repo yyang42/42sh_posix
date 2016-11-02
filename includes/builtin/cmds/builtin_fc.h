@@ -23,6 +23,9 @@
 void				builtin_fc_exec(t_lst *tokens, t_shenv *env);
 
 void				builtin_fc_reexecute(t_argparser_result *result);
+void				builtin_fc_list(t_argparser_result *result);
+void				builtin_fc_list_get_indexes(t_argparser_result *result,
+		int *first_index, int *second_index);
 
 char				*builtin_fc_replace_pattern(char *command, char *pattern);
 
