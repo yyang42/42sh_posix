@@ -31,7 +31,8 @@ static void			ast_simple_command_execve_wrapper(t_ast_simple_command *cmd)
 
 /*
 ** utils_tcsetpgrp_for_tty(getpid(), 1);
-** Fix for https://trello.com/c/3KVZAkrO/204-42sh-c-while-usr-bin-true-do-while-true-do-done-done
+** Fix for https://trello.com/c/3KVZAkrO/204-42sh-c-while-usr-bin-true-do-
+**   while-true-do-done-done
 */
 
 void				ast_simple_command_exec_tokens(t_ast_simple_command *cmd)
@@ -51,9 +52,7 @@ void				ast_simple_command_exec_tokens(t_ast_simple_command *cmd)
 	else if (builtin)
 	{
 		if (shenv_singleton()->shenv_is_input_from_stdin && isatty(1))
-		{
 			utils_tcsetpgrp_for_tty(getpid(), 1);
-		}
 		shenv_set_cur_cmd(shenv_singleton(), cmd_name);
 		shenv_set_cur_token(shenv_singleton(),
 				token_mgr_first(cmd->cmd_tokens_expanded));

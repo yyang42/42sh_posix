@@ -10,11 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include <signal.h>
 #include "utils.h"
 #include "twl_logger.h"
-
 
 static void			signint_handler_quit_ast_async(int sig)
 {
@@ -27,4 +25,3 @@ void				signal_handle_ctrl_c_for_async(void)
 {
 	signal(SIGINT, signint_handler_quit_ast_async);
 }
-
