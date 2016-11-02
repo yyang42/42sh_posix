@@ -15,6 +15,12 @@
 #include "edit/edit.h"
 #include "twl_stdlib.h"
 
+static void		builtin_fc_edit(t_argparser_result *result)
+{
+	twl_printf("fc: work in progress\n");
+	(void)result;
+}
+
 void			builtin_fc_exec(t_lst *tokens, t_shenv *env)
 {
 	t_argparser_result	*result;
@@ -29,6 +35,8 @@ void			builtin_fc_exec(t_lst *tokens, t_shenv *env)
 		builtin_fc_reexecute(result);
 	else if (argparser_result_opt_is_set(result, "l"))
 		builtin_fc_list(result);
+	else
+		builtin_fc_edit(result);
 	argparser_result_del(result);
 	(void)env;
 }
