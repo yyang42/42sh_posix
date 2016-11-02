@@ -10,32 +10,33 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "builtin/cmds/builtin_fc.h"
+#include "edit/history.h"
 #include "edit/edit.h"
+#include "twl_stdlib.h"
 
-static bool		is_same_last(t_edit *this)
+static void		builtin_fc_edit(t_argparser_result *result)
 {
-	t_line		*data;
-
-	if (!*this->current->line)
-		return (false);
-	if (!this->history->last)
-		return (true);
-	data = this->history->last->line;
-	return (!data || twl_strcmp(this->current->line, data->copy));
+	twl_printf("fc: work in progress\n");
+	(void)result;
 }
 
-void			edit_history_push_flush(t_edit *this)
+void			builtin_fc_exec(t_lst *tokens, t_shenv *env)
 {
-	t_line		*copy;
+	t_argparser_result	*result;
 
-	if (is_same_last(this))
+	result = argparser_parse_tokens(builtin_fc_argparser(), tokens);
+	if (result->err_msg)
 	{
-		copy = line_copy(this->current);
-		history_push(this->history, copy);
+		argparser_result_print_error_with_help(result);
+		env->last_exit_code = EXIT_FAILURE;
 	}
-	history_reset_current(this->history);
-	history_get_histsize(this->history);
-	line_clear_line(this->current);
-	line_del(this->last);
-	this->last = NULL;
+	else if (argparser_result_opt_is_set(result, "s"))
+		builtin_fc_reexecute(result);
+	else if (argparser_result_opt_is_set(result, "l"))
+		builtin_fc_list(result);
+	else
+		builtin_fc_edit(result);
+	argparser_result_del(result);
+	(void)env;
 }

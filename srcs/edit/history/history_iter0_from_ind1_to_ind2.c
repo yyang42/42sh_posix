@@ -10,32 +10,32 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "edit/edit.h"
+#include "edit/history.h"
 
-static bool		is_same_last(t_edit *this)
+void			history_iter0_from_ind1_to_ind2(t_history *this,
+					void (*fn)(void *), size_t ind1, size_t ind2)
 {
-	t_line		*data;
+	t_histlist	*tmp;
 
-	if (!*this->current->line)
-		return (false);
-	if (!this->history->last)
-		return (true);
-	data = this->history->last->line;
-	return (!data || twl_strcmp(this->current->line, data->copy));
-}
-
-void			edit_history_push_flush(t_edit *this)
-{
-	t_line		*copy;
-
-	if (is_same_last(this))
+	if (!this->first)
+		return ;
+	tmp = this->first;
+	while (tmp && tmp->number != ind1)
+		tmp = tmp->next;
+	if (ind1 > ind2)
 	{
-		copy = line_copy(this->current);
-		history_push(this->history, copy);
+		while (tmp && tmp->number >= ind2)
+		{
+			fn(tmp);
+			tmp = tmp->prev;
+		}
 	}
-	history_reset_current(this->history);
-	history_get_histsize(this->history);
-	line_clear_line(this->current);
-	line_del(this->last);
-	this->last = NULL;
+	else
+	{
+		while (tmp && tmp->number <= ind2)
+		{
+			fn(tmp);
+			tmp = tmp->next;
+		}
+	}
 }

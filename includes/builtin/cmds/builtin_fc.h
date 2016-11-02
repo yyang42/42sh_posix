@@ -10,32 +10,25 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "edit/edit.h"
+#ifndef BUILTIN_FC_H
+# define BUILTIN_FC_H
 
-static bool		is_same_last(t_edit *this)
-{
-	t_line		*data;
+# include "basics.h"
+# include "shenv/shenv.h"
+# include "job_control/job_mgr.h"
+# include "token/token_mgr.h"
+# include "argparser_extension.h"
+# include "edit/history.h"
 
-	if (!*this->current->line)
-		return (false);
-	if (!this->history->last)
-		return (true);
-	data = this->history->last->line;
-	return (!data || twl_strcmp(this->current->line, data->copy));
-}
+void				builtin_fc_exec(t_lst *tokens, t_shenv *env);
 
-void			edit_history_push_flush(t_edit *this)
-{
-	t_line		*copy;
+void				builtin_fc_reexecute(t_argparser_result *result);
+void				builtin_fc_list(t_argparser_result *result);
+void				builtin_fc_list_get_indexes(t_argparser_result *result,
+		int *first_index, int *second_index);
 
-	if (is_same_last(this))
-	{
-		copy = line_copy(this->current);
-		history_push(this->history, copy);
-	}
-	history_reset_current(this->history);
-	history_get_histsize(this->history);
-	line_clear_line(this->current);
-	line_del(this->last);
-	this->last = NULL;
-}
+char				*builtin_fc_replace_pattern(char *command, char *pattern);
+
+t_argparser			*builtin_fc_argparser(void);
+
+#endif

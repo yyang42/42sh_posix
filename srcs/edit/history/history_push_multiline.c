@@ -10,32 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "edit/edit.h"
+#include "edit/history.h"
 
-static bool		is_same_last(t_edit *this)
+void				history_push_multiline(t_history *this, char *commands)
 {
-	t_line		*data;
+	char			**array;
+	char			**start;
 
-	if (!*this->current->line)
-		return (false);
-	if (!this->history->last)
-		return (true);
-	data = this->history->last->line;
-	return (!data || twl_strcmp(this->current->line, data->copy));
-}
-
-void			edit_history_push_flush(t_edit *this)
-{
-	t_line		*copy;
-
-	if (is_same_last(this))
+	array = twl_strsplit(commands, '\n');
+	start = array;
+	while (*array)
 	{
-		copy = line_copy(this->current);
-		history_push(this->history, copy);
+		history_push(this, line_new_from_string(*array));
+		free(*array);
+		array += 1;
 	}
-	history_reset_current(this->history);
-	history_get_histsize(this->history);
-	line_clear_line(this->current);
-	line_del(this->last);
-	this->last = NULL;
+	free(start);
 }

@@ -10,32 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "edit/edit.h"
+#include "builtin/cmds/builtin_fc.h"
 
-static bool		is_same_last(t_edit *this)
+char		*builtin_fc_replace_pattern(char *command, char *pattern)
 {
-	t_line		*data;
+	char		*old;
+	char		*new;
+	char		*ret;
+	size_t		index;
 
-	if (!*this->current->line)
-		return (false);
-	if (!this->history->last)
-		return (true);
-	data = this->history->last->line;
-	return (!data || twl_strcmp(this->current->line, data->copy));
-}
-
-void			edit_history_push_flush(t_edit *this)
-{
-	t_line		*copy;
-
-	if (is_same_last(this))
-	{
-		copy = line_copy(this->current);
-		history_push(this->history, copy);
-	}
-	history_reset_current(this->history);
-	history_get_histsize(this->history);
-	line_clear_line(this->current);
-	line_del(this->last);
-	this->last = NULL;
+	if (!pattern)
+		return (twl_strdup(command));
+	index = 0;
+	while (pattern[index] && pattern[index] != '=')
+		index += 1;
+	old = twl_strndup(pattern, index);
+	new = pattern[index] ? pattern + index + 1 : pattern + index;
+	ret = twl_str_replace_first(command, old, new);
+	free(old);
+	return (ret);
 }

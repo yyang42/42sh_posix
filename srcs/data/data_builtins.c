@@ -28,6 +28,7 @@
 #include "builtin/cmds/builtin_export.h"
 #include "builtin/cmds/builtin_false.h"
 #include "builtin/cmds/builtin_fg.h"
+#include "builtin/cmds/builtin_fc.h"
 #include "builtin/cmds/builtin_getopts.h"
 #include "builtin/cmds/builtin_history.h"
 #include "builtin/cmds/builtin_jobs.h"
@@ -75,12 +76,13 @@ static void			push_data01(t_lst *b)
 				builtin_exit_exec, BUILTIN_FLAG_SPECIAL_BUILTIN));
 	twl_lst_push_front(b, builtin_new("export",
 				builtin_export_exec, BUILTIN_FLAG_SPECIAL_BUILTIN));
-	twl_lst_push_front(b, builtin_new("false", builtin_false_exec, 0));
-	twl_lst_push_front(b, builtin_new("fg", builtin_fg_exec, 0));
 }
 
 static void			push_data02(t_lst *b)
 {
+	twl_lst_push_front(b, builtin_new("false", builtin_false_exec, 0));
+	twl_lst_push_front(b, builtin_new("fc", builtin_fc_exec, 0));
+	twl_lst_push_front(b, builtin_new("fg", builtin_fg_exec, 0));
 	twl_lst_push_front(b, builtin_new("getopts", builtin_getopts_exec, 0));
 	twl_lst_push_front(b, builtin_new("history", builtin_history_exec, 0));
 	twl_lst_push_front(b, builtin_new("jobs", builtin_jobs_exec, 0));
@@ -103,13 +105,13 @@ static void			push_data02(t_lst *b)
 	twl_lst_push_front(b, builtin_new("trap",
 				builtin_trap_exec, BUILTIN_FLAG_SPECIAL_BUILTIN));
 	twl_lst_push_front(b, builtin_new("true", builtin_true_exec, 0));
-	twl_lst_push_front(b, builtin_new("umask", builtin_umask_exec, 0));
-	twl_lst_push_front(b, builtin_new("unset",
-				builtin_unset_exec, BUILTIN_FLAG_SPECIAL_BUILTIN));
 }
 
 static void			push_data03(t_lst *b)
 {
+	twl_lst_push_front(b, builtin_new("umask", builtin_umask_exec, 0));
+	twl_lst_push_front(b, builtin_new("unset",
+				builtin_unset_exec, BUILTIN_FLAG_SPECIAL_BUILTIN));
 	twl_lst_push_front(b, builtin_new("unsetenv", builtin_unsetenv_exec, 0));
 	twl_lst_push_front(b, builtin_new("wait", builtin_wait_exec, 0));
 }

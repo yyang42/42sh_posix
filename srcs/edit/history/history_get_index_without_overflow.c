@@ -10,32 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "edit/edit.h"
+#include "edit/history.h"
 
-static bool		is_same_last(t_edit *this)
+int			history_get_index_without_overflow(t_history *this, int index)
 {
-	t_line		*data;
-
-	if (!*this->current->line)
-		return (false);
-	if (!this->history->last)
-		return (true);
-	data = this->history->last->line;
-	return (!data || twl_strcmp(this->current->line, data->copy));
-}
-
-void			edit_history_push_flush(t_edit *this)
-{
-	t_line		*copy;
-
-	if (is_same_last(this))
-	{
-		copy = line_copy(this->current);
-		history_push(this->history, copy);
-	}
-	history_reset_current(this->history);
-	history_get_histsize(this->history);
-	line_clear_line(this->current);
-	line_del(this->last);
-	this->last = NULL;
+	if (!this->first)
+		return (0);
+	if (index > 0 && this->first->number > (size_t)index)
+		return (this->first->number);
+	if (index > 0 && this->last->number < (size_t)index)
+		return (this->last->number);
+	if (index > 0)
+		return ((size_t)index);
+	if (index == 0)
+		return (this->last->number);
+	if ((size_t)(-index) > this->length)
+		return (this->first->number);
+	return (this->last->number + index);
 }
