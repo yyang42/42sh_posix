@@ -14,7 +14,5 @@
 
 void				shenv_utils_exit(int status)
 {
-	// shenv_singleton()->shenv_shall_quit_curr_ast = true;
-	// shenv_singleton()->last_exit_code = status;
 	exit(status);
 }
