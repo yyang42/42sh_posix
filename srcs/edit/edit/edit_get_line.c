@@ -56,7 +56,7 @@ static bool			init_loop(t_edit *this,
 		LOG_ERROR("read: %s\n", twl_strerror(errno));
 		twl_dprintf(2, "read: %s\n", twl_strerror(errno));
 		edit_terminal_disable(this);
-		exit(-1);
+		shenv_utils_exit(-1);
 	}
 	if (this->is_last_tab)
 		this->is_last_tab -= 1;

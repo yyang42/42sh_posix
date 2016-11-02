@@ -61,7 +61,7 @@ void				prog_parse_args(t_prog *prog, char **argv)
 		if (getopt_c == '?')
 		{
 			print_help(g_twl_optopt);
-			exit(2);
+			shenv_utils_exit(2);
 		}
 		else
 		{
