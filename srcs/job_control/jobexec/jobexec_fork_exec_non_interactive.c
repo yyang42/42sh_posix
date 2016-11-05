@@ -27,6 +27,7 @@ static void			jobexec_fork_exec_non_interactive_do(t_jobexec *je)
 	LOG_INFO("jobexec_fork_exec_should_tcset(je): %d",
 			jobexec_fork_exec_should_tcset(je));
 	pid = shenv_utils_fork();
+	//pid = 0;
 	if (pid == 0)
 	{
 		LOG_INFO("fork non interactive: %d", getpid());
