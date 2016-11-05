@@ -97,6 +97,5 @@ static void			iter_fds_fn(void *pi_, void *pi_next_, void *ctx)
 void				ast_andor_item_exec_pipes(t_ast_andor_item *this)
 {
 	twl_lst_itern(this->ast_pipe_items, iter_fds_fn, NULL);
-	// twl_lst_iter0(this->ast_pipe_items, );
 	wait_last_pipe_item(twl_lst_last(this->ast_pipe_items));
 }
