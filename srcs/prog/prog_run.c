@@ -33,11 +33,21 @@ static bool			is_args_a_single_dash(t_lst *argv_remainder)
 			&& twl_strequ(twl_lst_first(argv_remainder), "-"));
 }
 
+static void			check_print_ast_flag_interactive(void)
+{
+	if (shenv_singleton()->shenv_prog_flags & SHENV_FLAG_AST)
+	{
+		twl_dprintf(2, "warning: opt -A disabled in interactive mode\n");
+		shenv_singleton()->shenv_prog_flags &= ~SHENV_FLAG_AST;
+	}
+}
+
 static void			prog_run2(t_prog *prog, t_shenv *env)
 {
 	set_interactive_state();
 	if (shenv_is_interactive(shenv_singleton()))
 	{
+		check_print_ast_flag_interactive();
 		shenv_shvars_set(env, "PS1", "$ ", env->shenv_name);
 		shenv_shvars_set(env, "PS2", "> ", env->shenv_name);
 		shenv_shflag_set(shenv_singleton(), 'n', false);
