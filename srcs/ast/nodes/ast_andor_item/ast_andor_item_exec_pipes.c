@@ -81,21 +81,21 @@ static void			iter_fds_fn(void *pi_, void *pi_next_, void *ctx)
 	t_ast_pipe_item	*pi_next;
 	int				fds[2];
 
-	if (pipe(fds) < 0)
-		LOG_ERROR("pipe: %s", twl_strerror(errno));
 	pi = pi_;
 	pi_next = pi_next_;
 	if (pi_next)
 	{
+		if (pipe(fds) < 0)
+			LOG_ERROR("pipe: %s", twl_strerror(errno));
 		pi_next->pipe_read_end = fds[0];
 		pi->pipe_write_end = fds[1];
 	}
+	iter_andor_fn(pi);
 	(void)ctx;
 }
 
 void				ast_andor_item_exec_pipes(t_ast_andor_item *this)
 {
 	twl_lst_itern(this->ast_pipe_items, iter_fds_fn, NULL);
-	twl_lst_iter0(this->ast_pipe_items, iter_andor_fn);
 	wait_last_pipe_item(twl_lst_last(this->ast_pipe_items));
 }
