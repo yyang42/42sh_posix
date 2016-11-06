@@ -30,5 +30,8 @@ void			research_find(t_edit *this)
 {
 	this->research->found = false;
 	research_rewind_string(this, this->current, this->pos_cursor);
-	history_iter_from_current_to_first(this->history, iter_fn, this);
+	if (this->history->last && this->history->last == this->history->current)
+		history_iter_from_current_to_first(this->history, iter_fn, this);
+	else
+		history_iter_from_prev_to_first(this->history, iter_fn, this);
 }

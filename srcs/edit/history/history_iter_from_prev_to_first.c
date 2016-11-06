@@ -12,7 +12,7 @@
 
 #include "edit/history.h"
 
-void			history_iter_from_current_to_first(t_history *this,
+void			history_iter_from_prev_to_first(t_history *this,
 					void (*fn)(void *, void *), void *ctx)
 {
 	t_histlist	*tmp;

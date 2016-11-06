@@ -17,6 +17,8 @@ void		research_rewind_string(t_edit *this, t_line *search, int pos_cursor)
 	if (research_compare(this, search, pos_cursor))
 	{
 		this->research->found = true;
+		this->pos_cursor = pos_cursor;
+		this->current = search;
 		return ;
 	}
 	while (true)
