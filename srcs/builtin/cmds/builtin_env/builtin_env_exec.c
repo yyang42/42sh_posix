@@ -13,6 +13,7 @@
 #include "builtin/cmds/builtin_env.h"
 #include "ast/ast.h"
 #include "ast/nodes/ast_simple_command.h"
+#include "job_control/job_mgr.h"
 
 static void			exec_remaining_command_end(t_lst *remainders_copy)
 {
@@ -61,6 +62,7 @@ static void			exec_remaining_command_in_new_env(
 	env_copy = shenv_copy(env_src);
 	free(env_copy->shenv_name);
 	env_copy->shenv_name = twl_strdup(shenv_singleton()->shenv_name);
+	job_mgr_del(env_copy->jobs);
 	env_copy->jobs = env_src->jobs;
 	shenv_singleton_setter(env_copy);
 	exec_remaining_command(argparser_result);
