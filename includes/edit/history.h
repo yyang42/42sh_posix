@@ -95,6 +95,8 @@ int						history_find_index(t_history *this,
 							bool (*fn)(void *, void *), void *context);
 void					history_iter_from_current_to_first(t_history *this,
 							void (*fn)(void *, void *), void *ctx);
+void					history_iter_from_prev_to_first(t_history *this,
+							void (*fn)(void *, void *), void *ctx);
 void					history_iter0_from_ind1_to_ind2(t_history *this,
 							void (*fn)(void *), size_t ind1, size_t ind2);
 
