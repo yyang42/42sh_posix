@@ -21,6 +21,8 @@ void			edit_history_down(t_edit *this)
 	edit_move_home(this);
 	space_str = twl_strnewc(this->current->size, ' ');
 	this->puts(space_str);
+	if (this->current->size + this->prompt_size == this->winsize_x)
+		this->puts("\n\r");
 	free(space_str);
 	this->pos_cursor = this->current->size;
 	edit_move_home(this);
@@ -33,4 +35,6 @@ void			edit_history_down(t_edit *this)
 	}
 	this->pos_cursor = this->current->size;
 	this->puts(this->current->line);
+	if (this->current->size + this->prompt_size == this->winsize_x)
+		this->puts("\n\r");
 }
