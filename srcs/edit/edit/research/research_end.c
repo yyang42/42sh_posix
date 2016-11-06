@@ -25,4 +25,6 @@ void			research_end(t_edit *this)
 	this->puts(this->current->line);
 	this->pos_cursor = this->current->size;
 	edit_move_goto_pos_cursor(this, tmp_pos_cursor);
+	research_del(this->research);
+	this->research = NULL;
 }
