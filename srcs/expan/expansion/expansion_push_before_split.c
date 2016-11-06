@@ -12,6 +12,18 @@
 
 #include "expan/expansion.h"
 
+static void		strlen_from_new_line(t_expansion *this, char *text)
+{
+	while (*text)
+	{
+		if (*text == '\n' || *text == '\r')
+			this->size_prompt = 0;
+		else
+			this->size_prompt += 1;
+		text += 1;
+	}
+}
+
 void			expansion_push_before_split(t_expansion *this,
 											char *text,
 											bool quoted)
@@ -22,7 +34,7 @@ void			expansion_push_before_split(t_expansion *this,
 		return ;
 	ebs = expan_before_split_new(text, quoted);
 	if (this->flag_prompt && !this->flag_prompt_open_close)
-		this->size_prompt += twl_strlen(text);
+		strlen_from_new_line(this, text);
 	if (!this->to_push_bs)
 		this->to_push_bs = twl_lst_new();
 	twl_lst_push_back(this->to_push_bs, ebs);

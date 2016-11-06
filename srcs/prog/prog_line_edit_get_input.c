@@ -44,6 +44,10 @@ char			*prog_line_edit_get_input(t_prog *prog)
 	{
 		free(input);
 		input = edit_get_line(edit_singleton(), edit_type_ps2);
+		if (edit_singleton()->shall_exec)
+		{
+			return (input);
+		}
 		has_open = ast_utils_check_has_open(input);
 	}
 	return (input);

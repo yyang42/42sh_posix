@@ -1,0 +1,9 @@
+echo "abc
+def
+\004
+cat -e << pouet
+lol
+loul
+pouf
+\004
+\004

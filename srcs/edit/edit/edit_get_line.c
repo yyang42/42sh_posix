@@ -37,9 +37,18 @@ static char			*end_fn(t_edit *this)
 
 static char			*end_exit_fn(t_edit *this)
 {
+	char			*ret;
+
 	research_end(this);
 	edit_terminal_disable(this);
 	this->puts("\n\r");
+	if (this->last_ps1)
+	{
+		ret = this->last_ps1;
+		this->last_ps1 = NULL;
+		this->shall_exec = true;
+		return (ret);
+	}
 	return (twl_strdup("exit\n"));
 }
 
