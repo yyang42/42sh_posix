@@ -17,6 +17,7 @@
 
 void			edit_get_line_init(t_edit *this, t_edit_type type)
 {
+	this->shall_exec = false;
 	this->type = type;
 	edit_prompt_print(this);
 	utils_tcsetpgrp_for_tty_01(getpid());

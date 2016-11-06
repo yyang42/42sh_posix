@@ -40,6 +40,7 @@ typedef struct			s_edit
 	t_line				*last;
 	t_edit_type			type;
 	char				*last_ps1;
+	bool				shall_exec;
 	unsigned char		buffer[8];
 	size_t				pos_cursor;
 	size_t				winsize_x;
