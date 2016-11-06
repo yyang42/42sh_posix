@@ -17,7 +17,7 @@ void			history_iter_from_current_to_first(t_history *this,
 {
 	t_histlist	*tmp;
 
-	tmp = this->current->prev;
+	tmp = (this->current) ? this->current->prev : NULL;
 	while (tmp)
 	{
 		fn(tmp->line, ctx);
