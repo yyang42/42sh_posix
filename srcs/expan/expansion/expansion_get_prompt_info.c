@@ -58,21 +58,6 @@ static void			stringify_iter_fn(void *data, void *next, void *context)
 	free(tmp);
 }
 
-static void			get_last_line_size(t_prompt_info *ret)
-{
-	size_t			len;
-	char			*prompt;
-
-	len = 0;
-	prompt = ret->prompt_expanded;
-	while (*prompt)
-	{
-		len = (*prompt == '\n' || *prompt == '\r') ? 0 : len + 1;
-		prompt += 1;
-	}
-	ret->length = len;
-}
-
 t_prompt_info		expansion_get_prompt_info(t_expansion *this)
 {
 	t_prompt_info	ret;
@@ -93,6 +78,6 @@ t_prompt_info		expansion_get_prompt_info(t_expansion *this)
 	}
 	ret.prompt_expanded = twl_strnew(0);
 	twl_lst_itern(this->before_split, stringify_iter_fn, &ret.prompt_expanded);
-	get_last_line_size(&ret);
+	ret.length = this->size_prompt;
 	return (ret);
 }
