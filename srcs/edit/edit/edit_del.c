@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "edit/edit.h"
+#include "edit/research.h"
 
 void				edit_del(t_edit *this)
 {
@@ -23,7 +24,7 @@ void				edit_del(t_edit *this)
 	if (this->last_ps1)
 		free(this->last_ps1);
 	if (this->research)
-		free(this->research);
+		research_del(this->research);
 	if (this->copy_buffer)
 		free(this->copy_buffer);
 	free(this);
