@@ -39,7 +39,7 @@ void			edit_del_previous_word(t_edit *this)
 
 	if (this->pos_cursor == 0)
 		return ;
-	if (!this->copy_buffer)
+	if (this->copy_buffer)
 		twl_strdel(&this->copy_buffer);
 	begin_word = this->pos_cursor - 1;
 	not_space_only = false;
