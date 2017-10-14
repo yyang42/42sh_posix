@@ -10,29 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "edit/research.h"
+#include "edit/history.h"
 
-static void		iter_fn(void *data, void *context)
+void			history_iter_from_prev_to_first(t_history *this,
+					void (*fn)(void *, void *), void *ctx)
 {
-	t_edit		*this;
+	t_histlist	*tmp;
 
-	this = context;
-	if (this->research->found == true)
+	tmp = this->current;
+	if (!tmp)
 		return ;
-	research_rewind_string(this, data, ((t_line *)data)->size);
-	if (this->research->found == true)
+	tmp = tmp->prev;
+	while (tmp)
 	{
-		history_set_current(this->history, this->current);
+		fn(tmp->line, ctx);
+		tmp = tmp->prev;
 	}
-}
-
-void			research_find_further(t_edit *this)
-{
-	research_clear(this);
-	this->research->found = false;
-	if (this->pos_cursor != 0)
-		research_rewind_string(this, this->current, this->pos_cursor - 1);
-	history_iter_from_prev_to_first(this->history, iter_fn, this);
-	research_print_prompt(this);
-	research_print_line(this);
 }
