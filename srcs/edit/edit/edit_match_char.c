@@ -54,5 +54,8 @@ void				edit_match_char(t_edit *this, unsigned char buf)
 	else if (twl_isprint(buf))
 		edit_place_letter(this, buf);
 	else if ((edit_fn = edit_utils_buf_match_simple(this, buf)) && !this->dumb)
+	{
+		research_end(this);
 		edit_fn(this);
+	}
 }
