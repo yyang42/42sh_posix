@@ -67,6 +67,7 @@ static bool			init_loop(t_edit *this,
 		edit_terminal_disable(this);
 		shenv_utils_exit(-1);
 	}
+	LOG_DEBUG(twl_isprint(*buf) ? "%#04hhx (%c)" : "%#hhx", *buf, *buf);
 	if (this->is_last_tab)
 		this->is_last_tab -= 1;
 	return (true);

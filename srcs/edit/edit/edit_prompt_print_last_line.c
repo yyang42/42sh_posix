@@ -57,7 +57,6 @@ void					edit_prompt_print_last_line(t_edit *this)
 		ps = "";
 	prompt = get_prompt_fn(ps);
 	last_line = get_last_line(prompt.prompt_expanded);
-	LOG_DEBUG("Ici bâtard... %s", last_line);
 	this->puts(last_line);
 	this->base_x = prompt.length % this->winsize_x;
 	this->prompt_size = prompt.length;

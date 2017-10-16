@@ -42,7 +42,6 @@ void				edit_match_char(t_edit *this, unsigned char buf)
 {
 	void			(*edit_fn)(t_edit *);
 
-	LOG_DEBUG(twl_isprint(buf) ? "%#hhx (%c)" : "%#hhx", buf, buf);
 	if (this->research_mode && twl_isprint(buf))
 		research_add_and_find(this, buf);
 	else if (this->research_mode && buf == 0x7F)
