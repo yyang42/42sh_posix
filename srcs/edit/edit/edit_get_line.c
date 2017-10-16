@@ -41,6 +41,8 @@ static char			*end_exit_fn(t_edit *this)
 
 	research_end(this);
 	edit_terminal_disable(this);
+	line_del(this->last);
+	this->last = NULL;
 	this->puts("\n\r");
 	if (this->last_ps1)
 	{
