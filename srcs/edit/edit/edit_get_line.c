@@ -55,6 +55,7 @@ static char			*end_exit_fn(t_edit *this)
 static bool			init_loop(t_edit *this,
 		unsigned char *buf, int *read_return)
 {
+	*buf = 0;
 	if ((*read_return = read(0, buf, sizeof(*buf))) == -1)
 	{
 		if (errno == EINTR)
