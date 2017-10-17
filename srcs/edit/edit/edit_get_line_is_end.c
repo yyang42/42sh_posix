@@ -42,7 +42,8 @@ bool			edit_get_line_is_end(t_edit *this)
 		return (edit_get_line_not_end(this));
 	}
 	len = twl_strlen(expand);
-	tot = utils_upper_power_of_two(len);
+	tot = len < this->current->total ?
+		this->current->total : utils_upper_power_of_two(len);
 	tmp = twl_strnew(tot);
 	twl_strcpy(tmp, expand);
 	free(expand);
