@@ -94,6 +94,7 @@ char				*edit_get_line(t_edit *this, t_edit_type type)
 			this->puts("\r\n");
 			if (edit_get_line_is_end(this))
 				break ;
+			edit_prompt_print(this);
 			continue ;
 		}
 		if (buf == '\x04' && !*this->current->line && edit_is_eof_set(this))
