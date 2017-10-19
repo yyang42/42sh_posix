@@ -46,6 +46,56 @@ static int		get_fd(void)
 	return (fd);
 }
 
+static void			history_inner_pop(t_history *this)
+{
+	t_histlist		*tmp;
+
+	if (!this->first)
+		return ;
+	if (this->first == this->last)
+	{
+		line_del(this->first->line);
+		free(this->first);
+		this->last = NULL;
+		this->first = NULL;
+	}
+	else
+	{
+		tmp = this->first->next;
+		tmp->prev = NULL;
+		line_del(this->first->line);
+		free(this->first);
+		this->first = tmp;
+	}
+	this->current = this->last;
+	this->length -= 1;
+}
+
+static void			history_inner_push(t_history *this, t_line *line)
+{
+	t_histlist		*lst;
+
+	lst = twl_malloc_x0(sizeof(t_histlist));
+	lst->line = line;
+	lst->limit = false;
+	if (this->last)
+	{
+		lst->number = this->last->number + 1;
+		lst->prev = this->last;
+		this->last->next = lst;
+	}
+	else
+	{
+		lst->number = 1;
+		this->first = lst;
+	}
+	this->last = lst;
+	this->length += 1;
+	this->current = this->last;
+	while (this->length > this->total)
+		history_inner_pop(this);
+}
+
 void			history_read_file(t_history *this)
 {
 	int			fd;
@@ -66,7 +116,7 @@ void			history_read_file(t_history *this)
 			free(str);
 			continue ;
 		}
-		history_push(this, line_new_from_string(str));
+		history_inner_push(this, line_new_from_string(str));
 		free(str);
 	}
 	free(rem);

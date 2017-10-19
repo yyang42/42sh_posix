@@ -35,7 +35,10 @@ void			edit_history_push_flush(t_edit *this)
 	}
 	history_reset_current(this->history);
 	history_get_histsize(this->history);
-	line_clear_line(this->current);
+	if (this->current)
+	{
+		line_clear_line(this->current);
+	}
 	line_del(this->last);
 	this->last = NULL;
 }
