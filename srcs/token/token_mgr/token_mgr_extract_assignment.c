@@ -16,26 +16,22 @@
 #include "token/token_mgr.h"
 #include "token/token_utils.h"
 #include "utils.h"
+#include "twl_ctype.h"
 
-static bool				is_assignment_from_lst(t_lst *segs, char *str)
+static bool				is_valid_assignment_token(t_token *token)
 {
-	if (!token_utils_is_valid_name(twl_lst_first(segs)))
+	char				*str;
+
+	str = token->text;
+	if (!str || twl_isdigit(*str) || *str == '\0' || *str == '=')
 		return (false);
-	if ((str[twl_strlen(str) - 1] == '=')
-		|| twl_lst_len(segs) >= 2)
-		return (true);
-	return (false);
-}
-
-static bool				is_assignment(char *str)
-{
-	t_lst			*segs;
-	bool			is_assign;
-
-	segs = twl_str_split_to_lst(str, "=");
-	is_assign = is_assignment_from_lst(segs, str);
-	twl_lst_del(segs, free);
-	return (is_assign);
+	while (*str && *str != '=')
+	{
+		if (!twl_isalpha(*str) && !twl_isdigit(*str) && *str != '_')
+			return (false);
+		str += 1;
+	}
+	return (*str == '=');
 }
 
 static t_ast_assignment	*build_assign(t_token *token)
@@ -57,10 +53,10 @@ static void				do_extract(t_lst *tokens, t_lst *assign_list,
 
 	while ((token = twl_lst_first(tokens)))
 	{
-		if (is_assignment(token->text))
+		if (is_valid_assignment_token(token))
 		{
 			twl_lst_push_back(assign_list,
-									build_assign(twl_lst_pop_front(tokens)));
+					build_assign(twl_lst_pop_front(tokens)));
 		}
 		else
 		{
