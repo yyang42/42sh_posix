@@ -20,6 +20,8 @@ void			research_end(t_edit *this)
 		return ;
 	this->research_mode = false;
 	research_clear(this);
+	research_del(this->research);
+	this->research = NULL;
 	edit_prompt_print_last_line(this);
 	tmp_pos_cursor = this->pos_cursor;
 	this->puts(this->current->line);

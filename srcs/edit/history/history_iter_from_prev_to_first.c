@@ -11,31 +11,19 @@
 /* ************************************************************************** */
 
 #include "edit/history.h"
-#include "edit/edit.h"
 
-void			history_pop(t_history *this)
+void			history_iter_from_prev_to_first(t_history *this,
+					void (*fn)(void *, void *), void *ctx)
 {
 	t_histlist	*tmp;
 
-	if (!this->first)
+	tmp = this->current;
+	if (!tmp)
 		return ;
-	if (this->first->line == edit_singleton()->current)
-		edit_singleton()->current = NULL;
-	if (this->first == this->last)
+	tmp = tmp->prev;
+	while (tmp)
 	{
-		line_del(this->first->line);
-		free(this->first);
-		this->last = NULL;
-		this->first = NULL;
+		fn(tmp->line, ctx);
+		tmp = tmp->prev;
 	}
-	else
-	{
-		tmp = this->first->next;
-		tmp->prev = NULL;
-		line_del(this->first->line);
-		free(this->first);
-		this->first = tmp;
-	}
-	this->current = this->last;
-	this->length -= 1;
 }

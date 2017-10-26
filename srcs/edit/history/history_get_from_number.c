@@ -16,6 +16,8 @@ t_line				*history_get_from_number(t_history *this, size_t index)
 {
 	t_histlist		*tmp;
 
+	if (this->last == NULL || this->first == NULL)
+		return (NULL);
 	if (index > this->last->number || index < this->first->number)
 		return (NULL);
 	tmp = this->first;

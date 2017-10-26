@@ -32,7 +32,7 @@ void			research_find_further(t_edit *this)
 	this->research->found = false;
 	if (this->pos_cursor != 0)
 		research_rewind_string(this, this->current, this->pos_cursor - 1);
-	history_iter_from_current_to_first(this->history, iter_fn, this);
+	history_iter_from_prev_to_first(this->history, iter_fn, this);
 	research_print_prompt(this);
 	research_print_line(this);
 }

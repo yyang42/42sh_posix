@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "edit/history.h"
+#include "edit/edit.h"
 
 void			history_pop_last(t_history *this)
 {
@@ -18,6 +19,8 @@ void			history_pop_last(t_history *this)
 
 	if (!this->last)
 		return ;
+	if (this->last->line == edit_singleton()->current)
+		edit_singleton()->current = NULL;
 	if (this->last == this->first)
 	{
 		line_del(this->last->line);
